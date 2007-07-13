@@ -149,8 +149,8 @@ printSummary()
 		if( iterStepVector != null )
 			iterStepVectorSize = iterStepVector.size() ;
 
-		Vector photomSamples = new Vector() ;
-		boolean jiggle = false ;
+		Object spIterStareObs = null ;
+		int offsets = 0 ;
 		
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
@@ -162,20 +162,11 @@ printSummary()
 			
 			for( int j = 0 ; j < iterStepSubVectorSize ; j++ )
 			{
-				spIterStep = ( SpIterStep ) iterStepSubVector.get( j );
+				spIterStep = ( SpIterStep )iterStepSubVector.get( j );
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
-				{
 					nPol++;
-				}
 				if(  spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
-				{
-					photomSamples.add( spIterStep.item ) ;
-					continue ;
-				}
-				if(  spIterStep.item.getClass().getName().endsWith( "SpIterJiggleObs" ) )
-				{
-					jiggle = true ;
-				}
+					spIterStareObs = spIterStep.item ;
 					
 				iterationTracker.update( spIterStep );
 
@@ -191,6 +182,7 @@ printSummary()
 							// If for each OFFSET_TIME added an exposure overhead can be
 							// subtracted since this is done while the telescope moves.
 							elapsedTime += ( OFFSET_TIME - instrument.getExposureOverhead() );
+							offsets++ ;
 						}
 					}
 				}
@@ -198,7 +190,7 @@ printSummary()
 		}
 		
 		// http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
-		if( photomSamples.size() > 0 && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1  )
+		if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1  )
 		{
 			double totalIntegrationTime = 0. ;
 			try
@@ -207,14 +199,6 @@ printSummary()
 				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[]{} ) ;
 				Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[]{} ) ;
 				Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[]{} ) ;
-				Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
-				
-				int size = photomSamples.size() ;
-				
-				Object spIterStareObs = photomSamples.remove( 0 ) ;
-				// the data is the same between each instance and we only care about how many there are
-				if( size > 1 )
-					photomSamples.removeAllElements() ;
 				
 				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[]{} ) ;
 
@@ -238,7 +222,7 @@ printSummary()
 					
 					if( isBeamSwitch )
 					{
-						totalIntegrationTime += 2.3 * size * integrationTimePerPoint + 100. ;
+						totalIntegrationTime -= offsets * 100. ;
 					}				
 					else if( isPositionSwitch )
 					{
@@ -246,22 +230,12 @@ printSummary()
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
 							boolean sharedOff = !(( Boolean )separateOff).booleanValue() ;
-							if( size == 1 )
-								totalIntegrationTime = 2.45 * integrationTimePerPoint + 80. ;
-							else if( sharedOff || integrationTimePerPoint >= 15 )
-								totalIntegrationTime += 2.65 * size * integrationTimePerPoint + 80. ;
+							if( sharedOff || integrationTimePerPoint >= 15 )
+								totalIntegrationTime -= offsets * 80. ;
 							else
-								totalIntegrationTime += 2.0 * size * integrationTimePerPoint + 190. ;
+								totalIntegrationTime -= offsets * 190. ;
 						}
-					}
-					
-					boolean addContinuum = false ;
-					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
-					if( continuum != null && continuum instanceof Boolean )
-						addContinuum = (( Boolean )continuum).booleanValue() ;
-					if( addContinuum )
-						totalIntegrationTime *= 1.7 ;
-					
+					}					
 				}
 			}
 			catch( ClassNotFoundException cnfe )
@@ -286,9 +260,6 @@ printSummary()
 			}
 			elapsedTime += totalIntegrationTime ;
 		}
-	
-		if( jiggle )
-			elapsedTime += 30. ;
 		
 		if( nPol > 1 )
 		{

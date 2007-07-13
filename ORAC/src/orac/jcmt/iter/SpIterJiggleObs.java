@@ -113,7 +113,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 				if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
 				{
 					//Jiggle Chops
-					if( hasSeparateOffs() )
+					if( isContinuum() || hasSeparateOffs() )
 						totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100.  ;
 					else
 						totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100. ;					
@@ -121,7 +121,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 				else if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
 				{
 					// Jiggle Position Switch
-					if( hasSeparateOffs() )
+					if( isContinuum() || hasSeparateOffs() )
 						totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80. ;
 					else
 						totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80. ;
@@ -133,7 +133,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 				}
 				
 				if( isContinuum() )
-					totalIntegrationTime *= 1.7 ;
+					totalIntegrationTime *= 1.2 ;
 			}
 		}
 		return totalIntegrationTime ;

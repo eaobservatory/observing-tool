@@ -102,7 +102,7 @@ public SpIterStareObs()
 
 			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
 			{
-				if( hasSeparateOffs() && T_on < 15. )
+				if( isContinuum() || ( hasSeparateOffs() && T_on < 15. ) )
 					totalIntegrationTime = 2.0 * T_on + 190. ;
 				else
 					totalIntegrationTime = 2.65 * T_on + 80. ;
@@ -113,7 +113,7 @@ public SpIterStareObs()
 			}
 			
 			if( isContinuum() )
-				totalIntegrationTime *= 1.7 ;
+				totalIntegrationTime *= 1.2 ;
 		}
 		return ( overhead + totalIntegrationTime );
 	}
