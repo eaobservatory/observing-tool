@@ -549,17 +549,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				}
 				else if( name.equals( "resolution" ) )
 				{
-					double resolution = ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 );
+					double resolution = ( _inst.getBandWidth( i ) * 1.0E-3 ) / _inst.getChannels( i );
 					resolution = new Integer( _inst.getMixer() ).intValue() * resolution;
 					( ( JLabel ) c ).setText( "" + ( int ) Math.rint( resolution ) );
 				}
 				else if( name.equals( "overlap" ) )
 				{
-					( ( JLabel ) c ).setText( "" + ( _inst.getOverlap( 0 ) * 1.0E-6 ) );
+					( ( JLabel ) c ).setText( "" + ( _inst.getOverlap( i ) * 1.0E-6 ) );
 				}
 				else if( name.equals( "channel" ) )
 				{
-					( ( JLabel ) c ).setText( "" + _inst.getChannels( 0 ) );
+					( ( JLabel ) c ).setText( "" + _inst.getChannels( i ) );
 				}
 			}
 		}
