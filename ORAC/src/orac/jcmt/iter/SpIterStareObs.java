@@ -94,10 +94,12 @@ public SpIterStareObs()
 			/*
 			* Based on real timing data 
 			* http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
+			* 
+			* Overridden in SpIterFolder, these timings are single position if outside an iterator
 			*/
 			double T_on = getSecsPerCycle() ;
 			String switchingMode = getSwitchingMode() ;
-			
+
 			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
 			{
 				if( hasSeparateOffs() && T_on < 15. )
