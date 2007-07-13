@@ -25,6 +25,7 @@ import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJiggleObs;
+import orac.jcmt.iter.SpIterStareObs;
 import orac.jcmt.util.HeterodyneNoise;
 import orac.jcmt.util.ScubaNoise;
 
@@ -180,9 +181,25 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.contModeCB )
-			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
+		{
+			boolean isSelected = _w.contModeCB.isSelected() ;
+			_iterObs.setContinuumMode( isSelected ) ;
+			if( isSelected )
+			{
+				super._w.separateOffs.setSelected( true ) ;
+				_iterObs.setSeparateOffs( true ) ;
+			}
+		}
 		else if( cbwe == super._w.separateOffs )
-			_iterObs.setSeparateOffs( super._w.separateOffs.isSelected() ) ;
+		{
+			boolean isSelected = _w.contModeCB.isSelected() ;
+			_iterObs.setSeparateOffs( isSelected ) ;
+			if( isSelected )
+			{
+				_iterObs.setContinuumMode( false ) ;
+				_w.contModeCB.setSelected( false ) ;
+			}
+		}
 
 		super.checkBoxAction( cbwe );
 	}

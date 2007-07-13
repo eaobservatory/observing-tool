@@ -148,11 +148,29 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.contModeCB )
-			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
+		{
+			boolean isSelected = _w.contModeCB.isSelected() ;
+			_iterObs.setContinuumMode( isSelected ) ;
+			if( isSelected )
+			{
+				super._w.separateOffs.setSelected( true ) ;
+				( ( SpIterStareObs )_iterObs).setSeparateOffs( true ) ;
+			}
+		}
 		else if( cbwe == super._w.arrayCentred )
+		{
 			( ( SpIterStareObs )_iterObs).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
+		}
 		else if( cbwe == super._w.separateOffs )
-			( ( SpIterStareObs )_iterObs).setSeparateOffs( super._w.separateOffs.isSelected() ) ;
+		{
+			boolean isSelected = _w.contModeCB.isSelected() ;
+			( ( SpIterStareObs )_iterObs).setSeparateOffs( isSelected ) ;
+			if( isSelected )
+			{
+				_iterObs.setContinuumMode( false ) ;
+				_w.contModeCB.setSelected( false ) ;
+			}
+		}
 		super.checkBoxAction( cbwe );
 	}
     
