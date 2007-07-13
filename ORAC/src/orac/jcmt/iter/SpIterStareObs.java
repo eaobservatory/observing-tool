@@ -84,27 +84,32 @@ public SpIterStareObs()
 			{
 				// 18 seconds per integration
 				if( getWidePhotom() )
-				{
 					totalIntegrationTime = 24 ;
-				}
 				else
-				{
 					totalIntegrationTime = 18 ;
-				}
 			}
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
 			/*
 			* Based on real timing data 
-			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
+			* http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
 			*/
 			double T_on = getSecsPerCycle() ;
 			String switchingMode = getSwitchingMode() ;
+			
 			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
-				totalIntegrationTime = 2.31 * T_on ;
-			else
-				totalIntegrationTime = 2.12 * T_on ;
+			{
+				if( hasSeparateOffs() && T_on < 15. )
+					totalIntegrationTime = 2.0 * T_on + 190. ;
+				else
+					totalIntegrationTime = 2.65 * T_on + 80. ;
+			}
+			else if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
+			{
+				totalIntegrationTime = 2.3 * T_on + 100. ;
+			}
+			
 			if( isContinuum() )
 				totalIntegrationTime *= 1.7 ;
 		}

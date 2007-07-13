@@ -105,8 +105,33 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 					// default
 					default :
 						break ;
-				}					
-				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
+				}	
+				
+				// from http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
+				String switchingMode = getSwitchingMode() ;
+				// SeparateOffs = ! Shared offs
+				if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
+				{
+					//Jiggle Chops
+					if( hasSeparateOffs() )
+						totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100.  ;
+					else
+						totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100. ;					
+				}
+				else if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
+				{
+					// Jiggle Position Switch
+					if( hasSeparateOffs() )
+						totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80. ;
+					else
+						totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80. ;
+				}
+				else
+				{
+					// Anything else
+					totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
+				}
+				
 				if( isContinuum() )
 					totalIntegrationTime *= 1.7 ;
 			}
