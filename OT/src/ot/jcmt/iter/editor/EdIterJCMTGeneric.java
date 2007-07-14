@@ -226,8 +226,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	{
 		setInstrument( SpTreeMan.findInstrument( _spItem ) );
 
-		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
-		if( ( _iterObs.getSwitchingMode() != null ) && ( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) || _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) ) )
+		String switchingMode = _iterObs.getSwitchingMode() ;
+		_w.switchingMode.setValue( switchingMode );
+		if( ( switchingMode != null ) && ( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S.equals( switchingMode ) || SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) )
 		{
 			_w.frequencyPanel.setVisible( true );
 			if( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )

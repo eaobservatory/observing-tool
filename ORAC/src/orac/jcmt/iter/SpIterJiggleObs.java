@@ -50,6 +50,59 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     _avTable.noNotifySet(ATTR_JIGGLE_SYSTEM, JIGGLE_SYSTEMS[0], 0);
   }
 
+  	public int getNumberOfPoints()
+  	{
+  		int numberOfPoints = 0 ;
+  		String jigglePattern = getJigglePattern() ;
+		if( jigglePattern != null )
+		{
+			jigglePattern = jigglePattern.toLowerCase() ;
+	
+			int steps = 0 ;
+			if( jigglePattern.matches( "\\d+x\\d+" ) )
+			{
+				String[] split = jigglePattern.split( "x" ) ;
+				steps = Integer.parseInt( split[ 0 ] ) ;
+			}
+			else if( jigglePattern.matches( "harp\\d" ) )
+			{
+				String[] split = jigglePattern.split( "harp" ) ;
+				steps = Integer.parseInt( split[ 1 ] ) ;					
+			}
+	
+			switch( steps )
+			{
+				// 3X3 jigle map
+				case 3 :
+					numberOfPoints = 9 ;
+					break;
+				// 4x4 jiggle
+				case 4 : 
+					numberOfPoints = 16 ;
+					break ;
+				// 5X5 jigle map
+				case 5 :
+					numberOfPoints = 25 ;
+					break;
+				// 7X7 jigle map
+				case 7 :
+					numberOfPoints = 49 ;
+					break;
+				// 9X9 jigle map
+				case 9 :
+					numberOfPoints = 81 ;
+					break;
+				case 11 :
+					numberOfPoints = 121 ;
+					break ;
+				// default
+				default :
+					break ;
+			}
+		}
+		return numberOfPoints ;
+  	}
+  
 	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
@@ -57,84 +110,35 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 		// Actual integration time on source
 		double totalIntegrationTime = 0. ;
 		if( instrument != null )
-		{
-			String jigglePattern = getJigglePattern() ;
-			if( jigglePattern != null )
+		{	
+			int npts = getNumberOfPoints() ;
+			// from http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
+			String switchingMode = getSwitchingMode() ;
+			// SeparateOffs = ! Shared offs
+			if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
 			{
-				jigglePattern = jigglePattern.toLowerCase() ;
-		
-				int steps = 0 ;
-				if( jigglePattern.matches( "\\d+x\\d+" ) )
-				{
-					String[] split = jigglePattern.split( "x" ) ;
-					steps = Integer.parseInt( split[ 0 ] ) ;
-				}
-				else if( jigglePattern.matches( "harp\\d" ) )
-				{
-					String[] split = jigglePattern.split( "harp" ) ;
-					steps = Integer.parseInt( split[ 1 ] ) ;					
-				}
-				// number of points
-				int npts = 0 ;
-		
-				switch( steps )
-				{
-					// 3X3 jigle map
-					case 3 :
-						npts = 9 ;
-						break;
-					// 4x4 jiggle
-					case 4 : 
-						npts = 16 ;
-						break ;
-					// 5X5 jigle map
-					case 5 :
-						npts = 25 ;
-						break;
-					// 7X7 jigle map
-					case 7 :
-						npts = 49 ;
-						break;
-					// 9X9 jigle map
-					case 9 :
-						npts = 81 ;
-						break;
-					case 11 :
-						npts = 121 ;
-						break ;
-					// default
-					default :
-						break ;
-				}	
-				
-				// from http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
-				String switchingMode = getSwitchingMode() ;
-				// SeparateOffs = ! Shared offs
-				if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
-				{
-					//Jiggle Chops
-					if( isContinuum() || hasSeparateOffs() )
-						totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100.  ;
-					else
-						totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100. ;					
-				}
-				else if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
-				{
-					// Jiggle Position Switch
-					if( isContinuum() || hasSeparateOffs() )
-						totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80. ;
-					else
-						totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80. ;
-				}
+				//Jiggle Chops
+				if( isContinuum() || hasSeparateOffs() )
+					totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100.  ;
 				else
-				{
-					// Anything else
-					totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
-				}
-				
-				if( isContinuum() )
-					totalIntegrationTime *= 1.2 ;
+					totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100. ;					
 			}
+			else if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
+			{
+				// Jiggle Position Switch
+				if( isContinuum() || hasSeparateOffs() )
+					totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80. ;
+				else
+					totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80. ;
+			}
+			else
+			{
+				// Anything else
+				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
+			}
+			
+			if( isContinuum() )
+				totalIntegrationTime *= 1.2 ;
 		}
 		return totalIntegrationTime ;
 	}

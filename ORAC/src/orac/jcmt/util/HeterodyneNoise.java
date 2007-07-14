@@ -13,6 +13,7 @@ import java.util.Vector;
 import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.iter.SpIterJiggleObs;
 
 import gemini.util.MathUtil ;
 
@@ -357,26 +358,34 @@ public class HeterodyneNoise {
 		double time;
 		int noOfRows = 1;
 		int samplesPerRow = 1;
+		
+		double np = 1. ;
 
 		if( obs instanceof SpIterRasterObs )
 		{
 			// Make this the total time to do the map
-			double width = ( ( SpIterRasterObs ) obs ).getWidth();
-			double height = ( ( SpIterRasterObs ) obs ).getHeight();
-			double sampleDx = ( ( SpIterRasterObs ) obs ).getScanDx();
-			double sampleDy = ( ( SpIterRasterObs ) obs ).getScanDy();
-			double sampleTime = ( ( SpIterRasterObs ) obs ).getSampleTime();
-			samplesPerRow = ( int ) ( Math.ceil( width / sampleDx ) );
+			SpIterRasterObs rasterObs = ( SpIterRasterObs )obs ;
+			double width = rasterObs.getWidth();
+			double height = rasterObs.getHeight();
+			double sampleDx = rasterObs.getScanDx();
+			double sampleDy = rasterObs.getScanDy();
+			double sampleTime = rasterObs.getSampleTime();
+			samplesPerRow = ( int )Math.ceil( width / sampleDx ) ;
 			if( samplesPerRow % 2 == 0 )
 				samplesPerRow++;
-			noOfRows = ( int ) Math.ceil( height / sampleDy );
-			double timeOnRow = ( double ) samplesPerRow * sampleTime;
-			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * sampleTime;
+			noOfRows = ( int )Math.ceil( height / sampleDy );
+			double timeOnRow = ( double )samplesPerRow * sampleTime;
+			double timeOffRow = Math.sqrt( ( double )samplesPerRow ) * sampleTime;
 			time = ( timeOnRow + timeOffRow ) * noOfRows;
+		}
+		else if( obs instanceof SpIterJiggleObs )
+		{
+			time = ( double )obs.getSecsPerCycle();
+			np = (( SpIterJiggleObs )obs).getNumberOfPoints() ;
 		}
 		else
 		{
-			time = ( double ) obs.getSecsPerCycle();
+			time = ( double )obs.getSecsPerCycle();
 		}
 
 		// Scale by number of obervations
@@ -393,23 +402,11 @@ public class HeterodyneNoise {
 			resolution = 2 * resolution ;
 		}
 
-		// Handle the different types of obervation...
+		// Handle the different types of observation...
 		if( obs instanceof SpIterRasterObs )
-		{
 			time = 2. * time / ( 1. + 1. / Math.sqrt( samplesPerRow ) );
-		}
-		else
-		{
-			// Get the switching mode
-			if( obs.getSwitchingMode().equalsIgnoreCase( "Position" ) || obs.getSwitchingMode().equalsIgnoreCase( "Beam" ) )
-			{
-				time = time / 2.0;
-			}
-			else if( obs.getSwitchingMode().startsWith( "Frequency" ) ){}
-			else{}
-		}
 
-		double rmsNoise = Math.sqrt( 1. / ( resolution * time ) ) * tSys * kappa;
+		double rmsNoise = tSys * 1.23 / Math.sqrt( resolution * time ) * Math.sqrt( 1 + ( 1 / Math.sqrt( np ) ) ) ;
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
 

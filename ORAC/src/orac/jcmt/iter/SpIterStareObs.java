@@ -126,6 +126,7 @@ public SpIterStareObs()
 			if( parent instanceof SpIterChop )
 			{
 				_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
+				rmSeparateOffs() ;
 				break ;
 			}
 			parent = parent.parent() ;
