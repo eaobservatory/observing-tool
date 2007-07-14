@@ -163,7 +163,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		}
 		else if( cbwe == super._w.separateOffs )
 		{
-			boolean isSelected = _w.contModeCB.isSelected() ;
+			boolean isSelected = super._w.separateOffs.isSelected() ;
 			( ( SpIterStareObs )_iterObs).setSeparateOffs( isSelected ) ;
 			if( isSelected )
 			{

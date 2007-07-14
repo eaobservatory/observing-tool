@@ -14,6 +14,7 @@ import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJiggleObs;
+import orac.jcmt.iter.SpIterStareObs ;
 
 import gemini.util.MathUtil ;
 
@@ -402,11 +403,18 @@ public class HeterodyneNoise {
 			resolution = 2 * resolution ;
 		}
 
+		int shared = 0 ;
+		
 		// Handle the different types of observation...
 		if( obs instanceof SpIterRasterObs )
 			time = 2. * time / ( 1. + 1. / Math.sqrt( samplesPerRow ) );
+		else if( obs instanceof SpIterJiggleObs )
+			shared = (( SpIterJiggleObs )obs).hasSeparateOffs() ? 0 : 1 ;
+		else if( obs instanceof SpIterStareObs )
+			shared = (( SpIterStareObs )obs).hasSeparateOffs() ? 0 : 1 ;
 
-		double rmsNoise = tSys * 1.23 / Math.sqrt( resolution * time ) * Math.sqrt( 1 + ( 1 / Math.sqrt( np ) ) ) ;
+		double factor = ( shared * ( 1 + ( 1 / Math.sqrt( np ) ) ) ) + ( ( 1 - shared ) * ( Math.sqrt( 2 ) ) ) ;
+		double rmsNoise = factor * tSys * 1.23 / Math.sqrt( resolution * time ) ;
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
 

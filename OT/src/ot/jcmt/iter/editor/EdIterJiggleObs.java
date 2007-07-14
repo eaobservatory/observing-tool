@@ -192,7 +192,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		}
 		else if( cbwe == super._w.separateOffs )
 		{
-			boolean isSelected = _w.contModeCB.isSelected() ;
+			boolean isSelected = super._w.separateOffs.isSelected() ;
 			_iterObs.setSeparateOffs( isSelected ) ;
 			if( isSelected )
 			{
