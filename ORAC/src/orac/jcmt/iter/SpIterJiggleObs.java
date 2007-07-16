@@ -69,6 +69,11 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 				String[] split = jigglePattern.split( "harp" ) ;
 				steps = Integer.parseInt( split[ 1 ] ) ;					
 			}
+			else if( jigglePattern.matches( "harp\\d_\\w*" ) )
+			{
+				String split = jigglePattern.substring( 4 , 5 ) ;
+				steps = Integer.parseInt( split ) ;					
+			}
 	
 			switch( steps )
 			{
