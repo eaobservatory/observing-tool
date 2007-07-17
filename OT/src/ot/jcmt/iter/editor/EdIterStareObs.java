@@ -185,12 +185,15 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     	{
     		String secsPerCycle = _w.secsPerCycle.getText() ;
     		_iterObs.setSecsPerCycle( secsPerCycle ) ;
-    		double time_between_refs = 30. ;
-    		double time = new Double( secsPerCycle ).doubleValue() ;
-    		double temp = Math.floor( time_between_refs / time ) ;
-    		boolean seperateCritera = Math.max( 1. , temp ) > 1. ;
-    		(( SpIterStareObs)_iterObs).setSeparateOffs( seperateCritera ) ;
-    		_w.separateOffs.setSelected( seperateCritera ) ;
+    		if( SWITCHING_MODE_POSITION.equals( _iterObs.getSwitchingMode() ) )
+    		{
+	    		double time_between_refs = 30. ;
+	    		double time = new Double( secsPerCycle ).doubleValue() ;
+	    		double temp = Math.floor( time_between_refs / time ) ;
+	    		boolean seperateCritera = Math.max( 1. , temp ) > 1. ;
+	    		(( SpIterStareObs)_iterObs).setSeparateOffs( seperateCritera ) ;
+	    		_w.separateOffs.setSelected( seperateCritera ) ;
+    		}
     	}
     	else if( tbwe == _w.integrationTime )
     	{
