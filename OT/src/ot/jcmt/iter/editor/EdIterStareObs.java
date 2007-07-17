@@ -70,7 +70,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     			_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
     			
     			SpInstHeterodyne heterodyne = ( SpInstHeterodyne )instrument ;
-    			boolean arrayCentredCriteria = heterodyne.getFrontEnd().equals( "HARP" ) && SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
+    			boolean arrayCentredCriteria = heterodyne.getFrontEnd().equals( "HARP" ) ;
     			super._w.arrayCentredLabel.setVisible( arrayCentredCriteria ) ;
     			super._w.arrayCentred.setVisible( arrayCentredCriteria ) ;
     			if( arrayCentredCriteria )
