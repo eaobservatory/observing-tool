@@ -54,8 +54,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.contModeCB.addWatcher( this ) ;
 		_w.integrationTime.addWatcher( this ) ;
 		
-		super._w.arrayCentred.addWatcher( this ) ;
-		super._w.separateOffs.addWatcher( this ) ;
+		super._w.arrayCentred.addWatcher( this ) ;		
+		super._w.separateOffs.setEnabled( false ) ;
 	}
 
     protected void _updateWidgets()
@@ -176,18 +176,26 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     
     public void textBoxAction( TextBoxWidgetExt tbwe )
     {
-    	if( tbwe == _w.secsPerCycle )
-    		_iterObs.setSecsPerCycle( _w.secsPerCycle.getText() ) ;
-    	else if( tbwe == _w.integrationTime )
-    		_iterObs.setSampleTime( _w.integrationTime.getText() ) ;
+    	textBoxKeyPress( tbwe ) ;
     }
     
     public void textBoxKeyPress( TextBoxWidgetExt tbwe )
     {
     	if( tbwe == _w.secsPerCycle )
-    		_iterObs.setSecsPerCycle( _w.secsPerCycle.getText() ) ;
+    	{
+    		String secsPerCycle = _w.secsPerCycle.getText() ;
+    		_iterObs.setSecsPerCycle( secsPerCycle ) ;
+    		double time_between_refs = 30. ;
+    		double time = new Double( secsPerCycle ).doubleValue() ;
+    		double temp = Math.floor( time_between_refs / time ) ;
+    		boolean seperateCritera = Math.max( 1. , temp ) > 1. ;
+    		(( SpIterStareObs)_iterObs).setSeparateOffs( seperateCritera ) ;
+    		_w.separateOffs.setSelected( seperateCritera ) ;
+    	}
     	else if( tbwe == _w.integrationTime )
-    		_iterObs.setSampleTime( _w.integrationTime.getText() ) ;    	
+    	{
+    		_iterObs.setSampleTime( _w.integrationTime.getText() ) ;
+    	} 	
     }
 }
 
