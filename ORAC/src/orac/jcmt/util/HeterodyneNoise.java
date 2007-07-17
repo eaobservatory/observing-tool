@@ -15,6 +15,7 @@ import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.iter.SpIterStareObs ;
+import orac.jcmt.SpJCMTConstants ;
 
 import gemini.util.MathUtil ;
 
@@ -356,41 +357,52 @@ public class HeterodyneNoise {
     private static double getNoise( SpIterJCMTObs obs , SpInstHeterodyne inst , double tSys )
 	{
 
-		double time;
-		int noOfRows = 1;
-		int samplesPerRow = 1;
+		double time = 0. ;
 		
 		double np = 1. ;
 
+		int shared = 0 ;
+		
+		int samplesPerRow = 1 ;
+		
 		if( obs instanceof SpIterRasterObs )
 		{
+			int noOfRows = 1;
+
 			// Make this the total time to do the map
 			SpIterRasterObs rasterObs = ( SpIterRasterObs )obs ;
-			double width = rasterObs.getWidth();
-			double height = rasterObs.getHeight();
-			double sampleDx = rasterObs.getScanDx();
-			double sampleDy = rasterObs.getScanDy();
 			double sampleTime = rasterObs.getSampleTime();
-			samplesPerRow = ( int )Math.ceil( width / sampleDx ) ;
-			if( samplesPerRow % 2 == 0 )
-				samplesPerRow++;
-			noOfRows = ( int )Math.ceil( height / sampleDy );
+			samplesPerRow = ( int )rasterObs.numberOfSamplesOnSide( true ) ;
+			noOfRows = ( int )rasterObs.numberOfSamplesOnSide( false ) ;
 			double timeOnRow = ( double )samplesPerRow * sampleTime;
 			double timeOffRow = Math.sqrt( ( double )samplesPerRow ) * sampleTime;
 			time = ( timeOnRow + timeOffRow ) * noOfRows;
+			
+			// Scale by number of obervations
+			time /= noOfRows * samplesPerRow ;
 		}
 		else if( obs instanceof SpIterJiggleObs )
 		{
-			time = ( double )obs.getSecsPerCycle();
+			SpIterJiggleObs jiggleObs = ( SpIterJiggleObs )obs ;
+			time = ( double )jiggleObs.getSecsPerCycle();
 			np = (( SpIterJiggleObs )obs).getNumberOfPoints() ;
+			shared = jiggleObs.hasSeparateOffs() ? 0 : 1 ;
+		}
+		else if( obs instanceof SpIterStareObs )
+		{
+			SpIterStareObs stareObs = ( SpIterStareObs )obs ;
+			shared = stareObs.hasSeparateOffs() ? 0 : 1 ;
+			
+			if( SpJCMTConstants.SWITCHING_MODE_POSITION.equals( stareObs.getSwitchingMode() ) )
+			{
+				double temp = 30. / time ;
+				np = Math.max( 1 , ( int )temp ) ;
+			}
 		}
 		else
 		{
 			time = ( double )obs.getSecsPerCycle();
 		}
-
-		// Scale by number of obervations
-		time = time / ( noOfRows * samplesPerRow );
 
 		double bandwidth = inst.getBandWidth( SUBSYSTEM ) ;
 		int channels = inst.getChannels( SUBSYSTEM ) ;
@@ -402,19 +414,15 @@ public class HeterodyneNoise {
 			time = 2. * time;
 			resolution = 2 * resolution ;
 		}
-
-		int shared = 0 ;
 		
 		// Handle the different types of observation...
 		if( obs instanceof SpIterRasterObs )
-			time = 2. * time / ( 1. + 1. / Math.sqrt( samplesPerRow ) );
-		else if( obs instanceof SpIterJiggleObs )
-			shared = (( SpIterJiggleObs )obs).hasSeparateOffs() ? 0 : 1 ;
-		else if( obs instanceof SpIterStareObs )
-			shared = (( SpIterStareObs )obs).hasSeparateOffs() ? 0 : 1 ;
+		{
+			time = 2. * time / ( 1. + ( 1. / Math.sqrt( samplesPerRow ) ) ) ;
+		}
 
 		double factor = ( shared * ( 1 + ( 1 / Math.sqrt( np ) ) ) ) + ( ( 1 - shared ) * ( Math.sqrt( 2 ) ) ) ;
-		double rmsNoise = factor * tSys * 1.23 / Math.sqrt( resolution * time ) ;
+		double rmsNoise = 1.04 * factor * tSys * 1.23 / Math.sqrt( resolution * time ) ;
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
 

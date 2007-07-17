@@ -400,35 +400,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{			
-			double samplesPerRow = getWidth() ; 
-			double samplesPerColumn = getHeight() ; 
+			double samplesPerRow = numberOfSamplesOnSide( true ) ; 
 			
-			// if AUTOMATIC else USER DEF
-			if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
-			{
-				// if height > width 
-				if( samplesPerColumn > samplesPerRow )
-				{
-					double temp = samplesPerRow ;
-					samplesPerRow = samplesPerColumn ;
-					samplesPerColumn = temp ;
-				}
-			}
-			else
-			{
-				if( ( getScanAngle( 0 ) != 90. ) && ( ( getScanAngle( 0 ) == 0. ) || ( samplesPerColumn > samplesPerRow ) ) )
-				{
-					double temp = samplesPerRow ;
-					samplesPerRow = samplesPerColumn ;
-					samplesPerColumn = temp ;
-				}
-			}
-			
-			samplesPerRow = ( Math.floor( samplesPerRow / getScanDx() ) ) + 1. ;
-			samplesPerColumn = ( Math.floor( samplesPerColumn / getScanDy() ) ) + 1.  ;
-			
-			if( ( (( int )samplesPerRow) & 1 ) == 0 )
-				samplesPerRow++;
 			double timeOnRow = samplesPerRow * getSampleTime();
 			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime();
 			return timeOnRow + timeOffRow;
@@ -436,6 +409,48 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		return 0.0;
 	}
 
+	/**
+	 * 
+	 * @param row 
+	 * 	true = number of samples per row,
+	 *  false = number of samples per column
+	 * @return
+	 * 
+	 */
+	public double numberOfSamplesOnSide( boolean row )
+	{
+		double samplesPerRow = getWidth() ; 
+		double samplesPerColumn = getHeight() ; 
+		
+		boolean swap = false ;
+		
+		// if AUTOMATIC and height > width
+		// else USER DEF and angle is not 90 and angle is 0 or height > width
+		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
+		if( ( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) ) && columnGreaterThanRow )
+			swap = true ;
+		else if( ( getScanAngle( 0 ) != 90. ) && ( ( getScanAngle( 0 ) == 0. ) || columnGreaterThanRow ) )
+			swap = true ;
+		
+		if( swap )
+		{
+			double temp = samplesPerRow ;
+			samplesPerRow = samplesPerColumn ;
+			samplesPerColumn = temp ;
+		}
+		
+		samplesPerRow = ( Math.floor( samplesPerRow / getScanDx() ) ) + 1. ;
+		samplesPerColumn = ( Math.floor( samplesPerColumn / getScanDy() ) ) + 1.  ;
+		
+		if( ( (( int )samplesPerRow) & 1 ) == 0 )
+			samplesPerRow++;
+	
+		if( row )
+			return samplesPerRow ;
+		else
+			return samplesPerColumn ;
+	}
+	
 	public double getElapsedTime()
 	{
 
