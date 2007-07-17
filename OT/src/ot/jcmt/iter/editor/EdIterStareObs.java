@@ -187,9 +187,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     		_iterObs.setSecsPerCycle( secsPerCycle ) ;
     		if( SWITCHING_MODE_POSITION.equals( _iterObs.getSwitchingMode() ) )
     		{
-	    		double time_between_refs = 30. ;
+	    		double max_time_between_refs = 30. ;
 	    		double time = new Double( secsPerCycle ).doubleValue() ;
-	    		double temp = Math.floor( time_between_refs / time ) ;
+	    		double temp = Math.floor( max_time_between_refs / time ) ;
 	    		boolean seperateCritera = Math.max( 1. , temp ) > 1. ;
 	    		(( SpIterStareObs)_iterObs).setSeparateOffs( seperateCritera ) ;
 	    		_w.separateOffs.setSelected( seperateCritera ) ;

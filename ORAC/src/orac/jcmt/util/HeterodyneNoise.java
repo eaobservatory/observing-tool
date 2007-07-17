@@ -391,7 +391,8 @@ public class HeterodyneNoise {
 			
 			if( SpJCMTConstants.SWITCHING_MODE_POSITION.equals( stareObs.getSwitchingMode() ) )
 			{
-				double temp = 30. / time ;
+				double max_time_between_refs = 30. ;
+				double temp = max_time_between_refs / time ;
 				np = Math.max( 1 , ( int )temp ) ;
 			}
 		}
