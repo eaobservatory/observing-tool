@@ -400,7 +400,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{			
-			double samplesPerRow = numberOfSamplesOnSide( true ) ; 
+			double samplesPerRow = numberOfSamplesPerRow() ; 
 			
 			double timeOnRow = samplesPerRow * getSampleTime();
 			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime();
@@ -410,6 +410,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	}
 
 	/**
+	 * Convenience method.
+	 * Gives the number of samples per row, which means the longest edge.
+	 * @return
+	 */
+	public double numberOfSamplesPerRow()
+	{
+		return numberOfSamplesOnSide( true ) ;
+	}
+	
+	/**
+	 * Convenience method.
+	 * Gives the number of samples per column, which means the shortest edge.
+	 * @return
+	 */
+	public double numberOfSamplesPerColumn()
+	{
+		return numberOfSamplesOnSide( false ) ;
+	}
+	
+	/**
 	 * 
 	 * @param row 
 	 * 	true = number of samples per row,
@@ -417,7 +437,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 * @return
 	 * 
 	 */
-	public double numberOfSamplesOnSide( boolean row )
+	protected double numberOfSamplesOnSide( boolean row )
 	{
 		double samplesPerRow = getWidth() ; 
 		double samplesPerColumn = getHeight() ; 
