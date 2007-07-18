@@ -164,9 +164,15 @@ printSummary()
 			{
 				spIterStep = ( SpIterStep )iterStepSubVector.get( j );
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
+				{
 					nPol++;
+				}
 				if(  spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
+				{
 					spIterStareObs = spIterStep.item ;
+					offsets++ ;
+					continue ;
+				}
 					
 				iterationTracker.update( spIterStep );
 
@@ -182,7 +188,6 @@ printSummary()
 							// If for each OFFSET_TIME added an exposure overhead can be
 							// subtracted since this is done while the telescope moves.
 							elapsedTime += ( OFFSET_TIME - instrument.getExposureOverhead() );
-							offsets++ ;
 						}
 					}
 				}
@@ -220,9 +225,11 @@ printSummary()
 					if( secsPerCycle != null && secsPerCycle instanceof Integer )
 						integrationTimePerPoint = (( Integer )secsPerCycle).intValue() ;
 					
+					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
+					
 					if( isBeamSwitch )
 					{
-						totalIntegrationTime -= offsets * 100. ;
+						totalIntegrationTime = 2.3 * offsets * integrationTimePerPoint + 100. ;
 					}				
 					else if( isPositionSwitch )
 					{
@@ -230,13 +237,23 @@ printSummary()
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
 							boolean sharedOff = !(( Boolean )separateOff).booleanValue() ;
-							if( sharedOff || integrationTimePerPoint >= 15 )
-								totalIntegrationTime -= offsets * 80. ;
+							if( offsets == 1 )
+								totalIntegrationTime = 2.45 * integrationTimePerPoint + 80. ;
+							else if( sharedOff || integrationTimePerPoint >= 15 )
+								totalIntegrationTime = 2.65 * offsets * integrationTimePerPoint + 80. ;
 							else
-								totalIntegrationTime -= offsets * 190. ;
+								totalIntegrationTime = 2.0 * offsets * integrationTimePerPoint + 190. ;
 						}
-					}					
+					}
+					
+					boolean addContinuum = false ;
+					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
+					if( continuum != null && continuum instanceof Boolean )
+						addContinuum = (( Boolean )continuum).booleanValue() ;
+					if( addContinuum )
+						totalIntegrationTime *= 1.2 ;
 				}
+				totalIntegrationTime -= offsets * OFFSET_TIME ;
 			}
 			catch( ClassNotFoundException cnfe )
 			{

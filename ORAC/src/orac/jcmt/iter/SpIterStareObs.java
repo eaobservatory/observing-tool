@@ -101,16 +101,9 @@ public SpIterStareObs()
 			String switchingMode = getSwitchingMode() ;
 
 			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
-			{
-				if( isContinuum() || ( hasSeparateOffs() && T_on < 15. ) )
-					totalIntegrationTime = 2.0 * T_on + 190. ;
-				else
-					totalIntegrationTime = 2.65 * T_on + 80. ;
-			}
+				totalIntegrationTime = 2.45 * T_on + 80. ;
 			else if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
-			{
 				totalIntegrationTime = 2.3 * T_on + 100. ;
-			}
 			
 			if( isContinuum() )
 				totalIntegrationTime *= 1.2 ;

@@ -191,8 +191,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 	    		double time = new Double( secsPerCycle ).doubleValue() ;
 	    		double temp = Math.floor( max_time_between_refs / time ) ;
 	    		boolean seperateCritera = Math.max( 1. , temp ) > 1. ;
-	    		(( SpIterStareObs)_iterObs).setSeparateOffs( seperateCritera ) ;
-	    		_w.separateOffs.setSelected( seperateCritera ) ;
+	    		(( SpIterStareObs)_iterObs).setSeparateOffs( !seperateCritera ) ;
+	    		_w.separateOffs.setSelected( !seperateCritera ) ;
     		}
     	}
     	else if( tbwe == _w.integrationTime )
