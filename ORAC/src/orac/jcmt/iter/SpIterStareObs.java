@@ -110,20 +110,29 @@ public SpIterStareObs()
 		}
 		return ( overhead + totalIntegrationTime );
 	}
-	
-	public void setupForHeterodyne()
+
+	public boolean insideChop()
 	{
+		boolean insideChop = false ;
 		SpItem parent = this.parent() ;
 		while( parent != null )
 		{
-			if( parent instanceof SpIterChop )
-			{
-				_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
-				rmSeparateOffs() ;
+			insideChop = parent instanceof SpIterChop ;
+			if( insideChop )
 				break ;
-			}
 			parent = parent.parent() ;
 		}
+		return insideChop ;
+	}
+	
+	public void setupForHeterodyne()
+	{
+		if( insideChop() )
+		{
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
+			rmSeparateOffs() ;
+		}
+
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
