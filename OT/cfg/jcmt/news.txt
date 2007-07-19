@@ -14,6 +14,12 @@ Council All Rights. Reserved.
 
 +++ July 2007
 
+  - New Templates for ACSIS observations.
+
+  - Updated documentation.
+
+  - Updates to timing estimates and noise calulations.
+
   - Conversion between B1950 and J2000 added to the Target Component.
 
   - Option of Array Centred observations in Stare eye w/HARP and Position Switch.
