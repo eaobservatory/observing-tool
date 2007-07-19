@@ -388,13 +388,6 @@ public class HeterodyneNoise {
 			SpIterStareObs stareObs = ( SpIterStareObs )obs ;
 			shared = stareObs.hasSeparateOffs() ? 0 : 1 ;
 			time = ( double )stareObs.getSecsPerCycle() ;
-			
-			if( SpJCMTConstants.SWITCHING_MODE_POSITION.equals( stareObs.getSwitchingMode() ) )
-			{
-				double max_time_between_refs = 30. ;
-				double temp = max_time_between_refs / time ;
-				np = Math.max( 1 , ( int )temp ) ;
-			}
 		}
 		else
 		{
@@ -412,7 +405,7 @@ public class HeterodyneNoise {
 			resolution = 2 * resolution ;
 		}
 
-		double factor = ( shared * ( 1 + ( 1 / Math.sqrt( np ) ) ) ) + ( ( 1 - shared ) * ( Math.sqrt( 2 ) ) ) ;
+		double factor = ( shared * Math.sqrt( 1 + ( 1 / Math.sqrt( np ) ) ) ) + ( ( 1 - shared ) * ( Math.sqrt( 2 ) ) ) ;
 		double rmsNoise = 1.04 * factor * tSys * 1.23 / Math.sqrt( resolution * time ) ;
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
