@@ -10,72 +10,252 @@ ff0000">
     <img src="images/root.gif" align="right">
         <h1>The JCMT OT primer</h1>
 
-<h3>NOTE:  This new version of the OT was released 23 February, 2007.
-    Users of the JCMTOT software must update to this version before
-      submitting MSBs.</h3> 
+<font color=firebrick><b>
+NOTE: A new version of the JCMTOT will be released prior to semester
+07B. Users of the JCMTOT software must update to this version before
+submitting MSBs.
+</b>
+Changes:
+<ul>
+<li> Jiggle-PSSW mode added and further multi-subsystem support
+<li> Updated ACSIS libraries
+<li> Option added for <a href="het_example.html#het_shared">
+     <i>shared</i> or <i>separate offs</i></a>
+<li> Option added for <a href="het_example.html#het_centering">
+     <i>array-centered</i></a> in Grids.
+<li> Additional <a href="het_example.html#het_centering">
+     HARP jiggle patterns</a> 
+     added to have a set that places the target on a center pixel in
+     the output map, as well as a set that places the target on center
+     of the map (between the center pixels).  
+<li> Updated timing and noise calculations.
+</ul>
 
-<p> This document is a primer on how to use the JCMT Observing Tool
-      (JCMT OT) to prepare and submit observations (see <a
-	href="faq.html#why">Why do I have to do this?</a>). It assumes
-      that you have already downloaded and installed the software (see
-      our <a href="download.html">download page</a> - make sure you
-      have downloaded the latest version!). If you are using a JAC or
-      summit machine, the software is already installed. You will also
-      need the <a
-	href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">OMP
-	password</a> for your project in order to be able to <a
-	href="recap.html#database">upload</a> your MSBs to our
-      observing database. 
+<b>Experienced as well as novice observers should make sure to read
+the <blink>revised</blink> manual section: 
+<a href="het_example.html#het_msblib">'Heterodyne MSBs'</a>. For
+a <i>new</i>, more detailed and technical discussion 
+<a href="het_obsmodes.html">'Heterodyne Obsmodes'</a> is now also available.</b>
+</font>
 
-<p>If you are viewing this document through the JCMT-OT Help menu,
-      there may be a more up-to-date version on our web site at <a
-	href="http://www.jach.hawaii.edu/software/jcmtot/">http://www.jach.hawaii.edu/software/jcmtot/</a>. 
+<p> 
+This document is a primer on how to use the JCMT Observing Tool (JCMT
+OT) to prepare and submit observations (see <a href="faq.html#why">Why
+do I have to do this?</a>). It assumes that you have already
+downloaded and installed the software (see our <a
+href="download.html">download page</a> - make sure you have downloaded
+the latest version!). If you are using a JAC or summit machine, the
+software is already installed. You will also need the <a
+href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">OMP password</a>
+for your project in order to be able to <a
+href="recap.html#database">upload</a> your MSBs to our observing
+database.
 
+<p>
+If you are viewing this document through the JCMT-OT Help menu, there
+may be a more up-to-date version on our web site at 
+<a href="http://www.jach.hawaii.edu/software/jcmtot/">
+http://www.jach.hawaii.edu/software/jcmtot/</a>.
 
-<p>If, after reading this guide you have any questions about preparing
-      your observations, please consult with your "Friend of the
-      Project" (see <a
-	href="http://www.jach.hawaii.edu/JCMT/allocations">http://www.jach.hawaii.edu/JCMT/allocations</a>), or email <a href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.  
+<p>
+If, after reading this guide you have any questions about preparing
+your observations, please consult with your "Friend of the Project"
+(see
+<a href="http://www.jach.hawaii.edu/JCMT/allocations">
+http://www.jach.hawaii.edu/JCMT/allocations</a>),
+or email <a
+href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 
-<h2> General Information</h2> 
+<h2> General Information: <font color=firebrick><i>Updated!</i></font></h2> 
 
 <p> This version of the <em><b>JCMT OT</b></em> enables users to build
-      their science program for heterodyne observations only. A <a
-	href="het_example.html#het_msblib"> templates library</a> is
-      provided that covers the four observing modes being offered at
-      this time: <em>Sample, Grid-PSSW, Jiggle-Chop,</em> and
-      <em>Raster</em>. Investigators are urged to carefully inspect
-      the example for a beam-switched observation below and to read
-      the more extensive explanation and instructions presented for
-      each observing mode. While the components will look familiar to
-      experienced JCMT observers, most have changed, sometimes in a
-      fairly subtle manner. 
+their science program for heterodyne observations only. A <a
+href="het_example.html#het_msblib"> templates library</a> is provided
+that covers the observing modes being offered: <em>Samples, Grids,
+Jiggles,</em> and <em>Rasters</em>. Investigators are urged to
+carefully inspect the example for a beam-switched observation below
+and to read the more extensive explanation and instructions presented
+for each observing mode. While the components will look familiar to
+experienced JCMT observers, most have changed, sometimes in a fairly
+subtle manner.
 
-<p> The telescope operators (TSS) will insert calibrations, pointings,
-      foci, etc. into the observing sequence as appropriate. In the
-      case you have a fixed observing mode and source for the
-      calibration, you should specify special instructions and wishes
-      regarding calibrations in the 'Note to Observer'. 
+<p>
+<b><font color=firebrick><h3><i><li>Calibrations</i></h3></font></b>
 
-<p>Note that <b>integration times</b> are now the <em>"on"-source</em>
-      time only, instead of <em>"on+off"</em> as before. 
+<p>
+The JCMT observing software needs further development to enable a more
+flexible inclusion of calibration observations: presently there is no
+easy way to add calibration observation MSBs.  The JCMT telescope
+operators (TSS) will insert calibrations, pointings, foci, etc. into
+the observing sequence as appropriate.  Without any specific
+instructions in the science program calibrations will be carried out
+by observing a 'standard' line in a suitable calibration source.
 
-<p> There is a section on <a href="advanced.html#advanced">Advanced
-	Topics</a> that observers should read. There you will learn
-      more about how the Target and Heterodyne components can interact
-      with each other, and also how to use the <a
-	href="advanced.html#andor">AND/OR folders</a> when you have
-      many MSBs in your programme. <a
-	href="advanced.html#survey">Survey containers</a> may
-      significantly simplify your setup if used properly. 
+<p> 
+PIs are strongly advised to, at a minimum, add instructions and wishes
+regarding calibrations in the <i>Calibration Note</i> to the TSS and
+observers. A sample note has been included with the library templates.
+For information on standard sources, lines, and observational setup, see:
+<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html" target="_blank">
+JCMT Heterodyne Standards</a>. 
+<em>Please be aware that the submm positions for calibrators as used
+at the JCMT may differ substantially from the the ones in archives
+such as SIMBAD.</em>
 
-<p> Please be sure to <i>carefully</i> double-check your program. The
-      quoted Observing times are approximate and estimates of
-      overheads are based on limited tests. Check the validation
-      messages and contact your <a
-	href="http://www.jach.hawaii.edu/JCMT/allocations">Friend of
-	the Project</a> if you need help.   
+<p>
+There are several options for calibrations and ways to customize them:
+<ol>
 
+<li>No special calibration MSBs are provided in the Science Program:
+the calibrations will be carried out on a suitable calibration source
+selected by the TSS at a 'standard' frequency, possibly different from
+MSB tuning or redshift. For many applications, this is the most 
+appropriate option.</li>
+
+<p> 
+<li> A number of separate calibration MSBs on suitable targets are
+added to the science program, clearly identified as calibrations in
+their title. Typically the set of calibration MSBs should cover the
+RA-range of the science observations to ensure that at least one
+calibration MSB is available at any time.  PIs can customize the <i>Het
+setup</i> but need to take care to pick an appropriate
+switching-scheme for each calibrator chosen.  The TSS will insert the
+calibration MSBs into the observing queue as needed and per
+instruction in the science program.
+
+<ul><li> 
+The ACSIS library has a set of special template MSBs for a
+position-switch, beam-switch, or raster calibration. The MSBs start
+with a series of (optional) pointing and focus observations. The
+calibration itself is a regular observation that has been marked as a
+calibration.  Configure the <i>Het setup</i> and <i>Target
+Component</i> to customize the calibration for your project. Typically
+choose either a position-switch, beam-switch, or raster calibration,
+depending on the selected calibration target (many of which require a
+position-switch).  Observational details for the calibrators can be
+found at this location:
+<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html" target="_blank">
+JCMT Heterodyne Standards</a>.  The calibration MSBs should be added
+to the science program with a high priority (low number) and high
+repeat counter to ensure that they will come up prominently and
+repeatedly in the JCMT Query Tool. 
+</li></ul>
+</li>
+
+<p>
+<li>Calibration observations are part of the science MSBs:
+
+<ul>
+<li> Embed the calibration observation of a specific standard source
+and line in your science MSB by copying and pasting the desired
+components from the calibration template described above under
+option 2 (please read those instructions). The MSB should look like:
+
+<pre>
+       -------------------------
+       MSB
+         ...
+         Het setup
+         Science Target
+</pre>
+<font color=green>
+<pre>
+         Calibration Observation (marked as Calibration)
+</pre>         
+</font>
+<pre>
+         Science Observation 
+       -------------------------
+</pre>         
+
+
+Please be aware of <i>inheritance</i>: in the example above you will need to
+add another <i>Target Component</i> inside Calibration Observations with the
+coordinates and offsets of the calibrator! Likewise, if the
+calibration needs to be done at a different frequency, another <i>Het
+setup</i> needs to be added inside the Calibration Observation. This will
+result in the appropriate retune between the calibrator and the
+science target. This should NOT be done for the manually tuned
+RxW. <b>WARNING:</b> If you include a calibration observation in this manner,
+both your target and calibration source must be observable before the
+MSB can be scheduled, which can severely restrict the night-time
+available to the project in case of an unfortunate combination of
+calibration and science targets.
+</li></ul>
+</li></ol>
+
+
+<p>
+Issues to consider regarding calibrations may be:
+<ul>
+
+<li>How important is a precise calibration? For many projects it is
+sufficient to ensure that the telescope and receiver are within
+spec.</li>
+
+<li>Can the calibration be done at a 'standard' frequency, possibly
+different from MSB tuning or redshift? Or should the calibration be
+done with the <i>Het setup</i> of the science observation and, if not
+close to a standard frequency, should a line-rich source be selected
+that will allow for the relative calibration of observations from
+night-to-night?</li>
+
+<li>Can the calibration be done using a different bandwidth than the
+science observation? Is an increase in bandwidth allowed to catch
+a nearby standard line? Increasing the bandwidth should not affect the
+calibration, except that the peak of very narrow lines will drop
+because of the lower resolution.</li>
+
+<li>Is it important to observe a planet? Can this be done at one of
+the standard frequencies or should the <i>Het setup</i> from the
+science MSB be used?  Efficiencies derived from isolated observations
+of the continuum level of planets typically are not very
+accurate.</li>
+
+</ul>
+
+<p>
+<b><font color=firebrick><h3><i><li>Integration times</i></h3></font></b>
+<p>
+Note that throughout this document <b>integration times</b> are the
+<em>"on"-source</em> time only, instead of <em>"on+off"</em> as
+before.
+
+<p>
+<b><font color=firebrick><li>Advanced OT Topics</font></b>
+
+<p> 
+There is a section on <a href="advanced.html#advanced">Advanced
+Topics</a> that observers should read. There you will learn more about
+how the Target and Heterodyne components can interact with each other,
+and also how to use the <a href="advanced.html#andor">AND/OR
+folders</a> when you have many MSBs in your programme. <a
+href="advanced.html#survey">Survey containers</a> may significantly
+simplify your setup if used properly.
+
+<p>
+<b><font color=firebrick><h3><i><li>Program Validation</i></h3></font></b>
+
+<p> 
+Please be sure to <i>carefully</i> double-check your program and to
+<b><i>validate</i></b> after high-lighting the top-most entry in the
+OT program. The quoted Observing times are approximate and estimates
+of overheads are based on limited tests. Check the validation messages
+and contact your <a
+href="http://www.jach.hawaii.edu/JCMT/allocations">Friend of the
+Project</a> if you need help.
+
+
+<p>
+<b><font color=firebrick><h3><i><li>Detailed description of Observing Modes</i></h3></font></b>
+
+<p> A detailed description of the various observing modes, rms noise,
+and durations is available as a <font
+color=red><blink><b>new</b></blink></font> document <a
+href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.  <i>Even
+though the information is not required in order to set up a science
+program, experienced as well as novice JCMT observers are encouraged
+to read the document as a general background.</i>
 
 <h2>Contents</h2>
 
