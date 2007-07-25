@@ -1044,8 +1044,20 @@ public class EdCompTargetList extends OtItemEditor
 		int current = _curPos.getCoordSys() ;
 		String currentSystem = CoordSys.COORD_SYS[ current ] ;
 		
-		double ra = HHMMSS.valueOf( _curPos.getXaxisAsString() ) ;
-		double dec = DDMMSS.valueOf( _curPos.getYaxisAsString() ) ;
+		double ra = 0. ;
+		double dec = 0. ;
+		
+		if( current == CoordSys.FK5 || current == CoordSys.FK4 )
+		{
+			ra = HHMMSS.valueOf( _curPos.getXaxisAsString() ) ;
+			dec = DDMMSS.valueOf( _curPos.getYaxisAsString() ) ;
+		}
+		else
+		{
+			ra = _curPos.getRealXaxis() ;
+			dec = _curPos.getRealYaxis() ;
+		}
+		
 		RADec raDec = null ;
 		
 		if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
@@ -1057,6 +1069,30 @@ public class EdCompTargetList extends OtItemEditor
 		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
 		{
 			raDec = CoordConvert.Fk45z( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		else if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
+		{
+			raDec = CoordConvert.fk52gal( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
+		{
+			raDec = CoordConvert.gal2fk5( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
+		{
+			raDec = CoordConvert.gal2fk4( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
+		{
+			raDec = CoordConvert.fk42gal( ra , dec ) ;
 			ra = raDec.ra ;
 			dec = raDec.dec ;
 		}
