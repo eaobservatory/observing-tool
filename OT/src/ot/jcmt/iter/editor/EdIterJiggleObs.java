@@ -149,7 +149,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 				{
 					double scaleFactor = _iterObs.getScaleFactor() ;
 					String[] split = val.split( "HARP" ) ;
-					if( "4".equals( split[ 1 ] ) )
+					
+					if( split[ 1 ].matches( "4\\w*" ) )
 						scaleFactor = 7.5 ;
 					else
 						scaleFactor = 6. ;
