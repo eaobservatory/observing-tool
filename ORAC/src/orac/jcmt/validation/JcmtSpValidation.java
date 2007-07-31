@@ -112,6 +112,19 @@ public class JcmtSpValidation extends SpValidation
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) );
 				if( loMax != 0. && ( loMax + spInstHeterodyne.getFeIF() ) < skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) );
+
+				
+				int available = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
+				String sideBand = spInstHeterodyne.getBand() ;
+				for( int index = 0 ; index < available ; index++ )
+				{
+					double centre = spInstHeterodyne.getCentreFrequency( index ) ;
+					double rest = spInstHeterodyne.getRestFrequency( index ) ;
+					if( "lsb".equals( sideBand ) && ( rest + centre ) > loMax )
+						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use upper or best sideband to reach the line " + rest ) ) ;
+					else if( !"lsb".equals( sideBand ) && ( rest - centre ) < loMin )
+						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use lower sideband to reach the line " + rest ) ) ;
+				}
 				
 				if( thisObs instanceof SpIterJiggleObs )
 				{
