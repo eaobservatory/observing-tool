@@ -17,25 +17,17 @@ public class CoordSys
 {
 	// The possible coordinate systems.
 	public static final int FK5 = 0;
-
 	public static final int FK4 = 1;
-
 	public static final int AZ_EL = 2;
-
 	public static final int GAL = 3;
-
 	public static final int HADEC = 4;
-	
-	public static final String FK5_STRING = "FK5 (J2000)" ;
-	
-	public static final String FK4_STRING = "FK4 (B1950)" ;
-		
-	public static final String AZ_EL_STRING = "Az/El" ;
 
-	public static final String GAL_STRING = "Galactic" ;
-		
-	public static final String HADEC_STRING = "HADEC" ;
-		
+	public static final String FK5_STRING = "FK5 (J2000)";
+	public static final String FK4_STRING = "FK4 (B1950)";
+	public static final String AZ_EL_STRING = "Az/El";
+	public static final String GAL_STRING = "Galactic";
+	public static final String HADEC_STRING = "HADEC";
+
 	/**
 	 * Readable coordinate system strings.
 	 */
@@ -52,7 +44,7 @@ public class CoordSys
 	/**
 	 * Coordinate System x axis labels.
 	 */
-	public static final String[] X_AXIS_LABEL =
+	public static final String[] X_AXIS_LABEL = 
 	{ 
 		"Ra" , 
 		"Ra" , 
@@ -65,7 +57,7 @@ public class CoordSys
 	/**
 	 * Coordinate System y axis labels.
 	 */
-	public static final String[] Y_AXIS_LABEL =
+	public static final String[] Y_AXIS_LABEL = 
 	{ 
 		"Dec" , 
 		"Dec" , 
@@ -73,45 +65,25 @@ public class CoordSys
 		"Lat" , 
 		"Dec" 
 	};
-/*
-	public static final String[] QUICK_COORD_LOOKUP =
-	{
-		"FK5" ,
-		"FK4" ,
-		"AZ" ,
-		"GAL" ,
-		"HA" ,
-	} ;
-*/	
+
 	/**
 	 * Get an integer representing a coordinate system from its associated
 	 * string.  If the string is not recognizable, return -1.
 	 */
 	public static int getSystem( String coordSysString )
 	{
-		coordSysString = coordSysString.toUpperCase();
-
-		if( coordSysString.indexOf( "FK5" ) != -1 )
+		if( coordSysString.equals( FK5_STRING ) )
 			return FK5;
-		else if( coordSysString.indexOf( "FK4" ) != -1 )
+		else if( coordSysString.equals( FK4_STRING ) )
 			return FK4;
-		else if( coordSysString.indexOf( "AZ" ) != -1 )
+		else if( coordSysString.equals( AZ_EL_STRING ) )
 			return AZ_EL;
-		else if( coordSysString.indexOf( "GAL" ) != -1 )
+		else if( coordSysString.equals( GAL_STRING ) )
 			return GAL;
-		else if( coordSysString.indexOf( "HA" ) != -1 )
+		else if( coordSysString.equals( HADEC_STRING ) )
 			return HADEC;
 
-/*
-		for( int i=0 ; i < QUICK_COORD_LOOKUP.length ; ++i ) 
-		{
-			if( QUICK_COORD_LOOKUP[i].indexOf( coordSysString ) != -1 ) 
-			{
-				return i ;
-			}
-		}
-*/
-		return -1 ;
+		return -1;
 	}
 
 	/**
@@ -124,5 +96,4 @@ public class CoordSys
 			return null;
 		return COORD_SYS[ coordSysInt ];
 	}
-
 }

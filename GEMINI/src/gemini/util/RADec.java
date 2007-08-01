@@ -11,25 +11,25 @@ package gemini.util;
  */
 public class RADec
 {
-   /** The coordinate system in which the RA and Dec are represented. */
-   public int coordSystem = CoordSys.FK5;
+	/** The coordinate system in which the RA and Dec are represented. */
+	public int coordSystem = CoordSys.FK5;
 
-   /** Right ascension in degrees. */
-   public double ra = 0.0;
+	/** Right ascension in degrees. */
+	public double ra = 0.0;
 
-   /** Declination in degrees. */
-   public double dec = 0.0;
+	/** Declination in degrees. */
+	public double dec = 0.0;
 
-   /** Proper motion in right ascension. */
-   public double rapm = 0.0;
+	/** Proper motion in right ascension. */
+	public double rapm = 0.0;
 
-   /** Proper motion in declination. */
-   public double decpm = 0.0;
+	/** Proper motion in declination. */
+	public double decpm = 0.0;
 
-/**
- * Default constructor.
- */
-public RADec() {}
+	/**
+	 * Default constructor.
+	 */
+	public RADec(){}
 
 	/**
 	 * Construct with most of the fields.
@@ -49,14 +49,14 @@ public RADec() {}
 		this.dec = dec;
 	}
 
-/**
- * Construct with all of the fields.
- */
-public RADec(int sys, double ra, double dec, double rapm, double decpm)
-{
-   this(sys, ra, dec);
-   this.rapm  = rapm;
-   this.decpm = decpm;
-}
+	/**
+	 * Construct with all of the fields.
+	 */
+	public RADec( int sys , double ra , double dec , double rapm , double decpm )
+	{
+		this( sys , ra , dec );
+		this.rapm = rapm;
+		this.decpm = decpm;
+	}
 
 }
