@@ -25,8 +25,6 @@
  */
 package gemini.util;
 
-import java.util.StringTokenizer;
-
 /**
  * Support for converting between angles in string
  * and double representations.
@@ -115,19 +113,41 @@ valStr(double degrees)
 			s = s.substring( 1 );
 		}
 
-		// NOTE: Added a space character to the delimiter string (shane)
-		double[] vals =
-		{ 0.0 , 0.0 , 0.0 };
-		StringTokenizer tok = new StringTokenizer( s , ": " );
-		for( int i = 0 ; i < 3 && tok.hasMoreTokens() ; i++ )
-		{
-			vals[ i ] = Double.valueOf( tok.nextToken() ).doubleValue();
-		}
+		double[] vals = stringTodoubleTriplet( s ) ;
 
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 );
 		return out;
 	}
 
+	public static boolean validate( String hhmmss )
+	{
+		boolean valid = true ;
+		
+		double[] values = stringTodoubleTriplet( hhmmss ) ;
+		
+		double degrees = values[ 0 ] ;
+		double minutes = values[ 1 ] ;
+		double seconds = values[ 2 ] ;
+		
+		if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+			valid = false ;
+		
+		return valid ;
+	}
+
+	public static double[] stringTodoubleTriplet( String hhmmss )
+	{
+		double[] values = { 0. , 0. , 0. } ;
+		
+		String[] split = hhmmss.split( ":" ) ;
+		for( int index = 0 ; index < split.length && index < values.length ; index++ )
+		{
+			String current = split[ index ].trim() ;
+			values[ index ] = new Double( current ) ;
+		}
+		
+		return values ;
+	}
 
 /**
  * For testing.

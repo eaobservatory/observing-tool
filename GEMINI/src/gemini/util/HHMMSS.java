@@ -26,8 +26,6 @@
  */
 package gemini.util;
 
-import java.util.StringTokenizer;
-
 /**
  * Support for converting angles in hours:minutes:seconds format over the
  * circular range 0, 24 hours.
@@ -119,20 +117,43 @@ valStr(double degrees)
 		}
 
 		// Parse the string into values for hours, min, and sec
-		double[] vals =
-		{ 0.0 , 0.0 , 0.0 };
-		StringTokenizer tok = new StringTokenizer( s , ": " );
-		for( int i = 0 ; i < 3 && tok.hasMoreTokens() ; i++ )
-		{
-			vals[ i ] = Double.valueOf( tok.nextToken() ).doubleValue();
-		}
+		double[] vals = stringTodoubleTriplet( s ) ;
 
 		// Convert HH:MM:SS to degrees
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 ) * 15.0;
 		return Angle.normalizeDegrees( out );
 	}
 
+	public static boolean validate( String hhmmss )
+	{
+		boolean valid = true ;
+		
+		double[] values = stringTodoubleTriplet( hhmmss ) ;
+		
+		double hours = values[ 0 ] ;
+		double minutes = values[ 1 ] ;
+		double seconds = values[ 2 ] ;
+		
+		if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+			valid = false ;
+		
+		return valid ;
+	}
 
+	public static double[] stringTodoubleTriplet( String hhmmss )
+	{
+		double[] values = { 0. , 0. , 0. } ;
+		
+		String[] split = hhmmss.split( ":" ) ;
+		for( int index = 0 ; index < split.length && index < values.length ; index++ )
+		{
+			String current = split[ index ].trim() ;
+			values[ index ] = new Double( current ) ;
+		}
+		
+		return values ;
+	}
+	
 /**
  * For testing.
  */
