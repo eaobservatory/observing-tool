@@ -39,7 +39,7 @@ import gemini.util.TelescopePosWatcher;
 import gemini.util.RADecMath;
 import orac.jcmt.iter.SpIterRasterObs;
 
-import orac.util.TelescopeUtil ;
+import orac.util.TelescopeUtil;
 
 /**
  * This is the editor for Offset Iterator component.  It allows a list of
@@ -49,25 +49,19 @@ import orac.util.TelescopeUtil ;
  *
  * @author modified for JCMT OT by Martin Folger (MFO, M.Folger@roe.ac.uk)
  */
-public final class EdIterOffset extends OtItemEditor
-    implements TableWidgetWatcher,  TextBoxWidgetWatcher, 
-	       TelescopePosWatcher, ActionListener, MouseListener {
+public final class EdIterOffset extends OtItemEditor implements TableWidgetWatcher , TextBoxWidgetWatcher , TelescopePosWatcher , ActionListener , MouseListener
+{
 
-    private TextBoxWidgetExt     _xOffTBW;
-    private TextBoxWidgetExt     _yOffTBW;
+	private TextBoxWidgetExt _xOffTBW;
+	private TextBoxWidgetExt _yOffTBW;
+	private OffsetPosTableWidget _offTW;
+	private SpOffsetPos _curPos; // Position being edited
+	private SpOffsetPosList _opl; // Position list being edited
+	private IterOffsetGUI _w; // the GUI layout panel
+	private String BUTTON_TEXT_ROTATION_FALSE = "Display Derotated Offsets";
+	private String BUTTON_TEXT_ROTATION_TRUE = "Offsets Derotated";
 
-    private OffsetPosTableWidget _offTW;
-    private SpOffsetPos          _curPos;	// Position being edited
-    private SpOffsetPosList	 _opl;		// Position list being edited
-
-    private IterOffsetGUI        _w;             // the GUI layout panel
-
-    private String BUTTON_TEXT_ROTATION_FALSE = "Display Derotated Offsets";
-    private String BUTTON_TEXT_ROTATION_TRUE  = "Offsets Derotated";
-    private double TO_RADIANS = Math.PI/180.0;
-    private double TO_DEGREES = 1.0/TO_RADIANS;
-
-    /**
+	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterOffset()
@@ -107,45 +101,45 @@ public final class EdIterOffset extends OtItemEditor
 		_w.setSpacingButton.addActionListener( this );
 	}
 
+	/**
+	 * This method initializes the widgets in the presentation to reflect the
+	 * current values of the items attributes.
+	 */
+	protected void _init()
+	{
+		TextBoxWidgetExt tbwe = _w.titleTBW;
+		tbwe.addWatcher( this );
 
-    /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init() {
-	TextBoxWidgetExt tbwe = _w.titleTBW;
-	tbwe.addWatcher(this);
+		_xOffTBW = _w.xOffset;
+		_xOffTBW.addWatcher( this );
+		_xOffTBW.setValue( "" );
 
-	_xOffTBW = _w.xOffset;
-	_xOffTBW.addWatcher(this);
-	_xOffTBW.setValue("");
+		_yOffTBW = _w.yOffset;
+		_yOffTBW.addWatcher( this );
+		_yOffTBW.setValue( "" );
 
-	_yOffTBW = _w.yOffset;
-	_yOffTBW.addWatcher(this);
-	_yOffTBW.setValue("");
+		_offTW = _w.offsetTable;
+		_offTW.addWatcher( this );
+		_offTW.setColumnHeaders( new String[] { "#" , "p Offset" , "q Offset" } );
+		_offTW.setBackground( _w.getBackground() );
+	}
 
-	_offTW = _w.offsetTable;
-	_offTW.addWatcher(this);
-	_offTW.setColumnHeaders(new String[]{"#", "p Offset", "q Offset"});
-	_offTW.setBackground(_w.getBackground());
-    }
+	/**
+	 * Show the given SpOffsetPos
+	 */
+	public void showPos( SpOffsetPos op )
+	{
+		_xOffTBW.setValue( op.getXaxisAsString() );
+		_yOffTBW.setValue( op.getYaxisAsString() );
+	}
 
-
-    /**
-     * Show the given SpOffsetPos
-     */
-    public void	showPos( SpOffsetPos op ) {
-	_xOffTBW.setValue( op.getXaxisAsString() );
-	_yOffTBW.setValue( op.getYaxisAsString() );
-    }
-
-    /**
+	/**
 	 * Implements the _updateWidgets method from OtItemEditor in order to setup the widgets to show the current values of the item.
 	 */
 	protected void _updateWidgets()
 	{
 		TextBoxWidgetExt tbwe;
-		SpIterOffset sio = ( SpIterOffset ) _spItem;
+		SpIterOffset sio = ( SpIterOffset )_spItem;
 
 		// Get the title
 		tbwe = _w.titleTBW;
@@ -156,12 +150,12 @@ public final class EdIterOffset extends OtItemEditor
 		_offTW.reinit( _opl );
 
 		/*
-		* Select the position that was previously selected.
-		* This has probably never worked (neither Freebongo nor Swing OT)
-		* because the table seems to be reset somehow after _updateWidgets().
-		* And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
-		* rather then to the selectedRow. (MFO, 6 December 2001)
-		*/
+		 * Select the position that was previously selected.
+		 * This has probably never worked (neither Freebongo nor Swing OT)
+		 * because the table seems to be reset somehow after _updateWidgets().
+		 * And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
+		 * rather then to the selectedRow. (MFO, 6 December 2001)
+		 */
 		int selIndex = _avTab.getInt( ".gui.selectedOffsetPos" , 0 );
 		_offTW.selectPos( selIndex );
 
@@ -174,239 +168,249 @@ public final class EdIterOffset extends OtItemEditor
 		createGuideOffsets();
 	}
 
-    private void createGuideOffsets()
+	private void createGuideOffsets()
 	{
 		_opl.resetGuidePositions();
 		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem );
-		if( obsComp == null )
-			return;
-
-		if( obsComp.getPosList().getPosition( "GUIDE" ) == null )
-			return;
-
-		SpTelescopePos guidePos = ( SpTelescopePos ) obsComp.getPosList().getPosition( "GUIDE" );
-		SpTelescopePos basePos = obsComp.getPosList().getBasePosition();
-
-		double[] guideOffset = RADecMath.getOffset( guidePos.getXaxis() , guidePos.getYaxis() , basePos.getXaxis() , basePos.getYaxis() , _opl.getPosAngle() );
-		guideOffset[ 0 ] = guideOffset[ 0 ] * ( Math.cos( Math.toRadians( obsComp.getPosList().getBasePosition().getYaxis() ) ) );
-		// Create a offset position around the guide for each offset
-		for( int count = 0 ; count < _opl.size() ; count++ )
+		if( obsComp != null )
 		{
-			double[] thisGuideOffset = new double[ 2 ];
-			SpOffsetPos currPos = ( SpOffsetPos ) _opl.getPositionAt( count );
-			thisGuideOffset[ 0 ] = guideOffset[ 0 ] - currPos.getXaxis();
-			thisGuideOffset[ 1 ] = guideOffset[ 1 ] - currPos.getYaxis();
-			_opl.createGuideOffset( thisGuideOffset[ 0 ] , thisGuideOffset[ 1 ] );
+			if( obsComp.getPosList().getPosition( "GUIDE" ) != null )
+			{
+				SpTelescopePos guidePos = ( SpTelescopePos )obsComp.getPosList().getPosition( "GUIDE" );
+				SpTelescopePos basePos = obsComp.getPosList().getBasePosition();
+		
+				double[] guideOffset = RADecMath.getOffset( guidePos.getXaxis() , guidePos.getYaxis() , basePos.getXaxis() , basePos.getYaxis() , _opl.getPosAngle() );
+				guideOffset[ 0 ] *= ( Math.cos( Math.toRadians( obsComp.getPosList().getBasePosition().getYaxis() ) ) );
+				// Create a offset position around the guide for each offset
+				for( int count = 0 ; count < _opl.size() ; count++ )
+				{
+					double[] thisGuideOffset = new double[ 2 ];
+					SpOffsetPos currPos = ( SpOffsetPos )_opl.getPositionAt( count );
+					thisGuideOffset[ 0 ] = guideOffset[ 0 ] - currPos.getXaxis();
+					thisGuideOffset[ 1 ] = guideOffset[ 1 ] - currPos.getYaxis();
+					_opl.createGuideOffset( thisGuideOffset[ 0 ] , thisGuideOffset[ 1 ] );
+				}
+			}
 		}
 	}
 
-    /**
+	/**
 	 * Create sky offsets. See if we have any sky eyes amongst the children, and check if they are following the base offset. If they are, get the obsComp and calculate the offset from base of the sky offsets.
 	 */
-    private void createSkyOffsets()
+	private void createSkyOffsets()
 	{
-
 		_opl.resetSkyPositions();
 
-		// See if we can get the obsComp. If not, just return since
-		// we can't do anything without it.
+		// See if we can get the obsComp. If not, just return since we can't do anything without it.
 		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem );
 		if( obsComp == null )
-			return;
-
-		Vector children = new Vector();
-		getOffsetSkyChildren( ( SpIterOffset ) _spItem , children );
-		// Loop through all the children
-		for( int i = 0 ; i < children.size() ; i++ )
 		{
-			SpIterSky sky = ( SpIterSky ) children.get( i );
-
-			// Get the associated scale factor
-			double scale = sky.getScaleFactor();
-
-			// Get the corrsponding position entry from the obsComp
-			SpTelescopePos tp = ( SpTelescopePos ) obsComp.getPosList().getPosition( sky.getSky() );
-
-			// See if the sky position is specified as an offset or absolute
-			double[] childOffset;
-			if( !tp.isOffsetPosition() )
+			Vector children = new Vector();
+			getOffsetSkyChildren( ( SpIterOffset )_spItem , children );
+			// Loop through all the children
+			for( int i = 0 ; i < children.size() ; i++ )
 			{
-				// To simplify things, we convert this to an offset position internally
-				SpTelescopePos base = ( SpTelescopePos ) obsComp.getPosList().getBasePosition();
-				childOffset = RADecMath.getOffset( tp.getXaxis() , tp.getYaxis() , base.getXaxis() , base.getYaxis() , _opl.getPosAngle() );
-				childOffset[ 0 ] = childOffset[ 0 ] * Math.cos( Math.toRadians( base.getYaxis() ) );
-			}
-			else
-			{
-				childOffset = new double[ 2 ];
-				childOffset[ 0 ] = tp.getXaxis();
-				childOffset[ 1 ] = tp.getYaxis();
-			}
-
-			// Loop over all the current offset positions
-			for( int count = 0 ; count < _opl.size() ; count++ )
-			{
-				double[] skyOffset = new double[ 2 ];
-				// Get the current position and its coordinates
-				SpOffsetPos currPos = ( SpOffsetPos ) _opl.getPositionAt( count );
-				skyOffset[ 0 ] = childOffset[ 0 ] + scale * currPos.getXaxis();
-				skyOffset[ 1 ] = childOffset[ 1 ] + scale * currPos.getYaxis();
-				// Now create the sky offset position
-				_opl.createSkyPosition( skyOffset[ 0 ] , skyOffset[ 1 ] );
+				SpIterSky sky = ( SpIterSky )children.get( i );
+	
+				// Get the associated scale factor
+				double scale = sky.getScaleFactor();
+	
+				// Get the corrsponding position entry from the obsComp
+				SpTelescopePos tp = ( SpTelescopePos )obsComp.getPosList().getPosition( sky.getSky() );
+	
+				// See if the sky position is specified as an offset or absolute
+				double[] childOffset;
+				if( !tp.isOffsetPosition() )
+				{
+					// To simplify things, we convert this to an offset position internally
+					SpTelescopePos base = ( SpTelescopePos )obsComp.getPosList().getBasePosition();
+					childOffset = RADecMath.getOffset( tp.getXaxis() , tp.getYaxis() , base.getXaxis() , base.getYaxis() , _opl.getPosAngle() );
+					childOffset[ 0 ] = childOffset[ 0 ] * Math.cos( Math.toRadians( base.getYaxis() ) );
+				}
+				else
+				{
+					childOffset = new double[ 2 ];
+					childOffset[ 0 ] = tp.getXaxis();
+					childOffset[ 1 ] = tp.getYaxis();
+				}
+	
+				// Loop over all the current offset positions
+				for( int count = 0 ; count < _opl.size() ; count++ )
+				{
+					double[] skyOffset = new double[ 2 ];
+					// Get the current position and its coordinates
+					SpOffsetPos currPos = ( SpOffsetPos )_opl.getPositionAt( count );
+					skyOffset[ 0 ] = childOffset[ 0 ] + scale * currPos.getXaxis();
+					skyOffset[ 1 ] = childOffset[ 1 ] + scale * currPos.getYaxis();
+					// Now create the sky offset position
+					_opl.createSkyPosition( skyOffset[ 0 ] , skyOffset[ 1 ] );
+				}
 			}
 		}
 	}
 
-    /**
+	/**
 	 * Get all the sky children that are following offset.
 	 */
-    private void getOffsetSkyChildren( SpItem parent, Vector offsetSkys) {
-        Enumeration children = parent.children();
-        while ( children.hasMoreElements() ) {
-            SpItem child = (SpItem)children.nextElement();
-            if ( child instanceof SpIterSky && ((SpIterSky)child).getFollowOffset() ) {
-                offsetSkys.add(child);
-            }
-            else {
-                getOffsetSkyChildren( child, offsetSkys );
-            }
-        }
-    }
-
-    /**
-     * A table row was selected, so show the selected position.
-     *
-     * @see TableWidgetWatcher
-     */
-    public void	tableRowSelected(TableWidgetExt twe, int rowIndex) {
-	if (twe != _offTW) return;		// shouldn't happen
-
-	// Show the selected position
-	if (_curPos != null) _curPos.deleteWatcher(this);
-	_curPos = _offTW.getSelectedPos();
-	_curPos.addWatcher(this);
-	showPos(_curPos);
-
-	_avTab.set(".gui.selectedOffsetPos", _curPos.getTag());
-    }
-
-    /**
-     * As part of the TableWidgetWatcher interface, this method must
-     * be supported, though we don't care about TableWidget actions.
-     * @see TableWidgetWatcher
-     */
-    public void tableAction(TableWidgetExt twe, int colIndex, int rowIndex) {}
-
-    /**
-     * Watch changes to the x and y offset text boxes.
-     * @see TextBoxWidgetWatcher
-     */
-    public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-	SpIterOffset iterOffset = (SpIterOffset) _spItem;
-
-	if (tbwe == _w.xOffset) {
-	    double nVal = _xOffTBW.getDoubleValue(0.0);
-    
-	    if (_curPos == null)  return;
-	    _curPos.deleteWatcher(this);
-	    _curPos.setXY(nVal, _curPos.getYaxis());
-	    _curPos.addWatcher(this);
-
-	} 
-	else if (tbwe == _w.yOffset) {
-	    double nVal = _yOffTBW.getDoubleValue(0.0);
-    
-	    if (_curPos == null)  return;
-	    _curPos.deleteWatcher(this);
-	    _curPos.setXY(_curPos.getXaxis(), nVal);
-	    _curPos.addWatcher(this);
-
-	} 
-	else if (tbwe == _w.titleTBW) {
-	    _spItem.setTitleAttr(tbwe.getText().trim());
+	private void getOffsetSkyChildren( SpItem parent , Vector offsetSkys )
+	{
+		Enumeration children = parent.children();
+		while (children.hasMoreElements())
+		{
+			SpItem child = ( SpItem )children.nextElement();
+			if( child instanceof SpIterSky && ( ( SpIterSky )child ).getFollowOffset() )
+				offsetSkys.add( child );
+			else
+				getOffsetSkyChildren( child , offsetSkys );
+		}
 	}
-	else if (tbwe == _w.paTextBox) {
-	    iterOffset.setPosAngle(tbwe.getText().trim());
-	}	
-    }
- 
-    /**
-     * Text box action, ignore.
-     * @see TextBoxWidgetWatcher
-     */
-    public void textBoxAction(TextBoxWidgetExt tbwe) {}
- 
 
-    /**
-     * The current position location has changed.
-     * @see TelescopePosWatcher
-     */
-    public void telescopePosLocationUpdate(TelescopePos tp) {
-	telescopePosGenericUpdate(tp);
-    }
- 
+	/**
+	 * A table row was selected, so show the selected position.
+	 *
+	 * @see TableWidgetWatcher
+	 */
+	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
+	{
+		if( twe != _offTW )
+			return; // shouldn't happen
 
-    /**
-     * The current position has been changed in some way.
-     * @see TelescopePosWatcher
-     */
-    public void telescopePosGenericUpdate(TelescopePos tp) {
-	if (tp != _curPos) {
-	    // This shouldn't happen ...
-	    System.out.println(getClass().getName() + ": received a position " +
-			       " update for a position other than the current one: " + tp);
-	    return;
+		// Show the selected position
+		if( _curPos != null )
+			_curPos.deleteWatcher( this );
+		_curPos = _offTW.getSelectedPos();
+		_curPos.addWatcher( this );
+		showPos( _curPos );
+
+		_avTab.set( ".gui.selectedOffsetPos" , _curPos.getTag() );
 	}
-	showPos(_curPos);
-    }
 
-    private double _getGridXOffset() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridXOffset;
-	return tbwe.getDoubleValue(0.0);
-    }
+	/**
+	 * As part of the TableWidgetWatcher interface, this method must
+	 * be supported, though we don't care about TableWidget actions.
+	 * @see TableWidgetWatcher
+	 */
+	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ){}
 
-    private double _getGridYOffset() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridYOffset;
-	return tbwe.getDoubleValue(0.0);
-    }
+	/**
+	 * Watch changes to the x and y offset text boxes.
+	 * @see TextBoxWidgetWatcher
+	 */
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
+		SpIterOffset iterOffset = ( SpIterOffset )_spItem;
 
-    private double _getGridXSpacing() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridXSpacing;
-	return tbwe.getDoubleValue(0.0);
-    }
+		if( tbwe == _w.xOffset )
+		{
+			double nVal = _xOffTBW.getDoubleValue( 0.0 );
 
-    private double _getGridYSpacing() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridYSpacing;
-	return tbwe.getDoubleValue(0.0);
-    }
+			if( _curPos != null )
+			{
+				_curPos.deleteWatcher( this );
+				_curPos.setXY( nVal , _curPos.getYaxis() );
+				_curPos.addWatcher( this );
+			}
+		}
+		else if( tbwe == _w.yOffset )
+		{
+			double nVal = _yOffTBW.getDoubleValue( 0.0 );
 
-    private int _getGridRows() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridRows;
-	return tbwe.getIntegerValue(1);
-    }
+			if( _curPos != null )
+			{
+				_curPos.deleteWatcher( this );
+				_curPos.setXY( _curPos.getXaxis() , nVal );
+				_curPos.addWatcher( this );
+			}
+		}
+		else if( tbwe == _w.titleTBW )
+		{
+			_spItem.setTitleAttr( tbwe.getText().trim() );
+		}
+		else if( tbwe == _w.paTextBox )
+		{
+			iterOffset.setPosAngle( tbwe.getText().trim() );
+		}
+	}
 
-    private int _getGridCols() {
-	TextBoxWidgetExt tbwe;
-	tbwe = _w.gridCols;
-	return tbwe.getIntegerValue(1);
-    }
+	/**
+	 * Text box action, ignore.
+	 * @see TextBoxWidgetWatcher
+	 */
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
+	/**
+	 * The current position location has changed.
+	 * @see TelescopePosWatcher
+	 */
+	public void telescopePosLocationUpdate( TelescopePos tp )
+	{
+		telescopePosGenericUpdate( tp );
+	}
 
-    /*
-	* Add offset positions in a grid pattern, according to the specifications
-	* int the "Create Grid" group box.
-	*/
+	/**
+	 * The current position has been changed in some way.
+	 * @see TelescopePosWatcher
+	 */
+	public void telescopePosGenericUpdate( TelescopePos tp )
+	{
+		// This shouldn't happen ...
+		if( tp != _curPos )
+			System.out.println( getClass().getName() + ": received a position " + " update for a position other than the current one: " + tp );
+		else
+			showPos( _curPos );
+	}
+
+	private double _getGridXOffset()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridXOffset;
+		return tbwe.getDoubleValue( 0. );
+	}
+
+	private double _getGridYOffset()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridYOffset;
+		return tbwe.getDoubleValue( 0. );
+	}
+
+	private double _getGridXSpacing()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridXSpacing;
+		return tbwe.getDoubleValue( 0. );
+	}
+
+	private double _getGridYSpacing()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridYSpacing;
+		return tbwe.getDoubleValue( 0. );
+	}
+
+	private int _getGridRows()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridRows;
+		return tbwe.getIntegerValue( 1 );
+	}
+
+	private int _getGridCols()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = _w.gridCols;
+		return tbwe.getIntegerValue( 1 );
+	}
+
+	/*
+	 * Add offset positions in a grid pattern, according to the specifications
+	 * int the "Create Grid" group box.
+	 */
 	private void _createGrid()
 	{
-
 		if( _w.overwrite.isSelected() )
-			_opl.removeAllPositions() ;
-		
+			_opl.removeAllPositions();
+
 		double xOff = _getGridXOffset();
 		double yOff = _getGridYOffset();
 
@@ -422,10 +426,10 @@ public final class EdIterOffset extends OtItemEditor
 			for( int x = 0 ; x < cols ; ++x )
 			{
 				_opl.createPosition( xOff , yOff );
-				xOff = xOff + ( ( sign == -1 ) ? -xSpace : xSpace );
+				xOff += ( ( sign == -1 ) ? -xSpace : xSpace );
 			}
 			sign = -sign;
-			xOff = xOff + ( ( sign == -1 ) ? -xSpace : xSpace );
+			xOff += ( ( sign == -1 ) ? -xSpace : xSpace );
 			yOff -= ySpace;
 		}
 
@@ -444,24 +448,24 @@ public final class EdIterOffset extends OtItemEditor
 		}
 	}
 
-    /**
-     * Get the selected position.
-     */
-    public SpOffsetPos getSelectedPos() {
-	return _offTW.getSelectedPos();
-    }
- 
-    /**
+	/**
+	 * Get the selected position.
+	 */
+	public SpOffsetPos getSelectedPos()
+	{
+		return _offTW.getSelectedPos();
+	}
+
+	/**
 	 * Handle button presses.
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
 		Object w = evt.getSource();
 
-		// Create a new offset position
-
 		if( w == _w.newButton )
 		{
+			// Create a new offset position
 			SpOffsetPos op;
 			if( _curPos == null )
 			{
@@ -472,94 +476,55 @@ public final class EdIterOffset extends OtItemEditor
 				int i = _opl.getPositionIndex( _curPos );
 				op = _opl.createPosition( i + 1 );
 			}
-			return;
 		}
-
-		// Remove an offset position
-		if( w == _w.removeAllButton )
+		else if( w == _w.removeAllButton )
 		{
+			// Remove an offset position
 			_opl.removeAllPositions();
-			return;
 		}
-
-		// Remove an offset position
-
-		if( w == _w.removeButton )
+		else if( w == _w.removeButton )
 		{
-			if( _curPos == null )
-				return;
-
-			// Remove the selected position
-			_opl.removePosition( _curPos );
-
-			return;
+			// Remove an offset position
+			if( _curPos != null )
+				_opl.removePosition( _curPos );
 		}
-
-		// Move an offset position to the top
-
-		if( w == _w.topButton )
+		else if( w == _w.topButton )
 		{
-			if( _curPos == null )
-				return;
-
-			// Move the current position to the front.
-			_opl.positionToFront( _curPos );
-			return;
+			// Move an offset position to the top
+			if( _curPos != null )
+				_opl.positionToFront( _curPos );
 		}
-
-		// Move an offset position up
-
-		if( w == _w.upButton )
+		else if( w == _w.upButton )
 		{
-			if( _curPos == null )
-				return;
-
-			// Move the current position to the front.
-			_opl.decrementPosition( _curPos );
-			return;
+			// Move an offset position up
+			if( _curPos != null )
+				_opl.decrementPosition( _curPos );
 		}
-
-		// Move an offset position down
-
-		if( w == _w.downButton )
+		else if( w == _w.downButton )
 		{
-			if( _curPos == null )
-				return;
-
-			// Move the current position to the front.
-			_opl.incrementPosition( _curPos );
-			return;
+			// Move an offset position down
+			if( _curPos != null )
+				_opl.incrementPosition( _curPos );
 		}
-
-		// Move an offset position to the back
-
-		if( w == _w.bottomButton )
+		else if( w == _w.bottomButton )
 		{
-			if( _curPos == null )
-				return;
-
-			// Move the current position to the front.
-			_opl.positionToBack( _curPos );
-			return;
+			// Move an offset position to the back
+			if( _curPos != null )
+				_opl.positionToBack( _curPos );
 		}
-
-		// Grid creation
-		if( w == _w.createGridButton )
+		else if( w == _w.createGridButton )
 		{
+			// Grid creation
 			_createGrid();
-			return;
 		}
-
-		// Centre grid on base position (MFO, 24 August 2001)
-		if( w == _w.centreOnBaseButton )
+		else if( w == _w.centreOnBaseButton )
 		{
+			// Centre grid on base position (MFO, 24 August 2001)
 			setGridOffsets();
-			return;
 		}
-
-		// Take Scan Area width and height as spacing paramters.
-		if( w == _w.setSpacingButton )
+		else if( w == _w.setSpacingButton )
 		{
+			// Take Scan Area width and height as spacing paramters.
 			SpIterRasterObs iterRaster = getRasterObsIterator( _spItem );
 
 			if( iterRaster == null )
@@ -574,101 +539,107 @@ public final class EdIterOffset extends OtItemEditor
 		}
 	}
 
-  // Added by MFO (20 February 2002)
-  public void mouseClicked(MouseEvent e) { }
-  public void mouseEntered(MouseEvent e) { }
-  public void mouseExited(MouseEvent e) { }
-  public void mousePressed(MouseEvent e) {
-    setOffsetsRotation(true);
-    _w.displayRotatedOffsets.setText(BUTTON_TEXT_ROTATION_TRUE);
-  }
-
-  public void mouseReleased(MouseEvent e) {
-    setOffsetsRotation(false);
-    _w.displayRotatedOffsets.setText(BUTTON_TEXT_ROTATION_FALSE);
-  }
-
-
-    /**
-     * Centers the pattern around (0, 0).
-     *
-     * Added by MFO (22 August 2001).
-     */
-    protected void setGridOffsets() {
-      // x
-      double gridOffset  =  0;
-      double gridSpacing = 60;
-      double gridSteps   =  2;
-      
-      gridSpacing = _w.gridXSpacing.getDoubleValue(gridSpacing);
-      gridSteps   = _w.gridCols.getDoubleValue(gridSteps);
-
-      gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
-      _w.gridXOffset.setValue(gridOffset);
-
-      // y
-      gridOffset  =  0;
-      gridSpacing = 60;
-      gridSteps   =  2;
-      
-      gridSpacing = _w.gridYSpacing.getDoubleValue(gridSpacing);
-      gridSteps   = _w.gridRows.getDoubleValue(gridSteps);
-
-      gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
-      _w.gridYOffset.setValue(gridOffset);
-
-      _createGrid();
-    }
-
-    public void setOffsetsRotation(boolean rotated) {
-      if(rotated) {
-        _w.paTextBox.setValue("0.0");
-
-	// Get the current offset list
-	double posAngle, rotatedX, rotatedY;
-	TelescopePos tp;
-	for(int i = 0; i < _opl.size(); i++) {
-	  tp = _opl.getPositionAt(i);
-	  posAngle = _opl.getPosAngle();
-
-	  rotatedX = (tp.getXaxis() *   Math.cos(posAngle*TO_RADIANS) ) + 
-	      (tp.getYaxis() * Math.sin(posAngle*TO_RADIANS));
-	  rotatedY = (tp.getXaxis() * (-Math.sin(posAngle*TO_RADIANS))) + 
-	      (tp.getYaxis() * Math.cos(posAngle*TO_RADIANS));
-
-          _offTW.setValueAt("" + (Math.rint(rotatedX * 10) / 10), i, 1);
-          _offTW.setValueAt("" + (Math.rint(rotatedY * 10) / 10), i, 2);
-        }
-      }
-      // Undo the rotation
-      else {
-        _updateWidgets();
-      }
-    }
-
-    /**
-     * Checks whether this offset iterator contains a Scan/Raster map.
-     *
-     * Returns true if there is an instance of {@link orac.jcmt.iter.SpIterRasterObs}
-     * inside the offset iterator item.
-     */
-    private static SpIterRasterObs getRasterObsIterator(SpItem spItem) {
-      Enumeration children   = spItem.children();
-      SpItem  child          = null;
-      SpIterRasterObs result = null;
-
-      while(children.hasMoreElements() && (result == null)) {
-        child = (SpItem)children.nextElement();
-
-        if(child instanceof SpIterRasterObs) {
-          result = (SpIterRasterObs)child;
+	// Added by MFO (20 February 2002)
+	public void mouseClicked( MouseEvent e ){}
+	public void mouseEntered( MouseEvent e ){}
+	public void mouseExited( MouseEvent e ){}
+	public void mousePressed( MouseEvent e )
+	{
+		setOffsetsRotation( true );
+		_w.displayRotatedOffsets.setText( BUTTON_TEXT_ROTATION_TRUE );
 	}
-	else {
-          result = getRasterObsIterator(child);
-	}
-      }
 
-      return result;
-    }
+	public void mouseReleased( MouseEvent e )
+	{
+		setOffsetsRotation( false );
+		_w.displayRotatedOffsets.setText( BUTTON_TEXT_ROTATION_FALSE );
+	}
+
+	/**
+	 * Centers the pattern around (0, 0).
+	 *
+	 * Added by MFO (22 August 2001).
+	 */
+	protected void setGridOffsets()
+	{
+		// x
+		double gridOffset = 0;
+		double gridSpacing = 60;
+		double gridSteps = 2;
+
+		gridSpacing = _w.gridXSpacing.getDoubleValue( gridSpacing );
+		gridSteps = _w.gridCols.getDoubleValue( gridSteps );
+
+		gridOffset = ( gridSpacing / 2. ) * ( gridSteps - 1 );
+		_w.gridXOffset.setValue( gridOffset );
+
+		// y
+		gridOffset = 0;
+		gridSpacing = 60;
+		gridSteps = 2;
+
+		gridSpacing = _w.gridYSpacing.getDoubleValue( gridSpacing );
+		gridSteps = _w.gridRows.getDoubleValue( gridSteps );
+
+		gridOffset = ( gridSpacing / 2. ) * ( gridSteps - 1 );
+		_w.gridYOffset.setValue( gridOffset );
+
+		_createGrid();
+	}
+
+	public void setOffsetsRotation( boolean rotated )
+	{
+		if( rotated )
+		{
+			_w.paTextBox.setValue( "0.0" );
+
+			// Get the current offset list
+			double posAngle , rotatedX , rotatedY;
+			TelescopePos tp;
+			for( int i = 0 ; i < _opl.size() ; i++ )
+			{
+				tp = _opl.getPositionAt( i );
+				posAngle = Math.toRadians( _opl.getPosAngle() );
+				double cos = Math.cos( posAngle );
+				double sin = Math.sin( posAngle );
+				double xAxis = tp.getXaxis();
+				double yAxis = tp.getYaxis();
+
+				rotatedX = ( xAxis * cos ) + ( yAxis * sin );
+				rotatedY = ( xAxis * -sin ) + ( yAxis * cos );
+
+				_offTW.setValueAt( "" + ( Math.rint( rotatedX * 10. ) / 10. ) , i , 1 );
+				_offTW.setValueAt( "" + ( Math.rint( rotatedY * 10. ) / 10. ) , i , 2 );
+			}
+		}
+		// Undo the rotation
+		else
+		{
+			_updateWidgets();
+		}
+	}
+
+	/**
+	 * Checks whether this offset iterator contains a Scan/Raster map.
+	 *
+	 * Returns true if there is an instance of {@link orac.jcmt.iter.SpIterRasterObs}
+	 * inside the offset iterator item.
+	 */
+	private static SpIterRasterObs getRasterObsIterator( SpItem spItem )
+	{
+		Enumeration children = spItem.children();
+		SpItem child = null;
+		SpIterRasterObs result = null;
+
+		while (children.hasMoreElements() && ( result == null ))
+		{
+			child = ( SpItem )children.nextElement();
+
+			if( child instanceof SpIterRasterObs )
+				result = ( SpIterRasterObs )child;
+			else
+				result = getRasterObsIterator( child );
+		}
+		return result;
+	}
 }
-
