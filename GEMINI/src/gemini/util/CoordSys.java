@@ -96,4 +96,28 @@ public class CoordSys
 			return null;
 		return COORD_SYS[ coordSysInt ];
 	}
+
+	/**
+	 * Get the string representing the x axis label for a given 
+	 * coordinate system from its associated int.  
+	 * If the int is out of range, return null.
+	 */
+	public static String getXAxisLabel( int coordSysInt )
+	{
+		if( ( coordSysInt < 0 ) || ( coordSysInt >= X_AXIS_LABEL.length ) )
+			return null;
+		return X_AXIS_LABEL[ coordSysInt ];		
+	}
+	
+	/**
+	 * Get the string representing the y axis label for a given 
+	 * coordinate system from its associated int.  
+	 * If the int is out of range, return null.
+	 */
+	public static String getYAxisLabel( int coordSysInt )
+	{
+		if( ( coordSysInt < 0 ) || ( coordSysInt >= Y_AXIS_LABEL.length ) )
+			return null;
+		return Y_AXIS_LABEL[ coordSysInt ];		
+	}
 }
