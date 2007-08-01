@@ -117,8 +117,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    */
   protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
 
-  private boolean _freqEditorConfigured = false;
-
   private SpInstHeterodyne _inst;
 
   boolean _hidingFrequencyEditor = false;
@@ -775,7 +773,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				clickButton( _w.fPanel , "Accept" );
 				_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				configureFrequencyEditor( ci.$shifts );
-				_freqEditorConfigured = true;
 				configured = true ;
 			}
 			_updateWidgets();
@@ -902,7 +899,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		;
 
 		_updateWidgets();
-		_freqEditorConfigured = false;
 	}
 
 	private void _adjustCentralFrequencies()
