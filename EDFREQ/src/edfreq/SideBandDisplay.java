@@ -1,69 +1,66 @@
-/*==============================================================*/
+/* ============================================================== */
 /*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001                   */
+/* UK Astronomy Technology Centre */
+/* Royal Observatory, Edinburgh */
+/* Joint Astronomy Centre, Hilo */
+/* Copyright (c) PPARC 2001 */
 /*                                                              */
-/*==============================================================*/
+/* ============================================================== */
 // $Id$
-
 package edfreq;
 
-
-import java.awt.Container ;
-import java.awt.BorderLayout ;
-import java.awt.Dimension ;
-import java.awt.Color ;
-import java.awt.event.MouseListener ;
-import java.awt.event.MouseEvent ;
-import java.awt.event.WindowAdapter ;
-import java.awt.event.WindowEvent ;
-import javax.swing.JFrame ;
-import javax.swing.JSlider ;
-import javax.swing.JPanel ;
-import javax.swing.Box ;
-import javax.swing.SwingConstants ;
-import javax.swing.JLabel ;
-import javax.swing.SwingUtilities ;
-import javax.swing.JOptionPane ;
-import javax.swing.event.ChangeListener ;
-import javax.swing.event.ChangeEvent ;
-import java.util.Hashtable ;
-import java.util.Vector ;
+import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JSlider;
+import javax.swing.JPanel;
+import javax.swing.Box;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger
+ *         (M.Folger@roe.ac.uk)
  */
-public class SideBandDisplay extends JFrame implements ChangeListener, MouseListener
+public class SideBandDisplay extends JFrame implements ChangeListener , MouseListener
 {
 
-   private double subBandWidth;
-   private int displayWidth = EdFreq.DISPLAY_WIDTH ;
-   private JSlider slider;
-   private EmissionLines el;
-   private GraphScale localScale;
-   private GraphScale targetScale;
-   private Box targetPanel;
-   private Box dataPanel;
-   private Box titlePanel;
-   private Box contentPanel;
-   private double redshift;
-   private FrequencyTable jt;
-   private HeterodyneEditor hetEditor;
-   private Container contentPane;
-   private JPanel area1;
-   private JPanel area2;
-   private JPanel area3;
-   private JPanel area4;
-   
-   private double _lo1;
-   private double _lRangeLimit;
-   private double _uRangeLimit;
+	private double subBandWidth;
+	private int displayWidth = EdFreq.DISPLAY_WIDTH;
+	private JSlider slider;
+	private EmissionLines el;
+	private GraphScale localScale;
+	private GraphScale targetScale;
+	private Box targetPanel;
+	private Box dataPanel;
+	private Box titlePanel;
+	private Box contentPanel;
+	private double redshift;
+	private FrequencyTable jt;
+	private HeterodyneEditor hetEditor;
+	private Container contentPane;
+	private JPanel area1;
+	private JPanel area2;
+	private JPanel area3;
+	private JPanel area4;
+	private double _lo1;
+	private double _lRangeLimit;
+	private double _uRangeLimit;
+	private boolean _ignoreEvents = false;
 
-   private boolean _ignoreEvents = false;
-
-   public SideBandDisplay( HeterodyneEditor hetEditor )
+	public SideBandDisplay( HeterodyneEditor hetEditor )
 	{
 		super( "Frequency editor" );
 		setResizable( false );
@@ -76,6 +73,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		addWindowListener( new WindowAdapter()
 		{
+
 			public void windowClosing( WindowEvent e )
 			{
 				int option = JOptionPane.showConfirmDialog( null , "This will delete your changes." + "\nTo save, use the 'hide' button on the heterodyne editor." + "\nDo you want to save your changes?" , "Changes will be deleted" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
@@ -87,29 +85,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 	}
 
-	public void updateDisplay( String feName , 
-								double lRangeLimit , 
-									double uRangeLimit , 
-										double feIF , 
-											double feBandWidth , 
-												int nMixers , 
-													double redshift , 
-														double[] bandWidths , 
-															int[] channels , 
-																int samplerCount )
+	public void updateDisplay( String feName , double lRangeLimit , double uRangeLimit , double feIF , double feBandWidth , int nMixers , double redshift , double[] bandWidths , int[] channels , int samplerCount )
 	{
-
 		setTitle( "Frequency editor: front end = " + feName );
-		// System.out.println("Updating sideband display with parametrs");
-		// System.out.println("feName = "+feName);
-		// System.out.println("lRangeLimit = "+lRangeLimit);
-		// System.out.println("uRangeLimit = "+uRangeLimit);
-		// System.out.println("feIF = "+feIF);
-		// System.out.println("feBandWidth = "+feBandWidth);
-		// System.out.println("nMixers = "+nMixers);
-		// System.out.println("redshift = "+redshift);
-		// Exception ex = new Exception ();
-		// ex.printStackTrace();
 
 		int j;
 
@@ -129,18 +107,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		double lowIF = mid - feIF - ( feBandWidth * 0.5 );
 		double highIF = mid + feIF + ( feBandWidth * 0.5 );
 
-		// System.out.println("SideBandDisplay: Getting emission lines with parameters:");
-		// System.out.println("\tlRangeLimit="+lRangeLimit);
-		// System.out.println("\tuRangeLimit="+uRangeLimit);
-		// System.out.println("\tfeIF="+feIF);
-		// System.out.println("\tfeBandWidth="+feBandWidth);
-		// System.out.println("\tlowIF="+lowIF);
-		// System.out.println("\thighIF="+highIF);
-		// System.out.println("\tredshift="+redshift);
-		// System.out.println("\tdisplayWidth="+displayWidth);
-		// System.out.println("\tsamplerCount="+samplerCount);
 		el = new EmissionLines( lowIF , highIF , redshift , displayWidth , 20 , samplerCount );
-		// System.out.println("el=" + el);
 
 		jt = new FrequencyTable( feIF , feBandWidth , bandWidths , channels , samplerCount , displayWidth , this , hetEditor , el , nMixers );
 
@@ -151,12 +118,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		{
 			st = new SkyTransmission( feName , lowIF , highIF , displayWidth , 80 );
 		}
-		catch( Exception e )
-		{
-			// e.printStackTrace();
-		}
-
-		double pixelsPerValue = 1.0E9 * displayWidth / ( uRangeLimit - lRangeLimit );
+		catch( Exception e ){}
 
 		targetScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , redshift , 9 , displayWidth , JSlider.HORIZONTAL );
 		localScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , 0.0 , 9 , displayWidth , JSlider.HORIZONTAL );
@@ -184,7 +146,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		slider.addChangeListener( ( ChangeListener )el );
 		if( st != null )
-			slider.addChangeListener( ( ChangeListener ) st );
+			slider.addChangeListener( ( ChangeListener )st );
 		slider.addChangeListener( ( ChangeListener )targetScale );
 		slider.addChangeListener( ( ChangeListener )localScale );
 		slider.addChangeListener( this );
@@ -283,114 +245,109 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		if( slider != null )
 		{
-			int centre = ( int )Math.rint( _lo1 / EdFreq.SLIDERSCALE ) ;
+			int centre = ( int )Math.rint( _lo1 / EdFreq.SLIDERSCALE );
 			slider.setValue( centre );
 		}
 
 		_ignoreEvents = false;
 	}
 
-   public double getLO1 ( )
-   {
-      return _lo1; // (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
-   }
+	public double getLO1()
+	{
+		return _lo1; // (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
+	}
 
-   public void setMainLine ( double frequency )
-   {
-      if(el != null) {
-         el.setMainLine ( frequency );
-      }
-   }
+	public void setMainLine( double frequency )
+	{
+		if( el != null )
+			el.setMainLine( frequency );
+	}
 
-   public void setSideLine ( double frequency )
-   {
-      if(el != null) {
-         el.setSideLine ( frequency );
-      }
-   }
+	public void setSideLine( double frequency )
+	{
+		if( el != null )
+			el.setSideLine( frequency );
+	}
 
-   public void setRedshift ( double redshift )
-   {
-      this.redshift = redshift;
+	public void setRedshift( double redshift )
+	{
+		this.redshift = redshift;
 
-      if(el != null) {
-// 	  System.out.println("Setting emmission line redshift");
-         el.setRedshift ( redshift );
-      }
+		if( el != null )
+			el.setRedshift( redshift );
 
-      if(targetScale != null) {
-// 	  System.out.println("Setting target scale redshift");
-         targetScale.setRedshift ( redshift );
-      }
-   }
+		if( targetScale != null )
+			targetScale.setRedshift( redshift );
+	}
 
+	public double getTopSubSystemCentreFrequency()
+	{
+		if( jt == null )
+			return 0.0;
+		else
+			return ( ( Sampler )jt.getSamplers()[ 0 ] ).getCentreFrequency();
+	}
 
-   public double getTopSubSystemCentreFrequency() {
-       if ( jt == null ) {
-	   return 0.0;
-       }
-       else {
-	   return ((Sampler)jt.getSamplers()[0]).getCentreFrequency();
-       }
-   }
+	public int getResolution( int subsystem )
+	{
+		if( jt == null )
+			return 0;
+		else
+			return ( ( Sampler )jt.getSamplers()[ subsystem ] ).getResolution();
+	}
 
-   public int getResolution(int subsystem) {
-       if ( jt == null ) {
-	   return 0;
-       }
-       else {
-	   return ((Sampler)jt.getSamplers()[subsystem]).getResolution();
-       }
-   }
+	public int getNumSubSystems()
+	{
+		if( jt == null )
+			return 0;
+		else
+			return jt.getSamplers().length;
+	}
 
-   public int getNumSubSystems() {
-       if ( jt == null ) {
-	   return 0;
-       }
-       else {
-	   return jt.getSamplers().length;
-       }
-   }
+	public void setCentreFrequency( double centre , int subsystem )
+	{
+		if( jt == null )
+			return;
+		jt.getSamplers()[ subsystem ].setCentreFrequency( centre );
+	}
 
-   public void setCentreFrequency(double centre, int subsystem) {
-       if ( jt == null) return;
-       jt.getSamplers()[subsystem].setCentreFrequency(centre);
-   }
+	public void setBandWidth( double width , int subsystem )
+	{
+		if( jt == null )
+			return;
+		jt.getSamplers()[ subsystem ].setBandWidth( width );
+	}
 
-   public void setBandWidth(double width, int subsystem) {
-       if ( jt == null) return;
-       jt.getSamplers()[subsystem].setBandWidth(width);
-   }
+	public void setLineText( String lineText , int subsystem )
+	{
+		if( jt == null )
+			return;
+		jt.setLineText( lineText , subsystem );
+	}
 
-   public void setLineText(String lineText, int subsystem) {
-       if ( jt == null) return;
-      jt.setLineText(lineText, subsystem);
-   }
+	public void resetModeAndBand( String mode , String band )
+	{
+		if( jt == null )
+			return;
+		jt.resetModeAndBand( mode , band );
+	}
 
-   public void resetModeAndBand(String mode, String band)
-   {
-       if ( jt == null) return;
-      jt.resetModeAndBand(mode, band);
-   }
+	public void moveSlider( String band , double newPos , int subsystem )
+	{
+		double deltaF = 4.0e9 - newPos;
+		if( jt == null )
+			return;
+		jt.moveSlider( band , deltaF , subsystem );
+	}
 
-    public void moveSlider( String band, double newPos, int subsystem ) {
-	double deltaF = 4.0e9 - newPos;
-       if ( jt == null) return;
-	jt.moveSlider(band, deltaF, subsystem);
-    }
-
-    /**
-	 * Get the current frequency editor setup. 
-	 * The following information is returned in each vector: 
-	 * 0: molecule name (String) 
-	 * 1: transition (String) 
-	 * 2: Rest Frequency (Double) 
-	 * 3: Centre Frequerncy (Double) 
-	 * 4: Bandwidth (Double) 
-	 * 5: Number of channels (Integer) 
-	 * 6: resolution One vector is returned for each susbsystem. 
-	 * This method replaces other calls for setting things in the heterodyne editor.
-	 */
+	/**
+     * Get the current frequency editor setup. The following information is
+     * returned in each vector: 0: molecule name (String) 1: transition (String)
+     * 2: Rest Frequency (Double) 3: Centre Frequerncy (Double) 4: Bandwidth
+     * (Double) 5: Number of channels (Integer) 6: resolution One vector is
+     * returned for each susbsystem. This method replaces other calls for
+     * setting things in the heterodyne editor.
+     */
 	public Vector[] getCurrentConfiguration()
 	{
 		// Create the array
@@ -412,21 +369,20 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 				text = jt.getLineText( i );
 				if( text != null )
 				{
-					/* 
-					 * Parse the string
-					 * First see if it starts with "No Line"
-					 */
+					/*
+                     * Parse the string First see if it starts with "No Line"
+                     */
 					if( text.startsWith( HeterodyneEditor.NO_LINE ) )
 					{
 						results[ i ].add( HeterodyneEditor.NO_LINE );
 						results[ i ].add( HeterodyneEditor.NO_LINE );
-						
-						String frequency = text.substring( text.lastIndexOf( ' ' ) ) ;
-						double rf ;
+
+						String frequency = text.substring( text.lastIndexOf( ' ' ) );
+						double rf;
 						if( frequency.matches( "\\d*.??\\d*" ) )
-							rf = Double.parseDouble( frequency ) * 1.0E6 ;
+							rf = Double.parseDouble( frequency ) * 1.0E6;
 						else
-							rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() ) ;
+							rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() );
 						results[ i ].add( new Double( rf ) );
 					}
 					else
@@ -436,9 +392,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 						results[ i ].add( molecule.trim() );
 						// Get the transition
 						String transition = text.substring( text.indexOf( "  " ) + 1 , text.lastIndexOf( "  " ) );
-						transition = transition.trim() + " " ;
+						transition = transition.trim() + " ";
 						results[ i ].add( transition );
-						double f = Double.parseDouble( text.substring( text.lastIndexOf( ' ' ) ) ) * 1.0E6 ;
+						double f = Double.parseDouble( text.substring( text.lastIndexOf( ' ' ) ) ) * 1.0E6;
 						results[ i ].add( new Double( f ) );
 					}
 				}
@@ -456,55 +412,83 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		return results;
 	}
 
+	public static void main( String args[] )
+	{
+		// Create SideBandDisplay with anonymous HeterodyneEditor implementation
+		// that does not do anything.
+		SideBandDisplay sbt = new SideBandDisplay( new HeterodyneEditor()
+		{
 
-   public static void main(String args[]) 
-   {
-      // Create SideBandDisplay with anonymous HeterodyneEditor implementation
-      // that does not do anything.
-      SideBandDisplay sbt = new SideBandDisplay ( new HeterodyneEditor() {
-         public String getFeBand() { return "usb"; }
-         public String getMode() { return "dsb"; }
-         public double getRedshift() { return 0.0; }
-         public double getRestFrequency(int subsystem) { return 0.0; }
-         public double getObsFrequency(int subsystem) { return 0.0; }
-         public void updateCentreFrequency(double centre, int subsystem) { }
-         public void updateBandWidth(double width, int subsystem) { }
-         public void updateChannels(int channels, int subsystem) { }
-         public void updateLineDetails(LineDetails lineDetails, int subsystem) { }
-         public void updateLO1(double lo1) { }
-         public double getCurrentBandwidth(int subsystem) { return 0.0; }
-      } );
+			public String getFeBand()
+			{
+				return "usb";
+			}
 
-      sbt.updateDisplay( "Frequency editor test",
-			 365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 1, 0.0, 
-        new double[] { 0.25E9, 1.0E9 }, new int [] { 8192, 2048 }, 8 );
-      sbt.setVisible(true);
-   }
+			public String getMode()
+			{
+				return "dsb";
+			}
 
+			public double getRedshift()
+			{
+				return 0.0;
+			}
 
-   public void stateChanged(ChangeEvent e) {
-      if(_ignoreEvents) {
-         return;
-      }
+			public double getRestFrequency( int subsystem )
+			{
+				return 0.0;
+			}
 
-      _lo1 = (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
+			public double getObsFrequency( int subsystem )
+			{
+				return 0.0;
+			}
 
-      hetEditor.updateLO1(getLO1());
-   }
+			public void updateCentreFrequency( double centre , int subsystem ){}
 
-   public void mouseClicked(MouseEvent e) { }
-   public void mouseEntered(MouseEvent e) { }
-   public void mouseExited(MouseEvent e) { }
+			public void updateBandWidth( double width , int subsystem ){}
 
-   public void mousePressed(MouseEvent e) {
-      if(SwingUtilities.isRightMouseButton(e)) {
-         slider.setEnabled(true);
-      }
-   }
+			public void updateChannels( int channels , int subsystem ){}
 
-   public void mouseReleased(MouseEvent e) {
-      if(SwingUtilities.isRightMouseButton(e)) {
-         slider.setEnabled(false);
-      }
-   }
+			public void updateLineDetails( LineDetails lineDetails , int subsystem ){}
+
+			public void updateLO1( double lo1 ){}
+
+			public double getCurrentBandwidth( int subsystem )
+			{
+				return 0.0;
+			}
+		} );
+
+		sbt.updateDisplay( "Frequency editor test" , 365.0E+9 , 375.0E+9 , 4.0E9 , 1.8E9 , 1 , 0.0 , new double[] { 0.25E9 , 1.0E9 } , new int[] { 8192 , 2048 } , 8 );
+		sbt.setVisible( true );
+	}
+
+	public void stateChanged( ChangeEvent e )
+	{
+		if( _ignoreEvents )
+			return;
+
+		_lo1 = ( double )slider.getValue() * EdFreq.SLIDERSCALE;
+
+		hetEditor.updateLO1( getLO1() );
+	}
+
+	public void mouseClicked( MouseEvent e ){}
+
+	public void mouseEntered( MouseEvent e ){}
+
+	public void mouseExited( MouseEvent e ){}
+
+	public void mousePressed( MouseEvent e )
+	{
+		if( SwingUtilities.isRightMouseButton( e ) )
+			slider.setEnabled( true );
+	}
+
+	public void mouseReleased( MouseEvent e )
+	{
+		if( SwingUtilities.isRightMouseButton( e ) )
+			slider.setEnabled( false );
+	}
 }

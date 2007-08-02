@@ -1,13 +1,12 @@
-/*==============================================================*/
+/* ============================================================== */
 /*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001                   */
+/* UK Astronomy Technology Centre */
+/* Royal Observatory, Edinburgh */
+/* Joint Astronomy Centre, Hilo */
+/* Copyright (c) PPARC 2001 */
 /*                                                              */
-/*==============================================================*/
+/* ============================================================== */
 // $Id$
-
 package edfreq;
 
 /**
@@ -15,18 +14,17 @@ package edfreq;
  */
 public class Transition
 {
-   public String name;
-   public double frequency;
+	public String name;
+	public double frequency;
 
-   public Transition ( String name, double frequency )
-   {
-      this.name = name;
-      this.frequency = frequency;
-   }
+	public Transition( String name , double frequency )
+	{
+		this.name = name;
+		this.frequency = frequency;
+	}
 
-   public String toString()
-   {
-      return name;
-   }
-
+	public String toString()
+	{
+		return name;
+	}
 }

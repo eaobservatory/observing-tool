@@ -1,13 +1,12 @@
-/*==============================================================*/
+/* ============================================================== */
 /*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001                   */
+/* UK Astronomy Technology Centre */
+/* Royal Observatory, Edinburgh */
+/* Joint Astronomy Centre, Hilo */
+/* Copyright (c) PPARC 2001 */
 /*                                                              */
-/*==============================================================*/
+/* ============================================================== */
 // $Id$
-
 package edfreq;
 
 /**
@@ -15,6 +14,6 @@ package edfreq;
  */
 interface SamplerWatcher
 {
-   public void updateSamplerValues ( double centre, double width, 
-   int channels );
+
+	public void updateSamplerValues( double centre , double width , int channels );
 }
