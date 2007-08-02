@@ -1,13 +1,12 @@
-/*==============================================================*/
+/* ============================================================== */
 /*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001                   */
+/* UK Astronomy Technology Centre */
+/* Royal Observatory, Edinburgh */
+/* Joint Astronomy Centre, Hilo */
+/* Copyright (c) PPARC 2001 */
 /*                                                              */
-/*==============================================================*/
+/* ============================================================== */
 // $Id$
-
 package omp;
 
 /**
@@ -16,9 +15,11 @@ package omp;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpChangedOnDiskException extends Exception {
-  SpChangedOnDiskException(String message) {
-    super(message);
-  }
-}
+public class SpChangedOnDiskException extends Exception
+{
 
+	SpChangedOnDiskException( String message )
+	{
+		super( message );
+	}
+}

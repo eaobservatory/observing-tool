@@ -16,19 +16,22 @@ import org.apache.soap.SOAPException;
 
 /**
  * SoapClient.java
- *
- *
+ * 
+ * 
  * Created: Mon Aug 27 18:30:31 2001
- *
- * @author <a href="mailto:mrippa@jach.hawaii.edu">Mathew Rippa</a>,
- * modified by Martin Folger
- *
- * $Id$ 
+ * 
+ * @author <a href="mailto:mrippa@jach.hawaii.edu">Mathew Rippa</a>, modified
+ *         by Martin Folger
+ * 
+ * $Id$
  */
 public class SoapClient
 {
 
-	/** Soap fault caused by attempt to store a Science Program to server whose time stamp has changed. */
+	/**
+     * Soap fault caused by attempt to store a Science Program to server whose
+     * time stamp has changed.
+     */
 	public static final String FAULT_CODE_SP_CHANGED_ON_DISK = "SOAP-ENV:Server.SpChangedOnDisk";
 
 	private static Header header = null;
@@ -38,44 +41,50 @@ public class SoapClient
 	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser";
 
 	/**
-	 * <code>addParameter</code>. Add a Parameter to the next Call that
-	 * is to take place.
-	 *
-	 * @param name a <code>String</code> value. The name of the
-	 * parameter to be added to next soap Call.
-
-	 * @param type a <code>Class</code> value. The explicit Class of
-	 * this parameter.
-
-	 * @param val an <code>Object</code> value. The object to register this Parameter with.
-	 */
+     * <code>addParameter</code>. Add a Parameter to the next Call that is to
+     * take place.
+     * 
+     * @param name
+     *            a <code>String</code> value. The name of the parameter to be
+     *            added to next soap Call.
+     * 
+     * @param type
+     *            a <code>Class</code> value. The explicit Class of this
+     *            parameter.
+     * 
+     * @param val
+     *            an <code>Object</code> value. The object to register this
+     *            Parameter with.
+     */
 	protected static void addParameter( String name , Class type , Object val )
 	{
 		params.add( new Parameter( name , type , val , null ) );
 	}
 
 	/**
-	 * <code>flushParameter</code> Clear the Vector of
-	 * <code>Parameters</code> Objects to be sent in the next Call.
-	 * 
-	 */
+     * <code>flushParameter</code> Clear the Vector of <code>Parameters</code>
+     * Objects to be sent in the next Call.
+     * 
+     */
 	protected static void flushParameter()
 	{
 		params.clear();
 	}
 
 	/**
-	 * <code>doCall</code> Send the Call with various configurations.
-	 *
-	 * @param url an <code>URL</code> val indicating the soap server to
-	 * connect to.
-	 * @param soapAction a <code>String</code>. The URN like
-	 * "urn:OMP::MSBServer"
-	 * @param methodName a <code>String</code> The name of the method to
-	 * call in the server.
-	 * @return an <code>Object</code> returned by the method called in
-	 * the server .
-	 */
+     * <code>doCall</code> Send the Call with various configurations.
+     * 
+     * @param url
+     *            an <code>URL</code> val indicating the soap server to
+     *            connect to.
+     * @param soapAction
+     *            a <code>String</code>. The URN like "urn:OMP::MSBServer"
+     * @param methodName
+     *            a <code>String</code> The name of the method to call in the
+     *            server.
+     * @return an <code>Object</code> returned by the method called in the
+     *         server .
+     */
 	protected static Object doCall( URL url , String soapAction , String methodName ) throws Exception
 	{
 		Object obj = new Object();
@@ -100,7 +109,7 @@ public class SoapClient
 				call.setSOAPTransport( st );
 			}
 			Response resp = call.invoke( url , soapAction );
-			// check response 
+			// check response
 			if( !resp.generatedFault() )
 			{
 				Parameter ret = resp.getReturnValue();
@@ -109,12 +118,11 @@ public class SoapClient
 				else
 					obj = ret.getValue();
 
-				//Reset the params vector.
+				// Reset the params vector.
 				params.clear();
 
-				//return result;
+				// return result;
 				return obj;
-
 			}
 			else
 			{
@@ -122,13 +130,9 @@ public class SoapClient
 
 				// Handle special fault codes here.
 				if( fault.getFaultCode().equals( FAULT_CODE_SP_CHANGED_ON_DISK ) )
-				{
 					throw new SpChangedOnDiskException( fault.getFaultString() );
-				}
 				else if( fault.getFaultCode().equals( FAULT_CODE_INVALID_USER ) )
-				{
 					throw new InvalidUserException( fault.getFaultString() );
-				}
 
 				JOptionPane.showMessageDialog( null , "Code:    " + fault.getFaultCode() + "\n" + "Problem: " + fault.getFaultString() , "Error Message" , JOptionPane.ERROR_MESSAGE );
 			}
@@ -148,7 +152,6 @@ public class SoapClient
 		{
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 }
