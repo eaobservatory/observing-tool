@@ -5,24 +5,20 @@
 // $Id$
 //
 /*
- * NCSA Horizon Image Browser
- * Project Horizon
- * National Center for Supercomputing Applications
- * University of Illinois at Urbana-Champaign
- * 605 E. Springfield, Champaign IL 61820
- * horizon@ncsa.uiuc.edu
- *
+ * NCSA Horizon Image Browser Project Horizon National Center for Supercomputing
+ * Applications University of Illinois at Urbana-Champaign 605 E. Springfield,
+ * Champaign IL 61820 horizon@ncsa.uiuc.edu
+ * 
  * Copyright (C) 1996, Board of Trustees of the University of Illinois
- *
+ * 
  * NCSA Horizon software, both binary and source (hereafter, Software) is
- * copyrighted by The Board of Trustees of the University of Illinois
- * (UI), and ownership remains with the UI.
- *
- * You should have received a full statement of copyright and
- * conditions for use with this package; if not, a copy may be
- * obtained from the above address.  Please see this statement
- * for more details.
- *
+ * copyrighted by The Board of Trustees of the University of Illinois (UI), and
+ * ownership remains with the UI.
+ * 
+ * You should have received a full statement of copyright and conditions for use
+ * with this package; if not, a copy may be obtained from the above address.
+ * Please see this statement for more details.
+ * 
  */
 package gemini.util;
 
@@ -33,12 +29,11 @@ package gemini.util;
 public final class HHMMSS
 {
 
-   public static final String MYNAME = 
-    "Time-Angle Coordinate Axis Position Formatter";
+	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter";
 
 	/**
-	 * Convert from an RA in degrees to a String in HH:MM:SS format.
-	 */
+     * Convert from an RA in degrees to a String in HH:MM:SS format.
+     */
 	public static String valStr( double degrees , int prec )
 	{
 		// Make sure the angle is between 0 (inclusive) and 360 (exclusive)
@@ -46,10 +41,10 @@ public final class HHMMSS
 
 		double tmp = degrees / 15.0;
 
-		int hh = ( int ) tmp;
-		tmp = ( tmp - ( double ) hh ) * 60.0;
-		int mm = ( int ) tmp;
-		double ss = ( tmp - ( double ) mm ) * 60.0;
+		int hh = ( int )tmp;
+		tmp = ( tmp - ( double )hh ) * 60.0;
+		int mm = ( int )tmp;
+		double ss = ( tmp - ( double )mm ) * 60.0;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
@@ -80,7 +75,7 @@ public final class HHMMSS
 		out.append( ':' );
 
 		// Ignoring prec for now.
-		ss = ( ( double ) Math.round( ss * 1000.0 ) ) / 1000.0;
+		ss = ( ( double )Math.round( ss * 1000.0 ) ) / 1000.0;
 		if( ss < 10 )
 			out.append( '0' );
 		out.append( ss );
@@ -88,18 +83,17 @@ public final class HHMMSS
 		return out.toString();
 	}
 
-/**
- * Convert from an RA in degrees to a String in HH:MM:SS format.
- */
-public static String
-valStr(double degrees)
-{ 
-   return valStr(degrees, -3);
-}
+	/**
+     * Convert from an RA in degrees to a String in HH:MM:SS format.
+     */
+	public static String valStr( double degrees )
+	{
+		return valStr( degrees , -3 );
+	}
 
 	/**
-	 * Convert from an RA in HH:MM:SS string format to degrees.
-	 */
+     * Convert from an RA in HH:MM:SS string format to degrees.
+     */
 	public static double valueOf( String s ) throws NumberFormatException
 	{
 		if( s == null )
@@ -117,7 +111,7 @@ valStr(double degrees)
 		}
 
 		// Parse the string into values for hours, min, and sec
-		double[] vals = stringTodoubleTriplet( s ) ;
+		double[] vals = stringTodoubleTriplet( s );
 
 		// Convert HH:MM:SS to degrees
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 ) * 15.0;
@@ -126,47 +120,46 @@ valStr(double degrees)
 
 	public static boolean validate( String hhmmss )
 	{
-		boolean valid = true ;
-		
-		double[] values = stringTodoubleTriplet( hhmmss ) ;
-		
-		double hours = values[ 0 ] ;
-		double minutes = values[ 1 ] ;
-		double seconds = values[ 2 ] ;
-		
+		boolean valid = true;
+
+		double[] values = stringTodoubleTriplet( hhmmss );
+
+		double hours = values[ 0 ];
+		double minutes = values[ 1 ];
+		double seconds = values[ 2 ];
+
 		if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-			valid = false ;
-		
-		return valid ;
+			valid = false;
+
+		return valid;
 	}
 
 	public static double[] stringTodoubleTriplet( String hhmmss )
 	{
-		double[] values = { 0. , 0. , 0. } ;
-		
-		String[] split = hhmmss.split( ":" ) ;
+		double[] values = { 0. , 0. , 0. };
+
+		String[] split = hhmmss.split( ":" );
 		for( int index = 0 ; index < split.length && index < values.length ; index++ )
 		{
-			String current = split[ index ].trim() ;
-			values[ index ] = new Double( current ) ;
+			String current = split[ index ].trim();
+			values[ index ] = new Double( current );
 		}
-		
-		return values ;
+
+		return values;
 	}
-	
-/**
- * For testing.
- */
-public static void
-main(String args[])
-{
-   for (int i=0; i<args.length; ++i) {
-      double converted = HHMMSS.valueOf(args[i]);
-      String back      = HHMMSS.valStr(converted);
-      System.out.println(args[i]   + " = " + converted);
-      System.out.println(converted + " = " + back);
-   }
-}
+
+	/**
+     * For testing.
+     */
+	public static void main( String args[] )
+	{
+		for( int i = 0 ; i < args.length ; ++i )
+		{
+			double converted = HHMMSS.valueOf( args[ i ] );
+			String back = HHMMSS.valStr( converted );
+			System.out.println( args[ i ] + " = " + converted );
+			System.out.println( converted + " = " + back );
+		}
+	}
 
 }
-

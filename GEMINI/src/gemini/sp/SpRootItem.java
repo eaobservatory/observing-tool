@@ -7,77 +7,73 @@
 package gemini.sp;
 
 import java.io.OutputStream;
-import gemini.util.Version ;
+import gemini.util.Version;
 
 /**
  * A root of the program hierarchy.
- *
+ * 
  * @see SpProg
  * @see SpPlan
  * @see SpLibrary
  */
 public class SpRootItem extends SpObsContextItem
 {
-    /** The version of the OT used to generate this file */
-    public static final String ATTR_OT_VERSION = "ot_version";
 
-    /** The telescope name */
-    public static final String ATTR_TELESCOPE = "telescope";
+	/** The version of the OT used to generate this file */
+	public static final String ATTR_OT_VERSION = "ot_version";
 
-/**
- * Default constructor.
- */
-protected SpRootItem(SpType spType)
-{
-   super(spType);
-   setTelescope();
-   setEditFSM( new SpEditState(this) );
-}
+	/** The telescope name */
+	public static final String ATTR_TELESCOPE = "telescope";
 
-/**
- * Override clone to set the SpEditState.
- */
-protected Object
-clone()
-{
-   SpItem spClone = (SpItem) super.clone();
-   spClone.setEditFSM( new SpEditState(spClone) );
-   return spClone;
-}
+	/**
+     * Default constructor.
+     */
+	protected SpRootItem( SpType spType )
+	{
+		super( spType );
+		setTelescope();
+		setEditFSM( new SpEditState( this ) );
+	}
 
-/**
- * Override getTitle to display the program name.
- */
-public String
-getTitle()
-{
-   String title = getTitleAttr();
-   if (title == null) {
-      title = type().getReadable();
-   }
+	/**
+     * Override clone to set the SpEditState.
+     */
+	protected Object clone()
+	{
+		SpItem spClone = ( SpItem )super.clone();
+		spClone.setEditFSM( new SpEditState( spClone ) );
+		return spClone;
+	}
 
-   String nameStr = "";
-   if (hasBeenNamed()) {
-      nameStr = " (" + name() + ")";
-   }
+	/**
+     * Override getTitle to display the program name.
+     */
+	public String getTitle()
+	{
+		String title = getTitleAttr();
+		if( title == null )
+			title = type().getReadable();
 
-   return title + nameStr;
-}
+		String nameStr = "";
+		if( hasBeenNamed() )
+			nameStr = " (" + name() + ")";
 
-/**
- * Print a Science Program Document describing this item to the
- * given output stream.
- */
-public void
-printDocument(OutputStream os)
-{
-   SpOutputSGML out = new SpOutputSGML(os);
-   out.printDocument(this);
-}
+		return title + nameStr;
+	}
 
-/**
-  * Set the telescope name - based on input TELESCOPE
-  */
+	/**
+     * Print a Science Program Document describing this item to the given output
+     * stream.
+     */
+	public void printDocument( OutputStream os )
+	{
+		SpOutputSGML out = new SpOutputSGML( os );
+		out.printDocument( this );
+	}
+
+	/**
+     * Set the telescope name - based on input TELESCOPE
+     */
 
 	public void setTelescope()
 	{
@@ -90,16 +86,16 @@ printDocument(OutputStream os)
 
 	public void setOTVersion()
 	{
-		String version = Version.getInstance().getVersion() ;
+		String version = Version.getInstance().getVersion();
 		_avTable.set( ATTR_OT_VERSION , version );
 	}
 
-public String getOTVersion() {
-    String version = "unknown";
-    if ( _avTable.get(ATTR_OT_VERSION) != null) {
-	version = _avTable.get(ATTR_OT_VERSION);
-    }
-    return version;
-}
+	public String getOTVersion()
+	{
+		String version = "unknown";
+		if( _avTable.get( ATTR_OT_VERSION ) != null )
+			version = _avTable.get( ATTR_OT_VERSION );
+		return version;
+	}
 
 }

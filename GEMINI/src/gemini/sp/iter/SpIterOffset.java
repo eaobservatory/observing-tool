@@ -30,26 +30,26 @@ import java.util.Vector;
 //
 class SpIterOffsetEnumeration extends SpIterEnumeration
 {
-   private TelescopePos[] _positions;
-   private int            _curIndex = 0;
 
-SpIterOffsetEnumeration(SpIterOffset iterComp)
-{
-   super(iterComp);
-   _positions = iterComp.getPosList().getAllPositions();
-}
+	private TelescopePos[] _positions;
 
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curIndex < _positions.length);
-}
+	private int _curIndex = 0;
 
-protected SpIterStep
-_thisFirstElement()
-{
-   return _thisNextElement();
-}
+	SpIterOffsetEnumeration( SpIterOffset iterComp )
+	{
+		super( iterComp );
+		_positions = iterComp.getPosList().getAllPositions();
+	}
+
+	protected boolean _thisHasMoreElements()
+	{
+		return( _curIndex < _positions.length );
+	}
+
+	protected SpIterStep _thisFirstElement()
+	{
+		return _thisNextElement();
+	}
 
 	protected SpIterStep _thisNextElement()
 	{
@@ -57,413 +57,392 @@ _thisFirstElement()
 		SpIterValue[] sivA = { new SpIterValue( "p" , String.valueOf( op.getXaxis() ) ) , new SpIterValue( "q" , String.valueOf( op.getYaxis() ) ) };
 		return new SpIterStep( ( ( SpIterOffset )_iterComp ).title_offset() , _curIndex++ , _iterComp , sivA );
 	}
- 
+
 }
 
-
 /**
- * An iterator for telescope offset positions.  It maintains a position
- * list that details the sequence of offset positions and implements the
- * elements() method to Enumerate them.
+ * An iterator for telescope offset positions. It maintains a position list that
+ * details the sequence of offset positions and implements the elements() method
+ * to Enumerate them.
  * 
  * @see SpOffsetPosList
  */
 public class SpIterOffset extends SpIterComp implements SpTranslatable
 {
-   /**
-    * Data structure for maintaining position angle and SpPosAngleObservers.
-    *
-    * Note that this is <b>not</b> the SpObsData object that is returned by getObsData().
-    */
-   private SpObsData _posAngleObsData = new SpObsData();
 
-   /**
-    * The position list uses the attributes and values contained in
-    * this SpItem's attribute table to construct and maintain a list
-    * of offset positions.
-    */
-   protected SpOffsetPosList _posList;
+	/**
+     * Data structure for maintaining position angle and SpPosAngleObservers.
+     * 
+     * Note that this is <b>not</b> the SpObsData object that is returned by
+     * getObsData().
+     */
+	private SpObsData _posAngleObsData = new SpObsData();
 
-//   public static final SpType SP_TYPE =
-//        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "offset", "Offset");
-//
-//// Register the prototype.
-//static {
-//   SpFactory.registerPrototype(new SpIterOffset());
-//}
+	/**
+     * The position list uses the attributes and values contained in this
+     * SpItem's attribute table to construct and maintain a list of offset
+     * positions.
+     */
+	protected SpOffsetPosList _posList;
 
-   /** Needed for XML parsing. */
-   private double xOffNew = 0.0;
+	/** Needed for XML parsing. */
+	private double xOffNew = 0.0;
 
-   /** Needed for XML parsing. */
-   private double yOffNew = 0.0;
+	/** Needed for XML parsing. */
+	private double yOffNew = 0.0;
 
-   // Number of named sky children associated
-   private boolean _hasNamedSkyChild = false;
+	// Number of named sky children associated
+	private boolean _hasNamedSkyChild = false;
 
-/**
- * Default constructor.
- */
-public SpIterOffset()
-{
-//   super(SP_TYPE);
-   super(SpType.ITERATOR_COMPONENT_OFFSET);
-}
+	/**
+     * Default constructor.
+     */
+	public SpIterOffset()
+	{
+		super( SpType.ITERATOR_COMPONENT_OFFSET );
+	}
 
-protected SpIterOffset(SpType spType)
-{
-  super(spType);
-}
+	protected SpIterOffset( SpType spType )
+	{
+		super( spType );
+	}
 
-/**
- * Create and return the position list data structure for the offset positions in
- * the attribute table.
- *
- * Modified by AB, 3-Aug-00 to <b>ALWAYS</b> create a new list. This solved a bug
- * whereby if an offset iterator list was copied <b>after</b> being edited and
- * then pasted, the new pasted version would <b>retain</b> the old 
- * spOffSetList, thus edits would go to both.  Note that this did <b>not</b>
- * occur if the original was not edited first. It is the act of editing
- * that invokes this method and caused the problem.
- *
- * @see #getCurrentPosList()
- */
-public SpOffsetPosList
-getPosList()
-{
-    // See comment above
-    //   if (_posList== null) {
-    _posList = new SpOffsetPosList(_avTable);
-    //}
-    if (_posList.size() == 0) _posList.createPosition(0.0,0.0);
+	/**
+     * Create and return the position list data structure for the offset
+     * positions in the attribute table.
+     * 
+     * Modified by AB, 3-Aug-00 to <b>ALWAYS</b> create a new list. This solved
+     * a bug whereby if an offset iterator list was copied <b>after</b> being
+     * edited and then pasted, the new pasted version would <b>retain</b> the
+     * old spOffSetList, thus edits would go to both. Note that this did <b>not</b>
+     * occur if the original was not edited first. It is the act of editing that
+     * invokes this method and caused the problem.
+     * 
+     * @see #getCurrentPosList()
+     */
+	public SpOffsetPosList getPosList()
+	{
+		// See comment above
+		_posList = new SpOffsetPosList( _avTable );
+		if( _posList.size() == 0 )
+			_posList.createPosition( 0.0 , 0.0 );
 
-   return _posList;
-}
+		return _posList;
+	}
 
-/**
- * Get the current position list data structure for the offset positions in
- * the attribute table, creating it <b>only</b> if necessary.
- *
- * This method is used by the Telescope Position Editor (TPE). Using
- * {@link #getPosList()} in the TPE would break the link between the
- * offset iterator and the TPE so that updating one from the other
- * would no longer work.
- *
- * @see #getPosList()
- */
-public SpOffsetPosList
-getCurrentPosList()
-{
-    if (_posList== null) {
-      _posList = new SpOffsetPosList(_avTable);
-      
-    }
-   return _posList;
-}
+	/**
+     * Get the current position list data structure for the offset positions in
+     * the attribute table, creating it <b>only</b> if necessary.
+     * 
+     * This method is used by the Telescope Position Editor (TPE). Using
+     * {@link #getPosList()} in the TPE would break the link between the offset
+     * iterator and the TPE so that updating one from the other would no longer
+     * work.
+     * 
+     * @see #getPosList()
+     */
+	public SpOffsetPosList getCurrentPosList()
+	{
+		if( _posList == null )
+			_posList = new SpOffsetPosList( _avTable );
 
+		return _posList;
+	}
 
-/** Get the Position Angle. */
-public double getPosAngle()
-{
-   return getCurrentPosList().getPosAngle();
-}
+	/** Get the Position Angle. */
+	public double getPosAngle()
+	{
+		return getCurrentPosList().getPosAngle();
+	}
 
-/** Set the Position Angle as double. */
-public void setPosAngle(double pa)
-{
-   getCurrentPosList().setPosAngle(pa);
+	/** Set the Position Angle as double. */
+	public void setPosAngle( double pa )
+	{
+		getCurrentPosList().setPosAngle( pa );
 
-   _posAngleObsData.setPosAngle(pa);
+		_posAngleObsData.setPosAngle( pa );
 
-   // SdW - Look for children which implement implement SpPosAngleObserver
-   Enumeration e = children();
-   while ( e.hasMoreElements() ) {
-       SpItem child = (SpItem)e.nextElement();
-       Class [] interfaces = child.getClass().getInterfaces();
-       for (int i=0; i < interfaces.length; i++) {
-	   if (interfaces[i].getName().indexOf("SpPosAngleObserver") != -1) {
-	       ((SpPosAngleObserver)child).posAngleUpdate(pa);
-	   }
-       }
-   }
-   // END
-}
+		// SdW - Look for children which implement implement SpPosAngleObserver
+		Enumeration e = children();
+		while( e.hasMoreElements() )
+		{
+			SpItem child = ( SpItem )e.nextElement();
+			Class[] interfaces = child.getClass().getInterfaces();
+			for( int i = 0 ; i < interfaces.length ; i++ )
+			{
+				if( interfaces[ i ].getName().indexOf( "SpPosAngleObserver" ) != -1 )
+					( ( SpPosAngleObserver )child ).posAngleUpdate( pa );
+			}
+		}
+		// END
+	}
 
+	/** Set the Position Angle as String. */
+	public void setPosAngle( String pa )
+	{
+		try
+		{
+			setPosAngle( Double.parseDouble( pa ) );
+		}
+		catch( Exception e )
+		{
+			setPosAngle( 0.0 );
+		}
+	}
 
-/** Set the Position Angle as String. */
-public void setPosAngle(String pa)
-{
-   try {
-      setPosAngle(Double.parseDouble(pa));
-   }
-   catch(Exception e) {
-      setPosAngle(0.0);
-   }
-}
+	/**
+     * Add a position angle observer.
+     */
+	public void addPosAngleObserver( SpPosAngleObserver pao )
+	{
+		_posAngleObsData.addPosAngleObserver( pao );
+	}
 
+	/**
+     * Remove a position angle observer.
+     */
+	public void deletePosAngleObserver( SpPosAngleObserver pao )
+	{
+		_posAngleObsData.deletePosAngleObserver( pao );
+	}
 
-/**
- * Add a position angle observer.
- */
-public void
-addPosAngleObserver(SpPosAngleObserver pao)
-{
-   _posAngleObsData.addPosAngleObserver(pao);
-}
+	/**
+     * Connects SpPosAngleObservers if there are any amoung the new children.
+     */
+	protected void insert( SpItem[] newChildren , SpItem afterChild )
+	{
+		// Check for SpPosAngleObservers amoung the newChildren and add them as SpPosAngleObservers.
+		for( int i = 0 ; i < newChildren.length ; i++ )
+		{
+			if( newChildren[ i ] instanceof SpPosAngleObserver )
+				addPosAngleObserver( ( SpPosAngleObserver )newChildren[ i ] );
+		}
 
-/**
- * Remove a position angle observer.
- */
-public void
-deletePosAngleObserver(SpPosAngleObserver pao)
-{
-   _posAngleObsData.deletePosAngleObserver(pao);
-}
+		super.insert( newChildren , afterChild );
+	}
 
-/**
- * Connects SpPosAngleObservers if there are any amoung the new children.
- */
-protected void
-insert(SpItem[] newChildren, SpItem afterChild)
-{
-   // Check for SpPosAngleObservers amoung the newChildren and
-   // add them as SpPosAngleObservers.
-   for(int i = 0; i < newChildren.length; i++) {
-      if(newChildren[i] instanceof SpPosAngleObserver) {
-	 addPosAngleObserver((SpPosAngleObserver)newChildren[i]);
-      }
-   }
+	/**
+     * Override setTable() to make sure that the offset position list is in sync
+     * with the current attributes and values.
+     */
+	protected void setTable( SpAvTable avTab )
+	{
+		super.setTable( avTab );
+		if( _posList != null )
+			_posList.setTable( avTab );
+	}
 
-   super.insert(newChildren, afterChild);
-}
+	/**
+     * Override replaceTable() to make sure that the offset position list is in
+     * sync with the current attributes and values.
+     */
+	protected void replaceTable( SpAvTable avTab )
+	{
+		super.replaceTable( avTab );
+		if( _posList != null )
+			_posList.setTable( avTab );
+	}
 
+	/**
+     * Enumerate the steps of the offset iterator.
+     */
+	public SpIterEnumeration elements()
+	{
+		return new SpIterOffsetEnumeration( this );
+	}
 
-/**
- * Override setTable() to make sure that the offset position list
- * is in sync with the current attributes and values.
- */
-protected void
-setTable(SpAvTable avTab)
-{
-   super.setTable(avTab);
-   if (_posList != null) {
-      _posList.setTable(avTab);
-   }
-}
- 
-/**
- * Override replaceTable() to make sure that the offset position list
- * is in sync with the current attributes and values.
- */
-protected void
-replaceTable(SpAvTable avTab)
-{
-   super.replaceTable(avTab);
-   if (_posList != null) {
-      _posList.setTable(avTab);
-   }
-}
+	/**
+     * Returns true if one or more direct children of this offset iterator are
+     * offset iterators themselves.
+     * 
+     * Such a nested offset iterator inside this offset inside can be either a
+     * SpIterOffset or a SpIterMicroStep (subclass of SpIterOffset).
+     * 
+     * @see #containsMicroSteps()
+     */
+	public boolean containsNestedOffsets()
+	{
+		Enumeration e = children();
+		while( e.hasMoreElements() )
+		{
+			if( e.nextElement() instanceof SpIterOffset )
+				return true;
+		}
 
+		return false;
+	}
 
-/**
- * Enumerate the steps of the offset iterator.
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterOffsetEnumeration(this);
-}
+	/**
+     * Returns true if one or more direct children of this offset iterator are
+     * microstep iterators.
+     * 
+     * @see #containsNestedOffsets()
+     */
+	public boolean containsMicroSteps()
+	{
+		Enumeration e = children();
+		while( e.hasMoreElements() )
+		{
+			if( e.nextElement() instanceof SpIterMicroStep )
+				return true;
+		}
 
-/**
- * Returns true if one or more direct children of this offset iterator are offset iterators themselves.
- *
- * Such a nested offset iterator inside this offset inside can be either a SpIterOffset
- * or a SpIterMicroStep (subclass of SpIterOffset).
- *
- * @see #containsMicroSteps()
- */
-public boolean containsNestedOffsets() {
-  Enumeration e = children();
-  while(e.hasMoreElements()) {
-    if(e.nextElement() instanceof SpIterOffset) {
-      return true;
-    }
-  }
+		return false;
+	}
 
-  return false;
-}
+	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
+	{
+		// "offsetPositions" (SpOffsetPosList.OFFSET_POS_LIST) is an AV attribute that occurs once in a SpIterOffset's AV table
+		// When processAvAttribute is called with "offsetPositions" as avAttr then append the entire TCS XML representation of this item to the xmlBuffer.
+		// For all other calls to processAvAttribute ignore the AV attributes
+		// "PA" (SpOffsetPosList.ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
+		// as their information has already been dealt with in the TCS XML representation of this item.
+		// The other attributes are delegated to the super class.
 
-/**
- * Returns true if one or more direct children of this offset iterator are microstep iterators.
- *
- * @see #containsNestedOffsets()
- */
-public boolean containsMicroSteps() {
-  Enumeration e = children();
-  while(e.hasMoreElements()) {
-    if(e.nextElement() instanceof SpIterMicroStep) {
-      return true;
-    }
-  }
+		// Ignore any sky offsets
+		if( avAttr.equals( SpOffsetPosList.SKY_POS_LIST ) )
+			return;
 
-  return false;
-}
+		if( avAttr.equals( SpOffsetPosList.GUIDE_POS_LIST ) )
+			return;
 
-protected void
-processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
-{
-   // "offsetPositions" (SpOffsetPosList.OFFSET_POS_LIST)
-   // is an AV attribute that occurs once in a SpIterOffset's AV table
-   // When processAvAttribute is called with "offsetPositions" as avAttr then append the entire
-   // TCS XML representation of this item to the xmlBuffer.
-   // For all other calls to processAvAttribute ignore the AV attributes
-   // "PA" (SpOffsetPosList.ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
-   // as their information has already been dealt with in the TCS XML representation of
-   // this item.
-   // The other attributes are delegated to the super class.
+		if( avAttr.equals( SpOffsetPosList.OFFSET_POS_LIST ) )
+		{
+			// Append <obsArea> element.
+			xmlBuffer.append( "\n" + indent + "  <obsArea>" );
+			xmlBuffer.append( "\n" + indent + "    <PA>" + getPosAngle() + "</PA>" );
 
-    // Ignore any sky offsets
-    if ( avAttr.equals(SpOffsetPosList.SKY_POS_LIST) ) {
-        return;
-    }
-    if ( avAttr.equals(SpOffsetPosList.GUIDE_POS_LIST) ) {
-        return;
-    }
+			for( int i = 0 ; i < _posList.size() ; i++ )
+			{
+				xmlBuffer.append( "\n" + indent + "    <OFFSET>" );
+				xmlBuffer.append( "\n" + indent + "      <DC1>" + _posList.getPositionAt( i ).getXaxis() + "</DC1>" );
+				xmlBuffer.append( "\n" + indent + "      <DC2>" + _posList.getPositionAt( i ).getYaxis() + "</DC2>" );
+				xmlBuffer.append( "\n" + indent + "    </OFFSET>" );
+			}
 
-   if(avAttr.equals(SpOffsetPosList.OFFSET_POS_LIST)) {
-      // Append <obsArea> element.
-      xmlBuffer.append("\n" + indent + "  <obsArea>");
-      xmlBuffer.append("\n" + indent + "    <PA>" + getPosAngle() + "</PA>");
+			xmlBuffer.append( "\n" + indent + "  </obsArea>" );
 
-      for(int i = 0; i < _posList.size(); i++) {
-         xmlBuffer.append("\n" + indent + "    <OFFSET>");
-         xmlBuffer.append("\n" + indent + "      <DC1>" + _posList.getPositionAt(i).getXaxis() + "</DC1>");
-         xmlBuffer.append("\n" + indent + "      <DC2>" + _posList.getPositionAt(i).getYaxis() + "</DC2>");
-         xmlBuffer.append("\n" + indent + "    </OFFSET>");
-      }
+			return;
+		}
 
-      xmlBuffer.append("\n" + indent + "  </obsArea>");
+		if( avAttr.equals( SpOffsetPosList.ATTR_POS_ANGLE ) || avAttr.startsWith( SpOffsetPos.OFFSET_TAG ) || avAttr.startsWith( SpOffsetPos.SKY_TAG ) || avAttr.startsWith( SpOffsetPos.GUIDE_TAG ) )
+		{
+			// Ignore. Dealt with in <obsArea> element (see above).
+			return;
+		}
 
-      return;
-   }
+		super.processAvAttribute( avAttr , indent , xmlBuffer );
+	}
+
+	public void processXmlElementContent( String name , String value )
+	{
+
+		if( name.equals( "obsArea" ) || name.equals( "OFFSET" ) )
+			return;
 
 
-   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || 
-      avAttr.startsWith(SpOffsetPos.OFFSET_TAG)     || 
-      avAttr.startsWith( SpOffsetPos.SKY_TAG)       ||
-      avAttr.startsWith( SpOffsetPos.GUIDE_TAG) ) {
-      // Ignore. Dealt with in <obsArea> element (see above).
-      return;
-   }
+		if( name.equals( "PA" ) )
+		{
+			// Added by SdW - allows posAngle in target attribute to override that supplied if it exists...
+			SpInstObsComp inst = SpTreeMan.findInstrument( this );
+			if( inst != null && inst.getPosAngleDegrees() != 0.0 )
+				value = inst.getPosAngleDegreesStr();
 
-   super.processAvAttribute(avAttr, indent, xmlBuffer);
-}
+			// END
+			setPosAngle( value );
 
+			return;
+		}
 
-public void
-processXmlElementContent(String name, String value)
-{
+		if( name.equals( "DC1" ) )
+		{
+			try
+			{
+				xOffNew = Double.parseDouble( value );
+			}
+			catch( Exception e )
+			{
+				xOffNew = 0.0;
+			}
 
-   if(name.equals("obsArea") || name.equals("OFFSET")) {
-      // ignore
-      return;
-   }
+			return;
+		}
 
-   if(name.equals("PA")) {
-       // Added by SdW - allows posAngle in target attribute to override
-       // that supplied if it exists...
-       SpInstObsComp inst = SpTreeMan.findInstrument(this);
-       if (inst != null && inst.getPosAngleDegrees() != 0.0) {
-	   value = inst.getPosAngleDegreesStr();
-       }
-       // END
-      setPosAngle(value);
+		if( name.equals( "DC2" ) )
+		{
+			try
+			{
+				yOffNew = Double.parseDouble( value );
+			}
+			catch( Exception e )
+			{
+				yOffNew = 0.0;
+			}
 
-      return;
-   }
+			return;
+		}
 
+		super.processXmlElementContent( name , value );
+	}
 
-   if(name.equals("DC1")) {
-      try {
-         xOffNew = Double.parseDouble(value);
-      }
-      catch(Exception e) {
-         xOffNew = 0.0;
-      }
+	public void processXmlElementEnd( String name )
+	{
+		if( name.equals( "OFFSET" ) )
+		{
+			_posList.createPosition( xOffNew , yOffNew );
+			xOffNew = 0.0;
+			yOffNew = 0.0;
 
-      return;
-   }
+			return;
+		}
 
-   if(name.equals("DC2")) {
-      try {
-         yOffNew = Double.parseDouble(value);
-      }
-      catch(Exception e) {
-         yOffNew = 0.0;
-      }
+		if( name.equals( "obsArea" ) )
+		{
+			// save() just means reset() in this context.
+			getAvEditFSM().save();
 
-      return;
-   }
+			return;
+		}
 
-   super.processXmlElementContent(name, value);
-}
+		super.processXmlElementEnd( name );
+	}
 
-public void
-processXmlElementEnd(String name)
-{
-   if(name.equals("OFFSET")) {
-      _posList.createPosition(xOffNew, yOffNew);
-      xOffNew = 0.0;
-      yOffNew = 0.0;
+	public String title_offset()
+	{
+		return "offset";
+	}
 
-      return;
-   }
+	public void setNamedSkyChild( boolean exists )
+	{
+		_hasNamedSkyChild = true;
+	}
 
-   if(name.equals("obsArea")) {
-      // save() just means reset() in this context.
-      getAvEditFSM().save();
+	public boolean hasNamedSkyChild()
+	{
+		return _hasNamedSkyChild;
+	}
 
-      return;
-   }
+	public int getNumIterObserveChildren( SpItem item )
+	{
+		int n = 0;
 
-   super.processXmlElementEnd(name);
-}
+		Enumeration e = item.children();
+		while( e.hasMoreElements() )
+		{
+			SpItem child = ( SpItem )e.nextElement();
+			if( child instanceof SpIterFolder )
+				n += getNumIterObserveChildren( child );
+			else if( child instanceof SpIterObserveBase )
+				n++ ;
+		}
 
-
-public String title_offset() {
-   return "offset";
-}
-
-public void setNamedSkyChild( boolean exists ) {
-    _hasNamedSkyChild = true;
-}
-
-public boolean hasNamedSkyChild() {
-    return _hasNamedSkyChild;
-}
-
-public int getNumIterObserveChildren(SpItem item) {
-    int n=0;
-    
-    Enumeration e = item.children();
-    while ( e.hasMoreElements() ) {
-        SpItem child = (SpItem)e.nextElement();
-        if ( child instanceof SpIterFolder ) {
-            n += getNumIterObserveChildren(child);
-        }
-        else if ( child instanceof SpIterObserveBase ) {
-            n++;
-        }
-    }
-    
-    return n;
-}
+		return n;
+	}
 
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 
-		// If this has a microstep iterator child, we will delegate
-		// to it and not put offsets here
+		// If this has a microstep iterator child, we will delegate to it and not put offsets here
 		Enumeration children = this.children();
 		boolean hasMicrostepChild = false;
 		while( children.hasMoreElements() )
@@ -480,11 +459,9 @@ public int getNumIterObserveChildren(SpItem item) {
 			children = this.children();
 			while( children.hasMoreElements() )
 			{
-				SpItem child = ( SpItem ) children.nextElement();
+				SpItem child = ( SpItem )children.nextElement();
 				if( child instanceof SpTranslatable )
-				{
-					( ( SpTranslatable ) child ).translate( v );
-				}
+					( ( SpTranslatable )child ).translate( v );
 			}
 		}
 		else
@@ -504,22 +481,18 @@ public int getNumIterObserveChildren(SpItem item) {
 					v.add( "-setHeader USTEP_X 0.0" );
 					v.add( "-setHeader USTEP_Y 0.0" );
 				}
-				double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
-				double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
-				String instruction = "offset " + xAxis + " " + yAxis ;
+				double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 );
+				double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 );
+				String instruction = "offset " + xAxis + " " + yAxis;
 				v.add( instruction );
 				children = this.children();
 				while( children.hasMoreElements() )
 				{
-					SpItem child = ( SpItem ) children.nextElement();
+					SpItem child = ( SpItem )children.nextElement();
 					if( child instanceof SpTranslatable )
-					{
-						( ( SpTranslatable ) child ).translate( v );
-					}
+						( ( SpTranslatable )child ).translate( v );
 				}
 			}
 		}
+	}
 }
-
-}
-

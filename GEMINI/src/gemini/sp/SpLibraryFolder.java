@@ -12,26 +12,22 @@ package gemini.sp;
 public class SpLibraryFolder extends SpObsContextItem
 {
 
-/**
- * Default constructor.
- */
-protected SpLibraryFolder()
-{
-   super(SpType.LIBRARY_FOLDER);
-}
+	/**
+     * Default constructor.
+     */
+	protected SpLibraryFolder()
+	{
+		super( SpType.LIBRARY_FOLDER );
+	}
 
-/**
- * Override getTitle so that it simply returns the "title" attribute if
- * set.
- */
-public String
-getTitle()
-{
-   String title = getTitleAttr();
-   if ((title == null) || title.equals("")) {
-      title = type().getReadable();
-   }
-   return title;
-}
- 
+	/**
+     * Override getTitle so that it simply returns the "title" attribute if set.
+     */
+	public String getTitle()
+	{
+		String title = getTitleAttr();
+		if( ( title == null ) || title.equals( "" ) )
+			title = type().getReadable();
+		return title;
+	}
 }

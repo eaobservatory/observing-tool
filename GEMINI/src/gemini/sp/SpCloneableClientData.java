@@ -7,19 +7,17 @@
 package gemini.sp;
 
 /**
- * An interface that client data classes can support if they
- * are cloneable.  "Client data" is an arbitrary object that
- * may be stored with an SpItem and later retrieved by the
- * client.  If the client wishes this data to be cloned when
- * the SpItem is cloned, it's client data must implement this
- * interface.
+ * An interface that client data classes can support if they are cloneable.
+ * "Client data" is an arbitrary object that may be stored with an SpItem and
+ * later retrieved by the client. If the client wishes this data to be cloned
+ * when the SpItem is cloned, it's client data must implement this interface.
  */
 public interface SpCloneableClientData extends Cloneable
 {
-   /**
-    * Clone the client data.  The SpItem argument is the item that
-    * should be associated with the new clone.
-    */
-   public Object clone(SpItem spItem);
-}
 
+	/**
+     * Clone the client data. The SpItem argument is the item that should be
+     * associated with the new clone.
+     */
+	public Object clone( SpItem spItem );
+}

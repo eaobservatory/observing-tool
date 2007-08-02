@@ -9,46 +9,42 @@ package gemini.util;
 import java.net.URLEncoder;
 
 /**
- * A simple CGI script query string encoder.  It can be used to
- * incrementally build a query string that is properly encoded in
- * x-www-form-urlencoded format.
- *
+ * A simple CGI script query string encoder. It can be used to incrementally
+ * build a query string that is properly encoded in x-www-form-urlencoded
+ * format.
+ * 
  * @author Elliotte Rusty Harold (JAVA Network Programming)
  */
 public class QueryString
 {
-   String query;
 
-public QueryString()
-{
-   query = "";
-}
+	String query;
 
-public QueryString(Object value)
-{
-   query = URLEncoder.encode(value.toString());
-}
+	public QueryString()
+	{
+		query = "";
+	}
 
-public QueryString(Object name, Object value)
-{
-   query = URLEncoder.encode(name.toString()) + "=" +
-           URLEncoder.encode(value.toString());
-}
+	public QueryString( Object value )
+	{
+		query = URLEncoder.encode( value.toString() );
+	}
 
-public void
-add(Object name, Object value)
-{
-   if (!query.equals("")) {
-      query += "&";
-   }
-   query += URLEncoder.encode(name.toString()) + "=" +
-            URLEncoder.encode(value.toString());
-}
+	public QueryString( Object name , Object value )
+	{
+		query = URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() );
+	}
 
-public String
-toString()
-{
-   return query;
-}
+	public void add( Object name , Object value )
+	{
+		if( !query.equals( "" ) )
+			query += "&";
 
+		query += URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() );
+	}
+
+	public String toString()
+	{
+		return query;
+	}
 }

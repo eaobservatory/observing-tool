@@ -7,11 +7,11 @@
 package gemini.util;
 
 /**
- * An interface used by clients interested in knowing about property
- * changes.
+ * An interface used by clients interested in knowing about property changes.
  */
 public interface AppPropertyWatcher
 {
-   /** The given property has the given new value. */
-   public void propertyChange(String property, String value);
+
+	/** The given property has the given new value. */
+	public void propertyChange( String property , String value );
 }

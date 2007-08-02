@@ -1,21 +1,20 @@
-package gemini.util; 
+package gemini.util;
 
 /**
- * A class that describes an anchor in an HTML document.  This class groups
- * the text that is displayed inside the anchor with the anchor string
- * itself.
+ * A class that describes an anchor in an HTML document. This class groups the
+ * text that is displayed inside the anchor with the anchor string itself.
  */
 public class HTMLAnchor
 {
-   public String anchorString;
-   public String text;
+	public String anchorString;
 
-public HTMLAnchor() {}
+	public String text;
 
-public HTMLAnchor(String anchorString, String text)
-{
-   this.anchorString = anchorString;
-   this.text         = text;
-}
+	public HTMLAnchor(){}
 
+	public HTMLAnchor( String anchorString , String text )
+	{
+		this.anchorString = anchorString;
+		this.text = text;
+	}
 }

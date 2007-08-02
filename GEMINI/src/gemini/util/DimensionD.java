@@ -9,46 +9,43 @@ package gemini.util;
 import java.awt.Dimension;
 
 /**
- * Like a java.awt.Dimension, but instead of integer coordinates,
- * doubles are used.
+ * Like a java.awt.Dimension, but instead of integer coordinates, doubles are
+ * used.
  */
 public class DimensionD
 {
-   public double height;
-   public double width;
 
-   public DimensionD()
-   {
-   }
+	public double height;
 
-   public DimensionD(Dimension d)
-   {
-      height = (double) d.height;
-      width  = (double) d.width;
-   }
+	public double width;
 
-   public DimensionD(DimensionD d)
-   {
-      height = d.height;
-      width  = d.width;
-   }
+	public DimensionD(){}
 
-   public DimensionD(double width, double height)
-   {
-      this.height = height;
-      this.width  = width;
-   }
+	public DimensionD( Dimension d )
+	{
+		height = ( double )d.height;
+		width = ( double )d.width;
+	}
 
-   public Dimension
-   getAWTDimension()
-   {
-      return new Dimension((int)(width + 0.5), (int)(height + 0.5));
-   }
+	public DimensionD( DimensionD d )
+	{
+		height = d.height;
+		width = d.width;
+	}
 
-   public String
-   toString()
-   {
-      return getClass().getName() + "[width="+ width +", height="+ height+"]";
-   }
+	public DimensionD( double width , double height )
+	{
+		this.height = height;
+		this.width = width;
+	}
+
+	public Dimension getAWTDimension()
+	{
+		return new Dimension( ( int )( width + 0.5 ) , ( int )( height + 0.5 ) );
+	}
+
+	public String toString()
+	{
+		return getClass().getName() + "[width=" + width + ", height=" + height + "]";
+	}
 }
-

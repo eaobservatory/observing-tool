@@ -13,279 +13,273 @@ import java.util.Vector;
  */
 public abstract class TelescopePos implements java.io.Serializable
 {
-   /** The position's <i>unique</i> string tag. */
-   protected String _tag;
 
-   /** The position's xaxis (for example, its RA). */
-   protected double _xaxis;
+	/** The position's <i>unique</i> string tag. */
+	protected String _tag;
 
-   /** The position's yaxis (for example, its Dec). */
-   protected double _yaxis;
+	/** The position's xaxis (for example, its RA). */
+	protected double _xaxis;
 
-   protected double _xoff;
-   protected double _yoff;
+	/** The position's yaxis (for example, its Dec). */
+	protected double _yaxis;
 
-   /** The list that the position belongs to, if any. */
-   protected TelescopePosList _list;
+	protected double _xoff;
 
-   // TelescopePos change watchers.
-   private Vector _watchers;
+	protected double _yoff;
 
+	/** The list that the position belongs to, if any. */
+	protected TelescopePosList _list;
 
-   /**
-    * Construct with a <i>unique</i> tag.
-    */
-   protected TelescopePos(String tag)
-   {
-      _tag  = tag;
-   }
+	// TelescopePos change watchers.
+	private Vector _watchers;
 
-   /**
-    * Construct with a <i>unique</i> tag, and the list to which the
-    * position belongs.
-    */
-   protected TelescopePos(String tag, TelescopePosList list)
-   {
-      this(tag);
-      _list = list;
-   }
+	/**
+     * Construct with a <i>unique</i> tag.
+     */
+	protected TelescopePos( String tag )
+	{
+		_tag = tag;
+	}
 
-   /**
-    * Is this position and offset position?
-    */
-   public boolean isOffsetPosition() { return false; }
+	/**
+     * Construct with a <i>unique</i> tag, and the list to which the position
+     * belongs.
+     */
+	protected TelescopePos( String tag , TelescopePosList list )
+	{
+		this( tag );
+		_list = list;
+	}
 
-   /**
-    * Is this position valid?
-    */
-   public boolean isValid() { return true; }
+	/**
+     * Is this position and offset position?
+     */
+	public boolean isOffsetPosition()
+	{
+		return false;
+	}
 
-   /**
-    * Get the tag.
-    */
-   public final String
-   getTag()
-   {
-      return _tag;
-   }
+	/**
+     * Is this position valid?
+     */
+	public boolean isValid()
+	{
+		return true;
+	}
 
-   /**
-    * Get the xaxis.
-    *
-    * @return x axis in degrees or x offset in arcsecs if isOffsetPosition() == true.
-    */
-   public final synchronized double
-   getXaxis()
-   {
-       double xaxis;
-       if ( getTag().equalsIgnoreCase("base") ) {
-           xaxis = RADecMath.getAbsolute( _xaxis, _yaxis, _xoff, _yoff )[0];
-       }
-       else {
-           xaxis = _xaxis;
-       }
-       return xaxis;
-   }
+	/**
+     * Get the tag.
+     */
+	public final String getTag()
+	{
+		return _tag;
+	}
 
-   /**
+	/**
+     * Get the xaxis.
+     * 
+     * @return x axis in degrees or x offset in arcsecs if isOffsetPosition() ==
+     *         true.
+     */
+	public final synchronized double getXaxis()
+	{
+		double xaxis;
+		if( getTag().equalsIgnoreCase( "base" ) )
+			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ];
+		else
+			xaxis = _xaxis;
+
+		return xaxis;
+	}
+
+	/**
      * Get the real BASE position without any offset applied.
      */
-   public final synchronized double getRealXaxis() {
-       return _xaxis;
-   }
+	public final synchronized double getRealXaxis()
+	{
+		return _xaxis;
+	}
 
-   /**
-    * Get the yaxis.
-    *
-    * @return y axis in degrees or y offset in arcsecs if isOffsetPosition() == true.
-    */
-   public final synchronized double
-   getYaxis()
-   {
-       double yaxis;
-       if ( getTag().equalsIgnoreCase("base") ) {
-           yaxis = RADecMath.getAbsolute( _xaxis, _yaxis, _xoff, _yoff )[1];
-       }
-       else {
-           yaxis = _yaxis;
-       }
-       return yaxis;
-   }
+	/**
+     * Get the yaxis.
+     * 
+     * @return y axis in degrees or y offset in arcsecs if isOffsetPosition() ==
+     *         true.
+     */
+	public final synchronized double getYaxis()
+	{
+		double yaxis;
+		if( getTag().equalsIgnoreCase( "base" ) )
+			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ];
+		else
+			yaxis = _yaxis;
+			
+		return yaxis;
+	}
 
-   /**
+	/**
      * Get the real BASE position without any offset applied.
      */
-   public final synchronized double getRealYaxis() {
-       return _yaxis;
-   }
+	public final synchronized double getRealYaxis()
+	{
+		return _yaxis;
+	}
 
-   /**
-    * Get the xaxis as a String. If this is a base position, any base offsets
-    * are not applied.
-    */
-   public synchronized String
-   getRealXaxisAsString()
-   {
-      return String.valueOf(_xaxis);
-   }
+	/**
+     * Get the xaxis as a String. If this is a base position, any base offsets
+     * are not applied.
+     */
+	public synchronized String getRealXaxisAsString()
+	{
+		return String.valueOf( _xaxis );
+	}
 
-   /**
-    * Get the xaxis as a String. If this is a base position, any base offsets
-    * are applied.
-    */
-   public synchronized String
-   getXaxisAsString()
-   {
-       double xaxis;
-       if ( getTag().equalsIgnoreCase("base") ) {
-           xaxis = RADecMath.getAbsolute(_xaxis, _yaxis, _xoff, _yoff)[0];
-       }
-       else {
-           xaxis = _xaxis;
-       }
-       return String.valueOf(xaxis);
-   }
- 
-   /**
-    * Get the yaxis as a String. If this is a base position, any base offsets
-    * are applied.
-    */
-   public synchronized String
-   getYaxisAsString()
-   {
-       double yaxis;
-       if ( getTag().equalsIgnoreCase("base") ) {
-           yaxis = RADecMath.getAbsolute(_xaxis, _yaxis, _xoff, _yoff)[1];
-       }
-       else {
-           yaxis = _yaxis;
-       }
-       return String.valueOf(yaxis);
-   }
+	/**
+     * Get the xaxis as a String. If this is a base position, any base offsets
+     * are applied.
+     */
+	public synchronized String getXaxisAsString()
+	{
+		double xaxis;
+		if( getTag().equalsIgnoreCase( "base" ) )
+			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ];
+		else
+			xaxis = _xaxis;
 
-   /**
-    * Get the yaxis as a String. If this is a base position, any base offsets
-    * are not applied.
-    */
-   public synchronized String
-   getRealYaxisAsString()
-   {
-      return String.valueOf(_yaxis);
-   }
+		return String.valueOf( xaxis );
+	}
 
-   /**
-    * Set the x/y position and notify observers
-    */
-   public void
-   setXY(double x, double y)
-   {
-      synchronized (this) {
-         _xaxis = x;
-         _yaxis = y;
-      }
-      _notifyOfLocationUpdate();
-   }
+	/**
+     * Get the yaxis as a String. If this is a base position, any base offsets
+     * are applied.
+     */
+	public synchronized String getYaxisAsString()
+	{
+		double yaxis;
+		if( getTag().equalsIgnoreCase( "base" ) )
+			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ];
+		else
+			yaxis = _yaxis;
 
-   /**
-    * Add a watcher.
-    */
-   public synchronized void
-   addWatcher(TelescopePosWatcher tpw)
-   {
-      if (_watchers == null) {
-         _watchers = new Vector();
-      } else if (_watchers.contains(tpw)) {
-         return;
-      }
-      _watchers.addElement(tpw);
-   }
+		return String.valueOf( yaxis );
+	}
 
-   /**
-    * Remove a watcher.
-    */
-   public synchronized void
-   deleteWatcher(TelescopePosWatcher tpw)
-   {
-      if (_watchers == null) {
-         return;
-      }
-      _watchers.removeElement(tpw);
-   }
+	/**
+     * Get the yaxis as a String. If this is a base position, any base offsets
+     * are not applied.
+     */
+	public synchronized String getRealYaxisAsString()
+	{
+		return String.valueOf( _yaxis );
+	}
 
-   /**
-	 * Remove all watchers.
-	 */
+	/**
+     * Set the x/y position and notify observers
+     */
+	public void setXY( double x , double y )
+	{
+		synchronized( this )
+		{
+			_xaxis = x;
+			_yaxis = y;
+		}
+		_notifyOfLocationUpdate();
+	}
+
+	/**
+     * Add a watcher.
+     */
+	public synchronized void addWatcher( TelescopePosWatcher tpw )
+	{
+		if( _watchers == null )
+			_watchers = new Vector();
+		else if( _watchers.contains( tpw ) )
+			return;
+
+		_watchers.addElement( tpw );
+	}
+
+	/**
+     * Remove a watcher.
+     */
+	public synchronized void deleteWatcher( TelescopePosWatcher tpw )
+	{
+		if( _watchers == null )
+			return;
+
+		_watchers.removeElement( tpw );
+	}
+
+	/**
+     * Remove all watchers.
+     */
 	public synchronized void deleteWatchers()
 	{
 		if( _watchers == null )
-		{
 			return;
-		}
+
 		_watchers.removeAllElements();
 	}
 
-   /**
-	 * Copy the watchers list.
-	 */
-   protected final synchronized Vector
-   _getWatchers()
-   {
-      if (_watchers == null) {
-         return null;
-      }
- 
-      return (Vector) _watchers.clone();
-   }
+	/**
+     * Copy the watchers list.
+     */
+	protected final synchronized Vector _getWatchers()
+	{
+		if( _watchers == null )
+			return null;
 
-   /**
-    * Notify of a location update.
-    */
-   protected void
-   _notifyOfLocationUpdate()
-   {
-      Vector v = _getWatchers();
-      if (v == null) return;
-      for (int i=0; i<v.size(); ++i) {
-         TelescopePosWatcher tpw;
-         tpw = (TelescopePosWatcher) v.elementAt(i);
-         tpw.telescopePosLocationUpdate(this);
-      }
-   }
+		return ( Vector )_watchers.clone();
+	}
 
-   /**
-    * Notify of a generic/non-location update.
-    */
-   protected void
-   _notifyOfGenericUpdate()
-   {
-      Vector v = _getWatchers();
-      if (v == null) return;
-      for (int i=0; i<v.size(); ++i) {
-         TelescopePosWatcher tpw;
-         tpw = (TelescopePosWatcher) v.elementAt(i);
-         tpw.telescopePosGenericUpdate(this);
-      }
-   }
+	/**
+     * Notify of a location update.
+     */
+	protected void _notifyOfLocationUpdate()
+	{
+		Vector v = _getWatchers();
+		if( v == null )
+			return;
+		
+		for( int i = 0 ; i < v.size() ; ++i )
+		{
+			TelescopePosWatcher tpw;
+			tpw = ( TelescopePosWatcher )v.elementAt( i );
+			tpw.telescopePosLocationUpdate( this );
+		}
+	}
 
-   /**
-    * Select this position.
-    */
-   public void
-   select()
-   {
-      if (_list != null) _list.setSelectedPos(this);
-   }
- 
-   /**
-    * Debugging method.
-    */
-   public synchronized String
-   toString()
-   {
-      return getClass().getName() +
-	"[tag=" + getTag() +
-	", xaxis=" + HHMMSS.valStr(getXaxis()) +
-	", yaxis=" + DDMMSS.valStr(getYaxis()) + 
-        ", xoff=" + _xoff + ", yoff=" + _yoff +"]";
-   }
+	/**
+     * Notify of a generic/non-location update.
+     */
+	protected void _notifyOfGenericUpdate()
+	{
+		Vector v = _getWatchers();
+		if( v == null )
+			return;
+		
+		for( int i = 0 ; i < v.size() ; ++i )
+		{
+			TelescopePosWatcher tpw;
+			tpw = ( TelescopePosWatcher )v.elementAt( i );
+			tpw.telescopePosGenericUpdate( this );
+		}
+	}
+
+	/**
+     * Select this position.
+     */
+	public void select()
+	{
+		if( _list != null )
+			_list.setSelectedPos( this );
+	}
+
+	/**
+     * Debugging method.
+     */
+	public synchronized String toString()
+	{
+		return getClass().getName() + "[tag=" + getTag() + ", xaxis=" + HHMMSS.valStr( getXaxis() ) + ", yaxis=" + DDMMSS.valStr( getYaxis() ) + ", xoff=" + _xoff + ", yoff=" + _yoff + "]";
+	}
 }

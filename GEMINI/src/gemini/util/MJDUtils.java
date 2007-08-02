@@ -1,59 +1,59 @@
-package gemini.util ;
+package gemini.util;
 
-import java.util.Calendar ;
-import java.util.GregorianCalendar ;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /*
-import gemini.util.Calendar ;
-import gemini.util.GregorianCalendar ;
-*/
-import java.util.StringTokenizer ;
+ * import gemini.util.Calendar ; import gemini.util.GregorianCalendar ;
+ */
+import java.util.StringTokenizer;
 
 public class MJDUtils
 {
 
 	public static void main( String[] args )
 	{
-		double doubleDate = 0. ;
+		double doubleDate = 0.;
 		if( args.length == 0 )
 		{
 			while( doubleDate < ( mjd * 3 ) )
 			{
 				if( dateIsDodgy( doubleDate ) )
-					System.out.print( doubleDate + " is dodgy " + "\r" ) ;
-				doubleDate += 0.25 ;
+					System.out.print( doubleDate + " is dodgy " + "\r" );
+				doubleDate += 0.25;
 			}
 		}
 		else
 		{
-			String input = args[ 0 ] ;
-			doubleDate = Format.toDouble( input ) ;
+			String input = args[ 0 ];
+			doubleDate = Format.toDouble( input );
 			if( doubleDate != 0. )
-				System.out.println( convertMJD( doubleDate ) ) ;
+				System.out.println( convertMJD( doubleDate ) );
 			else
-				System.out.println( convertMJD( input ) ) ;
+				System.out.println( convertMJD( input ) );
 		}
 	}
 
-	public static final double mjd = 2400000.5 ;
+	public static final double mjd = 2400000.5;
 
 	public static boolean dateIsDodgy( double epoch )
 	{
-		String StringDate = convertMJD( epoch ) ;
-		double converted = convertMJD( StringDate ) ;
-		return converted != epoch ;
+		String StringDate = convertMJD( epoch );
+		double converted = convertMJD( StringDate );
+		return converted != epoch;
 	}
-	
+
 	public static double makeMJD( double mjdDays )
 	{
-		mjdDays %= mjd ;
-		return mjdDays ;
+		mjdDays %= mjd;
+		return mjdDays;
 	}
 
-	/* coversion originally by Martin Folger 
-	 * ripped from gemini.sp.SpTelescopePos 
-	 * with some rework */
+	/*
+     * coversion originally by Martin Folger ripped from
+     * gemini.sp.SpTelescopePos with some rework
+     */
 
-   	/** Year of origin of MJD: 1858. */
+	/** Year of origin of MJD: 1858. */
 	public static final int MJD_0_YEAR = 1858;
 
 	/** Year of origin of MJD: java.util.Calendar.NOVEMBER. */
@@ -62,19 +62,18 @@ public class MJDUtils
 	/** Day of origin of MJD: 17. */
 	public static final int MJD_0_DAY = 17;
 
-   	private static final String[] MONTH_NAMES =
-	{ "Jan" , "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct" , "Nov" , "Dec" };
+	private static final String[] MONTH_NAMES = { "Jan" , "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct" , "Nov" , "Dec" };
 
 	/**
-	 * Converts TT in MJD to YYYY MM DD.ddd format.
-	 * 
-	 * @param mjdDays
-	 *            TT in MJD (days).
-	 * @return TT in YYYY MM DD.ddd format.
-	 */
+     * Converts TT in MJD to YYYY MM DD.ddd format.
+     * 
+     * @param mjdDays
+     *            TT in MJD (days).
+     * @return TT in YYYY MM DD.ddd format.
+     */
 	public static String convertMJD( double mjdDays )
 	{
-		mjdDays = makeMJD( mjdDays ) ;
+		mjdDays = makeMJD( mjdDays );
 		double fullDays = Math.floor( mjdDays );
 		double remainder = mjdDays - fullDays;
 
@@ -87,12 +86,12 @@ public class MJDUtils
 	}
 
 	/**
-	 * Converts TT in YYYY MM DD.ddd format to MJD (days).
-	 * 
-	 * @param yyyymmdd_ddd
-	 *            TT in YYYY MM DD.ddd format.
-	 * @return TT in MJD (days).
-	 */
+     * Converts TT in YYYY MM DD.ddd format to MJD (days).
+     * 
+     * @param yyyymmdd_ddd
+     *            TT in YYYY MM DD.ddd format.
+     * @return TT in MJD (days).
+     */
 	public static double convertMJD( String yyyymmdd_ddd )
 	{
 		StringTokenizer stringTokenizer = new StringTokenizer( yyyymmdd_ddd , " ,:;/" );
@@ -132,7 +131,7 @@ public class MJDUtils
 				resultInDays += 365;
 
 				if( calendar.isLeapYear( i ) )
-					resultInDays++;
+					resultInDays++ ;
 			}
 		}
 		else if( year <= MJD_0_YEAR )
@@ -142,7 +141,7 @@ public class MJDUtils
 				resultInDays -= 365;
 
 				if( calendar.isLeapYear( i ) )
-					resultInDays--;
+					resultInDays-- ;
 			}
 		}
 
@@ -173,9 +172,9 @@ public class MJDUtils
 			case 1 :
 				resultInDays += 31;
 		}
-		
+
 		if( ( calendar.isLeapYear( year ) ) && ( monthIndex > 1 ) )
-			resultInDays++;
+			resultInDays++ ;
 
 		resultInDays += day;
 
@@ -183,7 +182,7 @@ public class MJDUtils
 
 		// just to be on the safe side
 
-		resultInDays = makeMJD( resultInDays ) ;
+		resultInDays = makeMJD( resultInDays );
 
 		return resultInDays;
 	}

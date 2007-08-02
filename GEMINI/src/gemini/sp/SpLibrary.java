@@ -12,32 +12,31 @@ package gemini.sp;
 public class SpLibrary extends SpRootItem
 {
 
-/**
- * Default constructor.  Initializes the SpLibrary with a default
- * library folder.
- */
-protected SpLibrary()
-{
-   super(SpType.LIBRARY);
-   setOTVersion();
-}
+	/**
+     * Default constructor. Initializes the SpLibrary with a default library
+     * folder.
+     */
+	protected SpLibrary()
+	{
+		super( SpType.LIBRARY );
+		setOTVersion();
+	}
 
-/**
- * Construct a library, initializing it to contain the given library folder.
- */
-protected SpLibrary(SpLibraryFolder lfPrototype)
-{
-   this();
-   doInsert(lfPrototype, null);
-}
+	/**
+     * Construct a library, initializing it to contain the given library folder.
+     */
+	protected SpLibrary( SpLibraryFolder lfPrototype )
+	{
+		this();
+		doInsert( lfPrototype , null );
+	}
 
-public void processXmlElementContent (String element, String value) {
-    if ( element.equals (ATTR_OT_VERSION) ) {
-	setOTVersion();
-    }
-    else {
-	super.processXmlElementContent(element, value);
-    }
-}
+	public void processXmlElementContent( String element , String value )
+	{
+		if( element.equals( ATTR_OT_VERSION ) )
+			setOTVersion();
+		else
+			super.processXmlElementContent( element , value );
+	}
 
 }

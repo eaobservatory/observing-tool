@@ -12,12 +12,12 @@ package gemini.sp;
 public class SpPlan extends SpRootItem
 {
 
-/**
- * Default constructor.
- */
-protected SpPlan()
-{
-   super(SpType.SCIENCE_PLAN);
-}
+	/**
+     * Default constructor.
+     */
+	protected SpPlan()
+	{
+		super( SpType.SCIENCE_PLAN );
+	}
 
 }

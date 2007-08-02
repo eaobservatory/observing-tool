@@ -14,194 +14,179 @@ import java.util.Enumeration;
 public class SpProg extends SpRootItem
 {
 
-   /** The PI (principal investigator) attribute. */
-   public static final String ATTR_PI = "pi";
+	/** The PI (principal investigator) attribute. */
+	public static final String ATTR_PI = "pi";
 
-   /** The country attribute. */
-   public static final String ATTR_COUNTRY = "country";
+	/** The country attribute. */
+	public static final String ATTR_COUNTRY = "country";
 
-   /** The project ID. */
-   public static final String ATTR_PROJECT_ID = "projectID";
+	/** The project ID. */
+	public static final String ATTR_PROJECT_ID = "projectID";
 
-   /** The timestamp. */
-   public static final String ATTR_TIMESTAMP = ":timestamp";
+	/** The timestamp. */
+	public static final String ATTR_TIMESTAMP = ":timestamp";
 
-   // The Phase 1 proposal item.  It stores all the information entered
-   // during the Phase 1 proposal definition.
-   private SpPhase1 _phase1Item;
-
-/**
- * Default constructor.
- */
-protected SpProg()
-{
-   super(SpType.SCIENCE_PROGRAM);
-   setTelescope();
-   setOTVersion();
-}
-
-//
-// Set the Phase 1 item to associate with this program.
-//
-void
-setPhase1Item(SpPhase1 p1)
-{
-   _phase1Item = p1;
-}
-
-/**
- * Get the Phase 1 item associated with this program (if any).  If there
- * is no Phase 1 item for this program, this method will return null.
- */
-public SpPhase1
-getPhase1Item()
-{
-   return _phase1Item;
-}
-
-/**
- * Get PI (principle investigator) attribute.
- *
- * Added for OMP (MFO, 7 August 2001)
- *
- * @return PI or "" if attribute hasn't been set.
- */
-public String
-getPI()
-{
-   if(_avTable.get(ATTR_PI) != null) {
-      return _avTable.get(ATTR_PI);
-   }
-   else {
-      return "";
-   }
-}
-
-/**
- * Set PI (principle investigator) attribute.
- *
- * Added for OMP (MFO, 7 August 2001)
- */
-public void
-setPI(String pi)
-{
-   _avTable.set(ATTR_PI, pi);
-}
-
-/**
- * Get country attribute.
- *
- * Added for OMP (MFO, 7 August 2001)
- *
- * @return country or "" if attribute hasn't been set.
- */
-public String
-getCountry()
-{
-   if(_avTable.get(ATTR_COUNTRY) != null) {
-      return _avTable.get(ATTR_COUNTRY);
-   }
-   else {
-      return "";
-   }
-}
-
-/**
- * Set country attribute.
- *
- * Added for OMP (MFO, 7 August 2001)
- */
-public void
-setCountry(String country)
-{
-   _avTable.set(ATTR_COUNTRY, country);
-}
-
-/**
- * Get country attribute.
- *
- * Added for OMP (MFO, 7 August 2001)
- *
- * @return country or "" if attribute hasn't been set.
- */
-public String
-getProjectID()
-{
-   if(_avTable.get(ATTR_PROJECT_ID) != null) {
-      return _avTable.get(ATTR_PROJECT_ID);
-   }
-   else {
-      return "";
-   }
-}
-
-/**
- * Set project ID.
- *
- * Added for OMP (MFO, 7 August 2001)
- */
-public void
-setProjectID(String projectID)
-{
-   _avTable.set(ATTR_PROJECT_ID, projectID);
-}
-
-
-/**
- * Set timestamp.
- *
- * Added for OMP (MFO, 12 November 2001)
- */
-public void
-setTimestamp(int timestamp)
-{
-   _avTable.set(ATTR_TIMESTAMP, timestamp);
-}
-
-/**
- * Calculates the duration of this Science Program.
- */
-public double getTotalTime()
-{
-  double elapsedTime = 0.0;
-  Enumeration children = children();
-  SpItem spItem = null;
-
-  while(children.hasMoreElements()) {
-    spItem = (SpItem)children.nextElement();
-
-    if(spItem instanceof SpMSB) {
-	if ( ((SpMSB)spItem).getNumberRemaining() >= 0 ) {
-	    elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
-	}
-        else {
-        }
-    }
-    else if(spItem instanceof SpAND) {
-      elapsedTime += ((SpAND)spItem).getTotalTime();
-    }
-    else if(spItem instanceof SpOR) {
-      try {
-          elapsedTime += ((SpAND)spItem).getTotalTime();
-      }
-      catch (Exception e)  {
-          // Ignore
-      }
-      elapsedTime += ((SpOR)spItem).getTotalTime();
-    }
-    else if ( spItem instanceof SpSurveyContainer ) {
-        elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
-    }
-    else {
-    }
-  }
-
-  return elapsedTime;
-}
+	// The Phase 1 proposal item. It stores all the information entered
+	// during the Phase 1 proposal definition.
+	private SpPhase1 _phase1Item;
 
 	/**
-	 * Calculates the duration of this Science Program.
-	 */
+     * Default constructor.
+     */
+	protected SpProg()
+	{
+		super( SpType.SCIENCE_PROGRAM );
+		setTelescope();
+		setOTVersion();
+	}
+
+	//
+	// Set the Phase 1 item to associate with this program.
+	//
+	void setPhase1Item( SpPhase1 p1 )
+	{
+		_phase1Item = p1;
+	}
+
+	/**
+     * Get the Phase 1 item associated with this program (if any). If there is
+     * no Phase 1 item for this program, this method will return null.
+     */
+	public SpPhase1 getPhase1Item()
+	{
+		return _phase1Item;
+	}
+
+	/**
+     * Get PI (principle investigator) attribute.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     * 
+     * @return PI or "" if attribute hasn't been set.
+     */
+	public String getPI()
+	{
+		if( _avTable.get( ATTR_PI ) != null )
+			return _avTable.get( ATTR_PI );
+		else
+			return "";
+	}
+
+	/**
+     * Set PI (principle investigator) attribute.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     */
+	public void setPI( String pi )
+	{
+		_avTable.set( ATTR_PI , pi );
+	}
+
+	/**
+     * Get country attribute.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     * 
+     * @return country or "" if attribute hasn't been set.
+     */
+	public String getCountry()
+	{
+		if( _avTable.get( ATTR_COUNTRY ) != null )
+			return _avTable.get( ATTR_COUNTRY );
+		else
+			return "";
+	}
+
+	/**
+     * Set country attribute.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     */
+	public void setCountry( String country )
+	{
+		_avTable.set( ATTR_COUNTRY , country );
+	}
+
+	/**
+     * Get country attribute.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     * 
+     * @return country or "" if attribute hasn't been set.
+     */
+	public String getProjectID()
+	{
+		if( _avTable.get( ATTR_PROJECT_ID ) != null )
+			return _avTable.get( ATTR_PROJECT_ID );
+		else
+			return "";
+	}
+
+	/**
+     * Set project ID.
+     * 
+     * Added for OMP (MFO, 7 August 2001)
+     */
+	public void setProjectID( String projectID )
+	{
+		_avTable.set( ATTR_PROJECT_ID , projectID );
+	}
+
+	/**
+     * Set timestamp.
+     * 
+     * Added for OMP (MFO, 12 November 2001)
+     */
+	public void setTimestamp( int timestamp )
+	{
+		_avTable.set( ATTR_TIMESTAMP , timestamp );
+	}
+
+	/**
+     * Calculates the duration of this Science Program.
+     */
+	public double getTotalTime()
+	{
+		double elapsedTime = 0.0;
+		Enumeration children = children();
+		SpItem spItem = null;
+
+		while( children.hasMoreElements() )
+		{
+			spItem = ( SpItem )children.nextElement();
+
+			if( spItem instanceof SpMSB )
+			{
+				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
+					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+			}
+			else if( spItem instanceof SpAND )
+			{
+				elapsedTime += ( ( SpAND )spItem ).getTotalTime();
+			}
+			else if( spItem instanceof SpOR )
+			{
+				try
+				{
+					elapsedTime += ( ( SpAND )spItem ).getTotalTime();
+				}
+				catch( Exception e )
+				{
+					// Ignore
+				}
+				elapsedTime += ( ( SpOR )spItem ).getTotalTime();
+			}
+			else if( spItem instanceof SpSurveyContainer )
+			{
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime();
+			}
+		}
+		return elapsedTime;
+	}
+
+	/**
+     * Calculates the duration of this Science Program.
+     */
 	public double getElapsedTime()
 	{
 		double elapsedTime = 0.0;
@@ -210,43 +195,35 @@ public double getTotalTime()
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem ) children.nextElement();
+			spItem = ( SpItem )children.nextElement();
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB ) spItem ).getNumberRemaining() >= 0 )
-				{
-					elapsedTime += ( ( ( SpMSB ) spItem ).getElapsedTime() * ( ( SpMSB ) spItem ).getNumberRemaining() );
-				}
+				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
+					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND ) spItem ).getElapsedTime();
+				elapsedTime += ( ( SpAND )spItem ).getElapsedTime();
 			}
 			else if( spItem instanceof SpOR )
 			{
-				elapsedTime += ( ( SpOR ) spItem ).getElapsedTime();
+				elapsedTime += ( ( SpOR )spItem ).getElapsedTime();
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer ) spItem ).getElapsedTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
 			}
 		}
 
 		return elapsedTime;
 	}
 
-public void processXmlElementContent (String element, String value) {
-    if ( element.equals (ATTR_OT_VERSION) ) {
-	setOTVersion();
-    }
-    else {
-	super.processXmlElementContent(element, value);
-    }
+	public void processXmlElementContent( String element , String value )
+	{
+		if( element.equals( ATTR_OT_VERSION ) )
+			setOTVersion();
+		else
+			super.processXmlElementContent( element , value );
+	}
 }
-
-
-
-}
-
-

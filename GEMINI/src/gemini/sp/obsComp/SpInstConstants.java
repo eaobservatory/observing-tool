@@ -11,22 +11,15 @@ package gemini.sp.obsComp;
  */
 public interface SpInstConstants
 {
-   String ATTR_EXPOSURE_TIME			= "exposureTime";
-   String ATTR_POS_ANGLE			= "posAngle";
-
-   String ATTR_EXPOSURES_PER_CHOP_POSITION	= "exposuresPerChopPosition";
-   int    DEF_EXPOSURES_PER_CHOP_POSITION     	= 1;
-
-   String ATTR_CHOP_CYCLES_PER_NOD		= "chopCyclesPerNod";
-   int    DEF_CHOP_CYCLES_PER_NOD		= 1;
-
-   String ATTR_CYCLES_PER_OBSERVE		= "cyclesPerObserve";
-   int    DEF_CYCLES_PER_OBSERVE		= 0;
-
-   String  ATTR_NODDING				= "nodding";
-   boolean DEF_NODDING				= false;
-
-   String ATTR_COADDS				= "coadds";
+	String ATTR_EXPOSURE_TIME = "exposureTime";
+	String ATTR_POS_ANGLE = "posAngle";
+	String ATTR_EXPOSURES_PER_CHOP_POSITION = "exposuresPerChopPosition";
+	int DEF_EXPOSURES_PER_CHOP_POSITION = 1;
+	String ATTR_CHOP_CYCLES_PER_NOD = "chopCyclesPerNod";
+	int DEF_CHOP_CYCLES_PER_NOD = 1;
+	String ATTR_CYCLES_PER_OBSERVE = "cyclesPerObserve";
+	int DEF_CYCLES_PER_OBSERVE = 0;
+	String ATTR_NODDING = "nodding";
+	boolean DEF_NODDING = false;
+	String ATTR_COADDS = "coadds";
 }
-
- 

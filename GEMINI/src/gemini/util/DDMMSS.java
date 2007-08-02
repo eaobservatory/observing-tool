@@ -5,47 +5,42 @@
 // $Id$
 //
 /*
- * NCSA Horizon Image Browser
- * Project Horizon
- * National Center for Supercomputing Applications
- * University of Illinois at Urbana-Champaign
- * 605 E. Springfield, Champaign IL 61820
- * horizon@ncsa.uiuc.edu
- *
+ * NCSA Horizon Image Browser Project Horizon National Center for Supercomputing
+ * Applications University of Illinois at Urbana-Champaign 605 E. Springfield,
+ * Champaign IL 61820 horizon@ncsa.uiuc.edu
+ * 
  * Copyright (C) 1996, Board of Trustees of the University of Illinois
- *
+ * 
  * NCSA Horizon software, both binary and source (hereafter, Software) is
- * copyrighted by The Board of Trustees of the University of Illinois
- * (UI), and ownership remains with the UI.
- *
- * You should have received a full statement of copyright and
- * conditions for use with this package; if not, a copy may be
- * obtained from the above address.  Please see this statement
- * for more details.
+ * copyrighted by The Board of Trustees of the University of Illinois (UI), and
+ * ownership remains with the UI.
+ * 
+ * You should have received a full statement of copyright and conditions for use
+ * with this package; if not, a copy may be obtained from the above address.
+ * Please see this statement for more details.
  */
 package gemini.util;
 
 /**
- * Support for converting between angles in string
- * and double representations.
+ * Support for converting between angles in string and double representations.
  */
 public class DDMMSS
 {
-   public static final String MYNAME =
-        "Degree-Angle (+/- 90) Coordinate Axis Position Formatter";
+
+	public static final String MYNAME = "Degree-Angle (+/- 90) Coordinate Axis Position Formatter";
 
 	/**
-	 * Covert from a Dec in degrees to a DD:MM:SS String representation.
-	 */
+     * Covert from a Dec in degrees to a DD:MM:SS String representation.
+     */
 	public static String valStr( double degrees , int prec )
 	{
 		int sign = ( degrees < 0 ) ? -1 : 1;
 		degrees = Math.abs( degrees );
 
-		int dd = ( int ) degrees;
-		double tmp = ( degrees - ( double ) dd ) * 60.0;
-		int mm = ( int ) tmp;
-		double ss = ( tmp - ( double ) mm ) * 60.0;
+		int dd = ( int )degrees;
+		double tmp = ( degrees - ( double )dd ) * 60.0;
+		int mm = ( int )tmp;
+		double ss = ( tmp - ( double )mm ) * 60.0;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
@@ -76,7 +71,7 @@ public class DDMMSS
 		out.append( ':' );
 
 		// Ignoring prec for now
-		ss = ( ( double ) Math.round( ss * 100.0 ) ) / 100.0;
+		ss = ( ( double )Math.round( ss * 100.0 ) ) / 100.0;
 		if( ss < 10 )
 			out.append( '0' );
 		out.append( ss );
@@ -84,19 +79,17 @@ public class DDMMSS
 		return out.toString();
 	}
 
-/**
- * Covert from a Dec in degrees to a DD:MM:SS String representation.
- */
-public static String
-valStr(double degrees)
-{ 
-   return valStr(degrees, -3);
-}
+	/**
+     * Covert from a Dec in degrees to a DD:MM:SS String representation.
+     */
+	public static String valStr( double degrees )
+	{
+		return valStr( degrees , -3 );
+	}
 
-
-/**
- * Convert from a Dec in DD:MM:SS string format to degrees.
- */
+	/**
+     * Convert from a Dec in DD:MM:SS string format to degrees.
+     */
 	public static double valueOf( String s ) throws NumberFormatException
 	{
 		if( s == null )
@@ -113,7 +106,7 @@ valStr(double degrees)
 			s = s.substring( 1 );
 		}
 
-		double[] vals = stringTodoubleTriplet( s ) ;
+		double[] vals = stringTodoubleTriplet( s );
 
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 );
 		return out;
@@ -121,47 +114,46 @@ valStr(double degrees)
 
 	public static boolean validate( String hhmmss )
 	{
-		boolean valid = true ;
-		
-		double[] values = stringTodoubleTriplet( hhmmss ) ;
-		
-		double degrees = values[ 0 ] ;
-		double minutes = values[ 1 ] ;
-		double seconds = values[ 2 ] ;
-		
+		boolean valid = true;
+
+		double[] values = stringTodoubleTriplet( hhmmss );
+
+		double degrees = values[ 0 ];
+		double minutes = values[ 1 ];
+		double seconds = values[ 2 ];
+
 		if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-			valid = false ;
-		
-		return valid ;
+			valid = false;
+
+		return valid;
 	}
 
 	public static double[] stringTodoubleTriplet( String hhmmss )
 	{
-		double[] values = { 0. , 0. , 0. } ;
-		
-		String[] split = hhmmss.split( ":" ) ;
+		double[] values = { 0. , 0. , 0. };
+
+		String[] split = hhmmss.split( ":" );
 		for( int index = 0 ; index < split.length && index < values.length ; index++ )
 		{
-			String current = split[ index ].trim() ;
-			values[ index ] = new Double( current ) ;
+			String current = split[ index ].trim();
+			values[ index ] = new Double( current );
 		}
-		
-		return values ;
+
+		return values;
 	}
 
-/**
- * For testing.
- */
-public static void
-main(String args[])
-{
-   for (int i=0; i<args.length; ++i) {
-      double converted = DDMMSS.valueOf(args[i]);
-      String back      = DDMMSS.valStr(converted);
-      System.out.println(args[i]   + " = " + converted);
-      System.out.println(converted + " = " + back);
-   }
-}
+	/**
+     * For testing.
+     */
+	public static void main( String args[] )
+	{
+		for( int i = 0 ; i < args.length ; ++i )
+		{
+			double converted = DDMMSS.valueOf( args[ i ] );
+			String back = DDMMSS.valStr( converted );
+			System.out.println( args[ i ] + " = " + converted );
+			System.out.println( converted + " = " + back );
+		}
+	}
 
 }
-

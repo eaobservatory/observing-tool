@@ -11,6 +11,7 @@ package gemini.util;
  */
 public class RADec
 {
+
 	/** The coordinate system in which the RA and Dec are represented. */
 	public int coordSystem = CoordSys.FK5;
 
@@ -27,13 +28,13 @@ public class RADec
 	public double decpm = 0.0;
 
 	/**
-	 * Default constructor.
-	 */
+     * Default constructor.
+     */
 	public RADec(){}
 
 	/**
-	 * Construct with most of the fields.
-	 */
+     * Construct with most of the fields.
+     */
 	public RADec( int sys , double ra , double dec )
 	{
 		switch( sys )
@@ -50,8 +51,8 @@ public class RADec
 	}
 
 	/**
-	 * Construct with all of the fields.
-	 */
+     * Construct with all of the fields.
+     */
 	public RADec( int sys , double ra , double dec , double rapm , double decpm )
 	{
 		this( sys , ra , dec );

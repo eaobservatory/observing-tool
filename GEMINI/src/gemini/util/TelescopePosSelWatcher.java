@@ -7,11 +7,12 @@
 package gemini.util;
 
 /**
- * An interface supported by clients of TelescopePosList who want to
- * be notified when a TelescopePos is selected.
+ * An interface supported by clients of TelescopePosList who want to be notified
+ * when a TelescopePos is selected.
  */
 public interface TelescopePosSelWatcher
 {
-   /** A position has been selected.  */
-   public void telescopePosSelected(TelescopePosList tpl, TelescopePos tp);
+
+	/** A position has been selected. */
+	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp );
 }
