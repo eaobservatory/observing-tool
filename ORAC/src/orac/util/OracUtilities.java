@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.util;
 
 import java.util.Calendar;
@@ -19,31 +18,34 @@ import java.util.StringTokenizer;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class OracUtilities {
-  public static String secsToHHMMSS(double seconds) {
-    int integerPart = (int)seconds;
-    double fraction = seconds - integerPart;
-    int remainder   = (int)seconds;
+public class OracUtilities
+{
+	public static String secsToHHMMSS( double seconds )
+	{
+		int integerPart = ( int )seconds;
+		double fraction = seconds - integerPart;
+		int remainder = ( int )seconds;
 
-    int hh = remainder / 3600;
-    remainder -= (hh * 3600);
+		int hh = remainder / 3600;
+		remainder -= ( hh * 3600 );
 
-    int mm = remainder / 60;
-    remainder -= (mm * 60);
+		int mm = remainder / 60;
+		remainder -= ( mm * 60 );
 
-    double secs = remainder / 60;
+		String hhStr = "" + hh;
+		if( hh < 10 )
+			hhStr = "0" + hhStr;
 
-    String hhStr = "" + hh;
-    if(hh < 10) hhStr = "0" + hhStr;
+		String mmStr = "" + mm;
+		if( mm < 10 )
+			mmStr = "0" + mmStr;
 
-    String mmStr = "" + mm;
-    if(mm < 10) mmStr = "0" + mmStr;
+		String remainderStr = "" + ( remainder + fraction );
+		if( remainder < 10 )
+			remainderStr = "0" + remainderStr;
 
-    String remainderStr = "" + (remainder + fraction);
-    if(remainder < 10) remainderStr = "0" + remainderStr;
-
-    return hhStr + ":" + mmStr + ":" + remainderStr;
-  }
+		return hhStr + ":" + mmStr + ":" + remainderStr;
+	}
 
 	public static String secsToHHMMSS( double seconds , int decimalPlaces )
 	{
@@ -73,107 +75,111 @@ public class OracUtilities {
 		return result;
 	}
 
-  /**
+	/**
 	 * Converts java.util.Date to date string (ISO8601 format).
 	 */
-  public static String toISO8601(Date date) {
-    StringBuffer result = new StringBuffer();
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(date);
+	public static String toISO8601( Date date )
+	{
+		StringBuffer result = new StringBuffer();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime( date );
 
-    if(calendar.get(Calendar.YEAR) < 100) {
-      result.append("20");
-      if(calendar.get(Calendar.YEAR) < 10) {
-        result.append("0");
-      }
-    }  
-    result.append(calendar.get(Calendar.YEAR));
-    result.append("-");
-    if((calendar.get(Calendar.MONTH) + 1) < 10) {
-      result.append("0");
-    }
-    result.append(calendar.get(Calendar.MONTH) + 1);
-    result.append("-");
-    if(calendar.get(Calendar.DAY_OF_MONTH) < 10) {
-      result.append("0");
-    }
-    result.append(calendar.get(Calendar.DAY_OF_MONTH));
-    result.append("T");
-    if(calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-      result.append("0");
-    }
-    result.append(calendar.get(Calendar.HOUR_OF_DAY));
-    result.append(":");
-    if(calendar.get(Calendar.MINUTE) < 10) {
-      result.append("0");
-    }    
-    result.append(calendar.get(Calendar.MINUTE));
-    result.append(":");
-    if(calendar.get(Calendar.SECOND) < 10) {
-      result.append("0");
-    }
-    result.append(calendar.get(Calendar.SECOND));
-    
-    return result.toString();
-  }
+		if( calendar.get( Calendar.YEAR ) < 100 )
+		{
+			result.append( "20" );
+			if( calendar.get( Calendar.YEAR ) < 10 )
+				result.append( "0" );
+		}
+		result.append( calendar.get( Calendar.YEAR ) );
+		result.append( "-" );
+		
+		if( ( calendar.get( Calendar.MONTH ) + 1 ) < 10 )
+			result.append( "0" );
 
-  /**
-   * Converts date string (ISO8601 format) to java.util.Date.
-   */
-  public static Date parseISO8601(String dateISO8601) {
-    Calendar calendar = Calendar.getInstance();
+		result.append( calendar.get( Calendar.MONTH ) + 1 );
+		result.append( "-" );
+		
+		if( calendar.get( Calendar.DAY_OF_MONTH ) < 10 )
+			result.append( "0" );
+		
+		result.append( calendar.get( Calendar.DAY_OF_MONTH ) );
+		result.append( "T" );
+		
+		if( calendar.get( Calendar.HOUR_OF_DAY ) < 10 )
+			result.append( "0" );
+		
+		result.append( calendar.get( Calendar.HOUR_OF_DAY ) );
+		result.append( ":" );
+		if( calendar.get( Calendar.MINUTE ) < 10 )
+			result.append( "0" );
 
-    // Including `;`, `.`, `,`, ` ` among the deliminators causes lenient parsing.
-    StringTokenizer stringTokenizer = new StringTokenizer(dateISO8601, "-T:;, ");
+		result.append( calendar.get( Calendar.MINUTE ) );
+		result.append( ":" );
+		
+		if( calendar.get( Calendar.SECOND ) < 10 )
+			result.append( "0" );
 
-    int [] dateIntegers = { 2000,  // default year
-                               1,  // default month
-			       1,  // default day
-			       0,  // default hour
-			       0,  // default minute
-			       0}; // default second
+		result.append( calendar.get( Calendar.SECOND ) );
 
-    try {
-      for(int i = 0; i < dateIntegers.length; i++) {
-        if(stringTokenizer.hasMoreTokens()) {
-          dateIntegers[i] = Integer.parseInt((String)stringTokenizer.nextToken());
-        }
-        else {
-          break;
-        }
-      }
+		return result.toString();
+	}
 
-      calendar.set(
-        dateIntegers[0],
-        dateIntegers[1] - 1, // subtract 1 because Calendar.MONTH range is 0..1
-        dateIntegers[2],
-        dateIntegers[3],
-        dateIntegers[4],
-        dateIntegers[5]
-      );
+	/**
+	 * Converts date string (ISO8601 format) to java.util.Date.
+	 */
+	public static Date parseISO8601( String dateISO8601 )
+	{
+		Calendar calendar = Calendar.getInstance();
 
-      return calendar.getTime();
-    }
-    catch(Exception e) {
-      throw new IllegalArgumentException("Could not parse \"" + dateISO8601 + "\": " + e);
-    }
-  }
+		// Including `;`, `.`, `,`, ` ` among the deliminators causes lenient parsing.
+		StringTokenizer stringTokenizer = new StringTokenizer( dateISO8601 , "-T:;, " );
 
+		int[] dateIntegers = 
+		{ 
+				2000 , // default year
+				1 , // default month
+				1 , // default day
+				0 , // default hour
+				0 , // default minute
+				0 // default second
+		} ;
 
-  /**
-   * Debug method.
-   */
-  public static void main(String [] args) {
-    if(args.length != 2) {
-      System.out.println("Usage: OracUtilities <number of seconds (double)> <decimal points>");
-      return;
-    }
+		try
+		{
+			for( int i = 0 ; i < dateIntegers.length ; i++ )
+			{
+				if( stringTokenizer.hasMoreTokens() )
+					dateIntegers[ i ] = Integer.parseInt( ( String )stringTokenizer.nextToken() );
+				else
+					break;
+			}
 
-    double s = Double.parseDouble(args[0]);
-    int    n = Integer.parseInt(args[1]);
+			calendar.set( dateIntegers[ 0 ] , dateIntegers[ 1 ] - 1 , // subtract 1 because Calendar.MONTH range is 0..1
+			dateIntegers[ 2 ] , dateIntegers[ 3 ] , dateIntegers[ 4 ] , dateIntegers[ 5 ] );
 
-    System.out.println("secsToHHMMSS(" + s + ") = " + secsToHHMMSS(s));
-    System.out.println("secsToHHMMSS(" + s + ", " + n + ") = " + secsToHHMMSS(s, n));
-  }
+			return calendar.getTime();
+		}
+		catch( Exception e )
+		{
+			throw new IllegalArgumentException( "Could not parse \"" + dateISO8601 + "\": " + e );
+		}
+	}
+
+	/**
+	 * Debug method.
+	 */
+	public static void main( String[] args )
+	{
+		if( args.length != 2 )
+		{
+			System.out.println( "Usage: OracUtilities <number of seconds (double)> <decimal points>" );
+			return;
+		}
+
+		double s = Double.parseDouble( args[ 0 ] );
+		int n = Integer.parseInt( args[ 1 ] );
+
+		System.out.println( "secsToHHMMSS(" + s + ") = " + secsToHHMMSS( s ) );
+		System.out.println( "secsToHHMMSS(" + s + ", " + n + ") = " + secsToHHMMSS( s , n ) );
+	}
 }
-

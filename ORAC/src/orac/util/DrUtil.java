@@ -1,7 +1,5 @@
 package orac.util;
 
-import java.util.Hashtable;
-
 /**
  * Utility class for calculations related to data reduction issues.
  *
@@ -12,67 +10,62 @@ import java.util.Hashtable;
  * @author <br>Edward Chapin (echapin@jach.hawaii.edu):   Perl version and documentation
  * @author <br>Tim Jenness   (t.jenness@jach.hawaii.edu): Perl version and documentation
  */
-public class DrUtil {
+public class DrUtil
+{
+	public static final int STATUS_SUCCESSFUL = 0;
 
-  public static final int STATUS_SUCCESSFUL = 0;
+	/** Failure due to invalid parameters. */
+	public static final int STATUS_INVALID_PARAMETERS = -1;
 
-  /** Failure due to invalid parameters. */
-  public static final int STATUS_INVALID_PARAMETERS  = -1;
+	/** Bad value because transmission out of range of fit. */
+	public static final int STATUS_OUT_OF_RANGE_OF_FIT = -2;
 
-  /** Bad value because transmission out of range of fit. */
-  public static final int STATUS_OUT_OF_RANGE_OF_FIT = -2;
+	/**
+	 * Incorrect number of parameters.
+	 *
+	 * Example a mode has been specified that requires a
+	 * different version of the method, one with a different argument list.
+	 */
+	public static final int STATUS_INCORRECT_ARGUMENT_LIST = -3;
 
+	/** Calculation failed for whatever reason. */
+	public static final int STATUS_FAILED = -4;
 
-  /**
-   * Incorrect number of parameters.
-   *
-   * Example a mode has been specified that requires a
-   * different version of the method, one with a different argument list.
-   */
-  public static final int STATUS_INCORRECT_ARGUMENT_LIST = -3;
+	/**
+	 * Calculates an airmass estimate based on dec of target and telescope latitude.
+	 *
+	 * @param  dec      Dec of target in degrees
+	 * @param  latitude Latitude of telescope in degrees
+	 *
+	 * @return airmass estimate
+	 */
+	public static double airmass( double dec , double latitude )
+	{
+		return 1. / ( 0.9 * Math.cos( ( ( dec - latitude ) * Math.PI ) / 180. ) );
+	}
 
-  /** Calculation failed for whatever reason. */
-  public static final int STATUS_FAILED                  = -4;
+	/**
+	 * SKY TRANSMISSION COEFFICIENT.
+	 *
+	 * @param airmass Airmass
+	 * @param tau     Sky opacity at whatever wavelength is desired.
+	 * @param status  integer array to hold one status integer.
+	 *
+	 * @return Atmospheric transmission coefficient at whatever wavelength the sky opacity applied to.
+	 *         {@link #STATUS_SUCCESSFUL}, {@link #STATUS_FAILED}
+	 */
+	public static double transmission( double airmass , double tau , int[] status )
+	{
+		// check validity of airmass and tau
+		if( ( airmass < 1. ) || ( tau < 0. ) )
+		{
+			status[ 0 ] = STATUS_FAILED;
+			return 0. ;
+		}
 
+		// Finally, return the transmission coefficient as a function of airmass and zenith sky opacity
 
-  /**
-   * Calculates an airmass estimate based on dec of target and telescope latitude.
-   *
-   * @param  dec      Dec of target in degrees
-   * @param  latitude Latitude of telescope in degrees
-   *
-   * @return airmass estimate
-   */
-  public static double airmass(double dec, double latitude) {
-    return 1.0 / (0.9 * Math.cos(((dec - latitude) * Math.PI) / 180.0));
-  }
-
-
-  /**
-   * SKY TRANSMISSION COEFFICIENT.
-   *
-   * @param airmass Airmass
-   * @param tau     Sky opacity at whatever wavelength is desired.
-   * @param status  integer array to hold one status integer.
-   *
-   * @return Atmospheric transmission coefficient at whatever wavelength the sky opacity applied to.
-   *         {@link #STATUS_SUCCESSFUL}, {@link #STATUS_FAILED}
-   */
-  public static double transmission(double airmass, double tau, int [] status) {
-    // my $airmass = $_[0];
-    // my $tau = $_[1];
-
-    // check validity of airmass and tau
-    if((airmass < 1.0) || (tau < 0.0)) {
-      status[0] = STATUS_FAILED;
-      return 0.0;
-    }
-
-    // Finally, return the transmission coefficient as a function of airmass and
-    // zenith sky opacity
-
-    status[0] = STATUS_SUCCESSFUL;
-    return StrictMath.exp((-tau)*airmass);
-  }
+		status[ 0 ] = STATUS_SUCCESSFUL;
+		return StrictMath.exp( ( -tau ) * airmass );
+	}
 }
-

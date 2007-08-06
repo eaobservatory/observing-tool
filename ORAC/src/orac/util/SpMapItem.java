@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.util;
 
 /**
@@ -22,9 +21,9 @@ package orac.util;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public interface SpMapItem {
-  public double getWidth();
-  public double getHeight();
-  public double getPosAngle();
+public interface SpMapItem
+{
+	public double getWidth();
+	public double getHeight();
+	public double getPosAngle();
 }
-

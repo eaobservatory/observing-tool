@@ -9,213 +9,206 @@
 
 package orac.ukirt.iter;
 
-import orac.util.LookUpTable;
-
-import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpInstWFCAM;
 
 import gemini.util.ConfigWriter;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpItem;
-import gemini.sp.SpObs;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
 
-import java.util.*;
+import java.util.List ;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.Vector ;
 
 /**
  * The WFCAM configuration iterator.
  */
-public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable {
-  
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instWFCAM", "WFCAM");
+public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
+{
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instWFCAM" , "WFCAM" );
 
-//    private IterConfigItem iciInstAperL;
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterWFCAM() );
+	}
 
-// Register the prototype.
-   static {
-      SpFactory.registerPrototype(new SpIterWFCAM());
-   }
+	/**
+	 * Default constructor.
+	 */
+	public SpIterWFCAM()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Default constructor.
- */
-   public SpIterWFCAM() {
-      super(SP_TYPE);
-   }
+	/**
+	 * Override "getConfigAttribs" to fix up old programs with the wrong
+	 * attribute names.
+	 */
+	public Vector getConfigAttribs()
+	{
+		Vector v = super.getConfigAttribs();
 
+		if( v == null )
+			return null;
 
-/**
- * Override "getConfigAttribs" to fix up old programs with the wrong
- * attribute names.
- */
-   public Vector getConfigAttribs() {
+		return v;
+	}
 
-      Vector v = super.getConfigAttribs();
+	/**
+	 * Override adding a configuration item to the set to add the instrument
+	 * aperture items.
+	 */
+	public void addConfigItem( IterConfigItem ici , int size )
+	{
+		super.addConfigItem( ici , size );
+	}
 
-      if ( v == null ) {
-         return null;
-      }
+	/**
+	 * Override deleting a configuration item to the set in order
+	 * to remove the instrument-aperture attributes too.
+	 */
+	public void deleteConfigItem( String attribute )
+	{
+		super.deleteConfigItem( attribute );
+	}
 
-      return v;
-   }
+	/**
+	 * Try overriding the method from SpIterConfigBase to add set
+	 * of the instrument-aperture information when it changes.
+	 * Set the steps of the item iterator of the given attribute.
+	 */
+	public void setConfigStep( String attribute , String value , int index )
+	{
+		_avTable.set( attribute , value , index );
+	}
 
-/**
- * Override adding a configuration item to the set to add the instrument
- * aperture items.
- */
-   public void addConfigItem( IterConfigItem ici, int size ) {
-       super.addConfigItem( ici, size );
-   }
+	/**
+	 * Get the name of the item being iterated over.
+	 */
+	public String getItemName()
+	{
+		return "WFCAM";
+	}
 
+	/**
+	 * Get the array containing the IterConfigItems offered by WFCAM.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
+		boolean instAvailable = inst != null ;
 
-/**
- * Override deleting a configuration item to the set in order
- * to remove the instrument-aperture attributes too.
- */
-   public void deleteConfigItem( String attribute ) {
-      super.deleteConfigItem( attribute );
-   }
+		IterConfigItem iciFilter;
+		if( instAvailable )
+		{
+			String[] filters = inst.getFilterList();
+			// Filters.
+			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters );
+		}
+		else
+		{
+			Vector vFilters = SpInstWFCAM.FILTERS.getColumn( 0 );
+			int n = vFilters.size();
+			String[] filters = new String[ n ];
+			for( int i = 0 ; i < n ; i++ )
+				filters[ i ] = ( String )vFilters.elementAt( i );
 
+			// Filters.
+			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters );
+		}
 
-/**
- * Try overriding the method from SpIterConfigBase to add set
- * of the instrument-aperture information when it changes.
- * Set the steps of the item iterator of the given attribute.
- */
-   public void setConfigStep( String attribute, String value,
-                              int index ) {
-       _avTable.set( attribute, value, index );
-   }
+		IterConfigItem iciReadMode;
+		if( instAvailable )
+		{
+			String[] readmodes = inst.getReadModeList();
+			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes );
+		}
+		else
+		{
+			String[] readmodes = SpInstWFCAM.READMODES;
+			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes );
+		}
 
-/**
- * Get the name of the item being iterated over.
- */ 
-   public String getItemName() {
-      return "WFCAM";
-   }
+		// Specify configuration items which can be iterated. 
+		IterConfigItem[] iciA = { iciReadMode , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() };
+		return iciA;
+	}
 
-/**
- * Get the array containing the IterConfigItems offered by WFCAM.
- */
-   public IterConfigItem[] getAvailableItems() {
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
+		SpInstWFCAM inst;
+		try
+		{
+			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this );
+		}
+		catch( Exception e )
+		{
+			throw new SpTranslationNotSupportedException( "No WFCAM instrument is scope" );
+		}
 
-       SpInstWFCAM inst =  (SpInstWFCAM) getInstrumentItem();
-       boolean instAvailable = (inst == null)? false: true;
- 
-       IterConfigItem iciFilter;
-       if (instAvailable) {
-           String [] filters = inst.getFilterList();
-           // Filters.
-           iciFilter = new IterConfigItem(
-               "Filter", SpInstWFCAM.ATTR_FILTER + "Iter", filters );
-                
-       } else {
-           Vector vFilters = SpInstWFCAM.FILTERS.getColumn(0);
-           int n = vFilters.size();
-           String [] filters = new String[n];
-           for (int i = 0; i < n; i++)
-           {
-               filters[i] = (String) vFilters.elementAt(i);
-           }
- 
-           // Filters.
-           iciFilter = new IterConfigItem(
-               "Filter", SpInstWFCAM.ATTR_FILTER + "Iter", filters );
+		List iterList = getConfigAttribs();
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		for( int i = 0 ; i < nConfigs ; i++ )
+		{
+			Hashtable configTable = inst.getConfigItems();
+			for( int j = 0 ; j < iterList.size() ; j++ )
+			{
+				if( iterList.contains( "filterIter" ) )
+					configTable.put( "filter" , ( String )getConfigSteps( "filterIter" ).get( i ) );
+					
+				if( iterList.contains( "readModeIter" ) )
+					configTable.put( "readMode" , ( String )getConfigSteps( "readModeIter" ).get( i ) );
 
-       }
+				if( iterList.contains( "exposureTimeIter" ) )
+					configTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) );
 
-       IterConfigItem iciReadMode;
-       if (instAvailable) {
-           String [] readmodes = inst.getReadModeList();
-           iciReadMode = new IterConfigItem(
-               "ReadMode", SpInstWFCAM.ATTR_READMODE + "Iter", readmodes );
-                
-       } else {
-           String [] readmodes = SpInstWFCAM.READMODES;
-           iciReadMode = new IterConfigItem(
-               "ReadMode", SpInstWFCAM.ATTR_READMODE + "Iter", readmodes );
-       }
+				if( iterList.contains( "coaddsIter" ) )
+					configTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) );
 
-       // Specify configuration items which can be iterated. 
-       IterConfigItem[] iciA = {
-           iciReadMode, iciFilter,
-           getExposureTimeConfigItem(), getCoaddsConfigItem()
-       };
-       return iciA;
-   }
+				if( iterList.contains( "instAperXIter" ) )
+					configTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) );
 
-   public void translate (Vector v) throws SpTranslationNotSupportedException {
-       SpInstWFCAM inst;
-       try {
-           inst = (SpInstWFCAM)SpTreeMan.findInstrument(this);
-       }
-       catch (Exception e ) {
-           throw new SpTranslationNotSupportedException("No WFCAM instrument is scope");
-       }
+				if( iterList.contains( "instAperYIter" ) )
+					configTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) );
 
+				if( iterList.contains( "instAperZIter" ) )
+					configTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) );
 
-       List iterList = getConfigAttribs();
-       int nConfigs = getConfigSteps((String)iterList.get(0)).size();
-       for ( int i=0; i<nConfigs; i++ ) {
-           Hashtable configTable = inst.getConfigItems();
-           for ( int j=0; j<iterList.size(); j++ ) {
-               String attrib = (String)iterList.get(j);
-               List iterVals = getConfigSteps(attrib);
-               if ( iterList.contains("filterIter") ) {
-                   configTable.put("filter", (String)getConfigSteps("filterIter").get(i));
-               }
-               if ( iterList.contains("readModeIter") ) {
-                   configTable.put("readMode", (String)getConfigSteps("readModeIter").get(i));
-               }
-               if ( iterList.contains("exposureTimeIter") ) {
-                   configTable.put("exposureTime", (String)getConfigSteps("exposureTimeIter").get(i));
-               }
-               if ( iterList.contains("coaddsIter") ) {
-                   configTable.put( "coadds", (String)getConfigSteps("coaddsIter").get(i));
-               }
-               if ( iterList.contains("instAperXIter") ) {
-                   configTable.put("instAperX", (String)getConfigSteps("instAperXIter").get(i));
-               }
-               if ( iterList.contains("instAperYIter") ) {
-                   configTable.put("instAperY", (String)getConfigSteps("instAperYIter").get(i));
-               }
-               if ( iterList.contains("instAperZIter") ) {
-                   configTable.put("instAperZ", (String)getConfigSteps("instAperZIter").get(i));
-               }
-               if ( iterList.contains("instAperLIter") ) {
-                   configTable.put("instAperL", (String)getConfigSteps("instAperLIter").get(i));
-               }
-           }
+				if( iterList.contains( "instAperLIter" ) )
+					configTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) );
+			}
 
-           String xAper = " " +(String)configTable.get("instAperX");
-           String yAper = " " +(String)configTable.get("instAperY");
-           String zAper = " " +(String)configTable.get("instAperZ");
-           String lAper = " " +(String)configTable.get("instAperL");
+			String xAper = " " + ( String )configTable.get( "instAperX" );
+			String yAper = " " + ( String )configTable.get( "instAperY" );
+			String zAper = " " + ( String )configTable.get( "instAperZ" );
+			String lAper = " " + ( String )configTable.get( "instAperL" );
 
-           try {
-               ConfigWriter.getCurrentInstance().write(configTable);
-           }
-           catch (Exception e) {
-               throw new SpTranslationNotSupportedException("Unable to write config file for WFCAM iterator:"+e.getMessage());
-           }
-           v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
-           v.add("define_inst " + getItemName() + xAper + yAper + zAper + lAper);
+			try
+			{
+				ConfigWriter.getCurrentInstance().write( configTable );
+			}
+			catch( Exception e )
+			{
+				throw new SpTranslationNotSupportedException( "Unable to write config file for WFCAM iterator:" + e.getMessage() );
+			}
+			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper );
 
-           // translate all the children...
-           Enumeration e = this.children();
-           while (e.hasMoreElements()) {
-               SpItem child = (SpItem)e.nextElement();
-               if ( child instanceof SpTranslatable ) {
-                   ((SpTranslatable)child).translate(v);
-               }
-           }
-       }
-
-   }
+			// translate all the children...
+			Enumeration e = this.children();
+			while( e.hasMoreElements() )
+			{
+				SpItem child = ( SpItem )e.nextElement();
+				if( child instanceof SpTranslatable )
+					( ( SpTranslatable )child ).translate( v );
+			}
+		}
+	}
 }

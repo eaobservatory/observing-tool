@@ -36,98 +36,88 @@ import java.util.Vector;
  */
 class SpIterDarkObsEnumeration extends SpIterEnumeration
 {
-   private int _curCount = 0;
-   private int _maxCount;
-   private SpIterValue[] _values;
+	private int _curCount = 0;
+	private int _maxCount;
+	private SpIterValue[] _values;
 
-SpIterDarkObsEnumeration(SpIterDarkObs iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
-}
+	SpIterDarkObsEnumeration( SpIterDarkObs iterObserve )
+	{
+		super( iterObserve );
+		_maxCount = iterObserve.getCount();
+	}
 
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
+	protected boolean _thisHasMoreElements()
+	{
+		return( _curCount < _maxCount );
+	}
 
-protected SpIterStep
-_thisFirstElement()
-{
-   SpIterDarkObs ibo   = (SpIterDarkObs) _iterComp;
-   String expTimeValue = String.valueOf(ibo.getExposureTime());
-   String coaddsValue  = String.valueOf(ibo.getCoadds());
- 
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, expTimeValue
-);
-   _values[1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
- 
-   return _thisNextElement();
-}
- 
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("dark", _curCount++, _iterComp, _values);
-}
+	protected SpIterStep _thisFirstElement()
+	{
+		SpIterDarkObs ibo = ( SpIterDarkObs )_iterComp;
+		String expTimeValue = String.valueOf( ibo.getExposureTime() );
+		String coaddsValue = String.valueOf( ibo.getCoadds() );
+
+		_values = new SpIterValue[ 2 ];
+		_values[ 0 ] = new SpIterValue( SpInstConstants.ATTR_EXPOSURE_TIME , expTimeValue );
+		_values[ 1 ] = new SpIterValue( SpInstConstants.ATTR_COADDS , coaddsValue );
+
+		return _thisNextElement();
+	}
+
+	protected SpIterStep _thisNextElement()
+	{
+		return new SpIterStep( "dark" , _curCount++ , _iterComp , _values );
+	}
 
 }
-
 
 public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "darkObs", "Dark");
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "darkObs" , "Dark" );
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterDarkObs());
-}
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterDarkObs() );
+	}
 
+	/**
+	 * Default constructor.
+	 */
+	public SpIterDarkObs()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Default constructor.
- */
-public SpIterDarkObs()
-{
-   super(SP_TYPE);
-}
+	/**
+	 * Override getTitle to return the observe count.
+	 */
+	public String getTitle()
+	{
+		if( getTitleAttr() != null )
+			return super.getTitle();
 
-/**
- * Override getTitle to return the observe count.
- */
-public String
-getTitle()
-{
-   if (getTitleAttr() != null) {
-      return super.getTitle();
-   }
+		return "Dark (" + getCount() + "X)";
+	}
 
-   return "Dark (" + getCount() + "X)";
-}
-/**
- * Use default acquisition
- */
-public void
-useDefaultAcquisition()
-{
-   _avTable.rm(ATTR_EXPOSURE_TIME);
-   _avTable.rm(ATTR_COADDS);
-}
+	/**
+	 * Use default acquisition
+	 */
+	public void useDefaultAcquisition()
+	{
+		_avTable.rm( ATTR_EXPOSURE_TIME );
+		_avTable.rm( ATTR_COADDS );
+	}
 
-/**
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterDarkObsEnumeration(this);
-}
+	/**
+	 */
+	public SpIterEnumeration elements()
+	{
+		return new SpIterDarkObsEnumeration( this );
+	}
 
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
-
 		// Get the instrument to allow us to get the config information
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
 		if( inst == null )
@@ -135,7 +125,7 @@ elements()
 
 		Hashtable defaultsTable = inst.getConfigItems();
 
-		if( "CGS4".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+		if( "CGS4".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
 		{
 			// If we are inside a CGS4 iterator, we need to pick up it's hashtable
 			SpItem parent = parent();
@@ -143,7 +133,7 @@ elements()
 			{
 				if( parent instanceof SpIterCGS4 )
 				{
-					defaultsTable = ( ( SpIterCGS4 ) parent ).getIterTable();
+					defaultsTable = ( ( SpIterCGS4 )parent ).getIterTable();
 					break;
 				}
 				parent = parent.parent();
@@ -162,20 +152,16 @@ elements()
 			defaultsTable.put( "chopDelay" , "0.0" );
 		if( defaultsTable.containsKey( "type" ) )
 		{
-			if( "WFCAM".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+			if( "WFCAM".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
 				defaultsTable.put( "type" , "dark" );
 		}
 
 		// Delete things we dont't need
-		if( "WFCAM".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+		if( "WFCAM".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
 		{
 			defaultsTable.remove( "filter" );
 			defaultsTable.remove( "instPort" );
 			defaultsTable.remove( "readMode" );
-		}
-		else
-		{
-			// No other instrument needs anything
 		}
 
 		// Now we need to write a config for this dark
@@ -188,8 +174,7 @@ elements()
 			throw new SpTranslationNotSupportedException( "Unable to write dark config file" );
 		}
 
-		// We will also need to get the DRRecipe component to allow us to set the 
-		// appropriate headers
+		// We will also need to get the DRRecipe component to allow us to set the  appropriate headers
 		// Find the parent first...
 		SpItem parent = parent();
 		Vector recipes = null;
@@ -206,7 +191,7 @@ elements()
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
 			v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) );
 			v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() );
 		}
@@ -223,7 +208,7 @@ elements()
 		String configPattern = "loadConfig .*_1";
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			String line = ( String ) v.get( i );
+			String line = ( String )v.get( i );
 			if( line.matches( configPattern ) )
 			{
 				v.removeElementAt( i );
@@ -232,5 +217,4 @@ elements()
 			}
 		}
 	}
-
 }

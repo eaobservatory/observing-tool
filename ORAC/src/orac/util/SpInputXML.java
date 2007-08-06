@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.util;
 
 import gemini.sp.SpFactory;
@@ -22,15 +21,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
-
 
 /**
  * Utility class for reading in Science Programs etc from XML.
@@ -68,44 +64,40 @@ import org.xml.sax.InputSource;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpInputXML extends DefaultHandler {
+public class SpInputXML extends DefaultHandler
+{
+	/**
+	 * Used to check whether XML format is old (SpItemDOM based) or new.
+	 *
+	 * First 200 characters of XML file are read into this buffer to check format.
+	 */
+	private static char[] _xmlBuffer = new char[ 200 ];
+	public static final String XML_ATTR_TYPE = "type";
+	public static final String XML_ATTR_SUBTYPE = "subtype";
+	private String _currentElement;
+	private SpItem _currentSpItem;
+	private boolean _ignoreCharacters = false;
+	private String _valueArrayElement = null;
+	private int _valueArrayPos = 0;
 
-    /**
-     * Used to check whether XML format is old (SpItemDOM based) or new.
-     *
-     * First 200 characters of XML file are read into this buffer to check format.
-     */
-    private static char [] _xmlBuffer = new char[200];
+	/*
+	 * The following is used to prevent attempts to insert SpTelescopeObsComp
+	 * into SurveyContainers.  In this case, the obsComp are stored internally
+	 * in the SurveyContainers.
+	 */
+	protected boolean ignoreObsComp = false;
 
-    public static final String XML_ATTR_TYPE    = "type";
-    public static final String XML_ATTR_SUBTYPE = "subtype";
+	/**
+	 * True if the first characters in side this element are encountered.
+	 *
+	 * The method {@link #characters(char[], int, int)} is sometimes called more than
+	 * once whithin one XML element. This seems to be dependend on the parser that is used.
+	 */
+	private boolean _firstCharacters = false;
+	private String _characterBuffer = null;
 
-    private String _currentElement;
-    private SpItem _currentSpItem;
-    private boolean _ignoreCharacters = false;
-    private String  _valueArrayElement = null;
-    private int     _valueArrayPos = 0;
-
-    /*
-     * The following is used to prevent attempts to insert SpTelescopeObsComp
-     * into SurveyContainers.  In this case, the obsComp are stored internally
-     * in the SurveyContainers.
-     */
-    protected boolean ignoreObsComp = false;
-
-    /**
-     * True if the first characters in side this element are encountered.
-     *
-     * The method {@link #characters(char[], int, int)} is sometimes called more than
-     * once whithin one XML element. This seems to be dependend on the parser that is used.
-     */
-    private boolean _firstCharacters = false;
-
-    private String _characterBuffer = null;
-
-    public void startElement( String namespaceURI , String localName , String qName , Attributes atts ) throws SAXException
+	public void startElement( String namespaceURI , String localName , String qName , Attributes atts ) throws SAXException
 	{
-
 		_firstCharacters = true;
 
 		if( _currentSpItem != null )
@@ -114,7 +106,6 @@ public class SpInputXML extends DefaultHandler {
 		// Check whether the element represents an SpItem.
 		if( qName.startsWith( "Sp" ) && ( atts.getValue( SpItem.XML_ATTR_TYPE ) != null ) && ( atts.getValue( SpItem.XML_ATTR_SUBTYPE ) != null ) )
 		{
-
 			if( qName.equals( "SpSurveyContainer" ) )
 				ignoreObsComp = true;
 
@@ -159,7 +150,7 @@ public class SpInputXML extends DefaultHandler {
 		{
 			if( _valueArrayElement != null )
 			{
-				_valueArrayPos++;
+				_valueArrayPos++ ;
 			}
 			else
 			{
@@ -208,117 +199,92 @@ public class SpInputXML extends DefaultHandler {
 		_currentElement = null;
 	}
 
+	public void characters( char[] ch , int start , int length )
+	{
 
-    public void characters(char[] ch, int start, int length) {
+		if( _ignoreCharacters )
+			return;
 
-        if(_ignoreCharacters) {
-            return;
-        }
+		if( _firstCharacters )
+		{
+			_characterBuffer = null;
+			_firstCharacters = false;
+		}
+		
+		if( _characterBuffer == null )
+			_characterBuffer = new String( ch , start , length );
+		else
+			_characterBuffer = _characterBuffer + new String( ch , start , length );
+	}
 
-        if(_firstCharacters) {
-            _characterBuffer = null;
-            _firstCharacters = false;
-        }
-        if (_characterBuffer == null) {
-            _characterBuffer = new String (ch, start, length);
-        }
-        else {
-            _characterBuffer = _characterBuffer+new String(ch, start, length);
-        }
+	public SpItem xmlToSpItem( String xml ) throws Exception
+	{
+		return xmlToSpItem( new StringReader( xml ) );
+	}
 
+	public SpItem xmlToSpItem( Reader reader ) throws Exception
+	{
 
-	// There was a conflict during a update of the JAC_ACSIS branch. I have uncommented what I believe
-	// to be correct, but left the other in as a comment
-	// < SpInputXML.java
-        //if((_currentElement != null) && (value.trim().length() > 0)){
-        // values have to be "sent" in the endElement method because a multiple
-        // call to characters() inside a <value> element would cause extra elements to
-        // be added to the attribute _currentElement of the SpAvTable, each of them containing
-        // partial Strings.
-        if((_currentElement != null) && (_valueArrayElement == null)){
-            //        _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-        }
-	/* This is the alternate...
-    if(_valueArrayElement != null) {
-	//System.out.println( "Prcessing content of array element " + _valueArrayElement +
-	//	", value=" + _characterBuffer.trim() + ", posn=" + _valueArrayPos );
-      _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
-      _characterBuffer = null;
-    }
-    else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
-      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-      _characterBuffer = null;
-	*/
-    }
+		// A BufferedReader is only need to reset the stream inside isOldXmlFormat(BufferedReader). Once there
+		// are no Science Programs in the old XML format in circulation anymore things like
+		// isOldXmlFormat, SpItemDOM can go and the normal. Reader can be used instead of the BufferedReader.
+		BufferedReader bufferedReader = new BufferedReader( reader );
+		if( isOldXmlFormat( bufferedReader ) )
+		{
+			System.out.println( "Converting from old XML format." );
+			return ( new SpItemDOM( bufferedReader ) ).getSpItem();
+		}
 
-    public SpItem xmlToSpItem(String xml) throws Exception {
-        return xmlToSpItem(new StringReader(xml));
-    }
+		XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+		xmlReader.setContentHandler( this );
+		xmlReader.parse( new InputSource( bufferedReader ) );
 
-    public SpItem xmlToSpItem(Reader reader) throws Exception {
+		return _currentSpItem;
+	}
 
-        // A BufferedReader is only need to reset the stream
-        // inside isOldXmlFormat(BufferedReader). Once there
-        // are no Science Programs in the old XML format in
-        // circulation anymore things like
-        // isOldXmlFormat, SpItemDOM can go and the normal
-        // Reader can be used instead of the BufferedReader.
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        if(isOldXmlFormat(bufferedReader)) {
-            System.out.println("Converting from old XML format.");
-            return (new SpItemDOM(bufferedReader)).getSpItem();
-        }
+	/**
+	 * Checks whether XML format is old (based on SpItemDOM conversion).
+	 *
+	 * @param reader buffered reader to read XML.
+	 *
+	 * @return true if file contains old XML format (based on SpItemDOM conversion)
+	 */
+	public static boolean isOldXmlFormat( BufferedReader reader )
+	{
+		try
+		{
+			reader.mark( _xmlBuffer.length + 10 );
+			reader.read( _xmlBuffer , 0 , _xmlBuffer.length );
+			reader.reset();
 
+			String xmlStart = new String( _xmlBuffer );
 
-        XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+			if( ( xmlStart != null ) && ( xmlStart.indexOf( "ItemData" ) >= 0 ) )
+				return true;
+		}
+		catch( IOException e )
+		{
+			System.out.println( "Problem while checking XML format: " + e + ". Using new XML format." );
+		}
 
-        xmlReader.setContentHandler(this);
+		return false;
+	}
 
-        xmlReader.parse(new InputSource(bufferedReader));
-
-        return _currentSpItem;
-    }
-
-    /**
-     * Checks whether XML format is old (based on SpItemDOM conversion).
-     *
-     * @param reader buffered reader to read XML.
-     *
-     * @return true if file contains old XML format (based on SpItemDOM conversion)
-     */
-    public static boolean isOldXmlFormat(BufferedReader reader) {
-
-        try {
-            reader.mark(_xmlBuffer.length + 10);
-            reader.read(_xmlBuffer, 0, _xmlBuffer.length);
-            reader.reset();
-
-            String xmlStart = new String(_xmlBuffer);
-
-            if((xmlStart != null) && (xmlStart.indexOf("ItemData") >= 0)) {
-                return true;
-            }
-        }
-        catch(IOException e) {
-            System.out.println("Problem while checking XML format: " + e + ". Using new XML format.");
-        }
-
-        return false;
-    }
-
-    /** Test method. */
-    public static void main(String [] args) {
-        try {
-            FileReader fr = new FileReader(args[0]);
-            SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
-            fr.close();
-            FileWriter fw = new FileWriter (args[0]);
-            fw.write(spItem.toXML());
-            fw.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    }
-
+	/** Test method. */
+	public static void main( String[] args )
+	{
+		try
+		{
+			FileReader fr = new FileReader( args[ 0 ] );
+			SpItem spItem = ( new SpInputXML() ).xmlToSpItem( fr );
+			fr.close();
+			FileWriter fw = new FileWriter( args[ 0 ] );
+			fw.write( spItem.toXML() );
+			fw.close();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
+}

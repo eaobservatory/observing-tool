@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.jcmt.iter;
 
 import gemini.sp.SpFactory;
@@ -20,68 +19,77 @@ import gemini.sp.iter.SpIterConfigObs;
 /**
  * The POL configuration iterator for JCMT (SCUBA).
  */
-public class SpIterPOL extends SpIterConfigObs {
-
-   public static final SpType SP_TYPE =
-     SpType.create( SpType.ITERATOR_COMPONENT_TYPE, "instPOL", "POL" );
-
-   private IterConfigItem iciWPLAngle;
-
-// Register the prototype.
-   static {
-      SpFactory.registerPrototype( new SpIterPOL() );
-   }
-
-// Hardwire the allowed angles, so that they are accessible to all
-// instruments.
-   static final String ALLOWED_ANGLES[] = {"0", "22.5", "45", "67.5", "90", "112.5", "135", "157.5", "180.0", "202.5", "225.0", "247.5", "270.0", "292.5", "315.0", "337.5"};
-
-/**
- * Default constructor.
- */
-   public SpIterPOL() {
-      super( SP_TYPE );
-   }
-
-/**
- * Get the name of the item being iterated over.  Subclasses must
- * define.
- */
-   public String getItemName() {
-      return "POL";
-   }
-
-/**
- * Override adding a configuration item to use the no default version.
- */
-public void
-addConfigItem(IterConfigItem ici, int size)
+public class SpIterPOL extends SpIterConfigObs
 {
 
-  super.addConfigItem (ici, size);
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instPOL" , "POL" );
 
-  // Then set a default value
-  setConfigStep (ici.attribute, ALLOWED_ANGLES[0], 0);
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterPOL() );
+	}
 
-}
+	// Hardwire the allowed angles, so that they are accessible to all instruments.
+	static final String ALLOWED_ANGLES[] = 
+	{ 
+		"0" , 
+		"22.5" , 
+		"45" , 
+		"67.5" , 
+		"90" , 
+		"112.5" , 
+		"135" , 
+		"157.5" , 
+		"180.0" , 
+		"202.5" , 
+		"225.0" , 
+		"247.5" , 
+		"270.0" , 
+		"292.5" , 
+		"315.0" , 
+		"337.5" 
+	} ;
 
+	/**
+	 * Default constructor.
+	 */
+	public SpIterPOL()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Get the array containing the IterConfigItems offered by POL.
- */
-   public IterConfigItem[] getAvailableItems() {
+	/**
+	 * Get the name of the item being iterated over.  Subclasses must
+	 * define.
+	 */
+	public String getItemName()
+	{
+		return "POL";
+	}
 
-// Hardwire the allowed angles.
-      IterConfigItem iciWPLAngle = new IterConfigItem(
-        "Waveplate Angle",
-        "POLIter",
-        ALLOWED_ANGLES );
+	/**
+	 * Override adding a configuration item to use the no default version.
+	 */
+	public void addConfigItem( IterConfigItem ici , int size )
+	{
+		super.addConfigItem( ici , size );
 
-      IterConfigItem[] iciA = {
-         iciWPLAngle
-      };
+		// Then set a default value
+		setConfigStep( ici.attribute , ALLOWED_ANGLES[ 0 ] , 0 );
+	}
 
-      return iciA;
-   }
+	/**
+	 * Get the array containing the IterConfigItems offered by POL.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
+		// Hardwire the allowed angles.
+		IterConfigItem iciWPLAngle = new IterConfigItem( "Waveplate Angle" , "POLIter" , ALLOWED_ANGLES );
+
+		IterConfigItem[] iciA = { iciWPLAngle };
+
+		return iciA;
+	}
 
 }

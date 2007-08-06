@@ -8,19 +8,10 @@ package orac.ukirt.iter;
 
 public interface SpWFCAMCalConstants
 {
-   public static final String ATTR_CALTYPE       = "calType";
-   public static final String ATTR_FILTER        = "filter";
-   public static final String ATTR_READMODE      = "readMode";
-   public static final String ATTR_EXPOSURE_TIME = "exposureTime";
-   public static final String ATTR_COADDS        = "coadds";
-   public static final String ATTR_FOCUS         = "focus";
-
+	public static final String ATTR_CALTYPE = "calType";
+	public static final String ATTR_FILTER = "filter";
+	public static final String ATTR_READMODE = "readMode";
+	public static final String ATTR_EXPOSURE_TIME = "exposureTime";
+	public static final String ATTR_COADDS = "coadds";
+	public static final String ATTR_FOCUS = "focus";
 }
-
- 
-
-
-
-
-
-

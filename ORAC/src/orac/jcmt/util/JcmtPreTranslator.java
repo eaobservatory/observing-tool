@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.jcmt.util;
 
 import orac.util.TcsPreTranslator;
@@ -19,21 +18,23 @@ import orac.util.TcsPreTranslator;
  *
  * @author Martin Folger
  */
-public class JcmtPreTranslator extends TcsPreTranslator {
+public class JcmtPreTranslator extends TcsPreTranslator
+{
 
-  private static final String [] TCS_TARGET_TYPES      = { "science", "reference" };
+	private static final String[] TCS_TARGET_TYPES = { "science" , "reference" };
 
-  public JcmtPreTranslator(String scienceTag, String referenceTag) throws Exception {
-    super(scienceTag, referenceTag);
-  }
+	public JcmtPreTranslator( String scienceTag , String referenceTag ) throws Exception
+	{
+		super( scienceTag , referenceTag );
+	}
 
-  /**
-   * Target types used by the JAC OCS TCS for JCMT XML.
-   *
-   * The target types are "science" and "reference".
-   */
-  protected String [] getTcsTargetTypes() {
-    return TCS_TARGET_TYPES;
-  }
+	/**
+	 * Target types used by the JAC OCS TCS for JCMT XML.
+	 *
+	 * The target types are "science" and "reference".
+	 */
+	protected String[] getTcsTargetTypes()
+	{
+		return TCS_TARGET_TYPES;
+	}
 }
-

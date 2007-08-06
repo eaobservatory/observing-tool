@@ -10,7 +10,6 @@
 package orac.ukirt.iter;
 
 import orac.ukirt.inst.SpInstUIST;
-import orac.util.LookUpTable;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpItem;
@@ -22,187 +21,184 @@ import gemini.sp.iter.IterConfigItem;
 
 import gemini.util.ConfigWriter;
 
-import java.io.IOException;
-
-import java.util.*;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import java.util.List ;
+import java.util.Enumeration ;
 
 /**
  * The UIST configuration iterator (Imaging).
  */
-public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTranslatable {
-  
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUISTImaging", "UIST Imaging");
+public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTranslatable
+{
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instUISTImaging" , "UIST Imaging" );
 
-// Register the prototype.
-   static {
-      SpFactory.registerPrototype(new SpIterUISTImaging());
-   }
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterUISTImaging() );
+	}
 
-/**
- * Default constructor.
- */
-   public SpIterUISTImaging() {
-      super(SP_TYPE);
-   }
+	/**
+	 * Default constructor.
+	 */
+	public SpIterUISTImaging()
+	{
+		super( SP_TYPE );
+	}
 
+	/**
+	 * Override "getConfigAttribs" to fix up old programs with the wrong
+	 * attribute names.
+	 */
+	public Vector getConfigAttribs()
+	{
+		Vector v = super.getConfigAttribs();
 
-/**
- * Override "getConfigAttribs" to fix up old programs with the wrong
- * attribute names.
- */
-   public Vector getConfigAttribs() {
+		if( v == null )
+			return null;
 
-      Vector v = super.getConfigAttribs();
+		return v;
+	}
 
-      if ( v == null ) {
-         return null;
-      }
+	/**
+	 * Override adding a configuration item to the set to add the instrument
+	 * aperture items.
+	 */
+	public void addConfigItem( IterConfigItem ici , int size )
+	{
+		super.addConfigItem( ici , size );
+	}
 
-      return v;
-   }
+	/**
+	 * Override deleting a configuration item to the set in order
+	 * to remove the instrument-aperture attributes too.
+	 */
+	public void deleteConfigItem( String attribute )
+	{
+		super.deleteConfigItem( attribute );
+	}
 
-/**
- * Override adding a configuration item to the set to add the instrument
- * aperture items.
- */
-   public void addConfigItem( IterConfigItem ici, int size ) {
-       super.addConfigItem( ici, size );
-   }
+	/**
+	 * Try overriding the method from SpIterConfigBase to add set
+	 * of the instrument-aperture information when it changes.
+	 * Set the steps of the item iterator of the given attribute.
+	 */
+	public void setConfigStep( String attribute , String value , int index )
+	{
+		_avTable.set( attribute , value , index );
+	}
 
+	/**
+	 * Get the name of the item being iterated over.
+	 */
+	public String getItemName()
+	{
+		return "UIST Imaging";
+	}
 
-/**
- * Override deleting a configuration item to the set in order
- * to remove the instrument-aperture attributes too.
- */
-   public void deleteConfigItem( String attribute ) {
-      super.deleteConfigItem( attribute );
-   }
+	/**
+	 * Get the array containing the IterConfigItems offered by UIST.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		boolean instAvailable = inst != null ;
 
+		IterConfigItem iciFilter;
+		if( instAvailable )
+		{
+			String filtersBroadband[] = inst.getFilterList( true );
+			String filtersNarrowband[] = inst.getFilterList( false );
+			String filters[] = new String[ filtersBroadband.length + filtersNarrowband.length ];
+			for( int i = 0 ; i < filtersBroadband.length ; i++ )
+				filters[ i ] = filtersBroadband[ i ];
+			
+			for( int i = 0 ; i < filtersNarrowband.length ; i++ )
+				filters[ filtersBroadband.length + i ] = filtersNarrowband[ i ];
 
-/**
- * Try overriding the method from SpIterConfigBase to add set
- * of the instrument-aperture information when it changes.
- * Set the steps of the item iterator of the given attribute.
- */
-   public void setConfigStep( String attribute, String value,
-                              int index ) {
-       _avTable.set( attribute, value, index );
-   }
+			// Filters.
+			iciFilter = new IterConfigItem( "Filter" , SpInstUIST.ATTR_FILTER + "Iter" , filters );
+		}
+		else
+		{
+			Vector vFilters = SpInstUIST.FILTERS.getColumn( 0 );
+			int n = vFilters.size();
+			String[] filters = new String[ n ];
+			for( int i = 0 ; i < n ; i++ )
+				filters[ i ] = ( String )vFilters.elementAt( i );
 
-/**
- * Get the name of the item being iterated over.
- */ 
-   public String getItemName() {
-      return "UIST Imaging";
-   }
+			// Filters.
+			iciFilter = new IterConfigItem( "Filter" , SpInstUIST.ATTR_FILTER + "Iter" , filters );
+		}
 
-/**
- * Get the array containing the IterConfigItems offered by UIST.
- */
-   public IterConfigItem[] getAvailableItems() {
+		// Specify configuration items which can be iterated. 
+		IterConfigItem[] iciA = { iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() };
+		return iciA;
+	}
 
-       SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
-       boolean instAvailable = (inst == null)? false: true;
- 
-       IterConfigItem iciFilter;
-       if (instAvailable) {
-	   String filtersBroadband[] = inst.getFilterList(true);
-	   String filtersNarrowband[] = inst.getFilterList(false);
-	   String filters[] = new String[filtersBroadband.length + filtersNarrowband.length];
-	   for (int i = 0; i < filtersBroadband.length; i++) {
-	       filters[i] = filtersBroadband[i];
-	   }
-	   for (int i = 0; i < filtersNarrowband.length; i++) {
-	       filters[filtersBroadband.length + i] = filtersNarrowband[i];
-	   }
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
+		SpInstUIST inst;
+		try
+		{
+			inst = ( SpInstUIST )SpTreeMan.findInstrument( this );
+		}
+		catch( Exception e )
+		{
+			throw new SpTranslationNotSupportedException( "No UIST instrument in scope" );
+		}
 
-           // Filters.
-           iciFilter = new IterConfigItem(
-               "Filter", SpInstUIST.ATTR_FILTER + "Iter", filters );
-                
-       } else {
+		List iterList = getConfigAttribs();
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		for( int i = 0 ; i < nConfigs ; i++ )
+		{
+			Hashtable defaultsTable = inst.getConfigItems();
+			String xAper = " " + ( String )defaultsTable.get( "instAperX" );
+			String yAper = " " + ( String )defaultsTable.get( "instAperY" );
+			String zAper = " " + ( String )defaultsTable.get( "instAperZ" );
+			String lAper = " " + ( String )defaultsTable.get( "instAperL" );
+			for( int j = 0 ; j < iterList.size() ; j++ )
+			{
+				if( iterList.contains( "filterIter" ) )
+					defaultsTable.put( "filter" , ( String )getConfigSteps( "filterIter" ).get( i ) );
 
-           Vector vFilters = SpInstUIST.FILTERS.getColumn(0);
-           int n = vFilters.size();
-           String [] filters = new String[n];
-           for (int i = 0; i < n; i++)
-           {
-               filters[i] = (String) vFilters.elementAt(i);
-           }
- 
-           // Filters.
-           iciFilter = new IterConfigItem(
-               "Filter", SpInstUIST.ATTR_FILTER + "Iter", filters );
-       }
+				if( iterList.contains( "exposureTimeIter" ) )
+					defaultsTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) );
 
-       // Specify configuration items which can be iterated. 
-       IterConfigItem[] iciA = {
-           iciFilter,
-           getExposureTimeConfigItem(), getCoaddsConfigItem()
-       };
-       return iciA;
-   }
+				if( iterList.contains( "coaddsIter" ) )
+					defaultsTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) );
 
+				if( iterList.contains( "instAperXIter" ) )
+					xAper = " " + ( String )getConfigSteps( "instAperXIter" ).get( i );
 
-   public void translate( Vector v ) throws SpTranslationNotSupportedException {
-       SpInstUIST inst;
-       try {
-           inst = (SpInstUIST)SpTreeMan.findInstrument(this);
-       }
-       catch (Exception e) {
-           throw new SpTranslationNotSupportedException("No UIST instrument in scope");
-       }
+				if( iterList.contains( "instAperYIter" ) )
+					yAper = " " + ( String )getConfigSteps( "instAperYIter" ).get( i );
 
+				if( iterList.contains( "instAperZIter" ) )
+					zAper = " " + ( String )getConfigSteps( "instAperZIter" ).get( i );
 
-       List iterList = getConfigAttribs();
-       int nConfigs = getConfigSteps((String)iterList.get(0)).size();
-       for ( int i=0; i<nConfigs; i++ ) {
-           Hashtable defaultsTable = inst.getConfigItems();
-           String xAper = " " +(String)defaultsTable.get("instAperX");
-           String yAper = " " +(String)defaultsTable.get("instAperY");
-           String zAper = " " +(String)defaultsTable.get("instAperZ");
-           String lAper = " " +(String)defaultsTable.get("instAperL");
-           for (int j=0; j<iterList.size(); j++ ) {
-               String attrib = (String)iterList.get(j);
-               List iterVals = getConfigSteps(attrib);
-               if ( iterList.contains("filterIter") ) {
-                   defaultsTable.put( "filter", (String)getConfigSteps("filterIter").get(i));
-               }
-               if (  iterList.contains("exposureTimeIter") ) {
-                   defaultsTable.put( "exposureTime", (String)getConfigSteps("exposureTimeIter").get(i));
-               }
-               if ( iterList.contains("coaddsIter") ) {
-                   defaultsTable.put( "coadds", (String)getConfigSteps("coaddsIter").get(i));
-               }
-               if ( iterList.contains("instAperXIter") ) {
-                   xAper = " " +(String)getConfigSteps("instAperXIter").get(i);
-               }
-               if ( iterList.contains("instAperYIter") ) {
-                   yAper = " " +(String)getConfigSteps("instAperYIter").get(i);
-               }
-               if ( iterList.contains("instAperZIter") ) {
-                   zAper = " " +(String)getConfigSteps("instAperZIter").get(i);
-               }
-               if ( iterList.contains("instAperLIter") ) {
-                   lAper = " " +(String)getConfigSteps("instAperLIter").get(i);
-               }
-           }
-           try {
-               ConfigWriter.getCurrentInstance().write(defaultsTable);
-           }
-           catch (Exception e) {
-               throw new SpTranslationNotSupportedException("Unable to write config file for UISTImaging iterator:"+e.getMessage());
-           }
-           v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
-           v.add("define_inst UIST " + xAper + yAper + zAper + lAper);
-           Enumeration e = this.children();
-           while (e.hasMoreElements()) {
-               SpItem child = (SpItem)e.nextElement();
-               if ( child instanceof SpTranslatable ) {
-                   ((SpTranslatable)child).translate(v);
-               }
-           }
-       }
-   }
+				if( iterList.contains( "instAperLIter" ) )
+					lAper = " " + ( String )getConfigSteps( "instAperLIter" ).get( i );
+			}
+			try
+			{
+				ConfigWriter.getCurrentInstance().write( defaultsTable );
+			}
+			catch( Exception e )
+			{
+				throw new SpTranslationNotSupportedException( "Unable to write config file for UISTImaging iterator:" + e.getMessage() );
+			}
+			
+			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+			v.add( "define_inst UIST " + xAper + yAper + zAper + lAper );
+			Enumeration e = this.children();
+			while( e.hasMoreElements() )
+			{
+				SpItem child = ( SpItem )e.nextElement();
+				if( child instanceof SpTranslatable )
+					( ( SpTranslatable )child ).translate( v );
+			}
+		}
+	}
 }

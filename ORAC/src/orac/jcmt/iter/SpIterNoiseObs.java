@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.jcmt.iter;
 
 import gemini.sp.SpFactory;
@@ -15,77 +14,69 @@ import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
-import orac.jcmt.SpJCMTConstants;
-
 /**
  * Noise Iterator for JCMT (SCUBA).
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterNoiseObs extends SpIterJCMTObs {
+public class SpIterNoiseObs extends SpIterJCMTObs
+{
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "noiseObs" , "Noise" );
 
-  /** Default number of integrations for Noise Iterator. */
-  private static final int NOISE_INTEGRATIONS_DEF = 64;
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterNoiseObs() );
+	}
 
-  public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "noiseObs", "Noise");
-
-  // Register the prototype.
-  static {
-    SpFactory.registerPrototype(new SpIterNoiseObs());
-  }
-
-
-  /**
+	/**
 	 * Default constructor.
 	 */
 	public SpIterNoiseObs()
 	{
 		super( SP_TYPE );
-
 		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 );
-//		_avTable.noNotifySet( ATTR_INTEGRATIONS , String.valueOf( NOISE_INTEGRATIONS_DEF ) , 0 );
 	}
 
-  /** Get the noise source. */
-  public String getNoiseSource() {
-    return _avTable.get(ATTR_NOISE_SOURCE);
-  }
+	/** Get the noise source. */
+	public String getNoiseSource()
+	{
+		return _avTable.get( ATTR_NOISE_SOURCE );
+	}
 
-  /**
-   * Set noise source to one of NOISE_SOURCES.
-   *
-   * @param noiseSource if this is not one of the NOISE_SOURCES then it will be ignored.
-   *
-   * @see orac.jcmt.SpJCMTConstants#NOISE_SOURCES
-   */
-  public void setNoiseSource(String noiseSource) {
-    for(int i = 0; i < NOISE_SOURCES.length; i++) {
-      if(noiseSource.equals(NOISE_SOURCES[i])) {
-        _avTable.set(ATTR_NOISE_SOURCE, NOISE_SOURCES[i]);
-      }
-    }
-  }
+	/**
+	 * Set noise source to one of NOISE_SOURCES.
+	 *
+	 * @param noiseSource if this is not one of the NOISE_SOURCES then it will be ignored.
+	 *
+	 * @see orac.jcmt.SpJCMTConstants#NOISE_SOURCES
+	 */
+	public void setNoiseSource( String noiseSource )
+	{
+		for( int i = 0 ; i < NOISE_SOURCES.length ; i++ )
+		{
+			if( noiseSource.equals( NOISE_SOURCES[ i ] ) )
+				_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] );
+		}
+	}
 
-    public double getElapsedTime()
+	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
-		double time = 0.0;
+		double time = 0. ;
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-		{
-			time = 1.1 + SCUBA_STARTUP_TIME ;
-		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne ){}
+			time = 1.1 + SCUBA_STARTUP_TIME;
+
 		return time;
 	}
 
-    public void setupForHeterodyne()
+	public void setupForHeterodyne()
 	{
-    	_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
 	}
 
-    public void setupForSCUBA() {
-	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
-    }
+	public void setupForSCUBA()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+	}
 }
-

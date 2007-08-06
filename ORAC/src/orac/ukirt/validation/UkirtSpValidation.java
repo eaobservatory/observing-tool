@@ -54,8 +54,8 @@ import gemini.util.CoordSys;
 import orac.util.CoordConvert;
 import gemini.util.RADec;
 
-import gemini.util.HHMMSS ;
-import gemini.util.DDMMSS ;
+import gemini.util.HHMMSS;
+import gemini.util.DDMMSS;
 
 /**
  * Validation Tool.
@@ -74,7 +74,7 @@ public class UkirtSpValidation extends SpValidation
 
 	static String[] instruments = { "CGS4" , "IRCAM3" , "UFTI" , "Michelle" , "UIST" , "WFCAM" };
 
-	 /**
+	/**
 	 * Indicates whether the current is validation is a science program check or an observation check.
 	 * 
 	 * If this is set to true then the method checkObservation "knows" that it only has to check whether
@@ -159,7 +159,7 @@ public class UkirtSpValidation extends SpValidation
 
 		while( children.hasMoreElements() && !result )
 		{
-			child = ( SpItem )children.nextElement();				
+			child = ( SpItem )children.nextElement();
 			result = findSpItem( child , type , subtype );
 		}
 
@@ -380,7 +380,7 @@ public class UkirtSpValidation extends SpValidation
 		SpItem previousItem = null;
 		SpItem currentItem = null;
 		SpIterFolder iterFolder = null;
-		boolean spIterObserveFound = false ;
+		boolean spIterObserveFound = false;
 		boolean dark = false;
 		Vector iterFolderVector = findInstances( spObs , "gemini.sp.iter.SpIterFolder" );
 		if( iterFolderVector != null )
@@ -397,8 +397,8 @@ public class UkirtSpValidation extends SpValidation
 						report.add( new ErrorMessage( ErrorMessage.WARNING , "Iterator Folder in " + spObs.getTitle() , "There is an offset iterator followed by an instrument iterator." ) );
 
 					if( currentItem instanceof SpIterObserve )
-						spIterObserveFound = true ;
-					
+						spIterObserveFound = true;
+
 					if( spIterObserveFound && ( currentItem instanceof SpIterConfigObs ) )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , "Iterator Folder in " + spObs.getTitle() , "Instrument iterators are not allowed after the observe." ) );
 
@@ -431,7 +431,7 @@ public class UkirtSpValidation extends SpValidation
 				iterObserve = ( SpIterObserve )e.nextElement();
 
 				sibling = iterObserve.next();
-				while (( sibling != null ) && ( !wrongIteratorsOnObserveLevel ))
+				while( ( sibling != null ) && ( !wrongIteratorsOnObserveLevel ) )
 				{
 					if( ( sibling instanceof SpIterConfigObs ) || ( sibling instanceof SpIterOffset ) )
 						wrongIteratorsOnObserveLevel = true;
@@ -439,7 +439,7 @@ public class UkirtSpValidation extends SpValidation
 				}
 
 				sibling = iterObserve.prev();
-				while (( sibling != null ) && ( !wrongIteratorsOnObserveLevel ))
+				while( ( sibling != null ) && ( !wrongIteratorsOnObserveLevel ) )
 				{
 					if( ( sibling instanceof SpIterConfigObs ) || ( sibling instanceof SpIterOffset ) )
 						wrongIteratorsOnObserveLevel = true;
@@ -800,7 +800,7 @@ public class UkirtSpValidation extends SpValidation
 			checkObservation( ( SpObs )contextItem , report );
 
 		Enumeration children = contextItem.children();
-		while (children.hasMoreElements())
+		while( children.hasMoreElements() )
 		{
 			SpItem spItem = ( SpItem )children.nextElement();
 
@@ -809,7 +809,7 @@ public class UkirtSpValidation extends SpValidation
 			 * And it assumes that subtypes of instrument component start with "inst." (and NOT with "inst").
 			 * currentInstrument = spItem.subtypeStr().substring(5);
 			 */
-			
+
 			if( spItem instanceof SpIterFolder && !( contextItem instanceof SpObs ) )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , "Iterator Folder in " + contextItem.getTitle() , "Iterator folders should only be used inside an observation." ) );
 			else if( spItem instanceof SpInstObsComp )
@@ -848,10 +848,9 @@ public class UkirtSpValidation extends SpValidation
 
 		if( children.hasMoreElements() )
 		{
-			while (children.hasMoreElements())
+			while( children.hasMoreElements() )
 			{
 				child = ( SpItem )children.nextElement();
-
 				findInstances( child , c , result );
 			}
 		}
@@ -1007,7 +1006,7 @@ public class UkirtSpValidation extends SpValidation
 
 		// Print the attributes
 		Enumeration keys = spItem.getTable().attributes();
-		while (keys.hasMoreElements())
+		while( keys.hasMoreElements() )
 		{
 			String key = ( String )keys.nextElement();
 			System.out.println( indentStr + key + " (" + spItem.getTable().getDescription( key ) + ")" );
@@ -1042,7 +1041,7 @@ public class UkirtSpValidation extends SpValidation
 			Enumeration children = spMSB.children();
 			SpItem child;
 
-			while (children.hasMoreElements())
+			while( children.hasMoreElements() )
 			{
 				child = ( SpItem )children.nextElement();
 
@@ -1112,7 +1111,7 @@ public class UkirtSpValidation extends SpValidation
 		{
 			LineNumberReader lineReader = new LineNumberReader( new InputStreamReader( System.in ) );
 
-			while (correct_input == false)
+			while( correct_input == false )
 			{
 				System.out.println( "Choose one option:" );
 				System.out.println( "  [p]rint" );

@@ -1,6 +1,6 @@
 // $Id$
 
-package orac.jcmt.inst ;
+package orac.jcmt.inst;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -9,47 +9,46 @@ import orac.util.InstCfg;
 import orac.util.InstCfgReader;
 
 import gemini.sp.SpFactory;
-import gemini.sp.SpType ;
+import gemini.sp.SpType;
 import gemini.sp.obsComp.SpMicroStepUser;
 
 public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 {
-	
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" ) ;
+
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" );
 
 	//	Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstSCUBA2() ) ;
+		SpFactory.registerPrototype( new SpInstSCUBA2() );
 	}
-	
-	public static String[] JIGGLE_PATTERNS = { "DREAM" } ;
 
-	public static String[][] MICROSTEP_PATTERNS ;
-	
+	public static String[] JIGGLE_PATTERNS = { "DREAM" };
+
+	public static String[][] MICROSTEP_PATTERNS;
+
 	/**
 	 * Constructor. Sets default values for attributes.
 	 */
 	public SpInstSCUBA2()
 	{
-		super( SP_TYPE ) ;
-		
-        // Read in the instrument config file
+		super( SP_TYPE );
+
+		// Read in the instrument config file
 		String baseDir = System.getProperty( "ot.cfgdir" );
 		String cfgFile = baseDir + "scuba2.cfg";
 		_readCfgFile( cfgFile );
 	}
 
-    private void _readCfgFile( String filename )
+	private void _readCfgFile( String filename )
 	{
 		InstCfgReader instCfg = null;
 		InstCfg instInfo = null;
 		String block = null;
-		int i;
 		instCfg = new InstCfgReader( filename );
 		try
 		{
-			while (( block = instCfg.readBlock() ) != null)
+			while( ( block = instCfg.readBlock() ) != null )
 			{
 				instInfo = new InstCfg( block );
 				if( InstCfg.matchAttr( instInfo , "microstep_patterns" ) )
@@ -63,7 +62,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 			System.out.println( "Error reading WFCAM inst. cfg file" );
 		}
 	}
-	
+
 	/**
 	 * Get jiggle pattern options for this instrument, given the current settings.
 	 *
@@ -71,7 +70,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public String[] getJigglePatterns()
 	{
-		return JIGGLE_PATTERNS ;
+		return JIGGLE_PATTERNS;
 	}
 
 	/**
@@ -79,7 +78,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public double getDefaultScanVelocity()
 	{
-		return 3. ;
+		return 3.;
 	}
 
 	/**
@@ -87,10 +86,10 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public double getDefaultScanDy()
 	{
-		return 180. ;
+		return 180.;
 	}
-	
-    public Hashtable getMicroStepPatterns()
+
+	public Hashtable getMicroStepPatterns()
 	{
 		Hashtable result = new Hashtable();
 
@@ -106,7 +105,6 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
 				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
 			}
-
 			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets );
 		}
 

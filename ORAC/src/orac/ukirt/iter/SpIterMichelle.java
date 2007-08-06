@@ -18,45 +18,37 @@ import gemini.sp.iter.SpIterConfigObs;
  */
 public class SpIterMichelle extends SpIterConfigObs
 {
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelle" , "Michelle" );
 
-   public static final SpType SP_TYPE =
-     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instMichelle", "Michelle");
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterMichelle() );
+	}
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterMichelle());
-}
+	/**
+	 * Default constructor.
+	 */
+	public SpIterMichelle()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Default constructor.
- */
-public SpIterMichelle()
-{
-   super(SP_TYPE);
-}
+	/**
+	 * Get the name of the item being iterated over.  Subclasses must
+	 * define.
+	 */
+	public String getItemName()
+	{
+		return "Michelle";
+	}
 
-/**
- * Get the name of the item being iterated over.  Subclasses must
- * define.
- */
-public String
-getItemName()
-{
-   return "Michelle";
-}
-
-
-/**
- * Get the array containing the IterConfigItems offered by Michelle.
- */
-public IterConfigItem[]
-getAvailableItems()
-{
-
-   IterConfigItem[] iciA = {
-   };
-
-   return iciA;
-}
-
+	/**
+	 * Get the array containing the IterConfigItems offered by Michelle.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
+		IterConfigItem[] iciA = {};
+		return iciA;
+	}
 }

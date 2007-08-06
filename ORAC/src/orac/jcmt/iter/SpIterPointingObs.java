@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.jcmt.iter;
 
 import gemini.sp.SpFactory;
@@ -21,26 +20,25 @@ import gemini.sp.obsComp.SpInstObsComp;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterPointingObs extends SpIterJCMTObs {
+public class SpIterPointingObs extends SpIterJCMTObs
+{
 
-  /**
-   * Pointing pixel choices.
-   *
-   * To be decided.
-   */
-  public static String [] POINTING_PIXEL_MANUAL_CHOICES = { "1", "..." };
+	/**
+	 * Pointing pixel choices.
+	 *
+	 * To be decided.
+	 */
+	public static String[] POINTING_PIXEL_MANUAL_CHOICES = { "1" , "..." };
+	public static String[] POINTING_METHODS = { "9 Position" , "16 Position" , "25 Position" };
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "pointingObs" , "Pointing" );
 
-  public static String [] POINTING_METHODS = { "9 Position", "16 Position", "25 Position" };
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterPointingObs() );
+	}
 
-  public static final SpType SP_TYPE =
-    SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "pointingObs", "Pointing");
-
-  // Register the prototype.
-  static {
-    SpFactory.registerPrototype(new SpIterPointingObs());
-  }
-
-  /**
+	/**
 	 * Default constructor.
 	 */
 	public SpIterPointingObs()
@@ -49,38 +47,42 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 		_avTable.noNotifySet( ATTR_AUTOMATIC_TARGET , "true" , 0 );
 	}
 
-  public String getSpectralMode() {
-    return _avTable.get(ATTR_SPECTRAL_MODE);
-  }
+	public String getSpectralMode()
+	{
+		return _avTable.get( ATTR_SPECTRAL_MODE );
+	}
 
-  public void setSpectralMode(String value) {
-    _avTable.set(ATTR_SPECTRAL_MODE, value);
-  }
+	public void setSpectralMode( String value )
+	{
+		_avTable.set( ATTR_SPECTRAL_MODE , value );
+	}
 
-  public String getPointingPixel() {
-    return _avTable.get(ATTR_POINTING_PIXEL);
-  }
+	public String getPointingPixel()
+	{
+		return _avTable.get( ATTR_POINTING_PIXEL );
+	}
 
-  public void setPointingPixel(String value) {
-    _avTable.set(ATTR_POINTING_PIXEL, value);
-  }
+	public void setPointingPixel( String value )
+	{
+		_avTable.set( ATTR_POINTING_PIXEL , value );
+	}
 
-    public double getElapsedTime()
+	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
-		double overhead = 0.0;
-		double totalIntegrationTime = 0.0;
+		double overhead = 0. ;
+		double totalIntegrationTime = 0. ;
 
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
 		{
-			overhead = SCUBA_STARTUP_TIME + 9.0 ;
-			totalIntegrationTime = 16.0 * 2.0 ;
+			overhead = SCUBA_STARTUP_TIME + 9. ;
+			totalIntegrationTime = 16. * 2. ;
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-			totalIntegrationTime = 120.0 ;
+			totalIntegrationTime = 120. ;
 		}
-		return ( overhead + totalIntegrationTime );
+		return( overhead + totalIntegrationTime );
 	}
 
 	public void setupForSCUBA()
@@ -98,12 +100,9 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
 		_avTable.noNotifyRm( ATTR_SPECTRAL_MODE );
 	}
-	
-    public String [] getSwitchingModeOptions() {
-        return new String [] {
-            SWITCHING_MODE_BEAM
-        };
-    }
+
+	public String[] getSwitchingModeOptions()
+	{
+		return new String[] { SWITCHING_MODE_BEAM };
+	}
 }
-
-

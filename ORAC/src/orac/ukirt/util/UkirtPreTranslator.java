@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.ukirt.util;
 
 import orac.util.TcsPreTranslator;
@@ -19,29 +18,31 @@ import orac.util.TcsPreTranslator;
  *
  * @author Martin Folger
  */
-public class UkirtPreTranslator extends TcsPreTranslator {
+public class UkirtPreTranslator extends TcsPreTranslator
+{
 
-  private static final String [] TCS_TARGET_TYPES      = { "science", "guide" };
+	private static final String[] TCS_TARGET_TYPES = { "science" , "guide" };
 
-  public UkirtPreTranslator(String baseTag, String guideTag) throws Exception {
-    super(baseTag, guideTag);
-  }
+	public UkirtPreTranslator( String baseTag , String guideTag ) throws Exception
+	{
+		super( baseTag , guideTag );
+	}
 
-  /**
-   * Target types used by the JAC OCS TCS for JCMT XML.
-   *
-   * The target types are
-   * <pre>
-   *   "science" (Base position)
-   *   "guide"   (Guide star position)
-   * </pre>
-   *
-   * Note that the tag which is defined as "Base" in ot.cfg and also displayed as
-   * "Base" in the OT is changed to "science" in the TCS XML output to avoid confusion
-   * with the existing &lt;base&gt; element in the TCS XML.
-   */
-  protected String [] getTcsTargetTypes() {
-    return TCS_TARGET_TYPES;
-  }
+	/**
+	 * Target types used by the JAC OCS TCS for JCMT XML.
+	 *
+	 * The target types are
+	 * <pre>
+	 *   "science" (Base position)
+	 *   "guide"   (Guide star position)
+	 * </pre>
+	 *
+	 * Note that the tag which is defined as "Base" in ot.cfg and also displayed as
+	 * "Base" in the OT is changed to "science" in the TCS XML output to avoid confusion
+	 * with the existing &lt;base&gt; element in the TCS XML.
+	 */
+	protected String[] getTcsTargetTypes()
+	{
+		return TCS_TARGET_TYPES;
+	}
 }
-

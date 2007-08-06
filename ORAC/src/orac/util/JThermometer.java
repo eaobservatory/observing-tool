@@ -83,12 +83,12 @@ public class JThermometer extends JComponent
 
 	public void setRangeModel( BoundedRangeModel brm )
 	{
-		this._brm = ( DefaultBoundedRangeModel ) brm;
+		this._brm = ( DefaultBoundedRangeModel )brm;
 	}
 
 	protected void paintComponent( Graphics g )
 	{
-		Graphics2D g2 = ( Graphics2D ) g.create();
+		Graphics2D g2 = ( Graphics2D )g.create();
 		paintThermometer( g2 );
 		paintTicks( g2 );
 		g2.dispose();
@@ -100,29 +100,22 @@ public class JThermometer extends JComponent
 		int firstX = insets.left;
 		int firstY = insets.top;
 		int lastX = getWidth() - insets.right - firstX;
-		int lastY = getHeight() - insets.bottom;
 
 		RoundRectangle2D.Double outer = new RoundRectangle2D.Double( firstX , firstY , lastX , _defaultHeight , _defaultHeight , _defaultHeight );
 
 		// Work out the inner thermometer
-		int endMercury = ( int ) ( ( double ) _brm.getExtent() / _brm.getMaximum() * ( lastX ) );
+		int endMercury = ( int )( ( double )_brm.getExtent() / _brm.getMaximum() * ( lastX ) );
 		RoundRectangle2D.Double inner = new RoundRectangle2D.Double( firstX + 1 , firstY + 1 , endMercury , _defaultHeight - 2 , _defaultHeight - 2 , _defaultHeight - 2 );
 
 		g2.draw( outer );
 
-		double fraction = ( double ) _brm.getExtent() / _brm.getMaximum();
+		double fraction = ( double )_brm.getExtent() / _brm.getMaximum();
 		if( fraction < 0.7 )
-		{
 			g2.setColor( _colorArray[ 0 ] );
-		}
 		else if( fraction < 0.9 )
-		{
 			g2.setColor( _colorArray[ 1 ] );
-		}
 		else
-		{
 			g2.setColor( _colorArray[ 2 ] );
-		}
 
 		g2.fill( inner );
 	}
@@ -135,15 +128,14 @@ public class JThermometer extends JComponent
 		g2.setFont( font );
 		java.awt.FontMetrics fm = g2.getFontMetrics();
 
-		double lastValue = ( double ) _brm.getMaximum();
+		double lastValue = ( double )_brm.getMaximum();
 		String formattedLastValue = df.format( lastValue );
 
 		Insets insets = getInsets();
 		int firstX = insets.left;
 		int lastX = getWidth() - insets.right - firstX - fm.stringWidth( formattedLastValue ) / 2;
 
-		// Translate the graphics position to each point
-		// under the thermometer
+		// Translate the graphics position to each point under the thermometer
 		int trans = firstX + _defaultHeight;
 		g2.translate( firstX , trans );
 		g2.setColor( Color.black );
@@ -151,8 +143,8 @@ public class JThermometer extends JComponent
 		for( int i = 0 ; i <= _nTicks ; i++ )
 		{
 			// Translate the X position
-			double pos = i * ( ( double ) lastX ) / _nTicks;
-			double labelValue = i * ( double ) _brm.getMaximum() / _nTicks;
+			double pos = i * ( ( double )lastX ) / _nTicks;
+			double labelValue = i * ( double )_brm.getMaximum() / _nTicks;
 			String label = df.format( labelValue );
 			g2.translate( pos , 0 );
 			g2.drawLine( 0 , 5 , 0 , -5 );

@@ -38,8 +38,6 @@ public class SpIterFlatObs extends SpIterJCMTObs
 
 	public double getElapsedTime()
 	{
-		return 0.0;
+		return 0. ;
 	}
 }
-
-

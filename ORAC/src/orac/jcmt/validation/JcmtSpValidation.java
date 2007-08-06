@@ -4,13 +4,13 @@ import java.util.Vector;
 
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
-import gemini.sp.SpTreeMan ;
-import gemini.sp.SpObs ;
-import gemini.sp.SpMSB ;
-import orac.jcmt.inst.SpInstHeterodyne ;
-import orac.jcmt.inst.SpInstSCUBA ;
-import orac.jcmt.inst.SpInstSCUBA2 ;
-import orac.jcmt.iter.SpIterJCMTObs ;
+import gemini.sp.SpTreeMan;
+import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
+import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstSCUBA2;
+import orac.jcmt.iter.SpIterJCMTObs;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.iter.SpIterChop;
@@ -20,11 +20,11 @@ import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 
 import orac.jcmt.iter.SpIterJiggleObs;
-import orac.jcmt.iter.SpIterNoiseObs ;
+import orac.jcmt.iter.SpIterNoiseObs;
 
-import java.lang.reflect.Method ;
-import java.lang.reflect.InvocationTargetException ;
-import java.lang.reflect.Field ;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 
 /**
  * Validation Tool for JCMT.
@@ -52,9 +52,9 @@ public class JcmtSpValidation extends SpValidation
 			SpIterJCMTObs thisObs = ( SpIterJCMTObs )observes.elementAt( count );
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
-				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
-				double loMin = 0. ; 
-				double loMax = 0. ;
+				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp;
+				double loMin = 0.;
+				double loMax = 0.;
 
 				/*
 				 * We cannot use anything in edfreq here as it causes a build problem
@@ -65,83 +65,81 @@ public class JcmtSpValidation extends SpValidation
 				 */
 				try
 				{
-					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
-					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[]{} ) ;
-					Object frequencyEditor = frequencyEditorClass.newInstance() ;
-					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[]{} ) ;
-					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" ) ;
-					Object receivers = receiverField.get( requencyEditorCfg ) ;
-					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[]{ Object.class } ) ;
-					Object receiver = get.invoke( receivers , new Object[]{ spInstHeterodyne.getFrontEnd() } ) ;
-					Field loMinField = receiver.getClass().getDeclaredField( "loMin" ) ;
-					Field loMaxField = receiver.getClass().getDeclaredField( "loMax" ) ;
-					Object loMinObject = loMinField.get( receiver ) ;
-					Object loMaxObject = loMaxField.get( receiver ) ;
+					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" );
+					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[] {} );
+					Object frequencyEditor = frequencyEditorClass.newInstance();
+					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[] {} );
+					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" );
+					Object receivers = receiverField.get( requencyEditorCfg );
+					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[] { Object.class } );
+					Object receiver = get.invoke( receivers , new Object[] { spInstHeterodyne.getFrontEnd() } );
+					Field loMinField = receiver.getClass().getDeclaredField( "loMin" );
+					Field loMaxField = receiver.getClass().getDeclaredField( "loMax" );
+					Object loMinObject = loMinField.get( receiver );
+					Object loMaxObject = loMaxField.get( receiver );
 					if( loMinObject instanceof Double )
-						loMin = ( ( Double )loMinObject).doubleValue() ;
+						loMin = ( ( Double )loMinObject ).doubleValue();
 					if( loMaxObject instanceof Double )
-						loMax = ( ( Double )loMaxObject).doubleValue() ;					
+						loMax = ( ( Double )loMaxObject ).doubleValue();
 				}
 				catch( ClassNotFoundException cnfe )
 				{
-					System.out.println( "Could not find class " + cnfe ) ;
+					System.out.println( "Could not find class " + cnfe );
 				}
 				catch( InstantiationException ie )
 				{
-					System.out.println( "Could not instantiate " + ie ) ;
+					System.out.println( "Could not instantiate " + ie );
 				}
 				catch( IllegalAccessException iae )
 				{
-					System.out.println( "Could not access " + iae ) ;					
+					System.out.println( "Could not access " + iae );
 				}
 				catch( NoSuchMethodException nsme )
 				{
-					System.out.println( "Could not find method " + nsme ) ;
+					System.out.println( "Could not find method " + nsme );
 				}
 				catch( InvocationTargetException ite )
 				{
-					System.out.println( "Could not invoke method " + ite ) ;
+					System.out.println( "Could not invoke method " + ite );
 				}
 				catch( NoSuchFieldException nsfe )
 				{
-					System.out.println( "Could not find field " + nsfe ) ;
+					System.out.println( "Could not find field " + nsfe );
 				}
 
-				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
+				double skyFrequency = spInstHeterodyne.getSkyFrequency();
 				if( loMin != 0. && ( loMin - spInstHeterodyne.getFeIF() ) > skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) );
 				if( loMax != 0. && ( loMax + spInstHeterodyne.getFeIF() ) < skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) );
 
-				
-				int available = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
-				String sideBand = spInstHeterodyne.getBand() ;
+				int available = new Integer( spInstHeterodyne.getBandMode() ).intValue();
+				String sideBand = spInstHeterodyne.getBand();
 				for( int index = 0 ; index < available ; index++ )
 				{
-					double centre = spInstHeterodyne.getCentreFrequency( index ) ;
-					double rest = spInstHeterodyne.getRestFrequency( index ) ;
+					double centre = spInstHeterodyne.getCentreFrequency( index );
+					double rest = spInstHeterodyne.getRestFrequency( index );
 					if( "lsb".equals( sideBand ) && ( rest + centre ) > loMax )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use upper or best sideband to reach the line " + rest ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use upper or best sideband to reach the line " + rest ) );
 					else if( !"lsb".equals( sideBand ) && ( rest - centre ) < loMin )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use lower sideband to reach the line " + rest ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use lower sideband to reach the line " + rest ) );
 				}
-				
+
 				if( thisObs instanceof SpIterJiggleObs )
 				{
-					SpIterJiggleObs spIterJiggleObs = ( SpIterJiggleObs )thisObs ;
-					String frontEnd = spInstHeterodyne.getFrontEnd() ;
-					String jigglePattern = spIterJiggleObs.getJigglePattern() ;
+					SpIterJiggleObs spIterJiggleObs = ( SpIterJiggleObs )thisObs;
+					String frontEnd = spInstHeterodyne.getFrontEnd();
+					String jigglePattern = spIterJiggleObs.getJigglePattern();
 					if( jigglePattern.startsWith( "HARP" ) && !frontEnd.startsWith( "HARP" ) )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) );
 				}
 				if( thisObs instanceof SpIterNoiseObs )
 					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) );
 			}
-			// Also check the switching mode.  If we are in beam switch, we need a chop iterator,
-			// in position we need a reference in the target
-			String switchingMode = thisObs.getSwitchingMode() ;
+			// Also check the switching mode.  If we are in beam switch, we need a chop iterator, in position we need a reference in the target
+			String switchingMode = thisObs.getSwitchingMode();
 			if( switchingMode != null )
-			{	
+			{
 				if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_BEAM ) )
 				{
 					Vector chops = SpTreeMan.findAllInstances( spObs , "gemini.sp.iter.SpIterChop" );
@@ -166,12 +164,11 @@ public class JcmtSpValidation extends SpValidation
 	{
 		if( spMSB instanceof SpObs )
 		{
-			checkObservation( ( SpObs ) spMSB , report );
+			checkObservation( ( SpObs )spMSB , report );
 		}
 		else
 		{
-			// Check that the chop throws are the same in all cases - but only when there
-			// is only one value in the chop iterator
+			// Check that the chop throws are the same in all cases - but only when there is only one value in the chop iterator
 			SpInstObsComp obsComp = SpTreeMan.findInstrument( spMSB );
 			if( obsComp instanceof SpInstSCUBA )
 			{
@@ -181,7 +178,7 @@ public class JcmtSpValidation extends SpValidation
 					boolean multipleIterator = false;
 					for( int i = 0 ; i < chopComponents.size() ; i++ )
 					{
-						if( ( ( SpIterChop ) chopComponents.get( i ) ).getStepCount() > 1 )
+						if( ( ( SpIterChop )chopComponents.get( i ) ).getStepCount() > 1 )
 						{
 							multipleIterator = true;
 							break;
@@ -189,10 +186,10 @@ public class JcmtSpValidation extends SpValidation
 					}
 					if( !multipleIterator )
 					{
-						double baseThrow = ( ( SpIterChop ) chopComponents.get( 0 ) ).getThrow( 0 );
+						double baseThrow = ( ( SpIterChop )chopComponents.get( 0 ) ).getThrow( 0 );
 						for( int i = 1 ; i < chopComponents.size() ; i++ )
 						{
-							double currThrow = ( ( SpIterChop ) chopComponents.get( i ) ).getThrow( 0 );
+							double currThrow = ( ( SpIterChop )chopComponents.get( i ) ).getThrow( 0 );
 							if( currThrow != baseThrow )
 							{
 								report.add( new ErrorMessage( ErrorMessage.WARNING , spMSB.getTitle() , "MSB contains different chop throws for each component" ) );
@@ -205,7 +202,7 @@ public class JcmtSpValidation extends SpValidation
 		}
 		super.checkMSBgeneric( spMSB , report );
 	}
-	
+
 	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
 	{
 		if( obsComp != null )
@@ -213,11 +210,11 @@ public class JcmtSpValidation extends SpValidation
 			SpTelescopePosList list = obsComp.getPosList();
 			TelescopePos[] position = list.getAllPositions();
 			SpInstObsComp instrument = SpTreeMan.findInstrument( obsComp );
-			boolean heterodyne = instrument instanceof SpInstHeterodyne ;
-	
+			boolean heterodyne = instrument instanceof SpInstHeterodyne;
+
 			if( heterodyne )
 			{
-				SpInstHeterodyne heterodyneInstrument = ( SpInstHeterodyne )instrument ;
+				SpInstHeterodyne heterodyneInstrument = ( SpInstHeterodyne )instrument;
 				for( int i = 0 ; i < position.length ; i++ )
 				{
 					SpTelescopePos pos = ( SpTelescopePos )position[ i ];
@@ -226,6 +223,6 @@ public class JcmtSpValidation extends SpValidation
 				}
 			}
 		}
-		super.checkTargetList( obsComp , report ) ;
+		super.checkTargetList( obsComp , report );
 	}
 }

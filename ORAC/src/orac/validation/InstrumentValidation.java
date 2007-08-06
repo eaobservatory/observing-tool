@@ -8,7 +8,7 @@ import java.util.Vector;
  * 
  * @author M.Folger@roe.ac.uk UKATC
  */
-public interface InstrumentValidation {
-
-    public void checkInstrument(SpInstObsComp instObsComp, Vector report);
+public interface InstrumentValidation
+{
+	public void checkInstrument( SpInstObsComp instObsComp , Vector report );
 }

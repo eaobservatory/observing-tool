@@ -1,9 +1,9 @@
 // $Id$
 
-package orac.jcmt.iter ;
+package orac.jcmt.iter;
 
-import gemini.sp.SpFactory ;
-import gemini.sp.SpType ;
+import gemini.sp.SpFactory;
+import gemini.sp.SpType;
 
 public class SpIterDREAMObs extends SpIterJCMTObs
 {
@@ -12,16 +12,16 @@ public class SpIterDREAMObs extends SpIterJCMTObs
 
 	static
 	{
-		SpFactory.registerPrototype( new SpIterDREAMObs() ) ;
+		SpFactory.registerPrototype( new SpIterDREAMObs() );
 	}
 
 	public SpIterDREAMObs()
 	{
-		super( SP_TYPE ) ;
+		super( SP_TYPE );
 	}
 
 	public double getElapsedTime()
 	{
-		return 0. ;
+		return 0.;
 	}
 }

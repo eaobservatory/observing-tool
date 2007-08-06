@@ -39,176 +39,137 @@ import orac.ukirt.inst.SpUKIRTInstObsComp;
  */
 class SpIterBiasObsEnumeration extends SpIterEnumeration
 {
-   private int _curCount = 0;
-   private int _maxCount;
-   private SpIterValue[] _values;
+	private int _curCount = 0;
+	private int _maxCount;
+	private SpIterValue[] _values;
 
-SpIterBiasObsEnumeration(SpIterBiasObs iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
+	SpIterBiasObsEnumeration( SpIterBiasObs iterObserve )
+	{
+		super( iterObserve );
+		_maxCount = iterObserve.getCount();
+	}
+
+	protected boolean _thisHasMoreElements()
+	{
+		return( _curCount < _maxCount );
+	}
+
+	protected SpIterStep _thisFirstElement()
+	{
+		SpIterBiasObs ibo = ( SpIterBiasObs )_iterComp;
+		String expTimeValue = String.valueOf( ibo.getExposureTime() );
+		String coaddsValue = String.valueOf( ibo.getCoadds() );
+
+		_values = new SpIterValue[ 2 ];
+		_values[ 0 ] = new SpIterValue( SpInstConstants.ATTR_EXPOSURE_TIME , expTimeValue );
+		_values[ 1 ] = new SpIterValue( SpInstConstants.ATTR_COADDS , coaddsValue );
+
+		return _thisNextElement();
+	}
+
+	protected SpIterStep _thisNextElement()
+	{
+		return new SpIterStep( "bias" , _curCount++ , _iterComp , _values );
+	}
+
 }
-
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
-
-protected SpIterStep
-_thisFirstElement()
-{
-   SpIterBiasObs ibo   = (SpIterBiasObs) _iterComp;
-   String expTimeValue = String.valueOf(ibo.getExposureTime());
-   String coaddsValue  = String.valueOf(ibo.getCoadds());
-
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, expTimeValue);
-   _values[1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
-
-   return _thisNextElement();
-}
-
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("bias", _curCount++, _iterComp, _values);
-}
-   
-}
-
 
 public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "biasObs", "Bias");
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "biasObs" , "Bias" );
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterBiasObs());
-}
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterBiasObs() );
+	}
 
+	/**
+	 * Default constructor.
+	 */
+	public SpIterBiasObs()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Default constructor.
- */
-public SpIterBiasObs()
-{
-   super(SP_TYPE);
-}
+	/**
+	 * Override getTitle to return the observe count.
+	 */
+	public String getTitle()
+	{
+		if( getTitleAttr() != null )
+			return super.getTitle();
 
-/**
- * Override getTitle to return the observe count.
- */
-public String
-getTitle()
-{
-   if (getTitleAttr() != null) {
-      return super.getTitle();
-   }
+		return "Bias (" + getCount() + "X)";
+	}
 
-   return "Bias (" + getCount() + "X)";
-}
+	/**
+	 */
+	public SpIterEnumeration elements()
+	{
+		return new SpIterBiasObsEnumeration( this );
+	}
 
-/**
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterBiasObsEnumeration(this);
-}
+	/**
+	 * Override getExposureTime. Get the value from the instrument in
+	 * scope.
+	 */
+	public double getExposureTime()
+	{
+		SpItem _baseItem = parent();
+		SpUKIRTInstObsComp spi = ( SpUKIRTInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		return spi.getDefaultBiasExpTime();
+	}
 
-/**
- * Override getExposureTime. Get the value from the instrument in
- * scope.
- */
-public double
-getExposureTime()
-{
-   SpItem _baseItem = parent();
-   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
-   return spi.getDefaultBiasExpTime();
-}
+	/**
+	 * Override setExposureTime to ignore what is passed in.
+	 */
+	public void setExposureTime( double expTime ){}
 
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(double expTime)
-{
-   // Do nothing
-}
- 
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(String expTime)
-{
-   
-}
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(int coadds)
-{
-   // Do nothing
-}
- 
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(String coadds)
-{
-   
-}
+	/**
+	 * Override setExposureTime to ignore what is passed in.
+	 */
+	public void setExposureTime( String expTime )
+	{
 
-/**
- * Override getting the coadds.so as to not inherit unless necessary.
- */
-public int
-getCoadds()
-{
-   // If the coadds has been set, use it.
-   if (_avTable.exists(ATTR_COADDS)) {
-      return _avTable.getInt(ATTR_COADDS, 1);
-   }
+	}
 
-   SpItem _baseItem = parent();
-   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
+	/**
+	 * Override setCoadds to ignore what is passed in.
+	 */
+	public void setCoadds( int coadds ){}
 
-   return spi.getDefaultBiasCoadds();
+	/**
+	 * Override setCoadds to ignore what is passed in.
+	 */
+	public void setCoadds( String coadds ){}
 
-   // The following is the code for inheriting the coadds from the
-   // instrument. We don't do this on UKIRT. The coadds is defaulted,
-   // changeable by the instrument scientist only, in the instrument componet,
-   // like the xposure time.
-//    SpStareCapability stareCap;
-//    String name = SpStareCapability.CAPABILITY_NAME;
-//    int coadds = 1;
-//    stareCap = (SpStareCapability) spi.getCapability(name);
-//    if (stareCap != null) {
-//      coadds = stareCap.getCoadds();
-//    }
-//    return coadds;
+	/**
+	 * Override getting the coadds.so as to not inherit unless necessary.
+	 */
+	public int getCoadds()
+	{
+		// If the coadds has been set, use it.
+		if( _avTable.exists( ATTR_COADDS ) )
+			return _avTable.getInt( ATTR_COADDS , 1 );
 
-}
+		SpItem _baseItem = parent();
+		SpUKIRTInstObsComp spi = ( SpUKIRTInstObsComp )SpTreeMan.findInstrument( _baseItem );
+
+		return spi.getDefaultBiasCoadds();
+	}
 
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// First of all make sure we have a suitable instrument
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
 		if( inst == null || ( !( inst instanceof SpInstCGS4 ) && !( inst instanceof SpInstWFCAM ) ) )
-		{
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" );
-		}
 
 		// Now get the config items and update them for this bias observation
 		Hashtable t = inst.getConfigItems();
 
-		if( "CGS4".equalsIgnoreCase( ( String ) t.get( "instrument" ) ) )
+		if( "CGS4".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
 		{
 			// If we are inside a CGS4 iterator, we need to pick up it's hashtable
 			SpItem parent = parent();
@@ -216,7 +177,7 @@ getCoadds()
 			{
 				if( parent instanceof SpIterCGS4 )
 				{
-					t = ( ( SpIterCGS4 ) parent ).getIterTable();
+					t = ( ( SpIterCGS4 )parent ).getIterTable();
 					break;
 				}
 				parent = parent.parent();
@@ -225,30 +186,20 @@ getCoadds()
 
 		// CGS4 specific
 		if( t.containsKey( "biasExpTime" ) )
-		{
 			t.put( "biasExpTime" , "" + getExposureTime() );
-		}
 		if( t.containsKey( "biasNumExp" ) )
-		{
 			t.put( "biasNumExp" , "" + getCoadds() );
-		}
 
 		// WFCAM specific
 		if( t.containsKey( "type" ) )
-		{
 			t.put( "type" , "bias" );
-		}
 		if( t.containsKey( "exposureTime" ) )
-		{
 			t.put( "exposureTime" , "" + getExposureTime() );
-		}
 		if( t.containsKey( "coadds" ) )
-		{
 			t.put( "coadds" , "" + getCoadds() );
-		}
 
 		// Delete redundant entries
-		if( "WFCAM".equalsIgnoreCase( ( String ) t.get( "instrument" ) ) )
+		if( "WFCAM".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
 		{
 			t.remove( "filter" );
 			t.remove( "instPort" );
@@ -256,7 +207,7 @@ getCoadds()
 			t.remove( "exposureTime" );
 			t.remove( "coadds" );
 		}
-		else if( "UIST".equalsIgnoreCase( ( String ) t.get( "instrument" ) ) )
+		else if( "UIST".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
 		{
 			t.remove( "instPort" );
 			t.remove( "camera" );
@@ -287,10 +238,6 @@ getCoadds()
 			t.remove( "DAConfMinExpT" );
 			t.remove( "spectralCoverage" );
 		}
-		else
-		{
-			// Assume nothing to remove
-		}
 
 		// Now see if we have a DRRecipe component and write out it's headers if we do.
 		SpItem parent = parent();
@@ -301,16 +248,14 @@ getCoadds()
 			{
 				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
 				if( recipes != null && recipes.size() > 0 )
-				{
 					break;
-				}
 			}
 			parent = parent.parent();
 		}
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
 			v.add( "setHeader GRPMEM " + ( recipe.getBiasInGroup() ? "T" : "F" ) );
 			v.add( "setHeader RECIPE " + recipe.getBiasRecipeName() );
 		}
@@ -329,5 +274,3 @@ getCoadds()
 		v.add( "do " + getCount() + " _observe" );
 	}
 }
-
-

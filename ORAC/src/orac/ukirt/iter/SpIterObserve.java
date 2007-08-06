@@ -26,81 +26,74 @@ import java.util.Vector;
 //
 // Enumerater for the elements of the Observe iterator.
 //
-class SpIterObserveEnumeration extends SpIterEnumeration 
+class SpIterObserveEnumeration extends SpIterEnumeration
 {
-   private int     _curCount = 0;
-   private int     _maxCount;
+	private int _curCount = 0;
+	private int _maxCount;
 
-SpIterObserveEnumeration(SpIterObserve iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
-}
+	SpIterObserveEnumeration( SpIterObserve iterObserve )
+	{
+		super( iterObserve );
+		_maxCount = iterObserve.getCount();
+	}
 
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
-protected SpIterStep
-_thisFirstElement()
-{
-   return _thisNextElement();
-}
+	protected boolean _thisHasMoreElements()
+	{
+		return( _curCount < _maxCount );
+	}
 
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("observe", _curCount++, _iterComp, (SpIterValue) null);
-}
-   
-}
+	protected SpIterStep _thisFirstElement()
+	{
+		return _thisNextElement();
+	}
 
+	protected SpIterStep _thisNextElement()
+	{
+		return new SpIterStep( "observe" , _curCount++ , _iterComp , ( SpIterValue )null );
+	}
+
+}
 
 /**
  * A simple "Observe" iterator.
  */
 public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 {
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "observe" , "Observe" );
 
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "observe", "Observe");
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterObserve() );
+	}
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterObserve());
-}
+	/**
+	 * Default constructor.
+	 */
+	public SpIterObserve()
+	{
+		super( SP_TYPE );
+		//   super(SpType.ITERATOR_COMPONENT_OBSERVE);
+	}
 
-/**
- * Default constructor.
- */
-public SpIterObserve()
-{
-   super(SP_TYPE);
-//   super(SpType.ITERATOR_COMPONENT_OBSERVE);
-}
+	/**
+	 * Override getTitle to return the observe count.
+	 */
+	public String getTitle()
+	{
+		if( getTitleAttr() != null )
+			return super.getTitle();
 
-/**
- * Override getTitle to return the observe count.
- */
-public String
-getTitle()
-{
-   if (getTitleAttr() != null) {
-      return super.getTitle();
-   }
+		return "Observe (" + getCount() + "X)";
+	}
 
-   return "Observe (" + getCount() + "X)";
-}
-
-/**
- * Get the Enumation of the iteration steps.
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterObserveEnumeration(this);
-}
+	/**
+	 * Get the Enumation of the iteration steps.
+	 */
+	public SpIterEnumeration elements()
+	{
+		return new SpIterObserveEnumeration( this );
+	}
 
 	public void translate( Vector v )
 	{
@@ -113,16 +106,14 @@ elements()
 			{
 				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
 				if( recipes != null && recipes.size() > 0 )
-				{
 					break;
-				}
 			}
 			parent = parent.parent();
 		}
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
 			v.add( "setHeader GRPMEM " + ( recipe.getObjectInGroup() ? "T" : "F" ) );
 			v.add( "setHeader RECIPE " + recipe.getObjectRecipeName() );
 		}
@@ -143,9 +134,6 @@ elements()
 		String observe = "do " + getCount() + " _observe";
 		v.add( observe );
 		if( !inOffset )
-		{
 			v.add( "ADDOFFSET" );
-		}
 	}
-
 }

@@ -8,30 +8,28 @@
 /*==============================================================*/
 // This version started 2001 Oct 31 based on SpInstMichelle
 // author: Alan Pickup = dap@roe.ac.uk         2001 Oct
-
 package orac.ukirt.inst;
 
-import java.io.IOException ;
-import java.util.NoSuchElementException ;
-import java.util.Vector ;
-import java.util.Enumeration ;
-import java.util.Hashtable ;
-import java.util.StringTokenizer ;
-import java.util.TreeSet ;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.Vector;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 import orac.util.LookUpTable;
 import orac.util.InstCfg;
 import orac.util.InstCfgReader;
 
-import gemini.util.MathUtil ;
-import gemini.util.Angle ;
+import gemini.util.MathUtil;
+import gemini.util.Angle;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 
 import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
-
 
 /**
  * The UIST instrument.
@@ -41,375 +39,390 @@ import gemini.sp.obsComp.SpStareCapability;
 
 public final class SpInstUIST extends SpUKIRTInstObsComp
 {
-    // Attributes presented to user
-    public static String ATTR_CONFIG_TYPE        = "configType";
-    public static String ATTR_CAMERA             = "camera";
-    public static String ATTR_SOURCE_MAG         = "source_mag";
-    public static String ATTR_POLARIMETRY        = "polarimetry";
-// Added by RDK
-    public static String ATTR_PUPIL_IMAGING      = "pupil_imaging";
-// End of added by RDK
-    public static String ATTR_IMAGER             = "imager";
-    public static String ATTR_MASK               = "mask";
-    public static String ATTR_MASK_WIDTH         = "maskWidth";
-    public static String ATTR_MASK_HEIGHT        = "maskHeight";
-    public static String ATTR_DISPERSER          = "disperser";
-    public static String ATTR_ORDER              = "order";
-    public static String ATTR_CENTRAL_WAVELENGTH = "centralWavelength";
-    public static String ATTR_DISPERSION         = "dispersion";
-    public static String ATTR_RESOLUTION         = "resolution";
-    public static String ATTR_FILTER             = "filter";
-    public static String ATTR_FILTER_CATEGORY    = "filterCategory";
-    public static String ATTR_FOCUS              = "focus";
-    public static String ATTR_SCIENCE_AREA       = "scienceArea";
-    public static String ATTR_SPECTRAL_COVERAGE  = "spectralCoverage";
-    public static String ATTR_PIXEL_FOV          = "pixelFOV";
-    public static String ATTR_PIXEL_SCALE        = "pixelScale";
-    public static String ATTR_DARKFILTER         = "darkFilter";
-    public static String ATTR_READOUT            = "readout";
-    public static String ATTR_READAREA           = "readArea";
-    public static String ATTR_MODE               = "mode";
-    public static String ATTR_CHOP_FREQUENCY     = "chopFrequency";
-    public static String ATTR_CHOP_DELAY         = "chopDelay";
-    public static String ATTR_READ_INTERVAL      = "readInterval";
-    public static String ATTR_NREADS             = "nreads";
-    public static String ATTR_DUTY_CYCLE         = "dutyCycle";
-    public static String ATTR_OBSERVATION_TIME   = "observationTime";
-    public static String ATTR_EXPTIME_OT         = "expTimeOT";
-// Added by RDK
-    public static String ATTR_READOUT_OT         = "readoutOT";
-    public static String ATTR_READMODE           = "readMode";
-    public static String ATTR_DACONF             = "DAConf";
-    public static String ATTR_DACONF_MINEXPT     = "DAConfMinExpT";
-// End of added by RDK
-    public static String NO_VALUE                = "none";
-    public static final int CAMERA_IMAGING       = 0;
-    public static final int CAMERA_SPECTROSCOPY  = 1;
+	// Attributes presented to user
+	public static String ATTR_CONFIG_TYPE = "configType";
+	public static String ATTR_CAMERA = "camera";
+	public static String ATTR_SOURCE_MAG = "source_mag";
+	public static String ATTR_POLARIMETRY = "polarimetry";
 
-    // Class variables representing defaults, LUTs, etc
-    public static String CONFIG_TYPE;
-    public static String VERSION;
-    public static double DETANGLE;
-    public static double PIXPITCH;
-    public static String[] CAMERAS;
-    public static String[] CAMERAS_POL;
-    public static String DEFAULT_CAMERA;
-    public static String[] FLAT_SOURCES;
-    public static String FLAT_SOURCE;
-    public static String[] ARC_SOURCES;
-    public static String ARC_SOURCE;
-    public static String DEFAULT_ARC_SOURCE;
-    public static String[] POLARIMETRY;
-    public static String DEFAULT_POLARIMETRY;
-// Added by RDK
-    public static String[] PUPIL;
-    public static String DEFAULT_PUPIL_IMAGING;
-// End of added by RDK
-    public static String DEFAULT_SOURCE_MAG;
-    public static String DEFAULT_PIXEL_FOV;
-    public static String DEFAULT_SCIENCE_AREA;
-    // Imaging
-    public static String DEFAULT_IMAGER;
-    public static String GRISM_IMAGING;
-    public static LookUpTable IMAGERS;
-    public static LookUpTable FILTERS1;
-    public static LookUpTable FILTERS2;
-    public static LookUpTable FILTERS3;
-    public static LookUpTable FILTERS4;
-    public static LookUpTable FILTERS5;
-    public static LookUpTable FILTERS6;
-    public static LookUpTable FILTERS7;
-    public static LookUpTable FILTERS8;
-    public static String DEFAULT_FILTERS1;
-    public static String DEFAULT_FILTERS2;
-    public static String DEFAULT_FILTERS3;
-    public static String DEFAULT_FILTERS4;
-    public static String DEFAULT_FILTERS5;
-    public static String DEFAULT_FILTERS6;
-    public static String DEFAULT_FILTERS7;
-    public static String DEFAULT_FILTERS8;
-    public static String DEFAULT_MAG1;
-    public static String DEFAULT_MAG2;
-    public static String DEFAULT_MAG3;
-    public static String DEFAULT_MAG4;
-    public static String DEFAULT_MAG5;
-    public static String DEFAULT_MAG6;
-    public static String DEFAULT_MAG7;
-    public static String DEFAULT_MAG8;
-    public static String DEFAULT_FILTER_CATEGORY;
-    public static LookUpTable FILTERS;
-    public static double DEFAULT_IMAGING_POS_ANGLE;
-    private static String[] IMAGER_MASKS ;
-    // Spectroscopy
-    public static double SPECT_FOCAL_LENGTH;
-    public static double[] SPECT_FIELD_OF_VIEW;
-    public static String[] INSTRUMENT_APER;     // Array of inst aper values
-// Added by RDK
-    public static String[] DISPERSER_CHOICES;
-    public static String[] DISPERSER_CHOICES_POL;
-    public static String[] DISPERSER_CHOICES_IFU;
-    public static String[] DISPERSER_CHOICES_ACQ;
-    public static String[] DISPERSER_CHOICES_POL_ACQ;
-    public static String[] DISPERSER_CHOICES_IFU_ACQ;
-// End of added by RDK
-    public static LookUpTable DISPERSERS;;
-    public static LookUpTable SPECTFILTERS;
-    public static String DEFAULT_DISPERSER;
-    public static int CENTRAL_ROW;
-    public static int PEAK_ROW;
-    public static LookUpTable SPECMAGS;
-    private static String[] MASKS1;
-    private static String[] MASKS2;
-    private static String[] MASKS3;
-    private static String[] MASKS4;
-    private static String[] MASKS5;
-    private static String[] MASKS6;
-    private static String[] MASKS7;
-    private static String[] MASKS8;
-    private static String[] MASKS9;
-    public static LookUpTable MASKS;
-    public static String DEFAULT_MASK1;
-    public static String DEFAULT_MASK2;
-    public static String DEFAULT_MASK3;
-    public static String DEFAULT_MASK4;
-    public static String DEFAULT_MASK5;
-    public static String DEFAULT_MASK6;
-    public static String DEFAULT_MASK7;
-    public static String DEFAULT_MASK8;
-    public static String DEFAULT_MASK9;
-    public static double DEFAULT_SPECT_POS_ANGLE;
-    // Polarimetry
-    private static String[] POL_MASK_IMAGING;
-    public static String POL_GRISM_IMAGING;
-    private static String [] POL_MASK_SPECTROSCOPY;
-    // Data acquisition - general
-    public static LookUpTable READOUTS_IM;
-    public static LookUpTable READOUTS_SPEC;
-    public static LookUpTable READOUTS_IFU;
-    public static double EXPTIME_MIN;
-    public static double EXPTIME_MIN_IM;
-    public static double EXPTIME_MIN_SPEC;
-    public static double EXPTIME_MIN_IFU;
-    public static double EXPTIME_ND;
-    public static LookUpTable CHOPS;
-    public static double TEXPMAX;
-    public static double DEFAULT_TOBS;
-    public static String DEFAULT_MODE;
-    public static double DEFAULT_EXPTIME;
-// Added by RDK
-    public static String DEFAULT_AREA;
-    public static int DEFAULT_COADDS;
-    public static int FLAT_COADDS_IMAGING;
-    public static int FLAT_COADDS_SPECT;
-    public static int ARC_COADDS;
-// End of added by RDK
-    public static double ARC_EXPTIME;
-    public static double EXPOSURE_OVERHEAD = 0.01;
-    public static double READ_INTERVAL;
-// Added by RDK
-    public static LookUpTable MODES_OT;
-    public static String MIN_MAG_TRAGET_ACQ;
-// End of added by RDK
-// Added by RDK
-    int flatCoadds;
-    int arcCoadds;
-// End of added by RDK
-    double flatExposureTime;
-    double arcExposureTime;
-    String flat_source;
-    String arc_source;
-    public String W_mode;
-    public int W_nreads;
-    public double W_readInterval;
-    public String W_chopFrequency;
-    public double W_chopDelay;
-    public int W_coadds;
-    public double W_dutyCycle;
-    public double W_obsTime;
-    public double W_actExpTime;
-    
-    public TreeSet VALID_IJJH_MASKS ;
-    public TreeSet NON_IJJH_MASKS ;
+	// Added by RDK
+	public static String ATTR_PUPIL_IMAGING = "pupil_imaging";
 
-    public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UIST" , "UIST" ) ;
+	// End of added by RDK
+	public static String ATTR_IMAGER = "imager";
+	public static String ATTR_MASK = "mask";
+	public static String ATTR_MASK_WIDTH = "maskWidth";
+	public static String ATTR_MASK_HEIGHT = "maskHeight";
+	public static String ATTR_DISPERSER = "disperser";
+	public static String ATTR_ORDER = "order";
+	public static String ATTR_CENTRAL_WAVELENGTH = "centralWavelength";
+	public static String ATTR_DISPERSION = "dispersion";
+	public static String ATTR_RESOLUTION = "resolution";
+	public static String ATTR_FILTER = "filter";
+	public static String ATTR_FILTER_CATEGORY = "filterCategory";
+	public static String ATTR_FOCUS = "focus";
+	public static String ATTR_SCIENCE_AREA = "scienceArea";
+	public static String ATTR_SPECTRAL_COVERAGE = "spectralCoverage";
+	public static String ATTR_PIXEL_FOV = "pixelFOV";
+	public static String ATTR_PIXEL_SCALE = "pixelScale";
+	public static String ATTR_DARKFILTER = "darkFilter";
+	public static String ATTR_READOUT = "readout";
+	public static String ATTR_READAREA = "readArea";
+	public static String ATTR_MODE = "mode";
+	public static String ATTR_CHOP_FREQUENCY = "chopFrequency";
+	public static String ATTR_CHOP_DELAY = "chopDelay";
+	public static String ATTR_READ_INTERVAL = "readInterval";
+	public static String ATTR_NREADS = "nreads";
+	public static String ATTR_DUTY_CYCLE = "dutyCycle";
+	public static String ATTR_OBSERVATION_TIME = "observationTime";
+	public static String ATTR_EXPTIME_OT = "expTimeOT";
 
-    // Register the prototype.
-    static 
-    {
-        SpFactory.registerPrototype( new SpInstUIST() ) ;
-    }
+	// Added by RDK
+	public static String ATTR_READOUT_OT = "readoutOT";
+	public static String ATTR_READMODE = "readMode";
+	public static String ATTR_DACONF = "DAConf";
+	public static String ATTR_DACONF_MINEXPT = "DAConfMinExpT";
 
-    // Constructor reads instrument .cfg file and initialises values
-    public SpInstUIST()
-    {
-        super(SP_TYPE);
+	// End of added by RDK
+	public static String NO_VALUE = "none";
+	public static final int CAMERA_IMAGING = 0;
+	public static final int CAMERA_SPECTROSCOPY = 1;
 
-        addCapability( new SpChopCapability()  );
-        addCapability( new SpStareCapability() );
+	// Class variables representing defaults, LUTs, etc
+	public static String CONFIG_TYPE;
+	public static String VERSION;
+	public static double DETANGLE;
+	public static double PIXPITCH;
+	public static String[] CAMERAS;
+	public static String[] CAMERAS_POL;
+	public static String DEFAULT_CAMERA;
+	public static String[] FLAT_SOURCES;
+	public static String FLAT_SOURCE;
+	public static String[] ARC_SOURCES;
+	public static String ARC_SOURCE;
+	public static String DEFAULT_ARC_SOURCE;
+	public static String[] POLARIMETRY;
+	public static String DEFAULT_POLARIMETRY;
 
-        // Read in the instrument config file
-        String baseDir = System.getProperty("ot.cfgdir");
-        String cfgFile = baseDir + "uist.cfg";
-        _readCfgFile (cfgFile);
+	// Added by RDK
+	public static String[] PUPIL;
+	public static String DEFAULT_PUPIL_IMAGING;
 
-        // Set the initial values of the attributes
-        String attr  = ATTR_CONFIG_TYPE;
-        String value = CONFIG_TYPE;
-        _avTable.noNotifySet(attr, value, 0);
+	// End of added by RDK
+	public static String DEFAULT_SOURCE_MAG;
+	public static String DEFAULT_PIXEL_FOV;
+	public static String DEFAULT_SCIENCE_AREA;
 
-        attr  = ATTR_INSTRUMENT_PORT;
-        value = INSTRUMENT_PORT;
-        _avTable.noNotifySet(attr, value, 0);
+	// Imaging
+	public static String DEFAULT_IMAGER;
+	public static String GRISM_IMAGING;
+	public static LookUpTable IMAGERS;
+	public static LookUpTable FILTERS1;
+	public static LookUpTable FILTERS2;
+	public static LookUpTable FILTERS3;
+	public static LookUpTable FILTERS4;
+	public static LookUpTable FILTERS5;
+	public static LookUpTable FILTERS6;
+	public static LookUpTable FILTERS7;
+	public static LookUpTable FILTERS8;
+	public static String DEFAULT_FILTERS1;
+	public static String DEFAULT_FILTERS2;
+	public static String DEFAULT_FILTERS3;
+	public static String DEFAULT_FILTERS4;
+	public static String DEFAULT_FILTERS5;
+	public static String DEFAULT_FILTERS6;
+	public static String DEFAULT_FILTERS7;
+	public static String DEFAULT_FILTERS8;
+	public static String DEFAULT_MAG1;
+	public static String DEFAULT_MAG2;
+	public static String DEFAULT_MAG3;
+	public static String DEFAULT_MAG4;
+	public static String DEFAULT_MAG5;
+	public static String DEFAULT_MAG6;
+	public static String DEFAULT_MAG7;
+	public static String DEFAULT_MAG8;
+	public static String DEFAULT_FILTER_CATEGORY;
+	public static LookUpTable FILTERS;
+	public static double DEFAULT_IMAGING_POS_ANGLE;
+	private static String[] IMAGER_MASKS;
 
-        attr  = ATTR_INSTRUMENT_PNTG_OFFSET;
-        value = INSTRUMENT_PNTG_OFFSET[IDPO_INDEX];
-	_avTable.noNotifySet(attr, value, IDPO_INDEX);
-        value = INSTRUMENT_PNTG_OFFSET[CHPO_INDEX];
-	_avTable.noNotifySet(attr, value, CHPO_INDEX);
+	// Spectroscopy
+	public static double SPECT_FOCAL_LENGTH;
+	public static double[] SPECT_FIELD_OF_VIEW;
+	public static String[] INSTRUMENT_APER; // Array of inst aper values
+	// Added by RDK
 
-        attr  = ATTR_VERSION;
-        value = VERSION;
-        _avTable.noNotifySet(attr, value, 0);
+	public static String[] DISPERSER_CHOICES;
+	public static String[] DISPERSER_CHOICES_POL;
+	public static String[] DISPERSER_CHOICES_IFU;
+	public static String[] DISPERSER_CHOICES_ACQ;
+	public static String[] DISPERSER_CHOICES_POL_ACQ;
+	public static String[] DISPERSER_CHOICES_IFU_ACQ;
 
-        attr  = ATTR_CAMERA;
-        value = DEFAULT_CAMERA;
-        _avTable.noNotifySet(attr, value, 0);
+	// End of added by RDK
+	public static LookUpTable DISPERSERS;;
+	public static LookUpTable SPECTFILTERS;
+	public static String DEFAULT_DISPERSER;
+	public static int CENTRAL_ROW;
+	public static int PEAK_ROW;
+	public static LookUpTable SPECMAGS;
+	private static String[] MASKS1;
+	private static String[] MASKS2;
+	private static String[] MASKS3;
+	private static String[] MASKS4;
+	private static String[] MASKS5;
+	private static String[] MASKS6;
+	private static String[] MASKS7;
+	private static String[] MASKS8;
+	private static String[] MASKS9;
+	public static LookUpTable MASKS;
+	public static String DEFAULT_MASK1;
+	public static String DEFAULT_MASK2;
+	public static String DEFAULT_MASK3;
+	public static String DEFAULT_MASK4;
+	public static String DEFAULT_MASK5;
+	public static String DEFAULT_MASK6;
+	public static String DEFAULT_MASK7;
+	public static String DEFAULT_MASK8;
+	public static String DEFAULT_MASK9;
+	public static double DEFAULT_SPECT_POS_ANGLE;
 
-        attr  = ATTR_SOURCE_MAG;
-        value = DEFAULT_SOURCE_MAG;
-        _avTable.noNotifySet(attr, value, 0);
+	// Polarimetry
+	private static String[] POL_MASK_IMAGING;
+	public static String POL_GRISM_IMAGING;
+	private static String[] POL_MASK_SPECTROSCOPY;
 
-        attr  = ATTR_IMAGER;
-        value = DEFAULT_IMAGER;
-        _avTable.noNotifySet(attr, value, 0);
+	// Data acquisition - general
+	public static LookUpTable READOUTS_IM;
+	public static LookUpTable READOUTS_SPEC;
+	public static LookUpTable READOUTS_IFU;
+	public static double EXPTIME_MIN;
+	public static double EXPTIME_MIN_IM;
+	public static double EXPTIME_MIN_SPEC;
+	public static double EXPTIME_MIN_IFU;
+	public static double EXPTIME_ND;
+	public static LookUpTable CHOPS;
+	public static double TEXPMAX;
+	public static double DEFAULT_TOBS;
+	public static String DEFAULT_MODE;
+	public static double DEFAULT_EXPTIME;
 
-        attr  = ATTR_MASK;
-        int mi = IMAGERS.indexInColumn(DEFAULT_IMAGER,0);
-// Added by RDK
-        String mask = (String) IMAGERS.elementAt(mi,3);
-// End of added by RDK
-        _avTable.noNotifySet(attr, mask, 0);
-        setInstAper();
+	// Added by RDK
+	public static String DEFAULT_AREA;
+	public static int DEFAULT_COADDS;
+	public static int FLAT_COADDS_IMAGING;
+	public static int FLAT_COADDS_SPECT;
+	public static int ARC_COADDS;
 
-        attr  = ATTR_MASK_WIDTH;
-        _avTable.noNotifySet(attr, "0.0", 0);
+	// End of added by RDK
+	public static double ARC_EXPTIME;
+	public static double EXPOSURE_OVERHEAD = 0.01;
+	public static double READ_INTERVAL;
 
-        attr  = ATTR_MASK_HEIGHT;
-        _avTable.noNotifySet(attr, "0.0", 0);
+	// Added by RDK
+	public static LookUpTable MODES_OT;
+	public static String MIN_MAG_TRAGET_ACQ;
+	// End of added by RDK
+	
+	// Added by RDK
+	int flatCoadds;
+	int arcCoadds;
+	// End of added by RDK
+	
+	double flatExposureTime;
+	double arcExposureTime;
+	String flat_source;
+	String arc_source;
+	public String W_mode;
+	public int W_nreads;
+	public double W_readInterval;
+	public String W_chopFrequency;
+	public double W_chopDelay;
+	public int W_coadds;
+	public double W_dutyCycle;
+	public double W_obsTime;
+	public double W_actExpTime;
+	public TreeSet VALID_IJJH_MASKS;
+	public TreeSet NON_IJJH_MASKS;
 
-        setDefaultPosAngle();
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UIST" , "UIST" );
 
-        attr  = ATTR_DISPERSER;
-        value = GRISM_IMAGING;
-        _avTable.noNotifySet(attr, value, 0);
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpInstUIST() );
+	}
 
-        attr  = ATTR_ORDER;
-        _avTable.noNotifySet(attr, "0", 0);
+	// Constructor reads instrument .cfg file and initialises values
+	public SpInstUIST()
+	{
+		super( SP_TYPE );
 
-        attr  = ATTR_DISPERSION;
-        _avTable.noNotifySet(attr, "0.0", 0);
+		addCapability( new SpChopCapability() );
+		addCapability( new SpStareCapability() );
 
-        attr  = ATTR_RESOLUTION;
-        _avTable.noNotifySet(attr, "0.0", 0);
+		// Read in the instrument config file
+		String baseDir = System.getProperty( "ot.cfgdir" );
+		String cfgFile = baseDir + "uist.cfg";
+		_readCfgFile( cfgFile );
 
-        attr  = ATTR_POLARIMETRY;
-        value = DEFAULT_POLARIMETRY;
-        _avTable.noNotifySet(attr, value, 0);
+		// Set the initial values of the attributes
+		String attr = ATTR_CONFIG_TYPE;
+		String value = CONFIG_TYPE;
+		_avTable.noNotifySet( attr , value , 0 );
 
-// Added by RDK
-        attr  = ATTR_PUPIL_IMAGING;
-        value = DEFAULT_PUPIL_IMAGING;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_INSTRUMENT_PORT;
+		value = INSTRUMENT_PORT;
+		_avTable.noNotifySet( attr , value , 0 );
 
-// End of added by RDK
+		attr = ATTR_INSTRUMENT_PNTG_OFFSET;
+		value = INSTRUMENT_PNTG_OFFSET[ IDPO_INDEX ];
+		_avTable.noNotifySet( attr , value , IDPO_INDEX );
+		value = INSTRUMENT_PNTG_OFFSET[ CHPO_INDEX ];
+		_avTable.noNotifySet( attr , value , CHPO_INDEX );
 
-        attr  = ATTR_FILTER;
-        value = DEFAULT_FILTERS1;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_VERSION;
+		value = VERSION;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_FILTER_CATEGORY;
-        value = DEFAULT_FILTER_CATEGORY;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_CAMERA;
+		value = DEFAULT_CAMERA;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        int fi = FILTERS.indexInColumn(DEFAULT_FILTERS1,0);
-        String cwl = (String) FILTERS.elementAt(fi,1);
-        attr  = ATTR_CENTRAL_WAVELENGTH;
-        _avTable.noNotifySet(attr, cwl, 0);
-        String sc = (String) FILTERS.elementAt(fi,2);
-        attr  = ATTR_SPECTRAL_COVERAGE;
-        _avTable.noNotifySet(attr, sc, 0);
+		attr = ATTR_SOURCE_MAG;
+		value = DEFAULT_SOURCE_MAG;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_FOCUS;
-        fi = FILTERS1.indexInColumn(DEFAULT_FILTERS1,0);
-        String focus = (String) FILTERS1.elementAt(fi,1);
-        _avTable.noNotifySet(attr, focus, 0);
+		attr = ATTR_IMAGER;
+		value = DEFAULT_IMAGER;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_SCIENCE_AREA;
-        value = DEFAULT_SCIENCE_AREA;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_MASK;
+		int mi = IMAGERS.indexInColumn( DEFAULT_IMAGER , 0 );
+		// Added by RDK
+		String mask = ( String )IMAGERS.elementAt( mi , 3 );
+		// End of added by RDK
+		_avTable.noNotifySet( attr , mask , 0 );
+		setInstAper();
 
-        attr  = ATTR_PIXEL_FOV;
-        value = DEFAULT_PIXEL_FOV;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_MASK_WIDTH;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
 
-        attr  = ATTR_PIXEL_SCALE;
-        _avTable.noNotifySet(attr, "0.12", 0);
+		attr = ATTR_MASK_HEIGHT;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
 
-        attr  = ATTR_MODE;
-        value = DEFAULT_MODE;
-        _avTable.noNotifySet(attr, value, 0);
+		setDefaultPosAngle();
 
-        attr  = ATTR_READOUT;
-        value = DEFAULT_MODE;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_DISPERSER;
+		value = GRISM_IMAGING;
+		_avTable.noNotifySet( attr , value , 0 );
 
-//Added by RDK
-        attr  = ATTR_READMODE;
-        value = DEFAULT_MODE;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_ORDER;
+		_avTable.noNotifySet( attr , "0" , 0 );
 
-        attr  = ATTR_READAREA;
-        value = DEFAULT_AREA;
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_DISPERSION;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
 
-        attr  = ATTR_CHOP_FREQUENCY;
-        _avTable.noNotifySet(attr, "0.0", 0);
+		attr = ATTR_RESOLUTION;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
 
-        attr  = ATTR_CHOP_DELAY;
-        _avTable.noNotifySet(attr, "0.0", 0);
+		attr = ATTR_POLARIMETRY;
+		value = DEFAULT_POLARIMETRY;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_EXPOSURE_TIME;
-        value = Double.toString(DEFAULT_EXPTIME);
-        _avTable.noNotifySet(attr, value, 0);
+		// Added by RDK
+		attr = ATTR_PUPIL_IMAGING;
+		value = DEFAULT_PUPIL_IMAGING;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_EXPTIME_OT;
-        value = Double.toString(DEFAULT_EXPTIME);
-        _avTable.noNotifySet(attr, value, 0);
+		// End of added by RDK
 
-        attr  = ATTR_READ_INTERVAL;
-        value = Double.toString(READ_INTERVAL);
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_FILTER;
+		value = DEFAULT_FILTERS1;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        attr  = ATTR_NREADS;
-        _avTable.noNotifySet(attr, "0", 0);
+		attr = ATTR_FILTER_CATEGORY;
+		value = DEFAULT_FILTER_CATEGORY;
+		_avTable.noNotifySet( attr , value , 0 );
 
-// Added by RDK
-        setCoadds( DEFAULT_COADDS );
-// End of added by RDK
+		int fi = FILTERS.indexInColumn( DEFAULT_FILTERS1 , 0 );
+		String cwl = ( String )FILTERS.elementAt( fi , 1 );
+		attr = ATTR_CENTRAL_WAVELENGTH;
+		_avTable.noNotifySet( attr , cwl , 0 );
+		String sc = ( String )FILTERS.elementAt( fi , 2 );
+		attr = ATTR_SPECTRAL_COVERAGE;
+		_avTable.noNotifySet( attr , sc , 0 );
 
-        attr  = ATTR_DUTY_CYCLE;
-        _avTable.noNotifySet(attr, "0.0", 0);
+		attr = ATTR_FOCUS;
+		fi = FILTERS1.indexInColumn( DEFAULT_FILTERS1 , 0 );
+		String focus = ( String )FILTERS1.elementAt( fi , 1 );
+		_avTable.noNotifySet( attr , focus , 0 );
 
-        attr  = ATTR_OBSERVATION_TIME;
-        value = Double.toString(DEFAULT_TOBS);
-        _avTable.noNotifySet(attr, value, 0);
+		attr = ATTR_SCIENCE_AREA;
+		value = DEFAULT_SCIENCE_AREA;
+		_avTable.noNotifySet( attr , value , 0 );
 
-        // Initialise instance variables
-        initInstance();
+		attr = ATTR_PIXEL_FOV;
+		value = DEFAULT_PIXEL_FOV;
+		_avTable.noNotifySet( attr , value , 0 );
 
-    }
+		attr = ATTR_PIXEL_SCALE;
+		_avTable.noNotifySet( attr , "0.12" , 0 );
 
-    private void _readCfgFile( String filename )
+		attr = ATTR_MODE;
+		value = DEFAULT_MODE;
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_READOUT;
+		value = DEFAULT_MODE;
+		_avTable.noNotifySet( attr , value , 0 );
+
+		//Added by RDK
+		attr = ATTR_READMODE;
+		value = DEFAULT_MODE;
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_READAREA;
+		value = DEFAULT_AREA;
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_CHOP_FREQUENCY;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
+
+		attr = ATTR_CHOP_DELAY;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
+
+		attr = ATTR_EXPOSURE_TIME;
+		value = Double.toString( DEFAULT_EXPTIME );
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_EXPTIME_OT;
+		value = Double.toString( DEFAULT_EXPTIME );
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_READ_INTERVAL;
+		value = Double.toString( READ_INTERVAL );
+		_avTable.noNotifySet( attr , value , 0 );
+
+		attr = ATTR_NREADS;
+		_avTable.noNotifySet( attr , "0" , 0 );
+
+		// Added by RDK
+		setCoadds( DEFAULT_COADDS );
+		// End of added by RDK
+
+		attr = ATTR_DUTY_CYCLE;
+		_avTable.noNotifySet( attr , "0.0" , 0 );
+
+		attr = ATTR_OBSERVATION_TIME;
+		value = Double.toString( DEFAULT_TOBS );
+		_avTable.noNotifySet( attr , value , 0 );
+
+		// Initialise instance variables
+		initInstance();
+	}
+
+	private void _readCfgFile( String filename )
 	{
 		InstCfgReader instCfg = null;
 		InstCfg instInfo = null;
@@ -455,7 +468,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "default_camera" ) )
 				{
 					DEFAULT_CAMERA = instInfo.getValue();
-// Added by RDK
+					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_pupil_imaging" ) )
 				{
@@ -464,7 +477,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "pupil" ) )
 				{
 					PUPIL = instInfo.getValueAsArray();
-// End of added by RDK
+					// End of added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_source_mag" ) )
 				{
@@ -488,8 +501,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "imager_masks" ) )
 				{
-					IMAGER_MASKS = instInfo.getValueAsArray() ;
-				}				
+					IMAGER_MASKS = instInfo.getValueAsArray();
+				}
 				else if( InstCfg.matchAttr( instInfo , "grism_imaging" ) )
 				{
 					GRISM_IMAGING = instInfo.getValue();
@@ -629,7 +642,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "default_arc_source" ) )
 				{
 					DEFAULT_ARC_SOURCE = instInfo.getValue();
-// Added by RDK
+					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "disperser_choices" ) )
 				{
@@ -654,7 +667,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "disperser_choices_pol_acq" ) )
 				{
 					DISPERSER_CHOICES_POL_ACQ = instInfo.getValueAsArray();
-// End of added by RDK
+					// End of added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "dispersers" ) )
 				{
@@ -811,7 +824,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "default_exptime" ) )
 				{
 					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
-// Added by RDK
+					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_area" ) )
 				{
@@ -832,7 +845,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "arc_coadds" ) )
 				{
 					ARC_COADDS = Integer.valueOf( instInfo.getValue() ).intValue();
-// End of added by RDK
+					// End of added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "arc_exptime" ) )
 				{
@@ -849,7 +862,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "read_interval" ) )
 				{
 					READ_INTERVAL = Double.valueOf( instInfo.getValue() ).doubleValue();
-// Added by RDK
+					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "modes_ot" ) )
 				{
@@ -858,21 +871,21 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else if( InstCfg.matchAttr( instInfo , "min_mag_target_acq" ) )
 				{
 					MIN_MAG_TRAGET_ACQ = instInfo.getValue();
-// End of added by RDK
+					// End of added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "non_ijjh_masks" ) )
 				{
-					NON_IJJH_MASKS = new TreeSet() ;
-					String[] temp = instInfo.getValueAsArray() ;
+					NON_IJJH_MASKS = new TreeSet();
+					String[] temp = instInfo.getValueAsArray();
 					for( int index = 0 ; index < temp.length ; index++ )
-						NON_IJJH_MASKS.add( temp[ index ] ) ; 
+						NON_IJJH_MASKS.add( temp[ index ] );
 				}
 				else if( InstCfg.matchAttr( instInfo , "valid_ijjh_masks" ) )
 				{
-					VALID_IJJH_MASKS = new TreeSet() ;
-					String[] temp = instInfo.getValueAsArray() ;
+					VALID_IJJH_MASKS = new TreeSet();
+					String[] temp = instInfo.getValueAsArray();
 					for( int index = 0 ; index < temp.length ; index++ )
-						VALID_IJJH_MASKS.add( temp[ index ] ) ;
+						VALID_IJJH_MASKS.add( temp[ index ] );
 				}
 				else
 				{
@@ -886,107 +899,119 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 	}
 
-    /**
+	/**
 	 * Get the chop capability.
 	 */
-    public SpChopCapability
-    getChopCapability()
-    {
-        return (SpChopCapability) getCapability(SpChopCapability.CAPABILITY_NAME);
-    }
-
-    /**
-     * Get the stare capability.
-     */
-    public SpStareCapability
-    getStareCapability()
-    {
-        return (SpStareCapability) getCapability(SpStareCapability.CAPABILITY_NAME);
-    }
-
-    /**
-     * Use default source magnitude
-     */
-    public void
-    useDefaultSourceMag()
-    {
-        _avTable.rm(ATTR_SOURCE_MAG);
-    }
-
-
-    /**
-     * Get the source magnitude.
-     */
-    public String getSourceMag() {
-
-        String sm = _avTable.get(ATTR_SOURCE_MAG);
-        if ( sm == null ) {
-            if (isImaging()) {
-                int filterSet = getFilterSet();
-                if (filterSet==1) {
-                    sm = DEFAULT_MAG1;
-                } else if (filterSet==2) {
-                    sm = DEFAULT_MAG2;
-                } else if (filterSet==3) {
-                    sm = DEFAULT_MAG3;
-                } else if (filterSet==4) {
-                    sm = DEFAULT_MAG4;
-                } else if (filterSet==5) {
-                    sm = DEFAULT_MAG5;
-                } else if (filterSet==6) {
-                    sm = DEFAULT_MAG6;
-                } else if (filterSet==7) {
-                    sm = DEFAULT_MAG7;
-                } else if (filterSet==8) {
-                    sm = DEFAULT_MAG8;
-                } else {
-                    System.out.println("GetFilterLUT> Unrecognised filterSet " + 
-                        "number " + filterSet);
-                    sm = DEFAULT_MAG1;
-	        }
-            } else {
-                sm = DEFAULT_SOURCE_MAG;
-	    }
-            setSourceMag(sm);
+	public SpChopCapability getChopCapability()
+	{
+		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME );
 	}
-        return sm;
-    }
 
-    /**
-     * Set the source magnitude.
-     */
-    public void setSourceMag( String sm ) {
-        _avTable.set( ATTR_SOURCE_MAG, sm );
-    }
-
-    /**
-     * Get the list of available source mags
-     */
-    public String[]
-    getSourceMagList()
-    {
-        if (isImaging()) {
-            return getFilterMags();
-        } else {
-            int nmags = SPECMAGS.getNumColumns() - 1;
-            String specMags[] = new String[nmags];
-            for (int i=0; i<nmags; i++) {
-                specMags[i] = (String)SPECMAGS.elementAt(0,i+1);
-	    }
-            return specMags;
+	/**
+	 * Get the stare capability.
+	 */
+	public SpStareCapability getStareCapability()
+	{
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
 	}
-    }
 
-    /**
-     * Set the science area
-     */
-    public void
-    setScienceArea(String scienceArea)
-    {
-        _avTable.set(ATTR_SCIENCE_AREA, scienceArea);
-    }
-  
-    /**
+	/**
+	 * Use default source magnitude
+	 */
+	public void useDefaultSourceMag()
+	{
+		_avTable.rm( ATTR_SOURCE_MAG );
+	}
+
+	/**
+	 * Get the source magnitude.
+	 */
+	public String getSourceMag()
+	{
+
+		String sm = _avTable.get( ATTR_SOURCE_MAG );
+		if( sm == null )
+		{
+			if( isImaging() )
+			{
+				int filterSet = getFilterSet();
+				switch( filterSet )
+				{
+					case 1 :
+						sm = DEFAULT_MAG1;
+						break ;
+					case 2 :
+						sm = DEFAULT_MAG2;
+						break ;
+					case 3 :
+						sm = DEFAULT_MAG3;
+						break ;
+					case 4 :
+						sm = DEFAULT_MAG4;
+						break ;
+					case 5 :
+						sm = DEFAULT_MAG5;
+						break ;
+					case 6 :
+						sm = DEFAULT_MAG6;
+						break ;
+					case 7 :
+						sm = DEFAULT_MAG7;
+						break ;
+					case 8 :
+						sm = DEFAULT_MAG8;
+						break ;
+					default :
+						System.out.println( "GetFilterLUT> Unrecognised filterSet " + "number " + filterSet );
+						sm = DEFAULT_MAG1;
+				}
+			}
+			else
+			{
+				sm = DEFAULT_SOURCE_MAG;
+			}
+			setSourceMag( sm );
+		}
+		return sm;
+	}
+
+	/**
+	 * Set the source magnitude.
+	 */
+	public void setSourceMag( String sm )
+	{
+		_avTable.set( ATTR_SOURCE_MAG , sm );
+	}
+
+	/**
+	 * Get the list of available source mags
+	 */
+	public String[] getSourceMagList()
+	{
+		if( isImaging() )
+		{
+			return getFilterMags();
+		}
+		else
+		{
+			int nmags = SPECMAGS.getNumColumns() - 1;
+			String specMags[] = new String[ nmags ];
+			for( int i = 0 ; i < nmags ; i++ )
+				specMags[ i ] = ( String )SPECMAGS.elementAt( 0 , i + 1 );
+
+			return specMags;
+		}
+	}
+
+	/**
+	 * Set the science area
+	 */
+	public void setScienceArea( String scienceArea )
+	{
+		_avTable.set( ATTR_SCIENCE_AREA , scienceArea );
+	}
+
+	/**
 	 * Return the science area based upon the current camera and waveform
 	 */
 	public double[] getScienceArea()
@@ -1017,14 +1042,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			// the affect downstream are unknown. If this ever does get
 			// updated then the isIFU() clause can be removed.
 			if( isIFU() )
-			{
 				fov[ 0 ] = ( getMaskWidthPixels() - 8.0 ) * pixelScale;
-			}
 			else
-			{
 				fov[ 0 ] = getMaskWidthPixels() * pixelScale;
-				;
-			}
+
 			fov[ 1 ] = getMaskHeightArcsec();
 		}
 		// Adjust the height and width if vignetted by the readout area
@@ -1036,7 +1057,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return fov;
 	}
 
-    /*
+	/*
 	 * Get the science area as a string (also updates pixel field of view)
 	 */
 	public String getScienceAreaString()
@@ -1059,89 +1080,83 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return fovs;
 	}
 
-    /**
+	/**
 	 * Is the instrument in "imaging" (in other words, is the "imaging" camera selected instead of the spectroscopy camera).
 	 */
-    public boolean
-    isImaging()
-    {
-        String camera = getCamera();
-        return (camera.equalsIgnoreCase("imaging"));
-    }
+	public boolean isImaging()
+	{
+		String camera = getCamera();
+		return( camera.equalsIgnoreCase( "imaging" ) );
+	}
 
-    /**
-     * Set the camera.
-     */
-    public void
-    setCamera(String camera)
-    {
-        _avTable.set(ATTR_CAMERA, camera);
-        useDefaultImager();
-        useDefaultDisperser();
-        useDefaultSourceMag();
-        setDefaultPosAngle();
-    }
+	/**
+	 * Set the camera.
+	 */
+	public void setCamera( String camera )
+	{
+		_avTable.set( ATTR_CAMERA , camera );
+		useDefaultImager();
+		useDefaultDisperser();
+		useDefaultSourceMag();
+		setDefaultPosAngle();
+	}
 
-    /*
+	/*
 	 * Initialise instance variables
 	 */
 	public void initInstance()
 	{
 		// Initialise instance variables and initial config
-// Added by RDK
+		// Added by RDK
 		flatCoadds = DEFAULT_COADDS;
 		arcCoadds = DEFAULT_COADDS;
-// End of added by RDK
+		// End of added by RDK
 		useDefaultAcquisition();
 		setAcquisition();
 	}
 
-    /**
+	/**
 	 * Get list of available cameras.
 	 */
-    public String[]
-    getCameraList()
-    {
-        if (isPolarimetry()) {
-            return CAMERAS_POL;
-	} else {
-            return CAMERAS;
+	public String[] getCameraList()
+	{
+		if( isPolarimetry() )
+			return CAMERAS_POL;
+		else
+			return CAMERAS;
 	}
-    }
 
-    /**
-     * Get the camera.
-     */
-    public String
-    getCamera()
-    {
-        String camera = _avTable.get(ATTR_CAMERA);
-        if (camera == null) {
-            camera = DEFAULT_CAMERA;
-            setCamera(camera);
-        }
-        return camera;
-    }
+	/**
+	 * Get the camera.
+	 */
+	public String getCamera()
+	{
+		String camera = _avTable.get( ATTR_CAMERA );
+		if( camera == null )
+		{
+			camera = DEFAULT_CAMERA;
+			setCamera( camera );
+		}
+		return camera;
+	}
 
-    /**
-     * Use default imager.
-     */
-    public void
-    useDefaultImager()
-    {
-        _avTable.rm(ATTR_IMAGER);
-    }
+	/**
+	 * Use default imager.
+	 */
+	public void useDefaultImager()
+	{
+		_avTable.rm( ATTR_IMAGER );
+	}
 
-    /**
-     * Get the default imager.
-     */
-    public String
-    getDefaultImager()
-    {
-        return DEFAULT_IMAGER;
-    }
+	/**
+	 * Get the default imager.
+	 */
+	public String getDefaultImager()
+	{
+		return DEFAULT_IMAGER;
+	}
 
-    /*
+	/*
 	 * Set the imager name
 	 */
 	public void setImager( String imager )
@@ -1149,24 +1164,22 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		_avTable.set( ATTR_IMAGER , imager );
 
 		/*
-		* Added by RDK 19 Nov 2003: When we change plate scale, check the existing filter
-		* to make sure it exists in the filter table for the new plate scale. If so, call
-		* setFilter with the current value to re-set all filter-dependent values. If the
-		* current filter does not exist in the filter table for the new plate scale,
-		* use the default filter and filter category.
-		*/
+		 * Added by RDK 19 Nov 2003: When we change plate scale, check the existing filter
+		 * to make sure it exists in the filter table for the new plate scale. If so, call
+		 * setFilter with the current value to re-set all filter-dependent values. If the
+		 * current filter does not exist in the filter table for the new plate scale,
+		 * use the default filter and filter category.
+		 */
 
 		String currentFilter = getFilter();
-		LookUpTable filterLUT = getFilterLUT() ;
+		LookUpTable filterLUT = getFilterLUT();
 		try
 		{
 			/*
-			 * LookUpTable.indexInColumn may throw 
-			 * NoSuchElementException or
-			 * ArrayIndexOutOfBoundsException
-			 * forcing the default
+			 * LookUpTable.indexInColumn may throw NoSuchElementException or
+			 * ArrayIndexOutOfBoundsException forcing the default
 			 */
-			filterLUT.indexInColumn( currentFilter , 0 ) ;
+			filterLUT.indexInColumn( currentFilter , 0 );
 			setFilter( currentFilter );
 		}
 		catch( NoSuchElementException ex )
@@ -1178,184 +1191,184 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		useDefaultMask();
 	}
 
-    /**
+	/**
 	 * Get the imager name
 	 */
-    public String
-    getImager()
-    {
-        String imager = _avTable.get(ATTR_IMAGER);
-        if (imager == null) {
-            imager = getDefaultImager();
-            setImager(imager);
-        }
-        return imager;
-    }
+	public String getImager()
+	{
+		String imager = _avTable.get( ATTR_IMAGER );
+		if( imager == null )
+		{
+			imager = getDefaultImager();
+			setImager( imager );
+		}
+		return imager;
+	}
 
-    /**
-     * Set the pixel scale
-     */
-    public void
-    setPixelScale(double pixelScale)
-    {
-        _avTable.set(ATTR_PIXEL_SCALE, pixelScale);
-    }
+	/**
+	 * Set the pixel scale
+	 */
+	public void setPixelScale( double pixelScale )
+	{
+		_avTable.set( ATTR_PIXEL_SCALE , pixelScale );
+	}
 
-// Added by RDK
-    /**
-     * Set the pixel scale
-     */
-    public void
-    setPixelScale(String pixelScale)
-    {
-        _avTable.set(ATTR_PIXEL_SCALE, pixelScale);
-    }
-// End of added by RDK
+	// Added by RDK
+	/**
+	 * Set the pixel scale
+	 */
+	public void setPixelScale( String pixelScale )
+	{
+		_avTable.set( ATTR_PIXEL_SCALE , pixelScale );
+	}
 
-    /**
+	// End of added by RDK
+
+	/**
 	 * Get the pixel scale
 	 */
 	public double getPixelScale()
 	{
-// Changed by RDK
+		// Changed by RDK
 		double ps;
 		if( isPupilImaging() )
 		{
 			String psString = PUPIL[ 0 ];
 			setPixelScale( psString );
-			ps = 0.0;
+			ps = 0. ;
 		}
 		else
 		{
 			int imindex = IMAGERS.indexInColumn( getImager() , 0 );
-			ps = Double.valueOf( ( String ) IMAGERS.elementAt( imindex , 0 ) ).doubleValue();
+			ps = Double.valueOf( ( String )IMAGERS.elementAt( imindex , 0 ) ).doubleValue();
 			setPixelScale( ps );
 		}
-// End of changed by RDK
+		// End of changed by RDK
 		return ps;
 	}
 
-    /**
+	/**
 	 * Use default focus
 	 */
-    public void
-    useDefaultFocus()
-    {
-        _avTable.rm(ATTR_FOCUS);
-    }
-
-    /**
-     * Get the default focus
-     */
-    public String
-    getDefaultFocus()
-    {
-        String focus;
-        if (isImaging()) {
-            // For imaging, focus comes from FILTERS* lut
-            // with choice depending on polarimetry
-            LookUpTable filterLUT= getFilterLUT();
-            String filter = getFilter();
-            int fi = filterLUT.indexInColumn(filter, 0);
-            if (isPolarimetry()) {
-                focus = (String) filterLUT.elementAt(fi,2);
-            } else {
-                focus = (String) filterLUT.elementAt(fi,1);
-	    }
-	} else {
-            int fi = getFilterIndex();
-            focus = (String) SPECTFILTERS.elementAt(fi,5);;
+	public void useDefaultFocus()
+	{
+		_avTable.rm( ATTR_FOCUS );
 	}
-        return focus;
-    }
 
-    /**
-     * Set the focus
-     */
-    public void
-    setFocus(String focus)
-    {
-        _avTable.set(ATTR_FOCUS, focus);
-    }
-
-    /**
-     * Get the focus
-     */
-    public String
-    getFocus()
-    {
-        String focus = _avTable.get(ATTR_FOCUS);
-        if (focus == null) {
-            focus = getDefaultFocus();
-            setFocus(focus);
-        }
-        return focus;
-    }
-
-    /**
-     * Get the list of imagers
-     */
-    public String[]
-    getImagerList()
-    {
-        if (isPupilImaging()) {
-            String imagerList[] = new String[1];
-            imagerList[0] = PUPIL[0];
-            return imagerList;
-        } else {
-            String imagerList[] = new String[IMAGERS.getNumRows()];
-            for (int i=0; i<IMAGERS.getNumRows(); i++) {
-                imagerList[i] = (String)IMAGERS.elementAt(i,0);
-            }
-            return imagerList;
-        }
-    }
-
-    /**
-     * Get the imager number
-     */
-    public int
-    getImagerIndex()
-    {
-        String imager = getImager();
-	int imindex = 0;
-	try {
-	    imindex = IMAGERS.indexInColumn(imager, 0);
-	}catch (ArrayIndexOutOfBoundsException ex) {
-	    System.out.println ("Failed to find imager index!");
-	}catch (NoSuchElementException ex) {
-	    System.out.println ("Failed to find imager index!");
+	/**
+	 * Get the default focus
+	 */
+	public String getDefaultFocus()
+	{
+		String focus;
+		if( isImaging() )
+		{
+			// For imaging, focus comes from FILTERS* lut with choice depending on polarimetry
+			LookUpTable filterLUT = getFilterLUT();
+			String filter = getFilter();
+			int fi = filterLUT.indexInColumn( filter , 0 );
+			if( isPolarimetry() )
+				focus = ( String )filterLUT.elementAt( fi , 2 );
+			else
+				focus = ( String )filterLUT.elementAt( fi , 1 );
+		}
+		else
+		{
+			int fi = getFilterIndex();
+			focus = ( String )SPECTFILTERS.elementAt( fi , 5 );
+		}
+		return focus;
 	}
-	return imindex;
-    }
 
-    /**
-     * Get the list of dispersers
-     */
-    public String[]
-    getDisperserList()
-    {
-// Changed by RDK
-        if (isPolarimetry()) {
-	    return DISPERSER_CHOICES_POL;
-        } else if (isIFU()) {
-	    return DISPERSER_CHOICES_IFU;
-        } else {
-	    return DISPERSER_CHOICES;
-        }
-// End of changed by RDK
-    }
+	/**
+	 * Set the focus
+	 */
+	public void setFocus( String focus )
+	{
+		_avTable.set( ATTR_FOCUS , focus );
+	}
 
-    /**
-     * Use default disperser.
-     */
-    public void
-    useDefaultDisperser()
-    {
-        _avTable.rm(ATTR_DISPERSER);
-    }
+	/**
+	 * Get the focus
+	 */
+	public String getFocus()
+	{
+		String focus = _avTable.get( ATTR_FOCUS );
+		if( focus == null )
+		{
+			focus = getDefaultFocus();
+			setFocus( focus );
+		}
+		return focus;
+	}
 
-    /**
+	/**
+	 * Get the list of imagers
+	 */
+	public String[] getImagerList()
+	{
+		if( isPupilImaging() )
+		{
+			String imagerList[] = new String[ 1 ];
+			imagerList[ 0 ] = PUPIL[ 0 ];
+			return imagerList;
+		}
+		else
+		{
+			String imagerList[] = new String[ IMAGERS.getNumRows() ];
+			for( int i = 0 ; i < IMAGERS.getNumRows() ; i++ )
+				imagerList[ i ] = ( String )IMAGERS.elementAt( i , 0 );
+
+			return imagerList;
+		}
+	}
+
+	/**
+	 * Get the imager number
+	 */
+	public int getImagerIndex()
+	{
+		String imager = getImager();
+		int imindex = 0;
+		try
+		{
+			imindex = IMAGERS.indexInColumn( imager , 0 );
+		}
+		catch( ArrayIndexOutOfBoundsException ex )
+		{
+			System.out.println( "Failed to find imager index!" );
+		}
+		catch( NoSuchElementException ex )
+		{
+			System.out.println( "Failed to find imager index!" );
+		}
+		return imindex;
+	}
+
+	/**
+	 * Get the list of dispersers
+	 */
+	public String[] getDisperserList()
+	{
+		// Changed by RDK
+		if( isPolarimetry() )
+			return DISPERSER_CHOICES_POL;
+		else if( isIFU() )
+			return DISPERSER_CHOICES_IFU;
+		else
+			return DISPERSER_CHOICES;
+		// End of changed by RDK
+	}
+
+	/**
+	 * Use default disperser.
+	 */
+	public void useDefaultDisperser()
+	{
+		_avTable.rm( ATTR_DISPERSER );
+	}
+
+	/**
 	 * Get the default disperser
 	 */
 	public String getDefaultDisperser()
@@ -1363,17 +1376,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( isImaging() )
 		{
 			if( isPolarimetry() )
-			{
 				return POL_GRISM_IMAGING;
-			}
 			else
-			{
 				return GRISM_IMAGING;
-			}
 		}
 		else
 		{
-// Added by RDK
+			// Added by RDK
 			if( isPolarimetry() )
 			{
 				return DISPERSER_CHOICES_POL[ 0 ];
@@ -1386,17 +1395,17 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			{
 				for( int index = 0 ; index < DISPERSER_CHOICES.length ; index++ )
 				{
-					String choice = DISPERSER_CHOICES[ index ] ;
+					String choice = DISPERSER_CHOICES[ index ];
 					if( choice.equals( DEFAULT_DISPERSER ) )
-						return choice ;
+						return choice;
 				}
 				return DISPERSER_CHOICES[ 0 ];
 			}
-// End of added by RDK
+			// End of added by RDK
 		}
 	}
 
-    /**
+	/**
 	 * Set the disperser name
 	 */
 	public void setDisperser( String disperser )
@@ -1409,138 +1418,137 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		updateDispersion();
 	}
 
-    /**
+	/**
 	 * Get the disperser name
 	 */
-    public String
-    getDisperser()
-    {
-        String disperser = _avTable.get(ATTR_DISPERSER);
-        if (disperser == null) {
-            disperser = getDefaultDisperser();
-            setDisperser(disperser);
-        }
-        return disperser;
-    }
-
-    /**
-     * Get the disperser number
-     */
-    public int
-    getDisperserIndex()
-    {
-        String disperser = getDisperser();
-	int dispindex = 0;
-	try {
-	    dispindex = DISPERSERS.indexInColumn(disperser, 0);
-	}catch (ArrayIndexOutOfBoundsException ex) {
-	    System.out.println ("Failed to find disperser index!");
-	}catch (NoSuchElementException ex) {
-	    System.out.println ("Failed to find disperser index!");
+	public String getDisperser()
+	{
+		String disperser = _avTable.get( ATTR_DISPERSER );
+		if( disperser == null )
+		{
+			disperser = getDefaultDisperser();
+			setDisperser( disperser );
+		}
+		return disperser;
 	}
-	return dispindex;
-    }
 
-
-    /**
-     * Is IFU enabled
-     */
-    public boolean
-    isIFU()
-    {
-        String camera = getCamera();
-        return (camera.equalsIgnoreCase("ifu"));
-    }
-
-    /**
-     * Use default Central Wavelength.
-     */
-    public void
-    useDefaultCentralWavelength()
-    {
-        _avTable.rm(ATTR_CENTRAL_WAVELENGTH);
-    }
-
-    /**
-     * Set the central wavelength.
-     */
-    public void
-    setCentralWavelength(double cwl)
-    {
-        _avTable.set(ATTR_CENTRAL_WAVELENGTH, cwl);
-
-    }
-
-    /**
-     * Get the default central wavelength.
-     */
-    public double
-    getDefaultCentralWavelength()
-    {
-        int fi = getFilterIndex();
-        if (isImaging()) {
-            return new Double((String) FILTERS.elementAt(fi,1)).doubleValue();
-	} else {
-            return new Double((String) SPECTFILTERS.elementAt(fi,3)).doubleValue();
+	/**
+	 * Get the disperser number
+	 */
+	public int getDisperserIndex()
+	{
+		String disperser = getDisperser();
+		int dispindex = 0;
+		try
+		{
+			dispindex = DISPERSERS.indexInColumn( disperser , 0 );
+		}
+		catch( ArrayIndexOutOfBoundsException ex )
+		{
+			System.out.println( "Failed to find disperser index!" );
+		}
+		catch( NoSuchElementException ex )
+		{
+			System.out.println( "Failed to find disperser index!" );
+		}
+		return dispindex;
 	}
-    }
 
-    /**
-     * Get the central wavelength.
-     */
-    public double
-    getCentralWavelength()
-    {
-        double cwl;
-        String cwls = _avTable.get(ATTR_CENTRAL_WAVELENGTH);
-        if (cwls == null) {
-            cwl = getDefaultCentralWavelength();
-            setCentralWavelength(cwl);
-	} else {
-            Double cwld = Double.valueOf(cwls);
-            cwl = cwld.doubleValue();
-        }
-        return cwl;
-    }
-
-    /**
-     * Get the central wavelength as a string
-     */
-    public String
-    getCentralWavelengthString()
-    {
-        double cwl = MathUtil.round(getCentralWavelength(),3);
-        String cwls = Double.toString(cwl);
-        return cwls;
-    }
-
-    /**
-     * Use default mask
-     */
-    public void
-    useDefaultMask()
-    {
-        _avTable.rm(ATTR_MASK);
-    }
-
-    /**
-     * Get the number of the current mask set.
-     */
-    public int
-    getMaskSet()
-    {
-	int maskSet;
-	try {
-            maskSet = 
-              Integer.valueOf((String)DISPERSERS.elementAt(getDisperserIndex(),4)).intValue();
-	}catch (Exception ex) {
-            System.out.println("getMaskSet> failed to get maskSet - defaults to 1");
-	    maskSet = 1;
+	/**
+	 * Is IFU enabled
+	 */
+	public boolean isIFU()
+	{
+		String camera = getCamera();
+		return( camera.equalsIgnoreCase( "ifu" ) );
 	}
-	return maskSet;
-    }
 
-    /**
+	/**
+	 * Use default Central Wavelength.
+	 */
+	public void useDefaultCentralWavelength()
+	{
+		_avTable.rm( ATTR_CENTRAL_WAVELENGTH );
+	}
+
+	/**
+	 * Set the central wavelength.
+	 */
+	public void setCentralWavelength( double cwl )
+	{
+		_avTable.set( ATTR_CENTRAL_WAVELENGTH , cwl );
+
+	}
+
+	/**
+	 * Get the default central wavelength.
+	 */
+	public double getDefaultCentralWavelength()
+	{
+		int fi = getFilterIndex();
+		if( isImaging() )
+			return new Double( ( String )FILTERS.elementAt( fi , 1 ) ).doubleValue();
+		else
+			return new Double( ( String )SPECTFILTERS.elementAt( fi , 3 ) ).doubleValue();
+	}
+
+	/**
+	 * Get the central wavelength.
+	 */
+	public double getCentralWavelength()
+	{
+		double cwl;
+		String cwls = _avTable.get( ATTR_CENTRAL_WAVELENGTH );
+		if( cwls == null )
+		{
+			cwl = getDefaultCentralWavelength();
+			setCentralWavelength( cwl );
+		}
+		else
+		{
+			Double cwld = Double.valueOf( cwls );
+			cwl = cwld.doubleValue();
+		}
+		return cwl;
+	}
+
+	/**
+	 * Get the central wavelength as a string
+	 */
+	public String getCentralWavelengthString()
+	{
+		double cwl = MathUtil.round( getCentralWavelength() , 3 );
+		String cwls = Double.toString( cwl );
+		return cwls;
+	}
+
+	/**
+	 * Use default mask
+	 */
+	public void useDefaultMask()
+	{
+		_avTable.rm( ATTR_MASK );
+	}
+
+	/**
+	 * Get the number of the current mask set.
+	 */
+	public int getMaskSet()
+	{
+		int maskSet;
+		try
+		{
+			maskSet = Integer.valueOf( ( String )DISPERSERS.elementAt( getDisperserIndex() , 4 ) ).intValue();
+		}
+		catch( Exception ex )
+		{
+			System.out.println( "getMaskSet> failed to get maskSet - defaults to 1" );
+			maskSet = 1;
+		}
+		return maskSet;
+	}
+
+	/**
 	 * Get the list of masks
 	 */
 	public String[] getMaskList()
@@ -1548,72 +1556,81 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( isImaging() )
 		{
 			if( isPolarimetry() )
-				return POL_MASK_IMAGING ;
+				return POL_MASK_IMAGING;
 			else
-				return IMAGER_MASKS ;
+				return IMAGER_MASKS;
 		}
 		else
 		{
 			if( isPolarimetry() )
 			{
-				return POL_MASK_SPECTROSCOPY ;
+				return POL_MASK_SPECTROSCOPY;
 			}
 			else
 			{
 				// Either spectroscopy or ifu
 				switch( getMaskSet() )
 				{
-					case 1 : return MASKS1 ;
-					case 2 : return MASKS2 ;
-					case 3 : return MASKS3 ;
-					case 4 : return MASKS4 ;
-					case 5 : return MASKS5 ;
-					case 6 : return MASKS6 ;
-					case 7 : return MASKS7 ;
-					case 8 : return MASKS8 ;
-					case 9 : return MASKS9 ;
-					default : return MASKS1 ;
+					case 1 :
+						return MASKS1;
+					case 2 :
+						return MASKS2;
+					case 3 :
+						return MASKS3;
+					case 4 :
+						return MASKS4;
+					case 5 :
+						return MASKS5;
+					case 6 :
+						return MASKS6;
+					case 7 :
+						return MASKS7;
+					case 8 :
+						return MASKS8;
+					case 9 :
+						return MASKS9;
+					default :
+						return MASKS1;
 				}
 			}
 		}
 	}
 
-    /**
+	/**
 	 * Confirm that the current mask is available in the current mask set. Otherwise, set it to the default.
 	 */
-    public void
-    confirmMask()
-    {
-        String mask = getMask();
-        int listLength = getMaskList().length;
-        String maskList[] = new String[listLength];
-        maskList = getMaskList();
-        // Check for mask in maskList
-        int inList = 0;
-        for (int i=0; i<listLength; i++) {
-            if (maskList[i].equalsIgnoreCase(mask)) {
-                inList = 1;
-	    }	}
-        // If the mask was not found, get the default
-        if (inList == 0) {
-            useDefaultMask();
-            mask = getMask();
+	public void confirmMask()
+	{
+		String mask = getMask();
+		int listLength = getMaskList().length;
+		String maskList[] = new String[ listLength ];
+		maskList = getMaskList();
+		// Check for mask in maskList
+		int inList = 0;
+		for( int i = 0 ; i < listLength ; i++ )
+		{
+			if( maskList[ i ].equalsIgnoreCase( mask ) )
+				inList = 1;
+		}
+		// If the mask was not found, get the default
+		if( inList == 0 )
+		{
+			useDefaultMask();
+			mask = getMask();
+		}
 	}
-    }
 
+	/**
+	 * Set the mask.
+	 */
+	public void setMask( String mask )
+	{
+		_avTable.set( ATTR_MASK , mask );
+		updateResolution();
+		setInstAper();
+	}
 
-    /**
-     * Set the mask.
-     */
-    public void
-    setMask(String mask)
-    {
-        _avTable.set(ATTR_MASK, mask);
-        updateResolution();
-        setInstAper();
-    }
-
-    /**
+	/**
 	 * Get the mask.
 	 */
 	public String getMask()
@@ -1626,20 +1643,16 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			{
 				if( isPolarimetry() )
 				{
-					mask = POL_MASK_IMAGING[ 0 ] ;
+					mask = POL_MASK_IMAGING[ 0 ];
 				}
 				else
 				{
-// Added by RDK
+					// Added by RDK
 					if( isPupilImaging() )
-					{
 						mask = PUPIL[ 3 ];
-					}
 					else
-					{
-						mask = ( String ) IMAGERS.elementAt( getImagerIndex() , 3 );
-					}
-// End of added by RDK
+						mask = ( String )IMAGERS.elementAt( getImagerIndex() , 3 );
+					// End of added by RDK
 				}
 			}
 			else
@@ -1651,41 +1664,34 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				else
 				{
 					int maskSet = getMaskSet();
-					if( maskSet == 1 )
-					{
-						mask = DEFAULT_MASK1;
-					}
-					else if( maskSet == 2 )
-					{
-						mask = DEFAULT_MASK2;
-					}
-					else if( maskSet == 3 )
-					{
-						mask = DEFAULT_MASK3;
-					}
-					else if( maskSet == 4 )
-					{
-						mask = DEFAULT_MASK4;
-					}
-					else if( maskSet == 5 )
-					{
-						mask = DEFAULT_MASK5;
-					}
-					else if( maskSet == 6 )
-					{
-						mask = DEFAULT_MASK6;
-					}
-					else if( maskSet == 7 )
-					{
-						mask = DEFAULT_MASK7;
-					}
-					else if( maskSet == 8 )
-					{
-						mask = DEFAULT_MASK8;
-					}
-					else if( maskSet == 9 )
-					{
-						mask = DEFAULT_MASK9;
+					switch( maskSet )
+					{	
+						case 1 :
+							mask = DEFAULT_MASK1;
+							break ;
+						case 2 :
+							mask = DEFAULT_MASK2;
+							break ;
+						case 3 :
+							mask = DEFAULT_MASK3;
+							break ;
+						case 4 :
+							mask = DEFAULT_MASK4;
+							break ;
+						case 5 :
+							mask = DEFAULT_MASK5;
+							break ;
+						case 6 :
+							mask = DEFAULT_MASK6;
+							break ;
+						case 7 :
+							mask = DEFAULT_MASK7;
+							break ;
+						case 8 :
+							mask = DEFAULT_MASK8;
+							break ;
+						case 9 :
+							mask = DEFAULT_MASK9;
 					}
 				}
 			}
@@ -1694,366 +1700,354 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return mask;
 	}
 
-    /**
+	/**
 	 * Set the mask width in pixels
 	 */
-    public void
-    setMaskWidthPixels(double maskWidth)
-    {
-        _avTable.set(ATTR_MASK_WIDTH, maskWidth);
-    }
+	public void setMaskWidthPixels( double maskWidth )
+	{
+		_avTable.set( ATTR_MASK_WIDTH , maskWidth );
+	}
 
-    /**
+	/**
 	 * Get the width (pixels) of the current mask.
 	 */
-    public double
-    getMaskWidthPixels()
-    {
-        double maskWidth = 0.0;
-        try {
-            int maskIndex = MASKS.indexInColumn (getMask(),0);
-            maskWidth = new Double((String) MASKS.elementAt(maskIndex,1))
-                .doubleValue();
-	}catch (IndexOutOfBoundsException e) {
-            // Leave at 0.0;
-	}catch (NumberFormatException e) {
-            // Leave at 0.0;
+	public double getMaskWidthPixels()
+	{
+		double maskWidth = 0. ;
+		try
+		{
+			int maskIndex = MASKS.indexInColumn( getMask() , 0 );
+			maskWidth = new Double( ( String )MASKS.elementAt( maskIndex , 1 ) ).doubleValue();
+		}
+		catch( IndexOutOfBoundsException e ){}
+		catch( NumberFormatException e ){}
+		setMaskWidthPixels( maskWidth );
+		return maskWidth;
 	}
-        setMaskWidthPixels(maskWidth);
-        return maskWidth;
-    }
 
-    /**
-     * Set the mask height in arcseconds
-     */
-    public void
-    setMaskHeightArcsec(double maskHeight)
-    {
-        _avTable.set(ATTR_MASK_HEIGHT, maskHeight);
-    }
-
-    /**
-     * Get the height (arcsec) of the current mask.
-     */
-    public double
-    getMaskHeightArcsec()
-    {
-        double maskHeight = 0.0;
-        try {
-            int maskIndex = MASKS.indexInColumn (getMask(),0);
-            maskHeight = new Double((String) MASKS.elementAt(maskIndex,2))
-                .doubleValue();
-	}catch (IndexOutOfBoundsException e) {
-            // Leave at 0.0;
-	}catch (NumberFormatException e) {
-            // Leave at 0.0;
+	/**
+	 * Set the mask height in arcseconds
+	 */
+	public void setMaskHeightArcsec( double maskHeight )
+	{
+		_avTable.set( ATTR_MASK_HEIGHT , maskHeight );
 	}
-        setMaskHeightArcsec(maskHeight);
-        return maskHeight;
-    }
 
-    /**
-     * Get the height (pixels) of the current mask.
-     */
-    public double
-    getMaskHeightPixels()
-    {
-        try {
-            int maskIndex = MASKS.indexInColumn (getMask(),0);
-            return new Double((String) MASKS.elementAt(maskIndex,2)).doubleValue();
-	}catch (IndexOutOfBoundsException e) {
-	    return 0.0;
-	}catch (NumberFormatException e) {
-	    return 0.0;
+	/**
+	 * Get the height (arcsec) of the current mask.
+	 */
+	public double getMaskHeightArcsec()
+	{
+		double maskHeight = 0. ;
+		try
+		{
+			int maskIndex = MASKS.indexInColumn( getMask() , 0 );
+			maskHeight = new Double( ( String )MASKS.elementAt( maskIndex , 2 ) ).doubleValue();
+		}
+		catch( IndexOutOfBoundsException e ){}
+		catch( NumberFormatException e ){}
+		setMaskHeightArcsec( maskHeight );
+		return maskHeight;
 	}
-    }
 
-    public void setPosAngleDegrees( double posAngle )
-    {
-    	posAngle = MathUtil.round( posAngle , 1 ) ;
-    	super.setPosAngleDegrees( posAngle ) ;
-    }
+	/**
+	 * Get the height (pixels) of the current mask.
+	 */
+	public double getMaskHeightPixels()
+	{
+		try
+		{
+			int maskIndex = MASKS.indexInColumn( getMask() , 0 );
+			return new Double( ( String )MASKS.elementAt( maskIndex , 2 ) ).doubleValue();
+		}
+		catch( IndexOutOfBoundsException e )
+		{
+			return 0. ;
+		}
+		catch( NumberFormatException e )
+		{
+			return 0. ;
+		}
+	}
 
-   /**
-    * Set the default image rotator angle for the current camera
-    */
-    public void setDefaultPosAngle()
-    {
-        if (isImaging()) {
-            setPosAngleDegrees(DEFAULT_IMAGING_POS_ANGLE);
-        } else {
-            setPosAngleDegrees(DEFAULT_SPECT_POS_ANGLE);
-        }
-    }
+	public void setPosAngleDegrees( double posAngle )
+	{
+		posAngle = MathUtil.round( posAngle , 1 );
+		super.setPosAngleDegrees( posAngle );
+	}
 
-   /**
-    * Set the position angle in radians from due north.
-    */
-    public void setPosAngleRadians( double posAngle ) {
-        this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) );
-    }
+	/**
+	 * Set the default image rotator angle for the current camera
+	 */
+	public void setDefaultPosAngle()
+	{
+		if( isImaging() )
+			setPosAngleDegrees( DEFAULT_IMAGING_POS_ANGLE );
+		else
+			setPosAngleDegrees( DEFAULT_SPECT_POS_ANGLE );
+	}
 
-   /**
-    * Set the rotation of the science area as a string (representing degrees).
-    */
-    public void setPosAngleDegreesStr( String posAngleStr ) {
-        double posAngle = 0.0;
-        try {
-            Double pa = Double.valueOf( posAngleStr );
-            posAngle = pa.doubleValue();
-        } catch ( NumberFormatException e ) {
-            System.out.println( "Error converting string angle to double." );
-        }
-        this.setPosAngleDegrees( posAngle );
-    }
+	/**
+	 * Set the position angle in radians from due north.
+	 */
+	public void setPosAngleRadians( double posAngle )
+	{
+		this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) );
+	}
 
-    /**
-     * Use default filter category
-     */
-    public void
-    useDefaultFilterCategory()
-    {
-        _avTable.rm(ATTR_FILTER_CATEGORY);
-    }
+	/**
+	 * Set the rotation of the science area as a string (representing degrees).
+	 */
+	public void setPosAngleDegreesStr( String posAngleStr )
+	{
+		double posAngle = 0. ;
+		try
+		{
+			Double pa = Double.valueOf( posAngleStr );
+			posAngle = pa.doubleValue();
+		}
+		catch( NumberFormatException e )
+		{
+			System.out.println( "Error converting string angle to double." );
+		}
+		this.setPosAngleDegrees( posAngle );
+	}
 
-    /**
-     * Get the filter category
-     */
-    public String
-    getFilterCategory()
-    {
-        String filterCategory = null;
-        filterCategory = _avTable.get(ATTR_FILTER_CATEGORY);
-        if (filterCategory == null) {
-            filterCategory = DEFAULT_FILTER_CATEGORY;
-        }
-        return filterCategory;
-    }
+	/**
+	 * Use default filter category
+	 */
+	public void useDefaultFilterCategory()
+	{
+		_avTable.rm( ATTR_FILTER_CATEGORY );
+	}
 
-    /**
-     * Set the filter category
-     */
-    public void
-    setFilterCategory(String filterCategory)
-    {
-        _avTable.set(ATTR_FILTER_CATEGORY, filterCategory);
-        useDefaultFilter();
-        useDefaultSourceMag();
-    }
+	/**
+	 * Get the filter category
+	 */
+	public String getFilterCategory()
+	{
+		String filterCategory = null;
+		filterCategory = _avTable.get( ATTR_FILTER_CATEGORY );
+		if( filterCategory == null )
+			filterCategory = DEFAULT_FILTER_CATEGORY;
 
-    /**
+		return filterCategory;
+	}
+
+	/**
+	 * Set the filter category
+	 */
+	public void setFilterCategory( String filterCategory )
+	{
+		_avTable.set( ATTR_FILTER_CATEGORY , filterCategory );
+		useDefaultFilter();
+		useDefaultSourceMag();
+	}
+
+	/**
 	 * Get the broad band filterSet number
 	 */
 	public int getBroadFilterSet()
 	{
 		int filterSet = 1;
-// Added by RDK
+		// Added by RDK
 		if( isPupilImaging() )
-		{
 			filterSet = Integer.valueOf( PUPIL[ 1 ] ).intValue();
-		}
 		else
-		{
-			filterSet = Integer.valueOf( ( String ) IMAGERS.elementAt( getImagerIndex() , 1 ) ).intValue();
-		}
-// End of added by RDK
+			filterSet = Integer.valueOf( ( String )IMAGERS.elementAt( getImagerIndex() , 1 ) ).intValue();
+		// End of added by RDK
 		return filterSet;
 	}
 
-    /**
+	/**
 	 * Get the narrow band filterSet number
 	 */
 	public int getNarrowFilterSet()
 	{
 		int filterSet = 1;
-// Added by RDK
+		// Added by RDK
 		if( isPupilImaging() )
-		{
 			filterSet = Integer.valueOf( PUPIL[ 2 ] ).intValue();
-		}
 		else
-		{
-			filterSet = Integer.valueOf( ( String ) IMAGERS.elementAt( getImagerIndex() , 2 ) ).intValue();
-		}
-// End of added by RDK
+			filterSet = Integer.valueOf( ( String )IMAGERS.elementAt( getImagerIndex() , 2 ) ).intValue();
+		// End of added by RDK
 		return filterSet;
 	}
 
-    /**
+	/**
 	 * Get the filterSet number
 	 */
-    public int
-    getFilterSet()
-    {
-        int filterSet = 1;
-        String filterCategory = getFilterCategory();
-        if (filterCategory.equalsIgnoreCase("broad")) {
-            filterSet = getBroadFilterSet();
-        } else if (filterCategory.equalsIgnoreCase("narrow")) {
-            filterSet = getNarrowFilterSet();
-	} else {
-            System.out.println("getFilterSet> Unrecognised filterCategory = " + 
-                filterCategory);
-            filterSet = 1;
+	public int getFilterSet()
+	{
+		int filterSet = 1;
+		String filterCategory = getFilterCategory();
+		if( filterCategory.equalsIgnoreCase( "broad" ) )
+		{
+			filterSet = getBroadFilterSet();
+		}
+		else if( filterCategory.equalsIgnoreCase( "narrow" ) )
+		{
+			filterSet = getNarrowFilterSet();
+		}
+		else
+		{
+			System.out.println( "getFilterSet> Unrecognised filterCategory = " + filterCategory );
+			filterSet = 1;
+		}
+		return filterSet;
 	}
-        return filterSet;
-    }
 
-    public String[]
-    getFilterListFromLUT(LookUpTable filterLUT)
-    {
-        int nfilters = filterLUT.getNumRows() - 1;
-        String filterList[] = new String[nfilters];
-        for (int i=0; i<nfilters; i++) {
-                filterList[i] = (String)filterLUT.elementAt(i+1,0);
+	public String[] getFilterListFromLUT( LookUpTable filterLUT )
+	{
+		int nfilters = filterLUT.getNumRows() - 1;
+		String filterList[] = new String[ nfilters ];
+		for( int i = 0 ; i < nfilters ; i++ )
+			filterList[ i ] = ( String )filterLUT.elementAt( i + 1 , 0 );
+
+		return filterList;
 	}
-        return filterList;
-    }
 
-    public String[]
-    getFilterMagsFromLUT(LookUpTable filterLUT)
-    {
-        int nmags = filterLUT.getNumColumns() - 4;
-        String filterMags[] = new String[nmags];
-        for (int i=0; i<nmags; i++) {
-                filterMags[i] = (String)filterLUT.elementAt(0,i+4);
+	public String[] getFilterMagsFromLUT( LookUpTable filterLUT )
+	{
+		int nmags = filterLUT.getNumColumns() - 4;
+		String filterMags[] = new String[ nmags ];
+		for( int i = 0 ; i < nmags ; i++ )
+			filterMags[ i ] = ( String )filterLUT.elementAt( 0 , i + 4 );
+
+		return filterMags;
 	}
-        return filterMags;
-    }
 
-    /**
-     * Get the the current filter LUT
-     */
-    public LookUpTable
-    getFilterLUT()
-    {
-        int filterSet = getFilterSet();
-        if (filterSet==1) {
-            return FILTERS1;
-        } else if (filterSet==2) {
-            return FILTERS2;
-        } else if (filterSet==3) {
-            return FILTERS3;
-        } else if (filterSet==4) {
-            return FILTERS4;
-        } else if (filterSet==5) {
-            return FILTERS5;
-        } else if (filterSet==6) {
-            return FILTERS6;
-        } else if (filterSet==7) {
-            return FILTERS7;
-        } else if (filterSet==8) {
-            return FILTERS8;
-        } else {
-            System.out.println("GetFilterLUT> Unrecognised filterSet number " + 
-                filterSet);
-            return FILTERS1;
+	/**
+	 * Get the the current filter LUT
+	 */
+	public LookUpTable getFilterLUT()
+	{
+		int filterSet = getFilterSet();
+		switch( filterSet)
+		{
+			case 1 :
+				return FILTERS1;
+			case 2 :
+				return FILTERS2;
+			case 3 :
+				return FILTERS3;
+			case 4 :
+				return FILTERS4;
+			case 5 :
+				return FILTERS5;
+			case 6 :
+				return FILTERS6;
+			case 7 :
+				return FILTERS7;
+			case 8 :
+				return FILTERS8;
+			default :		
+				System.out.println( "GetFilterLUT> Unrecognised filterSet number " + filterSet ) ;
+				return FILTERS1;
+		}
 	}
-    }
-    /**
-     * Get the the current filter LUT
-     */
-    public LookUpTable
-    getFilterLUT(boolean broadband)
-    {
-        int filterSet = 0;
-	if (broadband) {
-	    filterSet = getBroadFilterSet();
-	} else {
-	    filterSet = getNarrowFilterSet();
+
+	/**
+	 * Get the the current filter LUT
+	 */
+	public LookUpTable getFilterLUT( boolean broadband )
+	{
+		int filterSet = 0;
+		if( broadband )
+			filterSet = getBroadFilterSet();
+		else
+			filterSet = getNarrowFilterSet();
+
+		switch( filterSet)
+		{
+			case 1 :
+				return FILTERS1;
+			case 2 :
+				return FILTERS2;
+			case 3 :
+				return FILTERS3;
+			case 4 :
+				return FILTERS4;
+			case 5 :
+				return FILTERS5;
+			case 6 :
+				return FILTERS6;
+			case 7 :
+				return FILTERS7;
+			case 8 :
+				return FILTERS8;
+			default :		
+				System.out.println( "GetFilterLUT> Unrecognised filterSet number " + filterSet ) ;
+				return FILTERS1;
+		}
 	}
-        if (filterSet==1) {
-            return FILTERS1;
-        } else if (filterSet==2) {
-            return FILTERS2;
-        } else if (filterSet==3) {
-            return FILTERS3;
-        } else if (filterSet==4) {
-            return FILTERS4;
-        } else if (filterSet==5) {
-            return FILTERS5;
-        } else if (filterSet==6) {
-            return FILTERS6;
-        } else if (filterSet==7) {
-            return FILTERS7;
-        } else if (filterSet==8) {
-            return FILTERS8;
-        } else {
-            System.out.println("GetFilterLUT> Unrecognised filterSet number " + 
-                filterSet);
-            return FILTERS1;
+
+	/**
+	 * Get the list of filters for the current imager
+	 */
+	public String[] getFilterList()
+	{
+		LookUpTable filterLUT = getFilterLUT();
+		return getFilterListFromLUT( filterLUT );
 	}
-    }
-    /**
-     * Get the list of filters for the current imager
-     */
-    public String[]
-    getFilterList()
-    {
-        LookUpTable filterLUT= getFilterLUT();
-        return getFilterListFromLUT(filterLUT);
-    }
 
-    /**
-     * Get the list of either broad or narrowband filters for the current imager
-     */
-    public String[]
-    getFilterList(boolean broadband)
-    {
-        LookUpTable filterLUT= getFilterLUT(broadband);
-        return getFilterListFromLUT(filterLUT);
-    }
-
-    /**
-     * Get the list of available magnitudes for the current imager
-     */
-    public String[]
-    getFilterMags()
-    {
-        LookUpTable filterLUT= getFilterLUT();
-        return getFilterMagsFromLUT(filterLUT);
-    }
-
-    /**
-     * Get the default filter
-     */
-    public String
-    getDefaultFilter()
-    {
-        int filterSet = getFilterSet();
-        if (filterSet==1) {
-           return DEFAULT_FILTERS1;
-        } else if (filterSet==2) {
-           return DEFAULT_FILTERS2;
-        } else if (filterSet==3) {
-           return DEFAULT_FILTERS3;
-        } else if (filterSet==4) {
-           return DEFAULT_FILTERS4;
-        } else if (filterSet==5) {
-           return DEFAULT_FILTERS5;
-        } else if (filterSet==6) {
-           return DEFAULT_FILTERS6;
-        } else if (filterSet==7) {
-           return DEFAULT_FILTERS7;
-        } else if (filterSet==8) {
-           return DEFAULT_FILTERS8;
-        } else {
-            System.out.println("GetDefaultFilter> Unrecognised filterSet number " + 
-                filterSet);
-           return DEFAULT_FILTERS1;
+	/**
+	 * Get the list of either broad or narrowband filters for the current imager
+	 */
+	public String[] getFilterList( boolean broadband )
+	{
+		LookUpTable filterLUT = getFilterLUT( broadband );
+		return getFilterListFromLUT( filterLUT );
 	}
-    }
 
-    /**
-     * Use default filter
-     */
-    public void
-    useDefaultFilter()
-    {
-        _avTable.rm(ATTR_FILTER);
-    }
+	/**
+	 * Get the list of available magnitudes for the current imager
+	 */
+	public String[] getFilterMags()
+	{
+		LookUpTable filterLUT = getFilterLUT();
+		return getFilterMagsFromLUT( filterLUT );
+	}
 
-    /**
+	/**
+	 * Get the default filter
+	 */
+	public String getDefaultFilter()
+	{
+		int filterSet = getFilterSet();
+		switch( filterSet)
+		{
+			case 1 :
+				return DEFAULT_FILTERS1;
+			case 2 :
+				return DEFAULT_FILTERS2;
+			case 3 :
+				return DEFAULT_FILTERS3;
+			case 4 :
+				return DEFAULT_FILTERS4;
+			case 5 :
+				return DEFAULT_FILTERS5;
+			case 6 :
+				return DEFAULT_FILTERS6;
+			case 7 :
+				return DEFAULT_FILTERS7;
+			case 8 :
+				return DEFAULT_FILTERS8;
+			default :		
+				System.out.println( "GetDefaultFilter> Unrecognised filterSet number " + filterSet ) ;
+				return DEFAULT_FILTERS1;
+		}
+	}
+
+	/**
+	 * Use default filter
+	 */
+	public void useDefaultFilter()
+	{
+		_avTable.rm( ATTR_FILTER );
+	}
+
+	/**
 	 * Update filter
 	 */
 	public void updateFilter()
@@ -2061,7 +2055,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		useDefaultFilter();
 	}
 
-    /**
+	/**
 	 * Set the filter.
 	 */
 	public void setFilter( String filter )
@@ -2072,24 +2066,24 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int order = 0;
 		// Update dependent values
 		try
-		{	
+		{
 			_avTable.set( ATTR_FILTER , filter );
 			if( isImaging() )
 			{
 				findex = FILTERS.indexInColumn( filter , 0 );
-				cwl = new Double( ( String ) FILTERS.elementAt( findex , 1 ) ).doubleValue();
-				spectralCoverage = ( String ) FILTERS.elementAt( findex , 2 );
+				cwl = new Double( ( String )FILTERS.elementAt( findex , 1 ) ).doubleValue();
+				spectralCoverage = ( String )FILTERS.elementAt( findex , 2 );
 			}
 			else
 			{
 				// filter is the CCS name of the filter
 				// Need to get the OTFilter name to lookup the focus, cwl and order
 				int di = getDisperserIndex();
-				String OTFilter = ( String ) DISPERSERS.elementAt( di , 2 );
+				String OTFilter = ( String )DISPERSERS.elementAt( di , 2 );
 				findex = SPECTFILTERS.indexInColumn( OTFilter , 0 );
-				cwl = new Double( ( String ) SPECTFILTERS.elementAt( findex , 3 ) ).doubleValue();
-				order = Integer.valueOf( ( String ) SPECTFILTERS.elementAt( findex , 2 ) ).intValue();
-				spectralCoverage = ( String ) SPECTFILTERS.elementAt( findex , 4 );
+				cwl = new Double( ( String )SPECTFILTERS.elementAt( findex , 3 ) ).doubleValue();
+				order = Integer.valueOf( ( String )SPECTFILTERS.elementAt( findex , 2 ) ).intValue();
+				spectralCoverage = ( String )SPECTFILTERS.elementAt( findex , 4 );
 			}
 			setCentralWavelength( cwl );
 			setOrder( order );
@@ -2108,32 +2102,39 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 	}
 
-    /**
+	/**
 	 * Get the filter number
 	 */
-    public int
-    getFilterIndex()
-    {
-        String filter = null;
-	int findex = 0;
-	try {
-            if (isImaging()) {
-                filter = getFilter();
-                findex = FILTERS.indexInColumn(filter,0);
-	    } else {
-                int di = getDisperserIndex();
-                filter = (String) DISPERSERS.elementAt(di,2);
-                findex = SPECTFILTERS.indexInColumn(filter, 0);
-	    }
-	}catch (ArrayIndexOutOfBoundsException ex) {
-	    System.out.println ("Failed to find filter " + filter + " in lut");
-	}catch (NoSuchElementException ex) {
-	    System.out.println ("Failed to find filter " + filter + " in lut");
+	public int getFilterIndex()
+	{
+		String filter = null;
+		int findex = 0;
+		try
+		{
+			if( isImaging() )
+			{
+				filter = getFilter();
+				findex = FILTERS.indexInColumn( filter , 0 );
+			}
+			else
+			{
+				int di = getDisperserIndex();
+				filter = ( String )DISPERSERS.elementAt( di , 2 );
+				findex = SPECTFILTERS.indexInColumn( filter , 0 );
+			}
+		}
+		catch( ArrayIndexOutOfBoundsException ex )
+		{
+			System.out.println( "Failed to find filter " + filter + " in lut" );
+		}
+		catch( NoSuchElementException ex )
+		{
+			System.out.println( "Failed to find filter " + filter + " in lut" );
+		}
+		return findex;
 	}
-	return findex;
-    }
 
-    /**
+	/**
 	 * Get the filter
 	 */
 	public String getFilter()
@@ -2151,15 +2152,15 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		else
 		{
 			int di = getDisperserIndex();
-			String OTFilter = ( String ) DISPERSERS.elementAt( di , 2 );
+			String OTFilter = ( String )DISPERSERS.elementAt( di , 2 );
 			int findex = SPECTFILTERS.indexInColumn( OTFilter , 0 );
-			filter = ( String ) SPECTFILTERS.elementAt( findex , 1 );
+			filter = ( String )SPECTFILTERS.elementAt( findex , 1 );
 			setFilter( filter );
 		}
 		return filter;
 	}
 
-    /**
+	/**
 	 * Get the arc blocking filter for the current spectroscopy configuration
 	 */
 	public String getArcFilter()
@@ -2168,416 +2169,406 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( !isImaging() )
 		{
 			int di = getDisperserIndex();
-			String arcOTFilter = ( String ) DISPERSERS.elementAt( di , 3 );
+			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 );
 			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 );
-			arcFilter = ( String ) SPECTFILTERS.elementAt( findex , 1 );
+			arcFilter = ( String )SPECTFILTERS.elementAt( findex , 1 );
 		}
 		return arcFilter;
 	}
 
-    /**
+	/**
 	 * Get the arc central wavelength for the current spectroscopy configuration
 	 */
-    public String
-    getArcCentralWavelength()
-    {
-         String arcCwl = "0.0";
-         if (!isImaging()) {
-             int di = getDisperserIndex();
-             String arcOTFilter = (String) DISPERSERS.elementAt(di,3);
-             int findex = SPECTFILTERS.indexInColumn(arcOTFilter, 0);
-             arcCwl = (String) SPECTFILTERS.elementAt(findex,3);
-	 }
-         return arcCwl;
-    }
-
-    /**
-     * Get the arc focus for the current spectroscopy configuration
-     */
-    public String
-    getArcFocus()
-    {
-         String arcFocus = "0.0";
-         if (!isImaging()) {
-             int di = getDisperserIndex();
-             String arcOTFilter = (String) DISPERSERS.elementAt(di,3);
-             int findex = SPECTFILTERS.indexInColumn(arcOTFilter, 0);
-             arcFocus = (String) SPECTFILTERS.elementAt(findex,5);
-	 }
-         return arcFocus;
-    }
-
-    /**
-     * Get the arc order for the current spectroscopy configuration
-     */
-    public String
-    getArcOrder()
-    {
-         String arcOrder = "0";
-         if (!isImaging()) {
-             int di = getDisperserIndex();
-             String arcOTFilter = (String) DISPERSERS.elementAt(di,3);
-             int findex = SPECTFILTERS.indexInColumn(arcOTFilter, 0);
-             arcOrder = (String) SPECTFILTERS.elementAt(findex,2);
-	 }
-         return arcOrder;
-    }
-
-    /**
-     * Get the mode.
-     */
-    public String
-    getMode()
-    {
-        String mode = _avTable.get(ATTR_MODE);
-        if (mode == null) mode = DEFAULT_MODE; 
-        return mode;
-    }
-
-    /**
-     * Use default order
-     */
-    public void
-    useDefaultOrder()
-    {
-        _avTable.rm(ATTR_ORDER);
-    }
-
-    /**
-     * Set the order
-     */
-    public void
-    setOrder(int order)
-    {
-        _avTable.set(ATTR_ORDER, order);
-    }
-
-    /**
-     * Get the default order
-     */
-    public int
-    getDefaultOrder()
-    {
-        int order = 0;
-        if (isImaging()) return 0;
-        int findex = getFilterIndex();
-        order = Integer.valueOf((String)SPECTFILTERS.elementAt(findex,2)).intValue();
-        return order;
-    }
-
-    /**
-     * Get the order
-     */
-    public int
-    getOrder()
-    {
-	int o = _avTable.getInt(ATTR_ORDER, 0);
-	if (o == 0) {
-	    o = getDefaultOrder();
-	    setOrder(o);
+	public String getArcCentralWavelength()
+	{
+		String arcCwl = "0.0";
+		if( !isImaging() )
+		{
+			int di = getDisperserIndex();
+			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 );
+			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 );
+			arcCwl = ( String )SPECTFILTERS.elementAt( findex , 3 );
+		}
+		return arcCwl;
 	}
-	return o;
-    }
 
-    /**
-     * Get the order as a string
-     */
-    public String
-    getOrderString()
-    {
-        return Integer.toString(getOrder());
-    }
-
-    /**
-     * Set polarimetry to yes or no
-     */
-    public void
-    setPolarimetry(String polarimetry)
-    {
-        _avTable.set(ATTR_POLARIMETRY, polarimetry);
-    }
-
-    /**
-     * Get polarimetry as yes or no
-     */
-    public String
-    getPolarimetry()
-    {
-        String polarimetry = _avTable.get(ATTR_POLARIMETRY);
-        if (polarimetry == null) {
-            polarimetry = DEFAULT_POLARIMETRY;
-            setPolarimetry(polarimetry);
+	/**
+	 * Get the arc focus for the current spectroscopy configuration
+	 */
+	public String getArcFocus()
+	{
+		String arcFocus = "0.0";
+		if( !isImaging() )
+		{
+			int di = getDisperserIndex();
+			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 );
+			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 );
+			arcFocus = ( String )SPECTFILTERS.elementAt( findex , 5 );
+		}
+		return arcFocus;
 	}
-        return polarimetry;
-    }
 
-    /**
-     * Is polarimetry enabled
-     */
-    public boolean
-    isPolarimetry()
-    {
-        return (getPolarimetry().equalsIgnoreCase("yes"));
-    }
-
-
-// Added by RDK
-
-    /**
-     * Set pupil_imaging to yes or no
-     */
-    public void
-    setPupilImaging(String pupil_imaging)
-    {
-        _avTable.set(ATTR_PUPIL_IMAGING, pupil_imaging);
-    }
-
-    /**
-     * Get pupil_imaging as yes or no
-     */
-    public String
-    getPupilImaging()
-    {
-        String pupil_imaging = _avTable.get(ATTR_PUPIL_IMAGING);
-        if (pupil_imaging == null) {
-            pupil_imaging = DEFAULT_PUPIL_IMAGING;
-            setPupilImaging(pupil_imaging);
+	/**
+	 * Get the arc order for the current spectroscopy configuration
+	 */
+	public String getArcOrder()
+	{
+		String arcOrder = "0";
+		if( !isImaging() )
+		{
+			int di = getDisperserIndex();
+			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 );
+			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 );
+			arcOrder = ( String )SPECTFILTERS.elementAt( findex , 2 );
+		}
+		return arcOrder;
 	}
-        return pupil_imaging;
-    }
 
-    /**
-     * Is pupil_imaging enabled
-     */
-    public boolean
-    isPupilImaging()
-    {
-        return (getPupilImaging().equalsIgnoreCase("yes"));
-    }
-
-// End of added by RDK
-
-
-    /**
-     * Set the spectral coverage
-     */
-    public void
-    setSpectralCoverage(String spectralCoverage)
-    {
-        _avTable.set(ATTR_SPECTRAL_COVERAGE, spectralCoverage);
-    }
-  
-    /**
-     * Get the spectral coverage
-     */
-    public String
-    getSpectralCoverage()
-    {
-        String spectralCoverage = null;
-        if (isImaging()) {
-            int fi = getFilterIndex();
-            spectralCoverage = (String) FILTERS.elementAt(fi,2);
-        } else {
-            int di = getDisperserIndex();
-            String OTFilter = (String) DISPERSERS.elementAt(di,2);
-            int findex = SPECTFILTERS.indexInColumn(OTFilter, 0);
-            spectralCoverage = 
-                (String) SPECTFILTERS.elementAt(findex,4);
-        }
-        setSpectralCoverage(spectralCoverage);
-        return spectralCoverage;
-    }
-
-    /**
-     * Get the resolving power
-     */
-    public double
-    getResolvingPower()
-    {
-        double rp;
-        rp = 500.0;
-        return rp;
-    }
-
-    /**
-     * Get the resolving power as a string
-     */
-    public String
-    getResolvingPowerString()
-    {
-        double rp = MathUtil.round(getResolvingPower(),1);
-        String rps = Double.toString(rp);
-        return rps;
-    }
-
-    /**
-     * Use default flat source
-     */
-    public void
-    useDefaultFlatSource()
-    {
-        flat_source = null;;
-    }
-
-    /**
-     * Set the flat source
-     */
-    public void
-    setFlatSource(String flatSource)
-    {
-        flat_source = flatSource;
-    }
-
-    /**
-     * Get the default flat source
-     */
-    public String
-    getDefaultFlatSource()
-    {
-        String defaultFlatSource;
-	if (isImaging()) {
-            //  get default flat from FILTERS lut
-            int findex = getFilterIndex();
-            defaultFlatSource = (String) FILTERS.elementAt(findex,3);
-	} else {
-            //  get default flat from DISPERSERS lut
-            int dindex = getDisperserIndex();
-            defaultFlatSource = (String) DISPERSERS.elementAt(dindex,5);
+	/**
+	 * Get the mode.
+	 */
+	public String getMode()
+	{
+		String mode = _avTable.get( ATTR_MODE );
+		if( mode == null )
+			mode = DEFAULT_MODE;
+		return mode;
 	}
-        return defaultFlatSource;
-    }
 
-    /**
-     * Get the flat source
-     */
-    public String
-    getFlatSource()
-    {
-        if (flat_source == null) {
-            flat_source = getDefaultFlatSource();
+	/**
+	 * Use default order
+	 */
+	public void useDefaultOrder()
+	{
+		_avTable.rm( ATTR_ORDER );
 	}
-        return flat_source;
-    }
 
-    /**
-     * Get the list of available flat sources
-     */
-    public String[]
-    getFlatList()
-    {
-        return FLAT_SOURCES;
-    }
-
-    /**
-     * Use default arc source
-     */
-    public void
-    useDefaultArcSource()
-    {
-        arc_source = null;;
-    }
-
-    /**
-     * Set the arc source
-     */
-    public void
-    setArcSource(String arcSource)
-    {
-        arc_source = arcSource;
-    }
-
-    /**
-     * Get the arc source
-     */
-    public String
-    getArcSource()
-    {
-        if (arc_source == null) {
-            arc_source = DEFAULT_ARC_SOURCE;
+	/**
+	 * Set the order
+	 */
+	public void setOrder( int order )
+	{
+		_avTable.set( ATTR_ORDER , order );
 	}
-        return arc_source;
-    }
 
-    /**
-     * Get the list of available arc sources
-     */
-    public String[]
-    getArcList()
-    {
-        return ARC_SOURCES;
-    }
-
-    /**
-     * Set the chop frequency
-     */
-    public void
-    setChopFreq(String chopFreq)
-    {
-        _avTable.set(ATTR_CHOP_FREQUENCY, chopFreq);
-    }
-
-    /**
-     * Update the instrument aperture
-     */
-    public void setInstAper()
-    {
-        int maskIndex = MASKS.indexInColumn (getMask(),0);
-        setInstApX ((String) MASKS.elementAt(maskIndex,4));
-        setInstApY ((String) MASKS.elementAt(maskIndex,5));
-        setInstApZ ((String) MASKS.elementAt(maskIndex,6));
-        setInstApL ((String) MASKS.elementAt(maskIndex,7));
-    }
-
-    /**
-     * Use default dispersion
-     */
-    public void
-    useDefaultDispersion()
-    {
-        _avTable.rm(ATTR_DISPERSION);
-    }
-
-    /**
-     * Set the dispersion
-     */
-    public void setDispersion(double dispersion)
-    {
-        _avTable.set(ATTR_DISPERSION, dispersion);
-    }
-
-    /**
-     * Get the default dispersion
-     */
-    public double getDefaultDispersion()
-    {
-        double dispersion;;
-        if (isImaging()) {
-            dispersion = 0.0;
-	} else {
-            int di = getDisperserIndex();
-            dispersion = new Double((String) DISPERSERS.elementAt(di,1)).doubleValue();
+	/**
+	 * Get the default order
+	 */
+	public int getDefaultOrder()
+	{
+		int order = 0;
+		if( isImaging() )
+			return 0;
+		int findex = getFilterIndex();
+		order = Integer.valueOf( ( String )SPECTFILTERS.elementAt( findex , 2 ) ).intValue();
+		return order;
 	}
-        return dispersion;
-    }
 
-    /**
-     * Get the dispersion
-     */
-    public double getDispersion()
-    {
-        double dispersion;
-        String ds = _avTable.get(ATTR_DISPERSION);
-        if (ds == null) {
-            dispersion = getDefaultDispersion();
-            setDispersion(dispersion);
-	} else {
-            Double dsd = Double.valueOf(ds);
-            dispersion = dsd.doubleValue();
-        }
-        return dispersion;
-    }
+	/**
+	 * Get the order
+	 */
+	public int getOrder()
+	{
+		int o = _avTable.getInt( ATTR_ORDER , 0 );
+		if( o == 0 )
+		{
+			o = getDefaultOrder();
+			setOrder( o );
+		}
+		return o;
+	}
 
-    /**
+	/**
+	 * Get the order as a string
+	 */
+	public String getOrderString()
+	{
+		return Integer.toString( getOrder() );
+	}
+
+	/**
+	 * Set polarimetry to yes or no
+	 */
+	public void setPolarimetry( String polarimetry )
+	{
+		_avTable.set( ATTR_POLARIMETRY , polarimetry );
+	}
+
+	/**
+	 * Get polarimetry as yes or no
+	 */
+	public String getPolarimetry()
+	{
+		String polarimetry = _avTable.get( ATTR_POLARIMETRY );
+		if( polarimetry == null )
+		{
+			polarimetry = DEFAULT_POLARIMETRY;
+			setPolarimetry( polarimetry );
+		}
+		return polarimetry;
+	}
+
+	/**
+	 * Is polarimetry enabled
+	 */
+	public boolean isPolarimetry()
+	{
+		return( getPolarimetry().equalsIgnoreCase( "yes" ) );
+	}
+
+	// Added by RDK
+
+	/**
+	 * Set pupil_imaging to yes or no
+	 */
+	public void setPupilImaging( String pupil_imaging )
+	{
+		_avTable.set( ATTR_PUPIL_IMAGING , pupil_imaging );
+	}
+
+	/**
+	 * Get pupil_imaging as yes or no
+	 */
+	public String getPupilImaging()
+	{
+		String pupil_imaging = _avTable.get( ATTR_PUPIL_IMAGING );
+		if( pupil_imaging == null )
+		{
+			pupil_imaging = DEFAULT_PUPIL_IMAGING;
+			setPupilImaging( pupil_imaging );
+		}
+		return pupil_imaging;
+	}
+
+	/**
+	 * Is pupil_imaging enabled
+	 */
+	public boolean isPupilImaging()
+	{
+		return( getPupilImaging().equalsIgnoreCase( "yes" ) );
+	}
+
+	// End of added by RDK
+
+	/**
+	 * Set the spectral coverage
+	 */
+	public void setSpectralCoverage( String spectralCoverage )
+	{
+		_avTable.set( ATTR_SPECTRAL_COVERAGE , spectralCoverage );
+	}
+
+	/**
+	 * Get the spectral coverage
+	 */
+	public String getSpectralCoverage()
+	{
+		String spectralCoverage = null;
+		if( isImaging() )
+		{
+			int fi = getFilterIndex();
+			spectralCoverage = ( String )FILTERS.elementAt( fi , 2 );
+		}
+		else
+		{
+			int di = getDisperserIndex();
+			String OTFilter = ( String )DISPERSERS.elementAt( di , 2 );
+			int findex = SPECTFILTERS.indexInColumn( OTFilter , 0 );
+			spectralCoverage = ( String )SPECTFILTERS.elementAt( findex , 4 );
+		}
+		setSpectralCoverage( spectralCoverage );
+		return spectralCoverage;
+	}
+
+	/**
+	 * Get the resolving power
+	 */
+	public double getResolvingPower()
+	{
+		double rp;
+		rp = 500. ;
+		return rp;
+	}
+
+	/**
+	 * Get the resolving power as a string
+	 */
+	public String getResolvingPowerString()
+	{
+		double rp = MathUtil.round( getResolvingPower() , 1 );
+		String rps = Double.toString( rp );
+		return rps;
+	}
+
+	/**
+	 * Use default flat source
+	 */
+	public void useDefaultFlatSource()
+	{
+		flat_source = null;
+		;
+	}
+
+	/**
+	 * Set the flat source
+	 */
+	public void setFlatSource( String flatSource )
+	{
+		flat_source = flatSource;
+	}
+
+	/**
+	 * Get the default flat source
+	 */
+	public String getDefaultFlatSource()
+	{
+		String defaultFlatSource;
+		if( isImaging() )
+		{
+			//  get default flat from FILTERS lut
+			int findex = getFilterIndex();
+			defaultFlatSource = ( String )FILTERS.elementAt( findex , 3 );
+		}
+		else
+		{
+			//  get default flat from DISPERSERS lut
+			int dindex = getDisperserIndex();
+			defaultFlatSource = ( String )DISPERSERS.elementAt( dindex , 5 );
+		}
+		return defaultFlatSource;
+	}
+
+	/**
+	 * Get the flat source
+	 */
+	public String getFlatSource()
+	{
+		if( flat_source == null )
+			flat_source = getDefaultFlatSource();
+
+		return flat_source;
+	}
+
+	/**
+	 * Get the list of available flat sources
+	 */
+	public String[] getFlatList()
+	{
+		return FLAT_SOURCES;
+	}
+
+	/**
+	 * Use default arc source
+	 */
+	public void useDefaultArcSource()
+	{
+		arc_source = null;
+		;
+	}
+
+	/**
+	 * Set the arc source
+	 */
+	public void setArcSource( String arcSource )
+	{
+		arc_source = arcSource;
+	}
+
+	/**
+	 * Get the arc source
+	 */
+	public String getArcSource()
+	{
+		if( arc_source == null )
+			arc_source = DEFAULT_ARC_SOURCE;
+
+		return arc_source;
+	}
+
+	/**
+	 * Get the list of available arc sources
+	 */
+	public String[] getArcList()
+	{
+		return ARC_SOURCES;
+	}
+
+	/**
+	 * Set the chop frequency
+	 */
+	public void setChopFreq( String chopFreq )
+	{
+		_avTable.set( ATTR_CHOP_FREQUENCY , chopFreq );
+	}
+
+	/**
+	 * Update the instrument aperture
+	 */
+	public void setInstAper()
+	{
+		int maskIndex = MASKS.indexInColumn( getMask() , 0 );
+		setInstApX( ( String )MASKS.elementAt( maskIndex , 4 ) );
+		setInstApY( ( String )MASKS.elementAt( maskIndex , 5 ) );
+		setInstApZ( ( String )MASKS.elementAt( maskIndex , 6 ) );
+		setInstApL( ( String )MASKS.elementAt( maskIndex , 7 ) );
+	}
+
+	/**
+	 * Use default dispersion
+	 */
+	public void useDefaultDispersion()
+	{
+		_avTable.rm( ATTR_DISPERSION );
+	}
+
+	/**
+	 * Set the dispersion
+	 */
+	public void setDispersion( double dispersion )
+	{
+		_avTable.set( ATTR_DISPERSION , dispersion );
+	}
+
+	/**
+	 * Get the default dispersion
+	 */
+	public double getDefaultDispersion()
+	{
+		double dispersion;
+		;
+		if( isImaging() )
+		{
+			dispersion = 0. ;
+		}
+		else
+		{
+			int di = getDisperserIndex();
+			dispersion = new Double( ( String )DISPERSERS.elementAt( di , 1 ) ).doubleValue();
+		}
+		return dispersion;
+	}
+
+	/**
+	 * Get the dispersion
+	 */
+	public double getDispersion()
+	{
+		double dispersion;
+		String ds = _avTable.get( ATTR_DISPERSION );
+		if( ds == null )
+		{
+			dispersion = getDefaultDispersion();
+			setDispersion( dispersion );
+		}
+		else
+		{
+			Double dsd = Double.valueOf( ds );
+			dispersion = dsd.doubleValue();
+		}
+		return dispersion;
+	}
+
+	/**
 	 * Update dispersion
 	 */
 	public void updateDispersion()
@@ -2585,98 +2576,103 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		useDefaultDispersion();
 	}
 
-    /**
+	/**
 	 * Use default resolution
 	 */
-    public void
-    useDefaultResolution()
-    {
-        _avTable.rm(ATTR_RESOLUTION);
-    }
+	public void useDefaultResolution()
+	{
+		_avTable.rm( ATTR_RESOLUTION );
+	}
 
-    /**
-     * Set the resolution
-     */
-    public void setResolution(double resolution)
-    {
-        _avTable.set(ATTR_RESOLUTION, resolution);
-    }
+	/**
+	 * Set the resolution
+	 */
+	public void setResolution( double resolution )
+	{
+		_avTable.set( ATTR_RESOLUTION , resolution );
+	}
 
-    /**
-     * Get the resolution
-     */
-    public double getResolution()
-    {
-        double resolution;
-        String rs = _avTable.get(ATTR_RESOLUTION);
-        if (rs == null) {
-            if (isImaging()) {
-                resolution = 0.0;
-	    } else {
-                double dis = getDispersion();
-                if (dis > 0.0000001) {
-                   double mw;
-                   if (isIFU()) {
-                      // For the ifu, the appropriate mask width is 2.0 pixels
-                      mw = 2.0;
-		   } else {
-                      mw = getMaskWidthPixels();
-		   }
-                   resolution = getCentralWavelength()/(dis *  mw);
-		} else {
-                   resolution = 0.0;
+	/**
+	 * Get the resolution
+	 */
+	public double getResolution()
+	{
+		double resolution;
+		String rs = _avTable.get( ATTR_RESOLUTION );
+		if( rs == null )
+		{
+			if( isImaging() )
+			{
+				resolution = 0. ;
+			}
+			else
+			{
+				double dis = getDispersion();
+				if( dis > 0.0000001 )
+				{
+					double mw;
+					// For the ifu, the appropriate mask width is 2.0 pixels
+					if( isIFU() )
+						mw = 2. ;
+					else
+						mw = getMaskWidthPixels();
+
+					resolution = getCentralWavelength() / ( dis * mw );
+				}
+				else
+				{
+					resolution = 0. ;
+				}
+			}
+			setResolution( resolution );
 		}
-	    }
-            setResolution(resolution);
-	} else {
-            Double rsd = Double.valueOf(rs);
-            resolution = rsd.doubleValue();
-        }
-        return resolution;
-    }
+		else
+		{
+			Double rsd = Double.valueOf( rs );
+			resolution = rsd.doubleValue();
+		}
+		return resolution;
+	}
 
-    /**
-     * Get the resolution as a string
-     */
-    public String
-    getResolutionString()
-    {
-        int resolutioni = (int) (getResolution()+0.5);
-        String resolutions = Integer.toString(resolutioni);
-        return resolutions;
-    }
+	/**
+	 * Get the resolution as a string
+	 */
+	public String getResolutionString()
+	{
+		int resolutioni = ( int )( getResolution() + 0.5 );
+		String resolutions = Integer.toString( resolutioni );
+		return resolutions;
+	}
 
-    /**
+	/**
 	 * Update resolution
 	 */
 	public void updateResolution()
 	{
 		useDefaultResolution();
 	}
-// Added by RDK
-    /**
+
+	// Added by RDK
+	/**
 	 * Use default DAConf
 	 */
-    public void
-    useDefaultDAConf()
-    {
-        _avTable.rm(ATTR_DACONF);
-    }
+	public void useDefaultDAConf()
+	{
+		_avTable.rm( ATTR_DACONF );
+	}
 
-    /**
-     * Set the DAConf
-     */
-    public void
-    setDAConf(String DAConf)
-    {
-        _avTable.set(ATTR_DACONF, DAConf);
-        int ri = MODES_OT.indexInColumn(DAConf,0);
-        setReadMode((String) MODES_OT.elementAt(ri,1));
-        setReadArea((String) MODES_OT.elementAt(ri,3), (String) MODES_OT.elementAt(ri,4));
-    }
+	/**
+	 * Set the DAConf
+	 */
+	public void setDAConf( String DAConf )
+	{
+		_avTable.set( ATTR_DACONF , DAConf );
+		int ri = MODES_OT.indexInColumn( DAConf , 0 );
+		setReadMode( ( String )MODES_OT.elementAt( ri , 1 ) );
+		setReadArea( ( String )MODES_OT.elementAt( ri , 3 ) , ( String )MODES_OT.elementAt( ri , 4 ) );
+	}
 
-
-    /**
+	/**
 	 * Set the minimum exposure time for the DAConf
 	 */
 	public void setDAConfMinExpT( String daconf )
@@ -2692,13 +2688,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		// Find corresponding row in MODES lut
 		int ri = RBig.indexInColumn( daconf , 2 );
 
-		double et = Double.valueOf(( String )RBig.elementAt( ri , 0 )).doubleValue();
+		double et = Double.valueOf( ( String )RBig.elementAt( ri , 0 ) ).doubleValue();
 
 		_avTable.set( ATTR_DACONF_MINEXPT , et );
 	}
 
-
-    /**
+	/**
 	 * Update the read mode
 	 */
 	public void updateReadMode()
@@ -2715,7 +2710,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			if( readMode.equalsIgnoreCase( mode ) )
 			{
 				currentModeOk = true;
-				break ;
+				break;
 			}
 		}
 		if( !currentModeOk )
@@ -2727,106 +2722,99 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		setReadMode( readMode );
 	}
 
-    /**
-     * Set the read mode
-     */
-    public void
-    setReadMode(String readMode)
-    {
-        _avTable.set(ATTR_READMODE, readMode);
-    }
+	/**
+	 * Set the read mode
+	 */
+	public void setReadMode( String readMode )
+	{
+		_avTable.set( ATTR_READMODE , readMode );
+	}
 
-    /**
-     * Get the read mode
-     */
-    public String
-    getReadMode()
-    {
-        return _avTable.get(ATTR_READMODE);
-    }
+	/**
+	 * Get the read mode
+	 */
+	public String getReadMode()
+	{
+		return _avTable.get( ATTR_READMODE );
+	}
 
-    /**
-     * Use default readMode
-     */
-    public void
-    useDefaultReadMode()
-    {
-        String readModeChoices[] = getReadModeChoices();
-        String preferredReadMode = DEFAULT_MODE;
-        for (int i = 0; i < readModeChoices.length; i++)
-        {
-            String mode = readModeChoices[i];
-            if (mode.equalsIgnoreCase(preferredReadMode)) {
-                setReadMode(mode);
-                return;
-            }
-        }
-        String mode = readModeChoices[0];
-        setReadMode(mode);
-    }
+	/**
+	 * Use default readMode
+	 */
+	public void useDefaultReadMode()
+	{
+		String readModeChoices[] = getReadModeChoices();
+		String preferredReadMode = DEFAULT_MODE;
+		for( int i = 0 ; i < readModeChoices.length ; i++ )
+		{
+			String mode = readModeChoices[ i ];
+			if( mode.equalsIgnoreCase( preferredReadMode ) )
+			{
+				setReadMode( mode );
+				return;
+			}
+		}
+		String mode = readModeChoices[ 0 ];
+		setReadMode( mode );
+	}
 
+	/**
+	 * Use default readArea
+	 */
+	public void useDefaultReadArea()
+	{
+		String readAreaChoices[] = getReadAreaChoices();
+		String preferredReadArea = DEFAULT_AREA;
+		for( int i = 0 ; i < readAreaChoices.length ; i++ )
+		{
+			String area = readAreaChoices[ i ];
+			if( area.equalsIgnoreCase( preferredReadArea ) )
+			{
+				String[] split = area.split( "x" ) ;
+				String rows = split[ 0 ] ;
+				String cols = split[ 1 ] ;
+				setReadArea( rows , cols );
+				return;
+			}
+		}
+		String area = readAreaChoices[ 0 ];
+		String[] split = area.split( "x" ) ;
+		String rows = split[ 0 ] ;
+		String cols = split[ 1 ] ;
+		setReadArea( rows , cols );
+	}
 
-    /**
-     * Use default readArea
-     */
-    public void
-    useDefaultReadArea()
-    {
-        String readAreaChoices[] = getReadAreaChoices();
-        String preferredReadArea = DEFAULT_AREA;
-        for (int i = 0; i < readAreaChoices.length; i++)
-        {
-            String area = readAreaChoices[i];
-            if (area.equalsIgnoreCase(preferredReadArea)) {
-                StringTokenizer s = new StringTokenizer(area, "x");
-                String rows = s.nextToken();
-                String cols = s.nextToken();
-                setReadArea(rows, cols);
-                return;
-            }
-        }
-        String area = readAreaChoices[0];
-        StringTokenizer s = new StringTokenizer(area, "x");
-        String rows = s.nextToken();
-        String cols = s.nextToken();
-        setReadArea(rows, cols);
-    }
+	// End of added by RDK
 
+	// Added by RDK
+	/**
+	 * Get the readout OT
+	 */
+	public String getReadoutOT()
+	{
+		String readoutOT = _avTable.get( ATTR_READOUT_OT );
+		return readoutOT;
+	}
 
-// End of added by RDK
+	// End of added by RDK
 
+	/**
+	 * Use default readout
+	 */
+	public void useDefaultReadout()
+	{
+		_avTable.rm( ATTR_READOUT );
+	}
 
-// Added by RDK
-    /**
-     * Get the readout OT
-     */
-    public String
-    getReadoutOT()
-    {
-        String readoutOT = _avTable.get(ATTR_READOUT_OT);
-        return readoutOT;
-    }
-// End of added by RDK
+	/**
+	 * Set the readout
+	 */
+	public void setReadout( String readout )
+	{
+		_avTable.set( ATTR_READOUT , readout );
+	}
 
-    /**
-     * Use default readout
-     */
-    public void
-    useDefaultReadout()
-    {
-        _avTable.rm(ATTR_READOUT);
-    }
-
-    /**
-     * Set the readout
-     */
-    public void
-    setReadout(String readout)
-    {
-        _avTable.set(ATTR_READOUT, readout);
-    }
-
-    /**
+	/**
 	 * Get the readout
 	 */
 	public String getReadout()
@@ -2834,37 +2822,32 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		String readout = _avTable.get( ATTR_READOUT );
 		if( readout == null )
 		{
-// Added by RDK
+			// Added by RDK
 			double et = getExpTimeOT();
 			// Limit this to the allowed range
 			et = limitExpTimeOT( et );
 			String DAConf = getDAConf( et );
 			int ri = MODES_OT.indexInColumn( DAConf , 0 );
-			readout = ( String ) MODES_OT.elementAt( ri , 2 );
-// End of added by RDK
+			readout = ( String )MODES_OT.elementAt( ri , 2 );
+			// End of added by RDK
 			setReadout( readout );
 		}
 		return readout;
 	}
 
-    /**
+	/**
 	 * Get the readout lookup table for the current camera and exp time
 	 */
 	public LookUpTable getReadoutLUT( double et )
 	{
 		LookUpTable RBig;
 		if( isImaging() )
-		{
 			RBig = READOUTS_IM;
-		}
 		else if( isIFU() )
-		{
 			RBig = READOUTS_IFU;
-		}
 		else
-		{
 			RBig = READOUTS_SPEC;
-		}
+
 		// Construct a LUT that just contains rows suitable for the exposure time
 		int RBRows = RBig.getNumRows();
 		double minE;
@@ -2873,12 +2856,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int rows = 0;
 		for( int i = 0 ; i < RBRows ; i++ )
 		{
-			minE = Double.valueOf( ( String ) RBig.elementAt( i , 0 ) ).doubleValue();
-			maxE = Double.valueOf( ( String ) RBig.elementAt( i , 1 ) ).doubleValue();
+			minE = Double.valueOf( ( String )RBig.elementAt( i , 0 ) ).doubleValue();
+			maxE = Double.valueOf( ( String )RBig.elementAt( i , 1 ) ).doubleValue();
 			if( ( minE <= et ) && ( maxE > et ) )
-			{
-				rows++;
-			}
+				rows++ ;
 		}
 		if( rows < 1 )
 		{
@@ -2892,97 +2873,98 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			int nextRow = 0;
 			for( int i = 0 ; i < RBRows ; i++ )
 			{
-				minE = Double.valueOf( ( String ) RBig.elementAt( i , 0 ) ).doubleValue();
-				maxE = Double.valueOf( ( String ) RBig.elementAt( i , 1 ) ).doubleValue();
+				minE = Double.valueOf( ( String )RBig.elementAt( i , 0 ) ).doubleValue();
+				maxE = Double.valueOf( ( String )RBig.elementAt( i , 1 ) ).doubleValue();
 				if( ( minE <= et ) && ( maxE > et ) )
 				{
 					Vector row = RBig.getRow( i );
 					R.addRow( row );
-					nextRow++;
+					nextRow++ ;
 				}
 			}
 			return R;
 		}
 	}
 
-    /**
+	/**
 	 * Get the readout choices
 	 */
-    public String[]
-    getReadoutChoices()
-    {
-        LookUpTable R;
-        double et = getExpTimeOT();
-        // Limit this to the allowed range
-        et = limitExpTimeOT(et);
-        R = getReadoutLUT(et);
-        // Declare and fill the readoutChoices string
-        int RRows = R.getNumRows();
-        String readoutChoices[] = new String[RRows];
-        for (int i=0; i<RRows; i++) {
-            readoutChoices[i] = (String) R.elementAt(i,3);
+	public String[] getReadoutChoices()
+	{
+		LookUpTable R;
+		double et = getExpTimeOT();
+		// Limit this to the allowed range
+		et = limitExpTimeOT( et );
+		R = getReadoutLUT( et );
+		// Declare and fill the readoutChoices string
+		int RRows = R.getNumRows();
+		String readoutChoices[] = new String[ RRows ];
+		for( int i = 0 ; i < RRows ; i++ )
+			readoutChoices[ i ] = ( String )R.elementAt( i , 3 );
+
+		return readoutChoices;
 	}
-        return readoutChoices;
-    }
 
-// Added by RDK
+	// Added by RDK
 
-    /**
-     * Get the read mode choices
-     */
-    public String[]
-    getReadModeChoices()
-    {
-        LookUpTable R;
-        double et = getExpTimeOT();
-        // Limit this to the allowed range
-        et = limitExpTimeOT(et);
-        R = getReadoutLUT(et);
-        // Declare and fill the readModeChoices string
-        int RRows = R.getNumRows();
-        Vector v = new Vector();
-        for (int i=0; i<RRows; i++) {
-            String DAConf = (String) R.elementAt(i,2);
-            int ri = MODES_OT.indexInColumn(DAConf,0);
-            insertSorted(v, (String) MODES_OT.elementAt(ri,1));
+	/**
+	 * Get the read mode choices
+	 */
+	public String[] getReadModeChoices()
+	{
+		LookUpTable R;
+		double et = getExpTimeOT();
+		// Limit this to the allowed range
+		et = limitExpTimeOT( et );
+		R = getReadoutLUT( et );
+		// Declare and fill the readModeChoices string
+		int RRows = R.getNumRows();
+		Vector v = new Vector();
+		for( int i = 0 ; i < RRows ; i++ )
+		{
+			String DAConf = ( String )R.elementAt( i , 2 );
+			int ri = MODES_OT.indexInColumn( DAConf , 0 );
+			insertSorted( v , ( String )MODES_OT.elementAt( ri , 1 ) );
+		}
+		String readModeChoices[] = new String[ v.size() ];
+		VectorToStringArray( v , readModeChoices );
+		return readModeChoices;
 	}
-        String readModeChoices[] = new String[v.size()];
-        VectorToStringArray(v, readModeChoices);
-        return readModeChoices;
-    }
 
-    /**
-     * Get the read area choices
-     */
-    public String[]
-    getReadAreaChoices()
-    {
-        LookUpTable R;
-        double et = getExpTimeOT();
-        // Limit this to the allowed range
-        et = limitExpTimeOT(et);
-        R = getReadoutLUT(et);
-        String readMode = getReadMode();
-        int RRows = R.getNumRows();
-        Vector v = new Vector();
-        for (int i=0; i<RRows; i++) {
-            String DAConf = (String) R.elementAt(i,2);
-            int ri = MODES_OT.indexInColumn(DAConf,0);
-            String mode = (String) MODES_OT.elementAt(ri,1);
-            if (mode.equalsIgnoreCase(readMode)) {
-                String readRows = (String) MODES_OT.elementAt(ri,3);
-                String readCols = (String) MODES_OT.elementAt(ri,4);
-                String readArea = readRows + "x" + readCols;
-                if (!v.contains(readArea)) v.add(readArea);
-            }
+	/**
+	 * Get the read area choices
+	 */
+	public String[] getReadAreaChoices()
+	{
+		LookUpTable R;
+		double et = getExpTimeOT();
+		// Limit this to the allowed range
+		et = limitExpTimeOT( et );
+		R = getReadoutLUT( et );
+		String readMode = getReadMode();
+		int RRows = R.getNumRows();
+		Vector v = new Vector();
+		for( int i = 0 ; i < RRows ; i++ )
+		{
+			String DAConf = ( String )R.elementAt( i , 2 );
+			int ri = MODES_OT.indexInColumn( DAConf , 0 );
+			String mode = ( String )MODES_OT.elementAt( ri , 1 );
+			if( mode.equalsIgnoreCase( readMode ) )
+			{
+				String readRows = ( String )MODES_OT.elementAt( ri , 3 );
+				String readCols = ( String )MODES_OT.elementAt( ri , 4 );
+				String readArea = readRows + "x" + readCols;
+				if( !v.contains( readArea ) )
+					v.add( readArea );
+			}
+		}
+		// Declare and fill the readAreaChoices string
+		String readAreaChoices[] = new String[ v.size() ];
+		VectorToStringArray( v , readAreaChoices );
+		return readAreaChoices;
 	}
-        // Declare and fill the readAreaChoices string
-        String readAreaChoices[] = new String[v.size()];
-        VectorToStringArray(v, readAreaChoices);        
-        return readAreaChoices;
-    }
 
-    public static void VectorToStringArray( Vector v , String s[] )
+	public static void VectorToStringArray( Vector v , String s[] )
 	{
 
 		Enumeration e = v.elements();
@@ -2990,328 +2972,317 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
 		while( e.hasMoreElements() )
 		{
-			s[ i ] = ( String ) e.nextElement();
-			i++;
+			s[ i ] = ( String )e.nextElement();
+			i++ ;
 		}
 	}
 
-    public static void insertSorted(Vector v, String s) {
-        if (v.isEmpty()) {
-            v.add(s);
-        } else if (!v.contains(s)) {
-            if (s.compareToIgnoreCase((String)v.firstElement()) < 0) {
-                v.add(0, s);
-            } else if (s.compareToIgnoreCase((String)v.lastElement()) > 0) {
-                v.add(s);
-            }
-            else {
-                for (int i = 0; i < v.size() - 1; i++)
-                {
-                    if (s.compareToIgnoreCase((String)v.elementAt(i)) > 0 &&
-                        s.compareToIgnoreCase((String)v.elementAt(i+1)) < 0 ) {
-                        v.add(i+1, s);
-                    }
-                }
-            }            
-        }
-    }
-
-// End of added by RDK
-
-
-    /**
-     * Get the chop frequency
-     */
-    public String
-    getChopFreq()
-    {
-        String cfs = _avTable.get(ATTR_CHOP_FREQUENCY);
-        if (cfs == null) {
-            double cfd = 0.0;
-            cfs = Double.toString(cfd);
-            setChopFreq(cfs);
+	public static void insertSorted( Vector v , String s )
+	{
+		if( v.isEmpty() )
+		{
+			v.add( s );
+		}
+		else if( !v.contains( s ) )
+		{
+			if( s.compareToIgnoreCase( ( String )v.firstElement() ) < 0 )
+			{
+				v.add( 0 , s );
+			}
+			else if( s.compareToIgnoreCase( ( String )v.lastElement() ) > 0 )
+			{
+				v.add( s );
+			}
+			else
+			{
+				for( int i = 0 ; i < v.size() - 1 ; i++ )
+				{
+					if( s.compareToIgnoreCase( ( String )v.elementAt( i ) ) > 0 && s.compareToIgnoreCase( ( String )v.elementAt( i + 1 ) ) < 0 )
+						v.add( i + 1 , s );
+				}
+			}
+		}
 	}
-        return cfs;
-    }
 
-    /**
-     * Get the chop frequency
-     */
-    public String
-    getChopFreqRound()
-    {
-        String cfs = getChopFreq();
-        double cfd = Double.valueOf(cfs).doubleValue();
-        double cfdr = MathUtil.round(cfd,3);
-        String cfsr = Double.toString(cfdr);
-        return cfsr;
-    }
+	// End of added by RDK
 
-    /**
-     * Set the flat exposure time
-     */
-    public void
-    setFlatExpTime(double flatExpTime)
-    {
-        flatExposureTime = flatExpTime;
-    }
-
-    /**
-     * Get the flat exposure time
-     */
-    public double
-    getFlatExpTime()
-    {
-        return flatExposureTime;
-    }
-
-    /**
-     * Set the arc exposure time
-     */
-    public void
-    setArcExpTime(double arcExpTime)
-    {
-        arcExposureTime = arcExpTime;
-    }
-
-    /**
-     * Get the arc exposure time
-     */
-    public double
-    getArcExpTime()
-    {
-        return arcExposureTime;
-    }
-
-    /**
-     * Set the chop delay in seconds
-     */
-    public void
-    setChopDelay(double chopDelay)
-    {
-        _avTable.set(ATTR_CHOP_DELAY, chopDelay);
-    }
-
-    /**
-     * Get the chop delay in seconds
-     */
-    public double
-    getChopDelay()
-    {
-        int i;
-        int iMax = CHOPS.getNumRows() - 1;
-        double cMax = Double.valueOf((String)CHOPS.elementAt(iMax,0)).doubleValue();
-        double cfd = Double.valueOf(getChopFreq()).doubleValue();
-        if (cfd >= cMax) {
-            i = iMax-1;
-	} else {
-            i = CHOPS.rangeInColumn(cfd,0);
+	/**
+	 * Get the chop frequency
+	 */
+	public String getChopFreq()
+	{
+		String cfs = _avTable.get( ATTR_CHOP_FREQUENCY );
+		if( cfs == null )
+		{
+			double cfd = 0. ;
+			cfs = Double.toString( cfd );
+			setChopFreq( cfs );
+		}
+		return cfs;
 	}
-        double cd = Double.valueOf((String)CHOPS.elementAt(i,1)).doubleValue();
-        return cd;
-    }
 
-    /**
-     * Set the read interval in seconds
-     */
-    public void
-    setReadInterval(double readInterval)
-    {
-        _avTable.set(ATTR_READ_INTERVAL, readInterval);
-    }
-
-    /**
-     * Get the read interval in seconds
-     */
-    public double
-    getReadInterval()
-    {
-        double ri = _avTable.getDouble(ATTR_READ_INTERVAL, 0.0);
-        return ri;
-    }
-
-    /**
-     * Set the number of reads in the exposure
-     */
-    public void
-    setNreads(int nreads)
-    {
-        _avTable.set(ATTR_NREADS, nreads);
-    }
-
-    public int getNreads() {
-        return _avTable.getInt(ATTR_NREADS, 0);
-    }
-
-    /**
-     * Use default exposure time
-     */
-    public void
-    useDefaultExpTimeOT()
-    {
-        _avTable.rm(ATTR_EXPTIME_OT);
-    }
-
-// Added by RDK
-    /**
-     * Use default number of coadds
-     */
-    public void
-    useDefaultCoadds()
-    {
-        setCoadds( DEFAULT_COADDS );
-    }
-// End of added by RDK
-
-    /**
-     * Set the actual observation time in seconds
-     */
-    public void
-    setObservationTime(double obsTime)
-    {
-        _avTable.set(ATTR_OBSERVATION_TIME, obsTime);
-    }
-
-// Added by RDK
-    /**
-     * Get the default flat number of coadds
-     */
-    public int
-    getDefaultFlatCoadds()
-    {
-        int fc;
-        if (isImaging()) {
-            fc = FLAT_COADDS_IMAGING;
-	} else {
-            fc = FLAT_COADDS_SPECT;
+	/**
+	 * Get the chop frequency
+	 */
+	public String getChopFreqRound()
+	{
+		String cfs = getChopFreq();
+		double cfd = Double.valueOf( cfs ).doubleValue();
+		double cfdr = MathUtil.round( cfd , 3 );
+		String cfsr = Double.toString( cfdr );
+		return cfsr;
 	}
-        return fc;
-    }
 
-    /**
-     * Get the default arc  number of coadds
-     */
-    public int
-    getDefaultArcCoadds()
-    {
-        int ac = ARC_COADDS;
-        return ac;
-    }
-// End of added by RDK
-
-    /**
-     * Get the actual observation time in seconds
-     */
-    public double
-    getObservationTime()
-    {
-        double obsTime;
-        String ots = _avTable.get(ATTR_OBSERVATION_TIME);
-        if (ots == null) {
-            obsTime = 0.0;
-            setObservationTime(obsTime);
-	} else {
-            obsTime = _avTable.getDouble(ATTR_OBSERVATION_TIME, 0.0);
+	/**
+	 * Set the flat exposure time
+	 */
+	public void setFlatExpTime( double flatExpTime )
+	{
+		flatExposureTime = flatExpTime;
 	}
-        return obsTime;
-    }
 
-// Added by RDK
-    /**
-     * Set the flat number of coadds
-     */
-    public void
-    setFlatCoadds(int flatCoaddsInp)
-    {
-        flatCoadds = flatCoaddsInp;
-    }
-
-    /**
-     * Get the flat number of coadds
-     */
-    public int
-    getFlatCoadds()
-    {
-        return flatCoadds;
-    }
-
-    /**
-     * Set the arc number of coadds
-     */
-    public void
-    setArcCoadds(int arcCoaddsInp)
-    {
-        arcCoadds = arcCoaddsInp;
-    }
-
-    /**
-     * Get the arc number of coadds
-     */
-    public int
-    getArcCoadds()
-    {
-        return arcCoadds;
-    }
-
-// End of added by RDK
-
-    /**
-     * Get the exposure time in seconds as a String
-     */
-    public String
-    getExposureTimeString()
-    {
-        String ets = Double.toString(MathUtil.round(getExposureTime(),3));
-        return ets;
-    }
-
-    /**
-     * Get the actual observation time in seconds as a String
-     */
-    public String
-    getObservationTimeString()
-    {
-        String aobts = Double.toString(MathUtil.round(getObservationTime(),3));
-        return aobts;
-    }
-
-    /**
-     * Get the exposure time OT
-     */
-    public double
-    getExpTimeOT()
-    {	
-        double expTime;
-        String ets = _avTable.get(ATTR_EXPTIME_OT);
-        if (ets == null) {
-            expTime = getDefaultExpTimeOT();
-            setExpTimeOT(expTime);
-	} else {
-            expTime = _avTable.getDouble(ATTR_EXPTIME_OT, 0.0);
+	/**
+	 * Get the flat exposure time
+	 */
+	public double getFlatExpTime()
+	{
+		return flatExposureTime;
 	}
-        return expTime;
-    }
 
-    /**
-     * Get the exposure time OT as a string
-     */
-    public String
-	getExpTimeOTString()
-    {
-        String timeAsString = Double.toString(MathUtil.round(getExpTimeOT(),4));
-	return timeAsString;
-    }
+	/**
+	 * Set the arc exposure time
+	 */
+	public void setArcExpTime( double arcExpTime )
+	{
+		arcExposureTime = arcExpTime;
+	}
 
-    /**
-     * Set the exposure time OT
-     */
-    public void
-    setExpTimeOT(double expTime)
-    {
-        _avTable.set(ATTR_EXPTIME_OT, expTime);
-    }
+	/**
+	 * Get the arc exposure time
+	 */
+	public double getArcExpTime()
+	{
+		return arcExposureTime;
+	}
 
-    /**
+	/**
+	 * Set the chop delay in seconds
+	 */
+	public void setChopDelay( double chopDelay )
+	{
+		_avTable.set( ATTR_CHOP_DELAY , chopDelay );
+	}
+
+	/**
+	 * Get the chop delay in seconds
+	 */
+	public double getChopDelay()
+	{
+		int i;
+		int iMax = CHOPS.getNumRows() - 1;
+		double cMax = Double.valueOf( ( String )CHOPS.elementAt( iMax , 0 ) ).doubleValue();
+		double cfd = Double.valueOf( getChopFreq() ).doubleValue();
+		if( cfd >= cMax )
+			i = iMax - 1;
+		else
+			i = CHOPS.rangeInColumn( cfd , 0 );
+
+		double cd = Double.valueOf( ( String )CHOPS.elementAt( i , 1 ) ).doubleValue();
+		return cd;
+	}
+
+	/**
+	 * Set the read interval in seconds
+	 */
+	public void setReadInterval( double readInterval )
+	{
+		_avTable.set( ATTR_READ_INTERVAL , readInterval );
+	}
+
+	/**
+	 * Get the read interval in seconds
+	 */
+	public double getReadInterval()
+	{
+		double ri = _avTable.getDouble( ATTR_READ_INTERVAL , 0. );
+		return ri;
+	}
+
+	/**
+	 * Set the number of reads in the exposure
+	 */
+	public void setNreads( int nreads )
+	{
+		_avTable.set( ATTR_NREADS , nreads );
+	}
+
+	public int getNreads()
+	{
+		return _avTable.getInt( ATTR_NREADS , 0 );
+	}
+
+	/**
+	 * Use default exposure time
+	 */
+	public void useDefaultExpTimeOT()
+	{
+		_avTable.rm( ATTR_EXPTIME_OT );
+	}
+
+	// Added by RDK
+	/**
+	 * Use default number of coadds
+	 */
+	public void useDefaultCoadds()
+	{
+		setCoadds( DEFAULT_COADDS );
+	}
+
+	// End of added by RDK
+
+	/**
+	 * Set the actual observation time in seconds
+	 */
+	public void setObservationTime( double obsTime )
+	{
+		_avTable.set( ATTR_OBSERVATION_TIME , obsTime );
+	}
+
+	// Added by RDK
+	/**
+	 * Get the default flat number of coadds
+	 */
+	public int getDefaultFlatCoadds()
+	{
+		int fc;
+		if( isImaging() )
+			fc = FLAT_COADDS_IMAGING;
+		else
+			fc = FLAT_COADDS_SPECT;
+
+		return fc;
+	}
+
+	/**
+	 * Get the default arc  number of coadds
+	 */
+	public int getDefaultArcCoadds()
+	{
+		int ac = ARC_COADDS;
+		return ac;
+	}
+
+	// End of added by RDK
+
+	/**
+	 * Get the actual observation time in seconds
+	 */
+	public double getObservationTime()
+	{
+		double obsTime;
+		String ots = _avTable.get( ATTR_OBSERVATION_TIME );
+		if( ots == null )
+		{
+			obsTime = 0. ;
+			setObservationTime( obsTime );
+		}
+		else
+		{
+			obsTime = _avTable.getDouble( ATTR_OBSERVATION_TIME , 0. );
+		}
+		return obsTime;
+	}
+
+	// Added by RDK
+	/**
+	 * Set the flat number of coadds
+	 */
+	public void setFlatCoadds( int flatCoaddsInp )
+	{
+		flatCoadds = flatCoaddsInp;
+	}
+
+	/**
+	 * Get the flat number of coadds
+	 */
+	public int getFlatCoadds()
+	{
+		return flatCoadds;
+	}
+
+	/**
+	 * Set the arc number of coadds
+	 */
+	public void setArcCoadds( int arcCoaddsInp )
+	{
+		arcCoadds = arcCoaddsInp;
+	}
+
+	/**
+	 * Get the arc number of coadds
+	 */
+	public int getArcCoadds()
+	{
+		return arcCoadds;
+	}
+
+	// End of added by RDK
+
+	/**
+	 * Get the exposure time in seconds as a String
+	 */
+	public String getExposureTimeString()
+	{
+		String ets = Double.toString( MathUtil.round( getExposureTime() , 3 ) );
+		return ets;
+	}
+
+	/**
+	 * Get the actual observation time in seconds as a String
+	 */
+	public String getObservationTimeString()
+	{
+		String aobts = Double.toString( MathUtil.round( getObservationTime() , 3 ) );
+		return aobts;
+	}
+
+	/**
+	 * Get the exposure time OT
+	 */
+	public double getExpTimeOT()
+	{
+		double expTime;
+		String ets = _avTable.get( ATTR_EXPTIME_OT );
+		if( ets == null )
+		{
+			expTime = getDefaultExpTimeOT();
+			setExpTimeOT( expTime );
+		}
+		else
+		{
+			expTime = _avTable.getDouble( ATTR_EXPTIME_OT , 0. );
+		}
+		return expTime;
+	}
+
+	/**
+	 * Get the exposure time OT as a string
+	 */
+	public String getExpTimeOTString()
+	{
+		String timeAsString = Double.toString( MathUtil.round( getExpTimeOT() , 4 ) );
+		return timeAsString;
+	}
+
+	/**
+	 * Set the exposure time OT
+	 */
+	public void setExpTimeOT( double expTime )
+	{
+		_avTable.set( ATTR_EXPTIME_OT , expTime );
+	}
+
+	/**
 	 * Change the exposure time OT
 	 */
 	public void changeExpTimeOT( double expTime )
@@ -3325,9 +3296,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		updateDAConf( obsType );
 	}
 
-    
-
-    /**
+	/**
 	 * Get the default sky exposure time OT
 	 */
 	public double getDefaultSkyExpTimeOT()
@@ -3342,23 +3311,22 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			LookUpTable filterLUT = getFilterLUT();
 			int row = filterLUT.indexInColumn( filter , 0 );
 			int column = filterLUT.indexInRow( mag , 0 );
-			set = Double.valueOf( ( String ) filterLUT.elementAt( row , column ) ).doubleValue();
+			set = Double.valueOf( ( String )filterLUT.elementAt( row , column ) ).doubleValue();
 		}
 		else
 		{
-			// In spectroscopy, exposure time comes initially from SPECMAGS LUT
-			// using disperser and magnitude
+			// In spectroscopy, exposure time comes initially from SPECMAGS LUT using disperser and magnitude
 			String disperser = getDisperser();
 			int row = SPECMAGS.indexInColumn( disperser , 0 );
 			int column = SPECMAGS.indexInRow( mag , 0 );
-			set = Double.valueOf( ( String ) SPECMAGS.elementAt( row , column ) ).doubleValue();
+			set = Double.valueOf( ( String )SPECMAGS.elementAt( row , column ) ).doubleValue();
 			// Ensure exposure time is within limits
 			set = limitExpTimeOT( set );
 		}
 		return set;
 	}
 
-    /**
+	/**
 	 * Adjust exposure time OT as required
 	 */
 	public double limitExpTimeOT( double et )
@@ -3380,105 +3348,97 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return let;
 	}
 
-    /**
-     * Get the default exposure time
-     */
-    public double
-    getDefaultExpTimeOT()
-    {
-        double et = getDefaultSkyExpTimeOT();
-        et = limitExpTimeOT(et);
-        return et;
-    }
-
-    /**
-     * Get the default flat exposure time
-     */
-    public double
-    getDefaultFlatExpTime()
-    {
-        double fet;
-        if (isImaging()) {
-            // Get flat exposure time from FILTERS* LUT
-            LookUpTable filterLUT= getFilterLUT();
-            String filter = getFilter();
-            int fi = filterLUT.indexInColumn(filter, 0);
-            fet = Double.valueOf((String)filterLUT
-                .elementAt(fi,3)).doubleValue();
-	} else {
-            // Get flat exposure time from DISPERSERS LUT
-            fet = Double.valueOf((String)DISPERSERS
-                .elementAt(getDisperserIndex(),6)).doubleValue();
-	    // Need to multiply this by factor associated with mask
-	    // Added at request of CJD by RDK 4 Apr 2003
-            String mask = getMask();
-            int maskNo = MASKS.indexInColumn(mask,0);
-            double etm = Double.valueOf((String)MASKS.elementAt(maskNo,3))
-                .doubleValue();
-            fet = fet * etm;
+	/**
+	 * Get the default exposure time
+	 */
+	public double getDefaultExpTimeOT()
+	{
+		double et = getDefaultSkyExpTimeOT();
+		et = limitExpTimeOT( et );
+		return et;
 	}
-        fet = limitExpTimeOT(fet);
-        return fet;
-    }
 
-    /**
-     * Get the default arc exposure time
-     */
-    public double
-    getDefaultArcExpTime()
-    {
-        double aet = ARC_EXPTIME;
-	// Need to multiply this by factor associated with mask
-	// Added at request of CJD by RDK 4 Apr 2003
-	String mask = getMask();
-	int maskNo = MASKS.indexInColumn(mask,0);
-	double etm = Double.valueOf((String)MASKS.elementAt(maskNo,3))
-	    .doubleValue();
-	aet = aet * etm;
-        return aet;
-    }
+	/**
+	 * Get the default flat exposure time
+	 */
+	public double getDefaultFlatExpTime()
+	{
+		double fet;
+		if( isImaging() )
+		{
+			// Get flat exposure time from FILTERS* LUT
+			LookUpTable filterLUT = getFilterLUT();
+			String filter = getFilter();
+			int fi = filterLUT.indexInColumn( filter , 0 );
+			fet = Double.valueOf( ( String )filterLUT.elementAt( fi , 3 ) ).doubleValue();
+		}
+		else
+		{
+			// Get flat exposure time from DISPERSERS LUT
+			fet = Double.valueOf( ( String )DISPERSERS.elementAt( getDisperserIndex() , 6 ) ).doubleValue();
+			// Need to multiply this by factor associated with mask
+			// Added at request of CJD by RDK 4 Apr 2003
+			String mask = getMask();
+			int maskNo = MASKS.indexInColumn( mask , 0 );
+			double etm = Double.valueOf( ( String )MASKS.elementAt( maskNo , 3 ) ).doubleValue();
+			fet = fet * etm;
+		}
+		fet = limitExpTimeOT( fet );
+		return fet;
+	}
 
-    /**
-     * Set the mode
-     */
-    public void
-    setMode(String mode)
-    {
-        _avTable.set(ATTR_MODE, mode);
-    }
+	/**
+	 * Get the default arc exposure time
+	 */
+	public double getDefaultArcExpTime()
+	{
+		double aet = ARC_EXPTIME;
+		// Need to multiply this by factor associated with mask
+		// Added at request of CJD by RDK 4 Apr 2003
+		String mask = getMask();
+		int maskNo = MASKS.indexInColumn( mask , 0 );
+		double etm = Double.valueOf( ( String )MASKS.elementAt( maskNo , 3 ) ).doubleValue();
+		aet = aet * etm;
+		return aet;
+	}
 
-    /**
-     * Set the duty cycle
-     */
-    public void
-    setDutyCycle(double dutyCycle)
-    {
-        _avTable.set(ATTR_DUTY_CYCLE, dutyCycle);
-    }
+	/**
+	 * Set the mode
+	 */
+	public void setMode( String mode )
+	{
+		_avTable.set( ATTR_MODE , mode );
+	}
 
-    /**
-     * Get the duty cycle
-     */
-    public String
-    getDutyCycle()
-    {
-        String dc = _avTable.get(ATTR_DUTY_CYCLE);
-        return dc;
-    }
+	/**
+	 * Set the duty cycle
+	 */
+	public void setDutyCycle( double dutyCycle )
+	{
+		_avTable.set( ATTR_DUTY_CYCLE , dutyCycle );
+	}
 
-    /**
-     * Get the duty cycle as a rounded percentage
-     */
-    public String
-    getDutyCycleRound()
-    {
-        double dcd = Double.valueOf(getDutyCycle()).doubleValue() * 100.0;
-        double dcdr = MathUtil.round(dcd,1);
-        String dcsr = Double.toString(dcdr);
-        return dcsr;
-    }
+	/**
+	 * Get the duty cycle
+	 */
+	public String getDutyCycle()
+	{
+		String dc = _avTable.get( ATTR_DUTY_CYCLE );
+		return dc;
+	}
 
-// Added by RDK
+	/**
+	 * Get the duty cycle as a rounded percentage
+	 */
+	public String getDutyCycleRound()
+	{
+		double dcd = Double.valueOf( getDutyCycle() ).doubleValue() * 100. ;
+		double dcdr = MathUtil.round( dcd , 1 );
+		String dcsr = Double.toString( dcdr );
+		return dcsr;
+	}
+
+	// Added by RDK
 	public String getDAConf( double et )
 	{
 		String readMode = getReadMode();
@@ -3487,49 +3447,47 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		String DAConf;
 		for( int i = 0 ; i < R.getNumRows() ; i++ )
 		{
-			DAConf = ( String ) R.elementAt( i , 2 );
+			DAConf = ( String )R.elementAt( i , 2 );
 			int ri = MODES_OT.indexInColumn( DAConf , 0 );
-			String mode = ( String ) MODES_OT.elementAt( ri , 1 );
-			int rows = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 3 ) ).intValue();
-			int cols = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 4 ) ).intValue();
+			String mode = ( String )MODES_OT.elementAt( ri , 1 );
+			int rows = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 3 ) ).intValue();
+			int cols = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 4 ) ).intValue();
 			if( readMode.equalsIgnoreCase( mode ) && ra[ 0 ] == rows && ra[ 1 ] == cols )
 				return DAConf;
 		}
 		return null;
 	}
-// End of added by RDK
 
-    /**
+	// End of added by RDK
+
+	/**
 	 * Update the daconf for a dark observation
 	 */
-    public void
-    updateDADarkConf()
-    {
-        String obsType = "Dark";
-        updateDAConf(obsType);
-    }
+	public void updateDADarkConf()
+	{
+		String obsType = "Dark";
+		updateDAConf( obsType );
+	}
 
-    /**
-     * Update the daconf for a flat observation
-     */
-    public void
-    updateDAFlatConf()
-    {
-        String obsType = "Flat";
-        updateDAConf(obsType);
-    }
+	/**
+	 * Update the daconf for a flat observation
+	 */
+	public void updateDAFlatConf()
+	{
+		String obsType = "Flat";
+		updateDAConf( obsType );
+	}
 
-    /**
-     * Update the daconf for an arc observation
-     */
-    public void
-    updateDAArcConf()
-    {
-        String obsType = "Arc";
-        updateDAConf(obsType);
-    }
+	/**
+	 * Update the daconf for an arc observation
+	 */
+	public void updateDAArcConf()
+	{
+		String obsType = "Arc";
+		updateDAConf( obsType );
+	}
 
-    /**
+	/**
 	 * Update the daconf for an Object/Sky observatioon
 	 */
 	public void updateDAObjConf()
@@ -3546,7 +3504,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		setDutyCycle( W_dutyCycle );
 	}
 
-    /**
+	/**
 	 * Update the daconf for the given obsType
 	 */
 
@@ -3556,7 +3514,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int ri; /* lookup row number */
 		W_chopFrequency = "0.0";
 		String daconf = null;
-		double expTime = 0.0;
+		double expTime = 0. ;
 
 		// Get appropriate exposure and observation times for this obsType
 		if( obsType.equalsIgnoreCase( "OBJECT" ) )
@@ -3642,59 +3600,64 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		W_dutyCycle = totalExposure / W_obsTime;
 	}
 
-    public double getExposureOverhead() {
-	double overhead = 0.0;
-	double dc = (Double.valueOf(getDutyCycle())).doubleValue();
-	double expTime = getExposureTime();
-	overhead = expTime/dc - expTime;
-	return overhead;
-    }
+	public double getExposureOverhead()
+	{
+		double overhead = 0. ;
+		double dc = ( Double.valueOf( getDutyCycle() ) ).doubleValue();
+		double expTime = getExposureTime();
+		overhead = expTime / dc - expTime;
+		return overhead;
+	}
 
-    /**
-     * Get the coadds.
-     */
-    public String getCoaddsString() {
-        int coadds = getStareCapability().getCoadds();
-        return Integer.toString(coadds);
-    }
+	/**
+	 * Get the coadds.
+	 */
+	public String getCoaddsString()
+	{
+		int coadds = getStareCapability().getCoadds();
+		return Integer.toString( coadds );
+	}
 
-    /**
-     * Set coadds
-     */
-    public void setCoadds( int coadds ) {
-        getStareCapability().setCoadds( coadds );
-    }
+	/**
+	 * Set coadds
+	 */
+	public void setCoadds( int coadds )
+	{
+		getStareCapability().setCoadds( coadds );
+	}
 
-    /**
-     * Set coadds as a string
-     */
-    public void setCoadds( String coadds ) {
-        int c = 0;
-        try {
-            Integer tmp = Integer.valueOf( coadds );
-            c = tmp.intValue();
-        } catch ( Exception ex ) {}
+	/**
+	 * Set coadds as a string
+	 */
+	public void setCoadds( String coadds )
+	{
+		int c = 0;
+		try
+		{
+			Integer tmp = Integer.valueOf( coadds );
+			c = tmp.intValue();
+		}
+		catch( Exception ex ){}
 
-        setCoadds( c );
-    }
+		setCoadds( c );
+	}
 
-
-    /**
+	/**
 	 * Get the readout area (cols,rows) for the current waveform
 	 */
 	public int[] getReadArea()
 	{
 		int ra[] = new int[ 2 ];
-// Added by RDK
-		StringTokenizer s = new StringTokenizer( getReadAreaString() , "x" );
-		ra[ 0 ] = Integer.parseInt( s.nextToken() );
-		ra[ 1 ] = Integer.parseInt( s.nextToken() );
-// End of Added by RDK
+		// Added by RDK
+		String[] split = getReadAreaString().split( "x" ) ;
+		ra[ 0 ] = Integer.parseInt( split[ 0 ] );
+		ra[ 1 ] = Integer.parseInt( split[ 1 ] );
+		// End of Added by RDK
 		return ra;
 	}
 
-//Added by RDK
-    /**
+	//Added by RDK
+	/**
 	 * Update the read area
 	 */
 	public void updateReadArea()
@@ -3708,83 +3671,79 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int raSave[] = new int[ 2 ];
 		for( int i = 0 ; i < R.getNumRows() ; i++ )
 		{
-			String DAConf = ( String ) R.elementAt( i , 2 );
+			String DAConf = ( String )R.elementAt( i , 2 );
 			int ri = MODES_OT.indexInColumn( DAConf , 0 );
-			String mode = ( String ) MODES_OT.elementAt( ri , 1 );
-			ra[ 0 ] = Integer.valueOf(( String )MODES_OT.elementAt( ri , 3 )).intValue();
-			ra[ 1 ] = Integer.valueOf(( String )MODES_OT.elementAt( ri , 4 )).intValue();
+			String mode = ( String )MODES_OT.elementAt( ri , 1 );
+			ra[ 0 ] = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 3 ) ).intValue();
+			ra[ 1 ] = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 4 ) ).intValue();
 			int areaDiff = Math.abs( ra[ 0 ] * ra[ 1 ] - readArea );
 			if( readMode.equalsIgnoreCase( mode ) && areaDiff < minAreaDiff )
 			{
 				minAreaDiff = areaDiff;
 				raSave[ 0 ] = ra[ 0 ];
 				raSave[ 1 ] = ra[ 1 ];
-				break ;
+				break;
 			}
 		}
 		setReadArea( Integer.toString( raSave[ 0 ] ) , Integer.toString( raSave[ 1 ] ) );
 	}
 
-    /**
+	/**
 	 * Set the readout area
 	 */
-    public void
-    setReadArea(String rows, String cols)
-    {
-        _avTable.set(ATTR_READAREA, rows + "x" + cols);
-    }
-// End of Added by RDK
+	public void setReadArea( String rows , String cols )
+	{
+		_avTable.set( ATTR_READAREA , rows + "x" + cols );
+	}
 
-    /**
-     * Set the readout area string
-     */
-    public void
-    setReadAreaString(String readArea)
-    {
-        _avTable.set(ATTR_READAREA, readArea);
-    }
+	// End of Added by RDK
 
-    /**
-     * Get the readout area as a string
-     */
-    public String
-    getReadAreaString()
-    {
-        return _avTable.get(ATTR_READAREA);
-    }
+	/**
+	 * Set the readout area string
+	 */
+	public void setReadAreaString( String readArea )
+	{
+		_avTable.set( ATTR_READAREA , readArea );
+	}
 
-    /**
+	/**
+	 * Get the readout area as a string
+	 */
+	public String getReadAreaString()
+	{
+		return _avTable.get( ATTR_READAREA );
+	}
+
+	/**
 	 * Use default acquisition
 	 */
 	public void useDefaultAcquisition()
 	{
 		useDefaultExpTimeOT();
-// Added by RDK
+		// Added by RDK
 		useDefaultCoadds();
 		double et = getExpTimeOT();
 		changeExpTimeOT( et );
-// End of added by RDK
+		// End of added by RDK
 	}
 
-    /**
+	/**
 	 * Set the acquisition
 	 */
-    public void
-    setAcquisition()
-    {
-        // Setup for normal exposures
-        updateDAObjConf();
-    }
+	public void setAcquisition()
+	{
+		// Setup for normal exposures
+		updateDAObjConf();
+	}
 
-// Added by RDK
-    // Update the attribute-value table. Intended to provide backwards
-    // compatibility to make possible to translate science programs created 
-    // with the previous version of the OT
-    public void avTableUpdate()
+	// Added by RDK
+	// Update the attribute-value table. Intended to provide backwards
+	// compatibility to make possible to translate science programs created 
+	// with the previous version of the OT
+	public void avTableUpdate()
 	{
 		if( _avTable.get( ATTR_VERSION ).equals( "1" ) )
 		{
-
 			// Update imager value for current OT
 			String imager = getImager();
 
@@ -3799,8 +3758,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			{
 				// Old OT had imager names like 0.12, 0.06+IJM, etc. We want to strip
 				// off the +IJM and just leave the plate scale.
-				StringTokenizer st = new StringTokenizer( imager , "+" );
-				_avTable.set( ATTR_IMAGER , st.nextToken() );
+				String[] split = imager.split( "+" ) ;
+				_avTable.set( ATTR_IMAGER , split[ 0 ] );
 			}
 
 			// Convert readoutOT value to DAConf value by looking for a match in the MODES_OT table
@@ -3826,12 +3785,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			String oldCols = st2.nextToken();
 			for( int i = 0 ; i < MODES_OT.getNumRows() ; i++ )
 			{
-				String mode = ( String ) MODES_OT.elementAt( i , 1 );
-				String rows = ( String ) MODES_OT.elementAt( i , 3 );
-				String cols = ( String ) MODES_OT.elementAt( i , 4 );
+				String mode = ( String )MODES_OT.elementAt( i , 1 );
+				String rows = ( String )MODES_OT.elementAt( i , 3 );
+				String cols = ( String )MODES_OT.elementAt( i , 4 );
 				if( oldMode.equalsIgnoreCase( mode ) && oldRows.equalsIgnoreCase( rows ) && oldCols.equalsIgnoreCase( cols ) )
 				{
-					String DAConf = ( String ) MODES_OT.elementAt( i , 0 );
+					String DAConf = ( String )MODES_OT.elementAt( i , 0 );
 					setDAConf( DAConf );
 					setDAConfMinExpT( DAConf );
 				}
@@ -3846,39 +3805,41 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			setDAConfMinExpT( DAConf );
 		}
 	}
-// End of added by RDK
 
-/**
- * This method gets the acquisition time. It really is an estimate of how long users run movie for. For UIST, we will return 5 minutes for objects fainter than 13th magnitude, 1 minute otherwise (or 0 is we are not in spectroscopy mode).
- */
-public double getAcqTime() {
-    double rtn = 0.0;
-    if ( !isImaging() ) { // Only deal with spectroscopy
-        // Get the source magnitude
-        int mag;
-        String magString = getSourceMag();
-        String [] magArray = magString.split("[^0-9]");
-        try {
-            mag =  Integer.parseInt(magArray[0]);
-            if ( mag >= 13 ) {
-                rtn = 5 * 60.0;
-            }
-            else {
-                rtn = 1 * 60.0;
-            }
-        }
-        catch ( NumberFormatException e ) {
-            // We don't know what the magnitude is, so
-            // assume it is faint
-            rtn = 5 * 60.0;
-        }
-    }
-    return rtn;
-}
+	// End of added by RDK
+
+	/**
+	 * This method gets the acquisition time. It really is an estimate of how long users run movie for. For UIST, we will return 5 minutes for objects fainter than 13th magnitude, 1 minute otherwise (or 0 is we are not in spectroscopy mode).
+	 */
+	public double getAcqTime()
+	{
+		double rtn = 0. ;
+		if( !isImaging() )
+		{ 
+			// Only deal with spectroscopy
+			// Get the source magnitude
+			int mag;
+			String magString = getSourceMag();
+			String[] magArray = magString.split( "[^0-9]" );
+			try
+			{
+				mag = Integer.parseInt( magArray[ 0 ] );
+				if( mag >= 13 )
+					rtn = 5 * 60. ;
+				else
+					rtn = 1 * 60. ;
+			}
+			catch( NumberFormatException e )
+			{
+				// We don't know what the magnitude is, so assume it is faint
+				rtn = 5 * 60.0;
+			}
+		}
+		return rtn;
+	}
 
 	public Hashtable getConfigItems()
 	{
-
 		double et = getExpTimeOT();
 		et = limitExpTimeOT( et );
 		String daconf = getDAConf( et );
@@ -3891,9 +3852,11 @@ public double getAcqTime() {
 		t.put( "instPort" , getPort() );
 		t.put( "camera" , getCamera() );
 		t.put( "imager" , getImager() );
-		String filter = getFilter() ;
+		
+		String filter = getFilter();
 		if( filter.equals( "Kshort" ) )
-			filter = "K_s_MK" ;
+			filter = "K_s_MK";
+		
 		t.put( "filter" , filter );
 		t.put( "focus" , getFocus() );
 		t.put( "polarimetry" , ( isPolarimetry() ? "yes" : "no" ) );
@@ -3912,14 +3875,12 @@ public double getAcqTime() {
 		t.put( "exposureTime" , getExposureTimeString() );
 		t.put( "readInterval" , "" + getReadInterval() );
 		t.put( "chopFrequency" , getChopFreqRound() );
-		if( Double.parseDouble( getChopFreq() ) == 0.0 )
-		{
+		
+		if( Double.parseDouble( getChopFreq() ) == 0. )
 			t.put( "chopDelay" , "0.0" );
-		}
 		else
-		{
 			t.put( "chopDelay" , "" + getChopDelay() );
-		}
+
 		t.put( "coadds" , "" + getCoadds() );
 		t.put( "dutyCycle" , getDutyCycle() );
 		t.put( "observationTime" , "" + getObservationTime() );
@@ -3940,11 +3901,11 @@ public double getAcqTime() {
 		return t;
 	}
 
-	  public boolean canUpdatePosAngle()
-	  {
-		  // hard coded euuuwwww !
-		  if( isImaging() )
-			  return ( isPolarimetry() || getMask().equals( "coronograph" ) ) ;
-		  return true ;
-	  }  
+	public boolean canUpdatePosAngle()
+	{
+		// hard coded euuuwwww !
+		if( isImaging() )
+			return( isPolarimetry() || getMask().equals( "coronograph" ) );
+		return true;
+	}
 }

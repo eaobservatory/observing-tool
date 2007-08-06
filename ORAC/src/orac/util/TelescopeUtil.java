@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.util;
 
 import orac.validation.SpValidation;
@@ -25,83 +24,85 @@ import orac.validation.SpValidation;
  *
  * @author Martin Folger
  */
-public interface TelescopeUtil {
+public interface TelescopeUtil
+{
+	/**
+	 * Target Information Component, Tab "Chop Settings".
+	 *
+	 * Do <i>not</i> confuse with Telescope Position Editor features.
+	 */
+	public static final int FEATURE_TARGET_INFO_CHOP = 0;
 
-  /**
-   * Target Information Component, Tab "Chop Settings".
-   *
-   * Do <i>not</i> confuse with Telescope Position Editor features.
-   */
-  public static final int FEATURE_TARGET_INFO_CHOP        = 0;
+	/**
+	 * Target Information Component, Tab "Proper Motion".
+	 *
+	 * Do <i>not</i> confuse with Telescope Position Editor features.
+	 */
+	public static final int FEATURE_TARGET_INFO_PROP_MOTION = 1;
 
-  /**
-   * Target Information Component, Tab "Proper Motion".
-   *
-   * Do <i>not</i> confuse with Telescope Position Editor features.
-   */
-  public static final int FEATURE_TARGET_INFO_PROP_MOTION = 1;
+	/**
+	 * Target Information Component, Tab "Tracking Details".
+	 *
+	 * Do <i>not</i> confuse with Telescope Position Editor features.
+	 */
+	public static final int FEATURE_TARGET_INFO_TRACKING = 2;
 
-  /**
-   * Target Information Component, Tab "Tracking Details".
-   *
-   * Do <i>not</i> confuse with Telescope Position Editor features.
-   */
-  public static final int FEATURE_TARGET_INFO_TRACKING    = 2;
+	/**
+	 * Offset iterator, PA.
+	 */
+	public static final int FEATURE_OFFSET_GRID_PA = 3;
 
+	/**
+	 * "Flag as standard" option on Observation component.
+	 */
+	public static final int FEATURE_FLAG_AS_STANDARD = 4;
+	public static final String CHOP = "chop";
 
-  /**
-   * Offset iterator, PA.
-   */
-  public static final int FEATURE_OFFSET_GRID_PA          = 3;
+	/** TCS radial velocity definitions */
+	public static final String[] TCS_RV_DEFINITIONS = { "radio" , "optical" , "redshift" };
 
-  /**
-   * "Flag as standard" option on Observation component.
-   */
-  public static final int FEATURE_FLAG_AS_STANDARD        = 4;
+	/** TCS radial velocity frames */
+	public static final String[] TCS_RV_FRAMES = 
+	{ 
+		"LSRK" , 
+		"HELIOCENTRIC" , 
+		"BARYCENTRIC" , 
+		"GEOCENTRIC" , 
+		"TOPOCENTRIC" 
+	} ;
 
-  public static final String CHOP = "chop";
+	public SpValidation getValidationTool();
 
-  /** TCS radial velocity definitions */
-  public static final String [] TCS_RV_DEFINITIONS = { "radio", "optical", "redshift" };
+	/**
+	 * Get telescope specific base tag.
+	 *
+	 * For example "Base" for UKIRT and "Science" for JCMT.
+	 */
+	public String getBaseTag();
 
-  /** TCS radial velocity frames */
-	public static final String[] TCS_RV_FRAMES =
-	{ "LSRK" , "HELIOCENTRIC" , "BARYCENTRIC" , "GEOCENTRIC" , "TOPOCENTRIC" };
+	/**
+	 * Returns true if the user input for targetTag
+	 * should be interpreted as offsets.
+	 *
+	 * E.g. "reference" position for ACSIS/JCMT.
+	 */
+	public boolean isOffsetTarget( String targetTag );
 
-  public SpValidation getValidationTool();
+	public boolean supports( int feature );
 
+	public void installPreTranslator() throws Exception;
 
-  /**
-   * Get telescope specific base tag.
-   *
-   * For example "Base" for UKIRT and "Science" for JCMT.
-   */
-  public String    getBaseTag();
+	/**
+	 * Returns an array of default coordinates.
+	 *
+	 * To be used to target information component.
+	 */
+	public String[] getCoordSys();
 
-  /**
-   * Returns true if the user input for targetTag
-   * should be interpreted as offsets.
-   *
-   * E.g. "reference" position for ACSIS/JCMT.
-   */
-  public boolean isOffsetTarget(String targetTag);
-
-  public boolean supports(int feature);
-
-  public void installPreTranslator() throws Exception;
-
-  /**
-   * Returns an array of default coordinates.
-   *
-   * To be used to target information component.
-   */
-  public String [] getCoordSys();
-
-  /**
-   * Returns an array of coordinate system for a given purpose.
-   *
-   * @param purpose E.g. Chop, Jiggle, Offset etc.
-   */
-  public String [] getCoordSysFor(String purpose);
+	/**
+	 * Returns an array of coordinate system for a given purpose.
+	 *
+	 * @param purpose E.g. Chop, Jiggle, Offset etc.
+	 */
+	public String[] getCoordSysFor( String purpose );
 }
-

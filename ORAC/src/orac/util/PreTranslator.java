@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package orac.util;
 
 import org.apache.xerces.dom.ElementImpl;
@@ -19,20 +18,19 @@ import org.apache.xerces.dom.ElementImpl;
  *
  * @author Martin Folger
  */
-public interface PreTranslator {
+public interface PreTranslator
+{
+	/**
+	 * Applies telescope specific changes.
+	 *
+	 * @param  element DOM element from {@link orac.util.SpItemDOM}
+	 */
+	public void translate( ElementImpl element ) throws Exception;
 
-  /**
-   * Applies telescope specific changes.
-   *
-   * @param  element DOM element from {@link orac.util.SpItemDOM}
-   */
-  public void translate(ElementImpl element) throws Exception;
-
-  /**
-   * Removes telescope specific changes.
-   *
-   * @param  element DOM element from {@link orac.util.SpItemDOM}
-   */  
-  public void reverse(ElementImpl element) throws Exception;
+	/**
+	 * Removes telescope specific changes.
+	 *
+	 * @param  element DOM element from {@link orac.util.SpItemDOM}
+	 */
+	public void reverse( ElementImpl element ) throws Exception;
 }
-
