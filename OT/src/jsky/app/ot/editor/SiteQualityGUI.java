@@ -1,4 +1,3 @@
-
 /**
  * Title:        JSky<p>
  * Description:  <p>
@@ -9,14 +8,23 @@
  */
 package jsky.app.ot.editor;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import jsky.app.ot.gui.*;
+import java.awt.GridLayout ;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Color ;
+import java.awt.Dimension ;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.BorderFactory ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.Border ;
+import javax.swing.border.EtchedBorder ;
+import jsky.app.ot.gui.OptionWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
 
-public class SiteQualityGUI extends JPanel 
+public class SiteQualityGUI extends JPanel
 {
-
 	GridLayout gridLayout1 = new GridLayout( 3 , 2 );
 	JPanel jPanel1 = new JPanel();
 	JPanel jPanel2 = new JPanel();
@@ -62,21 +70,23 @@ public class SiteQualityGUI extends JPanel
 	JLabel minLabel3 = new JLabel();
 	JLabel maxLabel3 = new JLabel();
 	JLabel blankLabel = new JLabel();
-
 	JLabel skyUnits = new JLabel();
 	JLabel skyWarning = new JLabel();
 	JLabel skyWarningExtended = new JLabel();
-	
-    public SiteQualityGUI() {
-        try {
-            jbInit();
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    void jbInit() throws Exception
+	public SiteQualityGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception ex )
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	void jbInit() throws Exception
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Seeing" );
 		border1 = new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) );
@@ -153,11 +163,11 @@ public class SiteQualityGUI extends JPanel
 		cloudPhotometric.setText( "Photometric (no attenuation variability)" );
 
 		skyUnits.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		skyUnits.setText( "mag.arcsec^-2" ) ;
+		skyUnits.setText( "mag.arcsec^-2" );
 		skyWarning.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		skyWarning.setText( "Max is the maximum acceptable brightness" ) ;
+		skyWarning.setText( "Max is the maximum acceptable brightness" );
 		skyWarningExtended.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		skyWarningExtended.setText( "( numerically smaller than Min )" ) ;
+		skyWarningExtended.setText( "( numerically smaller than Min )" );
 
 		jPanel1.add( seeingAllocated , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		jPanel1.add( seeingUserDefined , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
@@ -181,8 +191,8 @@ public class SiteQualityGUI extends JPanel
 		jPanel4.add( cloudThinCirrus , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		jPanel4.add( cloudPhotometric , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		jPanel5.add( skyUnits , new GridBagConstraints( 1 , 0 , 0 , 0 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		
+		jPanel5.add( skyUnits , new GridBagConstraints( 1 , 0 , 0 , 0 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
 		jPanel5.add( skyAllocated , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		jPanel5.add( skyUserDefined , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		jPanel5.add( minLabel3 , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
@@ -190,10 +200,9 @@ public class SiteQualityGUI extends JPanel
 		jPanel5.add( minSky , new GridBagConstraints( 2 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		jPanel5.add( maxSky , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
-		jPanel5.add( skyWarning , new GridBagConstraints( 0 , 3 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		jPanel5.add( skyWarningExtended , new GridBagConstraints( 0 , 4 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		jPanel5.add( skyWarning , new GridBagConstraints( 0 , 3 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel5.add( skyWarningExtended , new GridBagConstraints( 0 , 4 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		
 		jPanel6.add( blankLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
 		this.add( jPanel1 );

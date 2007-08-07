@@ -39,20 +39,20 @@ import ot.OtConstants;
 import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
 
-import ot.util.Horizons ;
-import java.util.TreeMap ;
-import java.util.Vector ;
-import ot.ReportBox ; 
+import ot.util.Horizons;
+import java.util.TreeMap;
+import java.util.Vector;
+import ot.ReportBox;
 
-import java.awt.Color ;
+import java.awt.Color;
 
-import gemini.sp.SpTreeMan ;
-import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpInstObsComp;
 
-import orac.util.CoordConvert ;
-import gemini.util.RADec ;
-import gemini.util.HHMMSS ;
-import gemini.util.DDMMSS ;
+import orac.util.CoordConvert;
+import gemini.util.RADec;
+import gemini.util.HHMMSS;
+import gemini.util.DDMMSS;
 
 // MFO, June 06, 2002:
 //   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -66,53 +66,42 @@ import gemini.util.DDMMSS ;
 /**
  * This is the editor for the target list component.
  */
-public class EdCompTargetList extends OtItemEditor
-    implements TelescopePosWatcher, TableWidgetWatcher, ActionListener,
-               ChangeListener, TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher, OtConstants {
+public class EdCompTargetList extends OtItemEditor implements TelescopePosWatcher , TableWidgetWatcher , ActionListener , ChangeListener , TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , OtConstants
+{
+	/** String used in DropDownListBoxWidgetExt namedTarget. */
+	private static final String SELECT_TARGET = "<Select Target>";
 
-    /** String used in DropDownListBoxWidgetExt namedTarget. */
-    private static final String SELECT_TARGET = "<Select Target>";
+	public static final String LABEL_RA = "Ra";
+	public static final String LABEL_DEC = "Dec";
 
-    public static final String LABEL_RA     = "Ra";
-    public static final String LABEL_DEC    = "Dec";
+	// Frequently used widgets
+	private DropDownListBoxWidgetExt _tag; // Object ID/Type
+	private DropDownListBoxWidgetExt _type; // Object type
+	protected TextBoxWidgetExt _name; // Object Name
+	protected TextBoxWidgetExt _xaxis; // RA/Az
+	protected TextBoxWidgetExt _yaxis; // Del/El
+	protected DropDownListBoxWidgetExt _system; // Coordinate System
+	private TelescopePosTableWidget _tpTable;
+	protected TelescopeGUI _w; // the GUI layout panel
+	protected SpTelescopePos _curPos; // Position being edited
+	private SpTelescopePosList _tpl; // List of positions being edited
+	private String[] _guideTags;
+	private NameResolverFeedback _nameResolverFeedback;
+	private boolean _targetSystemsChange = false;
+	private boolean _resolving = false;
+	private boolean jcmtot = false;
+	private boolean overrideDialogShown = false;
 
-    // Frequently used widgets
-    private DropDownListBoxWidgetExt _tag;	// Object ID/Type
-    private DropDownListBoxWidgetExt _type;     // Object type
-    protected TextBoxWidgetExt       _name;	// Object Name
-    protected TextBoxWidgetExt       _xaxis;	// RA/Az
-    protected TextBoxWidgetExt       _yaxis;	// Del/El
-    protected DropDownListBoxWidgetExt _system;	// Coordinate System
-
-    private TelescopePosTableWidget _tpTable;
-
-    protected TelescopeGUI          _w;         // the GUI layout panel
-
-    protected SpTelescopePos     _curPos;	// Position being edited
-    private SpTelescopePosList _tpl;	// List of positions being edited
-
-    private String [] _guideTags;
-
-    private NameResolverFeedback _nameResolverFeedback;
-
-    private boolean _targetSystemsChange = false;
-
-    private boolean _resolving = false ;
-    
-    private boolean jcmtot = false ;
-    
-    private boolean overrideDialogShown = false ;
-    
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdCompTargetList()
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompTargetList()
 	{
 		_title = "Target Information";
 		_presSource = _w = new TelescopeGUI();
 		_description = "Use this editor to enter the target information.";
-		
-		jcmtot = OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil ;
+
+		jcmtot = OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil;
 
 		// Init name resolver drop down (MFO, May29, 2001)
 		String[] catalogs = OtCfg.getNameResolvers();
@@ -130,27 +119,21 @@ public class EdCompTargetList extends OtItemEditor
 			for( int i = 0 ; i < catalogs.length ; i++ )
 			{
 				if( NameResolver.isAvailableAsCatalog( catalogs[ i ] ) )
-				{
 					_w.nameResolversDDLBW.addItem( catalogs[ i ] );
-				}
 			}
 		}
-		
+
 		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION ) )
 		{
 			_w.extrasFolder.setEnabledAt( 0 , false );
 			// Disable the contents as well
-			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 0 );
+			JPanel jp = ( JPanel )_w.extrasFolder.getComponentAt( 0 );
 			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
 			{
 				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
-				{
-					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
-				}
+					(( TextBoxWidgetExt )jp.getComponent( i )).setEditable( false );
 				else
-				{
 					jp.getComponent( i ).setEnabled( false );
-				}
 			}
 			_w.extrasFolder.setSelectedIndex( 1 );
 		}
@@ -159,17 +142,13 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			_w.extrasFolder.setEnabledAt( 1 , false );
 			// Disable the contents as well
-			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 1 );
+			JPanel jp = ( JPanel )_w.extrasFolder.getComponentAt( 1 );
 			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
 			{
 				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
-				{
-					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
-				}
+					(( TextBoxWidgetExt )jp.getComponent( i )).setEditable( false );
 				else
-				{
 					jp.getComponent( i ).setEnabled( false );
-				}
 			}
 			_w.extrasFolder.setSelectedIndex( 2 );
 		}
@@ -178,17 +157,13 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			_w.extrasFolder.setEnabledAt( 2 , false );
 			// Disable the contents as well
-			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 2 );
+			JPanel jp = ( JPanel )_w.extrasFolder.getComponentAt( 2 );
 			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
 			{
 				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
-				{
-					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
-				}
+					( ( TextBoxWidgetExt )jp.getComponent( i ) ).setEditable( false );
 				else
-				{
 					jp.getComponent( i ).setEnabled( false );
-				}
 			}
 			_w.extrasFolder.setSelectedIndex( 0 );
 		}
@@ -259,7 +234,7 @@ public class EdCompTargetList extends OtItemEditor
 					{
 						_w.targetSystemsTabbedPane.setEnabledAt( tab , true );
 						_w.targetSystemsTabbedPane.setSelectedIndex( tab );
-						Component[] component = ( ( JPanel ) _w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
+						Component[] component = ( ( JPanel )_w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
 						for( int count = 0 ; count < component.length ; count++ )
 							component[ count ].setEnabled( true );
 					}
@@ -278,11 +253,9 @@ public class EdCompTargetList extends OtItemEditor
 					{
 						_w.targetSystemsTabbedPane.setEnabledAt( tab , true );
 						_w.targetSystemsTabbedPane.setSelectedIndex( tab );
-						Component[] component = ( ( JPanel ) _w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
+						Component[] component = ( ( JPanel )_w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
 						for( int count = 0 ; count < component.length ; count++ )
-						{
 							component[ count ].setEnabled( true );
-						}
 					}
 					else
 					{
@@ -309,9 +282,7 @@ public class EdCompTargetList extends OtItemEditor
 
 		_tag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
@@ -329,9 +300,7 @@ public class EdCompTargetList extends OtItemEditor
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		_xaxis = _w.xaxisTBW;
@@ -343,8 +312,8 @@ public class EdCompTargetList extends OtItemEditor
 
 				if( ( _curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || ( ( _curPos.getCoordSys() != CoordSys.FK5 ) && ( _curPos.getCoordSys() != CoordSys.FK4 ) && ( _curPos.getCoordSys() != CoordSys.HADEC ) ) )
 				{
-					double xAxis = 0.0;
-					double yAxis = 0.0;
+					double xAxis = 0. ;
+					double yAxis = 0. ;
 
 					try
 					{
@@ -376,13 +345,13 @@ public class EdCompTargetList extends OtItemEditor
 						String currentXString = _curPos.getXaxisAsString();
 						if( !newXString.equals( currentXString ) )
 							_curPos.setXYFromString( newXString , null );
-						_w.RA_Az_STW.setForeground( Color.BLACK ) ;
+						_w.RA_Az_STW.setForeground( Color.BLACK );
 					}
 					else
 					{
 						// Show an error if the field is not blank and does not end in a :
 						if( tbwe.getText().length() > 0 )
-							_w.RA_Az_STW.setForeground( Color.RED ) ;
+							_w.RA_Az_STW.setForeground( Color.RED );
 					}
 				}
 
@@ -391,9 +360,7 @@ public class EdCompTargetList extends OtItemEditor
 				_resetPositionEditor();
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		_yaxis = _w.yaxisTBW;
@@ -405,8 +372,8 @@ public class EdCompTargetList extends OtItemEditor
 
 				if( ( _curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || ( ( _curPos.getCoordSys() != CoordSys.FK5 ) && ( _curPos.getCoordSys() != CoordSys.FK4 ) && ( _curPos.getCoordSys() != CoordSys.HADEC ) ) )
 				{
-					double xAxis = 0.0;
-					double yAxis = 0.0;
+					double xAxis = 0. ;
+					double yAxis = 0. ;
 
 					try
 					{
@@ -439,13 +406,13 @@ public class EdCompTargetList extends OtItemEditor
 						String currentYString = _curPos.getYaxisAsString();
 						if( !newYString.equals( currentYString ) )
 							_curPos.setXYFromString( null , newYString );
-						_w.Dec_El_STW.setForeground( Color.BLACK ) ;
+						_w.Dec_El_STW.setForeground( Color.BLACK );
 					}
 					else
 					{
 						// Show an error if the field is not blank and does not end in a :
 						if( tbwe.getText().length() > 0 )
-							_w.Dec_El_STW.setForeground( Color.RED ) ;
+							_w.Dec_El_STW.setForeground( Color.RED );
 					}
 				}
 
@@ -454,18 +421,14 @@ public class EdCompTargetList extends OtItemEditor
 				_resetPositionEditor();
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		_system = _w.systemDDLBW;
 		_system.setChoices( OtCfg.telescopeUtil.getCoordSys() );
 		_system.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -475,10 +438,8 @@ public class EdCompTargetList extends OtItemEditor
 
 				_updateCoordSystem();
 
-				// The call _curPos.setXY() triggers a base position observer
-				// notification so that the position editor gets updated
-				// and it causes the String representation in the SpAvTable
-				// of _curPos to be reformatted depending on the coordinate system
+				// The call _curPos.setXY() triggers a base position observer notification so that the position editor gets updated
+				// and it causes the String representation in the SpAvTable of _curPos to be reformatted depending on the coordinate system
 				// and whether _curPos is an offset position.
 				_curPos.setXY( _curPos.getXaxis() , _curPos.getYaxis() );
 
@@ -491,25 +452,23 @@ public class EdCompTargetList extends OtItemEditor
 		_w.velDefn.setChoices( TelescopeUtil.TCS_RV_DEFINITIONS );
 		_w.velDefn.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityDefn( newTag );
 				if( jcmtot )
 				{
-					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" );
 					if( refPos != null )
-						refPos.setTrackingRadialVelocityDefn( newTag ) ;
-					
+						refPos.setTrackingRadialVelocityDefn( newTag );
+
 					if( SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT.equals( newTag ) )
-						_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME ) ;
+						_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME );
 					else if( SpInstHeterodyne.RADIAL_VELOCITY_RADIO.equals( newTag ) )
-							_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.LSRK_VELOCITY_FRAME ) ;
+						_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.LSRK_VELOCITY_FRAME );
 					else if( SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL.equals( newTag ) )
-							_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.HELIOCENTRIC_VELOCITY_FRAME ) ;
+						_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.HELIOCENTRIC_VELOCITY_FRAME );
 				}
 			}
 		} );
@@ -517,18 +476,16 @@ public class EdCompTargetList extends OtItemEditor
 		_w.velFrame.setChoices( TelescopeUtil.TCS_RV_FRAMES );
 		_w.velFrame.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityFrame( newTag );
 				if( jcmtot )
 				{
-					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" );
 					if( refPos != null )
-						refPos.setTrackingRadialVelocityFrame( newTag ) ;
+						refPos.setTrackingRadialVelocityFrame( newTag );
 				}
 			}
 		} );
@@ -550,9 +507,7 @@ public class EdCompTargetList extends OtItemEditor
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		tbwe = _w.propMotionDecTBW;
@@ -565,9 +520,7 @@ public class EdCompTargetList extends OtItemEditor
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		// --- Tracking Details Page
@@ -582,9 +535,7 @@ public class EdCompTargetList extends OtItemEditor
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		tbwe = _w.detailsParallaxTBW;
@@ -597,9 +548,7 @@ public class EdCompTargetList extends OtItemEditor
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		tbwe = _w.velValue;
@@ -608,25 +557,23 @@ public class EdCompTargetList extends OtItemEditor
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
 				_curPos.deleteWatcher( EdCompTargetList.this );
-				String newValue = tbwe.getText() ;
+				String newValue = tbwe.getText();
 				_curPos.setTrackingRadialVelocity( tbwe.getText() );
 				if( jcmtot )
 				{
-					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" );
 					if( refPos != null )
-						refPos.setTrackingRadialVelocity( newValue ) ;
+						refPos.setTrackingRadialVelocity( newValue );
 				}
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		if( jcmtot )
 		{
-			_w.XYOffsetPanel.setVisible( false ) ;
+			_w.XYOffsetPanel.setVisible( false );
 		}
 		else
 		{
@@ -639,12 +586,10 @@ public class EdCompTargetList extends OtItemEditor
 					_curPos.setBaseXOffset( tbwe.getText() );
 					_curPos.deleteWatcher( EdCompTargetList.this );
 				}
-	
-				public void textBoxAction( TextBoxWidgetExt tbwe )
-				{
-				}
+
+				public void textBoxAction( TextBoxWidgetExt tbwe ){}
 			} );
-	
+
 			tbwe = _w.baseYOff;
 			tbwe.addWatcher( new TextBoxWidgetWatcher()
 			{
@@ -654,10 +599,8 @@ public class EdCompTargetList extends OtItemEditor
 					_curPos.setBaseYOffset( tbwe.getText() );
 					_curPos.deleteWatcher( EdCompTargetList.this );
 				}
-	
-				public void textBoxAction( TextBoxWidgetExt tbwe )
-				{
-				}
+
+				public void textBoxAction( TextBoxWidgetExt tbwe ){}
 			} );
 		}
 
@@ -668,13 +611,13 @@ public class EdCompTargetList extends OtItemEditor
 		// in a separate column in the target list table.
 		if( ( OtCfg.telescopeUtil.getCoordSys() != null ) && ( OtCfg.telescopeUtil.getCoordSys().length > 2 ) )
 		{
-			_tpTable.setColumnHeaders( new String[]{ "Tag" , "Name" , "X Axis" , "Y Axis" , "System" } );
-			_tpTable.setColumnWidths( new int[]{ 45 , 85 , 90 , 90 , 90 } );
+			_tpTable.setColumnHeaders( new String[] { "Tag" , "Name" , "X Axis" , "Y Axis" , "System" } );
+			_tpTable.setColumnWidths( new int[] { 45 , 85 , 90 , 90 , 90 } );
 		}
 		else
 		{
-			_tpTable.setColumnHeaders( new String[]{ "Tag" , "Name" , "X Axis" , "Y Axis" } );
-			_tpTable.setColumnWidths( new int[]{ 45 , 85 , 90 , 90 } );
+			_tpTable.setColumnHeaders( new String[] { "Tag" , "Name" , "X Axis" , "Y Axis" } );
+			_tpTable.setColumnWidths( new int[] { 45 , 85 , 90 , 90 } );
 		}
 		_tpTable.setRowSelectionAllowed( true );
 		_tpTable.setColumnSelectionAllowed( false );
@@ -686,14 +629,12 @@ public class EdCompTargetList extends OtItemEditor
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
 				// MFO TODO: see TODO in SpTelescopeObsComp.
-				( ( SpTelescopeObsComp ) _spItem ).setChopThrow( _w.chopThrow.getText() );
+				( ( SpTelescopeObsComp )_spItem ).setChopThrow( _w.chopThrow.getText() );
 				// MFO TODO: see TODO in SpTelescopeObsComp. Check whether deleteWatcher or addWatcher
 				// is needed. deleteWatcher is used twice in all the cases but that is probably a bug.
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 
 		_w.chopAngle.addWatcher( new TextBoxWidgetWatcher()
@@ -706,19 +647,16 @@ public class EdCompTargetList extends OtItemEditor
 				// gemini.sp.obsComp.SpTelescopeObsComp.setChopAngle() because it is telescope specific.
 				// SpTelescopeObsComp however is generic and does not contain telescope specific code.
 				// EdCompTargetList on the other hand contains telescope specific code already.
-				( ( SpTelescopeObsComp ) _spItem ).setChopAngle( validateChopAngle( _w.chopAngle.getText() ) );
+				( ( SpTelescopeObsComp )_spItem ).setChopAngle( validateChopAngle( _w.chopAngle.getText() ) );
 
 				// MFO TODO: see TODO in SpTelescopeObsComp.
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} );
 	}
 
-
-    /**
+	/**
 	 * Show the given SpTelescopePos.
 	 */
 	public void showPos( SpTelescopePos tp )
@@ -786,76 +724,77 @@ public class EdCompTargetList extends OtItemEditor
 
 		_w.velDefn.setValue( tp.getTrackingRadialVelocityDefn() );
 		_w.velFrame.setValue( tp.getTrackingRadialVelocityFrame() );
-
 	}
 
-    //
-    // Configure the text prompts on the x and y axis boxes.
-    //
-    private void _setXYAxisBoxPrompts(String xPrompt, String yPrompt) {
-	JLabel stw;
+	//
+	// Configure the text prompts on the x and y axis boxes.
+	//
+	private void _setXYAxisBoxPrompts( String xPrompt , String yPrompt )
+	{
+		JLabel stw;
 
-	stw = _w.RA_Az_STW;
-	stw.setText(xPrompt);
+		stw = _w.RA_Az_STW;
+		stw.setText( xPrompt );
 
-	stw = _w.Dec_El_STW;
-	stw.setText(yPrompt);
-    }
-
-    //
-    // Show the coordinate system and update the other widgets based upon it.
-    //
-    private void _setCoordSys(SpTelescopePos tp) {
-	int sysIndex = tp.getCoordSys();
-	_system.setValue( sysIndex );
-
-	if(tp.isOffsetPosition() && !tp.isBasePosition() ) {
-	  _setXYAxisBoxPrompts(CoordSys.X_AXIS_LABEL[_system.getIntegerValue()],
-	                       CoordSys.Y_AXIS_LABEL[_system.getIntegerValue()]);
-	  return;
+		stw = _w.Dec_El_STW;
+		stw.setText( yPrompt );
 	}
 
-	switch (sysIndex) {
-	/*case CoordSys.APPARENT:  */
-	case CoordSys.FK5:
-	case CoordSys.FK4:
-	    _setXYAxisBoxPrompts(LABEL_RA, LABEL_DEC);
+	//
+	// Show the coordinate system and update the other widgets based upon it.
+	//
+	private void _setCoordSys( SpTelescopePos tp )
+	{
+		int sysIndex = tp.getCoordSys();
+		_system.setValue( sysIndex );
 
-	    // Enable the folder widget
-	    JTabbedPane fwe;
-	    fwe = _w.extrasFolder;
-	    
+		if( tp.isOffsetPosition() && !tp.isBasePosition() )
+		{
+			_setXYAxisBoxPrompts( CoordSys.X_AXIS_LABEL[ _system.getIntegerValue() ] , CoordSys.Y_AXIS_LABEL[ _system.getIntegerValue() ] );
+			return;
+		}
 
-	    // Set the Equinox and Proper Motion
-	    TextBoxWidgetExt tbw;
+		switch( sysIndex )
+		{
+			case CoordSys.FK5 :
+			case CoordSys.FK4 :
+				_setXYAxisBoxPrompts( LABEL_RA , LABEL_DEC );
 
-	    if (sysIndex == CoordSys.FK4) {
-		tbw = _w.propMotionRATBW;
-		tbw.setText("fictitious");
-		tbw = _w.propMotionDecTBW;
-		tbw.setText("fictitious");
-	    } else {
-		tbw = _w.propMotionRATBW;
-		tbw.setText("0");
-		tbw = _w.propMotionDecTBW;
-		tbw.setText("0");
-	    }
-	    tbw = _w.velValue;
-	    tbw.setText("0");
-	    break;
-	case CoordSys.AZ_EL: 
-	    _setXYAxisBoxPrompts("Az", "El");
-	    // Enable the folder widget
-	    fwe = _w.extrasFolder;
+				// Enable the folder widget
+				JTabbedPane fwe;
+				fwe = _w.extrasFolder;
 
-	    //fwe.setEnabledAt(1, false);
-	    fwe.setEnabledAt(2, false);
-	    break;
+				// Set the Equinox and Proper Motion
+				TextBoxWidgetExt tbw;
+
+				if( sysIndex == CoordSys.FK4 )
+				{
+					tbw = _w.propMotionRATBW;
+					tbw.setText( "fictitious" );
+					tbw = _w.propMotionDecTBW;
+					tbw.setText( "fictitious" );
+				}
+				else
+				{
+					tbw = _w.propMotionRATBW;
+					tbw.setText( "0" );
+					tbw = _w.propMotionDecTBW;
+					tbw.setText( "0" );
+				}
+				tbw = _w.velValue;
+				tbw.setText( "0" );
+				break;
+			case CoordSys.AZ_EL :
+				_setXYAxisBoxPrompts( "Az" , "El" );
+				// Enable the folder widget
+				fwe = _w.extrasFolder;
+
+				fwe.setEnabledAt( 2 , false );
+				break;
+		}
 	}
-    }
 
-
-    /**
+	/**
 	 * Implements the _updateWidgets method from OtItemEditor in order to
 	 * setup the widgets to show the current values of the item.
 	 */
@@ -872,15 +811,11 @@ public class EdCompTargetList extends OtItemEditor
 			_selectTargetSystemTab( _curPos );
 		}
 
+		// update the conic or named system widgets depending on selection.
 		if( _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL )
-		{
 			_w.offsetCheckBox.setValue( _curPos.isOffsetPosition() );
-		}
 		else
-		{
-			// update the conic or named system widgets depending on selection.
 			_updateTargetSystemPane( _curPos );
-		}
 
 		TelescopePosEditor tpe = TpeManager.get( _spItem );
 		if( tpe != null )
@@ -893,18 +828,18 @@ public class EdCompTargetList extends OtItemEditor
 		_w.chopThrow.setEnabled( _w.chopping.isSelected() );
 		_w.chopAngle.setEnabled( _w.chopping.isSelected() );
 
-		_w.xaxisTBW.setText( _curPos.getRealXaxisAsString() ) ;
-		_w.yaxisTBW.setText( _curPos.getRealYaxisAsString() ) ;
-		_w.baseXOff.setText( "" + _curPos.getBaseXOffset() ) ;
-		_w.baseYOff.setText( "" + _curPos.getBaseYOffset() ) ;
-		
+		_w.xaxisTBW.setText( _curPos.getRealXaxisAsString() );
+		_w.yaxisTBW.setText( _curPos.getRealYaxisAsString() );
+		_w.baseXOff.setText( "" + _curPos.getBaseXOffset() );
+		_w.baseYOff.setText( "" + _curPos.getBaseYOffset() );
+
 		_updateXYUnitsLabels();
 
 		// Set the type based on the current contents of the component
 		_type.setSelectedIndex( _curPos.getSystemType() );
 	}
 
-    /**
+	/**
 	 * Watch TableWidget row selections to make the selected row the currently displayed position.
 	 * 
 	 * @see TableWidgetWatcher
@@ -912,21 +847,19 @@ public class EdCompTargetList extends OtItemEditor
 	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 	{
 		if( twe != _tpTable )
-		{
 			return; // shouldn't happen
-		}
 
 		// Show the selected position
 		if( _curPos != null )
 			_curPos.deleteWatcher( this );
-		
+
 		_curPos = _tpTable.getSelectedPos();
-		
+
 		if( _curPos != _tpl.getBasePosition() )
 		{
 			if( jcmtot )
 			{
-				enableVelocitiesPanel( false ) ;	
+				enableVelocitiesPanel( false );
 			}
 			else
 			{
@@ -942,10 +875,10 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			if( jcmtot )
 			{
-				boolean enable = _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ;
-				enableVelocitiesPanel( enable ) ;
+				boolean enable = _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL;
+				enableVelocitiesPanel( enable );
 				if( !enable )
-					overrideVelocityFrame() ;
+					overrideVelocityFrame();
 			}
 			else
 			{
@@ -957,7 +890,7 @@ public class EdCompTargetList extends OtItemEditor
 				_w.baseYOffUnits.setVisible( true );
 			}
 		}
-		
+
 		_curPos.addWatcher( this );
 		showPos( _curPos );
 		_selectTargetSystemTab( _curPos );
@@ -976,64 +909,53 @@ public class EdCompTargetList extends OtItemEditor
 
 		_updateXYUnitsLabels();
 
-		if( _curPos.getTag().equals( SpTelescopePos.BASE_TAG ) )
-			_w.removeButton.setEnabled( false );
-		else
-			_w.removeButton.setEnabled( true );
+		_w.removeButton.setEnabled( !_curPos.getTag().equals( SpTelescopePos.BASE_TAG ) ) ;
 
-		// Make sure the tag selection is disabled while the base position is selected.
-		// The base position tag cannot be changed.
-		if( _tag.getValue().equals( SpTelescopePos.BASE_TAG ) || _nextTag() == null )
-			_tag.setEnabled( false );
-		else
-			_tag.setEnabled( true );
+		// Make sure the tag selection is disabled while the base position is selected. The base position tag cannot be changed.
+		_tag.setEnabled( !_tag.getValue().equals( SpTelescopePos.BASE_TAG ) && _nextTag() != null ) ;
 
 		String nextTag = _nextTag();
 
-		// Make sure the tag selection and newButton are disabled when all possible tags
-		// have been added.
-		if( nextTag != null )
-			_w.newButton.setEnabled( true );
-		else
-			_w.newButton.setEnabled( false );
+		// Make sure the tag selection and newButton are disabled when all possible tags have been added.
+		_w.newButton.setEnabled( nextTag != null );
 
-		if( _tpl.size() < 2 )
-			_w.removeButton.setEnabled( false );
+		_w.removeButton.setEnabled( _tpl.size() >= 2 );
 	}
 
-    /**
+	/**
 	 * As part of the TableWidgetWatcher interface, we must watch table actions, though not interested in them.
 	 * 
 	 * @see TableWidgetWatcher
 	 */
-    public void	tableAction(TableWidgetExt twe, int colIndex, int rowIndex) {}
+	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ){}
 
-
-    /**
-     * The current position location has changed.
-     * @see TelescopePosWatcher
-     */
-    public void	telescopePosLocationUpdate(TelescopePos tp) {
-	telescopePosGenericUpdate(tp);
-    }
- 
-    /**
-     * The current position has changed in some way.
-     * @see TelescopePosWatcher
-     */
-    public void	telescopePosGenericUpdate(TelescopePos tp) {
-	if (tp != _curPos) {
-	    // This shouldn't happen ...
-	    System.out.println(getClass().getName() + ": received a position " +
-			       " update for a position other than the current one: " + tp);
-	    return;
+	/**
+	 * The current position location has changed.
+	 * @see TelescopePosWatcher
+	 */
+	public void telescopePosLocationUpdate( TelescopePos tp )
+	{
+		telescopePosGenericUpdate( tp );
 	}
-	showPos(_curPos);
-    }
- 
-    /*
-	*  Update the state based upon the current coordinate system.
-	*/
+
+	/**
+	 * The current position has changed in some way.
+	 * @see TelescopePosWatcher
+	 */
+	public void telescopePosGenericUpdate( TelescopePos tp )
+	{
+		if( tp != _curPos )
+		{
+			// This shouldn't happen ...
+			System.out.println( getClass().getName() + ": received a position " + " update for a position other than the current one: " + tp );
+			return;
+		}
+		showPos( _curPos );
+	}
+
+	/*
+	 *  Update the state based upon the current coordinate system.
+	 */
 	private void _updateCoordSystem()
 	{
 		String coordSys = _system.getStringValue();
@@ -1041,75 +963,75 @@ public class EdCompTargetList extends OtItemEditor
 		int sysInt = CoordSys.getSystem( coordSys );
 		Assert.notFalse( sysInt != -1 );
 
-		int current = _curPos.getCoordSys() ;
-		String currentSystem = CoordSys.COORD_SYS[ current ] ;
-		
-		double ra = 0. ;
-		double dec = 0. ;
-		
+		int current = _curPos.getCoordSys();
+		String currentSystem = CoordSys.COORD_SYS[ current ];
+
+		double ra = 0.;
+		double dec = 0.;
+
 		if( current == CoordSys.FK5 || current == CoordSys.FK4 )
 		{
-			ra = HHMMSS.valueOf( _curPos.getXaxisAsString() ) ;
-			dec = DDMMSS.valueOf( _curPos.getYaxisAsString() ) ;
+			ra = HHMMSS.valueOf( _curPos.getXaxisAsString() );
+			dec = DDMMSS.valueOf( _curPos.getYaxisAsString() );
 		}
 		else
 		{
-			ra = _curPos.getRealXaxis() ;
-			dec = _curPos.getRealYaxis() ;
+			ra = _curPos.getRealXaxis();
+			dec = _curPos.getRealYaxis();
 		}
-		
-		RADec raDec = null ;
-		
+
+		RADec raDec = null;
+
 		if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
 		{
-			raDec = CoordConvert.Fk54z( ra , dec ) ;			
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.Fk54z( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
 		{
-			raDec = CoordConvert.Fk45z( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.Fk45z( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
 		{
-			raDec = CoordConvert.fk52gal( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.fk52gal( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
 		{
-			raDec = CoordConvert.gal2fk5( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.gal2fk5( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
 		{
-			raDec = CoordConvert.gal2fk4( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.gal2fk4( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
 		{
-			raDec = CoordConvert.fk42gal( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
+			raDec = CoordConvert.fk42gal( ra , dec );
+			ra = raDec.ra;
+			dec = raDec.dec;
 		}
 		else
 		{
 			// Cannot do the conversion
-			ra = 0. ;
-			dec = 0. ;
+			ra = 0.;
+			dec = 0.;
 		}
-		
+
 		_curPos.setCoordSys( sysInt );
-		_curPos.setXY( ra , dec ) ;
+		_curPos.setXY( ra , dec );
 
 		showPos( _curPos );
 	}
 
-    /**
+	/**
 	 * Set the labels for the x and y coordinate text boxes.
 	 * 
 	 * <pre><tt>
@@ -1120,22 +1042,22 @@ public class EdCompTargetList extends OtItemEditor
 	 */
 	private void _updateXYUnitsLabels()
 	{
-		String units = "" ;
+		String units = "";
 		if( _curPos.isOffsetPosition() && !_curPos.isBasePosition() )
 		{
-			units = "(arcsecs)" ;
+			units = "(arcsecs)";
 		}
 		else
 		{
-			int system = _curPos.getCoordSys() ;
+			int system = _curPos.getCoordSys();
 			if( ( system != CoordSys.FK5 ) && ( system != CoordSys.FK4 ) && ( system != CoordSys.HADEC ) )
-				units = "(degrees)" ;
+				units = "(degrees)";
 		}
-		_w.xUnitsLabel.setText( units ) ;
-		_w.yUnitsLabel.setText( units ) ;
+		_w.xUnitsLabel.setText( units );
+		_w.yUnitsLabel.setText( units );
 	}
 
-    /**
+	/**
 	 * Updates the labels of Orbital Elements on the Conic System Tab.
 	 * 
 	 * The labels are updated according to the selected Conic System type (Major, Minor, Comet).
@@ -1143,91 +1065,92 @@ public class EdCompTargetList extends OtItemEditor
 	 * @param conicSystemType
 	 *            Use SpTelescopePos.TYPE_MAJOR, SpTelescopePos.TYPE_MINOR, SpTelescopePos.TYPE_COMET
 	 */
-    private void _setConicSystemType(int conicSystemType) {
-	// Reset all non displayed elements to 0
-      switch(conicSystemType) {
-        case SpTelescopePos.TYPE_MAJOR:
-	       // Epoch of perihelion
-	       _w.epochPerih.setVisible(false);
-// 	       _curPos.setConicSystemEpochPerih("0.0");
-	       _w.epochPerihLabel.setVisible(false);
-	       _w.epochPerihUnitsLabel.setVisible(false);
+	private void _setConicSystemType( int conicSystemType )
+	{
+		// Reset all non displayed elements to 0
+		switch( conicSystemType )
+		{
+			case SpTelescopePos.TYPE_MAJOR :
+				// Epoch of perihelion
+				_w.epochPerih.setVisible( false );
+				// 	       _curPos.setConicSystemEpochPerih("0.0");
+				_w.epochPerihLabel.setVisible( false );
+				_w.epochPerihUnitsLabel.setVisible( false );
 
-	       // Mean distance
-	       _w.aorqLabel.setText("a");
+				// Mean distance
+				_w.aorqLabel.setText( "a" );
 
-               // Longitude of perihelion
-	       _w.perihLabel.setText("\u03D6");
+				// Longitude of perihelion
+				_w.perihLabel.setText( "\u03D6" );
 
-	       // Longitude and daily motion
-	       _w.l_or_m.setValue(_curPos.getConicSystemLorM());
-	       _w.l_or_mLabel.setText("L");
-	       _w.l_or_m.setVisible(true);
-	       _w.l_or_mLabel.setVisible(true);
-	       _w.l_or_mUnitsLabel.setVisible(true);
+				// Longitude and daily motion
+				_w.l_or_m.setValue( _curPos.getConicSystemLorM() );
+				_w.l_or_mLabel.setText( "L" );
+				_w.l_or_m.setVisible( true );
+				_w.l_or_mLabel.setVisible( true );
+				_w.l_or_mUnitsLabel.setVisible( true );
 
-	       _w.dm.setValue(_curPos.getConicSystemDailyMotion());
-	       _w.dm.setVisible(true);
-	       _w.dmLabel.setVisible(true);
-	       _w.dmUnitsLabel.setVisible(true);
+				_w.dm.setValue( _curPos.getConicSystemDailyMotion() );
+				_w.dm.setVisible( true );
+				_w.dmLabel.setVisible( true );
+				_w.dmUnitsLabel.setVisible( true );
 
-	       break;
+				break;
 
-        case SpTelescopePos.TYPE_MINOR:
-	       // Epoch of perihelion
-	       _w.epochPerih.setVisible(false);
-	       _w.epochPerihLabel.setVisible(false);
-	       _w.epochPerihUnitsLabel.setVisible(false);
-// 	       _curPos.setConicSystemEpochPerih("0.0");
+			case SpTelescopePos.TYPE_MINOR :
+				// Epoch of perihelion
+				_w.epochPerih.setVisible( false );
+				_w.epochPerihLabel.setVisible( false );
+				_w.epochPerihUnitsLabel.setVisible( false );
+				// 	       _curPos.setConicSystemEpochPerih("0.0");
 
-	       // Mean distance
-	       _w.aorqLabel.setText("a");
+				// Mean distance
+				_w.aorqLabel.setText( "a" );
 
-               // Argument of perihelion
-	       _w.perihLabel.setText("\u03C9");
+				// Argument of perihelion
+				_w.perihLabel.setText( "\u03C9" );
 
-	       // Mean Anomaly
-	       _w.l_or_m.setValue(_curPos.getConicSystemLorM());
-	       _w.l_or_mLabel.setText("M");
-	       _w.l_or_m.setVisible(true);
-	       _w.l_or_mLabel.setVisible(true);
-	       _w.l_or_mUnitsLabel.setVisible(true);
+				// Mean Anomaly
+				_w.l_or_m.setValue( _curPos.getConicSystemLorM() );
+				_w.l_or_mLabel.setText( "M" );
+				_w.l_or_m.setVisible( true );
+				_w.l_or_mLabel.setVisible( true );
+				_w.l_or_mUnitsLabel.setVisible( true );
 
-	       // No daily motion
-	       _w.dm.setVisible(false);
-	       _w.dmLabel.setVisible(false);
-	       _w.dmUnitsLabel.setVisible(false);
-// 	       _curPos.setConicSystemDailyMotion("0.0");
+				// No daily motion
+				_w.dm.setVisible( false );
+				_w.dmLabel.setVisible( false );
+				_w.dmUnitsLabel.setVisible( false );
+				// 	       _curPos.setConicSystemDailyMotion("0.0");
 
-               break;
+				break;
 
-        // Comet
-	default:
-	       // Epoch of perihelion
-	       _w.epochPerih.setVisible(true);
-	       _w.epochPerihLabel.setVisible(true);
-	       _w.epochPerihUnitsLabel.setVisible(true);
+			// Comet
+			default :
+				// Epoch of perihelion
+				_w.epochPerih.setVisible( true );
+				_w.epochPerihLabel.setVisible( true );
+				_w.epochPerihUnitsLabel.setVisible( true );
 
-	       // Perihelion distance
-	       _w.aorqLabel.setText("q");
+				// Perihelion distance
+				_w.aorqLabel.setText( "q" );
 
-               // Argument of perihelion
-	       _w.perihLabel.setText("\u03C9");
+				// Argument of perihelion
+				_w.perihLabel.setText( "\u03C9" );
 
-               // No longitude, mean anomaly, daily motion
-	       _w.l_or_m.setVisible(false);
-	       _w.l_or_mLabel.setVisible(false);
-	       _w.l_or_mUnitsLabel.setVisible(false);
-// 	       _curPos.setConicSystemLorM("0.0");
-	       _w.dm.setVisible(false);	       
-	       _w.dmLabel.setVisible(false);	       
-	       _w.dmUnitsLabel.setVisible(false);	       
-// 	       _curPos.setConicSystemDailyMotion("0.0");
-      }
-    }
+				// No longitude, mean anomaly, daily motion
+				_w.l_or_m.setVisible( false );
+				_w.l_or_mLabel.setVisible( false );
+				_w.l_or_mUnitsLabel.setVisible( false );
+				// 	       _curPos.setConicSystemLorM("0.0");
+				_w.dm.setVisible( false );
+				_w.dmLabel.setVisible( false );
+				_w.dmUnitsLabel.setVisible( false );
+				// 	       _curPos.setConicSystemDailyMotion("0.0");
+		}
+	}
 
-
-    /**
+	/**
 	 * Updates the the conic or named system widgets
 	 * depending on the target system of the selected target.
 	 */
@@ -1250,7 +1173,7 @@ public class EdCompTargetList extends OtItemEditor
 				_w.conicSystemType.setValue( tp.getConicOrNamedTypeDescription() );
 
 				_setConicSystemType( _w.conicSystemType.getIntegerValue() );
-				
+
 				break;
 
 			case SpTelescopePos.SYSTEM_NAMED :
@@ -1258,12 +1181,12 @@ public class EdCompTargetList extends OtItemEditor
 					_w.namedTarget.setValue( tp.getName() );
 				else
 					_w.namedTarget.setValue( SELECT_TARGET );
-				
+
 				break;
 		}
 	}
 
-    /**
+	/**
 	 * Updates the target system pane selection
 	 * depending on the target system of the selected target.
 	 */
@@ -1319,18 +1242,17 @@ public class EdCompTargetList extends OtItemEditor
 		_w.targetSystemsTabbedPane.addChangeListener( this );
 	}
 
-
-    private void _resetPositionEditor() {
-	// MFO: copied from ot-1.0.1 (18 June 2001)
-	// If this is the base position, update the position editor
-	if (_curPos.isBasePosition()) {
-	    TelescopePosEditor tpe = TpeManager.get(_spItem);
-	    if (tpe != null) {
-	        tpe.loadImage(TelescopePosEditor.ANY_SERVER);
-	    }
+	private void _resetPositionEditor()
+	{
+		// MFO: copied from ot-1.0.1 (18 June 2001)
+		// If this is the base position, update the position editor
+		if( _curPos.isBasePosition() )
+		{
+			TelescopePosEditor tpe = TpeManager.get( _spItem );
+			if( tpe != null )
+				tpe.loadImage( TelescopePosEditor.ANY_SERVER );
+		}
 	}
-    }
-
 
 	/**
 	 * Method to handle button actions.
@@ -1345,7 +1267,7 @@ public class EdCompTargetList extends OtItemEditor
 			if( base == null )
 				return;
 
-			String nextTag = ( String ) _w.newButton.getSelectedItem();
+			String nextTag = ( String )_w.newButton.getSelectedItem();
 
 			/*
 			 * If the user selects SKY, we create a new indexed tag starting at 0
@@ -1358,7 +1280,7 @@ public class EdCompTargetList extends OtItemEditor
 					TelescopePos p = _tpl.getPosition( nextTag + index );
 					if( p == null )
 						break;
-					index++;
+					index++ ;
 				}
 				nextTag = nextTag + index;
 			}
@@ -1367,10 +1289,10 @@ public class EdCompTargetList extends OtItemEditor
 
 			if( jcmtot )
 			{
-				SpTelescopePos basePos = _tpl.getBasePosition() ;
-				tp.setTrackingRadialVelocity( basePos.getTrackingRadialVelocity() ) ;
-				tp.setTrackingRadialVelocityDefn( basePos.getTrackingRadialVelocityDefn() ) ;
-				tp.setTrackingRadialVelocityFrame( basePos.getTrackingRadialVelocityFrame() ) ;
+				SpTelescopePos basePos = _tpl.getBasePosition();
+				tp.setTrackingRadialVelocity( basePos.getTrackingRadialVelocity() );
+				tp.setTrackingRadialVelocityDefn( basePos.getTrackingRadialVelocityDefn() );
+				tp.setTrackingRadialVelocityFrame( basePos.getTrackingRadialVelocityFrame() );
 			}
 
 			if( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR )
@@ -1442,7 +1364,7 @@ public class EdCompTargetList extends OtItemEditor
 		}
 		else if( w == _w.resolveButton )
 		{
-//			 Added by MFO
+			//			 Added by MFO
 			TelescopePosEditor tpe = TpeManager.get( _spItem );
 			if( tpe != null && tpe.isVisible() )
 			{
@@ -1454,13 +1376,13 @@ public class EdCompTargetList extends OtItemEditor
 		}
 		else if( w == _w.chopping )
 		{
-//			 chop mode tab added by MFO (3 August 2001)
+			//			 chop mode tab added by MFO (3 August 2001)
 			_w.chopThrow.setEnabled( _w.chopping.isSelected() );
 			_w.chopAngle.setEnabled( _w.chopping.isSelected() );
 
-			( ( SpTelescopeObsComp ) _spItem ).setChopping( _w.chopping.isSelected() );
-			( ( SpTelescopeObsComp ) _spItem ).setChopThrow( _w.chopThrow.getText() );
-			( ( SpTelescopeObsComp ) _spItem ).setChopAngle( _w.chopAngle.getText() );
+			( ( SpTelescopeObsComp )_spItem ).setChopping( _w.chopping.isSelected() );
+			( ( SpTelescopeObsComp )_spItem ).setChopThrow( _w.chopThrow.getText() );
+			( ( SpTelescopeObsComp )_spItem ).setChopAngle( _w.chopAngle.getText() );
 		}
 		else if( w == _w.offsetCheckBox )
 		{
@@ -1469,30 +1391,30 @@ public class EdCompTargetList extends OtItemEditor
 			else
 				_curPos.setOffsetPosition( false );
 
-			_curPos.setXY( 0.0 , 0.0 );
+			_curPos.setXY( 0. , 0. );
 
 			_updateXYUnitsLabels();
 		}
 		else if( w == _w.resolveOrbitalElementButton )
 		{
 			if( _resolving )
-				return ;
-			HorizonsThread thread = new HorizonsThread() ;
-			thread.start() ;
+				return;
+			HorizonsThread thread = new HorizonsThread();
+			thread.start();
 		}
 	}
 
-    public void stateChanged( ChangeEvent e )
+	public void stateChanged( ChangeEvent e )
 	{
-    	overrideDialogShown = false ;
+		overrideDialogShown = false;
 		if( e.getSource() == _w.targetSystemsTabbedPane )
 		{
-			Component component = _w.targetSystemsTabbedPane.getSelectedComponent() ;
+			Component component = _w.targetSystemsTabbedPane.getSelectedComponent();
 			if( component == _w.objectGBW )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL );
 				if( _curPos == _tpl.getBasePosition() )
-					enableVelocitiesPanel( true ) ;
+					enableVelocitiesPanel( true );
 				/*
 				 * See if the user has entered the name of a planet.  
 				 * If so, warn them that spherical coordinates are probably not sensible.  
@@ -1530,23 +1452,19 @@ public class EdCompTargetList extends OtItemEditor
 			else if( component == _w.conicSystemPanel )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_CONIC );
-				_curPos = _tpTable.getSelectedPos() ;
-				overrideVelocityFrame() ;
+				_curPos = _tpTable.getSelectedPos();
+				overrideVelocityFrame();
 			}
 			else if( component == _w.namedSystemPanel )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED );
-				overrideVelocityFrame() ;
+				overrideVelocityFrame();
 				/*
 				 * See if the name is one of the predefined ones.  If it is still empty, fine,
 				 * if it matches, set the choice appropriately, if it doesn't, warn the user and
 				 * clear the field if this is what they want to do.
 				 */
-				if( _name.getValue().equals( "" ) )
-				{
-					// OK, carry on
-				}
-				else
+				if( !_name.getValue().equals( "" ) )
 				{
 					boolean targetFound = false;
 					String[] namedTargets = OtCfg.getNamedTargets();
@@ -1606,7 +1524,7 @@ public class EdCompTargetList extends OtItemEditor
 		}
 	}
 
-    public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _w.epoch )
 			_curPos.setConicSystemEpoch( _w.epoch.getValue() );
@@ -1628,359 +1546,359 @@ public class EdCompTargetList extends OtItemEditor
 			_curPos.setConicSystemDailyMotion( _w.dm.getValue() );
 	}
 
-    public void textBoxAction(TextBoxWidgetExt tbwe) { }
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
-    public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) { }
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+	{
+		if( dd == _w.conicSystemType )
+		{
+			_curPos.setSystemType( SpTelescopePos.SYSTEM_CONIC );
+			_curPos.setConicOrNamedType( SpTelescopePos.CONIC_SYSTEM_TYPES[ i ] );
 
-    public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-      if(dd == _w.conicSystemType) {
-	  _curPos.setSystemType(SpTelescopePos.SYSTEM_CONIC);
-	  _curPos.setConicOrNamedType(SpTelescopePos.CONIC_SYSTEM_TYPES[i]);
+			_updateTargetSystemPane( _curPos );
+		}
+		else if( dd == _w.namedTarget )
+		{
+			_curPos.deleteWatcher( EdCompTargetList.this );
+			_curPos.setConicOrNamedType( SpTelescopePos.NAMED_SYSTEM_TYPES[ SpTelescopePos.TYPE_MAJOR ] );
 
-        _updateTargetSystemPane(_curPos);
-//         _setConicSystemType(i);
+			if( val.equals( SELECT_TARGET ) )
+			{
+				_curPos.setName( "" );
+				_name.setValue( "" );
+			}
+			else
+			{
+				_curPos.setName( val );
+				_name.setValue( val );
+				if( ( _tpl != null ) && ( _tpl.exists( "REFERENCE" ) ) )
+				{
+					// Set the object name field to the currently selected planet
+					_name.setValue( val );
+					( ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ).setName( val );
+				}
 
-	return;
-      }
-
-//      if(dd == _w.namedSystemType) {
-//        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[i]);
-//	return;
-//      }
-
-      if(dd == _w.namedTarget) {
-        _curPos.deleteWatcher(EdCompTargetList.this);
-        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
-
-        if(val.equals(SELECT_TARGET)) {
-          _curPos.setName("");
-	  _name.setValue("");
-        }
-        else {
-          _curPos.setName(val);
-	  _name.setValue(val);
-	  if ( (_tpl != null) && (_tpl.exists("REFERENCE"))  ) {
-		  // Set the object name field to the currently selected planet
-		  _name.setValue( val );
-		  ((SpTelescopePos)_tpl.getPosition("REFERENCE")).setName(val);
-	  }
-	      
-        }
-
-        _curPos.addWatcher(EdCompTargetList.this);
-
-	return;
-      }
-    }
-
-    /**
-     * Checks whether chop angle is in valid range.
-     * 
-     * The validity check applies to UKIRT. JCMT does not use the "Chop Settings" tab.
-     *
-     * Added by MFO (12 October 2001)
-     */
-    public String validateChopAngle(String chopAngleString) {
-      double chopAngle = Double.valueOf(chopAngleString).doubleValue();
-	
-      if(chopAngle < -90) {
-        chopAngle = -90;
-        DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-      }
-
-      if(chopAngle > 90) {
-        chopAngle = 90;
-        DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-      }	
-
-      return Double.toString(chopAngle);
-    }
-
-    /**
-     * Thread for name resolving.
-     *
-     * Added by MFO (10 Oct 2001).
-     */
-    class NameResolverFeedback extends Thread {
-    
-	public void run() {
-
-          try {
-	    NameResolver nameResolver = new NameResolver((String)_w.nameResolversDDLBW.getSelectedItem(), _w.nameTBW.getText());
-
-	    _w.resolvedName.setText("Resolved Name: "+nameResolver.getId());
-	    _w.xaxisTBW.setText(nameResolver.getRa());
-	    _w.yaxisTBW.setText(nameResolver.getDec());
-	    _w.systemDDLBW.setValue(CoordSys.FK5);
-
-            _curPos.deleteWatcher(EdCompTargetList.this);
-	    try {
-	      _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
-	    }
-	    // In case an exception is thrown here if the new position is out of view (in the
-	    // position editor)
-	    // The new position will be "in view" after the call _resetPositionEditor.
-	    // But _resetPositionEditor can only be called after _cur has been set to the new
-	    // position. Otherwise. it would not pick up the right position.
-	    catch(Exception exception) {
-              // print stack trace for debugging.
-	      exception.printStackTrace();
-	    }
-	    _curPos.setName(_w.nameTBW.getText() );
-	    _curPos.setCoordSys(CoordSys.FK5);
-	    _curPos.addWatcher(EdCompTargetList.this);
-
-	    // Added by SdW
-	    if (nameResolver.getEquinox().equalsIgnoreCase("RJ")) {
-		_curPos.setCoordSys(CoordSys.FK5);
-		_w.systemDDLBW.setValue(CoordSys.FK5);
-	    }
-	    else if ( nameResolver.getEquinox().equalsIgnoreCase("RB")) {
-		_curPos.setCoordSys(CoordSys.FK4);
-		_w.systemDDLBW.setValue(CoordSys.FK4);
-	    }
-	    else if (nameResolver.getEquinox().equalsIgnoreCase("GA")) {
-		_curPos.setCoordSys(CoordSys.GAL);
-		_w.systemDDLBW.setValue(CoordSys.GAL);
-	    }
-	    // End of addition
-
-            _resetPositionEditor();
-	  }
-	  catch(ProgressException e) {
-            // User has interrupted query. Do nothing.
-            System.out.println("Query interrupted by OT user.");
-	  }
-	  catch(RuntimeException e) {
-            if(System.getProperty("DEBUG") != null) {
-              e.printStackTrace();
-	    }
-e.printStackTrace();
-            DialogUtil.error(_w, "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage());
-	  }
+			}
+			_curPos.addWatcher( EdCompTargetList.this );
+		}
 	}
-    }
 
-    private void _changeTag(String newTag) {
-      String oldTag = _curPos.getTag();
+	/**
+	 * Checks whether chop angle is in valid range.
+	 * 
+	 * The validity check applies to UKIRT. JCMT does not use the "Chop Settings" tab.
+	 *
+	 * Added by MFO (12 October 2001)
+	 */
+	public String validateChopAngle( String chopAngleString )
+	{
+		double chopAngle = Double.valueOf( chopAngleString ).doubleValue();
 
-      if(_tpl.exists(newTag)) {
-        DialogUtil.error(newTag + " exists.");
-        _tag.setValue(oldTag);
-        return;
-      }
+		if( chopAngle < -90 )
+		{
+			chopAngle = -90;
+			DialogUtil.error( _w , "Valid range of chop angles: -90.0..90.0" );
+		}
+		else if( chopAngle > 90 )
+		{
+			chopAngle = 90;
+			DialogUtil.error( _w , "Valid range of chop angles: -90.0..90.0" );
+		}
 
-      if(oldTag.startsWith(SpTelescopePos.USER_TAG)) {
-        oldTag = SpTelescopePos.USER_TAG;
-      }
+		return Double.toString( chopAngle );
+	}
 
-      if (oldTag.equals(newTag)) return;
+	/**
+	 * Thread for name resolving.
+	 *
+	 * Added by MFO (10 Oct 2001).
+	 */
+	class NameResolverFeedback extends Thread
+	{
+		public void run()
+		{
+			try
+			{
+				NameResolver nameResolver = new NameResolver( ( String )_w.nameResolversDDLBW.getSelectedItem() , _w.nameTBW.getText() );
 
-      // Don't allow changes from BASE_TAG to anything else.  We always
-      // want to have a Base.
-      if(oldTag.equals(SpTelescopePos.BASE_TAG)) {
-        DialogUtil.error("You can't change the type of the Base Position.");
-        _tag.setValue(SpTelescopePos.BASE_TAG);
-          return;
-      }
+				_w.resolvedName.setText( "Resolved Name: " + nameResolver.getId() );
+				_w.xaxisTBW.setText( nameResolver.getRa() );
+				_w.yaxisTBW.setText( nameResolver.getDec() );
+				_w.systemDDLBW.setValue( CoordSys.FK5 );
 
-      _tpl.changeTag(_curPos, newTag);
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				try
+				{
+					_curPos.setXYFromString( _w.xaxisTBW.getText() , _w.yaxisTBW.getText() );
+				}
+				// In case an exception is thrown here if the new position is out of view (in the position editor)
+				// The new position will be "in view" after the call _resetPositionEditor.
+				// But _resetPositionEditor can only be called after _cur has been set to the new position. Otherwise. it would not pick up the right position.
+				catch( Exception exception )
+				{
+					// print stack trace for debugging.
+					exception.printStackTrace();
+				}
+				_curPos.setName( _w.nameTBW.getText() );
+				_curPos.setCoordSys( CoordSys.FK5 );
+				_curPos.addWatcher( EdCompTargetList.this );
 
-      // Update newButton
+				// Added by SdW
+				if( nameResolver.getEquinox().equalsIgnoreCase( "RJ" ) )
+				{
+					_curPos.setCoordSys( CoordSys.FK5 );
+					_w.systemDDLBW.setValue( CoordSys.FK5 );
+				}
+				else if( nameResolver.getEquinox().equalsIgnoreCase( "RB" ) )
+				{
+					_curPos.setCoordSys( CoordSys.FK4 );
+					_w.systemDDLBW.setValue( CoordSys.FK4 );
+				}
+				else if( nameResolver.getEquinox().equalsIgnoreCase( "GA" ) )
+				{
+					_curPos.setCoordSys( CoordSys.GAL );
+					_w.systemDDLBW.setValue( CoordSys.GAL );
+				}
+				// End of addition
 
-      String nextTag = _nextTag();
+				_resetPositionEditor();
+			}
+			catch( ProgressException e )
+			{
+				// User has interrupted query. Do nothing.
+				System.out.println( "Query interrupted by OT user." );
+			}
+			catch( RuntimeException e )
+			{
+				if( System.getProperty( "DEBUG" ) != null )
+					e.printStackTrace();
 
-      if(nextTag != null) {
-        //_w.newButton.setText("Add " + _nextTag());
-      }
-      else {
-        _w.newButton.setEnabled(false);
-      }
-    }
+				e.printStackTrace();
+				DialogUtil.error( _w , "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage() );
+			}
+		}
+	}
 
-    private String _nextTag() {
-      if((_guideTags != null) && (_guideTags[0] != null)) {
-        for(int i = 0; i < _guideTags.length; i++) {
-          if(!_tpl.exists(_guideTags[i])) {
-            return _guideTags[i];
-          }
-        }
-      }	
+	private void _changeTag( String newTag )
+	{
+		String oldTag = _curPos.getTag();
 
-      return null;
-    }
-   
-    public void enableVelocitiesPanel( boolean enable )
-    {    	
-		_w.velDefn.setEnabled( enable ) ;
-		_w.velValue.setEnabled( enable ) ;
-		_w.velFrame.setEnabled( enable ) ;			
-    }
-    
-    public void overrideVelocityFrame()
-    {
-		SpTelescopePos basePos = _tpl.getBasePosition() ;
+		if( _tpl.exists( newTag ) )
+		{
+			DialogUtil.error( newTag + " exists." );
+			_tag.setValue( oldTag );
+			return;
+		}
+
+		if( oldTag.startsWith( SpTelescopePos.USER_TAG ) )
+			oldTag = SpTelescopePos.USER_TAG;
+
+		if( oldTag.equals( newTag ) )
+			return;
+
+		// Don't allow changes from BASE_TAG to anything else.  We always
+		// want to have a Base.
+		if( oldTag.equals( SpTelescopePos.BASE_TAG ) )
+		{
+			DialogUtil.error( "You can't change the type of the Base Position." );
+			_tag.setValue( SpTelescopePos.BASE_TAG );
+			return;
+		}
+
+		_tpl.changeTag( _curPos , newTag );
+
+		// Update newButton
+
+		String nextTag = _nextTag();
+
+		if( nextTag == null )
+			_w.newButton.setEnabled( false );
+	}
+
+	private String _nextTag()
+	{
+		if( ( _guideTags != null ) && ( _guideTags[ 0 ] != null ) )
+		{
+			for( int i = 0 ; i < _guideTags.length ; i++ )
+			{
+				if( !_tpl.exists( _guideTags[ i ] ) )
+					return _guideTags[ i ];
+			}
+		}
+
+		return null;
+	}
+
+	public void enableVelocitiesPanel( boolean enable )
+	{
+		_w.velDefn.setEnabled( enable );
+		_w.velValue.setEnabled( enable );
+		_w.velFrame.setEnabled( enable );
+	}
+
+	public void overrideVelocityFrame()
+	{
+		SpTelescopePos basePos = _tpl.getBasePosition();
 		if( basePos != null && jcmtot && basePos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL )
 		{
-			basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
-			_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
-			_w.velValue.setValue( 0. ) ;
-			enableVelocitiesPanel( false ) ;
-			
-			SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
+			basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME );
+			_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME );
+			_w.velValue.setValue( 0. );
+			enableVelocitiesPanel( false );
+
+			SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem );
 			if( !overrideDialogShown && instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
 			{
 				int status = JOptionPane.showConfirmDialog( _w , "Named Systems and Orbital Elements are only provided with a default Topocentric velocity frame\n that is currently being overridden in this targets Heterodyne setup.\n\n You will need to disable it.\n\n Would you like that done for you ?" , "Default velocity frame overidden" , JOptionPane.INFORMATION_MESSAGE );
 				if( status == JOptionPane.YES_OPTION )
 				{
-					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
-					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
-					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY );
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION );
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME );
 				}
-				overrideDialogShown = true ;
+				overrideDialogShown = true;
 			}
 		}
-    }
-    
-    /* 
-     * Why are we bothering with a thread ? 
-     * So that the OT does not become unresponsive 
-     */
-    public class HorizonsThread extends Thread
-    {
-    	public synchronized void run()
-    	{
-    		_resolving = true ;
-    		_w.resolveOrbitalElementButton.setText( "Resolving ..." ) ;
-			Horizons horizons = Horizons.getInstance() ;
-			String query = _w.nameTBW.getText() ;
-			TreeMap treeMap = horizons.resolveName( query ) ;
-			_resolving = false ;
-			_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
-			
+	}
+
+	/* 
+	 * Why are we bothering with a thread ? 
+	 * So that the OT does not become unresponsive 
+	 */
+	public class HorizonsThread extends Thread
+	{
+		public synchronized void run()
+		{
+			_resolving = true;
+			_w.resolveOrbitalElementButton.setText( "Resolving ..." );
+			Horizons horizons = Horizons.getInstance();
+			String query = _w.nameTBW.getText();
+			TreeMap treeMap = horizons.resolveName( query );
+			_resolving = false;
+			_w.resolveOrbitalElementButton.setText( "Resolve Name" );
+
 			if( treeMap.isEmpty() )
 			{
-				DialogUtil.error( null , "No result returned") ;
-				return ;
+				DialogUtil.error( null , "No result returned" );
+				return;
 			}
-			
-			Object tmp = treeMap.get( "NAME" ) ;			
-			String value = "" ;
+
+			Object tmp = treeMap.get( "NAME" );
+			String value = "";
 			if( tmp != null && tmp instanceof String )
 			{
-				value = ( String )tmp ;
+				value = ( String )tmp;
 				if( value.equals( "" ) )
 				{
 					if( !searchHorizons( query ) )
-						DialogUtil.error( null , "No result returned") ;
-					return ;
-				}	
-				_w.orbitalElementResolvedNameLabel.setText( value ) ;
+						DialogUtil.error( null , "No result returned" );
+					return;
+				}
+				_w.orbitalElementResolvedNameLabel.setText( value );
 			}
 			else
 			{
 				if( !searchHorizons( query ) )
-					DialogUtil.error( null , "No result returned") ;
-				return ;
+					DialogUtil.error( null , "No result returned" );
+				return;
 
 			}
-			
-			tmp = treeMap.get( "EPOCH" ) ;
+
+			tmp = treeMap.get( "EPOCH" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemEpoch( value ) ;
-			}
-			
-			tmp = treeMap.get( "TP" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemEpochPerih( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemEpoch( value );
 			}
 
-			tmp = treeMap.get( "IN" ) ;
+			tmp = treeMap.get( "TP" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemInclination( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemEpochPerih( value );
 			}
 
-			tmp = treeMap.get( "W" ) ;
+			tmp = treeMap.get( "IN" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemPerihelion( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemInclination( value );
 			}
 
-			tmp = treeMap.get( "EC" ) ;
+			tmp = treeMap.get( "W" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemE( value ) ;
-			}
-			
-			tmp = treeMap.get( "OM" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemAnode( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemPerihelion( value );
 			}
 
-			tmp = treeMap.get( "QR" ) ;
+			tmp = treeMap.get( "EC" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemAorQ( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemE( value );
 			}
 
-			tmp = treeMap.get( "MA" ) ;
+			tmp = treeMap.get( "OM" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemLorM( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemAnode( value );
 			}
 
-			tmp = treeMap.get( "N" ) ;
+			tmp = treeMap.get( "QR" );
 			if( tmp != null && tmp instanceof Double )
 			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemDailyMotion( value ) ;
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemAorQ( value );
 			}
-			
-			_updateTargetSystemPane( _curPos ) ;
-    		
-    	}
-    }
-    
-    public boolean searchHorizons( String name )
-    {
-		_resolving = true ;
-		_w.resolveOrbitalElementButton.setText( "Searching ..." ) ;
-		Horizons horizons = Horizons.getInstance() ;
-		Vector results = horizons.searchName( name ) ;
-		_resolving = false ;
-		_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
-		
+
+			tmp = treeMap.get( "MA" );
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemLorM( value );
+			}
+
+			tmp = treeMap.get( "N" );
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString();
+				_curPos.setConicSystemDailyMotion( value );
+			}
+
+			_updateTargetSystemPane( _curPos );
+
+		}
+	}
+
+	public boolean searchHorizons( String name )
+	{
+		_resolving = true;
+		_w.resolveOrbitalElementButton.setText( "Searching ..." );
+		Horizons horizons = Horizons.getInstance();
+		Vector results = horizons.searchName( name );
+		_resolving = false;
+		_w.resolveOrbitalElementButton.setText( "Resolve Name" );
+
 		if( results.size() == 0 )
-			return false ;
-		
-		StringBuffer buffer = new StringBuffer() ;
+			return false;
+
+		StringBuffer buffer = new StringBuffer();
 		while( results.size() != 0 )
 		{
-			Object tmp = results.remove( 0 ) ;
+			Object tmp = results.remove( 0 );
 			if( tmp instanceof String )
 			{
-				String line = ( String )tmp ;
+				String line = ( String )tmp;
 				if( line.trim().matches( "^No matches found.$" ) )
-					return false ;
-				buffer.append( tmp.toString() + "\n" ) ;
+					return false;
+				buffer.append( tmp.toString() + "\n" );
 			}
 		}
-		new ReportBox( buffer.toString() , "Search results for " + name ) ;
-		return true ;
-    }
-    
+		new ReportBox( buffer.toString() , "Search results for " + name );
+		return true;
+	}
 }
-

@@ -8,10 +8,22 @@
  */
 package jsky.app.ot.editor;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import jsky.app.ot.gui.*;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Dimension ;
+import java.awt.Color ;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.JScrollPane ;
+import javax.swing.JRadioButton ;
+import javax.swing.ButtonGroup ;
+import javax.swing.SwingConstants ;
+import javax.swing.BorderFactory ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.EtchedBorder ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
 public class IterOffsetGUI extends JPanel
 {
@@ -60,11 +72,10 @@ public class IterOffsetGUI extends JPanel
 	JLabel paLabel = new JLabel();
 	CommandButtonWidgetExt displayRotatedOffsets = new CommandButtonWidgetExt();
 	CommandButtonWidgetExt setSpacingButton = new CommandButtonWidgetExt();
+	JRadioButton overwrite = new JRadioButton( "Overwrite" );
+	JRadioButton append = new JRadioButton( "Append" );
+	ButtonGroup buttonGroup = new ButtonGroup();
 
-	JRadioButton overwrite = new JRadioButton( "Overwrite" ) ;
-	JRadioButton append = new JRadioButton( "Append" ) ;
-	ButtonGroup buttonGroup = new ButtonGroup() ;
-	
 	public IterOffsetGUI()
 	{
 		try
@@ -163,11 +174,11 @@ public class IterOffsetGUI extends JPanel
 		paLabel.setText( "PA" );
 		displayRotatedOffsets.setText( "Display Derotated Offsets" );
 		setSpacingButton.setText( "Set Spacing from Scan Area" );
-		
-		buttonGroup.add( overwrite ) ;
-		buttonGroup.add( append ) ;
-		overwrite.setSelected( true ) ;
-		
+
+		buttonGroup.add( overwrite );
+		buttonGroup.add( append );
+		overwrite.setSelected( true );
+
 		this.add( pqItem , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		this.add( jLabel1 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 10 , 5 , 5 , 5 ) , 0 , 0 ) );
 		this.add( titleTBW , new GridBagConstraints( 2 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 15 ) , 0 , 0 ) );
@@ -207,9 +218,9 @@ public class IterOffsetGUI extends JPanel
 		gridGBW.add( centreOnBaseButton , new GridBagConstraints( 2 , 6 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		gridGBW.add( setSpacingButton , new GridBagConstraints( 5 , 6 , 5 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
 
-		gridGBW.add( append , new GridBagConstraints( 3 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		gridGBW.add( overwrite , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		
+		gridGBW.add( append , new GridBagConstraints( 3 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		gridGBW.add( overwrite , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
 		this.add( bottomButton , new GridBagConstraints( 3 , 7 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( paTextBox , new GridBagConstraints( 1 , 8 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( paLabel , new GridBagConstraints( 0 , 8 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );

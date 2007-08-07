@@ -17,17 +17,14 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 
-
 /**
  * This is the editor for Site Quality component.
  */
-public final class EdCompSiteQuality extends OtItemEditor 
-    implements ActionListener, TextBoxWidgetWatcher {
+public final class EdCompSiteQuality extends OtItemEditor implements ActionListener , TextBoxWidgetWatcher
+{
+	private SiteQualityGUI _w; // the GUI layout panel
 
-    private SiteQualityGUI _w;       // the GUI layout panel
-
-
-    /**
+	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdCompSiteQuality()
@@ -85,216 +82,208 @@ public final class EdCompSiteQuality extends OtItemEditor
 		grp.add( _w.cloudAny );
 	}
 
-    /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
-	OptionWidgetExt ow;
-	int i;
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		SpSiteQualityObsComp sq = ( SpSiteQualityObsComp )_spItem;
+		OptionWidgetExt ow;
+		int i;
 
-	// Image Quality
-	if (sq.tauBandAllocated()) {
-	    _w.tauBandAllocated.setValue(true);
-	    _w.minTau.setValue("");
-	    _w.maxTau.setValue("");
-	    _w.minTau.setEnabled(false);
-	    _w.maxTau.setEnabled(false);
-	}
-	else {
-	    _w.tauBandUserDefined.setValue(true);
-	    _w.minTau.setValue(sq.getMinTau());
-	    _w.maxTau.setValue(sq.getMaxTau());
-	    _w.minTau.setEnabled(true);
-	    _w.maxTau.setEnabled(true);
-	}
+		// Image Quality
+		if( sq.tauBandAllocated() )
+		{
+			_w.tauBandAllocated.setValue( true );
+			_w.minTau.setValue( "" );
+			_w.maxTau.setValue( "" );
+			_w.minTau.setEnabled( false );
+			_w.maxTau.setEnabled( false );
+		}
+		else
+		{
+			_w.tauBandUserDefined.setValue( true );
+			_w.minTau.setValue( sq.getMinTau() );
+			_w.maxTau.setValue( sq.getMaxTau() );
+			_w.minTau.setEnabled( true );
+			_w.maxTau.setEnabled( true );
+		}
 
-	// IR Background
-	if (sq.seeingAllocated()) {
-	    _w.seeingAllocated.setValue(true);
-	    _w.minSeeing.setValue("");
-	    _w.maxSeeing.setValue("");
-	    _w.minSeeing.setEnabled(false);
-	    _w.maxSeeing.setEnabled(false);
-	}
-	else {
-	    _w.seeingUserDefined.setValue(true);
-	    _w.minSeeing.setValue(sq.getMinSeeing());
-	    _w.maxSeeing.setValue(sq.getMaxSeeing());
-	    _w.minSeeing.setEnabled(true);
-	    _w.maxSeeing.setEnabled(true);
-	}
+		// IR Background
+		if( sq.seeingAllocated() )
+		{
+			_w.seeingAllocated.setValue( true );
+			_w.minSeeing.setValue( "" );
+			_w.maxSeeing.setValue( "" );
+			_w.minSeeing.setEnabled( false );
+			_w.maxSeeing.setEnabled( false );
+		}
+		else
+		{
+			_w.seeingUserDefined.setValue( true );
+			_w.minSeeing.setValue( sq.getMinSeeing() );
+			_w.maxSeeing.setValue( sq.getMaxSeeing() );
+			_w.minSeeing.setEnabled( true );
+			_w.maxSeeing.setEnabled( true );
+		}
 
-	// J-Band Sky brightness
-	if (sq.skyAllocated()) {
-	    _w.skyAllocated.setValue(true);
-	    _w.minSky.setValue("");
-	    _w.maxSky.setValue("");
-	    _w.minSky.setEnabled(false);
-	    _w.maxSky.setEnabled(false);
-	}
-	else {
-	    _w.skyUserDefined.setValue(true);
-	    _w.minSky.setValue(sq.getMinSky());
-	    _w.maxSky.setValue(sq.getMaxSky());
-	    _w.minSky.setEnabled(true);
-	    _w.maxSky.setEnabled(true);
-	}
+		// J-Band Sky brightness
+		if( sq.skyAllocated() )
+		{
+			_w.skyAllocated.setValue( true );
+			_w.minSky.setValue( "" );
+			_w.maxSky.setValue( "" );
+			_w.minSky.setEnabled( false );
+			_w.maxSky.setEnabled( false );
+		}
+		else
+		{
+			_w.skyUserDefined.setValue( true );
+			_w.minSky.setValue( sq.getMinSky() );
+			_w.maxSky.setValue( sq.getMaxSky() );
+			_w.minSky.setEnabled( true );
+			_w.maxSky.setEnabled( true );
+		}
 
-	// Moon
-	i = sq.getMoon();
-	switch (i) {
-	case SpSiteQualityObsComp.MOON_DARK:
-	    ow = _w.moonDark; break;
-	case SpSiteQualityObsComp.MOON_GREY:
-	    ow = _w.moonGrey; break;
-	default:
-	    ow = _w.moonAny; break;
-	}
-	ow.setValue(true);
+		// Moon
+		i = sq.getMoon();
+		switch( i )
+		{
+			case SpSiteQualityObsComp.MOON_DARK :
+				ow = _w.moonDark;
+				break;
+			case SpSiteQualityObsComp.MOON_GREY :
+				ow = _w.moonGrey;
+				break;
+			default :
+				ow = _w.moonAny;
+				break;
+		}
+		ow.setValue( true );
 
-	// Sky
-	i = sq.getCloud();
-	switch (i) {
-	case SpSiteQualityObsComp.CLOUD_PHOTOMETRIC:
-	    ow = _w.cloudPhotometric; break;
-	case SpSiteQualityObsComp.CLOUD_THIN_CIRRUS:
-	    ow = _w.cloudThinCirrus; break;
-	default:
-	    ow = _w.cloudAny; break;
-	}
-	ow.setValue(true);
-    }
-
-
-    /**
-     * Called when a button is pressed
-     */
-    public void actionPerformed(ActionEvent evt) {
-
-	Object w = evt.getSource();
-	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
-
-	// Seeing
-	if (w == _w.seeingAllocated) {
-	    sq.setSeeingAllocated(true);
-	    _w.minSeeing.setValue("");
-	    _w.maxSeeing.setValue("");
-	    _w.minSeeing.setEnabled(false);
-	    _w.maxSeeing.setEnabled(false);
-	}
-	
-	if (w == _w.seeingUserDefined) {
-	    sq.setSeeingAllocated(false);
-	    _w.minSeeing.setValue(sq.getMinSeeing());
-	    _w.maxSeeing.setValue(sq.getMaxSeeing());
-	    _w.minSeeing.setEnabled(true);
-	    _w.maxSeeing.setEnabled(true);
+		// Sky
+		i = sq.getCloud();
+		switch( i )
+		{
+			case SpSiteQualityObsComp.CLOUD_PHOTOMETRIC :
+				ow = _w.cloudPhotometric;
+				break;
+			case SpSiteQualityObsComp.CLOUD_THIN_CIRRUS :
+				ow = _w.cloudThinCirrus;
+				break;
+			default :
+				ow = _w.cloudAny;
+				break;
+		}
+		ow.setValue( true );
 	}
 
-	// CSO Tau
-	if (w == _w.tauBandAllocated) {
-	    sq.setTauBandAllocated(true);
-	    _w.minTau.setValue("");
-	    _w.maxTau.setValue("");
-	    _w.minTau.setEnabled(false);
-	    _w.maxTau.setEnabled(false);
+	/**
+	 * Called when a button is pressed
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
 
-	}
+		Object w = evt.getSource();
+		SpSiteQualityObsComp sq = ( SpSiteQualityObsComp )_spItem;
 
-	if (w == _w.tauBandUserDefined) {
-	    sq.setTauBandAllocated(false);
-	    _w.minTau.setValue(sq.getMinTau());
-	    _w.maxTau.setValue(sq.getMaxTau());
-	    _w.minTau.setEnabled(true);
-	    _w.maxTau.setEnabled(true);
-	}
-
-	// Sky Brightness
-	if (w == _w.skyAllocated) {
-	    sq.setSkyAllocated(true);
-	    _w.minSky.setValue("");
-	    _w.maxSky.setValue("");
-	    _w.minSky.setEnabled(false);
-	    _w.maxSky.setEnabled(false);
-
-	}
-
-	if (w == _w.skyUserDefined) {
-	    sq.setSkyAllocated(false);
-	    _w.minSky.setValue(sq.getMinSky());
-	    _w.maxSky.setValue(sq.getMaxSky());
-	    _w.minSky.setEnabled(true);
-	    _w.maxSky.setEnabled(true);
-	}
-
-	// Moon
-	if (w == _w.moonDark) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_DARK);
-	    return;
-	}
-	if (w == _w.moonGrey) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_GREY);
-	    return;
-	}
-	if (w == _w.moonAny) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_ANY);
-	    return;
-	}
-
-	// Cloud
-	if (w == _w.cloudPhotometric) {
-	    sq.setCloud(SpSiteQualityObsComp.CLOUD_PHOTOMETRIC);
-	    return;
-	}
-	if (w == _w.cloudThinCirrus) {
-	    sq.setCloud(SpSiteQualityObsComp.CLOUD_THIN_CIRRUS);
-	    return;
-	}
-	if (w == _w.cloudAny) {
-	    sq.setCloud(SpSiteQualityObsComp.CLOUD_ANY);
-	    return;
-	}
-    }
-
-    /**
-     * Watch changes to min text boxes.
-     */
-    public void	textBoxKeyPress(TextBoxWidgetExt tbwe) {
-	if (tbwe == _w.minTau) {
-	    ((SpSiteQualityObsComp)_spItem).setMinTau(_w.minTau.getValue());
-	    return;
-	}
-
-	if (tbwe == _w.maxTau) {
-	    ((SpSiteQualityObsComp)_spItem).setMaxTau(_w.maxTau.getValue());
-	    return;
-	}
-
-	if (tbwe == _w.minSeeing) {
-	    ((SpSiteQualityObsComp)_spItem).setMinSeeing(_w.minSeeing.getValue());
-	    return;
-	}
-
-	if (tbwe == _w.maxSeeing) {
-	    ((SpSiteQualityObsComp)_spItem).setMaxSeeing(_w.maxSeeing.getValue());
-	    return;
+		// Seeing
+		if( w == _w.seeingAllocated )
+		{
+			sq.setSeeingAllocated( true );
+			_w.minSeeing.setValue( "" );
+			_w.maxSeeing.setValue( "" );
+			_w.minSeeing.setEnabled( false );
+			_w.maxSeeing.setEnabled( false );
+		}
+		else if( w == _w.seeingUserDefined )
+		{
+			sq.setSeeingAllocated( false );
+			_w.minSeeing.setValue( sq.getMinSeeing() );
+			_w.maxSeeing.setValue( sq.getMaxSeeing() );
+			_w.minSeeing.setEnabled( true );
+			_w.maxSeeing.setEnabled( true );
+		}
+		else if( w == _w.tauBandAllocated )
+		{
+			sq.setTauBandAllocated( true );
+			_w.minTau.setValue( "" );
+			_w.maxTau.setValue( "" );
+			_w.minTau.setEnabled( false );
+			_w.maxTau.setEnabled( false );
+		}
+		else if( w == _w.tauBandUserDefined )
+		{
+			sq.setTauBandAllocated( false );
+			_w.minTau.setValue( sq.getMinTau() );
+			_w.maxTau.setValue( sq.getMaxTau() );
+			_w.minTau.setEnabled( true );
+			_w.maxTau.setEnabled( true );
+		}
+		else if( w == _w.skyAllocated )
+		{
+			sq.setSkyAllocated( true );
+			_w.minSky.setValue( "" );
+			_w.maxSky.setValue( "" );
+			_w.minSky.setEnabled( false );
+			_w.maxSky.setEnabled( false );
+		}
+		else if( w == _w.skyUserDefined )
+		{
+			sq.setSkyAllocated( false );
+			_w.minSky.setValue( sq.getMinSky() );
+			_w.maxSky.setValue( sq.getMaxSky() );
+			_w.minSky.setEnabled( true );
+			_w.maxSky.setEnabled( true );
+		}
+		else if( w == _w.moonDark )
+		{
+			sq.setMoon( SpSiteQualityObsComp.MOON_DARK );
+		}
+		else if( w == _w.moonGrey )
+		{
+			sq.setMoon( SpSiteQualityObsComp.MOON_GREY );
+		}
+		else if( w == _w.moonAny )
+		{
+			sq.setMoon( SpSiteQualityObsComp.MOON_ANY );
+		}
+		else if( w == _w.cloudPhotometric )
+		{
+			sq.setCloud( SpSiteQualityObsComp.CLOUD_PHOTOMETRIC );
+		}
+		else if( w == _w.cloudThinCirrus )
+		{
+			sq.setCloud( SpSiteQualityObsComp.CLOUD_THIN_CIRRUS );
+		}
+		else if( w == _w.cloudAny )
+		{
+			sq.setCloud( SpSiteQualityObsComp.CLOUD_ANY );
+		}
 	}
 
-    	if (tbwe == _w.minSky) {
-	    ((SpSiteQualityObsComp)_spItem).setMinSky(_w.minSky.getValue());
-	    return;
+	/**
+	 * Watch changes to min text boxes.
+	 */
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
+		if( tbwe == _w.minTau )
+			( ( SpSiteQualityObsComp )_spItem ).setMinTau( _w.minTau.getValue() );
+		else if( tbwe == _w.maxTau )
+			( ( SpSiteQualityObsComp )_spItem ).setMaxTau( _w.maxTau.getValue() );
+		else if( tbwe == _w.minSeeing )
+			( ( SpSiteQualityObsComp )_spItem ).setMinSeeing( _w.minSeeing.getValue() );
+		else if( tbwe == _w.maxSeeing )
+			( ( SpSiteQualityObsComp )_spItem ).setMaxSeeing( _w.maxSeeing.getValue() );
+		else if( tbwe == _w.minSky )
+			( ( SpSiteQualityObsComp )_spItem ).setMinSky( _w.minSky.getValue() );
+		else if( tbwe == _w.maxSky )
+			( ( SpSiteQualityObsComp )_spItem ).setMaxSky( _w.maxSky.getValue() );
 	}
 
-	if (tbwe == _w.maxSky) {
-	    ((SpSiteQualityObsComp)_spItem).setMaxSky(_w.maxSky.getValue());
-	    return;
-	}
-    }
-
-    /**
-     * Text box action, ignore.
-     */
-    public void	textBoxAction(TextBoxWidgetExt tbwe) { }
+	/**
+	 * Text box action, ignore.
+	 */
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 }

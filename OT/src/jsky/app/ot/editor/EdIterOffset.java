@@ -51,7 +51,6 @@ import orac.util.TelescopeUtil;
  */
 public final class EdIterOffset extends OtItemEditor implements TableWidgetWatcher , TextBoxWidgetWatcher , TelescopePosWatcher , ActionListener , MouseListener
 {
-
 	private TextBoxWidgetExt _xOffTBW;
 	private TextBoxWidgetExt _yOffTBW;
 	private OffsetPosTableWidget _offTW;
@@ -178,7 +177,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 			{
 				SpTelescopePos guidePos = ( SpTelescopePos )obsComp.getPosList().getPosition( "GUIDE" );
 				SpTelescopePos basePos = obsComp.getPosList().getBasePosition();
-		
+
 				double[] guideOffset = RADecMath.getOffset( guidePos.getXaxis() , guidePos.getYaxis() , basePos.getXaxis() , basePos.getYaxis() , _opl.getPosAngle() );
 				guideOffset[ 0 ] *= ( Math.cos( Math.toRadians( obsComp.getPosList().getBasePosition().getYaxis() ) ) );
 				// Create a offset position around the guide for each offset
@@ -211,13 +210,13 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 			for( int i = 0 ; i < children.size() ; i++ )
 			{
 				SpIterSky sky = ( SpIterSky )children.get( i );
-	
+
 				// Get the associated scale factor
 				double scale = sky.getScaleFactor();
-	
+
 				// Get the corrsponding position entry from the obsComp
 				SpTelescopePos tp = ( SpTelescopePos )obsComp.getPosList().getPosition( sky.getSky() );
-	
+
 				// See if the sky position is specified as an offset or absolute
 				double[] childOffset;
 				if( !tp.isOffsetPosition() )
@@ -233,7 +232,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 					childOffset[ 0 ] = tp.getXaxis();
 					childOffset[ 1 ] = tp.getYaxis();
 				}
-	
+
 				// Loop over all the current offset positions
 				for( int count = 0 ; count < _opl.size() ; count++ )
 				{
@@ -255,7 +254,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 	private void getOffsetSkyChildren( SpItem parent , Vector offsetSkys )
 	{
 		Enumeration children = parent.children();
-		while (children.hasMoreElements())
+		while( children.hasMoreElements() )
 		{
 			SpItem child = ( SpItem )children.nextElement();
 			if( child instanceof SpIterSky && ( ( SpIterSky )child ).getFollowOffset() )
@@ -541,8 +540,11 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 
 	// Added by MFO (20 February 2002)
 	public void mouseClicked( MouseEvent e ){}
+
 	public void mouseEntered( MouseEvent e ){}
+
 	public void mouseExited( MouseEvent e ){}
+
 	public void mousePressed( MouseEvent e )
 	{
 		setOffsetsRotation( true );
@@ -631,7 +633,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 		SpItem child = null;
 		SpIterRasterObs result = null;
 
-		while (children.hasMoreElements() && ( result == null ))
+		while( children.hasMoreElements() && ( result == null ) )
 		{
 			child = ( SpItem )children.nextElement();
 

@@ -7,9 +7,7 @@
 package jsky.app.ot.editor;
 
 import gemini.sp.SpItem;
-
 import jsky.util.gui.DialogUtil;
-
 import java.util.Hashtable;
 
 /**
@@ -24,39 +22,43 @@ import java.util.Hashtable;
  * because more than one program can be open and editing the same type of
  * item at once.
  */
-public final class OtItemEditorFactory {
-    private static Hashtable _editorMap = new Hashtable();
+public final class OtItemEditorFactory
+{
+	private static Hashtable _editorMap = new Hashtable();
 
-    /**
-     * Get an item editor given an associated SpItem from the program and
-     * the name of the class for the item.
-     */
-    public static OtItemEditor getEditor(String editorClassName, SpItem spItem) {
-	Hashtable ht = (Hashtable) _editorMap.get(editorClassName);
-	if (ht == null) {
-	    ht = new Hashtable();
-	    _editorMap.put(editorClassName, ht);
+	/**
+	 * Get an item editor given an associated SpItem from the program and
+	 * the name of the class for the item.
+	 */
+	public static OtItemEditor getEditor( String editorClassName , SpItem spItem )
+	{
+		Hashtable ht = ( Hashtable )_editorMap.get( editorClassName );
+		if( ht == null )
+		{
+			ht = new Hashtable();
+			_editorMap.put( editorClassName , ht );
+		}
+
+		OtItemEditor ed = ( OtItemEditor )ht.get( spItem.getRootItem() );
+		if( ed == null )
+		{
+			try
+			{
+				Class c = Class.forName( editorClassName );
+				ed = ( OtItemEditor )c.newInstance();
+				ht.put( spItem.getRootItem() , ed );
+			}
+			catch( Exception ex )
+			{
+				// It is important to print this stack trace. The error dialog below does not
+				// give any detailed information about what went wrong. And this exception occurs frequenty
+				// when new components are added to the OT. (MFO, November 27, 2002)
+				ex.printStackTrace();
+
+				DialogUtil.error( null , "Problem instantiating: " + editorClassName + ", " + ex );
+				return null;
+			}
+		}
+		return ed;
 	}
-
-	OtItemEditor ed = (OtItemEditor) ht.get(spItem.getRootItem());
-	if (ed == null) {
-	    //System.out.println("Creating a new: " + editorClassName);
-	    try {
-		Class c = Class.forName(editorClassName);
-		ed = (OtItemEditor) c.newInstance();
-		ht.put(spItem.getRootItem(), ed);
-	    } catch (Exception ex) {
-		// It is important to print this stack trace. The error dialog below does not
-		// give any detailed information about what went wrong. And this exception occurs frequenty
-		// when new components are added to the OT. (MFO, November 27, 2002)
-		ex.printStackTrace();
-
-		DialogUtil.error(null, "Problem instantiating: " + editorClassName + ", " +  ex);
-		return null;
-	    }
-	}
-	return ed;
-    }
-
 }
-

@@ -38,10 +38,9 @@ import gemini.sp.iter.SpIterChop;
  */
 public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWatcher , TextBoxWidgetWatcher , TableWidgetWatcher , ActionListener , TableModelListener , Observer
 {
-
 	// The iteration table widget.
 	private TableWidgetExt _iterTab;
-
+	
 	private SpIterChop _iterChop;
 
 	// The GUI layout
@@ -72,8 +71,7 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		_w.bottom.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) );
 		_w.down.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) );
 
-		// MFO: This is probaly JCMT specific. Might need modification
-		// when the Chop iterator is used with UKIRT.
+		// MFO: This is probaly JCMT specific. Might need modification when the Chop iterator is used with UKIRT.
 		_w.coordFrameListBox.setChoices( OtCfg.telescopeUtil.getCoordSysFor( OtCfg.telescopeUtil.CHOP ) );
 		if( _w.coordFrameListBox.getItemCount() < 2 )
 			_w.coordFrameListBox.setEnabled( false );
@@ -141,26 +139,26 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		int items = _iterTab.getColumnCount();
 		int steps = _iterTab.getRowCount();
 
-		StringBuffer buffer = new StringBuffer() ;
-		
-		buffer.append( "(" ) ;
-		buffer.append( items ) ;
-		buffer.append( " " ) ;
-		buffer.append( "Item" ) ;
-		if( items > 1 )
-			buffer.append( "s" ) ;		
-		buffer.append( "," ) ;
-		buffer.append( " " ) ;
-		buffer.append( steps ) ;
-		buffer.append( " " ) ;
-		buffer.append( "Step" ) ;
-		if( items > 1 )
-			buffer.append( "s" ) ;
-		buffer.append( ")" ) ;
+		StringBuffer buffer = new StringBuffer();
 
-		String message = buffer.toString() ;
-		buffer = null ;
-		
+		buffer.append( "(" );
+		buffer.append( items );
+		buffer.append( " " );
+		buffer.append( "Item" );
+		if( items > 1 )
+			buffer.append( "s" );
+		buffer.append( "," );
+		buffer.append( " " );
+		buffer.append( steps );
+		buffer.append( " " );
+		buffer.append( "Step" );
+		if( items > 1 )
+			buffer.append( "s" );
+		buffer.append( ")" );
+
+		String message = buffer.toString();
+		buffer = null;
+
 		stw.setText( message );
 	}
 
@@ -183,18 +181,18 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		if( _iterTab.getColumnCount() != 0 )
 		{
 			int rowIndex = _iterTab.getSelectedRow();
-	
+
 			Vector rowVector = new Vector();
 			rowVector.add( _iterChop.getDefaultThrow() );
 			rowVector.add( _iterChop.getDefaultAngle() );
 			rowVector.add( _iterChop.getDefaultCoordFrame() );
-	
+
 			_iterTab.absInsertRowAt( rowVector , ++rowIndex );
-	
+
 			// Select the newly added row
 			_iterTab.selectRowAt( rowIndex );
 			_iterTab.focusAtRow( rowIndex );
-	
+
 			_updateTableInfo();
 		}
 	}
@@ -208,10 +206,10 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		{
 			int rowIndex = _iterTab.getSelectedRow();
 			_iterTab.removeRowAt( rowIndex );
-	
+
 			if( _iterTab.getRowCount() <= rowIndex )
 				rowIndex = _iterTab.getRowCount() - 1;
-	
+
 			if( rowIndex >= 0 )
 			{
 				_iterTab.selectRowAt( rowIndex );
@@ -304,10 +302,7 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		_ignoreGuiEvents = false;
 	}
 
-	public void tableAction( TableWidgetExt w , int colIndex , int rowIndex )
-	{
-		// Don't care ...
-	}
+	public void tableAction( TableWidgetExt w , int colIndex , int rowIndex ){}
 
 	/*
 	 * Handle action events on the buttons in the editor. 
@@ -317,17 +312,17 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		Object w = e.getSource();
 
 		if( w == _w.addStep )
-			addStep() ;
+			addStep();
 		else if( w == _w.deleteStep )
-			deleteStep() ;
+			deleteStep();
 		else if( w == _w.top )
-			stepToFirst() ;
+			stepToFirst();
 		else if( w == _w.up )
-			decrementStep() ;
+			decrementStep();
 		else if( w == _w.down )
-			incrementStep() ;
+			incrementStep();
 		else if( w == _w.bottom )
-			stepToLast() ;
+			stepToLast();
 	}
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
@@ -357,20 +352,20 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 	public void tableChanged( TableModelEvent e )
 	{
 		if( !_ignoreGuiEvents )
-		{	
+		{
 			_iterChop.getAvEditFSM().deleteObserver( this );
-	
+
 			_iterChop.getTable().rmAll();
-	
+
 			for( int i = 0 ; i < _iterTab.getRowCount() ; i++ )
 			{
 				_iterChop.setThrow( ( String )_iterTab.getValueAt( i , 0 ) , i );
 				_iterChop.setAngle( ( String )_iterTab.getValueAt( i , 1 ) , i );
 				_iterChop.setCoordFrame( ( String )_iterTab.getValueAt( i , 2 ) , i );
 			}
-	
+
 			_iterChop.getAvEditFSM().addObserver( this );
-	
+
 			// MFO
 			// I think this is implemented in a different way in Gemini ot-2000B.12.
 			try

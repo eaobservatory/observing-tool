@@ -34,7 +34,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 
-import orac.util.TelescopeUtil ;
+import orac.util.TelescopeUtil;
 
 // MFO, June 06, 2002:
 // At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -88,8 +88,10 @@ public class TelescopeGUI extends JPanel
 	JPanel propMotionPW = new JPanel();
 	JScrollPane jScrollPane1 = new JScrollPane();
 	TelescopePosTableWidget positionTable = new TelescopePosTableWidget();
+
 	// chop mode added by MFO (3 August 2001)
 	JPanel chopPW = new JPanel();
+
 	GridBagLayout gridBagLayout5 = new GridBagLayout();
 	CheckBoxWidgetExt chopping = new CheckBoxWidgetExt();
 	JLabel jLabel5 = new JLabel();
@@ -138,8 +140,10 @@ public class TelescopeGUI extends JPanel
 	JLabel targetType = new JLabel();
 	DropDownListBoxWidgetExt targetTypeDDList = new DropDownListBoxWidgetExt();
 	JLabel resolvedName = new JLabel();
+
 	// Widgets for radial velocity frame
-	JLabel velLabel = new JLabel() ;
+	JLabel velLabel = new JLabel();
+
 	DropDownListBoxWidgetExt velDefn = new DropDownListBoxWidgetExt();
 	TextBoxWidgetExt velValue = new TextBoxWidgetExt();
 	JLabel velFrameLabel = new JLabel();
@@ -152,8 +156,7 @@ public class TelescopeGUI extends JPanel
 	JLabel baseYOffUnits = new JLabel();
 	CommandButtonWidgetExt resolveOrbitalElementButton = new CommandButtonWidgetExt();
 	JLabel orbitalElementResolvedNameLabel = new JLabel();
-	
-	JPanel XYOffsetPanel = new JPanel() ;
+	JPanel XYOffsetPanel = new JPanel();
 
 	public TelescopeGUI()
 	{
@@ -180,7 +183,7 @@ public class TelescopeGUI extends JPanel
 		RA_Az_STW.setText( "RA" );
 		RA_Az_STW.setForeground( Color.black );
 		RA_Az_STW.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		
+
 		jLabel3.setText( "System" );
 		jLabel3.setForeground( Color.black );
 		jLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
@@ -241,8 +244,8 @@ public class TelescopeGUI extends JPanel
 		jLabel8.setForeground( Color.black );
 		jLabel8.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		propMotionPW.setLayout( gridBagLayout2 );
-		propMotionPW.setAlignmentX( ( float ) 0.0 );
-		propMotionPW.setAlignmentY( ( float ) 0.0 );
+		propMotionPW.setAlignmentX( ( float )0.0 );
+		propMotionPW.setAlignmentY( ( float )0.0 );
 		positionTable.setBackground( Color.lightGray );
 		positionTable.setShowHorizontalLines( false );
 
@@ -363,16 +366,16 @@ public class TelescopeGUI extends JPanel
 		baseYOffUnits.setForeground( Color.black );
 		baseYOffUnits.setText( "arcsecs" );
 
-		XYOffsetPanel.setLayout( new GridLayout( 2 , 4 ) ) ;
-		XYOffsetPanel.add( new JPanel() ) ;
-		XYOffsetPanel.add( baseXOffLabel ) ;
-		XYOffsetPanel.add( baseXOff ) ;
-		XYOffsetPanel.add( baseXOffUnits ) ;
-		XYOffsetPanel.add( new JPanel() ) ;
-		XYOffsetPanel.add( baseYOffLabel ) ;
-		XYOffsetPanel.add( baseYOff ) ;
-		XYOffsetPanel.add( baseYOffUnits ) ;		
-		
+		XYOffsetPanel.setLayout( new GridLayout( 2 , 4 ) );
+		XYOffsetPanel.add( new JPanel() );
+		XYOffsetPanel.add( baseXOffLabel );
+		XYOffsetPanel.add( baseXOff );
+		XYOffsetPanel.add( baseXOffUnits );
+		XYOffsetPanel.add( new JPanel() );
+		XYOffsetPanel.add( baseYOffLabel );
+		XYOffsetPanel.add( baseYOff );
+		XYOffsetPanel.add( baseYOffUnits );
+
 		epochPerih.setVisible( false );
 		epochPerihLabel.setVisible( false );
 		epochPerihUnitsLabel.setVisible( false );
@@ -401,8 +404,8 @@ public class TelescopeGUI extends JPanel
 
 		objectGBW.add( xaxisTBW , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
 
-		objectGBW.add( XYOffsetPanel , new GridBagConstraints( 4 , 1 , 3 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ;
-		
+		objectGBW.add( XYOffsetPanel , new GridBagConstraints( 4 , 1 , 3 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+
 		objectGBW.add( Dec_El_STW , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( RA_Az_STW , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( jLabel3 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
@@ -457,7 +460,7 @@ public class TelescopeGUI extends JPanel
 		for( int i = 0 ; i < targetSystemsTabbedPane.getTabCount() ; i++ )
 		{
 			targetSystemsTabbedPane.setEnabledAt( i , false );
-			Component[] component = ( ( JPanel ) targetSystemsTabbedPane.getComponentAt( i ) ).getComponents();
+			Component[] component = ( ( JPanel )targetSystemsTabbedPane.getComponentAt( i ) ).getComponents();
 			for( int j = 0 ; j < component.length ; j++ )
 				component[ j ].setEnabled( false );
 		}
@@ -512,13 +515,13 @@ public class TelescopeGUI extends JPanel
 
 		if( OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_TRACKING ) )
 		{
-			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
-			extrasFolder.add( propMotionPW , "Proper Motion" ) ;
+			extrasFolder.add( detailsPW , "Radial Vel/Tracking" );
+			extrasFolder.add( propMotionPW , "Proper Motion" );
 		}
 		else
 		{
-			extrasFolder.add( propMotionPW , "Proper Motion" ) ;
-			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
+			extrasFolder.add( propMotionPW , "Proper Motion" );
+			extrasFolder.add( detailsPW , "Radial Vel/Tracking" );
 		}
 		extrasFolder.add( chopPW , "Chop Settings" );
 		this.add( jScrollPane1 , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
