@@ -14,9 +14,8 @@ package jsky.app.ot.gui.image;
  */
 public interface ViewportViewObserver
 {
-   /**
-    * Notify that the view has changed.
-    */
-   public void viewportViewChange(ViewportImageWidget iw, ImageView iv);
+	/**
+	 * Notify that the view has changed.
+	 */
+	public void viewportViewChange( ViewportImageWidget iw , ImageView iv );
 }
-

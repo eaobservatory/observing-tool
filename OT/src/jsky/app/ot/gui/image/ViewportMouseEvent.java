@@ -5,6 +5,7 @@
 // $Id$
 //
 package jsky.app.ot.gui.image;
+
 import java.awt.event.MouseEvent;
 
 /**
@@ -15,56 +16,60 @@ import java.awt.event.MouseEvent;
  */
 public class ViewportMouseEvent
 {
-    /** Event id, same as java.awt.Event.  */
-    public int id;
+	/** Event id, same as java.awt.Event.  */
+	public int id;
 
-   /** Event source.  */
-    public ViewportImageWidget source;
+	/** Event source.  */
+	public ViewportImageWidget source;
 
-    /** X pos of event relative to the real image being viewed.  */
-    public double xView;
+	/** X pos of event relative to the real image being viewed.  */
+	public double xView;
 
-    /** Y pos of event relative to the real image being viewed.  */
-    public double yView;
+	/** Y pos of event relative to the real image being viewed.  */
+	public double yView;
 
-    /** X pos of event relative to the widget.  */
-    public int xWidget;
+	/** X pos of event relative to the widget.  */
+	public int xWidget;
 
-    /** Y pos of event relative to the widget.  */
-    public int yWidget;
+	/** Y pos of event relative to the widget.  */
+	public int yWidget;
 
-    /** Permit construction before all the fields are known. */
-    public ViewportMouseEvent() {
-    }
+	/** Permit construction before all the fields are known. */
+	public ViewportMouseEvent(){}
 
-    /** Construct with all the fields.  */
-    public ViewportMouseEvent(int id, ViewportImageWidget viw,
-			      double xView, double yView, int xWidget, int yWidget) {
-	this.id      = id;
-	this.source  = viw;
-	this.xView   = xView;
-	this.yView   = yView;
-	this.xWidget = xWidget;
-	this.yWidget = yWidget;
-    }
-
-    /**
-     * Returns a human-readable string describing the contents of
-     * the ViewportMouseEvent.
-     */
-    public String toString() {
-	String event="<unknown: " + id + ">";
-	switch (id) {
-	case MouseEvent.MOUSE_PRESSED:  event = "MOUSE_PRESSED"; break;
-	case MouseEvent.MOUSE_RELEASED: event = "MOUSE_RELEASED";   break;
-	case MouseEvent.MOUSE_MOVED:    event = "MOUSE_MOVED"; break;
-	case MouseEvent.MOUSE_DRAGGED:   event = "MOUSE_DRAGGED"; break;
+	/** Construct with all the fields.  */
+	public ViewportMouseEvent( int id , ViewportImageWidget viw , double xView , double yView , int xWidget , int yWidget )
+	{
+		this.id = id;
+		this.source = viw;
+		this.xView = xView;
+		this.yView = yView;
+		this.xWidget = xWidget;
+		this.yWidget = yWidget;
 	}
-	return "ViewportMouseEvent[id=" + event + ", xView=" + xView +
-	    ", yView=" + yView +
-	    ", xWidget=" + xWidget +
-	    ", yWidget=" + yWidget + "]";
-    }
 
+	/**
+	 * Returns a human-readable string describing the contents of
+	 * the ViewportMouseEvent.
+	 */
+	public String toString()
+	{
+		String event = "<unknown: " + id + ">";
+		switch( id )
+		{
+			case MouseEvent.MOUSE_PRESSED :
+				event = "MOUSE_PRESSED";
+				break;
+			case MouseEvent.MOUSE_RELEASED :
+				event = "MOUSE_RELEASED";
+				break;
+			case MouseEvent.MOUSE_MOVED :
+				event = "MOUSE_MOVED";
+				break;
+			case MouseEvent.MOUSE_DRAGGED :
+				event = "MOUSE_DRAGGED";
+				break;
+		}
+		return "ViewportMouseEvent[id=" + event + ", xView=" + xView + ", yView=" + yView + ", xWidget=" + xWidget + ", yWidget=" + yWidget + "]";
+	}
 }
-

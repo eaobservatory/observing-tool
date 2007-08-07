@@ -14,9 +14,8 @@ package jsky.app.ot.gui.image;
  */
 public interface ViewportMouseObserver
 {
-    /**
-     * Notification that a new mouse event has arrived.
-    */
-    public void	viewportMouseEvent(ViewportImageWidget iw, ViewportMouseEvent vme);
+	/**
+	 * Notification that a new mouse event has arrived.
+	 */
+	public void viewportMouseEvent( ViewportImageWidget iw , ViewportMouseEvent vme );
 }
-
