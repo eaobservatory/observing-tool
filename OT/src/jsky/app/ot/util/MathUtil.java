@@ -12,46 +12,44 @@ package jsky.app.ot.util;
  */
 public class MathUtil
 {
-   /**
-    * Convert the given double to the closest double with the given
-    * precision.
-    */
-   public static double
-   round(double d, int precision)
-   {
-      int mult = (int) Math.pow(10, precision);
-      return ((double) Math.round(d * mult))/mult;
-   }
+	/**
+	 * Convert the given double to the closest double with the given
+	 * precision.
+	 */
+	public static double round( double d , int precision )
+	{
+		int mult = ( int )Math.pow( 10 , precision );
+		return ( ( double )Math.round( d * mult ) ) / mult;
+	}
 
-   /**
-    * Convert the given double to a String with the given precision.
-    */
-   public static String
-   doubleToString(double d, int precision)
-   {
-      StringBuffer out = new StringBuffer();
+	/**
+	 * Convert the given double to a String with the given precision.
+	 */
+	public static String doubleToString( double d , int precision )
+	{
+		StringBuffer out = new StringBuffer();
 
-      if (d < 0) out.append('-');
-      int i = (int) d;
-      out.append(i);
-      d = d - (double) i;
-      out.append('.');
-      for (int j=0; j<precision; ++j) {
-         d = d*10.0;
-         i = (int) d;
-         out.append(i);
-         d = d - (double) i;
-      }
-      return out.toString();
-   }
+		if( d < 0 )
+			out.append( '-' );
+		int i = ( int )d;
+		out.append( i );
+		d = d - ( double )i;
+		out.append( '.' );
+		for( int j = 0 ; j < precision ; ++j )
+		{
+			d = d * 10. ;
+			i = ( int )d;
+			out.append( i );
+			d = d - ( double )i;
+		}
+		return out.toString();
+	}
 
-   /**
-    * Convert the given double to a String with 10 decimal places.
-    */
-   public static String
-   doubleToString(double d)
-   {
-      return doubleToString(d, 10);
-   }
+	/**
+	 * Convert the given double to a String with 10 decimal places.
+	 */
+	public static String doubleToString( double d )
+	{
+		return doubleToString( d , 10 );
+	}
 }
-

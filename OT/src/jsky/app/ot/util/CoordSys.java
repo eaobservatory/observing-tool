@@ -21,7 +21,6 @@ public class CoordSys
 	public static final int AZ_EL = 2;
 	public static final int GAL = 3;
 	public static final int HADEC = 4;
-
 	public static final String FK5_STRING = "FK5 (J2000)";
 	public static final String FK4_STRING = "FK4 (B1950)";
 	public static final String AZ_EL_STRING = "Az/El";
@@ -31,40 +30,19 @@ public class CoordSys
 	/**
 	 * Readable coordinate system strings.
 	 */
-	public static final String[] COORD_SYS = 
-	{ 
-		FK5_STRING , 
-		FK4_STRING , 
-		AZ_EL_STRING , 
-		GAL_STRING , 
-		HADEC_STRING 
-	};
+	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING };
 
 	// MFO (March 08, 2002)
 	/**
 	 * Coordinate System x axis labels.
 	 */
-	public static final String[] X_AXIS_LABEL = 
-	{ 
-		"Ra" , 
-		"Ra" , 
-		"Az" , 
-		"Long" , 
-		"HA" 
-	};
+	public static final String[] X_AXIS_LABEL = { "Ra" , "Ra" , "Az" , "Long" , "HA" };
 
 	// MFO (March 08, 2002)
 	/**
 	 * Coordinate System y axis labels.
 	 */
-	public static final String[] Y_AXIS_LABEL = 
-	{ 
-		"Dec" , 
-		"Dec" , 
-		"El" , 
-		"Lat" , 
-		"Dec" 
-	};
+	public static final String[] Y_AXIS_LABEL = { "Dec" , "Dec" , "El" , "Lat" , "Dec" };
 
 	/**
 	 * Get an integer representing a coordinate system from its associated
@@ -106,9 +84,9 @@ public class CoordSys
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= X_AXIS_LABEL.length ) )
 			return null;
-		return X_AXIS_LABEL[ coordSysInt ];		
+		return X_AXIS_LABEL[ coordSysInt ];
 	}
-	
+
 	/**
 	 * Get the string representing the y axis label for a given 
 	 * coordinate system from its associated int.  
@@ -118,6 +96,6 @@ public class CoordSys
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= Y_AXIS_LABEL.length ) )
 			return null;
-		return Y_AXIS_LABEL[ coordSysInt ];		
+		return Y_AXIS_LABEL[ coordSysInt ];
 	}
 }

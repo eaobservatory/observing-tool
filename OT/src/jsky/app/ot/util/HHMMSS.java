@@ -35,121 +35,110 @@ import jsky.app.ot.util.Angle;
  */
 public final class HHMMSS
 {
+	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter";
 
-   public static final String MYNAME = 
-    "Time-Angle Coordinate Axis Position Formatter";
+	/**
+	 * Convert from an RA in degrees to a String in HH:MM:SS format.
+	 */
+	public static String valStr( double degrees , int prec )
+	{
+		// Make sure the angle is between 0 (inclusive) and 360 (exclusive)
+		degrees = Angle.normalizeDegrees( degrees );
 
-/**
- * Convert from an RA in degrees to a String in HH:MM:SS format.
- */
-public static String
-valStr(double degrees, int prec)
-{ 
-   // Make sure the angle is between 0 (inclusive) and 360 (exclusive)
-   degrees = Angle.normalizeDegrees(degrees);
+		double tmp = degrees / 15. ;
 
-   double tmp = degrees/15.0;
+		int hh = ( int )tmp;
+		tmp = ( tmp - ( double )hh ) * 60. ;
+		int mm = ( int )tmp;
+		double ss = ( tmp - ( double )mm ) * 60. ;
 
-   int    hh = (int) tmp;
-   tmp       = (tmp - (double) hh) * 60.0;
-   int    mm = (int) tmp;
-   double ss = (tmp - (double) mm) * 60.0;
+		// correct for formating errors caused by rounding
+		if( ss > 59.99999 )
+		{
+			ss = 0;
+			mm += 1;
+			if( mm >= 60 )
+			{
+				mm = 0;
+				hh += 1;
+				if( hh >= 24 )
+					hh -= 24. ;
+			}
+		}
 
-   //System.out.println("--------------> " + hh + ", " + mm + ", " + ss);
+		StringBuffer out = new StringBuffer();
+		out.append( hh );
+		if( prec == -2 )
+			return out.toString();
 
-   // correct for formating errors caused by rounding
-   if (ss > 59.99999) { 
-      ss = 0;
-      mm += 1;
-      if (mm >= 60) {
-         mm = 0;
-         hh += 1;
-         if (hh >= 24) hh -= 24.0;
-      }
-   }
+		out.append( ':' );
+		if( mm < 10 )
+			out.append( '0' );
+		out.append( mm );
+		if( prec == -1 )
+			return out.toString();
 
-   StringBuffer out = new StringBuffer();
-   out.append(hh);
-   if (prec == -2) return out.toString();
+		out.append( ':' );
 
-   out.append(':');
-   if (mm < 10) out.append('0');
-   out.append(mm);
-   if (prec == -1) return out.toString();
+		// Ignoring prec for now.
+		ss = ( ( double )Math.round( ss * 1000. ) ) / 1000. ;
+		if( ss < 10 )
+			out.append( '0' );
+		out.append( ss );
 
-   out.append(':');
+		return out.toString();
+	}
 
-   // Ignoring prec for now.
-   ss = ((double) Math.round(ss * 1000.0))/1000.0;
-   if (ss < 10) out.append('0');
-   out.append(ss);
+	/**
+	 * Convert from an RA in degrees to a String in HH:MM:SS format.
+	 */
+	public static String valStr( double degrees )
+	{
+		return valStr( degrees , -3 );
+	}
 
-   //if (prec < -2) {
-   //    if (ss < 0.000099) 
-   //	out.append("0.0000");
-   //    else
-   //	out.append(ss);
-   //} else {
-   //    // specific precision requested; NOT YET SUPPORTED
-   //    out.append( ss );
-   //}
+	/**
+	 * Convert from an RA in HH:MM:SS string format to degrees.
+	 */
+	public static double valueOf( String s ) throws NumberFormatException
+	{
+		if( s == null )
+			throw new NumberFormatException( s );
 
-   return out.toString();
+		// Determine the sign from the (trimmed) string
+		s = s.trim();
+		if( s.length() == 0 )
+			throw new NumberFormatException( s );
+		
+		int sign = 1;
+		if( s.charAt( 0 ) == '-' )
+		{
+			sign = -1;
+			s = s.substring( 1 );
+		}
+
+		// Parse the string into values for hours, min, and sec
+		double[] vals = { 0. , 0. , 0. };
+		StringTokenizer tok = new StringTokenizer( s , ": " );
+		for( int i = 0 ; i < 3 && tok.hasMoreTokens() ; i++ )
+			vals[ i ] = Double.valueOf( tok.nextToken() ).doubleValue();
+
+		// Convert HH:MM:SS to degrees
+		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) * 15. ;
+		return Angle.normalizeDegrees( out );
+	}
+
+	/**
+	 * For testing.
+	 */
+	public static void main( String args[] )
+	{
+		for( int i = 0 ; i < args.length ; ++i )
+		{
+			double converted = HHMMSS.valueOf( args[ i ] );
+			String back = HHMMSS.valStr( converted );
+			System.out.println( args[ i ] + " = " + converted );
+			System.out.println( converted + " = " + back );
+		}
+	}
 }
-
-/**
- * Convert from an RA in degrees to a String in HH:MM:SS format.
- */
-public static String
-valStr(double degrees)
-{ 
-   return valStr(degrees, -3);
-}
-
-/**
- * Convert from an RA in HH:MM:SS string format to degrees.
- */
-public static double
-valueOf(String s)
-   throws NumberFormatException
-{
-   if (s == null) throw new NumberFormatException(s);
-
-   // Determine the sign from the (trimmed) string
-   s = s.trim();
-   if (s.length() == 0) throw new NumberFormatException(s);
-   int sign = 1;
-   if (s.charAt(0) == '-') {
-       sign = -1;
-       s    = s.substring(1);
-   }
-
-   // Parse the string into values for hours, min, and sec
-   double[] vals = {0.0, 0.0, 0.0};
-   StringTokenizer tok = new StringTokenizer(s, ": ");
-   for(int i=0; i<3 && tok.hasMoreTokens(); i++) {
-       vals[i] = Double.valueOf(tok.nextToken()).doubleValue();
-   }
-
-   // Convert HH:MM:SS to degrees
-   double out = sign * (vals[0] + vals[1]/60.0 + vals[2]/3600.0) * 15.0;
-   return Angle.normalizeDegrees(out);
-}
-
-
-/**
- * For testing.
- */
-public static void
-main(String args[])
-{
-   for (int i=0; i<args.length; ++i) {
-      double converted = HHMMSS.valueOf(args[i]);
-      String back      = HHMMSS.valStr(converted);
-      System.out.println(args[i]   + " = " + converted);
-      System.out.println(converted + " = " + back);
-   }
-}
-
-}
-

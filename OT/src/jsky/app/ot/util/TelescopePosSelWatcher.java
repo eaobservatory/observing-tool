@@ -13,6 +13,6 @@ package jsky.app.ot.util;
  */
 public interface TelescopePosSelWatcher
 {
-   /** A position has been selected.  */
-   public void telescopePosSelected(TelescopePosList tpl, TelescopePos tp);
+	/** A position has been selected.  */
+	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp );
 }

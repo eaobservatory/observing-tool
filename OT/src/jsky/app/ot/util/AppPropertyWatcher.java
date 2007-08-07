@@ -12,6 +12,6 @@ package jsky.app.ot.util;
  */
 public interface AppPropertyWatcher
 {
-   /** The given property has the given new value. */
-   public void propertyChange(String property, String value);
+	/** The given property has the given new value. */
+	public void propertyChange( String property , String value );
 }

@@ -13,29 +13,25 @@ package jsky.app.ot.util;
  */
 public interface TelescopePosListWatcher
 {
-   /**
-    * The list has been reset, or changed so much that the client should
-    * start from scratch.
-    */
-   public void
-   posListReset(TelescopePosList tpl, TelescopePos[] newList);
+	/**
+	 * The list has been reset, or changed so much that the client should
+	 * start from scratch.
+	 */
+	public void posListReset( TelescopePosList tpl , TelescopePos[] newList );
 
-   /**
-    * The list has been rearranged, so the new order is passed in along
-    * with the element that changed (this may be null).
-    */
-   public void
-   posListReordered(TelescopePosList tpl, TelescopePos[] newList, TelescopePos tp);
+	/**
+	 * The list has been rearranged, so the new order is passed in along
+	 * with the element that changed (this may be null).
+	 */
+	public void posListReordered( TelescopePosList tpl , TelescopePos[] newList , TelescopePos tp );
 
-   /**
-    * A position has been added to the list. 
-    */
-   public void
-   posListAddedPosition(TelescopePosList tpl, TelescopePos newPos);
+	/**
+	 * A position has been added to the list. 
+	 */
+	public void posListAddedPosition( TelescopePosList tpl , TelescopePos newPos );
 
-   /**
-    * A position has been removed from the list. 
-    */
-   public void
-   posListRemovedPosition(TelescopePosList tpl, TelescopePos rmPos);
+	/**
+	 * A position has been removed from the list. 
+	 */
+	public void posListRemovedPosition( TelescopePosList tpl , TelescopePos rmPos );
 }

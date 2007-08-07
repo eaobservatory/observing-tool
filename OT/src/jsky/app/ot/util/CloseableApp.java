@@ -11,6 +11,6 @@ package jsky.app.ot.util;
  */
 public interface CloseableApp
 {
-   /** Close the application, returning true if successful. */
-   public boolean closeApp();
+	/** Close the application, returning true if successful. */
+	public boolean closeApp();
 }

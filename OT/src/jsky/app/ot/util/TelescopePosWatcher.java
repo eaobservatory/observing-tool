@@ -13,15 +13,14 @@ package jsky.app.ot.util;
  */
 public interface TelescopePosWatcher
 {
-   /**
-    * The location of the position has changed.
-    */
-   public void telescopePosLocationUpdate(TelescopePos tp);
+	/**
+	 * The location of the position has changed.
+	 */
+	public void telescopePosLocationUpdate( TelescopePos tp );
 
-   /**
-    * Some other sort of change has been made, for instance its tag
-    * may have been updated.
-    */
-   public void telescopePosGenericUpdate(TelescopePos tp);
+	/**
+	 * Some other sort of change has been made, for instance its tag
+	 * may have been updated.
+	 */
+	public void telescopePosGenericUpdate( TelescopePos tp );
 }
-

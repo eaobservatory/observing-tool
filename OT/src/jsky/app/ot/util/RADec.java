@@ -16,16 +16,16 @@ public class RADec
 	public int coordSystem = CoordSys.FK5;
 
 	/** Right ascension in degrees. */
-	public double ra = 0.0;
+	public double ra = 0. ;
 
 	/** Declination in degrees. */
-	public double dec = 0.0;
+	public double dec = 0. ;
 
 	/** Proper motion in right ascension. */
-	public double rapm = 0.0;
+	public double rapm = 0. ;
 
 	/** Proper motion in declination. */
-	public double decpm = 0.0;
+	public double decpm = 0. ;
 
 	/**
 	 * Default constructor.
@@ -59,5 +59,4 @@ public class RADec
 		this.rapm = rapm;
 		this.decpm = decpm;
 	}
-
 }

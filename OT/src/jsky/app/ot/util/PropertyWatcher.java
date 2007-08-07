@@ -12,6 +12,6 @@ package jsky.app.ot.util;
  */
 public interface PropertyWatcher
 {
-   /** The named property changed. */
-   public void propertyChange(String propertyName);
+	/** The named property changed. */
+	public void propertyChange( String propertyName );
 }

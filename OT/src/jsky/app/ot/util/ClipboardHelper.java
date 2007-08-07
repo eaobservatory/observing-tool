@@ -1,7 +1,12 @@
 package jsky.app.ot.util;
 
-import java.awt.*;
-import java.awt.datatransfer.*;
+import java.awt.Toolkit ;
+import java.awt.datatransfer.Clipboard ;
+import java.awt.datatransfer.StringSelection ;
+import java.awt.datatransfer.UnsupportedFlavorException ;
+import java.awt.datatransfer.DataFlavor ;
+import java.awt.datatransfer.Transferable ;
+
 
 /**
  * Utility shortcuts for accessing the system clipboard.
@@ -13,36 +18,46 @@ import java.awt.datatransfer.*;
  *
  * @author		Klaas Waslander
  */
-public final class ClipboardHelper {
-	private static Object  contents = null;
-	
-	private static ClipboardHelper  requestor = new ClipboardHelper();
+public final class ClipboardHelper
+{
+	private static Object contents = null;
+
+	private static ClipboardHelper requestor = new ClipboardHelper();
 
 	/** not to be instantiated */
-	private ClipboardHelper() {
-	}
+	private ClipboardHelper(){}
 
 	/**
 	 * Set the clipboard contents.
 	 */
-	public static void setClipboard(Object arg) {
+	public static void setClipboard( Object arg )
+	{
 		// use JDK clipboard in 1.1 if it is a string
-		if (arg instanceof String) {
-			try {
-				Toolkit  toolkit = Toolkit.getDefaultToolkit();
-				Clipboard  cb = toolkit.getSystemClipboard();
-				StringSelection  s = new StringSelection((String) arg);
-				cb.setContents(s, s);
-			} catch (Throwable t) {
+		if( arg instanceof String )
+		{
+			try
+			{
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Clipboard cb = toolkit.getSystemClipboard();
+				StringSelection s = new StringSelection( ( String )arg );
+				cb.setContents( s , s );
+			}
+			catch( Throwable t )
+			{
 				// we're in Communicator or something again....
 			}
-		} else {
-			try {
-				Toolkit  toolkit = Toolkit.getDefaultToolkit();
-				Clipboard  cb = toolkit.getSystemClipboard();
-				StringSelection  s = new StringSelection("");
-				cb.setContents(s, s);
-			} catch (Throwable t) {
+		}
+		else
+		{
+			try
+			{
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Clipboard cb = toolkit.getSystemClipboard();
+				StringSelection s = new StringSelection( "" );
+				cb.setContents( s , s );
+			}
+			catch( Throwable t )
+			{
 				// we're in Communicator or something again....
 			}
 		}
@@ -52,34 +67,42 @@ public final class ClipboardHelper {
 	/**
 	 * Get the clipboard contents.
 	 */
-	public static Object getClipboard() {
-		Object  result = contents;
-		try {
-			Clipboard  cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-			Transferable  trans = cb.getContents(requestor);
+	public static Object getClipboard()
+	{
+		Object result = contents;
+		try
+		{
+			Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+			Transferable trans = cb.getContents( requestor );
 
 			// get clipboard content
-			try {
-				Object  sysContent = trans.getTransferData(DataFlavor.stringFlavor);
-				if (sysContent != null) {
-					if (sysContent instanceof String) {
-						String  str = (String)sysContent;
+			try
+			{
+				Object sysContent = trans.getTransferData( DataFlavor.stringFlavor );
+				if( sysContent != null )
+				{
+					if( sysContent instanceof String )
+					{
+						String str = ( String )sysContent;
 						// for empty string: take contents of ClipboardHelper
-						if (str.trim().length() == 0) {
+						if( str.trim().length() == 0 )
 							result = contents;
-						} else {
+						else
 							result = str;
-						}
 					}
 				}
-			} catch (java.io.IOException e) {
-				//e.printStackTrace();
-				result = contents;
-			} catch (UnsupportedFlavorException e) {
-				//e.printStackTrace();
+			}
+			catch( java.io.IOException e )
+			{
 				result = contents;
 			}
-		} catch (Throwable t) {
+			catch( UnsupportedFlavorException e )
+			{
+				result = contents;
+			}
+		}
+		catch( Throwable t )
+		{
 			// we're in Communicator or something again....
 		}
 		return result;
