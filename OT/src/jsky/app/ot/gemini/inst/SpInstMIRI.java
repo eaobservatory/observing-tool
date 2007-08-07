@@ -16,27 +16,24 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public final class SpInstMIRI extends SpInstObsComp
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "inst.MIRI", "MIRI");
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.MIRI" , "MIRI" );
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpInstMIRI());
-}
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpInstMIRI() );
+	}
 
+	public SpInstMIRI()
+	{
+		super( SP_TYPE );
+	}
 
-public SpInstMIRI()
-{
-   super(SP_TYPE);
-}
-
-/**
- * Return the science area.
- */
-public double[]
-getScienceArea()
-{
-   return new double[] {22.0, 29.0};
-}
-
+	/**
+	 * Return the science area.
+	 */
+	public double[] getScienceArea()
+	{
+		return new double[] { 22. , 29. };
+	}
 }

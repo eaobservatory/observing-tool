@@ -19,26 +19,24 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public final class SpInstGMOS extends SpInstObsComp
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "inst.GMOS", "GMOS");
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.GMOS" , "GMOS" );
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpInstGMOS());
-}
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpInstGMOS() );
+	}
 
-public SpInstGMOS()
-{
-   super(SP_TYPE);
-}
+	public SpInstGMOS()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Return the detector size.
- */
-public double[]
-getScienceArea()
-{
-   return new double[] { 422.0, 332.0 };
-}
-
+	/**
+	 * Return the detector size.
+	 */
+	public double[] getScienceArea()
+	{
+		return new double[]{ 422. , 332. };
+	}
 }

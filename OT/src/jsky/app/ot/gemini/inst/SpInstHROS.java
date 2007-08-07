@@ -16,27 +16,24 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public class SpInstHROS extends SpInstObsComp
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "inst.HROS", "HROS");
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.HROS" , "HROS" );
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpInstHROS());
-}
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpInstHROS() );
+	}
 
+	public SpInstHROS()
+	{
+		super( SP_TYPE );
+	}
 
-public SpInstHROS()
-{
-   super(SP_TYPE);
-}
-
-/**
- * Return the slit size.
- */
-public double[]
-getScienceArea()
-{
-   return new double[] { 1.0, 60.0 };
-}
-
+	/**
+	 * Return the slit size.
+	 */
+	public double[] getScienceArea()
+	{
+		return new double[]{ 1. , 60. };
+	}
 }
