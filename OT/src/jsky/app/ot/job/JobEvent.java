@@ -16,39 +16,33 @@ import java.awt.Event;
  */
 public class JobEvent extends Event
 {
+	private Job _job;
 
-private Job _job;
+	/**
+	 * Construct from a Job.
+	 */
+	public JobEvent( Object target , Job job )
+	{
+		super( target , -1 , null );
+		// -1 NOT USED BY AWT EVENTS
+		_job = job;
+	}
 
-/**
- * Construct from a Job.
- */
-public JobEvent(Object target, Job job)
-{
-   super(target, -1, null);
-   // -1 NOT USED BY AWT EVENTS
-   _job = job; 
-}
+	/**
+	 * Construct from an existing java Event and a Job.
+	 */
+	public JobEvent( Object target , Event evt , Job job )
+	{
+		super( target , evt.when , evt.id , evt.x , evt.y , evt.key , evt.modifiers , evt.arg );
+		_job = job;
+		id = -1; // NOT USED BY AWT EVENTS
+	}
 
-/**
- * Construct from an existing java Event and a Job.
- */
-public JobEvent(Object target, Event evt, Job job)
-{
-   super(target, evt.when, evt.id, evt.x, evt.y, evt.key,
-         evt.modifiers, evt.arg);
-
-   _job = job; 
-
-   id = -1;   // NOT USED BY AWT EVENTS
-}
-
-/**
- * Get the Job associated with this event.
- */
-public Job
-getJob()
-{
-   return _job;
-}
-
+	/**
+	 * Get the Job associated with this event.
+	 */
+	public Job getJob()
+	{
+		return _job;
+	}
 }

@@ -15,14 +15,13 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
  */
 public interface TpeCreateableFeature
 {
-  /**
-   * Return the label that should be on the create button.
-   */
-  public String[] getCreateButtonLabels();
+	/**
+	 * Return the label that should be on the create button.
+	 */
+	public String[] getCreateButtonLabels();
 
-  /**
-   * Create an item, returning true if successful.
-   */
-   public boolean create(FitsMouseEvent evt, FitsImageInfo fii, String label);
+	/**
+	 * Create an item, returning true if successful.
+	 */
+	public boolean create( FitsMouseEvent evt , FitsImageInfo fii , String label );
 }
-

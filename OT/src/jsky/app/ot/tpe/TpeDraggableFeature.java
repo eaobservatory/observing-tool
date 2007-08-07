@@ -15,19 +15,18 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
  */
 public interface TpeDraggableFeature
 {
-  /**
-   * Start dragging the object.
-   */
-   public boolean dragStart(FitsMouseEvent evt, FitsImageInfo fii);
+	/**
+	 * Start dragging the object.
+	 */
+	public boolean dragStart( FitsMouseEvent evt , FitsImageInfo fii );
 
-  /**
-   * Drag to a new location.
-   */
-   public void drag(FitsMouseEvent evt);
+	/**
+	 * Drag to a new location.
+	 */
+	public void drag( FitsMouseEvent evt );
 
-  /**
-   * Stop dragging.
-   */
-   public void dragStop(FitsMouseEvent evt);
+	/**
+	 * Stop dragging.
+	 */
+	public void dragStop( FitsMouseEvent evt );
 }
-

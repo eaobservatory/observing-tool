@@ -12,7 +12,7 @@ package jsky.app.ot.job;
  */
 public interface JobWatcher
 {
-   public void jobStarted(Job job);
-   public void jobFinished(Job job);
-}
+	public void jobStarted( Job job );
 
+	public void jobFinished( Job job );
+}

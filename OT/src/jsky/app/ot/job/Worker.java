@@ -12,21 +12,21 @@ package jsky.app.ot.job;
  */
 class Worker implements Runnable
 {
-   private Job _job;
+	private Job _job;
 
-/**
- */
-public Worker( Job job) {
-   _job = job;
+	/**
+	 */
+	public Worker( Job job )
+	{
+		_job = job;
+	}
+
+	/**
+	 */
+	public void run()
+	{
+		_job.notifyStarted();
+		_job.execute();
+		_job.notifyFinished();
+	}
 }
-
-/**
- */
-public void run() {
-   _job.notifyStarted();
-   _job.execute();
-   _job.notifyFinished();
-}
-
-}
-

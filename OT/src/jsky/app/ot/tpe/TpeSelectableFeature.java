@@ -14,10 +14,9 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
  */
 public interface TpeSelectableFeature
 {
-  /**
-   * Select an item, returning it if successful.  Return null if nothing
-   * is selected.
-   */
-   public Object select(FitsMouseEvent evt);
+	/**
+	 * Select an item, returning it if successful.  Return null if nothing
+	 * is selected.
+	 */
+	public Object select( FitsMouseEvent evt );
 }
-

@@ -14,9 +14,8 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
  */
 public interface TpeEraseableFeature
 {
-  /**
-   * Erase an item, returning true if successful.
-   */
-   public boolean erase(FitsMouseEvent evt);
+	/**
+	 * Erase an item, returning true if successful.
+	 */
+	public boolean erase( FitsMouseEvent evt );
 }
-

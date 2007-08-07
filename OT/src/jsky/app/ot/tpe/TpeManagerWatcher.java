@@ -12,7 +12,6 @@ package jsky.app.ot.tpe;
  */
 public interface TpeManagerWatcher
 {
-   /** The position editor has been opened, closed. */
-   public void tpeOpened(TelescopePosEditor tpe);
+	/** The position editor has been opened, closed. */
+	public void tpeOpened( TelescopePosEditor tpe );
 }
-

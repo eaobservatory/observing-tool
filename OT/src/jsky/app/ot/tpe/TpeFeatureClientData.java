@@ -13,8 +13,8 @@ package jsky.app.ot.tpe;
  */
 public interface TpeFeatureClientData
 {
-   /**
-    * Get the image feature.
-    */
-   public TpeImageFeature getImageFeature();
+	/**
+	 * Get the image feature.
+	 */
+	public TpeImageFeature getImageFeature();
 }

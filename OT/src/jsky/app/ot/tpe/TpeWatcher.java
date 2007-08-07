@@ -6,15 +6,12 @@
 //
 package jsky.app.ot.tpe;
 
-import jsky.app.ot.util.TelescopePos;
-
 /**
  * An interface supported by clients of the TelescopePosEditor who want
  * to be informed of when the editor closes.
  */
 public interface TpeWatcher
 {
-   /** The position editor has been shutdown, closed. */
-   public void tpeClosed(TelescopePosEditor tpe);
+	/** The position editor has been shutdown, closed. */
+	public void tpeClosed( TelescopePosEditor tpe );
 }
-
