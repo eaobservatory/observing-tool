@@ -12,9 +12,8 @@ package jsky.app.ot.fits.gui;
  */
 public interface FitsImageInfoObserver
 {
-   /**
-    * Notify that image info has been updated.
-    */
-   public void imageInfoUpdate(FitsImageWidget iw, FitsImageInfo fii);
+	/**
+	 * Notify that image info has been updated.
+	 */
+	public void imageInfoUpdate( FitsImageWidget iw , FitsImageInfo fii );
 }
-
