@@ -15,42 +15,44 @@ import jsky.app.ot.editor.OtItemEditor;
 /**
  * Support for coadds.
  */
-public class EdStareCapability {
+public class EdStareCapability
+{
+	/**
+	 * Get the SpStareCapability from an item editor.
+	 */
+	private SpStareCapability _getStareCap( OtItemEditor itemEditor )
+	{
+		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem();
+		String name = SpStareCapability.CAPABILITY_NAME;
+		return ( SpStareCapability )spInst.getCapability( name );
+	}
 
-    /**
-     * Get the SpStareCapability from an item editor.
-     */
-    private SpStareCapability _getStareCap(OtItemEditor itemEditor)  {
-	SpInstObsComp spInst = (SpInstObsComp) itemEditor.getCurrentSpItem();
-	String name = SpStareCapability.CAPABILITY_NAME;
-	return (SpStareCapability) spInst.getCapability(name);
-    }
+	/**
+	 * This method initializes the widgets in the presentation to reflect the
+	 * current values of the items attributes.
+	 */
+	protected void _init( final EdCompInstBase gw )
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = gw.getCoaddsTextBox();
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_getStareCap( gw ).setCoadds( tbwe.getText() );
+			}
 
+			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+		} );
+	}
 
-    /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init(final EdCompInstBase gw) {
-	TextBoxWidgetExt tbwe;
-	tbwe = gw.getCoaddsTextBox();
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _getStareCap(gw).setCoadds(tbwe.getText());
-		}
-
-		public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-	    });
-    }
-
-    /**
-     * Override _updateWidgets to show the value of the "coadds" attribute.
-     */
-    protected void _updateWidgets(EdCompInstBase gw, SpStareCapability stareCap) {
-	TextBoxWidgetExt tbwe;
-	tbwe = gw.getCoaddsTextBox();
-	tbwe.setText( stareCap.getCoaddsAsString() );
-    }
-
+	/**
+	 * Override _updateWidgets to show the value of the "coadds" attribute.
+	 */
+	protected void _updateWidgets( EdCompInstBase gw , SpStareCapability stareCap )
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = gw.getCoaddsTextBox();
+		tbwe.setText( stareCap.getCoaddsAsString() );
+	}
 }
-
