@@ -24,261 +24,268 @@ import jsky.util.gui.DialogUtil;
 //
 class OtCfgReader
 {
-    public static final String GUIDE_TAG	= "guide";
-    
-    // MFO, 19 December 2001
-    public static final String BASE_TAG		= "base";
+	public static final String GUIDE_TAG = "guide";
 
-    public static final String PHASE1_TAG	= "phase1";
+	// MFO, 19 December 2001
+	public static final String BASE_TAG = "base";
+	public static final String PHASE1_TAG = "phase1";
+	public static final String TPE_FEATURE_TAG = "tpe feature";
+	public static final String TPE_TYPE_TAG = "tpe type";
+	public static final String CLASS_TAG = "class";
+	public static final String EDITOR_TAG = "editor";
+	public static final String FEATURE_TAG = "img feature";
+	public static final String LIBRARY_TAG = "library";
+	public static final String TELESCOPE_UTIL_TAG = "telescope util";
+	public static final String NAME_RESOLVERS_TAG = "name resolvers";
+	public static final String CHOP_DEFAULTS = "chop defaults";
 
-    public static final String TPE_FEATURE_TAG	= "tpe feature";
-    public static final String TPE_TYPE_TAG	= "tpe type";
+	/** Targets which are known by the TCS by name. E.g. planets. */
+	public static final String NAMED_TARGETS = "named targets";
 
-    public static final String CLASS_TAG		= "class";
-    public static final String EDITOR_TAG	= "editor";
-    public static final String FEATURE_TAG	= "img feature";
-    
-    public static final String LIBRARY_TAG	= "library";
+	/** Telescope latitude. Can be used for noise calculations etc. */
+	public static final String TELESCOPE_LATITUDE = "telescope latitude";
+	
+	public static final String SCHEMA_BASE = "schemaBase";
+	public static final String SCHEMA_URL = "schemaURL";
+	public static final String PROXY_SERVER = "Proxy Server";
+	private static final String PROP_PROXY_SERVER = "http.proxyHost";
+	public static final String PROXY_PORT = "Proxy Port";
+	private static final String PROP_PROXY_PORT = "http.proxyPort";
+	public static final String NOTE_LABELS = "Labels";
+	public static final String NOTE_TAGS = "Tags";
+	public static final String NOTE_EXAMPLES = "Examples";
 
-    public static final String TELESCOPE_UTIL_TAG	= "telescope util";
-
-    public static final String NAME_RESOLVERS_TAG	= "name resolvers";
-
-    public static final String CHOP_DEFAULTS		= "chop defaults";
-
-    /** Targets which are known by the TCS by name. E.g. planets. */
-    public static final String NAMED_TARGETS		= "named targets";
-
-    /** Telescope latitude. Can be used for noise calculations etc. */
-    public static final String TELESCOPE_LATITUDE	= "telescope latitude";
-
-    public static final String SCHEMA_BASE              = "schemaBase";
-    public static final String SCHEMA_URL               = "schemaURL";
-
-    public static final String PROXY_SERVER             = "Proxy Server";
-    private static final String PROP_PROXY_SERVER       = "http.proxyHost";
-    public static final String PROXY_PORT               = "Proxy Port";
-    private static final String PROP_PROXY_PORT         = "http.proxyPort";
-
-    public static final String NOTE_LABELS              = "Labels";
-    public static final String NOTE_TAGS                = "Tags";
-    public static final String NOTE_EXAMPLES            = "Examples";
-
-    /**
-     * Read the configuration file from the given base URL and file name.
-     *
-     * @return The OtCfg.Info structure containing the parsed information
-     * from the ot.cfg file.
-     */
-    public static OtCfg.Info load(String cfgFilename)  {
-	ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-	URL url = classLoader.getResource( cfgFilename ) ;
-	if( url == null )
+	/**
+	 * Read the configuration file from the given base URL and file name.
+	 *
+	 * @return The OtCfg.Info structure containing the parsed information
+	 * from the ot.cfg file.
+	 */
+	public static OtCfg.Info load( String cfgFilename )
 	{
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		URL url = classLoader.getResource( cfgFilename );
+		if( url == null )
+		{
+			try
+			{
+				url = new URL( "file://" + cfgFilename );
+			}
+			catch( MalformedURLException mue ){}
+		}
+		if( url == null )
+		{
+			DialogUtil.error( "Problem constructing the config file URL: " + cfgFilename );
+			return null;
+		}
+
 		try
 		{
-			url = new URL( "file://" + cfgFilename ) ;
+			return load( url.openStream() );
 		}
-		catch( MalformedURLException mue ){}
-	}	
-	if (url == null) {
-	    DialogUtil.error("Problem constructing the config file URL: " + cfgFilename);
-	    return null;
+		catch( IOException ex )
+		{
+			DialogUtil.error( "Problem reading the config file: " + ex );
+			return null;
+		}
 	}
 
-	try {
-	    return load(url.openStream());
-	} catch (IOException ex) {
-	    DialogUtil.error("Problem reading the config file: " + ex);
-	    return null;
-	}  
-    }
+	/**
+	 * Read the configuration file from the given input stream.
+	 *
+	 * @return The OtCfg.Info structure containing the parsed information
+	 * from the ot.cfg file.
+	 */
+	public static OtCfg.Info load( InputStream is ) throws IOException
+	{
+		OtCfg.Info info = new OtCfg.Info();
 
-    /**
-     * Read the configuration file from the given input stream.
-     *
-     * @return The OtCfg.Info structure containing the parsed information
-     * from the ot.cfg file.
-     */
-    public static OtCfg.Info load(InputStream is) throws IOException  {
-	OtCfg.Info info = new OtCfg.Info();
+		Vector tpeFeatureV = new Vector(); // For add-on TpeImageFeatures
+		Vector spItemV = new Vector(); // For add-on SpItems
 
-	Vector tpeFeatureV = new Vector();  // For add-on TpeImageFeatures
-	Vector     spItemV = new Vector();  // For add-on SpItems
+		BufferedReader br = null;
+		try
+		{
+			br = new BufferedReader( new InputStreamReader( is ) );
+			String line;
 
-	BufferedReader  br = null;
-	try {
-	    br = new BufferedReader( new InputStreamReader(is) );
-	    String line;
+			OtCfg.TpeFeatureCfg tfc = null;
+			OtCfg.SpItemCfg sic = null;
 
-	    OtCfg.TpeFeatureCfg tfc = null;
-	    OtCfg.SpItemCfg     sic = null;
+			while( ( line = br.readLine() ) != null )
+			{
+				if( line.startsWith( "#" ) || ( line.length() == 0 ) )
+					continue;
 
-	    while ((line = br.readLine()) != null) {
-		if (line.startsWith("#") || (line.length() == 0)) continue;
+				// Guide Star Tags
+				if( line.startsWith( GUIDE_TAG ) )
+				{
+					info.guideTags = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( PHASE1_TAG ) )
+				{
+					// Phase1 Document Generator
+					info.phase1Class = _getValue( line );
+				}
+				else if( line.startsWith( TPE_FEATURE_TAG ) )
+				{
+					// TpeImageFeature add-ons
+					if( tfc != null )
+						tpeFeatureV.addElement( tfc );
 
-		// Guide Star Tags
-		if (line.startsWith(GUIDE_TAG)) {
-		    info.guideTags = _parseCommaList(_getValue(line));
-		} else
+					tfc = new OtCfg.TpeFeatureCfg();
+					tfc.featClass = _getValue( line );
+				}
+				else if( line.startsWith( TPE_TYPE_TAG ) )
+				{
+					if( tfc != null )
+						tfc.type = _getValue( line );
+				}
+				else if( line.startsWith( CLASS_TAG ) )
+				{
+					// SpItem add-ons
+					if( sic != null )
+						spItemV.addElement( sic );
 
-		  // Base Star Tag
-		  // If BASE_TAG is not found in cfg file then the default "Base" is used.
-		  // (see SpTelescopePos.BASE_TAG)
-//		  if (line.startsWith(BASE_TAG)) {
-//		      info.baseTag = _getValue(line);
-//		  } else
+					sic = new OtCfg.SpItemCfg();
+					sic.spClass = _getValue( line );
+				}
+				else if( line.startsWith( EDITOR_TAG ) )
+				{
+					if( sic != null )
+						sic.editorClass = _getValue( line );
+				}
+				else if( line.startsWith( FEATURE_TAG ) )
+				{
+					if( sic != null )
+						sic.imgFeatureClass = _getValue( line );
+				}
+				else if( line.startsWith( LIBRARY_TAG ) )
+				{
+					// Libraries (AB added 1-Aug-00)
+					info.libraryTags = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( TELESCOPE_UTIL_TAG ) )
+				{
+					// telescope utility class (added by MFO, 10 January 2002)
+					info.telescopeUtilClass = _getValue( line );
+				}
+				else if( line.startsWith( NAME_RESOLVERS_TAG ) )
+				{
+					// name resolvers (added by MFO, May 30, 2001)
+					info.nameResolvers = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( CHOP_DEFAULTS ) )
+				{
+					// chop defaults (added by MFO, May 13, 2002)
+					info.chopDefaults = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( NAMED_TARGETS ) )
+				{
+					// named targets (added by MFO, June 05, 2002)					
+					info.namedTargets = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( TELESCOPE_LATITUDE ) )
+				{
+					// Telescope latitude (added by MFO, June 13, 2002)
+					info.telescopeLatitude = _getValue( line );
+				}
+				else if( line.startsWith( SCHEMA_BASE ) )
+				{
+					info.schemaBase = _getValue( line );
+				}
+				else if( line.startsWith( SCHEMA_URL ) )
+				{
+					info.schemaLocation = _getValue( line );
+				}
+				else if( line.startsWith( PROXY_SERVER ) )
+				{
+					info.proxyServer = _getValue( line );
+					if( info.proxyServer != null && info.proxyServer.length() != 0 )
+						System.setProperty( PROP_PROXY_SERVER , info.proxyServer );
+				}
+				else if( line.startsWith( PROXY_PORT ) )
+				{
+					info.proxyPort = _getValue( line );
+					if( info.proxyPort != null && info.proxyPort.length() != 0 )
+						System.setProperty( PROP_PROXY_PORT , info.proxyPort );
+				}
+				else if( line.startsWith( NOTE_LABELS ) )
+				{
+					info.noteLabels = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( NOTE_TAGS ) )
+				{
+					info.noteTags = _parseCommaList( _getValue( line ) );
+				}
+				else if( line.startsWith( NOTE_EXAMPLES ) )
+				{
+					info.noteExamples = _parseCommaList( _getValue( line ) );
+				}
+			}
 
-		    // Phase1 Document Generator
-		    if (line.startsWith(PHASE1_TAG)) {
-			info.phase1Class = _getValue(line);
-		    } else
+			// Add the last config class
+			if( tfc != null )
+				tpeFeatureV.addElement( tfc );
+			if( sic != null )
+				spItemV.addElement( sic );
 
+		}
+		finally
+		{
+			if( br != null )
+				br.close();
+		}
 
-			// TpeImageFeature add-ons
-			if (line.startsWith(TPE_FEATURE_TAG)) {
-			    if (tfc != null) tpeFeatureV.addElement(tfc);
+		// SdW - Add a check to see if a personal nameresolver exists.
+		if( System.getProperty( "OT_CATALOG_FILE" ) != null )
+		{
+			File cFile = new File( System.getProperty( "OT_CATALOG_FILE" ) );
+			if( cFile.exists() && cFile.isFile() && cFile.canRead() )
+			{
+				String oldNames[] = info.nameResolvers;
+				String[] newNames = new String[ oldNames.length + 1 ];
+				newNames = oldNames;
+				newNames[ newNames.length - 1 ] = "Personal Catalog";
+				info.nameResolvers = newNames;
+			}
+		}
+		// END
 
-			    tfc           = new OtCfg.TpeFeatureCfg();
-			    tfc.featClass = _getValue(line);
-			} else
+		// Copy all the TpeImageFeature configurations into an array in the OtCfg.Info return class.
+		info.tpeFeatureCfgA = new OtCfg.TpeFeatureCfg[ tpeFeatureV.size() ];
+		tpeFeatureV.copyInto( info.tpeFeatureCfgA );
 
-			    if (line.startsWith(TPE_TYPE_TAG)) {
-				if (tfc != null) tfc.type = _getValue(line);
-			    } else
+		// Copy all the SpItem configurations into an array in the OtCfg.Info return class.
+		info.spItemCfgA = new OtCfg.SpItemCfg[ spItemV.size() ];
+		spItemV.copyInto( info.spItemCfgA );
 
-
-				// SpItem add-ons
-				if (line.startsWith(CLASS_TAG)) {
-				    if (sic != null) spItemV.addElement(sic);
-
-				    sic         = new OtCfg.SpItemCfg();
-				    sic.spClass = _getValue(line);
-				} else
-
-				    if (line.startsWith(EDITOR_TAG)) {
-					if (sic != null) sic.editorClass = _getValue(line);
-				    } else
-
-					if (line.startsWith(FEATURE_TAG)) {
-					    if (sic != null) sic.imgFeatureClass = _getValue(line);
-					} else
-
-	                                   // Libraries (AB added 1-Aug-00)
-                                           if (line.startsWith(LIBRARY_TAG)) {
-                                               info.libraryTags = _parseCommaList(_getValue(line));
-                                           } else
-
-					      // telescope utility class (added by MFO, 10 January 2002)
-					      if (line.startsWith(TELESCOPE_UTIL_TAG)) {
-                                                  info.telescopeUtilClass = _getValue(line);
-					      } else
-
-					         // name resolvers (added by MFO, May 30, 2001)
-						 if(line.startsWith(NAME_RESOLVERS_TAG)) {
-                                                    info.nameResolvers = _parseCommaList(_getValue(line));
-					         } else
-
-					            // chop defaults (added by MFO, May 13, 2002)
-						    if(line.startsWith(CHOP_DEFAULTS)) {
-                                                       info.chopDefaults = _parseCommaList(_getValue(line));
-						    } else
-
-					            // named targets (added by MFO, June 05, 2002)
-						    if(line.startsWith(NAMED_TARGETS)) {
-                                                       info.namedTargets = _parseCommaList(_getValue(line));
-						    }
-
-						    // Telescope latitude (added by MFO, June 13, 2002) 
-						    if(line.startsWith(TELESCOPE_LATITUDE)) {
-                                                       info.telescopeLatitude = _getValue(line);
-						    }
-						    if(line.startsWith(SCHEMA_BASE)) {
-                                                       info.schemaBase = _getValue(line);
-						    }
-						    if(line.startsWith(SCHEMA_URL)) {
-                                                       info.schemaLocation = _getValue(line);
-						    }
-						    if (line.startsWith(PROXY_SERVER)) {
-							info.proxyServer = _getValue(line);
-							if (info.proxyServer != null &&
-							    info.proxyServer.length() != 0 ) {
-							    System.setProperty(PROP_PROXY_SERVER, info.proxyServer);
-							}
-						    }
-						    if (line.startsWith(PROXY_PORT)) {
-							info.proxyPort = _getValue(line);
-							if (info.proxyPort != null &&
-							    info.proxyPort.length() != 0) {
-							    System.setProperty(PROP_PROXY_PORT, info.proxyPort);
-							}
-						    }
-						    if ( line.startsWith(NOTE_LABELS)) {
-							 info.noteLabels = _parseCommaList(_getValue(line));
-						    }
-						    if ( line.startsWith(NOTE_TAGS) ) {
-							info.noteTags = _parseCommaList(_getValue(line));
-						    }
-						    if ( line.startsWith (NOTE_EXAMPLES) ) {
-							info.noteExamples = _parseCommaList(_getValue(line));
-						    }
-	    }
-
-	    // Add the last config class
-	    if (tfc != null) tpeFeatureV.addElement(tfc);
-	    if (sic != null) spItemV.addElement(sic);
-
-	} finally {
-	    if (br != null) br.close();
+		return info;
 	}
 
-	// SdW - Add a check to see if a personal nameresolver exists.
-	if (System.getProperty("OT_CATALOG_FILE") != null) {
-	    File cFile = new File (System.getProperty("OT_CATALOG_FILE"));
-	    if (cFile.exists() && cFile.isFile() && cFile.canRead()) {
-		String oldNames [] = info.nameResolvers;
-		String [] newNames = new String [oldNames.length+1] ;
-		newNames = oldNames;
-		newNames[newNames.length-1] = "Personal Catalog";
-		info.nameResolvers = newNames;
-	    }
+	//
+	// Get the value part of an "attribute: value" line of the config file.
+	//
+	private static String _getValue( String line )
+	{
+		// Get the value
+		int i = line.indexOf( ':' );
+		if( i == -1 )
+			return null;
+		return line.substring( i + 1 ).trim();
 	}
-	// END
 
-	// Copy all the TpeImageFeature configurations into an array in the
-	// OtCfg.Info return class.
-	info.tpeFeatureCfgA = new OtCfg.TpeFeatureCfg[tpeFeatureV.size()];
-	tpeFeatureV.copyInto(info.tpeFeatureCfgA);
+	//
+	// Break a comma separated list of values into an array of strings.
+	//
+	private static String[] _parseCommaList( String list )
+	{
+		StringTokenizer st = new StringTokenizer( list , "," , false );
+		String[] values = new String[ st.countTokens() ];
+		int i = 0;
+		while( st.hasMoreTokens() )
+			values[ i++ ] = st.nextToken().trim();
 
-	// Copy all the SpItem configurations into an array in the OtCfg.Info
-	// return class.
-	info.spItemCfgA     = new OtCfg.SpItemCfg[spItemV.size()];
-	spItemV.copyInto(info.spItemCfgA);
-
-	return info;
-    }
-
-    //
-    // Get the value part of an "attribute: value" line of the config file.
-    //
-    private static String _getValue(String line) {
-	// Get the value
-	int i = line.indexOf(':');
-	if (i == -1) return null;
-	return line.substring(i+1).trim();
-    }
-
-    //
-    // Break a comma separated list of values into an array of strings.
-    //
-    private static String[] _parseCommaList(String list) {
-	StringTokenizer st = new StringTokenizer(list, ",", false);
-	String[] values = new String[ st.countTokens() ];
-	int i = 0;
-	while (st.hasMoreTokens()) {
-	    values[i++] = st.nextToken().trim();
+		return values;
 	}
-	return values;
-    }
 }
-

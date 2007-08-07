@@ -7,22 +7,15 @@
 package jsky.app.ot;
 
 import java.awt.Component;
-import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import jsky.app.ot.gui.StopActionWatcher;
 import jsky.app.ot.gui.StopActionWidget;
 import jsky.app.ot.job.Job;
-import jsky.app.ot.job.JobEvent;
 import jsky.app.ot.job.JobWatcher;
-import gemini.sp.SpAvTable;
 import gemini.sp.SpFactory;
-import gemini.sp.SpItem;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
-import jsky.app.ot.util.Assert;
-import ot.util.DialogUtil;
-import ot.DatabaseDialog;
 
 /**
  * The program hierarchy edit OtWindow subclass for science programs,
@@ -30,157 +23,156 @@ import ot.DatabaseDialog;
  * features implemented in this subclass have to do with the Observing
  * Database (ODB).  
  */
-public final class OtProgWindow extends OtWindow 
-    implements JobWatcher, StopActionWatcher {
+public final class OtProgWindow extends OtWindow implements JobWatcher , StopActionWatcher
+{
+	/**
+	 * Default constructor.  Creates a new empty science program.
+	 */
+	public OtProgWindow()
+	{
+		this( ( SpRootItem )SpFactory.create( SpType.SCIENCE_PROGRAM ) );
+		OtProps.setSaveShouldPrompt( true );
+	}
 
-    /**
-     * Default constructor.  Creates a new empty science program.
-     */
-    public OtProgWindow() 
-    {
-	this( ( SpRootItem )SpFactory.create( SpType.SCIENCE_PROGRAM ) );
-	OtProps.setSaveShouldPrompt( true ) ;
-    }
+	/**
+	 * Construct with a brand new program.
+	 */
+	public OtProgWindow( SpRootItem spItem )
+	{
+		super( spItem );
+		OtProps.setSaveShouldPrompt( false );
+	}
 
-    /**
-     * Construct with a brand new program.
-     */
-    public OtProgWindow( SpRootItem spItem ) 
-    {
-	super( spItem ) ;
-	OtProps.setSaveShouldPrompt( false ) ;
-    }
-    /**
-     * Construct from an SpItem read from a file described by the given
-     * FileInfo.
-     */
-    public OtProgWindow(SpRootItem spItem, FileInfo fileInfo) {
-	super(spItem, fileInfo);
-	OtProps.setSaveShouldPrompt(false);
-    }
+	/**
+	 * Construct from an SpItem read from a file described by the given
+	 * FileInfo.
+	 */
+	public OtProgWindow( SpRootItem spItem , FileInfo fileInfo )
+	{
+		super( spItem , fileInfo );
+		OtProps.setSaveShouldPrompt( false );
+	}
 
 	public OtProgWindow( SpRootItem spItem , LoginInfo loginInfo )
 	{
-		this( spItem ) ;
+		this( spItem );
 
 		OtProps.setSaveShouldPrompt( false );
-		_progInfo.login = loginInfo ;
+		_progInfo.login = loginInfo;
 	}
 
-    /**
-     * Do one-time only initialization of the window.
-     */
-    protected void _init(SpRootItem spItem, FileInfo fileInfo)  {
-	super._init(spItem, fileInfo);
+	/**
+	 * Do one-time only initialization of the window.
+	 */
+	protected void _init( SpRootItem spItem , FileInfo fileInfo )
+	{
+		super._init( spItem , fileInfo );
 
-	_progInfo.isPlan  = false;
-	SpType type = spItem.type();
-	if (type.equals( SpType.SCIENCE_PLAN)) 
-	    _progInfo.isPlan  = true;
-	else if (type.equals( SpType.LIBRARY)) 
-	    libFolderAction.setEnabled(true);
-    }
-
-    /**
-     * Set the top level parent frame (or internal frame) for this window.
-     * (Override here to set the frame icon).
-     */
-    public void setParentFrame(Component p) {
-	super.setParentFrame(p);
-
-	if (p instanceof JFrame && _curItem != null) {
-	    SpType type = _curItem.type();
-	    JFrame f = (JFrame)p;
-	    if (type.equals( SpType.SCIENCE_PROGRAM )) 
-		f.setIconImage(new ImageIcon(getClass().getResource("images/ngc104.gif")).getImage());
-	    else if (type.equals( SpType.SCIENCE_PLAN )) 
-		f.setIconImage(new ImageIcon(getClass().getResource("images/comet.gif")).getImage());
-	    else if (type.equals( SpType.LIBRARY )) 
-		f.setIconImage(new ImageIcon(getClass().getResource("images/libIcon.gif")).getImage());
+		_progInfo.isPlan = false;
+		SpType type = spItem.type();
+		if( type.equals( SpType.SCIENCE_PLAN ) )
+			_progInfo.isPlan = true;
+		else if( type.equals( SpType.LIBRARY ) )
+			libFolderAction.setEnabled( true );
 	}
-    }
 
-    /** Return true if the SP type is LIBRARY */
-    public boolean isLibrary() {
-	return _curItem.type().equals(SpType.LIBRARY);
-    }
+	/**
+	 * Set the top level parent frame (or internal frame) for this window.
+	 * (Override here to set the frame icon).
+	 */
+	public void setParentFrame( Component p )
+	{
+		super.setParentFrame( p );
 
-    /** Add a library folder to the tree. */
-    public void addLibFolder() {
-	_tw.addItem(SpFactory.create(SpType.LIBRARY_FOLDER));
-    }
-
-    /** Return true if online */
-    public boolean isOnline() {
-	return _progInfo.online;
-    }
-
-
-    //
-    // Check whether this program has ever been stored to the ODB.
-    //
-    private boolean _previouslyStored()  {
-	// Has this program ever been stored to the server?
-	return _tw.getProg().hasBeenNamed();
-    }
-
-    /**
-     * Implementation of the StopActionWatcher interface.
-     */
-    public synchronized void stopAction(StopActionWidget saw) {
-    }
-
-    /**
-     * Called by worker thread when a job is started.
-     */
-    public void jobStarted(Job job)   {
-	System.out.println("JOB STARTED");
-    }
-
-    /**
-     * Called by worker thread when a job is finished.
-     */
-    public void jobFinished(Job job)  {
-	System.out.println("JOB FINISHED");
-	//setIdle();
-    }
-
-
-    /** 
-     * Fetch a science program from an online database.
-     */
-    public void fetchFromOnlineDatabase() 
-    {
-	Thread t = new Thread
-	( 
-		new Runnable() 
+		if( p instanceof JFrame && _curItem != null )
 		{
-			public void run() 
-			{
-				OT.getDatabaseDialog().fetchProgram() ;
-			}
+			SpType type = _curItem.type();
+			JFrame f = ( JFrame )p;
+			if( type.equals( SpType.SCIENCE_PROGRAM ) )
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/ngc104.gif" ) ).getImage() );
+			else if( type.equals( SpType.SCIENCE_PLAN ) )
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/comet.gif" ) ).getImage() );
+			else if( type.equals( SpType.LIBRARY ) )
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/libIcon.gif" ) ).getImage() );
 		}
-	) ;
-	t.start() ;
-    }
+	}
 
+	/** Return true if the SP type is LIBRARY */
+	public boolean isLibrary()
+	{
+		return _curItem.type().equals( SpType.LIBRARY );
+	}
 
-    /** 
-     * Store the current science program to an online database.
-     */
-    public void storeToOnlineDatabase() 
-    {
-	Thread t = new Thread
-	( 
-		new Runnable() 
+	/** Add a library folder to the tree. */
+	public void addLibFolder()
+	{
+		_tw.addItem( SpFactory.create( SpType.LIBRARY_FOLDER ) );
+	}
+
+	/** Return true if online */
+	public boolean isOnline()
+	{
+		return _progInfo.online;
+	}
+
+	//
+	// Check whether this program has ever been stored to the ODB.
+	//
+	private boolean _previouslyStored()
+	{
+		// Has this program ever been stored to the server?
+		return _tw.getProg().hasBeenNamed();
+	}
+
+	/**
+	 * Implementation of the StopActionWatcher interface.
+	 */
+	public synchronized void stopAction( StopActionWidget saw ){}
+
+	/**
+	 * Called by worker thread when a job is started.
+	 */
+	public void jobStarted( Job job )
+	{
+		System.out.println( "JOB STARTED" );
+	}
+
+	/**
+	 * Called by worker thread when a job is finished.
+	 */
+	public void jobFinished( Job job )
+	{
+		System.out.println( "JOB FINISHED" );
+	}
+
+	/** 
+	 * Fetch a science program from an online database.
+	 */
+	public void fetchFromOnlineDatabase()
+	{
+		Thread t = new Thread( new Runnable()
 		{
-			public void run() 
+			public void run()
 			{
-				OT.getDatabaseDialog().storeProgram( getItem() ) ;
+				OT.getDatabaseDialog().fetchProgram();
 			}
-		}	   
-	) ;
-	t.start() ;
-    }
+		} );
+		t.start();
+	}
+
+	/** 
+	 * Store the current science program to an online database.
+	 */
+	public void storeToOnlineDatabase()
+	{
+		Thread t = new Thread( new Runnable()
+		{
+			public void run()
+			{
+				OT.getDatabaseDialog().storeProgram( getItem() );
+			}
+		} );
+		t.start();
+	}
 
 }

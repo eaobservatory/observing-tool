@@ -18,23 +18,24 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
-import gemini.util.Version ;
+import gemini.util.Version;
 
+public final class SplashScreen extends SplashGUI implements ActionListener
+{
 
-public final class SplashScreen extends SplashGUI implements ActionListener {
+	/** The top level parent frame (or internal frame) used to close the window */
+	protected Component parent;
 
-    /** The top level parent frame (or internal frame) used to close the window */
-    protected Component parent;
+	public SplashScreen( URL welcomeTxtURL )
+	{
+		_readWelcome( welcomeTxtURL );
+		dismissButton.addActionListener( this );
+		openButton.addActionListener( this );
+		newButton.addActionListener( this );
+		fetchButton.addActionListener( this );
+	}
 
-    public SplashScreen(URL welcomeTxtURL) {
-	_readWelcome(welcomeTxtURL);
-	dismissButton.addActionListener(this);
-	openButton.addActionListener(this);
-	newButton.addActionListener(this);
-	fetchButton.addActionListener(this);
-    }
-
-    //
+	//
 	// Read the welcome text from the specified URL.
 	//
 	private void _readWelcome( URL url )
@@ -45,14 +46,14 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 
 		// Get the updated version date...
 		BufferedReader br = null;
-		String fullVersion = Version.getInstance().getFullVersion() ;
+		String fullVersion = Version.getInstance().getFullVersion();
 
 		br = null;
 		try
 		{
 			br = new BufferedReader( new InputStreamReader( url.openStream() ) );
 			String line;
-			while (( line = br.readLine() ) != null)
+			while( ( line = br.readLine() ) != null )
 			{
 				line = line.trim();
 				if( line.equals( "" ) )
@@ -75,52 +76,53 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 				if( br != null )
 					br.close();
 			}
-			catch( Exception ex )
-			{
-			}
+			catch( Exception ex ){}
 		}
 	}
 
+	//
+	// Display a warning message in the RichTextBoxExt.
+	//
+	private void _warning( String warning )
+	{
+		RichTextBoxWidgetExt rt;
+		rt = messageRTBW;
+		rt.setText( "WARNING: " + warning );
+		rt.setForeground( Color.red );
+		rt.setFont( rt.getFont().deriveFont( Font.BOLD ) );
+	}
 
-    //
-    // Display a warning message in the RichTextBoxExt.
-    //
-    private void _warning(String warning) {
-	RichTextBoxWidgetExt rt;
-	rt = messageRTBW;
-	rt.setText("WARNING: " + warning);
-	rt.setForeground(Color.red);
-	rt.setFont(rt.getFont().deriveFont(Font.BOLD));
-    }
+	/** Set the top level parent frame (or internal frame) used to close the window */
+	public void setParentFrame( Component p )
+	{
+		parent = p;
+	}
 
-    /** Set the top level parent frame (or internal frame) used to close the window */
-    public void setParentFrame(Component p) {parent = p;}
+	/** Return the top level parent frame (or internal frame) used to close the window */
+	public Component getParentFrame()
+	{
+		return parent;
+	}
 
-    /** Return the top level parent frame (or internal frame) used to close the window */
-    public Component getParentFrame() {return parent;}
+	public void dismiss()
+	{
+		if( parent instanceof JFrame )
+			( ( JFrame )parent ).dispose();
+		else if( parent instanceof JInternalFrame )
+			( ( JInternalFrame )parent ).dispose();
+	}
 
-    public void	dismiss() {
-	if (parent instanceof JFrame)
-	    ((JFrame)parent).dispose();
-	else if (parent instanceof JInternalFrame)
-	    ((JInternalFrame)parent).dispose();
-    }
+	public void actionPerformed( ActionEvent e )
+	{
+		Object w = e.getSource();
+		if( w == openButton )
+			OtFileIO.open();
+		else if( w == newButton )
+			OT.newProgram();
+		else if( w == fetchButton )
+			OT.fetchProgram();
 
-    public void	actionPerformed(ActionEvent e) {
-	Object w = e.getSource();
-	if (w == openButton)
-	    OtFileIO.open();
-	else if (w == newButton)
-	    OT.newProgram();
-	else if (w == fetchButton)
-	    OT.fetchProgram();
-
-	// In any case, remove the splash screen
-	dismiss();
-
-	// If we are not using internal frames, there is nothing left to do here...
-	//MFO//if (w == dismissButton && parent instanceof JFrame) 
-	//MFO//    System.exit(0);
-    }
+		// In any case, remove the splash screen
+		dismiss();
+	}
 }
-

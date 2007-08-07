@@ -33,22 +33,14 @@ import javax.swing.JLayeredPane;
  */
 public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatcher , StopActionWatcher , ActionListener
 {
-
 	// The singleton ProgListWindowFrame or InternalFrame instance.
 	private static Component _instance;
-
 	public static final String LOGIN_PAGE = "loginPage";
-
 	public static final String PROG_LIST_PAGE = "progListPage";
-
 	public static final String LOGIN_PATH = "folderWidget.loginPage";
-
 	public static final String PROG_LIST_PATH = "folderWidget.progListPage";
-
 	private String _username;
-
 	private Vector _progs;
-
 	private ListBoxWidgetExt _progList;
 
 	/**
@@ -65,15 +57,13 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 			else
 			{
 				_instance = new ProgListWindowInternalFrame();
-				OT.getDesktop().add( ( JInternalFrame ) _instance , JLayeredPane.MODAL_LAYER );
+				OT.getDesktop().add( ( JInternalFrame )_instance , JLayeredPane.MODAL_LAYER );
 			}
 		}
 
 		// make window popup in case it was iconified.
 		if( _instance instanceof ProgListWindowFrame )
-		{
-			( ( ProgListWindowFrame ) _instance ).setState( java.awt.Frame.NORMAL );
-		}
+			( ( ProgListWindowFrame )_instance ).setState( java.awt.Frame.NORMAL );
 
 		return _instance;
 	}
@@ -135,7 +125,7 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	{
 		int index = 0;
 		if( pageName.equals( PROG_LIST_PAGE ) )
-			index++;
+			index++ ;
 		folderWidget.setSelectedIndex( index );
 	}
 
@@ -155,9 +145,7 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	{
 		// MFO
 		passwordTextBox.addActionListener( this );
-
 		keyTextBox.addActionListener( this );
-
 		stopAction.addWatcher( this );
 	}
 
@@ -211,9 +199,7 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	 * 
 	 * @see StopActionWatcher
 	 */
-	public void stopAction( StopActionWidget saw )
-	{
-	}
+	public void stopAction( StopActionWidget saw ){}
 
 	/**
 	 * Contact the ODB and obtain a listing of available programs.
@@ -222,11 +208,10 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	{
 		// Show the window if it isn't visible, and update the login info.
 		if( !_instance.isVisible() )
-		{
 			_instance.setVisible( true );
-		}
+
 		if( _instance instanceof JFrame )
-			( ( JFrame ) _instance ).setState( Frame.NORMAL );
+			( ( JFrame )_instance ).setState( Frame.NORMAL );
 
 		_updateLoginInfo();
 
@@ -246,8 +231,7 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 			return;
 		}
 
-		// Now unformat it to get the spXXX id. The programs are listed either
-		// as "spXXX" alone or "Arbitrary Title (spXXX)"
+		// Now unformat it to get the spXXX id. The programs are listed either as "spXXX" alone or "Arbitrary Title (spXXX)"
 		if( progName.charAt( progName.length() - 1 ) == ')' )
 		{
 			int index = progName.lastIndexOf( '(' );
@@ -274,24 +258,18 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	public void updateWindow()
 	{
 		if( _progs == null )
-		{
 			gotoPage( LOGIN_PAGE );
-		}
 	}
 
 	/**
 	 * Part of the TextBoxWidgetWatcher interface that must be implemented, but we aren't interested in.
 	 */
-	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
-	{
-	}
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe ){}
 
 	/**
 	 * This method implements part of the TextBoxWidgetWatcher interface from gemini.gui.
 	 */
-	public void textBoxAction( TextBoxWidgetExt tbwe )
-	{
-	}
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
 	/**
 	 * Receive notification when a PasswordWidgetExt that we are interrested in has the return key pressed.
@@ -301,12 +279,8 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	public void actionPerformed( ActionEvent e )
 	{
 		if( e.getSource() == passwordTextBox )
-		{
 			fetchListing();
-		}
 		else if( e.getSource() == keyTextBox )
-		{
 			fetchProg();
-		}
 	}
 }

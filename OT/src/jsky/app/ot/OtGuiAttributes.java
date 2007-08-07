@@ -12,16 +12,15 @@ package jsky.app.ot;
 //
 interface OtGuiAttributes
 {
-   //
-   // This attribute is true if the item is collapsed, or not showing its
-   // children.
-   //
-   String GUI_COLLAPSED = ".gui.collapsed";
+	//
+	// This attribute is true if the item is collapsed, or not showing its
+	// children.
+	//
+	String GUI_COLLAPSED = ".gui.collapsed";
 
-   //
-   // If this attribute is true, the item was selected when it was last
-   // stored.
-   //
-   String GUI_SELECTED  = ".gui.selected";
+	//
+	// If this attribute is true, the item was selected when it was last
+	// stored.
+	//
+	String GUI_SELECTED = ".gui.selected";
 }
-

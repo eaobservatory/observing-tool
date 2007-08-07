@@ -14,22 +14,23 @@ package jsky.app.ot;
  * All of this is necessitated by the fact that Bongo widgets can't
  * be cloned.
  */
-public class OtSimpleTreeNodeWidget extends OtTreeNodeWidget {
+public class OtSimpleTreeNodeWidget extends OtTreeNodeWidget
+{
 
-    public OtSimpleTreeNodeWidget(OtTreeWidget tree) {
-	super(tree);
-    }
+	public OtSimpleTreeNodeWidget( OtTreeWidget tree )
+	{
+		super( tree );
+	}
 
-    public OtSimpleTreeNodeWidget() {
-    }
+	public OtSimpleTreeNodeWidget(){}
 
-    /**
-     * Implement copy() to make this class concrete.
-     */
-    public OtTreeNodeWidget copy() {
-	OtTreeNodeWidget newTNW = new OtSimpleTreeNodeWidget((OtTreeWidget)tree);
-	super.copyInto(newTNW);
-	return newTNW;
-    }
+	/**
+	 * Implement copy() to make this class concrete.
+	 */
+	public OtTreeNodeWidget copy()
+	{
+		OtTreeNodeWidget newTNW = new OtSimpleTreeNodeWidget( ( OtTreeWidget )tree );
+		super.copyInto( newTNW );
+		return newTNW;
+	}
 }
-

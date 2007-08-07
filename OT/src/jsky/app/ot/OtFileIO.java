@@ -59,15 +59,14 @@ public class OtFileIO
 	public static boolean storeSp( SpRootItem spItem , File f )
 	{
 		// Get a FileOutputStream pointing to the given File.
-		String filename = f.getName() ;
-    	/*
-    	 * Check whether this file has an .xml suffix.
-    	 * If not, append ".xml" to its name.
-    	 */
-    	if( !filename.toLowerCase().endsWith( ".xml" ) ) 
-    	{
-        	f = new File( f.getAbsolutePath() + ".xml" ) ;
-    	}
+		String filename = f.getName();
+		/*
+		 * Check whether this file has an .xml suffix.
+		 * If not, append ".xml" to its name.
+		 */
+		if( !filename.toLowerCase().endsWith( ".xml" ) )
+			f = new File( f.getAbsolutePath() + ".xml" );
+
 		if( f.exists() )
 		{
 			File backup = new File( f.getPath() + ".BAK" );
@@ -95,16 +94,16 @@ public class OtFileIO
 		SpItemUtilities.setReferenceIDs( spItem );
 
 		/*
-		* Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
-		* SpObs components that are MSBs.
-		*/
+		 * Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
+		 * SpObs components that are MSBs.
+		 */
 		SpItemUtilities.saveElapsedTimes( spItem );
 
 		// Make sure the msb attributes are set correctly.
 		SpItemUtilities.updateMsbAttributes( spItem );
 
 		String xml = spItem.toXML();
-		
+
 		try
 		{
 			fos = new FileOutputStream( f );
@@ -166,7 +165,7 @@ public class OtFileIO
 	{
 		// Get a File object from the directory and filename ;
 		File f = new File( dir , filename );
-		return fetchSp( f ) ;
+		return fetchSp( f );
 	}
 
 	public static SpRootItem fetchSp( File file )
@@ -178,22 +177,17 @@ public class OtFileIO
 		}
 		catch( SecurityException se )
 		{
-			String path = file.getParent() ;
+			String path = file.getParent();
 			JOptionPane.showMessageDialog( null , "The Observing Tool does not have access to the '" + path + "' directory." , "Error" , JOptionPane.ERROR_MESSAGE );
 			return null;
 
 		}
 		catch( FileNotFoundException fnfe )
 		{
-			String path = file.getAbsolutePath() ;
+			String path = file.getAbsolutePath();
 			JOptionPane.showMessageDialog( null , "The file '" + path + "' was not found." , "Error" , JOptionPane.ERROR_MESSAGE );
 			return null;
 
-		}
-		catch( IOException ioe )
-		{
-			JOptionPane.showMessageDialog( null , ioe.toString() , "Error" , JOptionPane.ERROR_MESSAGE );
-			return null;
 		}
 		return fetchSp( fr );
 	}
@@ -208,7 +202,7 @@ public class OtFileIO
 	{
 		try
 		{
-			return ( SpRootItem )( new SpInputXML() ).xmlToSpItem( rdr ) ;
+			return ( SpRootItem )( new SpInputXML() ).xmlToSpItem( rdr );
 		}
 		catch( Exception e )
 		{
@@ -261,9 +255,7 @@ public class OtFileIO
 			System.out.println( "cannot find " + file.getAbsolutePath() );
 			String pwd = OT.getOtUserDir();
 			if( !pwd.endsWith( File.separator ) )
-			{
 				pwd += File.separator;
-			}
 
 			File nufile = new File( pwd + filename );
 			if( nufile.exists() && nufile.canRead() )
@@ -310,28 +302,24 @@ public class OtFileIO
 
 		int rtn = fd.showSaveDialog( null );
 		if( rtn == JFileChooser.CANCEL_OPTION )
-		{
 			return false;
-		}
 
 		File f = fd.getSelectedFile();
 		String filename = f.getName();
 
 		/*
-		* Check whether this file has an .xml suffix.
-		* If not, append ".xml" to its name.
-		*/
+		 * Check whether this file has an .xml suffix.
+		 * If not, append ".xml" to its name.
+		 */
 		if( !filename.toLowerCase().endsWith( ".xml" ) )
-		{
 			f = new File( f.getAbsolutePath() + ".xml" );
-		}
 
 		if( f == null )
 			return false;
-		
+
 		String dir = f.getParent();
 		if( !dir.endsWith( File.separator ) )
-			dir += File.separator ;
+			dir += File.separator;
 
 		if( dir != null )
 			_lastDir = dir;
@@ -361,7 +349,7 @@ public class OtFileIO
 		String oldFileName = spItem.getTable().get( ".gui.filename" );
 		spItem.getTable().set( ".gui.filename" , filename );
 
-		SpRootItem spRoot = ( SpRootItem ) spItem.getRootItem();
+		SpRootItem spRoot = ( SpRootItem )spItem.getRootItem();
 		spRoot.setOTVersion();
 		spRoot.setTelescope();
 
@@ -389,14 +377,14 @@ public class OtFileIO
 	public static SpRootItem saveAs( SpRootItem spItem , FileInfo fi )
 	{
 		/*
-		* Remember the "previously saved" state, then set it to false to that
-		* the save method will prompt for a file name.  If the save fails or
-		* is cancelled, reset hasBeenSaved.
-		*/
+		 * Remember the "previously saved" state, then set it to false to that
+		 * the save method will prompt for a file name.  If the save fails or
+		 * is cancelled, reset hasBeenSaved.
+		 */
 		boolean hasBeenSaved = fi.hasBeenSaved;
 		fi.hasBeenSaved = false;
 
-		SpRootItem spCopy = ( SpRootItem ) spItem.deepCopy();
+		SpRootItem spCopy = ( SpRootItem )spItem.deepCopy();
 		spCopy.setOTVersion();
 		spCopy.setTelescope();
 
@@ -422,9 +410,8 @@ public class OtFileIO
 
 		String m = "Revert to the saved version of '" + fi.filename + "'?";
 		if( JOptionPane.showConfirmDialog( null , m , "Revert?" , JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION )
-		{
 			return null;
-		}
+
 		return fetchSp( fi.dir , fi.filename );
 	}
 

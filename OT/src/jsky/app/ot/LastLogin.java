@@ -13,34 +13,37 @@ package jsky.app.ot;
  *
  * @see LoginInfo
  */
-public final class LastLogin {
+public final class LastLogin
+{
+	private static LoginInfo _loginInfo;
 
-    private static LoginInfo _loginInfo;
-
-    /**
-     * Set the login information, replacing any "last" login information
-     * that was entered previously.
-     */
-    public static synchronized void set(String username, int database, String password) {
-	if (_loginInfo == null) {
-	    _loginInfo = new LoginInfo(username, database, password);
-	} 
-	else {
-	    _loginInfo.username = username;
-	    _loginInfo.database = database;
-	    _loginInfo.password = password;
-	}
-    }
-
-    /**
-     * Get the last entered login information.
-     */
-    public static synchronized LoginInfo get() {
-	LoginInfo curValue = null;
-	if (_loginInfo != null) {
-	    curValue = new LoginInfo(_loginInfo);
+	/**
+	 * Set the login information, replacing any "last" login information
+	 * that was entered previously.
+	 */
+	public static synchronized void set( String username , int database , String password )
+	{
+		if( _loginInfo == null )
+		{
+			_loginInfo = new LoginInfo( username , database , password );
+		}
+		else
+		{
+			_loginInfo.username = username;
+			_loginInfo.database = database;
+			_loginInfo.password = password;
+		}
 	}
 
-	return curValue;
-    }
+	/**
+	 * Get the last entered login information.
+	 */
+	public static synchronized LoginInfo get()
+	{
+		LoginInfo curValue = null;
+		if( _loginInfo != null )
+			curValue = new LoginInfo( _loginInfo );
+
+		return curValue;
+	}
 }
