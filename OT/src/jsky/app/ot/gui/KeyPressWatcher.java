@@ -11,9 +11,10 @@ import java.awt.event.KeyEvent;
 /**
  * An interface supported by clients interrested in KeyPressEvents.
  */
-public interface KeyPressWatcher {
-   /**
-    * A key was pressed.
-    */
-   public void keyPressed(KeyEvent evt);
+public interface KeyPressWatcher
+{
+	/**
+	 * A key was pressed.
+	 */
+	public void keyPressed( KeyEvent evt );
 }

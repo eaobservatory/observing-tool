@@ -15,21 +15,17 @@ import java.awt.Graphics;
  */
 public final class DrawUtil
 {
-
-/**
- * Drag a string in the given foreground and background colors.
- */
-public static void
-drawString(Graphics g, String str, Color fg, Color bg, int x, int y)
-{
-   FontMetrics fm = g.getFontMetrics();
-   int w = fm.stringWidth(str);
-   int h = fm.getAscent();
-   g.setColor(bg);
-   g.fillRect(x, y - h, w+1, h+1);  // String loc + padding
-   g.setColor(fg);
-   g.drawString(str, x, y);
+	/**
+	 * Drag a string in the given foreground and background colors.
+	 */
+	public static void drawString( Graphics g , String str , Color fg , Color bg , int x , int y )
+	{
+		FontMetrics fm = g.getFontMetrics();
+		int w = fm.stringWidth( str );
+		int h = fm.getAscent();
+		g.setColor( bg );
+		g.fillRect( x , y - h , w + 1 , h + 1 ); // String loc + padding
+		g.setColor( fg );
+		g.drawString( str , x , y );
+	}
 }
-
-}
-

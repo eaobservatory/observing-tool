@@ -12,17 +12,10 @@ package jsky.app.ot.gui;
  *
  * @see CellSelectTableWidget
  */
-public interface CellSelectTableWatcher {
-
-  /**
-   * The given cell was selected.
-   */
-  public void cellSelected(CellSelectTableWidget w, int colIndex, int rowIndex);
-
-  /**
-   * The given cell was "actioned".
-   * XXX allan: no needed
-  public void cellAction(CellSelectTableWidget w, int colIndex, int rowIndex);
-  */
+public interface CellSelectTableWatcher
+{
+	/**
+	 * The given cell was selected.
+	 */
+	public void cellSelected( CellSelectTableWidget w , int colIndex , int rowIndex );
 }
-

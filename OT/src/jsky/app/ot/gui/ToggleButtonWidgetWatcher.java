@@ -5,7 +5,7 @@
 // $Id$
 //
 package jsky.app.ot.gui;
- 
+
 /**
  * A client implements this interface if it wants to register itself
  * as the watcher of an ToggleButtonWidget widget.
@@ -14,9 +14,8 @@ package jsky.app.ot.gui;
  */
 public interface ToggleButtonWidgetWatcher
 {
-   /**
-    * A toggle button was changed.
-    */
-   public void toggleButtonAction(ToggleButtonWidget tbw);
+	/**
+	 * A toggle button was changed.
+	 */
+	public void toggleButtonAction( ToggleButtonWidget tbw );
 }
-

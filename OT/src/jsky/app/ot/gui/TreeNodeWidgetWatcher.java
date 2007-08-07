@@ -14,13 +14,13 @@ package jsky.app.ot.gui;
  */
 public interface TreeNodeWidgetWatcher
 {
-   /**
-    * Receive notification that a node is selected.
-    */
-   public void nodeSelected(TreeNodeWidgetExt tnw);
+	/**
+	 * Receive notification that a node is selected.
+	 */
+	public void nodeSelected( TreeNodeWidgetExt tnw );
 
-   /**
-    * Receive notification that a node has been acted upon.
-    */
-   public void nodeAction(TreeNodeWidgetExt tnw);
+	/**
+	 * Receive notification that a node has been acted upon.
+	 */
+	public void nodeAction( TreeNodeWidgetExt tnw );
 }

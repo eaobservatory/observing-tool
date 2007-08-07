@@ -17,8 +17,8 @@ import java.util.Vector;
  */
 public interface MultiSelTreeWidgetWatcher extends TreeWidgetWatcher
 {
-   /**
-    * Receive notification that multiple nodes have been selected.
-    */
-   public void multiNodeSelect(TreeWidgetExt tw, Vector nodes);
+	/**
+	 * Receive notification that multiple nodes have been selected.
+	 */
+	public void multiNodeSelect( TreeWidgetExt tw , Vector nodes );
 }

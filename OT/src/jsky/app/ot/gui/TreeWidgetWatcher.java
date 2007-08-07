@@ -19,31 +19,13 @@ package jsky.app.ot.gui;
  */
 public interface TreeWidgetWatcher
 {
-   /**
-    * Receive notification that a node is selected.
-    */
-   public void nodeSelected(TreeWidgetExt tw, TreeNodeWidgetExt tnw);
+	/**
+	 * Receive notification that a node is selected.
+	 */
+	public void nodeSelected( TreeWidgetExt tw , TreeNodeWidgetExt tnw );
 
-   /**
-    * Receive notification that a node has been acted upon.
-    */
-   public void nodeAction(TreeWidgetExt tw, TreeNodeWidgetExt tnw);
-
-//   /**
-//    * Receive notification that a node has been added.
-//    */
-//   public void nodeAdded(TreeWidgetExt tw, TreeNodeWidgetExt tnw);
-//
-//   /**
-//    * Receive notification that a node has been removed.   The parentTNW
-//    * is the tree node from which the item was removed (that is, its former
-//    * parent).
-//    */
-//   public void nodeRemoved(TreeWidgetExt tw, TreeNodeWidgetExt tnw,
-//                                          TreeNodeWidgetExt parentTNW);
-//
-//   /**
-//    * Receive notification that a node has been expanded or collapsed.
-//    */
-//   public void nodeExpansionChange(TreeWidgetExt tw, TreeNodeWidgetExt tnw);
+	/**
+	 * Receive notification that a node has been acted upon.
+	 */
+	public void nodeAction( TreeWidgetExt tw , TreeNodeWidgetExt tnw );
 }

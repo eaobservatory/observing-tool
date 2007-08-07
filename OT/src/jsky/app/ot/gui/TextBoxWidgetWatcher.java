@@ -15,14 +15,13 @@ package jsky.app.ot.gui;
  */
 public interface TextBoxWidgetWatcher
 {
-   /**
-    * A key was pressed in the given TextBoxWidgetExt.
-    */
-   public void textBoxKeyPress(TextBoxWidgetExt tbwe);
+	/**
+	 * A key was pressed in the given TextBoxWidgetExt.
+	 */
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe );
 
-   /**
-    * A return key was pressed in the given TextBoxWidgetExt.
-    */
-   public void textBoxAction(TextBoxWidgetExt tbwe);
+	/**
+	 * A return key was pressed in the given TextBoxWidgetExt.
+	 */
+	public void textBoxAction( TextBoxWidgetExt tbwe );
 }
-

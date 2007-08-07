@@ -6,11 +6,6 @@
 //
 package jsky.app.ot.gui;
 
-import java.awt.Color;
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.Vector;
 
 /**
@@ -20,85 +15,92 @@ import java.util.Vector;
  * @see MultiSelTreeWidget
  * @author	Shane Walker
  */
-public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt {
+public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
+{
+	/** Default constructor (need to call setTree(TreeNodeWidgetExt) later). */
+	public MultiSelTreeNodeWidget(){}
 
-    /** Default constructor (need to call setTree(TreeNodeWidgetExt) later). */ 
-    public MultiSelTreeNodeWidget() {
-    }
+	/** Constructor.  */
+	public MultiSelTreeNodeWidget( MultiSelTreeWidget tree )
+	{
+		super( tree );
+	}
 
-    /** Constructor.  */ 
-    public MultiSelTreeNodeWidget(MultiSelTreeWidget tree) {
-	super(tree);
-    }
+	/** Constructor with a label. Used by subclasses of TreeNodeWidgetExt.  */
+	public MultiSelTreeNodeWidget( MultiSelTreeWidget tree , String label )
+	{
+		super( tree , label );
+	}
 
-    /** Constructor with a label. Used by subclasses of TreeNodeWidgetExt.  */ 
-    public MultiSelTreeNodeWidget(MultiSelTreeWidget tree, String label) {
-	super(tree, label);
-    }
+	/**
+	 * If this node is part of a MultiSelTreeWidget, return the
+	 * MultiSelTreeWidget.  If not, return null.
+	 */
+	public MultiSelTreeWidget getMultiSelTreeWidget()
+	{
+		return ( MultiSelTreeWidget )getTreeWidget();
+	}
 
-    /**
-     * If this node is part of a MultiSelTreeWidget, return the
-     * MultiSelTreeWidget.  If not, return null.
-     */
-    public MultiSelTreeWidget getMultiSelTreeWidget() {
-	return (MultiSelTreeWidget)getTreeWidget();
-    }
+	/**
+	 * Override this method to turn off the multi-selection.
+	 */
+	public void add( int pos , TreeNodeWidgetExt tnw )
+	{
+		getMultiSelTreeWidget().multiUnselect();
+		super.add( pos , tnw );
+	}
 
-    /**
-     * Override this method to turn off the multi-selection.
-     */
-    public void add(int pos, TreeNodeWidgetExt tnw) {
-	getMultiSelTreeWidget().multiUnselect();
-	super.add(pos, tnw);
-    }
-
-
-    /**
-     * Override select to turn off the multi-selection.
-     */
-    public void	setSelected(boolean selected) {
-	if (tree.getSelectedNode() != this) {
-	    if (tree.getSelectedNode() != null) {
-		if (!isMultiSelected()) {
-		    // Turn off the multi-select
-		    getMultiSelTreeWidget().multiUnselect();
+	/**
+	 * Override select to turn off the multi-selection.
+	 */
+	public void setSelected( boolean selected )
+	{
+		if( tree.getSelectedNode() != this )
+		{
+			if( tree.getSelectedNode() != null )
+			{
+				// Turn off the multi-select
+				if( !isMultiSelected() )
+					getMultiSelTreeWidget().multiUnselect();
+			}
+			super.setSelected( selected );
 		}
-	    }
-	    super.setSelected(selected);
 	}
-    }
 
-    /**
-     * Override action to turn off the multi-selection.
-     */
-    public void action() {
-	// Turn off the multi-select
-	getMultiSelTreeWidget().multiUnselect();
-	super.action();
-    }
-
-    /**
-     * Determine whether multiple items are selected in the tree to
-     * which this item belongs.
-     */
-    public synchronized boolean multipleItemsSelected() {
-	return getMultiSelTreeWidget().multipleItemsSelected();
-    }
-
-
-    /**
-     * Return true if part of the multi-select group.
-     */
-    public boolean isMultiSelected() {
-	if (multipleItemsSelected()) {
-	    Vector v = getMultiSelTreeWidget().getMultiSelectNodes();
-	    int n = v.size();
-	    for (int i = 0; i < n; i++) {
-		if (v.get(i) == this)
-		    return true;
-	    }
+	/**
+	 * Override action to turn off the multi-selection.
+	 */
+	public void action()
+	{
+		// Turn off the multi-select
+		getMultiSelTreeWidget().multiUnselect();
+		super.action();
 	}
-	return false;
-    }
+
+	/**
+	 * Determine whether multiple items are selected in the tree to
+	 * which this item belongs.
+	 */
+	public synchronized boolean multipleItemsSelected()
+	{
+		return getMultiSelTreeWidget().multipleItemsSelected();
+	}
+
+	/**
+	 * Return true if part of the multi-select group.
+	 */
+	public boolean isMultiSelected()
+	{
+		if( multipleItemsSelected() )
+		{
+			Vector v = getMultiSelTreeWidget().getMultiSelectNodes();
+			int n = v.size();
+			for( int i = 0 ; i < n ; i++ )
+			{
+				if( v.get( i ) == this )
+					return true;
+			}
+		}
+		return false;
+	}
 }
-

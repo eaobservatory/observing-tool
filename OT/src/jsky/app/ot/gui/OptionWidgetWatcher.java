@@ -17,10 +17,10 @@ package jsky.app.ot.gui;
  * A class implements this interface if it wants to register itself
  * as the watcher of an OptionWidgetExt widget.
  */
-public interface OptionWidgetWatcher {
-    /**
-     * An option was selected.
-    */
-    public void optionAction(OptionWidgetExt owe);
+public interface OptionWidgetWatcher
+{
+	/**
+	 * An option was selected.
+	 */
+	public void optionAction( OptionWidgetExt owe );
 }
-

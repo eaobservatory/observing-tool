@@ -19,9 +19,8 @@ package jsky.app.ot.gui;
  */
 public interface CheckBoxWidgetWatcher
 {
-   /**
-    * An option was selected.
-    */
-   public void checkBoxAction(CheckBoxWidgetExt cbwe);
+	/**
+	 * An option was selected.
+	 */
+	public void checkBoxAction( CheckBoxWidgetExt cbwe );
 }
-

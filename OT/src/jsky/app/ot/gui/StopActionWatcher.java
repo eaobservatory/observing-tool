@@ -5,7 +5,7 @@
 // $Id$
 //
 package jsky.app.ot.gui;
- 
+
 /**
  * A client implements this interface if it wants to register itself
  * as the watcher of the StopActionWidget.
@@ -15,9 +15,8 @@ package jsky.app.ot.gui;
  */
 public interface StopActionWatcher
 {
-   /**
-    * The stop button was pressed.
-    */
-   public void stopAction(StopActionWidget saw);
+	/**
+	 * The stop button was pressed.
+	 */
+	public void stopAction( StopActionWidget saw );
 }
-
