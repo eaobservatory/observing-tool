@@ -18,85 +18,51 @@ import gemini.sp.iter.SpIterConfigObs;
  */
 public class SpIterMichelle extends SpIterConfigObs
 {
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelle" , "Michelle" );
 
-   public static final SpType SP_TYPE =
-     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instMichelle", "Michelle");
+	// Register the prototype.
+	static
+	{
+		SpFactory.registerPrototype( new SpIterMichelle() );
+	}
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterMichelle());
-}
+	/**
+	 * Default constructor.
+	 */
+	public SpIterMichelle()
+	{
+		super( SP_TYPE );
+	}
 
-/**
- * Default constructor.
- */
-public SpIterMichelle()
-{
-   super(SP_TYPE);
-}
+	/**
+	 * Get the name of the item being iterated over.  Subclasses must
+	 * define.
+	 */
+	public String getItemName()
+	{
+		return "Michelle";
+	}
 
-/**
- * Get the name of the item being iterated over.  Subclasses must
- * define.
- */
-public String
-getItemName()
-{
-   return "Michelle";
-}
+	/**
+	 * Get the array containing the IterConfigItems offered by Michelle.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
+		IterConfigItem iciCamera = new IterConfigItem( "Camera" , SpInstMichelleConstants.ATTR_CAMERA + "Iter" , SpInstMichelleConstants.CAMERAS );
+		IterConfigItem iciDisperser = new IterConfigItem( "Disperser" , SpInstMichelleConstants.ATTR_DISPERSER + "Iter" , SpInstMichelleConstants.DISPERSERS );
+		IterConfigItem iciMask = new IterConfigItem( "Mask" , SpInstMichelleConstants.ATTR_MASK + "Iter" , SpInstMichelleConstants.MASKS );
+		IterConfigItem iciPosAngle = new IterConfigItem( "Pos. Angle" , SpInstMichelleConstants.ATTR_POS_ANGLE + "Iter" , null );
+		IterConfigItem iciCentWavelength = new IterConfigItem( "Central Wavelen." , SpInstMichelleConstants.ATTR_CENTRAL_WAVELENGTH + "Iter" , null );
 
+		// Filters
+		int n = SpInstMichelleConstants.FILTERS.length;
+		String[] filters = new String[ n ];
+		for( int i = 0 ; i < n ; ++i )
+			filters[ i ] = SpInstMichelleConstants.FILTERS[ i ][ 0 ];
 
-/**
- * Get the array containing the IterConfigItems offered by Michelle.
- */
-public IterConfigItem[]
-getAvailableItems()
-{
-   IterConfigItem iciCamera = new IterConfigItem(
-	"Camera",
-	SpInstMichelleConstants.ATTR_CAMERA + "Iter",
-	SpInstMichelleConstants.CAMERAS);
- 
-   IterConfigItem iciDisperser = new IterConfigItem(
-	"Disperser",
-	SpInstMichelleConstants.ATTR_DISPERSER + "Iter",
-	SpInstMichelleConstants.DISPERSERS);
- 
-   IterConfigItem iciMask = new IterConfigItem(
-	"Mask",
-	SpInstMichelleConstants.ATTR_MASK + "Iter",
-	SpInstMichelleConstants.MASKS);
+		IterConfigItem iciFilter = new IterConfigItem( "Filter" , SpInstMichelleConstants.ATTR_FILTER + "Iter" , filters );
+		IterConfigItem[] iciA = { iciCamera , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciPosAngle , iciDisperser , iciMask , iciCentWavelength };
 
-   IterConfigItem iciPosAngle = new IterConfigItem(
-	"Pos. Angle",
-	SpInstMichelleConstants.ATTR_POS_ANGLE + "Iter",
-	null);
-
-   IterConfigItem iciCentWavelength = new IterConfigItem(
-	"Central Wavelen.",
-	SpInstMichelleConstants.ATTR_CENTRAL_WAVELENGTH + "Iter",
-	null);
-
-   // Filters
-   int n = SpInstMichelleConstants.FILTERS.length;
-   String[] filters = new String[n];
-   for (int i=0; i<n; ++i) {
-      filters[i] = SpInstMichelleConstants.FILTERS[i][0];
-   }
-
-   IterConfigItem iciFilter = new IterConfigItem(
-	"Filter",
-	SpInstMichelleConstants.ATTR_FILTER + "Iter",
-	filters);
- 
-
-   IterConfigItem[] iciA = {
-	iciCamera, iciFilter,
-        getExposureTimeConfigItem(), getCoaddsConfigItem(), iciPosAngle,
-        iciDisperser, iciMask, iciCentWavelength
-   };
-
-   return iciA;
-}
-
+		return iciA;
+	}
 }
