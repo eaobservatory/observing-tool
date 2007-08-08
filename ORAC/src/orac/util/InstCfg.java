@@ -42,8 +42,8 @@ public class InstCfg
 	public InstCfg( String infoBlock )
 	{
 		String[] split = infoBlock.split( "=" ) ;
-		keyword = split[ 0 ] ;
-		value = split[ 1 ] ;
+		keyword = split[ 0 ].trim() ;
+		value = split[ 1 ].trim() ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class InstCfg
 		String[] result = new String[ split.length ];
 		int i = 0;
 		while( i < split.length )
-			result[ i++ ] = _clean( split[ i ] ) ;
+			result[ i ] = _clean( split[ i++ ] ) ;
 
 		return result;
 	}
