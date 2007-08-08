@@ -138,16 +138,16 @@ public class HeterodyneGUI extends JPanel
 		specialConfigs.setForeground( Color.BLACK );
 		specialConfigs.setFont( new Font( "dialog" , 0 , 12 ) );
 
-		fePanel.add( feLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( feSelector , new GridBagConstraints( 1 , 0 , 5 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( subsystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( regionSelector , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( specialConfigLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( specialConfigs , new GridBagConstraints( 4 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
-		fePanel.add( modeLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( modeSelector , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( sbLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( sbSelector , new GridBagConstraints( 1 , 3 , 3 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( feLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( feSelector , new GridBagConstraints( 1 , 0 , 5 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( subsystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( regionSelector , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( specialConfigLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( specialConfigs , new GridBagConstraints( 4 , 1 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
+		fePanel.add( modeLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( modeSelector , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( sbLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( sbSelector , new GridBagConstraints( 1 , 3 , 3 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 
 		// Front End summary panel
 		summaryPanel = new JPanel();
@@ -305,19 +305,19 @@ public class HeterodyneGUI extends JPanel
 		unitsLabel.setForeground( Color.BLACK );
 		unitsLabel.setFont( new Font( "dialog" , 0 , 12 ) );
 
-		vPanel.add( velLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 5 , 5 ) , 0 , 0 ) );
-		vPanel.add( velocity , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
-		vPanel.add( vdLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
-		vPanel.add( vDef , new GridBagConstraints( 3 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
-		vPanel.add( vfLabel , new GridBagConstraints( 4 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
-		vPanel.add( vFrame , new GridBagConstraints( 5 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
-		fPanel.add( moleculeBox , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		fPanel.add( transitionBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
-		fPanel.add( freqText , new GridBagConstraints( 2 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
-		fPanel.add( unitsLabel , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
-		fPanel.add( acceptButton , new GridBagConstraints( 4 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
-		bPanel.add( showButton , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 50 , 5 , 5 ) , 0 , 0 ) );
-		bPanel.add( hideButton , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 50 ) , 0 , 0 ) );
+		vPanel.add( velLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 5 , 5 ) , 0 , 0 ) );
+		vPanel.add( velocity , new GridBagConstraints( 1 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
+		vPanel.add( vdLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
+		vPanel.add( vDef , new GridBagConstraints( 3 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
+		vPanel.add( vfLabel , new GridBagConstraints( 4 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
+		vPanel.add( vFrame , new GridBagConstraints( 5 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 5 , 5 ) , 0 , 0 ) );
+		fPanel.add( moleculeBox , new GridBagConstraints( 0 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		fPanel.add( transitionBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
+		fPanel.add( freqText , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
+		fPanel.add( unitsLabel , new GridBagConstraints( 3 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
+		fPanel.add( acceptButton , new GridBagConstraints( 4 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
+		bPanel.add( showButton , new GridBagConstraints( 0 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 50 , 5 , 5 ) , 0 , 0 ) );
+		bPanel.add( hideButton , new GridBagConstraints( 1 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 50 ) , 0 , 0 ) );
 
 		freqPanel.add( radialDefaultPanel );
 		freqPanel.add( vPanel );
@@ -370,14 +370,14 @@ public class HeterodyneGUI extends JPanel
 		summaryAndBandwidthPanel.setLayout( new GridBagLayout() );
 		summaryAndBandwidthPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "" ) );
 
-		summaryAndBandwidthPanel.add( summaryPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
-		summaryAndBandwidthPanel.add( bandwidthsPanel , new GridBagConstraints( 0 , 1 , 1 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		summaryAndBandwidthPanel.add( summaryPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		summaryAndBandwidthPanel.add( bandwidthsPanel , new GridBagConstraints( 0 , 1 , 1 , 2 , 1. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 
 		// Add all the panels to this object
-		add( fePanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		add( summaryAndBandwidthPanel , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
-		add( freqPanel , new GridBagConstraints( 0 , 1 , 2 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
-		add( tablePanel , new GridBagConstraints( 0 , 2 , 2 , 2 , 1.0 , 1.0 , GridBagConstraints.NORTH , GridBagConstraints.BOTH , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		add( fePanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		add( summaryAndBandwidthPanel , new GridBagConstraints( 1 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		add( freqPanel , new GridBagConstraints( 0 , 1 , 2 , 1 , 1. , 0. , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		add( tablePanel , new GridBagConstraints( 0 , 2 , 2 , 2 , 1. , 1. , GridBagConstraints.NORTH , GridBagConstraints.BOTH , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 	}
 
 	private JPanel makeFEGroup()

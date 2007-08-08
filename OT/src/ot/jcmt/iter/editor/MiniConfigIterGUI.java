@@ -42,9 +42,9 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 
 		continuousSpinTextBox = new TextBoxWidgetExt();
 
-		this.add( continuousSpinLabel , new GridBagConstraints( 0 , 10 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
-		this.add( continuousSpinCheckBox , new GridBagConstraints( 0 , 10 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
-		this.add( continuousSpinTextBox , new GridBagConstraints( 1 , 10 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
+		this.add( continuousSpinLabel , new GridBagConstraints( 0 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
+		this.add( continuousSpinCheckBox , new GridBagConstraints( 0 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
+		this.add( continuousSpinTextBox , new GridBagConstraints( 1 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
 	}
 
 	public void enableParent( boolean enabled )

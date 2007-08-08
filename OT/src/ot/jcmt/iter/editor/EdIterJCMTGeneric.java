@@ -153,7 +153,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			{
 				NumberFormat nf = NumberFormat.getInstance();
 				nf.setMaximumFractionDigits( 5 );
-				_w.frequencyOffset_rate.setValue( nf.format( 1.0 / _iterObs.getSecsPerCycle() ) );
+				_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) );
 				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
 			}
 		}

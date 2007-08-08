@@ -228,56 +228,56 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		rasterPanel.add( scubaAcsisPanel );
 
 		scubaAcsisPanel.add( scanPanel , BorderLayout.SOUTH );
-		scanPanel.add( scanSystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		scanPanel.add( scanSystem , new GridBagConstraints( 1 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 2 , 0 , 0 ) , 0 , 0 ) );
-		scanPanel.add( posAngleLabel2 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 1.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		scanPanel.add( scanAngle , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		scanPanel.add( degreesLabel1 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		scanPanel.add( scanSystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		scanPanel.add( scanSystem , new GridBagConstraints( 1 , 1 , 2 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 2 , 0 , 0 ) , 0 , 0 ) );
+		scanPanel.add( posAngleLabel2 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 1. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+		scanPanel.add( scanAngle , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		scanPanel.add( degreesLabel1 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( widthLabel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( width , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel1 , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( widthLabel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( width , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel1 , new GridBagConstraints( 3 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( heightLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( height , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel2 , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( heightLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( height , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel2 , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( posAngleLabel1 , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( posAngle , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( degreesLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( posAngleLabel1 , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( posAngle , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( degreesLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( sampleSpacingLabel , new GridBagConstraints( 0 , 5 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( dx , new GridBagConstraints( 2 , 5 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel3 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( sampleSpacingLabel , new GridBagConstraints( 0 , 5 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( dx , new GridBagConstraints( 2 , 5 , 1 , 1 , 1. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel3 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( scanSpacingLabel , new GridBagConstraints( 0 , 6 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( dy , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel4 , new GridBagConstraints( 3 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( scanSpacingLabel , new GridBagConstraints( 0 , 6 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( dy , new GridBagConstraints( 2 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel4 , new GridBagConstraints( 3 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
 		nonHarpPanel.setLayout( new GridBagLayout() );
-		nonHarpPanel.add( spacingLabel , new GridBagConstraints( 0 , 0 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( sizeOfXPixel , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( sizeOfYPixel , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 5 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		nonHarpPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 6 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( spacingLabel , new GridBagConstraints( 0 , 0 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfXPixel , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfYPixel , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 5 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 6 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
 		rasterPanel.add( heterodynePanel );
-		heterodynePanel.add( sampleTimeLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		heterodynePanel.add( sampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		heterodynePanel.add( acsisSampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		heterodynePanel.add( secsLabel , new GridBagConstraints( 2 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 5 ) , 0 , 0 ) );
-		heterodynePanel.add( defaultButton , new GridBagConstraints( 1 , 5 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		heterodynePanel.add( secsPerRowLabel , new GridBagConstraints( 0 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		heterodynePanel.add( estimationLabel , new GridBagConstraints( 0 , 7 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		heterodynePanel.add( secsPerObsLabel , new GridBagConstraints( 0 , 9 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		heterodynePanel.add( secsPerRow , new GridBagConstraints( 1 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		heterodynePanel.add( secsPerObservation , new GridBagConstraints( 1 , 9 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( sampleTimeLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		heterodynePanel.add( sampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( acsisSampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( secsLabel , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( defaultButton , new GridBagConstraints( 1 , 5 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( secsPerRowLabel , new GridBagConstraints( 0 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		heterodynePanel.add( estimationLabel , new GridBagConstraints( 0 , 7 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		heterodynePanel.add( secsPerObsLabel , new GridBagConstraints( 0 , 9 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		heterodynePanel.add( secsPerRow , new GridBagConstraints( 1 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		heterodynePanel.add( secsPerObservation , new GridBagConstraints( 1 , 9 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
 		harpPanel.setLayout( new GridBagLayout() );
-		harpPanel.add( harpScanSpacingLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		harpPanel.add( harpRasters , new GridBagConstraints( 2 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		harpPanel.add( harpScanSpacingLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		harpPanel.add( harpRasters , new GridBagConstraints( 2 , 3 , 2 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		addNonHarpPanel();
 	}
 
@@ -291,14 +291,14 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public void addHarpPanel()
 	{
 		areaPanel.remove( nonHarpPanel );
-		areaPanel.add( harpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( harpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		harped = true;
 	}
 
 	public void addNonHarpPanel()
 	{
 		areaPanel.remove( harpPanel );
-		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		harped = false;
 	}
 

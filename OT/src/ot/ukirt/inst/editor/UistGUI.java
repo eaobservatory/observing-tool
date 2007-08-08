@@ -285,7 +285,7 @@ public class UistGUI extends JPanel
 		spectroscopy_sourceMag.setAutoscrolls( true );
 		spectroscopy_sourceMag.setBackground( Color.white );
 		spectroscopy_sourceMag.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		spectroscopy_sourceMag.setAlignmentX( ( float )0.0 );
+		spectroscopy_sourceMag.setAlignmentX( ( float )0. );
 		spectroscopy_grism.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		spectroscopy_grism.setBackground( Color.white );
 		spectroscopyPanel.setBorder( titledBorder3 );
@@ -302,7 +302,7 @@ public class UistGUI extends JPanel
 		jLabel22.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel22.setForeground( Color.black );
 		jLabel22.setText( "Source mag" );
-		imaging_sourceMag.setAlignmentX( ( float )0.0 );
+		imaging_sourceMag.setAlignmentX( ( float )0. );
 		imaging_sourceMag.setBackground( Color.white );
 		imaging_sourceMag.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		imaging_sourceMag.setAutoscrolls( true );
@@ -328,75 +328,75 @@ public class UistGUI extends JPanel
 
 		// Incremented by 1 row numbers of all dataAcqPanel items to make room for Readout Mode and Readout Area labels for testing by RDK 30 Dec 2002
 		// Then rearranged to put exposure time stuff at top of panel and read mode/area below that
-		jPanel2.add( dataAcq_defaultExpTime , new GridBagConstraints( 4 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 10 , 0 ) );
-		jPanel2.add( jLabel10 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel12 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel11 , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel24 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_exposureTime , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_coadds , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 10 , 0 , 10 ) , 50 , 0 ) );
-		jPanel2.add( jLabel25 , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_actualExposureTime , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_actualObservationTime , new GridBagConstraints( 3 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_defaultExpTime , new GridBagConstraints( 4 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 10 , 0 ) );
+		jPanel2.add( jLabel10 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel12 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel11 , new GridBagConstraints( 3 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel24 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_exposureTime , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_coadds , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 10 , 0 , 10 ) , 50 , 0 ) );
+		jPanel2.add( jLabel25 , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_actualExposureTime , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_actualObservationTime , new GridBagConstraints( 3 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		jPanel2.add( jLabel26 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel27 , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel28 , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_readMode , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_readArea , new GridBagConstraints( 2 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel26 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel27 , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel28 , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_readMode , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_readArea , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		jPanel2.add( jLabel6 , new GridBagConstraints( 1 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( jLabel7 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 9 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_dutyCycle , new GridBagConstraints( 3 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel2.add( dataAcq_chopFrequency , new GridBagConstraints( 1 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel6 , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel7 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 9 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_dutyCycle , new GridBagConstraints( 3 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( dataAcq_chopFrequency , new GridBagConstraints( 1 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( jPanel1 , BorderLayout.NORTH );
 		jPanel1.add( jLabel1 , null );
 		jPanel1.add( camera , null );
 		jPanel1.add( polarimetry , null );
 		this.add( modePanel , BorderLayout.CENTER );
 		// Added imaging_pupilCamera for testing by RDK 30 Dec 2002
-		imagingPanel.add( imaging_pupilCamera , new GridBagConstraints( 0 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_pupilCamera , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		// Incremented by 1 row numbers of all imagingPanel items to make room for imaging_pupilCamera for testing by RDK 30 Dec 2002
-		imagingPanel.add( jLabel2 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_imagerList , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( jLabel3 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 50 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_filter , new GridBagConstraints( 1 , 4 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 50 , 0 , 80 ) , 0 , 0 ) );
-		imagingPanel.add( jLabel4 , new GridBagConstraints( 0 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_fieldOfView , new GridBagConstraints( 0 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , -40 ) , 0 , 0 ) );
-		imagingPanel.add( filterBroadBand , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 30 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( filterNarrowBand , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 30 ) , 0 , 0 ) );
-		imagingPanel.add( jLabel5 , new GridBagConstraints( 2 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , -40 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_bandpass , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , -40 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_sourceMag , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 30 , 0 ) );
-		imagingPanel.add( jLabel8 , new GridBagConstraints( 0 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( jLabel2 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_imagerList , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( jLabel3 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 50 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_filter , new GridBagConstraints( 1 , 4 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 50 , 0 , 80 ) , 0 , 0 ) );
+		imagingPanel.add( jLabel4 , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_fieldOfView , new GridBagConstraints( 0 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , -40 ) , 0 , 0 ) );
+		imagingPanel.add( filterBroadBand , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 30 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( filterNarrowBand , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 30 ) , 0 , 0 ) );
+		imagingPanel.add( jLabel5 , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , -40 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_bandpass , new GridBagConstraints( 2 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , -40 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_sourceMag , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 30 , 0 ) );
+		imagingPanel.add( jLabel8 , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		imagingPanel.add( imaging_and_polarimetry_posAngleLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_and_polarimetry_posAngle , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 40 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_and_polarimetry_mask , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
-		imagingPanel.add( imaging_and_polarimetry_maskLabel , new GridBagConstraints( 3 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_and_polarimetry_posAngleLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_and_polarimetry_posAngle , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 40 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_and_polarimetry_mask , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
+		imagingPanel.add( imaging_and_polarimetry_maskLabel , new GridBagConstraints( 3 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
 		this.add( jPanel2 , BorderLayout.SOUTH );
 		modePanel.add( imagingPanel , "imagingPanel" );
 
 		// Incremented by 1 row numbers of all spectroscopyPanel items to make room for spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
-		spectroscopyPanel.add( jLabel12b , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_grism , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel17 , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_fieldOfView , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel20 , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_coverage , new GridBagConstraints( 2 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel18 , new GridBagConstraints( 2 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel19 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_order , new GridBagConstraints( 1 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_mask , new GridBagConstraints( 0 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel15 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_posAngle , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 40 ) , 0 , 0 ) );
-		spectroscopyPanel.add( maskLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_filter , new GridBagConstraints( 0 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 20 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_resolution , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( jLabel21 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		spectroscopyPanel.add( spectroscopy_sourceMag , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 20 , 0 ) );
-		spectroscopyPanel.add( jLabel22 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel12b , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_grism , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel17 , new GridBagConstraints( 2 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_fieldOfView , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel20 , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_coverage , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel18 , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel19 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_order , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_mask , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 18 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel15 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_posAngle , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 40 ) , 0 , 0 ) );
+		spectroscopyPanel.add( maskLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_filter , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 20 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_resolution , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( jLabel21 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTH , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		spectroscopyPanel.add( spectroscopy_sourceMag , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 20 , 0 ) );
+		spectroscopyPanel.add( jLabel22 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		modePanel.add( spectroscopyPanel , "spectroscopyPanel" );
 	}
 

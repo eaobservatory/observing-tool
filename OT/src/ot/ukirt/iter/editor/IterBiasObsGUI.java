@@ -77,14 +77,14 @@ public class IterBiasObsGUI extends JPanel
 		exposureTime.setEnabled( false );
 		exposureTime.setBorder( BorderFactory.createLoweredBevelBorder() );
 		exposureTime.setDisabledTextColor( Color.black );
-		this.add( jLabel2 , new GridBagConstraints( 2 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		this.add( jLabel1 , new GridBagConstraints( 0 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		this.add( jLabel3 , new GridBagConstraints( 2 , 0 , 1 , 3 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		this.add( jLabel4 , new GridBagConstraints( 0 , 0 , 1 , 2 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 0 , 5 ) , 0 , 0 ) );
-		this.add( repeatComboBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) );
-		this.add( coadds , new GridBagConstraints( 1 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		this.add( exposureTime , new GridBagConstraints( 1 , 1 , 1 , 3 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		this.add( jLabel5 , new GridBagConstraints( 0 , 2 , 1 , 2 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		this.add( jLabel6 , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		this.add( jLabel2 , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		this.add( jLabel1 , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		this.add( jLabel3 , new GridBagConstraints( 2 , 0 , 1 , 3 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		this.add( jLabel4 , new GridBagConstraints( 0 , 0 , 1 , 2 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 0 , 5 ) , 0 , 0 ) );
+		this.add( repeatComboBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) );
+		this.add( coadds , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		this.add( exposureTime , new GridBagConstraints( 1 , 1 , 1 , 3 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		this.add( jLabel5 , new GridBagConstraints( 0 , 2 , 1 , 2 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		this.add( jLabel6 , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 	}
 }

@@ -94,12 +94,11 @@ public class ScubaGUI extends JPanel
 		this.add( jPanel2 , BorderLayout.CENTER );
 		jPanel2.add( filterList , null );
 		jPanel2.add( jPanel4 , null );
-		jPanel4.add( jLabel3 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel4.add( primaryBolometer , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel4.add( additionalBolometers , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		jPanel4.add( jLabel4 , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel4.add( jLabel3 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel4.add( primaryBolometer , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel4.add( additionalBolometers , new GridBagConstraints( 0 , 3 , 1 , 1 , 1. , 1. , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel4.add( jLabel4 , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 10 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( jPanel3 , BorderLayout.SOUTH );
 		jPanel3.add( editBolometers , null );
 	}
-
 }
