@@ -7,14 +7,16 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
+import javax.swing.JPanel ;
+import javax.swing.BorderFactory ;
+import javax.swing.border.BevelBorder ;
+import javax.swing.border.Border ;
+import java.awt.FlowLayout ;
+import java.awt.BorderLayout ;
 
-import jsky.app.ot.gui.*;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
 /**
  * Title:        <p>
@@ -25,22 +27,25 @@ import jsky.app.ot.gui.*;
  * @version 1.0
  */
 
+public class IterNoiseObsGUI extends IterJCMTGenericGUI
+{
+	JPanel noisePanel = new JPanel();
+	FlowLayout flowLayout1 = new FlowLayout();
+	DropDownListBoxWidgetExt noiseSourceComboBox = new DropDownListBoxWidgetExt();
 
-public class IterNoiseObsGUI extends IterJCMTGenericGUI {
-  JPanel noisePanel = new JPanel();
-  FlowLayout flowLayout1 = new FlowLayout();
-  DropDownListBoxWidgetExt noiseSourceComboBox = new DropDownListBoxWidgetExt();
+	public IterNoiseObsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  public IterNoiseObsGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  	private void jbInit() throws Exception
+	private void jbInit() throws Exception
 	{
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
 		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Noise setup" );

@@ -27,7 +27,6 @@ import jsky.app.ot.editor.OtItemEditor;
  */
 public final class EdIterMicroStep extends OtItemEditor implements ActionListener
 {
-
 	private IterMicroStepGUI _w;
 
 	/**
@@ -63,7 +62,6 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	 */
 	protected void _updateWidgets()
 	{
-
 		ignoreActions = true;
 
 		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
@@ -76,7 +74,8 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 		{
 			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() );
 			if( !ts.contains( SpIterMicroStep.NO_PATTERN ) )
-				_patternVector.add( SpIterMicroStep.NO_PATTERN ) ;
+				_patternVector.add( SpIterMicroStep.NO_PATTERN );
+			
 			_patternVector.addAll( ts );
 		}
 
@@ -91,15 +90,15 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		if( ignoreActions )
-			return;
-
-		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
-
-		SpInstObsComp inst = microStepIter.getInstrumentItem();
-
-		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
-			_updateSpIterMicroStep( ( String )_w.microStepPattern.getSelectedItem() );
+		if( !ignoreActions )
+		{
+			SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
+	
+			SpInstObsComp inst = microStepIter.getInstrumentItem();
+	
+			if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
+				_updateSpIterMicroStep( ( String )_w.microStepPattern.getSelectedItem() );
+		}
 	}
 
 	private void _updateSpIterMicroStep( String pattern )
@@ -133,9 +132,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 			 *  For instruments that do not implement the SpMicroStepUser interface SpIterMicroStep.NO_PATTERN
 			 *  is the only selectable choice.
 			 */
-			opl.createPosition( 0.0 , 0.0 );
+			opl.createPosition( 0. , 0. );
 		}
-
 	}
-
 }

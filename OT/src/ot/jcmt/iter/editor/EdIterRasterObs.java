@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 import java.awt.event.KeyListener;
@@ -42,9 +41,9 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
-import orac.jcmt.inst.SpInstSCUBA2 ;
+import orac.jcmt.inst.SpInstSCUBA2;
 
-import gemini.util.MathUtil ; 
+import gemini.util.MathUtil;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
@@ -53,36 +52,30 @@ import gemini.util.MathUtil ;
  */
 public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer , OptionWidgetWatcher , KeyListener , CommandButtonWidgetWatcher , SpJCMTConstants
 {
+	private IterRasterObsGUI _w; // the GUI layout panel
+	private SpIterRasterObs _iterObs;
+	private final String[] SCAN_PA_CHOICES = { "automatic" , "user def" };
+	private final String[] SAMPLE_TIME_CHOICES = { "4.0" , "5.0" , "6.0" , "7.0" };
 
-  private IterRasterObsGUI _w;       // the GUI layout panel
+	// The following defines the maximum file size we are currently allowing for raster.
+	// Since this is for use with the thermometer, which only accepts integers, we will specify the maxium size in MBytes
+	private int _maxFileSize = 2048;
 
-  private SpIterRasterObs _iterObs;
+	// Some default values for the non-editable text fields
+	private final int DEFAULT_SECS_ROW = 240;
+	private final int DEFAULT_SECS_MAP = 3600;
 
-  private final String [] SCAN_PA_CHOICES = { "automatic", "user def" };
-  private final String [] SAMPLE_TIME_CHOICES = {"4.0", "5.0", "6.0", "7.0"};
+	// Global flag indicating whether we are using acsis or das
+	boolean _isAcsis = true;
+	TreeMap harpMap = new TreeMap();
+	private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" };
+	private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 };
+	boolean harp = false;
+	boolean scuba2 = false;
 
-  // The following defines the maximum file size we are currently allowing for raster.
-  // Since this is for use with the thermometer, which only accepts integers, we will specify
-  // the maxium size in MBytes
-  private int _maxFileSize = 2048;
-
-  // Some default values for the non-editable text fields
-  private final int DEFAULT_SECS_ROW = 240;
-  private final int DEFAULT_SECS_MAP = 3600;
-
-  // Global flag indicating whether we are using acsis or das
-  boolean _isAcsis = true ;
-  
-  TreeMap harpMap = new TreeMap() ;
-private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" } ;
-private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 } ;
-
-	boolean harp = false ;
-	boolean scuba2 = false ;
-
-  /**
-   * The constructor initializes the title, description, and presentation source.
-   */
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
 	public EdIterRasterObs()
 	{
 		super( new IterRasterObsGUI() );
@@ -93,14 +86,14 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES );
 		_w.scanSystem.setChoices( SCAN_SYSTEMS );
-		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES ) ;
+		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES );
 		_w.thermometer.setMaximum( _maxFileSize );
-		
-		_w.scanningStrategies.setChoices( SCAN_STRATAGIES ) ;
+
+		_w.scanningStrategies.setChoices( SCAN_STRATAGIES );
 
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
-			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" ) ;		
-		
+			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" );
+
 		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
 		{
 			if( System.getProperty( "FREQ_EDITOR_CFG" ).indexOf( "acsis" ) != -1 )
@@ -145,110 +138,110 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_w.scanAngle.addWatcher( this );
 		_w.defaultButton.addWatcher( this );
 		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
-		
-		_w.scanningStrategies.addWatcher( this ) ;
-		
-		_w.harpRasters.addWatcher( this ) ;
+
+		_w.scanningStrategies.addWatcher( this );
+
+		_w.harpRasters.addWatcher( this );
 
 		_w.frequencyPanel.setVisible( false );
 	}
 
-  /**
+	/**
 	 * Override setup to store away a reference to the Raster Iterator.
 	 */
 	public void setup( SpItem spItem )
 	{
 		_iterObs = ( SpIterRasterObs )spItem;
-		
-		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
-		scuba2 = inst instanceof SpInstSCUBA2 ;
-		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ) ;
+
+		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs );
+		scuba2 = inst instanceof SpInstSCUBA2;
+		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst ).getFrontEnd().equals( "HARP" ) );
 		if( harp )
-			_harpSetup() ;
+			_harpSetup();
 		super.setup( spItem );
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
 	private void _harpSetup()
 	{
-		_iterObs.setScanDx( 7.2761 ) ;
-		double dy = _iterObs.getScanDy() ;
-		boolean found = false ;
+		_iterObs.setScanDx( 7.2761 );
+		double dy = _iterObs.getScanDy();
+		boolean found = false;
 		for( int index = 0 ; index < HARP_RASTER_VALUES.length ; index++ )
 		{
 			if( dy == HARP_RASTER_VALUES[ index ] )
 			{
-				_w.harpRasters.deleteWatcher( this ) ;
-				_w.harpRasters.setSelectedIndex( index ) ;
-				_w.harpRasters.addWatcher( this ) ;
-				found = true ;
-				break ;
+				_w.harpRasters.deleteWatcher( this );
+				_w.harpRasters.setSelectedIndex( index );
+				_w.harpRasters.addWatcher( this );
+				found = true;
+				break;
 			}
 		}
 		if( !found )
 		{
-			_iterObs.setScanDy( HARP_RASTER_VALUES[ 0 ] ) ;
-			_w.harpRasters.deleteWatcher( this ) ;
-			_w.harpRasters.setSelectedIndex( 0 ) ;
-			_w.harpRasters.addWatcher( this ) ;
+			_iterObs.setScanDy( HARP_RASTER_VALUES[ 0 ] );
+			_w.harpRasters.deleteWatcher( this );
+			_w.harpRasters.setSelectedIndex( 0 );
+			_w.harpRasters.addWatcher( this );
 		}
 	}
 
 	private void scuba2Setup()
 	{
 		if( scuba2 )
-			_w.addScuba2Panel() ;
+			_w.addScuba2Panel();
 		else
-			_w.addNonScuba2Panel() ;
-		
-		boolean visible = ( !scuba2 || _iterObs.getScanStrategy().equals( SCAN_PATTERN_PONG ) ) ;
-		
-		_w.dy.setVisible( visible ) ;
-		_w.scanSpacingLabel.setVisible( visible ) ;
-		_w.arcSecsLabel4.setVisible( visible ) ;
-		
-		_w.sizeOfXPixel.setVisible( !scuba2 ) ;
-		_w.sizeOfYPixel.setVisible( !scuba2 ) ;
-		_w.sizeOfXPixelLabel.setVisible( !scuba2 ) ;
-		_w.sizeOfYPixelLabel.setVisible( !scuba2 ) ;
-		_w.dimensionWarningTextTop.setVisible( !scuba2 ) ;
-		_w.spacingLabel.setVisible( !scuba2 ) ;
-		
+			_w.addNonScuba2Panel();
+
+		boolean visible = ( !scuba2 || _iterObs.getScanStrategy().equals( SCAN_PATTERN_PONG ) );
+
+		_w.dy.setVisible( visible );
+		_w.scanSpacingLabel.setVisible( visible );
+		_w.arcSecsLabel4.setVisible( visible );
+
+		_w.sizeOfXPixel.setVisible( !scuba2 );
+		_w.sizeOfYPixel.setVisible( !scuba2 );
+		_w.sizeOfXPixelLabel.setVisible( !scuba2 );
+		_w.sizeOfYPixelLabel.setVisible( !scuba2 );
+		_w.dimensionWarningTextTop.setVisible( !scuba2 );
+		_w.spacingLabel.setVisible( !scuba2 );
+
 		if( !visible )
 		{
-			boolean bous = _iterObs.getScanStrategy().equals( SCAN_PATTERN_BOUS ) ;
+			boolean bous = _iterObs.getScanStrategy().equals( SCAN_PATTERN_BOUS );
 			if( bous )
 			{
-				_iterObs.getTable().noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , FPLANE , 0 ) ;
-				_w.scanSystem.deleteWatcher( this ) ;
-				_w.scanSystem.setSelectedItem( FPLANE ) ;
-				_w.scanSystem.addWatcher( this ) ;
-				_iterObs.getTable().noNotifyRm( ATTR_SCANAREA_SCAN_PA ) ;
-				_w.scanAngle.deleteWatcher( this ) ;
-				_w.scanAngle.setSelectedItem( SCAN_PA_CHOICES[ 0 ] ) ;
-				_w.scanAngle.setEditable( false ) ;
-				_w.scanAngle.addWatcher( this ) ;
+				_iterObs.getTable().noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , FPLANE , 0 );
+				_w.scanSystem.deleteWatcher( this );
+				_w.scanSystem.setSelectedItem( FPLANE );
+				_w.scanSystem.addWatcher( this );
+				_iterObs.getTable().noNotifyRm( ATTR_SCANAREA_SCAN_PA );
+				_w.scanAngle.deleteWatcher( this );
+				_w.scanAngle.setSelectedItem( SCAN_PA_CHOICES[ 0 ] );
+				_w.scanAngle.setEditable( false );
+				_w.scanAngle.addWatcher( this );
 			}
 		}
-		
-		_w.scanAngle.setEnabled( visible ) ;
-		_w.scanSystem.setEnabled( visible ) ;
+
+		_w.scanAngle.setEnabled( visible );
+		_w.scanSystem.setEnabled( visible );
 	}
-	
+
 	protected void _updateWidgets()
 	{
 		super._updateWidgets();
-		
+
 		if( harp )
-			_w.addHarpPanel() ;
+			_w.addHarpPanel();
 		else
-			_w.addNonHarpPanel() ;
-		
-		_w.dx.setEnabled( !harp ) ;
-		_w.dy.setEnabled( !harp ) ;
-		
-		scuba2Setup() ;
-		
+			_w.addNonHarpPanel();
+
+		_w.dx.setEnabled( !harp );
+		_w.dy.setEnabled( !harp );
+
+		scuba2Setup();
+
 		try
 		{
 			_w.dx.setValue( _iterObs.getScanDx() );
@@ -290,53 +283,53 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_w.switchingMode.setEnabled( false );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
 		if( !_isAcsis )
-			_w.sampleTime.setValue( ( int ) _iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
+			_w.sampleTime.setValue( ( int )_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
 		else
 			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() );
 
 		updateTimes();
 		updateThermometer();
-		updateSizeOfPixels() ;
+		updateSizeOfPixels();
 	}
 
 	private void updateSizeOfPixels()
-	{		
+	{
 		if( !scuba2 )
 		{
-			boolean displayWarning = false ;
-			double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
-			double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
-			int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 ) ;
-			int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 ) ;
-	
-			_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) ) ;
-			_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) ) ;
-			
+			boolean displayWarning = false;
+			double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() );
+			double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() );
+			int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 );
+			int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 );
+
+			_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) );
+			_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) );
+
 			if( !harp && sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
 			{
-				_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
-				displayWarning = true ;
+				_w.sizeOfXPixelLabel.setForeground( Color.red );
+				displayWarning = true;
 			}
 			else
 			{
-				_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
+				_w.sizeOfXPixelLabel.setForeground( Color.black );
 			}
-			
+
 			if( !harp && sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
 			{
-				_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
-				displayWarning = true ;
+				_w.sizeOfYPixelLabel.setForeground( Color.red );
+				displayWarning = true;
 			}
 			else
 			{
-				_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
+				_w.sizeOfYPixelLabel.setForeground( Color.black );
 			}
-			
-			_w.dimensionWarningTextTop.setVisible( displayWarning ) ;
-			_w.dimensionWarningTextBottom.setVisible( displayWarning ) ;
+
+			_w.dimensionWarningTextTop.setVisible( displayWarning );
+			_w.dimensionWarningTextBottom.setVisible( displayWarning );
 		}
 	}
-	
+
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		_iterObs.getAvEditFSM().deleteObserver( this );
@@ -346,14 +339,14 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 			_iterObs.setScanDx( _w.dx.getValue() );
 			if( !( _w.dx.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels() ;
+			updateSizeOfPixels();
 		}
 		else if( tbwe == _w.dy )
 		{
 			_iterObs.setScanDy( _w.dy.getValue() );
 			if( !( _w.dy.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels() ;
+			updateSizeOfPixels();
 		}
 		else if( tbwe == _w.width )
 		{
@@ -361,7 +354,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 			if( !( _w.width.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels() ;
+			updateSizeOfPixels();
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try
@@ -380,7 +373,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 			if( !( _w.height.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels() ;
+			updateSizeOfPixels();
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try
@@ -410,22 +403,22 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		}
 		else if( tbwe == _w.acsisSampleTime )
 		{
-			String sampleTime = "0.1" ;
+			String sampleTime = "0.1";
 			try
 			{
-				sampleTime = _w.acsisSampleTime.getValue() ;
-				Double conversionDouble = new Double( sampleTime ) ;
+				sampleTime = _w.acsisSampleTime.getValue();
+				Double conversionDouble = new Double( sampleTime );
 				if( conversionDouble.doubleValue() > 0.1 )
-					sampleTime = conversionDouble.toString() ;
+					sampleTime = conversionDouble.toString();
 				else
-					sampleTime = "0.1" ;
+					sampleTime = "0.1";
 			}
 			catch( NumberFormatException nfe ){}
 			catch( Exception e ){}
 			_iterObs.setSampleTime( sampleTime );
 			_w.noiseTextBox.setValue( calculateNoise() );
 		}
-		
+
 		super.textBoxKeyPress( tbwe );
 		updateTimes();
 		updateThermometer();
@@ -433,7 +426,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
-    public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		_iterObs.getAvEditFSM().deleteObserver( this );
 
@@ -443,7 +436,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		}
 		else if( ddlbwe == _w.scanAngle )
 		{
-			Object value = _w.scanAngle.getValue() ;
+			Object value = _w.scanAngle.getValue();
 			if( value.equals( SCAN_PA_CHOICES[ 0 ] ) )
 			{
 				_w.scanAngle.setEditable( false );
@@ -465,17 +458,17 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		else if( ddlbwe == _w.scanSystem )
 		{
 			_iterObs.setScanAngles( _w.scanSystem.getStringValue() );
-		}		
+		}
 		else if( ddlbwe == _w.harpRasters )
 		{
-			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ] ;
-			_iterObs.setScanDy( value ) ;
+			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ];
+			_iterObs.setScanDy( value );
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
-			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
-			_iterObs.setScanStrategy( value ) ;
-			scuba2Setup() ;
+			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ];
+			_iterObs.setScanStrategy( value );
+			scuba2Setup();
 		}
 		super.dropDownListBoxAction( ddlbwe , index , val );
 		updateTimes();
@@ -484,41 +477,43 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
+	public void keyPressed( java.awt.event.KeyEvent e ){}
 
-  public void keyPressed(java.awt.event.KeyEvent e)  { }
+	public void keyReleased( java.awt.event.KeyEvent e )
+	{
+		_iterObs.getAvEditFSM().deleteObserver( this );
 
-  public void keyReleased(java.awt.event.KeyEvent e) {
-    _iterObs.getAvEditFSM().deleteObserver(this);
+		if( e.getSource() == _w.scanAngle.getEditor().getEditorComponent() )
+		{
+			_iterObs.setScanAngles( ( ( JTextField )_w.scanAngle.getEditor().getEditorComponent() ).getText() );
+		}
 
-     if(e.getSource() == _w.scanAngle.getEditor().getEditorComponent()) {
-      _iterObs.setScanAngles(((JTextField)_w.scanAngle.getEditor().getEditorComponent()).getText());      
-    }
+		_iterObs.getAvEditFSM().addObserver( this );
+	}
 
-    _iterObs.getAvEditFSM().addObserver(this);
-  }
+	public void keyTyped( java.awt.event.KeyEvent e ){}
 
-  public void keyTyped(java.awt.event.KeyEvent e) { }
+	public void optionAction( OptionWidgetExt owe )
+	{
+		_iterObs.getAvEditFSM().deleteObserver( this );
+		_iterObs.setRasterMode( owe.getActionCommand() );
+		_iterObs.getAvEditFSM().addObserver( this );
+	}
 
-
-  public void optionAction(OptionWidgetExt owe) {
-    _iterObs.getAvEditFSM().deleteObserver(this);
-    _iterObs.setRasterMode(owe.getActionCommand());
-    _iterObs.getAvEditFSM().addObserver(this);
-  }
-
-  	public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.rowReversal )
 			_iterObs.setRowReversal( _w.rowReversal.getBooleanValue() );
 	}
 
-  public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
-      if ( cbwe == _w.defaultButton ) {
-          _iterObs.setDefaults();
-      }
-      _updateWidgets();
-  }
-  
+	public void commandButtonAction( CommandButtonWidgetExt cbwe )
+	{
+		if( cbwe == _w.defaultButton )
+			_iterObs.setDefaults();
+		
+		_updateWidgets();
+	}
+
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
 		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
@@ -537,28 +532,28 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		super.setInstrument( spInstObsComp );
 	}
 
-  public void update(Observable o, Object arg) {
-    _updateWidgets();
-  }
+	public void update( Observable o , Object arg )
+	{
+		_updateWidgets();
+	}
 
-  	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
+	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
 	{
 		return ScubaNoise.noise_level( integrations , wavelength , "SCAN" , nefd , status , _iterObs.getHeight() , _iterObs.getWidth() );
 	}
 
-    protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
 	{
-		// System.out.println("Calculating Raster specific heterodyne noise");
 		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 );
 		else
 			return -999.9;
 	}
 
-    /**
+	/**
 	 * This updates the time fields on heterodyne setups. It can only be used for heterodyne and just updates the non-editable widgets. For ease of display, the fractional part is truncated to 2 decimal places.
 	 */
 	private void updateTimes()
@@ -595,10 +590,10 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		}
 	}
 
-    /**
+	/**
 	 * Update the thermometer. Only need this for heterodyne at the moment.
 	 */
-    private void updateThermometer()
+	private void updateThermometer()
 	{
 		// First see if the heterodyne panel is visible
 		if( _w.heterodynePanel.isVisible() )
@@ -610,10 +605,10 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 			// Get the number of channels
 			int maxChannels = 0;
-			for( int i = 0 ; i < ( ( SpInstHeterodyne ) inst ).getNumSubSystems() ; i++ )
+			for( int i = 0 ; i < ( ( SpInstHeterodyne )inst ).getNumSubSystems() ; i++ )
 			{
-				if( ( ( SpInstHeterodyne ) inst ).getChannels( i ) > maxChannels )
-					maxChannels = ( ( SpInstHeterodyne ) inst ).getChannels( i );
+				if( ( ( SpInstHeterodyne )inst ).getChannels( i ) > maxChannels )
+					maxChannels = ( ( SpInstHeterodyne )inst ).getChannels( i );
 			}
 
 			// See if we can get the DR recipe component which will allow us
@@ -631,7 +626,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
 					{
 						// We have found it, and there should only be 1, so assume this
-						recipe = ( SpDRRecipe ) drRecipeCompts.get( 0 );
+						recipe = ( SpDRRecipe )drRecipeCompts.get( 0 );
 						break;
 					}
 				}
@@ -642,7 +637,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
 					{
 						// We have found it, and there should only be 1, so assume this
-						recipe = ( SpDRRecipe ) drRecipeCompts.get( 0 );
+						recipe = ( SpDRRecipe )drRecipeCompts.get( 0 );
 						break;
 					}
 				}
@@ -650,13 +645,11 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 			}
 			maxChannels -= ( 2 * truncChannels );
 
-			int samplesPerRow = ( int ) ( _iterObs.getWidth() / _iterObs.getScanDx() );
-			int numberOfRows = ( int ) ( _iterObs.getHeight() / _iterObs.getScanDy() );
+			int samplesPerRow = ( int )( _iterObs.getWidth() / _iterObs.getScanDx() );
+			int numberOfRows = ( int )( _iterObs.getHeight() / _iterObs.getScanDy() );
 
-			int fileSize = ( int ) ( ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) );
+			int fileSize = ( int )( ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) );
 			_w.thermometer.setExtent( fileSize );
 		}
 	}
-
 }
-

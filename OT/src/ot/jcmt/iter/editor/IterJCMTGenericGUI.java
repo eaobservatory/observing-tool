@@ -1,4 +1,3 @@
-
 /**
  * Title:        Acsis JBuilder GUIs<p>
  * Description:  <p>
@@ -9,60 +8,71 @@
  */
 package ot.jcmt.iter.editor;
 
-import java.awt.*;
-import javax.swing.*;
-import jsky.app.ot.gui.*;
-import javax.swing.border.*;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Color ;
+import java.awt.BorderLayout ;
+import java.awt.GridLayout ;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.BorderFactory ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import javax.swing.border.Border ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.BevelBorder ;
 
-public class IterJCMTGenericGUI extends JPanel {
-  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
-  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
-  TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
-  TextBoxWidgetExt jigglesPerCycle = new TextBoxWidgetExt();
-  TextBoxWidgetExt sampleTime = new TextBoxWidgetExt();
-  CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
-  CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
-  CheckBoxWidgetExt automaticTarget = new CheckBoxWidgetExt();
-  CheckBoxWidgetExt continuousCal = new CheckBoxWidgetExt();
+public class IterJCMTGenericGUI extends JPanel
+{
+	TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
+	TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
+	TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
+	TextBoxWidgetExt jigglesPerCycle = new TextBoxWidgetExt();
+	TextBoxWidgetExt sampleTime = new TextBoxWidgetExt();
+	CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
+	CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
+	CheckBoxWidgetExt automaticTarget = new CheckBoxWidgetExt();
+	CheckBoxWidgetExt continuousCal = new CheckBoxWidgetExt();
+	BorderLayout borderLayout1 = new BorderLayout();
+	JPanel jPanel1 = new JPanel();
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	CheckBoxWidgetExt doAtCurrentAzDDLBWE = new CheckBoxWidgetExt();
+	JLabel switchingModeLabel = new JLabel();
+	DropDownListBoxWidgetExt switchingMode = new DropDownListBoxWidgetExt();
+	JLabel jLabel4 = new JLabel();
+	TitledBorder titledBorder1;
+	Border border1;
+	TextBoxWidgetExt frequencyOffset_throw = new TextBoxWidgetExt();
+	JPanel frequencyPanel = new JPanel();
+	GridBagLayout gridBagLayout3 = new GridBagLayout();
+	JLabel jLabel11 = new JLabel();
+	JLabel jLabel10 = new JLabel();
+	TextBoxWidgetExt frequencyOffset_rate = new TextBoxWidgetExt();
+	JLabel jLabel9 = new JLabel();
+	JLabel jLabel8 = new JLabel();
+	JLabel noiseLabel = new JLabel();
+	TextBoxWidgetExt noiseTextBox = new TextBoxWidgetExt();
+	JLabel jLabel2 = new JLabel();
+	CheckBoxWidgetExt arrayCentred = new CheckBoxWidgetExt();
+	JLabel arrayCentredLabel = new JLabel();
+	JPanel arrayCentredPanel = new JPanel();
+	CheckBoxWidgetExt separateOffs = new CheckBoxWidgetExt();
+	JLabel separateOffsLabel = new JLabel();
+	JPanel separateOffsPanel = new JPanel();
 
-  BorderLayout borderLayout1 = new BorderLayout();
-  JPanel jPanel1 = new JPanel();
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  CheckBoxWidgetExt doAtCurrentAzDDLBWE = new CheckBoxWidgetExt();
-  JLabel switchingModeLabel = new JLabel();
-  DropDownListBoxWidgetExt switchingMode = new DropDownListBoxWidgetExt();
-  JLabel jLabel4 = new JLabel();
-  TitledBorder titledBorder1;
-  Border border1;
-  TextBoxWidgetExt frequencyOffset_throw = new TextBoxWidgetExt();
-  JPanel frequencyPanel = new JPanel();
-  GridBagLayout gridBagLayout3 = new GridBagLayout();
-  JLabel jLabel11 = new JLabel();
-  JLabel jLabel10 = new JLabel();
-  TextBoxWidgetExt frequencyOffset_rate = new TextBoxWidgetExt();
-  JLabel jLabel9 = new JLabel();
-  JLabel jLabel8 = new JLabel();
-
-  JLabel noiseLabel = new JLabel();
-  TextBoxWidgetExt noiseTextBox = new TextBoxWidgetExt();
-  JLabel jLabel2 = new JLabel();
-  
-  CheckBoxWidgetExt arrayCentred = new CheckBoxWidgetExt() ;
-  JLabel arrayCentredLabel = new JLabel() ;
-  JPanel arrayCentredPanel = new JPanel() ;
-  
-  CheckBoxWidgetExt separateOffs = new CheckBoxWidgetExt() ;
-  JLabel separateOffsLabel = new JLabel() ;
-  JPanel separateOffsPanel = new JPanel() ;
-
-  public IterJCMTGenericGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
+	public IterJCMTGenericGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
 	private void jbInit() throws Exception
 	{
@@ -102,26 +112,26 @@ public class IterJCMTGenericGUI extends JPanel {
 		noiseLabel.setText( "Noise" );
 		noiseTextBox.setEditable( false );
 		noiseTextBox.setColumns( 15 );
-		
+
 		arrayCentredLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		arrayCentredLabel.setForeground( Color.black );
 		arrayCentredLabel.setText( "Array Centred" );
-		
-		arrayCentredPanel.setLayout(  new GridLayout( 1 , 2 ) ) ;
-		arrayCentredPanel.add( arrayCentredLabel ) ;
-		arrayCentredPanel.add( arrayCentred ) ;
-		arrayCentredLabel.setVisible( false ) ;
-		arrayCentred.setVisible( false ) ;
-		
+
+		arrayCentredPanel.setLayout( new GridLayout( 1 , 2 ) );
+		arrayCentredPanel.add( arrayCentredLabel );
+		arrayCentredPanel.add( arrayCentred );
+		arrayCentredLabel.setVisible( false );
+		arrayCentred.setVisible( false );
+
 		separateOffsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		separateOffsLabel.setForeground( Color.black );
 		separateOffsLabel.setText( "Separate Offs" );
-		
-		separateOffsPanel.setLayout(  new GridLayout( 1 , 2 ) ) ;
-		separateOffsPanel.add( separateOffsLabel ) ;
-		separateOffsPanel.add( separateOffs ) ;
-		separateOffsLabel.setVisible( false ) ;
-		separateOffs.setVisible( false ) ;
+
+		separateOffsPanel.setLayout( new GridLayout( 1 , 2 ) );
+		separateOffsPanel.add( separateOffsLabel );
+		separateOffsPanel.add( separateOffs );
+		separateOffsLabel.setVisible( false );
+		separateOffs.setVisible( false );
 
 		jLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel2.setForeground( Color.black );
@@ -135,15 +145,14 @@ public class IterJCMTGenericGUI extends JPanel {
 		jPanel1.add( noiseTextBox , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		jPanel1.add( jLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		jPanel1.add( arrayCentredPanel , new GridBagConstraints( 2 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		jPanel1.add( separateOffsPanel , new GridBagConstraints( 4 , 1 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		
+		jPanel1.add( arrayCentredPanel , new GridBagConstraints( 2 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel1.add( separateOffsPanel , new GridBagConstraints( 4 , 1 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
 		frequencyPanel.add( jLabel8 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		frequencyPanel.add( frequencyOffset_throw , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
 		frequencyPanel.add( jLabel9 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		frequencyPanel.add( frequencyOffset_rate , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );
 		frequencyPanel.add( jLabel10 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		frequencyPanel.add( jLabel11 , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-
 	}
 }

@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -25,7 +24,6 @@ import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJiggleObs;
-import orac.jcmt.iter.SpIterStareObs;
 import orac.jcmt.util.HeterodyneNoise;
 import orac.jcmt.util.ScubaNoise;
 
@@ -34,15 +32,13 @@ import orac.jcmt.util.ScubaNoise;
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher {
+public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher
+{
+	private IterJiggleObsGUI _w; // the GUI layout panel
+	private SpIterJiggleObs _iterObs;
+	private String[] _noJigglePatterns = { "No Instrument in scope." };
 
-  private IterJiggleObsGUI _w;       // the GUI layout panel
-
-  private SpIterJiggleObs _iterObs;
-
-  private String [] _noJigglePatterns = { "No Instrument in scope." };
-
-  /**
+	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterJiggleObs()
@@ -50,7 +46,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		super( new IterJiggleObsGUI() );
 
 		_title = "Jiggle";
-		_presSource = _w = ( IterJiggleObsGUI ) super._w;
+		_presSource = _w = ( IterJiggleObsGUI )super._w;
 		_description = "Jiggle Observation Mode";
 
 		_w.coordSys.setChoices( SpIterJiggleObs.JIGGLE_SYSTEMS );
@@ -61,22 +57,22 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		_w.defaultButton.addWatcher( this );
 		_w.paTextBox.addWatcher( this );
 		_w.coordSys.addWatcher( this );
-		
-		super._w.separateOffs.addWatcher( this ) ;
-		super._w.separateOffsLabel.setVisible( true ) ;
-		super._w.separateOffs.setVisible( true ) ;
+
+		super._w.separateOffs.addWatcher( this );
+		super._w.separateOffsLabel.setVisible( true );
+		super._w.separateOffs.setVisible( true );
 	}
 
-  /**
+	/**
 	 * Override setup to store away a reference to the Focus Iterator.
 	 */
 	public void setup( SpItem spItem )
 	{
-		_iterObs = ( SpIterJiggleObs ) spItem;
+		_iterObs = ( SpIterJiggleObs )spItem;
 		super.setup( spItem );
 	}
 
-  	protected void _updateWidgets()
+	protected void _updateWidgets()
 	{
 		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs );
 
@@ -101,7 +97,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			}
 
 			if( !jigglePatternSet )
-				_iterObs.setJigglePattern( ( String ) _w.jigglePattern.getValue() );
+				_iterObs.setJigglePattern( ( String )_w.jigglePattern.getValue() );
 
 			if( instObsComp instanceof SpInstHeterodyne )
 			{
@@ -119,10 +115,10 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 		_w.paTextBox.setValue( _iterObs.getPosAngle() );
 		_w.coordSys.setValue( _iterObs.getCoordSys() );
-		
-		_w.scaleFactor.setEnabled( !isHarp() ) ;
-		
-		super._w.separateOffs.setSelected( _iterObs.hasSeparateOffs() ) ;
+
+		_w.scaleFactor.setEnabled( !isHarp() );
+
+		super._w.separateOffs.setSelected( _iterObs.hasSeparateOffs() );
 
 		super._updateWidgets();
 	}
@@ -132,12 +128,12 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		if( tbwe == _w.paTextBox )
 			_iterObs.setPosAngle( tbwe.getValue() );
 		else if( tbwe == _w.scaleFactor )
-			_iterObs.setScaleFactor( tbwe.getDoubleValue( 1.0 ) );
+			_iterObs.setScaleFactor( tbwe.getDoubleValue( 1. ) );
 		else
 			super.textBoxKeyPress( tbwe );
 	}
 
-  	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		if( ddlbwe == _w.jigglePattern )
 		{
@@ -147,18 +143,18 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			{
 				if( isHarp() )
 				{
-					double scaleFactor = _iterObs.getScaleFactor() ;
-					String[] split = val.split( "HARP" ) ;
-					
+					double scaleFactor = _iterObs.getScaleFactor();
+					String[] split = val.split( "HARP" );
+
 					if( split[ 1 ].matches( "4\\w*" ) )
-						scaleFactor = 7.5 ;
+						scaleFactor = 7.5;
 					else
-						scaleFactor = 6. ;
-					_w.scaleFactor.setValue( scaleFactor ) ;
-					_iterObs.setScaleFactor( scaleFactor ) ;
+						scaleFactor = 6.;
+					_w.scaleFactor.setValue( scaleFactor );
+					_iterObs.setScaleFactor( scaleFactor );
 				}
 			}
-			_updateWidgets() ;
+			_updateWidgets();
 		}
 		else if( ddlbwe == _w.coordSys )
 		{
@@ -170,35 +166,35 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		}
 	}
 
-  	private boolean isHarp()
-  	{
-  		String pattern = _iterObs.getJigglePattern() ;
-		boolean isHarp = false ;
+	private boolean isHarp()
+	{
+		String pattern = _iterObs.getJigglePattern();
+		boolean isHarp = false;
 		if( pattern != null )
-			isHarp = pattern.startsWith( "HARP" ) ;  
-		return isHarp ;
-  	}
-  	
+			isHarp = pattern.startsWith( "HARP" );
+		return isHarp;
+	}
+
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.contModeCB )
 		{
-			boolean isSelected = _w.contModeCB.isSelected() ;
-			_iterObs.setContinuumMode( isSelected ) ;
+			boolean isSelected = _w.contModeCB.isSelected();
+			_iterObs.setContinuumMode( isSelected );
 			if( isSelected )
 			{
-				super._w.separateOffs.setSelected( true ) ;
-				_iterObs.setSeparateOffs( true ) ;
+				super._w.separateOffs.setSelected( true );
+				_iterObs.setSeparateOffs( true );
 			}
 		}
 		else if( cbwe == super._w.separateOffs )
 		{
-			boolean isSelected = super._w.separateOffs.isSelected() ;
-			_iterObs.setSeparateOffs( isSelected ) ;
+			boolean isSelected = super._w.separateOffs.isSelected();
+			_iterObs.setSeparateOffs( isSelected );
 			if( isSelected )
 			{
-				_iterObs.setContinuumMode( false ) ;
-				_w.contModeCB.setSelected( false ) ;
+				_iterObs.setContinuumMode( false );
+				_w.contModeCB.setSelected( false );
 			}
 		}
 
@@ -209,40 +205,40 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	{
 		if( cbwe == _w.defaultButton )
 		{
-			 SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
-			 if( instrument instanceof SpInstHeterodyne )
-			 {
-				 String frontend = ( ( SpInstHeterodyne )instrument).getFrontEnd() ;
-				 if( frontend.equals( "HARP" ) && !isHarp() )
-				 {
-						for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
-						{
-							String jigglePattern = ( String )_w.jigglePattern.getItemAt( i ) ;
-							if( jigglePattern.startsWith( "HARP" ) )
-							{
-								_w.jigglePattern.setValue( jigglePattern ) ;
-								_iterObs.setJigglePattern( jigglePattern ) ;
-								dropDownListBoxAction( _w.jigglePattern , i , jigglePattern ) ;
-								break;
-							}
-						}
-				 }
-				 else
-				 {
+			SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs );
+			if( instrument instanceof SpInstHeterodyne )
+			{
+				String frontend = ( ( SpInstHeterodyne )instrument ).getFrontEnd();
+				if( frontend.equals( "HARP" ) && !isHarp() )
+				{
 					for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
 					{
-						String jigglePattern = ( String )_w.jigglePattern.getItemAt( i ) ;
-						if( !jigglePattern.startsWith( "HARP" ) )
+						String jigglePattern = ( String )_w.jigglePattern.getItemAt( i );
+						if( jigglePattern.startsWith( "HARP" ) )
 						{
-							_w.jigglePattern.setValue( jigglePattern ) ;
-							_iterObs.setJigglePattern( jigglePattern ) ;
-							dropDownListBoxAction( _w.jigglePattern , i , jigglePattern ) ;
+							_w.jigglePattern.setValue( jigglePattern );
+							_iterObs.setJigglePattern( jigglePattern );
+							dropDownListBoxAction( _w.jigglePattern , i , jigglePattern );
 							break;
 						}
 					}
-					 _iterObs.setAcsisDefaults() ; 
-				 }
-			 }
+				}
+				else
+				{
+					for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
+					{
+						String jigglePattern = ( String )_w.jigglePattern.getItemAt( i );
+						if( !jigglePattern.startsWith( "HARP" ) )
+						{
+							_w.jigglePattern.setValue( jigglePattern );
+							_iterObs.setJigglePattern( jigglePattern );
+							dropDownListBoxAction( _w.jigglePattern , i , jigglePattern );
+							break;
+						}
+					}
+					_iterObs.setAcsisDefaults();
+				}
+			}
 		}
 		_updateWidgets();
 	}
@@ -266,27 +262,24 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		}
 	}
 
-  	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
+	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
 	{
 		String mode = "JIG16";
 
-		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
-		if( ( instObsComp != null ) && ( SpIterJiggleObs.isJIG64( ( SpInstSCUBA ) instObsComp ) ) )
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs );
+		if( ( instObsComp != null ) && ( SpIterJiggleObs.isJIG64( ( SpInstSCUBA )instObsComp ) ) )
 			mode = "JIG64";
 		return ScubaNoise.noise_level( integrations , wavelength , mode , nefd , status );
 	}
-  	
-    protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+
+	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
 	{
-		// System.out.println("Calculating Raster specific heterodyne noise");
 		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 );
 		else
 			return -999.9;
 	}
-  	
 }
-

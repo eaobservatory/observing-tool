@@ -78,28 +78,24 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	TextBoxWidgetExt rowsPerRef = new TextBoxWidgetExt();
 	JLabel posAngleLabel2 = new JLabel();
 	DropDownListBoxWidgetExt scanAngle = new DropDownListBoxWidgetExt();
-	JLabel degreesLabel2 = new JLabel() ;
+	JLabel degreesLabel2 = new JLabel();
 	JThermometer thermometer = new JThermometer();
 	JLabel estimationLabel = new JLabel();
-	
-	TextBoxWidgetExt sizeOfXPixel = new TextBoxWidgetExt() ;
-	TextBoxWidgetExt sizeOfYPixel = new TextBoxWidgetExt() ;
-	JLabel sizeOfXPixelLabel = new JLabel() ;
-	JLabel sizeOfYPixelLabel = new JLabel() ;
-	JLabel dimensionWarningTextTop = new JLabel() ;
-	JLabel dimensionWarningTextBottom = new JLabel() ;
-	JLabel spacingLabel = new JLabel() ;
+	TextBoxWidgetExt sizeOfXPixel = new TextBoxWidgetExt();
+	TextBoxWidgetExt sizeOfYPixel = new TextBoxWidgetExt();
+	JLabel sizeOfXPixelLabel = new JLabel();
+	JLabel sizeOfYPixelLabel = new JLabel();
+	JLabel dimensionWarningTextTop = new JLabel();
+	JLabel dimensionWarningTextBottom = new JLabel();
+	JLabel spacingLabel = new JLabel();
+	DropDownListBoxWidgetExt harpRasters = new DropDownListBoxWidgetExt();
+	JPanel harpPanel = new JPanel();
+	JPanel nonHarpPanel = new JPanel();
+	JLabel harpScanSpacingLabel = new JLabel();
+	DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt();
+	JPanel scuba2Panel = new JPanel();
+	JPanel rasterPanel = new JPanel();
 
-	DropDownListBoxWidgetExt harpRasters = new DropDownListBoxWidgetExt() ;
-	JPanel harpPanel = new JPanel() ;
-	JPanel nonHarpPanel = new JPanel() ;
-	JLabel harpScanSpacingLabel = new JLabel() ;
-	
-	DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt() ;
-	JPanel scuba2Panel = new JPanel() ;
-	
-	JPanel rasterPanel = new JPanel() ;
-	
 	public IterRasterObsGUI()
 	{
 		try
@@ -118,7 +114,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
 		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Raster setup" );
 		rasterPanel.setBorder( titleBorder );
-		rasterPanel.setLayout( new GridLayout( 1 , 2 ) ) ;
+		rasterPanel.setLayout( new GridLayout( 1 , 2 ) );
 		scubaAcsisPanel.setLayout( new BorderLayout() );
 		areaPanel.setLayout( gridBagLayout2 );
 		scanPanel.setLayout( gridBagLayout3 );
@@ -190,47 +186,47 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		degreesLabel2.setText( "(degrees)" );
 		scanAngle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 
-		spacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		spacingLabel.setForeground( Color.black ) ;
-		spacingLabel.setText( " " ) ;
-		
-		sizeOfXPixel.setEnabled( false ) ;
-		sizeOfYPixel.setEnabled( false ) ;
+		spacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		spacingLabel.setForeground( Color.black );
+		spacingLabel.setText( " " );
 
-		sizeOfXPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		sizeOfXPixelLabel.setForeground( Color.black ) ;
-		sizeOfXPixelLabel.setText( "Nr of samples/pixels" ) ;
-		sizeOfYPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		sizeOfYPixelLabel.setForeground( Color.black ) ;
-		sizeOfYPixelLabel.setText( "Nr of scans/pixels" ) ;
-		
-		dimensionWarningTextTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		dimensionWarningTextBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		dimensionWarningTextTop.setForeground( Color.red ) ;
-		dimensionWarningTextBottom.setForeground( Color.red ) ;
-		dimensionWarningTextTop.setText( "Dimension must be equally" ) ;
-		dimensionWarningTextBottom.setText( "divisible by spacing" ) ;
-		dimensionWarningTextTop.setVisible( false ) ;		
-		dimensionWarningTextBottom.setVisible( false ) ;
-		
+		sizeOfXPixel.setEnabled( false );
+		sizeOfYPixel.setEnabled( false );
+
+		sizeOfXPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sizeOfXPixelLabel.setForeground( Color.black );
+		sizeOfXPixelLabel.setText( "Nr of samples/pixels" );
+		sizeOfYPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sizeOfYPixelLabel.setForeground( Color.black );
+		sizeOfYPixelLabel.setText( "Nr of scans/pixels" );
+
+		dimensionWarningTextTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		dimensionWarningTextBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		dimensionWarningTextTop.setForeground( Color.red );
+		dimensionWarningTextBottom.setForeground( Color.red );
+		dimensionWarningTextTop.setText( "Dimension must be equally" );
+		dimensionWarningTextBottom.setText( "divisible by spacing" );
+		dimensionWarningTextTop.setVisible( false );
+		dimensionWarningTextBottom.setVisible( false );
+
 		harpScanSpacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		harpScanSpacingLabel.setForeground( Color.black );
 		harpScanSpacingLabel.setText( "Scan Spacing" );
-		
+
 		this.add( rasterPanel , BorderLayout.CENTER );
 		scubaAcsisPanel.add( areaPanel , BorderLayout.CENTER );
-		
+
 		scuba2Panel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "SCUBA-2 Details" ) );
-		JLabel scanStrategyLabel = new JLabel() ;
+		JLabel scanStrategyLabel = new JLabel();
 		scanStrategyLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		scanStrategyLabel.setForeground( Color.black );
 		scanStrategyLabel.setText( "Scan Strategy" );
-		scuba2Panel.setLayout( new GridLayout( 10 , 1 ) ) ;
-		scuba2Panel.add( scanStrategyLabel ) ;
-		scuba2Panel.add( scanningStrategies ) ;
-		
-		rasterPanel.add( scubaAcsisPanel ) ;
-		
+		scuba2Panel.setLayout( new GridLayout( 10 , 1 ) );
+		scuba2Panel.add( scanStrategyLabel );
+		scuba2Panel.add( scanningStrategies );
+
+		rasterPanel.add( scubaAcsisPanel );
+
 		scubaAcsisPanel.add( scanPanel , BorderLayout.SOUTH );
 		scanPanel.add( scanSystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		scanPanel.add( scanSystem , new GridBagConstraints( 1 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 2 , 0 , 0 ) , 0 , 0 ) );
@@ -241,7 +237,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( widthLabel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( width , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( arcSecsLabel1 , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		
+
 		areaPanel.add( heightLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( height , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( arcSecsLabel2 , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
@@ -249,7 +245,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( posAngleLabel1 , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( posAngle , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( degreesLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		
+
 		areaPanel.add( sampleSpacingLabel , new GridBagConstraints( 0 , 5 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( dx , new GridBagConstraints( 2 , 5 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( arcSecsLabel3 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
@@ -257,17 +253,17 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( scanSpacingLabel , new GridBagConstraints( 0 , 6 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( dy , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( arcSecsLabel4 , new GridBagConstraints( 3 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-				
-		nonHarpPanel.setLayout( new GridBagLayout() ) ;
-		nonHarpPanel.add( spacingLabel , new GridBagConstraints( 0 , 0 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( sizeOfXPixel, new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( sizeOfYPixel, new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 5 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 6 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		
-		rasterPanel.add( heterodynePanel ) ;
+
+		nonHarpPanel.setLayout( new GridBagLayout() );
+		nonHarpPanel.add( spacingLabel , new GridBagConstraints( 0 , 0 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfXPixel , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( sizeOfYPixel , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 5 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		nonHarpPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 6 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
+		rasterPanel.add( heterodynePanel );
 		heterodynePanel.add( sampleTimeLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		heterodynePanel.add( sampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		heterodynePanel.add( acsisSampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
@@ -279,52 +275,51 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		heterodynePanel.add( secsPerRow , new GridBagConstraints( 1 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		heterodynePanel.add( secsPerObservation , new GridBagConstraints( 1 , 9 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
-		harpPanel.setLayout( new GridBagLayout() ) ;
-		harpPanel.add( harpScanSpacingLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		harpPanel.add( harpRasters , new GridBagConstraints( 2 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;		
-		addNonHarpPanel() ;
+		harpPanel.setLayout( new GridBagLayout() );
+		harpPanel.add( harpScanSpacingLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		harpPanel.add( harpRasters , new GridBagConstraints( 2 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		addNonHarpPanel();
 	}
 
-	private boolean harped = false ;
+	private boolean harped = false;
 
 	public boolean isHarped()
 	{
-		return harped ;
+		return harped;
 	}
-	
+
 	public void addHarpPanel()
 	{
-		areaPanel.remove( nonHarpPanel ) ;
-		areaPanel.add( harpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		harped = true ;
+		areaPanel.remove( nonHarpPanel );
+		areaPanel.add( harpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		harped = true;
 	}
 
 	public void addNonHarpPanel()
 	{
-		areaPanel.remove( harpPanel ) ;
-		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		harped = false ;
+		areaPanel.remove( harpPanel );
+		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		harped = false;
 	}
-	
-	private boolean scuba2d = false ;
+
+	private boolean scuba2d = false;
 
 	public boolean isScuba2d()
 	{
-		return scuba2d ;
+		return scuba2d;
 	}
-	
+
 	public void addScuba2Panel()
 	{
-		rasterPanel.remove( heterodynePanel ) ;
-		rasterPanel.add( scuba2Panel ) ;
-		scuba2d = true ;
+		rasterPanel.remove( heterodynePanel );
+		rasterPanel.add( scuba2Panel );
+		scuba2d = true;
 	}
 
 	public void addNonScuba2Panel()
 	{
-		rasterPanel.remove( scuba2Panel ) ;
-		rasterPanel.add( heterodynePanel ) ;
-		scuba2d = false ;
+		rasterPanel.remove( scuba2Panel );
+		rasterPanel.add( heterodynePanel );
+		scuba2d = false;
 	}
-	
 }

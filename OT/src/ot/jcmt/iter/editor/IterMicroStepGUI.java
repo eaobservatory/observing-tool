@@ -10,23 +10,21 @@
  */
 package ot.jcmt.iter.editor;
 
-import java.awt.GridBagLayout ;
-import java.awt.GridBagConstraints ;
-import java.awt.Dimension ;
-import java.awt.Color ;
-import java.awt.Insets ;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Insets;
 
-import javax.swing.JPanel ;
-import javax.swing.JLabel ;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
 public class IterMicroStepGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout();
-
 	JLabel jLabel5 = new JLabel();
-
 	DropDownListBoxWidgetExt microStepPattern = new DropDownListBoxWidgetExt();
 
 	public IterMicroStepGUI()

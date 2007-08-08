@@ -20,7 +20,6 @@ package ot.jcmt.iter.editor;
 
 public class IterFlatObsGUI extends IterJCMTGenericGUI
 {
-
 	public IterFlatObsGUI()
 	{
 		try

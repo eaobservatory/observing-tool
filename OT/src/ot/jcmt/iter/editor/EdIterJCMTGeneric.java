@@ -7,11 +7,9 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 import java.text.NumberFormat;
-
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.OtItemEditor;
@@ -38,37 +36,29 @@ import orac.jcmt.SpJCMTConstants;
 import orac.util.DrUtil;
 import orac.util.SpItemUtilities;
 
-
 /**
  * This is the generic editor for JCMT iterator components.
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public class EdIterJCMTGeneric extends OtItemEditor
-    implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
+public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWidgetWatcher , TextBoxWidgetWatcher , CheckBoxWidgetWatcher
+{
+	/**
+	 * Error code for observe modes whose noise calculation is not implemented yet.
+	 *
+	 * This constant should remain distinct from the STATUS constants used in
+	 * {@link orac.util.DrUtil}.
+	 */
+	protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
 
-    /**
-     * Error code for observe modes whose noise calculation is not implemented yet.
-     *
-     * This constant should remain distinct from the STATUS constants used in
-     * {@link orac.util.DrUtil}.
-     */
-    protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
+	protected IterJCMTGenericGUI _w; // the GUI layout panel
+	protected SpIterJCMTObs _iterObs;
+	protected String _noiseToolTip = "";
 
-    protected IterJCMTGenericGUI _w;       // the GUI layout panel
-
-    // If true, ignore action events
-    //  private boolean ignoreActions = false;
-
-
-    protected SpIterJCMTObs _iterObs;
-
-    protected String _noiseToolTip = "";
-
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterJCMTGeneric( IterJCMTGenericGUI w )
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdIterJCMTGeneric( IterJCMTGenericGUI w )
 	{
 		_title = "JCMT Observe";
 		_presSource = _w = w;
@@ -84,30 +74,27 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		_w.jigglesPerCycle.addWatcher( this );
 		_w.sampleTime.addWatcher( this );
 		_w.automaticTarget.addWatcher( this );
-	}  
-
-    /**
-     * Override setup to store away a reference to the Scan Iterator.
-     */
-    public void setup(SpItem spItem) {
-	_iterObs = (SpIterJCMTObs)spItem;
-	super.setup(spItem);
-
-	_w.switchingMode.deleteWatcher(this);
-	_w.switchingMode.setChoices(_iterObs.getSwitchingModeOptions());
-
-	if(_w.switchingMode.getItemCount() > 1) {
-          _w.switchingMode.setEnabled(true);
 	}
-	else {
-          _w.switchingMode.setEnabled(false);
+
+	/**
+	 * Override setup to store away a reference to the Scan Iterator.
+	 */
+	public void setup( SpItem spItem )
+	{
+		_iterObs = ( SpIterJCMTObs )spItem;
+		super.setup( spItem );
+
+		_w.switchingMode.deleteWatcher( this );
+		_w.switchingMode.setChoices( _iterObs.getSwitchingModeOptions() );
+
+		_w.switchingMode.setEnabled( _w.switchingMode.getItemCount() > 1 ) ;
+
+		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
+
+		_w.switchingMode.addWatcher( this );
 	}
-        _w.switchingMode.setValue( _iterObs.getSwitchingMode() );
 
-	_w.switchingMode.addWatcher(this);
-    }
-
-    public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		if( ddlbwe == _w.switchingMode )
 		{
@@ -119,11 +106,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
 				{
 					NumberFormat nf = NumberFormat.getInstance();
 					nf.setMaximumFractionDigits( 5 );
-					_w.frequencyOffset_rate.setValue( nf.format( 1.0 / _iterObs.getSecsPerCycle() ) );
+					_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) );
 				}
 				else
 				{
-					_w.frequencyOffset_rate.setValue( 0.0 );
+					_w.frequencyOffset_rate.setValue( 0. );
 				}
 				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
 				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
@@ -142,13 +129,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
 				_iterObs.rmFrequencyOffsetValues();
 			}
 			_iterObs.setSwitchingMode( val );
-			_updateWidgets() ;
+			_updateWidgets();
 		}
 	}
 
-    public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val )
-	{
-	}
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val ){}
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
@@ -156,16 +141,12 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		if( tbwe == _w.frequencyOffset_throw )
 		{
 			_iterObs.setFrequencyOffsetThrow( tbwe.getValue() );
-			return;
 		}
-
-		if( tbwe == _w.frequencyOffset_rate )
+		else if( tbwe == _w.frequencyOffset_rate )
 		{
 			_iterObs.setFrequencyOffsetRate( tbwe.getValue() );
-			return;
 		}
-
-		if( tbwe == _w.secsPerCycle )
+		else if( tbwe == _w.secsPerCycle )
 		{
 			_iterObs.setSecsPerCycle( _w.secsPerCycle.getValue() );
 			if( !_w.frequencyOffset_rate.isEnabled() )
@@ -175,66 +156,45 @@ public class EdIterJCMTGeneric extends OtItemEditor
 				_w.frequencyOffset_rate.setValue( nf.format( 1.0 / _iterObs.getSecsPerCycle() ) );
 				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
 			}
-			return;
 		}
-
-		if( tbwe == _w.jigglesPerCycle )
+		else if( tbwe == _w.jigglesPerCycle )
 		{
 			_iterObs.setJigglesPerCycle( _w.jigglesPerCycle.getValue() );
-			return;
 		}
-
-		if( tbwe == _w.stepSize )
+		else if( tbwe == _w.stepSize )
 		{
 			_iterObs.setStepSize( _w.stepSize.getValue() );
-			return;
 		}
-
-		if( tbwe == _w.sampleTime )
+		else if( tbwe == _w.sampleTime )
 		{
 			_iterObs.setSampleTime( _w.sampleTime.getValue() );
-			return;
 		}
 	}
 
-    public void textBoxAction(TextBoxWidgetExt tbwe) { }
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
-    public void checkBoxAction(CheckBoxWidgetExt cbwe) {
-	if (cbwe == _w.cycleReversal) {
-	    _iterObs.setCycleReversal(_w.cycleReversal.getBooleanValue());
-	    return;
+	public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	{
+		if( cbwe == _w.cycleReversal )
+			_iterObs.setCycleReversal( _w.cycleReversal.getBooleanValue() );
+		else if( cbwe == _w.jiggleAtReference )
+			_iterObs.setJiggleAtReference( _w.jiggleAtReference.getBooleanValue() );
+		else if( cbwe == _w.automaticTarget )
+			_iterObs.setAutomaticTarget( _w.automaticTarget.getBooleanValue() );
+		else if( cbwe == _w.continuousCal )
+			_iterObs.setContinuousCal( _w.continuousCal.getBooleanValue() );
 	}
 
-	if(cbwe == _w.jiggleAtReference) {
-	    _iterObs.setJiggleAtReference(_w.jiggleAtReference.getBooleanValue());
-	    return;
-	}
-
-	if(cbwe == _w.automaticTarget) {
-	    _iterObs.setAutomaticTarget(_w.automaticTarget.getBooleanValue());
-	    return;
-	}
-
-	if (cbwe == _w.continuousCal) {
-	    _iterObs.setContinuousCal(_w.continuousCal.getBooleanValue());
-	    return;
-	}
-
-    }
-
-    protected void _updateWidgets()
+	protected void _updateWidgets()
 	{
 		setInstrument( SpTreeMan.findInstrument( _spItem ) );
 
-		String switchingMode = _iterObs.getSwitchingMode() ;
+		String switchingMode = _iterObs.getSwitchingMode();
 		_w.switchingMode.setValue( switchingMode );
 		if( ( switchingMode != null ) && ( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S.equals( switchingMode ) || SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) )
 		{
 			_w.frequencyPanel.setVisible( true );
-			if( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
-				_w.frequencyOffset_rate.setEnabled( false );
-			else
-				_w.frequencyOffset_rate.setEnabled( false );
+			_w.frequencyOffset_rate.setEnabled( false );
 		}
 		else
 		{
@@ -254,53 +214,49 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		_w.continuousCal.setValue( _iterObs.getContinuousCal() );
 	}
 
-    /**
-     * This method should be overridden by subclasses representing iterators whose appearance
-     * is different for different instruments.
-     */
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-	if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-	    _w.switchingMode.setVisible(true);
-	    _w.switchingModeLabel.setVisible(true);
-	    _w.jLabel2.setText("K");
+	/**
+	 * This method should be overridden by subclasses representing iterators whose appearance
+	 * is different for different instruments.
+	 */
+	public void setInstrument( SpInstObsComp spInstObsComp )
+	{
+		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
+		{
+			_w.switchingMode.setVisible( true );
+			_w.switchingModeLabel.setVisible( true );
+			_w.jLabel2.setText( "K" );
 
-	    if(_w.switchingMode.getValue() != null && 
-	       (_w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S) ||
-	       _w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F))) {
-		_w.frequencyPanel.setVisible(true);
-	    }
-	    else {
-		_w.frequencyPanel.setVisible(false);
-	    }
+			_w.frequencyPanel.setVisible( _w.switchingMode.getValue() != null && ( _w.switchingMode.getValue().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) || _w.switchingMode.getValue().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) ) ) ;
+		}
+		else
+		{
+			_w.jLabel2.setText( "mJy" );
+			_w.switchingMode.setVisible( false );
+			_w.switchingModeLabel.setVisible( false );
+			_w.frequencyPanel.setVisible( false );
+		}
 	}
-	else {
-	    _w.jLabel2.setText("mJy");
-	    _w.switchingMode.setVisible(false);
-	    _w.switchingModeLabel.setVisible(false);
-	    _w.frequencyPanel.setVisible(false);    
-	}
-    }
 
-    /**
+	/**
 	 * Returns noise information.
 	 */
 	protected String calculateNoise()
 	{
-		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp ) SpTreeMan.findTargetList( _iterObs );
+		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( _iterObs );
 		if( telescopeObsComp == null )
 		{
 			_noiseToolTip = "No target";
 			return "No target";
 		}
 
-		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs );
 		if( instObsComp == null )
 		{
 			_noiseToolTip = "No instruments";
 			return "No instrument";
 		}
 
-		SpSiteQualityObsComp siteQualityObsComp = ( SpSiteQualityObsComp ) SpItemUtilities.findSiteQuality( _iterObs );
+		SpSiteQualityObsComp siteQualityObsComp = ( SpSiteQualityObsComp )SpItemUtilities.findSiteQuality( _iterObs );
 		if( siteQualityObsComp == null )
 		{
 			_noiseToolTip = "No site quality";
@@ -312,29 +268,27 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
 		if( instObsComp instanceof SpInstSCUBA )
 		{
-			int[] status =
-			{ 0 };
-			double noise = 0.0;
+			int[] status = { 0 };
+			double noise = 0. ;
 			double wavelength;
 			double nefd;
 
-			if( ( ( ( ( SpInstSCUBA ) instObsComp ).getFilter() != null ) && ( ( ( SpInstSCUBA ) instObsComp ).getFilter().toUpperCase().endsWith( "PHOT" ) ) ) )
+			if( ( (( SpInstSCUBA )instObsComp).getFilter() != null ) && (( SpInstSCUBA )instObsComp).getFilter().toUpperCase().endsWith( "PHOT" ) )
 			{
 
-				if( ( ( SpInstSCUBA ) instObsComp ).getPrimaryBolometer() == null )
+				if( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer() == null )
 				{
 					_noiseToolTip = "No wavelength";
 					return "No wavelength";
 				}
 
-				wavelength = Double.parseDouble( ( ( SpInstSCUBA ) instObsComp ).getPrimaryBolometer().substring( 1 ) );
+				wavelength = Double.parseDouble( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer().substring( 1 ) );
 				nefd = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
 				noise = calculateNoise( wavelength , nefd , status );
 
 				if( status[ 0 ] == 0 )
 				{
 					_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd = " + ( Math.rint( nefd * 10 ) / 10 ) + ", noise = " + ( Math.rint( noise * 10 ) / 10 );
-
 					return "" + ( Math.rint( noise * 10 ) / 10 );
 				}
 			}
@@ -342,7 +296,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 			{
 				String noise450Str;
 
-				wavelength = 450.0;
+				wavelength = 450. ;
 				double nefd450 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
 				double noise450 = calculateNoise( wavelength , nefd450 , status );
 
@@ -353,28 +307,20 @@ public class EdIterJCMTGeneric extends OtItemEditor
 				}
 
 				if( status[ 0 ] == 0 )
-				{
 					noise450Str = "" + ( Math.rint( noise450 * 10 ) / 10 );
-				}
 				else
-				{
 					noise450Str = "error " + status[ 0 ];
-				}
 
 				String noise850Str;
 
-				wavelength = 850.0;
+				wavelength = 850. ;
 				double nefd850 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
 				double noise850 = calculateNoise( wavelength , nefd850 , status );
 
 				if( status[ 0 ] == 0 )
-				{
 					noise850Str = "" + ( Math.rint( noise850 * 10 ) / 10 );
-				}
 				else
-				{
 					noise850Str = "error " + status[ 0 ];
-				}
 
 				_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd(450) = " + ( Math.rint( nefd450 * 10 ) / 10 ) + ", noise(450) = " + ( Math.rint( noise450 * 10 ) / 10 ) + ", nefd(850) = " + ( Math.rint( nefd850 * 10 ) / 10 ) + ", noise(850) = " + ( Math.rint( noise850 * 10 ) / 10 );
 
@@ -383,14 +329,14 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		}
 		else if( instObsComp instanceof SpInstHeterodyne )
 		{
-			return "" + calculateNoise( ( SpInstHeterodyne ) instObsComp , airmass , csoTau );
+			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau );
 		}
 
 		_noiseToolTip = "Not for Heterodyne";
 		return "Not for Heterodyne";
 	}
 
-    /**
+	/**
 	 * Returns noise.
 	 * 
 	 * This method should be implemented by subclasses taking into accound the observe mode and whether length and width are needed (SCAN more only).
@@ -398,12 +344,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	protected double calculateNoise( double wavelength , double nefd , int[] status )
 	{
 		status[ 0 ] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
-		return 0.0;
+		return 0. ;
 	}
 
-    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
-// 	System.out.println("Calculating generic heterodyne noise");
-	return 0.0;
-    }
+	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		return 0. ;
+	}
 }
-

@@ -20,7 +20,6 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public final class EdIterFlatObs extends EdIterJCMTGeneric
 {
-
 	private IterFlatObsGUI _w; // the GUI layout panel
 
 	/**

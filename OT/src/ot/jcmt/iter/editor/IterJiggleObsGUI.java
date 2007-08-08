@@ -7,15 +7,28 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
-import javax.swing.*;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.BorderFactory ;
+import javax.swing.SwingConstants ;
 
-import java.awt.*;
+import java.awt.GridBagLayout ; 
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Color ;
+import java.awt.BorderLayout ;
+import java.awt.Font ;
+import java.awt.GridLayout ;
 
-import jsky.app.ot.gui.*;
-import javax.swing.border.*;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import javax.swing.border.Border ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.BevelBorder ;
 
 /**
  * Title:        <p>
@@ -26,54 +39,55 @@ import javax.swing.border.*;
  * @version 1.0
  */
 
+public class IterJiggleObsGUI extends IterJCMTGenericGUI
+{
+	JPanel acsisPanel = new JPanel();
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	JLabel jLabel2 = new JLabel();
+	JLabel jLabel3 = new JLabel();
+	JLabel jLabel4 = new JLabel();
+	JLabel jLabel5 = new JLabel();
+	JLabel jLabel6 = new JLabel();
+	JLabel jLabel7 = new JLabel();
+	JLabel jLabel8 = new JLabel();
+	JLabel jLabel9 = new JLabel();
+	JLabel jLabel10 = new JLabel();
+	TextBoxWidgetExt secsPerJiggle = new TextBoxWidgetExt();
+	TextBoxWidgetExt secsPerObs = new TextBoxWidgetExt();
+	CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
+	JPanel jPanel1 = new JPanel();
+	JLabel jLabel1 = new JLabel();
+	DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
+	GridBagLayout gridBagLayout2 = new GridBagLayout();
+	JPanel jPanel2 = new JPanel();
+	TitledBorder titledBorder1;
+	JLabel jLabel11 = new JLabel();
+	GridBagLayout gridBagLayout3 = new GridBagLayout();
+	TextBoxWidgetExt paTextBox = new TextBoxWidgetExt();
+	JLabel jLabel12 = new JLabel();
+	JLabel jLabel13 = new JLabel();
+	DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
+	CheckBoxWidgetExt contModeCB = new CheckBoxWidgetExt();
+	TextBoxWidgetExt scaleFactor = new TextBoxWidgetExt();
+	DropDownListBoxWidgetExt coordSys = new DropDownListBoxWidgetExt();
+	JLabel informationLabelTop = new JLabel();
+	JLabel informationLabelMiddle = new JLabel();
+	JLabel informationLabelBottom = new JLabel();
+	JPanel informationPanel = new JPanel();
 
-public class IterJiggleObsGUI extends IterJCMTGenericGUI {
-  JPanel acsisPanel = new JPanel();
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  JLabel jLabel2 = new JLabel();
-  JLabel jLabel3 = new JLabel();
-  JLabel jLabel4 = new JLabel();
-  JLabel jLabel5 = new JLabel();
-  JLabel jLabel6 = new JLabel();
-  JLabel jLabel7 = new JLabel();
-  JLabel jLabel8 = new JLabel();
-  JLabel jLabel9 = new JLabel();
-  JLabel jLabel10 = new JLabel();
-  TextBoxWidgetExt secsPerJiggle = new TextBoxWidgetExt();
-  TextBoxWidgetExt secsPerObs = new TextBoxWidgetExt();
-  CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
-  JPanel jPanel1 = new JPanel();
-  JLabel jLabel1 = new JLabel();
-  DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
-  GridBagLayout gridBagLayout2 = new GridBagLayout();
-  JPanel jPanel2 = new JPanel();
-  TitledBorder titledBorder1;
-  JLabel jLabel11 = new JLabel();
-  GridBagLayout gridBagLayout3 = new GridBagLayout();
-  TextBoxWidgetExt paTextBox = new TextBoxWidgetExt();
-  JLabel jLabel12 = new JLabel();
-  JLabel jLabel13 = new JLabel();
-  DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
-  CheckBoxWidgetExt contModeCB = new CheckBoxWidgetExt();
-  TextBoxWidgetExt scaleFactor = new TextBoxWidgetExt();
-  DropDownListBoxWidgetExt coordSys = new DropDownListBoxWidgetExt();
-  
-	JLabel informationLabelTop = new JLabel() ;
-	JLabel informationLabelMiddle = new JLabel() ;
-	JLabel informationLabelBottom = new JLabel() ;
-	JPanel informationPanel = new JPanel() ;
-	
+	public IterJiggleObsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  public IterJiggleObsGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void jbInit() throws Exception
+	private void jbInit() throws Exception
 	{
 		JPanel jigglePanel = new JPanel();
 		jigglePanel.setLayout( new BorderLayout() );
@@ -147,7 +161,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
 
 		coordSys.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		coordSys.setForeground( Color.black );
-		
+
 		this.add( jigglePanel , BorderLayout.CENTER );
 		jigglePanel.add( acsisPanel , BorderLayout.SOUTH );
 		// Add Scale Factor
@@ -177,28 +191,25 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
 		jPanel2.add( jLabel13 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		jPanel2.add( coordSys , new GridBagConstraints( 1 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 
-		// this.add(jPanel1, BorderLayout.CENTER);
 		jigglePanel.add( jPanel1 , BorderLayout.CENTER );
 		jPanel1.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		jPanel1.add( jigglePattern , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
-		
-		informationLabelTop.setText( "Warning: Using continuum mode will significantly increase the duration of the observation." ) ;
-		informationLabelTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		informationLabelTop.setForeground( Color.black ) ;
-		informationLabelMiddle.setText( "Continuum mode should only be used if an accurate measure of the continuum emission" ) ;
-		informationLabelMiddle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		informationLabelMiddle.setForeground( Color.black ) ;
-		informationLabelBottom.setText( "from the source is a requirement." ) ;
-		informationLabelBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		informationLabelBottom.setForeground( Color.black ) ;
-		
-		informationPanel.setLayout( new GridLayout( 3 , 1 ) ) ;
-		
-		this.add( informationPanel , BorderLayout.SOUTH ) ;
-		informationPanel.add( informationLabelTop ) ;
-		informationPanel.add( informationLabelMiddle ) ;
-		informationPanel.add( informationLabelBottom ) ;
+		informationLabelTop.setText( "Warning: Using continuum mode will significantly increase the duration of the observation." );
+		informationLabelTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		informationLabelTop.setForeground( Color.black );
+		informationLabelMiddle.setText( "Continuum mode should only be used if an accurate measure of the continuum emission" );
+		informationLabelMiddle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		informationLabelMiddle.setForeground( Color.black );
+		informationLabelBottom.setText( "from the source is a requirement." );
+		informationLabelBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		informationLabelBottom.setForeground( Color.black );
 
+		informationPanel.setLayout( new GridLayout( 3 , 1 ) );
+
+		this.add( informationPanel , BorderLayout.SOUTH );
+		informationPanel.add( informationLabelTop );
+		informationPanel.add( informationLabelMiddle );
+		informationPanel.add( informationLabelBottom );
 	}
 }

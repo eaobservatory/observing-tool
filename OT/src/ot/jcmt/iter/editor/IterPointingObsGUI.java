@@ -7,13 +7,25 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import jsky.app.ot.gui.*;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.JPopupMenu ;
+import javax.swing.BorderFactory ;
+import javax.swing.SwingConstants ;
+import javax.swing.border.Border ;
+import javax.swing.border.BevelBorder ;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.BorderLayout ;
+import java.awt.Color ;
+import java.awt.Dimension ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.OptionWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
 /**
  * Title:        <p>
@@ -24,35 +36,38 @@ import jsky.app.ot.gui.*;
  * @version 1.0
  */
 
+public class IterPointingObsGUI extends IterJCMTGenericGUI
+{
+	JPanel acsisPanel = new JPanel();
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	JLabel jLabel1 = new JLabel();
+	JLabel jLabel2 = new JLabel();
+	DropDownListBoxWidgetExt pointingMethod = new DropDownListBoxWidgetExt();
+	JLabel jLabel3 = new JLabel();
+	JLabel jLabel4 = new JLabel();
+	JLabel jLabel5 = new JLabel();
+	JLabel jLabel6 = new JLabel();
+	JLabel jLabel7 = new JLabel();
+	TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
+	OptionWidgetExt continuum = new OptionWidgetExt();
+	OptionWidgetExt spectralLine = new OptionWidgetExt();
+	JLabel jLabel8 = new JLabel();
+	CommandButtonWidgetExt pointingPixelButton = new CommandButtonWidgetExt();
+	JPopupMenu pointingPixelPopupMenu = new JPopupMenu();
 
-public class IterPointingObsGUI extends IterJCMTGenericGUI {
-  JPanel acsisPanel = new JPanel();
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  JLabel jLabel1 = new JLabel();
-  JLabel jLabel2 = new JLabel();
-  DropDownListBoxWidgetExt pointingMethod = new DropDownListBoxWidgetExt();
-  JLabel jLabel3 = new JLabel();
-  JLabel jLabel4 = new JLabel();
-  JLabel jLabel5 = new JLabel();
-  JLabel jLabel6 = new JLabel();
-  JLabel jLabel7 = new JLabel();
-  TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
-  OptionWidgetExt continuum = new OptionWidgetExt();
-  OptionWidgetExt spectralLine = new OptionWidgetExt();
-  JLabel jLabel8 = new JLabel();
-  CommandButtonWidgetExt pointingPixelButton = new CommandButtonWidgetExt();
-  JPopupMenu pointingPixelPopupMenu = new JPopupMenu();
+	public IterPointingObsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  public IterPointingObsGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void jbInit() throws Exception
+	private void jbInit() throws Exception
 	{
 		JPanel pointingPanel = new JPanel();
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
@@ -111,5 +126,4 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
 		acsisPanel.add( spectralLine , new GridBagConstraints( 2 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 40 , 0 , 0 ) , 0 , 0 ) );
 		pointingPanel.add( automaticTarget , BorderLayout.SOUTH );
 	}
-
 }

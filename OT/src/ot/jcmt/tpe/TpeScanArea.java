@@ -27,43 +27,40 @@ import orac.jcmt.iter.SpIterRasterObs;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk), based on jsky.app.ot.tpe.TpeSciArea
  */
-public class TpeScanArea extends TpeSciArea {
+public class TpeScanArea extends TpeSciArea
+{
+	/**
+	 * Update the ScanArea fields, returning true iff changes were made.
+	 */
+	public boolean update( SpInstObsComp spInst , FitsImageInfo fii )
+	{
+		throw new UnsupportedOperationException( "TpeScanArea.update(orac.jcmt.iter.SpIterRasterObs, " + "jsky.app.ot.fits.gui.FitsImageInfo) should be used" );
+	}
 
-  /**
-   * Update the ScanArea fields, returning true iff changes were made.
-   */
-  public boolean update(SpInstObsComp spInst, FitsImageInfo fii) {
-    throw new UnsupportedOperationException("TpeScanArea.update(orac.jcmt.iter.SpIterRasterObs, " +
-                                                               "jsky.app.ot.fits.gui.FitsImageInfo) should be used");
-  }
+	/**
+	 * Update the ScanArea fields, returning true iff changes were made.
+	 */
+	public boolean update( SpIterRasterObs iterRaster , FitsImageInfo fii )
+	{
+		double w , h , posAngle , sky;
 
-  /**
-   * Update the ScanArea fields, returning true iff changes were made.
-   */
-  public boolean update(SpIterRasterObs iterRaster, FitsImageInfo fii) {
+		w = iterRaster.getWidth() * fii.pixelsPerArcsec;
+		h = iterRaster.getHeight() * fii.pixelsPerArcsec;
 
-    double w, h, posAngle, sky;
+		posAngle = ( Math.PI * iterRaster.getPosAngle() ) / 180. ;
+		sky = fii.theta;
 
-    w = iterRaster.getWidth()  * fii.pixelsPerArcsec;
-    h = iterRaster.getHeight() * fii.pixelsPerArcsec;
+		// Update the instance variables if necessary.
+		if( ( w != this.width ) || ( h != this.height ) || ( posAngle != this.posAngleRadians ) || ( sky != this.skyCorrection ) )
+		{
 
-    posAngle = (Math.PI * iterRaster.getPosAngle()) / 180.0;
-    sky      = fii.theta;
+			this.width = w;
+			this.height = h;
+			this.posAngleRadians = posAngle;
+			this.skyCorrection = sky;
+			return true;
+		}
 
-    // Update the instance variables if necessary.
-    if ((w	 != this.width		) ||
-        (h	 != this.height		) ||
-        (posAngle != this.posAngleRadians) ||
-        (sky	 != this.skyCorrection	)	) {
-
-       this.width		= w;
-       this.height		= h;
-       this.posAngleRadians	= posAngle;
-       this.skyCorrection	= sky;
-       return true;
-    }
-
-    return false;
-  }
+		return false;
+	}
 }
-

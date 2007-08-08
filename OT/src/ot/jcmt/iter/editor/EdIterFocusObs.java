@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -17,26 +16,24 @@ import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.iter.SpIterFocusObs;
 import orac.jcmt.inst.SpInstHeterodyne;
-import orac.jcmt.inst.SpInstSCUBA2 ;
-import orac.jcmt.SpJCMTConstants ;
+import orac.jcmt.inst.SpInstSCUBA2;
+import orac.jcmt.SpJCMTConstants;
 
 /**
  * This is the editor for Focus Observe Mode iterator component.
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterFocusObs extends EdIterJCMTGeneric {
+public final class EdIterFocusObs extends EdIterJCMTGeneric
+{
+	private IterFocusObsGUI _w; // the GUI layout panel
+	private SpIterFocusObs _iterObs;
+	private boolean SCUBA2;
 
-  private IterFocusObsGUI _w;       // the GUI layout panel
-
-  private SpIterFocusObs _iterObs;
-  
-  private boolean SCUBA2 ;
-
-  /**
-   * The constructor initializes the title, description, and presentation source.
-   */
-  	public EdIterFocusObs()
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdIterFocusObs()
 	{
 		super( new IterFocusObsGUI() );
 
@@ -55,10 +52,10 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
 		_w.switchingMode.setVisible( false );
 		_w.switchingModeLabel.setVisible( false );
 		_w.frequencyPanel.setVisible( false );
-		
-		_w.stepsLabel.setVisible( false ) ;
-		_w.steps.setVisible( false ) ;
-		_w.mmLabel.setVisible( false ) ;
+
+		_w.stepsLabel.setVisible( false );
+		_w.steps.setVisible( false );
+		_w.mmLabel.setVisible( false );
 	}
 
 	/**
@@ -119,38 +116,37 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
 				_w.acsisPanel.setVisible( true );
 				_w.switchingMode.setVisible( false );
 				_w.switchingModeLabel.setVisible( false );
-				
-				_w.stepsLabel.setVisible( true ) ;
-				_w.steps.setVisible( true ) ;
-				_w.mmLabel.setVisible( true ) ;
-				
-				SCUBA2 = false ;
+
+				_w.stepsLabel.setVisible( true );
+				_w.steps.setVisible( true );
+				_w.mmLabel.setVisible( true );
+
+				SCUBA2 = false;
 			}
 			else if( spInstObsComp instanceof SpInstSCUBA2 )
 			{
 				_w.acsisPanel.setVisible( false );
 				_iterObs.rmSwitchingMode();
-				
-				_w.stepsLabel.setVisible( false ) ;
-				_w.steps.setVisible( false ) ;
-				_w.mmLabel.setVisible( false ) ;
-				
-				_avTab.noNotifyRm( SpJCMTConstants.ATTR_STEPS ) ;
-				
-				SCUBA2 = true ;
+
+				_w.stepsLabel.setVisible( false );
+				_w.steps.setVisible( false );
+				_w.mmLabel.setVisible( false );
+
+				_avTab.noNotifyRm( SpJCMTConstants.ATTR_STEPS );
+
+				SCUBA2 = true;
 			}
 		}
 		else
 		{
 			_w.acsisPanel.setVisible( false );
 			_iterObs.rmSwitchingMode();
-			
-			_w.stepsLabel.setVisible( false ) ;
-			_w.steps.setVisible( false ) ;
-			_w.mmLabel.setVisible( false ) ;
-			
-			SCUBA2 = false ;
+
+			_w.stepsLabel.setVisible( false );
+			_w.steps.setVisible( false );
+			_w.mmLabel.setVisible( false );
+
+			SCUBA2 = false;
 		}
 	}
 }
-

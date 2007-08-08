@@ -31,9 +31,7 @@ import orac.jcmt.iter.SpIterPointingObs;
  */
 public final class EdIterPointingObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher , OptionWidgetWatcher , ActionListener
 {
-
 	private IterPointingObsGUI _w; // the GUI layout panel
-
 	private SpIterPointingObs _iterObs;
 
 	/**

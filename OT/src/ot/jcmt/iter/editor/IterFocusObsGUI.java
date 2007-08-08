@@ -9,10 +9,18 @@
 // $Id$
 package ot.jcmt.iter.editor;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import jsky.app.ot.gui.*;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.BorderFactory ;
+import javax.swing.border.Border ;
+import javax.swing.border.BevelBorder ;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Color ;
+import java.awt.BorderLayout ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
 
 /**
  * Title:        <p>
