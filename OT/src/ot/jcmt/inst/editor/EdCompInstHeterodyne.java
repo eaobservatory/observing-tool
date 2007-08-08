@@ -176,7 +176,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			if( _w.feSelector.getComponent( i ) instanceof JRadioButton )
 			{
-				( ( JRadioButton )_w.feSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				(( JRadioButton )_w.feSelector.getComponent( i )).addActionListener( new ActionListener()
 				{
 					public void actionPerformed( ActionEvent e )
 					{
@@ -191,7 +191,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			if( _w.modeSelector.getComponent( i ) instanceof JRadioButton )
 			{
-				( ( JRadioButton )_w.modeSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				(( JRadioButton )_w.modeSelector.getComponent( i )).addActionListener( new ActionListener()
 				{
 					public void actionPerformed( ActionEvent e )
 					{
@@ -206,7 +206,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			if( _w.regionSelector.getComponent( i ) instanceof JRadioButton )
 			{
-				( ( JRadioButton )_w.regionSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				(( JRadioButton )_w.regionSelector.getComponent( i )).addActionListener( new ActionListener()
 				{
 					public void actionPerformed( ActionEvent e )
 					{
@@ -221,7 +221,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			if( _w.sbSelector.getComponent( i ) instanceof JRadioButton )
 			{
-				( ( JRadioButton )_w.sbSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				(( JRadioButton )_w.sbSelector.getComponent( i )).addActionListener( new ActionListener()
 				{
 					public void actionPerformed( ActionEvent e )
 					{
@@ -248,17 +248,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// interest in the first two.
 			if( _w.fPanel.getComponent( i ) instanceof AbstractButton )
 			{
-				( ( AbstractButton )_w.fPanel.getComponent( i ) ).addActionListener( this );
+				(( AbstractButton )_w.fPanel.getComponent( i )).addActionListener( this );
 				freqPanelWidgetNames.put( _w.fPanel.getComponent( i ).getName() , new Integer( i ) );
 			}
 			else if( _w.fPanel.getComponent( i ) instanceof JComboBox )
 			{
-				( ( JComboBox )_w.fPanel.getComponent( i ) ).addActionListener( this );
+				(( JComboBox )_w.fPanel.getComponent( i )).addActionListener( this );
 				freqPanelWidgetNames.put( _w.fPanel.getComponent( i ).getName() , new Integer( i ) );
 			}
 			else if( _w.fPanel.getComponent( i ) instanceof JTextField )
 			{
-				( ( JTextField )_w.fPanel.getComponent( i ) ).addKeyListener( new KeyAdapter()
+				(( JTextField )_w.fPanel.getComponent( i )).addKeyListener( new KeyAdapter()
 				{
 					public void keyTyped( KeyEvent ke )
 					{
@@ -283,7 +283,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		//		 The button panel only contains buttons, so just add action listeners
 		for( int i = 0 ; i < _w.bPanel.getComponentCount() ; i++ )
-			( ( AbstractButton )_w.bPanel.getComponent( i ) ).addActionListener( this );
+			(( AbstractButton )_w.bPanel.getComponent( i )).addActionListener( this );
 
 		// Disable the hide button...It should only be enabled when the frequency editor is visible
 		toggleEnabled( _w.bPanel , "hide" , false );
@@ -410,7 +410,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < moleculeVector.size() ; i++ )
 		{
 			if( moleculeVector.get( i ).toString().trim().equals( molecule ) )
-				transition = ( Transition )( ( SelectionList )moleculeVector.get( i ) ).objectList.get( 0 );
+				transition = ( Transition )(( SelectionList )moleculeVector.get( i )).objectList.get( 0 );
 		}
 
 		if( transition != null )
@@ -486,8 +486,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_receiver = ( Receiver )_cfg.receivers.get( _inst.getFrontEnd() );
 
 		// Update the front end panel
-		( ( AbstractButton )_w.feSelector.getComponent( ( ( Integer )feWidgetNames.get( _inst.getFrontEnd() ) ).intValue() ) ).setSelected( true );
-		( ( AbstractButton )_w.modeSelector.getComponent( ( ( Integer )modeWidgetNames.get( _inst.getMode() ) ).intValue() ) ).setSelected( true );
+		(( AbstractButton )_w.feSelector.getComponent( (( Integer )feWidgetNames.get( _inst.getFrontEnd() )).intValue() )).setSelected( true );
+		(( AbstractButton )_w.modeSelector.getComponent( (( Integer )modeWidgetNames.get( _inst.getMode() )).intValue() )).setSelected( true );
 		int integer = 0;
 		String band = _inst.getBandMode();
 		if( band != null && !band.equals( "" ) )
@@ -496,9 +496,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( bandMode != null )
 				integer = ( ( Integer )bandMode ).intValue();
 		}
-		( ( AbstractButton )_w.regionSelector.getComponent( integer ) ).setSelected( true );
+		(( AbstractButton )_w.regionSelector.getComponent( integer )).setSelected( true );
 
-		( ( AbstractButton )_w.sbSelector.getComponent( ( ( Integer )sidebandWidgetNames.get( _inst.getBand() ) ).intValue() ) ).setSelected( true );
+		(( AbstractButton )_w.sbSelector.getComponent( (( Integer )sidebandWidgetNames.get( _inst.getBand() )).intValue() )).setSelected( true );
 
 		// Update the bandwidth
 		_updateBandwidths();
@@ -519,25 +519,25 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				if( name.equals( "LowFreqLimit" ) )
 				{
-					( ( JLabel )c ).setText( "" + ( int )( _receiver.loMin * 1.0E-9 ) );
+					(( JLabel )c).setText( "" + ( int )( _receiver.loMin * 1.E-9 ) );
 				}
 				else if( name.equals( "HighFreqLimit" ) )
 				{
-					( ( JLabel )c ).setText( "" + ( int )( _receiver.loMax * 1.0E-9 ) );
+					(( JLabel )c).setText( "" + ( int )( _receiver.loMax * 1.E-9 ) );
 				}
 				else if( name.equals( "resolution" ) )
 				{
-					double resolution = ( _inst.getBandWidth( i ) * 1.0E-3 ) / _inst.getChannels( i );
+					double resolution = ( _inst.getBandWidth( i ) * 1.E-3 ) / _inst.getChannels( i );
 					resolution = new Integer( _inst.getMixer() ).intValue() * resolution;
-					( ( JLabel )c ).setText( "" + ( int )Math.rint( resolution ) );
+					(( JLabel )c).setText( "" + ( int )Math.rint( resolution ) );
 				}
 				else if( name.equals( "overlap" ) )
 				{
-					( ( JLabel )c ).setText( "" + ( _inst.getOverlap( i ) * 1.0E-6 ) );
+					(( JLabel )c).setText( "" + ( _inst.getOverlap( i ) * 1.E-6 ) );
 				}
 				else if( name.equals( "channel" ) )
 				{
-					( ( JLabel )c ).setText( "" + _inst.getChannels( i ) );
+					(( JLabel )c).setText( "" + _inst.getChannels( i ) );
 				}
 			}
 		}
@@ -570,7 +570,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( name != null )
 			{
 				if( name.equals( "velocity" ) )
-					( ( JTextField )c ).setText( rv );
+					(( JTextField )c).setText( rv );
 				else if( name.equals( "definition" ) && rvDefn != null )
 					_w.vDef.setSelectedItem( rvDefn );
 				else if( name.equals( "frame" ) && rvFrame != null )
@@ -607,9 +607,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				vWidget = _w.vPanel.getComponent( ( ( Integer )vPanelWidgetNames.get( iter.next() ) ).intValue() );
 				if( vWidget instanceof JTextField )
-					( ( JTextField )vWidget ).setText( "Invalid" );
+					(( JTextField )vWidget).setText( "Invalid" );
 				else if( vWidget instanceof JLabel )
-					( ( JLabel )vWidget ).setText( "Invalid" );
+					(( JLabel )vWidget).setText( "Invalid" );
 			}
 		}
 
@@ -734,13 +734,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				else
 				{
 					// Set the rest frequency text...
-					int freqCompNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue();
+					int freqCompNum = (( Integer )freqPanelWidgetNames.get( "frequency" )).intValue();
 					JTextField tf = ( JTextField )_w.fPanel.getComponent( freqCompNum );
 					tf.setText( ci.$freq.toString() );
 
 					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
 					{
-						double frequency = ( ( Double )ci.$freq.elementAt( index ) ).doubleValue();
+						double frequency = (( Double )ci.$freq.elementAt( index )).doubleValue();
 						_inst.setRestFrequency( frequency * 1.0E9 , index );
 						_inst.setMolecule( NO_LINE , index );
 						_inst.setTransition( NO_LINE , index );
@@ -780,7 +780,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				for( int index = 0 ; index < _regionInfo.length ; index++ )
 				{
 					_inst.setCentreFrequency( _receiver.feIF , index );
-					_inst.setMolecule( ( ( JComboBox )ae.getSource() ).getSelectedItem().toString() , index );
+					_inst.setMolecule( (( JComboBox )ae.getSource()).getSelectedItem().toString() , index );
 				}
 				_updateTransitionChoice();
 				double restFreq = _inst.getRestFrequency( 0 );
@@ -792,10 +792,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			else if( name.equals( "transition" ) )
 			{
 				// Update the frequency information
-				Object transition = ( ( JComboBox )ae.getSource() ).getSelectedItem();
+				Object transition = (( JComboBox )ae.getSource()).getSelectedItem();
 				if( transition instanceof Transition )
 				{
-					double frequency = ( ( Transition )transition ).frequency;
+					double frequency = (( Transition )transition).frequency;
 					_inst.setSkyFrequency( frequency / ( 1.0 + getRedshift() ) );
 					for( int index = 0 ; index < _regionInfo.length ; index++ )
 					{
@@ -804,7 +804,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						_inst.setTransition( transition.toString() , index );
 						_inst.setRestFrequency( frequency , index );
 					}
-					_updateFrequencyText( frequency / 1.0E9 );
+					_updateFrequencyText( frequency / 1.E9 );
 					checkSideband();
 				}
 				_updateRegionInfo();
@@ -821,7 +821,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				{
 					if( changed )
 					{
-						double f = Double.parseDouble( frequency ) * 1.0E9;
+						double f = Double.parseDouble( frequency ) * 1.E9;
 						double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
 						double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
 						if( f >= obsmin && f <= obsmax )
@@ -979,10 +979,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 			// Update the band width choices
 		}
-		else
-		{
-			// System action
-		}
 		_updateWidgets();
 	}
 
@@ -992,7 +988,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		if( ae != null )
 		{
-			String sb = ( ( JRadioButton )ae.getSource() ).getText();
+			String sb = (( JRadioButton )ae.getSource()).getText();
 
 			if( !validSideband( sb ) )
 				JOptionPane.showMessageDialog( null , "Frequency cannot be reached from " + sb + "." , "Frequency no longer valid for Sideband!" , JOptionPane.WARNING_MESSAGE );
@@ -1027,7 +1023,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		if( ae != null )
 		{
-			String regions = ( ( JRadioButton )ae.getSource() ).getText();
+			String regions = (( JRadioButton )ae.getSource()).getText();
 			_inst.setBandMode( regions );
 			int active = new Integer( regions ).intValue();
 
@@ -1141,7 +1137,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// Set the new bandwidths
 			for( int i = 0 ; i < values.length ; i++ )
 			{
-				double value = Math.rint( values[ i ] * 1.0E-6 );
+				double value = Math.rint( values[ i ] * 1.E-6 );
 				if( values[ i ] == currentBandwidth )
 				{
 					index = i;
@@ -1363,9 +1359,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			frequency = _inst.getRestFrequency( 0 );
 
 		_inst.setRestFrequency( frequency , 0 );
-		_inst.setSkyFrequency( frequency / ( 1.0 + getRedshift() ) );
+		_inst.setSkyFrequency( frequency / ( 1. + getRedshift() ) );
 
-		_updateFrequencyText( frequency / 1.0E9 );
+		_updateFrequencyText( frequency / 1.E9 );
 
 		if( transChanged )
 			_updateRegionInfo();
@@ -1377,13 +1373,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
 		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
-		Vector molecules = _lineCatalog.returnSpecies( obsmin * ( 1.0 + getRedshift() ) , obsmax * ( 1.0 + getRedshift() ) );
+		Vector molecules = _lineCatalog.returnSpecies( obsmin * ( 1. + getRedshift() ) , obsmax * ( 1. + getRedshift() ) );
 		return molecules;
 	}
 
 	private void _updateFrequencyText()
 	{
-		_updateFrequencyText( _inst.getRestFrequency( 0 ) / 1.0E9 );
+		_updateFrequencyText( _inst.getRestFrequency( 0 ) / 1.E9 );
 	}
 
 	private void _updateFrequencyText( double f )
@@ -1459,16 +1455,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		if( component instanceof DropDownListBoxWidgetExt )
 			vDefn = ( ( DropDownListBoxWidgetExt )component ).getStringValue();
 
+		// if radio, else if optical
 		if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 0 ] ) )
-		{
-			// Radio
 			velocity = ( c / ( c - velocity ) ) - 1. ;
-		}
 		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
-		{
-			// optical
 			velocity /= c;
-		}
 
 		return velocity;
 	}
@@ -1622,16 +1613,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				// disable the widget and optionally chnage the current mode
 				if( currentMode != null && currentMode.equalsIgnoreCase( str ) )
-				{
 					changeMode = true;
-				}
+
 				toggleEnabled( _w.modeSelector , str , false );
 			}
 		}
 		if( changeMode )
-		{
 			_inst.setMode( ( String )availableModes.get( 0 ) );
-		}
 	}
 
 	private void setAvailableRegions()
@@ -2012,13 +2000,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// Keep the Accept button disabled...
 			String widget = ( String )iter.next();
 			if( widget.equalsIgnoreCase( "accept" ) && enabled )
-			{
-				// Do nothing since we don't want to enable it
-			}
+				 ; // Do nothing since we don't want to enable it
 			else
-			{
 				toggleEnabled( _w.fPanel , widget , enabled );
-			}
 		}
 
 		int active = new Integer( _inst.getBandMode() ).intValue();
@@ -2132,7 +2116,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		public Component getTableCellRendererComponent( JTable table , Object value , boolean isSelected , boolean hasFocus , int row , int column )
 		{
-
 			switch( row )
 			{
 				case 0 :
