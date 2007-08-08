@@ -80,7 +80,6 @@ final class ConfirmAVClobber
  */
 public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttributes , SpHierarchyChangeObserver , TreeExpansionListener
 {
-
 	// The OtTreeNodeWidget of the root node.
 	private OtTreeNodeWidget _otTNW;
 

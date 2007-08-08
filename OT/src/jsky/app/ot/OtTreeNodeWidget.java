@@ -111,8 +111,7 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	}
 
 	/** Constructor */
-	public OtTreeNodeWidget()
-	{}
+	public OtTreeNodeWidget(){}
 
 	/**
 	 * Copy the tree node widget.  Each subclass must implement this routine.
