@@ -197,7 +197,8 @@ public class TreeWidgetExt extends JPanel
 	{
 		if( watchers == null )
 			watchers = new Vector();
-		else if( !watchers.contains( watcher ) )
+		
+		if( !watchers.contains( watcher ) )
 			watchers.addElement( watcher );
 	}
 
