@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 /**
  * Title:        JSky<p>
  * Description:  <p>
@@ -18,52 +17,66 @@
  */
 package ot.editor;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import jsky.app.ot.gui.*;
-import java.awt.event.*;
+import java.awt.GridBagLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Insets ;
+import java.awt.Color ;
+import java.awt.Dimension ;
+import java.awt.FlowLayout ;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.JCheckBox ;
+import javax.swing.BorderFactory ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.Border ;
+import javax.swing.border.EtchedBorder ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.OptionWidgetExt ;
 
-public class SchedConstraintsGUI extends JPanel {
-    GridBagLayout gridBagLayout1 = new GridBagLayout();
-    TitledBorder titledBorder1;
-    Border border1;
-    TitledBorder titledBorder2;
-    TitledBorder titledBorder3;
-    TitledBorder titledBorder4;
-  TextBoxWidgetExt earliest = new TextBoxWidgetExt();
-  TextBoxWidgetExt latest = new TextBoxWidgetExt();
-  JLabel jLabel3 = new JLabel();
-  JLabel jLabel4 = new JLabel();
-  JLabel jLabel1 = new JLabel();
-  JLabel jLabel2 = new JLabel();
-  JLabel jLabel5 = new JLabel();
-  TextBoxWidgetExt minElevation = new TextBoxWidgetExt();
-  JLabel jLabel6 = new JLabel();
-  JLabel jLabel7 = new JLabel();
-  TextBoxWidgetExt period = new TextBoxWidgetExt();
-  JLabel jLabel8 = new JLabel();
-  JLabel jLabel9 = new JLabel();
-  JLabel jLabel10 = new JLabel();
-  TextBoxWidgetExt maxElevation = new TextBoxWidgetExt();
-  JPanel jPanel1 = new JPanel();
-  OptionWidgetExt meridianApproachAny = new OptionWidgetExt();
-  OptionWidgetExt meridianApproachSetting = new OptionWidgetExt();
-  OptionWidgetExt meridianApproachRising = new OptionWidgetExt();
-  FlowLayout flowLayout1 = new FlowLayout();
-  JLabel jLabel11 = new JLabel();
-    JCheckBox airmassCB = new JCheckBox("As airmass");
+public class SchedConstraintsGUI extends JPanel
+{
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	TitledBorder titledBorder1;
+	Border border1;
+	TitledBorder titledBorder2;
+	TitledBorder titledBorder3;
+	TitledBorder titledBorder4;
+	TextBoxWidgetExt earliest = new TextBoxWidgetExt();
+	TextBoxWidgetExt latest = new TextBoxWidgetExt();
+	JLabel jLabel3 = new JLabel();
+	JLabel jLabel4 = new JLabel();
+	JLabel jLabel1 = new JLabel();
+	JLabel jLabel2 = new JLabel();
+	JLabel jLabel5 = new JLabel();
+	TextBoxWidgetExt minElevation = new TextBoxWidgetExt();
+	JLabel jLabel6 = new JLabel();
+	JLabel jLabel7 = new JLabel();
+	TextBoxWidgetExt period = new TextBoxWidgetExt();
+	JLabel jLabel8 = new JLabel();
+	JLabel jLabel9 = new JLabel();
+	JLabel jLabel10 = new JLabel();
+	TextBoxWidgetExt maxElevation = new TextBoxWidgetExt();
+	JPanel jPanel1 = new JPanel();
+	OptionWidgetExt meridianApproachAny = new OptionWidgetExt();
+	OptionWidgetExt meridianApproachSetting = new OptionWidgetExt();
+	OptionWidgetExt meridianApproachRising = new OptionWidgetExt();
+	FlowLayout flowLayout1 = new FlowLayout();
+	JLabel jLabel11 = new JLabel();
+	JCheckBox airmassCB = new JCheckBox( "As airmass" );
 
-    public SchedConstraintsGUI() {
-        try {
-            jbInit();
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public SchedConstraintsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception ex )
+		{
+			ex.printStackTrace();
+		}
+	}
 
-    void jbInit() throws Exception
+	void jbInit() throws Exception
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Weather Band" );
 		border1 = new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) );

@@ -11,7 +11,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.editor;
 
 import java.awt.Color;
@@ -29,7 +28,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableColumn ;
+import javax.swing.table.TableColumn;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
@@ -61,210 +60,227 @@ import jsky.app.ot.tpe.TpeManager;
 /**
  * This is the editor for the target list component.
  */
-public final class EdSurvey extends EdCompTargetList
-implements ListSelectionListener, KeyListener, Observer {
+public final class EdSurvey extends EdCompTargetList implements ListSelectionListener , KeyListener , Observer
+{
+	private static final String[] COLUMN_NAMES = 
+	{ 
+		"Name" , 
+		"X Axis" , 
+		"Y Axis" , 
+		"Coord System" , 
+		"Remaining" , 
+		"Priority" 
+	};
 
-    private static final String [] COLUMN_NAMES = { "Name", "X Axis", "Y Axis", "Coord System", "Remaining", "Priority" };
+	private SurveyGUI _surveyGUI; // the GUI layout panel
+	private SpSurveyContainer _surveyObsComp = null;
+	private SpTelescopeObsComp _telescopeObsComp = null;
+	private boolean _ignoreEvents = false;
 
-    private SurveyGUI               _surveyGUI;   // the GUI layout panel
+	/**
+	 * Only used for GUIs that display list of survey targets and the
+	 * target information editor side by side (rather than using a JTabbedPane).
+	 *
+	 * If the GUI is changed such that the list of survey targets and the
+	 * target information editor are displayed side by side (rather than
+	 * using a JTabbedPane) then all occurrances of _doNotUpdateSurveyWidgets
+	 * should be uncommented in the code and all occurrances of _doNotUpdateWidgets
+	 * should be commented out.
+	 */
 
-    private SpSurveyContainer  _surveyObsComp = null;
-    private SpTelescopeObsComp _telescopeObsComp = null;
+	/**
+	 * Flag is used to delay _updateWidgets until the "Edit Target" tab has been selected.
+	 *
+	 * This flag is only needed due a java bug: When a target is selected on the
+	 * "Survey Targets" tab then some of the "Edit Target" tab widgets become visible although
+	 * "Edit Target" tab is not selected and should stay in the background.
+	 *
+	 * If the GUI is changed such that the list of survey targets and the
+	 * target information editor are displayed side by side (rather than
+	 * using a JTabbedPane) then all occurrances of _doNotUpdateSurveyWidgets
+	 * should be uncommented in the code and all occurrances of _doNotUpdateWidgets
+	 * should be commented out.
+	 */
+	private boolean _doNotUpdateWidgets = false;
 
-    private boolean _ignoreEvents = false;
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdSurvey()
+	{
+		_title = "Survey Information";
+		_presSource = _surveyGUI = new SurveyGUI( _w );
+		_description = "Use this editor to enter the survey information.";
 
-    /**
-     * Only used for GUIs that display list of survey targets and the
-     * target information editor side by side (rather than using a JTabbedPane).
-     *
-     * If the GUI is changed such that the list of survey targets and the
-     * target information editor are displayed side by side (rather than
-     * using a JTabbedPane) then all occurrances of _doNotUpdateSurveyWidgets
-     * should be uncommented in the code and all occurrances of _doNotUpdateWidgets
-     * should be commented out.
-     */
-    //  private boolean _doNotUpdateSurveyWidgets = false;
+		// Initialise the remaining field like an MSB
+		for( int i = 0 ; i < 100 ; i++ )
+		{
+			_surveyGUI.remaining.addItem( "" + i );
+			_surveyGUI.priority.addItem( "" + i );
+		}
+		_surveyGUI.remaining.addItem( "(UN)REMOVE" );
 
-    /**
-     * Flag is used to delay _updateWidgets until the "Edit Target" tab has been selected.
-     *
-     * This flag is only needed due a java bug: When a target is selected on the
-     * "Survey Targets" tab then some of the "Edit Target" tab widgets become visible although
-     * "Edit Target" tab is not selected and should stay in the background.
-     *
-     * If the GUI is changed such that the list of survey targets and the
-     * target information editor are displayed side by side (rather than
-     * using a JTabbedPane) then all occurrances of _doNotUpdateSurveyWidgets
-     * should be uncommented in the code and all occurrances of _doNotUpdateWidgets
-     * should be commented out.
-     */
-    private boolean _doNotUpdateWidgets = false;
+		_surveyGUI.fieldTable.getSelectionModel().addListSelectionListener( this );
+		_surveyGUI.addButton.addActionListener( this );
+		_surveyGUI.removeButton.addActionListener( this );
+		_surveyGUI.removeAllButton.addActionListener( this );
+		_surveyGUI.loadButton.addActionListener( this );
+		_surveyGUI.remaining.addActionListener( this );
+		_surveyGUI.priority.addActionListener( this );
+		_surveyGUI.chooseButton.addActionListener( this );
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdSurvey() {
-        _title       = "Survey Information";
-        _presSource  = _surveyGUI = new SurveyGUI(_w);
-        _description = "Use this editor to enter the survey information.";
+		_surveyGUI.selectField.addKeyListener( this );
+		_surveyGUI.titleField.addKeyListener( this );
 
-        // Initialise the remaining field like an MSB
-        for(int i = 0; i < 100; i++) {
-            _surveyGUI.remaining.addItem("" + i);
-            _surveyGUI.priority.addItem("" + i);
-        }
-        _surveyGUI.remaining.addItem("(UN)REMOVE");
+		_surveyGUI.fieldTable.setModel( new DefaultTableModel()
+		{
+			public boolean isCellEditable( int row , int column )
+			{
+				return false;
+			}
+		} );
+		_surveyGUI.fieldTable.setCellSelectionEnabled( false );
+		_surveyGUI.fieldTable.setColumnSelectionAllowed( false );
+		_surveyGUI.fieldTable.setRowSelectionAllowed( true );
 
-        _surveyGUI.fieldTable.getSelectionModel().addListSelectionListener(this);
-        _surveyGUI.addButton.addActionListener(this);
-        _surveyGUI.removeButton.addActionListener(this);
-        _surveyGUI.removeAllButton.addActionListener(this);
-        _surveyGUI.loadButton.addActionListener(this);
-        _surveyGUI.remaining.addActionListener(this);
-        _surveyGUI.priority.addActionListener(this);
-        _surveyGUI.chooseButton.addActionListener(this);
+		TelescopePosWidgetWatcher telescopePosWidgetWatcher = new TelescopePosWidgetWatcher();
 
-        _surveyGUI.selectField.addKeyListener( this );
-        _surveyGUI.titleField.addKeyListener( this);
+		_name.addWatcher( telescopePosWidgetWatcher );
+		_xaxis.addWatcher( telescopePosWidgetWatcher );
+		_yaxis.addWatcher( telescopePosWidgetWatcher );
+		_system.addWatcher( telescopePosWidgetWatcher );
 
-        _surveyGUI.fieldTable.setModel(new DefaultTableModel() {
-                public boolean isCellEditable(int row, int column) {
-                return false;
-                }	
-                });
-        _surveyGUI.fieldTable.setCellSelectionEnabled(false);
-        _surveyGUI.fieldTable.setColumnSelectionAllowed(false);
-        _surveyGUI.fieldTable.setRowSelectionAllowed(true);
+		_surveyGUI.tabbedPane.addChangeListener( new ChangeListener()
+		{
+			public void stateChanged( ChangeEvent e )
+			{
+				_updateWidgets();
+			}
+		} );
 
-        TelescopePosWidgetWatcher telescopePosWidgetWatcher = new TelescopePosWidgetWatcher();
+		// This should not be user editable for now (at least not for WFCAM).
+		// If a the survey component is scheduled as part of an MBS then
+		// remaining count and priority settings will probably be taken care of
+		// by the MSB and the could removed from the survey component completely.
+		_surveyGUI.remaining.setEnabled( true );
+		_surveyGUI.priority.setEnabled( true );
 
-        _name.addWatcher(telescopePosWidgetWatcher);
-        _xaxis.addWatcher(telescopePosWidgetWatcher);
-        _yaxis.addWatcher(telescopePosWidgetWatcher);
-        _system.addWatcher(telescopePosWidgetWatcher);
+		// Try adding a mouse listener to the column tables
+		MouseAdapter columnListener = new MouseAdapter()
+		{
+			public void mouseClicked( MouseEvent e )
+			{
+				TableColumnModel columnModel = _surveyGUI.fieldTable.getColumnModel();
+				int viewColumn = columnModel.getColumnIndexAtX( e.getX() );
+				int column = _surveyGUI.fieldTable.convertColumnIndexToModel( viewColumn );
+				if( e.getClickCount() == 1 && column != -1 )
+				{
+					// Sort based on selected column...
+					boolean ascending = ( ( e.getModifiers() & InputEvent.SHIFT_MASK ) == 0 );
+					_sortByColumn( column , ascending );
+					_updateFieldTable();
+				}
+			}
+		};
+		JTableHeader th = _surveyGUI.fieldTable.getTableHeader();
+		th.addMouseListener( columnListener );
 
-        _surveyGUI.tabbedPane.addChangeListener(new ChangeListener() {
-                public void stateChanged(ChangeEvent e) {
-                _updateWidgets();
-                }
-                });
+	}
 
-        // This should not be user editable for now (at least not for WFCAM).
-        // If a the survey component is scheduled as part of an MBS then
-        // remaining count and priority settings will probably be taken care of
-        // by the MSB and the could removed from the survey component completely.
-        _surveyGUI.remaining.setEnabled(true);
-        _surveyGUI.priority.setEnabled(true);
+	public void setup( SpItem spItem )
+	{
+		_surveyObsComp = ( SpSurveyContainer )spItem;
 
-        // Try adding a mouse listener to the column tables
-        MouseAdapter columnListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                TableColumnModel columnModel = _surveyGUI.fieldTable.getColumnModel();
-                int viewColumn = columnModel.getColumnIndexAtX(e.getX());
-                int column = _surveyGUI.fieldTable.convertColumnIndexToModel(viewColumn);
-                if ( e.getClickCount() == 1 && column != -1) {
-                    // Sort based on selected column...
-                    boolean ascending = ( (e.getModifiers()&InputEvent.SHIFT_MASK) == 0 );
-                    _sortByColumn( column, ascending );
-                    _updateFieldTable();
-                }
-            }
-        };
-        JTableHeader th = _surveyGUI.fieldTable.getTableHeader();
-        th.addMouseListener(columnListener);
+		_otItemEditorWindow.getUndoButton().addActionListener( this );
+		_otItemEditorWindow.getShowEditPencilButton().addMouseListener( new MouseAdapter()
+		{
+			public void mousePressed( MouseEvent e )
+			{
+				_undo();
+			}
 
-    }
+			public void mouseReleased( MouseEvent e )
+			{
+				_undo();
+			}
+		} );
 
-    public void setup( SpItem spItem ) {
-        _surveyObsComp = (SpSurveyContainer)spItem;
+		if( _surveyObsComp.size() < 1 )
+		{
+			_surveyObsComp.addSpTelescopeObsComp();
 
-        _otItemEditorWindow.getUndoButton().addActionListener(this);
-        _otItemEditorWindow.getShowEditPencilButton().addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                _undo();
-                }
+			_surveyObsComp.setRemaining( 1 , 0 );
+			_surveyObsComp.setPriority( 0 , 0 );
+		}
 
-                public void mouseReleased(MouseEvent e) {
-                _undo();
-                }
-                });
+		if( _surveyObsComp.hasMSBParent() )
+		{
+			_surveyGUI.chooseButton.setEnabled( false );
+			_surveyGUI.selectField.setEditable( false );
+			_surveyGUI.selectField.setText( "" );
+			_surveyObsComp.setChoose( 0 );
+			_surveyGUI.priority.setEnabled( false );
+		}
+		else if( _surveyObsComp.isChoice() )
+		{
+			_surveyGUI.chooseButton.setSelected( true );
+			_surveyGUI.chooseButton.setEnabled( true );
+			_surveyGUI.selectField.setText( "" + _surveyObsComp.getChoose() );
+			_surveyGUI.selectField.setEnabled( true );
+			_surveyGUI.selectField.setEditable( true );
+		}
+		else
+		{
+			_surveyGUI.chooseButton.setEnabled( true );
+			_surveyGUI.selectField.setEnabled( false );
+			_surveyGUI.selectField.setEditable( false );
+			_surveyGUI.priority.setEnabled( true );
+		}
 
+		_surveyGUI.selectLabel.setText( "from " + _surveyObsComp.size() );
+		_surveyGUI.selectLabel.repaint();
 
-        if(_surveyObsComp.size() < 1) {
-            _surveyObsComp.addSpTelescopeObsComp();
+		super.setup( _surveyObsComp.getSpTelescopeObsComp( _surveyObsComp.getSelectedTelObsComp() ) );
+	}
 
-            _surveyObsComp.setRemaining(1, 0);
-            _surveyObsComp.setPriority( 0, 0);
-        }
+	protected void _updateWidgets()
+	{
+		if( !_doNotUpdateWidgets )
+		{
+			_ignoreEvents = true;
+	
+			_updateFieldTable();
 
-        if ( _surveyObsComp.hasMSBParent() ) {
-            _surveyGUI.chooseButton.setEnabled(false);
-            _surveyGUI.selectField.setEditable(false);
-            _surveyGUI.selectField.setText("");
-            _surveyObsComp.setChoose( 0 );
-            _surveyGUI.priority.setEnabled(false);
-        }   
-        else if ( _surveyObsComp.isChoice() ) {
-            _surveyGUI.chooseButton.setSelected(true);
-            _surveyGUI.chooseButton.setEnabled(true);
-            _surveyGUI.selectField.setText("" + _surveyObsComp.getChoose() );
-            _surveyGUI.selectField.setEnabled(true);
-            _surveyGUI.selectField.setEditable(true);
-        }
-        else {
-            _surveyGUI.chooseButton.setEnabled(true);
-            _surveyGUI.selectField.setEnabled(false);
-            _surveyGUI.selectField.setEditable(false);
-            _surveyGUI.priority.setEnabled(true);
-        }
+			_surveyGUI.fieldTable.setRowSelectionInterval( _surveyObsComp.getSelectedTelObsComp() , _surveyObsComp.getSelectedTelObsComp() );
+	
+			if( _surveyObsComp.getRemaining( _surveyGUI.fieldTable.getSelectedRow() ) < 0 )
+				_surveyGUI.remaining.setSelectedIndex( _surveyGUI.remaining.getItemCount() - 1 );
+			else
+				_surveyGUI.remaining.setSelectedIndex( _surveyObsComp.getRemaining( _surveyGUI.fieldTable.getSelectedRow() ) );
+	
+			_surveyGUI.priority.setSelectedIndex( _surveyObsComp.getPriority( _surveyGUI.fieldTable.getSelectedRow() ) );
+			_surveyGUI.titleField.setText( _surveyObsComp.getTitleAttr() );
+	
+			if( _surveyObsComp.size() == 0 )
+			{
+				_w.setVisible( false );
+			}
+			else
+			{
+				_w.setVisible( true );
+				super._updateWidgets();
+			}
+	
+			_ignoreEvents = false;
+		}
+	}
 
-        _surveyGUI.selectLabel.setText("from " + _surveyObsComp.size() );
-        _surveyGUI.selectLabel.repaint();
+	private void _updateFieldTable()
+	{
+		_updateFieldTable( _surveyObsComp.getSelectedTelObsComp() );
+	}
 
-
-        super.setup(_surveyObsComp.getSpTelescopeObsComp(_surveyObsComp.getSelectedTelObsComp()));
-    }
-
-
-    protected void _updateWidgets() {
-        if(_doNotUpdateWidgets) {
-            return;
-        }
-
-        _ignoreEvents = true;
-
-
-        _updateFieldTable();
-        _ignoreEvents = true;
-        _surveyGUI.fieldTable.setRowSelectionInterval(_surveyObsComp.getSelectedTelObsComp(),
-                _surveyObsComp.getSelectedTelObsComp());
-
-        if ( _surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow()) < 0 ) {
-            _surveyGUI.remaining.setSelectedIndex( _surveyGUI.remaining.getItemCount() - 1 );
-        }
-        else {
-            _surveyGUI.remaining.setSelectedIndex(_surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow()));
-        }
-        _surveyGUI.priority.setSelectedIndex(_surveyObsComp.getPriority(_surveyGUI.fieldTable.getSelectedRow()));
-        _surveyGUI.titleField.setText( _surveyObsComp.getTitleAttr() );
-
-
-        if(_surveyObsComp.size() == 0) {
-            _w.setVisible(false);
-        }
-        else {
-            _w.setVisible(true);
-            super._updateWidgets();
-        }
-
-        _ignoreEvents = false;
-    }
-
-    private void _updateFieldTable() {
-        _updateFieldTable(_surveyObsComp.getSelectedTelObsComp());
-    }
-
-    private void _updateFieldTable( int selectedRow )
+	private void _updateFieldTable( int selectedRow )
 	{
 		_ignoreEvents = true;
 
@@ -275,21 +291,21 @@ implements ListSelectionListener, KeyListener, Observer {
 
 		( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setDataVector( data , COLUMN_NAMES );
 
-		TableColumnModel tableColumnModel = _surveyGUI.fieldTable.getColumnModel() ;
-		TableColumn columnFour = tableColumnModel.getColumn( 4 ) ;
-		DefaultTableCellRenderer columnFourCellRenderer = ( DefaultTableCellRenderer )columnFour.getCellRenderer() ;
+		TableColumnModel tableColumnModel = _surveyGUI.fieldTable.getColumnModel();
+		TableColumn columnFour = tableColumnModel.getColumn( 4 );
+		DefaultTableCellRenderer columnFourCellRenderer = ( DefaultTableCellRenderer )columnFour.getCellRenderer();
 		if( columnFourCellRenderer == null )
 		{
-			columnFourCellRenderer = new DefaultTableCellRenderer() ;
-			columnFour.setCellRenderer( columnFourCellRenderer ) ;
+			columnFourCellRenderer = new DefaultTableCellRenderer();
+			columnFour.setCellRenderer( columnFourCellRenderer );
 		}
 
-		TableColumn columnFive = tableColumnModel.getColumn( 5 ) ;
-		DefaultTableCellRenderer columnFiveCellRenderer = ( DefaultTableCellRenderer )columnFive.getCellRenderer() ;
+		TableColumn columnFive = tableColumnModel.getColumn( 5 );
+		DefaultTableCellRenderer columnFiveCellRenderer = ( DefaultTableCellRenderer )columnFive.getCellRenderer();
 		if( columnFive.getCellRenderer() == null )
 		{
-			columnFiveCellRenderer = new DefaultTableCellRenderer() ;
-			columnFive.setCellRenderer( new DefaultTableCellRenderer() ) ;
+			columnFiveCellRenderer = new DefaultTableCellRenderer();
+			columnFive.setCellRenderer( new DefaultTableCellRenderer() );
 		}
 
 		columnFourCellRenderer.setBackground( _w.getBackground() );
@@ -312,181 +328,172 @@ implements ListSelectionListener, KeyListener, Observer {
 		_ignoreEvents = false;
 	}
 
-    private void _sortByColumn( int column, boolean ascending ) {
-        //boolean swapped = false;
-        for (int i = 0; i < _surveyGUI.fieldTable.getRowCount(); i++ ) {
-            for (int j = i+1; j < _surveyGUI.fieldTable.getRowCount(); j++ ) {
-                if ( _compare( i, j, column, ascending) == 1 ) {
-                    //System.out.println("Swapping rows (" + i + ", " + j + ")");
-                    _swap(i,j);
-                    //swapped = true;
-                    //break;
-                }
-            }
-            //if ( swapped ) break;
-        }
-    }
+	private void _sortByColumn( int column , boolean ascending )
+	{
+		for( int i = 0 ; i < _surveyGUI.fieldTable.getRowCount() ; i++ )
+		{
+			for( int j = i + 1 ; j < _surveyGUI.fieldTable.getRowCount() ; j++ )
+			{
+				if( _compare( i , j , column , ascending ) == 1 )
+					_swap( i , j );
+			}
+		}
+	}
 
-    public int _compare( int row1, int row2, int column, boolean ascending ) {
-        TableModel data = _surveyGUI.fieldTable.getModel();
+	public int _compare( int row1 , int row2 , int column , boolean ascending )
+	{
+		TableModel data = _surveyGUI.fieldTable.getModel();
 
-        Object o1 = data.getValueAt(row1, column);
-        Object o2 = data.getValueAt(row2, column);
+		Object o1 = data.getValueAt( row1 , column );
+		Object o2 = data.getValueAt( row2 , column );
 
-        if ( o1 == null && o2 == null ) {
-            return 0;
-        }
-        else if ( o1 == null ) {
-            return -1;
-        }
-        else if ( o2 == null ) {
-            return 1;
-        }
+		if( o1 == null && o2 == null )
+			return 0;
+		else if( o1 == null )
+			return -1;
+		else if( o2 == null )
+			return 1;
 
-        // Since these are quite hard to sort we will not try to do it in a generic way
-        int result = 0;
-        switch (column) {
-            case 0:
-            case 1:
-                result = compareAsString( o1, o2 );
-                break;
-            case 2:
-                result = compareYaxis( o1, o2 );
-                break;
-            case 3:
-            case 4:
-                if ( o1.toString().equals("REMOVED") ) o1 = "100";
-                if ( o2.toString().equals("REMOVED") ) o2 = "100";
-                result = compareAsNumber( o1, o2 );
-                break;
-            default:
-                result = compareAsString( o1, o2 );
-        }
-        return ascending ? result : -1*result;
-    }
+		// Since these are quite hard to sort we will not try to do it in a generic way
+		int result = 0;
+		switch( column )
+		{
+			case 0 :
+			case 1 :
+				result = compareAsString( o1 , o2 );
+				break;
+			case 2 :
+				result = compareYaxis( o1 , o2 );
+				break;
+			case 3 :
+			case 4 :
+				if( o1.toString().equals( "REMOVED" ) )
+					o1 = "100";
+				if( o2.toString().equals( "REMOVED" ) )
+					o2 = "100";
+				result = compareAsNumber( o1 , o2 );
+				break;
+			default :
+				result = compareAsString( o1 , o2 );
+		}
+		return ascending ? result : -1 * result;
+	}
 
-    private int compareAsString( Object o1, Object o2 ) {
-        int result = o1.toString().compareTo( o2.toString() );
-        if ( result > 0 ) {
-            return 1;
-        }
-        else if ( result < 0 ) {
-            return -1;
-        }
-        return 0;
-    }
+	private int compareAsString( Object o1 , Object o2 )
+	{
+		int result = o1.toString().compareTo( o2.toString() );
+		if( result > 0 )
+			return 1;
+		else if( result < 0 )
+			return -1;
 
-    private int compareAsNumber(Object o1, Object o2) {
-        try {
-            double d1 = new Double(o1.toString()).doubleValue();
-            double d2 = new Double(o2.toString()).doubleValue();
-            if ( d1 < d2 ) {
-                return -1;
-            }
-            else if ( d1 > d2 ) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        }
-        catch (NumberFormatException nfe) {}
-        return 0;
-    }
+		return 0;
+	}
 
-    private int compareYaxis( Object o1, Object o2 ) {
-        // Compares declination.  Need to convert current
-        // format to a number
-        // Decide whether we already have decimal degree or not.
-        // If not, this is indicated by fields separated by either
-        // a colon or a space.  If neither exist, then we should already
-        // be in decimal degrees
-        double n1=0.0;
-        double n2=0.0;
-        String [] spaceStrings = o1.toString().split("\\s");
-        String [] colonStrings = o1.toString().split(":");
-        if ( spaceStrings.length > 1 ) {
-            // Convert to decimal degrees
-            for ( int i=0; i<spaceStrings.length; i++ ) {
-                double value = Double.parseDouble(spaceStrings[i])/Math.pow(60.0, i);
-                n1 += value;
-            }
-        }
-        else if ( colonStrings.length > 1 ) {
-            // Convert to decimal degrees
-            for ( int i=0; i<colonStrings.length; i++ ) {
-                double value = Double.parseDouble(colonStrings[i])/Math.pow(60.0, i);
-                n1 += value;
-            }
-        }
-        else {
-            n1 = Double.parseDouble(o1.toString());
-        }
-        spaceStrings = o2.toString().split("\\s");
-        colonStrings = o2.toString().split(":");
-        if ( spaceStrings.length > 1 ) {
-            // Convert to decimal degrees
-            for ( int i=0; i<spaceStrings.length; i++ ) {
-                double value = Double.parseDouble(spaceStrings[i])/Math.pow(60.0, i);
-                n2 += value;
-            }
-        }
-        else if ( colonStrings.length > 1 ) {
-            // Convert to decimal degrees
-            for ( int i=0; i<colonStrings.length; i++ ) {
-                double value = Double.parseDouble(colonStrings[i])/Math.pow(60.0, i);
-                n2 += value;
-            }
-        }
-        else {
-            n2 = Double.parseDouble(o2.toString());
-        }
-        return compareAsNumber( new Double(n1), new Double(n2) );
-    }
+	private int compareAsNumber( Object o1 , Object o2 )
+	{
+		try
+		{
+			double d1 = new Double( o1.toString() ).doubleValue();
+			double d2 = new Double( o2.toString() ).doubleValue();
+			if( d1 < d2 )
+				return -1;
+			else if( d1 > d2 )
+				return 1;
+			else
+				return 0;
+		}
+		catch( NumberFormatException nfe ){}
+		return 0;
+	}
 
-    public void _swap( int row1, int row2 ) {
-//         System.out.println("Swapping rows (" + row1 + ", " + row2 + ")");
-//         Vector data = ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).getDataVector();
-//         Vector temp = (Vector)data.elementAt(row2);
-//         data.removeElementAt(row2);
-//         data.add(row1, temp);
-//         try {
-//             ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setDataVector(data, new Vector(Arrays.asList(COLUMN_NAMES)) );
-//         }
-//         catch (ArrayIndexOutOfBoundsException aob ) {
-//             // For some reason this is getting thrown, but it seems to have no effect,
-//             // so just ignore it.
-//         }
-        // We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
-        SpTelescopeObsComp tp1 = (SpTelescopeObsComp)_surveyObsComp.getSpTelescopeObsComp(row1);
-        SpTelescopeObsComp tp2 = (SpTelescopeObsComp)_surveyObsComp.getSpTelescopeObsComp(row2);
-        _surveyObsComp.removeSpTelescopeObsComp(row2);
-        _surveyObsComp.removeSpTelescopeObsComp(row1);
-        _surveyObsComp.addSpTelescopeObsComp( tp2, row1 );
-        _surveyObsComp.addSpTelescopeObsComp( tp1, row2 );
+	private int compareYaxis( Object o1 , Object o2 )
+	{
+		// Compares declination.  Need to convert current format to a number
+		// Decide whether we already have decimal degree or not.
+		// If not, this is indicated by fields separated by either
+		// a colon or a space.  If neither exist, then we should already be in decimal degrees
+		double n1 = 0. ;
+		double n2 = 0. ;
+		String[] spaceStrings = o1.toString().split( "\\s" );
+		String[] colonStrings = o1.toString().split( ":" );
+		if( spaceStrings.length > 1 )
+		{
+			// Convert to decimal degrees
+			for( int i = 0 ; i < spaceStrings.length ; i++ )
+			{
+				double value = Double.parseDouble( spaceStrings[ i ] ) / Math.pow( 60. , i );
+				n1 += value;
+			}
+		}
+		else if( colonStrings.length > 1 )
+		{
+			// Convert to decimal degrees
+			for( int i = 0 ; i < colonStrings.length ; i++ )
+			{
+				double value = Double.parseDouble( colonStrings[ i ] ) / Math.pow( 60. , i );
+				n1 += value;
+			}
+		}
+		else
+		{
+			n1 = Double.parseDouble( o1.toString() );
+		}
+		spaceStrings = o2.toString().split( "\\s" );
+		colonStrings = o2.toString().split( ":" );
+		if( spaceStrings.length > 1 )
+		{
+			// Convert to decimal degrees
+			for( int i = 0 ; i < spaceStrings.length ; i++ )
+			{
+				double value = Double.parseDouble( spaceStrings[ i ] ) / Math.pow( 60. , i );
+				n2 += value;
+			}
+		}
+		else if( colonStrings.length > 1 )
+		{
+			// Convert to decimal degrees
+			for( int i = 0 ; i < colonStrings.length ; i++ )
+			{
+				double value = Double.parseDouble( colonStrings[ i ] ) / Math.pow( 60. , i );
+				n2 += value;
+			}
+		}
+		else
+		{
+			n2 = Double.parseDouble( o2.toString() );
+		}
+		return compareAsNumber( new Double( n1 ) , new Double( n2 ) );
+	}
 
-        // Also swap the remaining and priority
-        int rem1 = _surveyObsComp.getRemaining(row1);
-        int rem2 = _surveyObsComp.getRemaining(row2);
-        //System.out.println("Old Remainging: (" + rem1 + ", " + rem2 + ")");
-        _surveyObsComp.setRemaining( rem1, row2 );
-        _surveyObsComp.setRemaining( rem2, row1 );
-        //System.out.println("New Remainging: (" + _surveyObsComp.getRemaining(row1) + ", " + _surveyObsComp.getRemaining(row2) + ")");
+	public void _swap( int row1 , int row2 )
+	{
+		// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
+		SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 );
+		SpTelescopeObsComp tp2 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row2 );
+		_surveyObsComp.removeSpTelescopeObsComp( row2 );
+		_surveyObsComp.removeSpTelescopeObsComp( row1 );
+		_surveyObsComp.addSpTelescopeObsComp( tp2 , row1 );
+		_surveyObsComp.addSpTelescopeObsComp( tp1 , row2 );
 
-        int pri1 = _surveyObsComp.getPriority(row1);
-        int pri2 = _surveyObsComp.getPriority(row2);
-        //System.out.println("Old Priority: (" + pri1 + ", " + pri2 + ")");
-        _surveyObsComp.setPriority( pri1, row2 );
-        _surveyObsComp.setPriority( pri2, row1 );
+		// Also swap the remaining and priority
+		int rem1 = _surveyObsComp.getRemaining( row1 );
+		int rem2 = _surveyObsComp.getRemaining( row2 );
 
-        //System.out.println(_surveyObsComp);
+		_surveyObsComp.setRemaining( rem1 , row2 );
+		_surveyObsComp.setRemaining( rem2 , row1 );
 
-        _updateFieldTable();
+		int pri1 = _surveyObsComp.getPriority( row1 );
+		int pri2 = _surveyObsComp.getPriority( row2 );
 
-    }
+		_surveyObsComp.setPriority( pri1 , row2 );
+		_surveyObsComp.setPriority( pri2 , row1 );
 
+		_updateFieldTable();
 
-    private String[] _getRowData( SpTelescopePos tp )
+	}
+
+	private String[] _getRowData( SpTelescopePos tp )
 	{
 		Vector v = new Vector();
 		v.addElement( tp.getName() );
@@ -532,7 +539,7 @@ implements ListSelectionListener, KeyListener, Observer {
 		return result;
 	}
 
-    private String[] _getRowData( SpTelescopePos tp , int index )
+	private String[] _getRowData( SpTelescopePos tp , int index )
 	{
 		String[] result = _getRowData( tp );
 		if( _surveyObsComp.getRemaining( index ) < 0 )
@@ -544,16 +551,13 @@ implements ListSelectionListener, KeyListener, Observer {
 		return result;
 	}
 
+	public void valueChanged( ListSelectionEvent e )
+	{
+		if( !_ignoreEvents )
+			_surveyTargetSelectionChanged();
+	}
 
-    public void valueChanged(ListSelectionEvent e) {
-        if(_ignoreEvents) {
-            return;
-        }
-
-        _surveyTargetSelectionChanged();
-    }
-
-    private void _surveyTargetSelectionChanged()
+	private void _surveyTargetSelectionChanged()
 	{
 		_telescopeObsComp = _surveyObsComp.getSpTelescopeObsComp( _surveyGUI.fieldTable.getSelectedRow() );
 		_telescopeObsComp.getAvEditFSM().addObserver( this );
@@ -573,7 +577,7 @@ implements ListSelectionListener, KeyListener, Observer {
 
 		_doNotUpdateWidgets = false;
 
-		int selectedRowIndex = _surveyGUI.fieldTable.getSelectedRow() ;
+		int selectedRowIndex = _surveyGUI.fieldTable.getSelectedRow();
 		_surveyObsComp.setSelectedTelObsComp( selectedRowIndex );
 
 		if( _surveyObsComp.getRemaining( selectedRowIndex ) < 0 )
@@ -583,16 +587,14 @@ implements ListSelectionListener, KeyListener, Observer {
 		_surveyGUI.priority.setSelectedIndex( _surveyObsComp.getPriority( selectedRowIndex ) );
 	}
 
-
-    public void actionPerformed( ActionEvent e )
+	public void actionPerformed( ActionEvent e )
 	{
 		if( _ignoreEvents )
 			return;
 
-		Object source = e.getSource() ;
+		Object source = e.getSource();
 		if( source == _surveyGUI.addButton )
 		{
-			//_ignoreEvents = true;
 			( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).addRow( _getRowData( _surveyObsComp.addSpTelescopeObsComp().getPosList().getBasePosition() ) );
 
 			_surveyObsComp.setRemaining( 1 , _surveyGUI.fieldTable.getRowCount() - 1 );
@@ -602,7 +604,6 @@ implements ListSelectionListener, KeyListener, Observer {
 			_surveyGUI.selectLabel.repaint();
 
 			_updateFieldTable();
-			//_ignoreEvents = false;
 
 			return;
 		}
@@ -622,9 +623,9 @@ implements ListSelectionListener, KeyListener, Observer {
 			_surveyObsComp.removeSpTelescopeObsComp( _surveyGUI.fieldTable.getSelectedRow() );
 
 			_updateFieldTable();
-			
+
 			_surveyTargetSelectionChanged();
-			
+
 			_surveyGUI.selectLabel.setText( "from " + _surveyGUI.fieldTable.getRowCount() );
 			_surveyGUI.selectLabel.repaint();
 
@@ -690,9 +691,8 @@ implements ListSelectionListener, KeyListener, Observer {
 				_surveyGUI.selectField.setEditable( true );
 				_surveyGUI.selectField.setEnabled( true );
 				if( _surveyGUI.selectField.getText().trim().length() == 0 )
-				{
 					_surveyGUI.selectField.setText( "" + _surveyGUI.fieldTable.getRowCount() );
-				}
+
 				_surveyObsComp.setChoose( _surveyGUI.selectField.getText().trim() );
 			}
 			else
@@ -707,96 +707,95 @@ implements ListSelectionListener, KeyListener, Observer {
 		super.actionPerformed( e );
 	}
 
-    public void keyPressed( KeyEvent evt ) {}
-    public void keyTyped( KeyEvent evt ) {}
-    public void keyReleased( KeyEvent evt ) {
-        if (evt.getSource() == _surveyGUI.selectField ) {
-            int value = 0;
-            try {
-                value = Integer.parseInt( _surveyGUI.selectField.getText() );
-            }
-            catch (NumberFormatException nfe) {
-                // Don't bother doing anything
-            }
-            if ( value > _surveyGUI.fieldTable.getRowCount() ) {
-                JOptionPane.showMessageDialog( _surveyGUI,
-                        "Please enter a number less than the number of fields",
-                        "Number too Big",
-                        JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            _surveyObsComp.setChoose( _surveyGUI.selectField.getText() );
-        }
-        else if ( evt.getSource() == _surveyGUI.titleField ) {
-            _surveyObsComp.setTitleAttr(_surveyGUI.titleField.getText());
-        }
-    }
+	public void keyPressed( KeyEvent evt ){}
 
-    public void update(Observable o, Object arg) {
-        _surveyObsComp.getTable().edit();
-    }
+	public void keyTyped( KeyEvent evt ){}
 
+	public void keyReleased( KeyEvent evt )
+	{
+		if( evt.getSource() == _surveyGUI.selectField )
+		{
+			int value = 0;
+			try
+			{
+				value = Integer.parseInt( _surveyGUI.selectField.getText() );
+			}
+			catch( NumberFormatException nfe )
+			{
+				// Don't bother doing anything
+			}
+			if( value > _surveyGUI.fieldTable.getRowCount() )
+			{
+				JOptionPane.showMessageDialog( _surveyGUI , "Please enter a number less than the number of fields" , "Number too Big" , JOptionPane.WARNING_MESSAGE );
+				return;
+			}
+			_surveyObsComp.setChoose( _surveyGUI.selectField.getText() );
+		}
+		else if( evt.getSource() == _surveyGUI.titleField )
+		{
+			_surveyObsComp.setTitleAttr( _surveyGUI.titleField.getText() );
+		}
+	}
 
-    private void _loadFields() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.showOpenDialog(_surveyGUI);
-        File file = fileChooser.getSelectedFile();
+	public void update( Observable o , Object arg )
+	{
+		_surveyObsComp.getTable().edit();
+	}
 
-        if(file == null) {
-            return;
-        }
+	private void _loadFields()
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.showOpenDialog( _surveyGUI );
+		File file = fileChooser.getSelectedFile();
 
-        try {
-            _surveyObsComp.load(file.getPath());
-            _updateFieldTable();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(_surveyGUI, e, "Could not load survey targets", JOptionPane.WARNING_MESSAGE);
-        }
-    }
+		if( file != null )
+		{
+			try
+			{
+				_surveyObsComp.load( file.getPath() );
+				_updateFieldTable();
+			}
+			catch( Exception e )
+			{
+				e.printStackTrace();
+				JOptionPane.showMessageDialog( _surveyGUI , e , "Could not load survey targets" , JOptionPane.WARNING_MESSAGE );
+			}
+		}
+	}
 
-    private void _undo() {
-        if(_telescopeObsComp != null) {
-            _telescopeObsComp.getAvEditFSM().undo();
-            _updateWidgets();
-        }
-    }
+	private void _undo()
+	{
+		if( _telescopeObsComp != null )
+		{
+			_telescopeObsComp.getAvEditFSM().undo();
+			_updateWidgets();
+		}
+	}
 
-    /** Watches name, xaxis, yaxis and coordinate system widgets and updates the list of survey fields accordingly. */
-    class TelescopePosWidgetWatcher implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
-        public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-            if(!_curPos.isBasePosition()) {
-                return;
-            }
+	/** Watches name, xaxis, yaxis and coordinate system widgets and updates the list of survey fields accordingly. */
+	class TelescopePosWidgetWatcher implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher
+	{
+		public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+		{
+			if( _curPos.isBasePosition() )
+			{
+				if( tbwe == _name )
+					( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( _name.getValue() , _surveyGUI.fieldTable.getSelectedRow() , 0 );
+				else if( tbwe == _xaxis )
+					( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( _xaxis.getValue() , _surveyGUI.fieldTable.getSelectedRow() , 1 );
+				else if( tbwe == _yaxis )
+					( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( _yaxis.getValue() , _surveyGUI.fieldTable.getSelectedRow() , 2 );
+			}
+		}
 
-            if(tbwe == _name) {
-                ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt(_name.getValue(), _surveyGUI.fieldTable.getSelectedRow(), 0);
-            }
+		public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
-            if(tbwe == _xaxis) {
-                ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt(_xaxis.getValue(), _surveyGUI.fieldTable.getSelectedRow(), 1);
-            }
+		public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+		{
+			if( _curPos.isBasePosition() && dd == _system )
+				( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( val , _surveyGUI.fieldTable.getSelectedRow() , 3 );
+		}
 
-
-            if(tbwe == _yaxis) {
-                ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt(_yaxis.getValue(), _surveyGUI.fieldTable.getSelectedRow(), 2);
-            }
-        }
-
-        public void textBoxAction(TextBoxWidgetExt tbwe) { }
-
-        public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-            if(!_curPos.isBasePosition()) {
-                return;
-            }
-
-            if(dd == _system) {
-                ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt(val, _surveyGUI.fieldTable.getSelectedRow(), 3);
-            }
-        }
-
-        public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) { }
-    }
+		public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
+	}
 }
-

@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.editor;
 
 import javax.swing.JPanel;
@@ -30,99 +29,99 @@ import jsky.app.ot.editor.TelescopeGUI;
 /**
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SurveyGUI extends JPanel {
+public class SurveyGUI extends JPanel
+{
+	private TelescopeGUI _telescopeGUI = null; //new TelescopeGUI();
+	JComboBox remaining = new JComboBox();
+	JComboBox priority = new JComboBox();
+	JButton addButton = new JButton( "Add" );
+	JButton removeButton = new JButton( "Remove" );
+	JButton removeAllButton = new JButton( "Remove all" );
+	JButton loadButton = new JButton( "Load" );
+	JTabbedPane tabbedPane = new JTabbedPane();
+	JCheckBox chooseButton = new JCheckBox( "Select" );
+	JLabel selectLabel = new JLabel( "from 1" );
+	JTextField selectField = new JTextField();
+	JLabel titleLabel = new JLabel( "Title:" );
+	JTextField titleField = new JTextField();
 
-  private TelescopeGUI _telescopeGUI = null; //new TelescopeGUI();
+	/**
+	 * List of fiels.
+	 *
+	 * Each field is represented by a SpTelescopeObsComp item.
+	 */
+	JTable fieldTable = new JTable();
 
-  JComboBox remaining      = new JComboBox();
-  JComboBox priority       = new JComboBox();
-  JButton addButton        = new JButton("Add");
-  JButton removeButton     = new JButton("Remove");
-  JButton removeAllButton  = new JButton("Remove all");
-  JButton loadButton       = new JButton("Load");
-  JTabbedPane tabbedPane   = new JTabbedPane();
-  JCheckBox  chooseButton  = new JCheckBox("Select");
-  JLabel  selectLabel      = new JLabel("from 1");
-  JTextField selectField   = new JTextField();
-  JLabel titleLabel        = new JLabel("Title:");
-  JTextField titleField    = new JTextField();
+	public SurveyGUI( TelescopeGUI telescopeGUI )
+	{
+		_telescopeGUI = telescopeGUI;
 
-  /**
-   * List of fiels.
-   *
-   * Each field is represented by a SpTelescopeObsComp item.
-   */
-  JTable fieldTable = new JTable();
+		priority.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		remaining.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		addButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		removeButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		removeAllButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		loadButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		chooseButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		selectLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		tabbedPane.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		titleLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		selectField.setColumns( 4 );
 
-  public SurveyGUI(TelescopeGUI telescopeGUI) {
-    _telescopeGUI = telescopeGUI;
+		setLayout( new BorderLayout() );
 
-    priority.setFont(new java.awt.Font("Dialog", 0, 12));
-    remaining.setFont(new java.awt.Font("Dialog", 0, 12));
-    addButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    removeButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    removeAllButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    loadButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    chooseButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    selectLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-    tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
-    titleLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-    selectField.setColumns(4);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add( addButton );
+		buttonPanel.add( removeButton );
+		buttonPanel.add( removeAllButton );
+		buttonPanel.add( loadButton );
 
-    setLayout(new BorderLayout());
+		JPanel panel = new JPanel();
 
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.add(addButton);
-    buttonPanel.add(removeButton);
-    buttonPanel.add(removeAllButton);
-    buttonPanel.add(loadButton);
+		JLabel label = new JLabel( "Remaining" );
+		label.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		label.setForeground( Color.black );
+		panel.add( label );
+		panel.add( remaining );
 
-    JPanel panel = new JPanel();
+		label = new JLabel( "    Priority" );
+		label.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		label.setForeground( Color.black );
+		panel.add( label );
+		panel.add( priority );
 
-    JLabel label = new JLabel("Remaining");
-    label.setFont(new java.awt.Font("Dialog", 0, 12));
-    label.setForeground(Color.black);
-    panel.add(label);
-    panel.add(remaining);
+		JLabel strut = new JLabel( "     " );
+		strut.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		panel.add( strut );
+		panel.add( chooseButton );
+		panel.add( selectField );
+		panel.add( selectLabel );
 
-    label = new JLabel("    Priority");
-    label.setFont(new java.awt.Font("Dialog", 0, 12));
-    label.setForeground(Color.black);
-    panel.add(label);
-    panel.add(priority);
-    
-    JLabel strut = new JLabel("     ");
-    strut.setFont(new java.awt.Font("Dialog", 0, 12));
-    panel.add(strut);
-    panel.add(chooseButton);
-    panel.add(selectField);
-    panel.add(selectLabel);
+		JPanel southPanel = new JPanel( new BorderLayout() );
+		southPanel.add( panel , BorderLayout.NORTH );
+		southPanel.add( buttonPanel , BorderLayout.SOUTH );
 
-    JPanel southPanel = new JPanel(new BorderLayout());
-    southPanel.add(panel,       BorderLayout.NORTH);
-    southPanel.add(buttonPanel, BorderLayout.SOUTH);
+		JPanel surveyPanel = new JPanel( new BorderLayout() );
+		surveyPanel.add( new JScrollPane( fieldTable ) , BorderLayout.CENTER );
+		surveyPanel.add( southPanel , BorderLayout.SOUTH );
+		surveyPanel.setBorder( new EtchedBorder() );
+		surveyPanel.setPreferredSize( new Dimension( 100 , 100 ) );
 
-    JPanel surveyPanel       = new JPanel(new BorderLayout());
-    surveyPanel.add(new JScrollPane(fieldTable), BorderLayout.CENTER);
-    surveyPanel.add(southPanel, BorderLayout.SOUTH);
-    surveyPanel.setBorder(new EtchedBorder());
-    surveyPanel.setPreferredSize(new Dimension(100, 100));
+		tabbedPane.add( "Survey Targets" , surveyPanel );
+		tabbedPane.add( "Target Information" , _telescopeGUI );
 
-    tabbedPane.add("Survey Targets",   surveyPanel);
-    tabbedPane.add("Target Information", _telescopeGUI);
+		add( tabbedPane , BorderLayout.CENTER );
 
-    add(tabbedPane, BorderLayout.CENTER);
+		JPanel northPanel = new JPanel();
+		( ( FlowLayout )northPanel.getLayout() ).setAlignment( FlowLayout.LEFT );
+		titleField.setColumns( 15 );
+		northPanel.add( titleLabel , BorderLayout.NORTH );
+		northPanel.add( titleField , BorderLayout.NORTH );
+		add( northPanel , BorderLayout.NORTH );
+	}
 
-    JPanel northPanel = new JPanel();
-    ((FlowLayout)northPanel.getLayout()).setAlignment(FlowLayout.LEFT);
-    titleField.setColumns(15);
-    northPanel.add(titleLabel, BorderLayout.NORTH);
-    northPanel.add(titleField, BorderLayout.NORTH);
-    add(northPanel, BorderLayout.NORTH);
-  }
-
-  public TelescopeGUI getTelescopeGUI() {
-    return _telescopeGUI;
-  }
+	public TelescopeGUI getTelescopeGUI()
+	{
+		return _telescopeGUI;
+	}
 }
-
