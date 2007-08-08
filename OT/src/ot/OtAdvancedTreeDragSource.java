@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot;
 
 import java.awt.dnd.DragSourceDragEvent;
@@ -33,88 +32,78 @@ import jsky.app.ot.OtTreeWidget;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class OtAdvancedTreeDragSource extends OtTreeDragSource {
-  /**
-   * dragOver method call history FIFO.
-   * 
-   * FIFO containing boolean values stating whether the last dragOver calls happended
-   * on the DropTargetListener (true) as opposed to the DragSourceListener i.e. this class (false).
-   */
-  protected boolean [] wasDragOverDropTarget = new boolean[3];
+public class OtAdvancedTreeDragSource extends OtTreeDragSource
+{
+	/**
+	 * dragOver method call history FIFO.
+	 * 
+	 * FIFO containing boolean values stating whether the last dragOver calls happended
+	 * on the DropTargetListener (true) as opposed to the DragSourceListener i.e. this class (false).
+	 */
+	protected boolean[] wasDragOverDropTarget = new boolean[ 3 ];
 
-  /**
-   * Constructor
-   */
-  public OtAdvancedTreeDragSource(OtTreeWidget spTree) {
-    super(spTree);
-  }
+	/**
+	 * Constructor
+	 */
+	public OtAdvancedTreeDragSource( OtTreeWidget spTree )
+	{
+		super( spTree );
+	}
 
-  public void dragOver(DragSourceDragEvent dsde) {
-    overTreeNode(dsde);
+	public void dragOver( DragSourceDragEvent dsde )
+	{
+		overTreeNode( dsde );
 
-    if(treeNeedsRepainting()) {
-      _tree.repaint();
-      
-      if(System.getProperty("DEBUG") != null) {
-        System.out.println("Repainting tree.");
-      }
-    }	
-  
-    super.dragOver(dsde);
-  }
+		if( treeNeedsRepainting() )
+		{
+			_tree.repaint();
 
-  /**
-   * This method is used to determine whether a node is being dragged
-   * over a other nodes or the background of the JTree component.
-   *
-   * This method has to be called in the dragOver methods of the DropTargetListener
-   * as well as the DragSourceListener so that the dragOver method call history
-   * FIFO gets updated.
-   *
-   * @return true if over nodes,
-   *         false if over background of JTree
-   */
-  public boolean overTreeNode(EventObject eventObject) {
-    // Result is true if the most recent event was a DropTargetDragEvent.
-    boolean result = wasDragOverDropTarget[0];
+			if( System.getProperty( "DEBUG" ) != null )
+				System.out.println( "Repainting tree." );
+		}
 
-    // Shift elements in FIFO.
-    wasDragOverDropTarget[2] = wasDragOverDropTarget[1];
-    wasDragOverDropTarget[1] = wasDragOverDropTarget[0];
+		super.dragOver( dsde );
+	}
 
-    // Set first entry in FIFO according to whether eventObject
-    // is a DropTargetDragEvent.
-    if(eventObject instanceof DropTargetDragEvent) {
-      wasDragOverDropTarget[0] = true;
-    }
-    else {
-      wasDragOverDropTarget[0] = false;
-    }
+	/**
+	 * This method is used to determine whether a node is being dragged
+	 * over a other nodes or the background of the JTree component.
+	 *
+	 * This method has to be called in the dragOver methods of the DropTargetListener
+	 * as well as the DragSourceListener so that the dragOver method call history
+	 * FIFO gets updated.
+	 *
+	 * @return true if over nodes,
+	 *         false if over background of JTree
+	 */
+	public boolean overTreeNode( EventObject eventObject )
+	{
+		// Result is true if the most recent event was a DropTargetDragEvent.
+		boolean result = wasDragOverDropTarget[ 0 ];
 
-    return result;
-  }
+		// Shift elements in FIFO.
+		wasDragOverDropTarget[ 2 ] = wasDragOverDropTarget[ 1 ];
+		wasDragOverDropTarget[ 1 ] = wasDragOverDropTarget[ 0 ];
 
-  /**
-   * Determines whether the JTree needs repainting in order to get rid of the
-   * orange arrow balls.
-   *
-   * Call this method after a call to {@link #overTreeNode(EventObject)}
-   *
-   * @return true  if the cursor has just "left" the tree nodes and is now over the background of the
-   *               JTree.
-   *         false if the cursor is over the background of the JTree (and was there before)
-   *               or if the cursor is over tree nodes.
-   */
-  protected boolean treeNeedsRepainting() {
-    if((wasDragOverDropTarget[2] == true) &&
-       (wasDragOverDropTarget[1] == false) &&
-       (wasDragOverDropTarget[0] == false)) {
-      
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+		// Set first entry in FIFO according to whether eventObject is a DropTargetDragEvent.
+		wasDragOverDropTarget[ 0 ] = eventObject instanceof DropTargetDragEvent ;
+
+		return result;
+	}
+
+	/**
+	 * Determines whether the JTree needs repainting in order to get rid of the
+	 * orange arrow balls.
+	 *
+	 * Call this method after a call to {@link #overTreeNode(EventObject)}
+	 *
+	 * @return true  if the cursor has just "left" the tree nodes and is now over the background of the
+	 *               JTree.
+	 *         false if the cursor is over the background of the JTree (and was there before)
+	 *               or if the cursor is over tree nodes.
+	 */
+	protected boolean treeNeedsRepainting()
+	{
+		return ( ( wasDragOverDropTarget[ 2 ] == true ) && ( wasDragOverDropTarget[ 1 ] == false ) && ( wasDragOverDropTarget[ 0 ] == false ) ) ;
+	}
 }
-

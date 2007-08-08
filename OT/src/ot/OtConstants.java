@@ -5,7 +5,8 @@ package ot;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public interface OtConstants {
-  public static final String UKIRT = "ukirt";
-  public static final String JCMT  = "jcmt";
+public interface OtConstants
+{
+	public static final String UKIRT = "ukirt";
+	public static final String JCMT = "jcmt";
 }
