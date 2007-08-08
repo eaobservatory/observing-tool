@@ -994,6 +994,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			String sb = ( ( JRadioButton )ae.getSource() ).getText();
 
+			if( !validSideband( sb ) )
+				JOptionPane.showMessageDialog( null , "Frequency cannot be reached from " + sb + "." , "Frequency no longer valid for Sideband!" , JOptionPane.WARNING_MESSAGE );
+			
 			// If we are switching between upper and lower sidebands we need to alter the centre frequency for higher level subsytems
 			if( Integer.parseInt( _inst.getBandMode() ) > 1 )
 			{
@@ -1464,7 +1467,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
 		{
 			// optical
-			velocity = velocity / c;
+			velocity /= c;
 		}
 
 		return velocity;
@@ -1716,7 +1719,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( cName != null && cName.equals( name ) && component instanceof AbstractButton )
 			{
 				configured = false;
-				( ( AbstractButton )c.getComponent( i ) ).doClick();
+				(( AbstractButton )c.getComponent( i )).doClick();
 				configured = configuredState;
 				break;
 			}
@@ -2056,29 +2059,28 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void checkSideband()
 	{
+		String sideband = _inst.getBand();
+		
+		if( !validSideband( sideband ) )
+		{
+			JOptionPane.showMessageDialog( null , "Using " + sideband + " in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
+			clickButton( _w.sbSelector , sideband );
+		}
+	}
+	
+	private boolean validSideband( String sideband )
+	{
+		boolean valid = true ;
 		double freq = _inst.getRestFrequency( 0 );
 
 		// Convert to sky frequency
-		freq = freq / ( 1. + getRedshift() );
-
-		String sideband = _inst.getBand();
+		freq /= ( 1. + getRedshift() );
 
 		if( LSB.equals( sideband ) )
-		{
-			if( ( freq + _inst.getCentreFrequency( 0 ) ) > _receiver.loMax )
-			{
-				JOptionPane.showMessageDialog( null , "Using upper sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
-				clickButton( _w.sbSelector , USB );
-			}
-		}
+			valid = !( ( freq + _inst.getCentreFrequency( 0 ) ) > _receiver.loMax ) ;
 		else
-		{
-			if( ( freq - _inst.getCentreFrequency( 0 ) ) < _receiver.loMin )
-			{
-				JOptionPane.showMessageDialog( null , "Using lower sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
-				clickButton( _w.sbSelector , LSB );
-			}
-		}
+			valid = !( ( freq - _inst.getCentreFrequency( 0 ) ) < _receiver.loMin ) ;
+		return valid ;
 	}
 
 	private void _doVelocityChecks() throws Exception
