@@ -1,4 +1,3 @@
-
 /**
  * Title:        JSky<p>
  * Description:  <p>
@@ -9,5 +8,4 @@
  */
 package ot.ukirt.inst.editor;
 
-public class Ircam3GUI extends UftiGUI  { }
-
+public class Ircam3GUI extends UftiGUI{}

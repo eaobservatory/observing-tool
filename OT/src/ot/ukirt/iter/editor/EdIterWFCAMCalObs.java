@@ -14,27 +14,14 @@
 //
 package ot.ukirt.iter.editor;
 
-import java.util.*;
-
-import orac.ukirt.inst.SpInstWFCAM;
 import orac.ukirt.iter.SpIterWFCAMCalObs;
-import orac.ukirt.iter.SpWFCAMCalConstants;
-import orac.util.LookUpTable;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -43,285 +30,279 @@ import jsky.app.ot.editor.OtItemEditor;
 /**
  * This is the editor for the WFCAM Calibration Observation iterator.
  */
-public final class EdIterWFCAMCalObs extends OtItemEditor
-                     implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher, ActionListener
+public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
+	/** Identifier for a SKYFLAT calibration. */
+	public static final int SKYFLAT = 0;
 
-   private SpItem   _baseItem;
+	/** Identifier for a DOMEFLAT calibration. */
+	public static final int DOMEFLAT = 1;
 
-   /** Identifier for a SKYFLAT calibration. */
-   public static final int SKYFLAT = 0;
+	/** Identifier for a FOCUS calibration. */
+	public static final int FOCUS = 2;
 
-   /** Identifier for a DOMEFLAT calibration. */
-   public static final int DOMEFLAT = 1;
+	private IterWFCAMCalObsGUI _w; // the GUI layout
 
-   /** Identifier for a FOCUS calibration. */
-   public static final int FOCUS  = 2;
+	/**
+	 * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
+	 * action events caused by initializing widgets.
+	 */
+	private boolean _ignoreActionEvents = false;
 
-   private SpIterWFCAMCalObs _calWFCAM;
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdIterWFCAMCalObs()
+	{
+		_title = "WFCAM Calibration Observation";
+		_presSource = _w = new IterWFCAMCalObsGUI();
+		_description = "Configure a WFCAM FLAT or FOCUS observation with this component.";
 
-   private IterWFCAMCalObsGUI _w;		// the GUI layout
+		for( int i = 0 ; i < 100 ; i++ )
+			_w.repeatComboBox.addItem( "" + ( i + 1 ) );
 
-   /**
-    * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
-    * action events caused by initializing widgets.
-    */
-   private boolean _ignoreActionEvents = false;
+		_w.CalType.addActionListener( this );
+		_w.ReadMode.addActionListener( this );
+		_w.Filter.addActionListener( this );
+		_w.repeatComboBox.addActionListener( this );
+		_w.useDefaults.addActionListener( this );
+	}
 
-/**
- * The constructor initializes the title, description, and presentation source.
- */
-public EdIterWFCAMCalObs()
-{
-   _title       ="WFCAM Calibration Observation";
-   _presSource  = _w = new IterWFCAMCalObsGUI();
-   _description ="Configure a WFCAM FLAT or FOCUS observation with this component.";
+	/**
+	 */
+	protected void _init()
+	{
+		_ignoreActionEvents = true;
 
-   for(int i = 0; i < 100; i++) {
-     _w.repeatComboBox.addItem("" + (i + 1));
-   }
+		DropDownListBoxWidgetExt ddlbw;
+		CommandButtonWidgetExt cbw;
 
-   _w.CalType.addActionListener(this);
-   _w.ReadMode.addActionListener(this);
-   _w.Filter.addActionListener(this);
-   //   _w.ExpTime.addActionListener(this);
-   //   _w.Coadds.addActionListener(this);
-   _w.repeatComboBox.addActionListener(this);
-   _w.useDefaults.addActionListener(this);
-}
+		// Set the calType choices
+		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType;
 
-/**
- */
-protected void
-_init()
-{
-   _ignoreActionEvents = true;
+		// Set the readMode choices
+		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode;
 
-   DropDownListBoxWidgetExt ddlbw;
-   CommandButtonWidgetExt cbw;
+		// Set the filter choices
+		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter;
 
-   SpIterWFCAMCalObs ico = (SpIterWFCAMCalObs) _spItem;
+		TextBoxWidgetExt tbw;
 
-   // Set the calType choices
-   ddlbw = (DropDownListBoxWidgetExt) _w.CalType;
+		// Exposure time
+		tbw = ( TextBoxWidgetExt )_w.ExpTime;
+		tbw.addWatcher( this );
 
-   // Set the readMode choices
-   ddlbw = (DropDownListBoxWidgetExt) _w.ReadMode;
+		// Coadds
+		tbw = ( TextBoxWidgetExt )_w.Coadds;
+		tbw.addWatcher( this );
 
-   // Set the filter choices
-   ddlbw = (DropDownListBoxWidgetExt) _w.Filter;
+		// Focus
+		tbw = ( TextBoxWidgetExt )_w.focusPos;
+		tbw.addWatcher( this );
 
-   TextBoxWidgetExt tbw;
+		// default button
+		cbw = ( CommandButtonWidgetExt )_w.useDefaults;
 
-   // Exposure time
-   tbw = (TextBoxWidgetExt) _w.ExpTime;
-   tbw.addWatcher( this );
+		super._init();
 
-   // Coadds
-   tbw = (TextBoxWidgetExt) _w.Coadds;
-   tbw.addWatcher( this );
+		_ignoreActionEvents = false;
+	}
 
-   // Focus
-   tbw = (TextBoxWidgetExt) _w.focusPos;
-   tbw.addWatcher( this );
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
 
-   // default button
-   cbw = (CommandButtonWidgetExt) _w.useDefaults;
+	protected void _updateWidgets()
+	{
+		_updateWidgets( null );
+	}
 
-   super._init();
+	protected void _updateWidgets( Object source )
+	{
+		_ignoreActionEvents = true;
 
-   _ignoreActionEvents = false;
-}
+		DropDownListBoxWidgetExt ddlbw;
 
-/**
- * Implements the _updateWidgets method from OtItemEditor in order to
- * setup the widgets to show the current values of the item.
- */
+		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
 
-protected void _updateWidgets()
-{
-    _updateWidgets(null);
-}
+		// Get the choices and defaults from the instrument.
 
-protected void
-_updateWidgets(Object source)
-{
-   _ignoreActionEvents = true;
+		// Update calType selection box
+		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType;
+		ddlbw.setChoices( ico.getCalTypeChoices() );
+		ddlbw.setValue( ico.getCalType() );
+		if( ico.getCalType() == this.FOCUS )
+		{
+			_w.focusPos.setVisible( true );
+			_w.focusLabel.setVisible( true );
+			_w.focusPos.setEditable( true );
+		}
+		else
+		{
+			_w.focusPos.setVisible( false );
+			_w.focusLabel.setVisible( false );
+			_w.focusPos.setEditable( false );
+		}
 
-   DropDownListBoxWidgetExt ddlbw;
+		// Update readMode selection box
+		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode;
+		ddlbw.setChoices( ico.getReadModeChoices() );
+		ddlbw.setValue( ico.getReadMode() );
 
-   SpIterWFCAMCalObs ico = (SpIterWFCAMCalObs) _spItem;
+		// Update filters selection box
+		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter;
+		ddlbw.setChoices( ico.getFilterChoices() );
+		ddlbw.setValue( ico.getFilter() );
 
-   // Get the choices and defaults from the instrument.
+		// Observe repetitions
+		_w.repeatComboBox.setValue( ico.getCount() - 1 );
 
-   // Update calType selection box
-   ddlbw = (DropDownListBoxWidgetExt) _w.CalType;
-   ddlbw.setChoices( ico.getCalTypeChoices() );
-   ddlbw.setValue( ico.getCalType() );
-   if ( ico.getCalType() ==  this.FOCUS) {
-       _w.focusPos.setVisible(true);
-       _w.focusLabel.setVisible(true);
-       _w.focusPos.setEditable(true);
-   }
-   else {
-       _w.focusPos.setVisible(false);
-       _w.focusLabel.setVisible(false);
-       _w.focusPos.setEditable(false);
-   }
+		TextBoxWidgetExt tbw;
 
-   // Update readMode selection box
-   ddlbw = (DropDownListBoxWidgetExt) _w.ReadMode;
-   ddlbw.setChoices( ico.getReadModeChoices() );
-   ddlbw.setValue( ico.getReadMode() );
+		// Exposure time
+		if( _w.ExpTime != source )
+		{
+			tbw = ( TextBoxWidgetExt )_w.ExpTime;
+			String expTimeStr = String.valueOf( ico.getExposureTime() );
+			tbw.setValue( expTimeStr );
+			if( _w.focusPos.isVisible() && _w.focusPos != source )
+				_w.focusPos.setValue( "" + ico.getFocus() );
+		}
 
-   // Update filters selection box
-   ddlbw = (DropDownListBoxWidgetExt) _w.Filter;
-   ddlbw.setChoices( ico.getFilterChoices() );
-   ddlbw.setValue( ico.getFilter() );
+		// Coadds
+		else if( _w.Coadds != source )
+		{
+			tbw = ( TextBoxWidgetExt )_w.Coadds;
+			tbw.setValue( ico.getCoaddsString() );
+			if( _w.focusPos.isVisible() && _w.focusPos != source )
+				_w.focusPos.setValue( "" + ico.getFocus() );
+		}
 
-   // Observe repetitions
-   _w.repeatComboBox.setValue( ico.getCount() - 1);
+		// Focus
+		if( _w.focusPos != source )
+		{
+			tbw = ( TextBoxWidgetExt )_w.ExpTime;
+			String expTimeStr = String.valueOf( ico.getExposureTime() );
+			tbw.setValue( expTimeStr );
+			tbw = ( TextBoxWidgetExt )_w.Coadds;
+			tbw.setValue( ico.getCoaddsString() );
+		}
 
-   TextBoxWidgetExt tbw;
+		_ignoreActionEvents = false;
+	}
 
-   // Exposure time
-   if(_w.ExpTime != source) {
-       tbw = (TextBoxWidgetExt) _w.ExpTime;
-       String expTimeStr =  String.valueOf(ico.getExposureTime());
-       tbw.setValue(expTimeStr  );
-       if (_w.focusPos.isVisible() && _w.focusPos != source) _w.focusPos.setValue( ""+ico.getFocus() );
-   }
+	/**
+	 * Watch changes to text box widgets.
+	 */
+	public void textBoxKeyPress( TextBoxWidgetExt tbw )
+	{
+		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
+		if( tbw == _w.ExpTime )
+		{
+			try
+			{
+				String ets = tbw.getText();
+				double et = Double.parseDouble( ets );
+				if( et > 0.00001 )
+				{
+					ico.setExposureTime( ets );
+					_updateWidgets( _w.ExpTime );
+				}
+			}
+			catch( Exception ex )
+			{
+				// ignore
+			}
+		}
+		else if( tbw == _w.Coadds )
+		{
+			try
+			{
+				String coaddsString = tbw.getText();
+				int coadds = Integer.parseInt( coaddsString );
+				if( coadds > 0 )
+				{
+					ico.setCoadds( coadds );
+					_updateWidgets( _w.Coadds );
+				}
+			}
+			catch( Exception ex )
+			{
+				// ignore
+			}
+		}
+		else if( tbw == _w.focusPos )
+		{
+			try
+			{
+				double focusValue = Double.parseDouble( tbw.getText() );
+				ico.setFocus( focusValue );
+				_updateWidgets( _w.focusPos );
+			}
+			catch( Exception e )
+			{
+				// ignored
+			}
+		}
+		// End of added by RDK
+	}
 
-   // Coadds
-   if(_w.Coadds != source) {
-       tbw = (TextBoxWidgetExt) _w.Coadds;
-       tbw.setValue( ico.getCoaddsString() );
-       if (_w.focusPos.isVisible() && _w.focusPos != source) _w.focusPos.setValue( ""+ico.getFocus() );
-   }
+	/**
+	 * Text box action.
+	 */
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
-   // Focus
-   if (_w.focusPos != source) {
-       tbw = (TextBoxWidgetExt) _w.ExpTime;
-       String expTimeStr =  String.valueOf(ico.getExposureTime());
-       tbw.setValue(expTimeStr  );
-       tbw = (TextBoxWidgetExt) _w.Coadds;
-       tbw.setValue( ico.getCoaddsString() );
-   }
+	/**
+	 * DD list box select.
+	 */
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}
 
-   _ignoreActionEvents = false;
-}
+	/**
+	 * DD list box action.
+	 */
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}
 
-
-/**
- * Watch changes to text box widgets.
- */
-public void
-textBoxKeyPress(TextBoxWidgetExt tbw)
-{
-   SpIterWFCAMCalObs ico = (SpIterWFCAMCalObs) _spItem;
-   if (tbw == _w.ExpTime) {
-      try {
-          String ets = tbw.getText();
-          double et = Double.parseDouble(ets);
-          if (et > 0.00001) {
-             ico.setExposureTime(ets);
-             _updateWidgets(_w.ExpTime);
-          }
-      } catch( Exception ex) {
-	// ignore
-      }
-   } else if (tbw == _w.Coadds) {
-      try {
-          String coaddsString = tbw.getText();
-          int coadds = Integer.parseInt(coaddsString);
-          if (coadds > 0) {
-             ico.setCoadds(coadds);
-             _updateWidgets(_w.Coadds);
-          }
-      } catch( Exception ex) {
-	// ignore
-      }
-   }
-   else if ( tbw == _w.focusPos ) {
-       try {
-           double focusValue = Double.parseDouble(tbw.getText());
-           ico.setFocus(focusValue);
-           _updateWidgets(_w.focusPos);
-       }
-       catch (Exception e) {
-           // ignored
-       }
-   }
-// End of added by RDK
-}
- 
-/**
- * Text box action.
- */
-public void
-textBoxAction(TextBoxWidgetExt tbwe) {}
-
-/**
- * DD list box select.
- */
-public void
-dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int i, String val) {
-}
-
-
-/**
- * DD list box action.
- */
-public void
-dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int i, String val) {
-}
-
-/**
- *
- */
-public void actionPerformed(ActionEvent evt)
-{
-   if(_ignoreActionEvents) {
-      return;
-   }
-
-   Object w    = evt.getSource();
-
-   SpIterWFCAMCalObs ico = (SpIterWFCAMCalObs) _spItem;
-
-   if (w == _w.CalType) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setCalType(ddlbw.getStringValue());
-      ico.useDefaults();
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.ReadMode) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setReadMode(ddlbw.getStringValue());
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.Filter) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setFilter(ddlbw.getStringValue());
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.repeatComboBox) {
-      int i = _w.repeatComboBox.getIntegerValue() + 1;
-      ico.setCount(i);
-      return;
-   }
-
-   if (w == _w.useDefaults) {
-      ico.useDefaults();
-      _updateWidgets();
-      return;
-   }
-}
-
+	/**
+	 *
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		if( !_ignoreActionEvents )
+		{
+			Object w = evt.getSource();
+	
+			SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
+	
+			if( w == _w.CalType )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setCalType( ddlbw.getStringValue() );
+				ico.useDefaults();
+				_updateWidgets();
+			}
+			else if( w == _w.ReadMode )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setReadMode( ddlbw.getStringValue() );
+				_updateWidgets();
+			}
+			else if( w == _w.Filter )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setFilter( ddlbw.getStringValue() );
+				_updateWidgets();
+			}
+			else if( w == _w.repeatComboBox )
+			{
+				int i = _w.repeatComboBox.getIntegerValue() + 1;
+				ico.setCount( i );
+			}
+			else if( w == _w.useDefaults )
+			{
+				ico.useDefaults();
+				_updateWidgets();
+			}
+		}
+	}
 }

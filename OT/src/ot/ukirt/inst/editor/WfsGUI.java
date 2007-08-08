@@ -12,74 +12,75 @@ import javax.swing.JPanel;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 
-public class WfsGUI extends JPanel {
+public class WfsGUI extends JPanel
+{
+	JLabel coaddsLabel = new JLabel();
+	JLabel expTimeLabel = new JLabel();
+	JLabel secsLabel = new JLabel();
+	JLabel lensPosLabel = new JLabel();
+	TextBoxWidgetExt expTimeTextBox = new TextBoxWidgetExt();
+	TextBoxWidgetExt coaddsTextBox = new TextBoxWidgetExt();
+	JComboBox lensPosComboBox = new JComboBox();
 
-    JLabel coaddsLabel = new JLabel();
-    JLabel expTimeLabel = new JLabel();
-    JLabel secsLabel = new JLabel();
-    JLabel lensPosLabel = new JLabel();
+	public WfsGUI()
+	{
+		try
+		{
+			_init();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-    TextBoxWidgetExt expTimeTextBox = new TextBoxWidgetExt();
-    TextBoxWidgetExt coaddsTextBox  = new TextBoxWidgetExt();
+	void _init() throws Exception
+	{
+		coaddsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		coaddsLabel.setForeground( Color.black );
+		coaddsLabel.setText( "Coadds" );
 
-    JComboBox  lensPosComboBox = new JComboBox();
+		coaddsTextBox.setColumns( 3 );
 
-    public WfsGUI() {
-        try {
-            _init();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+		expTimeLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		expTimeLabel.setForeground( Color.black );
+		expTimeLabel.setText( "Exposure Time" );
 
-    void _init() throws Exception {
-        coaddsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-        coaddsLabel.setForeground(Color.black);
-        coaddsLabel.setText("Coadds");
+		expTimeTextBox.setColumns( 6 );
 
-        coaddsTextBox.setColumns(3);
+		secsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		secsLabel.setForeground( Color.black );
+		secsLabel.setText( "(secs)" );
 
-        expTimeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-        expTimeLabel.setForeground(Color.black);
-        expTimeLabel.setText("Exposure Time");
+		lensPosLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		lensPosLabel.setForeground( Color.black );
+		lensPosLabel.setText( "Lens Position" );
 
-        expTimeTextBox.setColumns(6);
+		lensPosComboBox.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 
-        secsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-        secsLabel.setForeground(Color.black);
-        secsLabel.setText("(secs)");
+		this.setLayout( new BorderLayout() );
 
-        lensPosLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-        lensPosLabel.setForeground(Color.black);
-        lensPosLabel.setText("Lens Position");
+		JPanel widgetPanel = new JPanel();
+		widgetPanel.setLayout( new GridBagLayout() );
 
-        lensPosComboBox.setFont(new java.awt.Font("Dialog", 0, 12));
+		GridBagConstraints gbc = new GridBagConstraints();
 
-        this.setLayout(new BorderLayout());
+		gbc.insets = new Insets( 10 , 5 , 10 , 5 );
 
-        JPanel widgetPanel = new JPanel();
-        widgetPanel.setLayout(new GridBagLayout());
+		widgetPanel.add( coaddsLabel , gbc );
+		gbc.gridwidth = GridBagConstraints.REMAINDER; //end row
+		widgetPanel.add( coaddsTextBox , gbc );
 
-        GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = 1; // reset to default
+		widgetPanel.add( expTimeLabel , gbc );
+		widgetPanel.add( expTimeTextBox , gbc );
+		gbc.gridwidth = GridBagConstraints.REMAINDER; //end row
+		widgetPanel.add( secsLabel , gbc );
 
-        gbc.insets = new Insets(10, 5, 10, 5);
+		gbc.gridwidth = 1; // reset to default
+		widgetPanel.add( lensPosLabel , gbc );
+		widgetPanel.add( lensPosComboBox , gbc );
 
-        widgetPanel.add(coaddsLabel, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER; //end row
-        widgetPanel.add(coaddsTextBox, gbc);
-
-        gbc.gridwidth = 1;  // reset to default
-        widgetPanel.add( expTimeLabel, gbc);
-        widgetPanel.add( expTimeTextBox, gbc );
-        gbc.gridwidth = GridBagConstraints.REMAINDER; //end row
-        widgetPanel.add( secsLabel, gbc );
-
-        gbc.gridwidth = 1;  // reset to default
-        widgetPanel.add( lensPosLabel, gbc );
-        widgetPanel.add( lensPosComboBox, gbc);
-
-        this.add(widgetPanel, BorderLayout.CENTER);
-    }
-
+		this.add( widgetPanel , BorderLayout.CENTER );
+	}
 }

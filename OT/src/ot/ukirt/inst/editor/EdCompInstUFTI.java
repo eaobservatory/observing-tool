@@ -12,7 +12,7 @@ package ot.ukirt.inst.editor;
 import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstUFTI;
 
-import gemini.sp.SpItem ;
+import gemini.sp.SpItem;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -31,26 +31,24 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 
 import javax.swing.ButtonGroup;
-import java.awt.Color ;
+import java.awt.Color;
 
 /**
  * This is the editor for the UFTI instrument.
  */
-public final class EdCompInstUFTI extends EdCompInstBase
-                               implements TableWidgetWatcher, ActionListener {
+public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetWatcher , ActionListener
+{
+	private EdStareCapability _edStareCapability;
+	private SpInstUFTI _instUFTI;
+	private UftiGUI _w;
 
-   private EdStareCapability _edStareCapability;
-   private SpInstUFTI        _instUFTI;
-   
-   private UftiGUI _w;
+	/**
+	 * This flag is set true while _init is executed to prevent actionPerformed() to do react to
+	 * action events caused by initializing widgets.
+	 */
+	private boolean _ignoreActionEvents = false;
 
-   /**
-    * This flag is set true while _init is executed to prevent actionPerformed() to do react to
-    * action events caused by initializing widgets.
-    */
-   private boolean _ignoreActionEvents = false;
-   
-   private boolean validExposureTime = true ;
+	private boolean validExposureTime = true;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -91,8 +89,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		twe.addWatcher( this );
 
 		/*
-		*  Polariser
-		*/
+		 *  Polariser
+		 */
 		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser;
 		ddlbw.setChoices( SpInstUFTI.POLARISERS.getColumn( 0 ) );
 
@@ -108,8 +106,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		} );
 
 		/*
-		*  Source magnitude
-		*/
+		 *  Source magnitude
+		 */
 		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag;
 		ddlbw.setChoices( SpInstUFTI.SRCMAGS );
 
@@ -131,8 +129,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				validExposureTime = checkExposureTimes( tbw.getText() ) ;
-				_updateExpWidgets( false ) ;
+				validExposureTime = checkExposureTimes( tbw.getText() );
+				_updateExpWidgets( false );
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){}
@@ -153,7 +151,6 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbwe )
 			{
-				//       System.out.println ( "DEF Watcher called" );
 				_instUFTI.useDefaultAcquisition();
 				_updateExpWidgets();
 				_updateExpInfo();
@@ -174,248 +171,267 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		_ignoreActionEvents = false;
 	}
 
-/**
- * Initialize the Filter table widget according to the selected
- * filter category.
- */
-   private void _showFilterType( LookUpTable filters )  {
-      Vector[] rowsV = new Vector[ filters.getNumRows() ];
-      rowsV = filters.getAsVectorArray();
-     TableWidgetExt tw = (TableWidgetExt) _w.filterTable;
-     tw.setRows( rowsV );
-   }
+	/**
+	 * Initialize the Filter table widget according to the selected
+	 * filter category.
+	 */
+	private void _showFilterType( LookUpTable filters )
+	{
+		Vector[] rowsV = new Vector[ filters.getNumRows() ];
+		rowsV = filters.getAsVectorArray();
+		TableWidgetExt tw = ( TableWidgetExt )_w.filterTable;
+		tw.setRows( rowsV );
+	}
 
-/**
- * Get the index of the filter in the given array, or -1 if the filter
- * isn't in the array.
- */
-   private int _getFilterIndex( String filter, LookUpTable farray ) {
-      int fi = -1;
-      try {
-         fi = farray.indexInColumn( filter, 0 );
-      } catch ( Exception ex ) {
-      }
-      return fi;
-   }
+	/**
+	 * Get the index of the filter in the given array, or -1 if the filter
+	 * isn't in the array.
+	 */
+	private int _getFilterIndex( String filter , LookUpTable farray )
+	{
+		int fi = -1;
+		try
+		{
+			fi = farray.indexInColumn( filter , 0 );
+		}
+		catch( Exception ex ){}
+		return fi;
+	}
 
-/**
- * Update the filter choice related widgets.
- */
-   private void _updateFilterWidgets() {
-      _ignoreActionEvents = true;
+	/**
+	 * Update the filter choice related widgets.
+	 */
+	private void _updateFilterWidgets()
+	{
+		_ignoreActionEvents = true;
 
-// First fill in the text box.
-      TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.filter;
-      String filter = _instUFTI.getFilter();
-      tbw.setText( filter );
+		// First fill in the text box.
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.filter;
+		String filter = _instUFTI.getFilter();
+		tbw.setText( filter );
 
-// See which type of filter the selected filter is, if any.
-      LookUpTable  farray = null;
-      OptionWidgetExt ow     = null;
+		// See which type of filter the selected filter is, if any.
+		LookUpTable farray = null;
+		OptionWidgetExt ow = null;
 
-      int index = -1;
-      if ( filter == null || filter.equals( "None" ) ) {
-         farray = SpInstUFTI.BROAD_BAND_FILTERS;
-         ow     = (OptionWidgetExt) _w.filterBroadBand;
+		int index = -1;
+		if( filter == null || filter.equals( "None" ) )
+		{
+			farray = SpInstUFTI.BROAD_BAND_FILTERS;
+			ow = ( OptionWidgetExt )_w.filterBroadBand;
+		}
+		else
+		{
 
-      } else {
+			farray = SpInstUFTI.BROAD_BAND_FILTERS;
+			index = _getFilterIndex( filter , farray );
+			if( index != -1 )
+			{
+				ow = ( OptionWidgetExt )_w.filterBroadBand;
+			}
+			else
+			{
+				farray = SpInstUFTI.NARROW_BAND_FILTERS;
+				index = _getFilterIndex( filter , farray );
+				if( index != -1 )
+				{
+					ow = ( OptionWidgetExt )_w.filterNarrowBand;
+				}
+				else
+				{
+					farray = SpInstUFTI.SPECIAL_FILTERS;
+					index = _getFilterIndex( filter , farray );
+					if( index != -1 )
+					{
+						ow = ( OptionWidgetExt )_w.filterSpecial;
+					}
+					else
+					{
+						farray = SpInstUFTI.BROAD_BAND_FILTERS;
+						ow = ( OptionWidgetExt )_w.filterBroadBand;
+					}
+				}
+			}
+		}
 
-         farray = SpInstUFTI.BROAD_BAND_FILTERS;
-         index = _getFilterIndex( filter, farray );
-         if ( index != -1 ) {
-            ow = (OptionWidgetExt) _w.filterBroadBand;
-         } else {
-            farray = SpInstUFTI.NARROW_BAND_FILTERS;
-            index = _getFilterIndex( filter, farray );
-            if ( index != -1 ) {
-               ow = (OptionWidgetExt) _w.filterNarrowBand;
-            } else {
-               farray = SpInstUFTI.SPECIAL_FILTERS;
-               index = _getFilterIndex(filter, farray );
-               if ( index != -1 ) {
-                  ow = (OptionWidgetExt) _w.filterSpecial;
-               } else {
-                  farray = SpInstUFTI.BROAD_BAND_FILTERS;
-                  ow = (OptionWidgetExt) _w.filterBroadBand;
-               }
-            }
-         }
-      }
-   
-// Show the correct filters, and select the option widget for the type.
-      _showFilterType( farray );
-      ow.setValue( true );
+		// Show the correct filters, and select the option widget for the type.
+		_showFilterType( farray );
+		ow.setValue( true );
 
-// Select the filter in the table.
-      if ( ( filter != null ) && ( index != -1 ) ) {
-         TableWidgetExt tw = (TableWidgetExt) _w.filterTable;
-         tw.selectRowAt( index );
-         tw.focusAtRow( index );
-      }
+		// Select the filter in the table.
+		if( ( filter != null ) && ( index != -1 ) )
+		{
+			TableWidgetExt tw = ( TableWidgetExt )_w.filterTable;
+			tw.selectRowAt( index );
+			tw.focusAtRow( index );
+		}
 
-      _ignoreActionEvents = false;
-   }
+		_ignoreActionEvents = false;
+	}
 
-/**
- * Override setup to store away a reference to the SpInstUFTI item.
- */
-   public void setup( SpItem spItem ) {
-      _instUFTI = (SpInstUFTI) spItem;
-      super.setup( spItem );
-   }
+	/**
+	 * Override setup to store away a reference to the SpInstUFTI item.
+	 */
+	public void setup( SpItem spItem )
+	{
+		_instUFTI = ( SpInstUFTI )spItem;
+		super.setup( spItem );
+	}
 
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		_ignoreActionEvents = true;
 
-/**
- * Implements the _updateWidgets method from OtItemEditor in order to
- * setup the widgets to show the current values of the item.
- */
-   protected void _updateWidgets() {
-      _ignoreActionEvents = true;
-   
-      DropDownListBoxWidgetExt ddlbw;
+		DropDownListBoxWidgetExt ddlbw;
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.polariser;
-      ddlbw.setValue( _instUFTI.getPolariser() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser;
+		ddlbw.setValue( _instUFTI.getPolariser() );
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.acqMode;
-      ddlbw.setValue( _instUFTI.getAcqMode() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode;
+		ddlbw.setValue( _instUFTI.getAcqMode() );
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.readoutArea;
-      ddlbw.setValue( _instUFTI.getReadoutArea() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.readoutArea;
+		ddlbw.setValue( _instUFTI.getReadoutArea() );
 
-      _edStareCapability._updateWidgets( this, _instUFTI.getStareCapability() );
+		_edStareCapability._updateWidgets( this , _instUFTI.getStareCapability() );
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.sourceMag;
-      ddlbw.setValue( _instUFTI.getSourceMagnitude () );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag;
+		ddlbw.setValue( _instUFTI.getSourceMagnitude() );
 
-      _updateScienceFOV();
-      
-      // Reset _ignoreActionEvents to true after it has been set to false at the end of _updateScienceFOV()
-      _ignoreActionEvents = true;
+		_updateScienceFOV();
 
-      super._updateWidgets();
+		// Reset _ignoreActionEvents to true after it has been set to false at the end of _updateScienceFOV()
+		_ignoreActionEvents = true;
 
-      _updateFilterWidgets();
-      _updateExpWidgets();
+		super._updateWidgets();
 
-      _ignoreActionEvents = false;
-   }
+		_updateFilterWidgets();
+		_updateExpWidgets();
+
+		_ignoreActionEvents = false;
+	}
 
 	/*
-	*  Update the exposure-time and coadds widgets.
-	*/
-   private void _updateExpWidgets()
-   {
-	   _updateExpWidgets( true ) ;
-   }
-   
+	 *  Update the exposure-time and coadds widgets.
+	 */
+	private void _updateExpWidgets()
+	{
+		_updateExpWidgets( true );
+	}
+
 	private void _updateExpWidgets( boolean setText )
 	{
 		_ignoreActionEvents = true;
 
 		if( setText )
 		{
-			TextBoxWidgetExt tbw = _w.exposureTime ;
-			double d = _instUFTI.getExpTime() ;
-			String e = Double.toString( d ) ;
+			TextBoxWidgetExt tbw = _w.exposureTime;
+			double d = _instUFTI.getExpTime();
+			String e = Double.toString( d );
 			tbw.setText( e );
-			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() );
 		}
-		
+
 		int coadds = _instUFTI.getNoCoadds();
 		_w.coadds.setText( Integer.toString( coadds ) );
 
 		if( validExposureTime )
 		{
-			_w.exposureTimeLabel.setText( "Exposure Time" ) ;
-			_w.exposureTimeLabel.setForeground( Color.black ) ;
+			_w.exposureTimeLabel.setText( "Exposure Time" );
+			_w.exposureTimeLabel.setForeground( Color.black );
 		}
 		else
 		{
-			_w.exposureTimeLabel.setText( "Exposure Time Invalid" ) ;
-			_w.exposureTimeLabel.setForeground( Color.red ) ;
+			_w.exposureTimeLabel.setText( "Exposure Time Invalid" );
+			_w.exposureTimeLabel.setForeground( Color.red );
 		}
-		
+
 		_ignoreActionEvents = false;
 	}
 
-//
-// Update the exposure-time and coadds attributes.
-//
-   private void _updateExpInfo() {
-      TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.exposureTime;
-      _instUFTI.setExpTime( tbw.getText() );
+	//
+	// Update the exposure-time and coadds attributes.
+	//
+	private void _updateExpInfo()
+	{
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime;
+		_instUFTI.setExpTime( tbw.getText() );
 
-      tbw = (TextBoxWidgetExt) _w.coadds; 
-      _instUFTI.setNoCoadds( tbw.getText() );
+		tbw = ( TextBoxWidgetExt )_w.coadds;
+		_instUFTI.setNoCoadds( tbw.getText() );
 
-   }
+	}
 
-//
-// Update the science field of view based upon the readout area.
-//
-   private void _updateScienceFOV() {
-      _ignoreActionEvents = true;
+	//
+	// Update the science field of view based upon the readout area.
+	//
+	private void _updateScienceFOV()
+	{
+		_ignoreActionEvents = true;
 
-      TextBoxWidgetExt    tbw = (TextBoxWidgetExt) _w.scienceFOV;   
-      double[] scienceArea = _instUFTI.getScienceArea();
-      tbw.setText(scienceArea[0] + " x " + scienceArea[1] );
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.scienceFOV;
+		double[] scienceArea = _instUFTI.getScienceArea();
+		tbw.setText( scienceArea[ 0 ] + " x " + scienceArea[ 1 ] );
 
-      _ignoreActionEvents = false;
-   }
+		_ignoreActionEvents = false;
+	}
 
-/**
- * Observer of TableWidget selections.
- */
-   public void tableRowSelected( TableWidgetExt twe, int rowIndex ) {
+	/**
+	 * Observer of TableWidget selections.
+	 */
+	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
+	{
+		String filter = ( String )twe.getCell( 0 , rowIndex );
+		String lambda = ( String )twe.getCell( 1 , rowIndex );
 
-      String filter = (String) twe.getCell( 0, rowIndex );
-      String lambda = (String) twe.getCell( 1, rowIndex );
-//    System.out.println ( "Tab Watcher called" );
+		// Don't set the value if the new selection is the same as the old
+		// (otherwise, we'd fool the OT into thinking a change had been made).
+		String curValue = _instUFTI.getFilter();
+		if( ( curValue != null ) && ( curValue.equals( filter ) ) )
+			return;
 
-// Don't set the value if the new selection is the same as the old
-// (otherwise, we'd fool the OT into thinking a change had been made).
-      String curValue = _instUFTI.getFilter();
-      if ( ( curValue != null ) && ( curValue.equals( filter ) ) ) {
-         return;
-      }
+		// Set filter and also set the lambda instrument aperture value.
+		_instUFTI.setFilter( filter );
+		_instUFTI.setInstApL( lambda );
 
-// Set filter and also set the lambda instrument aperture value.
-      _instUFTI.setFilter( filter );
-      _instUFTI.setInstApL( lambda );
+		TextBoxWidgetExt stw = ( TextBoxWidgetExt )_w.filter;
+		stw.setText( filter );
+		_instUFTI.useDefaultAcquisition();
+		_updateExpWidgets();
+		_updateExpInfo();
+	}
 
-      TextBoxWidgetExt stw = (TextBoxWidgetExt) _w.filter;
-      stw.setText(filter );
-      _instUFTI.useDefaultAcquisition();
-      _updateExpWidgets();
-      _updateExpInfo();
-   }
+	/**
+	 * Must watch table widget actions as part of the TableWidgetWatcher
+	 * interface, but don't care about them.
+	 */
+	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ){}
 
-/**
- * Must watch table widget actions as part of the TableWidgetWatcher
- * interface, but don't care about them.
- */
-   public void tableAction( TableWidgetExt twe, int colIndex, int rowIndex ) {}
+	/**
+	 * The given filter list was selected.  Show it, and if the current
+	 * filter is in the list, highlight it.
+	 */
+	private void _selectFilterType( LookUpTable farray )
+	{
+		_showFilterType( farray );
+		String filter = _instUFTI.getFilter();
+		if( filter != null )
+		{
+			int index = _getFilterIndex( filter , farray );
+			if( index != -1 )
+			{
+				TableWidgetExt tw = ( TableWidgetExt )_w.filterTable;
+				tw.selectRowAt( index );
+				tw.focusAtRow( index );
+			}
+		}
+	}
 
-/**
- * The given filter list was selected.  Show it, and if the current
- * filter is in the list, highlight it.
- */
-   private void _selectFilterType( LookUpTable farray ) {
-      _showFilterType( farray );
-      String filter = _instUFTI.getFilter();
-      if ( filter != null ) {
-         int index = _getFilterIndex( filter, farray );
-         if ( index != -1 ) {
-            TableWidgetExt tw = (TableWidgetExt) _w.filterTable;
-            tw.selectRowAt( index );
-            tw.focusAtRow( index );
-         }
-      }
-   }
-
-
-/**
+	/**
 	 *
 	 */
 	public void actionPerformed( ActionEvent evt )
@@ -429,8 +445,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		{
 			DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
 			_instUFTI.setAcqMode( ddlbw.getStringValue() );
-			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
-			_updateExpWidgets() ;
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() );
+			_updateExpWidgets();
 		}
 		else if( _w.readoutArea == w )
 		{
@@ -440,9 +456,9 @@ public final class EdCompInstUFTI extends EdCompInstBase
 			TelescopePosEditor tpe = TpeManager.get( _instUFTI );
 			if( tpe != null )
 				tpe.repaint();
-			
-			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
-			_updateExpWidgets() ;
+
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() );
+			_updateExpWidgets();
 		}
 		else if( _w.filterBroadBand == w )
 		{
@@ -458,69 +474,71 @@ public final class EdCompInstUFTI extends EdCompInstBase
 		}
 	}
 
-   /** Return the position angle text box */
-   public TextBoxWidgetExt getPosAngleTextBox() {
-     // UFTI does not have a position angle text box.
-     return new TextBoxWidgetExt();
-   }
-
-   /** Return the exposure time text box */
-	public TextBoxWidgetExt getExposureTimeTextBox()
+	/** Return the position angle text box */
+	public TextBoxWidgetExt getPosAngleTextBox()
 	{
-		return null ; // _w.exposureTime;
+		// UFTI does not have a position angle text box.
+		return new TextBoxWidgetExt();
 	}
 
-   /** Return the coadds text box, or null if not available. */
-   public TextBoxWidgetExt getCoaddsTextBox() {
-     return _w.coadds;
-   }
+	/** Return the exposure time text box */
+	public TextBoxWidgetExt getExposureTimeTextBox()
+	{
+		return null; // _w.exposureTime;
+	}
 
-   private boolean checkExposureTimes( String candidate )
-   {
-	   boolean returnValue = false ;
-	   if( candidate.matches( "\\d*\\.?\\d*" ) && !candidate.equals( "" ) )
-	   {		   
-		   String[][] exposureTimeLimits = SpInstUFTI.EXPTIME_LIMITS ;
-		   int readout = 0 ;
-		   int acquisition = 1 ;
-		   int min = 2 ;
-		   int max = 3 ;
-		   boolean found = false ;
-		   double minExposure = 0. ;
-		   double maxExposure = 0. ;
-		   // only along one dimension for no apparent reason
-		   for( int i = 0 ; i < exposureTimeLimits.length ; i++ )
-		   {
-			   String[] current = exposureTimeLimits[ i ] ;
-			   if( current[ readout ].equals( _instUFTI.getReadoutArea() ) )
-			   {
-				   if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
-				   {
-					   minExposure = new Double( current[ min ] ).doubleValue() ;
-					   maxExposure = new Double( current[ max ] ).doubleValue() ;
-					   found = true ;
-					   break ;
-				   }
-			   }
-		   }
-		   if( found )
-		   {
-			   double candidateDouble = new Double( candidate ).doubleValue() ;
-			   if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
-			   {
-				   // the following setExpTime is redundant BUT may com in useful later
-				   _instUFTI.setExposureTime( candidateDouble ) ;
-				   returnValue = true ;
-			   }
-			   else
-			   {
-				   if( minExposure > candidateDouble )
-					   _instUFTI.setExposureTime( minExposure ) ;
-				   else
-					   _instUFTI.setExposureTime( maxExposure ) ;
-			   }
-		   }	
-	   }
-	   return returnValue ;
-   }
+	/** Return the coadds text box, or null if not available. */
+	public TextBoxWidgetExt getCoaddsTextBox()
+	{
+		return _w.coadds;
+	}
+
+	private boolean checkExposureTimes( String candidate )
+	{
+		boolean returnValue = false;
+		if( candidate.matches( "\\d*\\.?\\d*" ) && !candidate.equals( "" ) )
+		{
+			String[][] exposureTimeLimits = SpInstUFTI.EXPTIME_LIMITS;
+			int readout = 0;
+			int acquisition = 1;
+			int min = 2;
+			int max = 3;
+			boolean found = false;
+			double minExposure = 0.;
+			double maxExposure = 0.;
+			// only along one dimension for no apparent reason
+			for( int i = 0 ; i < exposureTimeLimits.length ; i++ )
+			{
+				String[] current = exposureTimeLimits[ i ];
+				if( current[ readout ].equals( _instUFTI.getReadoutArea() ) )
+				{
+					if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
+					{
+						minExposure = new Double( current[ min ] ).doubleValue();
+						maxExposure = new Double( current[ max ] ).doubleValue();
+						found = true;
+						break;
+					}
+				}
+			}
+			if( found )
+			{
+				double candidateDouble = new Double( candidate ).doubleValue();
+				if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
+				{
+					// the following setExpTime is redundant BUT may com in useful later
+					_instUFTI.setExposureTime( candidateDouble );
+					returnValue = true;
+				}
+				else
+				{
+					if( minExposure > candidateDouble )
+						_instUFTI.setExposureTime( minExposure );
+					else
+						_instUFTI.setExposureTime( maxExposure );
+				}
+			}
+		}
+		return returnValue;
+	}
 }

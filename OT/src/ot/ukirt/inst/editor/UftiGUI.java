@@ -1,4 +1,3 @@
-
 /**
  * Title:        JSky<p>
  * Description:  <p>
@@ -9,68 +8,71 @@
  */
 package ot.ukirt.inst.editor;
 
-import java.awt.GridBagLayout ;
-import java.awt.Color ;
-import java.awt.Dimension ;
-import java.awt.GridBagConstraints ;
-import java.awt.Insets ;
+import java.awt.GridBagLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
-import javax.swing.JLabel ;
-import javax.swing.JPanel ;
-import javax.swing.JScrollPane ;
-import javax.swing.BorderFactory ;
-import javax.swing.border.TitledBorder ;
-import javax.swing.border.EtchedBorder ;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
-import jsky.app.ot.gui.TextBoxWidgetExt ;
-import jsky.app.ot.gui.OptionWidgetExt ;
-import jsky.app.ot.gui.TableWidgetExt ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.OptionWidgetExt;
+import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
 
+public class UftiGUI extends JPanel
+{
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	JLabel jLabel1 = new JLabel();
+	JLabel exposureTimeLabel = new JLabel();
+	DropDownListBoxWidgetExt readoutArea = new DropDownListBoxWidgetExt();
+	TextBoxWidgetExt exposureTime = new TextBoxWidgetExt();
+	JLabel jLabel3 = new JLabel();
+	JLabel jLabel4 = new JLabel();
+	DropDownListBoxWidgetExt sourceMag = new DropDownListBoxWidgetExt();
+	JLabel jLabel5 = new JLabel();
+	DropDownListBoxWidgetExt acqMode = new DropDownListBoxWidgetExt();
+	JLabel jLabel6 = new JLabel();
+	TextBoxWidgetExt coadds = new TextBoxWidgetExt();
+	JLabel jLabel8 = new JLabel();
+	JLabel jLabel10 = new JLabel();
+	TextBoxWidgetExt scienceFOV = new TextBoxWidgetExt();
+	JLabel jLabel11 = new JLabel();
+	JPanel jPanel1 = new JPanel();
+	TitledBorder titledBorder1;
+	GridBagLayout gridBagLayout2 = new GridBagLayout();
+	JLabel jLabel12 = new JLabel();
+	JLabel jLabel14 = new JLabel();
+	OptionWidgetExt filterBroadBand = new OptionWidgetExt();
+	OptionWidgetExt filterNarrowBand = new OptionWidgetExt();
+	OptionWidgetExt filterSpecial = new OptionWidgetExt();
+	JScrollPane jScrollPane1 = new JScrollPane();
+	TableWidgetExt filterTable = new TableWidgetExt();
+	JLabel jLabel13 = new JLabel();
+	DropDownListBoxWidgetExt polariser = new DropDownListBoxWidgetExt();
+	CommandButtonWidgetExt defaultAcquisition = new CommandButtonWidgetExt();
+	TextBoxWidgetExt filter = new TextBoxWidgetExt();
 
-public class UftiGUI extends JPanel {
-    GridBagLayout gridBagLayout1 = new GridBagLayout();
-    JLabel jLabel1 = new JLabel();
-    JLabel exposureTimeLabel = new JLabel();
-    DropDownListBoxWidgetExt readoutArea = new DropDownListBoxWidgetExt();
-    TextBoxWidgetExt exposureTime = new TextBoxWidgetExt();
-    JLabel jLabel3 = new JLabel();
-    JLabel jLabel4 = new JLabel();
-    DropDownListBoxWidgetExt sourceMag = new DropDownListBoxWidgetExt();
-    JLabel jLabel5 = new JLabel();
-    DropDownListBoxWidgetExt acqMode = new DropDownListBoxWidgetExt();
-    JLabel jLabel6 = new JLabel();
-    TextBoxWidgetExt coadds = new TextBoxWidgetExt();
-    JLabel jLabel8 = new JLabel();
-    JLabel jLabel10 = new JLabel();
-    TextBoxWidgetExt scienceFOV = new TextBoxWidgetExt();
-    JLabel jLabel11 = new JLabel();
-    JPanel jPanel1 = new JPanel();
-    TitledBorder titledBorder1;
-    GridBagLayout gridBagLayout2 = new GridBagLayout();
-    JLabel jLabel12 = new JLabel();
-    JLabel jLabel14 = new JLabel();
-    OptionWidgetExt filterBroadBand = new OptionWidgetExt();
-    OptionWidgetExt filterNarrowBand = new OptionWidgetExt();
-    OptionWidgetExt filterSpecial = new OptionWidgetExt();
-    JScrollPane jScrollPane1 = new JScrollPane();
-    TableWidgetExt filterTable = new TableWidgetExt();
-  JLabel jLabel13 = new JLabel();
-  DropDownListBoxWidgetExt polariser = new DropDownListBoxWidgetExt();
-  CommandButtonWidgetExt defaultAcquisition = new CommandButtonWidgetExt();
-  TextBoxWidgetExt filter = new TextBoxWidgetExt();
+	public UftiGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception ex )
+		{
+			ex.printStackTrace();
+		}
+	}
 
-    public UftiGUI() {
-        try {
-            jbInit();
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    void jbInit() throws Exception
+	void jbInit() throws Exception
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Filter" );
 		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );

@@ -1,7 +1,7 @@
 package ot.ukirt.inst.editor;
 
-import java.awt.event.*;
-import javax.swing.event.*;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -13,81 +13,91 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 /**
-  * This is the editor for the Wavefront Sensor instrument.
-  */
+ * This is the editor for the Wavefront Sensor instrument.
+ */
 
-public final class EdCompInstWFS extends EdCompInstBase implements ActionListener{
+public final class EdCompInstWFS extends EdCompInstBase implements ActionListener
+{
+	private EdStareCapability _edStareCapability;
+	private SpInstWFS _inst;
+	private WfsGUI _w;
+	boolean _ignoreActions = false;
 
-    private EdStareCapability _edStareCapability;
-    private SpInstWFS         _inst;
-    private WfsGUI            _w;
-    boolean _ignoreActions = false;
+	public EdCompInstWFS()
+	{
+		_title = "UKIRT Wavefront Sensor";
+		_presSource = _w = new WfsGUI();
+		_description = "The WFS instrument is configured with this component";
+		_edStareCapability = new EdStareCapability();
 
-    public EdCompInstWFS() {
-        _title       = "UKIRT Wavefront Sensor";
-        _presSource  = _w = new WfsGUI();
-        _description = "The WFS instrument is configured with this component";
-        _edStareCapability = new EdStareCapability();
+		_w.expTimeTextBox.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				_inst.setExpTime( _w.expTimeTextBox.getText() );
+			}
 
-        _w.expTimeTextBox.addWatcher( new TextBoxWidgetWatcher() {
-                public void textBoxKeyPress( TextBoxWidgetExt tbw ) {
-                  _inst.setExpTime( _w.expTimeTextBox.getText() );
-                } 
-                public void textBoxAction(TextBoxWidgetExt tbw) {}
-                });
-        
-        _w.coaddsTextBox.addWatcher( new TextBoxWidgetWatcher() {
-                public void textBoxKeyPress( TextBoxWidgetExt tbw ) {
-                  _inst.setCoadds( _w.coaddsTextBox.getText() );
-                } 
-                public void textBoxAction(TextBoxWidgetExt tbw) {}
-                });
+			public void textBoxAction( TextBoxWidgetExt tbw ){}
+		} );
 
-        DefaultComboBoxModel cModel = new DefaultComboBoxModel(
-                SpInstWFS.LENS_POS);
-        _w.lensPosComboBox.setModel(cModel);
-        _w.lensPosComboBox.addActionListener(this);
-    }
+		_w.coaddsTextBox.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				_inst.setCoadds( _w.coaddsTextBox.getText() );
+			}
 
-    public void setup(SpItem item) {
-        _inst = (SpInstWFS)item;
-        super.setup(item);
-    }
+			public void textBoxAction( TextBoxWidgetExt tbw ){}
+		} );
 
-    protected void _updateWidgets() {
-        _ignoreActions = true;
+		DefaultComboBoxModel cModel = new DefaultComboBoxModel( SpInstWFS.LENS_POS );
+		_w.lensPosComboBox.setModel( cModel );
+		_w.lensPosComboBox.addActionListener( this );
+	}
 
-        _w.expTimeTextBox.setText("" + _inst.getExpTime() );
-        _w.coaddsTextBox.setText("" + _inst.getCoadds() );
+	public void setup( SpItem item )
+	{
+		_inst = ( SpInstWFS )item;
+		super.setup( item );
+	}
 
-        _w.lensPosComboBox.setSelectedItem( _inst.getLensPos() );
+	protected void _updateWidgets()
+	{
+		_ignoreActions = true;
 
-        super._updateWidgets();
+		_w.expTimeTextBox.setText( "" + _inst.getExpTime() );
+		_w.coaddsTextBox.setText( "" + _inst.getCoadds() );
 
-        _ignoreActions = false;
-    }
+		_w.lensPosComboBox.setSelectedItem( _inst.getLensPos() );
 
-    public TextBoxWidgetExt getCoaddsTextBox() {
-        return _w.coaddsTextBox;
-    }
+		super._updateWidgets();
 
-    public TextBoxWidgetExt getExposureTimeTextBox() {
-        return _w.expTimeTextBox;
-    }
+		_ignoreActions = false;
+	}
 
-    public TextBoxWidgetExt getPosAngleTextBox() {
-        return new TextBoxWidgetExt();
-    }
+	public TextBoxWidgetExt getCoaddsTextBox()
+	{
+		return _w.coaddsTextBox;
+	}
 
-    public void actionPerformed(ActionEvent e) {
-        if ( ! _ignoreActions ) {
-            if ( e.getSource() == _w.lensPosComboBox ) {
-                _inst.setLensPos( (String)_w.lensPosComboBox.getSelectedItem() );
-            }
-            else {
-                System.out.println("actionPerformed on unknown widget");
-            }
-        }
-    }
+	public TextBoxWidgetExt getExposureTimeTextBox()
+	{
+		return _w.expTimeTextBox;
+	}
 
+	public TextBoxWidgetExt getPosAngleTextBox()
+	{
+		return new TextBoxWidgetExt();
+	}
+
+	public void actionPerformed( ActionEvent e )
+	{
+		if( !_ignoreActions )
+		{
+			if( e.getSource() == _w.lensPosComboBox )
+				_inst.setLensPos( ( String )_w.lensPosComboBox.getSelectedItem() );
+			else
+				System.out.println( "actionPerformed on unknown widget" );
+		}
+	}
 }

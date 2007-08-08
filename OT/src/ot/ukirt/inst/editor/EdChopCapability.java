@@ -9,152 +9,91 @@ package ot.ukirt.inst.editor;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpChopCapability;
 
-import javax.swing.*;
+import javax.swing.JComponent ;
 import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
-
 
 /**
  * Support for exposures/chop pos, chop cycles/nod, and nod cycles/obs.
  */
 public class EdChopCapability
 {
+	/**
+	 * Get the SpChopCapability from an item editor.
+	 */
+	private SpChopCapability _getChopCap( OtItemEditor itemEditor )
+	{
+		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem();
+		String name = SpChopCapability.CAPABILITY_NAME;
+		return ( SpChopCapability )spInst.getCapability( name );
+	}
 
-/**
- * Get the SpChopCapability from an item editor.
- */
-private SpChopCapability
-_getChopCap(OtItemEditor itemEditor)
-{
-   SpInstObsComp spInst = (SpInstObsComp) itemEditor.getCurrentSpItem();
-   String name = SpChopCapability.CAPABILITY_NAME;
-   return (SpChopCapability) spInst.getCapability(name);
+	/**
+	 * This method initializes the widgets in the presentation to reflect the
+	 * current values of the chopping attributes.
+	 */
+	protected void _init( final EdCompInstBase gw , final OtItemEditor itemEditor )
+	{
+		TextBoxWidgetExt tbwe;
+
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" );
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_getChopCap( itemEditor ).setExposuresPerChopPosition( tbwe.getText() );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+		} );
+
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" );
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_getChopCap( itemEditor ).setCyclesPerObserve( tbwe.getText() );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+		} );
+	}
+
+	/**
+	 * Override _updateWidgets to show the value of the chopping attributes.
+	 */
+	protected void _updateWidgets( EdCompInstBase gw , SpChopCapability chopCap )
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" );
+		tbwe.setText( chopCap.getExposuresPerChopPositionAsString() );
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" );
+		tbwe.setText( chopCap.getCyclesPerObserveAsString() );
+	}
+
+	/**
+	 * Helper method.
+	 *
+	 * @see ot.ukirt.inst.editor.EdDRRecipe#getWidget(String, String)
+	 */
+	protected JComponent getWidget( EdCompInstBase gw , String widgetName )
+	{
+		try
+		{
+			return ( JComponent )( gw.getClass().getDeclaredField( widgetName ).get( gw ) );
+		}
+		catch( NoSuchFieldException e )
+		{
+			if( ( System.getProperty( "DEBUG" ) != null ) && System.getProperty( "DEBUG" ).equalsIgnoreCase( "ON" ) )
+				System.out.println( "Could not find widget / component \"" + widgetName + "\"." );
+
+			return null;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
-
-/**
- * This method initializes the widgets in the presentation to reflect the
- * current values of the chopping attributes.
- */
-protected void
-_init(final EdCompInstBase gw, final OtItemEditor itemEditor)
-{
-   CheckBoxWidgetExt cbwe;
-
-/*
-   cbwe = (CheckBoxWidgetExt) getWidget(gw, "nodding");
-   cbwe.addWatcher( new CheckBoxWidgetWatcher() {
-      public void checkBoxAction(CheckBoxWidgetExt cbwe) {
-         boolean nodding = cbwe.getBooleanValue();
-         SpChopCapability chopCap = _getChopCap(itemEditor);
-         chopCap.setNodding(nodding);
-         _updateWidgets(gw, chopCap);
-      }
-   });
-*/
-   TextBoxWidgetExt tbwe;
-
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "expPerChopPos");
-   tbwe.addWatcher( new TextBoxWidgetWatcher() {
-      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-         _getChopCap(itemEditor).setExposuresPerChopPosition(tbwe.getText());
-      }
-
-      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-   });
-/*
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "chopCyclesPerNod");
-   tbwe.addWatcher( new TextBoxWidgetWatcher() {
-      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-         _getChopCap(itemEditor).setChopCyclesPerNod(tbwe.getText());
-      }
-
-      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-   });
-*/
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "cyclesPerObs");
-   tbwe.addWatcher( new TextBoxWidgetWatcher() {
-      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-         _getChopCap(itemEditor).setCyclesPerObserve(tbwe.getText());
-      }
-
-      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-   });
-}
-
-/**
- * Update the chop control widgets that depend upon the value of the
- * nodding? attribute.
- */
-/*protected void
-_updateNoddingWidgets(GroupWidget gw, boolean nodding)
-{
-   TextBoxWidgetExt tbwe;
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "chopCyclesPerNod");
-   tbwe.setDisabled(!nodding);
-
-   StaticTextWidget stw;
-   stw = (StaticTextWidget) getWidget(gw, "cyclesPerObsLabel");
-   if (nodding) {
-      stw.setText("(nod cycles/obs)");
-   } else {
-      stw.setText("(chop cycles/obs)");
-   }
-}
-*/
-/**
- * Override _updateWidgets to show the value of the chopping attributes.
- */
-protected void
-_updateWidgets(EdCompInstBase gw, SpChopCapability chopCap)
-{
-/*
-   boolean nodding = chopCap.getNodding();
-
-   CheckBoxWidgetExt cbwe;
-   cbwe = (CheckBoxWidgetExt) getWidget(gw, "nodding");
-   cbwe.setValue( nodding );
-   _updateNoddingWidgets(gw, nodding);
-*/
-   TextBoxWidgetExt tbwe;
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "expPerChopPos");
-   tbwe.setText( chopCap.getExposuresPerChopPositionAsString() );
-/*
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "chopCyclesPerNod");
-   if (nodding) {
-      tbwe.setText( chopCap.getChopCyclesPerNodAsString() );
-   } else {
-      tbwe.setText( "" );
-   }
-*/
-   tbwe = (TextBoxWidgetExt) getWidget(gw, "cyclesPerObs");
-   tbwe.setText( chopCap.getCyclesPerObserveAsString() );
-}
-
-   /**
-    * Helper method.
-    *
-    * @see ot.ukirt.inst.editor.EdDRRecipe#getWidget(String, String)
-    */
-   protected JComponent getWidget(EdCompInstBase gw, String widgetName) {
-     try {
-       return (JComponent)(gw.getClass().getDeclaredField(widgetName).get(gw));
-     }
-     catch(NoSuchFieldException e) {
-       if((System.getProperty("DEBUG") != null) && System.getProperty("DEBUG").equalsIgnoreCase("ON")) {
-         System.out.println ("Could not find widget / component \"" + widgetName + "\".");
-       }
-
-       return null;
-     }
-     catch(Exception e) {
-       e.printStackTrace();
-       return null;
-     }
-   }
-
-
-}
-

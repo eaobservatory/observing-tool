@@ -18,14 +18,13 @@ import jsky.app.ot.util.PolygonD;
  */
 public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 {
-
 	/**
 	 * Usable width of autoguider CCD in arcseconds.
 	 * 
 	 * The usable width can be smaller than the actual width 
 	 * if the edge of the CCD should not be used for guiding.
 	 */
-	public static final double AUTOGUIDER_WIDTH = 230.0;
+	public static final double AUTOGUIDER_WIDTH = 230. ;
 
 	/**
 	 * Usable height of autoguider CCD in arcseconds.
@@ -33,13 +32,13 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	 * The usable height can be smaller than the actual height 
 	 * if the edge of the CCD should not be used for guiding.
 	 */
-	public static final double AUTOGUIDER_HEIGHT = 230.0;
+	public static final double AUTOGUIDER_HEIGHT = 230. ;
 
 	/**
 	 * Autoguider CCD angle in degrees.
 	 * Apparently it wasn't installed straight.
 	 */
-	public static final double AUTOGUIDER_ANGLE = 46.8 ;
+	public static final double AUTOGUIDER_ANGLE = 46.8;
 
 	private PolygonD _autoguiderAreaPD;
 
@@ -67,28 +66,30 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	/**
 	 * Calculate the polygon describing the screen location of the science area.
 	 */
-	double[] xOffsets = { 550. , 0. , -550. , 0. } ;
-	double[] yOffsets = { 0. , 550. , 0 , -550. } ;
+	double[] xOffsets = { 550. , 0. , -550. , 0. };
+
+	double[] yOffsets = { 0. , 550. , 0 , -550. };
+
 	private void _calc( FitsImageInfo fii , int i )
 	{
 		if( _autoguiderAreaPD == null )
 		{
 			_autoguiderAreaPD = new PolygonD();
-			_autoguiderAreaPD.xpoints = new double[ 5 ] ;
-			_autoguiderAreaPD.ypoints = new double[ 5 ] ;
-			_autoguiderAreaPD.npoints = 5 ;
+			_autoguiderAreaPD.xpoints = new double[ 5 ];
+			_autoguiderAreaPD.ypoints = new double[ 5 ];
+			_autoguiderAreaPD.npoints = 5;
 		}
 
 		double[] xpoints = _autoguiderAreaPD.xpoints;
 		double[] ypoints = _autoguiderAreaPD.ypoints;
 
-		double xOffset = xOffsets[ i ] ;
-		double yOffset = yOffsets[ i ] ;
-		double x = ( double )fii.baseScreenPos.x + ( xOffset * fii.pixelsPerArcsec ) ;
-		double y = ( double )fii.baseScreenPos.y + ( yOffset * fii.pixelsPerArcsec ) ;
+		double xOffset = xOffsets[ i ];
+		double yOffset = yOffsets[ i ];
+		double x = ( double )fii.baseScreenPos.x + ( xOffset * fii.pixelsPerArcsec );
+		double y = ( double )fii.baseScreenPos.y + ( yOffset * fii.pixelsPerArcsec );
 
-		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2.0;
-		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2.0;
+		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2. ;
+		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2. ;
 
 		xpoints[ 0 ] = x - w;
 		xpoints[ 1 ] = x + w;
@@ -117,12 +118,11 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	 */
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
-		g.setColor( Color.magenta ) ;
+		g.setColor( Color.magenta );
 		for( int i = 0 ; i < 4 ; i++ )
 		{
-			_calc( fii , i ) ;
-			g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() ) ;
+			_calc( fii , i );
+			g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() );
 		}
 	}
-
 }

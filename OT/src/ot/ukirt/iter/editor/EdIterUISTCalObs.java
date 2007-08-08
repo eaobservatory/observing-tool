@@ -12,23 +12,11 @@
 //
 package ot.ukirt.iter.editor;
 
-import java.util.*;
-
-import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.iter.SpIterUISTCalObs;
-import orac.ukirt.iter.SpUISTCalConstants;
-import orac.util.LookUpTable;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
@@ -41,307 +29,268 @@ import jsky.app.ot.editor.OtItemEditor;
 /**
  * This is the editor for the UIST Calibration Observation iterator.
  */
-public final class EdIterUISTCalObs extends OtItemEditor
-                     implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher, ActionListener
+public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
+	/** Identifier for a FLAT calibration. */
+	public static final int FLAT = 0;
 
-   private SpItem   _baseItem;
+	/** Identifier for an ARC calibration. */
+	public static final int ARC = 1;
 
-   /** Identifier for a FLAT calibration. */
-   public static final int FLAT = 0;
+	private IterUISTCalObsGUI _w; // the GUI layout
 
-   /** Identifier for an ARC calibration. */
-   public static final int ARC  = 1;
+	/**
+	 * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
+	 * action events caused by initializing widgets.
+	 */
+	private boolean _ignoreActionEvents = false;
 
-   private SpIterUISTCalObs _calUIST;
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdIterUISTCalObs()
+	{
+		_title = "UIST Cal Observation";
+		_presSource = _w = new IterUISTCalObsGUI();
+		_description = "Configure UIST's Calibration with this component.";
 
-   private IterUISTCalObsGUI _w;		// the GUI layout
+		for( int i = 0 ; i < 100 ; i++ )
+			_w.repeatComboBox.addItem( "" + ( i + 1 ) );
 
-   /**
-    * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
-    * action events caused by initializing widgets.
-    */
-   private boolean _ignoreActionEvents = false;
+		_w.calType.addActionListener( this );
+		_w.arc_source.addActionListener( this );
+		_w.flat_source.addActionListener( this );
+		_w.repeatComboBox.addActionListener( this );
+		_w.useDefaults.addActionListener( this );
+	}
 
-/**
- * The constructor initializes the title, description, and presentation source.
- */
-public EdIterUISTCalObs()
-{
-   _title       ="UIST Cal Observation";
-   _presSource  = _w = new IterUISTCalObsGUI();
-   _description ="Configure UIST's Calibration with this component.";
+	/**
+	 */
+	protected void _init()
+	{
+		_ignoreActionEvents = true;
 
-   for(int i = 0; i < 100; i++) {
-     _w.repeatComboBox.addItem("" + (i + 1));
-   }
+		DropDownListBoxWidgetExt ddlbw;
+		CommandButtonWidgetExt cbw;
 
-   _w.calType.addActionListener(this);
-   _w.arc_source.addActionListener(this);
-   _w.flat_source.addActionListener(this);
-   _w.repeatComboBox.addActionListener(this);
-   _w.useDefaults.addActionListener(this);
-}
+		// Set the calibration choices
+		ddlbw = ( DropDownListBoxWidgetExt )_w.calType;
 
-/**
- */
-protected void
-_init()
-{
-   _ignoreActionEvents = true;
+		TextBoxWidgetExt tbw;
 
-   DropDownListBoxWidgetExt ddlbw;
-   CommandButtonWidgetExt cbw;
+		// Exposure time
+		tbw = ( TextBoxWidgetExt )_w.exposureTime;
+		tbw.addWatcher( this );
 
-   SpIterUISTCalObs ico = (SpIterUISTCalObs) _spItem;
+		// Observation time
+		tbw = ( TextBoxWidgetExt )_w.observationTime;
 
-   // Set the calibration choices
-   ddlbw = (DropDownListBoxWidgetExt) _w.calType;
+		// Flat source
+		ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source;
 
-   TextBoxWidgetExt tbw;
+		// arc source
+		ddlbw = ( DropDownListBoxWidgetExt )_w.arc_source;
 
-   // Exposure time
-   tbw = (TextBoxWidgetExt) _w.exposureTime;
-   tbw.addWatcher( this );
+		// Coadds
+		tbw = ( TextBoxWidgetExt )_w.coadds;
+		// Added watcher to coadds (RDK)
+		tbw.addWatcher( this );
 
-   // Observation time
-   tbw = (TextBoxWidgetExt) _w.observationTime;
-// Removed watcher from observationTime (RDK)
-//   tbw.addWatcher( this );
+		// default button
+		cbw = ( CommandButtonWidgetExt )_w.useDefaults;
 
-   // Flat source
-   ddlbw = (DropDownListBoxWidgetExt) _w.flat_source;
+		super._init();
 
-   // arc source
-   ddlbw = (DropDownListBoxWidgetExt) _w.arc_source;
+		_ignoreActionEvents = false;
+	}
 
-   // Coadds
-   tbw = (TextBoxWidgetExt) _w.coadds;
-// Added watcher to coadds (RDK)
-   tbw.addWatcher( this );
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
 
-   // default button
-   cbw = (CommandButtonWidgetExt) _w.useDefaults;
+	protected void _updateWidgets()
+	{
+		_updateWidgets( null );
+	}
 
-   super._init();
+	protected void _updateWidgets( Object source )
+	{
+		_ignoreActionEvents = true;
 
-   _ignoreActionEvents = false;
-}
+		DropDownListBoxWidgetExt ddlbw;
 
-/**
- * Implements the _updateWidgets method from OtItemEditor in order to
- * setup the widgets to show the current values of the item.
- */
+		SpIterUISTCalObs ico = ( SpIterUISTCalObs )_spItem;
 
-protected void _updateWidgets()
-{
-    _updateWidgets(null);
-}
+		// Get the choices and defaults from the instrument.
 
-protected void
-_updateWidgets(Object source)
-{
-   _ignoreActionEvents = true;
+		// Check the calType and reset if this is Arc and UIST is now imaging
+		if( ico.isImaging() && ico.getCalTypeString().equalsIgnoreCase( "Arc" ) )
+		{
+			ico.setCalType( "Flat" );
+			ico.useDefaults();
+		}
 
-   DropDownListBoxWidgetExt ddlbw;
+		// Update calType selection box
+		ddlbw = ( DropDownListBoxWidgetExt )_w.calType;
+		ddlbw.setChoices( ico.getCalTypeChoices() );
+		ddlbw.setValue( ico.getCalTypeString() );
 
-   SpIterUISTCalObs ico = (SpIterUISTCalObs) _spItem;
+		// Observe repetitions
+		_w.repeatComboBox.setValue( ico.getCount() - 1 );
 
-   // Get the choices and defaults from the instrument.
+		TextBoxWidgetExt tbw;
 
-   // Check the calType and reset if this is Arc and UIST is now imaging
-   if (ico.isImaging() && ico.getCalTypeString().equalsIgnoreCase("Arc")) {
-       ico.setCalType("Flat");
-       ico.useDefaults();
-   }
+		// Exposure time
+		if( _w.exposureTime != source )
+		{
+			tbw = ( TextBoxWidgetExt )_w.exposureTime;
+			String expTimeStr = ico.getExpTimeOTString();
+			tbw.setValue( expTimeStr );
+		}
 
-   // Update calType selection box
-   ddlbw = (DropDownListBoxWidgetExt) _w.calType;
-   ddlbw.setChoices( ico.getCalTypeChoices() );
-   ddlbw.setValue( ico.getCalTypeString() );
+		// Added by RDK
+		if( _w.coadds != source )
+		{
+			tbw = ( TextBoxWidgetExt )_w.coadds;
+			tbw.setValue( ico.getCoaddsString() );
+		}
 
-   // Observe repetitions
-   _w.repeatComboBox.setValue( ico.getCount() - 1);
+		// Deal with Flat and Arc according to state of inst & caltype
+		if( ico.getCalType() == FLAT )
+		{
+			// MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
+			( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" );
 
-   TextBoxWidgetExt tbw;
+			ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source;
+			ddlbw.setChoices( ico.getFlatSourceChoices() );
+			ddlbw.setValue( ico.getFlatSource() );
+		}
+		else
+		{
+			// DAP: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
+			( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "ARC" );
 
-   // Exposure time
-   if(_w.exposureTime != source) {
-       tbw = (TextBoxWidgetExt) _w.exposureTime;
-       String expTimeStr = ico.getExpTimeOTString();
-       tbw.setValue(expTimeStr  );
-   }
+			ddlbw = ( DropDownListBoxWidgetExt )_w.arc_source;
+			ddlbw.setChoices( ico.getArcSourceChoices() );
+			ddlbw.setValue( ico.getArcSource() );
+		}
 
-// Added by RDK
-   if(_w.coadds != source) {
-       tbw = (TextBoxWidgetExt) _w.coadds;
-       tbw.setValue( ico.getCoaddsString() );
-   }
-// End of added by RDK
-   // Observation time
-// Commented by RDK
-//    if(_w.observationTime != source) {
-//        tbw = (TextBoxWidgetExt) _w.observationTime;
-//        tbw.setValue( ico.getObsTimeOT() );
-//    }
-// End of commented by RDK
-   // Deal with Flat and Arc according to state of inst & caltype
-   if (ico.getCalType() == FLAT) {
-     // MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
-     ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "FLAT");
+		// Update data acquisition config
+		ico.updateDAConf();
 
-     ddlbw = (DropDownListBoxWidgetExt) _w.flat_source;
-     ddlbw.setChoices (ico.getFlatSourceChoices());
-     ddlbw.setValue( ico.getFlatSource() );
-   }else{
-     // DAP: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
-     ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "ARC");
+		// Added by RDK
+		tbw = ( TextBoxWidgetExt )_w.observationTime;
+		tbw.setValue( ico.getObservationTimeString() );
+		// End of added by RDK
 
-     ddlbw = (DropDownListBoxWidgetExt) _w.arc_source;
-     ddlbw.setChoices (ico.getArcSourceChoices());
-     ddlbw.setValue( ico.getArcSource() );
-   }
+		// Added by RDK
+		tbw = ( TextBoxWidgetExt )_w.filter;
+		tbw.setValue( ico.getFilter() );
+		// End of added by RDK
 
-   // Update data acquisition config
-   ico.updateDAConf();
+		_ignoreActionEvents = false;
+	}
 
-// Added by RDK
-   tbw = (TextBoxWidgetExt) _w.observationTime;
-   tbw.setValue( ico.getObservationTimeString() );
-// End of added by RDK
+	/**
+	 * Watch changes to text box widgets.
+	 */
+	public void textBoxKeyPress( TextBoxWidgetExt tbw )
+	{
+		SpIterUISTCalObs ico = ( SpIterUISTCalObs )_spItem;
+		if( tbw == _w.exposureTime )
+		{
+			try
+			{
+				String ets = tbw.getText();
+				double et = Double.parseDouble( ets );
+				if( et > 0.00001 )
+				{
+					ico.setExpTimeOT( ets );
+					_updateWidgets( _w.exposureTime );
+				}
+			}
+			catch( Exception ex )
+			{
+				// ignore
+			}
+		}
+		else if( tbw == _w.coadds )
+		{
+			try
+			{
+				String coaddsString = tbw.getText();
+				int coadds = Integer.parseInt( coaddsString );
+				if( coadds > 0 )
+				{
+					ico.setCoadds( coadds );
+					_updateWidgets( _w.coadds );
+				}
+			}
+			catch( Exception ex )
+			{
+				// ignore
+			}
+		}
+		// End of added by RDK
+	}
 
-// Added by RDK
-   tbw = (TextBoxWidgetExt) _w.filter;
-   tbw.setValue( ico.getFilter() );
-// End of added by RDK
+	/**
+	 * Text box action.
+	 */
+	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
-   //Update coadds
-// Commented by RDK
-//    tbw = (TextBoxWidgetExt) _w.coadds;
-//    tbw.setValue( ico.getCoaddsString() );
-// End of commented by RDK
+	/**
+	 * DD list box select.
+	 */
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}
 
-   _ignoreActionEvents = false;
-}
+	/**
+	 * DD list box action.
+	 */
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}
 
-
-/**
- * Watch changes to text box widgets.
- */
-public void
-textBoxKeyPress(TextBoxWidgetExt tbw)
-{
-   SpIterUISTCalObs ico = (SpIterUISTCalObs) _spItem;
-   if (tbw == _w.exposureTime) {
-      try {
-          String ets = tbw.getText();
-          double et = Double.parseDouble(ets);
-          if (et > 0.00001) {
-             ico.setExpTimeOT(ets);
-             _updateWidgets(_w.exposureTime);
-          }
-      } catch( Exception ex) {
-	// ignore
-      }
-// Commented by RDK
-//    } else if (tbw == _w.observationTime) {
-//       try {
-//           String ots = tbw.getText();
-//           double ot = Double.parseDouble(ots);
-//           if (ot > 0.00001) {
-//              ico.setObsTimeOT(ots);
-//              _updateWidgets(_w.observationTime);
-//           }
-//       } catch( Exception ex) {
-// 	// ignore
-//       }
-//    }
-// End of commented by RDK
-// Added by RDK
-   } else if (tbw == _w.coadds) {
-      try {
-          String coaddsString = tbw.getText();
-          int coadds = Integer.parseInt(coaddsString);
-          if (coadds > 0) {
-             ico.setCoadds(coadds);
-             _updateWidgets(_w.coadds);
-          }
-      } catch( Exception ex) {
-	// ignore
-      }
-   }
-// End of added by RDK
-}
- 
-/**
- * Text box action.
- */
-public void
-textBoxAction(TextBoxWidgetExt tbwe) {}
-
-/**
- * DD list box select.
- */
-public void
-dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int i, String val) {
-}
-
-
-/**
- * DD list box action.
- */
-public void
-dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int i, String val) {
-}
-
-
-
-/**
- *
- */
-public void actionPerformed(ActionEvent evt)
-{
-   if(_ignoreActionEvents) {
-      return;
-   }
-
-   Object w    = evt.getSource();
-
-   SpIterUISTCalObs ico = (SpIterUISTCalObs) _spItem;
-
-   if (w == _w.calType) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setCalType(ddlbw.getStringValue());
-      ico.useDefaults();
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.flat_source) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setFlatSource(ddlbw.getStringValue());
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.arc_source) {
-      DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-      ico.setArcSource(ddlbw.getStringValue());
-      _updateWidgets();
-      return;
-   }
-
-   if (w == _w.repeatComboBox) {
-      int i = _w.repeatComboBox.getIntegerValue() + 1;
-      ico.setCount(i);
-      return;
-   }
-
-   if (w == _w.useDefaults) {
-      ico.useDefaults();
-      _updateWidgets();
-      return;
-   }
-}
-
+	/**
+	 *
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		if( !_ignoreActionEvents )
+		{
+			Object w = evt.getSource();
+	
+			SpIterUISTCalObs ico = ( SpIterUISTCalObs )_spItem;
+	
+			if( w == _w.calType )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setCalType( ddlbw.getStringValue() );
+				ico.useDefaults();
+				_updateWidgets();
+			}
+			else if( w == _w.flat_source )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setFlatSource( ddlbw.getStringValue() );
+				_updateWidgets();
+			}
+			else if( w == _w.arc_source )
+			{
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				ico.setArcSource( ddlbw.getStringValue() );
+				_updateWidgets();
+			}
+			else if( w == _w.repeatComboBox )
+			{
+				int i = _w.repeatComboBox.getIntegerValue() + 1;
+				ico.setCount( i );
+			}
+			else if( w == _w.useDefaults )
+			{
+				ico.useDefaults();
+				_updateWidgets();
+				return;
+			}
+		}
+	}
 }

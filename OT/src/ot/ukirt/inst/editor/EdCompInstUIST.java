@@ -17,7 +17,7 @@ package ot.ukirt.inst.editor;
 
 import orac.ukirt.inst.SpInstUIST;
 
-import gemini.sp.SpItem ;
+import gemini.sp.SpItem;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
@@ -37,28 +37,26 @@ import jsky.app.ot.tpe.TpeManager;
 import java.awt.CardLayout;
 import javax.swing.ButtonGroup;
 
-import java.util.TreeSet ;
+import java.util.TreeSet;
 
 /**
  * This is the editor for the UIST instrument
  */
-public final class EdCompInstUIST extends EdCompInstBase
-                               implements ActionListener
+public final class EdCompInstUIST extends EdCompInstBase implements ActionListener
 {
-    private SpInstUIST   _instUIST;
-    private boolean haveInitialised = false;
-    private UistGUI _w;
+	private SpInstUIST _instUIST;
+	private boolean haveInitialised = false;
+	private UistGUI _w;
 
+	/**
+	 * This flag is set true while _init is executed to prevent actionPerformed() to do react to
+	 * action events caused by initializing widgets.
+	 */
 
-   /**
-    * This flag is set true while _init is executed to prevent actionPerformed() to do react to
-    * action events caused by initializing widgets.
-    */
-
-/**
- * The constructor initializes the title, description, and presentation source.
- */
-public EdCompInstUIST()
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompInstUIST()
 	{
 		_title = "UIST";
 		_presSource = _w = new UistGUI();
@@ -76,9 +74,7 @@ public EdCompInstUIST()
 		//
 		_w.camera.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -105,8 +101,8 @@ public EdCompInstUIST()
 				else
 					_instUIST.setPolarimetry( "no" );
 
-				_w.imaging_and_polarimetry_posAngleLabel.setEnabled( polarimetryBoolean ) ;
-				_w.imaging_and_polarimetry_posAngle.setEnabled( polarimetryBoolean ) ;
+				_w.imaging_and_polarimetry_posAngleLabel.setEnabled( polarimetryBoolean );
+				_w.imaging_and_polarimetry_posAngle.setEnabled( polarimetryBoolean );
 
 				_instUIST.useDefaultDisperser();
 				_instUIST.useDefaultMask();
@@ -139,31 +135,27 @@ public EdCompInstUIST()
 					_instUIST.setPosAngleDegrees( pa );
 				else
 					_instUIST.setPosAngleDegrees( 0.0 );
-				_updateWidgets() ;
+				_updateWidgets();
 				_instUIST.getAvEditFSM().addObserver( EdCompInstUIST.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
 		} );
-		
+
 		_w.imaging_and_polarimetry_mask.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setMask( val );
 
-				boolean enable = _instUIST.canUpdatePosAngle() ;
+				boolean enable = _instUIST.canUpdatePosAngle();
 				_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable );
 				_w.imaging_and_polarimetry_posAngle.setEnabled( enable );
 				if( !enable )
-					_instUIST.setPosAngleDegrees( -90.0 ) ;
-				
+					_instUIST.setPosAngleDegrees( -90.0 );
+
 				_instUIST.useDefaultResolution();
 				_instUIST.useDefaultAcquisition();
 				_updateWidgets();
@@ -179,9 +171,7 @@ public EdCompInstUIST()
 		//
 		_w.imaging_sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -193,9 +183,7 @@ public EdCompInstUIST()
 
 		_w.spectroscopy_sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -218,13 +206,10 @@ public EdCompInstUIST()
 			public void checkBoxAction( CheckBoxWidgetExt cb )
 			{
 				if( cb.getBooleanValue() )
-				{
 					_instUIST.setPupilImaging( "yes" );
-				}
 				else
-				{
 					_instUIST.setPupilImaging( "no" );
-				}
+
 				_instUIST.useDefaultMask();
 				_updateImagerChoices();
 				_updatePupilCamera();
@@ -241,9 +226,7 @@ public EdCompInstUIST()
 		//
 		_w.imaging_imagerList.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -262,9 +245,7 @@ public EdCompInstUIST()
 		//
 		_w.imaging_filter.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
@@ -283,33 +264,31 @@ public EdCompInstUIST()
 		//
 		_w.spectroscopy_grism.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setDisperser( val );
-				
-				String[] maskList = _instUIST.getMaskList() ;
-				String currentMask = _instUIST.getMask() ;
-				TreeSet comparator ;
+
+				String[] maskList = _instUIST.getMaskList();
+				String currentMask = _instUIST.getMask();
+				TreeSet comparator;
 				if( val.equals( "IJ" ) || val.equals( "JH" ) )
-					comparator = _instUIST.NON_IJJH_MASKS ;
+					comparator = _instUIST.NON_IJJH_MASKS;
 				else
-					comparator = _instUIST.VALID_IJJH_MASKS ;
+					comparator = _instUIST.VALID_IJJH_MASKS;
 				if( comparator.contains( currentMask ) )
 				{
 					for( int j = 0 ; j < maskList.length ; j++ )
 					{
-						currentMask = maskList[ j ] ;
+						currentMask = maskList[ j ];
 						if( comparator.contains( currentMask ) )
-							continue ;
-						_instUIST.setMask( currentMask ) ;
-						break ;
-					}					
+							continue;
+						_instUIST.setMask( currentMask );
+						break;
+					}
 				}
-								
+
 				_instUIST.useDefaultOrder();
 				_instUIST.useDefaultResolution();
 				_instUIST.useDefaultAcquisition();
@@ -323,98 +302,51 @@ public EdCompInstUIST()
 		} );
 
 		//
-		// Resolution
-		//
-		_w.spectroscopy_resolution.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
-		} );
-
-		//
-		// Order
-		//
-		_w.spectroscopy_order.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
-		} );
-
-		//
 		// Mask
 		//
 
 		_w.spectroscopy_mask.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instUIST.setMask( val ) ;
-				
-				String currentGrism = _instUIST.getDisperser() ;
+				_instUIST.setMask( val );
+
+				String currentGrism = _instUIST.getDisperser();
 				if( _instUIST.VALID_IJJH_MASKS.contains( val ) )
 				{
 					if( !( currentGrism.equals( "IJ" ) || currentGrism.equals( "JH" ) ) )
 					{
-						String[] grismList = _instUIST.getDisperserList() ;
+						String[] grismList = _instUIST.getDisperserList();
 						for( int j = 0 ; j < grismList.length ; j++ )
 						{
-							currentGrism = grismList[ j ] ;
+							currentGrism = grismList[ j ];
 							if( currentGrism.equals( "IJ" ) || currentGrism.equals( "JH" ) )
 							{
-								_instUIST.setDisperser( currentGrism ) ;
-								break ;
+								_instUIST.setDisperser( currentGrism );
+								break;
 							}
 						}
-					}					
+					}
 				}
 				else if( _instUIST.NON_IJJH_MASKS.contains( val ) )
 				{
 					if( currentGrism.equals( "IJ" ) || currentGrism.equals( "JH" ) )
 					{
-						String[] grismList = _instUIST.getDisperserList() ;
+						String[] grismList = _instUIST.getDisperserList();
 						for( int j = 0 ; j < grismList.length ; j++ )
 						{
-							currentGrism = grismList[ j ] ;
+							currentGrism = grismList[ j ];
 							if( !( currentGrism.equals( "IJ" ) || currentGrism.equals( "JH" ) ) )
 							{
-								_instUIST.setDisperser( currentGrism ) ;
-								break ;
+								_instUIST.setDisperser( currentGrism );
+								break;
 							}
 						}
 					}
 				}
 
-				
-				
-				
 				_instUIST.useDefaultResolution();
 				_instUIST.useDefaultAcquisition();
 				_updateWidgets();
@@ -443,9 +375,7 @@ public EdCompInstUIST()
 				_instUIST.getAvEditFSM().addObserver( EdCompInstUIST.this );
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
 		} );
 
 		//
@@ -462,13 +392,10 @@ public EdCompInstUIST()
 		//
 		_w.dataAcq_readMode.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				// _instUIST.useDefaultAcquisition();
 				_instUIST.setReadMode( val );
 				_updateWidgets( _w.dataAcq_readMode );
 			}
@@ -479,104 +406,13 @@ public EdCompInstUIST()
 		//
 		_w.dataAcq_readArea.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-			}
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setReadAreaString( val );
 				_updateWidgets( _w.dataAcq_readArea );
 			}
-		} );
-
-		// End of added by RDK
-		//
-		// Actual exposure time
-		//
-		_w.dataAcq_actualExposureTime.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-					// ignore
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
-		} );
-
-		//
-		// Actual observation time
-		//
-		_w.dataAcq_actualObservationTime.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-					// ignore
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
-		} );
-
-		//
-		// Chop frequency
-		//
-		_w.dataAcq_chopFrequency.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-					// ignore
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
-		} );
-
-		//
-		// Duty cycle
-		//
-		_w.dataAcq_dutyCycle.addWatcher( new TextBoxWidgetWatcher()
-		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbw )
-			{
-				try
-				{
-					// ignore
-				}
-				catch( Exception ex )
-				{
-					// ignore
-				}
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
 		} );
 
 		//
@@ -605,9 +441,7 @@ public EdCompInstUIST()
 				}
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
 		} );
 
 		//
@@ -635,9 +469,7 @@ public EdCompInstUIST()
 				}
 			}
 
-			public void textBoxAction( TextBoxWidgetExt tbw )
-			{
-			} // ignore
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
 		} );
 
 		//
@@ -656,37 +488,33 @@ public EdCompInstUIST()
 				_updateWidgets();
 			}
 		} );
-}
+	}
 
+	/**
+	 * Override method in super class to avoid exposure time and position angle text box watchers being added twice.
+	 */
+	protected void _init(){}
 
-/**
- * Override method in super class to avoid exposure time and position angle text box watchers being added twice.
- */
-protected void _init() { }
+	/**
+	 * Override setup to store away a reference to the SpInstUIST item.
+	 */
+	public void setup( SpItem spItem )
+	{
+		_instUIST = ( SpInstUIST )spItem;
+		// Added by RDK
+		_instUIST.avTableUpdate();
+		// Edn of added by RDK
+		haveInitialised = false;
+		super.setup( spItem );
+	}
 
-
-/**
- * Override setup to store away a reference to the SpInstUIST item.
- */
-public void
-setup(SpItem spItem)
-{
-   _instUIST = (SpInstUIST) spItem;
-// Added by RDK
-   _instUIST.avTableUpdate();
-// Edn of added by RDK
-   haveInitialised = false;
-   super.setup(spItem);
-}
-
-
-/**
- * Implements the _updateWidgets method from OtItemEditor in order to setup the widgets to show the current values of the item.
- */
-protected void _updateWidgets()
-{
-    _updateWidgets(null);
-}
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		_updateWidgets( null );
+	}
 
 	protected void _updateWidgets( Object source )
 	{
@@ -714,7 +542,7 @@ protected void _updateWidgets()
 		}
 		_updateDisperser();
 		_updateImager();
-		_updatePosAngle() ;
+		_updatePosAngle();
 		if( !_instUIST.isImaging() )
 		{
 			_updateSpecFilter();
@@ -770,73 +598,62 @@ protected void _updateWidgets()
 		// End of added by RDK
 	}
 
-//
-// Update the actual observation time
-//
-private void
-_updateObsTime()
-{
-    String aobts = _instUIST.getObservationTimeString();
-    _w.dataAcq_actualObservationTime.setText(aobts);
-}
+	//
+	// Update the actual observation time
+	//
+	private void _updateObsTime()
+	{
+		String aobts = _instUIST.getObservationTimeString();
+		_w.dataAcq_actualObservationTime.setText( aobts );
+	}
 
-//
-// Update the actual exposure time
-//
-private void
-_updateExpTime()
-{
-    String aexpts = _instUIST.getExposureTimeString();
-    _w.dataAcq_actualExposureTime.setText(aexpts);
-}
+	//
+	// Update the actual exposure time
+	//
+	private void _updateExpTime()
+	{
+		String aexpts = _instUIST.getExposureTimeString();
+		_w.dataAcq_actualExposureTime.setText( aexpts );
+	}
 
-//
-// Update the polarimetry check box
-//
-private void
-_updatePolarimetry()
-{
+	//
+	// Update the polarimetry check box
+	//
+	private void _updatePolarimetry()
+	{
+		String p = _instUIST.getPolarimetry();
+		_w.polarimetry.setValue( p.equalsIgnoreCase( "yes" ) );
+	}
 
-    String p = _instUIST.getPolarimetry();
-    _w.polarimetry.setValue(p.equalsIgnoreCase("yes"));
-}
+	// Added by RDK
+	//
+	// Update the pupil camera check box
+	//
+	private void _updatePupilCamera()
+	{
+		String p = _instUIST.getPupilImaging();
+		boolean pEqualsYes = p.equalsIgnoreCase( "yes" ) ;
+		_w.imaging_pupilCamera.setValue( pEqualsYes );
+		_w.polarimetry.setEnabled( !pEqualsYes ) ;
+	}
 
-// Added by RDK
-//
-// Update the pupil camera check box
-//
-private void
-_updatePupilCamera()
-{
+	// End of added by RDK
 
-    String p = _instUIST.getPupilImaging();
-    _w.imaging_pupilCamera.setValue(p.equalsIgnoreCase("yes"));
-    if (p.equalsIgnoreCase("yes")) {
-        _w.polarimetry.setEnabled(false);
-    } else {
-        _w.polarimetry.setEnabled(true);
-    }
+	//
+	// Update the resolution
+	//
+	private void _updateResolution()
+	{
+		_w.spectroscopy_resolution.setText( _instUIST.getResolutionString() );
+	}
 
-}
-// End of added by RDK
-
-//
-// Update the resolution
-//
-private void
-_updateResolution()
-{
-    _w.spectroscopy_resolution.setText(_instUIST.getResolutionString());
-}
-
-//
-// Update the order
-//
-private void
-_updateOrder()
-{
-    _w.spectroscopy_order.setText(_instUIST.getOrderString());
-}
+	//
+	// Update the order
+	//
+	private void _updateOrder()
+	{
+		_w.spectroscopy_order.setText( _instUIST.getOrderString() );
+	}
 
 	//
 	// Update the position angle
@@ -845,264 +662,238 @@ _updateOrder()
 	{
 		double pa = _instUIST.getPosAngleDegrees();
 		if( _instUIST.isImaging() )
-			_w.imaging_and_polarimetry_posAngle.setText( Double.toString( pa ) ) ;
+			_w.imaging_and_polarimetry_posAngle.setText( Double.toString( pa ) );
 		else
 			_w.spectroscopy_posAngle.setText( Double.toString( pa ) );
 	}
 
-
-//
-// Update the science field of view displays on both the 
-// imaging and spectroscopy panes
-//
-private void
-_updateScienceFOV()
-{
-    String scienceArea = _instUIST.getScienceAreaString();
-    _w.imaging_fieldOfView.setText(scienceArea);
-    _w.spectroscopy_fieldOfView.setText(scienceArea);
-}
-
-//
-// Update the wavelength coverage on both the
-// imaging and spectroscopy panes
-//
-private void
-_updateWavelengthCoverage()
-{
-    String spectralCoverage = _instUIST.getSpectralCoverage();
-    _w.spectroscopy_coverage.setText(spectralCoverage);
-    _w.imaging_bandpass.setText(spectralCoverage);
-}
-
-//
-// Update the imaging filter
-//
-private void
-_updateFilter()
-{
-    _w.imaging_filter.setValue(_instUIST.getFilter());
-}
-
-//
-// Update the spectroscopy filter
-//
-private void
-_updateSpecFilter()
-{
-    _w.spectroscopy_filter.setValue(_instUIST.getFilter());
-}
-
-//
-// Update the list of available cameras
-//
-private void
-_updateCameraChoices()
-{
-    String choices[] = new String[_instUIST.getCameraList().length];
-    choices = _instUIST.getCameraList();
-    _w.camera.setChoices(choices);
-}
-
-//
-// Update the list of available imagers
-//
-private void
-_updateImagerChoices()
-{
-    String choices[] = new String[_instUIST.getImagerList().length];
-    choices = _instUIST.getImagerList();
-    _w.imaging_imagerList.setChoices(choices);
-}
-
-//
-// Update the list of source magnitude choices
-//
-private void
-_updateSourceMagChoices()
-{
-    int numChoices = _instUIST.getSourceMagList().length;
-    String choices[] = new String[numChoices];
-    choices = _instUIST.getSourceMagList();
-    _w.imaging_sourceMag.setMaximumRowCount(numChoices);
-    _w.imaging_sourceMag.setChoices(choices);
-    _w.spectroscopy_sourceMag.setMaximumRowCount(numChoices);
-    _w.spectroscopy_sourceMag.setChoices(choices);
-}
-
-//
-// Update the source magnitude
-//
-private void
-_updateSourceMag()
-{
-    String sourceMag = _instUIST.getSourceMag();
-    _w.imaging_sourceMag.setValue(sourceMag);
-    _w.spectroscopy_sourceMag.setValue(sourceMag);
-}
-
-// Added by RDK
-//
-// Update the list of read mode choices
-//
-private void
-_updateReadModeChoices()
-{
-    String choices[] = new String[_instUIST.getReadModeChoices().length];
-    choices = _instUIST.getReadModeChoices();
-    _w.dataAcq_readMode.setChoices(choices);
-}
-
-//
-// Update the read mode
-//
-private void
-_updateReadMode()
-{
-    String readMode = _instUIST.getReadMode();
-    _w.dataAcq_readMode.setValue(readMode);
-}
-
-// Update the list of read area choices
-//
-private void
-_updateReadAreaChoices()
-{
-    String choices[] = new String[_instUIST.getReadAreaChoices().length];
-    choices = _instUIST.getReadAreaChoices();
-    _w.dataAcq_readArea.setChoices(choices);
-}
-
-//
-// Update the read area
-//
-private void
-_updateReadArea()
-{
-    String readArea = _instUIST.getReadAreaString();
-    _w.dataAcq_readArea.setValue(readArea);
-}
-// End of added by RDK
-
-//
-// Update the mask
-//
-private void
-_updateMask()
-{
-	if( _instUIST.isImaging() )
-		_w.imaging_and_polarimetry_mask.setValue( _instUIST.getMask() ) ;
-	else
-		_w.spectroscopy_mask.setValue(_instUIST.getMask());
-}
-
-//
-// Update the imager
-//
-private void
-_updateImager()
-{
-    _w.imaging_imagerList.setValue(_instUIST.getImager());
-}
-
-
-//
-// Update the list of available filters
-//
-private void
-_updateFilterChoices()
-{
-    boolean useCurrentFilter;
-    if ( _instUIST != null && _instUIST.isImaging() ) {
-	useCurrentFilter = false;
-    }
-    else {
-	useCurrentFilter = true;
-    }
-    String [] filterChoices = _instUIST.getFilterList();
-    _w.imaging_filter.setChoices(_instUIST.getFilterList());
-    for ( int i=0; i<filterChoices.length && useCurrentFilter == false; i++ ) {
-	if ( _instUIST != null && _instUIST.getFilter().equals(filterChoices[i]) ) {
-	    useCurrentFilter = true;
-	}
-    }
-    if ( useCurrentFilter ) {
-	_updateFilter();
-    }
-    else {
-	_w.imaging_filter.setSelectedIndex(0);
-    }
-}
-
-//
-// Update the list of available dispersers
-//
-private void
-_updateDisperserChoices()
-{
-    int numChoices = _instUIST.getDisperserList().length;
-    String choices[] = new String[numChoices];
-    _w.spectroscopy_grism.setMaximumRowCount(numChoices);
-    _w.spectroscopy_grism.setChoices(_instUIST.getDisperserList());
-}
-
-//
-// Update the disperser
-//
-private void
-_updateDisperser()
-{
-    _w.spectroscopy_grism.setValue(_instUIST.getDisperser());
-}
-
-//
-// Update the list of available masks
-//
-private void
-_updateMaskChoices()
-{
-	if( _instUIST.isImaging() )
+	//
+	// Update the science field of view displays on both the 
+	// imaging and spectroscopy panes
+	//
+	private void _updateScienceFOV()
 	{
-		_w.imaging_and_polarimetry_mask.setChoices( _instUIST.getMaskList() ) ;
-		_w.imaging_and_polarimetry_mask.setValue( _instUIST.getMask() ) ;
+		String scienceArea = _instUIST.getScienceAreaString();
+		_w.imaging_fieldOfView.setText( scienceArea );
+		_w.spectroscopy_fieldOfView.setText( scienceArea );
 	}
-	else
+
+	//
+	// Update the wavelength coverage on both the
+	// imaging and spectroscopy panes
+	//
+	private void _updateWavelengthCoverage()
 	{
-		_w.spectroscopy_mask.setChoices(_instUIST.getMaskList());
-		_w.spectroscopy_mask.setValue(_instUIST.getMask());
+		String spectralCoverage = _instUIST.getSpectralCoverage();
+		_w.spectroscopy_coverage.setText( spectralCoverage );
+		_w.imaging_bandpass.setText( spectralCoverage );
 	}
-}
 
-//
-// Update the chop frequency
-//
-private void
-_updateChopFreq()
-{
-    _w.dataAcq_chopFrequency.setText(_instUIST.getChopFreqRound());
-}
+	//
+	// Update the imaging filter
+	//
+	private void _updateFilter()
+	{
+		_w.imaging_filter.setValue( _instUIST.getFilter() );
+	}
 
-//
-// Update the duty cycle
-//
-private void
-_updateDutyCycle()
-{
-    _w.dataAcq_dutyCycle.setText(_instUIST.getDutyCycleRound());
-}
+	//
+	// Update the spectroscopy filter
+	//
+	private void _updateSpecFilter()
+	{
+		_w.spectroscopy_filter.setValue( _instUIST.getFilter() );
+	}
 
-//
-// Update the coadds
-//
-private void
-_updateCoadds()
-{
-    _w.dataAcq_coadds.setText(_instUIST.getCoaddsString());
-}
+	//
+	// Update the list of available cameras
+	//
+	private void _updateCameraChoices()
+	{
+		String choices[] = new String[ _instUIST.getCameraList().length ];
+		choices = _instUIST.getCameraList();
+		_w.camera.setChoices( choices );
+	}
 
-//
-// Update the acquisition
-//
+	//
+	// Update the list of available imagers
+	//
+	private void _updateImagerChoices()
+	{
+		String choices[] = new String[ _instUIST.getImagerList().length ];
+		choices = _instUIST.getImagerList();
+		_w.imaging_imagerList.setChoices( choices );
+	}
+
+	//
+	// Update the list of source magnitude choices
+	//
+	private void _updateSourceMagChoices()
+	{
+		int numChoices = _instUIST.getSourceMagList().length;
+		String choices[] = new String[ numChoices ];
+		choices = _instUIST.getSourceMagList();
+		_w.imaging_sourceMag.setMaximumRowCount( numChoices );
+		_w.imaging_sourceMag.setChoices( choices );
+		_w.spectroscopy_sourceMag.setMaximumRowCount( numChoices );
+		_w.spectroscopy_sourceMag.setChoices( choices );
+	}
+
+	//
+	// Update the source magnitude
+	//
+	private void _updateSourceMag()
+	{
+		String sourceMag = _instUIST.getSourceMag();
+		_w.imaging_sourceMag.setValue( sourceMag );
+		_w.spectroscopy_sourceMag.setValue( sourceMag );
+	}
+
+	// Added by RDK
+	//
+	// Update the list of read mode choices
+	//
+	private void _updateReadModeChoices()
+	{
+		String choices[] = new String[ _instUIST.getReadModeChoices().length ];
+		choices = _instUIST.getReadModeChoices();
+		_w.dataAcq_readMode.setChoices( choices );
+	}
+
+	//
+	// Update the read mode
+	//
+	private void _updateReadMode()
+	{
+		String readMode = _instUIST.getReadMode();
+		_w.dataAcq_readMode.setValue( readMode );
+	}
+
+	// Update the list of read area choices
+	//
+	private void _updateReadAreaChoices()
+	{
+		String choices[] = new String[ _instUIST.getReadAreaChoices().length ];
+		choices = _instUIST.getReadAreaChoices();
+		_w.dataAcq_readArea.setChoices( choices );
+	}
+
+	//
+	// Update the read area
+	//
+	private void _updateReadArea()
+	{
+		String readArea = _instUIST.getReadAreaString();
+		_w.dataAcq_readArea.setValue( readArea );
+	}
+
+	// End of added by RDK
+
+	//
+	// Update the mask
+	//
+	private void _updateMask()
+	{
+		if( _instUIST.isImaging() )
+			_w.imaging_and_polarimetry_mask.setValue( _instUIST.getMask() );
+		else
+			_w.spectroscopy_mask.setValue( _instUIST.getMask() );
+	}
+
+	//
+	// Update the imager
+	//
+	private void _updateImager()
+	{
+		_w.imaging_imagerList.setValue( _instUIST.getImager() );
+	}
+
+	//
+	// Update the list of available filters
+	//
+	private void _updateFilterChoices()
+	{
+		boolean useCurrentFilter;
+		if( _instUIST != null && _instUIST.isImaging() )
+			useCurrentFilter = false;
+		else
+			useCurrentFilter = true;
+
+		String[] filterChoices = _instUIST.getFilterList();
+		_w.imaging_filter.setChoices( _instUIST.getFilterList() );
+		for( int i = 0 ; i < filterChoices.length && useCurrentFilter == false ; i++ )
+		{
+			if( _instUIST != null && _instUIST.getFilter().equals( filterChoices[ i ] ) )
+				useCurrentFilter = true;
+		}
+		if( useCurrentFilter )
+			_updateFilter();
+		else
+			_w.imaging_filter.setSelectedIndex( 0 );
+	}
+
+	//
+	// Update the list of available dispersers
+	//
+	private void _updateDisperserChoices()
+	{
+		int numChoices = _instUIST.getDisperserList().length;
+		_w.spectroscopy_grism.setMaximumRowCount( numChoices );
+		_w.spectroscopy_grism.setChoices( _instUIST.getDisperserList() );
+	}
+
+	//
+	// Update the disperser
+	//
+	private void _updateDisperser()
+	{
+		_w.spectroscopy_grism.setValue( _instUIST.getDisperser() );
+	}
+
+	//
+	// Update the list of available masks
+	//
+	private void _updateMaskChoices()
+	{
+		if( _instUIST.isImaging() )
+		{
+			_w.imaging_and_polarimetry_mask.setChoices( _instUIST.getMaskList() );
+			_w.imaging_and_polarimetry_mask.setValue( _instUIST.getMask() );
+		}
+		else
+		{
+			_w.spectroscopy_mask.setChoices( _instUIST.getMaskList() );
+			_w.spectroscopy_mask.setValue( _instUIST.getMask() );
+		}
+	}
+
+	//
+	// Update the chop frequency
+	//
+	private void _updateChopFreq()
+	{
+		_w.dataAcq_chopFrequency.setText( _instUIST.getChopFreqRound() );
+	}
+
+	//
+	// Update the duty cycle
+	//
+	private void _updateDutyCycle()
+	{
+		_w.dataAcq_dutyCycle.setText( _instUIST.getDutyCycleRound() );
+	}
+
+	//
+	// Update the coadds
+	//
+	private void _updateCoadds()
+	{
+		_w.dataAcq_coadds.setText( _instUIST.getCoaddsString() );
+	}
+
+	//
+	// Update the acquisition
+	//
 	private void _updateAcquisition( Object source )
 	{
 		_instUIST.setAcquisition();
@@ -1123,20 +914,17 @@ _updateCoadds()
 
 	}
 
-//
-// Update camera
-//
+	//
+	// Update camera
+	//
 	private void _updateCamera( String camera )
 	{
 		_instUIST.setCamera( camera );
 		if( camera.equals( "imaging" ) )
-		{
 			_updateFilterChoices();
-		}
 		else
-		{
 			_updateDisperserChoices();
-		}
+		
 		_updateMaskChoices();
 		_instUIST.useDefaultAcquisition();
 		_showCamera();
@@ -1152,35 +940,37 @@ _updateCoadds()
 		// Make the appropriate imaging or spectroscopy config area visible
 		if( camera.equals( "imaging" ) )
 		{
-			( ( CardLayout ) ( _w.modePanel.getLayout() ) ).show( _w.modePanel , "imagingPanel" );
+			( ( CardLayout )( _w.modePanel.getLayout() ) ).show( _w.modePanel , "imagingPanel" );
 
-			boolean enable = _instUIST.canUpdatePosAngle() ;
-			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable ) ;
-			_w.imaging_and_polarimetry_posAngle.setEnabled( enable ) ;	
+			boolean enable = _instUIST.canUpdatePosAngle();
+			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable );
+			_w.imaging_and_polarimetry_posAngle.setEnabled( enable );
 			if( !enable )
-				_instUIST.setPosAngleDegrees( -90.0 ) ;
+				_instUIST.setPosAngleDegrees( -90.0 );
 		}
 		else
 		{
-			( ( CardLayout ) ( _w.modePanel.getLayout() ) ).show( _w.modePanel , "spectroscopyPanel" );
+			( ( CardLayout )( _w.modePanel.getLayout() ) ).show( _w.modePanel , "spectroscopyPanel" );
 		}
-		_w.polarimetry.setEnabled( !camera.equals( "ifu" ) ) ;
+		_w.polarimetry.setEnabled( !camera.equals( "ifu" ) );
 	}
 
-    /** Return the position angle text box */
+	/** Return the position angle text box */
 	public TextBoxWidgetExt getPosAngleTextBox()
 	{
 		if( _instUIST.isImaging() )
-			return _w.imaging_and_polarimetry_posAngle ;
+			return _w.imaging_and_polarimetry_posAngle;
+		
 		return _w.spectroscopy_posAngle;
 	}
 
-    /** Return the exposure time text box */
-    public TextBoxWidgetExt getExposureTimeTextBox() {
-      return _w.dataAcq_exposureTime;
-    }
+	/** Return the exposure time text box */
+	public TextBoxWidgetExt getExposureTimeTextBox()
+	{
+		return _w.dataAcq_exposureTime;
+	}
 
-    /** Return the coadds text box, or null if not available. */
+	/** Return the coadds text box, or null if not available. */
 	public TextBoxWidgetExt getCoaddsTextBox()
 	{
 		// UIST does not have a coadds text box.
@@ -1189,46 +979,42 @@ _updateCoadds()
 		// End of added by RDK
 	}
 
-//
-// Update filterCategoary
-//
-private void
-_updateFilterCategory()
-{
-    OptionWidgetExt ow = null;
-    String filterCategory = _instUIST.getFilterCategory();
-    if (filterCategory.equalsIgnoreCase("broad")) {
-        ow = (OptionWidgetExt) _w.filterBroadBand;
-        ow.setValue(true);
-        ow = (OptionWidgetExt) _w.filterNarrowBand;
-        if (_instUIST.getNarrowFilterSet() == 0) {
-            ow.setEnabled(false);
-	} else {
-            ow.setEnabled(true);
+	//
+	// Update filterCategoary
+	//
+	private void _updateFilterCategory()
+	{
+		OptionWidgetExt ow = null;
+		String filterCategory = _instUIST.getFilterCategory();
+		if( filterCategory.equalsIgnoreCase( "broad" ) )
+		{
+			ow = ( OptionWidgetExt )_w.filterBroadBand;
+			ow.setValue( true );
+			ow = ( OptionWidgetExt )_w.filterNarrowBand;
+			ow.setEnabled( _instUIST.getNarrowFilterSet() != 0 ) ;
+		}
+		else
+		{
+			ow = ( OptionWidgetExt )_w.filterNarrowBand;
+			ow.setValue( true );
+		}
 	}
-    } else {
-        ow = (OptionWidgetExt) _w.filterNarrowBand;
-        ow.setValue(true);
-    }
-}
 
-/**
- *
- */
-public void actionPerformed(ActionEvent evt) {
+	/**
+	 *
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		Object w = evt.getSource();
 
-   Object w  = evt.getSource();
+		if( _w.filterBroadBand == w )
+			_instUIST.setFilterCategory( "broad" );
+		else if( _w.filterNarrowBand == w )
+			_instUIST.setFilterCategory( "narrow" );
 
-   if (_w.filterBroadBand == w) {
-       _instUIST.setFilterCategory("broad");
-
-   } else if (_w.filterNarrowBand == w) {
-       _instUIST.setFilterCategory("narrow");
-      }
-   _updateFilterChoices();
-   _instUIST.useDefaultAcquisition();
-   _updateWidgets(w);
-   return;
-}
-
+		_updateFilterChoices();
+		_instUIST.useDefaultAcquisition();
+		_updateWidgets( w );
+		return;
+	}
 }

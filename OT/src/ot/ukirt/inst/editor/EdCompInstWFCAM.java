@@ -15,246 +15,221 @@
 //
 package ot.ukirt.inst.editor;
 
-import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstWFCAM;
 
-import gemini.sp.*;
-import gemini.sp.obsComp.SpInstObsComp;
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.gui.TableWidgetWatcher;
+import gemini.sp.SpItem ;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.OptionWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Vector;
-
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
-
-import java.awt.CardLayout;
-import javax.swing.ButtonGroup;
-
 
 /**
  * This is the editor for the WFCAM instrument
  */
-public final class EdCompInstWFCAM extends EdCompInstBase
-                               implements ActionListener
+public final class EdCompInstWFCAM extends EdCompInstBase implements ActionListener
 {
-  /*
-    private EdChopCapability  _edChopCapability;
-    private EdStareCapability _edStareCapability;
-  */
-    private SpInstWFCAM   _instWFCAM;
-    private boolean haveInitialised = false;
-    private WfcamGUI _w;
+	private SpInstWFCAM _instWFCAM;
+	private boolean haveInitialised = false;
+	private WfcamGUI _w;
 
+	/**
+	 * This flag is set true while _init is executed to prevent actionPerformed() to do react to
+	 * action events caused by initializing widgets.
+	 */
 
-   /**
-    * This flag is set true while _init is executed to prevent actionPerformed() to do react to
-    * action events caused by initializing widgets.
-    */
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompInstWFCAM()
+	{
+		_title = "WFCAM";
+		_presSource = _w = new WfcamGUI();
+		_description = "The WFCAM instrument is configured with this component.";
 
-/**
- * The constructor initializes the title, description, and presentation source.
- */
-public EdCompInstWFCAM()
-{
-    _title       ="WFCAM";
-    _presSource  = _w = new WfcamGUI();
-    _description ="The WFCAM instrument is configured with this component.";
+		// ReadMode drop down list box
+		_w.ReadMode.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
-    // ReadMode drop down list box
-    _w.ReadMode.addWatcher( new DropDownListBoxWidgetWatcher() {
-        public void
-        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-        }
-        public void
-        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-	    //	    try { throw new Exception("started"); } catch(Exception e) {e.printStackTrace(); }
-            _instWFCAM.setReadMode(val);
-            _updateReadMode();
-        }
-    });
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+				_instWFCAM.setReadMode( val );
+				_updateReadMode();
+			}
+		} );
 
-    // Filter drop down list box
-    _w.Filter.addWatcher( new DropDownListBoxWidgetWatcher() {
-        public void
-        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-        }
-        public void
-        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-	    //	    try { throw new Exception("started"); } catch(Exception e) {e.printStackTrace(); }
-            _instWFCAM.setFilter(val);
-            _updateFilter();
-        }
-    });
+		// Filter drop down list box
+		_w.Filter.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
-    // Coadds text box
-    _w.Coadds.addWatcher( new TextBoxWidgetWatcher() {
-        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-	    try {
-                String coaddsString = tbw.getText();
-                int coadds = Integer.parseInt(coaddsString);
-                if (coadds > 0) {
-                    _instWFCAM.setCoadds(coadds);
-                }
-	    }catch( Exception ex) {
-	        // ignore
-	    }
-        }
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+				_instWFCAM.setFilter( val );
+				_updateFilter();
+			}
+		} );
 
-        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
-    });
+		// Coadds text box
+		_w.Coadds.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				try
+				{
+					String coaddsString = tbw.getText();
+					int coadds = Integer.parseInt( coaddsString );
+					if( coadds > 0 )
+						_instWFCAM.setCoadds( coadds );
+				}
+				catch( Exception ex )
+				{
+					// ignore
+				}
+			}
 
-    //
-    // Exposure time
-    //
-    _w.ExpTime.addWatcher( new TextBoxWidgetWatcher() {
-        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-	    try {
-                String ets = tbw.getText();
-                double et = Double.parseDouble(ets);
-                if (et > 0.00001) {
-                    _instWFCAM.setExpTime(Double.toString(et));
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
+		} );
+
+		//
+		// Exposure time
+		//
+		_w.ExpTime.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				try
+				{
+					String ets = tbw.getText();
+					double et = Double.parseDouble( ets );
+					if( et > 0.00001 )
+						_instWFCAM.setExpTime( Double.toString( et ) );
+				}
+				catch( Exception ex )
+				{
+					// ignore
+				}
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
+		} );
+	}
+
+	/** Return the position angle text box */
+	public TextBoxWidgetExt getPosAngleTextBox()
+	{
+		// WFCAM does not have a position angle text box.
+		return new TextBoxWidgetExt();
+	}
+
+	/** Return the exposure time text box */
+	public TextBoxWidgetExt getExposureTimeTextBox()
+	{
+		return _w.ExpTime;
+	}
+
+	/** Return the coadds text box, or null if not available. */
+	public TextBoxWidgetExt getCoaddsTextBox()
+	{
+		return _w.Coadds;
+	}
+
+	/**
+	 * Override method in super class to avoid exposure time and position angle text box watchers
+	 * being added twice.
+	 */
+	protected void _init(){}
+
+	/**
+	 * Override setup to store away a reference to the SpInstWFCAM item.
+	 */
+	public void setup( SpItem spItem )
+	{
+		_instWFCAM = ( SpInstWFCAM )spItem;
+		// Added by RDK
+		_instWFCAM.avTableUpdate();
+		//Edn of added by RDK
+		haveInitialised = false;
+		super.setup( spItem );
+	}
+
+	/**
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		_updateWidgets( null );
+	}
+
+	protected void _updateWidgets( Object source )
+	{
+		if( !haveInitialised )
+		{
+			// Load drop down lists only first time in
+			_updateReadModeChoices();
+			_updateReadMode();
+			_updateFilterChoices();
+			_updateFilter();
+			_updateExpTime();
+			_updateCoadds();
+			haveInitialised = true;
 		}
-	    }catch( Exception ex) {
-	        // ignore
-            }
-        }
+	}
 
-        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
-    });
-}
+	//NEW...
 
-/** Return the position angle text box */
-public TextBoxWidgetExt getPosAngleTextBox() {
-    // WFCAM does not have a position angle text box.
-    return new TextBoxWidgetExt();
-}
+	// Update the readMode choices
+	private void _updateReadModeChoices()
+	{
+		String choices[] = new String[ _instWFCAM.getReadModeList().length ];
+		choices = _instWFCAM.getReadModeList();
+		_w.ReadMode.setChoices( choices );
+	}
 
-/** Return the exposure time text box */
-public TextBoxWidgetExt getExposureTimeTextBox() {
-    return _w.ExpTime;
-}
+	// Update the readMode
+	private void _updateReadMode()
+	{
+		_w.ReadMode.setValue( _instWFCAM.getReadMode() );
+	}
 
-/** Return the coadds text box, or null if not available. */
-public TextBoxWidgetExt getCoaddsTextBox() {
-    return _w.Coadds;
-}
+	// Update the filter choices
+	private void _updateFilterChoices()
+	{
+		String choices[] = new String[ _instWFCAM.getFilterList().length ];
+		choices = _instWFCAM.getFilterList();
+		_w.Filter.setChoices( choices );
+	}
 
-/**
- * Override method in super class to avoid exposure time and position angle text box watchers
- * being added twice.
- */
-protected void _init() { }
+	// Update the filter
+	private void _updateFilter()
+	{
+		_w.Filter.setValue( _instWFCAM.getFilter() );
+	}
 
+	// Update the exposure time
+	private void _updateExpTime()
+	{
+		String expts = _instWFCAM.getExposureTimeString();
+		_w.ExpTime.setText( expts );
+	}
 
-/**
- * Override setup to store away a reference to the SpInstWFCAM item.
- */
-public void
-setup(SpItem spItem)
-{
-   _instWFCAM = (SpInstWFCAM) spItem;
-// Added by RDK
-   _instWFCAM.avTableUpdate();
-//Edn of added by RDK
-   haveInitialised = false;
-   super.setup(spItem);
-}
+	// Update the coadds
+	private void _updateCoadds()
+	{
+		_w.Coadds.setText( _instWFCAM.getCoaddsString() );
+	}
 
-/**
- * Implements the _updateWidgets method from OtItemEditor in order to
- * setup the widgets to show the current values of the item.
- */
-protected void _updateWidgets()
-{
-    _updateWidgets(null);
-}
-protected void
-_updateWidgets(Object source)
-{
-    if (!haveInitialised) {
-        // Load drop down lists only first time in
-        _updateReadModeChoices();
-        _updateReadMode();
-        _updateFilterChoices();
-        _updateFilter();
-        _updateExpTime();
-        _updateCoadds();
-        haveInitialised = true;
-    }
-}
-
-
-//NEW...
-
-// Update the readMode choices
-private void
-_updateReadModeChoices()
-{
-    String choices[] = new String[_instWFCAM.getReadModeList().length];
-    choices = _instWFCAM.getReadModeList();
-    _w.ReadMode.setChoices(choices);
-}
-
-// Update the readMode
-private void
-_updateReadMode()
-{
-    _w.ReadMode.setValue(_instWFCAM.getReadMode());
-
-}
-
-// Update the filter choices
-private void
-_updateFilterChoices()
-{
-    String choices[] = new String[_instWFCAM.getFilterList().length];
-    choices = _instWFCAM.getFilterList();
-    _w.Filter.setChoices(choices);
-}
-
-// Update the filter
-private void
-_updateFilter()
-{
-    _w.Filter.setValue(_instWFCAM.getFilter());
-}
-
-// Update the exposure time
-private void
-_updateExpTime()
-{
-    String expts = _instWFCAM.getExposureTimeString();
-    _w.ExpTime.setText(expts);
-}
-
-// Update the coadds
-private void
-_updateCoadds()
-{
-    _w.Coadds.setText(_instWFCAM.getCoaddsString());
-}
-
-/**
- *
- */
-public void actionPerformed(ActionEvent evt) {
-
-   Object w  = evt.getSource();
-   _updateWidgets(w);
-   return;
-}
-
-
+	/**
+	 *
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		Object w = evt.getSource();
+		_updateWidgets( w );
+		return;
+	}
 }

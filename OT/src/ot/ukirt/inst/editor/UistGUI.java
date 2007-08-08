@@ -58,11 +58,14 @@ public class UistGUI extends JPanel
 	JLabel jLabel11 = new JLabel();
 	JLabel jLabel24 = new JLabel();
 	JLabel jLabel25 = new JLabel();
+
 	// Added jLabel26, jLabel27, and jLabel28 for Readout, Mode, and Area labels for testing by RDK 30 Dec 2002
 	JLabel jLabel26 = new JLabel();
 	JLabel jLabel27 = new JLabel();
 	JLabel jLabel28 = new JLabel();
+
 	TextBoxWidgetExt dataAcq_exposureTime = new TextBoxWidgetExt();
+
 	// Commented for testing by RDK 30 Dec 2002
 	TextBoxWidgetExt dataAcq_actualExposureTime = new TextBoxWidgetExt();
 	TextBoxWidgetExt dataAcq_actualObservationTime = new TextBoxWidgetExt();
@@ -74,6 +77,7 @@ public class UistGUI extends JPanel
 	JLabel jLabel5 = new JLabel();
 	TextBoxWidgetExt imaging_bandpass = new TextBoxWidgetExt();
 	TextBoxWidgetExt spectroscopy_order = new TextBoxWidgetExt();
+
 	// Added imaging_pupilCamera for testing by RDK 30 Dec 2002
 	CheckBoxWidgetExt imaging_pupilCamera = new CheckBoxWidgetExt();
 	GridBagLayout gridBagLayout3 = new GridBagLayout();
@@ -256,7 +260,6 @@ public class UistGUI extends JPanel
 		spectroscopy_mask.setBackground( Color.white );
 		spectroscopy_filter.addActionListener( new ActionListener()
 		{
-
 			public void actionPerformed( ActionEvent e )
 			{
 				spectroscopy_filter_actionPerformed( e );
@@ -282,7 +285,7 @@ public class UistGUI extends JPanel
 		spectroscopy_sourceMag.setAutoscrolls( true );
 		spectroscopy_sourceMag.setBackground( Color.white );
 		spectroscopy_sourceMag.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		spectroscopy_sourceMag.setAlignmentX( ( float ) 0.0 );
+		spectroscopy_sourceMag.setAlignmentX( ( float )0.0 );
 		spectroscopy_grism.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		spectroscopy_grism.setBackground( Color.white );
 		spectroscopyPanel.setBorder( titledBorder3 );
@@ -299,7 +302,7 @@ public class UistGUI extends JPanel
 		jLabel22.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel22.setForeground( Color.black );
 		jLabel22.setText( "Source mag" );
-		imaging_sourceMag.setAlignmentX( ( float ) 0.0 );
+		imaging_sourceMag.setAlignmentX( ( float )0.0 );
 		imaging_sourceMag.setBackground( Color.white );
 		imaging_sourceMag.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		imaging_sourceMag.setAutoscrolls( true );
@@ -318,17 +321,11 @@ public class UistGUI extends JPanel
 		imaging_and_polarimetry_posAngleLabel.setForeground( Color.black );
 		imaging_and_polarimetry_posAngleLabel.setToolTipText( "" );
 		imaging_and_polarimetry_posAngleLabel.setText( "Pos angle (deg E of N)" );
-		//		imaging_and_polarimetry_posAngleLabel.setEnabled( false ) ;
-		//		imaging_and_polarimetry_posAngle.setEnabled( false ) ;
+
 		imaging_and_polarimetry_maskLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		imaging_and_polarimetry_maskLabel.setForeground( Color.black );
 		imaging_and_polarimetry_maskLabel.setText( "Slit mask" );
-		//		imaging_and_polarimetry_maskLabel.setEnabled( false ) ;
-		//		imaging_and_polarimetry_mask.setEnabled( false ) ;
 
-		// Commented out dataAcq_readout and added dataAcq_readMode and dataAcq_readArea for testing by RDK 30 Dec 2002
-		// jPanel2.add(dataAcq_readout, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-		// ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 15, 0), 0, 0));
 		// Incremented by 1 row numbers of all dataAcqPanel items to make room for Readout Mode and Readout Area labels for testing by RDK 30 Dec 2002
 		// Then rearranged to put exposure time stuff at top of panel and read mode/area below that
 		jPanel2.add( dataAcq_defaultExpTime , new GridBagConstraints( 4 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 10 , 0 ) );
@@ -403,9 +400,5 @@ public class UistGUI extends JPanel
 		modePanel.add( spectroscopyPanel , "spectroscopyPanel" );
 	}
 
-	void spectroscopy_filter_actionPerformed( ActionEvent e )
-	{
-
-	}
-
+	void spectroscopy_filter_actionPerformed( ActionEvent e ){}
 }
