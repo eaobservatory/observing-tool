@@ -9,9 +9,9 @@
 
 package ot.jcmt.inst.editor;
 
-import gemini.sp.SpTreeMan ;
-import gemini.sp.SpItem ;
-import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.SpTreeMan;
+import gemini.sp.SpItem;
+import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import jsky.app.ot.gui.KeyPressWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -42,7 +42,6 @@ import javax.swing.JComponent;
  */
 public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , TextBoxWidgetWatcher , TableWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
-
 	private static final String INST_STR_SCUBA = "scuba";
 	private static final String INST_STR_HETERODYNE = "heterodyne";
 	private SpDRRecipe _spDRRecipe;
@@ -52,8 +51,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	private DRRecipeGUI _w; // the GUI layout
 	private DataReductionScreen _dataReductionScreen = new DataReductionScreen();
 
-	// private boolean _ignoreEvents = false;
-
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
@@ -61,7 +58,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		_title = "DR Recipe";
 		_presSource = _w = new DRRecipeGUI();
-		;
 		_description = "Enter the Data Reduction recipe to be used"; // for each observation type";
 		_resizable = true;
 
@@ -83,20 +79,16 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	/**
 	 * This method initializes the widgets in the presentation to reflect the current values of the items attributes. Don't do anything in init at the moment. The initialisation requires a reference to the instrument component. This isn't known until after setup is invoked, which is after init. Therefore do the initialisation as part of setup (see initInstWidgets).
 	 */
-	protected void _init()
-	{
-
-	}
+	protected void _init(){}
 
 	/**
 	 * This method initializes the instrument speific widgets in the presentation to reflect the current values of the items attributes and set the watchers.
 	 */
 	protected void _initInstWidgets()
 	{
-
 		CommandButtonWidgetExt cbw = null;
 
-		_inst = ( ( SpInstObsComp ) SpTreeMan.findInstrument( _spDRRecipe ) );
+		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
 
 		if( _inst == null )
 		{
@@ -104,7 +96,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			// respective panels managed my the CardLayout of DRRecipeGUI).
 			// Might not be elegant but is done in a similar way with instrument specific panels
 			// (see below).
-			( ( CardLayout ) ( _w.getLayout() ) ).show( _w , "empty" );
+			( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
 
 			DialogUtil.error( _w , "Can't identify instrument: probably none in scope?" );
 			return;
@@ -118,7 +110,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but has always been hard-wired in a similar way.
-		( ( CardLayout ) ( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
 
 		if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
 		{
@@ -129,11 +121,11 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// The recipes
 		TextBoxWidgetExt rtbw;
 
-		rtbw = ( TextBoxWidgetExt ) getWidget( _instStr , "objectRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
 		// Disable it so it the user cannot use it.
 		// _disableRecipeEntry(true);
 		rtbw.setEditable( false );
-		cbw = ( CommandButtonWidgetExt ) getWidget( _instStr , "objectSet" );
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "objectSet" );
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -142,7 +134,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				_spDRRecipe.setObjectRecipeName( _currentRecipeSelected );
 				_spDRRecipe.setTitleAttr( _currentRecipeSelected );
 
-				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt ) getWidget( _instStr , "objectRecipe" );
+				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
 				tbwe.setText( _currentRecipeSelected );
 				_disableRecipeEntry( true );
 			}
@@ -150,18 +142,17 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 		// The table of possible recipes
 		TableWidgetExt twe;
-		twe = ( TableWidgetExt ) getWidget( _instStr , "recipeTable" );
-		twe.setColumnHeaders( new String[]
-		{ "Recipe Name" , "Description" } );
+		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
+		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } );
 		twe.addWatcher( this );
 
 		// Button to allow user to enter own names
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt ) getWidget( _instStr , "userRecipe" );
+		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
 		tbwe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
 		_disableRecipeEntry( true );
 		tbwe.addWatcher( this );
 
-		cbw = ( CommandButtonWidgetExt ) getWidget( _instStr , "userSpec" );
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "userSpec" );
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -171,7 +162,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		} );
 
 		// button to reset the recipe to default
-		cbw = ( CommandButtonWidgetExt ) getWidget( _instStr , "defaultName" );
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" );
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -186,7 +177,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	private void _disableRecipeEntry( boolean tf )
 	{
 
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt ) getWidget( _instStr , "userRecipe" );
+		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
 		tbwe.setEditable( !tf );
 	}
 
@@ -197,24 +188,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		Vector[] rowsV = new Vector[ recipes.getNumRows() ];
 		rowsV = recipes.getAsVectorArray();
-		TableWidgetExt tw = ( TableWidgetExt ) getWidget( _instStr , "recipeTable" );
+		TableWidgetExt tw = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
 		tw.setRows( rowsV );
-	}
-
-	/**
-	 * Get the index of the recipe in the given array, or -1 if the recipe isn't in the array.
-	 */
-	private int _getRecipeIndex( String recipe , LookUpTable rarray )
-	{
-		int ri = -1;
-		try
-		{
-			ri = rarray.indexInColumn( recipe , 0 );
-		}
-		catch( Exception ex )
-		{
-		}
-		return ri;
 	}
 
 	/**
@@ -225,7 +200,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		String recipe = null;
 		String instStr;
 
-		SpInstObsComp inst = ( ( SpInstObsComp ) SpTreeMan.findInstrument( _spDRRecipe ) );
+		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
 
 		if( inst == null )
 		{
@@ -233,68 +208,49 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			// respective panels managed my the CardLayout of DRRecipeGUI).
 			// Might not be elegant but is done in a similar way with instrument specific panels
 			// (see below).
-			( ( CardLayout ) ( _w.getLayout() ) ).show( _w , "empty" );
+			( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
 
 			System.out.println( "No instrument found in scope" );
 			return;
 		}
 
 		if( inst instanceof SpInstHeterodyne )
-		{
 			instStr = INST_STR_HETERODYNE;
-		}
 		else
-		{
 			instStr = INST_STR_SCUBA;
-		}
-
-		// System.out.println ("Inst is "+instStr);
 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but has always been hard-wired in a similar way.
-		( ( CardLayout ) ( _w.getLayout() ) ).show( _w , instStr.toLowerCase() );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , instStr.toLowerCase() );
 
 		if( instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
-		{
 			return;
-		}
 
 		// First fill in the text box.
 		TextBoxWidgetExt tbwe;
 
-		tbwe = ( TextBoxWidgetExt ) getWidget( _instStr , "objectRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
 		try
 		{
 			recipe = _spDRRecipe.getObjectRecipeName();
 			tbwe.setValue( recipe );
 		}
-		catch( NullPointerException ex )
-		{
-		}
+		catch( NullPointerException ex ){}
 
 		// See which type of recipe the selected recipe is, if any.
 		// Get the instrument and display the relevant options.
 		// Then look for the recipe in these options. If its there highlight it.
 
 		// What I really need to do is introduce imaging/spec capabilities into
-		// instruments which I can then get. Imager-spectrometers will be a
-		// special case
+		// instruments which I can then get. Imager-spectrometers will be a special case
 
 		LookUpTable rarray = null;
 
 		if( instStr.equalsIgnoreCase( INST_STR_SCUBA ) )
-		{
-
 			rarray = SpDRRecipe.SCUBA;
-
-		}
 		else if( instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
-		{
-
 			rarray = SpDRRecipe.HETERODYNE;
-
-		}
 
 		// Show the correct recipes, and select the option widget for the type
 		_showRecipeType( rarray );
@@ -306,8 +262,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public void setup( SpItem spItem )
 	{
-		_spDRRecipe = ( SpDRRecipe ) spItem;
-		_inst = ( ( SpInstObsComp ) SpTreeMan.findInstrument( _spDRRecipe ) );
+		_spDRRecipe = ( SpDRRecipe )spItem;
+		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
 		_initInstWidgets();
 
 		super.setup( spItem );
@@ -357,7 +313,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 	{
-		_currentRecipeSelected = ( String ) twe.getCell( 0 , rowIndex );
+		_currentRecipeSelected = ( String )twe.getCell( 0 , rowIndex );
 		String _defaultRecipe = "QUICK_LOOK";
 
 		// Allow for blank lines and headings. The latter is defined to contain
@@ -366,7 +322,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		if( _currentRecipeSelected.length() == 0 )
 		{
 			_currentRecipeSelected = _defaultRecipe;
-
 		}
 		else
 		{
@@ -377,11 +332,10 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				{
 					_currentRecipeSelected = _defaultRecipe;
 					break;
-
 				}
 				else if( Character.isLowerCase( _currentRecipeSelected.charAt( i ) ) )
 				{
-					count++;
+					count++ ;
 					if( count > 1 )
 					{
 						_currentRecipeSelected = _defaultRecipe;
@@ -390,33 +344,16 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				}
 			}
 		}
-
-		// Don't set the value if the new selection is the same as the old
-		// (otherwise, we'd fool the OT into thinking a change had been made)
-		// String curValue = _spDRRecipe.getRecipeName();
-		// if ((curValue != null) && (curValue.equals(recipe))) {
-		// // System.out.println ("New same as old");
-		// return;
-		// }
-
 	}
 
 	/**
 	 * Must watch table widget actions as part of the TableWidgetWatcher interface, but don't care about them.
 	 */
-	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex )
-	{
-	}
+	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ){}
 
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-	{
-	}
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
-	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
-	{
-		if( dd == _w.projection )
-			return ;
-	}
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 	public void actionPerformed( ActionEvent e ){}
 
@@ -441,14 +378,12 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		try
 		{
-			return ( JComponent ) ( _w.getClass().getDeclaredField( widgetName ).get( _w ) );
+			return ( JComponent )( _w.getClass().getDeclaredField( widgetName ).get( _w ) );
 		}
 		catch( NoSuchFieldException e )
 		{
 			if( ( System.getProperty( "DEBUG" ) != null ) && System.getProperty( "DEBUG" ).equalsIgnoreCase( "ON" ) )
-			{
 				System.out.println( "Could not find widget / component \"" + widgetName + "\"." );
-			}
 
 			return null;
 		}

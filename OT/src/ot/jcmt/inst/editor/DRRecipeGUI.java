@@ -1,4 +1,3 @@
-
 /**
  * Title:        Ukirt GUIs<p>
  * Description:  <p>
@@ -9,79 +8,83 @@
  */
 package ot.jcmt.inst.editor;
 
-import java.awt.GridBagLayout ;
-import java.awt.BorderLayout ;
-import java.awt.CardLayout ;
-import java.awt.GridBagConstraints ;
-import java.awt.Color ;
-import java.awt.Insets ;
-import javax.swing.JPanel ;
-import javax.swing.JLabel ;
-import javax.swing.JScrollPane ;
-import javax.swing.JTabbedPane ;
-import javax.swing.JTextArea ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
-import jsky.app.ot.gui.TextBoxWidgetExt ;
-import jsky.app.ot.gui.TableWidgetExt ;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
-import javax.swing.border.TitledBorder ;
+import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Color;
+import java.awt.Insets;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import javax.swing.border.TitledBorder;
 
-public class DRRecipeGUI extends JPanel {
-  JPanel scubaPanel = new JPanel();
-  CommandButtonWidgetExt scuba_objectSet = new CommandButtonWidgetExt();
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  TextBoxWidgetExt scuba_objectRecipe = new TextBoxWidgetExt();
-  JPanel jPanel1 = new JPanel();
-  BorderLayout borderLayout3 = new BorderLayout();
-  JLabel jLabel8 = new JLabel();
-  JLabel jLabel6 = new JLabel();
-  JLabel jLabel2 = new JLabel();
-  JPanel heterodynePanel = new JPanel();
-  CardLayout cardLayout1 = new CardLayout();
-  BorderLayout borderLayout1 = new BorderLayout();
-  TitledBorder titledBorder1;
-  JPanel jPanel4 = new JPanel();
-  BorderLayout borderLayout2 = new BorderLayout();
-  GridBagLayout gridBagLayout2 = new GridBagLayout();
-  TextBoxWidgetExt scuba_userRecipe = new TextBoxWidgetExt();
-  JPanel jPanel2 = new JPanel();
-  CommandButtonWidgetExt scuba_userSpec = new CommandButtonWidgetExt();
-  CommandButtonWidgetExt scuba_defaultName = new CommandButtonWidgetExt();
-  JScrollPane jScrollPane1 = new JScrollPane();
-  TableWidgetExt scuba_recipeTable = new TableWidgetExt();
-  JTabbedPane tabbedPaneHet = new JTabbedPane();
-  JPanel jPanel3 = new JPanel();
-  JPanel jPanel5 = new JPanel();
-  GridBagLayout gridBagLayout3 = new GridBagLayout();
-  JLabel jLabel1 = new JLabel();
-  JLabel jLabel3 = new JLabel();
-  TextBoxWidgetExt pixelSizeX = new TextBoxWidgetExt();
-  TextBoxWidgetExt pixelSizeY = new TextBoxWidgetExt();
-  JLabel jLabel4 = new JLabel();
-  JLabel jLabel5 = new JLabel();
-  TextBoxWidgetExt offsetX = new TextBoxWidgetExt();
-  TextBoxWidgetExt offsetY = new TextBoxWidgetExt();
-  JLabel jLabel7 = new JLabel();
-  JLabel jLabel9 = new JLabel();
-  JLabel jLabel10 = new JLabel();
-  DropDownListBoxWidgetExt projection = new DropDownListBoxWidgetExt();
-  DropDownListBoxWidgetExt gridFunction = new DropDownListBoxWidgetExt();
-  TextBoxWidgetExt smoothingRad = new TextBoxWidgetExt();
-  JLabel jLabel11 = new JLabel();
-  JLabel jLabel12 = new JLabel();
-  JTextArea jTextArea1 = new JTextArea();
-  JLabel jLabel13 = new JLabel();
+public class DRRecipeGUI extends JPanel
+{
+	JPanel scubaPanel = new JPanel();
+	CommandButtonWidgetExt scuba_objectSet = new CommandButtonWidgetExt();
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	TextBoxWidgetExt scuba_objectRecipe = new TextBoxWidgetExt();
+	JPanel jPanel1 = new JPanel();
+	BorderLayout borderLayout3 = new BorderLayout();
+	JLabel jLabel8 = new JLabel();
+	JLabel jLabel6 = new JLabel();
+	JLabel jLabel2 = new JLabel();
+	JPanel heterodynePanel = new JPanel();
+	CardLayout cardLayout1 = new CardLayout();
+	BorderLayout borderLayout1 = new BorderLayout();
+	TitledBorder titledBorder1;
+	JPanel jPanel4 = new JPanel();
+	BorderLayout borderLayout2 = new BorderLayout();
+	GridBagLayout gridBagLayout2 = new GridBagLayout();
+	TextBoxWidgetExt scuba_userRecipe = new TextBoxWidgetExt();
+	JPanel jPanel2 = new JPanel();
+	CommandButtonWidgetExt scuba_userSpec = new CommandButtonWidgetExt();
+	CommandButtonWidgetExt scuba_defaultName = new CommandButtonWidgetExt();
+	JScrollPane jScrollPane1 = new JScrollPane();
+	TableWidgetExt scuba_recipeTable = new TableWidgetExt();
+	JTabbedPane tabbedPaneHet = new JTabbedPane();
+	JPanel jPanel3 = new JPanel();
+	JPanel jPanel5 = new JPanel();
+	GridBagLayout gridBagLayout3 = new GridBagLayout();
+	JLabel jLabel1 = new JLabel();
+	JLabel jLabel3 = new JLabel();
+	TextBoxWidgetExt pixelSizeX = new TextBoxWidgetExt();
+	TextBoxWidgetExt pixelSizeY = new TextBoxWidgetExt();
+	JLabel jLabel4 = new JLabel();
+	JLabel jLabel5 = new JLabel();
+	TextBoxWidgetExt offsetX = new TextBoxWidgetExt();
+	TextBoxWidgetExt offsetY = new TextBoxWidgetExt();
+	JLabel jLabel7 = new JLabel();
+	JLabel jLabel9 = new JLabel();
+	JLabel jLabel10 = new JLabel();
+	DropDownListBoxWidgetExt projection = new DropDownListBoxWidgetExt();
+	DropDownListBoxWidgetExt gridFunction = new DropDownListBoxWidgetExt();
+	TextBoxWidgetExt smoothingRad = new TextBoxWidgetExt();
+	JLabel jLabel11 = new JLabel();
+	JLabel jLabel12 = new JLabel();
+	JTextArea jTextArea1 = new JTextArea();
+	JLabel jLabel13 = new JLabel();
 
-  public DRRecipeGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
+	public DRRecipeGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  private void jbInit() throws Exception
+	private void jbInit() throws Exception
 	{
 		titledBorder1 = new TitledBorder( "" );
 		this.setLayout( cardLayout1 );
@@ -179,4 +182,3 @@ public class DRRecipeGUI extends JPanel {
 		jPanel3.add( jLabel13 , new GridBagConstraints( 4 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 	}
 }
-

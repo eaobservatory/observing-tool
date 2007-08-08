@@ -7,15 +7,12 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.inst.editor.scuba;
 
-import java.util.Vector;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -26,311 +23,286 @@ import javax.swing.SwingUtilities;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class Bolometer extends ClickableCircle {
+public class Bolometer extends ClickableCircle
+{
+	public static final Color COLOR_DISABLED = Color.gray;
+	public static final Color COLOR_ENABLED = Color.black;
+	public static final Color COLOR_SELECTED = Color.magenta;
+	public static final Color COLOR_COSELECTED = Color.blue;
+	public static final Color COLOR_PRIMARY = Color.red;
+	public static final int BOLOMETER_NONE = 0;
+	public static final int BOLOMETER_SHORT = 1;
+	public static final int BOLOMETER_LONG = 2;
+	public static final int BOLOMETER_P1100 = 4;
+	public static final int BOLOMETER_P1350 = 8;
+	public static final int BOLOMETER_P2000 = 16;
+	private static final double SIZE_FACTOR = 0.07;
 
-  public static final Color COLOR_DISABLED   = Color.gray;
-  public static final Color COLOR_ENABLED    = Color.black;
-  public static final Color COLOR_SELECTED   = Color.magenta;
-  public static final Color COLOR_COSELECTED = Color.blue;
-  public static final Color COLOR_PRIMARY    = Color.red;
-  
+	/**
+	 * There can be several selecetd Bolometers but only one of them is the primary one.
+	 *
+	 * All Bolometers share one static primary Bolometer.
+	 */
+	protected static Bolometer _primaryBolometer = null;
 
-  public static final int BOLOMETER_NONE  = 0;
-  public static final int BOLOMETER_SHORT = 1;
-  public static final int BOLOMETER_LONG  = 2;
-  public static final int BOLOMETER_P1100 = 4;
-  public static final int BOLOMETER_P1350 = 8;
-  public static final int BOLOMETER_P2000 = 16;
+	/**
+	 * Bolometer type.
+	 *
+	 * @see #getBolometerType()
+	 */
+	protected int _type = BOLOMETER_NONE;
 
-  private static final double SIZE_FACTOR = 0.07;
+	protected double du3;
 
-  /**
-   * There can be several selecetd Bolometers but only one of them is the primary one.
-   *
-   * All Bolometers share one static primary Bolometer.
-   */
-  protected static Bolometer _primaryBolometer = null;
+	protected double du4;
 
-  /**
-   * Bolometer type.
-   *
-   * @see #getBolometerType()
-   */
-  protected int    _type = BOLOMETER_NONE;
+	/** GUI enabled. */
+	protected boolean _enabled = false;
 
-    protected double du3;
-    protected double du4;
+	/** Bolometer selected. */
+	protected boolean _selected = false;
 
-  /** GUI enabled. */
-  protected boolean _enabled  = false;
+	/** Bolometer co-selected - matches a selected bolometer on another array */
+	protected boolean _coSelected = false;
 
-  /** Bolometer selected. */
-  protected boolean _selected = false;
+	/**
+	 * The position on the focal plane pointed at the source is determined by the
+	 * primary sub-instrument.
+	 */
 
-    /** Bolometer co-selected - matches a selected bolometer on another array */
-    protected boolean _coSelected = false;
+	/**
+	 * @param label name of bolometer
+	 * @param type one of
+	 * <pre>
+	 *                {@link #BOLOMETER_NONE},
+	 *                {@link #BOLOMETER_SHORT},
+	 *                {@link #BOLOMETER_LONG},
+	 *                {@link #BOLOMETER_P1100},
+	 *                {@link #BOLOMETER_P1350},
+	 *                {@link #BOLOMETER_P2000}
+	 * </pre>
+	 * @param x x coordinate of centre.
+	 * @param y x coordinate of centre.
+	 */
+	public Bolometer( String label , int type , double x , double y )
+	{
+		super( x , y , 0. , label );
 
-  /**
-   * The position on the focal plane pointed at the source is determined by the
-   * primary sub-instrument.
-   */
+		_type = type;
+		du3 = x;
+		du4 = y;
 
+		double xShift = 500. ;
 
-  /**
-   * @param label name of bolometer
-   * @param type one of
-   * <pre>
-   *                {@link #BOLOMETER_NONE},
-   *                {@link #BOLOMETER_SHORT},
-   *                {@link #BOLOMETER_LONG},
-   *                {@link #BOLOMETER_P1100},
-   *                {@link #BOLOMETER_P1350},
-   *                {@link #BOLOMETER_P2000}
-   * </pre>
-   * @param x x coordinate of centre.
-   * @param y x coordinate of centre.
-   */
-  public  Bolometer(String label, int type, double x, double y) {
-    super(x, y, 0.0, label);
+		double radius = BOLOMETER_NONE;
 
-    _type = type; 
-    du3 = x;
-    du4 = y;
+		switch( type )
+		{
+			case BOLOMETER_SHORT :
+				radius = 450. * SIZE_FACTOR;
+				xShift = 0. ;
+				break;
 
-    double xShift = 500.0;
+			case BOLOMETER_LONG :
+				radius = 850. * SIZE_FACTOR;
+				break;
 
-    double radius = BOLOMETER_NONE;
+			case BOLOMETER_P1100 :
+				radius = 1100. * SIZE_FACTOR;
+				break;
 
-    switch(type) {
-      case BOLOMETER_SHORT:
-             radius =  450.0 * SIZE_FACTOR;
-	     xShift = 0.0;
-	     break;
+			case BOLOMETER_P1350 :
+				radius = 1350. * SIZE_FACTOR;
+				break;
 
-      case BOLOMETER_LONG:
-             radius =  850.0 * SIZE_FACTOR;
-	     break;
+			case BOLOMETER_P2000 :
+				radius = 2000. * SIZE_FACTOR;
+				break;
+		}
 
-      case BOLOMETER_P1100:
-             radius = 1100.0 * SIZE_FACTOR;
-	     break;
+		x = 200. - 2.5 * x + xShift;
+		y = 200. - 2.5 * y;
+		setFrame( x , y , radius , radius );
+	}
 
-      case BOLOMETER_P1350:
-             radius = 1350.0 * SIZE_FACTOR;
-	     break;
+	/**
+	 * Get bolometer type.
+	 *
+	 * <pre>
+	 * Returns one of the following values:
+	 *
+	 *   {@link #BOLOMETER_NONE},
+	 *   {@link #BOLOMETER_SHORT},
+	 *   {@link #BOLOMETER_LONG},
+	 *   {@link #BOLOMETER_P1100},
+	 *   {@link #BOLOMETER_P1350},
+	 *   {@link #BOLOMETER_P2000},
+	 * </pre>
 
-      case BOLOMETER_P2000:
-             radius = 2000.0 * SIZE_FACTOR;
-	     break;
-    }
+	 */
+	public int getBolometerType()
+	{
+		return _type;
+	}
 
-    x = 200.0 - 2.5*x + xShift;
-    y = 200.0 - 2.5*y;
-    setFrame(x, y, radius, radius);
-  }
+	/**
+	 * Wrapper method for getLabel().
+	 */
+	public String getBolometerName()
+	{
+		return getLabel();
+	}
 
+	public double getdU3()
+	{
+		return du3;
+	}
 
-  /**
-   * Get bolometer type.
-   *
-   * <pre>
-   * Returns one of the following values:
-   *
-   *   {@link #BOLOMETER_NONE},
-   *   {@link #BOLOMETER_SHORT},
-   *   {@link #BOLOMETER_LONG},
-   *   {@link #BOLOMETER_P1100},
-   *   {@link #BOLOMETER_P1350},
-   *   {@link #BOLOMETER_P2000},
-   * </pre>
+	public double getdU4()
+	{
+		return du4;
+	}
 
-   */
-  public int getBolometerType() {
-    return _type;
-  }
+	/**
+	 * @see #setEnabled(boolean)
+	 */
+	public boolean isEnabled()
+	{
+		return _enabled;
+	}
 
-  /**
-   * Wrapper method for getLabel().
-   */
-  public String getBolometerName() {
-    return getLabel();
-  }
+	/**
+	 * Enables/disables GUI display of this Bolometer.
+	 *
+	 * Note that a bolometer can be selected but have its GUI disabled if it is part of
+	 * a selected array (LONG or SHORT).
+	 */
+	public void setEnabled( boolean enabled )
+	{
+		_enabled = enabled;
+	}
 
-    public double getdU3() {
-	return du3;
-    }
+	/**
+	 * @see #setSelected(boolean)
+	 */
+	public boolean isSelected()
+	{
+		return _selected;
+	}
 
-    public double getdU4() {
-	return du4;
-    }
+	/**
+	 * Select/unselect this Bolometer.
+	 *
+	 * Note that a bolometer can be selected but have its GUI disabled if it is part of
+	 * a selected array (LONG or SHORT).
+	 */
+	public void setSelected( boolean selected )
+	{
+		_selected = selected;
 
-  /**
-   * @see #setEnabled(boolean)
-   */
-  public boolean isEnabled() {
-    return _enabled;
-  }
+		if( _primaryBolometer == null )
+			_primaryBolometer = this;
+		else if( ( !_selected ) && ( this == _primaryBolometer ) )
+			_primaryBolometer = null;
+	}
 
-  /**
-   * Enables/disables GUI display of this Bolometer.
-   *
-   * Note that a bolometer can be selected but have its GUI disabled if it is part of
-   * a selected array (LONG or SHORT).
-   */
-  public void setEnabled(boolean enabled) {
-    _enabled = enabled;
-  }
+	public void setCoSelected( boolean selected )
+	{
+		// If it is already selected, ignore
+		_coSelected = selected;
+	}
 
-  /**
-   * @see #setSelected(boolean)
-   */
-  public boolean isSelected() {
-    return _selected;
-  }
+	/**
+	 * @see #setPrimary(boolean)
+	 */
+	public boolean isPrimary()
+	{
+		return( this == _primaryBolometer );
+	}
 
-  /**
-   * Select/unselect this Bolometer.
-   *
-   * Note that a bolometer can be selected but have its GUI disabled if it is part of
-   * a selected array (LONG or SHORT).
-   */
-  public void setSelected(boolean selected) {
-    _selected = selected;
+	/**
+	 * Enables/disables GUI display of this Bolometer.
+	 */
+	public void setPrimary( boolean primary )
+	{
+		if( primary )
+		{
+			_primaryBolometer = this;
+			_selected = true;
+			_coSelected = false;
+		}
+		else
+		{
+			if( this == _primaryBolometer )
+			{
+				System.out.println( "UnSetting primary bolometer from " + this.getLabel() );
+				_primaryBolometer = null;
+			}
+		}
+	}
 
-    if(_primaryBolometer == null) {
-      _primaryBolometer = this;
-    }
+	public void draw( Graphics g )
+	{
+		if( this == _primaryBolometer )
+			g.setColor( COLOR_PRIMARY );
+		else if( _selected )
+			g.setColor( COLOR_SELECTED );
+		else if( _coSelected )
+			g.setColor( COLOR_COSELECTED );
+		else if( _enabled )
+			g.setColor( COLOR_ENABLED );
+		else
+			g.setColor( COLOR_DISABLED );
 
-    if((!_selected) && (this == _primaryBolometer)) {
-      _primaryBolometer = null;
-    }
-  }
+		super.draw( g );
+	}
 
-    public void setCoSelected(boolean selected) {
-	// If it is already selected, ignore
-	_coSelected = selected;
-	return;
-    }
+	public void mouseClicked( MouseEvent e )
+	{
+		if( contains( e.getPoint() ) )
+		{
+			if( _enabled )
+			{
+				if( SwingUtilities.isRightMouseButton( e ) )
+					setPrimary( true );
+				else
+					setSelected( !_selected );
+			}
+			else
+			{
+				Toolkit.getDefaultToolkit().beep();
+			}
+	
+			super.mouseClicked( e );
+		}
+	}
 
-  /**
-   * @see #setPrimary(boolean)
-   */
-  public boolean isPrimary() {
-    return (this == _primaryBolometer);
-  }
+	/**
+	 * @param typeString as read from the scuba flat.dat file (e.g. SHORT, P2000, A1, etc).
+	 *
+	 * @return 
+	 * <pre>
+	 * One of
+	 *   {@link #BOLOMETER_SHORT}
+	 *   {@link #BOLOMETER_LONG}
+	 *   {@link #BOLOMETER_P1100}
+	 *   {@link #BOLOMETER_P1350}
+	 *   {@link #BOLOMETER_P2000}
+	 * </pre>
+	 */
+	public static int toBolometerType( String typeString )
+	{
+		if( typeString.equalsIgnoreCase( "SHORT" ) )
+			return BOLOMETER_SHORT;
+		else if( typeString.equalsIgnoreCase( "LONG" ) )
+			return BOLOMETER_LONG;
+		else if( typeString.equalsIgnoreCase( "P1100" ) )
+			return BOLOMETER_P1100;
+		else if( typeString.equalsIgnoreCase( "P1350" ) )
+			return BOLOMETER_P1350;
+		else if( typeString.equalsIgnoreCase( "P2000" ) )
+			return BOLOMETER_P2000;
 
-  /**
-   * Enables/disables GUI display of this Bolometer.
-   */
-  public void setPrimary(boolean primary) {
-    if(primary) {
-      _primaryBolometer = this;
-      _selected = true;
-      _coSelected = false;
-    }
-    else {
-      if(this == _primaryBolometer) {
-	  System.out.println("UnSetting primary bolometer from "+this.getLabel());
-        _primaryBolometer = null;
-      }
-    }
-  }
-
-  public void draw(Graphics g) {
-//     if(this == _primaryBolometer) {
-//       g.setColor(COLOR_PRIMARY);
-//     }
-//     else {
-//       if(_selected) {
-//         g.setColor(COLOR_SELECTED);
-//       }
-//       else {
-//         if(_enabled) {
-//           g.setColor(COLOR_ENABLED);
-//         }
-// 	else {
-//           g.setColor(COLOR_DISABLED);
-// 	}
-//       }
-//     }
-
-    if (this == _primaryBolometer) {
-	g.setColor(COLOR_PRIMARY);
-    }
-    else if (_selected) {
-	g.setColor(COLOR_SELECTED);
-    }
-    else if (_coSelected) {
-	g.setColor(COLOR_COSELECTED);
-    }
-    else if (_enabled) {
-	g.setColor(COLOR_ENABLED);
-    }
-    else {
-          g.setColor(COLOR_DISABLED);
-    }
-
-    super.draw(g);
-  }
-
-
-  public void mouseClicked(MouseEvent e) {
-    if(!contains(e.getPoint())) {
-      return;
-    }
-
-    if(_enabled) {
-      int command;
-      if(SwingUtilities.isRightMouseButton(e)) {
-        setPrimary(true);
-      }
-      else {
-        setSelected(!_selected);
-      }
-    }
-    else {
-      Toolkit.getDefaultToolkit().beep();
-    }
-
-    super.mouseClicked(e);
-  }
-
-
-  /**
-   * @param typeString as read from the scuba flat.dat file (e.g. SHORT, P2000, A1, etc).
-   *
-   * @return 
-   * <pre>
-   * One of
-   *   {@link #BOLOMETER_SHORT}
-   *   {@link #BOLOMETER_LONG}
-   *   {@link #BOLOMETER_P1100}
-   *   {@link #BOLOMETER_P1350}
-   *   {@link #BOLOMETER_P2000}
-   * </pre>
-   */
-  public static int toBolometerType(String typeString) {
-    if(typeString.equalsIgnoreCase("SHORT")) {
-      return BOLOMETER_SHORT;
-    }
-
-    if(typeString.equalsIgnoreCase("LONG")) {
-      return BOLOMETER_LONG;
-    }
-
-    if(typeString.equalsIgnoreCase("P1100")) {
-      return BOLOMETER_P1100;
-    }
-
-    if(typeString.equalsIgnoreCase("P1350")) {
-      return BOLOMETER_P1350;
-    }
-
-    if(typeString.equalsIgnoreCase("P2000")) {
-      return BOLOMETER_P2000;
-    }
-
-    return BOLOMETER_NONE;
-  }
+		return BOLOMETER_NONE;
+	}
 }
-

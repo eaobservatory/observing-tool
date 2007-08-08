@@ -9,10 +9,10 @@
 // $Id$
 package ot.jcmt.inst.editor;
 
-import java.awt.GridBagLayout ;
-import java.awt.AWTEvent ;
-import java.awt.Dimension ;
-import javax.swing.JPanel ;
+import java.awt.GridBagLayout;
+import java.awt.AWTEvent;
+import java.awt.Dimension;
+import javax.swing.JPanel;
 
 /**
  * ACSIS DR GUI.
@@ -21,9 +21,8 @@ import javax.swing.JPanel ;
  */
 public class DataReductionScreen extends JPanel
 {
-
 	GridBagLayout gridBagLayout1 = new GridBagLayout();
-	
+
 	// Construct the frame
 	public DataReductionScreen()
 	{
@@ -44,5 +43,4 @@ public class DataReductionScreen extends JPanel
 		this.setLayout( gridBagLayout1 );
 		this.setSize( new Dimension( 501 , 564 ) );
 	}
-
 }

@@ -7,20 +7,19 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.inst.editor;
 
-import javax.swing.JPanel ;
-import javax.swing.JComboBox ;
-import javax.swing.JTable ;
-import javax.swing.BorderFactory ;
-import javax.swing.JLabel ;
-import javax.swing.JButton ;
-import javax.swing.JTextField ;
-import javax.swing.JScrollPane ;
-import javax.swing.JRadioButton ;
-import javax.swing.ButtonGroup ;
-import javax.swing.border.BevelBorder ;
+import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,9 +29,9 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Insets;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
-import jsky.app.ot.gui.TextBoxWidgetExt ;
-import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
 
 import edfreq.FrequencyEditorCfg;
 
@@ -41,67 +40,64 @@ import edfreq.FrequencyEditorCfg;
  *
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class HeterodyneGUI extends JPanel {
-    
-    // Get the front end configuration
-    private static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
+public class HeterodyneGUI extends JPanel
+{
+	// Get the front end configuration
+	private static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
 
-    /** Available sideband modes */
-    public static final String [] SIDEBAND_MODES= {"ssb", "dsb"};
+	/** Available sideband modes */
+	public static final String[] SIDEBAND_MODES = { "ssb" , "dsb" };
 
-    /** Subsytems available */
+	/** Subsytems available */
 	public static final String[] SUBSYSTEMS = { "1" , "2" , "3" , "4" };
 
-    /** Sideband choices */
-    public static final String [] SIDEBAND_SELECTIONS = {"best", "usb", "lsb"};
+	/** Sideband choices */
+	public static final String[] SIDEBAND_SELECTIONS = { "best" , "usb" , "lsb" };
 
-    // Table column headings
-    final String [] COLUMN_NAMES = {"Region", "Species", "Trans.", "Rest. Freq.", 
-	"Centre Freq.", "BW", "res", "overlap", "channels" };
+	// Table column headings
+	final String[] COLUMN_NAMES = { "Region" , "Species" , "Trans." , "Rest. Freq." , "Centre Freq." , "BW" , "res" , "overlap" , "channels" };
 
-    // FE Panels
-    JPanel feSelector;
-    JPanel modeSelector;
-    JPanel regionSelector;
-    JPanel sbSelector;
-    JPanel vPanel;
-    JPanel fPanel;
-    JPanel bPanel;
-    JPanel summaryPanel;
-    JComboBox specialConfigs;
-    JTable table;
-    
-    JLabel velLabel ;
-    TextBoxWidgetExt velocity ;
-    JLabel vfLabel ;
-    DropDownListBoxWidgetExt vFrame ;
-    JLabel vdLabel ;
-    DropDownListBoxWidgetExt vDef ;
- 
-    JPanel radialDefaultPanel ;
-    JLabel radialDefaultLabel ;
-    CheckBoxWidgetExt defaultToRadial ;
-    
-    JComboBox firstBandwidth ;
-    JComboBox secondBandwidth ;
-    JComboBox thirdBandwidth ;
-    JComboBox fourthBandwidth ;
-    JPanel bandwidthsPanel ;
-    JPanel summaryAndBandwidthPanel ;
+	// FE Panels
+	JPanel feSelector;
+	JPanel modeSelector;
+	JPanel regionSelector;
+	JPanel sbSelector;
+	JPanel vPanel;
+	JPanel fPanel;
+	JPanel bPanel;
+	JPanel summaryPanel;
+	JComboBox specialConfigs;
+	JTable table;
+	JLabel velLabel;
+	TextBoxWidgetExt velocity;
+	JLabel vfLabel;
+	DropDownListBoxWidgetExt vFrame;
+	JLabel vdLabel;
+	DropDownListBoxWidgetExt vDef;
+	JPanel radialDefaultPanel;
+	JLabel radialDefaultLabel;
+	CheckBoxWidgetExt defaultToRadial;
+	JComboBox firstBandwidth;
+	JComboBox secondBandwidth;
+	JComboBox thirdBandwidth;
+	JComboBox fourthBandwidth;
+	JPanel bandwidthsPanel;
+	JPanel summaryAndBandwidthPanel;
 
-    public HeterodyneGUI() {
-	try {
-	    jbInit();
-	}
-	catch (Exception e) {
-	    e.printStackTrace();
-	}
-    }
-
-    
-    private void jbInit() throws Exception
+	public HeterodyneGUI()
 	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
+	private void jbInit() throws Exception
+	{
 		setLayout( new GridBagLayout() );
 		//
 		// Front-end panel and its elements
@@ -219,16 +215,15 @@ public class HeterodyneGUI extends JPanel {
 		summaryPanel.add( highFreq );
 
 		// Frequency Panel
-		// To maintain the layout, we put the volocity and frequency and
-		// buttons into separate, hidden, panels
+		// To maintain the layout, we put the volocity and frequency and buttons into separate, hidden, panels
 		JPanel freqPanel = new JPanel();
-		freqPanel.setLayout( new GridLayout( 4 , 1 ) ) ;
+		freqPanel.setLayout( new GridLayout( 4 , 1 ) );
 		freqPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "Frequency Setup" ) );
-		
-		radialDefaultPanel = new JPanel( new GridBagLayout() ) ;
-	    defaultToRadial = new CheckBoxWidgetExt( "Default tuning velocity to target radial velocity" ) ;
-	    radialDefaultPanel.add( defaultToRadial ) ;
-		
+
+		radialDefaultPanel = new JPanel( new GridBagLayout() );
+		defaultToRadial = new CheckBoxWidgetExt( "Default tuning velocity to target radial velocity" );
+		radialDefaultPanel.add( defaultToRadial );
+
 		vPanel = new JPanel( new GridBagLayout() );
 		fPanel = new JPanel( new GridBagLayout() );
 		bPanel = new JPanel( new GridBagLayout() );
@@ -236,42 +231,42 @@ public class HeterodyneGUI extends JPanel {
 		velLabel = new JLabel( "Velocity" );
 		velLabel.setForeground( Color.BLACK );
 		velLabel.setFont( new Font( "dialog" , 0 , 12 ) );
-		velLabel.setEnabled( false ) ;
+		velLabel.setEnabled( false );
 
-		velocity = new TextBoxWidgetExt() ;
-		velocity.setText( "unset" ) ;
+		velocity = new TextBoxWidgetExt();
+		velocity.setText( "unset" );
 		velocity.setBorder( BorderFactory.createLoweredBevelBorder() );
 		velocity.setFont( new Font( "Dialog" , 0 , 12 ) );
 		velocity.setForeground( Color.black );
 		velocity.setMinimumSize( velocity.getPreferredSize() );
 		velocity.setName( "velocity" );
-		velocity.setEnabled( false ) ;
+		velocity.setEnabled( false );
 
 		vfLabel = new JLabel( "Frame" );
 		vfLabel.setForeground( Color.BLACK );
 		vfLabel.setFont( new Font( "dialog" , 0 , 12 ) );
-		vfLabel.setEnabled( false ) ;
+		vfLabel.setEnabled( false );
 
-		vFrame = new DropDownListBoxWidgetExt() ;
+		vFrame = new DropDownListBoxWidgetExt();
 		vFrame.setBorder( BorderFactory.createEmptyBorder() );
 		vFrame.setFont( new Font( "Dialog" , 0 , 12 ) );
 		vFrame.setForeground( Color.black );
 		vFrame.setMinimumSize( vFrame.getPreferredSize() );
 		vFrame.setName( "frame" );
-		vFrame.setEnabled( false ) ;
+		vFrame.setEnabled( false );
 
 		vdLabel = new JLabel( "Definition" );
 		vdLabel.setForeground( Color.BLACK );
 		vdLabel.setFont( new Font( "dialog" , 0 , 12 ) );
-		vdLabel.setEnabled( false ) ;
+		vdLabel.setEnabled( false );
 
-		vDef = new DropDownListBoxWidgetExt() ;
+		vDef = new DropDownListBoxWidgetExt();
 		vDef.setBorder( BorderFactory.createEmptyBorder() );
 		vDef.setFont( new Font( "Dialog" , 0 , 12 ) );
 		vDef.setForeground( Color.black );
 		vDef.setMinimumSize( vDef.getPreferredSize() );
 		vDef.setName( "definition" );
-		vDef.setEnabled( false ) ;
+		vDef.setEnabled( false );
 
 		JComboBox moleculeBox = new JComboBox();
 		moleculeBox.setForeground( Color.BLACK );
@@ -324,10 +319,10 @@ public class HeterodyneGUI extends JPanel {
 		bPanel.add( showButton , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 50 , 5 , 5 ) , 0 , 0 ) );
 		bPanel.add( hideButton , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 50 ) , 0 , 0 ) );
 
-		freqPanel.add( radialDefaultPanel ) ;
-		freqPanel.add( vPanel ) ;
-		freqPanel.add( fPanel ) ;
-		freqPanel.add( bPanel ) ;
+		freqPanel.add( radialDefaultPanel );
+		freqPanel.add( vPanel );
+		freqPanel.add( fPanel );
+		freqPanel.add( bPanel );
 
 		// The frequency summary information
 		JPanel tablePanel = new JPanel();
@@ -340,44 +335,44 @@ public class HeterodyneGUI extends JPanel {
 		JScrollPane scrollPane = new JScrollPane( table );
 
 		tablePanel.add( scrollPane , BorderLayout.CENTER );
-		
-		bandwidthsPanel = new JPanel() ;
-		
-		bandwidthsPanel.setLayout( new GridLayout( 4 , 1 ) ) ;
-		bandwidthsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "Bandwidths" ) );
-		
-		firstBandwidth = new JComboBox() ;
-		firstBandwidth.setForeground( Color.BLACK ) ;
-		firstBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
-		firstBandwidth.setEnabled( true ) ;
-		
-		secondBandwidth = new JComboBox() ;
-		secondBandwidth.setForeground( Color.BLACK ) ;
-		secondBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
-		secondBandwidth.setEnabled( false ) ;
-		
-		thirdBandwidth = new JComboBox() ;
-		thirdBandwidth.setForeground( Color.BLACK ) ;
-		thirdBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
-		thirdBandwidth.setEnabled( false ) ;
-		
-		fourthBandwidth = new JComboBox() ;
-		fourthBandwidth.setForeground( Color.BLACK ) ;
-		fourthBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
-		fourthBandwidth.setEnabled( false ) ;
 
-		bandwidthsPanel.add( firstBandwidth ) ;
-		bandwidthsPanel.add( secondBandwidth ) ;
-		bandwidthsPanel.add( thirdBandwidth ) ;
-		bandwidthsPanel.add( fourthBandwidth ) ;
-		
-		summaryAndBandwidthPanel = new JPanel() ;
-		summaryAndBandwidthPanel.setLayout( new GridBagLayout() ) ;
+		bandwidthsPanel = new JPanel();
+
+		bandwidthsPanel.setLayout( new GridLayout( 4 , 1 ) );
+		bandwidthsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "Bandwidths" ) );
+
+		firstBandwidth = new JComboBox();
+		firstBandwidth.setForeground( Color.BLACK );
+		firstBandwidth.setFont( new Font( "dialog" , 0 , 12 ) );
+		firstBandwidth.setEnabled( true );
+
+		secondBandwidth = new JComboBox();
+		secondBandwidth.setForeground( Color.BLACK );
+		secondBandwidth.setFont( new Font( "dialog" , 0 , 12 ) );
+		secondBandwidth.setEnabled( false );
+
+		thirdBandwidth = new JComboBox();
+		thirdBandwidth.setForeground( Color.BLACK );
+		thirdBandwidth.setFont( new Font( "dialog" , 0 , 12 ) );
+		thirdBandwidth.setEnabled( false );
+
+		fourthBandwidth = new JComboBox();
+		fourthBandwidth.setForeground( Color.BLACK );
+		fourthBandwidth.setFont( new Font( "dialog" , 0 , 12 ) );
+		fourthBandwidth.setEnabled( false );
+
+		bandwidthsPanel.add( firstBandwidth );
+		bandwidthsPanel.add( secondBandwidth );
+		bandwidthsPanel.add( thirdBandwidth );
+		bandwidthsPanel.add( fourthBandwidth );
+
+		summaryAndBandwidthPanel = new JPanel();
+		summaryAndBandwidthPanel.setLayout( new GridBagLayout() );
 		summaryAndBandwidthPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "" ) );
 
-		summaryAndBandwidthPanel.add( summaryPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) ) ;
-		summaryAndBandwidthPanel.add( bandwidthsPanel , new GridBagConstraints( 0 , 1 , 1 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) ) ;
-		
+		summaryAndBandwidthPanel.add( summaryPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		summaryAndBandwidthPanel.add( bandwidthsPanel , new GridBagConstraints( 0 , 1 , 1 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+
 		// Add all the panels to this object
 		add( fePanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		add( summaryAndBandwidthPanel , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
@@ -385,82 +380,83 @@ public class HeterodyneGUI extends JPanel {
 		add( tablePanel , new GridBagConstraints( 0 , 2 , 2 , 2 , 1.0 , 1.0 , GridBagConstraints.NORTH , GridBagConstraints.BOTH , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 	}
 
-      private JPanel makeFEGroup() {
-	JPanel jPanel = new JPanel();
-	jPanel.setBorder (BorderFactory.createTitledBorder (
-		    BorderFactory.createEtchedBorder()));
-	jPanel.setLayout (new GridLayout(1, 0, 5, 0));
+	private JPanel makeFEGroup()
+	{
+		JPanel jPanel = new JPanel();
+		jPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder() ) );
+		jPanel.setLayout( new GridLayout( 1 , 0 , 5 , 0 ) );
 
-	ButtonGroup bg = new ButtonGroup();
+		ButtonGroup bg = new ButtonGroup();
 
-	for ( int i=0; i < _cfg.frontEnds.length; i++ ) {
-	    JRadioButton b = new JRadioButton(_cfg.frontEnds[i].trim());
-	    b.setForeground(Color.BLACK);
-	    b.setFont (new Font ("Dialog", 0, 10));
-	    b.setName(_cfg.frontEnds[i].trim());
-	    bg.add(b);
-	    jPanel.add(b);
+		for( int i = 0 ; i < _cfg.frontEnds.length ; i++ )
+		{
+			JRadioButton b = new JRadioButton( _cfg.frontEnds[ i ].trim() );
+			b.setForeground( Color.BLACK );
+			b.setFont( new Font( "Dialog" , 0 , 10 ) );
+			b.setName( _cfg.frontEnds[ i ].trim() );
+			bg.add( b );
+			jPanel.add( b );
+		}
+		return jPanel;
 	}
-	return jPanel;
-      }
 
-      private JPanel makeSidebandConfigGroup() {
-	JPanel jPanel = new JPanel();
-	jPanel.setBorder (BorderFactory.createTitledBorder (
-		    BorderFactory.createEtchedBorder()));
-	jPanel.setLayout (new GridLayout(1, 0));
+	private JPanel makeSidebandConfigGroup()
+	{
+		JPanel jPanel = new JPanel();
+		jPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder() ) );
+		jPanel.setLayout( new GridLayout( 1 , 0 ) );
 
-	ButtonGroup bg = new ButtonGroup();
+		ButtonGroup bg = new ButtonGroup();
 
-	for ( int i=0; i < SIDEBAND_MODES.length; i++ ) {
-	    JRadioButton b = new JRadioButton(SIDEBAND_MODES[i]);
-	    b.setForeground(Color.BLACK);
-	    b.setFont (new Font ("Dialog", 0, 10));
-	    b.setName(SIDEBAND_MODES[i]);
-	    bg.add(b);
-	    jPanel.add(b);
+		for( int i = 0 ; i < SIDEBAND_MODES.length ; i++ )
+		{
+			JRadioButton b = new JRadioButton( SIDEBAND_MODES[ i ] );
+			b.setForeground( Color.BLACK );
+			b.setFont( new Font( "Dialog" , 0 , 10 ) );
+			b.setName( SIDEBAND_MODES[ i ] );
+			bg.add( b );
+			jPanel.add( b );
+		}
+		return jPanel;
 	}
-	return jPanel;
-      }
 
-      private JPanel makeSubsystemGroup() {
-	JPanel jPanel = new JPanel();
-	jPanel.setBorder (BorderFactory.createTitledBorder (
-		    BorderFactory.createEtchedBorder()));
-	jPanel.setLayout (new GridLayout(1, 0));
+	private JPanel makeSubsystemGroup()
+	{
+		JPanel jPanel = new JPanel();
+		jPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder() ) );
+		jPanel.setLayout( new GridLayout( 1 , 0 ) );
 
-	ButtonGroup bg = new ButtonGroup();
+		ButtonGroup bg = new ButtonGroup();
 
-	for ( int i=0; i < SUBSYSTEMS.length; i++ ) {
-	    JRadioButton b = new JRadioButton(SUBSYSTEMS[i]);
-	    b.setForeground(Color.BLACK);
-	    b.setFont (new Font ("Dialog", 0, 10));
-	    b.setName(SUBSYSTEMS[i]);
-	    bg.add(b);
-	    jPanel.add(b);
+		for( int i = 0 ; i < SUBSYSTEMS.length ; i++ )
+		{
+			JRadioButton b = new JRadioButton( SUBSYSTEMS[ i ] );
+			b.setForeground( Color.BLACK );
+			b.setFont( new Font( "Dialog" , 0 , 10 ) );
+			b.setName( SUBSYSTEMS[ i ] );
+			bg.add( b );
+			jPanel.add( b );
+		}
+		return jPanel;
 	}
-	return jPanel;
-      }
 
-      private JPanel makeSBSelectionGroup() {
-	JPanel jPanel = new JPanel();
-	jPanel.setBorder (BorderFactory.createTitledBorder (
-		    BorderFactory.createEtchedBorder()));
-	jPanel.setLayout (new GridLayout(1, 0));
+	private JPanel makeSBSelectionGroup()
+	{
+		JPanel jPanel = new JPanel();
+		jPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder() ) );
+		jPanel.setLayout( new GridLayout( 1 , 0 ) );
 
-	ButtonGroup bg = new ButtonGroup();
+		ButtonGroup bg = new ButtonGroup();
 
-	for ( int i=0; i < SIDEBAND_SELECTIONS.length; i++ ) {
-	    JRadioButton b = new JRadioButton(SIDEBAND_SELECTIONS[i]);
-	    b.setForeground(Color.BLACK);
-	    b.setFont (new Font ("Dialog", 0, 10));
-	    b.setName(SIDEBAND_SELECTIONS[i]);
-	    bg.add(b);
-	    jPanel.add(b);
+		for( int i = 0 ; i < SIDEBAND_SELECTIONS.length ; i++ )
+		{
+			JRadioButton b = new JRadioButton( SIDEBAND_SELECTIONS[ i ] );
+			b.setForeground( Color.BLACK );
+			b.setFont( new Font( "Dialog" , 0 , 10 ) );
+			b.setName( SIDEBAND_SELECTIONS[ i ] );
+			bg.add( b );
+			jPanel.add( b );
+		}
+		return jPanel;
 	}
-	return jPanel;
-      }
-
-
 }
-

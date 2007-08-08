@@ -7,19 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.inst.editor;
 
 import orac.jcmt.inst.SpDRRecipe;
 import orac.jcmt.inst.SpInstHeterodyne;
-import edfreq.*;
+import edfreq.EdFreq ;
+import edfreq.FrequencyEditorCfg ;
 import edfreq.region.SpectralRegionEditor;
 import ot.util.DialogUtil;
 
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
-
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -28,8 +27,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-
-
 
 /**
  * This class provides a frame for the SpectralRegionEditor.
@@ -44,41 +41,37 @@ import javax.swing.JButton;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpectralRegionDialog extends JDialog implements ActionListener {
+public class SpectralRegionDialog extends JDialog implements ActionListener
+{
+	private JButton okButton = new JButton( "OK" );
+	private JButton cancelButton = new JButton( "Cancel" );
+	private JPanel buttonPanel = new JPanel();
+	private EdDRRecipe _drRecipeEditor;
+	private SpDRRecipe _drRecipe;
+	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
+	private SpectralRegionEditor _spectralRegionEditor = new SpectralRegionEditor( this );
 
-  private JButton okButton = new JButton("OK");
-  private JButton cancelButton = new JButton("Cancel");
-  private JPanel buttonPanel  = new JPanel();
+	public SpectralRegionDialog()
+	{
+		setTitle( "Baseline Fit and Line Regions" );
+		setModal( true );
 
-  private EdDRRecipe _drRecipeEditor;
-  private SpDRRecipe _drRecipe;
+		buttonPanel.add( okButton );
+		buttonPanel.add( cancelButton );
 
-  protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();  
+		getContentPane().add( _spectralRegionEditor , BorderLayout.CENTER );
+		getContentPane().add( buttonPanel , BorderLayout.SOUTH );
+		pack();
+		setLocation( 100 , 100 );
 
-  private SpectralRegionEditor _spectralRegionEditor = new SpectralRegionEditor(this);
+		setDefaultCloseOperation( HIDE_ON_CLOSE );
 
-
-  public SpectralRegionDialog() {
-    setTitle("Baseline Fit and Line Regions");
-    setModal(true);
-
-    buttonPanel.add(okButton);
-    buttonPanel.add(cancelButton);
-
-    getContentPane().add(_spectralRegionEditor, BorderLayout.CENTER);
-    getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-    pack();
-    setLocation(100, 100);
-
-    setDefaultCloseOperation(HIDE_ON_CLOSE);
-
-    okButton.addActionListener(this);
-    cancelButton.addActionListener(this);
-  }
+		okButton.addActionListener( this );
+		cancelButton.addActionListener( this );
+	}
 
 	public void show( SpDRRecipe drRecipe , SpInstHeterodyne instHeterodyne , EdDRRecipe drRecipeEditor )
 	{
-
 		if( instHeterodyne.getBand() == null )
 		{
 			DialogUtil.error( this , "Heterodyne component has not been edited." );
@@ -92,12 +85,12 @@ public class SpectralRegionDialog extends JDialog implements ActionListener {
 		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne );
 		if( tgt != null )
 		{
-			SpTelescopePos tp = ( SpTelescopePos ) tgt.getPosList().getBasePosition();
+			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition();
 			redshift = tp.getRedshift();
 		}
 		else
 		{
-			redshift = 0.0;
+			redshift = 0. ;
 		}
 
 		double feIF = instHeterodyne.getFeIF();
@@ -107,13 +100,11 @@ public class SpectralRegionDialog extends JDialog implements ActionListener {
 		double lo1Hz = EdFreq.getLO1( obsFrequency , instHeterodyne.getCentreFrequency( 0 ) , instHeterodyne.getBand() );
 
 		_spectralRegionEditor.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() );
-		
+
 		_spectralRegionEditor.updateLineDisplay( lo1Hz - ( feIF + ( 0.5 * feBandWidth ) ) , lo1Hz + ( feIF + ( 0.5 * feBandWidth ) ) , feIF , feBandWidth , redshift );
 
 		for( int i = 0 ; i < Integer.parseInt( instHeterodyne.getBandMode() ) ; i++ )
-		{
 			_spectralRegionEditor.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i );
-		}
 
 		_spectralRegionEditor.setMainLine( instHeterodyne.getRestFrequency( 0 ) );
 
@@ -126,33 +117,32 @@ public class SpectralRegionDialog extends JDialog implements ActionListener {
 		show();
 	}
 
-  public void applyAndHide() {
+	public void applyAndHide()
+	{
+		apply();
+		hide();
+	}
 
-    apply();
-    hide();
-  }
-
-  	public void apply()
+	public void apply()
 	{
 		_drRecipeEditor.refresh();
 	}
 
-  public void cancel() {
-    hide();
-  }
+	public void cancel()
+	{
+		hide();
+	}
 
-  public void update(Graphics g) {
-    super.update(g);
-  }
+	public void update( Graphics g )
+	{
+		super.update( g );
+	}
 
-  public void actionPerformed(ActionEvent e) {
-    if(e.getSource() == okButton) {
-      applyAndHide();
-    }
-
-    if(e.getSource() == cancelButton) {
-      hide();
-    }
-  }
+	public void actionPerformed( ActionEvent e )
+	{
+		if( e.getSource() == okButton )
+			applyAndHide();
+		else if( e.getSource() == cancelButton )
+			hide();
+	}
 }
-
