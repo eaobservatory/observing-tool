@@ -100,7 +100,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	/** Get area height (map height). */
 	public double getHeight()
 	{
-		return _avTable.getDouble( ATTR_SCANAREA_HEIGHT , 0.0 );
+		return _avTable.getDouble( ATTR_SCANAREA_HEIGHT , 0. );
 	}
 
 	/** Set area height (map height). */
@@ -457,13 +457,16 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		double samplesPerColumn = getHeight();
 
 		boolean swap = false;
-
+		
 		// if AUTOMATIC and height > width
-		// else USER DEF and angle is not 90 and angle is 0 or height > width
+		// else if USER DEF and abs( scan angle - map angle ) is < 45
+		// else if USER DEF and abs( scan angle - map angle ) is > 135
 		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow;
-		if( ( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) ) && columnGreaterThanRow )
+		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
+			swap = columnGreaterThanRow ;
+		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) < 45. )
 			swap = true;
-		else if( ( getScanAngle( 0 ) != 90. ) && ( ( getScanAngle( 0 ) == 0. ) || columnGreaterThanRow ) )
+		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) > 135. )
 			swap = true;
 
 		if( swap )
@@ -485,9 +488,20 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			return samplesPerColumn;
 	}
 
+	private double normalise( double angle )
+	{
+		double returnable = angle ;
+
+			while( returnable < 0 )
+				returnable += 180. ;
+			while( returnable > 180. )
+				returnable -= 180. ;		
+
+		return returnable ;
+	}
+	
 	public double getElapsedTime()
 	{
-
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
 		{
@@ -529,13 +543,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			 * Based on real timing data 
 			 * http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
 			 */
-			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
-			double samplesPerColumnAsDouble = ( Math.floor( getHeight() / getScanDy() ) ) + 1.;
+			double samplesPerRow = numberOfSamplesPerRow() ;
+			double samplesPerColumn = numberOfSamplesPerColumn() ;
 
-			if( ( samplesPerRow & 1 ) != 0 )
+			if( ( ( ( int )samplesPerRow ) & 1 ) == 0 )
 				samplesPerRow++ ;
-			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * samplesPerColumnAsDouble;
-			double time = ( 1.2 * overhead ) + 110;
+			double rowOverhead = 17.14 ;
+			double observation = ( ( samplesPerRow + Math.sqrt( samplesPerRow ) )* getSampleTime() + rowOverhead ) * samplesPerColumn ;
+			double time = ( 1.05 * observation ) + 80. ;
 			return time;
 		}
 		return 0.;
