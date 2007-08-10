@@ -417,11 +417,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
+			double rowOverhead = 17.14 ;
 			double samplesPerRow = numberOfSamplesPerRow();
 
 			double timeOnRow = samplesPerRow * getSampleTime();
 			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime();
-			return timeOnRow + timeOffRow;
+			return 1.05 * ( timeOnRow + timeOffRow + rowOverhead ) ;
 		}
 		return 0. ;
 	}
@@ -551,9 +552,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 			if( ( ( ( int )samplesPerRow ) & 1 ) == 0 )
 				samplesPerRow++ ;
-			double rowOverhead = 17.14 ;
-			double observation = ( ( samplesPerRow + Math.sqrt( samplesPerRow ) )* getSampleTime() + rowOverhead ) * samplesPerColumn ;
-			double time = ( 1.05 * observation ) + 80. ;
+			double time = getSecsPerRow() * samplesPerColumn + 80. ;
 			return time;
 		}
 		return 0.;
