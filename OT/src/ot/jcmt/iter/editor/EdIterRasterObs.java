@@ -463,6 +463,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ];
 			_iterObs.setScanDy( value );
+			_w.dy.setValue( _iterObs.getScanDy() );
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
