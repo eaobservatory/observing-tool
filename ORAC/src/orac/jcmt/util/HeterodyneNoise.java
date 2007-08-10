@@ -375,7 +375,6 @@ public class HeterodyneNoise
 
 	private static double getNoise( SpIterJCMTObs obs , SpInstHeterodyne inst , double tSys )
 	{
-
 		double time = 0.;
 
 		double np = 1.;
@@ -383,6 +382,8 @@ public class HeterodyneNoise
 		int shared = 0;
 
 		int samplesPerRow = 1;
+		
+		double fudge = 1. ;
 
 		if( obs instanceof SpIterRasterObs )
 		{
@@ -394,6 +395,12 @@ public class HeterodyneNoise
 			time = sampleTime;
 
 			np = samplesPerRow;
+			
+			if( inst.getFrontEnd().equals( "HARP" ) )
+			{
+				double scale = rasterObs.getScanDy() / SpIterRasterObs.HARP_FULL_ARRAY ;
+				fudge = Math.sqrt( scale ) ;
+			}
 		}
 		else if( obs instanceof SpIterJiggleObs )
 		{
@@ -420,12 +427,13 @@ public class HeterodyneNoise
 		// Multiply by the number of mixers
 		if( inst.getMixer().startsWith( "Dual" ) )
 		{
-			time = 2. * time;
-			resolution = 2 * resolution;
+			time *= 2. ;
+			resolution *= 2 ;
 		}
 
 		double factor = ( shared * Math.sqrt( 1 + ( 1 / Math.sqrt( np ) ) ) ) + ( ( 1 - shared ) * ( Math.sqrt( 2 ) ) );
 		double rmsNoise = 1.04 * factor * tSys * 1.23 / Math.sqrt( resolution * time );
+		rmsNoise *= fudge ;
 		return MathUtil.round( rmsNoise , 3 );
 	}
 

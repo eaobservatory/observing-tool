@@ -68,8 +68,20 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	// Global flag indicating whether we are using acsis or das
 	boolean _isAcsis = true;
 	TreeMap harpMap = new TreeMap();
+	
 	private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" };
-	private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 };
+	private static final double[] HARP_RASTER_STEPS = { 1. , .5 , .25 , .125 , 0.0625 , 0.75 } ;
+	private static double[] HARP_RASTER_VALUES = new double[ HARP_RASTER_STEPS.length ];
+	
+	static
+	{
+		for( int index = 0 ; index < HARP_RASTER_STEPS.length ; index++ )
+		{
+			double tempValue = SpIterRasterObs.HARP_FULL_ARRAY * HARP_RASTER_STEPS[ index ] ;
+			HARP_RASTER_VALUES[ index ] = orac.util.CoordConvert.round( tempValue , 4 ) ;
+		}
+	}
+	
 	boolean harp = false;
 	boolean scuba2 = false;
 

@@ -57,6 +57,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	/** Needed for XML parsing. */
 	private String _xmlPaAncestor;
+	
+	public static final double HARP_SAMPLE = 7.2761 ;
+	public static final double HARP_FULL_ARRAY = 116.4171 ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" );
 
