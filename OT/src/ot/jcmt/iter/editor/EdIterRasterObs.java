@@ -483,9 +483,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_iterObs.setScanStrategy( value );
 			scuba2Setup();
 		}
-		super.dropDownListBoxAction( ddlbwe , index , val );
+		else
+		{
+			super.dropDownListBoxAction( ddlbwe , index , val );
+		}
 		updateTimes();
 		updateThermometer();
+		super._updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
