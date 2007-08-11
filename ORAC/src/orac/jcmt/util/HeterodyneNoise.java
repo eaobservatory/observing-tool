@@ -401,6 +401,8 @@ public class HeterodyneNoise
 				double scale = rasterObs.getScanDy() / SpIterRasterObs.HARP_FULL_ARRAY ;
 				multiscan = Math.sqrt( scale ) ;
 			}
+			
+			shared = 1 ;
 		}
 		else if( obs instanceof SpIterJiggleObs )
 		{
