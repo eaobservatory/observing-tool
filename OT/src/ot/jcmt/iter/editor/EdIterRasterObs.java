@@ -430,10 +430,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_iterObs.setSampleTime( sampleTime );
 			_w.noiseTextBox.setValue( calculateNoise() );
 		}
-
-		super.textBoxKeyPress( tbwe );
+		else
+		{
+			super.textBoxKeyPress( tbwe );
+		}
 		updateTimes();
 		updateThermometer();
+		super._updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
@@ -501,10 +504,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_iterObs.getAvEditFSM().deleteObserver( this );
 
 		if( e.getSource() == _w.scanAngle.getEditor().getEditorComponent() )
-		{
 			_iterObs.setScanAngles( ( ( JTextField )_w.scanAngle.getEditor().getEditorComponent() ).getText() );
-		}
 
+		super._updateWidgets() ;
+		
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
