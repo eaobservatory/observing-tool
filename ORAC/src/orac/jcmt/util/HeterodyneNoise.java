@@ -99,20 +99,22 @@ public class HeterodyneNoise
 		if( dir.isDirectory() )
 		{
 			String[] files = dir.list();
-			if( files == null )
+			if( files != null )
+			{
+				for( int i = 0 ; i < files.length ; i++ )
+				{
+					if( files[ i ].startsWith( "tau" ) && files[ i ].endsWith( ".dat" ) )
+					{
+						// Extract the tau value
+						String value = "0." + files[ i ].substring( files[ i ].indexOf( "u" ) + 1 , files[ i ].lastIndexOf( "." ) );
+						double dtmp = Double.parseDouble( value );
+						_availableBands.put( new Double( dtmp ) , files[ i ] );
+					}
+				}
+			}
+			else
 			{
 				System.out.println( "No files in " + cfgDir );
-				return;
-			}
-			for( int i = 0 ; i < files.length ; i++ )
-			{
-				if( files[ i ].startsWith( "tau" ) && files[ i ].endsWith( ".dat" ) )
-				{
-					// Extract the tau value
-					String value = "0." + files[ i ].substring( files[ i ].indexOf( "u" ) + 1 , files[ i ].lastIndexOf( "." ) );
-					double dtmp = Double.parseDouble( value );
-					_availableBands.put( new Double( dtmp ) , files[ i ] );
-				}
 			}
 		}
 	}
@@ -376,13 +378,10 @@ public class HeterodyneNoise
 	private static double getNoise( SpIterJCMTObs obs , SpInstHeterodyne inst , double tSys )
 	{
 		double time = 0.;
-
 		double np = 1.;
-
 		int shared = 0;
-
 		int samplesPerRow = 1;
-		
+	
 		double multiscan = 1. ;
 
 		if( obs instanceof SpIterRasterObs )
