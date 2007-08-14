@@ -197,7 +197,6 @@ abstract class GroupingButtonManagerBase extends ButtonManagerBase implements Mu
 		}
 		return true;
 	}
-
 }
 
 /**
@@ -265,7 +264,6 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
  */
 public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeManagerWatcher , CloseableApp
 {
-
 	/** Displays the science program hierarchy. */
 	protected OtTreeWidget _tw;
 
@@ -363,8 +361,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 		if( fileInfo == null )
 		{
-			// Init FileInfo from attributes in the spItem if present.  This will
-			// allow programs obtained from the database to have their filename and directory already set.
+			// Init FileInfo from attributes in the spItem if present.  
+			// This will allow programs obtained from the database to have their filename and directory already set.
 			fileInfo = new FileInfo();
 			SpAvTable avTab = spItem.getTable();
 
@@ -446,8 +444,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 		if( fileInfo == null )
 		{
-			// Init FileInfo from attributes in the spItem if present.  This will
-			// allow programs obtained from the database to have their filename and directory already set.
+			// Init FileInfo from attributes in the spItem if present.  
+			// This will allow programs obtained from the database to have their filename and directory already set.
 			fileInfo = new FileInfo();
 			SpAvTable avTab = spItem.getTable();
 
@@ -746,7 +744,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		_tw.resetProg();
 
 		JDesktopPane desktop = OT.getDesktop();
-		Component f;
 
 		if( desktop == null )
 		{
