@@ -201,7 +201,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
 				_instCGS4.setCvfOffset( tbw.getText() );
-				//         _updateWidgets();
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
