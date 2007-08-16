@@ -2406,7 +2406,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public void useDefaultFlatSource()
 	{
 		flat_source = null;
-		;
 	}
 
 	/**
@@ -2463,7 +2462,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public void useDefaultArcSource()
 	{
 		arc_source = null;
-		;
 	}
 
 	/**
@@ -2535,7 +2533,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public double getDefaultDispersion()
 	{
 		double dispersion;
-		;
 		if( isImaging() )
 		{
 			dispersion = 0. ;
@@ -3398,7 +3395,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		String mask = getMask();
 		int maskNo = MASKS.indexInColumn( mask , 0 );
 		double etm = Double.valueOf( ( String )MASKS.elementAt( maskNo , 3 ) ).doubleValue();
-		aet = aet * etm;
+		aet *= etm;
 		return aet;
 	}
 
