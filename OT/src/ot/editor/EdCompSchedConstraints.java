@@ -161,10 +161,17 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 
 		_w.period.setValue( _schedConstObsComp.getPeriod() );
 
-		if( _schedConstObsComp.getMeridianApproach() != null )
-			_w.meridianApproachRising.setValue( _schedConstObsComp.getMeridianApproach().equals( SpSchedConstObsComp.SOURCE_RISING ) ) ;
+	    if( _schedConstObsComp.getMeridianApproach() != null )
+		{
+			if( _schedConstObsComp.getMeridianApproach().equals( SpSchedConstObsComp.SOURCE_RISING ) )
+				_w.meridianApproachRising.setValue( true ) ;
+			else
+				_w.meridianApproachSetting.setValue( true ) ;
+		}
 		else
-			_w.meridianApproachAny.setValue( true );
+		{
+			_w.meridianApproachAny.setValue( true ) ;
+		}
 	}
 
 	/**
