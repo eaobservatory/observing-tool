@@ -11,7 +11,9 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ Post July 2007 release
++++ August 2007 release
+
+  - Updates to timing estimates and noise calculations.
 
   - Conversion between FK{4,5} and Galactic added to the Target Component.
 
