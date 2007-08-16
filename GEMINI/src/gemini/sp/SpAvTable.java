@@ -19,9 +19,7 @@ import java.util.Vector;
 //
 final class SpAttr implements java.io.Serializable
 {
-
 	private String _description;
-
 	private Vector _values;
 
 	public SpAttr( String descr , Vector values )
