@@ -432,7 +432,13 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public double[] getScienceArea()
 	{
-		return new double[] { DETECTOR_SIZE , DETECTOR_SIZE , ( DETECTOR_SIZE * ( 1.0 + ( DETECTOR_SPACING / 100. ) ) ) / 2. , ( DETECTOR_SIZE * ( 1.0 + ( DETECTOR_SPACING / 100. ) ) ) / 2. };
+		return new double[] 
+		{ 
+				DETECTOR_SIZE , 
+				DETECTOR_SIZE , 
+				( DETECTOR_SIZE * ( 1. + ( DETECTOR_SPACING / 100. ) ) ) / 2. , 
+				( DETECTOR_SIZE * ( 1. + ( DETECTOR_SPACING / 100. ) ) ) / 2. 
+		} ;
 	}
 
 	public void setInstAper()
