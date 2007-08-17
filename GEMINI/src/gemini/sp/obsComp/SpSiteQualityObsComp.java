@@ -263,60 +263,51 @@ public class SpSiteQualityObsComp extends SpObsComp
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + getMinSeeing() + "</" + XML_MIN + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMaxSeeing() + "</" + XML_MAX + ">" );
 			xmlBuffer.append( "\n  " + indent + "</" + XML_SEEING + ">" );
-
-			return;
 		}
-
-		if( avAttr.equals( ATTR_SEEING_MIN ) || avAttr.equals( ATTR_SEEING_MAX ) || avAttr.equals( ATTR_SEEING_ALLOCATED ) )
-			return;
-
-		if( avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) && ( !tauBandAllocated() ) )
+		else if( avAttr.equals( ATTR_SEEING_MIN ) || avAttr.equals( ATTR_SEEING_MAX ) || avAttr.equals( ATTR_SEEING_ALLOCATED ) )
+		{
+			;
+		}
+		else if( avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) && ( !tauBandAllocated() ) )
 		{
 			xmlBuffer.append( "\n  " + indent + "<" + XML_CSO_TAU + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + getMinTau() + "</" + XML_MIN + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMaxTau() + "</" + XML_MAX + ">" );
 			xmlBuffer.append( "\n  " + indent + "</" + XML_CSO_TAU + ">" );
-
-			return;
 		}
-
-		if( avAttr.equals( ATTR_CSO_TAU_MIN ) || avAttr.equals( ATTR_CSO_TAU_MAX ) || avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) )
-			return;
-
-		if( avAttr.equals( ATTR_SKY_ALLOCATED ) && ( !skyAllocated() ) )
+		else if( avAttr.equals( ATTR_CSO_TAU_MIN ) || avAttr.equals( ATTR_CSO_TAU_MAX ) || avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) )
+		{	
+			;
+		}
+		else if( avAttr.equals( ATTR_SKY_ALLOCATED ) && ( !skyAllocated() ) )
 		{
 			xmlBuffer.append( "\n  " + indent + "<" + XML_SKY + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + getMinSky() + "</" + XML_MIN + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMaxSky() + "</" + XML_MAX + ">" );
 			xmlBuffer.append( "\n  " + indent + "</" + XML_SKY + ">" );
-
-			return;
 		}
-
-		if( avAttr.equals( ATTR_SKY_MIN ) || avAttr.equals( ATTR_SKY_MAX ) || avAttr.equals( ATTR_SKY_ALLOCATED ) )
-			return;
-
-		if( avAttr.equals( ATTR_MOON ) )
+		else if( avAttr.equals( ATTR_SKY_MIN ) || avAttr.equals( ATTR_SKY_MAX ) || avAttr.equals( ATTR_SKY_ALLOCATED ) )
+		{
+			;
+		}
+		else if( avAttr.equals( ATTR_MOON ) )
 		{
 			xmlBuffer.append( "\n  " + indent + "<" + XML_MOON + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + "0" + "</" + XML_MIN + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMoon() + "</" + XML_MAX + ">" );
 			xmlBuffer.append( "\n  " + indent + "</" + XML_MOON + ">" );
-
-			return;
 		}
-
-		if( avAttr.equals( ATTR_CLOUD ) )
+		else if( avAttr.equals( ATTR_CLOUD ) )
 		{
 			xmlBuffer.append( "\n  " + indent + "<" + XML_CLOUD + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + "0" + "</" + XML_MIN + ">" );
 			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getCloud() + "</" + XML_MAX + ">" );
 			xmlBuffer.append( "\n  " + indent + "</" + XML_CLOUD + ">" );
-
-			return;
 		}
-
-		super.processAvAttribute( avAttr , indent , xmlBuffer );
+		else
+		{
+			super.processAvAttribute( avAttr , indent , xmlBuffer );
+		}
 	}
 
 	public void processXmlElementStart( String name )
@@ -335,93 +326,76 @@ public class SpSiteQualityObsComp extends SpObsComp
 
 	public void processXmlElementContent( String name , String value )
 	{
-		if( name.equals( XML_SEEING ) )
-		{
-			_previousXmlElement = name;
-			return ;
-		}
-		else if( name.equals( XML_CSO_TAU ) )
-		{
-			_previousXmlElement = name;
-			return ;
-		}
-		else if( name.equals( XML_SKY ) )
-		{
-			_previousXmlElement = name;
-			return ;
-		}
-		else if( name.equals( XML_MOON ) )
-		{
-			// We are dealing with an old style program
-			if( value.equals( "0" ) )
-				_avTable.noNotifySet( ATTR_MOON , Integer.toString( MOON_DARK ) , 0 );
-			else if( value.equals( "1" ) )
-				_avTable.noNotifySet( ATTR_MOON , Integer.toString( MOON_GREY ) , 0 );
-			_previousXmlElement = name;
-			return ;
-		}
-		else if( name.equals( XML_CLOUD ) )
-		{
-			// We are dealing with an old style program
-			if( value.equals( "0" ) )
-				_avTable.noNotifySet( ATTR_CLOUD , Integer.toString( CLOUD_PHOTOMETRIC ) , 0 );
-			else if( value.equals( "1" ) )
-				_avTable.noNotifySet( ATTR_CLOUD , Integer.toString( CLOUD_THIN_CIRRUS ) , 0 );
-			_previousXmlElement = name;
-			return ;
-		}
-
 		try
 		{
-			if( name.equals( XML_MAX ) )
+			if( name.equals( XML_SEEING ) )
+			{
+				_previousXmlElement = name;
+			}
+			else if( name.equals( XML_CSO_TAU ) )
+			{
+				_previousXmlElement = name;
+			}
+			else if( name.equals( XML_SKY ) )
+			{
+				_previousXmlElement = name;
+			}
+			else if( name.equals( XML_MOON ) )
+			{
+				// We are dealing with an old style program
+				if( value.equals( "0" ) )
+					_avTable.noNotifySet( ATTR_MOON , Integer.toString( MOON_DARK ) , 0 );
+				else if( value.equals( "1" ) )
+					_avTable.noNotifySet( ATTR_MOON , Integer.toString( MOON_GREY ) , 0 );
+				_previousXmlElement = name;
+			}
+			else if( name.equals( XML_CLOUD ) )
+			{
+				// We are dealing with an old style program
+				if( value.equals( "0" ) )
+					_avTable.noNotifySet( ATTR_CLOUD , Integer.toString( CLOUD_PHOTOMETRIC ) , 0 );
+				else if( value.equals( "1" ) )
+					_avTable.noNotifySet( ATTR_CLOUD , Integer.toString( CLOUD_THIN_CIRRUS ) , 0 );
+				_previousXmlElement = name;
+			}
+			else if( name.equals( XML_MAX ) )
 			{
 				if( _previousXmlElement.equals( XML_SEEING ) )
 				{
 					_avTable.noNotifySet( ATTR_SEEING_MAX , value , 0 );
 					_avTable.noNotifySet( ATTR_SEEING_ALLOCATED , "false" , 0 );
-					return ;
 				}
 				else if( _previousXmlElement.equals( XML_CSO_TAU ) )
 				{
 					_avTable.noNotifySet( ATTR_CSO_TAU_MAX , value , 0 );
 					_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "false" , 0 );
-					return ;
 				}
 				else if( _previousXmlElement.equals( XML_SKY ) )
 				{
 					_avTable.noNotifySet( ATTR_SKY_MAX , value , 0 );
 					_avTable.noNotifySet( ATTR_SKY_ALLOCATED , "false" , 0 );
-					return ;
 				}
 				else if( _previousXmlElement.equals( XML_MOON ) )
 				{
 					_avTable.noNotifySet( ATTR_MOON , value , 0 );
-					return ;
 				}
 				else if( _previousXmlElement.equals( XML_CLOUD ) )
 				{
 					_avTable.noNotifySet( ATTR_CLOUD , value , 0 );
-					return ;
 				}
 			}
-
-			if( name.equals( XML_MIN ) )
+			else if( name.equals( XML_MIN ) )
 			{
 				if( _previousXmlElement.equals( XML_SEEING ) )
-				{
 					_avTable.noNotifySet( ATTR_SEEING_MIN , value , 0 );
-					return ;
-				}
 				else if( _previousXmlElement.equals( XML_CSO_TAU ) )
-				{
 					_avTable.noNotifySet( ATTR_CSO_TAU_MIN , value , 0 );
-					return ;
-				}
 				else if( _previousXmlElement.equals( XML_SKY ) )
-				{
 					_avTable.noNotifySet( ATTR_SKY_MIN , value , 0 );
-					return ;
-				}
+			}
+			else
+			{
+				super.processXmlElementContent( name , value );
 			}
 		}
 		catch( Exception e )
@@ -429,8 +403,11 @@ public class SpSiteQualityObsComp extends SpObsComp
 			e.printStackTrace();
 			throw new RuntimeException( "Problem parsing Site Quality component (XML): " + e );
 		}
-
-		super.processXmlElementContent( name , value );
 	}
-
+	
+	public void processXmlElementEnd( String name )
+	{
+		if( name == _previousXmlElement )
+			_previousXmlElement = "" ;
+	}
 }
