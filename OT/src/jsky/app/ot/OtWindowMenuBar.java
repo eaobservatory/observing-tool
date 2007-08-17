@@ -58,7 +58,7 @@ public class OtWindowMenuBar extends JMenuBar
 	// menu items that can be enabled/disabled at runtime
 	protected JMenuItem fileRevertMenuItem;
 	protected JMenuItem filePhase1MenuItem;
-	protected JMenuItem databaseModeItem;
+//	protected JMenuItem databaseModeItem;
 
 	/** The main OT window toolbar */
 	protected OtWindowToolBar mainToolBar;
@@ -582,24 +582,12 @@ public class OtWindowMenuBar extends JMenuBar
 	protected JMenu createDatabaseMenu()
 	{
 		JMenu menu = new JMenu( "Database" );
-		menu.add( createDatabaseFetchMenuItem() );
 		menu.add( createDatabaseStoreMenuItem() );
-
-		menu.addSeparator();
-
-		databaseModeItem = createDatabaseModeMenuItem();
-		menu.add( databaseModeItem );
 
 		// Change the text of the online/offline mode item as needed
 		menu.addMenuListener( new MenuListener()
 		{
-			public void menuSelected( MenuEvent e )
-			{
-				if( ( ( OtProgWindow )editor ).isOnline() )
-					databaseModeItem.setText( "Go to Offline Edit Mode" );
-				else
-					databaseModeItem.setText( "Go to Online Edit Mode" );
-			}
+			public void menuSelected( MenuEvent e ){}
 
 			public void menuDeselected( MenuEvent e ){}
 
@@ -607,26 +595,6 @@ public class OtWindowMenuBar extends JMenuBar
 		} );
 
 		return menu;
-	}
-
-	/**
-	 * Create the Database => "Fetch..." menu item
-	 */
-	protected JMenuItem createDatabaseFetchMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( "Fetch from Online Database" );
-		menuItem.addActionListener( new ActionListener()
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				( ( OtProgWindow )editor ).fetchFromOnlineDatabase();
-			}
-		} );
-
-		// MFO 23 May 2001: "Fetch from Online Database" menu item disabled.
-		menuItem.setEnabled( false );
-
-		return menuItem;
 	}
 
 	/**
@@ -642,19 +610,6 @@ public class OtWindowMenuBar extends JMenuBar
 				( ( OtProgWindow )editor ).storeToOnlineDatabase();
 			}
 		} );
-		return menuItem;
-	}
-
-	/**
-	 * Create the Database => "Mode..." menu item
-	 */
-	protected JMenuItem createDatabaseModeMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( "Go to Online Edit Mode" );
-
-		// MFO 23 May 2001: "Go to Online Edit Mode" menu item disabled.
-		menuItem.setEnabled( false );
-
 		return menuItem;
 	}
 
