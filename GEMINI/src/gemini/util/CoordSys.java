@@ -15,32 +15,30 @@ package gemini.util;
  */
 public class CoordSys
 {
-
 	// The possible coordinate systems.
 	public static final int FK5 = 0;
-
 	public static final int FK4 = 1;
-
 	public static final int AZ_EL = 2;
-
 	public static final int GAL = 3;
-
 	public static final int HADEC = 4;
-
+	
 	public static final String FK5_STRING = "FK5 (J2000)";
-
 	public static final String FK4_STRING = "FK4 (B1950)";
-
 	public static final String AZ_EL_STRING = "Az/El";
-
 	public static final String GAL_STRING = "Galactic";
-
 	public static final String HADEC_STRING = "HADEC";
+	
+	public static final String FK5_SHORT_STRING = "FK5" ; 	 
+	public static final String FK4_SHORT_STRING = "FK4" ; 	 
+	public static final String AZ_EL_SHORT_STRING = "AZ" ; 	 
+	public static final String GAL_SHORT_STRING = "GAL" ; 	 
+	public static final String HADEC_SHORT_STRING = "HA" ;
 
 	/**
      * Readable coordinate system strings.
      */
 	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING };
+    public static final String[] SHORT_COORD_SYS = { FK5_SHORT_STRING , FK4_SHORT_STRING , AZ_EL_SHORT_STRING , GAL_SHORT_STRING , HADEC_SHORT_STRING };
 
 	// MFO (March 08, 2002)
 	/**
@@ -60,16 +58,17 @@ public class CoordSys
      */
 	public static int getSystem( String coordSysString )
 	{
-		if( coordSysString.equals( FK5_STRING ) )
-			return FK5;
-		else if( coordSysString.equals( FK4_STRING ) )
-			return FK4;
-		else if( coordSysString.equals( AZ_EL_STRING ) )
-			return AZ_EL;
-		else if( coordSysString.equals( GAL_STRING ) )
-			return GAL;
-		else if( coordSysString.equals( HADEC_STRING ) )
-			return HADEC;
+		for( int i = 0 ; i < SHORT_COORD_SYS.length ; i++ )
+		{
+			if( coordSysString.equals( SHORT_COORD_SYS[ i ] ) )
+					return i ;
+		}
+		
+		for( int i = 0 ; i < COORD_SYS.length ; i++ )
+		{
+			if( coordSysString.equals( COORD_SYS[ i ] ) )
+					return i ;
+		}
 
 		return -1;
 	}
