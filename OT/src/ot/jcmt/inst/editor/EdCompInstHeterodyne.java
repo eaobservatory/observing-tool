@@ -1135,6 +1135,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 			component.removeAllItems();
 			currentBandwidth = _inst.getBandWidth( componentIndex );
+			
+			double lowestContestant = 3000. ;
+			int notableIndex = -1 ;
+			
 			// Set the new bandwidths
 			for( int i = 0 ; i < values.length ; i++ )
 			{
@@ -1146,11 +1150,29 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					_inst.setOverlap( feOverlap , componentIndex );
 					_inst.setChannels( activeBandSpec.getDefaultOverlapChannels()[ i ] , componentIndex );
 				}
+				else
+				{
+					double contestant = Math.rint( currentBandwidth * 1.E-6 ) - value ;
+					if( Math.abs( contestant ) < lowestContestant )
+					{
+						lowestContestant = contestant ;
+						notableIndex = i ;
+					}
+				}
 				component.addItem( "" + value );
 			}
 			if( index != -1 )
 			{
 				component.setSelectedIndex( index );
+			}
+			else if( notableIndex > -1 )
+			{
+				component.setSelectedIndex( notableIndex );
+				_inst.setBandWidth( values[ notableIndex ] , componentIndex );
+				_inst.setOverlap( activeBandSpec.defaultOverlaps[ 0 ] , componentIndex );
+				_inst.setChannels( activeBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );
+				if( componentIndex < active )
+					JOptionPane.showMessageDialog( null , "Previous bandwidth for subsystem " + ( componentIndex + 1 ) + " not available;\n Using " + component.getSelectedItem() + " as it is closest to previous value of " + Math.rint( currentBandwidth * 1.E-6 ) , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );
 			}
 			else
 			{
