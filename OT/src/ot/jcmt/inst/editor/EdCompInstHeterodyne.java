@@ -1101,7 +1101,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			otherBandSpec = ( BandSpec )bandSpecs.get( 3 );
 
 		double[] values = null;
-
+		boolean showDialog = false ;
+		
 		/*
 		 * Index into the new list to allow us to make sure 
 		 * that it gets reselected if available
@@ -1157,12 +1158,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_inst.setBandWidth( values[ 0 ] , componentIndex );
 				_inst.setOverlap( activeBandSpec.defaultOverlaps[ 0 ] , componentIndex );
 				_inst.setChannels( activeBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );
-				if( originalIndex != 0 && originalIndex != -1 && currentBandwidth != 0. )
-					JOptionPane.showMessageDialog( null , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );
+				if( originalIndex != 0 && currentBandwidth != 0. )
+					showDialog = true ;
 			}
 			component.addActionListener( this );
 			index = -1;
 		}
+		if( showDialog )
+			JOptionPane.showMessageDialog( null , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );			
 	}
 
 	private void _updateMoleculeChoice()
