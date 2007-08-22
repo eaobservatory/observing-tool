@@ -428,7 +428,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getFeIF()
 	{
-		return _avTable.getDouble( ATTR_FE_IF , 0.0 );
+		return _avTable.getDouble( ATTR_FE_IF , 0. );
 	}
 
 	/**
@@ -452,7 +452,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getFeBandWidth()
 	{
-		return _avTable.getDouble( ATTR_FE_BANDWIDTH , 0.0 );
+		return _avTable.getDouble( ATTR_FE_BANDWIDTH , 0. );
 	}
 
 	/**
@@ -584,7 +584,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 
 	public double getRefFrameVelocity()
 	{
-		return _avTable.getDouble( ATTR_RF_VELOCITY , 0.0 );
+		return _avTable.getDouble( ATTR_RF_VELOCITY , 0. );
 	}
 
 	/**
@@ -682,7 +682,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getRestFrequency( int subsystem )
 	{
-		double restFreq = _avTable.getDouble( ATTR_REST_FREQUENCY , subsystem , 0.0 );
+		double restFreq = _avTable.getDouble( ATTR_REST_FREQUENCY , subsystem , 0. );
 		return restFreq;
 	}
 
@@ -736,7 +736,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getCentreFrequency( int subsystem )
 	{
-		return _avTable.getDouble( ATTR_CENTRE_FREQUENCY , subsystem , 0.0 );
+		return _avTable.getDouble( ATTR_CENTRE_FREQUENCY , subsystem , 0. );
 	}
 
 	/**
@@ -827,7 +827,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getBandWidth( int subsystem )
 	{
-		double bandwidth = _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0.0 );
+		double bandwidth = _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0. );
 		return bandwidth;
 	}
 
@@ -943,7 +943,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getOverlap( int subsystem )
 	{
-		return _avTable.getDouble( ATTR_OVERLAP , subsystem , 0.0 );
+		return _avTable.getDouble( ATTR_OVERLAP , subsystem , 0. );
 	}
 
 	/**
@@ -1083,7 +1083,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 		// If the methods has not returned yet then the velocityDefinition is invalid.
 		throw new IllegalArgumentException( "EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" + "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO." );
 	}
-
+	
 	/**
 	 * Creates parts of ACSIS configuration file.
 	 */
@@ -1098,7 +1098,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 
 		// ------------------- Front end configuration ------------------------------------
 		StringBuffer xmlBuffer = new StringBuffer();
-		xmlBuffer.append( indent + "<" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" + indent + "  <frontend_configure>\n" + indent + "    <rest_frequency units=\"GHz\" value=\"" + ( getRestFrequency( 0 ) * 1.0E6 ) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
+		xmlBuffer.append( indent + "<" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" + indent + "  <frontend_configure>\n" + indent + "    <rest_frequency units=\"GHz\" value=\"" + ( getRestFrequency( 0 ) * 1.E6 ) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
 		indent + "    <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" + indent + "    <sideband value=\"" + sideband + "\"/>\n" + indent + "    <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" + indent + "    <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" + indent + "    <doppler_tracking value=\"ON\"/>\n" + // Options are ON | OFF. Default to ON for now.
 		indent + "    <optimize value=\"DISABLE\"/>\n" // Options are ENABLE | DISABLE. Default to DIABLE for now.
 		);
@@ -1248,7 +1248,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 
 		if( name.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) )
 			_subSystemCount++ ;
-
+		
 		super.processXmlElementEnd( name );
 	}
 
