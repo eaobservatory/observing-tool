@@ -58,7 +58,6 @@ import orac.util.InstCfgReader;
  */
 public class FrequencyEditorCfg
 {
-
 	/**
      * System property containing the location of the xml configuration file as
      * a resource in the classpath.
@@ -110,7 +109,6 @@ public class FrequencyEditorCfg
 
 	public static FrequencyEditorCfg getConfiguration( String fileName )
 	{
-
 		InstCfgReader rdr = new InstCfgReader( fileName );
 		InstCfg instInfo = null;
 		String block = null;
@@ -279,9 +277,7 @@ public class FrequencyEditorCfg
 			}
 		}
 		if( !foundReceiver )
-		{
 			System.out.println( "Failed to find match for keyword " + instInfo.getKeyword() );
-		}
 	}
 
 	public String toString()
@@ -290,9 +286,7 @@ public class FrequencyEditorCfg
 		sb.append( "[\n" );
 		sb.append( "\tnames=[" );
 		for( int i = 0 ; i < frontEnds.length ; i++ )
-		{
 			sb.append( frontEnds[ i ] + ";" );
-		}
 		sb.append( "]\n" );
 		sb.append( "\tfrontEndTable=[" + frontEndTable + "]\n" );
 		sb.append( "\tfrontEndMixers=[" + frontEndMixers + "]\n" );
