@@ -38,7 +38,7 @@ public class TpeIrpolFeature extends TpeImageFeature
 	public static final double OOBB_CENTRE = -135.1; // arcsec
 	public static final double OOBB_WIDTH = 471.6; // arcsec
 	public static final double OOBB_HEIGHT = 17.39; // arcsec
-	public static final double INNER_RADIUS = 140; // arcsecs
+	public static final double INNER_RADIUS = 140. ; // arcsecs
 	private PolygonD _fovAreaPD;
 	private PolygonD _oobtArea;
 	private PolygonD _oobbArea;
@@ -119,9 +119,9 @@ public class TpeIrpolFeature extends TpeImageFeature
 
 		double c = fii.pixelsPerArcsec * OOBT_CENTRE;
 		double w = fii.pixelsPerArcsec * OOBT_WIDTH;
-		double w2 = fii.pixelsPerArcsec * OOBT_WIDTH / 2.0;
+		double w2 = fii.pixelsPerArcsec * OOBT_WIDTH / 2. ;
 		double h = fii.pixelsPerArcsec * OOBT_HEIGHT;
-		double h2 = fii.pixelsPerArcsec * OOBT_HEIGHT / 2.0;
+		double h2 = fii.pixelsPerArcsec * OOBT_HEIGHT / 2. ;
 
 		_oobtArea.xpoints[ 0 ] = x - w2;
 		_oobtArea.xpoints[ 1 ] = x + w2;
@@ -165,33 +165,33 @@ public class TpeIrpolFeature extends TpeImageFeature
 		{
 			if( _inst instanceof SpInstCGS4 )
 			{
-				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 45. ) );
+				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 135. ) );
 			}
 			else if( _inst instanceof SpInstUFTI )
 			{
-				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 45. ) );
+				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 135. ) );
 			}
 			else if( _inst instanceof SpInstMichelle )
 			{
-				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 45. ) );
+				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 135. ) );
 			}
 			else if( _inst instanceof SpInstUIST )
 			{
-				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 45. ) );
+				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 135. ) );
 			}
 			else if( _inst instanceof SpInstWFCAM )
 			{
-				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 45. ) );
-				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 45. ) );
+				_iw.skyRotate( _fovAreaPD , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobtArea , Angle.degreesToRadians( 135. ) );
+				_iw.skyRotate( _oobbArea , Angle.degreesToRadians( 135. ) );
 			}
 			else{}
 		}
