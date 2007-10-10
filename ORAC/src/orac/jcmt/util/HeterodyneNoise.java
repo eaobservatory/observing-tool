@@ -241,7 +241,7 @@ public class HeterodyneNoise
 
 		if( ssb )
 		{
-			if( "HARP".equals( fe ) )
+			if( "HARP".equals( fe ) || "WD".equals( fe ) )
 				tSys = ( getTrx( fe , freq ) + nuTel * tSky + tTel + 35 ) / ( nuSky * nuTel );
 			else
 				tSys = ( 2. * getTrx( fe , freq ) + nuTel * tSky + tTel + 35 ) / ( nuSky * nuTel );
