@@ -1508,9 +1508,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			try
 			{
 				FileReader reader = new FileReader( modesFile );
-				char[] buffer = new char[ ( int )modesFile.length() ];
-				reader.read( buffer );
-				String buffer_z = new String( buffer );
+				int readLength = 0 ;
+				char[] chars = new char[ 1024 ] ;
+				StringBuffer buffer = new StringBuffer() ;
+				while( !reader.ready() )
+					;
+				while( ( readLength = reader.read( chars ) ) != -1 )
+					buffer.append( chars , 0 , readLength ) ;
+				reader.close() ;
+				String buffer_z = buffer.toString() ;
 				DOMParser parser = new DOMParser();
 				parser.setFeature( "http://xml.org/sax/features/validation" , false );
 				parser.setFeature( "http://apache.org/xml/features/dom/include-ignorable-whitespace" , false );

@@ -150,19 +150,25 @@ public class SpClient extends SoapClient
 
 	public static SpItem replicateSp( SpItem currentItem , File catalog ) throws Exception
 	{
-		char[] contents = new char[ ( int )catalog.length() ];
-		String[] rtn;
 		SpItem spItem = null;
 		flushParameter();
 		try
 		{
+			String[] rtn ;
+			char[] contents = new char[ 1024 ];
 			FileReader fr = new FileReader( catalog );
-			fr.read( contents , 0 , ( int )catalog.length() );
+			int readLength = 0 ;
+			StringBuffer buffer = new StringBuffer() ;
+			while( !fr.ready() )
+				;
+			while( ( readLength = fr.read( contents ) ) != -1 )
+				buffer.append( contents , 0 , readLength ) ;
+			fr.close() ;
 
 			// get the current science program and convert it to a string
 			String currentSp = currentItem.toXML();
 			addParameter( "TemplateSp" , String.class , currentSp );
-			addParameter( "Catalog" , String.class , new String( contents ) );
+			addParameter( "Catalog" , String.class , buffer.toString() );
 			Object o = doCall( getURL() , SOAP_ACTION , "SpInsertCat" );
 			rtn = ( String[] )o;
 			if( rtn != null )
@@ -229,9 +235,7 @@ public class SpClient extends SoapClient
 				int len;
 				StringBuffer sb = new StringBuffer();
 				while( ( len = gis.read( read ) ) > 0 )
-				{
 					sb.append( new String( read , 0 , len ) );
-				}
 				gis.close();
 				bis.close();
 				spXML = sb.toString();
@@ -324,18 +328,6 @@ public class SpClient extends SoapClient
 
 		try
 		{
-			// GZIPOutputStream gos= new GZIPOutputStream(new
-            // FileOutputStream("/home/dewitt/test.xml.gz"));
-			// StringReader srdr = new StringReader(sp);
-			// byte [] data = sp.getBytes();
-			// byte [] buff = new byte[1024];
-			// int len;
-			// ByteArrayInputStream bis = new ByteArrayInputStream(data);
-			// while ( (len = bis.read(buff)) > 0 ) {
-			// gos.write(buff, 0, len);
-			// }
-			// gos.close();
-			// bis.close();
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			GZIPOutputStream gos = new GZIPOutputStream( bos );
 			byte[] input = sp.getBytes();
@@ -343,11 +335,11 @@ public class SpClient extends SoapClient
 			int len;
 			ByteArrayInputStream bis = new ByteArrayInputStream( input );
 			while( ( len = bis.read( buff ) ) > 0 )
-			{
 				gos.write( buff , 0 , len );
-			}
 			gos.close();
+			bis.close();
 			toSend = bos.toByteArray();
+			bos.close();
 		}
 		catch( Exception e )
 		{
