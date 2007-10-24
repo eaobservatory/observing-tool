@@ -67,12 +67,6 @@ public class OtFileIO
 		if( !filename.toLowerCase().endsWith( ".xml" ) )
 			f = new File( f.getAbsolutePath() + ".xml" );
 
-		if( f.exists() )
-		{
-			File backup = new File( f.getPath() + ".BAK" );
-			f.renameTo( backup );
-		}
-
 		FileOutputStream fos = null;
 		OutputStream os = null;
 		PrintStream printStream = null;
@@ -106,6 +100,12 @@ public class OtFileIO
 
 		try
 		{
+			if( f.exists() )
+			{
+				File backup = new File( f.getPath() + ".BAK" );
+				f.renameTo( backup );
+			}
+			
 			fos = new FileOutputStream( f );
 			os = new BufferedOutputStream( fos );
 			printStream = new PrintStream( os );
