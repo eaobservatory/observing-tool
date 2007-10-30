@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
-  <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_collapsed>true</meta_gui_collapsed>
   <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
-  <ot_version>20071023</ot_version>
+  <ot_version>20071030</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4962,7 +4962,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       </SpObs>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Spectroscopy</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6435,7 +6435,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
-        <title>Extended source slide 60" along slit</title>
+        <title>Extended source nod to sky</title>
         <totalDuration units="seconds">5496.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6471,477 +6471,6 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <title>Configuration information</title>
         </SpNote>
         <SpInstUIST id="31" type="oc" subtype="inst.UIST">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_unique>true</meta_unique>
-          <meta_version>3</meta_version>
-          <DAConf>ND1</DAConf>
-          <DAConfMinExpT>1.0</DAConfMinExpT>
-          <DAConfMinExpTime>0.81</DAConfMinExpTime>
-          <arrayAngle>0.54</arrayAngle>
-          <biasDutyCycle>0.507</biasDutyCycle>
-          <biasIdlePeriod>0.0022</biasIdlePeriod>
-          <biasMustIdles>100</biasMustIdles>
-          <biasNResets>2</biasNResets>
-          <biasObsTime>9.468</biasObsTime>
-          <biasReadArea>1024x1024</biasReadArea>
-          <biasRefPixelX>512.5</biasRefPixelX>
-          <biasRefPixelY>512.5</biasRefPixelY>
-          <biasWaveform>uist_starev11</biasWaveform>
-          <camera>spectroscopy</camera>
-          <centralWavelength>1.9534</centralWavelength>
-          <chopDelay>0.0</chopDelay>
-          <chopFrequency>0.0</chopFrequency>
-          <coadds>1</coadds>
-          <configType>Normal</configType>
-          <darkFilter>black_blank</darkFilter>
-          <disperser>HK</disperser>
-          <dispersion>0.00109</dispersion>
-          <dutyCycle>0.7658676843224697</dutyCycle>
-          <expTimeOT>7.0</expTimeOT>
-          <exposureTime>7.0</exposureTime>
-          <filter>B2</filter>
-          <filterCategory>broad</filterCategory>
-          <focus>2.55</focus>
-          <idlePeriod>0.0022</idlePeriod>
-          <imager>0.12</imager>
-          <instAper>
-            <value>-0.36</value>
-            <value>-1.32</value>
-            <value>0.00</value>
-            <value>2.00</value>
-          </instAper>
-          <instPntgOffset>
-            <value>17.24</value>
-            <value>8.2076</value>
-          </instPntgOffset>
-          <instPort>South</instPort>
-          <mask>4_pix_wide_120</mask>
-          <maskHeight>120.0</maskHeight>
-          <maskWidth>4.0</maskWidth>
-          <mode>NDSTARE</mode>
-          <mustIdles>100</mustIdles>
-          <nreads>8</nreads>
-          <nresets>1</nresets>
-          <nullCycles>0</nullCycles>
-          <nullExposures>0</nullExposures>
-          <nullReads>1</nullReads>
-          <obsTimeOT>10.0</obsTimeOT>
-          <observationTime>9.13996</observationTime>
-          <order>1</order>
-          <pixelFOV>0.1205 x 0.1205</pixelFOV>
-          <pixelScale>0.12</pixelScale>
-          <polarimetry>no</polarimetry>
-          <posAngle>-90.0</posAngle>
-          <pupil_imaging>no</pupil_imaging>
-          <readArea>1024x1024</readArea>
-          <readInterval>1.0</readInterval>
-          <readMode>NDSTARE</readMode>
-          <readout>NDSTARE</readout>
-          <readoutOT>NDSTARE 1024x1024</readoutOT>
-          <refPixelL>512.5</refPixelL>
-          <refPixelS>480.5</refPixelS>
-          <refPixelX>480.5</refPixelX>
-          <refPixelY>480.5</refPixelY>
-          <resetDelay>0.11</resetDelay>
-          <resolution>448.0275229357798</resolution>
-          <scienceArea>0.48 x 120.0 arcsec</scienceArea>
-          <source_mag>6-7</source_mag>
-          <spectralCoverage>1.395um-2.506um</spectralCoverage>
-          <target_acq>no</target_acq>
-          <waveform>uist_starev11</waveform>
-        </SpInstUIST>
-        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
-          <standard>true</standard>
-          <title>Flat and arc</title>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This flat and arc observation will inherit the coordinates and UIST configuration information entered above. In other words, the telescope will slew to the standard, where you can then do the flat and arc before observing the standard itself.</note>
-            <title>coords and UIST config</title>
-          </SpNote>
-          <SpDRRecipe type="oc" subtype="DRRecipe">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_unique>true</meta_unique>
-            <ArcInGroup>false</ArcInGroup>
-            <ArcRecipe>REDUCE_ARC</ArcRecipe>
-            <BiasInGroup>false</BiasInGroup>
-            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
-            <DarkInGroup>false</DarkInGroup>
-            <DarkRecipe>REDUCE_DARK</DarkRecipe>
-            <FlatInGroup>false</FlatInGroup>
-            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-            <FocusInGroup>false</FocusInGroup>
-            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
-            <ObjectInGroup>true</ObjectInGroup>
-            <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
-            <SkyInGroup>true</SkyInGroup>
-            <SkyRecipe>REDUCE_SKY</SkyRecipe>
-            <title>REDUCE_SINGLE_FRAME</title>
-          </SpDRRecipe>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <arcSource>undefined</arcSource>
-              <calType>Flat</calType>
-              <centralWavelength>1.953</centralWavelength>
-              <chopDelay>0.0</chopDelay>
-              <chopFrequency>0.0</chopFrequency>
-              <coadds>1</coadds>
-              <dutyCycle>0.6514700421501118</dutyCycle>
-              <expTimeOT>4.0</expTimeOT>
-              <exposureTime>4.0</exposureTime>
-              <filter>B2</filter>
-              <flatSource>BB_5.0mm</flatSource>
-              <focus>2.55</focus>
-              <idlePeriod>0.0022</idlePeriod>
-              <mode>NDSTARE</mode>
-              <mustIdles>100</mustIdles>
-              <nreads>5</nreads>
-              <nresets>1</nresets>
-              <nullCycles>0</nullCycles>
-              <nullExposures>0</nullExposures>
-              <nullReads>1</nullReads>
-              <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>6.139959999999999</observationTime>
-              <order>1</order>
-              <readInterval>1.0</readInterval>
-              <repeatCount>1</repeatCount>
-              <resetDelay>0.11</resetDelay>
-              <waveform>uist_starev11</waveform>
-            </SpIterUISTCalObs>
-            <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <arcSource>argon</arcSource>
-              <calType>Arc</calType>
-              <centralWavelength>1.9534</centralWavelength>
-              <chopDelay>0.0</chopDelay>
-              <chopFrequency>0.0</chopFrequency>
-              <coadds>1</coadds>
-              <dutyCycle>0.8751478999950992</dutyCycle>
-              <expTimeOT>15.0</expTimeOT>
-              <exposureTime>15.0</exposureTime>
-              <filter>B2</filter>
-              <flatSource>undefined</flatSource>
-              <focus>2.55</focus>
-              <idlePeriod>0.0022</idlePeriod>
-              <mode>NDSTARE</mode>
-              <mustIdles>100</mustIdles>
-              <nreads>16</nreads>
-              <nresets>1</nresets>
-              <nullCycles>0</nullCycles>
-              <nullExposures>0</nullExposures>
-              <nullReads>1</nullReads>
-              <obsTimeOT>15.0</obsTimeOT>
-              <observationTime>17.13996</observationTime>
-              <order>1</order>
-              <readInterval>1.0</readInterval>
-              <repeatCount>1</repeatCount>
-              <resetDelay>0.11</resetDelay>
-              <waveform>uist_starev11</waveform>
-            </SpIterUISTCalObs>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">108.13996</estimatedDuration>
-          <standard>true</standard>
-          <title>Bright (standard) star</title>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This standard star observation will inherit the coordinates and UIST configuration information entered above the flat/arc observation.</note>
-            <title>coords and UIST config</title>
-          </SpNote>
-          <SpDRRecipe type="oc" subtype="DRRecipe">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_unique>true</meta_unique>
-            <ArcInGroup>false</ArcInGroup>
-            <ArcRecipe>REDUCE_ARC</ArcRecipe>
-            <BiasInGroup>false</BiasInGroup>
-            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
-            <DarkInGroup>false</DarkInGroup>
-            <DarkRecipe>REDUCE_DARK</DarkRecipe>
-            <FlatInGroup>false</FlatInGroup>
-            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-            <FocusInGroup>false</FocusInGroup>
-            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
-            <ObjectInGroup>true</ObjectInGroup>
-            <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
-            <SkyInGroup>true</SkyInGroup>
-            <SkyRecipe>REDUCE_SKY</SkyRecipe>
-            <title>STANDARD_STAR</title>
-          </SpDRRecipe>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
-
-Note about the standard:  
-================
-
-Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTESTS SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
-              <title>Imaging Acquisition</title>
-            </SpNote>
-            <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
-              <dispersion>0.0</dispersion>
-              <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
-              <mask>open_aperture</mask>
-              <maskHeight>120.0</maskHeight>
-              <maskWidth>1024.0</maskWidth>
-              <repeatCount>1</repeatCount>
-              <resolution>0.0</resolution>
-              <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-              <source_mag>9-10</source_mag>
-            </SpIterUISTTargetAcq>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>2</repeatCount>
-              <title>Repeat 2X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <obsArea>
-                  <PA>-90.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <repeatCount>1</repeatCount>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
-          <standard>false</standard>
-          <title>Science target</title>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your science target co-ordinates below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field, etc.
-
-These coordinates will be used by this observation INSTEAD OF the standard star coordinates entered above.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>Science Target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
-            <meta_unique>true</meta_unique>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Science Target</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                  <rv defn="radio" frame="LSRK">0.0</rv>
-                </spherSystem>
-              </target>
-            </BASE>
-            <BASE TYPE="GUIDE">
-              <target>
-                <targetName></targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00.0</c1>
-                  <c2>0:00:00.0</c2>
-                  <rv defn="radio" frame="LSRK">0.0</rv>
-                </spherSystem>
-              </target>
-            </BASE>
-          </SpTelescopeObsComp>
-          <SpDRRecipe type="oc" subtype="DRRecipe">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_unique>true</meta_unique>
-            <ArcInGroup>false</ArcInGroup>
-            <ArcRecipe>REDUCE_ARC</ArcRecipe>
-            <BiasInGroup>false</BiasInGroup>
-            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
-            <DarkInGroup>false</DarkInGroup>
-            <DarkRecipe>REDUCE_DARK</DarkRecipe>
-            <FlatInGroup>false</FlatInGroup>
-            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-            <FocusInGroup>false</FocusInGroup>
-            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
-            <ObjectInGroup>true</ObjectInGroup>
-            <ObjectRecipe>EXTENDED_SOURCE</ObjectRecipe>
-            <SkyInGroup>true</SkyInGroup>
-            <SkyRecipe>REDUCE_SKY</SkyRecipe>
-            <title>EXTENDED_SOURCE</title>
-          </SpDRRecipe>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
-
- - For bright sources:     1 coadd x 1 sec should be enough.
- - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
- - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
-
-See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
-Acquisition on point sources down to about 17th mag is possible.
-
-NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
-              <title>Imaging Acquisition</title>
-            </SpNote>
-            <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>3</coadds>
-              <disperser>aq_HK</disperser>
-              <dispersion>0.0</dispersion>
-              <exposureTime>5</exposureTime>
-              <filter>B2</filter>
-              <mask>open_aperture</mask>
-              <maskHeight>120.0</maskHeight>
-              <maskWidth>1024.0</maskWidth>
-              <repeatCount>1</repeatCount>
-              <resolution>0.0</resolution>
-              <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-              <source_mag>&gt;13</source_mag>
-            </SpIterUISTTargetAcq>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
-
-After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
-
-This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MOST PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
-
-However, for moderate resolution (short-/long-) spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
-
-NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
-              <title>Flush array (OPTIONAL)</title>
-            </SpNote>
-            <SpIterDarkObs type="ic" subtype="darkObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <exposureTime>3</exposureTime>
-              <repeatCount>5</repeatCount>
-            </SpIterDarkObs>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Chances are you will want a longer exposure time on the science target than on the standard.
-
-Use the UIST iterator below to "update" the configuartion set in the main UIST component; only the exposure time and/or coadds should be changed, however.  Everything else should be exactly the same (for the flat, arc, standard and science target observations).  
-
-If you're not sure about the best exposure time to use, select a source magnitude (first column) and sensible values will appear in the exposure time and coadds columns.  If you want a different exposure time, enter these manual.  At the end of the day, its the numbers under exposure time and coadds that will be used.  Everything else (grism, slit width, slit angle, etc.) will be the same as for the standard star.</note>
-              <title>Exp time on science target</title>
-            </SpNote>
-            <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <coaddsIter>1</coaddsIter>
-              <exposureTimeIter>240.0</exposureTimeIter>
-              <iterConfigList>
-                <value>source_magIter</value>
-                <value>exposureTimeIter</value>
-                <value>coaddsIter</value>
-              </iterConfigList>
-              <source_magIter>&gt;13</source_magIter>
-              <SpIterRepeat type="ic" subtype="repeat">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <repeatCount>5</repeatCount>
-                <title>Repeat 5X</title>
-                <SpIterOffset type="ic" subtype="offset">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                  <obsArea>
-                    <PA>-90.0</PA>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>-30.0</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>30.0</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>30.0</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>-30.0</DC2>
-                    </OFFSET>
-                  </obsArea>
-                  <SpIterObserve type="ic" subtype="observe">
-                    <meta_gui_collapsed>false</meta_gui_collapsed>
-                    <repeatCount>1</repeatCount>
-                  </SpIterObserve>
-                </SpIterOffset>
-              </SpIterRepeat>
-            </SpIterUISTSpecIFU>
-          </SpIterFolder>
-        </SpObs>
-      </SpMSB>
-      <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="33"/>
-        <SpTelescopeObsCompRef idref="32"/>
-        <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
-        <library_version>$Revision$</library_version>
-        <priority>99</priority>
-        <title>Extended source nod to sky</title>
-        <totalDuration units="seconds">5496.539560000001</totalDuration>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
-
-These coordinates will be inherited by the  three observations (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component inside the observation.  Obviously, this should be the case for the science target.   .
-
-Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
-          <title>Target information - standard</title>
-        </SpNote>
-        <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="Base">
-            <target>
-              <targetName>Standard star</targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSRK">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This example sets up the HK grism with an east-west 4 pixel slit.  Select  grism, angle and slit from the drop down menus.  
-
-NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
-
-These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
-          <title>Configuration information</title>
-        </SpNote>
-        <SpInstUIST id="33" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -7425,8 +6954,8 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
       </SpNote>
       <SpMSB checksum="1d16ab2fbf70247fbf0fda6def3e2d64" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="35"/>
-        <SpTelescopeObsCompRef idref="34"/>
+        <SpInstUISTRef idref="33"/>
+        <SpTelescopeObsCompRef idref="32"/>
         <estimatedDuration units="seconds">5666.219080000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -7441,7 +6970,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -7465,7 +6994,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will subsequently be changed (using a UIST iterator) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="35" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="33" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -7962,8 +7491,8 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
       </SpMSB>
       <SpMSB checksum="2e90510253ea5631ee2050f368f09f4dA" observed="1" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="37"/>
-        <SpTelescopeObsCompRef idref="36"/>
+        <SpInstUISTRef idref="35"/>
+        <SpTelescopeObsCompRef idref="34"/>
         <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -7978,7 +7507,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -8002,7 +7531,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="37" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="35" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -8539,8 +8068,8 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
       </SpMSB>
       <SpMSB checksum="f5a986d174a2ef7027cd69328ba15e66A" observed="1" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="39"/>
-        <SpTelescopeObsCompRef idref="38"/>
+        <SpInstUISTRef idref="37"/>
+        <SpTelescopeObsCompRef idref="36"/>
         <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -8555,7 +8084,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -8579,7 +8108,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="39" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="37" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
