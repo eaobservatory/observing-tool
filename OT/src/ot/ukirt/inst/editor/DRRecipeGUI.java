@@ -229,8 +229,6 @@ public class DRRecipeGUI extends JPanel
 	JPanel jPanelC3 = new JPanel();
 	BorderLayout borderLayoutC2 = new BorderLayout();
 	CommandButtonWidgetExt cgs4_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt cgs4_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt cgs4_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_cgs4 = new JScrollPane();
 	TableWidgetExt cgs4_recipeTable = new TableWidgetExt();
 
@@ -239,8 +237,6 @@ public class DRRecipeGUI extends JPanel
 	JPanel jPanelI3 = new JPanel();
 	BorderLayout borderLayoutI2 = new BorderLayout();
 	CommandButtonWidgetExt ircam3_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt ircam3_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt ircam3_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_ircam3 = new JScrollPane();
 	TableWidgetExt ircam3_recipeTable = new TableWidgetExt();
 
@@ -249,8 +245,6 @@ public class DRRecipeGUI extends JPanel
 	JPanel jPanelM3 = new JPanel();
 	BorderLayout borderLayoutM2 = new BorderLayout();
 	CommandButtonWidgetExt michelle_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt michelle_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt michelle_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_michelle = new JScrollPane();
 	TableWidgetExt michelle_recipeTable = new TableWidgetExt();
 
@@ -259,8 +253,6 @@ public class DRRecipeGUI extends JPanel
 	JPanel jPanelF3 = new JPanel();
 	BorderLayout borderLayoutF2 = new BorderLayout();
 	CommandButtonWidgetExt ufti_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt ufti_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt ufti_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_ufti = new JScrollPane();
 	TableWidgetExt ufti_recipeTable = new TableWidgetExt();
 
@@ -270,8 +262,6 @@ public class DRRecipeGUI extends JPanel
 
 	BorderLayout borderLayoutU2 = new BorderLayout();
 	CommandButtonWidgetExt uist_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt uist_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt uist_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_uist = new JScrollPane();
 	TableWidgetExt uist_recipeTable = new TableWidgetExt();
 
@@ -280,8 +270,6 @@ public class DRRecipeGUI extends JPanel
 	JPanel jPanelW3 = new JPanel();
 	BorderLayout borderLayoutW2 = new BorderLayout();
 	CommandButtonWidgetExt wfcam_defaultName = new CommandButtonWidgetExt();
-	CommandButtonWidgetExt wfcam_userSpec = new CommandButtonWidgetExt();
-	TextBoxWidgetExt wfcam_userRecipe = new TextBoxWidgetExt();
 	JScrollPane jScrollPane_wfcam = new JScrollPane();
 	TableWidgetExt wfcam_recipeTable = new TableWidgetExt();
 
@@ -621,52 +609,34 @@ public class DRRecipeGUI extends JPanel
 		// Defaults and user-defined recipe by instrument. 
 		jPanelC2.setLayout( borderLayoutC2 );
 		cgs4_defaultName.setText( "Reset Defaults" );
-		cgs4_userSpec.setText( "User Specified:" );
 		jPanelC3.setLayout( gridBagLayoutC2 );
 		jPanelC3.setMinimumSize( new Dimension( 260 , 60 ) );
-		cgs4_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		cgs4_userRecipe.setEditable( false );
 		jScrollPane_cgs4.setPreferredSize( new Dimension( 100 , 120 ) );
 
 		jPanelI2.setLayout( borderLayoutI2 );
 		ircam3_defaultName.setText( "Reset Defaults" );
-		ircam3_userSpec.setText( "User Specified:" );
 		jPanelI3.setLayout( gridBagLayoutI2 );
 		jPanelI3.setMinimumSize( new Dimension( 260 , 60 ) );
-		ircam3_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		ircam3_userRecipe.setEditable( false );
 
 		jPanelM2.setLayout( borderLayoutM2 );
 		michelle_defaultName.setText( "Reset Defaults" );
-		michelle_userSpec.setText( "User Specified:" );
 		jPanelM3.setLayout( gridBagLayoutM2 );
 		jPanelM3.setMinimumSize( new Dimension( 260 , 60 ) );
-		michelle_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		michelle_userRecipe.setEditable( false );
 
 		jPanelF2.setLayout( borderLayoutF2 );
 		ufti_defaultName.setText( "Reset Defaults" );
-		ufti_userSpec.setText( "User Specified:" );
 		jPanelF3.setLayout( gridBagLayoutF2 );
 		jPanelF3.setMinimumSize( new Dimension( 260 , 60 ) );
-		ufti_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		ufti_userRecipe.setEditable( false );
 
 		jPanelU2.setLayout( borderLayoutU2 );
 		uist_defaultName.setText( "Reset Defaults" );
-		uist_userSpec.setText( "User Specified:" );
 		jPanelU3.setLayout( gridBagLayoutU2 );
 		jPanelU3.setMinimumSize( new Dimension( 260 , 60 ) );
-		uist_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		uist_userRecipe.setEditable( false );
 
 		jPanelW2.setLayout( borderLayoutW2 );
 		wfcam_defaultName.setText( "Reset Defaults" );
-		wfcam_userSpec.setText( "User Specified:" );
 		jPanelW3.setLayout( gridBagLayoutW2 );
 		jPanelW3.setMinimumSize( new Dimension( 260 , 60 ) );
-		wfcam_userRecipe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		wfcam_userRecipe.setEditable( false );
 
 		this.add( emptyPanel , "empty" );
 		emptyPanel.add( jLabelE1 , BorderLayout.SOUTH );
@@ -708,8 +678,6 @@ public class DRRecipeGUI extends JPanel
 		cgs4Panel.add( jPanelC2 , BorderLayout.CENTER );
 		jPanelC2.add( jPanelC3 , BorderLayout.NORTH );
 		jPanelC3.add( cgs4_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelC3.add( cgs4_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
-		jPanelC3.add( cgs4_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelC2.add( jScrollPane_cgs4 , BorderLayout.CENTER );
 		jScrollPane_cgs4.getViewport().add( cgs4_recipeTable , null );
 
@@ -739,8 +707,6 @@ public class DRRecipeGUI extends JPanel
 		ircam3Panel.add( jPanelI2 , BorderLayout.CENTER );
 		jPanelI2.add( jPanelI3 , BorderLayout.NORTH );
 		jPanelI3.add( ircam3_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelI3.add( ircam3_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelI3.add( ircam3_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelI2.add( jScrollPane_ircam3 , BorderLayout.CENTER );
 		jScrollPane_ircam3.getViewport().add( ircam3_recipeTable , null );
 
@@ -778,8 +744,6 @@ public class DRRecipeGUI extends JPanel
 		michellePanel.add( jPanelM2 , BorderLayout.CENTER );
 		jPanelM2.add( jPanelM3 , BorderLayout.NORTH );
 		jPanelM3.add( michelle_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelM3.add( michelle_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelM3.add( michelle_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelM2.add( jScrollPane_michelle , BorderLayout.CENTER );
 		jScrollPane_michelle.getViewport().add( michelle_recipeTable , null );
 
@@ -805,8 +769,6 @@ public class DRRecipeGUI extends JPanel
 		uftiPanel.add( jPanelF2 , BorderLayout.CENTER );
 		jPanelF2.add( jPanelF3 , BorderLayout.NORTH );
 		jPanelF3.add( ufti_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelF3.add( ufti_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelF3.add( ufti_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelF2.add( jScrollPane_ufti , BorderLayout.CENTER );
 		jScrollPane_ufti.getViewport().add( ufti_recipeTable , null );
 
@@ -844,8 +806,6 @@ public class DRRecipeGUI extends JPanel
 		uistPanel.add( jPanelU2 , BorderLayout.CENTER );
 		jPanelU2.add( jPanelU3 , BorderLayout.NORTH );
 		jPanelU3.add( uist_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelU3.add( uist_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelU3.add( uist_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelU2.add( jScrollPane_uist , BorderLayout.CENTER );
 		jScrollPane_uist.getViewport().add( uist_recipeTable , null );
 
@@ -883,8 +843,6 @@ public class DRRecipeGUI extends JPanel
 		wfcamPanel.add( jPanelW2 , BorderLayout.CENTER );
 		jPanelW2.add( jPanelW3 , BorderLayout.NORTH );
 		jPanelW3.add( wfcam_defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelW3.add( wfcam_userSpec , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
-		jPanelW3.add( wfcam_userRecipe , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) );
 		jPanelW2.add( jScrollPane_wfcam , BorderLayout.CENTER );
 		jScrollPane_wfcam.getViewport().add( wfcam_recipeTable , null );
 	}

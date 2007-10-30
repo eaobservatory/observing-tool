@@ -326,21 +326,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } );
 		twe.addWatcher( this );
 
-		// Button to allow user to enter own names
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
-		tbwe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		_disableRecipeEntry( true );
-		tbwe.addWatcher( this );
-
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "userSpec" );
-		cbw.addWatcher( new CommandButtonWidgetWatcher()
-		{
-			public void commandButtonAction( CommandButtonWidgetExt cbw )
-			{
-				_disableRecipeEntry( false );
-			}
-		} );
-
 		// button to reset the recipe to default
 		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" );
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
@@ -354,12 +339,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		} );
 	}
 
-	private void _disableRecipeEntry( boolean tf )
-	{
-
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
-		tbwe.setEditable( !tf );
-	}
+	private void _disableRecipeEntry( boolean tf ){}
 
 	/**
 	 * Initialize the Recipe table widget according to the selected
