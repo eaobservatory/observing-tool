@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>OT-library-updates-may07.xml</meta_gui_filename>
-  <ot_version>20070606</ot_version>
+  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
+  <ot_version>20071023</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4962,7 +4962,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       </SpObs>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Spectroscopy</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4971,7 +4971,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
 
 There are two MSBs for observing Point Sources;  one assumes that the science target is a bright point source which the DR can "find" in the reduced spectral image and display.  The second assumes that the science target is faint.  In this case, the DR will find the rows containing the standard star and assume that the science target lies on the same rows.  These rows will be extracted and displayed. Please bear this in mind when acquiring targets - the standard star and science target should be positioned on the same row AND column (same x-y pixel in imaging acquisition) if the science target is faint.
 
-In both cases, the source is nodded up and down the slit (offset +6" then -6").
+In both cases, the source is nodded up and down the slit.
 
 Observing Extended Sources
 =================
@@ -5037,7 +5037,7 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="25"/>
         <SpTelescopeObsCompRef idref="24"/>
-        <estimatedDuration units="seconds">5168.13996</estimatedDuration>
+        <estimatedDuration units="seconds">5301.559840000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Point source slide along slit</title>
@@ -5310,6 +5310,11 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <repeatCount>2</repeatCount>
               <title>Repeat 2X</title>
+              <SpNote type="no" subtype="none">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <note>Offsets are both positive - these will move the target into the top half of the array, where the QE (sensitivity) of the array is better.</note>
+                <title>Offsetting</title>
+              </SpNote>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -5317,19 +5322,19 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
                   <PA>-90.0</PA>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
+                    <DC2>12.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
+                    <DC2>18.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
+                    <DC2>18.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
+                    <DC2>12.0</DC2>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
@@ -5341,7 +5346,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <estimatedDuration units="seconds">4988.13996</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
@@ -5453,6 +5458,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <repeatCount>5</repeatCount>
                 <title>Repeat 5X</title>
+                <SpNote type="no" subtype="none">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <note>Offsets are both positive - these will move the target into the top half of the array, where the QE (sensitivity) of the array is better.</note>
+                  <title>Offsetting</title>
+                </SpNote>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -5460,19 +5470,19 @@ If you're not sure about the best exposure time to use, select a source magnitud
                     <PA>-90.0</PA>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>6.0</DC2>
+                      <DC2>12.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>-6.0</DC2>
+                      <DC2>18.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>-6.0</DC2>
+                      <DC2>18.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>6.0</DC2>
+                      <DC2>12.0</DC2>
                     </OFFSET>
                   </obsArea>
                   <SpIterObserve type="ic" subtype="observe">
@@ -5489,7 +5499,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="27"/>
         <SpTelescopeObsCompRef idref="26"/>
-        <estimatedDuration units="seconds">5182.41988</estimatedDuration>
+        <estimatedDuration units="seconds">5315.839760000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Faint point source slide along slit</title>
@@ -5762,6 +5772,11 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <repeatCount>2</repeatCount>
               <title>Repeat 2X</title>
+              <SpNote type="no" subtype="none">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <note>Offsets are both positive - these will move the target into the top half of the array, where the QE (sensitivity) of the array is better.</note>
+                <title>Offsetting</title>
+              </SpNote>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -5769,19 +5784,19 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
                   <PA>-90.0</PA>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
+                    <DC2>12.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
+                    <DC2>18.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>-6.0</DC2>
+                    <DC2>18.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>6.0</DC2>
+                    <DC2>12.0</DC2>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
@@ -5808,7 +5823,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -5905,6 +5920,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <repeatCount>5</repeatCount>
                 <title>Repeat 5X</title>
+                <SpNote type="no" subtype="none">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <note>Offsets are both positive - these will move the target into the top half of the array, where the QE (sensitivity) of the array is better.</note>
+                  <title>Offsetting</title>
+                </SpNote>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -5912,19 +5932,19 @@ If you're not sure about the best exposure time to use, select a source magnitud
                     <PA>-90.0</PA>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>6.0</DC2>
+                      <DC2>12.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>-6.0</DC2>
+                      <DC2>18.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>-6.0</DC2>
+                      <DC2>18.0</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>6.0</DC2>
+                      <DC2>12.0</DC2>
                     </OFFSET>
                   </obsArea>
                   <SpIterObserve type="ic" subtype="observe">
@@ -5941,7 +5961,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="29"/>
         <SpTelescopeObsCompRef idref="28"/>
-        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 24" along slit</title>
@@ -6412,7 +6432,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="31"/>
         <SpTelescopeObsCompRef idref="30"/>
-        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 60" along slit</title>
@@ -6883,7 +6903,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="33"/>
         <SpTelescopeObsCompRef idref="32"/>
-        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source nod to sky</title>
@@ -7407,7 +7427,7 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="35"/>
         <SpTelescopeObsCompRef idref="34"/>
-        <estimatedDuration units="seconds">5348.819480000001</estimatedDuration>
+        <estimatedDuration units="seconds">5666.219080000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, nod to blank sky</title>
@@ -7944,7 +7964,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="37"/>
         <SpTelescopeObsCompRef idref="36"/>
-        <estimatedDuration units="seconds">4360.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, nod to blank sky with jitters</title>
@@ -8521,7 +8541,7 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="39"/>
         <SpTelescopeObsCompRef idref="38"/>
-        <estimatedDuration units="seconds">4360.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, map extended source</title>
