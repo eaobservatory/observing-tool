@@ -21,6 +21,8 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.obsComp.SpDRObsComp;
 
+import java.lang.reflect.Field ;
+
 /**
  * This class defines the DRRecipe Observation Component for JCMT.
  *
@@ -32,16 +34,30 @@ import gemini.sp.obsComp.SpDRObsComp;
  */
 public final class SpDRRecipe extends SpDRObsComp
 {
-	public static final String WINDOW_TYPES_TAG = "window types";
 	public static final String PROJECTION_TYPES_TAG = "projection types";
 	public static final String GRID_FUNCTION_TYPES_TAG = "grid_function types";
 	public static final String ATTR_OBJECT_RECIPE = "objectRecipe";
+	
+	public static final String ATTR_RASTER_TYPE = "rasterRecipe" ;
+	public static final String ATTR_JIGGLE_TYPE = "jiggleRecipe" ;
+	public static final String ATTR_STARE_TYPE = "stareRecipe" ;
+	
+	public static final String ATTR_POINTING_TYPE = "pointingRecipe" ;
+	public static final String ATTR_FOCUS_TYPE = "focusRecipe" ;
+	
+	public static final String[] availableTypes_heterodyne = 
+	{ 
+		ATTR_RASTER_TYPE , 
+		ATTR_JIGGLE_TYPE , 
+		ATTR_STARE_TYPE ,
+		ATTR_POINTING_TYPE , 
+		ATTR_FOCUS_TYPE
+	} ;
 
 	// The values of the following String variables were
 	// taken from the corresponding XML elements in <cube_list> when possible.
 	// However, the variable names and method names in which the variable
 	// are more in accordance with naming conventions used elsewhere in the OT.
-	public static final String ATTR_WINDOW_TYPE = "window_type";
 
 	/**
 	 * Channel spacings in kHz.
@@ -56,7 +72,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	 * The choice has been restricted to "MHz" because the spectral region editor used to
 	 * specify baseline fit regions and line regions uses Hz (GHz) rather than "km.s-1" or "pixel".
 	 */
-	public static final String[] BASELINE_REGION_UNITS = { "km.s-1" , "MHz" /* , "pixel" */};
+	public static final String[] BASELINE_REGION_UNITS = { "km.s-1" , "MHz" };
 	public static final String[] REGRIDDING_METHODS = { "Linear" , "Bessel" };
 	public static final String[] BASELINE_SELECTION = { "None" , "Automatic" , "Manual" };
 	public static String[] WINDOW_TYPES = null;
@@ -91,8 +107,6 @@ public final class SpDRRecipe extends SpDRObsComp
 		String baseDir = System.getProperty( "ot.cfgdir" );
 		String cfgFile = baseDir + "drrecipe.cfg";
 		_readCfgFile( cfgFile );
-
-		_avTable.noNotifySet( ATTR_WINDOW_TYPE , WINDOW_TYPES[ 0 ] , 0 );
 	}
 
 	private void _readCfgFile( String filename )
@@ -112,8 +126,6 @@ public final class SpDRRecipe extends SpDRObsComp
 					HETERODYNE = instInfo.getValueAsLUT();
 				else if( InstCfg.matchAttr( instInfo , "scuba" ) )
 					SCUBA = instInfo.getValueAsLUT();
-				else if( InstCfg.matchAttr( instInfo , WINDOW_TYPES_TAG ) )
-					WINDOW_TYPES = instInfo.getValueAsArray();
 				else if( InstCfg.matchAttr( instInfo , PROJECTION_TYPES_TAG ) )
 					PROJECTION_TYPES = instInfo.getValueAsArray();
 				else if( InstCfg.matchAttr( instInfo , GRID_FUNCTION_TYPES_TAG ) )
@@ -140,22 +152,59 @@ public final class SpDRRecipe extends SpDRObsComp
 
 		return title;
 	}
-
-	/**
-	 * Set the DR recipe name.
-	 */
-	public void setObjectRecipeName( String text )
+	
+	public String[] getAvailableTypes( String instrument )
 	{
-		_avTable.set( ATTR_OBJECT_RECIPE , text );
+		String[] availableTypes = new String[ 0 ] ;
+		String fieldName = "availableTypes_" + instrument ;
+		Class whatami = this.getClass() ;
+		try
+		{
+			Field field =  whatami.getDeclaredField( fieldName ) ;
+			if( field != null )
+			{
+				Class klass = field.getType() ;
+				if( klass == String[].class )
+					availableTypes = ( String[] )field.get( null ) ;
+			}
+		}
+		catch( NoSuchFieldException nsfe )
+		{
+			System.out.println( fieldName + " does not appear to exist for " + whatami.getName() + ". " + nsfe ) ;
+		}
+		catch( IllegalAccessException iae )
+		{
+			System.out.println( "You do not appear to have access to " + fieldName + ". " + iae ) ;
+		}
+		
+		return availableTypes ;
 	}
 
-	/**
-	 * Get the DR recipe name.
-	 */
-	public String getObjectRecipeName()
+	public boolean setRecipeForType( String recipe , String type , String instrument )
 	{
-		String recipe = _avTable.get( ATTR_OBJECT_RECIPE );
+		boolean returnable = false ;
+		String[] availableTypes = getAvailableTypes( instrument ) ;
+		for( int index = 0 ; index < availableTypes.length ; index++ )
+		{	
+			if( availableTypes[ index ].equals( type ) )
+			{
+				_avTable.set( type , recipe ) ;
+				returnable = true ;
+				break ;
+			}
+		}
+		return returnable ;
+	}
+	
+	public String getRecipeForType( String type )
+	{
+		String recipe = _avTable.get( type );
 		return recipe;
+	}
+	
+	public String getWindowType()
+	{
+		return null ;
 	}
 
 	/**
@@ -191,16 +240,6 @@ public final class SpDRRecipe extends SpDRObsComp
 			_avTable.noNotifySet( ATTR_OBJECT_RECIPE , SCUBA_OBJECT_RECIPE_DEFAULT , 0 );
 			setTitleAttr( SCUBA_OBJECT_RECIPE_DEFAULT );
 		}
-	}
-
-	public String getWindowType()
-	{
-		return _avTable.get( ATTR_WINDOW_TYPE );
-	}
-
-	public void setWindowType( String value )
-	{
-		_avTable.set( ATTR_WINDOW_TYPE , value );
 	}
 
 	/**

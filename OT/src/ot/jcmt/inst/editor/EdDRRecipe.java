@@ -49,7 +49,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	private String _currentRecipeSelected;
 	private String _instStr;
 	private DRRecipeGUI _w; // the GUI layout
-	private DataReductionScreen _dataReductionScreen = new DataReductionScreen();
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -60,20 +59,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		_presSource = _w = new DRRecipeGUI();
 		_description = "Enter the Data Reduction recipe to be used"; // for each observation type";
 		_resizable = true;
-
-		_w.projection.setChoices( SpDRRecipe.PROJECTION_TYPES );
-		_w.gridFunction.setChoices( SpDRRecipe.GRID_FUNCTION_TYPES );
-
-		_w.tabbedPaneHet.add( _dataReductionScreen , "ACSIS DR" , 0 );
-		_w.tabbedPaneHet.setEnabledAt( 1 , false );
-
-		_w.projection.addWatcher( this );
-		_w.gridFunction.addWatcher( this );
-		_w.smoothingRad.addWatcher( this );
-		_w.pixelSizeX.addWatcher( this );
-		_w.pixelSizeY.addWatcher( this );
-		_w.offsetX.addWatcher( this );
-		_w.offsetY.addWatcher( this );
 	}
 
 	/**
@@ -86,8 +71,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected void _initInstWidgets()
 	{
-		CommandButtonWidgetExt cbw = null;
-
 		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
 
 		if( _inst == null )
@@ -112,54 +95,46 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// Might not be elegant but has always been hard-wired in a similar way.
 		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
 
-		if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
-		{
-			DialogUtil.error( _w , "DRRecipe is not currently supported, please remove this component from your program." );
-			return;
-		}
-
 		// The recipes
-		TextBoxWidgetExt rtbw;
-
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
-		// Disable it so it the user cannot use it.
-		// _disableRecipeEntry(true);
-		rtbw.setEditable( false );
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "objectSet" );
-		cbw.addWatcher( new CommandButtonWidgetWatcher()
+		TextBoxWidgetExt rtbw = null ;
+		CommandButtonWidgetExt cbw = null ;
+		
+		String[] availableTypes = _spDRRecipe.getAvailableTypes( _instStr ) ;
+		
+		for( int index = 0 ; index < availableTypes.length ; index++ )
 		{
-			public void commandButtonAction( CommandButtonWidgetExt cbw )
-			{
-				// Set the selected table value
-				_spDRRecipe.setObjectRecipeName( _currentRecipeSelected );
-				_spDRRecipe.setTitleAttr( _currentRecipeSelected );
+			final String type = availableTypes[ index ] ;
+			rtbw = ( TextBoxWidgetExt )getWidget( _instStr , type );
 
-				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
-				tbwe.setText( _currentRecipeSelected );
-				_disableRecipeEntry( true );
+			if( rtbw == null )
+			{
+				System.out.println( type + " not implemented in the GUI" ) ;
+				continue ;
 			}
-		} );
+			
+			rtbw.setEditable( false );
+			
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , type + "Set" );
+			cbw.addWatcher( new CommandButtonWidgetWatcher()
+			{
+				public void commandButtonAction( CommandButtonWidgetExt cbw )
+				{
+					// Set the selected table value
+					_spDRRecipe.setRecipeForType( _currentRecipeSelected , type , _instStr );
+					_spDRRecipe.setTitleAttr( _currentRecipeSelected );
+	
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , type );
+					tbwe.setText( _currentRecipeSelected );
+					_disableRecipeEntry( true );
+				}
+			} );
+		}
 
 		// The table of possible recipes
 		TableWidgetExt twe;
 		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
 		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } );
 		twe.addWatcher( this );
-
-		// Button to allow user to enter own names
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
-		tbwe.setText( "ENTER_YOUR_OWN_RECIPE_HERE" );
-		_disableRecipeEntry( true );
-		tbwe.addWatcher( this );
-
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "userSpec" );
-		cbw.addWatcher( new CommandButtonWidgetWatcher()
-		{
-			public void commandButtonAction( CommandButtonWidgetExt cbw )
-			{
-				_disableRecipeEntry( false );
-			}
-		} );
 
 		// button to reset the recipe to default
 		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" );
@@ -174,12 +149,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		} );
 	}
 
-	private void _disableRecipeEntry( boolean tf )
-	{
-
-		TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "userRecipe" );
-		tbwe.setEditable( !tf );
-	}
+	private void _disableRecipeEntry( boolean tf ){}
 
 	/**
 	 * Initialize the Recipe table widget according to the selected recipe category.
@@ -224,19 +194,22 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// Might not be elegant but has always been hard-wired in a similar way.
 		( ( CardLayout )( _w.getLayout() ) ).show( _w , instStr.toLowerCase() );
 
-		if( instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
-			return;
-
 		// First fill in the text box.
 		TextBoxWidgetExt tbwe;
 
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
-		try
+		String[] availableTypes = _spDRRecipe.getAvailableTypes( instStr ) ;
+		
+		for( int index = 0 ; index < availableTypes.length ; index++ )
 		{
-			recipe = _spDRRecipe.getObjectRecipeName();
-			tbwe.setValue( recipe );
+			String type = availableTypes[ index ] ;
+			tbwe = ( TextBoxWidgetExt )getWidget( _instStr , type );
+			try
+			{
+				recipe = _spDRRecipe.getRecipeForType( type );
+				tbwe.setValue( recipe );
+			}
+			catch( NullPointerException ex ){}
 		}
-		catch( NullPointerException ex ){}
 
 		// See which type of recipe the selected recipe is, if any.
 		// Get the instrument and display the relevant options.
