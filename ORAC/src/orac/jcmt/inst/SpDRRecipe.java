@@ -148,21 +148,25 @@ public final class SpDRRecipe extends SpDRObsComp
 	private void addDefaultRecipe( String name , String recipe )
 	{
 		String[] split = name.split( "_" ) ;
-		String instrument = split[ 0 ].toLowerCase() ;
 		
-		TreeMap<String,String> treeMap = null ;
-		if( !defaults.containsKey( instrument ) )
+		if( split.length >= 2 )
 		{
-			treeMap = new TreeMap<String,String>() ;
-			defaults.put( instrument , treeMap ) ;
+			String instrument = split[ 0 ].toLowerCase() ;
+			
+			TreeMap<String,String> treeMap = null ;
+			if( !defaults.containsKey( instrument ) )
+			{
+				treeMap = new TreeMap<String,String>() ;
+				defaults.put( instrument , treeMap ) ;
+			}
+			else
+			{
+				treeMap = defaults.get( instrument ) ;
+			}
+			
+			String type = split[ 1 ] ;
+			treeMap.put( type.toLowerCase() , recipe ) ;
 		}
-		else
-		{
-			treeMap = defaults.get( instrument ) ;
-		}
-		
-		String type = split[ 1 ] ;
-		treeMap.put( type.toLowerCase() , recipe ) ;
 	}
 	
 	/**
@@ -213,7 +217,10 @@ public final class SpDRRecipe extends SpDRObsComp
 		{	
 			if( availableTypes[ index ].equals( type ) )
 			{
-				_avTable.set( type , recipe ) ;
+				if( recipe == null )
+					_avTable.rm( type ) ;
+				else
+					_avTable.set( type , recipe ) ;
 				returnable = true ;
 				break ;
 			}
