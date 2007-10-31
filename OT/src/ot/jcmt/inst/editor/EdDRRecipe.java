@@ -99,6 +99,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		TextBoxWidgetExt rtbw = null ;
 		CommandButtonWidgetExt cbw = null ;
 		
+		_spDRRecipe.setDefaultsForInstrument( _instStr ) ;
 		String[] availableTypes = _spDRRecipe.getAvailableTypes( _instStr ) ;
 		
 		for( int index = 0 ; index < availableTypes.length ; index++ )

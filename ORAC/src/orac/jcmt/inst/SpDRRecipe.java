@@ -22,6 +22,7 @@ import gemini.sp.SpType;
 import gemini.sp.obsComp.SpDRObsComp;
 
 import java.lang.reflect.Field ;
+import java.util.TreeMap ;
 
 /**
  * This class defines the DRRecipe Observation Component for JCMT.
@@ -53,6 +54,8 @@ public final class SpDRRecipe extends SpDRObsComp
 		ATTR_POINTING_TYPE , 
 		ATTR_FOCUS_TYPE
 	} ;
+	
+	TreeMap<String,TreeMap<String,String>> defaults = new TreeMap<String,TreeMap<String,String>>() ;
 
 	// The values of the following String variables were
 	// taken from the corresponding XML elements in <cube_list> when possible.
@@ -131,7 +134,9 @@ public final class SpDRRecipe extends SpDRObsComp
 				else if( InstCfg.matchAttr( instInfo , GRID_FUNCTION_TYPES_TAG ) )
 					GRID_FUNCTION_TYPES = instInfo.getValueAsArray();
 				else if( InstCfg.matchAttr( instInfo , "DEFAULT_BASELINE_FRACTION" ) )
-					DEFAULT_BASELINE = Double.parseDouble( instInfo.getValue() );
+					DEFAULT_BASELINE = Double.parseDouble( instInfo.getValue() );	
+				else if( InstCfg.likeAttr( instInfo , "default_recipe" ) )
+					addDefaultRecipe( instInfo.getKeyword() , instInfo.getValue() ) ;
 			}
 		}
 		catch( IOException e )
@@ -140,6 +145,26 @@ public final class SpDRRecipe extends SpDRObsComp
 		}
 	}
 
+	private void addDefaultRecipe( String name , String recipe )
+	{
+		String[] split = name.split( "_" ) ;
+		String instrument = split[ 0 ].toLowerCase() ;
+		
+		TreeMap<String,String> treeMap = null ;
+		if( !defaults.containsKey( instrument ) )
+		{
+			treeMap = new TreeMap<String,String>() ;
+			defaults.put( instrument , treeMap ) ;
+		}
+		else
+		{
+			treeMap = defaults.get( instrument ) ;
+		}
+		
+		String type = split[ 1 ] ;
+		treeMap.put( type.toLowerCase() , recipe ) ;
+	}
+	
 	/**
 	 * Override getTitle to return the title attribute.
 	 */
@@ -202,6 +227,19 @@ public final class SpDRRecipe extends SpDRObsComp
 		return recipe;
 	}
 	
+	public void setDefaultsForInstrument( String instrument )
+	{
+		String[] types = getAvailableTypes( instrument ) ;
+		TreeMap<String,String> defaultRecipes = defaults.get( instrument.toLowerCase() ) ;
+		for( int typesIndex = 0 ; typesIndex < types.length ; typesIndex++ )
+		{
+			String type = types[ typesIndex ] ;
+			String shortType = type.substring( 0 , type.indexOf( "Recipe" ) ) ;
+			String recipe = defaultRecipes.get( shortType ) ;
+			setRecipeForType( recipe , type , instrument ) ;
+		}		
+	}
+	
 	public String getWindowType()
 	{
 		return null ;
@@ -217,29 +255,11 @@ public final class SpDRRecipe extends SpDRObsComp
 	}
 
 	/**
-	 * Get the default recipe (METHOD  REQUIRED...)
-	 */
-	public String getDefaultRecipe()
-	{
-		// MFO TODO: How about heterodyne?
-		return OBJECT_RECIPE_DEFAULT;
-	}
-
-	/**
 	 * Use default recipe
 	 */
 	public void useDefaults( String instName )
 	{
-		if( instName.equalsIgnoreCase( "heterodyne" ) )
-		{
-			_avTable.noNotifySet( ATTR_OBJECT_RECIPE , HETERODYNE_OBJECT_RECIPE_DEFAULT , 0 );
-			setTitleAttr( HETERODYNE_OBJECT_RECIPE_DEFAULT );
-		}
-		else if( instName.equalsIgnoreCase( "scuba" ) )
-		{
-			_avTable.noNotifySet( ATTR_OBJECT_RECIPE , SCUBA_OBJECT_RECIPE_DEFAULT , 0 );
-			setTitleAttr( SCUBA_OBJECT_RECIPE_DEFAULT );
-		}
+		setDefaultsForInstrument( instName ) ;
 	}
 
 	/**
