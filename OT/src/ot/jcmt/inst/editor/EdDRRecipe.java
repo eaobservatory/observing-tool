@@ -49,6 +49,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	private String _currentRecipeSelected;
 	private String _instStr;
 	private DRRecipeGUI _w; // the GUI layout
+	
+	private boolean initd = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -122,7 +124,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				{
 					// Set the selected table value
 					_spDRRecipe.setRecipeForType( _currentRecipeSelected , type , _instStr );
-					_spDRRecipe.setTitleAttr( _currentRecipeSelected );
 	
 					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , type );
 					tbwe.setText( _currentRecipeSelected );
@@ -134,7 +135,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// The table of possible recipes
 		TableWidgetExt twe;
 		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
-		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } );
+		twe.setColumnHeaders( new String[]{ "Recipe Name" , "Description" } );
 		twe.addWatcher( this );
 
 		// button to reset the recipe to default
@@ -148,6 +149,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				_updateWidgets();
 			}
 		} );
+		
+		initd = true ;
 	}
 
 	private void _disableRecipeEntry( boolean tf ){}
@@ -228,7 +231,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 		// Show the correct recipes, and select the option widget for the type
 		_showRecipeType( rarray );
-
 	}
 
 	/**
@@ -238,8 +240,11 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		_spDRRecipe = ( SpDRRecipe )spItem;
 		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
-		_initInstWidgets();
-
+		if( !initd )
+			_initInstWidgets() ;
+		else
+			_updateRecipeWidgets() ;
+		
 		super.setup( spItem );
 	}
 

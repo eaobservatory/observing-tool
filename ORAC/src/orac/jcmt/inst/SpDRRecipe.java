@@ -46,6 +46,13 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static final String ATTR_POINTING_TYPE = "pointingRecipe" ;
 	public static final String ATTR_FOCUS_TYPE = "focusRecipe" ;
 	
+	/*
+	 * availableTypes_instrument arrays must have corresponding instrument_type in DRRecipeGUI
+	 * e.g  availableTypes_heterodyne containing ATTR_RASTER_TYPE = "rasterRecipe" type
+	 * must have a heterodyne_rasterRecipe field in DRRecipeGUI.
+	 * 
+	 * Hopefully I will implement a solution soon. 
+	 */
 	public static final String[] availableTypes_heterodyne = 
 	{ 
 		ATTR_RASTER_TYPE , 
@@ -149,7 +156,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String[] split = name.split( "_" ) ;
 		
-		if( split.length >= 2 )
+		if( split.length >= 3 && split[ 2 ].equals( "DEFAULT" ) )
 		{
 			String instrument = split[ 0 ].toLowerCase() ;
 			
