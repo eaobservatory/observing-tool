@@ -78,13 +78,28 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 {
 	/** Identifier for a SKYFLAT calibration. */
 	public static final int SKYFLAT = 0;
+	public static final String SKYFLAT_STRING = "skyFlat" ;
 
 	/** Identifier for a DOMEFLAT calibration. */
 	public static final int DOMEFLAT = 1;
+	public static final String DOMEFLAT_STRING = "domeFlat" ;
 
 	/** Identifier for a FOCUS calibration. */
 	public static final int FOCUS = 2;
+	public static final String FOCUS_STRING = "focus" ;
+	
+	/** Identifier for a DARK calibration. */
+	public static final int DARK = 3 ;
+	public static final String DARK_STRING = "dark" ;
 
+	protected static final String choices[] = 
+	{ 
+			SKYFLAT_STRING , 
+			DOMEFLAT_STRING , 
+			FOCUS_STRING , 
+			DARK_STRING 
+	} ;
+	
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" );
 
 	// Register the prototype.
@@ -100,7 +115,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	{
 		super( SP_TYPE );
 
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_CALTYPE , "skyFlat" , 0 );
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_CALTYPE , SKYFLAT_STRING , 0 );
 		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_READMODE , null , 0 );
 		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_FILTER , null , 0 );
 		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , null , 0 );
@@ -140,10 +155,12 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public int getCalType()
 	{
 		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE );
-		if( "skyFlat".equalsIgnoreCase( calType ) )
+		if( SKYFLAT_STRING.equalsIgnoreCase( calType ) )
 			return SKYFLAT;
-		else if( "domeFlat".equalsIgnoreCase( calType ) )
+		else if( DOMEFLAT_STRING.equalsIgnoreCase( calType ) )
 			return DOMEFLAT;
+		else if( "dark".equalsIgnoreCase( calType ) )
+			return DARK ;
 
 		return FOCUS;
 	}
@@ -162,9 +179,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public String getCalTypeString()
 	{
 		if( getCalType() == SKYFLAT )
-			return "skyFlat";
+			return SKYFLAT_STRING ;
 		else if( getCalType() == DOMEFLAT )
-			return "domeFlat";
+			return DOMEFLAT_STRING ;
+		else if( getCalType() == DARK )
+			return DARK_STRING ;
 			
 		return "focus";
 	}
@@ -174,10 +193,6 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String[] getCalTypeChoices()
 	{
-		String choices[] = new String[ 3 ];
-		choices[ 0 ] = "skyFlat";
-		choices[ 1 ] = "domeFlat";
-		choices[ 2 ] = "focus";
 		return choices;
 	}
 
@@ -310,7 +325,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		double det = 0. ;
 		// Get the exposure time from the WFCAM instrument
 		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
+		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT )|| ( getCalType() == DARK ) )
 			det = inst.getDefaultFlatExpTime();
 		else
 			det = inst.getDefaultFocusExpTime();
@@ -345,7 +360,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		int dc = 1;
 		// Get the coadds from the WFCAM instrument
 		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
+		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) || ( getCalType() == DARK ) )
 			dc = inst.getDefaultFlatCoadds();
 		else
 			dc = inst.getDefaultFocusCoadds();
@@ -431,10 +446,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 		// Update all the items
 		configTable.put( "type" , getCalTypeString() );
-		configTable.put( "filter" , getFilter() );
-		configTable.put( "readMode" , getReadMode() );
-		configTable.put( "exposureTime" , "" + getExposureTime() );
-		configTable.put( "coadds" , "" + getCoadds() );
+		configTable.put( SpWFCAMCalConstants.ATTR_FILTER , getFilter() );
+		configTable.put( SpWFCAMCalConstants.ATTR_READMODE , getReadMode() );
+		configTable.put( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , "" + getExposureTime() );
+		configTable.put( SpWFCAMCalConstants.ATTR_COADDS , "" + getCoadds() );
 
 		// Remove stuff we don't need
 		configTable.remove( "instPort" );

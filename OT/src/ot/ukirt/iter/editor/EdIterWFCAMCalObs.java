@@ -40,6 +40,9 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 
 	/** Identifier for a FOCUS calibration. */
 	public static final int FOCUS = 2;
+	
+	/** Identifier for a DARK calibration. */
+	public static final int DARK = 3 ;
 
 	private IterWFCAMCalObsGUI _w; // the GUI layout
 
