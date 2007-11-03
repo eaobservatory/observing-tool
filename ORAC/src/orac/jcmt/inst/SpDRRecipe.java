@@ -64,11 +64,13 @@ public final class SpDRRecipe extends SpDRObsComp
 	
 	TreeMap<String,TreeMap<String,String>> defaults = new TreeMap<String,TreeMap<String,String>>() ;
 
-	// The values of the following String variables were
-	// taken from the corresponding XML elements in <cube_list> when possible.
-	// However, the variable names and method names in which the variable
-	// are more in accordance with naming conventions used elsewhere in the OT.
-
+	/*
+	 * The values of the following String variables were
+	 * taken from the corresponding XML elements in <cube_list> when possible.
+	 * However, the variable names and method names in which the variable
+	 * are more in accordance with naming conventions used elsewhere in the OT.
+	 */
+	
 	/**
 	 * Channel spacings in kHz.
 	 *
