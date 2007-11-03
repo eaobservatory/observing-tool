@@ -325,8 +325,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		double det = 0. ;
 		// Get the exposure time from the WFCAM instrument
 		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT )|| ( getCalType() == DARK ) )
+		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
 			det = inst.getDefaultFlatExpTime();
+		else if( getCalType() == DARK )
+			det = SpInstWFCAM.DEFAULT_EXPTIME ;
 		else
 			det = inst.getDefaultFocusExpTime();
 
@@ -360,8 +362,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		int dc = 1;
 		// Get the coadds from the WFCAM instrument
 		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) || ( getCalType() == DARK ) )
+		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
 			dc = inst.getDefaultFlatCoadds();
+		else if( getCalType() == DARK )
+			dc = SpInstWFCAM.DEFAULT_COADDS ;
 		else
 			dc = inst.getDefaultFocusCoadds();
 
@@ -435,6 +439,9 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 						v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) );
 						v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() );
 						break;
+					case DARK :
+						v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
+						v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
 					default :
 						// We should not get here...
 				}
