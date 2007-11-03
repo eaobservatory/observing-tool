@@ -145,7 +145,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
 				_spDRRecipe.useDefaults( _instStr );
-				_currentRecipeSelected = "QUICK_LOOK";
+				_currentRecipeSelected = "REDUCE_SCIENCE";
 				_updateWidgets();
 			}
 		} );
