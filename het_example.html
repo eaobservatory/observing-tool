@@ -41,7 +41,7 @@ Obsmodes'</a> is now also available.
  <li><a href="#het_tpe">The position editor</a>
  <li><a href="#het_tci">The chop iterator</a>
  <li><a href="#het_offset">The offset iterator</a>
- <li><a href="#het_sample">The photom/stare eye</a>
+ <li><a href="#het_sample">The stare eye</a>
  <li><a href="#het_time">The repeat iterator and integration time in 
 general</a>
  <li> <a href="#het_note">Adding a note</a>
@@ -849,11 +849,11 @@ regular or irregular spacing.
 If an offset iterator is not already specified in the MSB, one can
 insert it below the Sequence iterator <img
 src="images/icon_iterator.gif" alt="*">, usually just above the
-photom/stare "eye"-con <img src="images/icon_eye.gif" alt="*">.  Click
+stare "eye"-con <img src="images/icon_eye.gif" alt="*">.  Click
 on the iterator below which the offset iterator is to be inserted (the
 'chop' iterator in the image above), then click on the iterator menu
 on the left-hand panel of the OT window and select the offset
-iterator.  Be sure to "drag" the photom/stare eye-con to the right, so
+iterator.  Be sure to "drag" the stare eye-con to the right, so
 that it is indented with respect to the offset iterator (see figure
 above).
 
@@ -884,10 +884,10 @@ defined in the Gnomonic (TAN) projection.
 
 <p>
 <a name="het_sample"></a>
-<h2>The photom/stare eye</h2>
+<h2>The stare eye</h2>
 
 The science observation itself is represented within the MSB by the
-photom/stare eye. Click on it to display the details of the
+stare eye. Click on it to display the details of the
 observation. The pull down menu near the top of the right hand frame
 allows the user to choose from beam switching or position switching.
 In this example we are beam-switching, and the chop throw was set with
@@ -921,7 +921,7 @@ penalty for using continuum mode is an increase of the observing time
 by a factor of 1.7.
 
 <p>
-<img src="het_images/het_eye.gif" alt="The photom/stare eye" ><p>
+<img src="het_images/het_eye.gif" alt="The stare eye" ><p>
 
 <!-- 
 ############################################################################ 
@@ -948,7 +948,7 @@ you require a long integration of a source, it makes sense to break
 the observation down into shorter integrations of around ten minutes
 or so, so that data quality can be assessed as the observation
 progresses. In practice, you set up the integration time required per
-spectral line observation using the photom/stare eye and then use the
+spectral line observation using the stare eye and then use the
 repeat iterator to define a sufficient number of repeats to give the
 total required integration time.
 
@@ -958,7 +958,7 @@ out (and bottom to top):
 
 <p>
 <ul>
-<li><img src="images/icon_eye.gif" alt="*"> The photom/stare
+<li><img src="images/icon_eye.gif" alt="*"> The stare
 eye is set to an on-source integration time (and shows you the
 estimated RMS noise) which will end up in a single file.
 
@@ -1110,14 +1110,14 @@ summarise the general procedure for making your own.
      chop throw angle and reference frame, or this iterator can be set up
      via the position editor.
 
-<li> Set up the photom/stare eye. Remember to enter the total
+<li> Set up the stare eye. Remember to enter the total
      on-source integration time per sample.
 
 <li> Set up the repeat counter to give the number of repeats of the
-     time set up in the photom/stare eye to get your total required
+     time set up in the stare eye to get your total required
      integration time. If you want a total integration of 30 minutes
      on-source, you should set up an integration time of 5 minutes in
-     the photom/stare eye and set the repeat counter to 6. When
+     the stare eye and set the repeat counter to 6. When
      observing, you can then monitor the observation by inspecting the
      data file produced every ~13 minutes, and co-add the spectra as
      you go along. In general, if you want to build up long
@@ -1465,12 +1465,12 @@ that position will be used when doing a three-load calibration
 <p>
 For the Fast and slow frequency switching MSBs, one does not specify a
 chop or offset position, rather one specifies a frequency throw within
-the modified "Photom/Stare" eye.
+the modified "Stare" eye.
 -->
 
 <p>
 For all sample modes, the <i>total</i> "on" integration time per
-sample is indicated in the "Photom/Stare" eye. <blink>Note</blink>
+sample is indicated in the "Stare" eye. <blink>Note</blink>
 that integration time no longer is the "on+off" time, only the "on"
 time.
 
@@ -1563,7 +1563,7 @@ position-switch to move to the reference.
 <p>
 Opening the various chop MSBs in the heterodyne library shows they are
 similar to the Sample-BMSW example above except that there is a
-"jiggle eye" instead of the "photom/stare eye". It offers various
+"jiggle eye" instead of the "stare eye". It offers various
 jiggle patterns: 3x3 through 11x11 plus HARP-specific jiggles (such as
 HARP4 and HARP5).
 
@@ -1601,7 +1601,7 @@ user: typically 0.5 or 1 beam-spacing in arcsecs. The PA and System
 should be left at "0.0" and "Tracking" for the typical user. Finally,
 the integration time for each jiggle position can be specified as
 "secs/jig posn". (Note that this is the total "on-source" time per
-position.) As for the "photom/stare" eye, the estimated RMS noise per
+position.) As for the "stare" eye, the estimated RMS noise per
 channel is shown in the "Noise" box.
 
 <p>
@@ -1611,7 +1611,7 @@ channel is shown in the "Noise" box.
 &nbsp;
 <p>
 "Continuum mode" can be selected as is explained for the 
-<a href="#het_sample">"photom/stare eye"</a>. Due to the resulting
+<a href="#het_sample">"stare eye"</a>. Due to the resulting
 increase of the time needed to complete the observation, by a factor
 of approximately 1.7, only check this if you really need the
 measurement of the continuum level.
@@ -1627,7 +1627,7 @@ that position will be used when doing a three-load calibration
 <h3>Rasters</h3>
 
 The format of the position switched raster MSB is similar to the
-sample MSB, except that the "photom/stare" eye is replaced by the
+sample MSB, except that the "stare" eye is replaced by the
 "scan/raster" eye. The fields in the "Area" panel allow you control
 the size and sampling of the raster map. The resulting Nr. of
 samples/pixels and Nr. of scans/pixels in each dimension is shown. The
