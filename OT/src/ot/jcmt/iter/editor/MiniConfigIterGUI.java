@@ -36,7 +36,7 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 		continuousSpinLabel = new JLabel();
 		continuousSpinLabel.setFont( new java.awt.Font( "Dialog" , 3 , 12 ) );
 		continuousSpinLabel.setForeground( Color.black );
-		continuousSpinLabel.setText( "Continuous Spin ( Hz )" );
+		continuousSpinLabel.setText( "Continuous Spin ( degrees per second )" );
 
 		continuousSpinCheckBox = new CheckBoxWidgetExt();
 

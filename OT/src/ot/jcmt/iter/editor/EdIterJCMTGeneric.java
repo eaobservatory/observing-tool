@@ -41,7 +41,7 @@ import orac.util.SpItemUtilities;
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWidgetWatcher , TextBoxWidgetWatcher , CheckBoxWidgetWatcher
+public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWidgetWatcher , TextBoxWidgetWatcher , CheckBoxWidgetWatcher , SpJCMTConstants
 {
 	/**
 	 * Error code for observe modes whose noise calculation is not implemented yet.
@@ -98,7 +98,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	{
 		if( ddlbwe == _w.switchingMode )
 		{
-			if( val.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
+			if( val.equals( SWITCHING_MODE_FREQUENCY_S ) )
 			{
 				_w.frequencyPanel.setVisible( true );
 				_w.frequencyOffset_rate.setEnabled( false );
@@ -115,7 +115,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
 				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
 			}
-			else if( val.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) )
+			else if( val.equals( SWITCHING_MODE_FREQUENCY_F ) )
 			{
 				_w.frequencyPanel.setVisible( true );
 				_w.frequencyOffset_rate.setEnabled( false );
@@ -191,7 +191,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 
 		String switchingMode = _iterObs.getSwitchingMode();
 		_w.switchingMode.setValue( switchingMode );
-		if( ( switchingMode != null ) && ( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S.equals( switchingMode ) || SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) )
+		if( ( switchingMode != null ) && ( SWITCHING_MODE_FREQUENCY_S.equals( switchingMode ) || SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) )
 		{
 			_w.frequencyPanel.setVisible( true );
 			_w.frequencyOffset_rate.setEnabled( false );
@@ -226,7 +226,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			_w.switchingModeLabel.setVisible( true );
 			_w.jLabel2.setText( "K" );
 
-			_w.frequencyPanel.setVisible( _w.switchingMode.getValue() != null && ( _w.switchingMode.getValue().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) || _w.switchingMode.getValue().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) ) ) ;
+			_w.frequencyPanel.setVisible( _w.switchingMode.getValue() != null && ( _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_S ) || _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_F ) ) ) ;
 		}
 		else
 		{

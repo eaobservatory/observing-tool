@@ -70,7 +70,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 	{
 		JPanel starePanel = new JPanel();
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
-		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Photom Setup" );
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Stare Setup" );
 		starePanel.setBorder( titleBorder );
 		starePanel.setLayout( new BorderLayout() );
 

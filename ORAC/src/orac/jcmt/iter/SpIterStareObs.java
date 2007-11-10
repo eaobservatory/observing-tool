@@ -25,7 +25,7 @@ import gemini.sp.iter.SpIterChop;
  */
 public class SpIterStareObs extends SpIterJCMTObs
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Photom/Stare" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Stare" );
 
 	// Register the prototype.
 	static

@@ -291,8 +291,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 
 		_w.scanSystem.setValue( _iterObs.getScanSystem() );
-		_w.switchingMode.setValue( SWITCHING_MODE_BEAM );
-		_w.switchingMode.setEnabled( false );
+		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
 		if( !_isAcsis )
 			_w.sampleTime.setValue( ( int )_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );

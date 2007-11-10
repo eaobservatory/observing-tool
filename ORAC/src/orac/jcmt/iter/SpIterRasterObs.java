@@ -701,7 +701,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void setupForHeterodyne()
 	{
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , "Position" , 0 );
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_POSITION , 0 );
 
 		if( _avTable.get( ATTR_ROWS_PER_CAL ) == null || _avTable.get( ATTR_ROWS_PER_CAL ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_ROWS_PER_CAL , ROWS_PER_CAL_DEFAULT , 0 );
@@ -758,6 +758,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	public String[] getSwitchingModeOptions()
 	{
-		return new String[] { SWITCHING_MODE_POSITION };
+		return new String[] { SWITCHING_MODE_POSITION , SWITCHING_MODE_CHOP };
 	}
 }

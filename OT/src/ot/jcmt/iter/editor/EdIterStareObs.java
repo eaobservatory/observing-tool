@@ -45,9 +45,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 	{
 		super( new IterStareObsGUI() );
 
-		_title = "Photometry/Stare";
+		_title = "Stare";
 		_presSource = _w = ( IterStareObsGUI )super._w;
-		_description = "Photometry/Stare Observation Mode";
+		_description = "Stare Observation Mode";
 		_w.widePhotom.addActionListener( this );
 		_w.contModeCB.addWatcher( this );
 		_w.integrationTime.addWatcher( this );
