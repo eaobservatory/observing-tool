@@ -20,20 +20,8 @@
   </tbody>
 </table>
 <br>
-<hr align="left" size="2" width="100%"><br>
-<br>
-<div align="left"><span style="font-style: italic;">NOTE for Netscape
-4.n
-users - this document has some html features which are not supported by
-Netscape
-4.8 (the latest version). The symptoms are that a lot of the images
-appear
-at the top of the document rather than in their correct locations.
-Please
-use a more recent Netscape, Opera or Mozilla, or Internet Explorer on a
-Windows
-machine.</span><br>
-<br>
+<hr align="left" size="2" width="100%"><span style="font-style: italic;"></span>
+<div align="left"><br>
 This document describes the preparation of UKIRT observations under the
 UKIRT
 Observing Tool. It assumes that you have already downloaded and
@@ -54,7 +42,7 @@ topics covered apply equally whether you are preparing observations
 remotely
 or at the Observatory. We suggest you read through sequentially,
 following
-the tours as they come up. <br>
+the "tours" as they come up. <br>
 <br>
 <span style="color: rgb(255, 0, 0);"> We </span><span
  style="font-style: italic; color: rgb(255, 0, 0);">strongly</span><span
@@ -199,32 +187,36 @@ Specifying Spectroscopic Standard Stars<br>
  src="msb_icon.png"
  style="border: 0px solid ; height: 19px; width: 18px;"> </a>&nbsp;&nbsp;
 Guide stars and acquisition scenarios<br>
-  <br>
+  <a
+ href="OMP_preparation_UKIRT.html#Notes_on_guide_stars_and_acquisition"></a><a
+ href="#Instrument-Specific_Pages"><img alt="" src="msb_icon.png"
+ style="border: 0px solid ; height: 19px; width: 18px;"></a>
+&nbsp;&nbsp;
+(Links to) Instrument-specific Pages<br>
 </blockquote>
 <a href="#IV._Release-Specific_Notes">IV. </a>Release-specific notes<br>
 <br>
+<div style="margin-left: 40px;"><a
+ href="#Updates_in_November_2007_version"><img alt="" src="msb_icon.png"
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
+Updates in November 2007 version<br>
+</div>
 <div style="margin-left: 40px;"><a href="#Updates_in_April_2006_version"><img
  alt="" src="msb_icon.png"
- style="border: 0px solid ; width: 18px; height: 19px;"></a>Updates in
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
+Updates in
 April 2006 version<br>
 <a href="OMP_preparation_UKIRT.html#Updates_in_05A_version"><img alt=""
  src="msb_icon.png"
- style="border: 0px solid ; width: 18px; height: 19px;"></a>Updates in
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
+Updates in
 05A version<br>
 </div>
 <div style="margin-left: 40px;"><a href="#Updates_in_04A_version"><img
  alt="" src="msb_icon.png"
- style="border: 0px solid ; width: 18px; height: 19px;"></a>Updates in
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
+Updates in
 04A version<br>
-<br>
-<div style="margin-left: 40px;"><a href="#UKIRT-Specific_Improvements"><img
- alt="" src="observation_icon.png"
- style="border: 0px solid ; width: 19px; height: 19px;"></a>&nbsp;&nbsp;<span
- style="font-style: italic;">UKIRT-specific updates</span><br>
-<a href="#Generic_Improvements"><img alt="" src="observation_icon.png"
- style="border: 0px solid ; width: 19px; height: 19px;"></a>&nbsp;&nbsp;<span
- style="font-style: italic;">Generic updates</span><br>
-</div>
 </div>
 <blockquote><a href="#Known_Bugs"><img alt="*" src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"> </a>&nbsp;
@@ -262,11 +254,13 @@ instrument
 required by your program. You will also need to get a password for your
 database
 area, from the <a href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">Password
-Server</a>. Your program id is u/06a/n where n is the id number of your
-PATT proposal.<br>
+Server</a>. Your program id is something like <span
+ style="font-weight: bold;">u/yys/n</span> where "<span
+ style="font-weight: bold;">yys</span>" identifies the semester (e.g.
+07B) and <span style="font-weight: bold;">n</span> is the id number of
+your telescope time proposal.<br>
 <div align="left"> <br>
 </div>
-<br>
 <br>
 <br>
 <table style="width: 100%; text-align: left;" border="0" cellpadding="2"
@@ -291,14 +285,8 @@ Tool</font></h1>
 </div>
 <h2 align="left"><a name="Startup_screens"></a>Startup screens</h2>
 <div align="left">
-<div align="left">The observing tool is used to fully specify
-observations
-to be carried out at the telescope. You can download it from the
-"Observing at UKIRT" pages on the UKIRT Home Page (Linux, Solaris,
-MacOSX and
-Windows versions are available). We suggest that users at Starlink
-sites request their site manager to install a single, system-wide copy.
-When you run the OT (under UNIX, type <font color="#ff0000"><b>ukirtot</b></font>
+<div align="left">When you run the OT (under UNIX, type <font
+ color="#ff0000"><b>ukirtot</b></font>
 in an xterm) you will see a splash screen which gives authorship etc.;
 dismiss this and you will be left with the <b>OT main window</b>:<br>
 </div>
@@ -337,7 +325,7 @@ first thing you'll do when starting from scratch.<br>
       <td align="center" bgcolor="#ffff99" valign="top" width="20%"><font
  color="#000000"><b>New Library<br>
       </b></font></td>
-      <td valign="top">Ignore this; it is for JAC staff use only.<br>
+      <td valign="top">Ignore this; it is for UKIRT staff use only.<br>
       </td>
     </tr>
     <tr>
@@ -429,7 +417,8 @@ main areas are<br>
 </div>
 <p align="left">If you don't see exactly the above when creating a
 science
-program, look under the "View" menu and alter the settings which
+program, look under the <span style="font-weight: bold;">"View"</span>
+menu and alter the settings which
 control
 whether words, pictures or both are used to display the toolbars. <br>
 </p>
@@ -442,8 +431,10 @@ panel on the right. The most important field here is the Project ID
 field.
 <em>You have to get this right, or you will not be able to submit your
 program to the summit database</em>. Your project ID was assigned when
-you submitted your proposal for telescope time. It is of the form <b>u/04a/</b>
-followed by the proposal number. You can also find your proposal number
+you submitted your proposal for telescope time. It is of the form <b>u/yys/</b>
+followed by the proposal number (<span style="font-weight: bold;">yys</span>
+indicate the semester - e.g. 07B). You can also find your proposal
+number
 in
 our web page of time allocations. Finally, note that the program itself
 calculates an estimate of the total time required and displays this in
@@ -459,7 +450,7 @@ the administration panel.</p>
 <div align="left">
 <div align="left"> While it is possible to build up observing sequences
 from
-scratch, it is much quicker and less error-prone to adapt one of the
+scratch, we strongly recommend that you adapt one of the
 many "library sequences" found in the <b>UKIRT template libraries</b>,
 which are found on the main <b>file</b> menu. As an example, the UIST
 template library window is shown below, with all the libraries in their
@@ -1147,7 +1138,7 @@ NOT to do</h2>
 Here we list some common faults with observer notes. Please avoid these
 if you can.<br>
 <br>
-<span style="font-weight: bold;">Instructions which aren't</span><br>
+<span style="font-weight: bold;">Instructions which aren't necessary</span><br>
 Please <span style="font-style: italic;">don't</span> confuse the
 observer by apparently issuing instructions in the observer notes which
 are in fact implicit in what the MSB will do. For example: "Please
@@ -1155,6 +1146,15 @@ offset to nearby sky field for sky flats" is superfluous if that's what
 the Observations in the MSB actually do. Instead, try something like
 "The MSB will first offset the telescope to a nearby sky field and take
 a sky flat jitter."<br>
+<br>
+<span style="font-weight: bold;">Concatenate incoherently</span><br>
+If you include "show to observer" notes in the global position at the
+top of the project and also within MSBs, they will be concatenated and
+the observer will, when fetching a given MSB, see both the global one
+and the MSB-specific one. There is nothing fundamentally wrong with
+this but please make sure that the notes (i) are at least consistent
+with each other (ii) don't duplicate information (iii) are coherent
+when concatenated.<br>
 <br>
 <br>
 <hr style="width: 100%; height: 2px;"><br>
@@ -1910,7 +1910,8 @@ from a Single MSB and a Catalogue on File</h2>
 If you have many sources which you wish to observe in a similar way and
 do not wish to go through the rigmarole of editing a target component
 for each one, there is a way to generate a science program from a
-template MSB and a text (ASCII) catalog file. This uses a service at
+template MSB and a text (ASCII) catalog file. This uses a web service
+at
 the JAC
 site - so you need an internet connection to do this.
 <p> Start with a science program which contains a template MSB with a
@@ -1940,7 +1941,6 @@ informative titles and tweaking the number of integrations on each
 source.<br>
 <br>
 </p>
-<br>
 <hr style="width: 100%; height: 2px;"><br>
 <h2><a name="Usage_through_a_firewall"></a>Usage through a firewall</h2>
 If your Institution connects to the internet via a firewall, you may
@@ -1981,7 +1981,7 @@ to your target, using either the <a
  href="http://www.jach.hawaii.edu/UKIRT/astronomy/">UKIRT
 Standard
 star lists</a>, the Standard star library in the OT, or the <a
- href="http://www.gemini.edu/sciops/instruments/niri/NIRISpecStdSearch.html">Gemini
+ href="http://www.gemini.edu/sciops/instruments/nir/specstandards/telluricsearch.html">Gemini
 Standard star finder</a>. Try to get as close as possible but at least
 within
 about 10 minutes in time for the RA and 10 degrees for the
@@ -1993,7 +1993,6 @@ suitable F stars.&nbsp;&nbsp;</li>
 </ol>
 <br>
 <hr style="width: 100%; height: 2px;"><br>
-<br>
 <h2><a name="Notes_on_guide_stars_and_acquisition"></a>Guide
 stars
 and acquisition scenarios</h2>
@@ -2008,8 +2007,11 @@ and guide
 star can be important depending on your mode of observing,
 slit width etc. <br>
 <br>
-<span style="text-decoration: underline;">Guide-star brightness</span><br>
-UKIRT can guide down to 18th magnitude (moon and cloud dependent). Rule
+<span style="text-decoration: underline;">Guide-star brightness
+(Cassegrain)</span><br>
+Off-axis, UKIRT can guide down to 18th magnitude (moon and cloud
+dependent). the UKIRT guide camera operates effectively in the R band.
+Rule
 of thumb: if your guide star clearly illuminates 9 pixels in the
 position-editor DSS image with default cut levels, then it will
 probably be guidable (this is clearly colour-dependent so this cannot
@@ -2017,7 +2019,21 @@ be guaranteed). If your guide star has a hint of diffraction spikes in
 the DSS image then it is about 14th magnitude and will be easiy
 guidable - it will also appear in the Guide Star Catalogue (in the
 Position editor: <span style="font-weight: bold;">Catalog...Catalogs</span>,
-followed by <span style="font-weight: bold;">Catalog...Browse</span>).<br>
+followed by <span style="font-weight: bold;">Catalog...Browse</span>).
+<br>
+<br>
+Note that for reasons of thermal hygiene, we currently use a gold
+reflective patch in the centre of the field of view; this is larger
+than the UIST detector FOV and vignettes approximately 2.5 magnitudes
+of guide star signal. So if you need to use a guide star close to the
+science field, please ensure that it is brighter than (say) 15.5
+magnitudes in the R band.<br>
+<br>
+<span style="text-decoration: underline;">Guide-star brightness (WFCAM)</span><br>
+WFCAM's guider functions well down to 16th magnitude but much below
+that requires unhealthily low guide frequencies and image quality
+suffers. We suggest sticking to R magnitudes (again, the guide camera
+works in an approximation to the R band) of 16th or brighter.<br>
 </div>
 <br>
 <u>CGS4</u><br>
@@ -2074,7 +2090,65 @@ stars, as described in the <a
 user manual.</a> <br>
 </div>
 <br>
+<hr style="width: 100%; height: 2px;"><br>
+<h2><a name="Instrument-Specific_Pages"></a>Instrument-Specific Pages</h2>
+Some of the UKIRT instrument pages have instrument-specific notes on
+preparation using the OT. These are linked to below for reference.
+Please note that there is other information on instrument usage in the
+individual instrument documents, which you are expected to have read
+before preparing your observations.<br>
 <br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td
+ style="vertical-align: top; text-align: center; background-color: rgb(255, 255, 153);"><a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/wfcam/user_guide/WFCAM_OT.html">WFCAM</a><br>
+      </td>
+      <td>Wide-field imager<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; text-align: center; background-color: rgb(255, 255, 153);"><a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/uist/imaging/uistot.html">UIST
+(im)</a><br>
+      <a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/uist/spectroscopy/uistot.html">UIST
+(sp)</a><br>
+      <a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/uist/ifu/uistot.html">UIST
+(ifu)</a><br>
+      <a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/irpol/UIST/impol.html#1">UIST
+(im pol)</a><br>
+      <a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/irpol/UIST/specpol.html#1">UIST
+(spec pol)</a><br>
+      </td>
+      <td>Imager/spectrometer/integral-field
+spectrometer/polarimeter/coronagraph<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; text-align: center; background-color: rgb(255, 255, 153);"><a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/ufti/OBSERVING.html#2">UFTI</a><br>
+      </td>
+      <td>Imager/polarimeter<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; text-align: center; background-color: rgb(255, 255, 153);"><a
+ href="http://www.jach.hawaii.edu/UKIRT/instruments/cgs4/orac-ot/printable.html">CGS4</a><br>
+      </td>
+      <td>Mixed-mode 1-5 micron spectrometer<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 <br>
 <br>
 <table style="width: 100%; text-align: left;" border="0" cellpadding="2"
@@ -2093,6 +2167,13 @@ user manual.</a> <br>
 <div align="left"> </div>
 <h1 align="left"><a name="IV._Release-Specific_Notes"></a><font
  color="#333399">IV. Release-Specific Notes</font></h1>
+<h2><a name="Updates_in_November_2007_version"></a>Updates in November
+2007 version</h2>
+<span style="font-weight: bold;">Updates include</span><br>
+<ul>
+  <li>New standards for Y band</li>
+  <li>Corrected display of IRPOL orientation in the position editor</li>
+</ul>
 <br>
 <h2><a name="Updates_in_April_2006_version"></a>Updates in April 2006
 version</h2>
@@ -2140,9 +2221,9 @@ directory the user is in when the OT started.</li>
 </ul>
 <ul>
   <li>Removal of OMP as an option as it is now the default, as a result
-the OT no longer supports SGML.<br>
-  </li>
+the OT no longer supports SGML.</li>
 </ul>
+<br>
 <h2><a name="Updates_in_05A_version"></a>Updates in 05A version</h2>
 The 05A version of the OT was released at the beginning of February,
 and caters specifically for WFCAM proposals. All other 05A projects can
@@ -2249,13 +2330,10 @@ display these offsets.</li>
 </ul>
 <br>
 <h2><a name="Updates_in_04A_version"></a>Updates in 04A version</h2>
-<h3><a name="UKIRT-Specific_Improvements"></a>UKIRT-Specific
-Improvements</h3>
 <ul>
   <li>Time estimates now report both total time and time without
 calibrations (estimated time)</li>
 </ul>
-<h3><a name="Generic_Improvements"></a>Generic Improvements</h3>
 <ul>
   <li>Improved schema validation for both telescopes. Validation is now
 performed against the TOML schema over the web (Note:<br>
@@ -2280,31 +2358,6 @@ Java is being used</li>
 <table style="width: 100%;" border="0" cellpadding="2" cellspacing="5">
   <tbody>
     <tr>
-      <td style="text-align: center; vertical-align: middle;"
- bgcolor="#ff0000"><b>Memory Leak</b></td>
-      <td style="vertical-align: middle;"><br>
-      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
-      <br>
-Memory leak leading to total hang of the OT and loss of work.<br>
-      <br style="font-weight: bold; text-decoration: underline;">
-      <span style="font-weight: bold; text-decoration: underline;">Work
-around:</span><br>
-      <br>
-The memory leak referred to
-in semester 03A version of this
-document
-has been 90% removed. Automatic file backup (BAK file) has also been
-added.
-It remains, of course, good practice to save your work frequently, and
-not
-continually open and close libraries and program files which you could
-just
-leave open for the whole session. Also, do not open large numbers of
-libraries and repeatedly open and close the position editor.<br>
-      <br>
-      </td>
-    </tr>
-    <tr>
       <td
  style="text-align: center; background-color: rgb(255, 0, 0); font-weight: bold; vertical-align: middle;">Preference
 settings<br>
@@ -2315,7 +2368,7 @@ settings<br>
 File...Preference setting for
 prompt-on-close is not effective. Closing an altered science program
 window from its file menu always results in a prompt for whether you
-intend to do this.<br>
+intend to do this. <br>
       <br>
       </td>
     </tr>
@@ -2329,7 +2382,7 @@ Help system<br>
       <br>
 Scrolling in the OT online
 help
-system appears to be intermittently broken.<br>
+system may be intermittently broken. <br>
       <br>
       </td>
     </tr>
@@ -2342,7 +2395,7 @@ editor<br>
       <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
       <br>
 Occasionally fails to pick up
-the correct image when plotting a position. This results in a "base
+the correct position when plotting a target. This results in a "base
 position is out of view" message on the position editor screen and
 either a blank field or an image from cache. <br>
       <br>
@@ -2351,50 +2404,14 @@ around:</span><br>
       <br>
 This can be worked around
 by closing the position editor, switching to another target component
-and back again, and relaunching the editor.<br>
-      <br>
-      </td>
-    </tr>
-    <tr>
-      <td
- style="vertical-align: middle; background-color: rgb(255, 0, 0); font-weight: bold; text-align: center;">Java
-Memory problem for large programmes<br>
-      <br>
-      <span style="color: rgb(255, 255, 255);">added Mar-2005</span><br>
-      </td>
-      <td style="vertical-align: top;"><br>
-      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
-      <br>
-If you are creating a very large
-programme, you may get a java memory error which will effectively
-prevent you from saving the programme xml file or uploading it to the
-database. The error message is this:<br>
-      <br>
-      <span style="font-weight: bold;">java.lang.OutOfMemoryError</span><br>
-      <br>
-      <span style="font-weight: bold; text-decoration: underline;">Work
-around:</span><br>
-      <br>
-Locate the OT startup script (
-.../ompot/OT/install/bin/ot) and find the last line therein. There you
-will see three parameters<br>
-      <br>
-      <span style="font-weight: bold;">-ms5m -mx100m -oss5m </span><br>
-      <br>
-These set the amount of memory Java is allowed on startup and the
-maximum it can grab overall in any given session. Change these to
-something like <br>
-      <br>
-      <span style="font-weight: bold;">-ms64m -mx500m -oss10m</span> <br>
-      <br>
-and try again.<br>
+and back again, and relaunching the editor. <br>
       <br>
       </td>
     </tr>
     <tr>
       <td
  style="vertical-align: middle; text-align: center; background-color: rgb(255, 0, 0);"><span
- style="font-weight: bold;">OT fails to start up on Solaris</span><br>
+ style="font-weight: bold;">Variable name too long on startup</span><br>
       <br>
       <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
 Jan-2006</span><br>
@@ -2419,29 +2436,6 @@ to<br>
       <br>
 (note that this assumes you have <span style="font-weight: bold;">tcsh</span>
 installed).<br>
-      <br>
-      </td>
-    </tr>
-    <tr>
-      <td
- style="vertical-align: middle; text-align: center; background-color: rgb(255, 0, 0);"><span
- style="font-weight: bold;">NED catalogue service fails</span><br
- style="font-weight: bold;">
-      <br>
-      <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
-Jul-2006</span><br>
-      </td>
-      <td style="vertical-align: top;"><span
- style="font-weight: bold; text-decoration: underline;"><br>
-Bug:</span> <br>
-      <br>
-NED as served by CADC fails. This applies to name resolution and
-catalogues and is not an OT bug.<br>
-      <br>
-      <span style="font-weight: bold; text-decoration: underline;">Workaround:</span>
-      <br>
-      <br>
-Use a different server (the ESO one). <br>
       <br>
       </td>
     </tr>
