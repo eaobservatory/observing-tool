@@ -13,7 +13,11 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ Post July 2007 release
++++ November 2007
+
+  - IRPOL representation in position editor better reflects reality.
+
+  - Updated template libraries for UIST and UFTI.
 
   - Conversion between FK{4,5} and Galactic added to the Target Component.
 
