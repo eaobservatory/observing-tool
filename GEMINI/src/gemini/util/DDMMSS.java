@@ -132,7 +132,7 @@ public class DDMMSS
 	{
 		double[] values = { 0. , 0. , 0. };
 
-		String[] split = hhmmss.split( ":" );
+		String[] split = hhmmss.split( "[: ]" );
 		for( int index = 0 ; index < split.length && index < values.length ; index++ )
 		{
 			String current = split[ index ].trim();
