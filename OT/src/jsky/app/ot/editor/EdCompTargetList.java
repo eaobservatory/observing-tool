@@ -91,7 +91,13 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	private boolean _resolving = false;
 	private boolean jcmtot = false;
 	private boolean overrideDialogShown = false;
+	
+	private static final String rapattern =  "\\d{1,2}( \\d{0,2}( \\d{0,2}(\\.\\d*)?)?)?";
+	private static final String decpattern = "^(\\+|-)?" + rapattern ;
 
+	private static final String rapatterncolon =  "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
+	private static final String decpatterncolon = "^(\\+|-)?" + rapatterncolon ;
+	
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
@@ -338,14 +344,13 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				else
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
-					String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
-					String newXString = tbwe.getText();
-					if( newXString.matches( pattern ) )
+					String newXString = tbwe.getText().trim() ;
+					if( newXString.matches( rapattern ) || newXString.matches( rapatterncolon ))
 					{
 						String currentXString = _curPos.getXaxisAsString();
+						_w.RA_Az_STW.setForeground( Color.BLACK );
 						if( !newXString.equals( currentXString ) )
 							_curPos.setXYFromString( newXString , null );
-						_w.RA_Az_STW.setForeground( Color.BLACK );
 					}
 					else
 					{
@@ -399,14 +404,13 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				else
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
-					String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
-					String newYString = tbwe.getText();
-					if( newYString.matches( pattern ) )
+					String newYString = tbwe.getText().trim() ;
+					if( newYString.matches( decpattern ) || newYString.matches( decpatterncolon ) )
 					{
 						String currentYString = _curPos.getYaxisAsString();
+						_w.Dec_El_STW.setForeground( Color.BLACK );
 						if( !newYString.equals( currentYString ) )
 							_curPos.setXYFromString( null , newYString );
-						_w.Dec_El_STW.setForeground( Color.BLACK );
 					}
 					else
 					{
