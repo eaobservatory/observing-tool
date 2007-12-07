@@ -103,19 +103,22 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig 
 
 	private void setContinuousSpin( boolean enabled )
 	{
-		gui.continuousSpinTextBox.setEnabled( enabled );
-		gui.enableParent( !enabled );
-		_iterTab.setEnabled( !enabled );
-		_itemsLBW.setEnabled( !enabled );
-		if( enabled )
+		if( enabled != gui.continuousSpinTextBox.isEnabled() )
 		{
-			deleteSelectedColumn();
-			_spItem.getTable().rm( SpIterPOL.ATTR_ITER_ATTRIBUTES );
-			_spItem.getTable().set( CONTINUOUS_SPIN , 0. );
-		}
-		else
-		{
-			_spItem.getTable().rm( CONTINUOUS_SPIN );
+			gui.continuousSpinTextBox.setEnabled( enabled );
+			gui.enableParent( !enabled );
+			_iterTab.setEnabled( !enabled );
+			_itemsLBW.setEnabled( !enabled );
+			if( enabled )
+			{
+				deleteSelectedColumn();
+				_spItem.getTable().rm( SpIterPOL.ATTR_ITER_ATTRIBUTES );
+				_spItem.getTable().set( CONTINUOUS_SPIN , 0. );
+			}
+			else
+			{
+				_spItem.getTable().rm( CONTINUOUS_SPIN );
+			}
 		}
 	}
 
