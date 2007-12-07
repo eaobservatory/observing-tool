@@ -332,8 +332,8 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau );
 		}
 
-		_noiseToolTip = "Not for Heterodyne";
-		return "Not for Heterodyne";
+		_noiseToolTip = "Not available" ;
+		return "Not available" ;
 	}
 
 	/**
