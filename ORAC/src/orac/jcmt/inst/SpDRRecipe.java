@@ -245,7 +245,10 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String[] types = getAvailableTypes( instrument ) ;
 		TreeMap<String,String> defaultRecipes = defaults.get( instrument.toLowerCase() ) ;
-		for( int typesIndex = 0 ; defaultRecipes != null && typesIndex < types.length ; typesIndex++ )
+		int size = 0 ;
+		if( defaultRecipes != null )
+			size = types.length ;
+		for( int typesIndex = 0 ; typesIndex < size ; typesIndex++ )
 		{
 			String type = types[ typesIndex ] ;
 			String shortType = type.substring( 0 , type.indexOf( "Recipe" ) ) ;
