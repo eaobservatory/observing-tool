@@ -57,9 +57,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	{ 
 		ATTR_RASTER_TYPE , 
 		ATTR_JIGGLE_TYPE , 
-		ATTR_STARE_TYPE ,
-		ATTR_POINTING_TYPE , 
-		ATTR_FOCUS_TYPE
+		ATTR_STARE_TYPE
 	} ;
 	
 	TreeMap<String,TreeMap<String,String>> defaults = new TreeMap<String,TreeMap<String,String>>() ;
@@ -247,7 +245,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String[] types = getAvailableTypes( instrument ) ;
 		TreeMap<String,String> defaultRecipes = defaults.get( instrument.toLowerCase() ) ;
-		for( int typesIndex = 0 ; typesIndex < types.length ; typesIndex++ )
+		for( int typesIndex = 0 ; defaultRecipes != null && typesIndex < types.length ; typesIndex++ )
 		{
 			String type = types[ typesIndex ] ;
 			String shortType = type.substring( 0 , type.indexOf( "Recipe" ) ) ;

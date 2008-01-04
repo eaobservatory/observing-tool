@@ -1,7 +1,10 @@
 package orac.jcmt.validation;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
+import gemini.sp.SpItem;
+import gemini.sp.SpObsContextItem;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
@@ -16,6 +19,7 @@ import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.iter.SpIterChop;
 import gemini.util.TelescopePos;
 import orac.jcmt.SpJCMTConstants;
+import orac.jcmt.inst.SpDRRecipe;
 import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 
@@ -123,6 +127,7 @@ public class JcmtSpValidation extends SpValidation
 						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use upper or best sideband to reach the line " + rest ) );
 					else if( !"lsb".equals( sideBand ) && ( rest - centre ) < loMin )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use lower sideband to reach the line " + rest ) );
+					
 				}
 
 				if( thisObs instanceof SpIterJiggleObs )
@@ -130,8 +135,12 @@ public class JcmtSpValidation extends SpValidation
 					SpIterJiggleObs spIterJiggleObs = ( SpIterJiggleObs )thisObs;
 					String frontEnd = spInstHeterodyne.getFrontEnd();
 					String jigglePattern = spIterJiggleObs.getJigglePattern();
-					if( jigglePattern.startsWith( "HARP" ) && !frontEnd.startsWith( "HARP" ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) );
+					if( frontEnd == null )
+						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Front end is null" ) ) ;
+					else if( jigglePattern == null )
+						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Jiggle pattern not initialised" ) ) ;
+					else if( jigglePattern.startsWith( "HARP" ) && !frontEnd.startsWith( "HARP" ) )
+						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) ) ;
 				}
 				if( thisObs instanceof SpIterNoiseObs )
 					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) );
@@ -156,10 +165,41 @@ public class JcmtSpValidation extends SpValidation
 			{
 				report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "No switching mode set" ) );
 			}
+			
+			// Check whether the observation a DR recipe (as its own child OR in its context).
+			SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs );
+			if( recipe == null )
+				report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) );
+			else
+				checkDRRecipe( recipe , report , spObs.getTitle() );
 		}
 		super.checkObservation( spObs , report );
 	}
 
+	public void checkDRRecipe( SpDRRecipe recipe , Vector report , String obsTitle )
+	{
+		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
+		String instrument = null ;
+		if( _inst instanceof SpInstHeterodyne )
+			instrument = "heterodyne" ;
+		else if( _inst instanceof SpInstSCUBA2 )
+			instrument = "scuba2" ;
+		
+		String[] types = recipe.getAvailableTypes( instrument ) ;
+		int size = 0 ;
+		if( types != null )
+			size = types.length ;
+		for( int index = 0 ; index < size ; index++ )
+		{
+			String type = types[ index ] ;
+			if( type.toLowerCase().endsWith( "recipe" ) )
+				type = type.substring( 0 , type.length() - "recipe".length() ) ;
+			String recipeForType = recipe.getRecipeForType( type ) ;
+			if( recipeForType == null )
+				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + type ) );
+		}
+	}
+	
 	public void checkMSB( SpMSB spMSB , Vector report )
 	{
 		if( spMSB instanceof SpObs )
@@ -224,5 +264,52 @@ public class JcmtSpValidation extends SpValidation
 			}
 		}
 		super.checkTargetList( obsComp , report );
+	}
+	
+	/**
+	 * Find a data-reduction recipe component associated with the
+	 * scope of the given item.  This traverses the tree.
+	 *
+	 * @param spItem the SpItem defining the scope to search
+	 */
+	public static SpDRRecipe findRecipe( SpItem spItem )
+	{
+
+		SpItem child; // Child of spItem
+		Enumeration children; // Children of the sequence
+		SpItem parent; // Parent of spItem
+		SpItem searchItem; // The sequence item to search
+
+		if( spItem instanceof SpDRRecipe )
+			return ( SpDRRecipe )spItem;
+
+		// Get the parent.
+		parent = spItem.parent();
+
+		// Either the item is an observation context, which is what we want, or continue the search one level higher in the hierarchy.
+		if( !( spItem instanceof SpObsContextItem ) )
+		{
+			searchItem = parent;
+			if( parent == null )
+				return null;
+		}
+		else
+		{
+			searchItem = spItem;
+		}
+
+		// Search the observation context for the data-reduction recipe.
+		children = searchItem.children();
+		while( children.hasMoreElements() )
+		{
+			child = ( SpItem )children.nextElement();
+			if( child instanceof SpDRRecipe )
+				return ( SpDRRecipe )child;
+		}
+
+		if( parent != null )
+			return findRecipe( parent );
+
+		return null;
 	}
 }

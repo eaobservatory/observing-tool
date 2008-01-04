@@ -291,7 +291,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 
 		// Check whether the observation a DR recipe (as its own child OR in its context).
-		SpDRRecipe recipe = findRecipe( spObs );
+		SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs );
 		if( recipe == null )
 			report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) );
 		else if( !_isSpProgCheck )
@@ -1145,4 +1145,51 @@ public class UkirtSpValidation extends SpValidation
 		}
 	}
 
+	/**
+	 * Find a data-reduction recipe component associated with the
+	 * scope of the given item.  This traverses the tree.
+	 *
+	 * @param spItem the SpItem defining the scope to search
+	 */
+	public static SpDRRecipe findRecipe( SpItem spItem )
+	{
+
+		SpItem child; // Child of spItem
+		Enumeration children; // Children of the sequence
+		SpItem parent; // Parent of spItem
+		SpItem searchItem; // The sequence item to search
+
+		if( spItem instanceof SpDRRecipe )
+			return ( SpDRRecipe )spItem;
+
+		// Get the parent.
+		parent = spItem.parent();
+
+		// Either the item is an observation context, which is what we want, or continue the search one level higher in the hierarchy.
+		if( !( spItem instanceof SpObsContextItem ) )
+		{
+			searchItem = parent;
+			if( parent == null )
+				return null;
+		}
+		else
+		{
+			searchItem = spItem;
+		}
+
+		// Search the observation context for the data-reduction recipe.
+		children = searchItem.children();
+		while( children.hasMoreElements() )
+		{
+			child = ( SpItem )children.nextElement();
+			if( child instanceof SpDRRecipe )
+				return ( SpDRRecipe )child;
+		}
+
+		if( parent != null )
+			return findRecipe( parent );
+
+		return null;
+	}
+	
 }

@@ -42,14 +42,6 @@ public class DRRecipeGUI extends JPanel
 	CommandButtonWidgetExt heterodyne_stareRecipeSet = new CommandButtonWidgetExt();
 	TextBoxWidgetExt heterodyne_stareRecipe = new TextBoxWidgetExt();
 	
-	JLabel pointingLabel = new JLabel();	
-	CommandButtonWidgetExt heterodyne_pointingRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt heterodyne_pointingRecipe = new TextBoxWidgetExt();
-	
-	JLabel focusLabel = new JLabel();	
-	CommandButtonWidgetExt heterodyne_focusRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt heterodyne_focusRecipe = new TextBoxWidgetExt();
-	
 	// End of types
 	
 	TableWidgetExt heterodyne_recipeTable = new TableWidgetExt();
@@ -114,16 +106,6 @@ public class DRRecipeGUI extends JPanel
 		stareLabel.setForeground( Color.black );
 		stareLabel.setText( "Stare" );
 		heterodyne_stareRecipeSet.setText( "Set" );
-		
-		pointingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		pointingLabel.setForeground( Color.black );
-		pointingLabel.setText( "Pointing" );
-		heterodyne_pointingRecipeSet.setText( "Set" );
-		
-		focusLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		focusLabel.setForeground( Color.black );
-		focusLabel.setText( "Focus" );
-		heterodyne_focusRecipeSet.setText( "Set" );
 
 		// End of types
 		
@@ -147,14 +129,6 @@ public class DRRecipeGUI extends JPanel
 		hetPanel.add( stareLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
 		hetPanel.add( heterodyne_stareRecipeSet , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		hetPanel.add( heterodyne_stareRecipe , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-
-		hetPanel.add( pointingLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		hetPanel.add( heterodyne_pointingRecipeSet , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		hetPanel.add( heterodyne_pointingRecipe , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-
-		hetPanel.add( focusLabel , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		hetPanel.add( heterodyne_focusRecipeSet , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		hetPanel.add( heterodyne_focusRecipe , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
 		// End of types
 		
