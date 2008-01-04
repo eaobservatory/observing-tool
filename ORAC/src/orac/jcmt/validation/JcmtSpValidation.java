@@ -243,6 +243,16 @@ public class JcmtSpValidation extends SpValidation
 		super.checkMSBgeneric( spMSB , report );
 	}
 
+	/**
+	 * Void method really, should not be called, 
+	 * exists here only to differentiate between 
+	 * super.checkMSBgeneric and this.checkMSBgeneric
+	 */
+	protected void checkMSBgeneric( SpMSB spMSB , Vector report )
+	{
+		throw new RuntimeException( "Should not have ended up in JcmtSpValidation.checkMSBgeneric" ) ;
+	}
+	
 	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
 	{
 		if( obsComp != null )
