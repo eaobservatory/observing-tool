@@ -171,12 +171,12 @@ public class JcmtSpValidation extends SpValidation
 			if( recipe == null )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) );
 			else
-				checkDRRecipe( recipe , report , spObs.getTitle() );
+				checkDRRecipe( recipe , report , spObs.getTitle() , thisObs );
 		}
 		super.checkObservation( spObs , report );
 	}
 
-	public void checkDRRecipe( SpDRRecipe recipe , Vector report , String obsTitle )
+	public void checkDRRecipe( SpDRRecipe recipe , Vector report , String obsTitle , SpIterJCMTObs thisObs )
 	{
 		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
 		String instrument = null ;
@@ -194,6 +194,8 @@ public class JcmtSpValidation extends SpValidation
 			String type = types[ index ] ;
 			if( type.toLowerCase().endsWith( "recipe" ) )
 				type = type.substring( 0 , type.length() - "recipe".length() ) ;
+			if( thisObs.getClass().getName().toLowerCase().indexOf( type ) == -1 )
+				continue ;
 			String recipeForType = recipe.getRecipeForType( type ) ;
 			if( recipeForType == null )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + type ) );
