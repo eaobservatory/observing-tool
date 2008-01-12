@@ -14,11 +14,11 @@ alink="# ff0000">
 -->
 
 <font color=firebrick><h3> 
-Experienced as well as novice observers should make sure to read the
-<blink>revised</blink> manual section: <a
-href="#het_msblib">'Heterodyne MSBs'</a>. For a <i>new</i>, more
-detailed and technical discussion <a href="het_obsmodes.html">'Heterodyne
-Obsmodes'</a> is now also available.
+Experienced as well as novice observers should make sure to read
+      <blink>new</blink> manual section: the <a href="#het_rcpe">DRRecipe
+	Component</a>.  Also, you are advised to read the manual
+      secion on <a href="#het_msblib">'Heterodyne MSBs'</a>. A detailed and technical discussion <a href="het_obsmodes.html">'Heterodyne
+Obsmodes'</a> is also available.
 </h3></font>
 
 
@@ -34,6 +34,7 @@ Obsmodes'</a> is now also available.
     <li><a href="./het_sp_config.html">ACSIS Special
 		Configurations</a>
 </ul>
+ <li><a href="#het_rcpe">DRRecipe Component</a>
  <li><a href="#het_tsc">Site Quality</a>
  <li><a href="#het_tsched">Scheduling Constraints</a>
  <li><a href="#het_tfoc">The Observation component</a>
@@ -482,6 +483,116 @@ anchored on a line if it is intended to be centered on that
 line. While the observation will proceed with a <i>'no line'</i>
 label, the line identification is important for archival purpose.
 
+
+<!-- 
+############################################################################ 
+-->
+
+<p>
+<a name="het_rcpe"></a>
+<h2>DRRecipe Component</h2>
+
+<p>With the rapid data acquisition rates now afforded by HARP and
+	  ACSIS, reducing data by hand has become a very slow and
+	  tedious process.  Automatic data reduction pipelines have
+	  become a powerful tool for carrying out these repetitive
+	  tasks.  ORACDR has been developed for reducing and combining
+	  JCMT (and UKIRT) data, primarily for producing "preview"
+	  images for assessing data quality at the telescope, but can
+	  also be used for the final reduction.  ORACDR uses recipes
+	  to carry out all 
+	  the usual reduction steps that were once carried out by
+	  hand.  Note that these recipes are <i>still under
+	    development</i> and thus are likely to change and evolve.
+
+<p>The <b>DRRecipe</b> component is used to specify the recipe that is
+	  to be used by ORACDR for reducing the data.  The example
+	  shown in the figure above (see <a href="#het_eoam">Elements
+	    of an MSB</a>) shows the DRRecipe component below
+	  the HetSetup component, although it need not be positioned
+	  exactly here.  (Note that the DRRecipe component needs to be
+	  paired with a HetSetup component, however.)  Open the
+	  DRRecipe component by clicking on it.  The bottom portion of
+	  the window displays a list of the available recipes, with a
+	  very short description of each.  (See below for a fuller
+	  description.)  Click on the desired recipe, then click the
+	  "Set" button in the top portion of the window corresponding
+	  to the desired observing mode.  
+
+<p>
+<img src="het_images/het_drrecipe.gif" alt="DRRecipe elements" ><p>
+
+
+<p>Recipe names primarily reflect the method used for fitting a
+	  baseline, since how this step is carried out differs
+	  depending on the line profile(s) expected.  Effectively the
+	  recipe chosen tells the fitting routine how to deal with
+	  baseline features. To illustrate this imagine a narrow spike
+	  on a broad profile: this can be a narrow line on a broad
+	  baseline wiggle, a noise spike on a broad line, or a core
+	  plus outflow profile. This process is tricky in this sense:
+	  the baseline fitting can easily remove a feature of interest
+	  from the preview image. Observers should ALWAYS go back and
+	  inspect the raw data carefully to assess the accuracy of the
+	  preview images and pipeline reduction.                       
+ 
+<p>Note that for all observations the outer ~5% of channels on either
+	  side typically are too noisy to be useful and are excluded
+	  from the reduction described below. Typically, smoothing and
+	  clump-finding algorithms are used to exclude emission free
+	  regions from the total intensity and intensity weighted
+	  velocity collapses. These moments maps are thus derived
+	  based on the line-widths of each spectrum. The exact methods
+	  differ from recipe to recipe and are still under
+	  investigation and development. Specifically the is aim to
+	  provide the observer with useful preview images that are
+	  representative of their data. 
+
+<p>The following standard reduction recipes are currently being
+	  developed for use with the ORACDR pipeline, with an emphasis
+	  on raster-map data. An outline is provided below, but expect
+	  changed and redesigns as we gain experience. The main
+	  purpose of the routines is to 
+<ul><li>a) fit a baseline to the spectra and 
+<li>b) select emission from the background 
+</ul>before collapsing the cube into e.g. total intensity and
+	intensity weighted velocity images.  
+
+<ul>
+<li>reduce_science_gradient
+	    <ul><li>Intended for nearby galaxies and sources which
+		have a significant velocity gradient (rotation) across
+		the field-of-view.   Assumes linewidths in excess of
+		25 channels (~10 km/s @ BW=1000Mhz and ~1 km/s @
+		BW=250MHz). Baseline regions are determined for each
+		spectrum individually.  </ul>
+<li>reduce_science_broadline   
+<ul><li>Intended for extragalactic and other sources with very wide
+		lines. Linear baselines are fitted to the outer 1/6 of
+		the spectral range of the coadded cube (after
+		truncating the outmost ~5% of the channels on each
+		end). The integrated intensity and intensity weighted
+		velocity map are derived from the inner 2/3 of the
+		spectral range.    </ul>
+<li> reduce_science_narrowline
+<ul><li>Intended for Galactic sources with not much of a velocity
+		gradient across the field of view. Baseline regions
+		are determined from a global average spectrum. This
+		single set of regions is used to fit the baseline for
+		all spectra in the cubes.  </ul>
+<li>reduce_science_lineforest   
+<ul><li>Intended for spectral-line surveys, or where multiple
+		(narrow)spectral lines are expected within the
+		spectral range.   </ul>
+<li>reduce_science_continuum
+	    <ul><li>Intended for continuum sources, or for absorption
+		line spectra  in front of a continuum source.  No
+		baseline subtraction is done.      </ul> 
+</ul>              
+                             
+      
+                                              
+ 
 
 <!-- 
 ############################################################################ 

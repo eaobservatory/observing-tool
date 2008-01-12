@@ -12,27 +12,18 @@ ff0000">
 
 <font color=firebrick><b>
 NOTE: A new version of the JCMTOT will be released prior to semester
-07B. Users of the JCMTOT software must update to this version before
+08A. Users of the JCMTOT software must update to this version before
 submitting MSBs.
 </b>
 Changes:
 <ul>
-<li> Jiggle-PSSW mode added and further multi-subsystem support
+<li> Support for data reduction pipeline recipies (<a hred="het_example.html#dr_recipe">DRRecipe</a> Component)
 <li> Updated ACSIS libraries
-<li> Option added for <a href="het_example.html#het_shared">
-     <i>shared</i> or <i>separate offs</i></a>
-<li> Option added for <a href="het_example.html#het_centering">
-     <i>array-centered</i></a> in Grids.
-<li> Additional <a href="het_example.html#het_centering">
-     HARP jiggle patterns</a> 
-     added to have a set that places the target on a center pixel in
-     the output map, as well as a set that places the target on center
-     of the map (between the center pixels).  
 <li> Updated timing and noise calculations.
 </ul>
 
 <b>Experienced as well as novice observers should make sure to read
-the <blink>revised</blink> manual section: 
+the revised manual section: 
 <a href="het_example.html#het_msblib">'Heterodyne MSBs'</a>. For
 a <i>new</i>, more detailed and technical discussion 
 <a href="het_obsmodes.html">'Heterodyne Obsmodes'</a> is now also available.</b>
@@ -66,7 +57,7 @@ http://www.jach.hawaii.edu/JCMT/allocations</a>),
 or email <a
 href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 
-<h2> General Information: <font color=firebrick><i>Updated!</i></font></h2> 
+<h2> General Information: </h2> 
 
 <p> This version of the <em><b>JCMT OT</b></em> enables users to build
 their science program for heterodyne observations only. A <a
@@ -251,7 +242,7 @@ Project</a> if you need help.
 
 <p> A detailed description of the various observing modes, rms noise,
 and durations is available as a <font
-color=red><blink><b>new</b></blink></font> document <a
+color=red><b>new</b></font> document <a
 href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.  <i>Even
 though the information is not required in order to set up a science
 program, experienced as well as novice JCMT observers are encouraged
@@ -284,6 +275,7 @@ to read the document as a general background.</i>
     <li><a href="./het_sp_config.html">ACSIS Special
 		Configurations</a>
 </ul>
+ <li><a href="het_example.html#het_rcpe">DRRecipe Component</a> <font color=red><blink><i>New!</i></blink></font>
  <li><a href="het_example.html#het_tsc">Site Quality</a>
  <li><a href="het_example.html#het_tsched">Scheduling Constraints</a>
  <li><a href="het_example.html#het_tfoc">The Observation component</a>
