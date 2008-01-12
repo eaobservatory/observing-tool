@@ -266,12 +266,30 @@ public class JcmtSpValidation extends SpValidation
 
 			if( heterodyne )
 			{
+				String errorText = "Named Systems or Orbital Elements require a Topocentric velocity frame." ;
 				SpInstHeterodyne heterodyneInstrument = ( SpInstHeterodyne )instrument;
 				for( int i = 0 ; i < position.length ; i++ )
 				{
 					SpTelescopePos pos = ( SpTelescopePos )position[ i ];
-					if( ( pos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL ) && ( heterodyneInstrument.getVelocityFrame() != SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "Named Systems or Orbital Elements require a Topocentric velocity frame." ) );
+					if( pos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL )
+					{
+						String hetVelocityFrame = heterodyneInstrument.getVelocityFrame() ;
+						if( hetVelocityFrame != null )
+						{
+							if( !hetVelocityFrame.equals( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) )
+							{
+								report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , errorText ) ) ;
+								break ;
+							}
+						}
+						else if( pos.isBasePosition() )
+						{
+							String posVelocityFrame = pos.getTrackingRadialVelocityFrame() ;
+							if( !SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME.equals( posVelocityFrame ) )
+							report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , errorText ) ) ;
+							break ;
+						}
+					}
 				}
 			}
 		}
