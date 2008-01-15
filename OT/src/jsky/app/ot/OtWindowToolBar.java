@@ -168,7 +168,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( prioritizeButton == null )
 			prioritizeButton = makeButton( "Prioritize" , editor.getPrioritizeAction() , false );
 
-		updateButton( prioritizeButton , "Prioritize" , null );
+		updateButton( prioritizeButton , "Prioritize" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/prioritise.gif" ) ) ) ;
 		return prioritizeButton;
 	}
 
