@@ -199,7 +199,7 @@ public class JcmtSpValidation extends SpValidation
 				continue ;
 			String recipeForType = recipe.getRecipeForType( type ) ;
 			if( recipeForType == null )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + type ) );
+				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + shortType ) );
 		}
 	}
 	
