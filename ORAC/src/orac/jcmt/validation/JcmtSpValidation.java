@@ -192,9 +192,10 @@ public class JcmtSpValidation extends SpValidation
 		for( int index = 0 ; index < size ; index++ )
 		{
 			String type = types[ index ] ;
+			String shortType = "" ;
 			if( type.toLowerCase().endsWith( "recipe" ) )
-				type = type.substring( 0 , type.length() - "recipe".length() ) ;
-			if( thisObs.getClass().getName().toLowerCase().indexOf( type ) == -1 )
+				shortType = type.substring( 0 , type.length() - "recipe".length() ) ;
+			if( thisObs.getClass().getName().toLowerCase().indexOf( shortType ) == -1 )
 				continue ;
 			String recipeForType = recipe.getRecipeForType( type ) ;
 			if( recipeForType == null )
