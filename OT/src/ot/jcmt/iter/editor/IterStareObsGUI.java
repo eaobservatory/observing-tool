@@ -24,8 +24,10 @@ import java.awt.GridLayout ;
 
 import javax.swing.border.Border ;
 import javax.swing.border.BevelBorder ;
+import javax.swing.border.TitledBorder;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 
 /**
@@ -53,7 +55,15 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 	JLabel integrationTimeLabel = new JLabel();
 	TextBoxWidgetExt integrationTime = new TextBoxWidgetExt();
 	JLabel integrationTimeSeconds = new JLabel();
-
+	
+	JPanel mapPanel = new JPanel() ;
+	JLabel paLabel = new JLabel();
+	GridBagLayout gridBagLayout3 = new GridBagLayout();
+	TextBoxWidgetExt paTextBox = new TextBoxWidgetExt();
+	JLabel unitLabel = new JLabel();
+	JLabel systemLabel = new JLabel();
+	DropDownListBoxWidgetExt coordSys = new DropDownListBoxWidgetExt();
+	
 	public IterStareObsGUI()
 	{
 		try
@@ -137,5 +147,31 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		scuba2Panel.add( integrationTimeSeconds );
 
 		starePanel.add( scuba2Panel , BorderLayout.NORTH );
+		
+		// Map PA box
+		mapPanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Map" ) );
+		mapPanel.setLayout( gridBagLayout3 );
+		paLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		paLabel.setForeground( Color.black );
+		paLabel.setText( "PA" );
+		paTextBox.setColumns( 5 );
+		unitLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		unitLabel.setForeground( Color.black );
+		unitLabel.setText( "(degrees)" );
+		systemLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		systemLabel.setForeground( Color.black );
+		systemLabel.setText( "System" );
+		
+		// Add the PA info to the Map panel
+		mapPanel.add( paLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		mapPanel.add( paTextBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+		mapPanel.add( unitLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
+		// Add the jiggle pattern box
+		mapPanel.add( systemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		mapPanel.add( coordSys , new GridBagConstraints( 1 , 1 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		
+		starePanel.add( mapPanel , BorderLayout.SOUTH ) ;
+		
 	}
 }

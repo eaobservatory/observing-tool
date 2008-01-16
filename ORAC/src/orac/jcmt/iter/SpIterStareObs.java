@@ -17,6 +17,7 @@ import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.sp.iter.SpIterChop;
+import gemini.util.Format;
 
 /**
  * Stare Iterator for JCMT.
@@ -192,5 +193,65 @@ public class SpIterStareObs extends SpIterJCMTObs
 	public void rmSeparateOffs()
 	{
 		_avTable.noNotifyRm( SEPARATE_OFFS );
+	}
+	
+	/**
+	 * Get area position angle (map position angle).
+	 */
+	public double getPosAngle()
+	{
+		if( !_avTable.exists( ATTR_STARE_PA ) ) ;
+			setPosAngle( 0. ) ;
+		return _avTable.getDouble( ATTR_STARE_PA , 0. ) ;
+	}
+
+	/**
+	 * Set area postition angle (map postition angle).
+	 */
+	public void setPosAngle( double theta )
+	{
+		_avTable.set( ATTR_STARE_PA , Math.rint( theta * 10. ) / 10. ) ;
+	}
+
+	/**
+	 * Set area position angle (map position angle).
+	 */
+	public void setPosAngle( String thetaStr )
+	{
+		setPosAngle( Format.toDouble( thetaStr ) ) ;
+	}
+	
+	/**
+	 * Set map coordinate system.
+	 */
+	public void rmPosAngle()
+	{
+		_avTable.noNotifyRm( ATTR_STARE_PA ) ;
+	}
+
+	/**
+	 * Get map coordinate system.
+	 */
+	public String getCoordSys()
+	{
+		if( !_avTable.exists( ATTR_STARE_SYSTEM ) )
+			setCoordSys( STARE_SYSTEMS[ 0 ] ) ;
+		return _avTable.get( ATTR_STARE_SYSTEM ) ;
+	}
+
+	/**
+	 * Set map coordinate system.
+	 */
+	public void setCoordSys( String coordSys )
+	{
+		_avTable.set( ATTR_STARE_SYSTEM , coordSys ) ;
+	}
+	
+	/**
+	 * Set map coordinate system.
+	 */
+	public void rmCoordSys()
+	{
+		_avTable.noNotifyRm( ATTR_STARE_SYSTEM ) ;
 	}
 }

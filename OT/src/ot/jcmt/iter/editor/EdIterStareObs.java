@@ -12,7 +12,9 @@ package ot.jcmt.iter.editor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
+import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA2;
@@ -23,6 +25,8 @@ import orac.jcmt.SpJCMTConstants;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
 
 import gemini.util.MathUtil;
 
@@ -34,9 +38,10 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener , CheckBoxWidgetWatcher , TextBoxWidgetWatcher , SpJCMTConstants
+public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener , CheckBoxWidgetWatcher , TextBoxWidgetWatcher , SpJCMTConstants , DropDownListBoxWidgetWatcher
 {
 	private IterStareObsGUI _w; // the GUI layout panel
+	private SpIterStareObs _iterObs ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -54,8 +59,24 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 		super._w.arrayCentred.addWatcher( this );
 		super._w.separateOffs.setEnabled( false );
+		
+		_w.coordSys.setChoices( SpIterStareObs.STARE_SYSTEMS ) ;
+		_w.paTextBox.addWatcher( this ) ;
+		_w.coordSys.addWatcher( this ) ;
+		
+		_w.paTextBox.setEnabled( false ) ;
+		_w.coordSys.setEnabled( false ) ;
 	}
 
+	/**
+	 * Override setup to store away a reference to the Scan Iterator.
+	 */
+	public void setup( SpItem spItem )
+	{
+		_iterObs = ( SpIterStareObs )spItem ;
+		super.setup( spItem ) ;
+	}
+	
 	protected void _updateWidgets()
 	{
 		if( _iterObs != null )
@@ -75,6 +96,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 					super._w.arrayCentred.setSelected( _iterStareObs.isArrayCentred() );
 				else
 					_iterStareObs.rmArrayCentred();
+				
+				setCanDoMap( instrument ) ;
 			}
 
 			updateSeparateOffs();
@@ -140,7 +163,6 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_w.acsisPanel.setVisible( false );
 			_w.widePhotom.setVisible( true );
 		}
-
 		super.setInstrument( spInstObsComp );
 	}
 
@@ -206,6 +228,63 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		else if( tbwe == _w.integrationTime )
 		{
 			_iterObs.setSampleTime( _w.integrationTime.getText() );
+		}
+		else if( tbwe == _w.paTextBox )
+		{
+			_iterObs.setPosAngle( tbwe.getValue() );
+		}
+		else
+		{
+			super.textBoxKeyPress( tbwe ) ;
+		}
+	}
+	
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	{
+		if( ddlbwe == _w.coordSys )
+			_iterObs.setCoordSys( val );
+		else
+			super.dropDownListBoxAction( ddlbwe , index , val );
+	}
+	
+	private void setCanDoMap( SpInstObsComp sioc )
+	{
+		boolean canDoMap = false ;
+		
+		SpInstHeterodyne hetSetUp = null ;
+		if( sioc instanceof SpInstHeterodyne )
+			hetSetUp = ( SpInstHeterodyne )sioc ;
+		
+		if( hetSetUp != null )
+		{
+			boolean harp = hetSetUp.getFrontEnd().equalsIgnoreCase( "HARP" ) ;
+			boolean hasOffsetIterator = false ;
+			
+			SpItem parent = _iterObs.parent();
+			while( parent != null )
+			{
+				if( parent instanceof SpIterOffset )
+				{
+					hasOffsetIterator = true;
+					break;
+				}
+				parent = parent.parent();
+			}
+			canDoMap = harp && !hasOffsetIterator ;
+		}
+		
+		_w.paTextBox.setEnabled( canDoMap ) ;
+		_w.coordSys.setEnabled( canDoMap ) ;
+		
+		if( !canDoMap )
+		{
+			_iterObs.rmCoordSys() ;
+			_iterObs.rmPosAngle() ;
+		}
+		else
+		{
+			_w.paTextBox.setValue( _iterObs.getPosAngle() ) ;
+			_w.coordSys.setValue( _iterObs.getCoordSys() ) ;
 		}
 	}
 }

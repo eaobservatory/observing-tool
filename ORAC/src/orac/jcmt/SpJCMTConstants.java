@@ -164,6 +164,11 @@ public interface SpJCMTConstants
 	public static final String ATTR_JIGGLE_PATTERN = "jigglePattern";
 	public static final String ATTR_JIGGLES_PER_CYCLE = "jigglePerCycle";
 
+	/** Stare Iterator. */
+	public static final String[] STARE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE };
+	public static final String ATTR_STARE_PA = "starePa" ;
+	public static final String ATTR_STARE_SYSTEM = "stareSystem" ;
+	
 	/** Focus Iterator. */
 	public static final String ATTR_AXIS = "axis" ;
 	public static final String ATTR_STEPS = "steps";
