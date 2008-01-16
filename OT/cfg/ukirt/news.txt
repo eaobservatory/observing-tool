@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ January 2008
+
+  - Bracket Gamma filter has replaced Narrow Band J filter in WFCAM. See October 2006 release.
+
 +++ November 2007
 
   - IRPOL representation in position editor better reflects reality.
