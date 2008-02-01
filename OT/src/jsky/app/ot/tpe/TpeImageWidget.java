@@ -202,7 +202,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public void dragStart( FitsMouseEvent evt )
 	{
-		if( !_imgInfoValid )
+		if( _imgInfoValid )
 		{
 			for( int i = 0 ; i < _featureList.size() ; ++i )
 			{
