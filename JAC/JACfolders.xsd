@@ -90,6 +90,7 @@
        </xsd:complexType>
       </xsd:element> <!-- End of element TargetList -->
       <xsd:element name="surveyID"  type="xsd:string"  minOccurs="0"/>
+      <xsd:element name="title"  type="xsd:string"  minOccurs="0"/>
       <xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
