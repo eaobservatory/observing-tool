@@ -22,7 +22,6 @@ import gemini.sp.SpItem;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.iter.SpIterOffset;
-import gemini.sp.obsComp.SpInstObsComp;
 
 import jsky.app.ot.tpe.TpeCreateableFeature;
 import jsky.app.ot.tpe.TpeDraggableFeature;
