@@ -165,7 +165,7 @@
       <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="separateOffs"    type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="starePa"         type="xsd:double"                 minOccurs="0" />
+      <xsd:element name="starePa"         type="toml:degrees180"            minOccurs="0" />
       <xsd:element name="stareSystem"     type="toml:jcmtSystemList"        minOccurs="0" />
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
       <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
