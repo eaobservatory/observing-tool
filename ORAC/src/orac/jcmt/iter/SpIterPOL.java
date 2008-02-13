@@ -21,8 +21,9 @@ import gemini.sp.iter.SpIterConfigObs;
  */
 public class SpIterPOL extends SpIterConfigObs
 {
-
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instPOL" , "POL" );
+	
+	public static String CONTINUOUS_SPIN = "continuousSpin" ;
 
 	// Register the prototype.
 	static
@@ -91,5 +92,23 @@ public class SpIterPOL extends SpIterConfigObs
 
 		return iciA;
 	}
+	
+	public void setContinuousSpin( boolean enabled )
+	{
+		if( enabled )
+		{
+			getTable().rm( SpIterPOL.ATTR_ITER_ATTRIBUTES );
+			getTable().set( SpIterPOL.CONTINUOUS_SPIN , 0. );
+		}
+		else
+		{
+			getTable().rm( SpIterPOL.CONTINUOUS_SPIN );
+		}
+	}
 
+	public boolean hasContinuousSpin()
+	{
+		return getTable().exists( SpIterPOL.CONTINUOUS_SPIN ) ;
+	}
+	
 }

@@ -111,16 +111,27 @@ public class SpIterStareObs extends SpIterJCMTObs
 
 	public boolean insideChop()
 	{
-		boolean insideChop = false;
+		return insideComponent( SpIterChop.class ) != null ;
+	}
+	
+	public boolean insidePOL()
+	{
+		Object returned = insideComponent( SpIterPOL.class ) ;
+		return ( returned != null && (( SpIterPOL )returned).getTable().exists( "continuousSpin" ) ) ;
+	}
+	
+	private Object insideComponent( Class component )
+	{
+		boolean inside = false;
 		SpItem parent = this.parent();
 		while( parent != null )
 		{
-			insideChop = parent instanceof SpIterChop;
-			if( insideChop )
+			inside = component.isInstance( parent ) ;
+			if( inside )
 				break;
 			parent = parent.parent();
 		}
-		return insideChop;
+		return parent ;		
 	}
 
 	public void setupForHeterodyne()
@@ -195,13 +206,16 @@ public class SpIterStareObs extends SpIterJCMTObs
 		_avTable.noNotifyRm( SEPARATE_OFFS );
 	}
 	
+	public boolean separateOffsExist()
+	{
+		return _avTable.exists( SEPARATE_OFFS ) ;
+	}
+	
 	/**
 	 * Get area position angle (map position angle).
 	 */
 	public double getPosAngle()
 	{
-		if( !_avTable.exists( ATTR_STARE_PA ) ) ;
-			setPosAngle( 0. ) ;
 		return _avTable.getDouble( ATTR_STARE_PA , 0. ) ;
 	}
 

@@ -57,8 +57,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.contModeCB.addWatcher( this );
 		_w.integrationTime.addWatcher( this );
 
-		super._w.arrayCentred.addWatcher( this );
-		super._w.separateOffs.setEnabled( false );
+		super._w.arrayCentred.addWatcher( this ) ;
+		super._w.separateOffs.setEnabled( false ) ;
+		super._w.separateOffs.addWatcher( this ) ;
 		
 		_w.coordSys.setChoices( SpIterStareObs.STARE_SYSTEMS ) ;
 		_w.paTextBox.addWatcher( this ) ;
@@ -113,27 +114,43 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs;
 		boolean separateOffsCriteria = false;
 		boolean visibility = false;
+		boolean enabled = false ;
 
 		if( SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) )
 		{
-			double max_time_between_refs = 30.;
-			int secsPerCycle = _iterStareObs.getSecsPerCycle();
-			double temp = Math.floor( max_time_between_refs / secsPerCycle );
-			if( _iterStareObs.isContinuum() )
-				separateOffsCriteria = true;
+			visibility = true ;
+			enabled = _iterStareObs.insidePOL() ;
+			if( !enabled )
+			{
+				double max_time_between_refs = 30.;
+				int secsPerCycle = _iterStareObs.getSecsPerCycle();
+				double temp = Math.floor( max_time_between_refs / secsPerCycle );
+				
+				if( _iterStareObs.isContinuum() )
+					separateOffsCriteria = true;
+				else
+					separateOffsCriteria = !( Math.max( 1. , temp ) > 1. || _iterStareObs.insideChop() );
+				
+				if( separateOffsCriteria )
+					_iterStareObs.setSeparateOffs( separateOffsCriteria );
+				else
+					_iterStareObs.rmSeparateOffs();
+			}
 			else
-				separateOffsCriteria = !( Math.max( 1. , temp ) > 1. || _iterStareObs.insideChop() );
-			visibility = true;
+			{
+				if( !_iterStareObs.separateOffsExist() )
+					_iterStareObs.setSeparateOffs( true ) ;
+			}
+		}
+		else
+		{
+			_iterStareObs.rmSeparateOffs() ;
 		}
 
-		if( separateOffsCriteria )
-			_iterStareObs.setSeparateOffs( separateOffsCriteria );
-		else
-			_iterStareObs.rmSeparateOffs();
-
+		super._w.separateOffs.setSelected( _iterStareObs.hasSeparateOffs() ) ;
 		super._w.separateOffsLabel.setVisible( visibility );
 		super._w.separateOffs.setVisible( visibility );
-		super._w.separateOffs.setSelected( separateOffsCriteria );
+		super._w.separateOffs.setEnabled( enabled );
 	}
 
 	public void setInstrument( SpInstObsComp spInstObsComp )
@@ -280,6 +297,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		{
 			_iterObs.rmCoordSys() ;
 			_iterObs.rmPosAngle() ;
+			_w.paTextBox.setValue( 0. ) ;
 		}
 		else
 		{
