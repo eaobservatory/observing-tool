@@ -56,14 +56,14 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	// Derived attributes: required by instrument, but not presented to user
 	public static String ATTR_FILTER = "filter";
 	public static String NO_VALUE = "none";
-	public static double DISP_ARCSEC_PER_PIX = 0.6;
-	public static double SPATIAL_ARCSEC_PER_PIX = 0.61;
-	public static double DISP_ARCSEC_PER_PIX_ECH = 0.6;
-	public static double SPATIAL_ARCSEC_PER_PIX_ECH = 0.61;
-	public static double DISP_ARCSEC_PER_PIX_40 = 0.6;
-	public static double SPATIAL_ARCSEC_PER_PIX_40 = 0.61;
-	public static double DISP_ARCSEC_PER_PIX_150 = 0.6;
-	public static double SPATIAL_ARCSEC_PER_PIX_150 = 0.61;
+	public static double DISP_ARCSEC_PER_PIX = .6;
+	public static double SPATIAL_ARCSEC_PER_PIX = .61;
+	public static double DISP_ARCSEC_PER_PIX_ECH = .6;
+	public static double SPATIAL_ARCSEC_PER_PIX_ECH = .61;
+	public static double DISP_ARCSEC_PER_PIX_40 = .6;
+	public static double SPATIAL_ARCSEC_PER_PIX_40 = .61;
+	public static double DISP_ARCSEC_PER_PIX_150 = .6;
+	public static double SPATIAL_ARCSEC_PER_PIX_150 = .61;
 
 	// Class variable reporesenting defaults, look up tables, etc.
 	public static LookUpTable DISPERSERS;
@@ -537,7 +537,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int coadds = 0;
 		try
 		{
-			float f = ( float )( 5. / et + 0.5 );
+			float f = ( float )( 5. / et + .5 );
 			coadds = Math.round( f );
 		}
 		catch( Exception ex )
@@ -823,7 +823,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	 */
 	public double getCentralWavelength()
 	{
-		double cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0.0 );
+		double cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0. );
 		return cwl;
 	}
 
@@ -1074,18 +1074,16 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	 */
 	public double getMaskWidth()
 	{
+		double returnable = 0. ;
+		
 		try
 		{
-			return new Double( ( String )MASKS.elementAt( getMaskIndex() , 1 ) ).doubleValue();
+			returnable = new Double( ( String )MASKS.elementAt( getMaskIndex() , 1 ) ).doubleValue();
 		}
-		catch( IndexOutOfBoundsException e )
-		{
-			return 0. ;
-		}
-		catch( NumberFormatException e )
-		{
-			return 0. ;
-		}
+		catch( IndexOutOfBoundsException e ){}
+		catch( NumberFormatException e ){}
+		
+		return returnable ;
 	}
 
 	/**
