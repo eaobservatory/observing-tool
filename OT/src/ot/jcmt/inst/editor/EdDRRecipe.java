@@ -42,7 +42,7 @@ import javax.swing.JComponent;
  */
 public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , TextBoxWidgetWatcher , TableWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
-	private static final String INST_STR_SCUBA = "scuba";
+	private static final String INST_STR_SCUBA2 = "scuba2";
 	private static final String INST_STR_HETERODYNE = "heterodyne";
 	private SpDRRecipe _spDRRecipe;
 	private SpInstObsComp _inst;
@@ -74,6 +74,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	protected void _initInstWidgets()
 	{
 		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
+		_spDRRecipe.reset();
+		_w.reset() ;
 
 		if( _inst == null )
 		{
@@ -86,11 +88,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			DialogUtil.error( _w , "Can't identify instrument: probably none in scope?" );
 			return;
 		}
-
-		if( _inst instanceof SpInstHeterodyne )
-			_instStr = INST_STR_HETERODYNE;
-		else
-			_instStr = INST_STR_SCUBA;
 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
@@ -107,7 +104,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		for( int index = 0 ; index < availableTypes.length ; index++ )
 		{
 			final String type = availableTypes[ index ] ;
-			rtbw = ( TextBoxWidgetExt )getWidget( _instStr , type );
+			_w.setEnabled( type , true ) ;
+			rtbw = ( TextBoxWidgetExt )getWidget( type );
 
 			if( rtbw == null )
 			{
@@ -117,7 +115,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			
 			rtbw.setEditable( false );
 			
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , type + "Set" );
+			cbw = ( CommandButtonWidgetExt )getWidget( type + "Set" );
+			cbw.deleteWatchers() ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -125,7 +124,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 					// Set the selected table value
 					_spDRRecipe.setRecipeForType( _currentRecipeSelected , type , _instStr );
 	
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , type );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( type );
 					tbwe.setText( _currentRecipeSelected );
 					_disableRecipeEntry( true );
 				}
@@ -134,12 +133,13 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 		// The table of possible recipes
 		TableWidgetExt twe;
-		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
+		twe = ( TableWidgetExt )getWidget( "recipeTable" );
 		twe.setColumnHeaders( new String[]{ "Recipe Name" , "Description" } );
 		twe.addWatcher( this );
 
 		// button to reset the recipe to default
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" );
+		cbw = ( CommandButtonWidgetExt )getWidget( "defaultName" );
+		cbw.deleteWatchers() ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -162,7 +162,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		Vector[] rowsV = new Vector[ recipes.getNumRows() ];
 		rowsV = recipes.getAsVectorArray();
-		TableWidgetExt tw = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
+		TableWidgetExt tw = ( TableWidgetExt )getWidget( "recipeTable" );
 		tw.setRows( rowsV );
 	}
 
@@ -172,7 +172,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	private void _updateRecipeWidgets()
 	{
 		String recipe = null;
-		String instStr;
 
 		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
 
@@ -188,28 +187,25 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			return;
 		}
 
-		if( inst instanceof SpInstHeterodyne )
-			instStr = INST_STR_HETERODYNE;
-		else
-			instStr = INST_STR_SCUBA;
-
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but has always been hard-wired in a similar way.
-		( ( CardLayout )( _w.getLayout() ) ).show( _w , instStr.toLowerCase() );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
 
 		// First fill in the text box.
 		TextBoxWidgetExt tbwe;
 
-		String[] availableTypes = _spDRRecipe.getAvailableTypes( instStr ) ;
+		String[] availableTypes = _spDRRecipe.getAvailableTypes( _instStr ) ;
 		
 		for( int index = 0 ; index < availableTypes.length ; index++ )
 		{
 			String type = availableTypes[ index ] ;
-			tbwe = ( TextBoxWidgetExt )getWidget( _instStr , type );
+			tbwe = ( TextBoxWidgetExt )getWidget( type );
 			try
 			{
 				recipe = _spDRRecipe.getRecipeForType( type );
+				if( recipe == null )
+					recipe = "" ;
 				tbwe.setValue( recipe );
 			}
 			catch( NullPointerException ex ){}
@@ -224,9 +220,9 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 		LookUpTable rarray = null;
 
-		if( instStr.equalsIgnoreCase( INST_STR_SCUBA ) )
-			rarray = SpDRRecipe.SCUBA;
-		else if( instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
+		if( _instStr.equalsIgnoreCase( INST_STR_SCUBA2 ) )
+			rarray = SpDRRecipe.SCUBA2 ;
+		else if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
 			rarray = SpDRRecipe.HETERODYNE;
 
 		// Show the correct recipes, and select the option widget for the type
@@ -239,7 +235,16 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	public void setup( SpItem spItem )
 	{
 		_spDRRecipe = ( SpDRRecipe )spItem;
-		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
+		SpInstObsComp tmpInst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
+		if( tmpInst != _inst )
+			initd = false ;
+		_inst = tmpInst ;
+		
+		if( _inst instanceof SpInstHeterodyne )
+			_instStr = INST_STR_HETERODYNE;
+		else
+			_instStr = INST_STR_SCUBA2 ;
+			
 		if( !initd )
 			_initInstWidgets() ;
 		else
@@ -335,14 +340,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 	public void actionPerformed( ActionEvent e ){}
-
-	/**
-	 * @see #getWidget(java.lang.String)
-	 */
-	protected JComponent getWidget( String instrument , String widgetName )
-	{
-		return getWidget( instrument.toLowerCase() + "_" + widgetName );
-	}
 
 	/**
 	 * Helper method.

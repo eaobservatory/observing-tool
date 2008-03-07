@@ -60,6 +60,13 @@ public final class SpDRRecipe extends SpDRObsComp
 		ATTR_STARE_TYPE
 	} ;
 	
+	// As above
+	public static final String[] availableTypes_scuba2 = 
+	{ 
+		ATTR_RASTER_TYPE , 
+		ATTR_STARE_TYPE
+	} ;
+	
 	TreeMap<String,TreeMap<String,String>> defaults = new TreeMap<String,TreeMap<String,String>>() ;
 
 	/*
@@ -91,7 +98,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static String[] POLYNOMIALS = null;
 	private double DEFAULT_BASELINE = 0;
 	public static LookUpTable HETERODYNE;
-	public static LookUpTable SCUBA;
+	public static LookUpTable SCUBA2 ;
 	public static final String OBJECT_RECIPE_DEFAULT = "DEFAULT";
 	public static final String SCUBA_OBJECT_RECIPE_DEFAULT = OBJECT_RECIPE_DEFAULT; // "scubaDefault";
 	public static final String HETERODYNE_OBJECT_RECIPE_DEFAULT = OBJECT_RECIPE_DEFAULT; // "heterodyneDefault";
@@ -99,6 +106,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "DRRecipe" , "DRRecipe" );
 	private int _nRegions = 0;
 	private boolean _readingRegion = false;
+	private final Class whatami = this.getClass() ;
 
 	// Register the prototype.
 	static
@@ -134,8 +142,8 @@ public final class SpDRRecipe extends SpDRObsComp
 				instInfo = new InstCfg( block );
 				if( InstCfg.matchAttr( instInfo , "heterodyne" ) )
 					HETERODYNE = instInfo.getValueAsLUT();
-				else if( InstCfg.matchAttr( instInfo , "scuba" ) )
-					SCUBA = instInfo.getValueAsLUT();
+				else if( InstCfg.matchAttr( instInfo , "scuba2" ) )
+					SCUBA2 = instInfo.getValueAsLUT();
 				else if( InstCfg.matchAttr( instInfo , PROJECTION_TYPES_TAG ) )
 					PROJECTION_TYPES = instInfo.getValueAsArray();
 				else if( InstCfg.matchAttr( instInfo , GRID_FUNCTION_TYPES_TAG ) )
@@ -193,7 +201,6 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String[] availableTypes = new String[ 0 ] ;
 		String fieldName = "availableTypes_" + instrument ;
-		Class whatami = this.getClass() ;
 		try
 		{
 			Field field =  whatami.getDeclaredField( fieldName ) ;
@@ -237,8 +244,13 @@ public final class SpDRRecipe extends SpDRObsComp
 	
 	public String getRecipeForType( String type )
 	{
-		String recipe = _avTable.get( type );
-		return recipe;
+		String recipe = _avTable.get( type ) ;
+		return recipe ;
+	}
+	
+	public void reset()
+	{
+		_avTable.rmAll() ;
 	}
 	
 	public void setDefaultsForInstrument( String instrument )
