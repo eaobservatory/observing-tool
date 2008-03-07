@@ -257,16 +257,21 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String[] types = getAvailableTypes( instrument ) ;
 		TreeMap<String,String> defaultRecipes = defaults.get( instrument.toLowerCase() ) ;
-		int size = 0 ;
+		int size = types.length ;
 		if( defaultRecipes != null )
-			size = types.length ;
-		for( int typesIndex = 0 ; typesIndex < size ; typesIndex++ )
 		{
-			String type = types[ typesIndex ] ;
-			String shortType = type.substring( 0 , type.indexOf( "Recipe" ) ) ;
-			String recipe = defaultRecipes.get( shortType ) ;
-			setRecipeForType( recipe , type , instrument ) ;
-		}		
+			for( int typesIndex = 0 ; typesIndex < size ; typesIndex++ )
+			{
+				String type = types[ typesIndex ] ;
+				String shortType = type.substring( 0 , type.indexOf( "Recipe" ) ) ;
+				String recipe = defaultRecipes.get( shortType ) ;
+				setRecipeForType( recipe , type , instrument ) ;
+			}
+		}
+		else
+		{
+			reset() ;
+		}
 	}
 	
 	public String getWindowType()
@@ -281,14 +286,6 @@ public final class SpDRRecipe extends SpDRObsComp
 	{
 		String recipe = _avTable.get( ATTR_OBJECT_RECIPE );
 		return recipe;
-	}
-
-	/**
-	 * Use default recipe
-	 */
-	public void useDefaults( String instName )
-	{
-		setDefaultsForInstrument( instName ) ;
 	}
 
 	/**

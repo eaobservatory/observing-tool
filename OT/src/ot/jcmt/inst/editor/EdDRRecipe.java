@@ -83,7 +83,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		TextBoxWidgetExt rtbw = null ;
 		CommandButtonWidgetExt cbw = null ;
 		
-		_spDRRecipe.setDefaultsForInstrument( _instStr ) ;
 		String[] availableTypes = _spDRRecipe.getAvailableTypes( _instStr ) ;
 		
 		for( int index = 0 ; index < availableTypes.length ; index++ )
@@ -129,8 +128,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				_spDRRecipe.useDefaults( _instStr );
-				_currentRecipeSelected = "REDUCE_SCIENCE";
+				_spDRRecipe.setDefaultsForInstrument( _instStr ) ;
+				_currentRecipeSelected = null ;
 				_updateWidgets();
 			}
 		} );
