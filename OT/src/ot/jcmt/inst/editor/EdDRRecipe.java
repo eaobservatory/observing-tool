@@ -22,7 +22,6 @@ import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import ot.util.DialogUtil;
 
 import jsky.app.ot.editor.OtItemEditor;
 import orac.jcmt.inst.SpDRRecipe;
@@ -73,21 +72,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected void _initInstWidgets()
 	{
-		_inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
-		_spDRRecipe.reset();
 		_w.reset() ;
-
-		if( _inst == null )
-		{
-			// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
-			// respective panels managed my the CardLayout of DRRecipeGUI).
-			// Might not be elegant but is done in a similar way with instrument specific panels
-			// (see below).
-			( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
-
-			DialogUtil.error( _w , "Can't identify instrument: probably none in scope?" );
-			return;
-		}
 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
@@ -171,21 +156,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _updateRecipeWidgets()
 	{
-		String recipe = null;
-
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
-
-		if( inst == null )
-		{
-			// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
-			// respective panels managed my the CardLayout of DRRecipeGUI).
-			// Might not be elegant but is done in a similar way with instrument specific panels
-			// (see below).
-			( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
-
-			System.out.println( "No instrument found in scope" );
-			return;
-		}
+		String recipe = null ;
 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
@@ -234,10 +205,14 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public void setup( SpItem spItem )
 	{
-		_spDRRecipe = ( SpDRRecipe )spItem;
-		SpInstObsComp tmpInst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
-		if( tmpInst != _inst )
+		_spDRRecipe = ( SpDRRecipe )spItem ;
+		
+		SpInstObsComp tmpInst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
+		if( _inst != null && !tmpInst.equals( _inst ) )
+		{
+			_spDRRecipe.reset() ;
 			initd = false ;
+		}
 		_inst = tmpInst ;
 		
 		if( _inst instanceof SpInstHeterodyne )

@@ -27,7 +27,7 @@ import java.util.Vector;
  */
 public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 {
-
+	Class myself = this.getClass();
 	Hashtable _capabilityH = new Hashtable();
 
 	/**
@@ -103,12 +103,22 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 	}
 
 	/**
+	 * @returns true if argument is instance of this class.
+	 * This method is useful as SpInstObsComp is abstract. 
+	 * Subclasses might want to implement their own method.
+	 */
+	public boolean equals( SpInstObsComp that )
+	{
+		return myself.isInstance( that ) ;
+	}
+	
+	/**
      * Get the science area in arcsec x arcsec. For now, this must be a
      * rectangular region.
      */
 	public double[] getScienceArea()
 	{
-		return new double[] { -1.0 , -1.0 };
+		return new double[]{ -1. , -1. };
 	}
 
 	/**
@@ -348,7 +358,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public double getExposureOverhead()
 	{
-		return 0.0;
+		return 0. ;
 	}
 
 	/**
@@ -359,7 +369,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public double getSlewTime()
 	{
-		return 0.0;
+		return 0. ;
 	}
 
 	/**
@@ -368,7 +378,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public double getAcqTime()
 	{
-		return 0.0;
+		return 0. ;
 	}
 
 	public Hashtable getConfigItems()
@@ -401,7 +411,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 
 		public double getObserveStepTime()
 		{
-			return 0.0;
+			return 0. ;
 		}
 	}
 
