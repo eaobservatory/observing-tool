@@ -9,14 +9,11 @@
 // $Id$
 package ot.jcmt.iter.editor;
 
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.iter.SpIterSkydipObs;
-import orac.jcmt.inst.SpInstHeterodyne;
 
 /**
  * This is the editor for Skydip Observe Mode iterator component.
@@ -40,11 +37,8 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric
 		_presSource = _w = ( IterSkydipObsGUI )super._w;
 		_description = "Skydip Observation Mode";
 
-		_w.startPosition.setChoices( SpIterSkydipObs.START_POSITIONS );
-
-		_w.positions.addWatcher( this );
-		_w.startPosition.addWatcher( this );
 		_w.currentAzimuth.addWatcher( this );
+		_w.jPanel1.setVisible( false ) ;
 	}
 
 	/**
@@ -58,27 +52,9 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric
 
 	protected void _updateWidgets()
 	{
-		_w.positions.setValue( _iterObs.getPositions() );
-		_w.startPosition.setValue( _iterObs.getStartPosition() );
 		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() );
 
 		super._updateWidgets();
-	}
-
-	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
-	{
-		if( tbwe == _w.positions )
-			_iterObs.setPositions( _w.positions.getValue() );
-		else
-			super.textBoxKeyPress( tbwe );
-	}
-
-	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
-	{
-		if( ddlbwe == _w.startPosition )
-			_iterObs.setStartPosition( SpIterSkydipObs.START_POSITIONS[ index ] );
-		else
-			super.dropDownListBoxAction( ddlbwe , index , val );
 	}
 
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
@@ -90,8 +66,6 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
 		super.setInstrument( spInstObsComp );
-
-		_w.acsisPanel.setVisible( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) ) ;
 	}
 
 }

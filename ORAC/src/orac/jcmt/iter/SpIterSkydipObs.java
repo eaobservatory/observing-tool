@@ -42,8 +42,6 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 	{
 		super( SP_TYPE );
 
-		_avTable.noNotifySet( ATTR_POSITIONS , "1" , 0 );
-		_avTable.noNotifySet( ATTR_START_POSITION , START_POSITIONS[ 0 ] , 0 );
 		_avTable.noNotifySet( ATTR_DO_AT_CURRENT_AZ , "false" , 0 );
 	}
 
@@ -85,8 +83,8 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 	public void setupForHeterodyne()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifySet( ATTR_POSITIONS , "0" , 0 );
-		_avTable.noNotifySet( ATTR_START_POSITION , START_POSITIONS[ 0 ] , 0 );
+		_avTable.noNotifyRm( ATTR_POSITIONS );
+		_avTable.noNotifyRm( ATTR_START_POSITION );
 	}
 
 	public void setupForSCUBA()
@@ -102,5 +100,10 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
 		_avTable.noNotifyRm( ATTR_POSITIONS );
 		_avTable.noNotifyRm( ATTR_START_POSITION );
+	}
+	
+	public String[] getSwitchingModeOptions()
+	{
+		return new String[]{} ;
 	}
 }
