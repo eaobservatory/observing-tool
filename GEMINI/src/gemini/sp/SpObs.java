@@ -29,7 +29,7 @@ import java.util.Vector;
  * the next or previous observation (if any). 17Apr00 AB Added standard flag to
  * this.
  */
-public class SpObs extends SpMSB implements SpTranslatable
+public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
 
 	/**
@@ -388,7 +388,7 @@ public class SpObs extends SpMSB implements SpTranslatable
 			// Add break to sequence only if instrument is not WFCAM - RDK 25
             // Aug 2005 //
 			if( !"WFCAM".equalsIgnoreCase( instName ) )
-				v.add( SpTranslationConstants.breakString );
+				v.add( breakString );
 
 			if( spherSys != SpTelescopePos.SYSTEM_SPHERICAL )
 			{
@@ -546,7 +546,7 @@ public class SpObs extends SpMSB implements SpTranslatable
 		if( instName.equals( "UFTI" ) || ( instName.equals( "UIST" ) && "imaging".equals( ( String )defaultsTable.get( "camera" ) ) ) )
 		{
 			v.add( "breakPoint" );
-			v.add( SpTranslationConstants.darkString );
+			v.add( darkString );
 		}
 
 		v.add( "-ready" );
@@ -591,9 +591,9 @@ public class SpObs extends SpMSB implements SpTranslatable
 		int setObjectIndex = size;
 		String currentString;
 		int lookForSet = 0;
-		for( int searchIndex = 0 ; searchIndex < SpTranslationConstants.sets.length ; searchIndex++ )
+		for( int searchIndex = 0 ; searchIndex < sets.length ; searchIndex++ )
 		{
-			currentString = SpTranslationConstants.sets[ searchIndex ];
+			currentString = sets[ searchIndex ];
 			lookForSet = v.indexOf( currentString );
 			if( lookForSet == -1 )
 				continue;
@@ -810,33 +810,41 @@ public class SpObs extends SpMSB implements SpTranslatable
 			}
 		}
 
-		// For simplicity do another pass to remove redundant set OBJECT
-        // commands, since these
-		// are time consuming
-		boolean setCommandFound = false;
-		boolean loadConfigFound = false;
-		int startIndex = v.indexOf( SpTranslationConstants.objectString ) + 1;
-		for( int i = startIndex ; i < v.size() ; i++ )
+		removeExcessSets( v ) ;
+	}
+	
+	/**
+	 * For simplicity do another pass to remove redundant set OBJECT, 
+	 * SKY or SKYFLAT commands, since these are time consuming.
+	 */
+	private void removeExcessSets( Vector<String> v )
+	{
+		String current = null ;
+		String lastSeen = null ;
+		
+		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			if( SpTranslationConstants.objectString.equals( ( String )v.get( i ) ) || SpTranslationConstants.skyflatString.equals( ( String )v.get( i ) ) )
+			current = v.get( i ) ;
+			
+			if( current.startsWith( "set " ) )
 			{
-				if( !setCommandFound && !loadConfigFound )
+				if( objectString.equals( current ) || skyflatString.equals( current ) || skyString.equals( current ) )
 				{
-					v.remove( i );
+					if( !current.equals( lastSeen ) )
+					{
+						lastSeen = current ;
+						continue ;
+					}
+					else
+					{
+						v.remove( i ) ;
+					}
 				}
 				else
 				{
-					setCommandFound = false;
-					loadConfigFound = false;
+					lastSeen = null ;
 				}
-			}
-			else if( ( ( String )v.get( i ) ).startsWith( "loadConfig" ) )
-			{
-				loadConfigFound = true;
-			}
-			else if( ( ( String )v.get( i ) ).startsWith( "set " ) )
-			{
-				setCommandFound = true;
+				
 			}
 		}
 	}
@@ -915,8 +923,8 @@ public class SpObs extends SpMSB implements SpTranslatable
 
 	private void addBreak( Vector v )
 	{
-		int objectIndex = v.indexOf( SpTranslationConstants.objectString );
-		int skyIndex = v.indexOf( SpTranslationConstants.skyString );
+		int objectIndex = v.indexOf( objectString );
+		int skyIndex = v.indexOf( skyString );
 		boolean offsetFound = false;
 		int offsetIndex;
 		for( offsetIndex = 0 ; offsetIndex < v.size() ; offsetIndex++ )
@@ -944,17 +952,17 @@ public class SpObs extends SpMSB implements SpTranslatable
 		if( !offsetFound )
 		{
 			// If there are no SKYs, make sure we have a break after 1st "set OBEJCT"
-			if( skyIndex == -1 && !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
+			if( skyIndex == -1 && !( breakString.equals( v.get( objectIndex + 1 ) ) ) )
 			{
-				v.add( objectIndex + 1 , SpTranslationConstants.breakString );
+				v.add( objectIndex + 1 , breakString );
 			}
 			else
 			{
 				// If object index < sky index, make sure we have a break after
                 // 1st "set OBEJCT"
-				if( objectIndex < skyIndex && !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
+				if( objectIndex < skyIndex && !( breakString.equals( v.get( objectIndex + 1 ) ) ) )
 				{
-					v.add( objectIndex + 1 , SpTranslationConstants.breakString );
+					v.add( objectIndex + 1 , breakString );
 				}
 				else
 				{
@@ -964,8 +972,8 @@ public class SpObs extends SpMSB implements SpTranslatable
 					{
 						if( ( ( String )v.get( i ) ).startsWith( "slew MAIN" ) || ( ( String )v.get( i ) ).startsWith( "offset" ) )
 						{
-							v.add( i - 1 , SpTranslationConstants.breakString );
-							v.add( i - 1 , SpTranslationConstants.objectString );
+							v.add( i - 1 , breakString );
+							v.add( i - 1 , objectString );
 							break;
 						}
 					}
@@ -974,13 +982,13 @@ public class SpObs extends SpMSB implements SpTranslatable
 		}
 		else
 		{ // We have an offset iterator present
-			v.add( offsetIndex , SpTranslationConstants.breakString );
-			v.add( offsetIndex , SpTranslationConstants.objectString );
+			v.add( offsetIndex , breakString );
+			v.add( offsetIndex , objectString );
 		}
 
 		// Now go back from the first set OBJECT to work out if we need to load
         // a default config
-		objectIndex = v.indexOf( SpTranslationConstants.objectString );
+		objectIndex = v.indexOf( objectString );
 		String observePattern = "do \\d+ _observe";
 		for( int i = objectIndex ; i >= 0 ; i-- )
 		{
@@ -1003,12 +1011,12 @@ public class SpObs extends SpMSB implements SpTranslatable
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
 			String s = ( String )v.get( i );
-			if( s.equals( SpTranslationConstants.darkString ) || s.equals( SpTranslationConstants.biasString ) || s.equals( SpTranslationConstants.focusString ) || s.equals( SpTranslationConstants.domeString ) )
+			if( s.equals( darkString ) || s.equals( biasString ) || s.equals( focusString ) || s.equals( domeString ) )
 			{
 				// Add a call to the _guide_off macro before this command
 				v.add( i++ , "do 1 _guide_off" );
 			}
-			else if( s.equals( SpTranslationConstants.objectString ) || s.equals( SpTranslationConstants.skyString ) || s.equals( SpTranslationConstants.skyflatString ) )
+			else if( s.equals( objectString ) || s.equals( skyString ) || s.equals( skyflatString ) )
 			{
 				// Add a call to the _guide_off macro before and a _guide_on after
 				v.add( i + 1 , "do 1 _guide_on" );
