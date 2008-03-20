@@ -18,8 +18,6 @@ public class XXMMSS
 		for( int index = 0 ; index < split.length && index < values.length ; index++ )
 		{
 			String current = split[ index ].trim() ;
-//			if( current.equals( "" ) )
-//					continue ;
 			values[ index ] = new Double( current ) ;
 		}
 
