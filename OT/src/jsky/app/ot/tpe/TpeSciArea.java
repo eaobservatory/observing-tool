@@ -53,42 +53,45 @@ public class TpeSciArea
 	{
 		double[] ds = spInst.getScienceArea();
 
-		// Only one element in array: Science area is circular.
-		if( ds.length == 1 )
+		if( ds != null )
 		{
-			_shape = CIRCULAR;
-			double r = ds[ 0 ] * fii.pixelsPerArcsec;
-
-			if( r != this.radius )
+			// Only one element in array: Science area is circular.
+			if( ds.length == 1 )
 			{
-				this.radius = r;
-				return true;
+				_shape = CIRCULAR;
+				double r = ds[ 0 ] * fii.pixelsPerArcsec;
+	
+				if( r != this.radius )
+				{
+					this.radius = r;
+					return true;
+				}
 			}
-		}
-		// Two elements in array: Science area is recangular.
-		// There might be more than two elements in the array, e.g. for a multi-detector
-		// footprint (e.g. orac.ukirt.inst.SpInstWFCAM.getScienceArea()) but this class does
-		// currently not deal with them. The multi-detector footprints are drawn in the class
-		// jsky.app.ot.tpe.feat.TpeSciAreaFeature without using this class (jsky.app.ot.tpe.TpeSciArea).
-		else
-		{
-			_shape = RECTANGULAR;
-			double w , h , posAngle , sky;
-
-			w = ds[ 0 ] * fii.pixelsPerArcsec;
-			h = ds[ 1 ] * fii.pixelsPerArcsec;
-
-			posAngle = spInst.getPosAngleRadians();
-			sky = fii.theta;
-
-			// Update the instance variables if necessary.
-			if( ( w != this.width ) || ( h != this.height ) || ( posAngle != this.posAngleRadians ) || ( sky != this.skyCorrection ) )
+			// Two elements in array: Science area is recangular.
+			// There might be more than two elements in the array, e.g. for a multi-detector
+			// footprint (e.g. orac.ukirt.inst.SpInstWFCAM.getScienceArea()) but this class does
+			// currently not deal with them. The multi-detector footprints are drawn in the class
+			// jsky.app.ot.tpe.feat.TpeSciAreaFeature without using this class (jsky.app.ot.tpe.TpeSciArea).
+			else
 			{
-				this.width = w;
-				this.height = h;
-				this.posAngleRadians = posAngle;
-				this.skyCorrection = sky;
-				return true;
+				_shape = RECTANGULAR;
+				double w , h , posAngle , sky;
+	
+				w = ds[ 0 ] * fii.pixelsPerArcsec;
+				h = ds[ 1 ] * fii.pixelsPerArcsec;
+	
+				posAngle = spInst.getPosAngleRadians();
+				sky = fii.theta;
+	
+				// Update the instance variables if necessary.
+				if( ( w != this.width ) || ( h != this.height ) || ( posAngle != this.posAngleRadians ) || ( sky != this.skyCorrection ) )
+				{
+					this.width = w;
+					this.height = h;
+					this.posAngleRadians = posAngle;
+					this.skyCorrection = sky;
+					return true;
+				}
 			}
 		}
 
