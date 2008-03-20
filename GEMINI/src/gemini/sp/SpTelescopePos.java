@@ -287,9 +287,9 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	private double _boxSize;
 
-	static final String numberRegex = "^[0-9]+[.]?[0-9]*$";
-
-	static final String dateRegex = "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{1,2}\\.?[0-9]*$";
+	static final String numberRegex = "^(\\+|-)?(\\d+\\.?\\d*|\\d*\\.?\\d+)$" ; 
+	
+	static final String dateRegex = "^\\d{4}\\s[a-zA-Z]{3}\\s\\d{1,2}\\.?\\d*$";
 
 	/**
      * Set the list of tags that represent guide stars. For instance, for
@@ -580,15 +580,15 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 			if( isOffsetPosition() || ( ( getCoordSys() != CoordSys.FK5 ) && ( getCoordSys() != CoordSys.FK4 ) ) )
 			{
-				if( xaxisStr.matches( "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?" ) )
+				if( HHMMSS.validFormat( xaxisStr ) )
 					_xaxis = HHMMSS.valueOf( xaxisStr );
-				else if( xaxisStr.matches( "\\d*.{1}\\d*" ) )
+				else if( xaxisStr.matches( numberRegex ) )
 					_xaxis = new Double( xaxisStr ).doubleValue();
 				else
 					_xaxis = 0.;
-				if( yaxisStr.matches( "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?" ) )
+				if( DDMMSS.validFormat( yaxisStr ) )
 					_yaxis = DDMMSS.valueOf( yaxisStr );
-				else if( yaxisStr.matches( "\\d*.{1}\\d*" ) )
+				else if( yaxisStr.matches( numberRegex ) )
 					_yaxis = new Double( yaxisStr ).doubleValue();
 				else
 					_yaxis = 0.;
@@ -599,8 +599,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 				if( pos == null )
 				{
-					_xaxis = 0.0;
-					_yaxis = 0.0;
+					_xaxis = 0. ;
+					_yaxis = 0. ;
 					_isValid = false;
 				}
 				else
@@ -689,8 +689,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 				double[] axis = RADecMath.string2Degrees( _avTabX , _avTabY , getCoordSys() );
 				xaxis = axis[ 0 ];
 				yaxis = axis[ 1 ];
-				double xoff = _avTab.getDouble( _tag , BASE_XOFF , 0.0 );
-				double yoff = _avTab.getDouble( _tag , BASE_YOFF , 0.0 );
+				double xoff = _avTab.getDouble( _tag , BASE_XOFF , 0. );
+				double yoff = _avTab.getDouble( _tag , BASE_YOFF , 0. );
 				axis = RADecMath.getAbsolute( xaxis , yaxis , xoff , yoff );
 				if( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC )
 				{
@@ -1072,14 +1072,14 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getRedshift()
 	{
-		double redshift = 0.0;
+		double redshift = 0. ;
 		double c = 2.99792458E5;
 
 		String vDef = getTrackingRadialVelocityDefn();
 		double v = Double.parseDouble( getTrackingRadialVelocity() );
 
 		if( vDef.equalsIgnoreCase( "radio" ) )
-			redshift = ( c / ( c - v ) ) - 1.0;
+			redshift = ( c / ( c - v ) ) - 1. ;
 		else if( vDef.equalsIgnoreCase( "optical" ) )
 			redshift = v / c;
 		else
@@ -1115,7 +1115,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemEpoch()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_EPOCH , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_EPOCH , 0. );
 	}
 
 	/**
@@ -1199,7 +1199,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemInclination()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_INCLINATION , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_INCLINATION , 0. );
 	}
 
 	/**
@@ -1219,7 +1219,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemAnode()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_ANODE , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_ANODE , 0. );
 	}
 
 	/**
@@ -1239,7 +1239,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemPerihelion()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_PERIHELION , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_PERIHELION , 0. );
 	}
 
 	/**
@@ -1259,7 +1259,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemAorQ()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_AORQ , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_AORQ , 0. );
 	}
 
 	/**
@@ -1279,7 +1279,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemE()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_E , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_E , 0. );
 	}
 
 	/**
@@ -1299,7 +1299,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemLorM()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_LORM , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_LORM , 0. );
 	}
 
 	/**
@@ -1319,7 +1319,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemDailyMotion()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_DM , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_DM , 0. );
 	}
 
 	/**
@@ -1460,10 +1460,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public void setBaseXOffset( double offset )
 	{
-		if( offset == 0.0 )
+		if( offset == 0. )
 		{
 			String yOff = _avTab.get( _tag , BASE_YOFF );
-			if( yOff == null || Double.parseDouble( yOff ) == 0.0 )
+			if( yOff == null || Double.parseDouble( yOff ) == 0. )
 				setOffsetPosition( false );
 		}
 		else
@@ -1480,7 +1480,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public void setBaseXOffset( String offset )
 	{
-		double off = 0.0;
+		double off = 0. ;
 		try
 		{
 			off = Double.parseDouble( offset );
@@ -1491,7 +1491,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public double getBaseXOffset()
 	{
-		return _avTab.getDouble( _tag , BASE_XOFF , 0.0 );
+		return _avTab.getDouble( _tag , BASE_XOFF , 0. );
 	}
 
 	public void setBaseYOffset( double offset )
@@ -1499,7 +1499,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 		if( offset == 0.0 )
 		{
 			String xoff = _avTab.get( _tag , BASE_XOFF );
-			if( xoff == null || Double.parseDouble( xoff ) == 0.0 )
+			if( xoff == null || Double.parseDouble( xoff ) == 0. )
 				setOffsetPosition( false );
 		}
 		else
@@ -1516,7 +1516,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public void setBaseYOffset( String offset )
 	{
-		double off = 0.0;
+		double off = 0. ;
 		try
 		{
 			off = Double.parseDouble( offset );
@@ -1527,7 +1527,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public double getBaseYOffset()
 	{
-		return _avTab.getDouble( _tag , BASE_YOFF , 0.0 );
+		return _avTab.getDouble( _tag , BASE_YOFF , 0. );
 	}
 
 	/**

@@ -942,7 +942,7 @@ public class SpTelescopeObsComp extends SpObsComp
 			}
 			else
 			{
-				_currentPosition = getPosList().createPosition( value , 0.0 , 0.0 );
+				_currentPosition = getPosList().createPosition( value , 0. , 0. );
 			}
 
 			return;

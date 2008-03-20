@@ -92,12 +92,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	private boolean jcmtot = false;
 	private boolean overrideDialogShown = false;
 	
-	private static final String rapattern =  "\\d{1,2}( \\d{0,2}( \\d{0,2}(\\.\\d*)?)?)?";
-	private static final String decpattern = "^(\\+|-)?" + rapattern ;
-
-	private static final String rapatterncolon =  "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
-	private static final String decpatterncolon = "^(\\+|-)?" + rapatterncolon ;
-	
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
@@ -323,20 +317,24 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 
 					try
 					{
-						xAxis = Double.parseDouble( _xaxis.getText() );
+						xAxis = Double.parseDouble( _xaxis.getText() ) ;
+						_w.RA_Az_STW.setForeground( Color.BLACK ) ;
 					}
 					catch( Exception e )
 					{
 						System.out.println( "Could not parse x axis: " + _xaxis.getText() );
+						_w.RA_Az_STW.setForeground( Color.RED );
 					}
 
 					try
 					{
 						yAxis = Double.parseDouble( _yaxis.getText() );
+						_w.Dec_El_STW.setForeground( Color.BLACK ) ;
 					}
 					catch( Exception e )
 					{
 						System.out.println( "Could not parse y axis: " + _yaxis.getText() );
+						_w.Dec_El_STW.setForeground( Color.RED ) ;
 					}
 
 					_curPos.setXY( xAxis , yAxis );
@@ -345,7 +343,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
 					String newXString = tbwe.getText().trim() ;
-					if( newXString.matches( rapattern ) || newXString.matches( rapatterncolon ))
+					if( HHMMSS.validFormat( newXString ) )
 					{
 						String currentXString = _curPos.getXaxisAsString();
 						_w.RA_Az_STW.setForeground( Color.BLACK );
@@ -382,20 +380,24 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 
 					try
 					{
-						xAxis = Double.parseDouble( _xaxis.getText() );
+						xAxis = Double.parseDouble( _xaxis.getText() ) ;
+						_w.RA_Az_STW.setForeground( Color.BLACK ) ;
 					}
 					catch( Exception e )
 					{
 						System.out.println( "Could not parse x axis: " + _xaxis.getText() );
+						_w.RA_Az_STW.setForeground( Color.RED );
 					}
 
 					try
 					{
 						yAxis = Double.parseDouble( _yaxis.getText() );
+						_w.Dec_El_STW.setForeground( Color.BLACK ) ;
 					}
 					catch( Exception e )
 					{
-						System.out.println( "Could not parse y axis :" + _yaxis.getText() );
+						System.out.println( "Could not parse y axis: " + _yaxis.getText() );
+						_w.Dec_El_STW.setForeground( Color.RED ) ;
 					}
 
 					_curPos.setXY( xAxis , yAxis );
@@ -405,7 +407,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
 					String newYString = tbwe.getText().trim() ;
-					if( newYString.matches( decpattern ) || newYString.matches( decpatterncolon ) )
+					if( DDMMSS.validFormat( newYString ) )
 					{
 						String currentYString = _curPos.getYaxisAsString();
 						_w.Dec_El_STW.setForeground( Color.BLACK );
