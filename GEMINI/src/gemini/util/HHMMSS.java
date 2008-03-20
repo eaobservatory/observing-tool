@@ -26,10 +26,19 @@ package gemini.util;
  * Support for converting angles in hours:minutes:seconds format over the
  * circular range 0, 24 hours.
  */
-public final class HHMMSS
+public final class HHMMSS extends XXMMSS
 {
-
 	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter";
+	
+	/**
+	 * 
+	 * @param candidate
+	 * @return boolean indicating wether candidate was in a valid RA HH:MM:SS format
+	 */
+	public static boolean validFormat( String candidate )
+	{
+		return ( candidate != null && ( candidate.matches( rapattern ) || candidate.matches( rapatterncolon ) ) ) ;
+	}
 
 	/**
      * Convert from an RA in degrees to a String in HH:MM:SS format.
@@ -39,12 +48,12 @@ public final class HHMMSS
 		// Make sure the angle is between 0 (inclusive) and 360 (exclusive)
 		degrees = Angle.normalizeDegrees( degrees );
 
-		double tmp = degrees / 15.0;
+		double tmp = degrees / 15. ;
 
 		int hh = ( int )tmp;
-		tmp = ( tmp - ( double )hh ) * 60.0;
+		tmp = ( tmp - ( double )hh ) * 60. ;
 		int mm = ( int )tmp;
-		double ss = ( tmp - ( double )mm ) * 60.0;
+		double ss = ( tmp - ( double )mm ) * 60. ;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
@@ -56,7 +65,7 @@ public final class HHMMSS
 				mm = 0;
 				hh += 1;
 				if( hh >= 24 )
-					hh -= 24.0;
+					hh -= 24. ;
 			}
 		}
 
@@ -75,7 +84,7 @@ public final class HHMMSS
 		out.append( ':' );
 
 		// Ignoring prec for now.
-		ss = ( ( double )Math.round( ss * 1000.0 ) ) / 1000.0;
+		ss = ( ( double )Math.round( ss * 1000. ) ) / 1000. ;
 		if( ss < 10 )
 			out.append( '0' );
 		out.append( ss );
@@ -97,55 +106,47 @@ public final class HHMMSS
 	public static double valueOf( String s ) throws NumberFormatException
 	{
 		if( s == null )
-			throw new NumberFormatException( s );
+			throw new NumberFormatException( s ) ;
 
 		// Determine the sign from the (trimmed) string
-		s = s.trim();
+		s = s.trim() ;
 		if( s.length() == 0 )
-			throw new NumberFormatException( s );
-		int sign = 1;
+			throw new NumberFormatException( s ) ;
+		int sign = 1 ;
 		if( s.charAt( 0 ) == '-' )
 		{
-			sign = -1;
-			s = s.substring( 1 );
+			sign = -1 ;
+			s = s.substring( 1 ) ;
 		}
 
-		// Parse the string into values for hours, min, and sec
-		double[] vals = stringTodoubleTriplet( s );
+		double[] vals = stringTodoubleTriplet( s ) ;
 
-		// Convert HH:MM:SS to degrees
-		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 ) * 15.0;
+		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) * 15. ;
 		return Angle.normalizeDegrees( out );
 	}
 
+	/**
+	 * Check wether a string is in the correct HH:MM:SS format and within range
+	 * @param hhmmss
+	 * @return boolean indicating validity
+	 */
 	public static boolean validate( String hhmmss )
 	{
 		boolean valid = true;
-
-		double[] values = stringTodoubleTriplet( hhmmss );
-
-		double hours = values[ 0 ];
-		double minutes = values[ 1 ];
-		double seconds = values[ 2 ];
-
-		if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-			valid = false;
-
-		return valid;
-	}
-
-	public static double[] stringTodoubleTriplet( String hhmmss )
-	{
-		double[] values = { 0. , 0. , 0. };
-
-		String[] split = hhmmss.split( "[: ]" );
-		for( int index = 0 ; index < split.length && index < values.length ; index++ )
+		
+		if( valid = validFormat( hhmmss ) )
 		{
-			String current = split[ index ].trim();
-			values[ index ] = new Double( current );
+			double[] values = stringTodoubleTriplet( hhmmss );
+	
+			double hours = values[ 0 ];
+			double minutes = values[ 1 ];
+			double seconds = values[ 2 ];
+	
+			if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+				valid = false;
 		}
 
-		return values;
+		return valid;
 	}
 
 	/**
@@ -161,5 +162,4 @@ public final class HHMMSS
 			System.out.println( converted + " = " + back );
 		}
 	}
-
 }

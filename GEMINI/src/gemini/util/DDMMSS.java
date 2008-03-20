@@ -24,10 +24,19 @@ package gemini.util;
 /**
  * Support for converting between angles in string and double representations.
  */
-public class DDMMSS
+public class DDMMSS extends XXMMSS
 {
-
 	public static final String MYNAME = "Degree-Angle (+/- 90) Coordinate Axis Position Formatter";
+	
+	/**
+	 * 
+	 * @param candidate
+	 * @return boolean indicating wether candidate was in a valid Dec DD:MM:SS format
+	 */
+	public static boolean validFormat( String candidate )
+	{
+		return ( candidate != null && ( candidate.matches( decpattern ) || candidate.matches( decpatterncolon ) ) ) ;
+	}
 
 	/**
      * Covert from a Dec in degrees to a DD:MM:SS String representation.
@@ -38,9 +47,9 @@ public class DDMMSS
 		degrees = Math.abs( degrees );
 
 		int dd = ( int )degrees;
-		double tmp = ( degrees - ( double )dd ) * 60.0;
+		double tmp = ( degrees - ( double )dd ) * 60. ;
 		int mm = ( int )tmp;
-		double ss = ( tmp - ( double )mm ) * 60.0;
+		double ss = ( tmp - ( double )mm ) * 60. ;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
@@ -71,7 +80,7 @@ public class DDMMSS
 		out.append( ':' );
 
 		// Ignoring prec for now
-		ss = ( ( double )Math.round( ss * 100.0 ) ) / 100.0;
+		ss = ( ( double )Math.round( ss * 100. ) ) / 100. ;
 		if( ss < 10 )
 			out.append( '0' );
 		out.append( ss );
@@ -88,58 +97,53 @@ public class DDMMSS
 	}
 
 	/**
-     * Convert from a Dec in DD:MM:SS string format to degrees.
+     * Convert from Dec as DD:MM:SS string format to degrees.
      */
 	public static double valueOf( String s ) throws NumberFormatException
 	{
 		if( s == null )
-			throw new NumberFormatException( s );
+			throw new NumberFormatException( s ) ;
 
 		// Determine the sign from the (trimmed) string
-		s = s.trim();
+		s = s.trim() ;
 		if( s.length() == 0 )
-			throw new NumberFormatException( s );
-		int sign = 1;
+			throw new NumberFormatException( s ) ;
+		int sign = 1 ;
 		if( s.charAt( 0 ) == '-' )
 		{
-			sign = -1;
-			s = s.substring( 1 );
+			sign = -1 ;
+			s = s.substring( 1 ) ;
 		}
 
-		double[] vals = stringTodoubleTriplet( s );
+		double[] vals = stringTodoubleTriplet( s ) ;
 
-		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60.0 + vals[ 2 ] / 3600.0 );
-		return out;
+		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) ;
+		
+		return out ;
 	}
 
-	public static boolean validate( String hhmmss )
+	/**
+	 * Check wether a string is in the correct DD:MM:SS format and within range
+	 * @param ddmmss
+	 * @return boolean indicating validity
+	 */
+	public static boolean validate( String ddmmss )
 	{
-		boolean valid = true;
+		boolean valid = true ;
 
-		double[] values = stringTodoubleTriplet( hhmmss );
-
-		double degrees = values[ 0 ];
-		double minutes = values[ 1 ];
-		double seconds = values[ 2 ];
-
-		if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-			valid = false;
+		if( valid = validFormat( ddmmss ) )
+		{
+			double[] values = stringTodoubleTriplet( ddmmss );
+	
+			double degrees = values[ 0 ];
+			double minutes = values[ 1 ];
+			double seconds = values[ 2 ];
+	
+			if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+				valid = false;
+		}
 
 		return valid;
-	}
-
-	public static double[] stringTodoubleTriplet( String hhmmss )
-	{
-		double[] values = { 0. , 0. , 0. };
-
-		String[] split = hhmmss.split( "[: ]" );
-		for( int index = 0 ; index < split.length && index < values.length ; index++ )
-		{
-			String current = split[ index ].trim();
-			values[ index ] = new Double( current );
-		}
-
-		return values;
 	}
 
 	/**
@@ -155,5 +159,4 @@ public class DDMMSS
 			System.out.println( converted + " = " + back );
 		}
 	}
-
 }
