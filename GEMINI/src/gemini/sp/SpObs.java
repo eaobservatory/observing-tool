@@ -610,10 +610,8 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		for( int index = 0 ; index < size ; index++ )
 		{
 			Object currentEntry = v.get( index );
-			/*
-             * the following *should* always be true but we can never assume it
-             * *will* be
-             */
+
+            // the following *should* always be true but we can never assume it *will* be
 			if( currentEntry instanceof String )
 			{
 				currentString = ( String )currentEntry;
@@ -761,8 +759,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 				}
 				else if( ( ( String )v.get( i + 1 ) ).startsWith( "loadConfig" ) )
 				{
-					// This can happen as we move the default loadConfig down
-                    // but it is never used
+					// This can happen as we move the default loadConfig down but it is never used
 					v.remove( i );
 					lastLoadConfig = ( String )v.get( i );
 				}
