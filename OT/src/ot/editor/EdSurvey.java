@@ -394,8 +394,8 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 	{
 		try
 		{
-			double d1 = new Double( o1.toString() ).doubleValue();
-			double d2 = new Double( o2.toString() ).doubleValue();
+			double d1 = new Double( o1.toString() ) ;
+			double d2 = new Double( o2.toString() ) ;
 			if( d1 < d2 )
 				return -1;
 			else if( d1 > d2 )
@@ -545,8 +545,8 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		if( _surveyObsComp.getRemaining( index ) < 0 )
 			result[ 4 ] = "REMOVED";
 		else
-			result[ 4 ] = "" + _surveyObsComp.getRemaining( index );
-		result[ 5 ] = "" + _surveyObsComp.getPriority( index );
+			result[ 4 ] += _surveyObsComp.getRemaining( index );
+		result[ 5 ] += _surveyObsComp.getPriority( index );
 
 		return result;
 	}
@@ -720,10 +720,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			{
 				value = Integer.parseInt( _surveyGUI.selectField.getText() );
 			}
-			catch( NumberFormatException nfe )
-			{
-				// Don't bother doing anything
-			}
+			catch( NumberFormatException nfe ){}
 			if( value > _surveyGUI.fieldTable.getRowCount() )
 			{
 				JOptionPane.showMessageDialog( _surveyGUI , "Please enter a number less than the number of fields" , "Number too Big" , JOptionPane.WARNING_MESSAGE );
