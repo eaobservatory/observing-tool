@@ -153,10 +153,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		{
 			iValue = Integer.parseInt( value );
 		}
-		catch( NumberFormatException nfe )
-		{
-			// DOn't do anything
-		}
+		catch( NumberFormatException nfe ){}
 		setChoose( iValue );
 	}
 
@@ -430,7 +427,8 @@ public class SpSurveyContainer extends SpObsContextItem
 				}
 			}
 		}
-		while( line != null );
+		while( line != null )
+			;
 
 		// Add the remaining field
 		if( spTelescopeObsComp != null )
@@ -623,7 +621,7 @@ public class SpSurveyContainer extends SpObsContextItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0;
+		double elapsedTime = 0. ;
 		Enumeration children = children();
 		SpItem child = null;
 
@@ -656,7 +654,7 @@ public class SpSurveyContainer extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0;
+		double elapsedTime = 0. ;
 		Enumeration children = children();
 		SpItem child = null;
 		boolean hasObsChild = false;
@@ -679,7 +677,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		// which is just the instrument slew time times the number of
 		// targets. We don't do this if the child is an MSB since this
 		// already adds a slew time
-		double slewTime = 0.0;
+		double slewTime = 0. ;
 		if( hasObsChild )
 		{
 			SpInstObsComp inst = SpTreeMan.findInstrument( this );
