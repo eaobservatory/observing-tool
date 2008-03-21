@@ -1139,7 +1139,6 @@ the end of the transition name - it makes the display nicer.
   <species name = "N2D+">
     <transition name="3  - 2 " frequency="231321.6650"/>
   </species>
-  
   <species name = "SO2">
 	  <transition name="15 4 12  - 15 3 13 " frequency="357241.1900"/>
 	  <transition name="11 4 8  - 11 3 9 " frequency="357387.5700"/>
@@ -1147,5 +1146,9 @@ the end of the transition name - it makes the display nicer.
 	  <transition name="9 4 6  - 9 3 7 " frequency="357671.7800"/>
 	  <transition name="7 4 4  - 7 3 5 " frequency="357892.4420"/>
 	  <transition name="6 4 2  - 6 3 3 " frequency="357925.9600"/>
+  </species>
+
+  <species name = "OI">
+          <transition name="3P1  - 3P2 " frequency="4744774.9"/>
   </species>
 </LineCatalog>
