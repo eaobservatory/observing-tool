@@ -1149,6 +1149,6 @@ the end of the transition name - it makes the display nicer.
   </species>
 
   <species name = "OI">
-          <transition name="3P1  - 3P2 " frequency="4744774.9"/>
+          <transition name="3P1  - 3P2 " frequency="4744774.907"/>
   </species>
 </LineCatalog>
