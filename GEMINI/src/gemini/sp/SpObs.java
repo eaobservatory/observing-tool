@@ -326,6 +326,10 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		return null;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		v.clear();
@@ -418,9 +422,10 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			v.add( "do 1 _slew_all" );
 			v.add( "do 1 _slew_guide" );
 		}
-		// Hackily we need to do this twice since we neeed to make sure the
-        // default
-		// config is read twice, though maybe not for CGS4
+		/*
+		 * Hackily we need to do this twice since we neeed to make sure the
+		 * default config is read twice, though maybe not for CGS4
+         */
 		v.add( "loadConfig " + confWriter.getCurrentName() );
 		v.add( "loadConfig " + confWriter.getCurrentName() );
 		if( defaultsTable.containsKey( "posAngle" ) )
@@ -531,12 +536,28 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		try
 		{
 			Enumeration e = this.children();
+			SpTranslatable translatable = null ;
+			SpTranslatable previous = null ;
 			while( e.hasMoreElements() )
 			{
 				SpItem child = ( SpItem )e.nextElement();
 				if( child instanceof SpTranslatable )
-					( ( SpTranslatable )child ).translate( v );
+				{
+					translatable = ( SpTranslatable )child ;
+					if( !translatable.equals( previous ) )
+					{
+						if( previous != null )
+						{
+							previous.translateEpilog( v ) ;
+							previous = translatable ;
+						}
+						translatable.translateProlog( v ) ;
+					}
+					translatable.translate( v ) ;
+				}
 			}
+			if( translatable != null  )
+				translatable.translateEpilog( v ) ;
 		}
 		catch( SpTranslationNotSupportedException e )
 		{
@@ -732,9 +753,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 	private void tidyDuplicates( Vector v )
 	{
-		// Remove redundant loadConfigs, offsets, set commands or any case where
-        // two sequential lines are
-		// identical
+		// Remove redundant loadConfigs, offsets, set commands or any case where two sequential lines are identical
 		String lastLoadConfig = "";
 		String lastOffset = "";
 		String lastGRPMEM = "";
@@ -885,14 +904,11 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 	private void tidyInstDefns( Vector v )
 	{
-		String defn = "";
-		// To make this robust, rather than just comparing strings, we will
-        // compare the
-		// numerical value of the offsets
-		double xAper = 0.0;
-		double yAper = 0.0;
-		double zAper = 0.0;
-		double lAper = 0.0;
+		// To make this robust, rather than just comparing strings, we will compare the numerical value of the offsets
+		double xAper = 0. ;
+		double yAper = 0. ;
+		double zAper = 0. ;
+		double lAper = 0. ;
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
 			if( ( ( String )v.get( i ) ).startsWith( "define_inst" ) )
@@ -955,8 +971,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			}
 			else
 			{
-				// If object index < sky index, make sure we have a break after
-                // 1st "set OBEJCT"
+				// If object index < sky index, make sure we have a break after 1st "set OBEJCT"
 				if( objectIndex < skyIndex && !( breakString.equals( v.get( objectIndex + 1 ) ) ) )
 				{
 					v.add( objectIndex + 1 , breakString );

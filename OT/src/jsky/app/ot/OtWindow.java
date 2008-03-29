@@ -622,7 +622,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			// Create a translator class and do the translation
 			try
 			{
-				spobs.translate( new Vector() );
+				Vector vector = new Vector() ;
+				spobs.translateProlog( vector );
+				spobs.translate( vector );
+				spobs.translateEpilog( vector );
 			}
 			catch( Exception e )
 			{

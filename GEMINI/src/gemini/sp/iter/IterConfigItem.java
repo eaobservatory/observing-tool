@@ -12,7 +12,6 @@ package gemini.sp.iter;
  */
 public class IterConfigItem implements java.io.Serializable
 {
-
 	/**
      * The displayable title that is meaningful to a human user.
      */
@@ -49,5 +48,4 @@ public class IterConfigItem implements java.io.Serializable
 		this( title , attribute );
 		this.choices = choices;
 	}
-
 }

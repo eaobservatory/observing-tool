@@ -177,15 +177,17 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public int getConfigStepCount()
 	{
-		// Should be able to get the number of elements in any iterator
-		// attribute, they should all have the same number of steps.
-		// So just use the first attribute in the list.
-
+		/*
+		 * Should be able to get the number of elements in any iterator
+		 * attribute, they should all have the same number of steps.
+		 * So just use the first attribute in the list.
+		 */
+		
 		String firstAttrib = _avTable.get( ATTR_ITER_ATTRIBUTES , 0 );
 		if( firstAttrib == null )
-			return 0;
+			return 0 ;
 
-		return _avTable.size( firstAttrib );
+		return _avTable.size( firstAttrib ) ;
 	}
 
 	/**

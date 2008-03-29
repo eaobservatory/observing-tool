@@ -6,7 +6,6 @@
 //
 package gemini.sp.iter;
 
-import gemini.sp.SpFactory;
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
 import gemini.sp.SpTranslatable;
@@ -104,17 +103,37 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
 		return new SpIterRepeatEnumeration( this );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
-
-		Enumeration e = this.children();
-		Vector childVector = new Vector();
+		Enumeration e = this.children() ;
+		Vector childVector = new Vector() ;
+		SpTranslatable translatable = null ;
+		SpTranslatable previous = null ;
 		while( e.hasMoreElements() )
 		{
 			SpItem child = ( SpItem )e.nextElement();
 			if( child instanceof SpTranslatable )
-				( ( SpTranslatable )child ).translate( childVector );
+			{
+				translatable = ( SpTranslatable )child ;
+				if( !translatable.equals( previous ) )
+				{
+					if( previous != null )
+					{
+						previous.translateEpilog( childVector ) ;
+						previous = translatable ;
+					}
+					translatable.translateProlog( childVector ) ;
+				}
+				translatable.translate( childVector ) ;
+			}
 		}
+		if( translatable != null  )
+			translatable.translateEpilog( childVector ) ;
+		
 		childVector.add( "breakPoint" );
 
 		for( int i = 0 ; i < getCount() ; i++ )

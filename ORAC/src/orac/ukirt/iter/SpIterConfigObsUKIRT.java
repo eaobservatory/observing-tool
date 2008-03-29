@@ -97,6 +97,10 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 		super.addConfigItem( ici , size );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		String confDir = System.getProperty( "CONF_PATH" );

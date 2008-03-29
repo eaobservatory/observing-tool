@@ -86,10 +86,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	protected SpOffsetPosList _posList;
 
 	/** Needed for XML parsing. */
-	private double xOffNew = 0.0;
+	private double xOffNew = 0. ;
 
 	/** Needed for XML parsing. */
-	private double yOffNew = 0.0;
+	private double yOffNew = 0. ;
 
 	// Number of named sky children associated
 	private boolean _hasNamedSkyChild = false;
@@ -125,7 +125,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		// See comment above
 		_posList = new SpOffsetPosList( _avTable );
 		if( _posList.size() == 0 )
-			_posList.createPosition( 0.0 , 0.0 );
+			_posList.createPosition( 0. , 0. );
 
 		return _posList;
 	}
@@ -180,14 +180,13 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	/** Set the Position Angle as String. */
 	public void setPosAngle( String pa )
 	{
+		double angle = 0. ;
 		try
 		{
-			setPosAngle( Double.parseDouble( pa ) );
+			angle = Double.parseDouble( pa ) ;
 		}
-		catch( Exception e )
-		{
-			setPosAngle( 0.0 );
-		}
+		catch( Exception e ){}
+		setPosAngle( angle ) ;
 	}
 
 	/**
@@ -292,12 +291,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
 	{
-		// "offsetPositions" (SpOffsetPosList.OFFSET_POS_LIST) is an AV attribute that occurs once in a SpIterOffset's AV table
-		// When processAvAttribute is called with "offsetPositions" as avAttr then append the entire TCS XML representation of this item to the xmlBuffer.
-		// For all other calls to processAvAttribute ignore the AV attributes
-		// "PA" (SpOffsetPosList.ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
-		// as their information has already been dealt with in the TCS XML representation of this item.
-		// The other attributes are delegated to the super class.
+		/*
+		 * "offsetPositions" (SpOffsetPosList.OFFSET_POS_LIST) is an AV attribute that occurs once in a SpIterOffset's AV table
+		 * When processAvAttribute is called with "offsetPositions" as avAttr then append the entire TCS XML representation of this item to the xmlBuffer.
+		 * For all other calls to processAvAttribute ignore the AV attributes
+		 * "PA" (SpOffsetPosList.ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
+		 * as their information has already been dealt with in the TCS XML representation of this item.
+		 * The other attributes are delegated to the super class.
+		 */
 
 		// Ignore any sky offsets
 		if( avAttr.equals( SpOffsetPosList.SKY_POS_LIST ) )
@@ -336,53 +337,41 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 
 	public void processXmlElementContent( String name , String value )
 	{
-
-		if( name.equals( "obsArea" ) || name.equals( "OFFSET" ) )
-			return;
-
-
-		if( name.equals( "PA" ) )
+		if( !name.equals( "obsArea" ) && !name.equals( "OFFSET" ) )
 		{
-			// Added by SdW - allows posAngle in target attribute to override that supplied if it exists...
-			SpInstObsComp inst = SpTreeMan.findInstrument( this );
-			if( inst != null && inst.getPosAngleDegrees() != 0.0 )
-				value = inst.getPosAngleDegreesStr();
-
-			// END
-			setPosAngle( value );
-
-			return;
+			if( name.equals( "PA" ) )
+			{
+				// Added by SdW - allows posAngle in target attribute to override that supplied if it exists...
+				SpInstObsComp inst = SpTreeMan.findInstrument( this );
+				if( inst != null && inst.getPosAngleDegrees() != 0. )
+					value = inst.getPosAngleDegreesStr();
+	
+				// END
+				setPosAngle( value );
+			}
+			else if( name.equals( "DC1" ) )
+			{
+				xOffNew = 0. ;
+				try
+				{
+					xOffNew = Double.parseDouble( value );
+				}
+				catch( Exception e ){}
+			}
+			else if( name.equals( "DC2" ) )
+			{
+				yOffNew = 0. ;
+				try
+				{
+					yOffNew = Double.parseDouble( value );
+				}
+				catch( Exception e ){}
+			}
+			else
+			{
+				super.processXmlElementContent( name , value ) ;
+			}
 		}
-
-		if( name.equals( "DC1" ) )
-		{
-			try
-			{
-				xOffNew = Double.parseDouble( value );
-			}
-			catch( Exception e )
-			{
-				xOffNew = 0.0;
-			}
-
-			return;
-		}
-
-		if( name.equals( "DC2" ) )
-		{
-			try
-			{
-				yOffNew = Double.parseDouble( value );
-			}
-			catch( Exception e )
-			{
-				yOffNew = 0.0;
-			}
-
-			return;
-		}
-
-		super.processXmlElementContent( name , value );
 	}
 
 	public void processXmlElementEnd( String name )
@@ -390,21 +379,18 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		if( name.equals( "OFFSET" ) )
 		{
 			_posList.createPosition( xOffNew , yOffNew );
-			xOffNew = 0.0;
-			yOffNew = 0.0;
-
-			return;
+			xOffNew = 0. ;
+			yOffNew = 0. ;
 		}
-
-		if( name.equals( "obsArea" ) )
+		else if( name.equals( "obsArea" ) )
 		{
 			// save() just means reset() in this context.
 			getAvEditFSM().save();
-
-			return;
 		}
-
-		super.processXmlElementEnd( name );
+		else
+		{
+			super.processXmlElementEnd( name ) ;
+		}
 	}
 
 	public String title_offset()
@@ -439,9 +425,12 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		return n;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
-
 		// If this has a microstep iterator child, we will delegate to it and not put offsets here
 		Enumeration children = this.children();
 		boolean hasMicrostepChild = false;
@@ -454,6 +443,8 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 			}
 		}
 
+		SpTranslatable translatable = null ;
+		SpTranslatable previous = null ;
 		if( hasMicrostepChild )
 		{
 			children = this.children();
@@ -461,38 +452,67 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 			{
 				SpItem child = ( SpItem )children.nextElement();
 				if( child instanceof SpTranslatable )
-					( ( SpTranslatable )child ).translate( v );
+				{
+					translatable = ( SpTranslatable )child ;
+					if( !translatable.equals( previous ) )
+					{
+						if( previous != null )
+						{
+							previous.translateEpilog( v ) ;
+							previous = translatable ;
+						}
+						translatable.translateProlog( v ) ;
+					}
+					translatable.translate( v ) ;
+				}
 			}
 		}
 		else
 		{
 			for( int i = 0 ; i < _posList.size() ; i++ )
 			{
-				if( "WFCAM".equalsIgnoreCase( SpTreeMan.findInstrument( this ).getTitle() ) )
-				{
-					// Add CASU pipeline headers
-					v.add( "title jitter " + ( i + 1 ) );
-					v.add( "-setHeader NJITTER " + _posList.size() );
-					v.add( "-setHeader JITTER_I " + ( i + 1 ) );
-					v.add( "-setHeader JITTER_X " + _posList.getPositionAt( i ).getXaxis() );
-					v.add( "-setHeader JITTER_Y " + _posList.getPositionAt( i ).getYaxis() );
-					v.add( "-setHeader NUSTEP 1" );
-					v.add( "-setHeader USTEP_I 1" );
-					v.add( "-setHeader USTEP_X 0.0" );
-					v.add( "-setHeader USTEP_Y 0.0" );
-				}
-				double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 );
-				double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 );
-				String instruction = "offset " + xAxis + " " + yAxis;
-				v.add( instruction );
+				boolean firstRun = true ;
 				children = this.children();
 				while( children.hasMoreElements() )
 				{
 					SpItem child = ( SpItem )children.nextElement();
 					if( child instanceof SpTranslatable )
-						( ( SpTranslatable )child ).translate( v );
+					{
+						translatable = ( SpTranslatable )child ;
+						if( !translatable.equals( previous ) && previous != null )
+						{
+							previous.translateEpilog( v ) ;
+							previous = translatable ;
+						}
+						if( firstRun )
+						{
+							if( "WFCAM".equalsIgnoreCase( SpTreeMan.findInstrument( this ).getTitle() ) )
+							{
+								// Add CASU pipeline headers
+								v.add( "title jitter " + ( i + 1 ) ) ;
+								v.add( "-setHeader NJITTER " + _posList.size() ) ;
+								v.add( "-setHeader JITTER_I " + ( i + 1 ) ) ;
+								v.add( "-setHeader JITTER_X " + _posList.getPositionAt( i ).getXaxis() ) ;
+								v.add( "-setHeader JITTER_Y " + _posList.getPositionAt( i ).getYaxis() ) ;
+								v.add( "-setHeader NUSTEP 1" ) ;
+								v.add( "-setHeader USTEP_I 1" ) ;
+								v.add( "-setHeader USTEP_X 0.0" ) ;
+								v.add( "-setHeader USTEP_Y 0.0" ) ;
+								double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
+								double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
+								String instruction = "offset " + xAxis + " " + yAxis ;
+								v.add( instruction ) ;
+								firstRun = false ;
+							}
+						}
+						if( !translatable.equals( previous ) )
+							translatable.translateProlog( v ) ;
+						translatable.translate( v ) ;
+					}
 				}
 			}
 		}
+		if( translatable != null )
+			translatable.translateEpilog( v ) ;
 	}
 }

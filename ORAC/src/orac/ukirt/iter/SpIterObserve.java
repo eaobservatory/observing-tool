@@ -10,6 +10,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 
@@ -95,6 +96,10 @@ public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 		return new SpIterObserveEnumeration( this );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v )
 	{
 		// Get the DR recipe component so we can add the header information

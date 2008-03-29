@@ -116,6 +116,10 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		return new SpIterDarkObsEnumeration( this );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// Get the instrument to allow us to get the config information

@@ -159,6 +159,10 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 		return spi.getDefaultBiasCoadds();
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// First of all make sure we have a suitable instrument

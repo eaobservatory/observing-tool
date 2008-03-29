@@ -26,13 +26,12 @@ import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
  */
 public class SpIterFolder extends SpItem implements SpTranslatable
 {
-
 	/**
      * Time needed by the telescope to move to another offset position.
      * 
      * 5 seconds.
      */
-	private static final double OFFSET_TIME = 5.0;
+	private static final double OFFSET_TIME = 5. ;
 
 	/**
      * Default constructor.
@@ -127,13 +126,13 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 
 		if( instrument == null )
-			return 0.0;
+			return 0. ;
 
 		Vector iterStepVector = compile();
 		Vector iterStepSubVector = null;
 		SpIterStep spIterStep = null;
 		IterationTracker iterationTracker = instrument.createIterationTracker();
-		double elapsedTime = 0.0;
+		double elapsedTime = 0. ;
 
 		int nPol = 0;
 
@@ -174,7 +173,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				{
 					if( spIterStep.item instanceof SpIterOffset )
 					{
-						if( ( OFFSET_TIME - instrument.getExposureOverhead() ) > 0.0 )
+						if( ( OFFSET_TIME - instrument.getExposureOverhead() ) > 0. )
 						{
 							// If for each OFFSET_TIME added an exposure overhead can be
 							// subtracted since this is done while the telescope moves.
@@ -211,12 +210,12 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					Object positionSwitch = positionSwitchField.get( spIterStareObs );
 					isPositionSwitch = switchingMode.equals( positionSwitch );
 
-					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[] {} );
+					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} );
 					int integrationTimePerPoint = 0;
 					if( secsPerCycle != null && secsPerCycle instanceof Integer )
 						integrationTimePerPoint = ( ( Integer )secsPerCycle ).intValue();
 
-					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[] {} );
+					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} );
 
 					if( isBeamSwitch )
 					{
@@ -224,7 +223,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					}
 					else if( isPositionSwitch )
 					{
-						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[] {} );
+						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} );
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
 							boolean sharedOff = !( ( Boolean )separateOff ).booleanValue();
@@ -233,12 +232,12 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 							else if( sharedOff || integrationTimePerPoint >= 15 )
 								totalIntegrationTime = 2.65 * offsets * integrationTimePerPoint + 80.;
 							else
-								totalIntegrationTime = 2.0 * offsets * integrationTimePerPoint + 190.;
+								totalIntegrationTime = 2. * offsets * integrationTimePerPoint + 190.;
 						}
 					}
 
 					boolean addContinuum = false;
-					Object continuum = isContinuum.invoke( spIterStareObs , new Object[] {} );
+					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} );
 					if( continuum != null && continuum instanceof Boolean )
 						addContinuum = ( ( Boolean )continuum ).booleanValue();
 					if( addContinuum )
@@ -274,23 +273,41 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			if( instrument.getClass().getName().endsWith( "SCUBA" ) )
 			{
 				// Take off some of the extra overhead
-				elapsedTime -= ( nPol - 1 ) * 40.0;
+				elapsedTime -= ( nPol - 1 ) * 40. ;
 			}
 		}
 
 		return elapsedTime;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		Enumeration e = this.children();
+		SpTranslatable translatable = null ;
+		SpTranslatable previous = null ;
 		while( e.hasMoreElements() )
 		{
 			SpItem child = ( SpItem )e.nextElement();
 			if( child instanceof SpTranslatable )
 			{
-				( ( SpTranslatable )child ).translate( v );
+				translatable = ( SpTranslatable )child ;
+				if( !translatable.equals( previous ) )
+				{
+					if( previous != null )
+					{
+						previous.translateEpilog( v ) ;
+						previous = translatable ;
+					}
+					translatable.translateProlog( v ) ;
+				}
+				translatable.translate( v ) ;
 			}
 		}
+		if( translatable != null  )
+			translatable.translateEpilog( v ) ;
 	}
 }

@@ -74,6 +74,10 @@ public class SpIterFP extends SpIterConfigObsUKIRT implements SpTranslatable
 		return iciA;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		List l = getConfigAttribs();
@@ -86,12 +90,28 @@ public class SpIterFP extends SpIterConfigObsUKIRT implements SpTranslatable
 					v.add( ( String )l.get( j ) + " " + ( String )getConfigSteps( ( String )l.get( j ) ).get( i ) );
 				// Now loop through all the child elements
 				Enumeration children = this.children();
+				SpTranslatable translatable = null ;
+				SpTranslatable previous = null ;
 				while( children.hasMoreElements() )
 				{
 					SpItem child = ( SpItem )children.nextElement();
 					if( child instanceof SpTranslatable )
-						( ( SpTranslatable )child ).translate( v );
+					{
+						translatable = ( SpTranslatable )child ;
+						if( !translatable.equals( previous ) )
+						{
+							if( previous != null )
+							{
+								previous.translateEpilog( v ) ;
+								previous = translatable ;
+							}
+							translatable.translateProlog( v ) ;
+						}
+						translatable.translate( v ) ;
+					}
 				}
+				if( translatable != null  )
+					translatable.translateEpilog( v ) ;
 			}
 		}
 	}

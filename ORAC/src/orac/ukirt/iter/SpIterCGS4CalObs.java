@@ -782,6 +782,10 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		_avTable.rm( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// First of all make sure we have a suitable instrument

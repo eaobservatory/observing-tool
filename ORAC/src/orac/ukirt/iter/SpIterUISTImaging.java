@@ -193,12 +193,28 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
 			v.add( "define_inst UIST " + xAper + yAper + zAper + lAper );
 			Enumeration e = this.children();
+			SpTranslatable translatable = null ;
+			SpTranslatable previous = null ;
 			while( e.hasMoreElements() )
 			{
 				SpItem child = ( SpItem )e.nextElement();
 				if( child instanceof SpTranslatable )
-					( ( SpTranslatable )child ).translate( v );
+				{
+					translatable = ( SpTranslatable )child ;
+					if( !translatable.equals( previous ) )
+					{
+						if( previous != null )
+						{
+							previous.translateEpilog( v ) ;
+							previous = translatable ;
+						}
+						translatable.translateProlog( v ) ;
+					}
+					translatable.translate( v ) ;
+				}
 			}
+			if( translatable != null  )
+				translatable.translateEpilog( v ) ;
 		}
 	}
 }

@@ -10,6 +10,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpType;
@@ -189,9 +190,8 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		return _avTable.getDouble( ATTR_BOX_SIZE , 5. );
 	}
 
-	public void translate( Vector v )
+	public void translateProlog( Vector v ) throws SpTranslationNotSupportedException
 	{
-		// Get the DR recipe component so we can add the header information
 		SpItem parent = parent();
 		Vector recipes = null;
 		while( parent != null )
@@ -205,15 +205,37 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			parent = parent.parent();
 		}
 
+		// Get the DR recipe component so we can add the header information
 		if( recipes != null && recipes.size() != 0 )
 		{
 			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
 			v.add( "setHeader GRPMEM " + ( recipe.getSkyInGroup() ? "T" : "F" ) );
 			v.add( "setHeader RECIPE " + recipe.getSkyRecipeName() );
 		}
+		
+		int index = Integer.parseInt( getSky().substring( 3 ) );
+		SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
-		// If we are using unnamed skys, we can defer the offset tp the SpIterOffset class;
-		// If not we need to add it here
+		v.add( "slew MAIN " + getSky() );
+		
+		if( thisGuide != null )
+			v.add( "slew GUIDE SKYGUIDE" + index );
+		
+		v.add( "-WAIT ALL" );
+	}
+	
+	public void translateEpilog( Vector v ) throws SpTranslationNotSupportedException
+	{
+		v.add( "do 1 _slew_all" ) ;
+		v.add( "-WAIT ALL" ) ;
+	}
+	
+	public void translate( Vector v )
+	{
+		/*
+		 * If we are using unnamed skys, we can defer the offset tp the SpIterOffset class;
+		 * If not we need to add it here
+		 */
 		if( "".equals( getSky() ) || "SKY".equals( getSky() ) )
 		{
 			// defer offset
@@ -235,8 +257,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 	private void translateStandard( Vector v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
-		int index = Integer.parseInt( getSky().substring( 3 ) );
-		SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
 		boolean inOffset = false;
 		SpItem parent = parent();
@@ -269,10 +289,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		{
 			// Offset to the sky position, do the observe, then offset back
 			v.add( "offset " + thisSky.getXaxis() + " " + thisSky.getYaxis() );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
 			
@@ -280,22 +296,11 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 				v.add( lastOffset );
 			else
 				v.add( "offset 0.0 0.0" );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE GUIDE" );
 		}
 		else
 		{
-			v.add( "slew MAIN " + getSky() );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-			
-			v.add( "-WAIT ALL" );
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
-			v.add( "do 1 _slew_all" );
-			v.add( "-WAIT ALL" );
 			
 			if( lastOffset != null )
 				v.add( lastOffset );
@@ -308,8 +313,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 	private void translateRandom( Vector v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
-		int index = Integer.parseInt( getSky().substring( 3 ) );
-		SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
 		// See if we are inside an offset iterator
 		boolean inOffset = false;
@@ -348,9 +351,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			// Offset to the sky position, do the observe, then offset back
 			v.add( "offset " + MathUtil.round( xAxis + randX , 2 ) + " " + MathUtil.round( yAxis + randY , 2 ) );
 			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-				
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
 			
@@ -358,24 +358,13 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 				v.add( lastOffset );
 			else
 				v.add( "offset 0.0 0.0" );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE GUIDE" );
 		}
 		else
 		{
-			v.add( "slew MAIN " + getSky() );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-			
-			v.add( "-WAIT ALL" );
 			v.add( "offset " + MathUtil.round( randX , 2 ) + " " + MathUtil.round( randY , 2 ) );
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
-			v.add( "do 1 _slew_all" );
-			v.add( "-WAIT ALL" );
-			
+		
 			if( lastOffset != null )
 				v.add( lastOffset );
 		}
@@ -386,8 +375,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 	private void translateFollowOffset( Vector v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
-		int index = Integer.parseInt( getSky().substring( 3 ) );
-		SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
 		// See if we are inside an offset iterator
 		boolean inOffset = false;
@@ -433,10 +420,6 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		{
 			// Offset to the sky position, do the observe, then offset back
 			v.add( "offset " + MathUtil.round( xAxis + lastOffX , 2 ) + " " + MathUtil.round( yAxis + lastOffY , 2 ) );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
 			
@@ -444,23 +427,12 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 				v.add( lastOffset );
 			else
 				v.add( "offset 0.0 0.0" );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE GUIDE" );
 		}
 		else
 		{
-			v.add( "slew MAIN " + getSky() );
-			
-			if( thisGuide != null )
-				v.add( "slew GUIDE SKYGUIDE" + index );
-			
-			v.add( "-WAIT ALL" );
 			v.add( "offset " + MathUtil.round( lastOffX , 2 ) + " " + MathUtil.round( lastOffY , 2 ) );
 			v.add( gemini.sp.SpTranslationConstants.skyString );
 			v.add( "do " + getCount() + " _observe" );
-			v.add( "do 1 _slew_all" );
-			v.add( "-WAIT ALL" );
 			
 			if( lastOffset != null )
 				v.add( lastOffset );

@@ -106,6 +106,10 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 		return iciA;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// Make sure we have a valid instrument
@@ -157,12 +161,28 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 
 				// translate all the cildren...
 				Enumeration e = this.children();
+				SpTranslatable translatable = null ;
+				SpTranslatable previous = null ;
 				while( e.hasMoreElements() )
 				{
 					SpItem child = ( SpItem )e.nextElement();
 					if( child instanceof SpTranslatable )
-						( ( SpTranslatable )child ).translate( v );
+					{
+						translatable = ( SpTranslatable )child ;
+						if( !translatable.equals( previous ) )
+						{
+							if( previous != null )
+							{
+								previous.translateEpilog( v ) ;
+								previous = translatable ;
+							}
+							translatable.translateProlog( v ) ;
+						}
+						translatable.translate( v ) ;
+					}
 				}
+				if( translatable != null  )
+					translatable.translateEpilog( v ) ;
 			}
 		}
 	}

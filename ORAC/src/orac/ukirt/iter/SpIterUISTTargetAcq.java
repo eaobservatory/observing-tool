@@ -549,6 +549,10 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		return dispindex;
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		SpInstUIST inst;

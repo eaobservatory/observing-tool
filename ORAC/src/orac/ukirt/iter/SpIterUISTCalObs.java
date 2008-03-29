@@ -611,6 +611,10 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , getCentralWavelength() , 0 );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		SpInstUIST inst;

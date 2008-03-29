@@ -394,6 +394,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		_avTable.rm( SpWFCAMCalConstants.ATTR_FOCUS );
 	}
 
+	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
+	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	
 	public void translate( Vector v ) throws SpTranslationNotSupportedException
 	{
 		// Get the current instrument and its config items

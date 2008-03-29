@@ -63,7 +63,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 		boolean expTimeSet = false;
 		boolean coaddsSet = false;
 
-		double expTime = 0.0;
+		double expTime = 0. ;
 		int coadds = 1;
 
 		// Look for an instrument iterator
@@ -118,7 +118,6 @@ public abstract class SpIterObserveBase extends SpIterComp
 
 		if( !expTimeSet || !coaddsSet )
 		{
-
 			// Didn't get either or both of the exposure time and coadds from
 			// an iterator, so try to get it from an instrument
 
@@ -126,9 +125,9 @@ public abstract class SpIterObserveBase extends SpIterComp
 			if( ioc == null )
 			{
 				if( !expTimeSet )
-					expTime = 0.0;
+					expTime = 0. ;
 				if( !coaddsSet )
-					coadds = 0;
+					coadds = 0 ;
 			}
 			else
 			{
