@@ -782,11 +782,11 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		_avTable.rm( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// First of all make sure we have a suitable instrument
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
@@ -873,9 +873,9 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		// Finally. move the default config (labelled _1) down
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			if( ( ( String )v.get( i ) ).matches( "loadConfig .*_1" ) )
+			String firstConfig = v.get( i );
+			if( firstConfig.matches( "loadConfig .*_1" ) )
 			{
-				String firstConfig = ( String )v.get( i );
 				v.remove( i );
 				v.add( firstConfig );
 				break;

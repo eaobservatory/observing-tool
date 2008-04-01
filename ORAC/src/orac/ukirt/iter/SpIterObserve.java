@@ -96,11 +96,11 @@ public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 		return new SpIterObserveEnumeration( this );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v )
+	public void translate( Vector<String> v )
 	{
 		// Get the DR recipe component so we can add the header information
 		SpItem parent = parent();

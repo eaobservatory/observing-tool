@@ -190,7 +190,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		return _avTable.getDouble( ATTR_BOX_SIZE , 5. );
 	}
 
-	public void translateProlog( Vector v ) throws SpTranslationNotSupportedException
+	public void translateProlog( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpItem parent = parent();
 		Vector recipes = null;
@@ -224,13 +224,13 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		v.add( "-WAIT ALL" );
 	}
 	
-	public void translateEpilog( Vector v ) throws SpTranslationNotSupportedException
+	public void translateEpilog( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		v.add( "do 1 _slew_all" ) ;
 		v.add( "-WAIT ALL" ) ;
 	}
 	
-	public void translate( Vector v )
+	public void translate( Vector<String> v )
 	{
 		/*
 		 * If we are using unnamed skys, we can defer the offset tp the SpIterOffset class;
@@ -254,7 +254,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		}
 	}
 
-	private void translateStandard( Vector v )
+	private void translateStandard( Vector<String> v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
 
@@ -275,9 +275,10 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		{
 			for( int i = v.size() - 1 ; i >= 0 ; i-- )
 			{
-				if( ( ( String )v.get( i ) ).startsWith( "offset" ) )
+				String candidate = v.get( i ) ;
+				if( candidate.startsWith( "offset" ) )
 				{
-					lastOffset = ( String )v.get( i );
+					lastOffset = candidate ;
 					break;
 				}
 			}
@@ -310,7 +311,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			v.add( "ADDOFFSET" );
 	}
 
-	private void translateRandom( Vector v )
+	private void translateRandom( Vector<String> v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
 
@@ -331,9 +332,10 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		{
 			for( int i = v.size() - 1 ; i >= 0 ; i-- )
 			{
-				if( ( ( String )v.get( i ) ).startsWith( "offset" ) )
+				String candidate = v.get( i ) ;
+				if( candidate.startsWith( "offset" ) )
 				{
-					lastOffset = ( String )v.get( i );
+					lastOffset = candidate ;
 					break;
 				}
 			}
@@ -372,7 +374,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			v.add( "ADDOFFSET" );
 	}
 
-	private void translateFollowOffset( Vector v )
+	private void translateFollowOffset( Vector<String> v )
 	{
 		SpTelescopePos thisSky = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
 
@@ -394,9 +396,9 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		{
 			for( int i = v.size() - 1 ; i >= 0 ; i-- )
 			{
-				if( ( ( String )v.get( i ) ).startsWith( "offset" ) )
+				if( v.get( i ).startsWith( "offset" ) )
 				{
-					lastOffset = ( String )v.get( i );
+					lastOffset = v.get( i );
 					break;
 				}
 			}

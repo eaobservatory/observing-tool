@@ -97,11 +97,11 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 		super.addConfigItem( ici , size );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		String confDir = System.getProperty( "CONF_PATH" );
 		if( confDir == null || confDir.equals( "" ) || !( new File( confDir ).exists() ) )

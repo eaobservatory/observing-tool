@@ -15,7 +15,6 @@ import orac.util.LookUpTable;
 import gemini.util.ConfigWriter;
 
 import gemini.sp.SpFactory;
-import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
@@ -271,7 +270,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		return iciA;
 	}
 
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// First get the available items and set the defaults after making sure an instrument of the right type is available
 		SpInstUFTI inst;
@@ -343,28 +342,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper );
 
 			Enumeration e = this.children();
-			SpTranslatable translatable = null ;
-			SpTranslatable previous = null ;
-			while( e.hasMoreElements() )
-			{
-				SpItem child = ( SpItem )e.nextElement();
-				if( child instanceof SpTranslatable )
-				{
-					translatable = ( SpTranslatable )child ;
-					if( !translatable.equals( previous ) )
-					{
-						if( previous != null )
-						{
-							previous.translateEpilog( v ) ;
-							previous = translatable ;
-						}
-						translatable.translateProlog( v ) ;
-					}
-					translatable.translate( v ) ;
-				}
-			}
-			if( translatable != null  )
-				translatable.translateEpilog( v ) ;
+			gemini.util.TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }

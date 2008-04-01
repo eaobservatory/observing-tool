@@ -425,11 +425,11 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		return n;
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// If this has a microstep iterator child, we will delegate to it and not put offsets here
 		Enumeration children = this.children();

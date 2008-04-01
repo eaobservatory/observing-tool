@@ -326,11 +326,11 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		return null;
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		v.clear();
 
@@ -536,28 +536,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		try
 		{
 			Enumeration e = this.children();
-			SpTranslatable translatable = null ;
-			SpTranslatable previous = null ;
-			while( e.hasMoreElements() )
-			{
-				SpItem child = ( SpItem )e.nextElement();
-				if( child instanceof SpTranslatable )
-				{
-					translatable = ( SpTranslatable )child ;
-					if( !translatable.equals( previous ) )
-					{
-						if( previous != null )
-						{
-							previous.translateEpilog( v ) ;
-							previous = translatable ;
-						}
-						translatable.translateProlog( v ) ;
-					}
-					translatable.translate( v ) ;
-				}
-			}
-			if( translatable != null  )
-				translatable.translateEpilog( v ) ;
+			gemini.util.TranslationUtils.recurse( e , v ) ;
 		}
 		catch( SpTranslationNotSupportedException e )
 		{
@@ -591,7 +570,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		{
 			FileWriter fw = new FileWriter( confWriter.getExecName() );
 			for( int i = 0 ; i < v.size() ; i++ )
-				fw.write( ( String )v.get( i ) + "\n" );
+				fw.write( v.get( i ) + "\n" );
 
 			fw.close();
 		}
@@ -606,7 +585,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 	}
 
-	private void correctOrder( Vector v )
+	private void correctOrder( Vector<String> v )
 	{
 		int size = v.size();
 		int setObjectIndex = size;
@@ -630,35 +609,30 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		for( int index = 0 ; index < size ; index++ )
 		{
-			Object currentEntry = v.get( index );
+			currentString = v.get( index );
 
-            // the following *should* always be true but we can never assume it *will* be
-			if( currentEntry instanceof String )
+			if( currentString.endsWith( "_guide_on" ) )
 			{
-				currentString = ( String )currentEntry;
-				if( currentString.endsWith( "_guide_on" ) )
+				if( !seenFirstGuideOn )
 				{
-					if( !seenFirstGuideOn )
-					{
-						firstGuideOnIndex = index;
-						seenFirstGuideOn = true;
-					}
-					if( seenFirstOffset )
-						break;
-					continue;
+					firstGuideOnIndex = index;
+					seenFirstGuideOn = true;
 				}
-				if( currentString.startsWith( "offset" ) )
+				if( seenFirstOffset )
+					break;
+				continue;
+			}
+			if( currentString.startsWith( "offset" ) )
+			{
+				if( !seenFirstOffset )
 				{
-					if( !seenFirstOffset )
-					{
-						firstOffsetIndex = index;
-						seenFirstOffset = true;
-					}
-					if( seenFirstGuideOn )
-						break;
-					continue;
+					firstOffsetIndex = index;
+					seenFirstOffset = true;
 				}
-			} // close of if instance of string
+				if( seenFirstGuideOn )
+					break;
+				continue;
+			}
 		} // close of for loop
 
 		if( !seenFirstOffset )
@@ -675,7 +649,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		if( !objectBeforeGuide )
 		{
 			// we know this time round that it is a string
-			currentString = ( String )v.get( firstGuideOnIndex );
+			currentString = v.get( firstGuideOnIndex );
 			v.insertElementAt( currentString , setObjectIndex + 1 );
 			v.remove( firstGuideOnIndex );
 		}
@@ -686,17 +660,16 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		if( !objectBeforeOffset )
 		{
 			// we know this time round that it is a string
-			currentString = ( String )v.get( firstOffsetIndex );
+			currentString = v.get( firstOffsetIndex );
 			v.insertElementAt( currentString , firstGuideOnIndex + 1 );
 			v.remove( firstOffsetIndex );
 		}
 
 		if( v.size() != size )
 			throw new RuntimeException( "Size mismatch error" );
-
 	}
 
-	private void tidyNOffsets( Vector v , SpInstObsComp inst )
+	private void tidyNOffsets( Vector<String> v , SpInstObsComp inst )
 	{
 		int nOffsets = 0;
 		// Get all the child offsets
@@ -719,18 +692,18 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			}
 		}
 
-		// Now go through adding to nOffsets for eacg ADDOFFEST instruction.
-        // These
-		// are added in the case wherer an SpIterObserveBase is not inside an
-        // offset.
-		// We only need to add them to the first breakpoint
+		/*
+		 * Now go through adding to nOffsets for eacg ADDOFFEST instruction.
+		 * These are added in the case wherer an SpIterObserveBase is not inside an offset.
+         * We only need to add them to the first breakpoint
+		 */
 		boolean atBreakPoint = false;
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).equals( "breakPoint" ) )
+			if( v.get( i ).equals( "breakPoint" ) )
 				atBreakPoint = true;
 
-			if( ( ( String )v.get( i ) ).equals( "ADDOFFSET" ) )
+			if( v.get( i ).equals( "ADDOFFSET" ) )
 			{
 				if( !atBreakPoint )
 					nOffsets++ ;
@@ -743,7 +716,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		// Now add to the sequence after the startGroup
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).equalsIgnoreCase( "startGroup" ) )
+			if( v.get( i ).equalsIgnoreCase( "startGroup" ) )
 			{
 				v.add( i + 1 , "-setHeader NOFFSETS " + nOffsets );
 				break;
@@ -751,7 +724,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 	}
 
-	private void tidyDuplicates( Vector v )
+	private void tidyDuplicates( Vector<String> v )
 	{
 		// Remove redundant loadConfigs, offsets, set commands or any case where two sequential lines are identical
 		String lastLoadConfig = "";
@@ -760,7 +733,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		String lastDRRECIPE = "";
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).equals( ( String )v.get( i - 1 ) ) )
+			if( v.get( i ).equals( v.get( i - 1 ) ) )
 			{
 				v.remove( i - 1 );
 				i-- ;
@@ -769,48 +742,48 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).startsWith( "loadConfig" ) )
+			if( v.get( i ).startsWith( "loadConfig" ) )
 			{
-				if( lastLoadConfig.equals( ( String )v.get( i ) ) )
+				if( lastLoadConfig.equals( v.get( i ) ) )
 				{
 					v.remove( i );
 					i-- ;
 				}
-				else if( ( ( String )v.get( i + 1 ) ).startsWith( "loadConfig" ) )
+				else if( v.get( i + 1 ).startsWith( "loadConfig" ) )
 				{
 					// This can happen as we move the default loadConfig down but it is never used
 					v.remove( i );
-					lastLoadConfig = ( String )v.get( i );
+					lastLoadConfig = v.get( i );
 				}
 				else
 				{
-					lastLoadConfig = ( String )v.get( i );
+					lastLoadConfig = v.get( i );
 				}
 			}
 		}
 
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).startsWith( "offset" ) )
+			if( v.get( i ).startsWith( "offset" ) )
 			{
-				if( lastOffset.equals( ( String )v.get( i ) ) )
+				if( lastOffset.equals( v.get( i ) ) )
 				{
 					v.remove( i );
 					i-- ;
 				}
 				else
 				{
-					lastOffset = ( String )v.get( i );
+					lastOffset = v.get( i );
 				}
 			}
 		}
 
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).startsWith( "setHeader GRPMEM " ) )
+			if( v.get( i ).startsWith( "setHeader GRPMEM " ) )
 			{
-				String nextGrpMem = ( String )v.get( i );
-				String nextRecipe = ( String )v.get( i + 1 );
+				String nextGrpMem = v.get( i );
+				String nextRecipe = v.get( i + 1 );
 				if( nextRecipe.equals( lastDRRECIPE ) && nextGrpMem.equals( lastGRPMEM ) )
 				{
 					// Remove the two entries
@@ -865,44 +838,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 	}
 
-	private void tidyDRRecipe( Vector v )
-	{
-		String recipeString1 = "";
-		String recipeString2 = "";
-		String recipeString3 = "";
-
-		for( int i = 0 ; i < v.size() ; i++ )
-		{
-			if( ( ( String )v.get( i ) ).startsWith( "setHeader GRPMEM" ) )
-			{
-				if( ( ( String )v.get( i ) ).equals( recipeString1 ) && ( ( String )v.get( i + 1 ) ).equals( recipeString2 ) && ( ( String )v.get( i + 2 ) ).equals( recipeString3 ) )
-				{
-					// We can delete the current entry since it is the same as
-                    // the last
-					v.remove( i + 2 );
-					v.remove( i + 1 );
-					v.remove( i );
-				}
-				else
-				{
-					// Replace the strings...
-					try
-					{
-						recipeString1 = ( String )v.get( i );
-						recipeString2 = ( String )v.get( i + 1 );
-						recipeString3 = ( String )v.get( i + 2 );
-					}
-					catch( Exception e )
-					{
-						// We have probably overflowed v.size, so just break out
-						break;
-					}
-				}
-			}
-		}
-	}
-
-	private void tidyInstDefns( Vector v )
+	private void tidyInstDefns( Vector<String> v )
 	{
 		// To make this robust, rather than just comparing strings, we will compare the numerical value of the offsets
 		double xAper = 0. ;
@@ -911,9 +847,9 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		double lAper = 0. ;
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			if( ( ( String )v.get( i ) ).startsWith( "define_inst" ) )
+			if( v.get( i ).startsWith( "define_inst" ) )
 			{
-				String[] apers = ( ( String )v.get( i ) ).split( "\\s+" );
+				String[] apers = v.get( i ).split( "\\s+" );
 				double thisX = Double.parseDouble( apers[ 2 ] );
 				double thisY = Double.parseDouble( apers[ 3 ] );
 				double thisZ = Double.parseDouble( apers[ 4 ] );
@@ -934,7 +870,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 	}
 
-	private void addBreak( Vector v )
+	private void addBreak( Vector<String> v )
 	{
 		int objectIndex = v.indexOf( objectString );
 		int skyIndex = v.indexOf( skyString );
@@ -942,7 +878,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		int offsetIndex;
 		for( offsetIndex = 0 ; offsetIndex < v.size() ; offsetIndex++ )
 		{
-			if( ( ( String )v.get( offsetIndex ) ).startsWith( "offset" ) )
+			if( v.get( offsetIndex ).startsWith( "offset" ) )
 			{
 				offsetFound = true;
 				break;
@@ -957,7 +893,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		String defaultConfig = "";
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			defaultConfig = ( String )v.get( i );
+			defaultConfig = v.get( i );
 			if( defaultConfig.matches( defaultConfigPattern ) )
 				break;
 		}
@@ -982,7 +918,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
                     // command - if any
 					for( int i = skyIndex ; i >= 0 ; i-- )
 					{
-						if( ( ( String )v.get( i ) ).startsWith( "slew MAIN" ) || ( ( String )v.get( i ) ).startsWith( "offset" ) )
+						if( v.get( i ).startsWith( "slew MAIN" ) || v.get( i ).startsWith( "offset" ) )
 						{
 							v.add( i - 1 , breakString );
 							v.add( i - 1 , objectString );
@@ -1004,12 +940,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		String observePattern = "do \\d+ _observe";
 		for( int i = objectIndex ; i >= 0 ; i-- )
 		{
-			if( ( ( String )v.get( i ) ).startsWith( "loadConfig" ) )
+			if( v.get( i ).startsWith( "loadConfig" ) )
 			{
 				// No need to do anything
 				break;
 			}
-			else if( ( ( String )v.get( i ) ).matches( observePattern ) )
+			else if( v.get( i ).matches( observePattern ) )
 			{
 				// We need to put the default config before the set OBJECT
 				v.add( objectIndex , defaultConfig );
@@ -1018,11 +954,11 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 	}
 
-	private void addGuideCommands( Vector v )
+	private void addGuideCommands( Vector<String> v )
 	{
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			String s = ( String )v.get( i );
+			String s = v.get( i );
 			if( s.equals( darkString ) || s.equals( biasString ) || s.equals( focusString ) || s.equals( domeString ) )
 			{
 				// Add a call to the _guide_off macro before this command

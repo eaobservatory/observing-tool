@@ -4,12 +4,11 @@ import java.util.Vector;
 
 public interface SpTranslatable
 {
-
 	/**
      * Classes that implement this method must provide a translate method. Used
      * to convert XML into sequences
      */
-	public void translate( Vector sequence ) throws SpTranslationNotSupportedException ;
+	public void translate( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
 	
 	/**
 	 * Called prior to main translation for iterators etc.
@@ -19,7 +18,7 @@ public interface SpTranslatable
 	 * @param sequence
 	 * @throws SpTranslationNotSupportedException
 	 */
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException ;
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
 	
 	/**
 	 * Called after main translation for iterators etc.
@@ -29,6 +28,6 @@ public interface SpTranslatable
 	 * @param sequence
 	 * @throws SpTranslationNotSupportedException
 	 */
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException ;
-
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
+	
 }

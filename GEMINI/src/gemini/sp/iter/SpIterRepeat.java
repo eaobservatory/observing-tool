@@ -103,14 +103,14 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
 		return new SpIterRepeatEnumeration( this );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		Enumeration e = this.children() ;
-		Vector childVector = new Vector() ;
+		Vector<String> childVector = new Vector<String>() ;
 		SpTranslatable translatable = null ;
 		SpTranslatable previous = null ;
 		while( e.hasMoreElements() )

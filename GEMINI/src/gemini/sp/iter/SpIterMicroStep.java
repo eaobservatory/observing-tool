@@ -159,7 +159,7 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 		return nOffs;
 	}
 
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		/*
 		 * In order to get the microstep pattern, we need to get the current
@@ -278,7 +278,7 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 			translatable.translateEpilog( v ) ;
 	}
 	
-	private void addInOffsetHeaders( Vector v , int i , int j  , double xOff , double yOff , double[][] microSteps , SpIterOffset parent )
+	private void addInOffsetHeaders( Vector<String> v , int i , int j  , double xOff , double yOff , double[][] microSteps , SpIterOffset parent )
 	{
 		v.add( "title jitter " + ( i + 1 ) + ", ustep " + ( j + 1 ) );
 		v.add( "-setHeader NJITTER " + parent.getPosList().size() );
@@ -292,7 +292,7 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 		v.add( "offset " + MathUtil.round( xOff + microSteps[ j ][ 0 ] , 3 ) + " " + MathUtil.round( yOff + microSteps[ j ][ 1 ] , 3 ) );
 	}
 	
-	private void addNotInOffsetHeaders( Vector v , int j , double j0 , double j1 , double[][] microSteps )
+	private void addNotInOffsetHeaders( Vector<String> v , int j , double j0 , double j1 , double[][] microSteps )
 	{
 		v.add( "title jitter 1, ustep " + ( j + 1 ) );
 		v.add( "-setHeader NJITTER 1" );

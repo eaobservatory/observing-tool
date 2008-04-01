@@ -116,11 +116,11 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		return new SpIterDarkObsEnumeration( this );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// Get the instrument to allow us to get the config information
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
@@ -212,7 +212,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		String configPattern = "loadConfig .*_1";
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			String line = ( String )v.get( i );
+			String line = v.get( i );
 			if( line.matches( configPattern ) )
 			{
 				v.removeElementAt( i );

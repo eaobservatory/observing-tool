@@ -12,7 +12,6 @@ package orac.ukirt.iter;
 import orac.ukirt.inst.SpInstUIST;
 
 import gemini.sp.SpFactory;
-import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
@@ -182,7 +181,7 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 		_avTable.set( "exposureTimeIter" , set , index );
 	}
 
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpInstUIST inst;
 		try
@@ -222,28 +221,7 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
 			v.add( "define_inst UIST" + xAper + yAper + zAper + lAper );
 			Enumeration e = this.children();
-			SpTranslatable translatable = null ;
-			SpTranslatable previous = null ;
-			while( e.hasMoreElements() )
-			{
-				SpItem child = ( SpItem )e.nextElement();
-				if( child instanceof SpTranslatable )
-				{
-					translatable = ( SpTranslatable )child ;
-					if( !translatable.equals( previous ) )
-					{
-						if( previous != null )
-						{
-							previous.translateEpilog( v ) ;
-							previous = translatable ;
-						}
-						translatable.translateProlog( v ) ;
-					}
-					translatable.translate( v ) ;
-				}
-			}
-			if( translatable != null  )
-				translatable.translateEpilog( v ) ;
+			gemini.util.TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }

@@ -611,11 +611,11 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , getCentralWavelength() , 0 );
 	}
 
-	public void translateProlog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translateEpilog( Vector sequence ) throws SpTranslationNotSupportedException{}
+	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
 	
-	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpInstUIST inst;
 		try
@@ -706,9 +706,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		// Finally move the default config file, numbered _1 down
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			if( ( ( String )v.get( i ) ).matches( "loadConfig .*_1" ) )
+			String defCon = v.get( i );
+			if( defCon.matches( "loadConfig .*_1" ) )
 			{
-				String defCon = ( String )v.get( i );
 				v.remove( i );
 				v.add( defCon );
 				break;
