@@ -332,8 +332,11 @@ public class OT extends JFrame
 	 */
 	public static void exit()
 	{
-		// If the user wants to be prompted before closing when there are edited
-		// programs, look for edited programs and prompt
+		/*
+		 * If the user wants to be prompted before closing 
+		 * when there are edited programs, 
+		 * look for edited programs and prompt
+		 */
 		if( desktop != null )
 		{
 			JInternalFrame[] ar = desktop.getAllFrames();
@@ -374,8 +377,10 @@ public class OT extends JFrame
 	public static void showSplashScreen()
 	{
 		// changed my M.Folger@roe.ac.uk
-		// As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT
-		// called) the if condition would prevent _splash to be shown a second time.
+		/*
+		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
+		 * the if condition would prevent _splash to be shown a second time.
+		 */
 		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" );
 		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + "welcome.txt" );
 		if( url == null )
@@ -464,8 +469,10 @@ public class OT extends JFrame
 		}
 		catch( Exception e )
 		{
-			// An exception is thrown if no background image is found in images/background.gif. Ignore.
-			// Background has been set to light blue anyway.
+			/*
+			 * An exception is thrown if no background image is found in images/background.gif. 
+			 * Ignore.Background has been set to light blue anyway.
+			 */
 		}
 	}
 
@@ -527,20 +534,21 @@ public class OT extends JFrame
 	{
 		boolean internalFrames = ( File.separatorChar == '\\' );
 		boolean ok = true;
-		Vector filenames = null;
+		Vector<String> filenames = null;
 
 		// Check which version of java we are running
 		String jVersion = System.getProperty( "java.version" );
-		// Just get the first 3 characters, which will be n.m
-		String sVersion = jVersion.substring( 0 , 3 );
+		String sVersion = null ;
+		// Just get the first 3 characters, which should be n.m
+		if( jVersion.matches( "\\d\\.\\d.*" ) )
+			sVersion = jVersion.substring( 0 , 3 ) ;
 		// Convert this to a float
 		try
 		{
 			Float jv = new Float( sVersion );
-			int iValue = ( int )( jv.floatValue() * 10 );
-			if( iValue < 14 )
+			if( jv.floatValue() < 1.5 )
 			{
-				String message = "The Observing Tool requires at least java 1.4 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade";
+				String message = "The Observing Tool requires at least java 1.5 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade";
 				JOptionPane.showMessageDialog( null , message , "OT does not support current version of Java" , JOptionPane.ERROR_MESSAGE );
 				System.exit( 0 );
 			}
@@ -578,7 +586,7 @@ public class OT extends JFrame
 				if( filename.toLowerCase().endsWith( ".xml" ) )
 				{
 					if( filenames == null )
-						filenames = new Vector();
+						filenames = new Vector<String>();
 
 					filenames.add( filename );
 				}
@@ -609,9 +617,11 @@ public class OT extends JFrame
 		}
 		else
 		{
-			// No internal frames:
-			// Create a small frame to contain the menus that would otherwise be in the big frame containing the
-			// desktop with the internal frames. (MFO, 17 August 2001)
+			/*
+			 * No internal frames:
+			 * Create a small frame to contain the menus that would otherwise be in the big frame containing the
+			 * desktop with the internal frames. (MFO, 17 August 2001)
+			 */
 			JFrame menuFrame = new JFrame( "OT" );
 			menuFrame.setJMenuBar( new OTMenuBar( new OT( false ) ) );
 
@@ -624,8 +634,10 @@ public class OT extends JFrame
 			}
 			catch( Exception e )
 			{
-				// An exception is thrown if no background image is found in images/background.gif. Ignore.
-				// Background has been set to light blue anyway.
+				/*
+				 * An exception is thrown if no background image is found in images/background.gif. 
+				 * Ignore. Background has been set to light blue anyway.
+				 */
 			}
 
 			menuFrame.setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
@@ -644,7 +656,7 @@ public class OT extends JFrame
 		if( filenames != null )
 		{
 			while( filenames.size() != 0 )
-				OtFileIO.open( ( String )filenames.remove( 0 ) );
+				OtFileIO.open( filenames.remove( 0 ) );
 		}
 		else
 		{
