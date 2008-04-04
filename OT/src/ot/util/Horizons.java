@@ -51,8 +51,8 @@ public class Horizons
 			System.exit( -1 );
 		String inputFileName = args[ 0 ];
 
-		if( inputFileName.matches( "~" ) )
-			inputFileName.replaceFirst( "~" , System.getProperty( "user.home" ) );
+		if( inputFileName.startsWith( "~" ) )
+			inputFileName = inputFileName.replaceFirst( "~" , System.getProperty( "user.home" ) );
 
 		Horizons horizon = Horizons.getInstance();
 		TreeMap treeMap = null;
