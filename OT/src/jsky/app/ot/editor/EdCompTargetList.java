@@ -1787,124 +1787,163 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 
 			if( treeMap.isEmpty() )
 			{
-				DialogUtil.error( null , "No result returned" );
-				return;
-			}
-
-			Object tmp = treeMap.get( "NAME" );
-			String value = "";
-			if( tmp != null && tmp instanceof String )
-			{
-				value = ( String )tmp;
-				if( value.equals( "" ) )
-				{
-					if( !searchHorizons( query ) )
-						DialogUtil.error( null , "No result returned" );
-					return;
-				}
-				_w.orbitalElementResolvedNameLabel.setText( value );
+				_w.orbitalElementResolvedNameLabel.setText( "" ) ;
+				if( !searchHorizons( query ) )
+					DialogUtil.error( null , "No result returned" ) ;
 			}
 			else
 			{
-				if( !searchHorizons( query ) )
-					DialogUtil.error( null , "No result returned" );
-				return;
-
+				Object tmp = treeMap.get( "NAME" ) ;
+				String value = "" ;
+				
+				if( tmp != null && tmp instanceof String )
+					value = ( String )tmp ;
+				
+				if( !value.trim().equals( "" ) )
+				{
+					_w.orbitalElementResolvedNameLabel.setText( value ) ;
+					
+					tmp = treeMap.get( "EPOCH" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemEpoch( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemEpoch( null ) ;
+					}
+		
+					tmp = treeMap.get( "TP" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemEpochPerih( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemEpochPerih( null ) ;
+					}
+		
+					tmp = treeMap.get( "IN" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemInclination( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemInclination( null ) ;
+					}
+		
+					tmp = treeMap.get( "W" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemPerihelion( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemPerihelion( null ) ;
+					}
+		
+					tmp = treeMap.get( "EC" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemE( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemE( null ) ;
+					}
+		
+					tmp = treeMap.get( "OM" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemAnode( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemAnode( null ) ;
+					}
+		
+					tmp = treeMap.get( "QR" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemAorQ( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemAorQ( null ) ;
+					}
+		
+					tmp = treeMap.get( "MA" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemLorM( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemLorM( null ) ;
+					}
+		
+					tmp = treeMap.get( "N" ) ;
+					if( tmp != null && tmp instanceof Double )
+					{
+						value = tmp.toString() ;
+						_curPos.setConicSystemDailyMotion( value ) ;
+					}
+					else
+					{
+						_curPos.setConicSystemDailyMotion( null ) ;
+					}
+		
+					_updateTargetSystemPane( _curPos );
+				
+				}
+				else
+				{
+					_w.orbitalElementResolvedNameLabel.setText( "" ) ;
+					if( !searchHorizons( query ) )
+						DialogUtil.error( null , "No result returned" ) ;
+				}
 			}
-
-			tmp = treeMap.get( "EPOCH" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemEpoch( value );
-			}
-
-			tmp = treeMap.get( "TP" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemEpochPerih( value );
-			}
-
-			tmp = treeMap.get( "IN" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemInclination( value );
-			}
-
-			tmp = treeMap.get( "W" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemPerihelion( value );
-			}
-
-			tmp = treeMap.get( "EC" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemE( value );
-			}
-
-			tmp = treeMap.get( "OM" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemAnode( value );
-			}
-
-			tmp = treeMap.get( "QR" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemAorQ( value );
-			}
-
-			tmp = treeMap.get( "MA" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemLorM( value );
-			}
-
-			tmp = treeMap.get( "N" );
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString();
-				_curPos.setConicSystemDailyMotion( value );
-			}
-
-			_updateTargetSystemPane( _curPos );
-
 		}
 	}
 
 	public boolean searchHorizons( String name )
 	{
+		boolean success = true  ;
 		_resolving = true;
 		_w.resolveOrbitalElementButton.setText( "Searching ..." );
 		Horizons horizons = Horizons.getInstance();
-		Vector results = horizons.searchName( name );
+		Vector<String> results = horizons.searchName( name );
 		_resolving = false;
 		_w.resolveOrbitalElementButton.setText( "Resolve Name" );
 
-		if( results.size() == 0 )
-			return false;
-
-		StringBuffer buffer = new StringBuffer();
-		while( results.size() != 0 )
+		if( results.size() != 0 )
 		{
-			Object tmp = results.remove( 0 );
-			if( tmp instanceof String )
+			StringBuffer buffer = new StringBuffer();
+			while( results.size() != 0 )
 			{
-				String line = ( String )tmp;
-				if( line.trim().matches( "^No matches found.$" ) )
-					return false;
-				buffer.append( tmp.toString() + "\n" );
+				String line = results.remove( 0 );
+				if( !line.trim().matches( "^No matches found.$" ) )
+				{
+					buffer.append( line + "\n" ) ;
+				}
+				else
+				{
+					success = false  ;
+					break ;
+				}
 			}
+			if( success )
+				new ReportBox( buffer.toString() , "Search results for " + name );
 		}
-		new ReportBox( buffer.toString() , "Search results for " + name );
-		return true;
+		return success ;
 	}
 }

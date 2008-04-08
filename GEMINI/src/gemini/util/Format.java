@@ -623,7 +623,7 @@ public class Format
 		if( d > 0x7FFFFFFFFFFFFFFFL )
 			return exp_format( d );
 
-		long l = ( long )( precision == 0 ? d + 0.5 : d );
+		long l = ( long )( precision == 0 ? d + .5 : d );
 		f = f + l;
 
 		double fr = d - l; // fractional part
@@ -646,7 +646,7 @@ public class Format
 				factor *= 10;
 				leading_zeroes = leading_zeroes + "0";
 			}
-			long l = ( long )( factor * fr + 0.5 );
+			long l = ( long )( factor * fr + .5 );
 
 			z = leading_zeroes + l;
 			z = z.substring( z.length() - precision , z.length() );
@@ -731,7 +731,7 @@ public class Format
      */
 	public static double toDouble( String doubleStr )
 	{
-		double result = 0.0;
+		double result = 0. ;
 
 		try
 		{

@@ -47,7 +47,6 @@ import java.util.ArrayList;
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
-
 	/**
      * System based on two coordinates.
      * 
@@ -369,8 +368,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 		{
 			// Create a new (blank) position and a new attribute
 			_name = "";
-			_xaxis = 0.0;
-			_yaxis = 0.0;
+			_xaxis = 0. ;
+			_yaxis = 0. ;
 			_coordSys = CoordSys.FK5;
 			_isValid = false;
 
@@ -1157,7 +1156,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemEpochPerih()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_EPOCH_PERIH , 0.0 );
+		return _avTab.getDouble( _tag , CONIC_SYSTEM_EPOCH_PERIH , 0. );
 	}
 
 	/**
@@ -1199,7 +1198,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public double getConicSystemInclination()
 	{
-		return _avTab.getDouble( _tag , CONIC_SYSTEM_INCLINATION , 0. );
+		double returnable = _avTab.getDouble( _tag , CONIC_SYSTEM_INCLINATION , 0. ) ;
+		return returnable ;
 	}
 
 	/**
@@ -1209,7 +1209,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemInclination( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_INCLINATION );
+		if( value == null || value.trim().equals( "" ) )
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_INCLINATION ) ;
+		else if( value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_INCLINATION ) ;
 	}
 
 	/**
@@ -1229,7 +1232,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemAnode( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_ANODE );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_ANODE ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_ANODE ) ;
 	}
 
 	/**
@@ -1249,7 +1255,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemPerihelion( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_PERIHELION );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_PERIHELION ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_PERIHELION ) ;
 	}
 
 	/**
@@ -1269,7 +1278,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemAorQ( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_AORQ );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_AORQ ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_AORQ ) ;
 	}
 
 	/**
@@ -1289,7 +1301,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemE( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_E );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_E ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_E ) ;
 	}
 
 	/**
@@ -1309,7 +1324,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemLorM( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_LORM );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_LORM ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_LORM ) ;
 	}
 
 	/**
@@ -1329,7 +1347,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public void setConicSystemDailyMotion( String value )
 	{
-		_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_DM );
+		if( value != null && value.matches( numberRegex ) )
+			_avTab.set( _tag , Format.toDouble( value ) , CONIC_SYSTEM_DM ) ;
+		else
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_DM ) ;
 	}
 
 	/**
@@ -1496,7 +1517,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public void setBaseYOffset( double offset )
 	{
-		if( offset == 0.0 )
+		if( offset == 0. )
 		{
 			String xoff = _avTab.get( _tag , BASE_XOFF );
 			if( xoff == null || Double.parseDouble( xoff ) == 0. )

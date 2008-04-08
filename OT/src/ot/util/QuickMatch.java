@@ -2,36 +2,50 @@
 /*                                                              */
 /*                 Joint Astronomy Centre, Hilo                 */
 /*                   Copyright (c) PPARC 2006                   */
+/*                   Copyright (c) STFC 2008                    */
 /*                                                              */
 /*==============================================================*/
 
 /* Designed to be used in conjunction with ot.util.Horizons */
 
-package ot.util;
+package ot.util ;
 
-import java.util.Vector;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.TreeMap ;
+import java.util.regex.Pattern ;
+import java.util.regex.Matcher ;
 
-import gemini.util.MJDUtils;
+import gemini.util.MJDUtils ;
 
 public class QuickMatch
 {
-	Matcher matcher;
-	static Pattern pattern;
 	static final String word = "[a-zA-Z]";
-	static final String keyValueRegex = "\\s*" + word + "+(\\s|\\-)?" + word + "*=\\s*";
+	static final String keyValueRegex = "\\s*" + word + "+(\\s|\\-)?" + word + "*=\\s*" ;
 	static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*";
-	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*";
+	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d+\\.?\\d*";
 	static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}";
 	static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}";
 	static final String nameRegex = "^\\s*JPL/HORIZONS\\s+.+\\s+" + nameDateRegex + "\\s+" + nameTimeRegex + "\\s*$";
+	static final String numberRegex = "\\d*\\.?\\d+((D|E)\\d+)?" ;
 	private static QuickMatch quickmatch;
+
+	Matcher keyValueMatcher ;
+	static Pattern keyValuePattern ;
+	
+	static Pattern numberPattern ;
+	static Matcher numberMatcher ;
+	
+	static Pattern epochPattern ;
+	static Matcher epochMatcher ;
+	
+	static Pattern tpPattern ;
+	static Matcher tpMatcher ;
 
 	static
 	{
-		pattern = Pattern.compile( keyValueRegex );
+		keyValuePattern = Pattern.compile( keyValueRegex );
+		numberPattern = Pattern.compile( numberRegex ) ;
+		epochPattern = Pattern.compile( epochRegex ) ;
+		tpPattern = Pattern.compile( tpRegex ) ;
 	}
 
 	public static void main( String[] args )
@@ -46,32 +60,30 @@ public class QuickMatch
 
 	public boolean isName( String line )
 	{
-		if( line == null || line.trim().equals( "" ) )
-			return false;
-		return line.matches( nameRegex );
+		return ( line != null && !line.trim().equals( "" ) && line.matches( nameRegex ) ) ;
 	}
 
-	public TreeMap parseName( String line )
+	public TreeMap<String,String> parseName( String line )
 	{
-		TreeMap treeMap = new TreeMap();
-		if( line == null || line.trim().equals( "" ) )
-			return treeMap;
-		String[] split = line.split( " " );
-		String current;
-		String output = "";
-		for( int index = 0 ; index < split.length ; index++ )
+		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
+		if( line != null && !line.trim().equals( "" ) )
 		{
-			current = split[ index ];
-			if( current.equals( "JPL/HORIZONS" ) || current.trim().equals( "" ) )
-				continue;
-			if( current.matches( nameDateRegex ) || current.matches( nameTimeRegex ) )
-				continue;
-			output += ( current + " " );
+			String[] split = line.split( " " ) ;
+			String current ;
+			String output = "" ;
+			for( int index = 0 ; index < split.length ; index++ )
+			{
+				current = split[ index ] ;
+				if( current.equals( "JPL/HORIZONS" ) || current.trim().equals( "" ) )
+					continue ;
+				if( current.matches( nameDateRegex ) || current.matches( nameTimeRegex ) )
+					continue ;
+				output += ( current + " " ) ;
+			}
+			if( !output.equals( "" ) )
+				treeMap.put( "NAME" , output.trim() ) ;
 		}
-		if( output.equals( "" ) )
-			return treeMap;
-		treeMap.put( "NAME" , output.trim() );
-		return treeMap;
+		return treeMap ;
 	}
 
 	// Ripped from Horizons for debugging
@@ -108,126 +120,89 @@ public class QuickMatch
 
 	public TreeMap parseLine( String line )
 	{
-		if( line == null || line.trim().equals( "" ) )
-			return null;
-		if( isName( line ) )
-			return parseName( line );
-		Vector keys = keys( line );
-		Vector values = values( line );
-		TreeMap merged = merge( keys , values );
-		return merged;
-	}
-
-	private Vector values( String input )
-	{
-		if( input == null )
-			return new Vector();
-		input = input.trim();
-		if( input.equals( "" ) )
-			return new Vector();
-		String[] values = input.split( keyValueRegex );
-		int index;
-		Vector vector = new Vector();
-		for( index = 0 ; index < values.length ; index++ )
+		TreeMap merged = null ;
+		if( line != null && !line.trim().equals( "" ) )
 		{
-			String current = values[ index ];
-			current = current.trim();
-			if( current.equals( "" ) )
-				continue;
-			Object object = parseValue( current );
-			vector.add( object );
+			if( isName( line ) )
+				merged = parseName( line ) ;
+			else
+				merged = keyValuePairs( line ) ;
 		}
-		return vector;
+		return merged ;
 	}
-
-	private Vector keys( String input )
+	
+	private TreeMap<String,Double> keyValuePairs( String line )
 	{
-		if( input == null || input.trim().equals( "" ) )
-			return new Vector();
-		matcher = pattern.matcher( input );
-		Vector vector = new Vector();
-		String group;
-		while( matcher.find() )
+		TreeMap<String,Double> treemap = new TreeMap<String,Double>() ;
+		if( line != null && !line.trim().equals( "" ) )
 		{
-			group = matcher.group();
-			group = group.replace( '=' , ' ' );
-			group = group.trim();
-			vector.add( group );
-		}
-		return vector;
-	}
-
-	private TreeMap merge( Vector keys , Vector values )
-	{
-		if( keys == null || values == null )
-			return new TreeMap();
-
-		if( keys.size() != values.size() )
-			return new TreeMap();
-
-		TreeMap treemap = new TreeMap();
-		int size = keys.size();
-		Object tmp;
-		String key;
-		Object value;
-		for( int index = 0 ; index < size ; index++ )
-		{
-			tmp = keys.get( index );
-			if( !( tmp instanceof String ) )
-				return new TreeMap();
-			key = ( String )tmp;
-			value = values.get( index );
-			if( value == null )
-				return new TreeMap();
-			tmp = treemap.put( key , value );
-			if( tmp != null )
-				System.out.println( key + " replaced " );
-		}
-		return treemap;
-	}
-
-	private Object parseValue( String value )
-	{
-		if( value == null )
-			return "";
-		if( value.matches( epochRegex ) )
-		{
-			String[] split = value.split( "!" );
-			value = split[ 0 ];
-			value = value.trim();
-			try
+			line = line.trim() ;
+			keyValueMatcher = keyValuePattern.matcher( line ) ;
+			numberMatcher = numberPattern.matcher( line ) ;
+			epochMatcher = epochPattern.matcher( line ) ;
+			tpMatcher = tpPattern.matcher( line ) ;
+			
+			String keyValueGroup ;
+			while( keyValueMatcher.find() )
 			{
-				Double object = new Double( value );
-				double converted = object.doubleValue();
-				converted = MJDUtils.makeMJD( converted );
-				object = new Double( converted );
-				return object;
+				keyValueGroup = keyValueMatcher.group() ;
+				keyValueGroup = keyValueGroup.replace( '=' , ' ' ) ;
+				keyValueGroup = keyValueGroup.trim() ;
+				int end = keyValueMatcher.end() ;
+				Double value = null ;
+				String match = null ;
+				if( keyValueGroup.equals( "EPOCH" ) && epochMatcher.find( end ) )
+					match = epochMatcher.group() ;
+				else if( keyValueGroup.equals( "TP" ) && tpMatcher.find( end ) )
+					match = tpMatcher.group() ;
+				else if( !keyValueGroup.equals( "TP" ) && numberMatcher.find( end ) )
+					match = numberMatcher.group() ;
+				
+				if( match != null )
+					value = parseValue( match ) ;
+				
+				if( value != null )
+					treemap.put( keyValueGroup , value ) ;
 			}
-			catch( NumberFormatException nfe ){}
 		}
-		if( value.matches( tpRegex ) )
+		return treemap ;
+	}
+
+	private Double parseValue( String value )
+	{
+		Double converted = null ;
+		if( value != null )
 		{
-			value = value.trim();
-			value = value.replace( '-' , ' ' );
-			double converted = MJDUtils.convertMJD( value );
-			Double object = new Double( converted );
-			return object;
+			if( value.matches( epochRegex ) )
+			{
+				String[] split = value.split( "!" ) ;
+				value = split[ 0 ] ;
+				value = value.trim() ;
+				try
+				{
+					converted = new Double( value ) ;
+				}
+				catch( NumberFormatException nfe ){}
+				converted = MJDUtils.makeMJD( converted ) ;
+			}
+			else if( value.matches( tpRegex ) )
+			{
+				value = value.trim() ;
+				value = value.replace( '-' , ' ' ) ;
+				converted = MJDUtils.convertMJD( value ) ;
+			}
+			else
+			{
+				// See if it's fortranified
+				if( value.matches( "\\d*\\.?\\d+D\\d+" ) )
+					value = value.replace( 'D' , 'E' ) ;
+				try
+				{
+					converted = new Double( value ) ;
+				}
+				catch( NumberFormatException nfe ){}
+			}
 		}
-		try
-		{
-			Double object = new Double( value );
-			return object;
-		}
-		catch( NumberFormatException nfe ){}
-		// See if it's fortranified
-		// maybe should add a regex ...
-		try
-		{
-			value = value.replace( 'D' , 'E' );
-			Double object = new Double( value );
-			return object;
-		}
-		catch( NumberFormatException nfe ){}
-		return "";
+		return converted ;
 	}
 }
