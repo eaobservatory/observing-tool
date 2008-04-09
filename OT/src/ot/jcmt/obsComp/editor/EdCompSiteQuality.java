@@ -16,7 +16,6 @@ import javax.swing.ButtonGroup;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.editor.OtItemEditor;
 
 import orac.jcmt.obsComp.SpSiteQualityObsComp;

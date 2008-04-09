@@ -12,8 +12,6 @@ package ot.ukirt.iter.editor;
 
 import orac.ukirt.iter.SpIterMichelleCalObs;
 
-import gemini.sp.SpItem;
-
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
