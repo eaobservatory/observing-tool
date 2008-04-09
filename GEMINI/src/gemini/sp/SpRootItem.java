@@ -6,7 +6,6 @@
 //
 package gemini.sp;
 
-import java.io.OutputStream;
 import gemini.util.Version;
 
 /**
