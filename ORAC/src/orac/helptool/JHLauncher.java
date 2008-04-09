@@ -64,7 +64,6 @@ import java.net.URL ;
 import java.net.URLClassLoader ;
 import java.util.Enumeration ;
 import java.util.MissingResourceException ;
-import java.util.StringTokenizer ;
 import java.util.Vector ;
 import java.io.IOException ;
 import java.io.File ;
@@ -961,22 +960,6 @@ final public class JHLauncher implements java.io.Serializable
 		}
 
 		hsPath = new String( "file:" + path );
-	}
-
-	private String breakPath( String s )
-	{
-		StringBuffer back = null;
-		StringTokenizer tok = new StringTokenizer( s , File.pathSeparator );
-		while( tok.hasMoreTokens() )
-		{
-			String t = tok.nextToken();
-			if( back == null )
-				back = new StringBuffer();
-			else
-				back.append( "\n" );
-			back.append( t );
-		}
-		return back.toString();
 	}
 
 	private class CancelAction implements ActionListener
