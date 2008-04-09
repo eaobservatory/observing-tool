@@ -5,41 +5,44 @@
 // $Id$
 //
 /*
- * NCSA Horizon Image Browser
- * Project Horizon
- * National Center for Supercomputing Applications
- * University of Illinois at Urbana-Champaign
- * 605 E. Springfield, Champaign IL 61820
- * horizon@ncsa.uiuc.edu
- *
+ * NCSA Horizon Image Browser Project Horizon National Center for Supercomputing
+ * Applications University of Illinois at Urbana-Champaign 605 E. Springfield,
+ * Champaign IL 61820 horizon@ncsa.uiuc.edu
+ * 
  * Copyright (C) 1996, Board of Trustees of the University of Illinois
- *
+ * 
  * NCSA Horizon software, both binary and source (hereafter, Software) is
- * copyrighted by The Board of Trustees of the University of Illinois
- * (UI), and ownership remains with the UI.
- *
- * You should have received a full statement of copyright and
- * conditions for use with this package; if not, a copy may be
- * obtained from the above address.  Please see this statement
- * for more details.
- *
+ * copyrighted by The Board of Trustees of the University of Illinois (UI), and
+ * ownership remains with the UI.
+ * 
+ * You should have received a full statement of copyright and conditions for use
+ * with this package; if not, a copy may be obtained from the above address.
+ * Please see this statement for more details.
+ * 
  */
-package jsky.app.ot.util;
-
-import java.util.StringTokenizer;
-import jsky.app.ot.util.Angle;
+package jsky.app.ot.util ;
 
 /**
  * Support for converting angles in hours:minutes:seconds format over the
  * circular range 0, 24 hours.
  */
-public final class HHMMSS
+public final class HHMMSS extends XXMMSS
 {
 	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter";
+	
+	/**
+	 * 
+	 * @param candidate
+	 * @return boolean indicating wether candidate was in a valid RA HH:MM:SS format
+	 */
+	public static boolean validFormat( String candidate )
+	{
+		return ( candidate != null && ( candidate.matches( rapattern ) || candidate.matches( rapatterncolon ) ) ) ;
+	}
 
 	/**
-	 * Convert from an RA in degrees to a String in HH:MM:SS format.
-	 */
+     * Convert from an RA in degrees to a String in HH:MM:SS format.
+     */
 	public static String valStr( double degrees , int prec )
 	{
 		// Make sure the angle is between 0 (inclusive) and 360 (exclusive)
@@ -90,47 +93,65 @@ public final class HHMMSS
 	}
 
 	/**
-	 * Convert from an RA in degrees to a String in HH:MM:SS format.
-	 */
+     * Convert from an RA in degrees to a String in HH:MM:SS format.
+     */
 	public static String valStr( double degrees )
 	{
 		return valStr( degrees , -3 );
 	}
 
 	/**
-	 * Convert from an RA in HH:MM:SS string format to degrees.
-	 */
+     * Convert from an RA in HH:MM:SS string format to degrees.
+     */
 	public static double valueOf( String s ) throws NumberFormatException
 	{
 		if( s == null )
-			throw new NumberFormatException( s );
+			throw new NumberFormatException( s ) ;
 
 		// Determine the sign from the (trimmed) string
-		s = s.trim();
+		s = s.trim() ;
 		if( s.length() == 0 )
-			throw new NumberFormatException( s );
-		
-		int sign = 1;
+			throw new NumberFormatException( s ) ;
+		int sign = 1 ;
 		if( s.charAt( 0 ) == '-' )
 		{
-			sign = -1;
-			s = s.substring( 1 );
+			sign = -1 ;
+			s = s.substring( 1 ) ;
 		}
 
-		// Parse the string into values for hours, min, and sec
-		double[] vals = { 0. , 0. , 0. };
-		StringTokenizer tok = new StringTokenizer( s , ": " );
-		for( int i = 0 ; i < 3 && tok.hasMoreTokens() ; i++ )
-			vals[ i ] = Double.valueOf( tok.nextToken() ).doubleValue();
+		double[] vals = stringTodoubleTriplet( s ) ;
 
-		// Convert HH:MM:SS to degrees
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) * 15. ;
 		return Angle.normalizeDegrees( out );
 	}
 
 	/**
-	 * For testing.
+	 * Check wether a string is in the correct HH:MM:SS format and within range
+	 * @param hhmmss
+	 * @return boolean indicating validity
 	 */
+	public static boolean validate( String hhmmss )
+	{
+		boolean valid = true;
+		
+		if( valid = validFormat( hhmmss ) )
+		{
+			double[] values = stringTodoubleTriplet( hhmmss );
+	
+			double hours = values[ 0 ];
+			double minutes = values[ 1 ];
+			double seconds = values[ 2 ];
+	
+			if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+				valid = false;
+		}
+
+		return valid;
+	}
+
+	/**
+     * For testing.
+     */
 	public static void main( String args[] )
 	{
 		for( int i = 0 ; i < args.length ; ++i )
