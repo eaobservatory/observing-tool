@@ -48,25 +48,24 @@ import javax.swing.event.TreeExpansionEvent;
  */
 final class ConfirmAVClobber
 {
-	String messg;
+	public ConfirmAVClobber(){}
 
-	public ConfirmAVClobber( SpItem[] spItems )
+	public static boolean okToClobber( SpItem[] spItems )
 	{
-		if( ( spItems.length == 1 ) && ( spItems[ 0 ] instanceof SpObsComp ) )
+		String messg ;
+		boolean canClobber = false ;
+		if( spItems != null && spItems.length > 0 )
 		{
-			String sub = spItems[ 0 ].type().getReadable();
-			messg = "A component of subtype `" + sub + "' already " + "exists in this scope.  Replace it?";
+			SpItem spItem = spItems[ 0 ] ;
+			String sub = spItem.type().getReadable() ;
+			if( ( spItems.length == 1 ) && ( spItem instanceof SpObsComp ) )
+				messg = "A component of subtype `" + sub + "' already exists in this scope.  Replace it?";
+			else
+				messg = "One or more components of the same subtype already exist in this scope.  Replace them?";
+			int answer = DialogUtil.confirm( messg );
+			canClobber = ( answer == JOptionPane.YES_OPTION ) ;
 		}
-		else
-		{
-			messg = "One or more components of the same subtype already " + "exist in this scope.  Replace them?";
-		}
-	}
-
-	public boolean okToClobber()
-	{
-		int answer = DialogUtil.confirm( messg );
-		return ( answer == JOptionPane.YES_OPTION ) ;
+		return canClobber ;
 	}
 }
 
@@ -81,17 +80,14 @@ final class ConfirmAVClobber
 public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttributes , SpHierarchyChangeObserver , TreeExpansionListener
 {
 	// The OtTreeNodeWidget of the root node.
-	private OtTreeNodeWidget _otTNW;
+	private OtTreeNodeWidget _otTNW ;
 
 	// The SpItem associated with the root node.  This is the program or plan contained in the tree.
-	private SpRootItem _spProg;
-
-	// Information global to the program or plan.
-	private ProgramInfo _progInfo;
+	private SpRootItem _spProg ;
 
 	// If true, ignore action events
-	private boolean ignoreActions = false; // added by MFO (31 July 2001)
-	protected static Color GREEN = new Color( 0 , 192 , 0 );
+	private boolean ignoreActions = false ; // added by MFO (31 July 2001)
+	protected static Color GREEN = new Color( 0 , 192 , 0 ) ;
 
 	/**
 	 * Default constructor, for the Bongo builder.
@@ -99,12 +95,12 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public OtTreeWidget()
 	{
 		// Add a drag source to the FileTree
-		OtAdvancedTreeDragSource source = new OtAdvancedTreeDragSource( this );
+		OtAdvancedTreeDragSource source = new OtAdvancedTreeDragSource( this ) ;
 
 		// Add a drop target to the FileTree
-		OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget( this , source );
+		OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget( this , source ) ;
 
-		tree.addTreeExpansionListener( this );
+		tree.addTreeExpansionListener( this ) ;
 	}
 
 	/**
@@ -113,14 +109,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public SpRootItem getProg()
 	{
 		return _spProg;
-	}
-
-	/**
-	 * Set the ProgramInfo for the program being edited in this tree.
-	 */
-	public void setInfo( ProgramInfo pi )
-	{
-		_progInfo = pi;
 	}
 
 	//
@@ -138,35 +126,40 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		while( children.hasMoreElements() )
 		{
 			SpItem child = ( SpItem )children.nextElement();
-			OtTreeNodeWidget tnw = ( ( OtClientData )child.getClientData() ).tnw;
-			tnw.setTree( this );
-			tnw.setText( child.getTitle() );
-			rootTNW.add( index , tnw );
-
-			OtTreeNodeWidget lastSelected = _populateTree( tnw );
-			if( selected == null )
-				selected = lastSelected;
-
-			// Was this node selected?
-			if( child.getTable().getBool( GUI_SELECTED ) )
+			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( child ) ;
+			if( tnw != null )
 			{
-				// Arbitrarily prefer the first selected node encountered if there is a conflict.  
-				// This can happen when your program or plan has observation links.  
-				// Observation links contain observations and upon a fetch the most recent version of the observation is recalled.  
-				// It may have been selected at the time the program was stored.
-
+				tnw.setTree( this );
+				tnw.setText( child.getTitle() );
+				rootTNW.add( index , tnw );
+	
+				OtTreeNodeWidget lastSelected = _populateTree( tnw );
 				if( selected == null )
-					selected = tnw;
-
-				child.getTable().set( GUI_SELECTED , false );
+					selected = lastSelected;
+	
+				// Was this node selected?
+				if( child.getTable().getBool( GUI_SELECTED ) )
+				{
+					/*
+					 * Arbitrarily prefer the first selected node encountered if there is a conflict.  
+					 * This can happen when your program or plan has observation links.  
+					 * Observation links contain observations and upon a fetch the most recent version of the observation is recalled.  
+					 * It may have been selected at the time the program was stored.
+					 */
+	
+					if( selected == null )
+						selected = tnw;
+	
+					child.getTable().set( GUI_SELECTED , false );
+				}
+	
+				// Make sure this node is expanded/collapsed correctly.
+				ignoreActions = true; // added by MFO (31 July 2001)
+				tnw.setCollapsed( child.getTable().getBool( GUI_COLLAPSED ) );
+				ignoreActions = false; // added by MFO (31 July 2001)
+	
+				++index;
 			}
-
-			// Make sure this node is expanded/collapsed correctly.
-			ignoreActions = true; // added by MFO (31 July 2001)
-			tnw.setCollapsed( child.getTable().getBool( GUI_COLLAPSED ) );
-			ignoreActions = false; // added by MFO (31 July 2001)
-
-			++index;
 		}
 		return selected;
 	}
@@ -199,7 +192,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		if( item.getTable() != null )
 			item.getTable().noNotifyRmAll();
 		
-		( ( OtTreeNodeWidget )( ( OtClientData )item.getClientData() ).tnw ).rmIcons();
+		OtTreeNodeWidget otnw = getTreeNodeWidgetForSpItem( item ) ;
+		if( otnw != null )
+			otnw.rmIcons() ;
 	}
 
 	public void resetProg()
@@ -263,11 +258,12 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem getSelectedItem()
 	{
-		OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode();
-		if( tnw == null )
-			return null;
+		SpItem returnable = null ;
+		OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode() ;
+		if( tnw != null )
+			returnable = tnw.getItem() ;
 		
-		return tnw.getItem();
+		return returnable ;
 	}
 
 	/**
@@ -275,17 +271,17 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem[] getMultiSelectedItems()
 	{
+		SpItem[] spItemA = null ;
 		Vector v = getMultiSelectNodes();
-		if( ( v == null ) || ( v.size() == 0 ) )
-			return null;
-
-		int n = v.size();
-
-		SpItem[] spItemA = new SpItem[ n ];
-		for( int i = 0 ; i < n ; ++i )
-			spItemA[ i ] = ( ( OtTreeNodeWidget )v.elementAt( i ) ).getItem();
-
-		return spItemA;
+		if( ( v != null ) && ( v.size() != 0 ) )
+		{
+			int n = v.size();
+	
+			spItemA = new SpItem[ n ] ;
+			for( int i = 0 ; i < n ; ++i )
+				spItemA[ i ] = ( ( OtTreeNodeWidget )v.elementAt( i ) ).getItem() ;
+		}
+		return spItemA ;
 	}
 
 	/**
@@ -293,14 +289,13 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem[] getMultiSelectedItemsCopy()
 	{
-		SpItem[] spItemA = getMultiSelectedItems();
-		if( spItemA == null )
-			return null;
-
-		for( int i = 0 ; i < spItemA.length ; ++i )
-			spItemA[ i ] = spItemA[ i ].deepCopy();
-
-		return spItemA;
+		SpItem[] spItemA = getMultiSelectedItems() ;
+		if( spItemA != null )
+		{
+			for( int i = 0 ; i < spItemA.length ; ++i )
+				spItemA[ i ] = spItemA[ i ].deepCopy() ;
+		}
+		return spItemA ;
 	}
 
 	/**
@@ -326,7 +321,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		/*
 		 * If we are adding a JCMT instrument, we need to check all of the observations in scope and update then correctly for the type of instrument.
 		 */
-		if( newItem instanceof orac.jcmt.inst.SpInstSCUBA || newItem instanceof orac.jcmt.inst.SpInstHeterodyne )
+		if( newItem instanceof SpInstSCUBA2 || newItem instanceof SpInstHeterodyne || newItem instanceof SpInstSCUBA )
 		{
 			SpItem newItemsRoot = SpTreeMan.findRootItem( newItem );
 			// Get all of the SpIterObs components below this
@@ -339,8 +334,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , "orac.jcmt.iter.SpIterStareObs" ) );
 			for( int i = 0 ; i < obsVector.size() ; i++ )
 			{
-				// Make sure that the observation is associated with the new item and not
-				// some other existing component
+				// Make sure that the observation is associated with the new item and not some other existing component
 				SpItem obsContext = SpTreeMan.findObsContext( ( ( SpIterJCMTObs )obsVector.get( i ) ) );
 				SpInstObsComp obsComp = SpTreeMan.findInstrumentInContext( obsContext );
 				while( obsComp == null )
@@ -351,17 +345,20 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 					obsComp = SpTreeMan.findInstrumentInContext( obsContext );
 				}
 				if( obsComp != null && obsComp.equals( newItem ) )
-				{
+				{					
 					if( newItem instanceof SpInstHeterodyne )
-						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForHeterodyne();
-					else
-						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForSCUBA();
+						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForHeterodyne() ;
+					else if( newItem instanceof SpInstSCUBA2 )
+						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForSCUBA2() ;
+					else if( newItem instanceof SpInstSCUBA )
+						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForSCUBA() ;
 				}
 			}
 		}
 
 		/*
-		 * If we are adding an observe "eye" find out what instrument is being used. If it is a JCMT instrument, update its attributes accordingly.
+		 * If we are adding an observe "eye" find out what instrument is being used. 
+		 * If it is a JCMT instrument, update its attributes accordingly.
 		 */
 		if( newItem instanceof SpIterJCMTObs )
 		{
@@ -378,13 +375,17 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			if( obsComp != null )
 			{
 				if( obsComp instanceof SpInstHeterodyne )
-					( ( SpIterJCMTObs )newItem ).setupForHeterodyne();
-				else if( obsComp instanceof SpInstSCUBA )
-					( ( SpIterJCMTObs )newItem ).setupForSCUBA();
+					( ( SpIterJCMTObs )newItem ).setupForHeterodyne() ;
 				else if( obsComp instanceof SpInstSCUBA2 )
-					( ( SpIterJCMTObs )newItem ).setupForSCUBA2();
+					( ( SpIterJCMTObs )newItem ).setupForSCUBA2() ;
+				else if( obsComp instanceof SpInstSCUBA )
+					( ( SpIterJCMTObs )newItem ).setupForSCUBA() ;
 			}
 		}
+		OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( newItem ) ;
+		if( tnw != null )
+			tnw.setSelected( true ) ;
+		
 		// END OF ADDITIONAL CODE
 		return newItems[ 0 ];
 	}
@@ -404,7 +405,14 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		SpItem destItem = destTNW.getItem();
 
 		/*
-		 * The following are additional checks needed for the survey component. The following checks are performed (but only when inserting an SpMSB or an SpObs) - 1. If the Survey Component is outside an MSB 1.1 Only one MSB can be added, but any number of SpObs can be added within that MSB 1.2 A single SpObs can also be added but it must be marked as an SpMSB 2. If the Survey Component is inside an MSB 2.1 We can not add another SpMSB within the survey component 2.2 Any number of SpObs can be added inside the survey component 2.3 Make sure that the SpObs is not an MSB (needed for copy/paste)
+		 * The following are additional checks needed for the survey component. 
+		 * The following checks are performed (but only when inserting an SpMSB or an SpObs) - 1. 
+		 * If the Survey Component is outside an MSB 1.1 Only one MSB can be added, 
+		 * but any number of SpObs can be added within that MSB 1.2 
+		 * A single SpObs can also be added but it must be marked as an SpMSB 2. 
+		 * If the Survey Component is inside an MSB 2.1 We can not add another SpMSB within the survey component 2.2 
+		 * Any number of SpObs can be added inside the survey component 2.3 
+		 * Make sure that the SpObs is not an MSB (needed for copy/paste)
 		 */
 		// See if we have a Survey component is scope
 		boolean scInScope = false; // Survey Container in scope
@@ -439,8 +447,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 				{
 					if( !scInMSB )
 					{
-						// If the newItem is an SpObs, we can legally insert it if
-						// the destination is an MSB (insertInside) or an SpObs which is not an MSB (insertAfter)
+						/*
+						 * If the newItem is an SpObs, we can legally insert it if
+						 * the destination is an MSB (insertInside) or an SpObs which is not an MSB (insertAfter)
+						 */
 						if( newItems[ i ] instanceof SpObs && ( destItem instanceof SpMSB || ( destItem instanceof SpObs && !( ( SpObs )destItem ).isMSB() ) ) )
 							continue;
 
@@ -505,16 +515,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem[] addItems( SpInsertData spID )
 	{
-		if( spID.replaceItems != null )
-		{
-			ConfirmAVClobber clob = new ConfirmAVClobber( spID.replaceItems );
-			if( !clob.okToClobber() )
-				return null;
-		}
-
-		if( !_addItems( spID ) )
-			return null;
-		return spID.items;
+		SpItem[] spItems = null ;
+		if( ( spID.replaceItems == null || ConfirmAVClobber.okToClobber( spID.replaceItems ) ) && _addItems( spID ) )
+			spItems = spID.items ;
+		
+		return spItems ;
 	}
 
 	/**
@@ -529,41 +534,23 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem[] insertItemAfter( SpItem newItem )
 	{
+		SpItem[] spItems = null ;
 		SpInsertData spID = SpTreeMan.evalInsertAfter( newItem , getSelectedItem() );
 
 		if( spID == null )
-		{
 			spID = SpTreeMan.evalInsertInside( newItem , getSelectedItem() );
-			if( spID == null )
-				return null;
-		}
-
-		return addItems( spID );
+		
+		if( spID != null )
+			spItems = addItems( spID ) ;
+		
+		return spItems ;
 	}
 
 	// Add items without worrying about clobber.
 	private boolean _addItems( SpInsertData spID )
 	{
-		if( _progInfo.online )
-		{
-			if( !_addItemsToODB( spID ) )
-				return false;
-		}
-
 		// Add the new item to the local copy of the program
 		SpTreeMan.insert( spID );
-		return true;
-	}
-
-	//
-	// Add items to the ODB.
-	//
-	// WARNING: There are several transactions with the database here.
-	// If something goes wrong in the middle, then the database version
-	// of the program won't match the OT version!
-	//
-	private boolean _addItemsToODB( SpInsertData spID )
-	{
 		return true;
 	}
 
@@ -572,20 +559,22 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public SpItem rmSelectedItem()
 	{
+		SpItem spItem = null ;
 		OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode();
 		if( tnw == null )
 		{
 			DialogUtil.error( this , "You have to select an item to delete." );
-			return null;
 		}
-		if( tnw == ( OtTreeNodeWidget )getRoot() )
+		else if( tnw == ( OtTreeNodeWidget )getRoot() )
 		{
 			DialogUtil.error( this , "You can't delete the Science Program!" );
-			return null;
 		}
-
-		SpItem[] spItemA = { tnw.getItem() };
-		return rmItems( spItemA ) ? spItemA[ 0 ] : null;
+		else
+		{
+			SpItem[] spItemA = { tnw.getItem() };
+			spItem = rmItems( spItemA ) ? spItemA[ 0 ] : null ;
+		}
+		return spItem ;
 	}
 
 	/**
@@ -594,9 +583,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public SpItem[] rmMultiSelectedItems()
 	{
 		SpItem[] spItemA = getMultiSelectedItems();
-		if( spItemA == null )
-			return null;
-		return rmItems( spItemA ) ? spItemA : null;
+		if( spItemA != null )
+			spItemA = rmItems( spItemA ) ? spItemA : null ;
+		return spItemA ;
 	}
 
 	/**
@@ -614,12 +603,14 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			for( int i = 0 ; i < paths.length ; i++ )
 			{
 				tree.setSelectionPath( paths[ i ] );
-				// This is a hack to prevent freezing when the Science Program node is dropped into the waste bin under Linux.
-				// Normally one would just try to apply rmSelectedItem without checking whether it is the Science Program node. 
-				// rmSelectedItem would then call DialogUtil.error("You have to select an item to delete."). 
-				// But this can cause the OT under Linux to freeze. 
-				// However, throwing an Exception and catching it in the calling class and calling
-				// DialogUtil.error there works fine. MFO, May 31, 2001
+				/*
+				 * This is a hack to prevent freezing when the Science Program node is dropped into the waste bin under Linux.
+				 * Normally one would just try to apply rmSelectedItem without checking whether it is the Science Program node. 
+				 * rmSelectedItem would then call DialogUtil.error("You have to select an item to delete."). 
+				 * But this can cause the OT under Linux to freeze. 
+				 * However, throwing an Exception and catching it in the calling class and calling
+				 * DialogUtil.error there works fine. MFO, May 31, 2001
+				 */
 				if( ( OtTreeNodeWidget )getSelectedNode() == ( OtTreeNodeWidget )getRoot() )
 					attemptToDeleteRoot = true;
 				else
@@ -636,32 +627,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public boolean rmItems( SpItem[] spItems )
 	{
-		// Make sure the srcItem can be extracted from its current position
-		if( !SpTreeMan.evalExtract( spItems ) )
-			return false;
-
-		// If online, then send the change to the server
-		if( _progInfo.online )
-		{
-			if( !_rmItemsFromODB( spItems ) )
-				return false;
-		}
-
-		// Update the program and tree
-		SpTreeMan.extract( spItems );
-		return true;
-	}
-
-	//
-	// Remove the items from the ODB.
-	//
-	// WARNING: There are several transactions with the database here.
-	// If something goes wrong in the middle, then the database version
-	// of the program won't match the OT version!
-	//
-	private boolean _rmItemsFromODB( SpItem[] spItems )
-	{
-		return true;
+		// Make sure the srcItem can be extracted from its current position, if so, update the program and tree.
+		boolean success = false ;
+		if( SpTreeMan.evalExtract( spItems ) )
+			success = SpTreeMan.extract( spItems ) ;
+		return success ;
 	}
 
 	/**
@@ -671,21 +641,15 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	{
 		if( multipleItemsSelected() )
 		{
-			SpItem[] spItemA = rmMultiSelectedItems();
-			if( spItemA == null )
-				return;
-
-			// Put the items in the clipboard
-			ClipboardHelper.setClipboard( spItemA );
+			SpItem[] spItemA = rmMultiSelectedItems() ;
+			if( spItemA != null )
+				ClipboardHelper.setClipboard( spItemA ) ;
 		}
 		else
 		{
-			SpItem spItem = rmSelectedItem();
-			if( spItem == null )
-				return;
-
-			// Put the item in the clipboard
-			ClipboardHelper.setClipboard( spItem );
+			SpItem spItem = rmSelectedItem() ;
+			if( spItem != null )
+				ClipboardHelper.setClipboard( spItem ) ;
 		}
 	}
 
@@ -696,18 +660,18 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	{
 		if( multipleItemsSelected() )
 		{
-			SpItem[] spItemA = getMultiSelectedItemsCopy();
-			ClipboardHelper.setClipboard( spItemA );
+			SpItem[] spItemA = getMultiSelectedItemsCopy() ;
+			ClipboardHelper.setClipboard( spItemA ) ;
 		}
 		else
 		{
-			OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode();
-			if( tnw == null )
-				return;
-
-			SpItem spItem = tnw.getItem();
-			SpItem spCopy = spItem.deepCopy();
-			ClipboardHelper.setClipboard( spCopy );
+			OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode() ;
+			if( tnw != null )
+			{
+				SpItem spItem = tnw.getItem() ;
+				SpItem spCopy = spItem.deepCopy() ;
+				ClipboardHelper.setClipboard( spCopy ) ;
+			}
 		}
 	}
 
@@ -716,22 +680,21 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public void pasteFromClipboard()
 	{
-		Object obj = ClipboardHelper.getClipboard();
-		if( obj == null )
-			return;
-
-		if( obj instanceof SpItem )
+		Object obj = ClipboardHelper.getClipboard() ;
+		if( obj != null )
 		{
-			SpItem spCopy = ( ( SpItem )obj ).deepCopy();
-			addItem( spCopy );
-		}
-		else if( obj instanceof SpItem[] )
-		{
-			SpItem[] a = ( SpItem[] )obj;
-			for( int i = 0 ; i < a.length ; ++i )
-				a[ i ] = a[ i ].deepCopy();
-
-			addItems( a );
+			if( obj instanceof SpItem )
+			{
+				SpItem spCopy = ( ( SpItem )obj ).deepCopy() ;
+				addItem( spCopy ) ;
+			}
+			else if( obj instanceof SpItem[] )
+			{
+				SpItem[] a = ( SpItem[] )obj ;
+				for( int i = 0 ; i < a.length ; ++i )
+					a[ i ] = a[ i ].deepCopy() ;
+				addItems( a ) ;
+			}
 		}
 	}
 
@@ -742,31 +705,12 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public void mvItems( SpInsertData spID )
 	{
 		// Make sure the items can be extracted from their current position.
-		if( !SpTreeMan.evalExtract( spID.items ) )
-			return;
-
-		// If necessary, ask if ok to clober.
-		if( spID.replaceItems != null )
+		if( SpTreeMan.evalExtract( spID.items ) )
 		{
-			ConfirmAVClobber clob = new ConfirmAVClobber( spID.replaceItems );
-			if( !clob.okToClobber() )
-				return;
+			// If necessary, ask if ok to clober.
+			if( spID.replaceItems == null || ConfirmAVClobber.okToClobber( spID.replaceItems ) )
+				_mvItems( spID ) ; // Move the items without worrying about clobber.
 		}
-
-		// Move the items without worrying about clobber.
-		_mvItems( spID );
-	}
-
-	//
-	// Move the items in the ODB.
-	//
-	// WARNING: There are several transactions with the database here.
-	// If something goes wrong in the middle, then the database version
-	// of the program won't match the OT version!
-	//
-	private boolean _mvItemsInODB( SpInsertData spID )
-	{
-		return true;
 	}
 
 	//
@@ -775,20 +719,13 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	//
 	private void _mvItems( SpInsertData spID )
 	{
-		// Send the change to the ODB if editing online
-		if( _progInfo.online )
-		{
-			if( !_mvItemsInODB( spID ) )
-				return;
-		}
-
 		OtTreeNodeWidget tnw = ( OtTreeNodeWidget )getSelectedNode();
 
 		SpTreeMan.move( spID );
 
 		// If tnw is still in this tree, then select it.
 		if( tnw.getTreeWidget() == this )
-			tnw.setSelected( true );
+			tnw.setSelected( true ) ;
 	}
 
 	/**
@@ -821,34 +758,40 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild )
 	{
 		// Get the parent TNW
-		OtTreeNodeWidget parentTNW = ( ( OtClientData )parent.getClientData() ).tnw;
-		parentTNW.setTree( this );
-
-		// Find the position (pos) where the first child should be added.  
-		// This should be 0 (first) if afterChild is null, or else whatever the index of afterChild is plus one if not null.
-		int pos = 0;
-		if( afterChild != null )
+		OtTreeNodeWidget parentTNW = getTreeNodeWidgetForSpItem( parent ) ;
+		if( parentTNW != null )
 		{
-			OtTreeNodeWidget tnw = ( ( OtClientData )afterChild.getClientData() ).tnw;
-			tnw.setTree( this );
-			pos = tnw.getMyIndex() + 1;
+			parentTNW.setTree( this ) ;
+
+			// Find the position (pos) where the first child should be added.  
+			// This should be 0 (first) if afterChild is null, or else whatever the index of afterChild is plus one if not null.
+			int pos = 0;
+			if( afterChild != null )
+			{
+				OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( afterChild ) ;
+				if( tnw != null )
+				{
+					tnw.setTree( this ) ;
+					pos = tnw.getMyIndex() + 1 ;
+				}
+			}
+	
+			// Add the children TNW.
+			MultiSelTreeNodeWidget[] tnwA = new MultiSelTreeNodeWidget[ children.length ];
+			for( int i = 0 ; i < children.length ; ++i )
+			{
+				tnwA[ i ] = _getSpItemTNW( children[ i ] );
+				parentTNW.add( pos++ , tnwA[ i ] );
+				tnwA[ i ].setTree( this );
+			}
+	
+			// Make sure the parent is showing and expanded.
+			parentTNW.expand();
+			parentTNW.uncover();
+	
+			// Multi-select the new set
+			setMultiSelectNodes( tnwA );
 		}
-
-		// Add the children TNW.
-		MultiSelTreeNodeWidget[] tnwA = new MultiSelTreeNodeWidget[ children.length ];
-		for( int i = 0 ; i < children.length ; ++i )
-		{
-			tnwA[ i ] = _getSpItemTNW( children[ i ] );
-			parentTNW.add( pos++ , tnwA[ i ] );
-			tnwA[ i ].setTree( this );
-		}
-
-		// Make sure the parent is showing and expanded.
-		parentTNW.expand();
-		parentTNW.uncover();
-
-		// Multi-select the new set
-		setMultiSelectNodes( tnwA );
 	}
 
 	// Remove the nodes without trying to select a new node
@@ -857,12 +800,13 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		// Remove each child.
 		for( int i = 0 ; i < children.length ; ++i )
 		{
-			OtTreeNodeWidget tnw = ( ( OtClientData )children[ i ].getClientData() ).tnw;
-			tnw.remove();
+			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( children[ i ] ) ;
+			if( tnw != null )
+				tnw.remove() ;
 		}
 
 		// Repaint the widget containing the parentTNW
-		OtTreeNodeWidget parentTNW = ( ( OtClientData )parent.getClientData() ).tnw;
+		OtTreeNodeWidget parentTNW = getTreeNodeWidgetForSpItem( parent ) ;
 		parentTNW.setTree( this );
 	}
 
@@ -876,7 +820,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		for( int i = 0 ; i < children.length ; ++i )
 		{
 			// Is this tree node selected?
-			OtTreeNodeWidget tnw = ( ( OtClientData )children[ i ].getClientData() ).tnw;
+			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( children[ i ] ) ;
 			if( tnw.getSelectedNode() != null )
 			{
 				selectedTNW = tnw;
@@ -894,22 +838,24 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			Vector v = parentTNW.getChildren();
 
 			SpItem spItem = children[ children.length - 1 ];
-			OtTreeNodeWidget tnw = ( ( OtClientData )spItem.getClientData() ).tnw;
-
-			int i = tnw.getMyIndex();
-			if( i + 1 < v.size() )
+			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( spItem ) ;
+			if( tnw != null )
 			{
-				( ( OtTreeNodeWidget )v.elementAt( i + 1 ) ).select();
-			}
-			else
-			{
-				spItem = children[ 0 ];
-				tnw = ( ( OtClientData )spItem.getClientData() ).tnw;
-				i = tnw.getMyIndex();
-				if( i > 0 )
-					( ( OtTreeNodeWidget )v.elementAt( i - 1 ) ).select();
+				int i = tnw.getMyIndex();
+				if( i + 1 < v.size() )
+				{
+					( ( OtTreeNodeWidget )v.elementAt( i + 1 ) ).select();
+				}
 				else
-					parentTNW.select();
+				{
+					spItem = children[ 0 ];
+					tnw = getTreeNodeWidgetForSpItem( spItem ) ;
+					i = tnw.getMyIndex();
+					if( i > 0 )
+						( ( OtTreeNodeWidget )v.elementAt( i - 1 ) ).select();
+					else
+						parentTNW.select();
+				}
 			}
 		}
 
@@ -1075,37 +1021,57 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 
 	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
 	{
-		String[] eyes = { "dream" };
-		Class[] tabooClass = new Class[] { SpInstHeterodyne.class };
-		for( int index = 0 ; index < eyes.length ; index++ )
+		boolean canAdd = true ;
+		String[] eyes = { "dream" } ;
+		Class[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
+		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
 			String eye = eyes[ index ];
 			if( !canAddEye( target , items , eye + "Obs" , tabooClass ) )
 			{
-				String firstLetter = eye.substring( 0 , 1 );
-				eye = firstLetter.toUpperCase() + eye.substring( 1 , eye.length() );
-				DialogUtil.error( this , "Can not add a " + eye + " to an ACSIS heterodyne observation" );
-				return false;
+				String firstLetter = eye.substring( 0 , 1 ) ;
+				eye = firstLetter.toUpperCase() + eye.substring( 1 , eye.length() ) ;
+				DialogUtil.error( this , "Can not add a " + eye + " to an ACSIS heterodyne observation" ) ;
+				canAdd = false ;
 			}
 		}
-		return true;
+		return canAdd ;
 	}
 
 	private boolean canAddEye( SpItem target , SpItem[] items , String eye , Class[] tabooClasses )
 	{
-		SpInstObsComp inst = SpTreeMan.findInstrument( target );
-		for( int j = 0 ; j < tabooClasses.length ; j++ )
+		boolean canAdd = true ;
+		SpInstObsComp inst = SpTreeMan.findInstrument( target ) ;
+		for( int j = 0 ; j < tabooClasses.length && canAdd ; j++ )
 		{
-			Class tabooClass = tabooClasses[ j ];
-			if( !( tabooClass.isInstance( inst ) ) )
-				return true;
+			Class tabooClass = tabooClasses[ j ] ;
+			if( tabooClass.isInstance( inst ) )
+			{
+				for( int i = 0 ; i < items.length && canAdd ; i++ )
+				{
+					String subType = items[ i ].subtypeStr() ;
+					if( subType.equals( eye ) )
+						canAdd = false ;
+				}
+			}
 		}
-		for( int i = 0 ; i < items.length ; i++ )
+		return canAdd ;
+	}
+	
+	/**
+	 * Convenience method for resolving a OtTreeNodeWidget from an SpItem.
+	 * @param item to be resolved.
+	 * @return corresponding OtTreeNodeWidget or null.
+	 */
+	private OtTreeNodeWidget getTreeNodeWidgetForSpItem( SpItem item )
+	{
+		OtTreeNodeWidget tnw = null ;
+		Object clientData = item.getClientData() ;
+		if( clientData != null && clientData instanceof OtClientData )
 		{
-			String subType = items[ i ].subtypeStr();
-			if( subType.equals( eye ) )
-				return false;
+			OtClientData otClientData = ( OtClientData )clientData ;
+			tnw = otClientData.tnw ;
 		}
-		return true;
+		return tnw ;
 	}
 }

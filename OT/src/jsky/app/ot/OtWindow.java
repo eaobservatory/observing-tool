@@ -384,7 +384,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 		// Set up the tree widget
 		_tw = this.tree;
-		_tw.setInfo( _progInfo );
 		_tw.addWatcher( new TreeWidgetWatcher()
 		{
 			public void nodeSelected( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
@@ -466,7 +465,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		_progInfo.file = fileInfo;
 
 		// Set up the tree widget
-		_tw.setInfo( _progInfo );
 		_itemEditor.setInfo( _progInfo );
 
 		// Initialize the title
