@@ -62,16 +62,6 @@ public class SpRootItem extends SpObsContextItem
 	}
 
 	/**
-     * Print a Science Program Document describing this item to the given output
-     * stream.
-     */
-	public void printDocument( OutputStream os )
-	{
-		SpOutputSGML out = new SpOutputSGML( os );
-		out.printDocument( this );
-	}
-
-	/**
      * Set the telescope name - based on input TELESCOPE
      */
 
