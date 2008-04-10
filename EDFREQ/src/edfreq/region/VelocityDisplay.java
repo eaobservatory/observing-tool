@@ -115,7 +115,7 @@ public class VelocityDisplay extends JPanel
 		JFrame frame = new JFrame( "Velocity Display" );
 		frame.setResizable( false );
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		frame.getContentPane().add( vd );
+		frame.add( vd );
 		frame.setLocation( 100 , 100 );
 		frame.pack();
 		frame.show();

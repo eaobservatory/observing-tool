@@ -275,8 +275,8 @@ public class StopActionWidget extends JPanel
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , panel );
-		frame.getContentPane().add( "South" , button );
+		frame.add( "Center" , panel );
+		frame.add( "South" , button );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

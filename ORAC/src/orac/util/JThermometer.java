@@ -157,11 +157,10 @@ public class JThermometer extends JComponent
 	public static void main( String[] args )
 	{
 		JFrame frame = new JFrame( "Demo" );
-		Container pane = frame.getContentPane();
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		JThermometer therm = new JThermometer();
 		therm.setExtent( 75 );
-		pane.add( therm );
+		frame.add( therm );
 		frame.pack();
 		frame.setVisible( true );
 	}

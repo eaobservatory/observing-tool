@@ -175,7 +175,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , new JScrollPane( table ) );
+		frame.add( "Center" , new JScrollPane( table ) );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

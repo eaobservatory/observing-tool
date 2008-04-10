@@ -299,7 +299,7 @@ public class TreeWidgetExt extends JPanel
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , tree );
+		frame.add( "Center" , tree );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

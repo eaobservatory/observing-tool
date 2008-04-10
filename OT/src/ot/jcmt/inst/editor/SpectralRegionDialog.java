@@ -59,8 +59,8 @@ public class SpectralRegionDialog extends JDialog implements ActionListener
 		buttonPanel.add( okButton );
 		buttonPanel.add( cancelButton );
 
-		getContentPane().add( _spectralRegionEditor , BorderLayout.CENTER );
-		getContentPane().add( buttonPanel , BorderLayout.SOUTH );
+		add( _spectralRegionEditor , BorderLayout.CENTER );
+		add( buttonPanel , BorderLayout.SOUTH );
 		pack();
 		setLocation( 100 , 100 );
 

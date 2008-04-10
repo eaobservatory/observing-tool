@@ -160,7 +160,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 
 		PasswordWidgetExt tbw = new PasswordWidgetExt();
 
-		frame.getContentPane().add( "Center" , tbw );
+		frame.add( "Center" , tbw );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

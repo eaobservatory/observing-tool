@@ -149,7 +149,6 @@ public class OT extends JFrame
 		int w = ( int )( screen.width - 10 ) , h = ( int )( screen.height - 150 );
 		desktop.setPreferredSize( new Dimension( w , h ) );
 
-		//getContentPane().add(desktop, BorderLayout.CENTER);
 		setContentPane( desktop );
 
 		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
@@ -630,7 +629,7 @@ public class OT extends JFrame
 				ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background_small.gif" ) );
 				JLabel label = new JLabel( icon );
 				label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() );
-				menuFrame.getContentPane().add( label );
+				menuFrame.add( label ) ;
 			}
 			catch( Exception e )
 			{

@@ -9,7 +9,6 @@
 // $Id$
 package edfreq;
 
-import java.awt.Container;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -50,7 +49,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	private double redshift;
 	private FrequencyTable jt;
 	private HeterodyneEditor hetEditor;
-	private Container contentPane;
 	private JPanel area1;
 	private JPanel area2;
 	private JPanel area3;
@@ -66,8 +64,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		setResizable( false );
 
 		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
-
-		contentPane = getContentPane();
 
 		this.hetEditor = hetEditor;
 
@@ -225,8 +221,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 		contentPanel.add( titlePanel );
 		contentPanel.add( dataPanel );
-		contentPane.removeAll();
-		contentPane.add( contentPanel , BorderLayout.CENTER );
+		removeAll();
+		add( contentPanel , BorderLayout.CENTER );
 
 		pack();
 	}

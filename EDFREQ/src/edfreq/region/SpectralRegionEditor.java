@@ -902,7 +902,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
-		frame.getContentPane().add( spectralRegionEditor );
+		frame.add( spectralRegionEditor );
 
 		frame.setLocation( 100 , 100 );
 		frame.pack();

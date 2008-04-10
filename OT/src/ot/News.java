@@ -91,11 +91,11 @@ public final class News extends JFrame
 			}
 		} );
 
-		getContentPane().add( BorderLayout.CENTER , new JScrollPane( _rt ) );
+		add( BorderLayout.CENTER , new JScrollPane( _rt ) );
 
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.add( _close );
-		getContentPane().add( BorderLayout.SOUTH , bottomPanel );
+		add( BorderLayout.SOUTH , bottomPanel );
 
 		setBounds( 100 , 100 , 480 , 640 );
 	}

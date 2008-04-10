@@ -40,7 +40,7 @@ public class OtWindowFrame extends JFrame implements WindowListener
 		editor.setParentFrame( this );
 
 		OtWindowToolBar toolbar = new OtWindowToolBar( editor );
-		getContentPane().add( "North" , toolbar );
+		add( "North" , toolbar );
 		JPanel panel = new JPanel();
 		panel.setLayout( new BorderLayout() );
 		OtTreeToolBar treeToolbar = new OtTreeToolBar( editor );
@@ -49,7 +49,7 @@ public class OtWindowFrame extends JFrame implements WindowListener
 		toolbarAndWasteBinPanel.add( "South" , new OtWasteBin() );
 		panel.add( "West" , toolbarAndWasteBinPanel );
 		panel.add( "Center" , editor );
-		getContentPane().add( "Center" , panel );
+		add( "Center" , panel );
 		setJMenuBar( new OtWindowMenuBar( editor , toolbar , treeToolbar ) );
 
 		// set default window size

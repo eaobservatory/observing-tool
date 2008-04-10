@@ -59,8 +59,8 @@ public class VelocityRegionDialog extends JDialog implements ActionListener
 		buttonPanel.add( okButton );
 		buttonPanel.add( cancelButton );
 
-		getContentPane().add( _vre , BorderLayout.CENTER );
-		getContentPane().add( buttonPanel , BorderLayout.SOUTH );
+		add( _vre , BorderLayout.CENTER );
+		add( buttonPanel , BorderLayout.SOUTH );
 		pack();
 		setLocation( 100 , 100 );
 

@@ -262,7 +262,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , tbw );
+		frame.add( "Center" , tbw );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

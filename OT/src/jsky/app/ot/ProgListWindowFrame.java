@@ -26,7 +26,7 @@ public class ProgListWindowFrame extends JFrame
 	{
 		super( "ODB Program Fetch Tool" );
 		progList = new ProgListWindow();
-		getContentPane().add( "Center" , progList );
+		add( "Center" , progList );
 
 		// set default window size
 		Dimension dim = progList.getPreferredSize();

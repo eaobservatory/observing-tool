@@ -277,7 +277,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , new JScrollPane( table ) );
+		frame.add( "Center" , new JScrollPane( table ) );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

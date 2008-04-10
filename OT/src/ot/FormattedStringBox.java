@@ -48,7 +48,7 @@ public class FormattedStringBox extends ReportBox
 		_printButton.setVisible( false );
 		_saveButton.setVisible( false );
 
-		getContentPane().remove( _textPane );
+		remove( _textPane );
 		jScrollPane1.getViewport().add( _textArea , null );
 
 		setVisible( true );

@@ -138,7 +138,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , button );
+		frame.add( "Center" , button );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

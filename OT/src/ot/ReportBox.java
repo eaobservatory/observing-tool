@@ -168,11 +168,11 @@ public class ReportBox extends JFrame
 			}
 		} );
 
-		this.getContentPane().add( jPanel1 , BorderLayout.SOUTH );
+		this.add( jPanel1 , BorderLayout.SOUTH );
 		jPanel1.add( _dismissButton , null );
 		jPanel1.add( _printButton , null );
 		jPanel1.add( _saveButton , null );
-		this.getContentPane().add( jScrollPane1 , BorderLayout.CENTER );
+		this.add( jScrollPane1 , BorderLayout.CENTER );
 		jScrollPane1.getViewport().add( _textPane , null );
 	}
 

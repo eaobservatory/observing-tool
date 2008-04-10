@@ -29,7 +29,7 @@ public class SplashFrame extends JFrame
 		super( "Welcome to the Observing Tool" );
 		splash = new SplashScreen( welcomeTxtURL );
 		splash.setParentFrame( this );
-		getContentPane().add( "Center" , splash );
+		add( "Center" , splash );
 
 		// set default window size
 		Dimension dim = splash.getPreferredSize();

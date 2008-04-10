@@ -132,7 +132,7 @@ public class DatabaseDialog implements ActionListener
 		if( desktop != null )
 		{
 			_internalFrame = new JInternalFrame( _title );
-			_internalFrame.getContentPane().add( _w );
+			_internalFrame.add( _w );
 			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER );
 			_w.setVisible( true );
 			_internalFrame.setVisible( true );
@@ -145,7 +145,7 @@ public class DatabaseDialog implements ActionListener
 			{
 				_dialogComponent = new JFrame();
 
-				_dialogComponent.getContentPane().add( _w );
+				_dialogComponent.add( _w );
 				_dialogComponent.pack();
 
 				// center the window on the screen

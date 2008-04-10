@@ -174,7 +174,7 @@ public class LineDisplay extends JPanel implements Observer
 		lineDisplay.updateDisplay( 365.0E+9 , 375.0E+9 , 4.0E9 , 1.8E9 , 0.0 );
 		lineDisplay.setMainLine( 369.907439E+9 );
 
-		frame.getContentPane().add( lineDisplay );
+		frame.add( lineDisplay );
 		frame.setLocation( 100 , 100 );
 		frame.pack();
 		frame.setVisible( true );

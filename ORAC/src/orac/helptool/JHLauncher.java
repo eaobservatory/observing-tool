@@ -245,7 +245,7 @@ final public class JHLauncher implements java.io.Serializable
 			topBox.add( Box.createVerticalStrut( 10 ) );
 			topBox.add( box6 );
 			topBox.add( box2 );
-			opDialog.getContentPane().add( topBox );
+			opDialog.add( topBox );
 		}
 	}
 
@@ -415,7 +415,7 @@ final public class JHLauncher implements java.io.Serializable
 			topBox.add( Box.createVerticalStrut( 10 ) );
 			topBox.add( box6 );
 			topBox.add( box2 );
-			sfDialog.getContentPane().add( topBox );
+			sfDialog.add( topBox );
 		}
 
 		public void valueChanged( TreeSelectionEvent e )
@@ -509,10 +509,9 @@ final public class JHLauncher implements java.io.Serializable
 						elementTreeFrame.setVisible( false );
 					}
 				} );
-				Container fContentPane = elementTreeFrame.getContentPane();
 
-				fContentPane.setLayout( new BorderLayout() );
-				fContentPane.add( new ElementTreePanel( getEditor() ) );
+				elementTreeFrame.setLayout( new BorderLayout() );
+				elementTreeFrame.add( new ElementTreePanel( getEditor() ) );
 				elementTreeFrame.pack();
 			}
 			elementTreeFrame.show();
@@ -910,7 +909,7 @@ final public class JHLauncher implements java.io.Serializable
 		topBox.add( bottomBox );
 		topBox.add( Box.createRigidArea( new Dimension( 0 , 10 ) ) );
 
-		selectionDialog.getContentPane().add( topBox );
+		selectionDialog.add( topBox );
 	}
 
 	private void handleHSFile( File hsFile )
@@ -1070,7 +1069,7 @@ final public class JHLauncher implements java.io.Serializable
 			frame.setForeground( Color.black );
 			frame.setBackground( Color.lightGray );
 			frame.addWindowListener( closer );
-			frame.getContentPane().add( jh ); // the JH panel
+			frame.add( jh ); // the JH panel
 			if( bar == null )
 				bar = createMenuBar();
 

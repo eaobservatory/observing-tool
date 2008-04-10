@@ -177,7 +177,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , new JScrollPane( list ) );
+		frame.add( "Center" , new JScrollPane( list ) );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

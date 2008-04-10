@@ -451,7 +451,7 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 
 		JFrame frame = new JFrame( "EmissionLine Display" );
 		frame.setResizable( false );
-		frame.getContentPane().add( el );
+		frame.add( el );
 		frame.setLocation( 100 , 100 );
 		frame.pack();
 		frame.setVisible( true );

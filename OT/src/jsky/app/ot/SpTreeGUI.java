@@ -675,7 +675,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		JFrame frame = new JFrame( "SpTreeGUI" );
 		SpTreeGUI spTree = new SpTreeGUI();
 		spTree.setPreferredSize( new Dimension( 360 , 400 ) );
-		frame.getContentPane().add( "Center" , spTree );
+		frame.add( "Center" , spTree );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

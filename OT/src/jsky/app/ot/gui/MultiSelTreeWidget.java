@@ -172,7 +172,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 		JFrame frame = new JFrame( "MultiSelTreeWidget" );
 		MultiSelTreeWidget tree = new MultiSelTreeWidget();
 		tree.setPreferredSize( new Dimension( 360 , 400 ) );
-		frame.getContentPane().add( "Center" , tree );
+		frame.add( "Center" , tree );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

@@ -80,7 +80,7 @@ public class OtPreferencesDialog implements ActionListener
 			_w.closeNoSaveOption.setSelected( !saveShouldPrompt );
 
 			_internalFrame = new JInternalFrame( _title );
-			_internalFrame.getContentPane().add( _w );
+			_internalFrame.add( _w );
 			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER );
 			_w.setVisible( true );
 			_internalFrame.setVisible( true );
@@ -106,7 +106,7 @@ public class OtPreferencesDialog implements ActionListener
 		if( _preferencesDialogFrame == null )
 		{
 			_preferencesDialogFrame = new JFrame( "OT Preferences" );
-			_preferencesDialogFrame.getContentPane().add( _w );
+			_preferencesDialogFrame.add( _w );
 			_preferencesDialogFrame.setLocation( 100 , 100 );
 			_preferencesDialogFrame.pack();
 		}

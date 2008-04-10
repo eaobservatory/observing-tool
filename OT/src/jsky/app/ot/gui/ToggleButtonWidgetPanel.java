@@ -140,7 +140,7 @@ public class ToggleButtonWidgetPanel extends JPanel
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , panel );
+		frame.add( "Center" , panel );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

@@ -97,7 +97,7 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	{
 		TpeImageWidget imageDisplay = ( TpeImageWidget )imageDisplayControl.getImageDisplay();
 		tpeToolBar = new TelescopePosEditorToolBar( imageDisplay );
-		getContentPane().add( "West" , tpeToolBar );
+		add( "West" , tpeToolBar );
 	}
 
 	/** Return the Tool bar with OT/TPE specific commands */

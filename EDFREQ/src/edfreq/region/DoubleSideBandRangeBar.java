@@ -341,7 +341,7 @@ public class DoubleSideBandRangeBar extends JPanel implements Observer
 
 		JFrame frame = new JFrame( "DoubleSideBandRangeBar" );
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		frame.getContentPane().add( doubleSideBandRangeBar );
+		frame.add( doubleSideBandRangeBar );
 		frame.setLocation( 100 , 100 );
 		frame.pack();
 		frame.setVisible( true );

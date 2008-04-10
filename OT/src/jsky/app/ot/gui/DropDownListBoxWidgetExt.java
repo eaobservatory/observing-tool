@@ -228,7 +228,7 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 			}
 		} );
 
-		frame.getContentPane().add( "Center" , ddlbwe );
+		frame.add( "Center" , ddlbwe );
 		frame.pack();
 		frame.setVisible( true );
 		frame.addWindowListener( new BasicWindowMonitor() );

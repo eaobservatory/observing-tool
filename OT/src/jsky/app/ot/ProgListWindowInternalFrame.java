@@ -25,7 +25,7 @@ public class ProgListWindowInternalFrame extends JInternalFrame
 	{
 		super( "ODB Program Fetch Tool" );
 		progList = new ProgListWindow();
-		getContentPane().add( "Center" , progList );
+		add( "Center" , progList );
 		setClosable( false );
 
 		// set default window size
