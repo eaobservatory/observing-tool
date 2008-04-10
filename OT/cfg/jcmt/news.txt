@@ -11,7 +11,7 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ January 2007 release
++++ January 2008 release
 
   - Data Reduction recipes are now available for ACSIS observations.
 
