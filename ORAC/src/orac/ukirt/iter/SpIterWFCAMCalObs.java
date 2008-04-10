@@ -146,7 +146,12 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public SpInstObsComp getInstrumentItem()
 	{
 		SpItem _baseItem = parent();
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		SpInstObsComp inst = SpTreeMan.findInstrument( _baseItem ) ;
+		
+		if( inst == null )
+			throw new RuntimeException( "no instrument in scope" ) ;
+
+		return inst ;
 	}
 
 	/**
@@ -154,15 +159,16 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public int getCalType()
 	{
+		int type = FOCUS ;
 		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE );
 		if( SKYFLAT_STRING.equalsIgnoreCase( calType ) )
-			return SKYFLAT;
+			type = SKYFLAT ;
 		else if( DOMEFLAT_STRING.equalsIgnoreCase( calType ) )
-			return DOMEFLAT;
-		else if( "dark".equalsIgnoreCase( calType ) )
-			return DARK ;
+			type = DOMEFLAT ;
+		else if( DARK_STRING.equalsIgnoreCase( calType ) )
+			type = DARK ;
 
-		return FOCUS;
+		return type ;
 	}
 
 	/**
@@ -178,14 +184,15 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getCalTypeString()
 	{
+		String calType = FOCUS_STRING ;
 		if( getCalType() == SKYFLAT )
-			return SKYFLAT_STRING ;
+			calType = SKYFLAT_STRING ;
 		else if( getCalType() == DOMEFLAT )
-			return DOMEFLAT_STRING ;
+			calType = DOMEFLAT_STRING ;
 		else if( getCalType() == DARK )
-			return DARK_STRING ;
+			calType = DARK_STRING ;
 			
-		return "focus";
+		return calType ;
 	}
 
 	/**

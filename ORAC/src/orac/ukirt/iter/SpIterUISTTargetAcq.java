@@ -150,8 +150,13 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		SpItem _baseItem = parent();
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		SpItem _baseItem = parent() ;
+		SpInstObsComp inst = SpTreeMan.findInstrument( _baseItem ) ;
+		
+		if( inst == null )
+			throw new RuntimeException( "no instrument in scope" ) ;
+
+		return inst ;
 	}
 
 	/**
@@ -511,7 +516,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		try
 		{
 			int maskIndex = SpInstUIST.MASKS.indexInColumn( getMask() , 0 );
-			maskHeight = new Double( ( String )SpInstUIST.MASKS.elementAt( maskIndex , 2 ) ).doubleValue();
+			maskHeight = new Double( ( String )SpInstUIST.MASKS.elementAt( maskIndex , 2 ) ) ;
 		}
 		catch( IndexOutOfBoundsException e ){}
 		catch( NumberFormatException e ){}

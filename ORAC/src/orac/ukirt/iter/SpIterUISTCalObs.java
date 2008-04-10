@@ -152,10 +152,14 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getTitle()
 	{
+		String title ;
+		
 		if( getTitleAttr() != null )
-			return super.getTitle();
-
-		return getCalTypeString() + " (" + getCount() + "X)";
+			title = super.getTitle() ;
+		else 
+			title = getCalTypeString() + " (" + getCount() + "X)" ;
+		
+		return title ;
 	}
 
 	/**
@@ -170,8 +174,13 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		SpItem _baseItem = parent();
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		SpItem _baseItem = parent() ;
+		SpInstObsComp inst = SpTreeMan.findInstrument( _baseItem ) ;
+		
+		if( inst == null )
+			throw new RuntimeException( "no instrument in scope" ) ;
+		
+		return inst ;
 	}
 
 	/**
@@ -246,12 +255,11 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public int getCalType()
 	{
-		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE );
+		int type = ARC ;
+		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE ) ;
 		if( "Flat".equals( calType ) )
-		{
-			return FLAT;
-		}
-		return ARC;
+			type = FLAT ;
+		return type ;
 	}
 
 	/**
@@ -267,10 +275,11 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getCalTypeString()
 	{
+		String calType = "Arc" ;
 		if( getCalType() == FLAT )
-			return "Flat";
+			calType = "Flat" ;
 
-		return "Arc";
+		return calType ;
 	}
 
 	/**
@@ -278,20 +287,20 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String[] getCalTypeChoices()
 	{
+		String choices[] = null ;
 		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
 		if( inst.isImaging() )
 		{
-			String choices[] = new String[ 1 ];
-			choices[ 0 ] = "Flat";
-			return choices;
+			choices = new String[ 1 ] ;
+			choices[ 0 ] = "Flat" ;
 		}
 		else
 		{
-			String choices[] = new String[ 2 ];
+			choices = new String[ 2 ];
 			choices[ 0 ] = "Flat";
 			choices[ 1 ] = "Arc";
-			return choices;
 		}
+		return choices ;
 	}
 
 	/**
@@ -309,22 +318,22 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getFlatSource()
 	{
+		String fs = null ;
 		if( getCalType() == FLAT )
 		{
-			String fs = _avTable.get( SpUISTCalConstants.ATTR_FLAT_SOURCE );
+			fs = _avTable.get( SpUISTCalConstants.ATTR_FLAT_SOURCE ) ;
 			if( fs == null )
 			{
-				SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
-				fs = inst.getDefaultFlatSource();
-				setFlatSource( fs );
+				SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
+				fs = inst.getDefaultFlatSource() ;
+				setFlatSource( fs ) ;
 			}
-			return fs;
 		}
 		else
 		{
-			String fs = "undefined";
-			return fs;
+			fs = "undefined" ;
 		}
+		return fs ;
 	}
 
 	/**

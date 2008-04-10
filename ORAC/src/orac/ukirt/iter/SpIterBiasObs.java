@@ -97,10 +97,14 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 	 */
 	public String getTitle()
 	{
+		String title ;
+		
 		if( getTitleAttr() != null )
-			return super.getTitle();
-
-		return "Bias (" + getCount() + "X)";
+			title = super.getTitle();
+		else
+			title = "Bias (" + getCount() + "X)" ;
+		
+		return title ;
 	}
 
 	/**
@@ -116,9 +120,14 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 	 */
 	public double getExposureTime()
 	{
+		double exposureTime = 0. ;
 		SpItem _baseItem = parent();
 		SpUKIRTInstObsComp spi = ( SpUKIRTInstObsComp )SpTreeMan.findInstrument( _baseItem );
-		return spi.getDefaultBiasExpTime();
+		if( spi != null )
+			exposureTime = spi.getDefaultBiasExpTime() ;
+		else
+			throw new RuntimeException( "No instrument in scope" ) ;
+		return exposureTime ;
 	}
 
 	/**
@@ -129,10 +138,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 	/**
 	 * Override setExposureTime to ignore what is passed in.
 	 */
-	public void setExposureTime( String expTime )
-	{
-
-	}
+	public void setExposureTime( String expTime ){}
 
 	/**
 	 * Override setCoadds to ignore what is passed in.
@@ -149,14 +155,23 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 	 */
 	public int getCoadds()
 	{
+		int coadds = 0 ;
 		// If the coadds has been set, use it.
 		if( _avTable.exists( ATTR_COADDS ) )
-			return _avTable.getInt( ATTR_COADDS , 1 );
+		{
+			coadds = _avTable.getInt( ATTR_COADDS , 1 );
+		}
+		else
+		{
+			SpItem _baseItem = parent();
+			SpUKIRTInstObsComp spi = ( SpUKIRTInstObsComp )SpTreeMan.findInstrument( _baseItem );
+			if( spi != null )
+				coadds = spi.getDefaultBiasCoadds() ;
+			else
+				throw new RuntimeException( "no instrument in scope" ) ;
+		}
 
-		SpItem _baseItem = parent();
-		SpUKIRTInstObsComp spi = ( SpUKIRTInstObsComp )SpTreeMan.findInstrument( _baseItem );
-
-		return spi.getDefaultBiasCoadds();
+		return coadds ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
