@@ -15,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.io.PrintWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -90,7 +89,7 @@ public class FormattedStringBox extends ReportBox
 			{
 				try
 				{
-					PrintWriter printWriter = new PrintWriter( new FileWriter( fileName ) );
+					PrintWriter printWriter = new PrintWriter( fileName ) ;
 					String[] split = _textArea.getText().split( "\n" );
 					
 					int i = 0 ;

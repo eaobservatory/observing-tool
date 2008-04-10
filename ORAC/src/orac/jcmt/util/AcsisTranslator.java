@@ -34,7 +34,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.IOException;
 
@@ -1172,7 +1171,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 
 	private void write( String text , String file ) throws IOException
 	{
-		PrintWriter printWriter = new PrintWriter( new FileOutputStream( file ) );
+		PrintWriter printWriter = new PrintWriter( file );
 		printWriter.println( text );
 		printWriter.close();
 	}

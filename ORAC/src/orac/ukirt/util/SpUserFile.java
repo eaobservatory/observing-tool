@@ -7,7 +7,6 @@ import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.SpTreeMan;
 import java.io.File ;
 import java.io.IOException ;
-import java.io.FileWriter ;
 import java.io.PrintWriter ;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -116,7 +115,6 @@ public class SpUserFile
 		SpAvTable tavl; // Target attribute value table
 		long timeTag; // Time tag used to make filenames
 		// unique
-		FileWriter uff; // File identifier for user file
 		PrintWriter ufpw; // PrintWriter for user file
 		SpRootItem spRootItem; // Science Program
 		String ufDec; // Dec. sexagesimal value without colons
@@ -153,8 +151,7 @@ public class SpUserFile
 			// Open the user file.
 			try
 			{
-				uff = new FileWriter( userFileName );
-				ufpw = new PrintWriter( uff );
+				ufpw = new PrintWriter( userFileName );
 
 				// Extract the base position values
 				// ================================

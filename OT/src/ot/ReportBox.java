@@ -31,7 +31,6 @@ import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.filechooser.FileFilter;
 
 import java.io.PrintWriter;
-import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileOutputStream;
@@ -207,7 +206,7 @@ public class ReportBox extends JFrame
 					}
 					else
 					{
-						PrintWriter printWriter = new PrintWriter( new FileWriter( fileName ) );
+						PrintWriter printWriter = new PrintWriter( fileName );
 						StringTokenizer st = new StringTokenizer( _textPane.getText() , "\n" );
 						while( st.hasMoreTokens() )
 							printWriter.println( st.nextToken() );
