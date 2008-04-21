@@ -815,7 +815,11 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		{
 			current = v.get( i ) ;
 			
-			if( current.startsWith( "set " ) )
+			if( current.startsWith( "loadConfig" ) )
+			{
+				lastSeen = null ;
+			}
+			else if( current.startsWith( "set " ) )
 			{
 				if( objectString.equals( current ) || skyflatString.equals( current ) || skyString.equals( current ) )
 				{
