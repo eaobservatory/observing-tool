@@ -29,6 +29,8 @@ import javax.swing.event.ChangeEvent;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import java.awt.Container;
+
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger
  *         (M.Folger@roe.ac.uk)
@@ -57,6 +59,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	private double _lRangeLimit;
 	private double _uRangeLimit;
 	private boolean _ignoreEvents = false;
+	
+	private Container contentPane;
 
 	public SideBandDisplay( HeterodyneEditor hetEditor )
 	{
@@ -64,6 +68,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		setResizable( false );
 
 		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
+		
+		contentPane = getContentPane();
 
 		this.hetEditor = hetEditor;
 
@@ -221,8 +227,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 		contentPanel.add( titlePanel );
 		contentPanel.add( dataPanel );
-		removeAll();
-		add( contentPanel , BorderLayout.CENTER );
+		contentPane.removeAll();
+		contentPane.add( contentPanel , BorderLayout.CENTER );
 
 		pack();
 	}
