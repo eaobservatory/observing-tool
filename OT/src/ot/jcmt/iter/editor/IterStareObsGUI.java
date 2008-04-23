@@ -43,8 +43,8 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 {
 	JPanel acsisPanel = new JPanel();
 	GridBagLayout gridBagLayout1 = new GridBagLayout();
-	JLabel jLabel1 = new JLabel();
-	JLabel jLabel2 = new JLabel();
+	JLabel secsPerOffsetSampleLabel = new JLabel();
+	TextBoxWidgetExt secsPerOffsetSample = new TextBoxWidgetExt();
 	JCheckBox widePhotom = new JCheckBox();
 	CheckBoxWidgetExt contModeCB = new CheckBoxWidgetExt();
 	JLabel informationLabelTop = new JLabel();
@@ -53,7 +53,6 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 	JPanel informationPanel = new JPanel();
 	JPanel scuba2Panel = new JPanel();
 	JLabel integrationTimeLabel = new JLabel();
-	TextBoxWidgetExt integrationTime = new TextBoxWidgetExt();
 	JLabel integrationTimeSeconds = new JLabel();
 	
 	JPanel mapPanel = new JPanel() ;
@@ -85,9 +84,9 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		starePanel.setLayout( new BorderLayout() );
 
 		acsisPanel.setLayout( gridBagLayout1 );
-		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		jLabel1.setForeground( Color.black );
-		jLabel1.setText( "Secs per offset sample" );
+		secsPerOffsetSampleLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		secsPerOffsetSampleLabel.setForeground( Color.black );
+		secsPerOffsetSampleLabel.setText( "Secs per offset sample" );
 
 		secsPerCycle.setColumns( 5 );
 
@@ -121,8 +120,8 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		starePanel.add( widePhotom , BorderLayout.NORTH );
 
 		starePanel.add( acsisPanel , BorderLayout.CENTER );
-		acsisPanel.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		acsisPanel.add( secsPerCycle , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		acsisPanel.add( secsPerOffsetSampleLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( secsPerOffsetSample , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
 		// Add a coninuum mode checkbox
 		acsisPanel.add( contModeCB , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
@@ -139,7 +138,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		integrationTimeLabel.setForeground( Color.black );
 		scuba2Panel.add( integrationTimeLabel );
 
-		scuba2Panel.add( integrationTime );
+		scuba2Panel.add( secsPerCycle );
 
 		integrationTimeSeconds.setText( "Seconds" );
 		integrationTimeSeconds.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
@@ -171,7 +170,6 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		mapPanel.add( systemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		mapPanel.add( coordSys , new GridBagConstraints( 1 , 1 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		
-		starePanel.add( mapPanel , BorderLayout.SOUTH ) ;
-		
+		starePanel.add( mapPanel , BorderLayout.SOUTH ) ;		
 	}
 }

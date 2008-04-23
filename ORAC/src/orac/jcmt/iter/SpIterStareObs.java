@@ -141,6 +141,8 @@ public class SpIterStareObs extends SpIterJCMTObs
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
 			rmSeparateOffs();
 		}
+		
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
 
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
@@ -158,11 +160,11 @@ public class SpIterStareObs extends SpIterJCMTObs
 	public void setupForSCUBA2()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
 		_avTable.noNotifyRm( ATTR_CONT_CAL );
 		_avTable.noNotifyRm( ATTR_WIDE_PHOTOMETRY );
-		if( _avTable.get( ATTR_SAMPLE_TIME ) == null || _avTable.get( ATTR_SAMPLE_TIME ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4.0" , 0 );
+		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "4.0" , 0 );
 	}
 
 	public String[] getSwitchingModeOptions()

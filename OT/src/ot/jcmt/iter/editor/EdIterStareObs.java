@@ -55,7 +55,6 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_description = "Stare Observation Mode";
 		_w.widePhotom.addActionListener( this );
 		_w.contModeCB.addWatcher( this );
-		_w.integrationTime.addWatcher( this );
 
 		super._w.arrayCentred.addWatcher( this ) ;
 		super._w.separateOffs.setEnabled( false ) ;
@@ -64,9 +63,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.coordSys.setChoices( SpIterStareObs.STARE_SYSTEMS ) ;
 		_w.paTextBox.addWatcher( this ) ;
 		_w.coordSys.addWatcher( this ) ;
+		_w.secsPerOffsetSample.addWatcher( this ) ;
 		
 		_w.paTextBox.setEnabled( false ) ;
-		_w.coordSys.setEnabled( false ) ;
 	}
 
 	/**
@@ -100,11 +99,16 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 				
 				setCanDoMap( instrument ) ;
 			}
+			else
+			{
+				super._w.arrayCentredLabel.setVisible( false ) ;
+				super._w.arrayCentred.setVisible( false ) ;
+			}
 
 			updateSeparateOffs();
 
-			_w.integrationTime.setText( "" + _iterObs.getSampleTime() );
 			_w.secsPerCycle.setText( "" + _iterObs.getSecsPerCycle() );
+			_w.secsPerOffsetSample.setText( "" + _iterObs.getSecsPerCycle() );
 		}
 		super._updateWidgets();
 	}
@@ -163,6 +167,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_w.scuba2Panel.setVisible( false );
 			_w.widePhotom.setVisible( false );
 			_w.widePhotom.setSelected( false );
+			_w.mapPanel.setVisible( true ) ;
 			_iterObs.setupForHeterodyne();
 			updateSeparateOffs();
 		}
@@ -173,12 +178,14 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_w.scuba2Panel.setVisible( true );
 			_w.widePhotom.setVisible( false );
 			_w.widePhotom.setSelected( false );
+			_w.mapPanel.setVisible( false ) ;
 			_iterObs.setupForSCUBA2();
 		}
 		else
 		{
 			_w.acsisPanel.setVisible( false );
 			_w.widePhotom.setVisible( true );
+			_w.mapPanel.setVisible( true ) ;
 		}
 		super.setInstrument( spInstObsComp );
 	}
@@ -236,15 +243,11 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-		if( tbwe == _w.secsPerCycle )
+		if( tbwe == _w.secsPerCycle || tbwe == _w.secsPerOffsetSample )
 		{
 			String secsPerCycle = _w.secsPerCycle.getText();
 			_iterObs.setSecsPerCycle( secsPerCycle );
 			updateSeparateOffs();
-		}
-		else if( tbwe == _w.integrationTime )
-		{
-			_iterObs.setSampleTime( _w.integrationTime.getText() );
 		}
 		else if( tbwe == _w.paTextBox )
 		{
