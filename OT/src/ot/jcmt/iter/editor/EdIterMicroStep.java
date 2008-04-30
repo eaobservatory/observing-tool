@@ -35,7 +35,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	private boolean ignoreActions = false;
 
 	/** For internal use only. */
-	private Vector _patternVector = new Vector();
+	private Vector _patternVector = new Vector() ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -72,7 +72,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 
 		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
 		{
-			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() );
+			TreeSet ts = new TreeSet( (( SpMicroStepUser )inst).getMicroStepPatterns().keySet() );
 			if( !ts.contains( SpIterMicroStep.NO_PATTERN ) )
 				_patternVector.add( SpIterMicroStep.NO_PATTERN );
 			

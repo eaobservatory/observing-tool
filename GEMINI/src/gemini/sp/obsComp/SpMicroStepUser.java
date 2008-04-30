@@ -20,6 +20,5 @@ import java.util.Hashtable;
  */
 public interface SpMicroStepUser
 {
-
 	public Hashtable getMicroStepPatterns();
 }

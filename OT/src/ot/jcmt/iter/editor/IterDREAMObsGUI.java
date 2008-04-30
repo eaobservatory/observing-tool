@@ -41,7 +41,7 @@ public class IterDREAMObsGUI extends IterJCMTGenericGUI
 
 		secondsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		secondsLabel.setForeground( Color.black );
-		secondsLabel.setText( " seconds" );
+		secondsLabel.setText( " seconds / pixel" );
 
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
 		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "DREAM setup" );

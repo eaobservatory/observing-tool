@@ -17,7 +17,6 @@ import gemini.sp.SpPosAngleObserver;
 import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.util.Format;
-import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.inst.SpInstSCUBA2;
@@ -261,6 +260,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." );
 		else if( inst instanceof SpInstSCUBA )
 			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , ( ( SpInstSCUBA )inst ).getChopFrequency() * dx );
+		else if( inst instanceof SpInstSCUBA2 )
+			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , dx );
 		else
 			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , ( dx / getSampleTime() ) );
 	}
@@ -561,16 +562,35 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void setScanStrategy( String strategy )
 	{
 		if( _avTable.exists( ATTR_SCAN_STRATEGY ) )
-		{
-			_avTable.set( SpJCMTConstants.ATTR_SCAN_STRATEGY , strategy , 0 );
-		}
+			_avTable.set( ATTR_SCAN_STRATEGY , strategy , 0 );
 	}
 
 	public String getScanStrategy()
 	{
-		return _avTable.get( SpJCMTConstants.ATTR_SCAN_STRATEGY , 0 );
+		return _avTable.get( ATTR_SCAN_STRATEGY , 0 );
 	}
 
+	public void setIntegrations( int integrations )
+	{
+		if( _avTable.exists( ATTR_SCAN_STRATEGY ) )
+			_avTable.set( ATTR_SCAN_INTEGRATIONS , integrations , 1 ) ;
+	}
+
+	public String getIntegrations()
+	{
+		return _avTable.get( ATTR_SCAN_INTEGRATIONS , 1 ) ;
+	}
+	
+	public void rmIntegrations()
+	{
+		_avTable.rm( ATTR_SCAN_INTEGRATIONS ) ;
+	}
+	
+	public void rmSampleTime()
+	{
+		_avTable.rm( ATTR_SAMPLE_TIME ) ;
+	}
+	
 	/** Creates JAC TCS XML. */
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
 	{
@@ -716,7 +736,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 );
 
 		if( _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ) == null || _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SpJCMTConstants.SCAN_SYSTEMS[ 0 ] , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 );
 
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "0.0" , 0 );
@@ -751,7 +771,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
 		if( _avTable.get( ATTR_SCAN_STRATEGY ) == null || _avTable.get( ATTR_SCAN_STRATEGY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SpJCMTConstants.SCAN_STRATAGIES[ 0 ] , 0 );
+		{
+			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_STRATAGIES[ 0 ] , 0 ) ;
+			if( !SCAN_STRATAGIES[ 0 ].equals( SCAN_PATTERN_POINT ) )
+				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 1 ) ;
+		}
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
 	}

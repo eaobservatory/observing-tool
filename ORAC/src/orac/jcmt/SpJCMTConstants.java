@@ -108,7 +108,9 @@ public interface SpJCMTConstants
 	public static final String ATTR_SCAN_STRATEGY = "scanPattern";
 	public static final String SCAN_PATTERN_BOUS = "Boustrophedon";
 	public static final String SCAN_PATTERN_PONG = "Pong";
-	public static final String[] SCAN_STRATAGIES = { SCAN_PATTERN_BOUS , SCAN_PATTERN_PONG };
+	public static final String SCAN_PATTERN_POINT = "Point Source";
+	public static final String[] SCAN_STRATAGIES = { SCAN_PATTERN_BOUS , SCAN_PATTERN_PONG , SCAN_PATTERN_POINT };
+	public static final String ATTR_SCAN_INTEGRATIONS = "integrations" ;
 
 	/**
 	 * Systems for chopping.

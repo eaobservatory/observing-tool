@@ -25,7 +25,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 
 	public static String[] JIGGLE_PATTERNS = { "DREAM" };
 
-	public static String[][] MICROSTEP_PATTERNS;
+	public static String[][] MICROSTEP_PATTERNS ;
 
 	/**
 	 * Constructor. Sets default values for attributes.

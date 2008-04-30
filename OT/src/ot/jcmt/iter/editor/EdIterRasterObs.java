@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 import java.util.Observer;
 import java.util.Observable;
 import java.util.TreeMap;
-import java.util.Vector;
 
 import javax.swing.JTextField;
 
@@ -31,12 +30,9 @@ import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.tpe.TpeManager;
 
 import gemini.sp.SpItem;
-import gemini.sp.SpMSB;
-import gemini.sp.SpProg;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.SpJCMTConstants;
-import orac.jcmt.inst.SpDRRecipe;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.util.ScubaNoise;
@@ -106,9 +102,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
 			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" );
 
-		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
+		String FREQ_EDITOR_CFG = System.getProperty( "FREQ_EDITOR_CFG" ) ;
+		if( FREQ_EDITOR_CFG != null )
 		{
-			if( System.getProperty( "FREQ_EDITOR_CFG" ).indexOf( "acsis" ) != -1 )
+			if( FREQ_EDITOR_CFG.indexOf( "acsis" ) != -1 )
 			{
 				// Using acsis setup
 				_w.sampleTime.setVisible( false );
@@ -151,7 +148,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.defaultButton.addWatcher( this );
 		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
 
-		_w.scanningStrategies.addWatcher( this );
+		_w.scanningStrategies.addWatcher( this ) ;
+		_w.numberOfMapCycles.addWatcher( this ) ;
+		_w.pointSourceTime.addWatcher( this ) ;
 
 		_w.harpRasters.addWatcher( this );
 
@@ -206,11 +205,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else
 			_w.addNonScuba2Panel();
 
-		boolean visible = ( !scuba2 || _iterObs.getScanStrategy().equals( SCAN_PATTERN_PONG ) );
-
-		_w.dy.setVisible( visible );
-		_w.scanSpacingLabel.setVisible( visible );
-		_w.arcSecsLabel4.setVisible( visible );
+		_w.dy.setVisible( !scuba2 );
+		_w.scanSpacingLabel.setVisible( !scuba2 );
+		_w.arcSecsLabel4.setVisible( !scuba2 );
 
 		_w.sizeOfXPixel.setVisible( !scuba2 );
 		_w.sizeOfYPixel.setVisible( !scuba2 );
@@ -219,11 +216,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.dimensionWarningTextTop.setVisible( !scuba2 );
 		_w.spacingLabel.setVisible( !scuba2 );
 
-		if( !visible )
+		if( scuba2 )
 		{
-			boolean bous = _iterObs.getScanStrategy().equals( SCAN_PATTERN_BOUS );
-			if( bous )
-			{
 				_iterObs.getTable().noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , FPLANE , 0 );
 				_w.scanSystem.deleteWatcher( this );
 				_w.scanSystem.setSelectedItem( FPLANE );
@@ -233,11 +227,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				_w.scanAngle.setSelectedItem( SCAN_PA_CHOICES[ 0 ] );
 				_w.scanAngle.setEditable( false );
 				_w.scanAngle.addWatcher( this );
-			}
 		}
 
-		_w.scanAngle.setEnabled( visible );
-		_w.scanSystem.setEnabled( visible );
+		_w.scanAngle.setEnabled( !scuba2 ) ;
+		_w.scanSystem.setEnabled( !scuba2 ) ;
 	}
 
 	protected void _updateWidgets()
@@ -254,9 +247,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		scuba2Setup();
 
+		Double dx = _iterObs.getScanDx() ;
+		
 		try
 		{
-			_w.dx.setValue( _iterObs.getScanDx() );
+			_w.dx.setValue( dx ) ;
 			_w.dx.setCaretPosition( 0 );
 		}
 		catch( UnsupportedOperationException e )
@@ -264,7 +259,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			DialogUtil.message( _w , "Warning:\n" + e.getMessage() );
 		}
 
-		_w.dx.setValue( _iterObs.getScanDx() );
+		_w.dx.setValue( dx );
 		_w.dx.setCaretPosition( 0 );
 		_w.dy.setValue( _iterObs.getScanDy() );
 		_w.dy.setCaretPosition( 0 );
@@ -297,6 +292,16 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.sampleTime.setValue( ( int )_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
 		else
 			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() );
+		
+		if( scuba2 )
+		{
+			if( _w.scanningStrategies.getValue().equals( SCAN_PATTERN_POINT ) )
+				_w.pointSourceTime.setValue( _iterObs.getSampleTime() ) ;
+			else
+				_w.numberOfMapCycles.setValue( _iterObs.getIntegrations() ) ;
+			
+			updateSampleSpeed( dx ) ;
+		}
 
 		updateTimes();
 		updateThermometer();
@@ -347,10 +352,28 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		if( tbwe == _w.dx )
 		{
-			_iterObs.setScanDx( _w.dx.getValue() );
-			if( !( _w.dx.getValue().equals( "" ) ) )
-				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels();
+			Double dx = 3. ;
+			try
+			{
+				String temp = _w.dx.getValue() ;
+				dx = new Double( temp ) ;
+			}
+			catch( NumberFormatException nfe ){}
+			catch( Exception e ){}
+			if( dx > 0. && dx < 3. )
+			{
+				_iterObs.setScanDx( dx );
+				if( !( _w.dx.getValue().equals( "" ) ) )
+					_w.noiseTextBox.setValue( calculateNoise() );
+				updateSizeOfPixels();
+				_w.sampleSpacingLabel.setForeground( Color.black ) ;
+				if( scuba2 )
+					updateSampleSpeed( dx ) ;
+			}
+			else
+			{
+				_w.sampleSpacingLabel.setForeground( Color.red ) ;
+			}
 		}
 		else if( tbwe == _w.dy )
 		{
@@ -417,17 +440,32 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			String sampleTime = "0.1";
 			try
 			{
-				sampleTime = _w.acsisSampleTime.getValue();
-				Double conversionDouble = new Double( sampleTime );
-				if( conversionDouble.doubleValue() > 0.1 )
+				String tmp = _w.acsisSampleTime.getValue();
+				Double conversionDouble = new Double( tmp ) ;
+				if( conversionDouble > 0.1 )
 					sampleTime = conversionDouble.toString();
-				else
-					sampleTime = "0.1";
 			}
 			catch( NumberFormatException nfe ){}
 			catch( Exception e ){}
 			_iterObs.setSampleTime( sampleTime );
 			_w.noiseTextBox.setValue( calculateNoise() );
+		}
+		else if( tbwe == _w.numberOfMapCycles )
+		{
+			Integer cycles = 1 ;
+			try
+			{
+				String temp = _w.numberOfMapCycles.getValue() ;
+				cycles = new Integer( temp ) ;
+			}
+			catch( NumberFormatException nfe ){}
+			catch( Exception e ){}
+			_iterObs.setIntegrations( cycles ) ;
+		}
+		else if( tbwe == _w.pointSourceTime )
+		{
+			_iterObs.setSampleTime( _w.pointSourceTime.getValue() ) ;
+			_w.noiseTextBox.setValue( calculateNoise() ) ;
 		}
 		else
 		{
@@ -481,8 +519,23 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
-			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ];
-			_iterObs.setScanStrategy( value );
+			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
+			_iterObs.setScanStrategy( value ) ;
+			boolean pointSource = SCAN_PATTERN_POINT.equals( value ) ;
+			_w.pointSourceTimeLabel.setVisible( pointSource ) ;
+			_w.pointSourceTime.setVisible( pointSource ) ;
+			_w.pointSourceTimeSecondsLabel.setVisible( pointSource ) ;
+			_w.numberOfMapCyclesLabel.setVisible( !pointSource ) ;
+			_w.numberOfMapCycles.setVisible( !pointSource ) ;
+			if( pointSource )
+			{
+				_iterObs.rmIntegrations() ;
+			}
+			else
+			{
+				_iterObs.rmSampleTime() ;
+				_iterObs.setIntegrations( 1 ) ;
+			}
 			scuba2Setup();
 		}
 		else
@@ -491,7 +544,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		updateTimes();
 		updateThermometer();
-		super._updateWidgets() ;
+		_updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
@@ -544,7 +597,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else
 		{
 			_w.heterodynePanel.setVisible( false );
-			_w.scanSystem.setEnabled( true );
+			_w.scanSystem.setEnabled( false );
 			_w.scanPanel.setVisible( true );
 		}
 
@@ -619,56 +672,30 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			// Get the instrument
 			SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs );
-			if( inst == null | !( inst instanceof SpInstHeterodyne ) )
-				return;
-
-			// Get the number of channels
-			int maxChannels = 0;
-			for( int i = 0 ; i < ( ( SpInstHeterodyne )inst ).getNumSubSystems() ; i++ )
+			if( inst != null && inst instanceof SpInstHeterodyne )
 			{
-				if( ( ( SpInstHeterodyne )inst ).getChannels( i ) > maxChannels )
-					maxChannels = ( ( SpInstHeterodyne )inst ).getChannels( i );
-			}
-
-			// See if we can get the DR recipe component which will allow us
-			// to get any channel truncation.  If we can't find it assume 0
-			// truncation.  To do this we need to go back up the hierarchy
-			SpItem parent = _iterObs.parent();
-			SpDRRecipe recipe = null;
-			int truncChannels = 0;
-			while( parent != null )
-			{
-				if( parent instanceof SpMSB )
+				SpInstHeterodyne heterodyne = ( SpInstHeterodyne )inst ;
+				// Get the number of channels
+				int maxChannels = 0 ;
+				for( int i = 0 ; i < heterodyne.getNumSubSystems() ; i++ )
 				{
-					// See if we can find the DRRecipe component
-					Vector drRecipeCompts = SpTreeMan.findAllItems( parent , "orac.jcmt.inst.SpDRRecipe" );
-					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
-					{
-						// We have found it, and there should only be 1, so assume this
-						recipe = ( SpDRRecipe )drRecipeCompts.get( 0 );
-						break;
-					}
+					if( heterodyne.getChannels( i ) > maxChannels )
+						maxChannels = heterodyne.getChannels( i ) ;
 				}
-				else if( parent instanceof SpProg )
-				{
-					// See if we can find the DRRecipe component
-					Vector drRecipeCompts = SpTreeMan.findAllItems( parent , "orac.jcmt.inst.SpDRRecipe" );
-					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
-					{
-						// We have found it, and there should only be 1, so assume this
-						recipe = ( SpDRRecipe )drRecipeCompts.get( 0 );
-						break;
-					}
-				}
-				parent = parent.parent();
+	
+				int samplesPerRow = ( int )( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
+				int numberOfRows = ( int )( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
+	
+				int fileSize = ( int )( ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) ) ;
+				_w.thermometer.setExtent( fileSize ) ;
 			}
-			maxChannels -= ( 2 * truncChannels );
-
-			int samplesPerRow = ( int )( _iterObs.getWidth() / _iterObs.getScanDx() );
-			int numberOfRows = ( int )( _iterObs.getHeight() / _iterObs.getScanDy() );
-
-			int fileSize = ( int )( ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) );
-			_w.thermometer.setExtent( fileSize );
 		}
+	}
+	
+	private void updateSampleSpeed( double arcsecondSpacing )
+	{
+		Double hertz = 200. * arcsecondSpacing ;
+		hertz = MathUtil.round( hertz , 3 ) ;
+		_w.scanSpeed.setText( hertz.toString() ) ;
 	}
 }

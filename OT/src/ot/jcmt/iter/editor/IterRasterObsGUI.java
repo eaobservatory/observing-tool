@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Font ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
@@ -95,6 +96,16 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt();
 	JPanel scuba2Panel = new JPanel();
 	JPanel rasterPanel = new JPanel();
+	JLabel numberOfMapCyclesLabel = new JLabel() ;
+	TextBoxWidgetExt numberOfMapCycles = new TextBoxWidgetExt() ;
+	JLabel pointSourceTimeLabel = new JLabel() ;
+	TextBoxWidgetExt pointSourceTime = new TextBoxWidgetExt() ;
+	JLabel pointSourceTimeSecondsLabel = new JLabel() ;
+	
+	JLabel scanSpeedLabel = new JLabel() ;
+	TextBoxWidgetExt scanSpeed = new TextBoxWidgetExt() ;
+	JLabel scanSpeedArcSecondsLabel = new JLabel() ;
+	
 
 	public IterRasterObsGUI()
 	{
@@ -120,88 +131,88 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		scanPanel.setLayout( gridBagLayout3 );
 		areaPanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Area" ) );
 		scanPanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Scan" ) );
-		sampleSpacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sampleSpacingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		sampleSpacingLabel.setForeground( Color.black );
 		sampleSpacingLabel.setText( "Sample Spacing" );
-		scanSpacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		scanSpacingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		scanSpacingLabel.setForeground( Color.black );
 		scanSpacingLabel.setText( "Scan Spacing" );
-		widthLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		widthLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		widthLabel.setForeground( Color.black );
 		widthLabel.setText( "Width" );
-		scanSystemLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		scanSystemLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		scanSystemLabel.setForeground( Color.black );
 		scanSystemLabel.setText( "System" );
-		arcSecsLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		arcSecsLabel1.setFont( new Font( "Dialog" , 0 , 12 ) );
 		arcSecsLabel1.setForeground( Color.black );
 		arcSecsLabel1.setText( "(arcsecs)" );
-		scanSystem.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		sampleTime.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		arcSecsLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		scanSystem.setFont( new Font( "Dialog" , 0 , 12 ) );
+		sampleTime.setFont( new Font( "Dialog" , 0 , 12 ) );
+		arcSecsLabel2.setFont( new Font( "Dialog" , 0 , 12 ) );
 		arcSecsLabel2.setForeground( Color.black );
 		arcSecsLabel2.setText( "(arcsecs)" );
-		arcSecsLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		arcSecsLabel3.setFont( new Font( "Dialog" , 0 , 12 ) );
 		arcSecsLabel3.setForeground( Color.black );
 		arcSecsLabel3.setText( "(arcsecs)" );
-		arcSecsLabel4.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		arcSecsLabel4.setFont( new Font( "Dialog" , 0 , 12 ) );
 		arcSecsLabel4.setForeground( Color.black );
 		arcSecsLabel4.setText( "(arcsecs)" );
-		heightLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		heightLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		heightLabel.setForeground( Color.black );
 		heightLabel.setText( "Height" );
 		posAngle.setColumns( 5 );
-		degreesLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		degreesLabel1.setFont( new Font( "Dialog" , 0 , 12 ) );
 		degreesLabel1.setForeground( Color.black );
 		degreesLabel1.setText( "(degrees)" );
-		posAngleLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		posAngleLabel1.setFont( new Font( "Dialog" , 0 , 12 ) );
 		posAngleLabel1.setForeground( Color.black );
 		posAngleLabel1.setText( "PA" );
 		secsPerObservation.setEditable( false );
 		secsPerRow.setEditable( false );
-		secsPerObsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		secsPerObsLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		secsPerObsLabel.setForeground( Color.black );
 		secsPerObsLabel.setText( "Secs/Observation" );
-		secsPerRowLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		secsPerRowLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		secsPerRowLabel.setForeground( Color.black );
 		secsPerRowLabel.setText( "Secs/Row" );
-		estimationLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		estimationLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		estimationLabel.setForeground( Color.black );
 		estimationLabel.setText( "(estimated)" );
 		heterodynePanel.setLayout( gridBagLayout1 );
 		heterodynePanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Heterodyne Details" ) );
 		defaultButton.setText( "Default" );
 		rowReversal.setText( "Row Reversal" );
-		rowReversal.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		secsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		rowReversal.setFont( new Font( "Dialog" , 0 , 12 ) );
+		secsLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		secsLabel.setForeground( Color.black );
 		secsLabel.setText( "(sec)" );
-		sampleTimeLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sampleTimeLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		sampleTimeLabel.setForeground( Color.black );
 		sampleTimeLabel.setText( "Sample Time" );
-		posAngleLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		posAngleLabel2.setFont( new Font( "Dialog" , 0 , 12 ) );
 		posAngleLabel2.setForeground( Color.black );
 		posAngleLabel2.setText( "PA" );
-		degreesLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		degreesLabel2.setFont( new Font( "Dialog" , 0 , 12 ) );
 		degreesLabel2.setForeground( Color.black );
 		degreesLabel2.setText( "(degrees)" );
-		scanAngle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		scanAngle.setFont( new Font( "Dialog" , 0 , 12 ) );
 
-		spacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		spacingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		spacingLabel.setForeground( Color.black );
 		spacingLabel.setText( " " );
 
 		sizeOfXPixel.setEnabled( false );
 		sizeOfYPixel.setEnabled( false );
 
-		sizeOfXPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sizeOfXPixelLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		sizeOfXPixelLabel.setForeground( Color.black );
 		sizeOfXPixelLabel.setText( "Nr of samples/pixels" );
-		sizeOfYPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		sizeOfYPixelLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		sizeOfYPixelLabel.setForeground( Color.black );
 		sizeOfYPixelLabel.setText( "Nr of scans/pixels" );
 
-		dimensionWarningTextTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		dimensionWarningTextBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		dimensionWarningTextTop.setFont( new Font( "Dialog" , 0 , 12 ) );
+		dimensionWarningTextBottom.setFont( new Font( "Dialog" , 0 , 12 ) );
 		dimensionWarningTextTop.setForeground( Color.red );
 		dimensionWarningTextBottom.setForeground( Color.red );
 		dimensionWarningTextTop.setText( "Dimension must be equally" );
@@ -209,21 +220,54 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		dimensionWarningTextTop.setVisible( false );
 		dimensionWarningTextBottom.setVisible( false );
 
-		harpScanSpacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		harpScanSpacingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		harpScanSpacingLabel.setForeground( Color.black );
 		harpScanSpacingLabel.setText( "Scan Spacing" );
+		
+		numberOfMapCyclesLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		numberOfMapCyclesLabel.setForeground( Color.black ) ;
+		numberOfMapCyclesLabel.setText( "Times round map" ) ;
+		
+		pointSourceTimeLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		pointSourceTimeLabel.setForeground( Color.black ) ;
+		pointSourceTimeLabel.setText( "Integration time" ) ;
+		pointSourceTimeSecondsLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		pointSourceTimeSecondsLabel.setForeground( Color.black ) ;
+		pointSourceTimeSecondsLabel.setText( "Seconds" ) ;
+		
+		scanSpeedLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		scanSpeedLabel.setForeground( Color.black ) ;
+		scanSpeedLabel.setText( "Scan Speed" ) ;
+		scanSpeedArcSecondsLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		scanSpeedArcSecondsLabel.setForeground( Color.black ) ;
+		scanSpeedArcSecondsLabel.setText( "ArcSec/Sec" ) ;
+		scanSpeed.setEnabled( false ) ;
 
 		this.add( rasterPanel , BorderLayout.CENTER );
 		scubaAcsisPanel.add( areaPanel , BorderLayout.CENTER );
 
 		scuba2Panel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "SCUBA-2 Details" ) );
 		JLabel scanStrategyLabel = new JLabel();
-		scanStrategyLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		scanStrategyLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
 		scanStrategyLabel.setForeground( Color.black );
 		scanStrategyLabel.setText( "Scan Strategy" );
 		scuba2Panel.setLayout( new GridLayout( 10 , 1 ) );
 		scuba2Panel.add( scanStrategyLabel );
 		scuba2Panel.add( scanningStrategies );
+		scuba2Panel.add( numberOfMapCyclesLabel ) ;
+		scuba2Panel.add( numberOfMapCycles ) ;
+
+		pointSourceTimeLabel.setVisible( false ) ;
+		pointSourceTime.setVisible( false ) ;
+		pointSourceTimeSecondsLabel.setVisible( false ) ;
+		
+		scuba2Panel.add( pointSourceTimeLabel ) ;
+		scuba2Panel.add( pointSourceTime ) ;
+		scuba2Panel.add( pointSourceTimeSecondsLabel ) ;
+		
+		scuba2Panel.add( scanSpeedLabel ) ;
+		scuba2Panel.add( scanSpeed ) ;
+		scuba2Panel.add( scanSpeedArcSecondsLabel ) ;
 
 		rasterPanel.add( scubaAcsisPanel );
 
