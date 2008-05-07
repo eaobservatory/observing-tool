@@ -530,6 +530,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			if( pointSource )
 			{
 				_iterObs.rmIntegrations() ;
+				_w.pointSourceTime.setValue( _iterObs.getSampleTime() ) ;
 			}
 			else
 			{
@@ -544,7 +545,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		updateTimes();
 		updateThermometer();
-		_updateWidgets() ;
+		super._updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
