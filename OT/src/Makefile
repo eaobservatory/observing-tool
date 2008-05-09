@@ -175,6 +175,7 @@ $(BIN_DIR)/ot.bat: scripts/ot_bat_local_source
 clean:
 	rm -rf $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 	rm -f  $(BIN_DIR)/ot $(BIN_DIR)/ot.bat
+	rm -rf $(LOCAL_INSTALL_ROOT)
 
 
 ###################################################################
