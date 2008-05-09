@@ -263,6 +263,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		{
 			super.textBoxKeyPress( tbwe ) ;
 		}
+		super._updateWidgets() ;
 	}
 	
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
