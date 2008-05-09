@@ -243,9 +243,15 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-		if( tbwe == _w.secsPerCycle || tbwe == _w.secsPerOffsetSample )
+		if( tbwe == _w.secsPerCycle )
 		{
 			String secsPerCycle = _w.secsPerCycle.getText();
+			_iterObs.setSecsPerCycle( secsPerCycle );
+			updateSeparateOffs();
+		}
+		if( tbwe == _w.secsPerOffsetSample )
+		{
+			String secsPerCycle = _w.secsPerOffsetSample.getText();
 			_iterObs.setSecsPerCycle( secsPerCycle );
 			updateSeparateOffs();
 		}
