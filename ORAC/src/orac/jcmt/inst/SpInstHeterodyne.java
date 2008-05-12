@@ -988,7 +988,29 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 
 	public double[] getScienceArea()
 	{
-		return null;
+		double[] scienceArea = null ;
+		String frontEnd = getFrontEnd() ;
+		if( frontEnd.equals( "A3" ) )
+		{
+			// 20 arcsec diameter circle
+			scienceArea = new double[]{ 10. } ;
+		}
+		else if( frontEnd.equals( "WB" ) )
+		{
+			// 14 arcsec diameter circle
+			scienceArea = new double[]{ 7. } ;
+		}
+		else if( frontEnd.equals( "WD" ) )
+		{
+			// 7 arcsec diameter circle
+			scienceArea = new double[]{ 3.5 } ;
+		}
+		else if( frontEnd.equals( "HARP" ) )
+		{
+			// 2 arcmin square
+			scienceArea = new double[]{ 120. , 120. } ;
+		}
+		return scienceArea ;
 	}
 
 	/**
