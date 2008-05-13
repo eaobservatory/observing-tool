@@ -164,7 +164,7 @@ public class SpIterStareObs extends SpIterJCMTObs
 		_avTable.noNotifyRm( ATTR_CONT_CAL );
 		_avTable.noNotifyRm( ATTR_WIDE_PHOTOMETRY );
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "4.0" , 0 );
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "5" , 0 );
 	}
 
 	public String[] getSwitchingModeOptions()
