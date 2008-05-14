@@ -31,8 +31,6 @@ while ("$1" != "")
     set INTERNAL_FRAMES = -internalframes 
   else if("$1" == "-nointernalframes") then 
     set INTERNAL_FRAMES = -nointernalframes 
-  else if("$1" == "-scuba2") then
-    set OT_CFG_FILE = "-Dot.cfg.file=scuba2ot.cfg"
   else if( `echo $1 | grep -i ".xml"` != "" ) then
     set XMLFILES = "$XMLFILES $1"
   else if(-d ${CFG_DIRS}/"$1") then 
