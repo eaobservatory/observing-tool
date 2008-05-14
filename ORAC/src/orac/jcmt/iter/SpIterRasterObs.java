@@ -774,7 +774,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		{
 			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_STRATAGIES[ 0 ] , 0 ) ;
 			if( !SCAN_STRATAGIES[ 0 ].equals( SCAN_PATTERN_POINT ) )
-				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 1 ) ;
+				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
 		}
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
