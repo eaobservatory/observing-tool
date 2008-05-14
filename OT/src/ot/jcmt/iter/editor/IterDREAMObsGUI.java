@@ -18,6 +18,7 @@ public class IterDREAMObsGUI extends IterJCMTGenericGUI
 {
 	TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
 	JPanel mainPanel = new JPanel();
+	JPanel subPanel = new JPanel();
 	JLabel integrationTimeLabel = new JLabel();
 	JLabel secondsLabel = new JLabel();
 
@@ -46,12 +47,12 @@ public class IterDREAMObsGUI extends IterJCMTGenericGUI
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
 		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "DREAM setup" );
 
-		mainPanel.setBorder( titleBorder );
-		mainPanel.setLayout( new GridLayout( 1 , 3 ) );
-		mainPanel.add( integrationTimeLabel , BorderLayout.WEST );
-		mainPanel.add( secsPerObservation , BorderLayout.CENTER );
-		mainPanel.add( secondsLabel , BorderLayout.EAST );
-		this.setLayout( new GridLayout( 10 , 1 ) );
+		subPanel.setBorder( titleBorder );
+		subPanel.setLayout( new GridLayout( 1 , 3 ) );
+		subPanel.add( integrationTimeLabel , BorderLayout.WEST );
+		subPanel.add( secsPerObservation , BorderLayout.CENTER );
+		subPanel.add( secondsLabel , BorderLayout.EAST );
+		mainPanel.add( subPanel ) ;
 		this.add( mainPanel , BorderLayout.CENTER );
 	}
 }
