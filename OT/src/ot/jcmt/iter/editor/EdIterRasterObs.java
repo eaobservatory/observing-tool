@@ -39,7 +39,7 @@ import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
 import orac.jcmt.inst.SpInstSCUBA2;
 
-import gemini.util.MathUtil;
+import orac.util.CoordConvert ;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
@@ -63,6 +63,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	// Global flag indicating whether we are using acsis or das
 	boolean _isAcsis = true;
+	boolean harp = false ;
+	boolean scuba2 = false ;
 	TreeMap harpMap = new TreeMap();
 	
 	private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" };
@@ -74,12 +76,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		for( int index = 0 ; index < HARP_RASTER_STEPS.length ; index++ )
 		{
 			double tempValue = SpIterRasterObs.HARP_FULL_ARRAY * HARP_RASTER_STEPS[ index ] ;
-			HARP_RASTER_VALUES[ index ] = orac.util.CoordConvert.round( tempValue , 4 ) ;
+			HARP_RASTER_VALUES[ index ] = CoordConvert.round( tempValue , 4 ) ;
 		}
 	}
-	
-	boolean harp = false;
-	boolean scuba2 = false;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -100,7 +99,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.scanningStrategies.setChoices( SCAN_STRATAGIES );
 
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
-			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" );
+			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + CoordConvert.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" );
 
 		String FREQ_EDITOR_CFG = System.getProperty( "FREQ_EDITOR_CFG" ) ;
 		if( FREQ_EDITOR_CFG != null )
@@ -165,14 +164,32 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_iterObs = ( SpIterRasterObs )spItem;
 
 		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs );
-		scuba2 = inst instanceof SpInstSCUBA2;
-		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst ).getFrontEnd().equals( "HARP" ) );
-		if( harp )
-			_harpSetup();
+		scuba2 = inst instanceof SpInstSCUBA2 ;
+		_isAcsis = inst instanceof SpInstHeterodyne ;
+		if( _isAcsis )
+		{
+			_acsisSetUp() ;
+			harp = (( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ;
+			if( harp )
+				_harpSetup();
+		}
+		else
+		{
+			harp = false ;
+		}
 		super.setup( spItem );
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
+	private void _acsisSetUp()
+	{
+		_w.dx.setEnabled( true ) ;
+		_w.dy.setEnabled( true ) ;
+		_w.height.setEnabled( true ) ;
+		_w.width.setEnabled( true ) ;
+		_w.posAngle.setEnabled( true ) ;
+	}
+	
 	private void _harpSetup()
 	{
 		_iterObs.setScanDx( 7.2761 );
@@ -228,9 +245,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				_w.scanAngle.setEditable( false );
 				_w.scanAngle.addWatcher( this );
 		}
-
-		_w.scanAngle.setEnabled( !scuba2 ) ;
-		_w.scanSystem.setEnabled( !scuba2 ) ;
+		
+		boolean allowScan = !scuba2 || SCAN_PATTERN_BOUS.equals( _iterObs.getScanStrategy() ) ;
+		
+		_w.scanAngle.setEnabled( allowScan ) ;
+		_w.scanSystem.setEnabled( allowScan ) ;
 	}
 
 	protected void _updateWidgets()
@@ -284,7 +303,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.scanAngle.setEditable( true );
 			_w.scanAngle.setValue( scanAngleString.substring( 2 ) );
 		}
-
+		
 		_w.scanSystem.setValue( _iterObs.getScanSystem() );
 		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
@@ -310,9 +329,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	private void updateSizeOfPixels()
 	{
+		boolean displayWarning = false ;
 		if( !scuba2 )
 		{
-			boolean displayWarning = false;
 			double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() );
 			double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() );
 			int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 );
@@ -340,10 +359,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			{
 				_w.sizeOfYPixelLabel.setForeground( Color.black );
 			}
-
-			_w.dimensionWarningTextTop.setVisible( displayWarning );
-			_w.dimensionWarningTextBottom.setVisible( displayWarning );
 		}
+		_w.dimensionWarningTextTop.setVisible( displayWarning ) ;
+		_w.dimensionWarningTextBottom.setVisible( displayWarning ) ;
 	}
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
@@ -520,13 +538,26 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else if( ddlbwe == _w.scanningStrategies )
 		{
 			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
+			
 			_iterObs.setScanStrategy( value ) ;
 			boolean pointSource = SCAN_PATTERN_POINT.equals( value ) ;
+			boolean allowScan = SCAN_PATTERN_BOUS.equals( value ) ;
+			
+			_w.scanAngle.setEnabled( allowScan ) ;
+			_w.scanSystem.setEnabled( allowScan ) ;
+			
 			_w.pointSourceTimeLabel.setVisible( pointSource ) ;
 			_w.pointSourceTime.setVisible( pointSource ) ;
 			_w.pointSourceTimeSecondsLabel.setVisible( pointSource ) ;
 			_w.numberOfMapCyclesLabel.setVisible( !pointSource ) ;
 			_w.numberOfMapCycles.setVisible( !pointSource ) ;
+			
+			_w.dx.setEnabled( !pointSource ) ;
+			_w.dy.setEnabled( !pointSource ) ;
+			_w.height.setEnabled( !pointSource ) ;
+			_w.width.setEnabled( !pointSource ) ;
+			_w.posAngle.setEnabled( !pointSource ) ;
+			
 			if( pointSource )
 			{
 				_iterObs.rmIntegrations() ;
@@ -593,12 +624,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			_w.heterodynePanel.setVisible( true );
 			_w.scanSystem.setEnabled( true );
+			_w.scanAngle.setEnabled( true );
 			_w.scanPanel.setVisible( true );
 		}
 		else
 		{
 			_w.heterodynePanel.setVisible( false );
-			_w.scanSystem.setEnabled( false );
 			_w.scanPanel.setVisible( true );
 		}
 
@@ -621,7 +652,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 );
+			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 );
 		else
 			return -999.9;
 	}
@@ -696,7 +727,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private void updateSampleSpeed( double arcsecondSpacing )
 	{
 		Double hertz = 200. * arcsecondSpacing ;
-		hertz = MathUtil.round( hertz , 3 ) ;
+		hertz = CoordConvert.round( hertz , 3 ) ;
 		_w.scanSpeed.setText( hertz.toString() ) ;
 	}
 }
