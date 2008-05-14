@@ -744,8 +744,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "10.0" , 0 );
 
-		if( _avTable.get( ATTR_SCAN_STRATEGY ) == null || _avTable.get( ATTR_SCAN_STRATEGY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_PATTERN_BOUS , 0 ) ;
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY );
+		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_PATTERN_BOUS , 0 ) ;
 	}
 
 	public void setupForSCUBA()
