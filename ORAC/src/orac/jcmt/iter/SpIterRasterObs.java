@@ -573,12 +573,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void setIntegrations( int integrations )
 	{
 		if( _avTable.exists( ATTR_SCAN_STRATEGY ) )
-			_avTable.set( ATTR_SCAN_INTEGRATIONS , integrations , 1 ) ;
+			_avTable.set( ATTR_SCAN_INTEGRATIONS , integrations , 0 ) ;
 	}
 
 	public String getIntegrations()
 	{
-		return _avTable.get( ATTR_SCAN_INTEGRATIONS , 1 ) ;
+		return _avTable.get( ATTR_SCAN_INTEGRATIONS , 0 ) ;
 	}
 	
 	public void rmIntegrations()
