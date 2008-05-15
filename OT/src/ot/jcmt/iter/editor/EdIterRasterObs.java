@@ -96,7 +96,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES );
 		_w.thermometer.setMaximum( _maxFileSize );
 
-		_w.scanningStrategies.setChoices( SCAN_STRATAGIES );
+		_w.scanningStrategies.setChoices( SCAN_STRATEGIES );
 
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
 			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + CoordConvert.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" );
@@ -537,7 +537,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
-			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
+			String value = SCAN_STRATEGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
 			
 			_iterObs.setScanStrategy( value ) ;
 			boolean pointSource = SCAN_PATTERN_POINT.equals( value ) ;
@@ -561,6 +561,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			if( pointSource )
 			{
 				_iterObs.rmIntegrations() ;
+				_iterObs.setSampleTime( "4.0" ) ;
 				_w.pointSourceTime.setValue( _iterObs.getSampleTime() ) ;
 			}
 			else

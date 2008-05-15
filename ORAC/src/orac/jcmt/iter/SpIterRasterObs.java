@@ -387,7 +387,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void setSampleTime( String value )
 	{
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
-		if( inst instanceof SpInstHeterodyne )
+		if( inst instanceof SpInstHeterodyne || inst instanceof SpInstSCUBA2 )
 		{
 			// leave the old value
 			if( Format.toDouble( value ) == 0. )
@@ -773,8 +773,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
 		if( _avTable.get( ATTR_SCAN_STRATEGY ) == null || _avTable.get( ATTR_SCAN_STRATEGY ).equals( "" ) )
 		{
-			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_STRATAGIES[ 0 ] , 0 ) ;
-			if( !SCAN_STRATAGIES[ 0 ].equals( SCAN_PATTERN_POINT ) )
+			String strategy = SCAN_STRATEGIES[ 0 ] ;
+			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
+			if( strategy.equals( SCAN_PATTERN_POINT ) )
+				_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4." , 0 ) ;
+			else
 				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
 		}
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )

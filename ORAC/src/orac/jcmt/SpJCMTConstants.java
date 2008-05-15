@@ -110,7 +110,7 @@ public interface SpJCMTConstants
 	public static final String SCAN_PATTERN_PONG = "Pong" ;
 	public static final String SCAN_PATTERN_LISSAJOUS = "Lissajous" ;
 	public static final String SCAN_PATTERN_POINT = "Point Source" ;
-	public static final String[] SCAN_STRATAGIES = 
+	public static final String[] SCAN_STRATEGIES = 
 	{ 
 		SCAN_PATTERN_PONG ,
 		SCAN_PATTERN_LISSAJOUS ,
