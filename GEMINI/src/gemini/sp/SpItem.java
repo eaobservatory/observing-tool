@@ -1171,10 +1171,6 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 				value = "99";
 		}
 
-		// this is horrible
-		if( name.equals( "integrations" ) )
-			return;
-
 		// also horrid
 		if( name.equals( "velocityFrame" ) && value.equals( "LSR" ) )
 			value = "LSRK";
