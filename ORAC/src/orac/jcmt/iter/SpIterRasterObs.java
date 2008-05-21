@@ -409,14 +409,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getSecsPerRow()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		if( instrument instanceof SpInstSCUBA )
 		{
 			double mapWidth = getWidth();
 			double sampleDX = getScanDx();
 			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
 			return mapWidth / scanRate;
 		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		else if( instrument instanceof SpInstHeterodyne )
 		{
 			double rowOverhead = 17.14 ;
 			double samplesPerRow = numberOfSamplesPerRow();
@@ -508,7 +508,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		if( instrument instanceof SpInstSCUBA )
 		{
 			int nWaveplates = 0;
 			double factor = 1. ;
@@ -542,7 +542,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			// Overhead is 50 percent for scan map.
 			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
 		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		else if( instrument instanceof SpInstHeterodyne )
 		{
 			/*
 			 * Based on real timing data 
@@ -744,7 +744,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "10.0" , 0 );
 
-		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY );
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_PATTERN_BOUS , 0 ) ;
 	}
 
@@ -771,15 +771,22 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
-		if( _avTable.get( ATTR_SCAN_STRATEGY ) == null || _avTable.get( ATTR_SCAN_STRATEGY ).equals( "" ) )
+
+		String strategy = SCAN_STRATEGIES[ 0 ] ;
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
+		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
+		
+		if( strategy.equals( SCAN_PATTERN_POINT ) )
 		{
-			String strategy = SCAN_STRATEGIES[ 0 ] ;
-			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
-			if( strategy.equals( SCAN_PATTERN_POINT ) )
-				_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4." , 0 ) ;
-			else
-				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
+			_avTable.noNotifyRm( ATTR_SCAN_INTEGRATIONS ) ;
+			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4." , 0 ) ;
 		}
+		else
+		{
+			_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
+			_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
+		}
+		
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
 	}
