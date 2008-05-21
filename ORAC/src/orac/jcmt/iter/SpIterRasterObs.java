@@ -192,7 +192,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	/** Get scan velocity. */
 	public double getScanVelocity()
 	{
-
 		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
 		if( _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. ) == 0. )
 		{
@@ -240,7 +239,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			else if( inst instanceof SpInstHeterodyne )
 				dx = getScanVelocity() * getSampleTime();
 			else if( inst instanceof SpInstSCUBA2 )
-				dx = getScanVelocity();
+				dx = getScanVelocity() / 200. ;
 
 			return dx;
 		}
@@ -259,11 +258,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( inst == null )
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." );
 		else if( inst instanceof SpInstSCUBA )
-			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , ( ( SpInstSCUBA )inst ).getChopFrequency() * dx );
+			setScanVelocity( ( ( SpInstSCUBA )inst ).getChopFrequency() * dx ) ;
 		else if( inst instanceof SpInstSCUBA2 )
-			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , dx );
+			setScanVelocity( dx * 200. ) ;
 		else
-			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , ( dx / getSampleTime() ) );
+			setScanVelocity( dx / getSampleTime() ) ;
 	}
 
 	/**
@@ -387,22 +386,24 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void setSampleTime( String value )
 	{
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
-		if( inst instanceof SpInstHeterodyne || inst instanceof SpInstSCUBA2 )
+		if( inst instanceof SpInstHeterodyne )
 		{
 			// leave the old value
 			if( Format.toDouble( value ) == 0. )
 				return;
 			else
-				_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , getScanDx() / Format.toDouble( value ) );
+				setScanVelocity( getScanDx() / Format.toDouble( value ) ) ;
 		}
 		super.setSampleTime( value );
 	}
 
 	public void posAngleUpdate( double posAngle )
 	{
-		// Do not use setPosAngle(posAngle) here as it would reset the posAngle of the class
-		// calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
-		// again an so on causing an infinite loop.
+		/*
+		 * Do not use setPosAngle(posAngle) here as it would reset the posAngle of the class
+		 * calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
+		 * again an so on causing an infinite loop.
+		 */
 		_avTable.set( ATTR_SCANAREA_PA , posAngle );
 	}
 

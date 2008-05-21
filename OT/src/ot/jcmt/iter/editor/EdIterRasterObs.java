@@ -330,7 +330,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else
 			_w.numberOfMapCycles.setValue( _iterObs.getIntegrations() ) ;
 		
-		updateSampleSpeed( _iterObs.getScanDx() ) ;
+		_w.scanSpeed.setValue( _iterObs.getScanVelocity() ) ;
 		
 		_w.scanAngle.setEnabled( allowScan ) ;
 		_w.scanSystem.setEnabled( allowScan ) ;
@@ -434,7 +434,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 					_w.noiseTextBox.setValue( calculateNoise() );
 				updateSizeOfPixels();
 				_w.dx.setBackground( Color.white ) ;
-				updateSampleSpeed( dx ) ;
+				updateScuba2Panel() ;
 			}
 			else
 			{
@@ -745,12 +745,5 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				_w.thermometer.setExtent( fileSize ) ;
 			}
 		}
-	}
-	
-	private void updateSampleSpeed( double arcsecondSpacing )
-	{
-		Double hertz = 200. * arcsecondSpacing ;
-		hertz = CoordConvert.round( hertz , 3 ) ;
-		_w.scanSpeed.setText( hertz.toString() ) ;
 	}
 }
