@@ -91,7 +91,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 
 	public Hashtable getMicroStepPatterns()
 	{
-		Hashtable result = new Hashtable();
+		Hashtable<String,double[][]> result = new Hashtable<String,double[][]>() ;
 
 		double[][] offsets;
 
