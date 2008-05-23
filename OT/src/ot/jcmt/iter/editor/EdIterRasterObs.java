@@ -426,20 +426,23 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			}
 			catch( NumberFormatException nfe ){}
 			catch( Exception e ){}
-			
+/*			
 			if( dx > 0. && dx <= 3. )
 			{
+*/
 				_iterObs.setScanDx( dx );
 				if( !( temp.equals( "" ) ) )
 					_w.noiseTextBox.setValue( calculateNoise() );
 				updateSizeOfPixels();
 				_w.dx.setBackground( Color.white ) ;
 				updateScuba2Panel() ;
+/*
 			}
 			else
 			{
 				_w.dx.setBackground( Color.red ) ;
 			}
+*/
 		}
 		else if( tbwe == _w.dy )
 		{
