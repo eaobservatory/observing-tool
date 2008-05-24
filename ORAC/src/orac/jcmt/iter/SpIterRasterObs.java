@@ -206,15 +206,20 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	}
 
 	/** Set scan velocity. */
-	public void setScanVelocity( double value )
+	public boolean setScanVelocity( double value )
 	{
-		_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , value );
+		boolean valid = true ;
+		if( value > 0. && value <= 600. )
+			_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , value ) ;
+		else 
+			valid = false ;
+		return valid ;
 	}
 
 	/** Set scan velocity. */
-	public void setScanVelocity( String value )
+	public boolean setScanVelocity( String value )
 	{
-		_avTable.set( ATTR_SCANAREA_SCAN_VELOCITY , Format.toDouble( value ) );
+		return setScanVelocity( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -252,17 +257,19 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	 * @throws java.lang.UnsupportedOperationException No instrument in scope.
 	 */
-	public void setScanDx( double dx ) throws UnsupportedOperationException
+	public boolean setScanDx( double dx ) throws UnsupportedOperationException
 	{
+		boolean valid = false ;
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
 		if( inst == null )
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." );
 		else if( inst instanceof SpInstSCUBA )
-			setScanVelocity( ( ( SpInstSCUBA )inst ).getChopFrequency() * dx ) ;
+			valid = setScanVelocity( ( ( SpInstSCUBA )inst ).getChopFrequency() * dx ) ;
 		else if( inst instanceof SpInstSCUBA2 )
-			setScanVelocity( dx * 200. ) ;
+			valid = setScanVelocity( dx * 200. ) ;
 		else
-			setScanVelocity( dx / getSampleTime() ) ;
+			valid = setScanVelocity( dx / getSampleTime() ) ;
+		return valid ;
 	}
 
 	/**
@@ -385,16 +392,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	public void setSampleTime( String value )
 	{
-		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst instanceof SpInstHeterodyne )
 		{
 			// leave the old value
-			if( Format.toDouble( value ) == 0. )
-				return;
-			else
+			if( Format.toDouble( value ) > 0. )
 				setScanVelocity( getScanDx() / Format.toDouble( value ) ) ;
+			else return ;
 		}
-		super.setSampleTime( value );
+		super.setSampleTime( value ) ;
 	}
 
 	public void posAngleUpdate( double posAngle )
