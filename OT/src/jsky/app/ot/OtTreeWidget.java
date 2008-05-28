@@ -486,6 +486,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		if( !canAddEyeToNonACSIS( destItem , newItems ) )
 			return null;
 
+		// Can add to SCUBA-2 ?
+		if( !canAddEyeToSCUBA2( destItem , newItems ) )
+			return null ;
+		
 		// First see if we can insert the items inside the selected node
 		SpInsertData spID;
 		spID = SpTreeMan.evalInsertInside( newItems , destItem );
@@ -1019,6 +1023,26 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		}
 	}
 
+	private boolean canAddEyeToSCUBA2( SpItem target , SpItem[] items )
+	{
+		boolean canAdd = true ;
+		String[] eyes = { "jiggle" } ;
+		Class[] tabooClass = new Class[]{ SpInstSCUBA2.class } ;
+		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
+		{
+			String eye = eyes[ index ];
+			if( !canAddEye( target , items , eye + "Obs" , tabooClass ) )
+			{
+				String firstLetter = eye.substring( 0 , 1 ) ;
+				eye = firstLetter.toUpperCase() + eye.substring( 1 , eye.length() ) ;
+				DialogUtil.error( this , "Can not add a " + eye + " to an SCUBA-2 observation" ) ;
+				canAdd = false ;
+			}
+		}
+		return canAdd ;
+	}
+	
+	// A badly named method, private though, so can be changed easily
 	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
