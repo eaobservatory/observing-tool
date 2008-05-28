@@ -181,11 +181,6 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:choice> 
-        <!-- SCUBA-2 -->
-        <xsd:sequence>
-          <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
-          <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
-        </xsd:sequence>
         <!-- ACSIS -->
         <xsd:sequence>
           <xsd:element name="continuumMode"   type="xsd:boolean"/>
