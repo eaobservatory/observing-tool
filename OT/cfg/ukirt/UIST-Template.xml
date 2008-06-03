@@ -2,28 +2,34 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>true</meta_gui_collapsed>
   <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
-  <ot_version>20071030</ot_version>
+  <ot_version>20080602</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>For broadband L and M imaging use the following
 exposure times:
-Filter Camera Exp,s Obs,s
-L '      0.06     0.72    25 512 subarray
-                     0.63    23 full array
-          0.12    0.18   70  512 subarray
-                     0.21   45 full array
-M'      0.06     0.45   32 512 subarray
-          0.12    0.09    96 512 subarray
 
-L and M standards must be observed with identical readout area
-and exp time due to non-linearity effects</note>
+Filter Camera   Exp,s Obs,s                       Mode
+L '      0.06     0.64   20 512 subarray     THERMAL ND*
+                     0.60   25 Full array            THERMAL ND*
+         0.12     0.175 60 Full array            THERMAL CDS
+                     0.20   50 Full array            THERMAL ND (Linearity is slightly better with THERMAL CDS)
+M'      0.06     0.4     25 Full array            THERMAL CDS or THERMAL ND
+                     0.4     25 512 sub array     THERMAL CDS or THERMAL ND
+         0.12     0.175 50 Full array            THERMAL CDS
+                     0.059 90 512 sub array     THERMAL CDS
+                     0.08   90 512 sub array     THERMAL ND
+
+* you may also use thermal CDS with lower exposure time
+
+L and M standards must be observed with identical readout area, offsets
+and exp time as the target due to non-linearity effects</note>
         <title>Exposure times</title>
       </SpNote>
       <SpNote type="no" subtype="none">
@@ -41,7 +47,7 @@ of the array only.</note>
         <SpDRRecipeRef idref="2"/>
         <SpInstUISTRef idref="1"/>
         <SpTelescopeObsCompRef idref="0"/>
-        <estimatedDuration units="seconds">149.0</estimatedDuration>
+        <estimatedDuration units="seconds">167.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -102,8 +108,8 @@ in the thermal.</note>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
-          <DAConf>ND1T</DAConf>
-          <DAConfMinExpT>0.2</DAConfMinExpT>
+          <DAConf>CDS1T</DAConf>
+          <DAConfMinExpT>0.175</DAConfMinExpT>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
           <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -118,14 +124,14 @@ in the thermal.</note>
           <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>45</coadds>
+          <coadds>60</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.5</dutyCycle>
-          <expTimeOT>0.21</expTimeOT>
-          <exposureTime>0.2</exposureTime>
+          <dutyCycle>0.4666666666666667</dutyCycle>
+          <expTimeOT>0.175</expTimeOT>
+          <exposureTime>0.175</exposureTime>
           <filter>Lp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>2.18</focus>
@@ -145,15 +151,15 @@ in the thermal.</note>
           <mask>large_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL CDS</mode>
           <mustIdles>100</mustIdles>
-          <nreads>2</nreads>
+          <nreads>11</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>25.0</obsTimeOT>
-          <observationTime>18.0</observationTime>
+          <observationTime>22.5</observationTime>
           <order>0</order>
           <pixelFOV>0.1205 x 0.1205</pixelFOV>
           <pixelScale>0.12</pixelScale>
@@ -161,8 +167,8 @@ in the thermal.</note>
           <posAngle>-90.0</posAngle>
           <pupil_imaging>no</pupil_imaging>
           <readArea>1024x1024</readArea>
-          <readInterval>0.2</readInterval>
-          <readMode>THERMAL ND</readMode>
+          <readInterval>0.175</readInterval>
+          <readMode>THERMAL CDS</readMode>
           <readout>NDSTARE</readout>
           <readoutOT>THERMAL ND 1024x1024</readoutOT>
           <refPixelL>512.5</refPixelL>
@@ -285,7 +291,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="5"/>
         <SpInstUISTRef idref="4"/>
         <SpTelescopeObsCompRef idref="3"/>
-        <estimatedDuration units="seconds">244.20000000000005</estimatedDuration>
+        <estimatedDuration units="seconds">280.20000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -346,8 +352,8 @@ in the thermal.</note>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
-          <DAConf>ND1T</DAConf>
-          <DAConfMinExpT>0.2</DAConfMinExpT>
+          <DAConf>CDS1T</DAConf>
+          <DAConfMinExpT>0.175</DAConfMinExpT>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
           <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -362,14 +368,14 @@ in the thermal.</note>
           <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>45</coadds>
+          <coadds>60</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.5</dutyCycle>
-          <expTimeOT>0.21</expTimeOT>
-          <exposureTime>0.2</exposureTime>
+          <dutyCycle>0.4666666666666667</dutyCycle>
+          <expTimeOT>0.175</expTimeOT>
+          <exposureTime>0.175</exposureTime>
           <filter>Lp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>2.18</focus>
@@ -389,15 +395,15 @@ in the thermal.</note>
           <mask>large_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL CDS</mode>
           <mustIdles>100</mustIdles>
-          <nreads>2</nreads>
+          <nreads>11</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>25.0</obsTimeOT>
-          <observationTime>18.0</observationTime>
+          <observationTime>22.5</observationTime>
           <order>0</order>
           <pixelFOV>0.1205 x 0.1205</pixelFOV>
           <pixelScale>0.12</pixelScale>
@@ -405,8 +411,8 @@ in the thermal.</note>
           <posAngle>-90.0</posAngle>
           <pupil_imaging>no</pupil_imaging>
           <readArea>1024x1024</readArea>
-          <readInterval>0.2</readInterval>
-          <readMode>THERMAL ND</readMode>
+          <readInterval>0.175</readInterval>
+          <readMode>THERMAL CDS</readMode>
           <readout>NDSTARE</readout>
           <readoutOT>THERMAL ND 1024x1024</readoutOT>
           <refPixelL>512.5</refPixelL>
@@ -483,35 +489,35 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
               <obsArea>
                 <PA>-90.0</PA>
                 <OFFSET>
-                  <DC1>-20.0</DC1>
+                  <DC1>20.0</DC1>
                   <DC2>30.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>30.0</DC1>
+                  <DC1>-30.0</DC1>
                   <DC2>-20.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>30.0</DC1>
+                  <DC1>-30.0</DC1>
                   <DC2>-30.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-20.0</DC1>
+                  <DC1>20.0</DC1>
                   <DC2>20.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-30.0</DC1>
+                  <DC1>30.0</DC1>
                   <DC2>30.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>20.0</DC1>
+                  <DC1>-20.0</DC1>
                   <DC2>-20.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>20.0</DC1>
+                  <DC1>-20.0</DC1>
                   <DC2>-30.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-30.0</DC1>
+                  <DC1>30.0</DC1>
                   <DC2>20.0</DC2>
                 </OFFSET>
               </obsArea>
@@ -545,7 +551,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="8"/>
         <SpInstUISTRef idref="7"/>
         <SpTelescopeObsCompRef idref="6"/>
-        <estimatedDuration units="seconds">297.2999999999999</estimatedDuration>
+        <estimatedDuration units="seconds">238.90000000000003</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -606,8 +612,8 @@ in the thermal.</note>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
-          <DAConf>ND512T</DAConf>
-          <DAConfMinExpT>0.08</DAConfMinExpT>
+          <DAConf>CDS512T</DAConf>
+          <DAConfMinExpT>0.059</DAConfMinExpT>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
           <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -622,14 +628,14 @@ in the thermal.</note>
           <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>70</coadds>
+          <coadds>60</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.7058823529411766</dutyCycle>
-          <expTimeOT>0.21</expTimeOT>
-          <exposureTime>0.24</exposureTime>
+          <dutyCycle>0.6363636363636364</dutyCycle>
+          <expTimeOT>0.175</expTimeOT>
+          <exposureTime>0.175</exposureTime>
           <filter>Lp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>2.18</focus>
@@ -649,15 +655,15 @@ in the thermal.</note>
           <mask>large_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL CDS</mode>
           <mustIdles>100</mustIdles>
-          <nreads>4</nreads>
+          <nreads>11</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>25.0</obsTimeOT>
-          <observationTime>23.799999999999997</observationTime>
+          <observationTime>16.5</observationTime>
           <order>0</order>
           <pixelFOV>0.1205 x 0.1205</pixelFOV>
           <pixelScale>0.12</pixelScale>
@@ -665,8 +671,8 @@ in the thermal.</note>
           <posAngle>-90.0</posAngle>
           <pupil_imaging>no</pupil_imaging>
           <readArea>512x512</readArea>
-          <readInterval>0.08</readInterval>
-          <readMode>THERMAL ND</readMode>
+          <readInterval>0.059</readInterval>
+          <readMode>THERMAL CDS</readMode>
           <readout>NDSTARE</readout>
           <readoutOT>THERMAL ND 1024x1024</readoutOT>
           <refPixelL>512.5</refPixelL>
@@ -805,7 +811,7 @@ central (right of telescope aperture) 100 pixels.</note>
         <SpDRRecipeRef idref="11"/>
         <SpInstUISTRef idref="10"/>
         <SpTelescopeObsCompRef idref="9"/>
-        <estimatedDuration units="seconds">289.20000000000005</estimatedDuration>
+        <estimatedDuration units="seconds">233.20000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -882,14 +888,14 @@ in the thermal.</note>
           <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>23</coadds>
+          <coadds>20</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.8</dutyCycle>
-          <expTimeOT>0.73</expTimeOT>
-          <exposureTime>0.8</exposureTime>
+          <dutyCycle>0.7500000000000001</dutyCycle>
+          <expTimeOT>0.6</expTimeOT>
+          <exposureTime>0.6000000000000001</exposureTime>
           <filter>Lp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>2.50</focus>
@@ -909,15 +915,15 @@ in the thermal.</note>
           <mask>small_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL ND</mode>
           <mustIdles>100</mustIdles>
-          <nreads>5</nreads>
+          <nreads>4</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>25.0</obsTimeOT>
-          <observationTime>23.0</observationTime>
+          <observationTime>16.0</observationTime>
           <order>0</order>
           <pixelFOV>0.06055 x 0.06055</pixelFOV>
           <pixelScale>0.06</pixelScale>
@@ -1065,7 +1071,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="14"/>
         <SpInstUISTRef idref="13"/>
         <SpTelescopeObsCompRef idref="12"/>
-        <estimatedDuration units="seconds">267.6</estimatedDuration>
+        <estimatedDuration units="seconds">222.00000000000009</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1142,14 +1148,14 @@ in the thermal.</note>
           <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>25</coadds>
+          <coadds>20</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.8780487804878049</dutyCycle>
-          <expTimeOT>0.73</expTimeOT>
-          <exposureTime>0.72</exposureTime>
+          <dutyCycle>0.8648648648648649</dutyCycle>
+          <expTimeOT>0.64</expTimeOT>
+          <exposureTime>0.64</exposureTime>
           <filter>Lp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>2.50</focus>
@@ -1169,15 +1175,15 @@ in the thermal.</note>
           <mask>small_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL ND</mode>
           <mustIdles>100</mustIdles>
-          <nreads>10</nreads>
+          <nreads>9</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>25.0</obsTimeOT>
-          <observationTime>20.5</observationTime>
+          <observationTime>14.8</observationTime>
           <order>0</order>
           <pixelFOV>0.06055 x 0.06055</pixelFOV>
           <pixelScale>0.06</pixelScale>
@@ -1325,11 +1331,11 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="17"/>
         <SpInstUISTRef idref="16"/>
         <SpTelescopeObsCompRef idref="15"/>
-        <estimatedDuration units="seconds">238.62000000000006</estimatedDuration>
+        <estimatedDuration units="seconds">152.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
-        <title>M'  0.12"/pix Nod 8 10" 512</title>
+        <title>M'  0.12"/pix Nod 4 20" 1024</title>
         <totalDuration units="seconds">180.0</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1365,9 +1371,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This example sets up the M'  filter with the 0.12"/pixel camera
-and 512x512 readout.  The 1024x1024 cannot be used with
-M' and this platescale.
+          <note>This example sets up the L'  filter with the 0.12"/pixel camera
+and full 1024x1024 readout.
 
 Select camera or pixel scale  from the camera drop down menu.
 
@@ -1387,8 +1392,8 @@ in the thermal.</note>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
-          <DAConf>ND512T</DAConf>
-          <DAConfMinExpT>0.08</DAConfMinExpT>
+          <DAConf>CDS1T</DAConf>
+          <DAConfMinExpT>0.175</DAConfMinExpT>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
           <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -1400,17 +1405,261 @@ in the thermal.</note>
           <biasRefPixelY>512.5</biasRefPixelY>
           <biasWaveform>uist_starev11</biasWaveform>
           <camera>imaging</camera>
-          <centralWavelength>4.7</centralWavelength>
+          <centralWavelength>3.77</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>96</coadds>
+          <coadds>50</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.4444444444444444</dutyCycle>
-          <expTimeOT>0.1</expTimeOT>
-          <exposureTime>0.08</exposureTime>
+          <dutyCycle>0.4666666666666667</dutyCycle>
+          <expTimeOT>0.175</expTimeOT>
+          <exposureTime>0.175</exposureTime>
+          <filter>Lp98</filter>
+          <filterCategory>broad</filterCategory>
+          <focus>2.18</focus>
+          <idlePeriod>0.0</idlePeriod>
+          <imager>0.12</imager>
+          <instAper>
+            <value>4.82</value>
+            <value>1.19</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <instPntgOffset>
+            <value>17.24</value>
+            <value>8.2076</value>
+          </instPntgOffset>
+          <instPort>South</instPort>
+          <mask>large_field</mask>
+          <maskHeight>0.0</maskHeight>
+          <maskWidth>0.0</maskWidth>
+          <mode>THERMAL CDS</mode>
+          <mustIdles>100</mustIdles>
+          <nreads>11</nreads>
+          <nresets>1</nresets>
+          <nullCycles>0</nullCycles>
+          <nullExposures>0</nullExposures>
+          <nullReads>0</nullReads>
+          <obsTimeOT>25.0</obsTimeOT>
+          <observationTime>18.75</observationTime>
+          <order>0</order>
+          <pixelFOV>0.1205 x 0.1205</pixelFOV>
+          <pixelScale>0.12</pixelScale>
+          <polarimetry>no</polarimetry>
+          <posAngle>-90.0</posAngle>
+          <pupil_imaging>no</pupil_imaging>
+          <readArea>1024x1024</readArea>
+          <readInterval>0.175</readInterval>
+          <readMode>THERMAL CDS</readMode>
+          <readout>NDSTARE</readout>
+          <readoutOT>THERMAL ND 1024x1024</readoutOT>
+          <refPixelL>512.5</refPixelL>
+          <refPixelS>480.5</refPixelS>
+          <refPixelX>480.5</refPixelX>
+          <refPixelY>480.5</refPixelY>
+          <resetDelay>0.03</resetDelay>
+          <resolution>0.0</resolution>
+          <scienceArea>122.88 x 122.88 arcsec</scienceArea>
+          <source_mag>11-12</source_mag>
+          <spectralCoverage>3.428um-4.108um</spectralCoverage>
+          <waveform>thermalStarev8L</waveform>
+        </SpInstUIST>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>If you want to do aperture photometry select NOD_SELF_FLAT_NO_MASK_APHOT</note>
+          <title>DR Recipe Selection</title>
+        </SpNote>
+        <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>NOD_SELF_FLAT_NO_MASK</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>If you changed the exposure time in the UIST configuration above, then you must change it for the dark too.  The data-reduction recipe will not work unless you have a dark with the right exposure time.
+
+Use the reset-to-default button to ensure the dark exposure times for your source and dark are matched.</note>
+            <title>change dark exposure time here</title>
+          </SpNote>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <coadds>45</coadds>
+            <exposureTime>0.2</exposureTime>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>To repeat the nod/jitter pattern more than once on your target, use the repeat item below to specify how many times you want to repeat it.</note>
+            <title>how to do more than one nod/jitter set</title>
+          </SpNote>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The offsets place a set of four observations in each of the
+top right and lower left quadrants.  The lower throughput
+lower right is avoided.  Offsets from center are large enough
+to avoid sometimes poorly behaved central 100 pixels.</note>
+              <title>offset info</title>
+            </SpNote>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>-90.0</PA>
+                <OFFSET>
+                  <DC1>-20.0</DC1>
+                  <DC2>-20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-20.0</DC1>
+                  <DC2>20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>20.0</DC1>
+                  <DC2>20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>20.0</DC1>
+                  <DC2>-20.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title>nod_4_20as</title>
+              <SpIterObserve type="ic" subtype="observe">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This last offset simply takes the telescope back to 0,0 after all the repeats of the jitter pattern are finished.</note>
+            <title>last offset</title>
+          </SpNote>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <obsArea>
+              <PA>-90.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpDRRecipeRef idref="20"/>
+        <SpInstUISTRef idref="19"/>
+        <SpTelescopeObsCompRef idref="18"/>
+        <estimatedDuration units="seconds">250.20000000000005</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>99</priority>
+        <standard>false</standard>
+        <title>M'  0.12"/pix Nod 8 10" 1024</title>
+        <totalDuration units="seconds">180.0</totalDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB is incomplete without a standard star in the selected waveband.
+Since it is not possible to predict the source RA we do not include this
+standard star here. To get it, file...open the UIST Standards library
+and drag/drop in the appropriate observations.</note>
+          <title>Standards</title>
+        </SpNote>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+
+When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This example sets up the L'  filter with the 0.12"/pixel camera
+and full 1024x1024 readout.
+
+Select camera or pixel scale  from the camera drop down menu.
+
+Select broad or narrowband filter and your choice from the
+drop down menu.  Exposure time and readmode will reset
+when you change filter! 
+
+Readout area is selected from the read mode drop down menu
+e.g. NDSTARE 1024x1024 or NDSTARE 512x512.
+
+Be careful changing exposure time as the read mode will
+reset!  Refer to the web pages for optimum exposure times
+in the thermal.</note>
+          <title>Configuration information</title>
+        </SpNote>
+        <SpInstUIST id="19" type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>3</meta_version>
+          <DAConf>CDS1T</DAConf>
+          <DAConfMinExpT>0.175</DAConfMinExpT>
+          <arrayAngle>0.54</arrayAngle>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasMustIdles>100</biasMustIdles>
+          <biasNResets>2</biasNResets>
+          <biasObsTime>9.468</biasObsTime>
+          <biasReadArea>1024x1024</biasReadArea>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <camera>imaging</camera>
+          <centralWavelength>4.69</centralWavelength>
+          <chopDelay>0.0</chopDelay>
+          <chopFrequency>0.0</chopFrequency>
+          <coadds>50</coadds>
+          <configType>Normal</configType>
+          <darkFilter>black_blank</darkFilter>
+          <disperser>open</disperser>
+          <dispersion>0.0</dispersion>
+          <dutyCycle>0.4666666666666667</dutyCycle>
+          <expTimeOT>0.175</expTimeOT>
+          <exposureTime>0.175</exposureTime>
           <filter>Mp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>1.47</focus>
@@ -1430,7 +1679,267 @@ in the thermal.</note>
           <mask>large_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL CDS</mode>
+          <mustIdles>100</mustIdles>
+          <nreads>11</nreads>
+          <nresets>1</nresets>
+          <nullCycles>0</nullCycles>
+          <nullExposures>0</nullExposures>
+          <nullReads>0</nullReads>
+          <obsTimeOT>25.0</obsTimeOT>
+          <observationTime>18.75</observationTime>
+          <order>0</order>
+          <pixelFOV>0.1205 x 0.1205</pixelFOV>
+          <pixelScale>0.12</pixelScale>
+          <polarimetry>no</polarimetry>
+          <posAngle>-90.0</posAngle>
+          <pupil_imaging>no</pupil_imaging>
+          <readArea>1024x1024</readArea>
+          <readInterval>0.175</readInterval>
+          <readMode>THERMAL CDS</readMode>
+          <readout>NDSTARE</readout>
+          <readoutOT>THERMAL ND 1024x1024</readoutOT>
+          <refPixelL>512.5</refPixelL>
+          <refPixelS>480.5</refPixelS>
+          <refPixelX>480.5</refPixelX>
+          <refPixelY>480.5</refPixelY>
+          <resetDelay>0.03</resetDelay>
+          <scienceArea>122.88 x 122.88 arcsec</scienceArea>
+          <source_mag>11-12</source_mag>
+          <spectralCoverage>4.572um-4.800um</spectralCoverage>
+          <waveform>thermalStarev8L</waveform>
+        </SpInstUIST>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>If you want to do aperture photometry select NOD_SELF_FLAT_NO_MASK_APHOT</note>
+          <title>DR Recipe Selection</title>
+        </SpNote>
+        <SpDRRecipe id="20" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>NOD_SELF_FLAT_NO_MASK</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>If you changed the exposure time in the UIST configuration above, then you must change it for the dark too.  The data-reduction recipe will not work unless you have a dark with the right exposure time.
+
+Use the reset-to-default button to ensure the dark exposure times for your source and dark are matched.</note>
+            <title>change dark exposure time here</title>
+          </SpNote>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <coadds>45</coadds>
+            <exposureTime>0.2</exposureTime>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>To repeat the nod/jitter pattern more than once on your target, use the repeat item below to specify how many times you want to repeat it.</note>
+            <title>how to do more than one jitter/nod</title>
+          </SpNote>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The offsets place a set of four observations in each of the
+top right and lower left quadrants.  The lower throughput
+lower right is avoided.  Offsets from center are large enough
+to avoid sometimes poorly behaved central 100 pixels.</note>
+              <title>offset info</title>
+            </SpNote>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>-90.0</PA>
+                <OFFSET>
+                  <DC1>20.0</DC1>
+                  <DC2>30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-30.0</DC1>
+                  <DC2>-20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-30.0</DC1>
+                  <DC2>-30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>20.0</DC1>
+                  <DC2>20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>30.0</DC1>
+                  <DC2>30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-20.0</DC1>
+                  <DC2>-20.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-20.0</DC1>
+                  <DC2>-30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>30.0</DC1>
+                  <DC2>20.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title>nod_8_10as</title>
+              <SpIterObserve type="ic" subtype="observe">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This last offset simply takes the telescope back to 0,0 after all the repeats of the jitter pattern are finished.</note>
+            <title>last offset</title>
+          </SpNote>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <obsArea>
+              <PA>-90.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpDRRecipeRef idref="23"/>
+        <SpInstUISTRef idref="22"/>
+        <SpTelescopeObsCompRef idref="21"/>
+        <estimatedDuration units="seconds">214.86000000000004</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>99</priority>
+        <standard>false</standard>
+        <title>M'  0.12"/pix Nod 8 10" 512</title>
+        <totalDuration units="seconds">180.0</totalDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB is incomplete without a standard star in the selected waveband.
+Since it is not possible to predict the source RA we do not include this
+standard star here. To get it, file...open the UIST Standards library
+and drag/drop in the appropriate observations.</note>
+          <title>Standards</title>
+        </SpNote>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+
+When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="21" type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This example sets up the M'  filter with the 0.12"/pixel camera
+and 512x512 readout.  The 1024x1024 cannot be used with
+M' and this platescale.
+
+Select camera or pixel scale  from the camera drop down menu.
+
+Select broad or narrowband filter and your choice from the
+drop down menu.  Exposure time and readmode will reset
+when you change filter! 
+
+Readout area is selected from the read mode drop down menu
+e.g. NDSTARE 1024x1024 or NDSTARE 512x512.
+
+Be careful changing exposure time as the read mode will
+reset!  Refer to the web pages for optimum exposure times
+in the thermal.</note>
+          <title>Configuration information</title>
+        </SpNote>
+        <SpInstUIST id="22" type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>3</meta_version>
+          <DAConf>CDS512T</DAConf>
+          <DAConfMinExpT>0.059</DAConfMinExpT>
+          <arrayAngle>0.54</arrayAngle>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasMustIdles>100</biasMustIdles>
+          <biasNResets>2</biasNResets>
+          <biasObsTime>9.468</biasObsTime>
+          <biasReadArea>1024x1024</biasReadArea>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <camera>imaging</camera>
+          <centralWavelength>4.7</centralWavelength>
+          <chopDelay>0.0</chopDelay>
+          <chopFrequency>0.0</chopFrequency>
+          <coadds>90</coadds>
+          <configType>Normal</configType>
+          <darkFilter>black_blank</darkFilter>
+          <disperser>open</disperser>
+          <dispersion>0.0</dispersion>
+          <dutyCycle>0.3710691823899371</dutyCycle>
+          <expTimeOT>0.059</expTimeOT>
+          <exposureTime>0.059</exposureTime>
+          <filter>Mp98</filter>
+          <filterCategory>broad</filterCategory>
+          <focus>1.47</focus>
+          <idlePeriod>0.0</idlePeriod>
+          <imager>0.12</imager>
+          <instAper>
+            <value>4.82</value>
+            <value>1.19</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <instPntgOffset>
+            <value>17.24</value>
+            <value>8.2076</value>
+          </instPntgOffset>
+          <instPort>South</instPort>
+          <mask>large_field</mask>
+          <maskHeight>0.0</maskHeight>
+          <maskWidth>0.0</maskWidth>
+          <mode>THERMAL CDS</mode>
           <mustIdles>100</mustIdles>
           <nreads>2</nreads>
           <nresets>1</nresets>
@@ -1438,7 +1947,7 @@ in the thermal.</note>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>18.0</obsTimeOT>
-          <observationTime>17.28</observationTime>
+          <observationTime>14.31</observationTime>
           <order>0</order>
           <pixelFOV>0.1205 x 0.1205</pixelFOV>
           <pixelScale>0.12</pixelScale>
@@ -1446,8 +1955,8 @@ in the thermal.</note>
           <posAngle>-90.0</posAngle>
           <pupil_imaging>no</pupil_imaging>
           <readArea>512x512</readArea>
-          <readInterval>0.08</readInterval>
-          <readMode>THERMAL ND</readMode>
+          <readInterval>0.059</readInterval>
+          <readMode>THERMAL CDS</readMode>
           <readout>NDSTARE</readout>
           <readoutOT>THERMAL ND 512x512</readoutOT>
           <refPixelL>256.5</refPixelL>
@@ -1466,7 +1975,7 @@ in the thermal.</note>
           <note>If you want to do aperture photometry select NOD_SELF_FLAT_NO_MASK_APHOT</note>
           <title>DR Recipe Selection</title>
         </SpNote>
-        <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="23" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -1583,10 +2092,269 @@ central (right of telescope aperture) 100 pixels.</note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="20"/>
-        <SpInstUISTRef idref="19"/>
-        <SpTelescopeObsCompRef idref="18"/>
-        <estimatedDuration units="seconds">250.14000000000004</estimatedDuration>
+        <SpDRRecipeRef idref="26"/>
+        <SpInstUISTRef idref="25"/>
+        <SpTelescopeObsCompRef idref="24"/>
+        <estimatedDuration units="seconds">225.20000000000005</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>99</priority>
+        <standard>false</standard>
+        <title>M'  0.06"/pix Nod 8 10" 1024</title>
+        <totalDuration units="seconds">180.0</totalDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB is incomplete without a standard star in the selected waveband.
+Since it is not possible to predict the source RA we do not include this
+standard star here. To get it, file...open the UIST Standards library
+and drag/drop in the appropriate observations.</note>
+          <title>Standards</title>
+        </SpNote>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+
+When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="24" type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This example sets up the L'  filter with the 0.06"/pixel camera
+and full 1024x1024 readout.
+
+Select camera or pixel scale  from the camera drop down menu.
+
+Select broad or narrowband filter and your choice from the
+drop down menu.  Exposure time and readmode will reset
+when you change filter! 
+
+Readout area is selected from the read mode drop down menu
+e.g. NDSTARE 1024x1024 or NDSTARE 512x512.
+
+Be careful changing exposure time as the read mode will
+reset!  Refer to the web pages for optimum exposure times
+in the thermal.</note>
+          <title>Configuration information</title>
+        </SpNote>
+        <SpInstUIST id="25" type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>3</meta_version>
+          <DAConf>ND1T</DAConf>
+          <DAConfMinExpT>0.2</DAConfMinExpT>
+          <arrayAngle>0.54</arrayAngle>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasMustIdles>100</biasMustIdles>
+          <biasNResets>2</biasNResets>
+          <biasObsTime>9.468</biasObsTime>
+          <biasReadArea>1024x1024</biasReadArea>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <camera>imaging</camera>
+          <centralWavelength>4.69</centralWavelength>
+          <chopDelay>0.0</chopDelay>
+          <chopFrequency>0.0</chopFrequency>
+          <coadds>25</coadds>
+          <configType>Normal</configType>
+          <darkFilter>black_blank</darkFilter>
+          <disperser>open</disperser>
+          <dispersion>0.0</dispersion>
+          <dutyCycle>0.6666666666666666</dutyCycle>
+          <expTimeOT>0.4</expTimeOT>
+          <exposureTime>0.4</exposureTime>
+          <filter>Mp98</filter>
+          <filterCategory>broad</filterCategory>
+          <focus>0.50</focus>
+          <idlePeriod>0.0</idlePeriod>
+          <imager>0.06</imager>
+          <instAper>
+            <value>2.85</value>
+            <value>0.07</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <instPntgOffset>
+            <value>17.24</value>
+            <value>8.2076</value>
+          </instPntgOffset>
+          <instPort>South</instPort>
+          <mask>small_field</mask>
+          <maskHeight>0.0</maskHeight>
+          <maskWidth>0.0</maskWidth>
+          <mode>THERMAL ND</mode>
+          <mustIdles>100</mustIdles>
+          <nreads>3</nreads>
+          <nresets>1</nresets>
+          <nullCycles>0</nullCycles>
+          <nullExposures>0</nullExposures>
+          <nullReads>0</nullReads>
+          <obsTimeOT>25.0</obsTimeOT>
+          <observationTime>15.000000000000002</observationTime>
+          <order>0</order>
+          <pixelFOV>0.06055 x 0.06055</pixelFOV>
+          <pixelScale>0.06</pixelScale>
+          <polarimetry>no</polarimetry>
+          <posAngle>-90.0</posAngle>
+          <pupil_imaging>no</pupil_imaging>
+          <readArea>1024x1024</readArea>
+          <readInterval>0.2</readInterval>
+          <readMode>THERMAL ND</readMode>
+          <readout>NDSTARE</readout>
+          <readoutOT>THERMAL ND 1024x1024</readoutOT>
+          <refPixelL>512.5</refPixelL>
+          <refPixelS>480.5</refPixelS>
+          <refPixelX>480.5</refPixelX>
+          <refPixelY>480.5</refPixelY>
+          <resetDelay>0.03</resetDelay>
+          <scienceArea>61.44 x 61.44 arcsec</scienceArea>
+          <source_mag>&gt;13</source_mag>
+          <spectralCoverage>4.572um-4.800um</spectralCoverage>
+          <waveform>thermalStarev8L</waveform>
+        </SpInstUIST>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>If you want to do aperture photometry select NOD_SELF_FLAT_NO_MASK_APHOT</note>
+          <title>DR Recipe Selection</title>
+        </SpNote>
+        <SpDRRecipe id="26" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>NOD_SELF_FLAT_NO_MASK</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>If you changed the exposure time in the UIST configuration above, then you must change it for the dark too.  The data-reduction recipe will not work unless you have a dark with the right exposure time.
+
+Use the reset-to-default button to ensure the dark exposure times for your source and dark are matched.</note>
+            <title>change dark exposure time here</title>
+          </SpNote>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <coadds>23</coadds>
+            <exposureTime>0.8</exposureTime>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>To repeat the nod/jitter pattern more than once on your target, use the repeat item below to specify how many times you want to repeat it.</note>
+            <title>how to do more than one nod/jitter</title>
+          </SpNote>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The offsets place a set of four observations in each of the
+top right and lower left quadrants.  The lower throughput
+lower right is avoided.  Offsets from center are large enough
+to avoid sometimes poorly behaved central 100 pixels.</note>
+              <title>offset info</title>
+            </SpNote>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>-90.0</PA>
+                <OFFSET>
+                  <DC1>-5.0</DC1>
+                  <DC2>-5.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>15.0</DC1>
+                  <DC2>-5.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>15.0</DC1>
+                  <DC2>-15.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-5.0</DC1>
+                  <DC2>-15.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-15.0</DC1>
+                  <DC2>-5.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>5.0</DC1>
+                  <DC2>-5.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>5.0</DC1>
+                  <DC2>-15.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-15.0</DC1>
+                  <DC2>-15.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title>nod_8_10as North side</title>
+              <SpIterObserve type="ic" subtype="observe">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This last offset simply takes the telescope back to 0,0 after all the repeats of the jitter pattern are finished.</note>
+            <title>last offset</title>
+          </SpNote>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <obsArea>
+              <PA>-90.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpDRRecipeRef idref="29"/>
+        <SpInstUISTRef idref="28"/>
+        <SpTelescopeObsCompRef idref="27"/>
+        <estimatedDuration units="seconds">201.66000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1609,7 +2377,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
-        <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="27" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -1644,7 +2412,7 @@ reset!  Refer to the web pages for optimum exposure times
 in the thermal.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="19" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="28" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -1664,14 +2432,14 @@ in the thermal.</note>
           <centralWavelength>4.7</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>32</coadds>
+          <coadds>25</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>open</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.8275862068965517</dutyCycle>
-          <expTimeOT>0.45</expTimeOT>
-          <exposureTime>0.48</exposureTime>
+          <dutyCycle>0.8</dutyCycle>
+          <expTimeOT>0.4</expTimeOT>
+          <exposureTime>0.4</exposureTime>
           <filter>Mp98</filter>
           <filterCategory>broad</filterCategory>
           <focus>0.50</focus>
@@ -1691,15 +2459,15 @@ in the thermal.</note>
           <mask>small_field</mask>
           <maskHeight>0.0</maskHeight>
           <maskWidth>0.0</maskWidth>
-          <mode>NDSTARE</mode>
+          <mode>THERMAL ND</mode>
           <mustIdles>100</mustIdles>
-          <nreads>7</nreads>
+          <nreads>6</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>0</nullReads>
           <obsTimeOT>18.0</obsTimeOT>
-          <observationTime>18.56</observationTime>
+          <observationTime>12.5</observationTime>
           <order>0</order>
           <pixelFOV>0.06112 x 0.06112</pixelFOV>
           <pixelScale>0.06</pixelScale>
@@ -1727,7 +2495,7 @@ in the thermal.</note>
           <note>If you want to do aperture photometry select NOD_SELF_FLAT_NO_MASK_APHOT</note>
           <title>DR Recipe Selection</title>
         </SpNote>
-        <SpDRRecipe id="20" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="29" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -4747,9 +5515,9 @@ NOTE: Offsets in q move move along the wire, regardless of posn angle.  An offse
       </SpMSB>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="23"/>
-        <SpInstUISTRef idref="22"/>
-        <SpTelescopeObsCompRef idref="21"/>
+        <SpDRRecipeRef idref="32"/>
+        <SpInstUISTRef idref="31"/>
+        <SpTelescopeObsCompRef idref="30"/>
         <estimatedDuration units="seconds">156.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -4770,7 +5538,7 @@ To make more efficient use of telescope time instead of obtaining a flat this wa
 For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
-        <SpTelescopeObsComp id="21" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="30" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -4790,7 +5558,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <note>Choose the appropriate filter and set the exposure time to be at least equal to the background limit time given on the web page</note>
           <title>how to set the exposure time and filter</title>
         </SpNote>
-        <SpInstUIST id="22" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="31" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -4875,7 +5643,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <note>This recipe generates a flat field that can be used by other data-reduction recipes.  It masks residual stars to reduce artifacts and biases in the flat.  If you do not want masking select recipe SKY_FLAT for object observation in the DRRecipe component below.</note>
           <title>DR Recipe Selection</title>
         </SpNote>
-        <SpDRRecipe id="23" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="32" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -5035,8 +5803,8 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
       </SpNote>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="25"/>
-        <SpTelescopeObsCompRef idref="24"/>
+        <SpInstUISTRef idref="34"/>
+        <SpTelescopeObsCompRef idref="33"/>
         <estimatedDuration units="seconds">5301.559840000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -5051,7 +5819,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="24" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="33" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -5075,7 +5843,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="25" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="34" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -5497,8 +6265,8 @@ If you're not sure about the best exposure time to use, select a source magnitud
       </SpMSB>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="27"/>
-        <SpTelescopeObsCompRef idref="26"/>
+        <SpInstUISTRef idref="36"/>
+        <SpTelescopeObsCompRef idref="35"/>
         <estimatedDuration units="seconds">5315.839760000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -5513,7 +6281,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="26" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="35" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -5537,7 +6305,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="27" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="36" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -5959,8 +6727,8 @@ If you're not sure about the best exposure time to use, select a source magnitud
       </SpMSB>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="29"/>
-        <SpTelescopeObsCompRef idref="28"/>
+        <SpInstUISTRef idref="38"/>
+        <SpTelescopeObsCompRef idref="37"/>
         <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -5975,7 +6743,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="28" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="37" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -5999,7 +6767,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="29" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="38" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -6430,8 +7198,8 @@ If you're not sure about the best exposure time to use, select a source magnitud
       </SpMSB>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="31"/>
-        <SpTelescopeObsCompRef idref="30"/>
+        <SpInstUISTRef idref="40"/>
+        <SpTelescopeObsCompRef idref="39"/>
         <estimatedDuration units="seconds">5496.539560000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -6446,7 +7214,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="30" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="39" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -6470,7 +7238,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="31" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="40" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -6954,8 +7722,8 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
       </SpNote>
       <SpMSB checksum="1d16ab2fbf70247fbf0fda6def3e2d64" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="33"/>
-        <SpTelescopeObsCompRef idref="32"/>
+        <SpInstUISTRef idref="42"/>
+        <SpTelescopeObsCompRef idref="41"/>
         <estimatedDuration units="seconds">5666.219080000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -6970,7 +7738,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="41" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -6994,7 +7762,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will subsequently be changed (using a UIST iterator) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="33" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="42" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -7491,8 +8259,8 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
       </SpMSB>
       <SpMSB checksum="2e90510253ea5631ee2050f368f09f4dA" observed="1" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="35"/>
-        <SpTelescopeObsCompRef idref="34"/>
+        <SpInstUISTRef idref="44"/>
+        <SpTelescopeObsCompRef idref="43"/>
         <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -7507,7 +8275,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="43" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -7531,7 +8299,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="35" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="44" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
@@ -8068,8 +8836,8 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
       </SpMSB>
       <SpMSB checksum="f5a986d174a2ef7027cd69328ba15e66A" observed="1" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstUISTRef idref="37"/>
-        <SpTelescopeObsCompRef idref="36"/>
+        <SpInstUISTRef idref="46"/>
+        <SpTelescopeObsCompRef idref="45"/>
         <estimatedDuration units="seconds">4678.2393600000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -8084,7 +8852,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Target information - standard</title>
         </SpNote>
-        <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="45" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -8108,7 +8876,7 @@ NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
 These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
           <title>Configuration information</title>
         </SpNote>
-        <SpInstUIST id="37" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="46" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
