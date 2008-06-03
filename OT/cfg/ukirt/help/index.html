@@ -187,19 +187,22 @@ Specifying Spectroscopic Standard Stars<br>
  src="msb_icon.png"
  style="border: 0px solid ; height: 19px; width: 18px;"> </a>&nbsp;&nbsp;
 Guide stars and acquisition scenarios<br>
-  <a
- href="OMP_preparation_UKIRT.html#Notes_on_guide_stars_and_acquisition"></a><a
- href="#Instrument-Specific_Pages"><img alt="" src="msb_icon.png"
- style="border: 0px solid ; height: 19px; width: 18px;"></a>
-&nbsp;&nbsp;
-(Links to) Instrument-specific Pages<br>
+  <a href="#Instrument-Specific_Pages"><img alt="" src="msb_icon.png"
+ style="border: 0px solid ; height: 19px; width: 18px;"></a>&nbsp;&nbsp;
+Links to Instrument-specific OT guides<br>
 </blockquote>
 <a href="#IV._Release-Specific_Notes">IV. </a>Release-specific notes<br>
 <br>
 <div style="margin-left: 40px;"><a
+ href="#Updates_in_June_2008_08A_Cassegrain"><img alt=""
+ src="msb_icon.png"
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
+Updates in June 2008 (08A Cassegrain block) version<br>
+</div>
+<div style="margin-left: 40px;"><a
  href="#Updates_in_November_2007_version"><img alt="" src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"></a>&nbsp;&nbsp;&nbsp;
-Updates in November 2007 version<br>
+Updates in November 2007 (07B Cassegrain block) version<br>
 </div>
 <div style="margin-left: 40px;"><a href="#Updates_in_April_2006_version"><img
  alt="" src="msb_icon.png"
@@ -2167,18 +2170,34 @@ spectrometer/polarimeter/coronagraph<br>
 <div align="left"> </div>
 <h1 align="left"><a name="IV._Release-Specific_Notes"></a><font
  color="#333399">IV. Release-Specific Notes</font></h1>
+<h2><a name="Updates_in_June_2008_08A_Cassegrain"></a>Updates in June
+2008 (08A Cassegrain block) version</h2>
+<ul>
+  <li>Additional changes to the UIST configuration files for thermal
+imaging with the new controller</li>
+  <li>Revised offsets for nod8 (1024 array)<br>
+  </li>
+  <li>Revised default exposure times documented in the thermal imaging
+notes<br>
+  </li>
+  <li>FLIP recipes in the WFCAM library and DR component</li>
+</ul>
 <h2><a name="Updates_in_November_2007_version"></a>Updates in November
 2007 version</h2>
 <span style="font-weight: bold;">Updates include</span><br>
 <ul>
-  <li>New standards for Y band</li>
+  <li>New standards for Y band (UFTI &amp; UIST)<br>
+  </li>
   <li>Corrected display of IRPOL orientation in the position editor</li>
+  <li>In the UIST spectroscopy template library, slides in the offset
+iterator for point source spectroscopy now move the source into the
+upper half of the array, where the array sensitivity (QE) is slightly
+higher.<br>
+  </li>
 </ul>
-<br>
 <h2><a name="Updates_in_April_2006_version"></a>Updates in April 2006
 version</h2>
-<span style="font-weight: bold;">Updates include<br>
-</span><br>
+<span style="font-weight: bold;">Updates include</span><br>
 <ul>
   <li>Assorted fixes to Science Program Validation.</li>
 </ul>
@@ -2365,7 +2384,8 @@ settings<br>
       <td style="vertical-align: middle;"><br>
       <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
       <br>
-File...Preference setting for
+      <span style="font-weight: bold;">File...Preference</span> setting
+for
 prompt-on-close is not effective. Closing an altered science program
 window from its file menu always results in a prompt for whether you
 intend to do this. <br>
@@ -2380,9 +2400,10 @@ Help system<br>
       <td style="vertical-align: middle;"><br>
       <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
       <br>
-Scrolling in the OT online
+Scrolling in the OT bundled
 help
-system may be intermittently broken. <br>
+system may be intermittently broken.&nbsp; We recommend using the
+online (web) guide rather than the bundled help.<br>
       <br>
       </td>
     </tr>
@@ -2436,6 +2457,30 @@ to<br>
       <br>
 (note that this assumes you have <span style="font-weight: bold;">tcsh</span>
 installed).<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="background-color: rgb(255, 0, 0); vertical-align: middle; text-align: center;"><span
+ style="font-weight: bold;">TOML messages in validation</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
+June 2008</span><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span>
+      <br>
+      <br>
+Additional schema validation errors (roughly 11 lines long when
+validating an entire programme; these errors are not present when
+validating MSB by MSB. <br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Workaround:</span><br>
+      <br>
+These errors can generally be ignored. To be sure, try validating
+individual MSBs.<br>
       <br>
       </td>
     </tr>
