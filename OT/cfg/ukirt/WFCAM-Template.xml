@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>WFCAM-Sky_flip.xml</meta_gui_filename>
-  <ot_version>20080408</ot_version>
+  <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
+  <ot_version>20080513</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2443,6 +2443,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
     </SpMSB>
     <SpNote type="no" subtype="none">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>Please contact your support scientist well in advance if you are planning to use any of these MSBs!!!
 
 
@@ -2474,9 +2475,7 @@ In the SLOW flavour, a full jitter + microstep sequence is performed before movi
 Please note that Target and Sky only indicate the two pointings required to flip the target between cameras 1 and 2. Target is the pointing that puts the object on camera 1, while Sky is the pointing that puts the object in camera 2. None of them is a real "empty" sky.
 Also note that we have included filter changes and flushes, since most likely these MSBs will be used for bright objects.
 
-The two MSBs called M83 show an example of a complete MSB with a target component and a 3 filter survey.
-
-</note>
+The two MSBs called M83 show an example of a complete MSB with a target component and a 3 filter survey.</note>
       <title>Flipping between cameras with sky eye</title>
     </SpNote>
     <SpMSB checksum="9324fb15af84b9b9e2291d90a3e621c1" remaining="1" type="og" subtype="msb">
@@ -2505,11 +2504,7 @@ Using Plot, start the position editor and add a guide star for your Base positio
 Adding a guide star to your sky position requires a little more work.
 In the position editor, click on the button "Catalogs"
 Scroll down to your favourite image server (DSS at CADC is a good choice).
-The coordinates are already correct, but you will have to change the size of the image to 60x40. This will give you enough coverage to see the sky position and the surrounding stars. Click on the SKYGUIDE button on the left, and click on a suitable guide star for your sky position. Note that you will NOT see the autoguider outline around your sky position. You will have to guess if you guide star is close enough to the sky0 position to be useful. Still, the autoguider outline will be displayed around the main position, as a visual aid.
-
-
-
-</note>
+The coordinates are already correct, but you will have to change the size of the image to 60x40. This will give you enough coverage to see the sky position and the surrounding stars. Click on the SKYGUIDE button on the left, and click on a suitable guide star for your sky position. Note that you will NOT see the autoguider outline around your sky position. You will have to guess if you guide star is close enough to the sky0 position to be useful. Still, the autoguider outline will be displayed around the main position, as a visual aid.</note>
         <title>What this observation does</title>
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -2618,10 +2613,10 @@ The coordinates are already correct, but you will have to change the size of the
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3024,10 +3019,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3430,10 +3425,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3758,8 +3753,7 @@ Using Plot, start the position editor and add a guide star for your Base positio
 Adding a guide star to your sky position requires a little more work.
 In the position editor, click on the button "Catalogs"
 Scroll down to your favourite image server (DSS at CADC is a good choice).
-The coordinates are already correct, but you will have to change the size of the image to 60x40. This will give you enough coverage to see the sky position and the surrounding stars. Click on the SKYGUIDE button on the left, and click on a suitable guide star for your sky position. Note that you will NOT see the autoguider outline around your sky position. You will have to guess if you guide star is close enough to the sky0 position to be useful. Still, the autoguider outline will be displayed around the main position, as a visual aid.
-</note>
+The coordinates are already correct, but you will have to change the size of the image to 60x40. This will give you enough coverage to see the sky position and the surrounding stars. Click on the SKYGUIDE button on the left, and click on a suitable guide star for your sky position. Note that you will NOT see the autoguider outline around your sky position. You will have to guess if you guide star is close enough to the sky0 position to be useful. Still, the autoguider outline will be displayed around the main position, as a visual aid.</note>
         <title>What this observation does</title>
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -3821,7 +3815,7 @@ The coordinates are already correct, but you will have to change the size of the
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <estimatedDuration units="seconds">1340.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
@@ -3868,10 +3862,10 @@ The coordinates are already correct, but you will have to change the size of the
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4148,10 +4142,10 @@ This pattern should allways be able to use fast offsetting.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4428,10 +4422,10 @@ This pattern should allways be able to use fast offsetting.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4755,10 +4749,10 @@ The target NGC4526 demonstrates what should happen - display this target in the 
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -5191,10 +5185,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -5627,10 +5621,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6080,10 +6074,10 @@ The target NGC4526 demonstrates what should happen - display this target in the 
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6390,10 +6384,10 @@ This pattern should allways be able to use fast offsetting.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6700,10 +6694,10 @@ This pattern should allways be able to use fast offsetting.</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER_FLIP</ObjectRecipe>
+          <ObjectRecipe>JITTER_FLIP12</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>JITTER_FLIP</SkyRecipe>
-          <title>JITTER_FLIP</title>
+          <SkyRecipe>JITTER_FLIP12</SkyRecipe>
+          <title>JITTER_FLIP12</title>
         </SpDRRecipe>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
