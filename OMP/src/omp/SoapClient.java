@@ -32,7 +32,9 @@ public class SoapClient
      * Soap fault caused by attempt to store a Science Program to server whose
      * time stamp has changed.
      */
-	public static final String FAULT_CODE_SP_CHANGED_ON_DISK = "SOAP-ENV:Server.SpChangedOnDisk";
+	public static final String SP_CHANGED_ON_DISK = "SpChangedOnDisk" ;
+	public static final String OLD_FAULT_CODE_SP_CHANGED_ON_DISK = "SOAP-ENV:Server." + SP_CHANGED_ON_DISK ;
+	public final static String FAULT_CODE_SP_CHANGED_ON_DISK = "soap:Server." + SP_CHANGED_ON_DISK ;
 
 	private static Header header = null;
 
@@ -129,9 +131,10 @@ public class SoapClient
 				Fault fault = resp.getFault();
 
 				// Handle special fault codes here.
-				if( fault.getFaultCode().equals( FAULT_CODE_SP_CHANGED_ON_DISK ) )
+				String faultCode = fault.getFaultCode() ;
+				if( faultCode.endsWith( SP_CHANGED_ON_DISK ) )
 					throw new SpChangedOnDiskException( fault.getFaultString() );
-				else if( fault.getFaultCode().equals( FAULT_CODE_INVALID_USER ) )
+				else if( faultCode.equals( FAULT_CODE_INVALID_USER ) )
 					throw new InvalidUserException( fault.getFaultString() );
 
 				JOptionPane.showMessageDialog( null , "Code:    " + fault.getFaultCode() + "\n" + "Problem: " + fault.getFaultString() , "Error Message" , JOptionPane.ERROR_MESSAGE );
