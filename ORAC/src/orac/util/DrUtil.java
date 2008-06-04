@@ -43,6 +43,21 @@ public class DrUtil
 	{
 		return 1. / ( 0.9 * Math.cos( ( ( dec - latitude ) * Math.PI ) / 180. ) );
 	}
+	
+	/**
+	 * Calculates an airmass estimate based on el of target.
+	 *
+	 * @param  el	Elevation of target in degrees
+	 *
+	 * @return airmass estimate
+	 */
+	public static double airmass( double el )
+	{
+		double airmass = 0. ;
+		if( el != 0. )
+			airmass = Math.abs( 1. / Math.sin( el ) ) ;
+		return airmass ;
+	}
 
 	/**
 	 * SKY TRANSMISSION COEFFICIENT.

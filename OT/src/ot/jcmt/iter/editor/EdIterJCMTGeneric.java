@@ -7,34 +7,36 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
-import java.text.NumberFormat;
+import java.text.NumberFormat ;
 
-import jsky.app.ot.OtCfg;
-import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.OtCfg ;
+import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
 
-import gemini.sp.SpItem;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.util.DDMMSS;
+import gemini.sp.SpItem ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.util.DDMMSS ;
+import gemini.util.CoordSys ;
+import gemini.sp.SpTelescopePos ;
 
-import orac.jcmt.inst.SpJCMTInstObsComp;
-import orac.jcmt.inst.SpInstHeterodyne;
-import orac.jcmt.inst.SpInstSCUBA;
-import orac.jcmt.iter.SpIterJCMTObs;
-import orac.jcmt.obsComp.SpSiteQualityObsComp;
-import orac.jcmt.util.ScubaNoise;
-import orac.jcmt.SpJCMTConstants;
-import orac.util.DrUtil;
-import orac.util.SpItemUtilities;
+import orac.jcmt.inst.SpJCMTInstObsComp ;
+import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.inst.SpInstSCUBA ;
+import orac.jcmt.iter.SpIterJCMTObs ;
+import orac.jcmt.obsComp.SpSiteQualityObsComp ;
+import orac.jcmt.util.ScubaNoise ;
+import orac.jcmt.SpJCMTConstants ;
+import orac.util.DrUtil ;
+import orac.util.SpItemUtilities ;
 
 /**
  * This is the generic editor for JCMT iterator components.
@@ -263,8 +265,15 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			return "No site quality";
 		}
 
-		double airmass = DrUtil.airmass( telescopeObsComp.getPosList().getBasePosition().getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) );
-		double csoTau = siteQualityObsComp.getNoiseCalculationTau();
+		double airmass = 0. ;
+		
+		SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
+		if( base.getCoordSys() == CoordSys.FK5 )
+			airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+		else if( base.getCoordSys() == CoordSys.AZ_EL )
+			airmass = DrUtil.airmass( base.getYaxis() ) ;
+		
+		double csoTau = siteQualityObsComp.getNoiseCalculationTau() ;
 
 		if( instObsComp instanceof SpInstSCUBA )
 		{
