@@ -569,7 +569,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		else if( instrument instanceof SpInstSCUBA2 )
 		{
 			String strategy = getScanStrategy() ;
-			if( SCAN_PATTERN_PONG.equals( strategy ) )
+			if( SCAN_PATTERN_PONG.equals( strategy ) || SCAN_PATTERN_LISSAJOUS.equals( strategy ) )
 			{
 				ComputePong computePong = new ComputePong() ;
 				double height = getHeight() ;
@@ -578,6 +578,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 				double velocity = getScanVelocity() ;
 				String type = ComputePong.PongScan.CURVY ;
 				double period = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
+				String tmp = getIntegrations() ;
+				int mapCycles = new Integer( tmp ) ;
+				period += mapCycles ;
 				return period ;
 			}
 		}
