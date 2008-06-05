@@ -23,6 +23,9 @@ import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.SpMapItem;
 
+import orac.jcmt.SpJCMTConstants ;
+import orac.jcmt.util.ComputePong ;
+
 import java.util.Vector;
 import java.util.StringTokenizer;
 
@@ -35,7 +38,7 @@ import java.util.StringTokenizer;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver , SpMapItem
+public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver , SpMapItem , SpJCMTConstants
 {
 
 	/** TCS XML constants. */
@@ -562,6 +565,21 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 				samplesPerRow++ ;
 			double time = getSecsPerRow() * samplesPerColumn + 80. ;
 			return time;
+		}
+		else if( instrument instanceof SpInstSCUBA2 )
+		{
+			String strategy = getScanStrategy() ;
+			if( SCAN_PATTERN_PONG.equals( strategy ) )
+			{
+				ComputePong computePong = new ComputePong() ;
+				double height = getHeight() ;
+				double width = getWidth() ;
+				double dx = getScanDx() ;
+				double velocity = getScanVelocity() ;
+				String type = ComputePong.PongScan.CURVY ;
+				double period = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
+				return period ;
+			}
 		}
 		return 0.;
 	}
