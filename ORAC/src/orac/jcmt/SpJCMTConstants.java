@@ -276,4 +276,8 @@ public interface SpJCMTConstants
 	public static final String SWITCHING_MODE_NONE = "None";
 	public static final String ATTR_ARRAY_CENTRED = "arrayCentred";
 	public static final String SEPARATE_OFFS = "separateOffs";
+	
+	/** SCUBA-2 */
+	public static final double SCUBA2_STARTUP_TIME = 20. ;
+	
 }
