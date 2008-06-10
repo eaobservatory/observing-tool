@@ -581,7 +581,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 				double period = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
 				String tmp = getIntegrations() ;
 				int mapCycles = new Integer( tmp ) ;
-				period += mapCycles ;
+				period *= mapCycles ;
 				time += period ;
 			}
 			return time ;
