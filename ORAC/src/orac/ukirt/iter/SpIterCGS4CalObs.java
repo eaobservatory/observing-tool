@@ -7,75 +7,75 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import java.util.Vector;
-import java.util.Hashtable;
-import java.io.IOException;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import java.io.IOException ;
 
-import orac.util.LookUpTable;
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
-import orac.ukirt.inst.SpInstCGS4;
-import orac.ukirt.inst.SpDRRecipe;
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
+import orac.util.LookUpTable ;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
+import orac.ukirt.inst.SpInstCGS4 ;
+import orac.ukirt.inst.SpDRRecipe ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.sp.SpMSB;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
-import gemini.util.ConfigWriter;
+import gemini.util.ConfigWriter ;
 
 class SpIterCGS4CalObsEnumeration extends SpIterEnumeration
 {
-	private int _curCount = 0;
-	private int _maxCount;
-	private String _calType;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount ;
+	private String _calType ;
+	private SpIterValue[] _values ;
 
 	SpIterCGS4CalObsEnumeration( SpIterCGS4CalObs iterObserve )
 	{
-		super( iterObserve );
-		_maxCount = iterObserve.getCount();
-		_calType = iterObserve.getCalTypeString();
+		super( iterObserve ) ;
+		_maxCount = iterObserve.getCount() ;
+		_calType = iterObserve.getCalTypeString() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_iterComp;
-		_values = new SpIterValue[ 8 ];
+		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_iterComp ;
+		_values = new SpIterValue[ 8 ] ;
 
-		_values[ 0 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_LAMP , ico.getLamp() );
-		_values[ 1 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_FILTER , ico.getFilter() );
-		_values[ 2 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_MODE , ico.getMode() );
-		_values[ 3 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) );
+		_values[ 0 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_LAMP , ico.getLamp() ) ;
+		_values[ 1 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_FILTER , ico.getFilter() ) ;
+		_values[ 2 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_MODE , ico.getMode() ) ;
+		_values[ 3 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) ) ;
 
-		_values[ 4 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_COADDS , String.valueOf( ico.getCoadds() ) );
+		_values[ 4 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_COADDS , String.valueOf( ico.getCoadds() ) ) ;
 
-		_values[ 5 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , String.valueOf( ico.getCvfWavelength() ) );
-		_values[ 6 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , String.valueOf( ico.getFlatSampling() ) );
-		_values[ 7 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , String.valueOf( ico.getNdFilter() ) );
+		_values[ 5 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , String.valueOf( ico.getCvfWavelength() ) ) ;
+		_values[ 6 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , String.valueOf( ico.getFlatSampling() ) ) ;
+		_values[ 7 ] = new SpIterValue( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , String.valueOf( ico.getNdFilter() ) ) ;
 
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( _calType , _curCount++ , _iterComp , _values );
+		return new SpIterStep( _calType , _curCount++ , _iterComp , _values ) ;
 	}
 
 }
@@ -87,33 +87,33 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 {
 
 	/** Identifier for a FLAT calibration. */
-	public static final int FLAT = 0;
+	public static final int FLAT = 0 ;
 
 	/** Identifier for an ARC calibration. */
-	public static final int ARC = 1;
-	public static String[] MODES;
-	public static String[] FILTERS;
-	public static String[] FLAT_LAMPS;
-	public static String[] ARC_LAMPS;
-	public static String DEFAULT_MODE;
-	public static String DEFAULT_COADDS;
-	public static String DEFAULT_EXPTIME;
-	public static LookUpTable ARCLAMPS1;
-	public static LookUpTable ARCLAMPS2;
-	public static LookUpTable ARCLAMPS3;
-	public static LookUpTable FLATLAMPS1;
-	public static LookUpTable FLATLAMPS2;
-	public static LookUpTable FLATLAMPS3;
-	public static LookUpTable ARCFILTS1;
-	public static LookUpTable ARCFILTS2;
-	public static LookUpTable ARCFILTS3;
+	public static final int ARC = 1 ;
+	public static String[] MODES ;
+	public static String[] FILTERS ;
+	public static String[] FLAT_LAMPS ;
+	public static String[] ARC_LAMPS ;
+	public static String DEFAULT_MODE ;
+	public static String DEFAULT_COADDS ;
+	public static String DEFAULT_EXPTIME ;
+	public static LookUpTable ARCLAMPS1 ;
+	public static LookUpTable ARCLAMPS2 ;
+	public static LookUpTable ARCLAMPS3 ;
+	public static LookUpTable FLATLAMPS1 ;
+	public static LookUpTable FLATLAMPS2 ;
+	public static LookUpTable FLATLAMPS3 ;
+	public static LookUpTable ARCFILTS1 ;
+	public static LookUpTable ARCFILTS2 ;
+	public static LookUpTable ARCFILTS3 ;
 	
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "CGS4calUnitObs" , "CGS4 Cal Unit Observe" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "CGS4calUnitObs" , "CGS4 Cal Unit Observe" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterCGS4CalObs() );
+		SpFactory.registerPrototype( new SpIterCGS4CalObs() ) ;
 	}
 
 	/**
@@ -121,70 +121,70 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public SpIterCGS4CalObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
 		// Read in the instrument config file
-		String baseDir = System.getProperty( "ot.cfgdir" );
-		String cfgFile = baseDir + "cgs4calunit.cfg";
-		_readCfgFile( cfgFile );
+		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		String cfgFile = baseDir + "cgs4calunit.cfg" ;
+		_readCfgFile( cfgFile ) ;
 
-		String defLamp = ARC_LAMPS[ 0 ];
-		String defFilter = FILTERS[ 0 ];
+		String defLamp = ARC_LAMPS[ 0 ] ;
+		String defFilter = FILTERS[ 0 ] ;
 
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_CALTYPE , "Arc" , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_LAMP , defLamp , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FILTER , defFilter , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_MODE , DEFAULT_MODE , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , null , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_COADDS , DEFAULT_COADDS , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , "0.0" , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , "AS_OBJECT" , 0 );
-		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , null , 0 );
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_CALTYPE , "Arc" , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_LAMP , defLamp , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FILTER , defFilter , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_MODE , DEFAULT_MODE , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , null , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_COADDS , DEFAULT_COADDS , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , "0.0" , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , "AS_OBJECT" , 0 ) ;
+		_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , null , 0 ) ;
 	}
 
 	private void _readCfgFile( String filename )
 	{
-		InstCfgReader instCfg = null;
-		InstCfg instInfo = null;
-		String block = null;
+		InstCfgReader instCfg = null ;
+		InstCfg instInfo = null ;
+		String block = null ;
 
-		instCfg = new InstCfgReader( filename );
+		instCfg = new InstCfgReader( filename ) ;
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( instInfo.getKeyword().equalsIgnoreCase( "modes" ) )
-					MODES = instInfo.getValueAsArray();
+					MODES = instInfo.getValueAsArray() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "flat_lamps" ) )
-					FLAT_LAMPS = instInfo.getValueAsArray();
+					FLAT_LAMPS = instInfo.getValueAsArray() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "arc_lamps" ) )
-					ARC_LAMPS = instInfo.getValueAsArray();
+					ARC_LAMPS = instInfo.getValueAsArray() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "40lpmm_arclamps" ) )
-					ARCLAMPS1 = instInfo.getValueAsLUT();
+					ARCLAMPS1 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "echelle_arclamps" ) )
-					ARCLAMPS2 = instInfo.getValueAsLUT();
+					ARCLAMPS2 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "40lpmm_arcfilters" ) )
-					ARCFILTS1 = instInfo.getValueAsLUT();
+					ARCFILTS1 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "echelle_arcfilters" ) )
-					ARCFILTS2 = instInfo.getValueAsLUT();
+					ARCFILTS2 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "40lpmm_flatlamps" ) )
-					FLATLAMPS1 = instInfo.getValueAsLUT();
+					FLATLAMPS1 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "echelle_flatlamps" ) )
-					FLATLAMPS2 = instInfo.getValueAsLUT();
+					FLATLAMPS2 = instInfo.getValueAsLUT() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "filters" ) )
-					FILTERS = instInfo.getValueAsArray();
+					FILTERS = instInfo.getValueAsArray() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "default_mode" ) )
-					DEFAULT_MODE = instInfo.getValue();
+					DEFAULT_MODE = instInfo.getValue() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "default_coadds" ) )
-					DEFAULT_COADDS = instInfo.getValue();
+					DEFAULT_COADDS = instInfo.getValue() ;
 				else if( instInfo.getKeyword().equalsIgnoreCase( "default_exptime" ) )
-					DEFAULT_EXPTIME = instInfo.getValue();
+					DEFAULT_EXPTIME = instInfo.getValue() ;
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading CGS4 cal. unit cfg file" );
+			System.out.println( "Error reading CGS4 cal. unit cfg file" ) ;
 		}
 	}
 
@@ -194,16 +194,16 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return getCalTypeString() + " (" + getCount() + "X)";
+		return getCalTypeString() + " (" + getCount() + "X)" ;
 	}
 
 	/**
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterCGS4CalObsEnumeration( this );
+		return new SpIterCGS4CalObsEnumeration( this ) ;
 	}
 
 	/**
@@ -211,8 +211,8 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		SpItem _baseItem = parent();
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		SpItem _baseItem = parent() ;
+		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
 	}
 
 	/**
@@ -220,13 +220,13 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public double getExposureTime()
 	{
-		double et = _avTable.getDouble( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , 0. );
+		double et = _avTable.getDouble( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME , 0. ) ;
 		if( et == 0. )
 		{
-			et = getDefaultExposureTime();
-			setExposureTime( Double.toString( et ) );
+			et = getDefaultExposureTime() ;
+			setExposureTime( Double.toString( et ) ) ;
 		}
-		return et;
+		return et ;
 
 	}
 
@@ -235,92 +235,92 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public double getDefaultExposureTime()
 	{
-		String etstr = null;
+		String etstr = null ;
 		double et = 0. ;
 		double sw = 1. ;
 
 		// Get the exposure time from the default lamp table.
 		if( getCalType() == FLAT )
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
-					sw = inst.getMaskWidth();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
+					sw = inst.getMaskWidth() ;
 					if( instdi == 0 )
 					{
-						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 );
-						etstr = ( String )FLATLAMPS1.elementAt( pos , 2 );
+						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )FLATLAMPS1.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 );
-						etstr = ( String )FLATLAMPS2.elementAt( pos , 2 );
+						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )FLATLAMPS2.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 );
-						etstr = ( String )FLATLAMPS3.elementAt( pos , 2 );
+						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )FLATLAMPS3.elementAt( pos , 2 ) ;
 					}
 				}
 				catch( Exception ex )
 				{
-					etstr = DEFAULT_EXPTIME;
+					etstr = DEFAULT_EXPTIME ;
 				}
 			}
 			else
 			{
-				etstr = DEFAULT_EXPTIME;
+				etstr = DEFAULT_EXPTIME ;
 			}
 		}
 		else
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
-					sw = inst.getMaskWidth();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
+					sw = inst.getMaskWidth() ;
 					if( instdi == 0 )
 					{
-						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 );
-						etstr = ( String )ARCLAMPS1.elementAt( pos , 2 );
+						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )ARCLAMPS1.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 );
-						etstr = ( String )ARCLAMPS2.elementAt( pos , 2 );
+						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )ARCLAMPS2.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 );
-						etstr = ( String )ARCLAMPS3.elementAt( pos , 2 );
+						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						etstr = ( String )ARCLAMPS3.elementAt( pos , 2 ) ;
 					}
 				}
 				catch( Exception ex )
 				{
-					etstr = DEFAULT_EXPTIME;
+					etstr = DEFAULT_EXPTIME ;
 				}
 			}
 			else
 			{
-				etstr = DEFAULT_EXPTIME;
+				etstr = DEFAULT_EXPTIME ;
 			}
 		}
 		// Convert to double and divide by slit width
 		try
 		{
-			Double tmp = Double.valueOf( etstr );
-			et = tmp.doubleValue() / sw;
+			Double tmp = Double.valueOf( etstr ) ;
+			et = tmp.doubleValue() / sw ;
 		}
 		catch( Exception ex ){}
 
-		return et;
+		return et ;
 	}
 
 	/**
@@ -328,14 +328,14 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getLamp()
 	{
-		String lamp = _avTable.get( SpCGS4CalUnitConstants.ATTR_LAMP );
+		String lamp = _avTable.get( SpCGS4CalUnitConstants.ATTR_LAMP ) ;
 		// if null get a default lamp
 		if( lamp == null || lamp.equals( "none" ) )
 		{
-			lamp = getDefaultLamp();
-			setLamp( lamp );
+			lamp = getDefaultLamp() ;
+			setLamp( lamp ) ;
 		}
-		return lamp;
+		return lamp ;
 	}
 
 	/**
@@ -343,82 +343,82 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getDefaultLamp()
 	{
-		String lamp = null;
+		String lamp = null ;
 
 		if( getCalType() == FLAT )
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
 					if( instdi == 0 )
 					{
-						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 );
-						lamp = ( String )FLATLAMPS1.elementAt( pos , 1 );
+						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )FLATLAMPS1.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 );
-						lamp = ( String )FLATLAMPS2.elementAt( pos , 1 );
+						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )FLATLAMPS2.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 );
-						lamp = ( String )FLATLAMPS3.elementAt( pos , 1 );
+						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )FLATLAMPS3.elementAt( pos , 1 ) ;
 					}
 				}
 				catch( Exception ex )
 				{
-					lamp = FLAT_LAMPS[ 0 ];
+					lamp = FLAT_LAMPS[ 0 ] ;
 				}
 			}
 			else
 			{
-				lamp = FLAT_LAMPS[ 0 ];
+				lamp = FLAT_LAMPS[ 0 ] ;
 			}
 		}
 		else
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
 					if( instdi == 0 )
 					{
-						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 );
-						lamp = ( String )ARCLAMPS1.elementAt( pos , 1 );
+						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )ARCLAMPS1.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 );
-						lamp = ( String )ARCLAMPS2.elementAt( pos , 1 );
+						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )ARCLAMPS2.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 );
-						lamp = ( String )ARCLAMPS3.elementAt( pos , 1 );
+						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						lamp = ( String )ARCLAMPS3.elementAt( pos , 1 ) ;
 					}
 				}
 				catch( Exception ex )
 				{
-					lamp = ARC_LAMPS[ 0 ];
+					lamp = ARC_LAMPS[ 0 ] ;
 				}
 			}
 			else
 			{
-				lamp = ARC_LAMPS[ 0 ];
+				lamp = ARC_LAMPS[ 0 ] ;
 			}
 		}
 
 		// Set the ND filter too, just to make sure it happens.
-		boolean nd = getNdFilter();
-		return lamp;
+		boolean nd = getNdFilter() ;
+		return lamp ;
 	}
 
 	/**
@@ -426,7 +426,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setLamp( String lamp )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_LAMP , lamp );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_LAMP , lamp ) ;
 	}
 
 	/**
@@ -434,11 +434,11 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public int getCalType()
 	{
-		String calType = _avTable.get( SpCGS4CalUnitConstants.ATTR_CALTYPE );
+		String calType = _avTable.get( SpCGS4CalUnitConstants.ATTR_CALTYPE ) ;
 		if( "Flat".equals( calType ) )
-			return FLAT;
+			return FLAT ;
 
-		return ARC;
+		return ARC ;
 	}
 
 	/**
@@ -446,7 +446,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setCalType( String calType )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_CALTYPE , calType );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_CALTYPE , calType ) ;
 	}
 
 	/**
@@ -455,9 +455,9 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	public String getCalTypeString()
 	{
 		if( getCalType() == FLAT )
-			return "Flat";
+			return "Flat" ;
 		
-		return "Arc";
+		return "Arc" ;
 	}
 
 	/**
@@ -465,13 +465,13 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public double getCvfWavelength()
 	{
-		double cwl = _avTable.getDouble( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , 0. );
+		double cwl = _avTable.getDouble( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , 0. ) ;
 		if( cwl < 0.5 )
 		{
-			cwl = getDefaultCvfWavelength();
-			setCvfWavelength( cwl );
+			cwl = getDefaultCvfWavelength() ;
+			setCvfWavelength( cwl ) ;
 		}
-		return cwl;
+		return cwl ;
 	}
 
 	/**
@@ -479,10 +479,10 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public double getDefaultCvfWavelength()
 	{
-		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
-		inst.getCentralWavelength();
-		double cvfoff = inst.getCvfOffset();
-		return cvfoff;
+		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
+		inst.getCentralWavelength() ;
+		double cvfoff = inst.getCvfOffset() ;
+		return cvfoff ;
 	}
 
 	/**
@@ -490,7 +490,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setCvfWavelength( double cwl )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , cwl );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , cwl ) ;
 	}
 
 	/**
@@ -501,12 +501,12 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cwl );
-			d = tmp.doubleValue();
+			Double tmp = Double.valueOf( cwl ) ;
+			d = tmp.doubleValue() ;
 		}
 		catch( Exception ex ){}
 
-		setCvfWavelength( d );
+		setCvfWavelength( d ) ;
 	}
 
 	/**
@@ -514,10 +514,10 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String[] getFlatSamplingChoices()
 	{
-		String choices[] = new String[ 2 ];
-		choices[ 0 ] = "1x1";
-		choices[ 1 ] = "AS_OBJECT";
-		return choices;
+		String choices[] = new String[ 2 ] ;
+		choices[ 0 ] = "1x1" ;
+		choices[ 1 ] = "AS_OBJECT" ;
+		return choices ;
 	}
 
 	/**
@@ -525,13 +525,13 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getFlatSampling()
 	{
-		String sam = _avTable.get( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING );
+		String sam = _avTable.get( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING ) ;
 		if( sam == null )
 		{
-			_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , "AS_OBJECT" , 0 );
-			sam = "AS_OBJECT";
+			_avTable.noNotifySet( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , "AS_OBJECT" , 0 ) ;
+			sam = "AS_OBJECT" ;
 		}
-		return sam;
+		return sam ;
 	}
 
 	/**
@@ -539,7 +539,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setFlatSampling( String sam )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , sam );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING , sam ) ;
 	}
 
 	/**
@@ -547,13 +547,13 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( SpCGS4CalUnitConstants.ATTR_FILTER );
+		String filter = _avTable.get( SpCGS4CalUnitConstants.ATTR_FILTER ) ;
 		if( filter == null || filter.equals( "none" ) )
 		{
-			filter = getDefaultFilter();
-			setFilter( filter );
+			filter = getDefaultFilter() ;
+			setFilter( filter ) ;
 		}
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -561,53 +561,53 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getDefaultFilter()
 	{
-		String filter = null;
+		String filter = null ;
 
-		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 
 		if( inst != null )
 		{
-			int instdi = inst.getDisperserIndex();
-			double instcwl = inst.getCentralWavelength();
-			String instfilt = inst.getFilter();
+			int instdi = inst.getDisperserIndex() ;
+			double instcwl = inst.getCentralWavelength() ;
+			String instfilt = inst.getFilter() ;
 
 			if( getCalType() == FLAT )
 			{
-				filter = instfilt;
+				filter = instfilt ;
 			}
 			else
 			{
 				try
 				{
-					int pos = 0;
+					int pos = 0 ;
 					switch( instdi )
 					{
 						case 0 :
-							pos = ARCFILTS1.rangeInColumn( instcwl , 0 );
-							filter = ( String )ARCFILTS1.elementAt( pos , 1 );
-							break;
+							pos = ARCFILTS1.rangeInColumn( instcwl , 0 ) ;
+							filter = ( String )ARCFILTS1.elementAt( pos , 1 ) ;
+							break ;
 						case 1 :
-							pos = ARCFILTS2.rangeInColumn( instcwl , 0 );
-							filter = ( String )ARCFILTS2.elementAt( pos , 1 );
-							break;
+							pos = ARCFILTS2.rangeInColumn( instcwl , 0 ) ;
+							filter = ( String )ARCFILTS2.elementAt( pos , 1 ) ;
+							break ;
 						case 2 :
-							pos = ARCFILTS3.rangeInColumn( instcwl , 0 );
-							filter = ( String )ARCFILTS3.elementAt( pos , 1 );
-							break;
+							pos = ARCFILTS3.rangeInColumn( instcwl , 0 ) ;
+							filter = ( String )ARCFILTS3.elementAt( pos , 1 ) ;
+							break ;
 						default :
-							break;
+							break ;
 					}
 				}
 				catch( Exception ex ){}
 				if( filter.equalsIgnoreCase( "asInstrument" ) )
-					filter = instfilt;
+					filter = instfilt ;
 			}
 		}
 		else
 		{
-			filter = FILTERS[ 0 ];
+			filter = FILTERS[ 0 ] ;
 		}
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -615,7 +615,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_FILTER , filter );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -623,14 +623,14 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getMode()
 	{
-		String mode = _avTable.get( SpCGS4CalUnitConstants.ATTR_MODE );
+		String mode = _avTable.get( SpCGS4CalUnitConstants.ATTR_MODE ) ;
 		// if null get a default
 		if( mode == null || mode.equals( "none" ) )
 		{
-			mode = getDefaultMode();
-			setMode( mode );
+			mode = getDefaultMode() ;
+			setMode( mode ) ;
 		}
-		return mode;
+		return mode ;
 	}
 
 	/**
@@ -638,19 +638,19 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getDefaultMode()
 	{
-		String mode;
-		mode = DEFAULT_MODE;
-		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+		String mode ;
+		mode = DEFAULT_MODE ;
+		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 		if( inst != null )
 		{
-			String instmode = inst.getMode();
+			String instmode = inst.getMode() ;
 			for( int i = 0 ; i < MODES.length ; i++ )
 			{
 				if( instmode.equals( MODES[ i ] ) )
-					mode = instmode;
+					mode = instmode ;
 			}
 		}
-		return mode;
+		return mode ;
 	}
 
 	/**
@@ -658,7 +658,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setMode( String mode )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_MODE , mode );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_MODE , mode ) ;
 	}
 
 	/**
@@ -666,18 +666,18 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public boolean getNdFilter()
 	{
-		boolean nd;
-		String ndstr = _avTable.get( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY );
+		boolean nd ;
+		String ndstr = _avTable.get( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY ) ;
 		if( ndstr == null )
 		{
-			nd = getDefaultNdFilter();
-			setNdFilter( nd );
+			nd = getDefaultNdFilter() ;
+			setNdFilter( nd ) ;
 		}
 		else
 		{
-			nd = Boolean.valueOf( ndstr ).booleanValue();
+			nd = Boolean.valueOf( ndstr ).booleanValue() ;
 		}
-		return nd;
+		return nd ;
 	}
 
 	/**
@@ -685,79 +685,79 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public boolean getDefaultNdFilter()
 	{
-		boolean ndFilter = false;
+		boolean ndFilter = false ;
 
 		if( getCalType() == FLAT )
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
 					if( instdi == 0 )
 					{
-						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS1.elementAt( pos , 3 ) ).booleanValue();
+						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )FLATLAMPS1.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS2.elementAt( pos , 3 ) ).booleanValue();
+						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )FLATLAMPS2.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS3.elementAt( pos , 3 ) ).booleanValue();
+						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )FLATLAMPS3.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 				}
 				catch( Exception ex )
 				{
-					ndFilter = false;
+					ndFilter = false ;
 				}
 			}
 			else
 			{
-				ndFilter = false;
+				ndFilter = false ;
 			}
 		}
 		else
 		{
-			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem();
+			SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
 			if( inst != null )
 			{
 				try
 				{
-					int instdi = inst.getDisperserIndex();
-					double instcwl = inst.getCentralWavelength();
+					int instdi = inst.getDisperserIndex() ;
+					double instcwl = inst.getCentralWavelength() ;
 					if( instdi == 0 )
 					{
-						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS1.elementAt( pos , 3 ) ).booleanValue();
+						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )ARCLAMPS1.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 					else if( instdi == 1 )
 					{
-						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS2.elementAt( pos , 3 ) ).booleanValue();
+						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )ARCLAMPS2.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 					else if( instdi == 2 )
 					{
-						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 );
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS3.elementAt( pos , 3 ) ).booleanValue();
+						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
+						ndFilter = Boolean.valueOf( ( String )ARCLAMPS3.elementAt( pos , 3 ) ).booleanValue() ;
 					}
 				}
 				catch( Exception ex )
 				{
-					ndFilter = false;
+					ndFilter = false ;
 				}
 			}
 			else
 			{
-				ndFilter = false;
+				ndFilter = false ;
 			}
 		}
-		return ndFilter;
+		return ndFilter ;
 	}
 
 	/**
@@ -765,7 +765,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setNdFilter( boolean nd )
 	{
-		_avTable.set( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , nd );
+		_avTable.set( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY , nd ) ;
 	}
 
 	/**
@@ -773,13 +773,13 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void useDefaults()
 	{
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_LAMP );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_FILTER );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_MODE );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING );
-		_avTable.rm( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY );
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_LAMP ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_FILTER ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_MODE ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING ) ;
+		_avTable.rm( SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -789,62 +789,62 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// First of all make sure we have a suitable instrument
-		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null || !( inst instanceof SpInstCGS4 ) )
-			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" );
+			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" ) ;
 
 		// Get the current config items and then update it depending on the type
-		Hashtable configTable = inst.getConfigItems();
+		Hashtable configTable = inst.getConfigItems() ;
 		switch( getCalType() )
 		{
 			case FLAT :
-				configTable.put( "flatSampling" , getFlatSampling() );
-				configTable.put( "flatCalLamp" , getLamp() );
-				configTable.put( "flatReadMode" , getMode() );
-				configTable.put( "flatFilter" , getFilter() );
-				configTable.put( "flatExpTime" , "" + getExposureTime() );
-				configTable.put( "flatNumExp" , "" + getCoadds() );
-				configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) );
-				break;
+				configTable.put( "flatSampling" , getFlatSampling() ) ;
+				configTable.put( "flatCalLamp" , getLamp() ) ;
+				configTable.put( "flatReadMode" , getMode() ) ;
+				configTable.put( "flatFilter" , getFilter() ) ;
+				configTable.put( "flatExpTime" , "" + getExposureTime() ) ;
+				configTable.put( "flatNumExp" , "" + getCoadds() ) ;
+				configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
+				break ;
 			case ARC :
-				configTable.put( "arcCalLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() );
-				configTable.put( "arcFilter" , getFilter() );
-				configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() );
-				configTable.put( "arcExpTime" , "" + getExposureTime() );
-				configTable.put( "arcNumExp" , "" + getCoadds() );
-				configTable.put( "arcReadMode" , getMode() );
-				break;
+				configTable.put( "arcCalLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() ) ;
+				configTable.put( "arcFilter" , getFilter() ) ;
+				configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() ) ;
+				configTable.put( "arcExpTime" , "" + getExposureTime() ) ;
+				configTable.put( "arcNumExp" , "" + getCoadds() ) ;
+				configTable.put( "arcReadMode" , getMode() ) ;
+				break ;
 			default :
-				throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" );
+				throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" ) ;
 		}
 
 		// Now get hold of any DRRecipe component
-		SpItem parent = parent();
-		Vector recipes = null;
+		SpItem parent = parent() ;
+		Vector recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )
 			{
-				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				recipes = SpTreeMan.findAllItems( parent , SpDRRecipe.class.getName() ) ;
 				if( recipes != null && recipes.size() > 0 )
-					break;
+					break ;
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
 			switch( getCalType() )
 			{
 				case FLAT :
-					v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) );
-					v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() );
-					break;
+					v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) ) ;
+					v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
+					break ;
 				case ARC :
-					v.add( "setHeader GRPMEM " + ( recipe.getArcInGroup() ? "T" : "F" ) );
-					v.add( "setHeader RECIPE " + recipe.getArcRecipeName() );
-					break;
+					v.add( "setHeader GRPMEM " + ( recipe.getArcInGroup() ? "T" : "F" ) ) ;
+					v.add( "setHeader RECIPE " + recipe.getArcRecipeName() ) ;
+					break ;
 				default :
 					// We should never get here
 			}
@@ -852,33 +852,33 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 
 		try
 		{
-			ConfigWriter.getCurrentInstance().write( configTable );
+			ConfigWriter.getCurrentInstance().write( configTable ) ;
 		}
 		catch( IOException ioe )
 		{
-			throw new SpTranslationNotSupportedException( "Error writing CGS Calibration observation: " + ioe.getMessage() );
+			throw new SpTranslationNotSupportedException( "Error writing CGS Calibration observation: " + ioe.getMessage() ) ;
 		}
-		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 		if( getCalType() == FLAT )
 		{
-			v.add( "set FLAT" );
-			v.add( gemini.sp.SpTranslationConstants.breakString );
+			v.add( "set FLAT" ) ;
+			v.add( gemini.sp.SpTranslationConstants.breakString ) ;
 		}
 		else
 		{
-			v.add( "set ARC" );
+			v.add( "set ARC" ) ;
 		}
-		v.add( "do " + getCount() + " _observe" );
+		v.add( "do " + getCount() + " _observe" ) ;
 
 		// Finally. move the default config (labelled _1) down
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			String firstConfig = v.get( i );
+			String firstConfig = v.get( i ) ;
 			if( firstConfig.matches( "loadConfig .*_1" ) )
 			{
-				v.remove( i );
-				v.add( firstConfig );
-				break;
+				v.remove( i ) ;
+				v.add( firstConfig ) ;
+				break ;
 			}
 		}
 	}

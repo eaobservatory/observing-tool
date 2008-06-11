@@ -4,64 +4,64 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.util.Vector;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import gemini.sp.SpFactory;
-import gemini.sp.SpLibrary;
-import gemini.sp.SpPlan;
-import gemini.sp.SpRootItem;
-import gemini.sp.SpType;
-import jsky.app.ot.tpe.TpeManager;
-import jsky.app.ot.util.CloseableApp;
-import ot.util.DialogUtil;
+import java.awt.Color ;
+import java.awt.Component ;
+import java.awt.Dimension ;
+import java.awt.Toolkit ;
+import java.awt.event.WindowAdapter ;
+import java.awt.event.WindowEvent ;
+import java.io.File ;
+import java.io.IOException ;
+import java.io.InputStreamReader ;
+import java.io.Reader ;
+import java.net.URL ;
+import java.net.MalformedURLException ;
+import java.util.Vector ;
+import javax.swing.JDesktopPane ;
+import javax.swing.JFrame ;
+import javax.swing.JInternalFrame ;
+import javax.swing.JLayeredPane ;
+import javax.swing.JMenuBar ;
+import javax.swing.JOptionPane ;
+import javax.swing.JLabel ;
+import javax.swing.ImageIcon ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpLibrary ;
+import gemini.sp.SpPlan ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.SpType ;
+import jsky.app.ot.tpe.TpeManager ;
+import jsky.app.ot.util.CloseableApp ;
+import ot.util.DialogUtil ;
 
-import ot.News;
-import ot.OtPreferencesDialog;
-import ot.DatabaseDialog;
-import orac.helptool.JHLauncher;
-import gemini.sp.SpTreeMan;
-import orac.ukirt.iter.SpIterMichelleCalObs;
+import ot.News ;
+import ot.OtPreferencesDialog ;
+import ot.DatabaseDialog ;
+import orac.helptool.JHLauncher ;
+import gemini.sp.SpTreeMan ;
+import orac.ukirt.iter.SpIterMichelleCalObs ;
 
 public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */
-	private static Vector _otWindowFrames = new Vector();
+	private static Vector _otWindowFrames = new Vector() ;
 
 	/** Main window, when using internal frames */
-	private static JDesktopPane desktop;
+	private static JDesktopPane desktop ;
 
 	/** Help launcher. */
-	private static JHLauncher helpLauncher = null;
+	private static JHLauncher helpLauncher = null ;
 
 	/** Splash screen displayed on startup */
-	private static SplashScreen _splash;
+	private static SplashScreen _splash ;
 
 	/** Preferences Dialog */
-	private static OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
+	private static OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog() ;
 
 	/** Database Access */
-	private static DatabaseDialog _databaseDialog = new DatabaseDialog();
+	private static DatabaseDialog _databaseDialog = new DatabaseDialog() ;
 
 	/**
 	 * Default save directory.
@@ -78,51 +78,51 @@ public class OT extends JFrame
 	 * user.dir would point to the directory from which java was started.
 	 *
 	 */
-	public static final String PROPERTY_OT_USERDIR = "ot.userdir";
+	public static final String PROPERTY_OT_USERDIR = "ot.userdir" ;
 
 	/**
 	 * @see #PROPERTY_OT_USERDIR
 	 * @see #getOtUserDir()
 	 */
-	private static String _otUserDir = null;
+	private static String _otUserDir = null ;
 
 	/**
 	 * Create the OT application using internal frames.
 	 */
 	public OT()
 	{
-		this( true );
+		this( true ) ;
 	}
 
 	public OT( boolean internalFrames )
 	{
-		super( "OT" );
+		super( "OT" ) ;
 
 		if( internalFrames )
-			makeLayout();
+			makeLayout() ;
 	}
 
 	/** Return the desktop, if using internal frames, otherwise null. */
 	public static JDesktopPane getDesktop()
 	{
-		return desktop;
+		return desktop ;
 	}
 
 	/** Return the help launcher. */
 	public static JHLauncher getHelpLauncher()
 	{
-		return helpLauncher;
+		return helpLauncher ;
 	}
 
 	/** Set help launcher. */
 	public static void setHelpLauncher( JHLauncher jHLauncher )
 	{
-		helpLauncher = jHLauncher;
+		helpLauncher = jHLauncher ;
 	}
 
 	public static DatabaseDialog getDatabaseDialog()
 	{
-		return _databaseDialog;
+		return _databaseDialog ;
 	}
 
 	/**
@@ -131,43 +131,43 @@ public class OT extends JFrame
 	protected void makeLayout()
 	{
 		// add main menubar
-		setJMenuBar( makeMenuBar() );
+		setJMenuBar( makeMenuBar() ) ;
 
 		// Add a LayeredPane object for the Internal frames
-		desktop = new JDesktopPane();
+		desktop = new JDesktopPane() ;
 
 		// MFO: set desktop background
-		setDesktopBackground();
+		setDesktopBackground() ;
 
 		//Make dragging faster:
-		desktop.putClientProperty( "JDesktopPane.dragMode" , "outline" );
+		desktop.putClientProperty( "JDesktopPane.dragMode" , "outline" ) ;
 
-		TpeManager.setDesktop( desktop );
+		TpeManager.setDesktop( desktop ) ;
 
 		// fill the whole screen
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = ( int )( screen.width - 10 ) , h = ( int )( screen.height - 150 );
-		desktop.setPreferredSize( new Dimension( w , h ) );
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
+		int w = ( int )( screen.width - 10 ) , h = ( int )( screen.height - 150 ) ;
+		desktop.setPreferredSize( new Dimension( w , h ) ) ;
 
-		setContentPane( desktop );
+		setContentPane( desktop ) ;
 
-		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
+		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE ) ;
 		addWindowListener( new WindowAdapter()
 		{
 			public void windowClosing( WindowEvent e )
 			{
-				exit();
+				exit() ;
 			}
-		} );
+		} ) ;
 
-		pack();
-		setVisible( true );
+		pack() ;
+		setVisible( true ) ;
 	}
 
 	/** Make and return the application menubar (used when internal frames are in use) */
 	protected JMenuBar makeMenuBar()
 	{
-		return new OTMenuBar( this );
+		return new OTMenuBar( this ) ;
 	}
 
 	/** 
@@ -175,16 +175,16 @@ public class OT extends JFrame
 	 */
 	public static void newProgram()
 	{
-		OtProps.setSaveShouldPrompt( true );
+		OtProps.setSaveShouldPrompt( true ) ;
 		if( desktop == null )
 		{
-			addOtWindowFrame( new OtWindowFrame( new OtProgWindow() ) );
+			addOtWindowFrame( new OtWindowFrame( new OtProgWindow() ) ) ;
 		}
 		else
 		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow() );
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER );
-			desktop.moveToFront( c );
+			Component c = new OtWindowInternalFrame( new OtProgWindow() ) ;
+			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
+			desktop.moveToFront( c ) ;
 		}
 
 	}
@@ -194,10 +194,10 @@ public class OT extends JFrame
 	 */
 	public void newPlan()
 	{
-		OtProps.setSaveShouldPrompt( true );
-		Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpPlan )SpFactory.create( SpType.SCIENCE_PLAN ) ) );
-		desktop.add( c , JLayeredPane.DEFAULT_LAYER );
-		desktop.moveToFront( c );
+		OtProps.setSaveShouldPrompt( true ) ;
+		Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpPlan )SpFactory.create( SpType.SCIENCE_PLAN ) ) ) ;
+		desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
+		desktop.moveToFront( c ) ;
 	}
 
 	/** 
@@ -205,9 +205,9 @@ public class OT extends JFrame
 	 */
 	public void newLibrary()
 	{
-		OtProps.setSaveShouldPrompt( true );
+		OtProps.setSaveShouldPrompt( true ) ;
 		// Changed by MFO, 15 February 2002
-		OtWindow.create( ( SpLibrary )SpFactory.create( SpType.LIBRARY ) , new FileInfo() );
+		OtWindow.create( ( SpLibrary )SpFactory.create( SpType.LIBRARY ) , new FileInfo() ) ;
 	}
 
 	/** 
@@ -215,8 +215,8 @@ public class OT extends JFrame
 	 */
 	public void open()
 	{
-		OtProps.setSaveShouldPrompt( false );
-		OtFileIO.open();
+		OtProps.setSaveShouldPrompt( false ) ;
+		OtFileIO.open() ;
 	}
 
 	/** 
@@ -224,40 +224,40 @@ public class OT extends JFrame
 	 */
 	public void openStandardLibrary()
 	{
-		OtProps.setSaveShouldPrompt( false );
+		OtProps.setSaveShouldPrompt( false ) ;
 		if( _otWindowFrames != null )
-			_otWindowFrames.clear();
-		URL url = ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/cfg/library.xml" );
-		Reader r = null;
+			_otWindowFrames.clear() ;
+		URL url = ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/cfg/library.xml" ) ;
+		Reader r = null ;
 		/** This probably isn't adequate -- just using fetchXMLSp.  Should
 		 * be changed when it becomes a problem.
 		 */
-		SpRootItem spItem = null;
+		SpRootItem spItem = null ;
 		try
 		{
-			r = new InputStreamReader( url.openStream() );
-			spItem = OtFileIO.fetchSp( r );
+			r = new InputStreamReader( url.openStream() ) ;
+			spItem = OtFileIO.fetchSp( r ) ;
 		}
 		catch( IOException ex )
 		{
-			DialogUtil.error( this , "Could not open the standard library." );
-			return;
+			DialogUtil.error( this , "Could not open the standard library." ) ;
+			return ;
 		}
 		finally
 		{
 			try
 			{
 				if( r != null )
-					r.close();
+					r.close() ;
 			}
 			catch( Exception ex ){}
 		}
 
 		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) )
 		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpLibrary )spItem ) );
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER );
-			desktop.moveToFront( c );
+			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpLibrary )spItem ) ) ;
+			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
+			desktop.moveToFront( c ) ;
 		}
 	}
 
@@ -268,50 +268,50 @@ public class OT extends JFrame
 	 */
 	public void openLibrary( String library )
 	{
-		OtProps.setSaveShouldPrompt( false );
+		OtProps.setSaveShouldPrompt( false ) ;
 
-		SpRootItem spItem = null;
-		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" );
-		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + library );
+		SpRootItem spItem = null ;
+		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
+		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + library ) ;
 
 		// Check whether the alternative library could not be found either.
 		if( url == null )
 		{
-			JOptionPane.showMessageDialog( this , "Could not find standard library resource " + resourceCfgDir + "." , "Error" , JOptionPane.ERROR_MESSAGE );
-			return;
+			JOptionPane.showMessageDialog( this , "Could not find standard library resource " + resourceCfgDir + "." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
+			return ;
 		}
 
-		Reader r = null;
+		Reader r = null ;
 		try
 		{
-			r = new InputStreamReader( url.openStream() );
-			spItem = OtFileIO.fetchSp( r );
+			r = new InputStreamReader( url.openStream() ) ;
+			spItem = OtFileIO.fetchSp( r ) ;
 		}
 		catch( IOException ioe )
 		{
-			JOptionPane.showMessageDialog( this , "Could not open the standard library." , "Error" , JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( this , "Could not open the standard library." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
 		}
 		finally
 		{
 			try
 			{
 				if( r != null )
-					r.close();
+					r.close() ;
 			}
 			catch( Exception e ){}
 		}
 
 		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) )
 		{
-			Vector mco = SpTreeMan.findAllItems( spItem , "orac.ukirt.iter.SpIterMichelleCalObs" );
+			Vector mco = SpTreeMan.findAllItems( spItem , SpIterMichelleCalObs.class.getName() ) ;
 			for( int i = 0 ; i < mco.size() ; i++ )
 			{
-				SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )mco.elementAt( i );
-				obs.useDefaults();
-				obs.updateDAConf();
+				SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )mco.elementAt( i ) ;
+				obs.useDefaults() ;
+				obs.updateDAConf() ;
 			}
 			// Changed by MFO, 22 August 2001
-			OtWindow.create( spItem , new FileInfo() );
+			OtWindow.create( spItem , new FileInfo() ) ;
 		}
 	}
 
@@ -321,9 +321,9 @@ public class OT extends JFrame
 	public static void preferences()
 	{
 		if( desktop != null )
-			_preferencesDialog.show( desktop );
+			_preferencesDialog.show( desktop ) ;
 		else
-			_preferencesDialog.show();
+			_preferencesDialog.show() ;
 	}
 
 	/** 
@@ -338,14 +338,14 @@ public class OT extends JFrame
 		 */
 		if( desktop != null )
 		{
-			JInternalFrame[] ar = desktop.getAllFrames();
+			JInternalFrame[] ar = desktop.getAllFrames() ;
 			for( int i = 0 ; i < ar.length ; i++ )
 			{
 				if( !( ar[ i ] instanceof CloseableApp ) )
-					continue;
-				CloseableApp sa = ( CloseableApp )ar[ i ];
+					continue ;
+				CloseableApp sa = ( CloseableApp )ar[ i ] ;
 				if( !sa.closeApp() )
-					return;
+					return ;
 			}
 		}
 		else
@@ -353,10 +353,10 @@ public class OT extends JFrame
 			for( int i = 0 ; i < OtWindowFrame.getWindowFrames().size() ; i++ )
 			{
 				if( !( ( OtWindowFrame )OtWindowFrame.getWindowFrames().get( i ) ).getEditor().closeApp() )
-					return;
+					return ;
 			}
 		}
-		System.exit( 0 ); // Must be running as a local application.
+		System.exit( 0 ) ; // Must be running as a local application.
 	}
 
 	/** 
@@ -365,9 +365,9 @@ public class OT extends JFrame
 	public static void fetchProgram()
 	{
 		if( desktop != null )
-			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH , desktop );
+			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH , desktop ) ;
 		else
-			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH );
+			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH ) ;
 	}
 
 	/**
@@ -380,22 +380,22 @@ public class OT extends JFrame
 		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
 		 * the if condition would prevent _splash to be shown a second time.
 		 */
-		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" );
-		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + "welcome.txt" );
+		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
+		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + "welcome.txt" ) ;
 		if( url == null )
 		{
-			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" );
-			return;
+			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;
+			return ;
 		}
 		if( desktop != null )
 		{
-			SplashInternalFrame f = new SplashInternalFrame( desktop , url );
-			_splash = f.getSplash();
-			desktop.add( f , JLayeredPane.MODAL_LAYER );
+			SplashInternalFrame f = new SplashInternalFrame( desktop , url ) ;
+			_splash = f.getSplash() ;
+			desktop.add( f , JLayeredPane.MODAL_LAYER ) ;
 		}
 		else
 		{
-			_splash = new SplashFrame( url ).getSplash();
+			_splash = new SplashFrame( url ).getSplash() ;
 		}
 	}
 
@@ -406,8 +406,8 @@ public class OT extends JFrame
 	{
 		if( _splash != null )
 		{
-			_splash.dismiss();
-			_splash = null;
+			_splash.dismiss() ;
+			_splash = null ;
 		}
 	}
 
@@ -417,12 +417,12 @@ public class OT extends JFrame
 	{
 		if( OT.helpLauncher != null )
 		{
-			OT.helpLauncher.launch();
+			OT.helpLauncher.launch() ;
 		}
 		else
 		{
-			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" );
-			OT.setHelpLauncher( new JHLauncher( url ) );
+			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" ) ;
+			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}
 
@@ -431,17 +431,17 @@ public class OT extends JFrame
 	 */
 	public void showNews()
 	{
-		URL url;
+		URL url ;
 		try
 		{
-			url = new URL( "file" , "localhost" , System.getProperty( "ot.cfgdir" ) + "news.txt" );
+			url = new URL( "file" , "localhost" , System.getProperty( "ot.cfgdir" ) + "news.txt" ) ;
 		}
 		catch( MalformedURLException ex )
 		{
-			return;
+			return ;
 		}
 
-		News.showNews( url );
+		News.showNews( url ) ;
 	}
 
 	/**
@@ -456,15 +456,15 @@ public class OT extends JFrame
 	{
 		//MFO
 		// set background to light blue.
-		desktop.setBackground( new Color( 210 , 225 , 255 ) );
+		desktop.setBackground( new Color( 210 , 225 , 255 ) ) ;
 		// set desktop background
 
 		try
 		{
-			ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background.gif" ) );
-			JLabel label = new JLabel( icon );
-			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() );
-			desktop.add( label , new Integer( Integer.MIN_VALUE ) );
+			ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background.gif" ) ) ;
+			JLabel label = new JLabel( icon ) ;
+			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
+			desktop.add( label , new Integer( Integer.MIN_VALUE ) ) ;
 		}
 		catch( Exception e )
 		{
@@ -477,12 +477,12 @@ public class OT extends JFrame
 
 	public static void addOtWindowFrame( OtWindowFrame frame )
 	{
-		_otWindowFrames.add( frame );
+		_otWindowFrames.add( frame ) ;
 	}
 
 	public static void removeOtWindowFrame( OtWindowFrame frame )
 	{
-		_otWindowFrames.remove( frame );
+		_otWindowFrames.remove( frame ) ;
 	}
 
 	// From ATC OT.java end
@@ -498,23 +498,23 @@ public class OT extends JFrame
 	public static String getOtUserDir()
 	{
 		if( _otUserDir != null )
-			return _otUserDir;
+			return _otUserDir ;
 
-		_otUserDir = System.getProperty( PROPERTY_OT_USERDIR );
+		_otUserDir = System.getProperty( PROPERTY_OT_USERDIR ) ;
 
 		if( _otUserDir != null )
 		{
-			File dir = new File( _otUserDir );
+			File dir = new File( _otUserDir ) ;
 
 			if( !dir.isDirectory() )
-				_otUserDir = System.getProperty( "user.home" );
+				_otUserDir = System.getProperty( "user.home" ) ;
 		}
 		else
 		{
-			_otUserDir = System.getProperty( "user.home" );
+			_otUserDir = System.getProperty( "user.home" ) ;
 		}
 
-		return _otUserDir;
+		return _otUserDir ;
 	}
 
 	/** 
@@ -531,12 +531,12 @@ public class OT extends JFrame
 	 */
 	public static void main( String args[] )
 	{
-		boolean internalFrames = ( File.separatorChar == '\\' );
-		boolean ok = true;
-		Vector<String> filenames = null;
+		boolean internalFrames = ( File.separatorChar == '\\' ) ;
+		boolean ok = true ;
+		Vector<String> filenames = null ;
 
 		// Check which version of java we are running
-		String jVersion = System.getProperty( "java.version" );
+		String jVersion = System.getProperty( "java.version" ) ;
 		String sVersion = null ;
 		// Just get the first 3 characters, which should be n.m
 		if( jVersion.matches( "\\d\\.\\d.*" ) )
@@ -544,50 +544,50 @@ public class OT extends JFrame
 		// Convert this to a float
 		try
 		{
-			Float jv = new Float( sVersion );
+			Float jv = new Float( sVersion ) ;
 			if( jv.floatValue() < 1.5 )
 			{
-				String message = "The Observing Tool requires at least java 1.5 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade";
-				JOptionPane.showMessageDialog( null , message , "OT does not support current version of Java" , JOptionPane.ERROR_MESSAGE );
-				System.exit( 0 );
+				String message = "The Observing Tool requires at least java 1.5 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade" ;
+				JOptionPane.showMessageDialog( null , message , "OT does not support current version of Java" , JOptionPane.ERROR_MESSAGE ) ;
+				System.exit( 0 ) ;
 			}
 		}
 		catch( NumberFormatException nfe )
 		{
-			String message = "Unable to confirm which version of java you are running.\n" + "Continuing anyway";
-			System.err.println( message );
+			String message = "Unable to confirm which version of java you are running.\n" + "Continuing anyway" ;
+			System.err.println( message ) ;
 		}
 
 		for( int i = 0 ; i < args.length ; i++ )
 		{
 			if( args[ i ].charAt( 0 ) == '-' )
 			{
-				String opt = args[ i ];
+				String opt = args[ i ] ;
 				if( opt.equals( "-internalframes" ) )
 				{
-					internalFrames = true;
+					internalFrames = true ;
 				}
 				else if( opt.equals( "-nointernalframes" ) )
 				{
-					internalFrames = false;
+					internalFrames = false ;
 				}
 				else
 				{
-					System.out.println( "Unknown option: " + opt );
-					ok = false;
-					break;
+					System.out.println( "Unknown option: " + opt ) ;
+					ok = false ;
+					break ;
 				}
 			}
 			else
 			{
 
-				String filename = args[ i ];
+				String filename = args[ i ] ;
 				if( filename.toLowerCase().endsWith( ".xml" ) )
 				{
 					if( filenames == null )
-						filenames = new Vector<String>();
+						filenames = new Vector<String>() ;
 
-					filenames.add( filename );
+					filenames.add( filename ) ;
 				}
 
 			}
@@ -595,24 +595,24 @@ public class OT extends JFrame
 
 		if( !ok )
 		{
-			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [-[no]internalframes]" );
-			System.exit( 1 );
+			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [-[no]internalframes]" ) ;
+			System.exit( 1 ) ;
 		}
 
 		try
 		{
-			OtCfg.init();
+			OtCfg.init() ;
 		}
 		catch( Throwable e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 
-			JOptionPane.showMessageDialog( null , "Problem with OT configuration:\nThis might result in invalid Science Programs." , "Problem with OT configuration." , JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null , "Problem with OT configuration:\nThis might result in invalid Science Programs." , "Problem with OT configuration." , JOptionPane.ERROR_MESSAGE ) ;
 		}
 
 		if( internalFrames )
 		{
-			new OT();
+			new OT() ;
 		}
 		else
 		{
@@ -621,14 +621,14 @@ public class OT extends JFrame
 			 * Create a small frame to contain the menus that would otherwise be in the big frame containing the
 			 * desktop with the internal frames. (MFO, 17 August 2001)
 			 */
-			JFrame menuFrame = new JFrame( "OT" );
-			menuFrame.setJMenuBar( new OTMenuBar( new OT( false ) ) );
+			JFrame menuFrame = new JFrame( "OT" ) ;
+			menuFrame.setJMenuBar( new OTMenuBar( new OT( false ) ) ) ;
 
 			try
 			{
-				ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background_small.gif" ) );
-				JLabel label = new JLabel( icon );
-				label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() );
+				ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background_small.gif" ) ) ;
+				JLabel label = new JLabel( icon ) ;
+				label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
 				menuFrame.add( label ) ;
 			}
 			catch( Exception e )
@@ -639,27 +639,27 @@ public class OT extends JFrame
 				 */
 			}
 
-			menuFrame.setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
+			menuFrame.setDefaultCloseOperation( DO_NOTHING_ON_CLOSE ) ;
 			menuFrame.addWindowListener( new WindowAdapter()
 			{
 				public void windowClosing( WindowEvent e )
 				{
-					exit();
+					exit() ;
 				}
-			} );
+			} ) ;
 
-			menuFrame.pack();
-			menuFrame.setVisible( true );
+			menuFrame.pack() ;
+			menuFrame.setVisible( true ) ;
 		}
 
 		if( filenames != null )
 		{
 			while( filenames.size() != 0 )
-				OtFileIO.open( filenames.remove( 0 ) );
+				OtFileIO.open( filenames.remove( 0 ) ) ;
 		}
 		else
 		{
-			OT.showSplashScreen();
+			OT.showSplashScreen() ;
 		}
 	}
 }

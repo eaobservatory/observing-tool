@@ -8,66 +8,66 @@
 /*==============================================================*/
 
 // author: Alan Pickup = dap@roe.ac.uk         2003 Mar
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import java.util.Vector;
-import java.util.Hashtable;
-import java.io.IOException;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import java.io.IOException ;
 
-import orac.ukirt.inst.SpDRRecipe;
-import orac.ukirt.inst.SpInstWFCAM;
+import orac.ukirt.inst.SpDRRecipe ;
+import orac.ukirt.inst.SpInstWFCAM ;
 
 import gemini.util.ConfigWriter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpMSB;
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
 class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
 {
-	private int _curCount = 0;
-	private int _maxCount;
-	private String _calType;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount ;
+	private String _calType ;
+	private SpIterValue[] _values ;
 
 	SpIterWFCAMCalObsEnumeration( SpIterWFCAMCalObs iterObserve )
 	{
-		super( iterObserve );
-		_maxCount = iterObserve.getCount();
-		_calType = iterObserve.getCalTypeString();
+		super( iterObserve ) ;
+		_maxCount = iterObserve.getCount() ;
+		_calType = iterObserve.getCalTypeString() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_iterComp;
-		_values = new SpIterValue[ 4 ];
+		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_iterComp ;
+		_values = new SpIterValue[ 4 ] ;
 
-		_values[ 0 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_FILTER , ico.getFilter() );
-		_values[ 1 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_READMODE , ico.getReadMode() );
-		_values[ 2 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) );
-		_values[ 3 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_COADDS , ico.getCoaddsString() );
+		_values[ 0 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_FILTER , ico.getFilter() ) ;
+		_values[ 1 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_READMODE , ico.getReadMode() ) ;
+		_values[ 2 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) ) ;
+		_values[ 3 ] = new SpIterValue( SpWFCAMCalConstants.ATTR_COADDS , ico.getCoaddsString() ) ;
 
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( _calType , _curCount++ , _iterComp , _values );
+		return new SpIterStep( _calType , _curCount++ , _iterComp , _values ) ;
 	}
 }
 
@@ -77,15 +77,15 @@ class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
 public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatable
 {
 	/** Identifier for a SKYFLAT calibration. */
-	public static final int SKYFLAT = 0;
+	public static final int SKYFLAT = 0 ;
 	public static final String SKYFLAT_STRING = "skyFlat" ;
 
 	/** Identifier for a DOMEFLAT calibration. */
-	public static final int DOMEFLAT = 1;
+	public static final int DOMEFLAT = 1 ;
 	public static final String DOMEFLAT_STRING = "domeFlat" ;
 
 	/** Identifier for a FOCUS calibration. */
-	public static final int FOCUS = 2;
+	public static final int FOCUS = 2 ;
 	public static final String FOCUS_STRING = "focus" ;
 	
 	/** Identifier for a DARK calibration. */
@@ -100,12 +100,12 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			DARK_STRING 
 	} ;
 	
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterWFCAMCalObs() );
+		SpFactory.registerPrototype( new SpIterWFCAMCalObs() ) ;
 	}
 
 	/**
@@ -113,13 +113,13 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public SpIterWFCAMCalObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_CALTYPE , SKYFLAT_STRING , 0 );
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_READMODE , null , 0 );
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_FILTER , null , 0 );
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , null , 0 );
-		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_COADDS , null , 0 );
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_CALTYPE , SKYFLAT_STRING , 0 ) ;
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_READMODE , null , 0 ) ;
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_FILTER , null , 0 ) ;
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , null , 0 ) ;
+		_avTable.noNotifySet( SpWFCAMCalConstants.ATTR_COADDS , null , 0 ) ;
 	}
 
 	/**
@@ -128,16 +128,16 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return getCalTypeString() + " (" + getCount() + "X)";
+		return getCalTypeString() + " (" + getCount() + "X)" ;
 	}
 
 	/**
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterWFCAMCalObsEnumeration( this );
+		return new SpIterWFCAMCalObsEnumeration( this ) ;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		SpItem _baseItem = parent();
+		SpItem _baseItem = parent() ;
 		SpInstObsComp inst = SpTreeMan.findInstrument( _baseItem ) ;
 		
 		if( inst == null )
@@ -160,7 +160,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public int getCalType()
 	{
 		int type = FOCUS ;
-		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE );
+		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE ) ;
 		if( SKYFLAT_STRING.equalsIgnoreCase( calType ) )
 			type = SKYFLAT ;
 		else if( DOMEFLAT_STRING.equalsIgnoreCase( calType ) )
@@ -176,7 +176,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void setCalType( String calType )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_CALTYPE , calType );
+		_avTable.set( SpWFCAMCalConstants.ATTR_CALTYPE , calType ) ;
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String[] getCalTypeChoices()
 	{
-		return choices;
+		return choices ;
 	}
 
 	/**
@@ -208,8 +208,8 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String[] getReadModeChoices()
 	{
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		return inst.getReadModeList();
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
+		return inst.getReadModeList() ;
 	}
 
 	/**
@@ -217,8 +217,8 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String[] getFilterChoices()
 	{
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		return inst.getFilterList();
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
+		return inst.getFilterList() ;
 	}
 
 	/**
@@ -226,13 +226,13 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getReadMode()
 	{
-		String readMode = _avTable.get( SpWFCAMCalConstants.ATTR_READMODE );
+		String readMode = _avTable.get( SpWFCAMCalConstants.ATTR_READMODE ) ;
 		if( readMode == null || readMode.equals( "none" ) )
 		{
-			readMode = getDefaultReadMode();
-			setReadMode( readMode );
+			readMode = getDefaultReadMode() ;
+			setReadMode( readMode ) ;
 		}
-		return readMode;
+		return readMode ;
 	}
 
 	/**
@@ -240,11 +240,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getDefaultReadMode()
 	{
-		String readMode = null;
+		String readMode = null ;
 
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		readMode = inst.getReadMode();
-		return readMode;
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
+		readMode = inst.getReadMode() ;
+		return readMode ;
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void setReadMode( String rm )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_READMODE , rm );
+		_avTable.set( SpWFCAMCalConstants.ATTR_READMODE , rm ) ;
 	}
 
 	/**
@@ -260,13 +260,13 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( SpWFCAMCalConstants.ATTR_FILTER );
+		String filter = _avTable.get( SpWFCAMCalConstants.ATTR_FILTER ) ;
 		if( filter == null || filter.equals( "none" ) )
 		{
-			filter = getDefaultFilter();
-			setFilter( filter );
+			filter = getDefaultFilter() ;
+			setFilter( filter ) ;
 		}
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -274,11 +274,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getDefaultFilter()
 	{
-		String filter = null;
+		String filter = null ;
 
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
-		filter = inst.getFilter();
-		return filter;
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
+		filter = inst.getFilter() ;
+		return filter ;
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_FILTER , filter );
+		_avTable.set( SpWFCAMCalConstants.ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -294,7 +294,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void setExposureTime( String expTime )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , expTime );
+		_avTable.set( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , expTime ) ;
 	}
 
 	/**
@@ -302,13 +302,13 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public double getExposureTime()
 	{
-		double et = _avTable.getDouble( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , 0. );
+		double et = _avTable.getDouble( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , 0. ) ;
 		if( et == 0. )
 		{
-			et = getDefaultExposureTime();
-			setExposureTime( Double.toString( et ) );
+			et = getDefaultExposureTime() ;
+			setExposureTime( Double.toString( et ) ) ;
 		}
-		return et;
+		return et ;
 
 	}
 
@@ -318,10 +318,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getExposureTimeString()
 	{
-		int mult = ( int )Math.pow( 10 , 4 );
-		double et = ( ( double )Math.round( getExposureTime() * mult ) ) / mult;
-		String timeAsString = Double.toString( et );
-		return timeAsString;
+		int mult = ( int )Math.pow( 10 , 4 ) ;
+		double et = ( ( double )Math.round( getExposureTime() * mult ) ) / mult ;
+		String timeAsString = Double.toString( et ) ;
+		return timeAsString ;
 	}
 
 	/**
@@ -331,15 +331,15 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	{
 		double det = 0. ;
 		// Get the exposure time from the WFCAM instrument
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
 		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
-			det = inst.getDefaultFlatExpTime();
+			det = inst.getDefaultFlatExpTime() ;
 		else if( getCalType() == DARK )
 			det = SpInstWFCAM.DEFAULT_EXPTIME ;
 		else
-			det = inst.getDefaultFocusExpTime();
+			det = inst.getDefaultFocusExpTime() ;
 
-		return det;
+		return det ;
 	}
 
 	/**
@@ -347,13 +347,13 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public String getCoaddsString()
 	{
-		String coadds = _avTable.get( SpWFCAMCalConstants.ATTR_COADDS );
+		String coadds = _avTable.get( SpWFCAMCalConstants.ATTR_COADDS ) ;
 		if( coadds == null )
 		{
-			coadds = Integer.toString( getDefaultCoadds() );
-			setCoadds( coadds );
+			coadds = Integer.toString( getDefaultCoadds() ) ;
+			setCoadds( coadds ) ;
 		}
-		return coadds;
+		return coadds ;
 	}
 
 	/**
@@ -361,32 +361,32 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void setCoadds( String coadds )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_COADDS , coadds );
+		_avTable.set( SpWFCAMCalConstants.ATTR_COADDS , coadds ) ;
 	}
 
 	public int getDefaultCoadds()
 	{
-		int dc = 1;
+		int dc = 1 ;
 		// Get the coadds from the WFCAM instrument
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
 		if( ( getCalType() == SKYFLAT ) || ( getCalType() == DOMEFLAT ) )
-			dc = inst.getDefaultFlatCoadds();
+			dc = inst.getDefaultFlatCoadds() ;
 		else if( getCalType() == DARK )
 			dc = SpInstWFCAM.DEFAULT_COADDS ;
 		else
-			dc = inst.getDefaultFocusCoadds();
+			dc = inst.getDefaultFocusCoadds() ;
 
-		return dc;
+		return dc ;
 	}
 
 	public void setFocus( double value )
 	{
-		_avTable.set( SpWFCAMCalConstants.ATTR_FOCUS , value );
+		_avTable.set( SpWFCAMCalConstants.ATTR_FOCUS , value ) ;
 	}
 
 	public double getFocus()
 	{
-		return _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0.0 );
+		return _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0.0 ) ;
 	}
 
 	/* 
@@ -394,11 +394,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	 */
 	public void useDefaults()
 	{
-		_avTable.rm( SpWFCAMCalConstants.ATTR_READMODE );
-		_avTable.rm( SpWFCAMCalConstants.ATTR_FILTER );
-		_avTable.rm( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME );
-		_avTable.rm( SpWFCAMCalConstants.ATTR_COADDS );
-		_avTable.rm( SpWFCAMCalConstants.ATTR_FOCUS );
+		_avTable.rm( SpWFCAMCalConstants.ATTR_READMODE ) ;
+		_avTable.rm( SpWFCAMCalConstants.ATTR_FILTER ) ;
+		_avTable.rm( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME ) ;
+		_avTable.rm( SpWFCAMCalConstants.ATTR_COADDS ) ;
+		_avTable.rm( SpWFCAMCalConstants.ATTR_FOCUS ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -408,48 +408,48 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// Get the current instrument and its config items
-		SpInstWFCAM inst;
+		SpInstWFCAM inst ;
 		try
 		{
-			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this );
+			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new SpTranslationNotSupportedException( "No WFCAM instrument in scope" );
+			throw new SpTranslationNotSupportedException( "No WFCAM instrument in scope" ) ;
 		}
 
-		Hashtable configTable = inst.getConfigItems();
+		Hashtable configTable = inst.getConfigItems() ;
 
 		// Set the DRRecipe Headers
-		SpItem parent = parent();
-		Vector recipes = null;
+		SpItem parent = parent() ;
+		Vector recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )
 			{
-				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				recipes = SpTreeMan.findAllItems( parent , SpDRRecipe.class.getName() ) ;
 				if( recipes != null && recipes.size() > 0 )
-					break;
+					break ;
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
 
 		if( recipes != null && recipes.size() != 0 )
 		{
 			if( recipes != null && recipes.size() != 0 )
 			{
-				SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
+				SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
 				switch( getCalType() )
 				{
 					case SKYFLAT :
 					case DOMEFLAT :
-						v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) );
-						v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() );
-						break;
+						v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) ) ;
+						v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
+						break ;
 					case FOCUS :
-						v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) );
-						v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() );
-						break;
+						v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) ) ;
+						v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() ) ;
+						break ;
 					case DARK :
 						v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
 						v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
@@ -460,34 +460,34 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		}
 		
 		if( getCalType() == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )
-			v.add( "setFocus " + getFocus() );
+			v.add( "setFocus " + getFocus() ) ;
 
 		// Update all the items
-		configTable.put( "type" , getCalTypeString() );
-		configTable.put( SpWFCAMCalConstants.ATTR_FILTER , getFilter() );
-		configTable.put( SpWFCAMCalConstants.ATTR_READMODE , getReadMode() );
-		configTable.put( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , "" + getExposureTime() );
-		configTable.put( SpWFCAMCalConstants.ATTR_COADDS , "" + getCoadds() );
+		configTable.put( "type" , getCalTypeString() ) ;
+		configTable.put( SpWFCAMCalConstants.ATTR_FILTER , getFilter() ) ;
+		configTable.put( SpWFCAMCalConstants.ATTR_READMODE , getReadMode() ) ;
+		configTable.put( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME , "" + getExposureTime() ) ;
+		configTable.put( SpWFCAMCalConstants.ATTR_COADDS , "" + getCoadds() ) ;
 
 		// Remove stuff we don't need
-		configTable.remove( "instPort" );
+		configTable.remove( "instPort" ) ;
 
 		try
 		{
-			ConfigWriter.getCurrentInstance().write( configTable );
+			ConfigWriter.getCurrentInstance().write( configTable ) ;
 		}
 		catch( IOException ioe )
 		{
-			throw new SpTranslationNotSupportedException( "Unable to write WFCAM Calibration config: " + ioe.getMessage() );
+			throw new SpTranslationNotSupportedException( "Unable to write WFCAM Calibration config: " + ioe.getMessage() ) ;
 		}
 		
-		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 		
 		if( getCalType() == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) != 0. )
-			v.add( gemini.sp.SpTranslationConstants.objectString );
+			v.add( gemini.sp.SpTranslationConstants.objectString ) ;
 		else
-			v.add( "set " + getCalTypeString().toUpperCase() );
+			v.add( "set " + getCalTypeString().toUpperCase() ) ;
 
-		v.add( "do " + getCount() + " _observe" );
+		v.add( "do " + getCount() + " _observe" ) ;
 	}
 }

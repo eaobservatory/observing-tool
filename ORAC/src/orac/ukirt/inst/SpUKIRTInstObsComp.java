@@ -7,27 +7,27 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.inst;
+package orac.ukirt.inst ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpMSB;
-import gemini.sp.SpObs;
-import gemini.sp.SpProg;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.iter.SpIterOffset;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterComp;
-import gemini.sp.iter.SpIterConfigObs;
-import gemini.sp.iter.SpIterConfigBase;
+import gemini.sp.SpItem ;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpObs ;
+import gemini.sp.SpProg ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.iter.SpIterOffset ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterComp ;
+import gemini.sp.iter.SpIterConfigObs ;
+import gemini.sp.iter.SpIterConfigBase ;
 
-import orac.ukirt.iter.SpIterBiasObs;
-import orac.ukirt.iter.SpIterDarkObs;
-import orac.ukirt.iter.SpIterCGS4CalObs;
-import orac.ukirt.iter.SpIterMichelleCalObs;
+import orac.ukirt.iter.SpIterBiasObs ;
+import orac.ukirt.iter.SpIterDarkObs ;
+import orac.ukirt.iter.SpIterCGS4CalObs ;
+import orac.ukirt.iter.SpIterMichelleCalObs ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * A base class for UKIRT instrument observation component items. This extends
@@ -42,21 +42,21 @@ import java.util.Vector;
  */
 public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 {
-	public static final int XAP_INDEX = 0; // Location of inst aper X value
-	public static final int YAP_INDEX = 1; // Location of inst aper Y value
-	public static final int ZAP_INDEX = 2; // Location of inst aper Z value
-	public static final int LAP_INDEX = 3; // Location of inst aper L value
-	public static final int IDPO_INDEX = 0; // Location of inst pointing offset ID value
-	public static final int CHPO_INDEX = 1; // Location of inst pointing offset CH value
-	public static String INSTRUMENT_PORT; // The instrument port
-	public static String[] INSTRUMENT_APER; // Array of inst aper values
-	public static String[] INSTRUMENT_PNTG_OFFSET; // Array of inst pointing offset values
+	public static final int XAP_INDEX = 0 ; // Location of inst aper X value
+	public static final int YAP_INDEX = 1 ; // Location of inst aper Y value
+	public static final int ZAP_INDEX = 2 ; // Location of inst aper Z value
+	public static final int LAP_INDEX = 3 ; // Location of inst aper L value
+	public static final int IDPO_INDEX = 0 ; // Location of inst pointing offset ID value
+	public static final int CHPO_INDEX = 1 ; // Location of inst pointing offset CH value
+	public static String INSTRUMENT_PORT ; // The instrument port
+	public static String[] INSTRUMENT_APER ; // Array of inst aper values
+	public static String[] INSTRUMENT_PNTG_OFFSET ; // Array of inst pointing offset values
 
 	// Names of the attributes
-	public static final String ATTR_INSTRUMENT_PORT = "instPort";
-	public static final String ATTR_INSTRUMENT_APER = "instAper";
-	public static final String ATTR_VERSION = ".version";
-	public static final String ATTR_INSTRUMENT_PNTG_OFFSET = "instPntgOffset";
+	public static final String ATTR_INSTRUMENT_PORT = "instPort" ;
+	public static final String ATTR_INSTRUMENT_APER = "instAper" ;
+	public static final String ATTR_VERSION = ".version" ;
+	public static final String ATTR_INSTRUMENT_PNTG_OFFSET = "instPntgOffset" ;
 
 	/**
 	 * Integration overhead.
@@ -72,7 +72,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 * This variable is used for MSB duration estimation. Subclasses can set this to an
 	 * instrument specific value. Currently 0.5 is used for all instruments.
 	 */
-	protected double _int_oh = 0.5;
+	protected double _int_oh = 0.5 ;
 
 	/**
 	 * Overhead per observe iteration ("Eye").
@@ -80,24 +80,24 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 * This variable is used for MSB duration estimation. Subclasses can set this to an
 	 * instrument specific value. Currently 0.5 is used for all instruments.
 	 */
-	protected double _obs_oh = 0.5;
+	protected double _obs_oh = 0.5 ;
 
 	/**
 	 * Constructor. Sets default values for attributes.
 	 */
 	public SpUKIRTInstObsComp( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 
-		_avTable.noNotifySet( ATTR_VERSION , "1.0" , 0 );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_PORT , "Centre" , 0 );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , XAP_INDEX );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , YAP_INDEX );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , ZAP_INDEX );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , LAP_INDEX );
-		_avTable.noNotifySet( ATTR_EXPOSURE_TIME , "0" , 0 );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_PNTG_OFFSET , "0.0" , IDPO_INDEX );
-		_avTable.noNotifySet( ATTR_INSTRUMENT_PNTG_OFFSET , "0.0" , CHPO_INDEX );
+		_avTable.noNotifySet( ATTR_VERSION , "1.0" , 0 ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_PORT , "Centre" , 0 ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , XAP_INDEX ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , YAP_INDEX ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , ZAP_INDEX ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_APER , "0.0" , LAP_INDEX ) ;
+		_avTable.noNotifySet( ATTR_EXPOSURE_TIME , "0" , 0 ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_PNTG_OFFSET , "0.0" , IDPO_INDEX ) ;
+		_avTable.noNotifySet( ATTR_INSTRUMENT_PNTG_OFFSET , "0.0" , CHPO_INDEX ) ;
 
 	}
 
@@ -106,7 +106,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstApX( String x )
 	{
-		_avTable.set( ATTR_INSTRUMENT_APER , x , XAP_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_APER , x , XAP_INDEX ) ;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstApY( String y )
 	{
-		_avTable.set( ATTR_INSTRUMENT_APER , y , YAP_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_APER , y , YAP_INDEX ) ;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstApZ( String z )
 	{
-		_avTable.set( ATTR_INSTRUMENT_APER , z , ZAP_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_APER , z , ZAP_INDEX ) ;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstApL( String l )
 	{
-		_avTable.set( ATTR_INSTRUMENT_APER , l , LAP_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_APER , l , LAP_INDEX ) ;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstApX()
 	{
-		return _avTable.getDouble( ATTR_INSTRUMENT_APER , XAP_INDEX , 0. );
+		return _avTable.getDouble( ATTR_INSTRUMENT_APER , XAP_INDEX , 0. ) ;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstApY()
 	{
-		return _avTable.getDouble( ATTR_INSTRUMENT_APER , YAP_INDEX , 0. );
+		return _avTable.getDouble( ATTR_INSTRUMENT_APER , YAP_INDEX , 0. ) ;
 	}
 
 	/**
@@ -172,7 +172,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	{
 		// Sign is different because instrument apertures are defined in a 
 		// left-handed coordinate system, but RA/Dec is right-handed.
-		return -1. * getInstApX();
+		return -1. * getInstApX() ;
 	}
 
 	/**
@@ -181,7 +181,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	public double getInstApYdec()
 	{
 		// Handedness of coordinate systems does not affect Dec direction.
-		return getInstApY();
+		return getInstApY() ;
 	}
 
 	/**
@@ -189,7 +189,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstApZ()
 	{
-		return _avTable.getDouble( ATTR_INSTRUMENT_APER , ZAP_INDEX , 0.0 );
+		return _avTable.getDouble( ATTR_INSTRUMENT_APER , ZAP_INDEX , 0.0 ) ;
 	}
 
 	/**
@@ -197,7 +197,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstApL()
 	{
-		return _avTable.getDouble( ATTR_INSTRUMENT_APER , LAP_INDEX , 0.0 );
+		return _avTable.getDouble( ATTR_INSTRUMENT_APER , LAP_INDEX , 0.0 ) ;
 	}
 
 	/**
@@ -205,7 +205,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstPntgOffsetID( String id )
 	{
-		_avTable.set( ATTR_INSTRUMENT_PNTG_OFFSET , id , IDPO_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_PNTG_OFFSET , id , IDPO_INDEX ) ;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setInstPntgOffsetCH( String ch )
 	{
-		_avTable.set( ATTR_INSTRUMENT_PNTG_OFFSET , ch , CHPO_INDEX );
+		_avTable.set( ATTR_INSTRUMENT_PNTG_OFFSET , ch , CHPO_INDEX ) ;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstPntgOffsetID()
 	{
-		return -1. * _avTable.getDouble( ATTR_INSTRUMENT_PNTG_OFFSET , IDPO_INDEX , 0. );
+		return -1. * _avTable.getDouble( ATTR_INSTRUMENT_PNTG_OFFSET , IDPO_INDEX , 0. ) ;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getInstPntgOffsetCH()
 	{
-		return _avTable.getDouble( ATTR_INSTRUMENT_PNTG_OFFSET , CHPO_INDEX , 0. );
+		return _avTable.getDouble( ATTR_INSTRUMENT_PNTG_OFFSET , CHPO_INDEX , 0. ) ;
 	}
 
 	/**
@@ -238,7 +238,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setPort( String port )
 	{
-		_avTable.set( ATTR_INSTRUMENT_PORT , port );
+		_avTable.set( ATTR_INSTRUMENT_PORT , port ) ;
 	}
 
 	/**
@@ -246,7 +246,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public String getPort()
 	{
-		return _avTable.get( ATTR_INSTRUMENT_PORT );
+		return _avTable.get( ATTR_INSTRUMENT_PORT ) ;
 	}
 
 	/**
@@ -258,7 +258,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getExpTime()
 	{
-		return( getExposureTime() );
+		return( getExposureTime() ) ;
 	}
 
 	/**
@@ -270,7 +270,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public void setExpTime( String seconds )
 	{
-		setExposureTime( seconds );
+		setExposureTime( seconds ) ;
 	}
 
 	/**
@@ -288,7 +288,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public double getDefaultBiasExpTime()
 	{
-		return 0.001;
+		return 0.001 ;
 	}
 
 	/**
@@ -297,7 +297,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public int getDefaultBiasCoadds()
 	{
-		return 50;
+		return 50 ;
 	}
 
 	/**
@@ -322,78 +322,78 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	 */
 	public class IterTrackerUKIRT extends IterationTracker
 	{
-		double currentExposureTime = getExpTime();
-		int currentNoCoadds = 1;
-		SpIterComp currentIterStepItem = null;
-		boolean exposureTimeOverride = false;
-		boolean coaddsOverride = false;
+		double currentExposureTime = getExpTime() ;
+		int currentNoCoadds = 1 ;
+		SpIterComp currentIterStepItem = null ;
+		boolean exposureTimeOverride = false ;
+		boolean coaddsOverride = false ;
 
 		IterTrackerUKIRT()
 		{
 			if( _avTable.exists( ATTR_COADDS ) )
-				currentNoCoadds = _avTable.getInt( ATTR_COADDS , 1 );
+				currentNoCoadds = _avTable.getInt( ATTR_COADDS , 1 ) ;
 		}
 
 		public void update( SpIterStep spIterStep )
 		{
-			boolean expTimeFound = false;
-			boolean coaddsFound = false;
+			boolean expTimeFound = false ;
+			boolean coaddsFound = false ;
 
-			currentIterStepItem = spIterStep.item;
+			currentIterStepItem = spIterStep.item ;
 
 			try
 			{
-				String attribute = null;
-				String value = null;
+				String attribute = null ;
+				String value = null ;
 
 				for( int i = 0 ; i < spIterStep.values.length ; i++ )
 				{
 					// SpIterStep.values is an array of SpIterValue
 					// SpIterValue.values is an array of String the first of which contains
-					attribute = spIterStep.values[ i ].attribute;
+					attribute = spIterStep.values[ i ].attribute ;
 
 					if( ( spIterStep.values[ i ].values != null ) && ( spIterStep.values[ i ].values.length > 0 ) )
-						value = spIterStep.values[ i ].values[ 0 ];
+						value = spIterStep.values[ i ].values[ 0 ] ;
 
 					if( ( attribute != null ) && ( value != null ) )
 					{
 						if( attribute.equals( ATTR_EXPOSURE_TIME ) )
 						{
-							currentExposureTime = Double.valueOf( value ).doubleValue();
+							currentExposureTime = Double.valueOf( value ).doubleValue() ;
 							if( currentIterStepItem instanceof SpIterConfigBase )
-								exposureTimeOverride = true;
+								exposureTimeOverride = true ;
 							
-							expTimeFound = true;
+							expTimeFound = true ;
 						}
 					}
 
 					if( attribute.equals( ATTR_COADDS ) )
 					{
-						currentNoCoadds = Integer.valueOf( value ).intValue();
+						currentNoCoadds = Integer.valueOf( value ).intValue() ;
 						if( currentIterStepItem instanceof SpIterConfigBase )
-							coaddsOverride = true;
+							coaddsOverride = true ;
 						
-						coaddsFound = true;
+						coaddsFound = true ;
 					}
 				}
 
 				if( !expTimeFound && !exposureTimeOverride )
 				{
 					// See if we can get an exposure time from the instrument
-					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem );
+					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem ) ;
 					if( instrument != null )
-						currentExposureTime = instrument.getExposureTime();
+						currentExposureTime = instrument.getExposureTime() ;
 				}
 				if( !coaddsFound && !coaddsOverride )
 				{
-					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem );
+					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem ) ;
 					if( instrument != null )
-						currentNoCoadds = instrument.getCoadds();
+						currentNoCoadds = instrument.getCoadds() ;
 				}
 			}
 			catch( Exception e )
 			{
-				System.out.println( "Could not process iteration step " + spIterStep.title + " for time estimation:\n\n" + e );
+				System.out.println( "Could not process iteration step " + spIterStep.title + " for time estimation:\n\n" + e ) ;
 			}
 		}
 
@@ -407,40 +407,40 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 			if( ( currentIterStepItem != null ) && ( ( currentIterStepItem instanceof SpIterBiasObs ) || ( currentIterStepItem instanceof SpIterDarkObs ) || ( currentIterStepItem instanceof SpIterCGS4CalObs ) || ( currentIterStepItem instanceof SpIterMichelleCalObs ) || ( currentIterStepItem instanceof SpIterConfigObs ) ) )
 				extra_oh = 30. ;
 
-			return ( ( ( currentNoCoadds * ( currentExposureTime + getExposureOverhead() ) ) + _int_oh ) + _obs_oh ) + extra_oh;
+			return ( ( ( currentNoCoadds * ( currentExposureTime + getExposureOverhead() ) ) + _int_oh ) + _obs_oh ) + extra_oh ;
 		}
 	}
 
 	public IterationTracker createIterationTracker()
 	{
-		return new IterTrackerUKIRT();
+		return new IterTrackerUKIRT() ;
 	}
 
 	public void setPosAngleDegrees( double posAngle )
 	{
 		//Hacky attempt to fix up offsets for UKIRT
-		SpItem parent = parent();
-		Vector offsets;
+		SpItem parent = parent() ;
+		Vector offsets ;
 		while( parent != null )
 		{
-			boolean msbOrProg = ( parent instanceof SpMSB || parent instanceof SpProg );
-			boolean isSpObs = parent instanceof SpObs;
+			boolean msbOrProg = ( parent instanceof SpMSB || parent instanceof SpProg ) ;
+			boolean isSpObs = parent instanceof SpObs ;
 			if( msbOrProg || isSpObs )
 			{
-				offsets = SpTreeMan.findAllInstances( parent , "gemini.sp.iter.SpIterOffset" );
+				offsets = SpTreeMan.findAllInstances( parent , SpIterOffset.class.getName() ) ;
 				if( offsets != null )
 				{
 					for( int i = 0 ; i < offsets.size() ; i++ )
 					{
-						SpIterOffset thisOffset = ( SpIterOffset )offsets.get( i );
+						SpIterOffset thisOffset = ( SpIterOffset )offsets.get( i ) ;
 						if( isSpObs || ( ( msbOrProg ) && ( SpTreeMan.findInstrument( thisOffset ) == this ) ) )
-							thisOffset.getPosList().setPosAngle( posAngle );
+							thisOffset.getPosList().setPosAngle( posAngle ) ;
 					}
 				}
-				break;
+				break ;
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
-		super.setPosAngleDegrees( posAngle );
+		super.setPosAngleDegrees( posAngle ) ;
 	}
 }

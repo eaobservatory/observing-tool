@@ -8,86 +8,86 @@
 /*==============================================================*/
 
 // author: Alan Pickup = dap@roe.ac.uk         2001 Nov
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import java.util.Hashtable;
-import java.util.Vector;
-import java.io.IOException;
+import java.util.Hashtable ;
+import java.util.Vector ;
+import java.io.IOException ;
 
-import gemini.util.ConfigWriter;
-import gemini.util.MathUtil;
+import gemini.util.ConfigWriter ;
+import gemini.util.MathUtil ;
 
-import orac.ukirt.inst.SpInstUIST;
-import orac.ukirt.inst.SpDRRecipe;
-import gemini.sp.SpFactory;
-import gemini.sp.SpMSB;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
+import orac.ukirt.inst.SpInstUIST ;
+import orac.ukirt.inst.SpDRRecipe ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
 class SpIterUISTCalObsEnumeration extends SpIterEnumeration
 {
-	private int _curCount = 0;
-	private int _maxCount;
-	private String _calType;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount ;
+	private String _calType ;
+	private SpIterValue[] _values ;
 
 	SpIterUISTCalObsEnumeration( SpIterUISTCalObs iterObserve )
 	{
-		super( iterObserve );
-		_maxCount = iterObserve.getCount();
-		_calType = iterObserve.getCalTypeString();
+		super( iterObserve ) ;
+		_maxCount = iterObserve.getCount() ;
+		_calType = iterObserve.getCalTypeString() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterUISTCalObs ico = ( SpIterUISTCalObs )_iterComp;
-		_values = new SpIterValue[ 16 ]; // Only need 16 items now (was 25) RDK
+		SpIterUISTCalObs ico = ( SpIterUISTCalObs )_iterComp ;
+		_values = new SpIterValue[ 16 ] ; // Only need 16 items now (was 25) RDK
 
-		ico.updateDAConf();
-		_values[ 0 ] = new SpIterValue( SpUISTCalConstants.ATTR_FILTER , ico.getFilter() );
-		_values[ 1 ] = new SpIterValue( SpUISTCalConstants.ATTR_MODE , ico.W_mode );
-		_values[ 2 ] = new SpIterValue( SpUISTCalConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.W_actExpTime ) );
-
-		// Renumbered _values indexes to be contiguous after above items removed by RDK
-		_values[ 3 ] = new SpIterValue( SpUISTCalConstants.ATTR_NREADS , String.valueOf( ico.W_nreads ) );
+		ico.updateDAConf() ;
+		_values[ 0 ] = new SpIterValue( SpUISTCalConstants.ATTR_FILTER , ico.getFilter() ) ;
+		_values[ 1 ] = new SpIterValue( SpUISTCalConstants.ATTR_MODE , ico.W_mode ) ;
+		_values[ 2 ] = new SpIterValue( SpUISTCalConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.W_actExpTime ) ) ;
 
 		// Renumbered _values indexes to be contiguous after above items removed by RDK
-		_values[ 4 ] = new SpIterValue( SpUISTCalConstants.ATTR_READ_INTERVAL , String.valueOf( ico.W_readInterval ) );
+		_values[ 3 ] = new SpIterValue( SpUISTCalConstants.ATTR_NREADS , String.valueOf( ico.W_nreads ) ) ;
 
 		// Renumbered _values indexes to be contiguous after above items removed by RDK
-		_values[ 5 ] = new SpIterValue( SpUISTCalConstants.ATTR_DUTY_CYCLE , String.valueOf( ico.W_dutyCycle ) );
-		_values[ 6 ] = new SpIterValue( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , ico.W_chopFrequency );
-		_values[ 7 ] = new SpIterValue( SpUISTCalConstants.ATTR_CHOP_DELAY , String.valueOf( ico.W_chopDelay ) );
-		_values[ 8 ] = new SpIterValue( SpUISTCalConstants.ATTR_COADDS , String.valueOf( ico.W_coadds ) );
-		_values[ 9 ] = new SpIterValue( SpUISTCalConstants.ATTR_FLAT_SOURCE , ico.getFlatSource() );
-		_values[ 10 ] = new SpIterValue( SpUISTCalConstants.ATTR_ARC_SOURCE , ico.getArcSource() );
-		_values[ 11 ] = new SpIterValue( SpUISTCalConstants.ATTR_FOCUS , ico.getFocus() );
-		_values[ 12 ] = new SpIterValue( SpUISTCalConstants.ATTR_ORDER , ico.getOrder() );
-		_values[ 13 ] = new SpIterValue( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , ico.getCentralWavelength() );
-		_values[ 14 ] = new SpIterValue( SpUISTCalConstants.ATTR_OBSERVATION_TIME , String.valueOf( ico.W_obsTime ) );
+		_values[ 4 ] = new SpIterValue( SpUISTCalConstants.ATTR_READ_INTERVAL , String.valueOf( ico.W_readInterval ) ) ;
 
-		_values[ 15 ] = new SpIterValue( SpUISTCalConstants.ATTR_EXPTIME_OT , ico.getExpTimeOTString() );
+		// Renumbered _values indexes to be contiguous after above items removed by RDK
+		_values[ 5 ] = new SpIterValue( SpUISTCalConstants.ATTR_DUTY_CYCLE , String.valueOf( ico.W_dutyCycle ) ) ;
+		_values[ 6 ] = new SpIterValue( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , ico.W_chopFrequency ) ;
+		_values[ 7 ] = new SpIterValue( SpUISTCalConstants.ATTR_CHOP_DELAY , String.valueOf( ico.W_chopDelay ) ) ;
+		_values[ 8 ] = new SpIterValue( SpUISTCalConstants.ATTR_COADDS , String.valueOf( ico.W_coadds ) ) ;
+		_values[ 9 ] = new SpIterValue( SpUISTCalConstants.ATTR_FLAT_SOURCE , ico.getFlatSource() ) ;
+		_values[ 10 ] = new SpIterValue( SpUISTCalConstants.ATTR_ARC_SOURCE , ico.getArcSource() ) ;
+		_values[ 11 ] = new SpIterValue( SpUISTCalConstants.ATTR_FOCUS , ico.getFocus() ) ;
+		_values[ 12 ] = new SpIterValue( SpUISTCalConstants.ATTR_ORDER , ico.getOrder() ) ;
+		_values[ 13 ] = new SpIterValue( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , ico.getCentralWavelength() ) ;
+		_values[ 14 ] = new SpIterValue( SpUISTCalConstants.ATTR_OBSERVATION_TIME , String.valueOf( ico.W_obsTime ) ) ;
 
-		return _thisNextElement();
+		_values[ 15 ] = new SpIterValue( SpUISTCalConstants.ATTR_EXPTIME_OT , ico.getExpTimeOTString() ) ;
+
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( _calType , _curCount++ , _iterComp , _values );
+		return new SpIterStep( _calType , _curCount++ , _iterComp , _values ) ;
 	}
 
 }
@@ -98,27 +98,27 @@ class SpIterUISTCalObsEnumeration extends SpIterEnumeration
 public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatable
 {
 	/** Identifier for a FLAT calibration. */
-	public static final int FLAT = 0;
+	public static final int FLAT = 0 ;
 
 	/** Identifier for an ARC calibration. */
-	public static final int ARC = 1;
+	public static final int ARC = 1 ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "UISTCalObs" , "UIST Cal Observe" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "UISTCalObs" , "UIST Cal Observe" ) ;
 
-	public String W_mode;
-	public int W_nreads;
-	public double W_readInterval;
-	public String W_chopFrequency;
-	public double W_chopDelay;
-	public int W_coadds;
-	public double W_dutyCycle;
-	public double W_actExpTime;
-	public double W_obsTime;
+	public String W_mode ;
+	public int W_nreads ;
+	public double W_readInterval ;
+	public String W_chopFrequency ;
+	public double W_chopDelay ;
+	public int W_coadds ;
+	public double W_dutyCycle ;
+	public double W_actExpTime ;
+	public double W_obsTime ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterUISTCalObs() );
+		SpFactory.registerPrototype( new SpIterUISTCalObs() ) ;
 	}
 
 	/**
@@ -126,25 +126,25 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public SpIterUISTCalObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CALTYPE , "Flat" , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FILTER , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_MODE , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPOSURE_TIME , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_NREADS , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_READ_INTERVAL , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_DUTY_CYCLE , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_DELAY , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_COADDS , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FLAT_SOURCE , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ARC_SOURCE , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FOCUS , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ORDER , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_OBSERVATION_TIME , null , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPTIME_OT , null , 0 );
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CALTYPE , "Flat" , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FILTER , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_MODE , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPOSURE_TIME , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_NREADS , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_READ_INTERVAL , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_DUTY_CYCLE , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_DELAY , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_COADDS , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FLAT_SOURCE , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ARC_SOURCE , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FOCUS , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ORDER , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_OBSERVATION_TIME , null , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPTIME_OT , null , 0 ) ;
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterUISTCalObsEnumeration( this );
+		return new SpIterUISTCalObsEnumeration( this ) ;
 	}
 
 	/**
@@ -188,13 +188,13 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public double getExpTimeOT()
 	{
-		double et = _avTable.getDouble( SpUISTCalConstants.ATTR_EXPTIME_OT , 0. );
+		double et = _avTable.getDouble( SpUISTCalConstants.ATTR_EXPTIME_OT , 0. ) ;
 		if( et == 0. )
 		{
-			et = getDefaultExpTimeOT();
-			setExpTimeOT( Double.toString( et ) );
+			et = getDefaultExpTimeOT() ;
+			setExpTimeOT( Double.toString( et ) ) ;
 		}
-		return et;
+		return et ;
 
 	}
 
@@ -204,10 +204,10 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getExpTimeOTString()
 	{
-		int mult = ( int )Math.pow( 10 , 4 );
-		double et = ( ( double )Math.round( getExpTimeOT() * mult ) ) / mult;
-		String timeAsString = Double.toString( et );
-		return timeAsString;
+		int mult = ( int )Math.pow( 10 , 4 ) ;
+		double et = ( ( double )Math.round( getExpTimeOT() * mult ) ) / mult ;
+		String timeAsString = Double.toString( et ) ;
+		return timeAsString ;
 	}
 
 	/**
@@ -217,26 +217,26 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	{
 		double det = 0. ;
 		// Get the exposure time from the UIST instrument
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		if( getCalType() == FLAT )
-			det = inst.getDefaultFlatExpTime();
+			det = inst.getDefaultFlatExpTime() ;
 		else if( getCalType() == ARC )
-			det = inst.getDefaultArcExpTime();
+			det = inst.getDefaultArcExpTime() ;
 
-		return det;
+		return det ;
 	}
 
 	public int getDefaultCoadds()
 	{
-		int dc = 1;
+		int dc = 1 ;
 		// Get the coadds from the UIST instrument
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		if( getCalType() == FLAT )
-			dc = inst.getDefaultFlatCoadds();
+			dc = inst.getDefaultFlatCoadds() ;
 		else if( getCalType() == ARC )
-			dc = inst.getDefaultArcCoadds();
+			dc = inst.getDefaultArcCoadds() ;
 
-		return dc;
+		return dc ;
 
 	}
 
@@ -247,7 +247,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setExpTimeOT( String expTime )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_EXPTIME_OT , expTime );
+		_avTable.set( SpUISTCalConstants.ATTR_EXPTIME_OT , expTime ) ;
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setCalType( String calType )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_CALTYPE , calType );
+		_avTable.set( SpUISTCalConstants.ATTR_CALTYPE , calType ) ;
 	}
 
 	/**
@@ -288,7 +288,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	public String[] getCalTypeChoices()
 	{
 		String choices[] = null ;
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		if( inst.isImaging() )
 		{
 			choices = new String[ 1 ] ;
@@ -296,9 +296,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		}
 		else
 		{
-			choices = new String[ 2 ];
-			choices[ 0 ] = "Flat";
-			choices[ 1 ] = "Arc";
+			choices = new String[ 2 ] ;
+			choices[ 0 ] = "Flat" ;
+			choices[ 1 ] = "Arc" ;
 		}
 		return choices ;
 	}
@@ -308,9 +308,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public boolean isImaging()
 	{
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
-		String camera = inst.getCamera();
-		return( camera.equalsIgnoreCase( "imaging" ) );
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
+		String camera = inst.getCamera() ;
+		return( camera.equalsIgnoreCase( "imaging" ) ) ;
 	}
 
 	/**
@@ -341,7 +341,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setFlatSource( String fs )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_FLAT_SOURCE , fs );
+		_avTable.set( SpUISTCalConstants.ATTR_FLAT_SOURCE , fs ) ;
 	}
 
 	/**
@@ -349,9 +349,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String[] getFlatSourceChoices()
 	{
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
-		String choices[] = inst.getFlatList();
-		return choices;
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
+		String choices[] = inst.getFlatList() ;
+		return choices ;
 	}
 
 	/**
@@ -359,16 +359,16 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getFocus()
 	{
-		String focus;
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		String focus ;
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		
 		if( getCalType() == ARC )
-			focus = inst.getArcFocus();
+			focus = inst.getArcFocus() ;
 		else
-			focus = inst.getFocus();
+			focus = inst.getFocus() ;
 
-		setFocus( focus );
-		return focus;
+		setFocus( focus ) ;
+		return focus ;
 	}
 
 	/**
@@ -376,7 +376,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setFocus( String focus )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_FOCUS , focus );
+		_avTable.set( SpUISTCalConstants.ATTR_FOCUS , focus ) ;
 	}
 
 	/**
@@ -384,16 +384,16 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getOrder()
 	{
-		String order;
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		String order ;
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		
 		if( getCalType() == ARC )
-			order = inst.getArcOrder();
+			order = inst.getArcOrder() ;
 		else
-			order = inst.getOrderString();
+			order = inst.getOrderString() ;
 
-		setOrder( order );
-		return order;
+		setOrder( order ) ;
+		return order ;
 	}
 
 	/**
@@ -401,7 +401,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setOrder( String order )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_ORDER , order );
+		_avTable.set( SpUISTCalConstants.ATTR_ORDER , order ) ;
 	}
 
 	/**
@@ -409,16 +409,16 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getCentralWavelength()
 	{
-		String cwl;
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		String cwl ;
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		
 		if( getCalType() == ARC )
-			cwl = inst.getArcCentralWavelength();
+			cwl = inst.getArcCentralWavelength() ;
 		else
-			cwl = inst.getCentralWavelengthString();
+			cwl = inst.getCentralWavelengthString() ;
 
-		setCentralWavelength( cwl );
-		return cwl;
+		setCentralWavelength( cwl ) ;
+		return cwl ;
 	}
 
 	/**
@@ -426,7 +426,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setCentralWavelength( String cwl )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , cwl );
+		_avTable.set( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , cwl ) ;
 	}
 
 	/**
@@ -434,23 +434,23 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getArcSource()
 	{
-		String as;
+		String as ;
 		if( getCalType() == ARC )
 		{
-			as = _avTable.get( SpUISTCalConstants.ATTR_ARC_SOURCE );
+			as = _avTable.get( SpUISTCalConstants.ATTR_ARC_SOURCE ) ;
 			if( as == null )
 			{
 				/* The default is the first available choice */
-				as = getArcSourceChoices()[ 0 ];
-				setArcSource( as );
+				as = getArcSourceChoices()[ 0 ] ;
+				setArcSource( as ) ;
 			}
 		}
 		else
 		{
-			as = "undefined";
-			setArcSource( as );
+			as = "undefined" ;
+			setArcSource( as ) ;
 		}
-		return as;
+		return as ;
 	}
 
 	/**
@@ -458,7 +458,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setArcSource( String as )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_ARC_SOURCE , as );
+		_avTable.set( SpUISTCalConstants.ATTR_ARC_SOURCE , as ) ;
 	}
 
 	/**
@@ -466,9 +466,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String[] getArcSourceChoices()
 	{
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
-		String choices[] = inst.getArcList();
-		return choices;
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
+		String choices[] = inst.getArcList() ;
+		return choices ;
 	}
 
 	/**
@@ -476,13 +476,13 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( SpUISTCalConstants.ATTR_FILTER );
+		String filter = _avTable.get( SpUISTCalConstants.ATTR_FILTER ) ;
 		if( filter == null || filter.equals( "none" ) )
 		{
-			filter = getDefaultFilter();
-			setFilter( filter );
+			filter = getDefaultFilter() ;
+			setFilter( filter ) ;
 		}
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -490,16 +490,16 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getDefaultFilter()
 	{
-		String filter = null;
+		String filter = null ;
 
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		
 		if( getCalType() == FLAT )
-			filter = inst.getFilter();
+			filter = inst.getFilter() ;
 		else if( getCalType() == ARC )
-			filter = inst.getArcFilter();
+			filter = inst.getArcFilter() ;
 		
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -507,7 +507,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_FILTER , filter );
+		_avTable.set( SpUISTCalConstants.ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -515,13 +515,13 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getCoaddsString()
 	{
-		String coadds = _avTable.get( SpUISTCalConstants.ATTR_COADDS );
+		String coadds = _avTable.get( SpUISTCalConstants.ATTR_COADDS ) ;
 		if( coadds == null )
 		{
-			coadds = Integer.toString( getDefaultCoadds() );
-			setCoadds( coadds );
+			coadds = Integer.toString( getDefaultCoadds() ) ;
+			setCoadds( coadds ) ;
 		}
-		return coadds;
+		return coadds ;
 	}
 
 	/**
@@ -529,7 +529,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void setCoadds( String coadds )
 	{
-		_avTable.set( SpUISTCalConstants.ATTR_COADDS , coadds );
+		_avTable.set( SpUISTCalConstants.ATTR_COADDS , coadds ) ;
 	}
 
 	/**
@@ -537,9 +537,9 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getObservationTimeString()
 	{
-		double ot = Double.valueOf( _avTable.get( SpUISTCalConstants.ATTR_OBSERVATION_TIME ) ).doubleValue();
-		String observationTime = Double.toString( MathUtil.round( ot , 3 ) );
-		return observationTime;
+		double ot = Double.valueOf( _avTable.get( SpUISTCalConstants.ATTR_OBSERVATION_TIME ) ).doubleValue() ;
+		String observationTime = Double.toString( MathUtil.round( ot , 3 ) ) ;
+		return observationTime ;
 	}
 
 	// End of added by RDK
@@ -549,19 +549,19 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void useDefaults()
 	{
-		_avTable.rm( SpUISTCalConstants.ATTR_FILTER );
-		_avTable.rm( SpUISTCalConstants.ATTR_MODE );
-		_avTable.rm( SpUISTCalConstants.ATTR_EXPOSURE_TIME );
-		_avTable.rm( SpUISTCalConstants.ATTR_NREADS );
-		_avTable.rm( SpUISTCalConstants.ATTR_READ_INTERVAL );
-		_avTable.rm( SpUISTCalConstants.ATTR_DUTY_CYCLE );
-		_avTable.rm( SpUISTCalConstants.ATTR_CHOP_FREQUENCY );
-		_avTable.rm( SpUISTCalConstants.ATTR_CHOP_DELAY );
-		_avTable.rm( SpUISTCalConstants.ATTR_COADDS );
-		_avTable.rm( SpUISTCalConstants.ATTR_FLAT_SOURCE );
-		_avTable.rm( SpUISTCalConstants.ATTR_ARC_SOURCE );
-		_avTable.rm( SpUISTCalConstants.ATTR_OBSERVATION_TIME );
-		_avTable.rm( SpUISTCalConstants.ATTR_EXPTIME_OT );
+		_avTable.rm( SpUISTCalConstants.ATTR_FILTER ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_MODE ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_EXPOSURE_TIME ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_NREADS ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_READ_INTERVAL ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_DUTY_CYCLE ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_CHOP_FREQUENCY ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_CHOP_DELAY ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_COADDS ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_FLAT_SOURCE ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_ARC_SOURCE ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_OBSERVATION_TIME ) ;
+		_avTable.rm( SpUISTCalConstants.ATTR_EXPTIME_OT ) ;
 	}
 
 	/**
@@ -569,55 +569,55 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public void updateDAConf()
 	{
-		SpInstUIST inst = ( SpInstUIST )getInstrumentItem();
+		SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 		if( getCalType() == FLAT )
 		{
-			inst.setFlatExpTime( getExpTimeOT() );
-			String coaddsString = getCoaddsString();
-			inst.setFlatCoadds( Integer.valueOf( coaddsString ).intValue() );
+			inst.setFlatExpTime( getExpTimeOT() ) ;
+			String coaddsString = getCoaddsString() ;
+			inst.setFlatCoadds( Integer.valueOf( coaddsString ).intValue() ) ;
 			// End of added by RDK
-			inst.updateDAFlatConf();
+			inst.updateDAFlatConf() ;
 		}
 		else if( getCalType() == ARC )
 		{
-			inst.setArcExpTime( getExpTimeOT() );
-			inst.setArcCoadds( Integer.valueOf( getCoaddsString() ).intValue() );
+			inst.setArcExpTime( getExpTimeOT() ) ;
+			inst.setArcCoadds( Integer.valueOf( getCoaddsString() ).intValue() ) ;
 			// End of added by RDK
-			inst.updateDAArcConf();
+			inst.updateDAArcConf() ;
 		}
 		/* Update local instance variables from UIST class */
-		W_mode = inst.W_mode;
-		W_nreads = inst.W_nreads;
-		W_readInterval = inst.W_readInterval;
-		W_dutyCycle = inst.W_dutyCycle;
-		W_chopFrequency = inst.W_chopFrequency;
-		W_chopDelay = inst.W_chopDelay;
-		W_actExpTime = inst.W_actExpTime;
-		W_obsTime = inst.W_obsTime;
-		W_coadds = inst.W_coadds;
+		W_mode = inst.W_mode ;
+		W_nreads = inst.W_nreads ;
+		W_readInterval = inst.W_readInterval ;
+		W_dutyCycle = inst.W_dutyCycle ;
+		W_chopFrequency = inst.W_chopFrequency ;
+		W_chopDelay = inst.W_chopDelay ;
+		W_actExpTime = inst.W_actExpTime ;
+		W_obsTime = inst.W_obsTime ;
+		W_coadds = inst.W_coadds ;
 
 		/* Update attributes from instance variables */
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_MODE , W_mode , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_NREADS , Integer.toString( W_nreads ) , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_READ_INTERVAL , Double.toString( W_readInterval ) , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_DUTY_CYCLE , Double.toString( W_dutyCycle ) , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , W_chopFrequency , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_DELAY , Double.toString( W_chopDelay ) , 0 );
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_MODE , W_mode , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_NREADS , Integer.toString( W_nreads ) , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_READ_INTERVAL , Double.toString( W_readInterval ) , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_DUTY_CYCLE , Double.toString( W_dutyCycle ) , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_FREQUENCY , W_chopFrequency , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CHOP_DELAY , Double.toString( W_chopDelay ) , 0 ) ;
 		// The exposure time may have been over-ridden by the QT.  Only do an update if it hasn't
 		if( !_avTable.exists( "override_" + ATTR_EXPOSURE_TIME ) || !_avTable.getBool( "override_" + ATTR_EXPOSURE_TIME ) )
-			_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPOSURE_TIME , Double.toString( W_actExpTime ) , 0 );
+			_avTable.noNotifySet( SpUISTCalConstants.ATTR_EXPOSURE_TIME , Double.toString( W_actExpTime ) , 0 ) ;
 
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_OBSERVATION_TIME , Double.toString( W_obsTime ) , 0 );
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_OBSERVATION_TIME , Double.toString( W_obsTime ) , 0 ) ;
 		// The coadds may have been over-ridden by the QT.  Only do an update if it hasn't
 		if( !_avTable.exists( "override_" + ATTR_COADDS ) || !_avTable.getBool( "override_" + ATTR_COADDS ) )
-			_avTable.noNotifySet( SpUISTCalConstants.ATTR_COADDS , Integer.toString( W_coadds ) , 0 );
+			_avTable.noNotifySet( SpUISTCalConstants.ATTR_COADDS , Integer.toString( W_coadds ) , 0 ) ;
 
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FLAT_SOURCE , getFlatSource() , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ARC_SOURCE , getArcSource() , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FILTER , getFilter() , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FOCUS , getFocus() , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ORDER , getOrder() , 0 );
-		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , getCentralWavelength() , 0 );
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FLAT_SOURCE , getFlatSource() , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ARC_SOURCE , getArcSource() , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FILTER , getFilter() , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_FOCUS , getFocus() , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_ORDER , getOrder() , 0 ) ;
+		_avTable.noNotifySet( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH , getCentralWavelength() , 0 ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -626,101 +626,101 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		SpInstUIST inst;
+		SpInstUIST inst ;
 		try
 		{
-			inst = ( SpInstUIST )SpTreeMan.findInstrument( this );
+			inst = ( SpInstUIST )SpTreeMan.findInstrument( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new SpTranslationNotSupportedException( "No UIST instrument is scope" );
+			throw new SpTranslationNotSupportedException( "No UIST instrument is scope" ) ;
 		}
 
 		// Work out whether we are a flat or an arc
-		boolean isFlat = ( getCalType() == FLAT );
+		boolean isFlat = ( getCalType() == FLAT ) ;
 
 		// We first need to get the DRRecipe component...
-		SpItem parent = parent();
-		Vector recipes = null;
+		SpItem parent = parent() ;
+		Vector recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )
 			{
-				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				recipes = SpTreeMan.findAllItems( parent , SpDRRecipe.class.getName() ) ;
 				if( recipes != null && recipes.size() > 0 )
-					break;
+					break ;
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 );
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
 			if( isFlat )
 			{
-				v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) );
-				v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() );
+				v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) ) ;
+				v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
 			}
 			else
 			{
 				// Assume arc
-				v.add( "setHeader GRPMEM " + ( recipe.getArcInGroup() ? "T" : "F" ) );
-				v.add( "setHeader RECIPE " + recipe.getArcRecipeName() );
+				v.add( "setHeader GRPMEM " + ( recipe.getArcInGroup() ? "T" : "F" ) ) ;
+				v.add( "setHeader RECIPE " + recipe.getArcRecipeName() ) ;
 			}
 		}
 
-		Hashtable configTable = inst.getConfigItems();
+		Hashtable configTable = inst.getConfigItems() ;
 		if( isFlat )
 		{
-			configTable.put( "flatSource" , getFlatSource() );
-			configTable.put( "filter" , inst.getFilter() );
+			configTable.put( "flatSource" , getFlatSource() ) ;
+			configTable.put( "filter" , inst.getFilter() ) ;
 		}
 		else
 		{
-			configTable.put( "arcSource" , getArcSource() );
-			configTable.put( "filter" , inst.getArcFilter() );
+			configTable.put( "arcSource" , getArcSource() ) ;
+			configTable.put( "filter" , inst.getArcFilter() ) ;
 		}
 
-		configTable.put( "type" , getCalTypeString().toLowerCase() );
-		configTable.put( "exposureTime" , "" + getExposureTime() );
-		configTable.put( "coadds" , "" + getCoadds() );
-		configTable.put( "observationTime" , getObservationTimeString() );
+		configTable.put( "type" , getCalTypeString().toLowerCase() ) ;
+		configTable.put( "exposureTime" , "" + getExposureTime() ) ;
+		configTable.put( "coadds" , "" + getCoadds() ) ;
+		configTable.put( "observationTime" , getObservationTimeString() ) ;
 		
 		if( _avTable.exists( SpUISTCalConstants.ATTR_NREADS ) )
-			configTable.put( "nreads" , _avTable.get( SpUISTCalConstants.ATTR_NREADS ) );
+			configTable.put( "nreads" , _avTable.get( SpUISTCalConstants.ATTR_NREADS ) ) ;
 		
 		if( _avTable.exists( SpUISTCalConstants.ATTR_CHOP_DELAY ) )
-			configTable.put( "chopDelay" , _avTable.get( SpUISTCalConstants.ATTR_CHOP_DELAY ) );
+			configTable.put( "chopDelay" , _avTable.get( SpUISTCalConstants.ATTR_CHOP_DELAY ) ) ;
 
 		if( _avTable.exists( SpUISTCalConstants.ATTR_DUTY_CYCLE ) )
-			configTable.put( "dutyCycle" , _avTable.get( SpUISTCalConstants.ATTR_DUTY_CYCLE ) );
+			configTable.put( "dutyCycle" , _avTable.get( SpUISTCalConstants.ATTR_DUTY_CYCLE ) ) ;
 
 		if( _avTable.exists( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH ) )
-			configTable.put( "centralWavelength" , _avTable.get( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH ) );
+			configTable.put( "centralWavelength" , _avTable.get( SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH ) ) ;
 
 		try
 		{
-			ConfigWriter.getCurrentInstance().write( configTable );
+			ConfigWriter.getCurrentInstance().write( configTable ) ;
 		}
 		catch( IOException ioe )
 		{
-			throw new SpTranslationNotSupportedException( "Unable to write UISTCalObs config file" );
+			throw new SpTranslationNotSupportedException( "Unable to write UISTCalObs config file" ) ;
 		}
 		
-		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-		v.add( "setrotator " + ( String )configTable.get( "posAngle" ) );
-		v.add( "set " + getCalTypeString().toUpperCase() );
-		v.add( "do " + getCount() + " _observe" );
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
+		v.add( "setrotator " + ( String )configTable.get( "posAngle" ) ) ;
+		v.add( "set " + getCalTypeString().toUpperCase() ) ;
+		v.add( "do " + getCount() + " _observe" ) ;
 
 		// Finally move the default config file, numbered _1 down
 		for( int i = v.size() - 1 ; i >= 0 ; i-- )
 		{
-			String defCon = v.get( i );
+			String defCon = v.get( i ) ;
 			if( defCon.matches( "loadConfig .*_1" ) )
 			{
-				v.remove( i );
-				v.add( defCon );
-				break;
+				v.remove( i ) ;
+				v.add( defCon ) ;
+				break ;
 			}
 		}
 	}
