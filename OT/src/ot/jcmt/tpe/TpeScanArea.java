@@ -13,12 +13,12 @@
 //
 // $Id$
 //
-package ot.jcmt.tpe;
+package ot.jcmt.tpe ;
 
-import jsky.app.ot.tpe.TpeSciArea;
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.iter.SpIterRasterObs;
+import jsky.app.ot.tpe.TpeSciArea ;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.iter.SpIterRasterObs ;
 
 /**
  * Describes a Scan Area and facilitates drawing, rotating it.
@@ -34,7 +34,7 @@ public class TpeScanArea extends TpeSciArea
 	 */
 	public boolean update( SpInstObsComp spInst , FitsImageInfo fii )
 	{
-		throw new UnsupportedOperationException( "TpeScanArea.update(orac.jcmt.iter.SpIterRasterObs, " + "jsky.app.ot.fits.gui.FitsImageInfo) should be used" );
+		throw new UnsupportedOperationException( "TpeScanArea.update(orac.jcmt.iter.SpIterRasterObs, " + "jsky.app.ot.fits.gui.FitsImageInfo) should be used" ) ;
 	}
 
 	/**
@@ -42,25 +42,25 @@ public class TpeScanArea extends TpeSciArea
 	 */
 	public boolean update( SpIterRasterObs iterRaster , FitsImageInfo fii )
 	{
-		double w , h , posAngle , sky;
+		double w , h , posAngle , sky ;
 
-		w = iterRaster.getWidth() * fii.pixelsPerArcsec;
-		h = iterRaster.getHeight() * fii.pixelsPerArcsec;
+		w = iterRaster.getWidth() * fii.pixelsPerArcsec ;
+		h = iterRaster.getHeight() * fii.pixelsPerArcsec ;
 
 		posAngle = ( Math.PI * iterRaster.getPosAngle() ) / 180. ;
-		sky = fii.theta;
+		sky = fii.theta ;
 
 		// Update the instance variables if necessary.
 		if( ( w != this.width ) || ( h != this.height ) || ( posAngle != this.posAngleRadians ) || ( sky != this.skyCorrection ) )
 		{
 
-			this.width = w;
-			this.height = h;
-			this.posAngleRadians = posAngle;
-			this.skyCorrection = sky;
-			return true;
+			this.width = w ;
+			this.height = h ;
+			this.posAngleRadians = posAngle ;
+			this.skyCorrection = sky ;
+			return true ;
 		}
 
-		return false;
+		return false ;
 	}
 }

@@ -4,49 +4,49 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
 import java.awt.Component ;
 import java.awt.Graphics2D ;
 import java.awt.Color ;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Vector;
-import javax.swing.JDesktopPane;
-import jsky.app.jskycat.JSkyCat;
-import jsky.app.ot.fits.gui.FitsImageWidget;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
-import jsky.app.ot.gui.DrawUtil;
-import gemini.util.CoordSys;
-import gemini.sp.SpBasePosObserver;
-import gemini.sp.SpPosAngleObserver;
-import gemini.sp.SpItem;
-import gemini.sp.SpObsData;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.util.RADecMath;
-import jsky.coords.wcscon;
+import java.awt.geom.Point2D ;
+import java.awt.geom.Rectangle2D ;
+import java.util.Vector ;
+import javax.swing.JDesktopPane ;
+import jsky.app.jskycat.JSkyCat ;
+import jsky.app.ot.fits.gui.FitsImageWidget ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
+import jsky.app.ot.gui.DrawUtil ;
+import gemini.util.CoordSys ;
+import gemini.sp.SpBasePosObserver ;
+import gemini.sp.SpPosAngleObserver ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpObsData ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.util.RADecMath ;
+import jsky.coords.wcscon ;
 
 /**
  * This class is concerned with drawing targets, WFS etc., on a DSS image.
  */
 public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver , SpPosAngleObserver
 {
-	private SpItem _baseItem;
-	private SpObsData _obsData;
-	private Vector _featureList = new Vector();
-	private TpeDraggableFeature _dragObject;
+	private SpItem _baseItem ;
+	private SpObsData _obsData ;
+	private Vector _featureList = new Vector() ;
+	private TpeDraggableFeature _dragObject ;
 	private double _ra = 0. ; // RA of base position
 	private double _dec = 0. ; // Dec of base position
 	private double _posAngle = 0. ; // Rotator position angle
-	private boolean _baseOutOfView = false; // Base pos not visible
+	private boolean _baseOutOfView = false ; // Base pos not visible
 	
 	/** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
-	private Point2D.Double _convertedPosition = new Point2D.Double();
+	private Point2D.Double _convertedPosition = new Point2D.Double() ;
 
 	public TpeImageWidget( Component parent )
 	{
-		super( parent );
+		super( parent ) ;
 	}
 
 	/** 
@@ -57,7 +57,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public Component newWindow()
 	{
-		return new TpeImageDisplayFrame();
+		return new TpeImageDisplayFrame() ;
 	}
 
 	/** 
@@ -68,7 +68,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public boolean isClear()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -79,22 +79,22 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	{
 		if( _obsData != null )
 		{
-			_obsData.deleteBasePosObserver( this );
-			_obsData.deletePosAngleObserver( this );
+			_obsData.deleteBasePosObserver( this ) ;
+			_obsData.deletePosAngleObserver( this ) ;
 		}
 
 		for( int i = _featureList.size() - 1 ; i >= 0 ; --i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
-			_featureList.removeElement( tif );
-			tif.unloaded();
+			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			_featureList.removeElement( tif ) ;
+			tif.unloaded() ;
 		}
 
-		_featureList = null;
-		_baseItem = null;
-		_obsData = null;
+		_featureList = null ;
+		_baseItem = null ;
+		_obsData = null ;
 
-		super.free();
+		super.free() ;
 	}
 
 	/**
@@ -102,25 +102,25 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public void reset( SpItem spItem )
 	{
-		SpObsData od = spItem.getObsData();
+		SpObsData od = spItem.getObsData() ;
 		if( ( _obsData != null ) && ( od != _obsData ) )
 		{
-			_obsData.deleteBasePosObserver( this );
-			_obsData.deletePosAngleObserver( this );
+			_obsData.deleteBasePosObserver( this ) ;
+			_obsData.deletePosAngleObserver( this ) ;
 		}
 
-		_baseItem = spItem;
-		_obsData = od;
+		_baseItem = spItem ;
+		_obsData = od ;
 
 		if( _obsData != null )
 		{
-			_obsData.addBasePosObserver( this );
-			_obsData.addPosAngleObserver( this );
+			_obsData.addBasePosObserver( this ) ;
+			_obsData.addPosAngleObserver( this ) ;
 
-			setBasePos( od.getXaxis() , od.getYaxis() , od.getCoordSys() );
-			setPosAngle( od.getPosAngle() );
+			setBasePos( od.getXaxis() , od.getYaxis() , od.getCoordSys() ) ;
+			setPosAngle( od.getPosAngle() ) ;
 		}
-		repaint();
+		repaint() ;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public SpItem getBaseItem()
 	{
-		return _baseItem;
+		return _baseItem ;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public SpItem getTelescopeItem()
 	{
-		return SpTreeMan.findTargetList( _baseItem );
+		return SpTreeMan.findTargetList( _baseItem ) ;
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
 	}
 
 	/**
@@ -154,15 +154,15 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	public TpeSciArea getSciArea()
 	{
 		if( !_imgInfoValid )
-			return null;
+			return null ;
 
-		SpInstObsComp spInst = getInstrumentItem();
+		SpInstObsComp spInst = getInstrumentItem() ;
 		if( spInst == null )
-			return null;
+			return null ;
 
-		TpeSciArea tsa = new TpeSciArea();
-		tsa.update( spInst , _imgInfo );
-		return tsa;
+		TpeSciArea tsa = new TpeSciArea() ;
+		tsa.update( spInst , _imgInfo ) ;
+		return tsa ;
 	}
 
 	/**
@@ -171,11 +171,11 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	{
 		if( !featureAdded( tif ) )
 		{
-			_featureList.addElement( tif );
+			_featureList.addElement( tif ) ;
 			if( _imgInfoValid )
-				tif.reinit( this , _imgInfo );
+				tif.reinit( this , _imgInfo ) ;
 
-			repaint();
+			repaint() ;
 		}
 	}
 
@@ -183,7 +183,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public final boolean featureAdded( TpeImageFeature tif )
 	{
-		return _featureList.contains( tif );
+		return _featureList.contains( tif ) ;
 	}
 
 	/**
@@ -192,9 +192,9 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	{
 		if( featureAdded( tif ) )
 		{
-			_featureList.removeElement( tif );
-			tif.unloaded();
-			repaint();
+			_featureList.removeElement( tif ) ;
+			tif.unloaded() ;
+			repaint() ;
 		}
 	}
 
@@ -206,15 +206,15 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 		{
 			for( int i = 0 ; i < _featureList.size() ; ++i )
 			{
-				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
+				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
 				if( tif instanceof TpeDraggableFeature )
 				{
-					TpeDraggableFeature tdf = ( TpeDraggableFeature )tif;
+					TpeDraggableFeature tdf = ( TpeDraggableFeature )tif ;
 					if( tdf.dragStart( evt , _imgInfo ) )
 					{
-						_dragObject = tdf;
-						drag( evt );
-						return;
+						_dragObject = tdf ;
+						drag( evt ) ;
+						return ;
 					}
 				}
 			}
@@ -226,7 +226,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	public void drag( FitsMouseEvent evt )
 	{
 		if( _dragObject != null )
-			_dragObject.drag( evt );
+			_dragObject.drag( evt ) ;
 	}
 
 	/**
@@ -235,8 +235,8 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	{
 		if( _dragObject != null )
 		{
-			_dragObject.dragStop( evt );
-			_dragObject = null;
+			_dragObject.dragStop( evt ) ;
+			_dragObject = null ;
 		}
 	}
 
@@ -245,16 +245,16 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	public boolean create( FitsMouseEvent fme , TpeImageFeature tif , String label )
 	{
 		if( !_imgInfoValid )
-			return false;
+			return false ;
 
 		if( !_featureList.contains( tif ) )
-			return false;
+			return false ;
 
 		if( !( tif instanceof TpeCreateableFeature ) )
-			return false;
+			return false ;
 
-		TpeCreateableFeature tcf = ( TpeCreateableFeature )tif;
-		return tcf.create( fme , _imgInfo , label );
+		TpeCreateableFeature tcf = ( TpeCreateableFeature )tif ;
+		return tcf.create( fme , _imgInfo , label ) ;
 	}
 
 	/**
@@ -262,19 +262,19 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	public boolean erase( FitsMouseEvent fme )
 	{
 		if( !_imgInfoValid )
-			return false;
+			return false ;
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
+			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
 			if( tif instanceof TpeEraseableFeature )
 			{
-				TpeEraseableFeature tef = ( TpeEraseableFeature )tif;
+				TpeEraseableFeature tef = ( TpeEraseableFeature )tif ;
 				if( tef.erase( fme ) )
-					return true;
+					return true ;
 			}
 		}
-		return false;
+		return false ;
 	}
 
 	/**
@@ -282,20 +282,20 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	public Object select( FitsMouseEvent fme )
 	{
 		if( !_imgInfoValid )
-			return null;
+			return null ;
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
+			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
 			if( tif instanceof TpeSelectableFeature )
 			{
-				TpeSelectableFeature tsf = ( TpeSelectableFeature )tif;
-				Object o = tsf.select( fme );
+				TpeSelectableFeature tsf = ( TpeSelectableFeature )tif ;
+				Object o = tsf.select( fme ) ;
 				if( o != null )
-					return o;
+					return o ;
 			}
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -303,8 +303,8 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public void basePosUpdate( double x , double y , double xoff , double yoff , int coordSys )
 	{
-		setBasePos( x , y , xoff , yoff , coordSys );
-		repaint();
+		setBasePos( x , y , xoff , yoff , coordSys ) ;
+		repaint() ;
 	}
 
 	/**
@@ -312,31 +312,31 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public void posAngleUpdate( double posAngle )
 	{
-		setPosAngle( posAngle );
-		repaint();
+		setPosAngle( posAngle ) ;
+		repaint() ;
 	}
 
 	/**
 	 */
 	public void repaint( TpeImageFeature tif )
 	{
-		repaint();
+		repaint() ;
 	}
 
 	public boolean setPosAngle( double posAngle )
 	{
-		_posAngle = posAngle;
+		_posAngle = posAngle ;
 
 		if( super.setPosAngle( _posAngle ) )
 		{
 			for( int i = 0 ; i < _featureList.size() ; ++i )
 			{
-				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
-				tif.posAngleUpdate( _imgInfo );
+				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+				tif.posAngleUpdate( _imgInfo ) ;
 			}
-			return true;
+			return true ;
 		}
-		return false;
+		return false ;
 	}
 
 	/**
@@ -346,12 +346,12 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public boolean setBasePos( double x , double y )
 	{
-		return setBasePos( x , y , CoordSys.FK5 );
+		return setBasePos( x , y , CoordSys.FK5 ) ;
 	}
 
 	public boolean setBasePos( double x , double y , int coordSys )
 	{
-		return setBasePos( x , y , 0.0 , 0.0 , coordSys );
+		return setBasePos( x , y , 0.0 , 0.0 , coordSys ) ;
 	}
 
 	/**
@@ -359,51 +359,51 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public boolean setBasePos( double x , double y , double xoff , double yoff , int coordSys )
 	{
-		_convertedPosition.x = RADecMath.getAbsolute( x , y , xoff , yoff )[ 0 ];
-		_convertedPosition.y = RADecMath.getAbsolute( x , y , xoff , yoff )[ 1 ];
+		_convertedPosition.x = RADecMath.getAbsolute( x , y , xoff , yoff )[ 0 ] ;
+		_convertedPosition.y = RADecMath.getAbsolute( x , y , xoff , yoff )[ 1 ] ;
 
 		switch( coordSys )
 		{
 			case CoordSys.FK4 :
-				wcscon.fk425( _convertedPosition );
-				break;
+				wcscon.fk425( _convertedPosition ) ;
+				break ;
 			case CoordSys.GAL :
-				wcscon.gal2fk5( _convertedPosition );
-				break;
+				wcscon.gal2fk5( _convertedPosition ) ;
+				break ;
 		}
 
-		_ra = _convertedPosition.x;
-		_dec = _convertedPosition.y;
+		_ra = _convertedPosition.x ;
+		_dec = _convertedPosition.y ;
 
 		if( !super.setBasePos( _ra , _dec ) )
-			return false;
+			return false ;
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
-			tif.reinit( this , _imgInfo );
+			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			tif.reinit( this , _imgInfo ) ;
 		}
 
-		_baseOutOfView = false;
+		_baseOutOfView = false ;
 		if( _imgInfoValid )
 		{
-			Point2D.Double p = _imgInfo.baseScreenPos;
+			Point2D.Double p = _imgInfo.baseScreenPos ;
 			if( ( p.x < 0 ) || ( p.y < 0 ) || ( p.x >= getWidth() ) || ( p.y >= getHeight() ) )
-				_baseOutOfView = true;
+				_baseOutOfView = true ;
 		}
-		return true;
+		return true ;
 	}
 
 	/** Return the JDesktopPane, if using internal frames, otherwise null */
 	public JDesktopPane getDesktop()
 	{
-		return JSkyCat.getDesktop();
+		return JSkyCat.getDesktop() ;
 	}
 
 	/** Return true if this is the main application window (enables exit menu item) */
 	public boolean isMainWindow()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -414,33 +414,33 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public synchronized void paintLayer( Graphics2D g , Rectangle2D region )
 	{
-		super.paintLayer( g , region );
+		super.paintLayer( g , region ) ;
 
 		if( !_imgInfoValid )
 		{
 			if( !setBasePos( _ra , _dec ) )
-				return;
-			setPosAngle( _posAngle );
+				return ;
+			setPosAngle( _posAngle ) ;
 		}
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i );
-			tif.draw( g , _imgInfo );
+			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			tif.draw( g , _imgInfo ) ;
 		}
 
 		if( _unsupportedProjection )
 		{
-			g.setFont( TpeImageFeature.FONT );
-			String s = "Unsupported coordinate system.";
-			DrawUtil.drawString( g , s , Color.yellow , Color.black , 10 , 10 );
+			g.setFont( TpeImageFeature.FONT ) ;
+			String s = "Unsupported coordinate system." ;
+			DrawUtil.drawString( g , s , Color.yellow , Color.black , 10 , 10 ) ;
 
 		}
 		else if( _baseOutOfView )
 		{
-			g.setFont( TpeImageFeature.FONT );
-			String s = "Base position is out of view.";
-			DrawUtil.drawString( g , s , Color.yellow , Color.black , 10 , 10 );
+			g.setFont( TpeImageFeature.FONT ) ;
+			String s = "Base position is out of view." ;
+			DrawUtil.drawString( g , s , Color.yellow , Color.black , 10 , 10 ) ;
 		}
 	}
 }
