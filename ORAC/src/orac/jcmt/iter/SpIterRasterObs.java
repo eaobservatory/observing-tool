@@ -7,27 +7,27 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpPosAngleObserver;
-import gemini.sp.iter.SpIterOffset;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.util.Format;
-import orac.jcmt.inst.SpJCMTInstObsComp;
-import orac.jcmt.inst.SpInstSCUBA;
-import orac.jcmt.inst.SpInstSCUBA2;
-import orac.jcmt.inst.SpInstHeterodyne;
-import orac.util.SpMapItem;
+import gemini.sp.SpItem ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpPosAngleObserver ;
+import gemini.sp.iter.SpIterOffset ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.util.Format ;
+import orac.jcmt.inst.SpJCMTInstObsComp ;
+import orac.jcmt.inst.SpInstSCUBA ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
+import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.util.SpMapItem ;
 
 import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.util.ComputePong ;
 
-import java.util.Vector;
-import java.util.StringTokenizer;
+import java.util.Vector ;
+import java.util.StringTokenizer ;
 
 /**
  * Raster Iterator for ACSIS/JCMT.
@@ -42,33 +42,33 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 {
 
 	/** TCS XML constants. */
-	private static final String TX_OBS_AREA = "obsArea";
-	private static final String TX_SCAN_AREA = "SCAN_AREA";
-	private static final String TX_AREA = "AREA";
-	private static final String TX_SCAN = "SCAN";
-	private static final String TX_PA = "PA";
-	private static final String TX_HEIGHT = "HEIGHT";
-	private static final String TX_WIDTH = "WIDTH";
-	private static final String TX_SCAN_VELOCITY = "VELOCITY";
-	private static final String TX_SCAN_SYSTEM = "SYSTEM";
-	private static final String TX_SCAN_DY = "DY";
+	private static final String TX_OBS_AREA = "obsArea" ;
+	private static final String TX_SCAN_AREA = "SCAN_AREA" ;
+	private static final String TX_AREA = "AREA" ;
+	private static final String TX_SCAN = "SCAN" ;
+	private static final String TX_PA = "PA" ;
+	private static final String TX_HEIGHT = "HEIGHT" ;
+	private static final String TX_WIDTH = "WIDTH" ;
+	private static final String TX_SCAN_VELOCITY = "VELOCITY" ;
+	private static final String TX_SCAN_SYSTEM = "SYSTEM" ;
+	private static final String TX_SCAN_DY = "DY" ;
 
 	/** Default values for rosw/ref and rows/cal */
-	private final String ROWS_PER_REF_DEFAULT = "1";
-	private final String ROWS_PER_CAL_DEFAULT = "1";
+	private final String ROWS_PER_REF_DEFAULT = "1" ;
+	private final String ROWS_PER_CAL_DEFAULT = "1" ;
 
 	/** Needed for XML parsing. */
-	private String _xmlPaAncestor;
+	private String _xmlPaAncestor ;
 	
 	public static final double HARP_SAMPLE = 7.2761 ;
 	public static final double HARP_FULL_ARRAY = 116.4171 ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterRasterObs() );
+		SpFactory.registerPrototype( new SpIterRasterObs() ) ;
 	}
 
 	/**
@@ -76,48 +76,48 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public SpIterRasterObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		_avTable.noNotifySet( ATTR_SCANAREA_WIDTH , "180.0" , 0 );
-		_avTable.noNotifySet( ATTR_SCANAREA_HEIGHT , "180.0" , 0 );
+		_avTable.noNotifySet( ATTR_SCANAREA_WIDTH , "180.0" , 0 ) ;
+		_avTable.noNotifySet( ATTR_SCANAREA_HEIGHT , "180.0" , 0 ) ;
 
-		_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 );
+		_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 ) ;
 	}
 
 	/** Get area width (map width). */
 	public double getWidth()
 	{
-		return _avTable.getDouble( ATTR_SCANAREA_WIDTH , 0. );
+		return _avTable.getDouble( ATTR_SCANAREA_WIDTH , 0. ) ;
 	}
 
 	/** Set area width (map width). */
 	public void setWidth( double width )
 	{
-		_avTable.set( ATTR_SCANAREA_WIDTH , Math.rint( width * 10. ) / 10. );
+		_avTable.set( ATTR_SCANAREA_WIDTH , Math.rint( width * 10. ) / 10. ) ;
 	}
 
 	/** Set area width (map width). */
 	public void setWidth( String widthStr )
 	{
-		setWidth( Format.toDouble( widthStr ) );
+		setWidth( Format.toDouble( widthStr ) ) ;
 	}
 
 	/** Get area height (map height). */
 	public double getHeight()
 	{
-		return _avTable.getDouble( ATTR_SCANAREA_HEIGHT , 0. );
+		return _avTable.getDouble( ATTR_SCANAREA_HEIGHT , 0. ) ;
 	}
 
 	/** Set area height (map height). */
 	public void setHeight( double height )
 	{
-		_avTable.set( ATTR_SCANAREA_HEIGHT , Math.rint( height * 10. ) / 10. );
+		_avTable.set( ATTR_SCANAREA_HEIGHT , Math.rint( height * 10. ) / 10. ) ;
 	}
 
 	/** Set area height (map height). */
 	public void setHeight( String heightStr )
 	{
-		setHeight( Format.toDouble( heightStr ) );
+		setHeight( Format.toDouble( heightStr ) ) ;
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public double getPosAngle()
 	{
-		return _avTable.getDouble( ATTR_SCANAREA_PA , 0. );
+		return _avTable.getDouble( ATTR_SCANAREA_PA , 0. ) ;
 	}
 
 	/**
@@ -133,10 +133,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setPosAngle( double theta )
 	{
-		_avTable.set( ATTR_SCANAREA_PA , theta );
+		_avTable.set( ATTR_SCANAREA_PA , theta ) ;
 
 		if( _parent instanceof SpIterOffset )
-			( ( SpIterOffset )_parent ).setPosAngle( getPosAngle() );
+			( ( SpIterOffset )_parent ).setPosAngle( getPosAngle() ) ;
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setPosAngle( String thetaStr )
 	{
-		setPosAngle( Format.toDouble( thetaStr ) );
+		setPosAngle( Format.toDouble( thetaStr ) ) ;
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public double getScanAngle( int n )
 	{
-		return _avTable.getDouble( ATTR_SCANAREA_SCAN_PA , n , 0. );
+		return _avTable.getDouble( ATTR_SCANAREA_SCAN_PA , n , 0. ) ;
 	}
 
 	/**
@@ -160,7 +160,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public Vector getScanAngles()
 	{
-		return _avTable.getAll( ATTR_SCANAREA_SCAN_PA );
+		return _avTable.getAll( ATTR_SCANAREA_SCAN_PA ) ;
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setScanAngle( double theta , int n )
 	{
-		_avTable.set( ATTR_SCANAREA_SCAN_PA , theta , n );
+		_avTable.set( ATTR_SCANAREA_SCAN_PA , theta , n ) ;
 	}
 
 	/**
@@ -178,15 +178,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	{
 		if( thetaStr == null )
 		{
-			_avTable.rm( ATTR_SCANAREA_SCAN_PA );
+			_avTable.rm( ATTR_SCANAREA_SCAN_PA ) ;
 		}
 		else
 		{
-			StringTokenizer stringTokenizer = new StringTokenizer( thetaStr , ",; " );
-			int i = 0;
+			StringTokenizer stringTokenizer = new StringTokenizer( thetaStr , ", ; " ) ;
+			int i = 0 ;
 			while( stringTokenizer.hasMoreTokens() )
 			{
-				setScanAngle( Format.toDouble( stringTokenizer.nextToken() ) , i );
+				setScanAngle( Format.toDouble( stringTokenizer.nextToken() ) , i ) ;
 				i++ ;
 			}
 		}
@@ -198,14 +198,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
 		if( _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. ) == 0. )
 		{
-			SpInstObsComp inst = SpTreeMan.findInstrument( this );
+			SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 			if( inst != null )
 			{
-				double scanVelocity = ( ( SpJCMTInstObsComp )inst ).getDefaultScanVelocity();
-				_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + scanVelocity , 0 );
+				double scanVelocity = ( ( SpJCMTInstObsComp )inst ).getDefaultScanVelocity() ;
+				_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + scanVelocity , 0 ) ;
 			}
 		}
-		return _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. );
+		return _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. ) ;
 	}
 
 	/** Set scan velocity. */
@@ -234,22 +234,22 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public double getScanDx() throws UnsupportedOperationException
 	{
-		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
 		{
-			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of sample spacing." );
+			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of sample spacing." ) ;
 		}
 		else
 		{
-			double dx = 0.;
+			double dx = 0. ;
 			if( inst instanceof SpInstSCUBA )
-				dx = getScanVelocity() / ( ( SpInstSCUBA )inst ).getChopFrequency();
+				dx = getScanVelocity() / ( ( SpInstSCUBA )inst ).getChopFrequency() ;
 			else if( inst instanceof SpInstHeterodyne )
-				dx = getScanVelocity() * getSampleTime();
+				dx = getScanVelocity() * getSampleTime() ;
 			else if( inst instanceof SpInstSCUBA2 )
 				dx = getScanVelocity() / 200. ;
 
-			return dx;
+			return dx ;
 		}
 	}
 
@@ -263,9 +263,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public boolean setScanDx( double dx ) throws UnsupportedOperationException
 	{
 		boolean valid = false ;
-		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
-			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." );
+			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." ) ;
 		else if( inst instanceof SpInstSCUBA )
 			valid = setScanVelocity( ( ( SpInstSCUBA )inst ).getChopFrequency() * dx ) ;
 		else if( inst instanceof SpInstSCUBA2 )
@@ -284,7 +284,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setScanDx( String dx ) throws UnsupportedOperationException
 	{
-		setScanDx( Format.toDouble( dx ) );
+		setScanDx( Format.toDouble( dx ) ) ;
 	}
 
 	/** Get scan dy. */
@@ -293,26 +293,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
 		if( _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 0. ) == 0. )
 		{
-			SpInstObsComp inst = SpTreeMan.findInstrument( this );
+			SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 			if( inst != null )
 			{
-				double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy();
-				_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + scanDy , 0 );
+				double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy() ;
+				_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + scanDy , 0 ) ;
 			}
 		}
-		return _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 10. );
+		return _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 10. ) ;
 	}
 
 	/** Set scan dy. */
 	public void setScanDy( double dy )
 	{
-		_avTable.set( ATTR_SCANAREA_SCAN_DY , dy );
+		_avTable.set( ATTR_SCANAREA_SCAN_DY , dy ) ;
 	}
 
 	/** Set scan dy. */
 	public void setScanDy( String dy )
 	{
-		_avTable.set( ATTR_SCANAREA_SCAN_DY , Format.toDouble( dy ) );
+		_avTable.set( ATTR_SCANAREA_SCAN_DY , Format.toDouble( dy ) ) ;
 	}
 
 	/**
@@ -320,15 +320,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 *
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt;SCAN_AREA&gt;
-	 *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
-	 *   &lt;/SCAN&gt;
-	 * &lt;SCAN_AREA&gt;
+	 * &lt ;SCAN_AREA&gt ;
+	 *   &lt ;SCAN <b>SYSTEM="FPLANE"</b>&gt ;
+	 *   &lt ;/SCAN&gt ;
+	 * &lt ;SCAN_AREA&gt ;
 	 * </pre>
 	 */
 	public String getScanSystem()
 	{
-		return _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM );
+		return _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ) ;
 	}
 
 	/**
@@ -336,61 +336,61 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 *
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt;SCAN_AREA&gt;
-	 *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
-	 *   &lt;/SCAN&gt;
-	 * &lt;SCAN_AREA&gt;
+	 * &lt ;SCAN_AREA&gt ;
+	 *   &lt ;SCAN <b>SYSTEM="FPLANE"</b>&gt ;
+	 *   &lt ;/SCAN&gt ;
+	 * &lt ;SCAN_AREA&gt ;
 	 * </pre>
 	 */
 	public void setScanSystem( String system )
 	{
 		if( system == null )
-			_avTable.rm( ATTR_SCANAREA_SCAN_SYSTEM );
+			_avTable.rm( ATTR_SCANAREA_SCAN_SYSTEM ) ;
 		else
-			_avTable.set( ATTR_SCANAREA_SCAN_SYSTEM , system );
+			_avTable.set( ATTR_SCANAREA_SCAN_SYSTEM , system ) ;
 	}
 
 	public String getRasterMode()
 	{
-		return _avTable.get( ATTR_RASTER_MODE );
+		return _avTable.get( ATTR_RASTER_MODE ) ;
 	}
 
 	public void setRasterMode( String value )
 	{
-		_avTable.set( ATTR_RASTER_MODE , value );
+		_avTable.set( ATTR_RASTER_MODE , value ) ;
 	}
 
 	public String getRowsPerCal()
 	{
 		if( !( _avTable.exists( ATTR_ROWS_PER_CAL ) ) )
-			setRowsPerCal( ROWS_PER_CAL_DEFAULT );
+			setRowsPerCal( ROWS_PER_CAL_DEFAULT ) ;
 
-		return _avTable.get( ATTR_ROWS_PER_CAL );
+		return _avTable.get( ATTR_ROWS_PER_CAL ) ;
 	}
 
 	public void setRowsPerCal( String value )
 	{
-		_avTable.set( ATTR_ROWS_PER_CAL , value );
+		_avTable.set( ATTR_ROWS_PER_CAL , value ) ;
 	}
 
 	public String getRowsPerRef()
 	{
-		return _avTable.get( ATTR_ROWS_PER_REF );
+		return _avTable.get( ATTR_ROWS_PER_REF ) ;
 	}
 
 	public void setRowsPerRef( String value )
 	{
-		_avTable.set( ATTR_ROWS_PER_REF , value );
+		_avTable.set( ATTR_ROWS_PER_REF , value ) ;
 	}
 
 	public boolean getRowReversal()
 	{
-		return _avTable.getBool( ATTR_ROW_REVERSAL );
+		return _avTable.getBool( ATTR_ROW_REVERSAL ) ;
 	}
 
 	public void setRowReversal( boolean value )
 	{
-		_avTable.set( ATTR_ROW_REVERSAL , value );
+		_avTable.set( ATTR_ROW_REVERSAL , value ) ;
 	}
 
 	public void setSampleTime( String value )
@@ -413,26 +413,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		 * calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
 		 * again an so on causing an infinite loop.
 		 */
-		_avTable.set( ATTR_SCANAREA_PA , posAngle );
+		_avTable.set( ATTR_SCANAREA_PA , posAngle ) ;
 	}
 
 	public double getSecsPerRow()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		if( instrument instanceof SpInstSCUBA )
 		{
-			double mapWidth = getWidth();
-			double sampleDX = getScanDx();
-			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-			return mapWidth / scanRate;
+			double mapWidth = getWidth() ;
+			double sampleDX = getScanDx() ;
+			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY ;
+			return mapWidth / scanRate ;
 		}
 		else if( instrument instanceof SpInstHeterodyne )
 		{
 			double rowOverhead = 17.14 ;
-			double samplesPerRow = numberOfSamplesPerRow();
+			double samplesPerRow = numberOfSamplesPerRow() ;
 
-			double timeOnRow = samplesPerRow * getSampleTime();
-			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime();
+			double timeOnRow = samplesPerRow * getSampleTime() ;
+			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime() ;
 			return 1.05 * ( timeOnRow + timeOffRow + rowOverhead ) ;
 		}
 		return 0. ;
@@ -445,7 +445,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public double numberOfSamplesPerRow()
 	{
-		return numberOfSamplesOnSide( true );
+		return numberOfSamplesOnSide( true ) ;
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public double numberOfSamplesPerColumn()
 	{
-		return numberOfSamplesOnSide( false );
+		return numberOfSamplesOnSide( false ) ;
 	}
 
 	/**
@@ -468,39 +468,39 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	protected double numberOfSamplesOnSide( boolean row )
 	{
-		double samplesPerRow = getWidth();
-		double samplesPerColumn = getHeight();
+		double samplesPerRow = getWidth() ;
+		double samplesPerColumn = getHeight() ;
 
-		boolean swap = false;
+		boolean swap = false ;
 		
 		// if AUTOMATIC and height > width
 		// else if USER DEF and abs( scan angle - map angle ) is < 45
 		// else if USER DEF and abs( scan angle - map angle ) is > 135
-		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow;
+		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
 		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
 			swap = columnGreaterThanRow ;
 		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) < 45. )
-			swap = true;
+			swap = true ;
 		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) > 135. )
-			swap = true;
+			swap = true ;
 
 		if( swap )
 		{
-			double temp = samplesPerRow;
-			samplesPerRow = samplesPerColumn;
-			samplesPerColumn = temp;
+			double temp = samplesPerRow ;
+			samplesPerRow = samplesPerColumn ;
+			samplesPerColumn = temp ;
 		}
 
-		samplesPerRow = ( Math.floor( samplesPerRow / getScanDx() ) ) + 1.;
-		samplesPerColumn = ( Math.floor( samplesPerColumn / getScanDy() ) ) + 1.;
+		samplesPerRow = ( Math.floor( samplesPerRow / getScanDx() ) ) + 1. ;
+		samplesPerColumn = ( Math.floor( samplesPerColumn / getScanDy() ) ) + 1. ;
 
 		if( ( ( ( int )samplesPerRow ) & 1 ) == 0 )
 			samplesPerRow++ ;
 
 		if( row )
-			return samplesPerRow;
+			return samplesPerRow ;
 		else
-			return samplesPerColumn;
+			return samplesPerColumn ;
 	}
 
 	private double normalise( double angle )
@@ -517,40 +517,40 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	
 	public double getElapsedTime()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		if( instrument instanceof SpInstSCUBA )
 		{
-			int nWaveplates = 0;
+			int nWaveplates = 0 ;
 			double factor = 1. ;
 
 			// Get information specified by user in the OT.
-			double mapWidth = getWidth();
-			double mapHeight = getHeight();
-			double sampleDX = getScanDx();
-			double sampleDY = getScanDy();
+			double mapWidth = getWidth() ;
+			double mapHeight = getHeight() ;
+			double sampleDX = getScanDx() ;
+			double sampleDY = getScanDy() ;
 
 			// Calculate seconds per integration.
-			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-			double noOfRows = Math.ceil( ( mapHeight + 120 ) / sampleDY );
-			double lengthOfRow = mapWidth;
-			double secsPerRow = lengthOfRow / scanRate;
-			double secsPerIntegration = noOfRows * secsPerRow;
-			double calculatedOverhead = 515 * Math.pow( ( mapWidth * mapHeight ) , -0.1523 ) / 100;
+			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY ;
+			double noOfRows = Math.ceil( ( mapHeight + 120 ) / sampleDY ) ;
+			double lengthOfRow = mapWidth ;
+			double secsPerRow = lengthOfRow / scanRate ;
+			double secsPerIntegration = noOfRows * secsPerRow ;
+			double calculatedOverhead = 515 * Math.pow( ( mapWidth * mapHeight ) , -0.1523 ) / 100 ;
 
 			// Go through the parents and see if any of them are SpIterPOLS
-			SpItem parent = parent();
+			SpItem parent = parent() ;
 			while( parent != null )
 			{
 				if( parent instanceof SpIterPOL )
-					nWaveplates += ( ( SpIterPOL )parent ).getConfigSteps( "POLIter" ).size();
+					nWaveplates += ( ( SpIterPOL )parent ).getConfigSteps( "POLIter" ).size() ;
 		
-				parent = parent.parent();
+				parent = parent.parent() ;
 			}
 			if( nWaveplates > 1 )
-				factor = 1. + ( ( double )nWaveplates - 1 ) / ( nWaveplates );
+				factor = 1. + ( ( double )nWaveplates - 1 ) / ( nWaveplates ) ;
 
 			// Overhead is 50 percent for scan map.
-			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
+			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration ) ;
 		}
 		else if( instrument instanceof SpInstHeterodyne )
 		{
@@ -564,7 +564,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			if( ( ( ( int )samplesPerRow ) & 1 ) == 0 )
 				samplesPerRow++ ;
 			double time = getSecsPerRow() * samplesPerColumn + 80. ;
-			return time;
+			return time ;
 		}
 		else if( instrument instanceof SpInstSCUBA2 )
 		{
@@ -586,18 +586,18 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			}
 			return time ;
 		}
-		return 0.;
+		return 0. ;
 	}
 
 	public void setScanStrategy( String strategy )
 	{
 		if( _avTable.exists( ATTR_SCAN_STRATEGY ) )
-			_avTable.set( ATTR_SCAN_STRATEGY , strategy , 0 );
+			_avTable.set( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
 	}
 
 	public String getScanStrategy()
 	{
-		return _avTable.get( ATTR_SCAN_STRATEGY , 0 );
+		return _avTable.get( ATTR_SCAN_STRATEGY , 0 ) ;
 	}
 
 	public void setIntegrations( int integrations )
@@ -632,21 +632,21 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( avAttr.equals( ATTR_SCANAREA_HEIGHT ) )
 		{
 			// Append <obsArea> element.
-			xmlBuffer.append( "\n" + indent + "  <" + TX_OBS_AREA + ">" );
-			xmlBuffer.append( "\n" + indent + "    <" + TX_PA + ">" + getPosAngle() + "</" + TX_PA + ">" );
+			xmlBuffer.append( "\n" + indent + "  <" + TX_OBS_AREA + ">" ) ;
+			xmlBuffer.append( "\n" + indent + "    <" + TX_PA + ">" + getPosAngle() + "</" + TX_PA + ">" ) ;
 
-			xmlBuffer.append( "\n" + indent + "    <" + TX_SCAN_AREA + ">" );
-			xmlBuffer.append( "\n" + indent + "      <" + TX_AREA + " " + TX_HEIGHT + "=\"" + getHeight() + "\" " + TX_WIDTH + "=\"" + getWidth() + "\"/>" );
-			xmlBuffer.append( "\n" + indent + "      <" + TX_SCAN + " " + TX_SCAN_DY + "=\"" + getScanDy() + "\" " + TX_SCAN_VELOCITY + "=\"" + getScanVelocity() + "\" " + TX_SCAN_SYSTEM + "=\"" + getScanSystem() + "\">" );
+			xmlBuffer.append( "\n" + indent + "    <" + TX_SCAN_AREA + ">" ) ;
+			xmlBuffer.append( "\n" + indent + "      <" + TX_AREA + " " + TX_HEIGHT + "=\"" + getHeight() + "\" " + TX_WIDTH + "=\"" + getWidth() + "\"/>" ) ;
+			xmlBuffer.append( "\n" + indent + "      <" + TX_SCAN + " " + TX_SCAN_DY + "=\"" + getScanDy() + "\" " + TX_SCAN_VELOCITY + "=\"" + getScanVelocity() + "\" " + TX_SCAN_SYSTEM + "=\"" + getScanSystem() + "\">" ) ;
 			if( getScanAngles() != null )
 			{
 				for( int i = 0 ; i < getScanAngles().size() ; i++ )
-					xmlBuffer.append( "\n" + indent + "        <" + TX_PA + ">" + getScanAngle( i ) + "</" + TX_PA + ">" );
+					xmlBuffer.append( "\n" + indent + "        <" + TX_PA + ">" + getScanAngle( i ) + "</" + TX_PA + ">" ) ;
 			}
-			xmlBuffer.append( "\n" + indent + "      </" + TX_SCAN + ">" );
-			xmlBuffer.append( "\n" + indent + "    </" + TX_SCAN_AREA + ">" );
+			xmlBuffer.append( "\n" + indent + "      </" + TX_SCAN + ">" ) ;
+			xmlBuffer.append( "\n" + indent + "    </" + TX_SCAN_AREA + ">" ) ;
 
-			xmlBuffer.append( "\n" + indent + "  </" + TX_OBS_AREA + ">" );
+			xmlBuffer.append( "\n" + indent + "  </" + TX_OBS_AREA + ">" ) ;
 		}
 		else if( avAttr.startsWith( TX_SCAN_AREA ) )
 		{
@@ -655,7 +655,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else
 		{
-			super.processAvAttribute( avAttr , indent , xmlBuffer );
+			super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
 		}
 	}
 
@@ -663,9 +663,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public void processXmlElementStart( String name )
 	{
 		if( ( name != null ) && ( !name.equals( TX_PA ) ) )
-			_xmlPaAncestor = name;
+			_xmlPaAncestor = name ;
 
-		super.processXmlElementStart( name );
+		super.processXmlElementStart( name ) ;
 	}
 
 	/** JAC TCS XML parsing. */
@@ -683,18 +683,18 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			if( ( _xmlPaAncestor != null ) && _xmlPaAncestor.equals( TX_SCAN ) )
 			{
 				if( getScanAngles() == null )
-					setScanAngle( Format.toDouble( value ) , 0 );
+					setScanAngle( Format.toDouble( value ) , 0 ) ;
 				else
-					setScanAngle( Format.toDouble( value ) , getScanAngles().size() );
+					setScanAngle( Format.toDouble( value ) , getScanAngles().size() ) ;
 			}
 			else
 			{
-				setPosAngle( value );
+				setPosAngle( value ) ;
 			}
 		}
 		else
 		{
-			super.processXmlElementContent( name , value );
+			super.processXmlElementContent( name , value ) ;
 		}
 	}
 
@@ -703,9 +703,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	{
 		// save() just means reset() in this context.
 		if( name.equals( TX_OBS_AREA ) )
-			getAvEditFSM().save();
+			getAvEditFSM().save() ;
 		else
-			super.processXmlElementEnd( name );
+			super.processXmlElementEnd( name ) ;
 	}
 
 	/** JAC TCS XML parsing. */
@@ -714,65 +714,65 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( elementName.equals( TX_AREA ) )
 		{
 			if( attributeName.equals( TX_HEIGHT ) )
-				setHeight( value );
+				setHeight( value ) ;
 			else if( attributeName.equals( TX_WIDTH ) )
-				setWidth( value );
+				setWidth( value ) ;
 		}
 		else if( elementName.equals( TX_SCAN ) )
 		{
 			if( attributeName.equals( TX_SCAN_DY ) )
-				setScanDy( value );
+				setScanDy( value ) ;
 			else if( attributeName.equals( TX_SCAN_VELOCITY ) )
-				setScanVelocity( value );
+				setScanVelocity( value ) ;
 			else  if( attributeName.equals( TX_SCAN_SYSTEM ) )
-				setScanSystem( value );
+				setScanSystem( value ) ;
 		}
 		else
 		{
-			super.processXmlAttribute( elementName , attributeName , value );
+			super.processXmlAttribute( elementName , attributeName , value ) ;
 		}
 	}
 
 	public void setDefaults()
 	{
-		setContinuumMode( false );
-		setRowsPerRef( ROWS_PER_REF_DEFAULT );
+		setContinuumMode( false ) ;
+		setRowsPerRef( ROWS_PER_REF_DEFAULT ) ;
 		// Set the rows per cal to give about 10 minutes between calibrations.
-		double rowsPerRef = ( 10 * 60 ) / getSecsPerRow();
+		double rowsPerRef = ( 10 * 60 ) / getSecsPerRow() ;
 		if( rowsPerRef < 1 )
 			rowsPerRef = 1. ;
 		else if( rowsPerRef > Math.ceil( getHeight() / getScanDy() ) )
-			rowsPerRef = Math.ceil( getHeight() / getScanDy() );
+			rowsPerRef = Math.ceil( getHeight() / getScanDy() ) ;
 
-		int iRowsPerRef = ( int )Math.rint( rowsPerRef );
-		setRowsPerCal( "" + iRowsPerRef );
+		int iRowsPerRef = ( int )Math.rint( rowsPerRef ) ;
+		setRowsPerCal( "" + iRowsPerRef ) ;
 	}
 
 	public void setupForHeterodyne()
 	{
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_POSITION , 0 );
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_POSITION , 0 ) ;
 
 		if( _avTable.get( ATTR_ROWS_PER_CAL ) == null || _avTable.get( ATTR_ROWS_PER_CAL ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_ROWS_PER_CAL , ROWS_PER_CAL_DEFAULT , 0 );
+			_avTable.noNotifySet( ATTR_ROWS_PER_CAL , ROWS_PER_CAL_DEFAULT , 0 ) ;
 
 		if( _avTable.get( ATTR_ROWS_PER_REF ) == null || _avTable.get( ATTR_ROWS_PER_REF ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_ROWS_PER_REF , ROWS_PER_REF_DEFAULT , 0 );
+			_avTable.noNotifySet( ATTR_ROWS_PER_REF , ROWS_PER_REF_DEFAULT , 0 ) ;
 
 		if( _avTable.get( ATTR_SAMPLE_TIME ) == null || _avTable.get( ATTR_SAMPLE_TIME ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4" , 0 );
+			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4" , 0 ) ;
 
 		if( _avTable.get( ATTR_CONTINUUM_MODE ) == null || _avTable.get( ATTR_CONTINUUM_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 );
+			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 ) ;
 
 		if( _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ) == null || _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 ) ;
 
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "0.0" , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "0.0" , 0 ) ;
 
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "10.0" , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "10.0" , 0 ) ;
 
 		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_PATTERN_BOUS , 0 ) ;
@@ -780,27 +780,27 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	public void setupForSCUBA()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL );
-		_avTable.noNotifyRm( ATTR_ROWS_PER_REF );
-		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL ) ;
+		_avTable.noNotifyRm( ATTR_ROWS_PER_REF ) ;
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 ) ;
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
-		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 ) ;
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 	}
 
 	public void setupForSCUBA2()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL );
-		_avTable.noNotifyRm( ATTR_ROWS_PER_REF );
-		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL ) ;
+		_avTable.noNotifyRm( ATTR_ROWS_PER_REF ) ;
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 ) ;
 
 		String strategy = SCAN_STRATEGIES[ 0 ] ;
 		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
@@ -818,11 +818,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 ) ;
 	}
 
 	public String[] getSwitchingModeOptions()
 	{
-		return new String[] { SWITCHING_MODE_POSITION , SWITCHING_MODE_CHOP };
+		return new String[] { SWITCHING_MODE_POSITION , SWITCHING_MODE_CHOP } ;
 	}
 }

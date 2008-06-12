@@ -7,13 +7,13 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.inst;
+package orac.jcmt.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.util.Format;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.util.Format ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * The Heterodyne instrument Observation Component.
@@ -176,7 +176,7 @@ import java.util.Vector;
 public class SpInstHeterodyne extends SpJCMTInstObsComp
 {
 
-	public static double LIGHTSPEED = 2.99792458E5;
+	public static double LIGHTSPEED = 2.99792458E5 ;
 
 	/**
 	 * Index for combined spectral window (ACSIS DR XML).
@@ -188,51 +188,51 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 * to the combined spectral window which is made up of several individual
 	 * hybrid subbands.
 	 */
-	protected static final int SUBSYSTEM_INDEX = -1;
-	protected static final String CONFIG_LABEL_NONE = "UNDEFINED";
+	protected static final int SUBSYSTEM_INDEX = -1 ;
+	protected static final String CONFIG_LABEL_NONE = "UNDEFINED" ;
 
 	// FrontEnd
 
 	/** Receiver/Front end name. */
-	public static final String ATTR_FE_NAME = "feName";
+	public static final String ATTR_FE_NAME = "feName" ;
 
 	/** Back end name */
-	public static final String ATTR_BE_NAME = "beName";
+	public static final String ATTR_BE_NAME = "beName" ;
 
 	/** Special configuration identifier */
-	public static final String ATTR_NAMED_CONFIGURATION = "configuration";
+	public static final String ATTR_NAMED_CONFIGURATION = "configuration" ;
 
 	/** Receiver: Central IF. */
-	public static final String ATTR_FE_IF = "feIF";
+	public static final String ATTR_FE_IF = "feIF" ;
 
 	/** Receiver/Front end bandwidth. */
-	public static final String ATTR_FE_BANDWIDTH = "feBandWidth";
+	public static final String ATTR_FE_BANDWIDTH = "feBandWidth" ;
 
 	/** Mode: single side band (ssb), double side band (dsb). */
-	public static final String ATTR_MODE = "mode";
+	public static final String ATTR_MODE = "mode" ;
 
 	/** Band mode: 1-system, 2-system etc.  */
-	public static final String ATTR_BAND_MODE = "bandMode";
+	public static final String ATTR_BAND_MODE = "bandMode" ;
 
 	/** Mixer selection: Single or dual */
-	public static final String ATTR_MIXER = "mixers";
+	public static final String ATTR_MIXER = "mixers" ;
 
 	/** Radial velocity. */
-	public static final String ATTR_VELOCITY = "velocity";
-	public static final String ATTR_RF_VELOCITY = "referenceFrameVelocity";
+	public static final String ATTR_VELOCITY = "velocity" ;
+	public static final String ATTR_RF_VELOCITY = "referenceFrameVelocity" ;
 
 	/** Radial velocity definition: "redshift", "optical", "radio". */
-	public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
-	public static final String ATTR_VELOCITY_FRAME = "velocityFrame";
+	public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition" ;
+	public static final String ATTR_VELOCITY_FRAME = "velocityFrame" ;
 
 	/** Band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).  */
-	public static final String ATTR_BAND = "band";
+	public static final String ATTR_BAND = "band" ;
 
 	/** Molecule. */
-	public static final String ATTR_MOLECULE = "molecule";
+	public static final String ATTR_MOLECULE = "molecule" ;
 
 	/** Transition. */
-	public static final String ATTR_TRANSITION = "transition";
+	public static final String ATTR_TRANSITION = "transition" ;
 
 	/**
 	 * Rest Frequency.
@@ -240,56 +240,56 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 * This is usually the rest frequency of a molecular transition line.
 	 * But it can also be used for an arbitrary user defined frequency in the rest frame of the source.
 	 */
-	public static final String ATTR_REST_FREQUENCY = "restFrequency";
-	public static final String ATTR_SKY_FREQUENCY = "skyFrequency";
+	public static final String ATTR_REST_FREQUENCY = "restFrequency" ;
+	public static final String ATTR_SKY_FREQUENCY = "skyFrequency" ;
 
 	/** Overlap of multiple hybrid subbands. */
-	public static final String ATTR_OVERLAP = "overlap";
+	public static final String ATTR_OVERLAP = "overlap" ;
 
 	// FrequencyTable
 
 	/** Array of  */
-	public static final String ATTR_CENTRE_FREQUENCY = "centreFrequency";
+	public static final String ATTR_CENTRE_FREQUENCY = "centreFrequency" ;
 
 	/** Bandwidth reduced by overlap * number of hybrid subbands. */
-	public static final String ATTR_BANDWIDTH = "bandWidth";
+	public static final String ATTR_BANDWIDTH = "bandWidth" ;
 
 	/** Number of channels reduced by overlap * number of hybrid subbands. */
-	public static final String ATTR_CHANNELS = "channels";
+	public static final String ATTR_CHANNELS = "channels" ;
 
 	/** Total number of channels ignoring overlap. */
-	public static final String ATTR_CHANNELS_TOTAL = "channelsTotal";
+	public static final String ATTR_CHANNELS_TOTAL = "channelsTotal" ;
 
 	/** */
-	public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands";
+	public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands" ;
 
-	public static String[] JIGGLE_PATTERNS = { "3x3" , "4x4" , "5x5" , "7x7" , "9x9" , "11x11" , "HARP4" , "HARP5" , "HARP4_mc" , "HARP5_mc" };
+	public static String[] JIGGLE_PATTERNS = { "3x3" , "4x4" , "5x5" , "7x7" , "9x9" , "11x11" , "HARP4" , "HARP5" , "HARP4_mc" , "HARP5_mc" } ;
 
 	/** Radial velocity expressed as redshift. */
-	public static final String RADIAL_VELOCITY_REDSHIFT = "redshift";
+	public static final String RADIAL_VELOCITY_REDSHIFT = "redshift" ;
 
 	/** Radial velocity defined optically. */
-	public static final String RADIAL_VELOCITY_OPTICAL = "optical";
+	public static final String RADIAL_VELOCITY_OPTICAL = "optical" ;
 
 	/** Radial velocity, radio defined. */
-	public static final String RADIAL_VELOCITY_RADIO = "radio";
+	public static final String RADIAL_VELOCITY_RADIO = "radio" ;
 
 	/** Velocity frames */
-	public static final String LSRK_VELOCITY_FRAME = "LSRK";
-	public static final String GEOCENTRIC_VELOCITY_FRAME = "GEOCENTRIC";
-	public static final String HELIOCENTRIC_VELOCITY_FRAME = "HELIOCENTRIC";
-	public static final String BARYCENTRIC_VELOCITY_FRAME = "BARYCENTRIC";
-	public static final String TOPOCENTRIC_VELOCITY_FRAME = "TOPOCENTRIC";
+	public static final String LSRK_VELOCITY_FRAME = "LSRK" ;
+	public static final String GEOCENTRIC_VELOCITY_FRAME = "GEOCENTRIC" ;
+	public static final String HELIOCENTRIC_VELOCITY_FRAME = "HELIOCENTRIC" ;
+	public static final String BARYCENTRIC_VELOCITY_FRAME = "BARYCENTRIC" ;
+	public static final String TOPOCENTRIC_VELOCITY_FRAME = "TOPOCENTRIC" ;
 
 	/** Resolution (kHz) */
-	public static final String ATTR_RESOLUTION = "resolution";
+	public static final String ATTR_RESOLUTION = "resolution" ;
 
 	/**
 	 * Set to true when method initialiseValues() is called.
 	 *
 	 * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String)
 	 */
-	private boolean _valuesInitialised = false;
+	private boolean _valuesInitialised = false ;
 
 	/**
 	 * Flag to indicate the Acsis configuration XML is being parsed.
@@ -297,31 +297,31 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 * The Acsis configuration XML ({@link #XML_ELEMENT_ACSIS_CONFIGURATION})
 	 * is only an output format. It must be ignored when reading in SpInstHeterodyne XML. 
 	 */
-	private boolean _processingAcsisConfigurationXml = false;
+	private boolean _processingAcsisConfigurationXml = false ;
 
-	int _subSystemCount = 0;
+	int _subSystemCount = 0 ;
 
 	/**
 	 * XML element containing the Acsis configuration.
 	 *
-	 * The XML_ELEMENT_ACSIS_CONFIGURATION String is <tt>&lt;jcmt_config&gt;</tt>.
+	 * The XML_ELEMENT_ACSIS_CONFIGURATION String is <tt>&lt ;jcmt_config&gt ;</tt>.
 	 */
-	private static final String XML_ELEMENT_ACSIS_CONFIGURATION = "jcmt_config";
-	private static final String XML_ELEMENT_ACSIS_SUBSYSTEMS = "subsystems";
-	private static final String XML_ELEMENT_ACSIS_SUBSYSTEM = "subsystem";
-	private static final String XML_ELEMENT_ACSIS_LINE = "line";
+	private static final String XML_ELEMENT_ACSIS_CONFIGURATION = "jcmt_config" ;
+	private static final String XML_ELEMENT_ACSIS_SUBSYSTEMS = "subsystems" ;
+	private static final String XML_ELEMENT_ACSIS_SUBSYSTEM = "subsystem" ;
+	private static final String XML_ELEMENT_ACSIS_LINE = "line" ;
 	
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.Heterodyne" , "Het Setup" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.Heterodyne" , "Het Setup" ) ;
 
 	//Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstHeterodyne() );
+		SpFactory.registerPrototype( new SpInstHeterodyne() ) ;
 	}
 
 	public SpInstHeterodyne()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -332,22 +332,22 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void initialiseValues( String defaultBeName , String defaultFeName , String defaultMode , String defaultBandMode , String defaultMixer , String defaultOverlap , String defaultBand , String defaultCentreFrequency , String frontendBandwidth , String defaultBandwidth , String defaultMolecule , String defaultTransition , String defaultRestFrequency )
 	{
-		_avTable.noNotifySet( ATTR_BE_NAME , defaultBeName , 0 );
-		_avTable.noNotifySet( ATTR_FE_NAME , defaultFeName , 0 );
-		_avTable.noNotifySet( ATTR_MODE , defaultMode , 0 );
-		_avTable.noNotifySet( ATTR_BAND_MODE , defaultBandMode , 0 );
-		_avTable.noNotifySet( ATTR_MIXER , defaultMixer , 0 );
-		_avTable.noNotifySet( ATTR_OVERLAP , defaultOverlap , 0 );
-		_avTable.noNotifySet( ATTR_BAND , defaultBand , 0 );
-		_avTable.noNotifySet( ATTR_CENTRE_FREQUENCY , defaultCentreFrequency , 0 );
-		_avTable.noNotifySet( ATTR_FE_IF , defaultCentreFrequency , 0 );
-		_avTable.noNotifySet( ATTR_FE_BANDWIDTH , frontendBandwidth , 0 );
-		_avTable.noNotifySet( ATTR_BANDWIDTH , defaultBandwidth , 0 );
-		_avTable.noNotifySet( ATTR_MOLECULE , defaultMolecule , 0 );
-		_avTable.noNotifySet( ATTR_TRANSITION , defaultTransition , 0 );
-		_avTable.noNotifySet( ATTR_REST_FREQUENCY , defaultRestFrequency , 0 );
+		_avTable.noNotifySet( ATTR_BE_NAME , defaultBeName , 0 ) ;
+		_avTable.noNotifySet( ATTR_FE_NAME , defaultFeName , 0 ) ;
+		_avTable.noNotifySet( ATTR_MODE , defaultMode , 0 ) ;
+		_avTable.noNotifySet( ATTR_BAND_MODE , defaultBandMode , 0 ) ;
+		_avTable.noNotifySet( ATTR_MIXER , defaultMixer , 0 ) ;
+		_avTable.noNotifySet( ATTR_OVERLAP , defaultOverlap , 0 ) ;
+		_avTable.noNotifySet( ATTR_BAND , defaultBand , 0 ) ;
+		_avTable.noNotifySet( ATTR_CENTRE_FREQUENCY , defaultCentreFrequency , 0 ) ;
+		_avTable.noNotifySet( ATTR_FE_IF , defaultCentreFrequency , 0 ) ;
+		_avTable.noNotifySet( ATTR_FE_BANDWIDTH , frontendBandwidth , 0 ) ;
+		_avTable.noNotifySet( ATTR_BANDWIDTH , defaultBandwidth , 0 ) ;
+		_avTable.noNotifySet( ATTR_MOLECULE , defaultMolecule , 0 ) ;
+		_avTable.noNotifySet( ATTR_TRANSITION , defaultTransition , 0 ) ;
+		_avTable.noNotifySet( ATTR_REST_FREQUENCY , defaultRestFrequency , 0 ) ;
 
-		_valuesInitialised = true;
+		_valuesInitialised = true ;
 	}
 
 	/**
@@ -357,7 +357,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public boolean valuesInitialised()
 	{
-		return _valuesInitialised;
+		return _valuesInitialised ;
 	}
 
 	/**
@@ -365,12 +365,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getTitle()
 	{
-		String frontEndName = getTable().get( ATTR_FE_NAME );
+		String frontEndName = getTable().get( ATTR_FE_NAME ) ;
 
 		if( frontEndName == null )
-			return super.getTitle();
+			return super.getTitle() ;
 		else
-			return super.getTitle() + " (" + frontEndName + ")";
+			return super.getTitle() + " (" + frontEndName + ")" ;
 	}
 
 	/**
@@ -380,13 +380,13 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String[] getJigglePatterns()
 	{
-		return JIGGLE_PATTERNS;
+		return JIGGLE_PATTERNS ;
 	}
 
 	/** Not properly implemented yet. Returns 0.0. */
 	public double getDefaultScanVelocity()
 	{
-		return 2.5;
+		return 2.5 ;
 	}
 
 	/** Not properly implemented yet. Returns 0.0. */
@@ -401,9 +401,9 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public String getFrontEnd()
 	{
 		if( _avTable.get( ATTR_FE_NAME ) == null || _avTable.get( ATTR_FE_NAME ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_FE_NAME , "A3" , 0 );
+			_avTable.noNotifySet( ATTR_FE_NAME , "A3" , 0 ) ;
 
-		return _avTable.get( ATTR_FE_NAME );
+		return _avTable.get( ATTR_FE_NAME ) ;
 	}
 
 	/**
@@ -411,16 +411,16 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setFrontEnd( String value )
 	{
-		_avTable.set( ATTR_FE_NAME , value );
+		_avTable.set( ATTR_FE_NAME , value ) ;
 	}
 
 	/** Get the back end name */
 	public String getBackEnd()
 	{
 		if( _avTable.get( ATTR_BE_NAME ) == null || _avTable.get( ATTR_BE_NAME ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_BE_NAME , "acsis" , 0 );
+			_avTable.noNotifySet( ATTR_BE_NAME , "acsis" , 0 ) ;
 
-		return _avTable.get( ATTR_BE_NAME );
+		return _avTable.get( ATTR_BE_NAME ) ;
 	}
 
 	/**
@@ -428,7 +428,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getFeIF()
 	{
-		return _avTable.getDouble( ATTR_FE_IF , 0. );
+		return _avTable.getDouble( ATTR_FE_IF , 0. ) ;
 	}
 
 	/**
@@ -436,7 +436,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setFeIF( double value )
 	{
-		_avTable.set( ATTR_FE_IF , value );
+		_avTable.set( ATTR_FE_IF , value ) ;
 	}
 
 	/**
@@ -444,7 +444,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setFeIF( String value )
 	{
-		setFeIF( Format.toDouble( value ) );
+		setFeIF( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -452,7 +452,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getFeBandWidth()
 	{
-		return _avTable.getDouble( ATTR_FE_BANDWIDTH , 0. );
+		return _avTable.getDouble( ATTR_FE_BANDWIDTH , 0. ) ;
 	}
 
 	/**
@@ -460,7 +460,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setFeBandWidth( double value )
 	{
-		_avTable.set( ATTR_FE_BANDWIDTH , value );
+		_avTable.set( ATTR_FE_BANDWIDTH , value ) ;
 	}
 
 	/**
@@ -468,7 +468,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setFeBandWidth( String value )
 	{
-		setFeBandWidth( Format.toDouble( value ) );
+		setFeBandWidth( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -477,9 +477,9 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public String getMode()
 	{
 		if( _avTable.get( ATTR_MODE ) == null || _avTable.get( ATTR_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_MODE , "ssb" , 0 );
+			_avTable.noNotifySet( ATTR_MODE , "ssb" , 0 ) ;
 
-		return _avTable.get( ATTR_MODE );
+		return _avTable.get( ATTR_MODE ) ;
 	}
 
 	/**
@@ -487,7 +487,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setMode( String value )
 	{
-		_avTable.set( ATTR_MODE , value );
+		_avTable.set( ATTR_MODE , value ) ;
 	}
 
 	/**
@@ -495,7 +495,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getBandMode()
 	{
-		return _avTable.get( ATTR_BAND_MODE );
+		return _avTable.get( ATTR_BAND_MODE ) ;
 	}
 
 	/**
@@ -503,7 +503,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setBandMode( String value )
 	{
-		_avTable.set( ATTR_BAND_MODE , value );
+		_avTable.set( ATTR_BAND_MODE , value ) ;
 	}
 
 	/**
@@ -511,7 +511,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getVelocityDefinition()
 	{
-		return _avTable.get( ATTR_VELOCITY_DEFINITION );
+		return _avTable.get( ATTR_VELOCITY_DEFINITION ) ;
 	}
 
 	/**
@@ -519,17 +519,17 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setVelocityDefinition( String value )
 	{
-		_avTable.set( ATTR_VELOCITY_DEFINITION , value );
+		_avTable.set( ATTR_VELOCITY_DEFINITION , value ) ;
 	}
 
 	public void setVelocityFrame( String value )
 	{
-		_avTable.set( ATTR_VELOCITY_FRAME , value );
+		_avTable.set( ATTR_VELOCITY_FRAME , value ) ;
 	}
 
 	public String getVelocityFrame()
 	{
-		return _avTable.get( ATTR_VELOCITY_FRAME );
+		return _avTable.get( ATTR_VELOCITY_FRAME ) ;
 	}
 
 	/**
@@ -537,7 +537,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getVelocity()
 	{
-		return _avTable.getDouble( ATTR_VELOCITY , 0. );
+		return _avTable.getDouble( ATTR_VELOCITY , 0. ) ;
 	}
 
 	/**
@@ -545,7 +545,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setVelocity( double value )
 	{
-		_avTable.set( ATTR_VELOCITY , value );
+		_avTable.set( ATTR_VELOCITY , value ) ;
 	}
 
 	/**
@@ -553,17 +553,17 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setVelocity( String value )
 	{
-		setVelocity( Format.toDouble( value ) );
+		setVelocity( Format.toDouble( value ) ) ;
 	}
 
 	public double getRedshift()
 	{
-		return getVelocity() / LIGHTSPEED;
+		return getVelocity() / LIGHTSPEED ;
 	}
 
 	public void setVelocityFromRedshift( double redshift )
 	{
-		setVelocity( convertRedshiftTo( RADIAL_VELOCITY_OPTICAL , redshift ) );
+		setVelocity( convertRedshiftTo( RADIAL_VELOCITY_OPTICAL , redshift ) ) ;
 	}
 
 	/**
@@ -571,7 +571,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setRefFrameVelocity( double value )
 	{
-		_avTable.set( ATTR_RF_VELOCITY , value );
+		_avTable.set( ATTR_RF_VELOCITY , value ) ;
 	}
 
 	/**
@@ -579,12 +579,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setRefFrameVelocity( String value )
 	{
-		setRefFrameVelocity( Format.toDouble( value ) );
+		setRefFrameVelocity( Format.toDouble( value ) ) ;
 	}
 
 	public double getRefFrameVelocity()
 	{
-		return _avTable.getDouble( ATTR_RF_VELOCITY , 0. );
+		return _avTable.getDouble( ATTR_RF_VELOCITY , 0. ) ;
 	}
 
 	/**
@@ -592,7 +592,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getMixer()
 	{
-		return _avTable.get( ATTR_MIXER );
+		return _avTable.get( ATTR_MIXER ) ;
 	}
 
 	/**
@@ -600,7 +600,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setMixer( String value )
 	{
-		_avTable.set( ATTR_MIXER , value );
+		_avTable.set( ATTR_MIXER , value ) ;
 	}
 
 	/**
@@ -608,7 +608,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getBand()
 	{
-		return _avTable.get( ATTR_BAND );
+		return _avTable.get( ATTR_BAND ) ;
 	}
 
 	/**
@@ -616,7 +616,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setBand( String value )
 	{
-		_avTable.set( ATTR_BAND , value );
+		_avTable.set( ATTR_BAND , value ) ;
 	}
 
 	/**
@@ -627,8 +627,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getMolecule( int subsystem )
 	{
-		String returnString = _avTable.get( ATTR_MOLECULE , subsystem );
-		return returnString;
+		String returnString = _avTable.get( ATTR_MOLECULE , subsystem ) ;
+		return returnString ;
 	}
 
 	/**
@@ -639,7 +639,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setMolecule( String value , int subsystem )
 	{
-		_avTable.set( ATTR_MOLECULE , value , subsystem );
+		_avTable.set( ATTR_MOLECULE , value , subsystem ) ;
 	}
 
 	/**
@@ -650,7 +650,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String getTransition( int subsystem )
 	{
-		return _avTable.get( ATTR_TRANSITION , subsystem );
+		return _avTable.get( ATTR_TRANSITION , subsystem ) ;
 	}
 
 	/**
@@ -661,7 +661,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setTransition( String value , int subsystem )
 	{
-		_avTable.set( ATTR_TRANSITION , value , subsystem );
+		_avTable.set( ATTR_TRANSITION , value , subsystem ) ;
 	}
 
 	/**
@@ -682,8 +682,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getRestFrequency( int subsystem )
 	{
-		double restFreq = _avTable.getDouble( ATTR_REST_FREQUENCY , subsystem , 0. );
-		return restFreq;
+		double restFreq = _avTable.getDouble( ATTR_REST_FREQUENCY , subsystem , 0. ) ;
+		return restFreq ;
 	}
 
 	/**
@@ -694,7 +694,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setRestFrequency( double value , int subsystem )
 	{
-		_avTable.set( ATTR_REST_FREQUENCY , value , subsystem );
+		_avTable.set( ATTR_REST_FREQUENCY , value , subsystem ) ;
 	}
 
 	/**
@@ -705,7 +705,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setRestFrequency( String value , int subsystem )
 	{
-		setRestFrequency( Format.toDouble( value ) , subsystem );
+		setRestFrequency( Format.toDouble( value ) , subsystem ) ;
 	}
 
 	/**
@@ -715,7 +715,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getSkyFrequency()
 	{
-		return _avTable.getDouble( ATTR_SKY_FREQUENCY , getRestFrequency( 0 ) );
+		return _avTable.getDouble( ATTR_SKY_FREQUENCY , getRestFrequency( 0 ) ) ;
 	}
 
 	/**
@@ -723,7 +723,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setSkyFrequency( double value )
 	{
-		_avTable.set( ATTR_SKY_FREQUENCY , value );
+		_avTable.set( ATTR_SKY_FREQUENCY , value ) ;
 	}
 
 	/**
@@ -736,7 +736,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getCentreFrequency( int subsystem )
 	{
-		return _avTable.getDouble( ATTR_CENTRE_FREQUENCY , subsystem , 0. );
+		return _avTable.getDouble( ATTR_CENTRE_FREQUENCY , subsystem , 0. ) ;
 	}
 
 	/**
@@ -746,7 +746,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setCentreFrequency( double value , int subsystem )
 	{
-		_avTable.set( ATTR_CENTRE_FREQUENCY , value , subsystem );
+		_avTable.set( ATTR_CENTRE_FREQUENCY , value , subsystem ) ;
 	}
 
 	/**
@@ -756,37 +756,37 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setCentreFrequency( String value , int subsystem )
 	{
-		setCentreFrequency( Format.toDouble( value ) , subsystem );
+		setCentreFrequency( Format.toDouble( value ) , subsystem ) ;
 	}
 
 	public double[] getSubBandCentreFrequencies( int subsystem )
 	{
-		int numHybridSubBands = getNumHybridSubBands( subsystem );
+		int numHybridSubBands = getNumHybridSubBands( subsystem ) ;
 
-		double[] result = new double[ numHybridSubBands ];
+		double[] result = new double[ numHybridSubBands ] ;
 
 		if( numHybridSubBands == 1 )
 		{
-			result[ 0 ] = getCentreFrequency( subsystem );
-			return result;
+			result[ 0 ] = getCentreFrequency( subsystem ) ;
+			return result ;
 		} 
 
-		double centre = getCentreFrequency( subsystem );
-		double bw = getBandWidth( subsystem );
+		double centre = getCentreFrequency( subsystem ) ;
+		double bw = getBandWidth( subsystem ) ;
 
-		int j = ( numHybridSubBands / 2 ) - 1;
-		int k = ( numHybridSubBands / 2 );
+		int j = ( numHybridSubBands / 2 ) - 1 ;
+		int k = ( numHybridSubBands / 2 ) ;
 
 		for( int i = 1 ; i < numHybridSubBands ; i += 2 )
 		{
-			result[ j ] = centre - ( ( ( ( double )i ) / ( 2. * ( ( double )numHybridSubBands ) ) ) * bw );
-			result[ k ] = centre + ( ( ( ( double )i ) / ( 2. * ( ( double )numHybridSubBands ) ) ) * bw );
+			result[ j ] = centre - ( ( ( ( double )i ) / ( 2. * ( ( double )numHybridSubBands ) ) ) * bw ) ;
+			result[ k ] = centre + ( ( ( ( double )i ) / ( 2. * ( ( double )numHybridSubBands ) ) ) * bw ) ;
 
 			j-- ;
 			k++ ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -808,11 +808,11 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setBandWidthDetails( double bandwidth , double overlap , int numHybridSubBands , int channels , int channelsTotal , int subsystem )
 	{
-		setBandWidth( bandwidth , subsystem );
-		setOverlap( overlap , subsystem );
-		setNumHybridSubBands( numHybridSubBands , subsystem );
-		setChannels( channels , subsystem );
-		_avTable.set( ATTR_CHANNELS_TOTAL , channelsTotal , subsystem );
+		setBandWidth( bandwidth , subsystem ) ;
+		setOverlap( overlap , subsystem ) ;
+		setNumHybridSubBands( numHybridSubBands , subsystem ) ;
+		setChannels( channels , subsystem ) ;
+		_avTable.set( ATTR_CHANNELS_TOTAL , channelsTotal , subsystem ) ;
 	}
 
 	/**
@@ -827,8 +827,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getBandWidth( int subsystem )
 	{
-		double bandwidth = _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0. );
-		return bandwidth;
+		double bandwidth = _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0. ) ;
+		return bandwidth ;
 	}
 
 	/**
@@ -843,7 +843,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setBandWidth( double value , int subsystem )
 	{
-		_avTable.set( ATTR_BANDWIDTH , value , subsystem );
+		_avTable.set( ATTR_BANDWIDTH , value , subsystem ) ;
 	}
 
 	/**
@@ -856,7 +856,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setBandWidth( String value , int subsystem )
 	{
-		setBandWidth( Format.toDouble( value ) , subsystem );
+		setBandWidth( Format.toDouble( value ) , subsystem ) ;
 	}
 
 	/**
@@ -869,7 +869,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public int getNumHybridSubBands( int subsystem )
 	{
-		return _avTable.getInt( ATTR_HYBRID_SUBBANDS , subsystem , 0 );
+		return _avTable.getInt( ATTR_HYBRID_SUBBANDS , subsystem , 0 ) ;
 	}
 
 	/**
@@ -882,7 +882,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setNumHybridSubBands( int value , int subsystem )
 	{
-		_avTable.set( ATTR_HYBRID_SUBBANDS , value , subsystem );
+		_avTable.set( ATTR_HYBRID_SUBBANDS , value , subsystem ) ;
 	}
 
 	/**
@@ -895,7 +895,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setNumHybridSubBands( String value , int subsystem )
 	{
-		setNumHybridSubBands( Format.toInt( value ) , subsystem );
+		setNumHybridSubBands( Format.toInt( value ) , subsystem ) ;
 	}
 
 	/**
@@ -908,7 +908,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public int getChannels( int subsystem )
 	{
-		return _avTable.getInt( ATTR_CHANNELS , subsystem , 0 );
+		return _avTable.getInt( ATTR_CHANNELS , subsystem , 0 ) ;
 	}
 
 	/**
@@ -921,7 +921,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setChannels( int value , int subsystem )
 	{
-		_avTable.set( ATTR_CHANNELS , value , subsystem );
+		_avTable.set( ATTR_CHANNELS , value , subsystem ) ;
 	}
 
 	/**
@@ -933,7 +933,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public int getChannelsTotal( int subsystem )
 	{
-		return _avTable.getInt( ATTR_CHANNELS_TOTAL , subsystem , 0 );
+		return _avTable.getInt( ATTR_CHANNELS_TOTAL , subsystem , 0 ) ;
 	}
 
 	/**
@@ -943,7 +943,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public double getOverlap( int subsystem )
 	{
-		return _avTable.getDouble( ATTR_OVERLAP , subsystem , 0. );
+		return _avTable.getDouble( ATTR_OVERLAP , subsystem , 0. ) ;
 	}
 
 	/**
@@ -953,7 +953,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setOverlap( double value , int subsystem )
 	{
-		_avTable.set( ATTR_OVERLAP , value , subsystem );
+		_avTable.set( ATTR_OVERLAP , value , subsystem ) ;
 	}
 
 	/**
@@ -963,27 +963,27 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public void setOverlap( String value , int subsystem )
 	{
-		setOverlap( Format.toDouble( value ) , subsystem );
+		setOverlap( Format.toDouble( value ) , subsystem ) ;
 	}
 
 	public int getNumSubSystems()
 	{
-		return _avTable.size( ATTR_CENTRE_FREQUENCY );
+		return _avTable.size( ATTR_CENTRE_FREQUENCY ) ;
 	}
 
 	public void setNamedConfiguration( String name )
 	{
-		_avTable.set( ATTR_NAMED_CONFIGURATION , name , 0 );
+		_avTable.set( ATTR_NAMED_CONFIGURATION , name , 0 ) ;
 	}
 
 	public String getNamedConfiguration()
 	{
-		return _avTable.get( ATTR_NAMED_CONFIGURATION );
+		return _avTable.get( ATTR_NAMED_CONFIGURATION ) ;
 	}
 
 	public void removeNamedConfiguration()
 	{
-		_avTable.rm( ATTR_NAMED_CONFIGURATION );
+		_avTable.rm( ATTR_NAMED_CONFIGURATION ) ;
 	}
 
 	public double[] getScienceArea()
@@ -1039,7 +1039,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 		//
 		// That is why the individual subband bandwidth is calculated as below.
 
-		return ( getBandWidth( subsystem ) / ( ( double )getNumHybridSubBands( subsystem ) ) ) + getOverlap( subsystem );
+		return ( getBandWidth( subsystem ) / ( ( double )getNumHybridSubBands( subsystem ) ) ) + getOverlap( subsystem ) ;
 	}
 
 	/**
@@ -1059,7 +1059,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public int getIndividualSubBandChannels( int subsystem )
 	{
-		return getChannelsTotal( subsystem ) / getNumHybridSubBands( subsystem );
+		return getChannelsTotal( subsystem ) / getNumHybridSubBands( subsystem ) ;
 	}
 
 	/**
@@ -1072,16 +1072,16 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public static double convertRedshiftTo( String velocityDefinition , double redshift )
 	{
 		if( velocityDefinition.equals( RADIAL_VELOCITY_REDSHIFT ) )
-			return redshift;
+			return redshift ;
 
 		if( velocityDefinition.equals( RADIAL_VELOCITY_OPTICAL ) )
-			return redshift * LIGHTSPEED;
+			return redshift * LIGHTSPEED ;
 
 		if( velocityDefinition.equals( RADIAL_VELOCITY_RADIO ) )
-			return LIGHTSPEED * ( 1. - ( 1. / ( 1. + redshift ) ) );
+			return LIGHTSPEED * ( 1. - ( 1. / ( 1. + redshift ) ) ) ;
 
 		// If the methods has not returned yet then the velocityDefinition is invalid.
-		throw new IllegalArgumentException( "EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" + "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO." );
+		throw new IllegalArgumentException( "EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" + "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO." ) ;
 	}
 
 	/**
@@ -1094,16 +1094,16 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public static double convertToRedshift( String velocityDefinition , double value )
 	{
 		if( velocityDefinition.equals( RADIAL_VELOCITY_REDSHIFT ) )
-			return value;
+			return value ;
 
 		if( velocityDefinition.equals( RADIAL_VELOCITY_OPTICAL ) )
-			return value / LIGHTSPEED;
+			return value / LIGHTSPEED ;
 
 		if( velocityDefinition.equals( RADIAL_VELOCITY_RADIO ) )
 			return ( LIGHTSPEED / ( LIGHTSPEED - value ) ) - 1. ;
 
 		// If the methods has not returned yet then the velocityDefinition is invalid.
-		throw new IllegalArgumentException( "EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" + "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO." );
+		throw new IllegalArgumentException( "EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" + "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO." ) ;
 	}
 	
 	/**
@@ -1111,80 +1111,80 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 */
 	public String toConfigXML( String indent )
 	{
-		String sidebandString = getBand();
+		String sidebandString = getBand() ;
 
-		int sideband = 1; // usb
+		int sideband = 1 ; // usb
 
 		if( sidebandString != null && sidebandString.equals( "lsb" ) )
-			sideband = -1;
+			sideband = -1 ;
 
 		// ------------------- Front end configuration ------------------------------------
-		StringBuffer xmlBuffer = new StringBuffer();
+		StringBuffer xmlBuffer = new StringBuffer() ;
 		xmlBuffer.append( indent + "<" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" + indent + "  <frontend_configure>\n" + indent + "    <rest_frequency units=\"GHz\" value=\"" + ( getRestFrequency( 0 ) * 1.E6 ) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
 		indent + "    <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" + indent + "    <sideband value=\"" + sideband + "\"/>\n" + indent + "    <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" + indent + "    <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" + indent + "    <doppler_tracking value=\"ON\"/>\n" + // Options are ON | OFF. Default to ON for now.
 		indent + "    <optimize value=\"DISABLE\"/>\n" // Options are ENABLE | DISABLE. Default to DIABLE for now.
-		);
+		) ;
 
 		if( getFrontEnd().equals( "HARP" ) )
 		{
 			xmlBuffer.append( indent + "    <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
-			indent + "      <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" + indent + "    </channel_mask>\n" );
+			indent + "      <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" + indent + "    </channel_mask>\n" ) ;
 		}
 
-		xmlBuffer.append( indent + "  </frontend_configure>\n\n" );
+		xmlBuffer.append( indent + "  </frontend_configure>\n\n" ) ;
 
 		// ------------------- ACSIS configuration ----------------------------------------
 
 		// Line list
-		String[] restFreqRefs = new String[ getNumSubSystems() ];
-		String transition = null;
+		String[] restFreqRefs = new String[ getNumSubSystems() ] ;
+		String transition = null ;
 
-		xmlBuffer.append( indent + "  <line_list>\n" );
+		xmlBuffer.append( indent + "  <line_list>\n" ) ;
 
 		for( int i = 0 ; i < getNumSubSystems() ; i++ )
 		{
-			transition = getTransition( i );
+			transition = getTransition( i ) ;
 
 			if( ( transition != null ) && ( transition.trim().length() > 0 ) )
-				restFreqRefs[ i ] = "" + getMolecule( i ) + " " + transition;
+				restFreqRefs[ i ] = "" + getMolecule( i ) + " " + transition ;
 			else
-				restFreqRefs[ i ] = "restFrequency" + i;
+				restFreqRefs[ i ] = "restFrequency" + i ;
 
-			xmlBuffer.append( indent + "    <rest_frequency id=\"" + restFreqRefs[ i ] + "\" units=\"GHz\">" + getRestFrequency( i ) + "</rest_frequency>\n" );
+			xmlBuffer.append( indent + "    <rest_frequency id=\"" + restFreqRefs[ i ] + "\" units=\"GHz\">" + getRestFrequency( i ) + "</rest_frequency>\n" ) ;
 		}
 
-		xmlBuffer.append( indent + "  </line_list>\n\n" );
+		xmlBuffer.append( indent + "  </line_list>\n\n" ) ;
 
 		// Acsis spectral windows list
-		xmlBuffer.append( indent + "  <acsis_spw_list>\n" + indent + "    <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" + indent + "    <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\"/>\n" + indent + "    <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\"/>\n" );
+		xmlBuffer.append( indent + "  <acsis_spw_list>\n" + indent + "    <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" + indent + "    <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\"/>\n" + indent + "    <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\"/>\n" ) ;
 
 		// Spectral windows
 		for( int i = 0 ; i < getNumSubSystems() ; i++ )
-			xmlBuffer.append( spectralWindowToXML( restFreqRefs[ i ] , sideband , "  <!-- <base_line_fit> etc. not implemented yet. -->" , indent + "    " , i ) + "\n" );
+			xmlBuffer.append( spectralWindowToXML( restFreqRefs[ i ] , sideband , "  <!-- <base_line_fit> etc. not implemented yet. -->" , indent + "    " , i ) + "\n" ) ;
 
-		xmlBuffer.append( indent + "  </acsis_spw_list>\n" + indent + "</" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" );
+		xmlBuffer.append( indent + "  </acsis_spw_list>\n" + indent + "</" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" ) ;
 
-		return xmlBuffer.toString();
+		return xmlBuffer.toString() ;
 	}
 
 	public String spectralWindowToXML( String restFrequencyId , int sideband , String dataReductionXML , String indent , int subsystem )
 	{
-		return indent + "<spectral_window id=\"SPW" + ( subsystem + 1 ) + "\">\n" + indent + "  <spw_bandwidth_mode mode=\"1GHzx1024\"/>\n" + indent + "  <spw_window type=\"truncate\"/>\n" + indent + "  <rest_frequency_ref ref=\"" + restFrequencyId + "\"/>\n" + indent + "  <front_end_sideband sideband=\"" + sideband + "\"/>\n" + indent + "  <spw_if_coordinate>\n" + indent + "    <spw_reference_if_frequency units=\"GHz\">" + getCentreFrequency( subsystem ) + "</spw_reference_if_frequency>\n" + indent + "    <spw_reference_pixel>" + "4064.0???" + "</spw_reference_pixel>\n" + indent + "    <spw_if_channel_width units=\"Hz\">" + getBandWidth( subsystem ) + "</spw_if_channel_width>\n" + indent + "    <spw_number_if_channel>" + getChannels( subsystem ) + "</spw_number_if_channel>\n" + indent + "  </spw_if_coordinate>\n" + indent + dataReductionXML + "\n" + indent + "</spectral_window>\n";
+		return indent + "<spectral_window id=\"SPW" + ( subsystem + 1 ) + "\">\n" + indent + "  <spw_bandwidth_mode mode=\"1GHzx1024\"/>\n" + indent + "  <spw_window type=\"truncate\"/>\n" + indent + "  <rest_frequency_ref ref=\"" + restFrequencyId + "\"/>\n" + indent + "  <front_end_sideband sideband=\"" + sideband + "\"/>\n" + indent + "  <spw_if_coordinate>\n" + indent + "    <spw_reference_if_frequency units=\"GHz\">" + getCentreFrequency( subsystem ) + "</spw_reference_if_frequency>\n" + indent + "    <spw_reference_pixel>" + "4064.0???" + "</spw_reference_pixel>\n" + indent + "    <spw_if_channel_width units=\"Hz\">" + getBandWidth( subsystem ) + "</spw_if_channel_width>\n" + indent + "    <spw_number_if_channel>" + getChannels( subsystem ) + "</spw_number_if_channel>\n" + indent + "  </spw_if_coordinate>\n" + indent + dataReductionXML + "\n" + indent + "</spectral_window>\n" ;
 	}
 
 	public String subsystemXML( String indent )
 	{
-		StringBuffer xmlString = new StringBuffer();
-		xmlString.append( indent + "<subsystems>\n" );
+		StringBuffer xmlString = new StringBuffer() ;
+		xmlString.append( indent + "<subsystems>\n" ) ;
 		for( int i = 0 ; i < Integer.parseInt( getBandMode() ) ; i++ )
 		{
-			xmlString.append( indent + "    <subsystem if=\"" + getCentreFrequency( i ) + "\"" + " bw=\"" + getBandWidth( i ) + "\"" + " overlap=\"" + getOverlap( i ) + "\"" + " channels=\"" + getChannels( i ) + "\">\n" );
-			xmlString.append( indent + "        <line species=\"" + getMolecule( i ) + "\" transition=\"" + getTransition( i ) + "\"" + " rest_freq=\"" + getRestFrequency( i ) + "\"/>\n" );
-			xmlString.append( indent + "    </subsystem>\n" );
+			xmlString.append( indent + "    <subsystem if=\"" + getCentreFrequency( i ) + "\"" + " bw=\"" + getBandWidth( i ) + "\"" + " overlap=\"" + getOverlap( i ) + "\"" + " channels=\"" + getChannels( i ) + "\">\n" ) ;
+			xmlString.append( indent + "        <line species=\"" + getMolecule( i ) + "\" transition=\"" + getTransition( i ) + "\"" + " rest_freq=\"" + getRestFrequency( i ) + "\"/>\n" ) ;
+			xmlString.append( indent + "    </subsystem>\n" ) ;
 		}
-		xmlString.append( indent + "</subsystems>\n" );
+		xmlString.append( indent + "</subsystems>\n" ) ;
 
-		return xmlString.toString();
+		return xmlString.toString() ;
 	}
 
 	/**
@@ -1193,19 +1193,19 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	{
 
 		if( !_valuesInitialised )
-			throw new RuntimeException( "Heterodyne not initialised" );
+			throw new RuntimeException( "Heterodyne not initialised" ) ;
 
-		String configXML = null;
+		String configXML = null ;
 
 		try
 		{
-			configXML = subsystemXML( indent + "  " );
+			configXML = subsystemXML( indent + "  " ) ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			System.out.println( "Unable to include ACSIS configuration XML due to " + e );
-			configXML = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->";
+			e.printStackTrace() ;
+			System.out.println( "Unable to include ACSIS configuration XML due to " + e ) ;
+			configXML = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->" ;
 		}
 
 		/*
@@ -1213,94 +1213,94 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 		 * delete the attributes, and then rest the values after processing with the
 		 * parent
 		 */
-		Vector cf = _avTable.getAll( ATTR_CENTRE_FREQUENCY );
-		_avTable.rm( ATTR_CENTRE_FREQUENCY );
-		Vector bw = _avTable.getAll( ATTR_BANDWIDTH );
-		_avTable.rm( ATTR_BANDWIDTH );
-		Vector ch = _avTable.getAll( ATTR_CHANNELS );
-		_avTable.rm( ATTR_CHANNELS );
-		Vector mo = _avTable.getAll( ATTR_MOLECULE );
-		_avTable.rm( ATTR_MOLECULE );
-		Vector tr = _avTable.getAll( ATTR_TRANSITION );
-		_avTable.rm( ATTR_TRANSITION );
-		Vector rf = _avTable.getAll( ATTR_REST_FREQUENCY );
-		_avTable.rm( ATTR_REST_FREQUENCY );
-		Vector ov = _avTable.getAll( ATTR_OVERLAP );
-		_avTable.rm( ATTR_OVERLAP );
+		Vector cf = _avTable.getAll( ATTR_CENTRE_FREQUENCY ) ;
+		_avTable.rm( ATTR_CENTRE_FREQUENCY ) ;
+		Vector bw = _avTable.getAll( ATTR_BANDWIDTH ) ;
+		_avTable.rm( ATTR_BANDWIDTH ) ;
+		Vector ch = _avTable.getAll( ATTR_CHANNELS ) ;
+		_avTable.rm( ATTR_CHANNELS ) ;
+		Vector mo = _avTable.getAll( ATTR_MOLECULE ) ;
+		_avTable.rm( ATTR_MOLECULE ) ;
+		Vector tr = _avTable.getAll( ATTR_TRANSITION ) ;
+		_avTable.rm( ATTR_TRANSITION ) ;
+		Vector rf = _avTable.getAll( ATTR_REST_FREQUENCY ) ;
+		_avTable.rm( ATTR_REST_FREQUENCY ) ;
+		Vector ov = _avTable.getAll( ATTR_OVERLAP ) ;
+		_avTable.rm( ATTR_OVERLAP ) ;
 
-		super.toXML( indent , xmlBuffer );
+		super.toXML( indent , xmlBuffer ) ;
 
-		_avTable.noNotifySetAll( ATTR_CENTRE_FREQUENCY , cf );
-		_avTable.noNotifySetAll( ATTR_BANDWIDTH , bw );
-		_avTable.noNotifySetAll( ATTR_CHANNELS , ch );
-		_avTable.noNotifySetAll( ATTR_MOLECULE , mo );
-		_avTable.noNotifySetAll( ATTR_TRANSITION , tr );
-		_avTable.noNotifySetAll( ATTR_REST_FREQUENCY , rf );
-		_avTable.noNotifySetAll( ATTR_OVERLAP , ov );
+		_avTable.noNotifySetAll( ATTR_CENTRE_FREQUENCY , cf ) ;
+		_avTable.noNotifySetAll( ATTR_BANDWIDTH , bw ) ;
+		_avTable.noNotifySetAll( ATTR_CHANNELS , ch ) ;
+		_avTable.noNotifySetAll( ATTR_MOLECULE , mo ) ;
+		_avTable.noNotifySetAll( ATTR_TRANSITION , tr ) ;
+		_avTable.noNotifySetAll( ATTR_REST_FREQUENCY , rf ) ;
+		_avTable.noNotifySetAll( ATTR_OVERLAP , ov ) ;
 
-		int offset = xmlBuffer.length() - ( indent.length() + _className.length() + 4 );
+		int offset = xmlBuffer.length() - ( indent.length() + _className.length() + 4 ) ;
 
-		xmlBuffer.insert( offset , "\n\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + indent + "  <!--          ACSIS Configuration XML        -->\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + configXML );
+		xmlBuffer.insert( offset , "\n\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + indent + "  <!--          ACSIS Configuration XML        -->\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + configXML ) ;
 
 	}
 
 	public void processXmlElementStart( String name )
 	{
-		_valuesInitialised = true;
+		_valuesInitialised = true ;
 
 		if( name.equals( XML_ELEMENT_ACSIS_CONFIGURATION ) || name.equals( XML_ELEMENT_ACSIS_SUBSYSTEMS ) )
 		{
-			_processingAcsisConfigurationXml = true;
-			_subSystemCount = 0;
+			_processingAcsisConfigurationXml = true ;
+			_subSystemCount = 0 ;
 		}
 		else if( name.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) || name.equals( XML_ELEMENT_ACSIS_LINE ) )
 		{
-			return;
+			return ;
 		}
 		else
 		{
-			super.processXmlElementStart( name );
+			super.processXmlElementStart( name ) ;
 		}
 	}
 
 	public void processXmlElementEnd( String name )
 	{
 		if( name.equals( XML_ELEMENT_ACSIS_CONFIGURATION ) || name.equals( XML_ELEMENT_ACSIS_SUBSYSTEMS ) )
-			_processingAcsisConfigurationXml = false;
+			_processingAcsisConfigurationXml = false ;
 
 		if( name.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) )
 			_subSystemCount++ ;
 		
-		super.processXmlElementEnd( name );
+		super.processXmlElementEnd( name ) ;
 	}
 
 	public void processXmlAttribute( String elementName , String attributeName , String value )
 	{
 		if( !_processingAcsisConfigurationXml )
 		{
-			super.processXmlAttribute( elementName , attributeName , value );
+			super.processXmlAttribute( elementName , attributeName , value ) ;
 		}
 		else
 		{
 			if( elementName.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) )
 			{
 				if( attributeName.equals( "if" ) )
-					_avTable.set( ATTR_CENTRE_FREQUENCY , value , _subSystemCount );
+					_avTable.set( ATTR_CENTRE_FREQUENCY , value , _subSystemCount ) ;
 				else if( attributeName.equals( "bw" ) )
-					_avTable.set( ATTR_BANDWIDTH , value , _subSystemCount );
+					_avTable.set( ATTR_BANDWIDTH , value , _subSystemCount ) ;
 				else if( attributeName.equals( ATTR_CHANNELS ) )
-					_avTable.set( ATTR_CHANNELS , value , _subSystemCount );
+					_avTable.set( ATTR_CHANNELS , value , _subSystemCount ) ;
 				else if( attributeName.equals( ATTR_OVERLAP ) )
-					_avTable.set( ATTR_OVERLAP , value , _subSystemCount );
+					_avTable.set( ATTR_OVERLAP , value , _subSystemCount ) ;
 			}
 			else if( elementName.equals( XML_ELEMENT_ACSIS_LINE ) )
 			{
 				if( attributeName.equals( "rest_freq" ) )
-					_avTable.set( ATTR_REST_FREQUENCY , value , _subSystemCount );
+					_avTable.set( ATTR_REST_FREQUENCY , value , _subSystemCount ) ;
 				else if( attributeName.equals( "species" ) )
-					_avTable.set( ATTR_MOLECULE , value , _subSystemCount );
+					_avTable.set( ATTR_MOLECULE , value , _subSystemCount ) ;
 				else if( attributeName.equals( "transition" ) )
-					_avTable.set( ATTR_TRANSITION , value , _subSystemCount );
+					_avTable.set( ATTR_TRANSITION , value , _subSystemCount ) ;
 			}
 		}
 	}
@@ -1308,12 +1308,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public void processXmlElementContent( String name , String value )
 	{
 		if( !_processingAcsisConfigurationXml )
-			super.processXmlElementContent( name , value );
+			super.processXmlElementContent( name , value ) ;
 	}
 
 	public void processXmlElementContent( String name , String value , int pos )
 	{
 		if( !_processingAcsisConfigurationXml )
-			super.processXmlElementContent( name , value , pos );
+			super.processXmlElementContent( name , value , pos ) ;
 	}
 }

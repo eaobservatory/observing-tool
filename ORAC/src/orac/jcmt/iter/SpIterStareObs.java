@@ -7,17 +7,17 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
+import gemini.sp.SpItem ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.sp.iter.SpIterChop;
-import gemini.util.Format;
+import gemini.sp.iter.SpIterChop ;
+import gemini.util.Format ;
 
 /**
  * Stare Iterator for JCMT.
@@ -26,12 +26,12 @@ import gemini.util.Format;
  */
 public class SpIterStareObs extends SpIterJCMTObs
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Stare" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Stare" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterStareObs() );
+		SpFactory.registerPrototype( new SpIterStareObs() ) ;
 	}
 
 	/**
@@ -39,12 +39,12 @@ public class SpIterStareObs extends SpIterJCMTObs
 	 */
 	public SpIterStareObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	public void setWidePhotom( boolean flag )
 	{
-		_avTable.set( ATTR_WIDE_PHOTOMETRY , flag );
+		_avTable.set( ATTR_WIDE_PHOTOMETRY , flag ) ;
 	}
 
 	public boolean getWidePhotom()
@@ -54,37 +54,37 @@ public class SpIterStareObs extends SpIterJCMTObs
 
 	public double getElapsedTime()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double overhead = 0. ;
 		double totalIntegrationTime = 0. ;
 
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
 		{
 			// Go through all of this items parents to see if any are SpIterPOLs
-			boolean polPhot = false;
-			SpItem parent = parent();
+			boolean polPhot = false ;
+			SpItem parent = parent() ;
 			while( parent != null )
 			{
 				if( parent instanceof SpIterPOL )
 				{
-					polPhot = true;
-					break;
+					polPhot = true ;
+					break ;
 				}
-				parent = parent.parent();
+				parent = parent.parent() ;
 			}
-			overhead = SCUBA_STARTUP_TIME + 8;
+			overhead = SCUBA_STARTUP_TIME + 8 ;
 			if( polPhot )
 			{
 				// 8 seconds per integration
-				totalIntegrationTime = 8;
+				totalIntegrationTime = 8 ;
 			}
 			else
 			{
 				// 18 seconds per integration
 				if( getWidePhotom() )
-					totalIntegrationTime = 24;
+					totalIntegrationTime = 24 ;
 				else
-					totalIntegrationTime = 18;
+					totalIntegrationTime = 18 ;
 			}
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
@@ -95,18 +95,18 @@ public class SpIterStareObs extends SpIterJCMTObs
 			 * 
 			 * Overridden in SpIterFolder, these timings are single position if outside an iterator
 			 */
-			double T_on = getSecsPerCycle();
-			String switchingMode = getSwitchingMode();
+			double T_on = getSecsPerCycle() ;
+			String switchingMode = getSwitchingMode() ;
 
 			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
-				totalIntegrationTime = 2.45 * T_on + 80.;
+				totalIntegrationTime = 2.45 * T_on + 80. ;
 			else if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
-				totalIntegrationTime = 2.3 * T_on + 100.;
+				totalIntegrationTime = 2.3 * T_on + 100. ;
 
 			if( isContinuum() )
-				totalIntegrationTime *= 1.2;
+				totalIntegrationTime *= 1.2 ;
 		}
-		return( overhead + totalIntegrationTime );
+		return( overhead + totalIntegrationTime ) ;
 	}
 
 	public boolean insideChop()
@@ -122,14 +122,14 @@ public class SpIterStareObs extends SpIterJCMTObs
 	
 	private Object insideComponent( Class component )
 	{
-		boolean inside = false;
-		SpItem parent = this.parent();
+		boolean inside = false ;
+		SpItem parent = this.parent() ;
 		while( parent != null )
 		{
 			inside = component.isInstance( parent ) ;
 			if( inside )
-				break;
-			parent = parent.parent();
+				break ;
+			parent = parent.parent() ;
 		}
 		return parent ;		
 	}
@@ -138,74 +138,75 @@ public class SpIterStareObs extends SpIterJCMTObs
 	{
 		if( insideChop() )
 		{
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
-			rmSeparateOffs();
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 ) ;
+			rmSeparateOffs() ;
 		}
 		
 		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
 
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 ) ;
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "60" , 0 );
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "60" , 0 ) ;
 	}
 
 	public void setupForSCUBA()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
-		_avTable.noNotifyRm( ATTR_CONT_CAL );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_CONT_CAL ) ;
 	}
 
 	public void setupForSCUBA2()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
-		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
-		_avTable.noNotifyRm( ATTR_CONT_CAL );
-		_avTable.noNotifyRm( ATTR_WIDE_PHOTOMETRY );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
+		_avTable.noNotifyRm( ATTR_CONT_CAL ) ;
+		_avTable.noNotifyRm( ATTR_WIDE_PHOTOMETRY ) ;
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "5" , 0 );
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "5" , 0 ) ;
 	}
 
 	public String[] getSwitchingModeOptions()
 	{
 		return new String[] 
 		{ 
-				SWITCHING_MODE_BEAM , SWITCHING_MODE_POSITION ,
+				SWITCHING_MODE_BEAM , 
+				SWITCHING_MODE_POSITION ,/*
 				SWITCHING_MODE_FREQUENCY_S ,
-				SWITCHING_MODE_FREQUENCY_F ,
+				SWITCHING_MODE_FREQUENCY_F ,*/
 				SWITCHING_MODE_NONE
-		};
+		} ;
 	}
 
 	public void setArrayCentred( boolean enable )
 	{
-		_avTable.set( ATTR_ARRAY_CENTRED , enable );
+		_avTable.set( ATTR_ARRAY_CENTRED , enable ) ;
 	}
 
 	public boolean isArrayCentred()
 	{
-		return _avTable.getBool( ATTR_ARRAY_CENTRED );
+		return _avTable.getBool( ATTR_ARRAY_CENTRED ) ;
 	}
 
 	public void rmArrayCentred()
 	{
-		_avTable.noNotifyRm( ATTR_ARRAY_CENTRED );
+		_avTable.noNotifyRm( ATTR_ARRAY_CENTRED ) ;
 	}
 
 	public void setSeparateOffs( boolean enable )
 	{
-		_avTable.set( SEPARATE_OFFS , enable );
+		_avTable.set( SEPARATE_OFFS , enable ) ;
 	}
 
 	public boolean hasSeparateOffs()
 	{
-		return _avTable.getBool( SEPARATE_OFFS );
+		return _avTable.getBool( SEPARATE_OFFS ) ;
 	}
 
 	public void rmSeparateOffs()
 	{
-		_avTable.noNotifyRm( SEPARATE_OFFS );
+		_avTable.noNotifyRm( SEPARATE_OFFS ) ;
 	}
 	
 	public boolean separateOffsExist()

@@ -7,18 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpType;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
-import gemini.util.Format;
+import gemini.util.Format ;
 
-import orac.jcmt.SpJCMTConstants;
+import orac.jcmt.SpJCMTConstants ;
 
 /**
  * Enumerater for the elements of the JCMT Observe iterator.
@@ -30,37 +30,37 @@ import orac.jcmt.SpJCMTConstants;
  */
 class SpIterJCMTObsEnumeration extends SpIterEnumeration implements SpJCMTConstants
 {
-	private int _curCount = 0;
-	private int _maxCount = 1;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount = 1 ;
+	private SpIterValue[] _values ;
 
 	SpIterJCMTObsEnumeration( SpIterJCMTObs iterObserve )
 	{
-		super( iterObserve );
+		super( iterObserve ) ;
 
 		// max count is always 1 for JCMT! It can't be changed
 		// In the JCMT OT the number of integrations is changed instead. 
 		// But that does not result in seperate SpIterSteps.
-		_maxCount = 1;
+		_maxCount = 1 ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterJCMTObs ibo = ( SpIterJCMTObs )_iterComp;
+		SpIterJCMTObs ibo = ( SpIterJCMTObs )_iterComp ;
 
-		_values = new SpIterValue[] { new SpIterValue( ATTR_ELAPSED_TIME , String.valueOf( ibo.getElapsedTime() ) ) };
+		_values = new SpIterValue[] { new SpIterValue( ATTR_ELAPSED_TIME , String.valueOf( ibo.getElapsedTime() ) ) } ;
 
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( "jcmtObs" , _curCount++ , _iterComp , _values );
+		return new SpIterStep( "jcmtObs" , _curCount++ , _iterComp , _values ) ;
 	}
 
 }
@@ -78,7 +78,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public SpIterJCMTObs( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 
 		/*
 		 * JCMT Observe "iterators" are not repeated.
@@ -86,7 +86,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 		 * is appended to the name of the iterator in the Science Prrogram tree
 		 * is the number of iterations, ATTR_INTEGRATIONS.
 		 */
-		_avTable.noNotifyRm( ATTR_COUNT );
+		_avTable.noNotifyRm( ATTR_COUNT ) ;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public double getElapsedTime()
 	{
-		return 0.;
+		return 0. ;
 	}
 
 	/**
@@ -105,19 +105,19 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public String getTitle()
 	{
-		return type().getReadable();
+		return type().getReadable() ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public void setCount()
 	{
-		throw new UnsupportedOperationException( "public SpIterEnumeration SpIterObserveBase.setCount() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public SpIterEnumeration SpIterObserveBase.setCount() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterJCMTObsEnumeration( this );
+		return new SpIterJCMTObsEnumeration( this ) ;
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public String getSwitchingMode()
 	{
-		return _avTable.get( ATTR_SWITCHING_MODE );
+		return _avTable.get( ATTR_SWITCHING_MODE ) ;
 	}
 
 	/**
@@ -133,12 +133,12 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setSwitchingMode( String switchingMode )
 	{
-		_avTable.set( ATTR_SWITCHING_MODE , switchingMode );
+		_avTable.set( ATTR_SWITCHING_MODE , switchingMode ) ;
 	}
 
 	public void rmSwitchingMode()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public boolean getDoAtCurrentAz()
 	{
-		return _avTable.getBool( ATTR_DO_AT_CURRENT_AZ );
+		return _avTable.getBool( ATTR_DO_AT_CURRENT_AZ ) ;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setDoAtCurrentAz( boolean x )
 	{
-		_avTable.set( ATTR_DO_AT_CURRENT_AZ , x );
+		_avTable.set( ATTR_DO_AT_CURRENT_AZ , x ) ;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public double getReferenceOffsetX()
 	{
-		return _avTable.getDouble( ATTR_REFERENCE_OFFSET_X , 0. );
+		return _avTable.getDouble( ATTR_REFERENCE_OFFSET_X , 0. ) ;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setReferenceOffsetX( String value )
 	{
-		_avTable.set( ATTR_REFERENCE_OFFSET_X , Format.toDouble( value ) );
+		_avTable.set( ATTR_REFERENCE_OFFSET_X , Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public double getReferenceOffsetY()
 	{
-		return _avTable.getDouble( ATTR_REFERENCE_OFFSET_Y , 0. );
+		return _avTable.getDouble( ATTR_REFERENCE_OFFSET_Y , 0. ) ;
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setReferenceOffsetY( String value )
 	{
-		_avTable.set( ATTR_REFERENCE_OFFSET_Y , Format.toDouble( value ) );
+		_avTable.set( ATTR_REFERENCE_OFFSET_Y , Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public String getReferenceOffsetSystem()
 	{
-		return _avTable.get( ATTR_REFERENCE_OFFSET_SYSTEM );
+		return _avTable.get( ATTR_REFERENCE_OFFSET_SYSTEM ) ;
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setReferenceOffsetSystem( String value )
 	{
-		_avTable.set( ATTR_REFERENCE_OFFSET_SYSTEM , value );
+		_avTable.set( ATTR_REFERENCE_OFFSET_SYSTEM , value ) ;
 	}
 
 	/**
@@ -210,7 +210,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public double getFrequencyOffsetThrow()
 	{
-		return _avTable.getDouble( ATTR_FREQUENCY_OFFSET_THROW , 0. );
+		return _avTable.getDouble( ATTR_FREQUENCY_OFFSET_THROW , 0. ) ;
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setFrequencyOffsetThrow( String value )
 	{
-		_avTable.set( ATTR_FREQUENCY_OFFSET_THROW , Format.toDouble( value ) );
+		_avTable.set( ATTR_FREQUENCY_OFFSET_THROW , Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public double getFrequencyOffsetRate()
 	{
-		return _avTable.getDouble( ATTR_FREQUENCY_OFFSET_RATE , 0. );
+		return _avTable.getDouble( ATTR_FREQUENCY_OFFSET_RATE , 0. ) ;
 	}
 
 	/**
@@ -234,103 +234,103 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	 */
 	public void setFrequencyOffsetRate( String value )
 	{
-		_avTable.set( ATTR_FREQUENCY_OFFSET_RATE , Format.toDouble( value ) );
+		_avTable.set( ATTR_FREQUENCY_OFFSET_RATE , Format.toDouble( value ) ) ;
 	}
 
 	public void rmFrequencyOffsetValues()
 	{
-		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_THROW );
-		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE );
+		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_THROW ) ;
+		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE ) ;
 	}
 
 	public int getSecsPerCycle()
 	{
-		return _avTable.getInt( ATTR_SECS_PER_CYCLE , 0 );
+		return _avTable.getInt( ATTR_SECS_PER_CYCLE , 0 ) ;
 	}
 
 	public void setSecsPerCycle( String value )
 	{
-		_avTable.set( ATTR_SECS_PER_CYCLE , value );
+		_avTable.set( ATTR_SECS_PER_CYCLE , value ) ;
 	}
 
 	public boolean getCycleReversal()
 	{
-		return _avTable.getBool( ATTR_CYCLE_REVERSAL );
+		return _avTable.getBool( ATTR_CYCLE_REVERSAL ) ;
 	}
 
 	public void setCycleReversal( boolean value )
 	{
-		_avTable.set( ATTR_CYCLE_REVERSAL , value );
+		_avTable.set( ATTR_CYCLE_REVERSAL , value ) ;
 	}
 
 	public double getStepSize()
 	{
-		return _avTable.getDouble( ATTR_SCALE_FACTOR , 0. );
+		return _avTable.getDouble( ATTR_SCALE_FACTOR , 0. ) ;
 	}
 
 	public void setStepSize( String value )
 	{
-		_avTable.set( ATTR_SCALE_FACTOR , value );
+		_avTable.set( ATTR_SCALE_FACTOR , value ) ;
 	}
 
 	public boolean getJiggleAtReference()
 	{
-		return _avTable.getBool( ATTR_JIGGLE_AT_REFERENCE );
+		return _avTable.getBool( ATTR_JIGGLE_AT_REFERENCE ) ;
 	}
 
 	public void setJiggleAtReference( boolean value )
 	{
-		_avTable.set( ATTR_JIGGLE_AT_REFERENCE , value );
+		_avTable.set( ATTR_JIGGLE_AT_REFERENCE , value ) ;
 	}
 
 	public int getJigglesPerCycle()
 	{
-		return _avTable.getInt( ATTR_JIGGLES_PER_CYCLE , 1 );
+		return _avTable.getInt( ATTR_JIGGLES_PER_CYCLE , 1 ) ;
 	}
 
 	public void setJigglesPerCycle( String value )
 	{
-		_avTable.set( ATTR_JIGGLES_PER_CYCLE , value );
+		_avTable.set( ATTR_JIGGLES_PER_CYCLE , value ) ;
 	}
 
 	public double getSampleTime()
 	{
-		return _avTable.getDouble( ATTR_SAMPLE_TIME , 4. );
+		return _avTable.getDouble( ATTR_SAMPLE_TIME , 4. ) ;
 	}
 
 	public void setSampleTime( String value )
 	{
-		_avTable.set( ATTR_SAMPLE_TIME , value );
+		_avTable.set( ATTR_SAMPLE_TIME , value ) ;
 	}
 
 	public boolean getAutomaticTarget()
 	{
-		return _avTable.getBool( ATTR_AUTOMATIC_TARGET );
+		return _avTable.getBool( ATTR_AUTOMATIC_TARGET ) ;
 	}
 
 	public void setAutomaticTarget( boolean value )
 	{
-		_avTable.set( ATTR_AUTOMATIC_TARGET , value );
+		_avTable.set( ATTR_AUTOMATIC_TARGET , value ) ;
 	}
 
 	public boolean getContinuousCal()
 	{
-		return _avTable.getBool( ATTR_CONT_CAL );
+		return _avTable.getBool( ATTR_CONT_CAL ) ;
 	}
 
 	public void setContinuousCal( boolean value )
 	{
-		_avTable.set( ATTR_CONT_CAL , value );
+		_avTable.set( ATTR_CONT_CAL , value ) ;
 	}
 
 	public boolean isContinuum()
 	{
-		return _avTable.getBool( ATTR_CONTINUUM_MODE );
+		return _avTable.getBool( ATTR_CONTINUUM_MODE ) ;
 	}
 
 	public void setContinuumMode( boolean flag )
 	{
-		_avTable.set( ATTR_CONTINUUM_MODE , flag );
+		_avTable.set( ATTR_CONTINUUM_MODE , flag ) ;
 	}
 
 	/**
@@ -340,51 +340,51 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 	/** Not supported by JCMT OT. */
 	public double getExposureTime()
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.getExposureTime() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.getExposureTime() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public void setExposureTime( double expTime )
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.setExposureTime() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.setExposureTime() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public void setExposureTime( String expTime )
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.setExposureTime() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.setExposureTime() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public int getCoadds()
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.getCoadds() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.getCoadds() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public void setCoadds( int coadds )
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.setCoadds() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.setCoadds() not supported by JCMT OT." ) ;
 	}
 
 	/** Not supported by JCMT OT. */
 	public void setCoadds( String coadds )
 	{
-		throw new UnsupportedOperationException( "public double SpIterObserveBase.setCoadds() not supported by JCMT OT." );
+		throw new UnsupportedOperationException( "public double SpIterObserveBase.setCoadds() not supported by JCMT OT." ) ;
 	}
 
 	// Setp things up for heterodyne observations
 	public void setupForHeterodyne()
 	{
 		if( !_avTable.exists( ATTR_SWITCHING_MODE ) )
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 ) ;
 	}
 
 	public void setupForSCUBA(){}
 
 	public void setupForSCUBA2()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 	}
 
 	/**
@@ -397,11 +397,11 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 		return new String[] 
 		{ 
 				SWITCHING_MODE_BEAM , 
-				SWITCHING_MODE_POSITION , 
+				SWITCHING_MODE_POSITION ,/*
 				SWITCHING_MODE_FREQUENCY_S , 
-				SWITCHING_MODE_FREQUENCY_F ,
+				SWITCHING_MODE_FREQUENCY_F ,*/
 				SWITCHING_MODE_NONE 
-		};
+		} ;
 	}
 
 }

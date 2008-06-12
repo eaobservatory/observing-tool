@@ -7,16 +7,16 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.util.Format;
-import orac.jcmt.inst.SpInstSCUBA;
+import gemini.util.Format ;
+import orac.jcmt.inst.SpInstSCUBA ;
 
 /**
  * Jiggle Iterator for JCMT.
@@ -26,16 +26,16 @@ import orac.jcmt.inst.SpInstSCUBA;
 public class SpIterJiggleObs extends SpIterJCMTObs
 {
 
-	private final String JIGGLE_SCALE_DEFAULT = "10.0";
-	private final String JIGGLES_PER_CYCLE_DEFAULT = "1";
-	private final String SECS_PER_CYCLE_DEFAULT = "10";
+	private final String JIGGLE_SCALE_DEFAULT = "10.0" ;
+	private final String JIGGLES_PER_CYCLE_DEFAULT = "1" ;
+	private final String SECS_PER_CYCLE_DEFAULT = "10" ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "jiggleObs" , "Jiggle" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "jiggleObs" , "Jiggle" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterJiggleObs() );
+		SpFactory.registerPrototype( new SpIterJiggleObs() ) ;
 	}
 
 	/**
@@ -43,118 +43,118 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public SpIterJiggleObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 );
-		_avTable.noNotifySet( ATTR_JIGGLE_SYSTEM , JIGGLE_SYSTEMS[ 0 ] , 0 );
+		_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 ) ;
+		_avTable.noNotifySet( ATTR_JIGGLE_SYSTEM , JIGGLE_SYSTEMS[ 0 ] , 0 ) ;
 	}
 
 	public int getNumberOfPoints()
 	{
-		int numberOfPoints = 0;
-		String jigglePattern = getJigglePattern();
+		int numberOfPoints = 0 ;
+		String jigglePattern = getJigglePattern() ;
 		if( jigglePattern != null )
 		{
-			jigglePattern = jigglePattern.toLowerCase();
+			jigglePattern = jigglePattern.toLowerCase() ;
 
-			int steps = 0;
+			int steps = 0 ;
 			if( jigglePattern.matches( "\\d+x\\d+" ) )
 			{
-				String[] split = jigglePattern.split( "x" );
-				steps = Integer.parseInt( split[ 0 ] );
+				String[] split = jigglePattern.split( "x" ) ;
+				steps = Integer.parseInt( split[ 0 ] ) ;
 			}
 			else if( jigglePattern.matches( "harp\\d" ) )
 			{
-				String[] split = jigglePattern.split( "harp" );
-				steps = Integer.parseInt( split[ 1 ] );
+				String[] split = jigglePattern.split( "harp" ) ;
+				steps = Integer.parseInt( split[ 1 ] ) ;
 			}
 			else if( jigglePattern.matches( "harp\\d_\\w*" ) )
 			{
-				String split = jigglePattern.substring( 4 , 5 );
-				steps = Integer.parseInt( split );
+				String split = jigglePattern.substring( 4 , 5 ) ;
+				steps = Integer.parseInt( split ) ;
 			}
 
 			switch( steps )
 			{
 				// 3X3 jigle map
 				case 3 :
-					numberOfPoints = 9;
-					break;
+					numberOfPoints = 9 ;
+					break ;
 				// 4x4 jiggle
 				case 4 :
-					numberOfPoints = 16;
-					break;
+					numberOfPoints = 16 ;
+					break ;
 				// 5X5 jigle map
 				case 5 :
-					numberOfPoints = 25;
-					break;
+					numberOfPoints = 25 ;
+					break ;
 				// 7X7 jigle map
 				case 7 :
-					numberOfPoints = 49;
-					break;
+					numberOfPoints = 49 ;
+					break ;
 				// 9X9 jigle map
 				case 9 :
-					numberOfPoints = 81;
-					break;
+					numberOfPoints = 81 ;
+					break ;
 				case 11 :
-					numberOfPoints = 121;
-					break;
+					numberOfPoints = 121 ;
+					break ;
 				// default
 				default :
-					break;
+					break ;
 			}
 		}
-		return numberOfPoints;
+		return numberOfPoints ;
 	}
 
 	public double getElapsedTime()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 
 		// Actual integration time on source
-		double totalIntegrationTime = 0.;
+		double totalIntegrationTime = 0. ;
 		if( instrument != null )
 		{
-			int npts = getNumberOfPoints();
+			int npts = getNumberOfPoints() ;
 			// from http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
-			String switchingMode = getSwitchingMode();
+			String switchingMode = getSwitchingMode() ;
 			// SeparateOffs = ! Shared offs
 			if( SWITCHING_MODE_BEAM.equals( switchingMode ) )
 			{
 				//Jiggle Chops
 				if( isContinuum() || hasSeparateOffs() )
-					totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100.;
+					totalIntegrationTime = 2.3 * npts * getSecsPerCycle() + 100. ;
 				else
-					totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100.;
+					totalIntegrationTime = 1.27 * ( ( npts + Math.sqrt( ( double )npts ) ) * getSecsPerCycle() ) + 100. ;
 			}
 			else if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
 			{
 				// Jiggle Position Switch
 				if( isContinuum() || hasSeparateOffs() )
-					totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80.;
+					totalIntegrationTime = 2.45 * npts * getSecsPerCycle() + 80. ;
 				else
-					totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80.;
+					totalIntegrationTime = 1.75 * npts * getSecsPerCycle() + 80. ;
 			}
 			else
 			{
 				// Anything else
-				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() );
+				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
 			}
 
 			if( isContinuum() )
-				totalIntegrationTime *= 1.2;
+				totalIntegrationTime *= 1.2 ;
 		}
-		return totalIntegrationTime;
+		return totalIntegrationTime ;
 	}
 
 	public String getJigglePattern()
 	{
-		return _avTable.get( ATTR_JIGGLE_PATTERN );
+		return _avTable.get( ATTR_JIGGLE_PATTERN ) ;
 	}
 
 	public void setJigglePattern( String value )
 	{
-		_avTable.set( ATTR_JIGGLE_PATTERN , value );
+		_avTable.set( ATTR_JIGGLE_PATTERN , value ) ;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public double getPosAngle()
 	{
-		return _avTable.getDouble( ATTR_JIGGLE_PA , 0. );
+		return _avTable.getDouble( ATTR_JIGGLE_PA , 0. ) ;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public void setPosAngle( double theta )
 	{
-		_avTable.set( ATTR_JIGGLE_PA , Math.rint( theta * 10. ) / 10. );
+		_avTable.set( ATTR_JIGGLE_PA , Math.rint( theta * 10. ) / 10. ) ;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public void setPosAngle( String thetaStr )
 	{
-		setPosAngle( Format.toDouble( thetaStr ) );
+		setPosAngle( Format.toDouble( thetaStr ) ) ;
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public String getCoordSys()
 	{
-		return _avTable.get( ATTR_JIGGLE_SYSTEM );
+		return _avTable.get( ATTR_JIGGLE_SYSTEM ) ;
 	}
 
 	/**
@@ -194,17 +194,17 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 	 */
 	public void setCoordSys( String coordSys )
 	{
-		_avTable.set( ATTR_JIGGLE_SYSTEM , coordSys );
+		_avTable.set( ATTR_JIGGLE_SYSTEM , coordSys ) ;
 	}
 
 	public static boolean isJIG64( SpInstSCUBA instSCUBA )
 	{
-		return instSCUBA.getBolometers() != null && instSCUBA.getBolometers().contains( "LONG" ) && instSCUBA.getBolometers().contains( "SHORT" );
+		return instSCUBA.getBolometers() != null && instSCUBA.getBolometers().contains( "LONG" ) && instSCUBA.getBolometers().contains( "SHORT" ) ;
 	}
 
 	public void setScaleFactor( double value )
 	{
-		_avTable.set( ATTR_SCALE_FACTOR , value );
+		_avTable.set( ATTR_SCALE_FACTOR , value ) ;
 	}
 
 	private void setScaleFactor( String value )
@@ -212,85 +212,85 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 		double dVal = 1. ;
 		try
 		{
-			dVal = Double.parseDouble( value );
+			dVal = Double.parseDouble( value ) ;
 		}
 		catch( NumberFormatException nfe ){}
 
-		setScaleFactor( dVal );
+		setScaleFactor( dVal ) ;
 	}
 
 	public double getScaleFactor()
 	{
-		return _avTable.getDouble( ATTR_SCALE_FACTOR , 1. );
+		return _avTable.getDouble( ATTR_SCALE_FACTOR , 1. ) ;
 	}
 
 	public void setJigglePA( double value )
 	{
-		_avTable.set( ATTR_JIGGLE_PA , value );
+		_avTable.set( ATTR_JIGGLE_PA , value ) ;
 	}
 
 	public double getJigglePA()
 	{
-		return _avTable.getDouble( ATTR_JIGGLE_PA , 0. );
+		return _avTable.getDouble( ATTR_JIGGLE_PA , 0. ) ;
 	}
 
 	public void setAcsisDefaults()
 	{
-		setContinuumMode( false );
-		setScaleFactor( JIGGLE_SCALE_DEFAULT );
-		setJigglesPerCycle( JIGGLES_PER_CYCLE_DEFAULT );
+		setContinuumMode( false ) ;
+		setScaleFactor( JIGGLE_SCALE_DEFAULT ) ;
+		setJigglesPerCycle( JIGGLES_PER_CYCLE_DEFAULT ) ;
 	}
 
 	public void setupForHeterodyne()
 	{
-		String value;
+		String value ;
 
 		// Scale Factor
-		value = _avTable.get( ATTR_SCALE_FACTOR );
+		value = _avTable.get( ATTR_SCALE_FACTOR ) ;
 		if( value == null || value.equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCALE_FACTOR , JIGGLE_SCALE_DEFAULT , 0 );
+			_avTable.noNotifySet( ATTR_SCALE_FACTOR , JIGGLE_SCALE_DEFAULT , 0 ) ;
 
 		// Jiggles/Cyle
-		value = _avTable.get( ATTR_JIGGLES_PER_CYCLE );
+		value = _avTable.get( ATTR_JIGGLES_PER_CYCLE ) ;
 		if( value == null || value.equals( "" ) )
-			_avTable.noNotifySet( ATTR_JIGGLES_PER_CYCLE , JIGGLES_PER_CYCLE_DEFAULT , 0 );
+			_avTable.noNotifySet( ATTR_JIGGLES_PER_CYCLE , JIGGLES_PER_CYCLE_DEFAULT , 0 ) ;
 
 		// continuum mode
-		value = _avTable.get( ATTR_CONTINUUM_MODE );
+		value = _avTable.get( ATTR_CONTINUUM_MODE ) ;
 		if( value == null || value.equals( "" ) )
-			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 );
+			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 ) ;
 
 		// Seconds per cycle
-		value = _avTable.get( ATTR_SECS_PER_CYCLE );
+		value = _avTable.get( ATTR_SECS_PER_CYCLE ) ;
 		if( value == null || value.equals( "" ) )
-			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , SECS_PER_CYCLE_DEFAULT , 0 );
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , SECS_PER_CYCLE_DEFAULT , 0 ) ;
 
 		// Jiggle PA
-		value = _avTable.get( ATTR_JIGGLE_PA );
+		value = _avTable.get( ATTR_JIGGLE_PA ) ;
 		if( value == null || value.equals( "" ) )
-			_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 );
+			_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 ) ;
 
-		super.setupForHeterodyne();
+		super.setupForHeterodyne() ;
 	}
 
 	public void setupForSCUBA()
 	{
-		_avTable.noNotifyRm( ATTR_SCALE_FACTOR );
-		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE );
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
-		_avTable.noNotifyRm( ATTR_JIGGLE_PA );
-		super.setupForSCUBA();
+		_avTable.noNotifyRm( ATTR_SCALE_FACTOR ) ;
+		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_JIGGLE_PA ) ;
+		super.setupForSCUBA() ;
 	}
 
 	public void setupForSCUBA2()
 	{
-		_avTable.noNotifyRm( ATTR_SCALE_FACTOR );
-		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE );
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
-		_avTable.noNotifyRm( ATTR_JIGGLE_PA );
-		super.setupForSCUBA2();
+		_avTable.noNotifyRm( ATTR_SCALE_FACTOR ) ;
+		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_JIGGLE_PA ) ;
+		super.setupForSCUBA2() ;
 	}
 
 	public String[] getSwitchingModeOptions()
@@ -298,24 +298,24 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 		return new String[] 
 		{ 
 				SWITCHING_MODE_POSITION , 
-				SWITCHING_MODE_BEAM , 
+				SWITCHING_MODE_BEAM /*, 
 				SWITCHING_MODE_FREQUENCY_S , 
-				SWITCHING_MODE_FREQUENCY_F 
-		};
+				SWITCHING_MODE_FREQUENCY_F*/ 
+		} ;
 	}
 
 	public void setSeparateOffs( boolean enable )
 	{
-		_avTable.set( SEPARATE_OFFS , enable );
+		_avTable.set( SEPARATE_OFFS , enable ) ;
 	}
 
 	public boolean hasSeparateOffs()
 	{
-		return _avTable.getBool( SEPARATE_OFFS );
+		return _avTable.getBool( SEPARATE_OFFS ) ;
 	}
 
 	public void rmSeparateOffs()
 	{
-		_avTable.noNotifyRm( SEPARATE_OFFS );
+		_avTable.noNotifyRm( SEPARATE_OFFS ) ;
 	}
 }

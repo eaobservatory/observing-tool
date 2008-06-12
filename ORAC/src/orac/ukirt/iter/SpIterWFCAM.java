@@ -7,18 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import orac.ukirt.inst.SpInstWFCAM;
+import orac.ukirt.inst.SpInstWFCAM ;
 
-import gemini.util.ConfigWriter;
+import gemini.util.ConfigWriter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpType;
-import gemini.sp.iter.IterConfigItem;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpType ;
+import gemini.sp.iter.IterConfigItem ;
 
 import java.util.List ;
 import java.util.Enumeration ;
@@ -30,12 +30,12 @@ import java.util.Vector ;
  */
 public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instWFCAM" , "WFCAM" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instWFCAM" , "WFCAM" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterWFCAM() );
+		SpFactory.registerPrototype( new SpIterWFCAM() ) ;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public SpIterWFCAM()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	public Vector getConfigAttribs()
 	{
 		Vector v = super.getConfigAttribs() ;
-		return v;
+		return v ;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void addConfigItem( IterConfigItem ici , int size )
 	{
-		super.addConfigItem( ici , size );
+		super.addConfigItem( ici , size ) ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void deleteConfigItem( String attribute )
 	{
-		super.deleteConfigItem( attribute );
+		super.deleteConfigItem( attribute ) ;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void setConfigStep( String attribute , String value , int index )
 	{
-		_avTable.set( attribute , value , index );
+		_avTable.set( attribute , value , index ) ;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public String getItemName()
 	{
-		return "WFCAM";
+		return "WFCAM" ;
 	}
 
 	/**
@@ -97,107 +97,107 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public IterConfigItem[] getAvailableItems()
 	{
-		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem();
+		SpInstWFCAM inst = ( SpInstWFCAM )getInstrumentItem() ;
 		boolean instAvailable = inst != null ;
 
-		IterConfigItem iciFilter;
+		IterConfigItem iciFilter ;
 		if( instAvailable )
 		{
-			String[] filters = inst.getFilterList();
+			String[] filters = inst.getFilterList() ;
 			// Filters.
-			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters );
+			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters ) ;
 		}
 		else
 		{
-			Vector vFilters = SpInstWFCAM.FILTERS.getColumn( 0 );
-			int n = vFilters.size();
-			String[] filters = new String[ n ];
+			Vector vFilters = SpInstWFCAM.FILTERS.getColumn( 0 ) ;
+			int n = vFilters.size() ;
+			String[] filters = new String[ n ] ;
 			for( int i = 0 ; i < n ; i++ )
-				filters[ i ] = ( String )vFilters.elementAt( i );
+				filters[ i ] = ( String )vFilters.elementAt( i ) ;
 
 			// Filters.
-			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters );
+			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters ) ;
 		}
 
-		IterConfigItem iciReadMode;
+		IterConfigItem iciReadMode ;
 		if( instAvailable )
 		{
-			String[] readmodes = inst.getReadModeList();
-			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes );
+			String[] readmodes = inst.getReadModeList() ;
+			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes ) ;
 		}
 		else
 		{
-			String[] readmodes = SpInstWFCAM.READMODES;
-			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes );
+			String[] readmodes = SpInstWFCAM.READMODES ;
+			iciReadMode = new IterConfigItem( "ReadMode" , SpInstWFCAM.ATTR_READMODE + "Iter" , readmodes ) ;
 		}
 
 		// Specify configuration items which can be iterated. 
-		IterConfigItem[] iciA = { iciReadMode , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() };
-		return iciA;
+		IterConfigItem[] iciA = { iciReadMode , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() } ;
+		return iciA ;
 	}
 
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		SpInstWFCAM inst;
+		SpInstWFCAM inst ;
 		try
 		{
-			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this );
+			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new SpTranslationNotSupportedException( "No WFCAM instrument is scope" );
+			throw new SpTranslationNotSupportedException( "No WFCAM instrument is scope" ) ;
 		}
 
-		List iterList = getConfigAttribs();
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		List iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable configTable = inst.getConfigItems();
+			Hashtable configTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "filterIter" ) )
-					configTable.put( "filter" , ( String )getConfigSteps( "filterIter" ).get( i ) );
+					configTable.put( "filter" , ( String )getConfigSteps( "filterIter" ).get( i ) ) ;
 					
 				if( iterList.contains( "readModeIter" ) )
-					configTable.put( "readMode" , ( String )getConfigSteps( "readModeIter" ).get( i ) );
+					configTable.put( "readMode" , ( String )getConfigSteps( "readModeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "exposureTimeIter" ) )
-					configTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) );
+					configTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					configTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) );
+					configTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperXIter" ) )
-					configTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) );
+					configTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperYIter" ) )
-					configTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) );
+					configTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperZIter" ) )
-					configTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) );
+					configTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperLIter" ) )
-					configTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) );
+					configTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
 			}
 
-			String xAper = " " + ( String )configTable.get( "instAperX" );
-			String yAper = " " + ( String )configTable.get( "instAperY" );
-			String zAper = " " + ( String )configTable.get( "instAperZ" );
-			String lAper = " " + ( String )configTable.get( "instAperL" );
+			String xAper = " " + ( String )configTable.get( "instAperX" ) ;
+			String yAper = " " + ( String )configTable.get( "instAperY" ) ;
+			String zAper = " " + ( String )configTable.get( "instAperZ" ) ;
+			String lAper = " " + ( String )configTable.get( "instAperL" ) ;
 
 			try
 			{
-				ConfigWriter.getCurrentInstance().write( configTable );
+				ConfigWriter.getCurrentInstance().write( configTable ) ;
 			}
 			catch( Exception e )
 			{
-				throw new SpTranslationNotSupportedException( "Unable to write config file for WFCAM iterator:" + e.getMessage() );
+				throw new SpTranslationNotSupportedException( "Unable to write config file for WFCAM iterator:" + e.getMessage() ) ;
 			}
-			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper );
+			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
+			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper ) ;
 
 			// translate all the children...
-			Enumeration e = this.children();
+			Enumeration e = this.children() ;
 			gemini.util.TranslationUtils.recurse( e , v ) ;
 		}
 	}
