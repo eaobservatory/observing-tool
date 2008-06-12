@@ -3,15 +3,21 @@
 // See the file COPYRIGHT for complete details.
 //
 //
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.sp.obsComp.*;
-import gemini.sp.iter.*;
+import gemini.sp.obsComp.SpObsComp ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.obsComp.SpSurveyObsComp ;
 
-import gemini.util.Assert;
-import java.util.Hashtable;
-import java.util.Enumeration;
-import java.util.Vector;
+import gemini.sp.iter.SpIterFolder ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterComp ;
+
+import gemini.util.Assert ;
+import java.util.Hashtable ;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
 //
 // This is the base class for specific insert policies. This is a
@@ -23,7 +29,7 @@ class InsertPolicy implements SpInsertConstants
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem target )
 	{
-		return null;
+		return null ;
 	}
 
 }
@@ -37,29 +43,29 @@ final class InsidePolicy_AfterComponents extends InsertPolicy
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		SpItem lastComp = null;
-		Enumeration children = parent.children();
+		SpItem lastComp = null ;
+		Enumeration children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement();
+			SpItem child = ( SpItem )children.nextElement() ;
 			if( ( child instanceof SpObsComp ) || ( child instanceof SpNote ) )
-				lastComp = child;
+				lastComp = child ;
 			else
-				break;
+				break ;
 		}
 
 		if( lastComp == null )
 		{
-			return new SpInsertInfo( INS_INSIDE , parent );
+			return new SpInsertInfo( INS_INSIDE , parent ) ;
 		}
 		else
 		{
 			// Check for an Iterator Folder item
-			SpItem temp = lastComp.next();
+			SpItem temp = lastComp.next() ;
 			if( ( temp != null ) && ( temp instanceof SpIterFolder ) )
-				lastComp = temp;
+				lastComp = temp ;
 
-			return new SpInsertInfo( INS_AFTER , lastComp );
+			return new SpInsertInfo( INS_AFTER , lastComp ) ;
 		}
 	}
 }
@@ -70,27 +76,27 @@ final class InsidePolicy_IteratorFolder extends InsertPolicy
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( newItem instanceof SpIterFolder );
+		Assert.notFalse( newItem instanceof SpIterFolder ) ;
 
 		// This is almost identical to InsidePolicy_AfterComponents, but
 		// if an SpIterFolder is found in this scope, it is an illegal
 		// insertion.
 
-		SpItem lastComp = null;
-		Enumeration children = parent.children();
+		SpItem lastComp = null ;
+		Enumeration children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement();
+			SpItem child = ( SpItem )children.nextElement() ;
 			if( child instanceof SpObsComp )
-				lastComp = child;
+				lastComp = child ;
 			else if( child instanceof SpIterFolder ) // ILLEGAL, there's already an IF in this scope.
-				return null;
+				return null ;
 		}
 
 		if( lastComp == null )
-			return new SpInsertInfo( INS_INSIDE , parent );
+			return new SpInsertInfo( INS_INSIDE , parent ) ;
 		else
-			return new SpInsertInfo( INS_AFTER , lastComp );
+			return new SpInsertInfo( INS_AFTER , lastComp ) ;
 	}
 
 }
@@ -103,28 +109,28 @@ final class InsidePolicy_IteratorComp extends InsertPolicy
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( ( newItem instanceof SpIterComp ) || ( newItem instanceof SpNote ) );
-		Assert.notFalse( ( parent instanceof SpIterComp ) || ( parent instanceof SpIterFolder ) );
+		Assert.notFalse( ( newItem instanceof SpIterComp ) || ( newItem instanceof SpNote ) ) ;
+		Assert.notFalse( ( parent instanceof SpIterComp ) || ( parent instanceof SpIterFolder ) ) ;
 
 		// First, don't allow nesting inside of "Observe" iterators.
 		if( parent instanceof SpIterObserveBase )
-			return null;
+			return null ;
 
 		// Make sure that the newItem isn't already the parent of parent.
 		// In other words, prevent moving a parent down to be a child of one
 		// of its own children...
 		if( parent instanceof SpIterComp )
 		{
-			SpItem temp = parent;
+			SpItem temp = parent ;
 			while( ( temp != null ) && ( temp instanceof SpIterComp ) )
 			{
 				if( temp == newItem )
-					return null;
+					return null ;
 
-				temp = temp.parent();
+				temp = temp.parent() ;
 			}
 		}
-		return new SpInsertInfo( INS_INSIDE , parent );
+		return new SpInsertInfo( INS_INSIDE , parent ) ;
 	}
 
 }
@@ -137,35 +143,35 @@ final class InsidePolicy_LibraryFolder extends InsertPolicy
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( newItem instanceof SpLibraryFolder );
-		Assert.notFalse( ( parent instanceof SpLibraryFolder ) || ( parent instanceof SpLibrary ) );
+		Assert.notFalse( newItem instanceof SpLibraryFolder ) ;
+		Assert.notFalse( ( parent instanceof SpLibraryFolder ) || ( parent instanceof SpLibrary ) ) ;
 
 		if( parent instanceof SpLibraryFolder )
 		{
 			// Make sure that the newItem isn't already the parent of parent.
 			// In other words, prevent moving a parent down to be a child of one
 			// of its own children...
-			SpItem temp = parent;
+			SpItem temp = parent ;
 			while( ( temp != null ) && ( temp instanceof SpLibraryFolder ) )
 			{
 				if( temp == newItem )
-					return null;
+					return null ;
 
-				temp = temp.parent();
+				temp = temp.parent() ;
 			}
 
 			// Can't insert a library folder inside a library folder that
 			// contains anything but library folders (or notes).
-			temp = parent.child();
+			temp = parent.child() ;
 			while( temp != null )
 			{
 				if( !( temp instanceof SpLibraryFolder ) && !( temp instanceof SpNote ) )
-					return null;
+					return null ;
 				
-				temp = temp.next();
+				temp = temp.next() ;
 			}
 		}
-		return new SpInsertInfo( INS_INSIDE , parent );
+		return new SpInsertInfo( INS_INSIDE , parent ) ;
 	}
 }
 
@@ -179,29 +185,29 @@ final class InsidePolicy_LibraryFolder extends InsertPolicy
 final class InsidePolicy_ItemIntoLibraryFolder extends InsertPolicy
 {
 
-	private InsertPolicy _policy;
+	private InsertPolicy _policy ;
 
 	public InsidePolicy_ItemIntoLibraryFolder( InsertPolicy policy )
 	{
-		_policy = policy;
+		_policy = policy ;
 	}
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( parent instanceof SpLibraryFolder );
+		Assert.notFalse( parent instanceof SpLibraryFolder ) ;
 
 		// Make sure there aren't any library folders in this folder.
-		SpItem temp = parent.child();
+		SpItem temp = parent.child() ;
 		while( temp != null )
 		{
 			if( temp instanceof SpLibraryFolder )
-				return null;
+				return null ;
 
-			temp = temp.next();
+			temp = temp.next() ;
 		}
 
 		// Delegate to the other policy
-		return _policy.evalInsert( newItem , parent );
+		return _policy.evalInsert( newItem , parent ) ;
 	}
 }
 
@@ -212,8 +218,8 @@ final class InsidePolicy_Component extends InsertPolicy
 {
 	public SpInsertInfo evalInsert( SpItem newChild , SpItem parent )
 	{
-		SpObsComp oc = SpTreeMan.findConflictingObsComp( parent , ( SpObsComp )newChild );
-		return new SpInsertInfo( INS_INSIDE , parent , oc );
+		SpObsComp oc = SpTreeMan.findConflictingObsComp( parent , ( SpObsComp )newChild ) ;
+		return new SpInsertInfo( INS_INSIDE , parent , oc ) ;
 	}
 }
 
@@ -227,15 +233,15 @@ final class InsidePolicy_IntoLink extends InsertPolicy
 {
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( parent instanceof SpObsLink );
-		SpObsLink obsLink = ( SpObsLink )parent;
+		Assert.notFalse( parent instanceof SpObsLink ) ;
+		SpObsLink obsLink = ( SpObsLink )parent ;
 
-		SpItem child = obsLink.child();
+		SpItem child = obsLink.child() ;
 		if( child == null )
-			return null;
-		Assert.notFalse( child instanceof SpObs );
+			return null ;
+		Assert.notFalse( child instanceof SpObs ) ;
 
-		return SpTreeMan.doEvalInsertInside( newItem , child );
+		return SpTreeMan.doEvalInsertInside( newItem , child ) ;
 	}
 }
 
@@ -248,16 +254,16 @@ final class InsidePolicy_ObsIntoLink extends InsertPolicy
 
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		Assert.notFalse( parent instanceof SpObsLink );
-		Assert.notFalse( newItem instanceof SpObs );
+		Assert.notFalse( parent instanceof SpObsLink ) ;
+		Assert.notFalse( newItem instanceof SpObs ) ;
 
-		SpObsLink obsLink = ( SpObsLink )parent;
+		SpObsLink obsLink = ( SpObsLink )parent ;
 
-		SpItem child = obsLink.child();
+		SpItem child = obsLink.child() ;
 		if( child != null )
-			return null;
+			return null ;
 
-		return new SpInsertInfo( INS_INSIDE , parent );
+		return new SpInsertInfo( INS_INSIDE , parent ) ;
 	}
 
 }
@@ -269,7 +275,7 @@ final class InsidePolicy_Basic extends InsertPolicy
 {
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
-		return new SpInsertInfo( INS_INSIDE , parent );
+		return new SpInsertInfo( INS_INSIDE , parent ) ;
 	}
 }
 
@@ -284,17 +290,17 @@ final class AfterPolicy_AfterComponents extends InsertPolicy
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem sibling )
 	{
 		// Find the end of the components
-		SpItem last = sibling;
+		SpItem last = sibling ;
 		while( ( sibling instanceof SpObsComp ) || ( sibling instanceof SpNote ) )
 		{
-			last = sibling;
-			sibling = sibling.next();
+			last = sibling ;
+			sibling = sibling.next() ;
 		}
 
 		if( sibling instanceof SpIterFolder )
-			last = sibling;
+			last = sibling ;
 
-		return new SpInsertInfo( INS_AFTER , last );
+		return new SpInsertInfo( INS_AFTER , last ) ;
 	}
 }
 
@@ -309,17 +315,17 @@ final class AfterPolicy_Component extends InsertPolicy
 		// where it would be illegal to place an observation component.
 		if( sibling instanceof SpNote )
 		{
-			SpItem prev = sibling;
+			SpItem prev = sibling ;
 			while( ( prev != null ) && ( prev instanceof SpNote ) )
-				prev = prev.prev();
+				prev = prev.prev() ;
 
 			if( ( prev != null ) && !( prev instanceof SpObsComp ) )
-				return null;
+				return null ;
 		}
 
-		SpObsComp oc;
-		oc = SpTreeMan.findConflictingObsComp( sibling.parent() , ( SpObsComp )newItem );
-		return new SpInsertInfo( INS_AFTER , sibling , oc );
+		SpObsComp oc ;
+		oc = SpTreeMan.findConflictingObsComp( sibling.parent() , ( SpObsComp )newItem ) ;
+		return new SpInsertInfo( INS_AFTER , sibling , oc ) ;
 	}
 }
 
@@ -330,7 +336,7 @@ final class AfterPolicy_Basic extends InsertPolicy
 {
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem sibling )
 	{
-		return new SpInsertInfo( INS_AFTER , sibling );
+		return new SpInsertInfo( INS_AFTER , sibling ) ;
 	}
 }
 
@@ -347,234 +353,234 @@ final class AfterPolicy_Basic extends InsertPolicy
 public final class SpTreeMan implements SpInsertConstants
 {
 
-	private static Hashtable _insertInside = new Hashtable();
+	private static Hashtable<String,InsertPolicy> _insertInside = new Hashtable<String,InsertPolicy>() ;
 
-	private static Hashtable _insertAfter = new Hashtable();
+	private static Hashtable<String,InsertPolicy> _insertAfter = new Hashtable<String,InsertPolicy>() ;
 
 	static
 	{
-		InsidePolicy_ItemIntoLibraryFolder libraryPolicy;
-		InsertPolicy ip;
+		InsidePolicy_ItemIntoLibraryFolder libraryPolicy ;
+		InsertPolicy ip ;
 
 		// ======= Insert inside (item,parent) =======
 
-		ip = new InsidePolicy_AfterComponents();
-		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip );
+		ip = new InsidePolicy_AfterComponents() ;
+		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip ) ;
 
 		// OR Folder (for OMP project)
 		// Note that for the time being "fo" (Obs Folders) is used for
 		// AND folders and "og" (Obs Groups) is used for MSB folders
 		// added by MFO (06 July 2001)
-		_insertInside.put( "of,pr" , ip );
-		_insertInside.put( "of,pl" , ip );
-		_insertInside.put( "of,p1" , ip );
-		_insertInside.put( "of,lf" , libraryPolicy );
+		_insertInside.put( "of,pr" , ip ) ;
+		_insertInside.put( "of,pl" , ip ) ;
+		_insertInside.put( "of,p1" , ip ) ;
+		_insertInside.put( "of,lf" , libraryPolicy ) ;
 
 		// Survey components can be inserted either within MSBs or within
 		// root items
-		_insertInside.put( "sc,pr" , ip );
-		_insertInside.put( "sc,pl" , ip );
-		_insertInside.put( "sc,p1" , ip );
-		_insertInside.put( "sc,og" , ip );
-		_insertInside.put( "sc,of" , ip );
-		_insertInside.put( "sc,fo" , ip );
-		_insertInside.put( "sc,lf" , libraryPolicy );
+		_insertInside.put( "sc,pr" , ip ) ;
+		_insertInside.put( "sc,pl" , ip ) ;
+		_insertInside.put( "sc,p1" , ip ) ;
+		_insertInside.put( "sc,og" , ip ) ;
+		_insertInside.put( "sc,of" , ip ) ;
+		_insertInside.put( "sc,fo" , ip ) ;
+		_insertInside.put( "sc,lf" , libraryPolicy ) ;
 
 		// Inserting Obs Folders
-		_insertInside.put( "fo,pr" , ip );
-		_insertInside.put( "fo,pl" , ip );
-		_insertInside.put( "fo,p1" , ip );
-		_insertInside.put( "fo,of" , ip ); // MFO
-		_insertInside.put( "fo,sc" , ip ); // SDW
-		_insertInside.put( "fo,lf" , libraryPolicy );
+		_insertInside.put( "fo,pr" , ip ) ;
+		_insertInside.put( "fo,pl" , ip ) ;
+		_insertInside.put( "fo,p1" , ip ) ;
+		_insertInside.put( "fo,of" , ip ) ; // MFO
+		_insertInside.put( "fo,sc" , ip ) ; // SDW
+		_insertInside.put( "fo,lf" , libraryPolicy ) ;
 
 		// Inserting Obs Groups
-		_insertInside.put( "og,pr" , ip );
-		_insertInside.put( "og,pl" , ip );
-		_insertInside.put( "og,p1" , ip );
-		_insertInside.put( "og,of" , ip ); // MFO
-		_insertInside.put( "og,fo" , ip );
-		_insertInside.put( "og,sc" , ip ); // SDW
-		_insertInside.put( "og,lf" , libraryPolicy );
+		_insertInside.put( "og,pr" , ip ) ;
+		_insertInside.put( "og,pl" , ip ) ;
+		_insertInside.put( "og,p1" , ip ) ;
+		_insertInside.put( "og,of" , ip ) ; // MFO
+		_insertInside.put( "og,fo" , ip ) ;
+		_insertInside.put( "og,sc" , ip ) ; // SDW
+		_insertInside.put( "og,lf" , libraryPolicy ) ;
 
 		// Inserting Observations
-		_insertInside.put( "ob,pr" , ip );
-		_insertInside.put( "ob,pl" , ip );
-		_insertInside.put( "ob,p1" , ip );
-		_insertInside.put( "ob,of" , ip ); // MFO
-		_insertInside.put( "ob,fo" , ip );
-		_insertInside.put( "ob,og" , ip );
-		_insertInside.put( "ob,sc" , ip );
-		_insertInside.put( "ob,lf" , libraryPolicy );
+		_insertInside.put( "ob,pr" , ip ) ;
+		_insertInside.put( "ob,pl" , ip ) ;
+		_insertInside.put( "ob,p1" , ip ) ;
+		_insertInside.put( "ob,of" , ip ) ; // MFO
+		_insertInside.put( "ob,fo" , ip ) ;
+		_insertInside.put( "ob,og" , ip ) ;
+		_insertInside.put( "ob,sc" , ip ) ;
+		_insertInside.put( "ob,lf" , libraryPolicy ) ;
 
 		// Inserting Obs Links
-		_insertInside.put( "li,pr" , ip );
-		_insertInside.put( "li,pl" , ip );
-		_insertInside.put( "li,p1" , ip );
-		_insertInside.put( "li,of" , ip ); // MFO
-		_insertInside.put( "li,fo" , ip );
-		_insertInside.put( "li,og" , ip );
-		_insertInside.put( "li,lf" , libraryPolicy );
+		_insertInside.put( "li,pr" , ip ) ;
+		_insertInside.put( "li,pl" , ip ) ;
+		_insertInside.put( "li,p1" , ip ) ;
+		_insertInside.put( "li,of" , ip ) ; // MFO
+		_insertInside.put( "li,fo" , ip ) ;
+		_insertInside.put( "li,og" , ip ) ;
+		_insertInside.put( "li,lf" , libraryPolicy ) ;
 
 		// Inserting Iterator Folders
-		ip = new InsidePolicy_IteratorFolder();
-		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip );
-		_insertInside.put( "if,pr" , ip );
-		_insertInside.put( "if,pl" , ip );
-		_insertInside.put( "if,p1" , ip );
-		_insertInside.put( "if,of" , ip ); // MFO
-		_insertInside.put( "if,fo" , ip );
-		_insertInside.put( "if,ob" , ip );
-		_insertInside.put( "if,og" , ip );
-		_insertInside.put( "if,lf" , libraryPolicy );
+		ip = new InsidePolicy_IteratorFolder() ;
+		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip ) ;
+		_insertInside.put( "if,pr" , ip ) ;
+		_insertInside.put( "if,pl" , ip ) ;
+		_insertInside.put( "if,p1" , ip ) ;
+		_insertInside.put( "if,of" , ip ) ; // MFO
+		_insertInside.put( "if,fo" , ip ) ;
+		_insertInside.put( "if,ob" , ip ) ;
+		_insertInside.put( "if,og" , ip ) ;
+		_insertInside.put( "if,lf" , libraryPolicy ) ;
 
 		// Inserting Iterator Components
-		ip = new InsidePolicy_IteratorComp();
-		_insertInside.put( "ic,if" , ip );
-		_insertInside.put( "ic,ic" , ip );
-		_insertInside.put( "no,ic" , ip );
+		ip = new InsidePolicy_IteratorComp() ;
+		_insertInside.put( "ic,if" , ip ) ;
+		_insertInside.put( "ic,ic" , ip ) ;
+		_insertInside.put( "no,ic" , ip ) ;
 
 		// Inserting Components
-		ip = new InsidePolicy_Component();
-		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip );
-		_insertInside.put( "oc,pr" , ip );
-		_insertInside.put( "oc,pl" , ip );
-		_insertInside.put( "oc,p1" , ip );
-		_insertInside.put( "oc,of" , ip ); // MFO
-		_insertInside.put( "oc,fo" , ip );
-		_insertInside.put( "oc,ob" , ip );
-		_insertInside.put( "oc,og" , ip );
-		_insertInside.put( "oc,lf" , libraryPolicy );
+		ip = new InsidePolicy_Component() ;
+		libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip ) ;
+		_insertInside.put( "oc,pr" , ip ) ;
+		_insertInside.put( "oc,pl" , ip ) ;
+		_insertInside.put( "oc,p1" , ip ) ;
+		_insertInside.put( "oc,of" , ip ) ; // MFO
+		_insertInside.put( "oc,fo" , ip ) ;
+		_insertInside.put( "oc,ob" , ip ) ;
+		_insertInside.put( "oc,og" , ip ) ;
+		_insertInside.put( "oc,lf" , libraryPolicy ) ;
 
 		// Inserting inside links
-		ip = new InsidePolicy_IntoLink();
-		_insertInside.put( "oc,li" , ip );
-		_insertInside.put( "if,li" , ip );
-		_insertInside.put( "ob,li" , new InsidePolicy_ObsIntoLink() );
+		ip = new InsidePolicy_IntoLink() ;
+		_insertInside.put( "oc,li" , ip ) ;
+		_insertInside.put( "if,li" , ip ) ;
+		_insertInside.put( "ob,li" , new InsidePolicy_ObsIntoLink() ) ;
 
 		// Inserting Library Folders
-		ip = new InsidePolicy_LibraryFolder();
-		_insertInside.put( "lf,lb" , ip );
-		_insertInside.put( "lf,lf" , ip );
+		ip = new InsidePolicy_LibraryFolder() ;
+		_insertInside.put( "lf,lb" , ip ) ;
+		_insertInside.put( "lf,lf" , ip ) ;
 
 		// Notes
-		ip = new InsidePolicy_Basic();
-		_insertInside.put( "no,pr" , ip );
-		_insertInside.put( "no,pl" , ip );
-		_insertInside.put( "no,p1" , ip );
-		_insertInside.put( "no,lb" , ip );
-		_insertInside.put( "no,lf" , ip );
-		_insertInside.put( "no,of" , ip ); // MFO
-		_insertInside.put( "no,fo" , ip );
-		_insertInside.put( "no,ob" , ip );
-		_insertInside.put( "no,li" , ip );
-		_insertInside.put( "no,if" , ip );
-		_insertInside.put( "no,og" , ip );
-		_insertInside.put( "no,sc" , ip );
-		// also _insertInside.put("no,ic", ip); defined above to use
+		ip = new InsidePolicy_Basic() ;
+		_insertInside.put( "no,pr" , ip ) ;
+		_insertInside.put( "no,pl" , ip ) ;
+		_insertInside.put( "no,p1" , ip ) ;
+		_insertInside.put( "no,lb" , ip ) ;
+		_insertInside.put( "no,lf" , ip ) ;
+		_insertInside.put( "no,of" , ip ) ; // MFO
+		_insertInside.put( "no,fo" , ip ) ;
+		_insertInside.put( "no,ob" , ip ) ;
+		_insertInside.put( "no,li" , ip ) ;
+		_insertInside.put( "no,if" , ip ) ;
+		_insertInside.put( "no,og" , ip ) ;
+		_insertInside.put( "no,sc" , ip ) ;
+		// also _insertInside.put("no,ic", ip) ; defined above to use
 		// the "InsidePolicy_IteratorComp".
 
 		// ======= Insert after (item,sibling) =======
 
-		ip = new AfterPolicy_AfterComponents();
+		ip = new AfterPolicy_AfterComponents() ;
 
 		// OR Folder (for OMP project)
 		// Note that for the time being "fo" (Obs Folders) is used for
 		// AND folders and "og" (Obs Groups) is used for MSB folders
 		// added by MFO (06 July 2001)
-		_insertAfter.put( "of,of" , ip );
-		_insertAfter.put( "of,fo" , ip );
-		_insertAfter.put( "of,ob" , ip );
-		_insertAfter.put( "of,li" , ip );
-		_insertAfter.put( "of,oc" , ip );
-		_insertAfter.put( "of,no" , ip );
-		_insertAfter.put( "of,if" , ip );
-		_insertAfter.put( "of,og" , ip );
+		_insertAfter.put( "of,of" , ip ) ;
+		_insertAfter.put( "of,fo" , ip ) ;
+		_insertAfter.put( "of,ob" , ip ) ;
+		_insertAfter.put( "of,li" , ip ) ;
+		_insertAfter.put( "of,oc" , ip ) ;
+		_insertAfter.put( "of,no" , ip ) ;
+		_insertAfter.put( "of,if" , ip ) ;
+		_insertAfter.put( "of,og" , ip ) ;
 
 		// Obs Folders
-		_insertAfter.put( "fo,of" , ip ); // MFO
-		_insertAfter.put( "fo,fo" , ip );
-		_insertAfter.put( "fo,ob" , ip );
-		_insertAfter.put( "fo,li" , ip );
-		_insertAfter.put( "fo,oc" , ip );
-		_insertAfter.put( "fo,no" , ip );
-		_insertAfter.put( "fo,if" , ip );
-		_insertAfter.put( "fo,og" , ip );
+		_insertAfter.put( "fo,of" , ip ) ; // MFO
+		_insertAfter.put( "fo,fo" , ip ) ;
+		_insertAfter.put( "fo,ob" , ip ) ;
+		_insertAfter.put( "fo,li" , ip ) ;
+		_insertAfter.put( "fo,oc" , ip ) ;
+		_insertAfter.put( "fo,no" , ip ) ;
+		_insertAfter.put( "fo,if" , ip ) ;
+		_insertAfter.put( "fo,og" , ip ) ;
 
 		// Obs Groups
-		_insertAfter.put( "og,of" , ip ); // MFO
-		_insertAfter.put( "og,fo" , ip );
-		_insertAfter.put( "og,ob" , ip );
-		_insertAfter.put( "og,li" , ip );
-		_insertAfter.put( "og,oc" , ip );
-		_insertAfter.put( "og,no" , ip );
-		_insertAfter.put( "og,if" , ip );
-		_insertAfter.put( "og,og" , ip );
-		_insertAfter.put( "og,sc" , ip );
+		_insertAfter.put( "og,of" , ip ) ; // MFO
+		_insertAfter.put( "og,fo" , ip ) ;
+		_insertAfter.put( "og,ob" , ip ) ;
+		_insertAfter.put( "og,li" , ip ) ;
+		_insertAfter.put( "og,oc" , ip ) ;
+		_insertAfter.put( "og,no" , ip ) ;
+		_insertAfter.put( "og,if" , ip ) ;
+		_insertAfter.put( "og,og" , ip ) ;
+		_insertAfter.put( "og,sc" , ip ) ;
 
 		// Survey Container
-		_insertAfter.put( "sc,of" , ip ); // MFO
-		_insertAfter.put( "sc,fo" , ip );
-		_insertAfter.put( "sc,ob" , ip );
-		_insertAfter.put( "sc,og" , ip );
-		_insertAfter.put( "sc,li" , ip );
-		_insertAfter.put( "sc,oc" , ip );
-		_insertAfter.put( "sc,no" , ip );
-		_insertAfter.put( "sc,if" , ip );
-		_insertAfter.put( "sc,sc" , ip );
+		_insertAfter.put( "sc,of" , ip ) ; // MFO
+		_insertAfter.put( "sc,fo" , ip ) ;
+		_insertAfter.put( "sc,ob" , ip ) ;
+		_insertAfter.put( "sc,og" , ip ) ;
+		_insertAfter.put( "sc,li" , ip ) ;
+		_insertAfter.put( "sc,oc" , ip ) ;
+		_insertAfter.put( "sc,no" , ip ) ;
+		_insertAfter.put( "sc,if" , ip ) ;
+		_insertAfter.put( "sc,sc" , ip ) ;
 
 		// Observations
-		_insertAfter.put( "ob,of" , ip ); // MFO
-		_insertAfter.put( "ob,fo" , ip );
-		_insertAfter.put( "ob,ob" , ip );
-		_insertAfter.put( "ob,li" , ip );
-		_insertAfter.put( "ob,oc" , ip );
-		_insertAfter.put( "ob,no" , ip );
-		_insertAfter.put( "ob,if" , ip );
-		_insertAfter.put( "ob,og" , ip );
-		_insertAfter.put( "ob,sc" , ip );
+		_insertAfter.put( "ob,of" , ip ) ; // MFO
+		_insertAfter.put( "ob,fo" , ip ) ;
+		_insertAfter.put( "ob,ob" , ip ) ;
+		_insertAfter.put( "ob,li" , ip ) ;
+		_insertAfter.put( "ob,oc" , ip ) ;
+		_insertAfter.put( "ob,no" , ip ) ;
+		_insertAfter.put( "ob,if" , ip ) ;
+		_insertAfter.put( "ob,og" , ip ) ;
+		_insertAfter.put( "ob,sc" , ip ) ;
 
 		// Obs Links
-		_insertAfter.put( "li,of" , ip ); // MFO
-		_insertAfter.put( "li,fo" , ip );
-		_insertAfter.put( "li,ob" , ip );
-		_insertAfter.put( "li,li" , ip );
-		_insertAfter.put( "li,oc" , ip );
-		_insertAfter.put( "li,no" , ip );
-		_insertAfter.put( "li,if" , ip );
-		_insertAfter.put( "li,og" , ip );
+		_insertAfter.put( "li,of" , ip ) ; // MFO
+		_insertAfter.put( "li,fo" , ip ) ;
+		_insertAfter.put( "li,ob" , ip ) ;
+		_insertAfter.put( "li,li" , ip ) ;
+		_insertAfter.put( "li,oc" , ip ) ;
+		_insertAfter.put( "li,no" , ip ) ;
+		_insertAfter.put( "li,if" , ip ) ;
+		_insertAfter.put( "li,og" , ip ) ;
 
 		// Iterator Folders
-		_insertAfter.put( "if,oc" , ip );
-		_insertAfter.put( "if,no" , ip );
+		_insertAfter.put( "if,oc" , ip ) ;
+		_insertAfter.put( "if,no" , ip ) ;
 
-		ip = new AfterPolicy_Basic();
+		ip = new AfterPolicy_Basic() ;
 
 		// Iterator Components
-		_insertAfter.put( "ic,ic" , ip );
-		_insertAfter.put( "ic,no" , ip );
+		_insertAfter.put( "ic,ic" , ip ) ;
+		_insertAfter.put( "ic,no" , ip ) ;
 
 		// Library Folders
-		_insertAfter.put( "lf,lf" , ip );
-		_insertAfter.put( "lf,no" , ip );
+		_insertAfter.put( "lf,lf" , ip ) ;
+		_insertAfter.put( "lf,no" , ip ) ;
 
 		// Notes
-		_insertAfter.put( "no,of" , ip ); // MFO
-		_insertAfter.put( "no,fo" , ip );
-		_insertAfter.put( "no,og" , ip );
-		_insertAfter.put( "no,ob" , ip );
-		_insertAfter.put( "no,lf" , ip );
-		_insertAfter.put( "no,li" , ip );
-		_insertAfter.put( "no,oc" , ip );
-		_insertAfter.put( "no,ic" , ip );
-		_insertAfter.put( "no,no" , ip );
-		_insertAfter.put( "no,pr" , ip ); // SdW
+		_insertAfter.put( "no,of" , ip ) ; // MFO
+		_insertAfter.put( "no,fo" , ip ) ;
+		_insertAfter.put( "no,og" , ip ) ;
+		_insertAfter.put( "no,ob" , ip ) ;
+		_insertAfter.put( "no,lf" , ip ) ;
+		_insertAfter.put( "no,li" , ip ) ;
+		_insertAfter.put( "no,oc" , ip ) ;
+		_insertAfter.put( "no,ic" , ip ) ;
+		_insertAfter.put( "no,no" , ip ) ;
+		_insertAfter.put( "no,pr" , ip ) ; // SdW
 
-		ip = new AfterPolicy_Component();
+		ip = new AfterPolicy_Component() ;
 
 		// Components
-		_insertAfter.put( "oc,oc" , ip );
-		_insertAfter.put( "oc,no" , ip );
+		_insertAfter.put( "oc,oc" , ip ) ;
+		_insertAfter.put( "oc,no" , ip ) ;
 	}
 
 	/**
@@ -593,31 +599,31 @@ public final class SpTreeMan implements SpInsertConstants
 		// See if this obs comp must be unique a scope.
 		// If not, nothing can conflict with it.
 		if( !spObsComp.mustBeUnique() )
-			return null;
+			return null ;
 
 		// Evaluate the scope to see whether a component of the given subtype
 		// already exists at this scope.
-		SpType type = spObsComp.type();
-		SpObsComp oc = SpTreeMan.findObsCompSubtype( parent , type );
+		SpType type = spObsComp.type() ;
+		SpObsComp oc = SpTreeMan.findObsCompSubtype( parent , type ) ;
 
 		// If the component is the same object (identical object ref) as the
 		// one being inserted, then there is no conflict.
 		if( oc == spObsComp )
-			return null;
+			return null ;
 
 		// If there already is a component of this exact subtype, then there
 		// is a conflict.
 		if( oc != null )
-			return oc;
+			return oc ;
 
 		// Now we know there was no component with the same subtype as the
 		// new one. Unless the new component is an instrument, and there
 		// is already an instrument in this scope, then there is no conflict.
 
 		if( spObsComp instanceof SpInstObsComp )
-			return SpTreeMan.findInstrumentInContext( parent );
+			return SpTreeMan.findInstrumentInContext( parent ) ;
 
-		return null;
+		return null ;
 	}
 
 	/**
@@ -631,23 +637,23 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpObsComp findObsCompSubtype( SpItem parent , SpType type )
 	{
-		Enumeration children = parent.children();
+		Enumeration children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement();
+			SpItem child = ( SpItem )children.nextElement() ;
 
 			if( child instanceof SpObsComp )
 			{
-				SpObsComp oc = ( SpObsComp )child;
+				SpObsComp oc = ( SpObsComp )child ;
 				if( oc.type().equals( type ) )
-					return oc;
+					return oc ;
 			}
 			else
 			{
-				continue;
+				continue ;
 			}
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -656,18 +662,18 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpTelescopeObsComp findTargetListInContext( SpItem spItem )
 	{
-		SpTelescopeObsComp toc = null;
-		Enumeration e = spItem.children();
+		SpTelescopeObsComp toc = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpTelescopeObsComp )
 			{
-				toc = ( SpTelescopeObsComp )child;
-				break;
+				toc = ( SpTelescopeObsComp )child ;
+				break ;
 			}
 		}
-		return toc;
+		return toc ;
 	}
 
 	/**
@@ -676,18 +682,18 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpSurveyObsComp findSurveyCompInContext( SpItem spItem )
 	{
-		SpSurveyObsComp soc = null;
-		Enumeration e = spItem.children();
+		SpSurveyObsComp soc = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpSurveyObsComp )
 			{
-				soc = ( SpSurveyObsComp )child;
-				break;
+				soc = ( SpSurveyObsComp )child ;
+				break ;
 			}
 		}
-		return soc;
+		return soc ;
 	}
 
 	/**
@@ -696,38 +702,38 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpInstObsComp findInstrumentInContext( SpItem spItem )
 	{
-		SpInstObsComp ioc = null;
-		Enumeration e = spItem.children();
+		SpInstObsComp ioc = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpInstObsComp )
 			{
-				ioc = ( SpInstObsComp )child;
-				break;
+				ioc = ( SpInstObsComp )child ;
+				break ;
 			}
 		}
-		return ioc;
+		return ioc ;
 	}
 
 	public static SpNote findObserverNoteInContext( SpItem spItem )
 	{
-		SpNote note = null;
-		Enumeration e = spItem.children();
+		SpNote note = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpNote )
 			{
-				SpNote tmp = ( SpNote )child;
+				SpNote tmp = ( SpNote )child ;
 				if( tmp.isObserveInstruction() )
 				{
-					note = tmp;
-					break;
+					note = tmp ;
+					break ;
 				}
 			}
 		}
-		return note;
+		return note ;
 	}
 
 	/**
@@ -735,13 +741,13 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpItem findRootItem( SpItem spItem )
 	{
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 		while( parent != null )
 		{
-			spItem = parent;
-			parent = spItem.parent();
+			spItem = parent ;
+			parent = spItem.parent() ;
 		}
-		return spItem;
+		return spItem ;
 	}
 
 	/**
@@ -754,27 +760,27 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpTelescopeObsComp findTargetList( SpItem spItem )
 	{
 		if( spItem instanceof SpTelescopeObsComp )
-			return ( SpTelescopeObsComp )spItem;
+			return ( SpTelescopeObsComp )spItem ;
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpTelescopeObsComp toc;
+		SpTelescopeObsComp toc ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 				
-			toc = findTargetListInContext( parent );
+			toc = findTargetListInContext( parent ) ;
 		}
 		else
 		{
-			toc = findTargetListInContext( spItem );
+			toc = findTargetListInContext( spItem ) ;
 		}
 
 		if( ( toc == null ) && ( parent != null ) )
-			return findTargetList( parent );
+			return findTargetList( parent ) ;
 
-		return toc;
+		return toc ;
 	}
 
 	/**
@@ -787,28 +793,28 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpSurveyObsComp findSurveyComp( SpItem spItem )
 	{
 		if( spItem instanceof SpSurveyObsComp )
-			return ( SpSurveyObsComp )spItem;
+			return ( SpSurveyObsComp )spItem ;
 
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpSurveyObsComp soc;
+		SpSurveyObsComp soc ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 
-			soc = findSurveyCompInContext( parent );
+			soc = findSurveyCompInContext( parent ) ;
 		}
 		else
 		{
-			soc = findSurveyCompInContext( spItem );
+			soc = findSurveyCompInContext( spItem ) ;
 		}
 
 		if( ( soc == null ) && ( parent != null ) )
-			return findSurveyComp( parent );
+			return findSurveyComp( parent ) ;
 
-		return soc;
+		return soc ;
 	}
 
 	/**
@@ -821,33 +827,33 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpInstObsComp findInstrument( SpItem spItem )
 	{
 		if( spItem instanceof SpInstObsComp )
-			return ( SpInstObsComp )spItem;
+			return ( SpInstObsComp )spItem ;
 
-		SpItem parent = spItem.parent();
-		SpItem searchItem;
+		SpItem parent = spItem.parent() ;
+		SpItem searchItem ;
 
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
-			searchItem = parent;
+			searchItem = parent ;
 			if( parent == null )
-				return null;
+				return null ;
 		}
 		else
 		{
-			searchItem = spItem;
+			searchItem = spItem ;
 		}
 
-		Enumeration children = searchItem.children();
+		Enumeration children = searchItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement();
+			SpItem child = ( SpItem )children.nextElement() ;
 			if( child instanceof SpInstObsComp )
-				return ( SpInstObsComp )child;
+				return ( SpInstObsComp )child ;
 		}
 
 		if( parent != null )
-			return findInstrument( parent );
-		return null;
+			return findInstrument( parent ) ;
+		return null ;
 	}
 
 	/**
@@ -856,9 +862,9 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpObsContextItem findObsContext( SpItem spItem )
 	{
 		while( ( spItem != null ) && !( spItem instanceof SpObsContextItem ) )
-			spItem = spItem.parent();
+			spItem = spItem.parent() ;
 		
-		return ( SpObsContextItem )spItem;
+		return ( SpObsContextItem )spItem ;
 	}
 
 	/**
@@ -869,33 +875,33 @@ public final class SpTreeMan implements SpInsertConstants
 	public static Vector findAllItems( SpItem rootItem , String className )
 	{
 		// Get the class from the className
-		Class c = null;
+		Class c = null ;
 		try
 		{
-			c = Class.forName( className );
+			c = Class.forName( className ) ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Problem instantiating: " + className );
-			System.out.println( ex );
+			System.out.println( "Problem instantiating: " + className ) ;
+			System.out.println( ex ) ;
 		}
 
 		if( c == null )
-			return null;
+			return null ;
 
-		Vector v = new Vector();
+		Vector<SpItem> v = new Vector<SpItem>() ;
 		if( rootItem instanceof SpObsComp )
 		{
-			_findAllItems( rootItem.parent() , c , v );
+			_findAllItems( rootItem.parent() , c , v ) ;
 		}
 		else
 		{
 			if( rootItem.getClass().equals( c ) )
-				v.addElement( rootItem );
+				v.addElement( rootItem ) ;
 
-			_findAllItems( rootItem , c , v );
+			_findAllItems( rootItem , c , v ) ;
 		}
-		return v;
+		return v ;
 	}
 
 	/**
@@ -905,52 +911,52 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static Vector findAllInstances( SpItem rootItem , String name )
 	{
-		Vector v = new Vector();
+		Vector<SpItem> v = new Vector<SpItem>() ;
 		if( name == null || name.length() == 0 )
-			return v;
+			return v ;
 
-		Class c;
+		Class c ;
 		try
 		{
-			c = Class.forName( name );
+			c = Class.forName( name ) ;
 		}
 		catch( ClassNotFoundException ex )
 		{
-			return v;
+			return v ;
 		}
 
 		if( rootItem instanceof SpObsContextItem )
 		{
 			// Start searching from the parent node
-			_findAllInstances( rootItem , c , v );
+			_findAllInstances( rootItem , c , v ) ;
 		}
 		else
 		{
 			if( c.isInstance( rootItem ) )
-				v.addElement( rootItem );
+				v.addElement( rootItem ) ;
 
-			_findAllInstances( rootItem.parent() , c , v );
+			_findAllInstances( rootItem.parent() , c , v ) ;
 		}
-		return v;
+		return v ;
 	}
 
 	//
 	// Find all of the items of the given Class in the scope of the given
     // SpItem.
 	//
-	private static void _findAllInstances( SpItem rootItem , Class c , Vector v )
+	private static void _findAllInstances( SpItem rootItem , Class c , Vector<SpItem> v )
 	{
-		SpItem child = rootItem.child();
+		SpItem child = rootItem.child() ;
 		while( child != null )
 		{
 			if( c.isInstance( child ) )
-				v.addElement( child );
+				v.addElement( child ) ;
 
 			// For efficiency, only recurse if the child has children ...
 			if( child.child() != null )
-				_findAllInstances( child , c , v );
+				_findAllInstances( child , c , v ) ;
 
-			child = child.next();
+			child = child.next() ;
 		}
 	}
 
@@ -958,19 +964,19 @@ public final class SpTreeMan implements SpInsertConstants
 	// Find all of the items of the given Class in the scope of the given
     // SpItem.
 	//
-	private static void _findAllItems( SpItem rootItem , Class c , Vector v )
+	private static void _findAllItems( SpItem rootItem , Class c , Vector<SpItem> v )
 	{
-		SpItem child = rootItem.child();
+		SpItem child = rootItem.child() ;
 		while( child != null )
 		{
 			if( child.getClass().equals( c ) )
-				v.addElement( child );
+				v.addElement( child ) ;
 
 			// For efficiency, only recurse if the child has children ...
 			if( child.child() != null )
-				_findAllItems( child , c , v );
+				_findAllItems( child , c , v ) ;
 
-			child = child.next();
+			child = child.next() ;
 		}
 	}
 
@@ -982,15 +988,15 @@ public final class SpTreeMan implements SpInsertConstants
 	static SpInsertInfo doEvalInsertInside( SpItem newItem , SpItem parent )
 	{
 		if( parent == null )
-			return null;
+			return null ;
 
 		// Is there a definition for this combination?
-		String key = newItem.typeStr() + "," + parent.typeStr();
-		InsertPolicy ip = ( InsertPolicy )_insertInside.get( key );
+		String key = newItem.typeStr() + "," + parent.typeStr() ;
+		InsertPolicy ip = ( InsertPolicy )_insertInside.get( key ) ;
 		if( ip == null )
-			return null;
+			return null ;
 
-		return ip.evalInsert( newItem , parent );
+		return ip.evalInsert( newItem , parent ) ;
 	}
 
 	/**
@@ -1008,8 +1014,8 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpInsertData evalInsertInside( SpItem newItem , SpItem parent )
 	{
-		SpItem[] spItemA = { newItem };
-		return evalInsertInside( spItemA , parent );
+		SpItem[] spItemA = { newItem } ;
+		return evalInsertInside( spItemA , parent ) ;
 	}
 
 	/**
@@ -1031,7 +1037,7 @@ public final class SpTreeMan implements SpInsertConstants
 		for( int i = 0 ; i < newItems.length ; ++i )
 		{
 			if( parent == newItems[ i ] )
-				return null;
+				return null ;
 		}
 
 		// Make sure the parent isn't already the parent of the newItems
@@ -1040,8 +1046,8 @@ public final class SpTreeMan implements SpInsertConstants
 		// to make sure that all the items stay together. They could be
 		// separated otherwise, for instance if the group contains an obs
 		// comp and an obs and is being inserted inside a group.
-		SpInsertInfo spII = doEvalInsertInside( newItems[ newItems.length - 1 ] , parent );
-		return _completeEvalInsert( newItems , spII );
+		SpInsertInfo spII = doEvalInsertInside( newItems[ newItems.length - 1 ] , parent ) ;
+		return _completeEvalInsert( newItems , spII ) ;
 	}
 
 	//
@@ -1050,20 +1056,20 @@ public final class SpTreeMan implements SpInsertConstants
 	static SpInsertInfo doEvalInsertAfter( SpItem newItem , SpItem sibling )
 	{
 		// Is there a definition for this combination?
-		String key = newItem.typeStr() + "," + sibling.typeStr();
-		InsertPolicy ip = ( InsertPolicy )_insertAfter.get( key );
+		String key = newItem.typeStr() + "," + sibling.typeStr() ;
+		InsertPolicy ip = ( InsertPolicy )_insertAfter.get( key ) ;
 		if( ip == null )
-			return null;
+			return null ;
 
 		// Can the newItem legally be placed at the sibling's scope?
-		SpInsertInfo spII;
-		spII = SpTreeMan.doEvalInsertInside( newItem , sibling.parent() );
+		SpInsertInfo spII ;
+		spII = SpTreeMan.doEvalInsertInside( newItem , sibling.parent() ) ;
 		if( spII == null )
-			return null;
+			return null ;
 
 		// See if the new item can be inserted using the insertion policy
 		// found in the first step.
-		return ip.evalInsert( newItem , sibling );
+		return ip.evalInsert( newItem , sibling ) ;
 	}
 
 	/**
@@ -1082,8 +1088,8 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpInsertData evalInsertAfter( SpItem newItem , SpItem sibling )
 	{
-		SpItem[] spItemA = { newItem };
-		return evalInsertAfter( spItemA , sibling );
+		SpItem[] spItemA = { newItem } ;
+		return evalInsertAfter( spItemA , sibling ) ;
 	}
 
 	/**
@@ -1106,7 +1112,7 @@ public final class SpTreeMan implements SpInsertConstants
 		for( int i = 0 ; i < newItems.length ; ++i )
 		{
 			if( sibling == newItems[ i ] )
-				return null;
+				return null ;
 		}
 
 		// Evaluate the insertion of the last item. Work from last to first
@@ -1114,8 +1120,8 @@ public final class SpTreeMan implements SpInsertConstants
 		// separated otherwise, for instance if the group contains an obs
 		// comp and an obs and is being inserted inside a group.
 
-		SpInsertInfo spII = doEvalInsertAfter( newItems[ newItems.length - 1 ] , sibling );
-		return _completeEvalInsert( newItems , spII );
+		SpInsertInfo spII = doEvalInsertAfter( newItems[ newItems.length - 1 ] , sibling ) ;
+		return _completeEvalInsert( newItems , spII ) ;
 	}
 
 	//
@@ -1128,59 +1134,59 @@ public final class SpTreeMan implements SpInsertConstants
 	private static SpInsertData _completeEvalInsert( SpItem[] newItems , SpInsertInfo spII )
 	{
 		if( spII == null )
-			return null;
-		int result = spII.result;
-		SpItem referant = spII.referant;
+			return null ;
+		int result = spII.result ;
+		SpItem referant = spII.referant ;
 
 		// Make sure the referant isn't in the set of newItems. Can't move
 		// to a position relative to an item in the set itself.
 		for( int i = 0 ; i < newItems.length ; ++i )
 		{
 			if( referant == newItems[ i ] )
-				return null;
+				return null ;
 		}
 
-		Vector repV = null; // Vector of replaced items.
+		Vector<SpItem> repV = null ; // Vector of replaced items.
 
 		// If it replaces an existing item, then create the replaced items
 		// vector and add the replaced item to it.
 		if( spII.replaceItem != null )
 		{
-			repV = new Vector();
-			repV.addElement( spII.replaceItem );
+			repV = new Vector<SpItem>() ;
+			repV.addElement( spII.replaceItem ) ;
 		}
 
 		// Now evaluate the remaining items.
 		for( int i = newItems.length - 2 ; i >= 0 ; --i )
 		{
 			if( result == INS_INSIDE )
-				spII = doEvalInsertInside( newItems[ i ] , referant );
+				spII = doEvalInsertInside( newItems[ i ] , referant ) ;
 			else
-				spII = doEvalInsertAfter( newItems[ i ] , referant );
+				spII = doEvalInsertAfter( newItems[ i ] , referant ) ;
 
 			if( spII == null )
-				return null;
+				return null ;
 
 			// Make sure this item would get inserted in the same place ...
 			if( ( result != spII.result ) || ( referant != spII.referant ) )
-				return null;
+				return null ;
 
 			if( spII.replaceItem != null )
 			{
 				if( repV == null )
-					repV = new Vector();
-				repV.addElement( spII.replaceItem );
+					repV = new Vector<SpItem>() ;
+				repV.addElement( spII.replaceItem ) ;
 			}
 		}
 
 		// If there were any replaced items, move them into an array.
-		SpItem[] repA = null;
+		SpItem[] repA = null ;
 		if( repV != null )
 		{
-			repA = new SpItem[ repV.size() ];
+			repA = new SpItem[ repV.size() ] ;
 			for( int i = 0 ; i < repA.length ; ++i )
 			{
-				repA[ i ] = ( SpItem )repV.elementAt( i );
+				repA[ i ] = ( SpItem )repV.elementAt( i ) ;
 			}
 
 			// Now we have to worry that the extracted items array contains
@@ -1188,33 +1194,33 @@ public final class SpTreeMan implements SpInsertConstants
 			// be inserted.) If so, adjust the referant to make it valid.
 			if( result == INS_AFTER )
 			{
-				SpItem parent = referant.parent();
+				SpItem parent = referant.parent() ;
 				validateReferant : while( true )
 				{
 					for( int i = 0 ; i < repA.length ; ++i )
 					{
 						if( referant == repA[ i ] )
 						{
-							referant = referant.prev();
+							referant = referant.prev() ;
 							if( referant == null )
 							{
-								referant = parent;
-								result = INS_INSIDE;
-								break validateReferant;
+								referant = parent ;
+								result = INS_INSIDE ;
+								break validateReferant ;
 							}
 							else
 							{
-								continue validateReferant;
+								continue validateReferant ;
 							}
 						}
 					}
-					break validateReferant;
+					break validateReferant ;
 				}
 			}
 		}
 
 		// Create and return the SpInsertData.
-		return new SpInsertData( result , newItems , referant , repA );
+		return new SpInsertData( result , newItems , referant , repA ) ;
 	}
 
 	/**
@@ -1230,17 +1236,17 @@ public final class SpTreeMan implements SpInsertConstants
 		if( spID.result == INS_INSIDE )
 		{
 			if( spID.replaceItems != null )
-				spID.referant.extract( spID.replaceItems );
+				spID.referant.extract( spID.replaceItems ) ;
 
-			spID.referant.insert( spID.items , null );
+			spID.referant.insert( spID.items , null ) ;
 		}
 		else
 		{
-			SpItem parent = spID.referant.parent();
+			SpItem parent = spID.referant.parent() ;
 			if( spID.replaceItems != null )
-				parent.extract( spID.replaceItems );
+				parent.extract( spID.replaceItems ) ;
 
-			parent.insert( spID.items , spID.referant );
+			parent.insert( spID.items , spID.referant ) ;
 		}
 	}
 
@@ -1254,25 +1260,25 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static void move( SpInsertData spID )
 	{
-		SpItem curParent = spID.items[ 0 ].parent();
-		SpItem newParent;
-		SpItem afterChild;
+		SpItem curParent = spID.items[ 0 ].parent() ;
+		SpItem newParent ;
+		SpItem afterChild ;
 
 		if( spID.result == INS_INSIDE )
 		{
-			newParent = spID.referant;
-			afterChild = null;
+			newParent = spID.referant ;
+			afterChild = null ;
 		}
 		else
 		{
-			newParent = spID.referant.parent();
-			afterChild = spID.referant;
+			newParent = spID.referant.parent() ;
+			afterChild = spID.referant ;
 		}
 
 		if( spID.replaceItems != null )
-			newParent.extract( spID.replaceItems );
+			newParent.extract( spID.replaceItems ) ;
 
-		curParent.move( spID.items , newParent , afterChild );
+		curParent.move( spID.items , newParent , afterChild ) ;
 	}
 
 	/**
@@ -1280,14 +1286,14 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static boolean evalExtract( SpItem spItem )
 	{
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 		if( parent == null )
-			return false;
+			return false ;
 
 		// So far there's only one illegal case.
 		if( ( spItem instanceof SpObs ) && ( parent instanceof SpObsLink ) )
-			return false;
-		return true;
+			return false ;
+		return true ;
 	}
 
 	/**
@@ -1299,9 +1305,9 @@ public final class SpTreeMan implements SpInsertConstants
 		for( int i = 0 ; i < spItems.length ; ++i )
 		{
 			if( !evalExtract( spItems[ i ] ) )
-				return false;
+				return false ;
 		}
-		return true;
+		return true ;
 	}
 
 	/**
@@ -1310,9 +1316,9 @@ public final class SpTreeMan implements SpInsertConstants
 	public static boolean extract( SpItem spItem )
 	{
 		if( !evalExtract( spItem ) )
-			return false;
-		spItem.extract();
-		return true;
+			return false ;
+		spItem.extract() ;
+		return true ;
 	}
 
 	/**
@@ -1321,11 +1327,11 @@ public final class SpTreeMan implements SpInsertConstants
 	public static boolean extract( SpItem[] spItems )
 	{
 		if( !evalExtract( spItems ) )
-			return false;
+			return false ;
 
-		SpItem parent = spItems[ 0 ].parent();
-		parent.extract( spItems );
-		return true;
+		SpItem parent = spItems[ 0 ].parent() ;
+		parent.extract( spItems ) ;
+		return true ;
 	}
 
 }
