@@ -4,27 +4,28 @@
 //
 // $Id$
 //
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpType;
+import gemini.sp.SpItem ;
+import gemini.sp.SpType ;
 
 /**
  * The base class for observation component items.
  */
 public class SpObsComp extends SpItem
 {
-
 	/**
      * Construct with a subtype.
      */
 	public SpObsComp( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 
-		// Most observation components must be unique in their scope.
-		// If this isn't the case, set ".unique" to false in the subclass constructor.
-		_avTable.noNotifySet( ".unique" , "true" , 0 );
+		/*
+		 * Most observation components must be unique in their scope.
+		 * If this isn't the case, set ".unique" to false in the subclass constructor.
+		 */
+		_avTable.noNotifySet( ".unique" , "true" , 0 ) ;
 	}
 
 	/**
@@ -32,12 +33,12 @@ public class SpObsComp extends SpItem
      */
 	public String getTitle()
 	{
-		String title = type().getReadable();
-		String titleAttr = getTitleAttr();
+		String title = type().getReadable() ;
+		String titleAttr = getTitleAttr() ;
 		if( ( titleAttr != null ) && !( titleAttr.equals( "" ) ) )
-			title += ": " + titleAttr;
+			title += ": " + titleAttr ;
 
-		return title;
+		return title ;
 	}
 
 	/**
@@ -48,7 +49,7 @@ public class SpObsComp extends SpItem
      */
 	public boolean mustBeUnique()
 	{
-		return _avTable.getBool( ".unique" );
+		return _avTable.getBool( ".unique" ) ;
 	}
 
 	/**
@@ -58,7 +59,6 @@ public class SpObsComp extends SpItem
      */
 	public void setMustBeUnique( boolean unique )
 	{
-		_avTable.set( ".unique" , true );
+		_avTable.set( ".unique" , true ) ;
 	}
-
 }

@@ -4,18 +4,18 @@
 //
 // $Id$
 //
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import gemini.sp.SpAvTable;
-import gemini.sp.SpObsData;
-import gemini.sp.SpType;
-import gemini.sp.iter.SpIterStep;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpObsData ;
+import gemini.sp.SpType ;
+import gemini.sp.iter.SpIterStep ;
 
-import gemini.util.Angle;
+import gemini.util.Angle ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.Vector ;
 
 /**
  * A base class for instrument observation component items. One of the principal
@@ -27,15 +27,15 @@ import java.util.Vector;
  */
 public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 {
-	Class myself = this.getClass();
-	Hashtable _capabilityH = new Hashtable();
+	Class myself = this.getClass() ;
+	Hashtable _capabilityH = new Hashtable() ;
 
 	/**
      * Construct the SpInstObsComp with its exact subtype.
      */
 	public SpInstObsComp( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -43,8 +43,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void addCapability( SpInstCapability cap )
 	{
-		cap.setAvTable( _avTable );
-		_capabilityH.put( cap.getName() , cap );
+		cap.setAvTable( _avTable ) ;
+		_capabilityH.put( cap.getName() , cap ) ;
 	}
 
 	/**
@@ -54,8 +54,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void removeCapability( SpInstCapability cap )
 	{
-		cap.setAvTable( null );
-		_capabilityH.remove( cap.getName() );
+		cap.setAvTable( null ) ;
+		_capabilityH.remove( cap.getName() ) ;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public SpInstCapability getCapability( String name )
 	{
-		return ( SpInstCapability )_capabilityH.get( name );
+		return ( SpInstCapability )_capabilityH.get( name ) ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public Enumeration getCapabilityNames()
 	{
-		return _capabilityH.keys();
+		return _capabilityH.keys() ;
 	}
 
 	/**
@@ -79,27 +79,27 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	protected Object clone()
 	{
-		SpInstObsComp spClone = ( SpInstObsComp )super.clone();
-		SpAvTable avClone = spClone.getTable();
+		SpInstObsComp spClone = ( SpInstObsComp )super.clone() ;
+		SpAvTable avClone = spClone.getTable() ;
 
 		// Clone each capability, setting its avTable correctly.
-		Vector v = new Vector();
-		Enumeration caps = _capabilityH.elements();
+		Vector v = new Vector() ;
+		Enumeration caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
-			SpInstCapability cap = ( SpInstCapability )caps.nextElement();
-			v.addElement( cap.copy( avClone ) );
+			SpInstCapability cap = ( SpInstCapability )caps.nextElement() ;
+			v.addElement( cap.copy( avClone ) ) ;
 		}
 
 		// Place each cloned capability in the cloned component's table.
-		spClone._capabilityH = new Hashtable();
+		spClone._capabilityH = new Hashtable() ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			SpInstCapability cap = ( SpInstCapability )v.elementAt( i );
-			spClone._capabilityH.put( cap.getName() , cap );
+			SpInstCapability cap = ( SpInstCapability )v.elementAt( i ) ;
+			spClone._capabilityH.put( cap.getName() , cap ) ;
 		}
 
-		return spClone;
+		return spClone ;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public double[] getScienceArea()
 	{
-		return new double[]{ -1. , -1. };
+		return new double[]{ -1. , -1. } ;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final void setExposureTime( double seconds )
 	{
-		setExposureTime( Double.toString( seconds ) );
+		setExposureTime( Double.toString( seconds ) ) ;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 	public final void setExposureTime( String seconds )
 	{
 		if( seconds.matches( "\\d*\\.?\\d*" ) && !seconds.equals( "" ) )
-			_avTable.set( ATTR_EXPOSURE_TIME , new Double( seconds ).toString() );
+			_avTable.set( ATTR_EXPOSURE_TIME , new Double( seconds ).toString() ) ;
 	}
 
 	/**
@@ -143,30 +143,30 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final double getExposureTime()
 	{
-		String time;
+		String time ;
 
 		// For old programs, change "integrationTime" to "exposureTime".
-		time = _avTable.get( "integrationTime" );
+		time = _avTable.get( "integrationTime" ) ;
 		if( time != null )
 		{
-			setExposureTime( time );
-			_avTable.rm( "integrationTime" );
+			setExposureTime( time ) ;
+			_avTable.rm( "integrationTime" ) ;
 		}
 		else
 		{
-			time = _avTable.get( ATTR_EXPOSURE_TIME );
+			time = _avTable.get( ATTR_EXPOSURE_TIME ) ;
 		}
 
 		if( time == null )
-			time = "0";
+			time = "0" ;
 
-		double res = 0.0;
+		double res = 0.0 ;
 		try
 		{
-			res = Double.valueOf( time ).doubleValue();
+			res = Double.valueOf( time ).doubleValue() ;
 		}
 		catch( Exception ex ){}
-		return res;
+		return res ;
 	}
 
 	/**
@@ -175,35 +175,35 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 	public final String getExposureTimeAsString()
 	{
 		// For old programs, change "integrationTime" to "exposureTime".
-		String intTime = _avTable.get( "integrationTime" );
+		String intTime = _avTable.get( "integrationTime" ) ;
 		if( intTime != null )
 		{
-			setExposureTime( intTime );
-			_avTable.rm( "integrationTime" );
-			return intTime;
+			setExposureTime( intTime ) ;
+			_avTable.rm( "integrationTime" ) ;
+			return intTime ;
 		}
 
-		String res = _avTable.get( ATTR_EXPOSURE_TIME );
+		String res = _avTable.get( ATTR_EXPOSURE_TIME ) ;
 		if( res == null )
-			return "0";
+			return "0" ;
 
-		return res;
+		return res ;
 	}
 
 	public int getCoadds()
 	{
-		String coadds;
-		int res = 1;
-		coadds = _avTable.get( ATTR_COADDS );
+		String coadds ;
+		int res = 1 ;
+		coadds = _avTable.get( ATTR_COADDS ) ;
 		if( coadds != null )
 		{
 			try
 			{
-				res = Integer.valueOf( coadds ).intValue();
+				res = Integer.valueOf( coadds ).intValue() ;
 			}
 			catch( Exception x ){}
 		}
-		return res;
+		return res ;
 	}
 
 	/**
@@ -214,8 +214,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void setPosAngleDegrees( double posAngle )
 	{
-		_avTable.set( ATTR_POS_ANGLE , posAngle );
-		_updateObsData( posAngle );
+		_avTable.set( ATTR_POS_ANGLE , posAngle ) ;
+		_updateObsData( posAngle ) ;
 	}
 
 	/**
@@ -223,7 +223,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void setPosAngleRadians( double posAngle )
 	{
-		setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) );
+		setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) ) ;
 	}
 
 	/**
@@ -231,15 +231,15 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void setPosAngleDegreesStr( String posAngleStr )
 	{
-		double posAngle = 0.0;
+		double posAngle = 0.0 ;
 		try
 		{
-			posAngle = Double.valueOf( posAngleStr ).doubleValue();
+			posAngle = Double.valueOf( posAngleStr ).doubleValue() ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_POS_ANGLE , posAngleStr );
-		_updateObsData( posAngle );
+		_avTable.set( ATTR_POS_ANGLE , posAngleStr ) ;
+		_updateObsData( posAngle ) ;
 	}
 
 	/**
@@ -247,9 +247,9 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final void addPosAngleDegrees( double addAngle )
 	{
-		double angle = getPosAngleDegrees();
-		angle += addAngle;
-		setPosAngleDegrees( angle );
+		double angle = getPosAngleDegrees() ;
+		angle += addAngle ;
+		setPosAngleDegrees( angle ) ;
 	}
 
 	/**
@@ -257,9 +257,9 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final void addPosAngleRadians( double addAngle )
 	{
-		double angle = getPosAngleRadians();
-		angle += addAngle;
-		setPosAngleRadians( angle );
+		double angle = getPosAngleRadians() ;
+		angle += addAngle ;
+		setPosAngleRadians( angle ) ;
 	}
 
 	/**
@@ -268,14 +268,14 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 	public final double getPosAngleDegrees()
 	{
 		// For old programs, change "rotAngle" to "posAngle".
-		String posAngleStr = _avTable.get( "rotAngle" );
+		String posAngleStr = _avTable.get( "rotAngle" ) ;
 		if( posAngleStr != null )
 		{
-			setPosAngleDegreesStr( posAngleStr );
-			_avTable.rm( "rotAngle" );
+			setPosAngleDegreesStr( posAngleStr ) ;
+			_avTable.rm( "rotAngle" ) ;
 		}
 
-		return _avTable.getDouble( ATTR_POS_ANGLE , 0.0 );
+		return _avTable.getDouble( ATTR_POS_ANGLE , 0.0 ) ;
 	}
 
 	/**
@@ -283,7 +283,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final double getPosAngleRadians()
 	{
-		return Angle.degreesToRadians( getPosAngleDegrees() );
+		return Angle.degreesToRadians( getPosAngleDegrees() ) ;
 	}
 
 	/**
@@ -292,8 +292,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final String getPosAngleRadiansStr()
 	{
-		double val = getPosAngleRadians();
-		return Double.toString( val );
+		double val = getPosAngleRadians() ;
+		return Double.toString( val ) ;
 	}
 
 	/**
@@ -302,8 +302,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final String getPosAngleDegreesStr()
 	{
-		double val = getPosAngleDegrees();
-		return Double.toString( val );
+		double val = getPosAngleDegrees() ;
+		return Double.toString( val ) ;
 	}
 
 	/**
@@ -311,9 +311,9 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	private void _updateObsData( double posAngle )
 	{
-		SpObsData od = getObsData();
+		SpObsData od = getObsData() ;
 		if( od != null )
-			od.setPosAngle( posAngle );
+			od.setPosAngle( posAngle ) ;
 	}
 
 	/**
@@ -321,14 +321,14 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	protected void setTable( SpAvTable avTable )
 	{
-		Enumeration caps = _capabilityH.elements();
+		Enumeration caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
-			SpInstCapability cap = ( SpInstCapability )caps.nextElement();
-			cap.setAvTable( avTable );
+			SpInstCapability cap = ( SpInstCapability )caps.nextElement() ;
+			cap.setAvTable( avTable ) ;
 		}
-		super.setTable( avTable );
-		_updateObsData( getPosAngleDegrees() );
+		super.setTable( avTable ) ;
+		_updateObsData( getPosAngleDegrees() ) ;
 	}
 
 	/**
@@ -336,14 +336,14 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	protected void replaceTable( SpAvTable avTable )
 	{
-		Enumeration caps = _capabilityH.elements();
+		Enumeration caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
-			SpInstCapability cap = ( SpInstCapability )caps.nextElement();
-			cap.setAvTable( avTable );
+			SpInstCapability cap = ( SpInstCapability )caps.nextElement() ;
+			cap.setAvTable( avTable ) ;
 		}
-		super.replaceTable( avTable );
-		_updateObsData( getPosAngleDegrees() );
+		super.replaceTable( avTable ) ;
+		_updateObsData( getPosAngleDegrees() ) ;
 	}
 
 	/**
@@ -383,7 +383,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 
 	public Hashtable getConfigItems()
 	{
-		return new Hashtable();
+		return new Hashtable() ;
 	}
 
 	/**
@@ -420,11 +420,11 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public IterationTracker createIterationTracker()
 	{
-		return new IterationTracker();
+		return new IterationTracker() ;
 	}
 
 	public boolean canUpdatePosAngle()
 	{
-		return true;
+		return true ;
 	}
 }

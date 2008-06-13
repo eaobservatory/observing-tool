@@ -7,10 +7,10 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import gemini.sp.SpType;
-import gemini.sp.obsComp.SpObsComp;
+import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpObsComp ;
 
 /**
  * This interface is used to provide a common super type for
@@ -20,9 +20,8 @@ import gemini.sp.obsComp.SpObsComp;
  */
 public abstract class SpDRObsComp extends SpObsComp
 {
-
 	public SpDRObsComp( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 }

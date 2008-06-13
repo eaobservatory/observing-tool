@@ -1,6 +1,6 @@
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import gemini.sp.SpAvTable;
+import gemini.sp.SpAvTable ;
 
 /**
  * A base class for instrument capabilities. A "capability" is a class that
@@ -15,17 +15,16 @@ import gemini.sp.SpAvTable;
  */
 public class SpInstCapability implements Cloneable , java.io.Serializable
 {
+	protected SpAvTable _avTable ;
 
-	protected SpAvTable _avTable;
-
-	private String _name;
+	private String _name ;
 
 	/**
      * Construct with the AvTable to use.
      */
 	public SpInstCapability( String name )
 	{
-		_name = name;
+		_name = name ;
 	}
 
 	/**
@@ -33,7 +32,7 @@ public class SpInstCapability implements Cloneable , java.io.Serializable
      */
 	public String getName()
 	{
-		return _name;
+		return _name ;
 	}
 
 	/**
@@ -42,22 +41,21 @@ public class SpInstCapability implements Cloneable , java.io.Serializable
      */
 	public SpInstCapability copy( SpAvTable avTable )
 	{
-		SpInstCapability sic;
+		SpInstCapability sic ;
 		try
 		{
-			sic = ( SpInstCapability )super.clone();
+			sic = ( SpInstCapability )super.clone() ;
 		}
 		catch( CloneNotSupportedException ex )
 		{
-			return null;
+			return null ;
 		}
-		sic.setAvTable( avTable );
-		return sic;
+		sic.setAvTable( avTable ) ;
+		return sic ;
 	}
 
 	void setAvTable( SpAvTable avTable )
 	{
-		_avTable = avTable;
+		_avTable = avTable ;
 	}
-
 }

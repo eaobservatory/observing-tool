@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
 /**
  * A capability for getting and setting chop attributes.
@@ -12,13 +12,13 @@ package gemini.sp.obsComp;
 public class SpChopCapability extends SpInstCapability implements SpInstConstants
 {
 
-	public static final String CAPABILITY_NAME = "chop";
+	public static final String CAPABILITY_NAME = "chop" ;
 
 	/**
 	 */
 	public SpChopCapability()
 	{
-		super( CAPABILITY_NAME );
+		super( CAPABILITY_NAME ) ;
 	}
 
 	// ---- EXPOSURES PER CHOP POSITION ----
@@ -28,9 +28,9 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public int getExposuresPerChopPosition()
 	{
-		String attr = ATTR_EXPOSURES_PER_CHOP_POSITION;
-		int def = DEF_EXPOSURES_PER_CHOP_POSITION;
-		return _avTable.getInt( attr , def );
+		String attr = ATTR_EXPOSURES_PER_CHOP_POSITION ;
+		int def = DEF_EXPOSURES_PER_CHOP_POSITION ;
+		return _avTable.getInt( attr , def ) ;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public String getExposuresPerChopPositionAsString()
 	{
-		return String.valueOf( getExposuresPerChopPosition() );
+		return String.valueOf( getExposuresPerChopPosition() ) ;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setExposuresPerChopPosition( int exposuresPerChopPosition )
 	{
-		_avTable.set( ATTR_EXPOSURES_PER_CHOP_POSITION , exposuresPerChopPosition );
+		_avTable.set( ATTR_EXPOSURES_PER_CHOP_POSITION , exposuresPerChopPosition ) ;
 	}
 
 	/**
@@ -54,14 +54,14 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setExposuresPerChopPosition( String exposuresPerChopPosition )
 	{
-		int i = DEF_EXPOSURES_PER_CHOP_POSITION;
+		int i = DEF_EXPOSURES_PER_CHOP_POSITION ;
 		try
 		{
-			i = Integer.parseInt( exposuresPerChopPosition );
+			i = Integer.parseInt( exposuresPerChopPosition ) ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_EXPOSURES_PER_CHOP_POSITION , i );
+		_avTable.set( ATTR_EXPOSURES_PER_CHOP_POSITION , i ) ;
 	}
 
 	// ---- CHOP CYCLES PER NOD ----
@@ -71,9 +71,9 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public int getChopCyclesPerNod()
 	{
-		String attr = ATTR_CHOP_CYCLES_PER_NOD;
-		int def = DEF_CHOP_CYCLES_PER_NOD;
-		return _avTable.getInt( attr , def );
+		String attr = ATTR_CHOP_CYCLES_PER_NOD ;
+		int def = DEF_CHOP_CYCLES_PER_NOD ;
+		return _avTable.getInt( attr , def ) ;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public String getChopCyclesPerNodAsString()
 	{
-		return String.valueOf( getChopCyclesPerNod() );
+		return String.valueOf( getChopCyclesPerNod() ) ;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setChopCyclesPerNod( int chopCyclesPerNod )
 	{
-		_avTable.set( ATTR_CHOP_CYCLES_PER_NOD , chopCyclesPerNod );
+		_avTable.set( ATTR_CHOP_CYCLES_PER_NOD , chopCyclesPerNod ) ;
 	}
 
 	/**
@@ -97,14 +97,14 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setChopCyclesPerNod( String chopCyclesPerNod )
 	{
-		int i = DEF_CHOP_CYCLES_PER_NOD;
+		int i = DEF_CHOP_CYCLES_PER_NOD ;
 		try
 		{
-			i = Integer.parseInt( chopCyclesPerNod );
+			i = Integer.parseInt( chopCyclesPerNod ) ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_CHOP_CYCLES_PER_NOD , i );
+		_avTable.set( ATTR_CHOP_CYCLES_PER_NOD , i ) ;
 	}
 
 	// ---- (CHOP/NOD) CYCLES PER OBSERVE ----
@@ -114,9 +114,9 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public int getCyclesPerObserve()
 	{
-		String attr = ATTR_CYCLES_PER_OBSERVE;
-		int def = DEF_CYCLES_PER_OBSERVE;
-		return _avTable.getInt( attr , def );
+		String attr = ATTR_CYCLES_PER_OBSERVE ;
+		int def = DEF_CYCLES_PER_OBSERVE ;
+		return _avTable.getInt( attr , def ) ;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public String getCyclesPerObserveAsString()
 	{
-		return String.valueOf( getCyclesPerObserve() );
+		return String.valueOf( getCyclesPerObserve() ) ;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setCyclesPerObserve( int cyclesPerObserve )
 	{
-		_avTable.set( ATTR_CYCLES_PER_OBSERVE , cyclesPerObserve );
+		_avTable.set( ATTR_CYCLES_PER_OBSERVE , cyclesPerObserve ) ;
 	}
 
 	/**
@@ -140,14 +140,14 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setCyclesPerObserve( String cyclesPerObserve )
 	{
-		int i = DEF_CYCLES_PER_OBSERVE;
+		int i = DEF_CYCLES_PER_OBSERVE ;
 		try
 		{
-			i = Integer.parseInt( cyclesPerObserve );
+			i = Integer.parseInt( cyclesPerObserve ) ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_CYCLES_PER_OBSERVE , i );
+		_avTable.set( ATTR_CYCLES_PER_OBSERVE , i ) ;
 	}
 
 	// ---- NODDING? ----
@@ -157,11 +157,11 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public boolean getNodding()
 	{
-		String attr = ATTR_NODDING;
-		boolean res = DEF_NODDING;
+		String attr = ATTR_NODDING ;
+		boolean res = DEF_NODDING ;
 		if( _avTable.exists( attr ) )
-			res = _avTable.getBool( attr );
-		return res;
+			res = _avTable.getBool( attr ) ;
+		return res ;
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class SpChopCapability extends SpInstCapability implements SpInstConstant
      */
 	public void setNodding( boolean nodding )
 	{
-		String attr = ATTR_NODDING;
-		_avTable.set( attr , nodding );
+		String attr = ATTR_NODDING ;
+		_avTable.set( attr , nodding ) ;
 	}
 }

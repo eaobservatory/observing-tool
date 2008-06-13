@@ -7,9 +7,9 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import java.util.Hashtable;
+import java.util.Hashtable ;
 
 /**
  * Implemented by instruments that use Micro stepping.
@@ -20,5 +20,5 @@ import java.util.Hashtable;
  */
 public interface SpMicroStepUser
 {
-	public Hashtable getMicroStepPatterns();
+	public Hashtable getMicroStepPatterns() ;
 }

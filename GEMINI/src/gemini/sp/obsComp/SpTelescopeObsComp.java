@@ -3,18 +3,18 @@
 // See the file COPYRIGHT for complete details.
 //
 //
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpAvTable;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
-import gemini.sp.SpType;
-import gemini.sp.SpObsData;
-import gemini.sp.SpSurveyContainer;
-import gemini.util.CoordSys;
+import gemini.sp.SpItem ;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
+import gemini.sp.SpType ;
+import gemini.sp.SpObsData ;
+import gemini.sp.SpSurveyContainer ;
+import gemini.util.CoordSys ;
 
-import java.util.Enumeration;
+import java.util.Enumeration ;
 
 /**
  * A class for telescope observation component items. Maintains a position list
@@ -27,89 +27,88 @@ import java.util.Enumeration;
  */
 public class SpTelescopeObsComp extends SpObsComp
 {
-
 	/** TCS XML constants. */
-	private static final String TX_BASE = "BASE";
-	private static final String TX_TYPE = "TYPE";
-	private static final String TX_TARGET = "target";
-	private static final String TX_TARGET_NAME = "targetName";
-	private static final String TX_SPHERICAL_SYSTEM = "spherSystem";
-	private static final String TX_CONIC_SYSTEM = "conicSystem";
-	private static final String TX_NAMED_SYSTEM = "namedSystem";
-	private static final String TX_SYSTEM = "SYSTEM";
-	private static final String TX_CONIC_NAMED_TYPE = "TYPE";
-	private static final String TX_OLD_CONIC_NAMED_TYPE = "type";
-	private static final String TX_C1 = "c1";
-	private static final String TX_C2 = "c2";
-	private static final String TX_OFFSET = "OFFSET";
-	private static final String TX_DC1 = "DC1";
-	private static final String TX_DC2 = "DC2";
+	private static final String TX_BASE = "BASE" ;
+	private static final String TX_TYPE = "TYPE" ;
+	private static final String TX_TARGET = "target" ;
+	private static final String TX_TARGET_NAME = "targetName" ;
+	private static final String TX_SPHERICAL_SYSTEM = "spherSystem" ;
+	private static final String TX_CONIC_SYSTEM = "conicSystem" ;
+	private static final String TX_NAMED_SYSTEM = "namedSystem" ;
+	private static final String TX_SYSTEM = "SYSTEM" ;
+	private static final String TX_CONIC_NAMED_TYPE = "TYPE" ;
+	private static final String TX_OLD_CONIC_NAMED_TYPE = "type" ;
+	private static final String TX_C1 = "c1" ;
+	private static final String TX_C2 = "c2" ;
+	private static final String TX_OFFSET = "OFFSET" ;
+	private static final String TX_DC1 = "DC1" ;
+	private static final String TX_DC2 = "DC2" ;
 
 	/** TCS XML constants: Orbital elements. */
-	private static final String TX_EPOCH = "epoch";
-	private static final String TX_EPOCH_PERIH = "epochPerih";
-	private static final String TX_INCLINATION = "inclination";
-	private static final String TX_ANODE = "anode";
-	private static final String TX_PERIHELION = "perihelion";
-	private static final String TX_AORQ = "aorq";
-	private static final String TX_E = "e";
-	private static final String TX_LORM = "LorM";
-	private static final String TX_N = "n";
+	private static final String TX_EPOCH = "epoch" ;
+	private static final String TX_EPOCH_PERIH = "epochPerih" ;
+	private static final String TX_INCLINATION = "inclination" ;
+	private static final String TX_ANODE = "anode" ;
+	private static final String TX_PERIHELION = "perihelion" ;
+	private static final String TX_AORQ = "aorq" ;
+	private static final String TX_E = "e" ;
+	private static final String TX_LORM = "LorM" ;
+	private static final String TX_N = "n" ;
 
 	/** TCS XML constant: proper motion, x axis. */
-	private static final String TX_PM1 = "pm1";
+	private static final String TX_PM1 = "pm1" ;
 
 	/** TCS XML constant: proper motion, y axis. */
-	private static final String TX_PM2 = "pm2";
+	private static final String TX_PM2 = "pm2" ;
 
 	/** TCS XML constant: Radial Velocity. */
-	private static final String TX_RV = "rv";
-	private static final String TX_RV_DEFN = "defn";
-	private static final String TX_RV_FRAME = "frame";
-	private static final String TX_PARALLAX = "parallax";
-	private static final String TX_TYPE_SCIENCE = "SCIENCE";
-	private static final String TX_J2000 = "J2000";
-	private static final String TX_B1950 = "B1950";
-	private static final String TX_AZEL = "AZEL";
+	private static final String TX_RV = "rv" ;
+	private static final String TX_RV_DEFN = "defn" ;
+	private static final String TX_RV_FRAME = "frame" ;
+	private static final String TX_PARALLAX = "parallax" ;
+	private static final String TX_TYPE_SCIENCE = "SCIENCE" ;
+	private static final String TX_J2000 = "J2000" ;
+	private static final String TX_B1950 = "B1950" ;
+	private static final String TX_AZEL = "AZEL" ;
 
 	// CHOP MODE parameters (added by MFO, 6 August 2001)
-	public static final String ATTR_CHOPPING = "chopping";
-	public static final String ATTR_CHOP_THROW = "chopThrow";
-	public static final String ATTR_CHOP_ANGLE = "chopAngle";
-	public static final String ATTR_CHOP_SYSTEM = "chopSystem";
+	public static final String ATTR_CHOPPING = "chopping" ;
+	public static final String ATTR_CHOP_THROW = "chopThrow" ;
+	public static final String ATTR_CHOP_ANGLE = "chopAngle" ;
+	public static final String ATTR_CHOP_SYSTEM = "chopSystem" ;
 
 	/** @see #getFitsKey(int) */
-	public static final String ATTR_FITS_KEY = "fitsKey";
+	public static final String ATTR_FITS_KEY = "fitsKey" ;
 
 	/** @see #getFitsValue(int) */
-	public static final String ATTR_FITS_VALUE = "fitsValue";
+	public static final String ATTR_FITS_VALUE = "fitsValue" ;
 
 	/** @see #getPositionInTile() */
-	public static final String ATTR_POSITION_IN_TILE = "positionInTile";
+	public static final String ATTR_POSITION_IN_TILE = "positionInTile" ;
 
 	/** @see #getPositionInTile() */
-	public static final int NOT_IN_TILE = -1;
-	protected SpTelescopePosList _posList;
+	public static final int NOT_IN_TILE = -1 ;
+	protected SpTelescopePosList _posList ;
 
 	/** Needed for XML parsing. */
-	private SpTelescopePos _currentPosition = null;
+	private SpTelescopePos _currentPosition = null ;
 
 	/**
      * @see #getSurveyComponent()
      */
-	private SpSurveyContainer _surveyComp = null;
+	private SpSurveyContainer _surveyComp = null ;
 
 	/**
      * If this SpTelescopeObsComp is contained in a SpSurveyObsComp then it
      * needs its own SpObsData object because it does not share its base
      * position with the other SpTelescopeObsComp items in the SpSurveyObsComp.
      */
-	private SpObsData _obsData = null;
+	private SpObsData _obsData = null ;
 
 	public SpTelescopeObsComp()
 	{
-		super( SpType.OBSERVATION_COMPONENT_TARGET_LIST );
-		_init();
+		super( SpType.OBSERVATION_COMPONENT_TARGET_LIST ) ;
+		_init() ;
 	}
 
 	/**
@@ -117,8 +116,8 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	protected void _init()
 	{
-		_posList = null;
-		SpTelescopePos.createDefaultBasePosition( _avTable );
+		_posList = null ;
+		SpTelescopePos.createDefaultBasePosition( _avTable ) ;
 	}
 
 	/**
@@ -126,9 +125,9 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public Object clone()
 	{
-		SpTelescopeObsComp toc = ( SpTelescopeObsComp )super.clone();
-		toc._posList = null;
-		return toc;
+		SpTelescopeObsComp toc = ( SpTelescopeObsComp )super.clone() ;
+		toc._posList = null ;
+		return toc ;
 	}
 
 	/**
@@ -137,23 +136,23 @@ public class SpTelescopeObsComp extends SpObsComp
 	public String getTitle()
 	{
 		// By default, append the name of the base position. If a title has been directly set though, use that instead.
-		String titleAttr = getTitleAttr();
+		String titleAttr = getTitleAttr() ;
 		if( ( titleAttr == null ) || titleAttr.equals( "" ) )
 		{
-			SpTelescopePosList tpl = getPosList();
-			SpTelescopePos tp = tpl.getBasePosition();
+			SpTelescopePosList tpl = getPosList() ;
+			SpTelescopePos tp = tpl.getBasePosition() ;
 			if( tp == null )
-				return super.getTitle();
+				return super.getTitle() ;
 
-			String name = tp.getName();
+			String name = tp.getName() ;
 			if( ( name == null ) || name.equals( "" ) )
-				return super.getTitle();
+				return super.getTitle() ;
 
-			return type().getReadable() + ": " + name;
+			return type().getReadable() + ": " + name ;
 		}
 		else
 		{
-			return super.getTitle();
+			return super.getTitle() ;
 		}
 	}
 
@@ -164,9 +163,9 @@ public class SpTelescopeObsComp extends SpObsComp
 	public SpTelescopePosList getPosList()
 	{
 		if( _posList == null )
-			_posList = new SpTelescopePosList( this );
+			_posList = new SpTelescopePosList( this ) ;
 
-		return _posList;
+		return _posList ;
 	}
 
 	/**
@@ -178,10 +177,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	protected void setTable( SpAvTable avTab )
 	{
-		super.setTable( avTab );
+		super.setTable( avTab ) ;
 		// NOTE this will reset the base position in the obs data.
 		if( _posList != null )
-			_posList.setTable( avTab );
+			_posList.setTable( avTab ) ;
 	}
 
 	/**
@@ -193,10 +192,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	protected void replaceTable( SpAvTable avTab )
 	{
-		super.replaceTable( avTab );
+		super.replaceTable( avTab ) ;
 		// NOTE this will reset the base position in the obs data.
 		if( _posList != null )
-			_posList.setTable( avTab );
+			_posList.setTable( avTab ) ;
 	}
 
 	/**
@@ -209,7 +208,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getFitsKey( int index )
 	{
-		return _avTable.get( ATTR_FITS_KEY , index );
+		return _avTable.get( ATTR_FITS_KEY , index ) ;
 	}
 
 	/**
@@ -222,7 +221,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setFitsKey( String fitsKey , int index )
 	{
-		_avTable.set( ATTR_FITS_KEY , fitsKey , index );
+		_avTable.set( ATTR_FITS_KEY , fitsKey , index ) ;
 	}
 
 	/**
@@ -235,7 +234,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getFitsValue( int index )
 	{
-		return _avTable.get( ATTR_FITS_VALUE , index );
+		return _avTable.get( ATTR_FITS_VALUE , index ) ;
 	}
 
 	/**
@@ -248,7 +247,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setFitsValue( String fitsValue , int index )
 	{
-		_avTable.set( ATTR_FITS_VALUE , fitsValue , index );
+		_avTable.set( ATTR_FITS_VALUE , fitsValue , index ) ;
 	}
 
 	/**
@@ -270,7 +269,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public int getFitsCount()
 	{
-		return _avTable.size( ATTR_FITS_KEY );
+		return _avTable.size( ATTR_FITS_KEY ) ;
 	}
 
 	/**
@@ -283,10 +282,10 @@ public class SpTelescopeObsComp extends SpObsComp
      * this method returns
      * 
      * <pre>
-     * &quot;lower right&quot; pointing in tile: getPositionInTile() returns 0
-     * &quot;upper right&quot; pointing in tile: getPositionInTile() returns 1
-     * &quot;lower left&quot;  pointing in tile: getPositionInTile() returns 2
-     * &quot;upper left&quot;  pointing in tile: getPositionInTile() returns 3
+     * &quot ;lower right&quot ; pointing in tile: getPositionInTile() returns 0
+     * &quot ;upper right&quot ; pointing in tile: getPositionInTile() returns 1
+     * &quot ;lower left&quot ;  pointing in tile: getPositionInTile() returns 2
+     * &quot ;upper left&quot ;  pointing in tile: getPositionInTile() returns 3
      * </pre>
      * 
      * If this SpTelescopeObsComp was not created as part of a tile then
@@ -303,18 +302,18 @@ public class SpTelescopeObsComp extends SpObsComp
      * Example:
      * 
      * <pre>
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 1, say
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 1
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 1
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 1
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 2
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 2
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 2
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 2
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 3
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 3
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 3
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 3
+     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 1, say
+     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 1
+     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 1
+     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 1
+     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 2
+     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 2
+     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 2
+     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 2
+     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 3
+     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 3
+     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 3
+     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 3
      * ...
      * </pre>
      * 
@@ -322,7 +321,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public int getPositionInTile()
 	{
-		return _avTable.getInt( ATTR_POSITION_IN_TILE , NOT_IN_TILE );
+		return _avTable.getInt( ATTR_POSITION_IN_TILE , NOT_IN_TILE ) ;
 	}
 
 	/**
@@ -330,7 +329,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setPositionInTile( int positionInTile )
 	{
-		_avTable.set( ATTR_POSITION_IN_TILE , positionInTile );
+		_avTable.set( ATTR_POSITION_IN_TILE , positionInTile ) ;
 	}
 
 	/**
@@ -340,7 +339,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public boolean isChopping()
 	{
-		return _avTable.getBool( ATTR_CHOPPING );
+		return _avTable.getBool( ATTR_CHOPPING ) ;
 	}
 
 	/**
@@ -350,10 +349,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setChopping( boolean choppingOn )
 	{
-		_avTable.set( ATTR_CHOPPING , choppingOn );
+		_avTable.set( ATTR_CHOPPING , choppingOn ) ;
 		// MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
 		// (for TelescopesPosWatcher or TelescopePosListWatcher).
-		// _notifyOfGenericUpdate();
+		// _notifyOfGenericUpdate() ;
 	}
 
 	/**
@@ -363,11 +362,11 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getChopThrowAsString()
 	{
-		String res = _avTable.get( ATTR_CHOP_THROW );
+		String res = _avTable.get( ATTR_CHOP_THROW ) ;
 		if( res == null )
-			res = "0.0";
+			res = "0.0" ;
 
-		return res;
+		return res ;
 	}
 
 	/**
@@ -377,7 +376,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public double getChopThrow()
 	{
-		return Double.valueOf( getChopThrowAsString() ).doubleValue();
+		return Double.valueOf( getChopThrowAsString() ).doubleValue() ;
 	}
 
 	/**
@@ -387,10 +386,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setChopThrow( String chopThrowStr )
 	{
-		_avTable.set( ATTR_CHOP_THROW , chopThrowStr );
+		_avTable.set( ATTR_CHOP_THROW , chopThrowStr ) ;
 		// MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
 		// (for TelescopesPosWatcher or TelescopePosListWatcher).
-		// _notifyOfGenericUpdate();
+		// _notifyOfGenericUpdate() ;
 	}
 
 	/**
@@ -400,11 +399,11 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getChopAngleAsString()
 	{
-		String res = _avTable.get( ATTR_CHOP_ANGLE );
+		String res = _avTable.get( ATTR_CHOP_ANGLE ) ;
 		if( res == null )
-			res = "0.0";
+			res = "0.0" ;
 
-		return res;
+		return res ;
 	}
 
 	/**
@@ -414,7 +413,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public double getChopAngle()
 	{
-		return Double.valueOf( getChopAngleAsString() ).doubleValue();
+		return Double.valueOf( getChopAngleAsString() ).doubleValue() ;
 	}
 
 	/**
@@ -424,10 +423,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setChopAngle( String chopAngleStr )
 	{
-		_avTable.set( ATTR_CHOP_ANGLE , chopAngleStr );
+		_avTable.set( ATTR_CHOP_ANGLE , chopAngleStr ) ;
 		// MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
 		// (for TelescopesPosWatcher or TelescopePosListWatcher).
-		// _notifyOfGenericUpdate();
+		// _notifyOfGenericUpdate() ;
 	}
 
 	/**
@@ -437,7 +436,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getChopSystem()
 	{
-		return _avTable.get( ATTR_CHOP_SYSTEM );
+		return _avTable.get( ATTR_CHOP_SYSTEM ) ;
 	}
 
 	/**
@@ -447,28 +446,28 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setChopSystem( String chopSystem )
 	{
-		_avTable.set( ATTR_CHOP_SYSTEM , chopSystem );
+		_avTable.set( ATTR_CHOP_SYSTEM , chopSystem ) ;
 		// MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
 		// (for TelescopesPosWatcher or TelescopePosListWatcher).
-		// _notifyOfGenericUpdate();
+		// _notifyOfGenericUpdate() ;
 	}
 
 	public String writeTCSXML()
 	{
-		StringBuffer xmlString = new StringBuffer( "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" );
-		xmlString.append( "<OCS_CONFIG>" );
-		xmlString.append( "\n  <TCS_CONFIG>" );
-		String indent = "  ";
-		Enumeration avAttributes = _avTable.attributes();
+		StringBuffer xmlString = new StringBuffer( "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" ) ;
+		xmlString.append( "<OCS_CONFIG>" ) ;
+		xmlString.append( "\n  <TCS_CONFIG>" ) ;
+		String indent = "  " ;
+		Enumeration avAttributes = _avTable.attributes() ;
 		while( avAttributes.hasMoreElements() )
 		{
-			String currAttr = ( String )avAttributes.nextElement();
+			String currAttr = ( String )avAttributes.nextElement() ;
 			if( !currAttr.startsWith( "." ) )
-				this.processAvAttribute( currAttr , indent , xmlString );
+				this.processAvAttribute( currAttr , indent , xmlString ) ;
 		}
-		xmlString.append( "\n  </TCS_CONFIG>" );
-		xmlString.append( "\n</OCS_CONFIG>" );
-		return xmlString.toString();
+		xmlString.append( "\n  </TCS_CONFIG>" ) ;
+		xmlString.append( "\n</OCS_CONFIG>" ) ;
+		return xmlString.toString() ;
 	}
 
 	/**
@@ -480,9 +479,9 @@ public class SpTelescopeObsComp extends SpObsComp
 	public SpObsData getObsData()
 	{
 		if( _surveyComp == null )
-			return super.getObsData();
+			return super.getObsData() ;
 
-		return _obsData;
+		return _obsData ;
 	}
 
 	/**
@@ -494,10 +493,10 @@ public class SpTelescopeObsComp extends SpObsComp
 		if( _parent == null )
 		{
 			if( _surveyComp != null )
-				return _surveyComp.parent();
+				return _surveyComp.parent() ;
 		}
 
-		return _parent;
+		return _parent ;
 	}
 
 	/**
@@ -508,7 +507,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public SpSurveyContainer getSurveyComponent()
 	{
-		return _surveyComp;
+		return _surveyComp ;
 	}
 
 	/**
@@ -516,8 +515,8 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void setSurveyComponent( SpSurveyContainer surveyComp )
 	{
-		_surveyComp = surveyComp;
-		_obsData = new SpObsData();
+		_surveyComp = surveyComp ;
+		_obsData = new SpObsData() ;
 	}
 
 	/**
@@ -529,37 +528,37 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
 	{
-		SpTelescopePos tp = null;
+		SpTelescopePos tp = null ;
 
 		// Check whether avAttr is a telescope position.
 		if( avAttr != null )
-			tp = ( SpTelescopePos )getPosList().getPosition( avAttr );
+			tp = ( SpTelescopePos )getPosList().getPosition( avAttr ) ;
 
 		// If avAttr is not a telescope position then let the super class deal with it and return.
 		if( tp == null )
 		{
-			super.processAvAttribute( avAttr , indent , xmlBuffer );
-			return;
+			super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
+			return ;
 		}
 
-		xmlBuffer.append( "\n  " + indent + "<" + TX_BASE + " " + TX_TYPE + "=\"" + avAttr + "\">" );
-		xmlBuffer.append( "\n    " + indent + "<" + TX_TARGET + ">" );
-		xmlBuffer.append( "\n      " + indent + "<" + TX_TARGET_NAME + ">" + tp.getName() + "</" + TX_TARGET_NAME + ">" );
+		xmlBuffer.append( "\n  " + indent + "<" + TX_BASE + " " + TX_TYPE + "=\"" + avAttr + "\">" ) ;
+		xmlBuffer.append( "\n    " + indent + "<" + TX_TARGET + ">" ) ;
+		xmlBuffer.append( "\n      " + indent + "<" + TX_TARGET_NAME + ">" + tp.getName() + "</" + TX_TARGET_NAME + ">" ) ;
 
 		// If the telescope position currently written to XML (tp) is an offset position then
 		// targetPos is set to the base postion (OT speak) aka SCIENCE target (TCS XML speak).
 		// Otherwise targetPos is just set to telescope position currently written to XML (tp).
-		SpTelescopePos targetPos = tp;
+		SpTelescopePos targetPos = tp ;
 		if( tp.isOffsetPosition() )
-			targetPos = getPosList().getBasePosition();
-		String system = targetPos.getCoordSysAsString();
+			targetPos = getPosList().getBasePosition() ;
+		String system = targetPos.getCoordSysAsString() ;
 
 		if( CoordSys.COORD_SYS[ CoordSys.FK5 ].equals( system ) )
-			system = TX_J2000;
+			system = TX_J2000 ;
 		else if( CoordSys.COORD_SYS[ CoordSys.FK4 ].equals( system ) )
-			system = TX_B1950;
+			system = TX_B1950 ;
 		else if( CoordSys.COORD_SYS[ CoordSys.AZ_EL ].equals( system ) )
-			system = TX_AZEL;
+			system = TX_AZEL ;
 
 		// Check whether it is a spherical system. Only the spherical
         // systems are saved using there tag name as attribute name for the av table.
@@ -567,43 +566,43 @@ public class SpTelescopeObsComp extends SpObsComp
 		{
 			// Conic system (orbital elements)
 			case SpTelescopePos.SYSTEM_CONIC :
-				xmlBuffer.append( "\n      " + indent + "<" + TX_CONIC_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\"" + targetPos.getConicOrNamedType() + "\">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH + ">" + targetPos.getConicSystemEpoch() + "</" + TX_EPOCH + ">" );
+				xmlBuffer.append( "\n      " + indent + "<" + TX_CONIC_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\"" + targetPos.getConicOrNamedType() + "\">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH + ">" + targetPos.getConicSystemEpoch() + "</" + TX_EPOCH + ">" ) ;
 
 				if( targetPos.getConicOrNamedType().equals( SpTelescopePos.CONIC_SYSTEM_TYPES[ SpTelescopePos.TYPE_COMET ] ) )
-					xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH_PERIH + ">" + targetPos.getConicSystemEpochPerih() + "</" + TX_EPOCH_PERIH + ">" );
+					xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH_PERIH + ">" + targetPos.getConicSystemEpochPerih() + "</" + TX_EPOCH_PERIH + ">" ) ;
 				else
-					xmlBuffer.append( "\n        " + indent + "<" + TX_LORM + ">" + targetPos.getConicSystemLorM() + "</" + TX_LORM + ">" );
+					xmlBuffer.append( "\n        " + indent + "<" + TX_LORM + ">" + targetPos.getConicSystemLorM() + "</" + TX_LORM + ">" ) ;
 
-				xmlBuffer.append( "\n        " + indent + "<" + TX_INCLINATION + ">" + targetPos.getConicSystemInclination() + "</" + TX_INCLINATION + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_ANODE + ">" + targetPos.getConicSystemAnode() + "</" + TX_ANODE + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_PERIHELION + ">" + targetPos.getConicSystemPerihelion() + "</" + TX_PERIHELION + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_AORQ + ">" + targetPos.getConicSystemAorQ() + "</" + TX_AORQ + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_E + ">" + targetPos.getConicSystemE() + "</" + TX_E + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_N + ">" + targetPos.getConicSystemDailyMotion() + "</" + TX_N + ">" );
-				xmlBuffer.append( "\n      " + indent + "</" + TX_CONIC_SYSTEM + ">" );
-				break;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_INCLINATION + ">" + targetPos.getConicSystemInclination() + "</" + TX_INCLINATION + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_ANODE + ">" + targetPos.getConicSystemAnode() + "</" + TX_ANODE + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_PERIHELION + ">" + targetPos.getConicSystemPerihelion() + "</" + TX_PERIHELION + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_AORQ + ">" + targetPos.getConicSystemAorQ() + "</" + TX_AORQ + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_E + ">" + targetPos.getConicSystemE() + "</" + TX_E + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_N + ">" + targetPos.getConicSystemDailyMotion() + "</" + TX_N + ">" ) ;
+				xmlBuffer.append( "\n      " + indent + "</" + TX_CONIC_SYSTEM + ">" ) ;
+				break ;
 
 			// Named system (planet, sun, moon etc.)
 			case SpTelescopePos.SYSTEM_NAMED :
-				xmlBuffer.append( "\n      " + indent + "<" + TX_NAMED_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\"" + targetPos.getConicOrNamedType() + "\"/>" );
-				break;
+				xmlBuffer.append( "\n      " + indent + "<" + TX_NAMED_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\"" + targetPos.getConicOrNamedType() + "\"/>" ) ;
+				break ;
 
 			// Default: Sperical system (HMSDEG or DEGDEG: RA/Dec, Az/El etc.)
 			default :
 
-				xmlBuffer.append( "\n      " + indent + "<" + TX_SPHERICAL_SYSTEM + " " + TX_SYSTEM + "=\"" + system + "\">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_C1 + ">" + targetPos.getRealXaxisAsString() + "</" + TX_C1 + ">" );
-				xmlBuffer.append( "\n        " + indent + "<" + TX_C2 + ">" + targetPos.getRealYaxisAsString() + "</" + TX_C2 + ">" );
+				xmlBuffer.append( "\n      " + indent + "<" + TX_SPHERICAL_SYSTEM + " " + TX_SYSTEM + "=\"" + system + "\">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_C1 + ">" + targetPos.getRealXaxisAsString() + "</" + TX_C1 + ">" ) ;
+				xmlBuffer.append( "\n        " + indent + "<" + TX_C2 + ">" + targetPos.getRealYaxisAsString() + "</" + TX_C2 + ">" ) ;
 
-				double pm1 = 0.0;
-				double pm2 = 0.0;
-				double parallax = 0.0;
-				double trackingEpoch = 0.0;
+				double pm1 = 0.0 ;
+				double pm2 = 0.0 ;
+				double parallax = 0.0 ;
+				double trackingEpoch = 0.0 ;
 
 				try
 				{
-					pm1 = Double.parseDouble( targetPos.getPropMotionRA() ) / 1000.0;
+					pm1 = Double.parseDouble( targetPos.getPropMotionRA() ) / 1000.0 ;
 				}
 				catch( Exception e )
 				{
@@ -612,7 +611,7 @@ public class SpTelescopeObsComp extends SpObsComp
 
 				try
 				{
-					pm2 = Double.parseDouble( targetPos.getPropMotionDec() ) / 1000.0;
+					pm2 = Double.parseDouble( targetPos.getPropMotionDec() ) / 1000.0 ;
 				}
 				catch( Exception e )
 				{
@@ -621,24 +620,24 @@ public class SpTelescopeObsComp extends SpObsComp
 
 				try
 				{
-					trackingEpoch = Double.parseDouble( targetPos.getTrackingEpoch() );
+					trackingEpoch = Double.parseDouble( targetPos.getTrackingEpoch() ) ;
 				}
 				catch( Exception e ){}
 
 				if( ( pm1 != 0.0 ) || ( pm2 != 0.0 ) )
 				{
-					xmlBuffer.append( "\n        " + indent + "<" + TX_PM1 + ">" + pm1 + "</" + TX_PM1 + ">" );
-					xmlBuffer.append( "\n        " + indent + "<" + TX_PM2 + ">" + pm2 + "</" + TX_PM2 + ">" );
-					xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH + ">" + trackingEpoch + "</" + TX_EPOCH + ">" );
+					xmlBuffer.append( "\n        " + indent + "<" + TX_PM1 + ">" + pm1 + "</" + TX_PM1 + ">" ) ;
+					xmlBuffer.append( "\n        " + indent + "<" + TX_PM2 + ">" + pm2 + "</" + TX_PM2 + ">" ) ;
+					xmlBuffer.append( "\n        " + indent + "<" + TX_EPOCH + ">" + trackingEpoch + "</" + TX_EPOCH + ">" ) ;
 				}
 
 				try
 				{
-					double rv = Double.parseDouble( targetPos.getTrackingRadialVelocity() );
-					String rvDefn = targetPos.getTrackingRadialVelocityDefn();
-					String rvFrame = targetPos.getTrackingRadialVelocityFrame();
+					double rv = Double.parseDouble( targetPos.getTrackingRadialVelocity() ) ;
+					String rvDefn = targetPos.getTrackingRadialVelocityDefn() ;
+					String rvFrame = targetPos.getTrackingRadialVelocityFrame() ;
 
-					xmlBuffer.append( "\n        " + indent + "<" + TX_RV + " " + TX_RV_DEFN + "=\"" + rvDefn + "\"" + " " + TX_RV_FRAME + "=\"" + rvFrame + "\"" + ">" + rv + "</rv>" );
+					xmlBuffer.append( "\n        " + indent + "<" + TX_RV + " " + TX_RV_DEFN + "=\"" + rvDefn + "\"" + " " + TX_RV_FRAME + "=\"" + rvFrame + "\"" + ">" + rv + "</rv>" ) ;
 				}
 				catch( Exception e )
 				{
@@ -647,45 +646,45 @@ public class SpTelescopeObsComp extends SpObsComp
 
 				try
 				{
-					parallax = Double.parseDouble( targetPos.getTrackingParallax() );
+					parallax = Double.parseDouble( targetPos.getTrackingParallax() ) ;
 				}
 				catch( Exception e ){}
 
 				if( parallax != 0.0 )
-					xmlBuffer.append( "\n        " + indent + "<" + TX_PARALLAX + ">" + parallax + "</" + TX_PARALLAX + ">" );
+					xmlBuffer.append( "\n        " + indent + "<" + TX_PARALLAX + ">" + parallax + "</" + TX_PARALLAX + ">" ) ;
 
 
-				xmlBuffer.append( "\n      " + indent + "</" + TX_SPHERICAL_SYSTEM + ">" );
-				break;
+				xmlBuffer.append( "\n      " + indent + "</" + TX_SPHERICAL_SYSTEM + ">" ) ;
+				break ;
 		}
 
-		xmlBuffer.append( "\n    " + indent + "</" + TX_TARGET + ">" );
+		xmlBuffer.append( "\n    " + indent + "</" + TX_TARGET + ">" ) ;
 
 		if( tp.isOffsetPosition() )
 		{
-			String offsetSystem = tp.getCoordSysAsString();
+			String offsetSystem = tp.getCoordSysAsString() ;
 
 			if( offsetSystem.equals( CoordSys.COORD_SYS[ CoordSys.FK5 ] ) )
-				offsetSystem = TX_J2000;
+				offsetSystem = TX_J2000 ;
 
 			if( offsetSystem.equals( CoordSys.COORD_SYS[ CoordSys.FK4 ] ) )
-				offsetSystem = TX_B1950;
+				offsetSystem = TX_B1950 ;
 
-			xmlBuffer.append( "\n    " + indent + "<" + TX_OFFSET + " " + TX_SYSTEM + "=\"" + offsetSystem + "\">" );
+			xmlBuffer.append( "\n    " + indent + "<" + TX_OFFSET + " " + TX_SYSTEM + "=\"" + offsetSystem + "\">" ) ;
 			if( tp.isBasePosition() )
 			{
-				xmlBuffer.append( "\n      " + indent + "<" + TX_DC1 + ">" + tp.getBaseXOffset() + "</" + TX_DC1 + ">" );
-				xmlBuffer.append( "\n      " + indent + "<" + TX_DC2 + ">" + tp.getBaseYOffset() + "</" + TX_DC2 + ">" );
+				xmlBuffer.append( "\n      " + indent + "<" + TX_DC1 + ">" + tp.getBaseXOffset() + "</" + TX_DC1 + ">" ) ;
+				xmlBuffer.append( "\n      " + indent + "<" + TX_DC2 + ">" + tp.getBaseYOffset() + "</" + TX_DC2 + ">" ) ;
 			}
 			else
 			{
-				xmlBuffer.append( "\n      " + indent + "<" + TX_DC1 + ">" + tp.getXaxisAsString() + "</" + TX_DC1 + ">" );
-				xmlBuffer.append( "\n      " + indent + "<" + TX_DC2 + ">" + tp.getYaxisAsString() + "</" + TX_DC2 + ">" );
+				xmlBuffer.append( "\n      " + indent + "<" + TX_DC1 + ">" + tp.getXaxisAsString() + "</" + TX_DC1 + ">" ) ;
+				xmlBuffer.append( "\n      " + indent + "<" + TX_DC2 + ">" + tp.getYaxisAsString() + "</" + TX_DC2 + ">" ) ;
 			}
-			xmlBuffer.append( "\n    " + indent + "</" + TX_OFFSET + ">" );
+			xmlBuffer.append( "\n    " + indent + "</" + TX_OFFSET + ">" ) ;
 		}
 
-		xmlBuffer.append( "\n  " + indent + "</" + TX_BASE + ">" );
+		xmlBuffer.append( "\n  " + indent + "</" + TX_BASE + ">" ) ;
 	}
 
 	/**
@@ -699,29 +698,29 @@ public class SpTelescopeObsComp extends SpObsComp
 
 		if( _currentPosition == null )
 		{
-			super.processXmlElementContent( name , value , pos );
-			return;
+			super.processXmlElementContent( name , value , pos ) ;
+			return ;
 		}
 
 		if( name.equals( TX_BASE ) || name.equals( TX_TARGET ) )
-			return;
+			return ;
 
 		if( name.equals( TX_TARGET_NAME ) )
 		{
-			_currentPosition.setName( value );
-			return;
+			_currentPosition.setName( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_SPHERICAL_SYSTEM ) )
 		{
-			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL );
-			return;
+			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL ) ;
+			return ;
 		}
 
 		if( name.equals( TX_CONIC_SYSTEM ) )
 		{
-			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC );
-			return;
+			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC ) ;
+			return ;
 		}
 
 		if( name.equals( TX_NAMED_SYSTEM ) )
@@ -729,7 +728,7 @@ public class SpTelescopeObsComp extends SpObsComp
 			// Ignore here and set system type in processXmlAttribute.
 			// processXmlAttribute might not be called because the
 			// XML element TX_NAMED_SYSTEM does not contain PCDATA.
-			return;
+			return ;
 		}
 
 		/*
@@ -738,18 +737,18 @@ public class SpTelescopeObsComp extends SpObsComp
          */
 		if( name.equals( TX_PM1 ) )
 		{
-			Double dValue = new Double( value );
-			dValue = new Double( dValue.doubleValue() * 1000.0 );
-			_currentPosition.setPropMotionRA( dValue.toString() );
-			return;
+			Double dValue = new Double( value ) ;
+			dValue = new Double( dValue.doubleValue() * 1000.0 ) ;
+			_currentPosition.setPropMotionRA( dValue.toString() ) ;
+			return ;
 		}
 
 		if( name.equals( TX_PM2 ) )
 		{
-			Double dValue = new Double( value );
-			dValue = new Double( dValue.doubleValue() * 1000.0 );
-			_currentPosition.setPropMotionDec( dValue.toString() );
-			return;
+			Double dValue = new Double( value ) ;
+			dValue = new Double( dValue.doubleValue() * 1000.0 ) ;
+			_currentPosition.setPropMotionDec( dValue.toString() ) ;
+			return ;
 		}
 
 		// ---- Sperical System
@@ -758,15 +757,15 @@ public class SpTelescopeObsComp extends SpObsComp
 		// Coordinate 1 (x axis)
 		if( name.equals( TX_C1 ) )
 		{
-			_currentPosition.setXYFromString( value , _currentPosition.getYaxisAsString() );
-			return;
+			_currentPosition.setXYFromString( value , _currentPosition.getYaxisAsString() ) ;
+			return ;
 		}
 
 		// Coordinate 2 (y axis)
 		if( name.equals( TX_C2 ) )
 		{
-			_currentPosition.setXYFromString( _currentPosition.getXaxisAsString() , value );
-			return;
+			_currentPosition.setXYFromString( _currentPosition.getXaxisAsString() , value ) ;
+			return ;
 		}
 
 		// ---- Conic System (Orbital Elements)
@@ -775,58 +774,58 @@ public class SpTelescopeObsComp extends SpObsComp
 		if( name.equals( TX_EPOCH ) )
 		{
 			if( _currentPosition.getSystemType() == SpTelescopePos.SYSTEM_CONIC )
-				_currentPosition.setConicSystemEpoch( value );
+				_currentPosition.setConicSystemEpoch( value ) ;
 			else
-				_currentPosition.setTrackingEpoch( value );
-			return;
+				_currentPosition.setTrackingEpoch( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_EPOCH_PERIH ) )
 		{
-			_currentPosition.setConicSystemEpochPerih( value );
-			return;
+			_currentPosition.setConicSystemEpochPerih( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_INCLINATION ) )
 		{
-			_currentPosition.setConicSystemInclination( value );
-			return;
+			_currentPosition.setConicSystemInclination( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_ANODE ) )
 		{
-			_currentPosition.setConicSystemAnode( value );
-			return;
+			_currentPosition.setConicSystemAnode( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_PERIHELION ) )
 		{
-			_currentPosition.setConicSystemPerihelion( value );
-			return;
+			_currentPosition.setConicSystemPerihelion( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_AORQ ) )
 		{
-			_currentPosition.setConicSystemAorQ( value );
-			return;
+			_currentPosition.setConicSystemAorQ( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_E ) )
 		{
-			_currentPosition.setConicSystemE( value );
-			return;
+			_currentPosition.setConicSystemE( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_LORM ) )
 		{
-			_currentPosition.setConicSystemLorM( value );
-			return;
+			_currentPosition.setConicSystemLorM( value ) ;
+			return ;
 		}
 
 		if( name.equals( TX_N ) )
 		{
-			_currentPosition.setConicSystemDailyMotion( value );
-			return;
+			_currentPosition.setConicSystemDailyMotion( value ) ;
+			return ;
 		}
 
 		// ---- Named System
@@ -840,8 +839,8 @@ public class SpTelescopeObsComp extends SpObsComp
 
 		if( name.equals( TX_OFFSET ) )
 		{
-			_currentPosition.setOffsetPosition( true );
-			return;
+			_currentPosition.setOffsetPosition( true ) ;
+			return ;
 		}
 
 		// Offset, coordinate 1
@@ -849,19 +848,19 @@ public class SpTelescopeObsComp extends SpObsComp
 		{
 			try
 			{
-				_currentPosition.setOffsetPosition( true );
-				double dc1 = Double.parseDouble( value );
+				_currentPosition.setOffsetPosition( true ) ;
+				double dc1 = Double.parseDouble( value ) ;
 				if( _currentPosition.isBasePosition() )
-					_currentPosition.setBaseXOffset( dc1 );
+					_currentPosition.setBaseXOffset( dc1 ) ;
 				else
-					_currentPosition.setXY( dc1 , _currentPosition.getYaxis() );
+					_currentPosition.setXY( dc1 , _currentPosition.getYaxis() ) ;
 			}
 			catch( Exception e )
 			{
 				// ignore
 			}
 
-			return;
+			return ;
 		}
 
 		// Offset, coordinate 2
@@ -869,19 +868,19 @@ public class SpTelescopeObsComp extends SpObsComp
 		{
 			try
 			{
-				_currentPosition.setOffsetPosition( true );
-				double dc2 = Double.parseDouble( value );
+				_currentPosition.setOffsetPosition( true ) ;
+				double dc2 = Double.parseDouble( value ) ;
 				if( _currentPosition.isBasePosition() )
-					_currentPosition.setBaseYOffset( dc2 );
+					_currentPosition.setBaseYOffset( dc2 ) ;
 				else
-					_currentPosition.setXY( _currentPosition.getXaxis() , dc2 );
+					_currentPosition.setXY( _currentPosition.getXaxis() , dc2 ) ;
 			}
 			catch( Exception e )
 			{
 				// ignore
 			}
 
-			return;
+			return ;
 		}
 
 		// ---- Details
@@ -890,18 +889,18 @@ public class SpTelescopeObsComp extends SpObsComp
 		// Radial Velocity
 		if( name.equals( TX_RV ) )
 		{
-			_currentPosition.setTrackingRadialVelocity( value );
-			return;
+			_currentPosition.setTrackingRadialVelocity( value ) ;
+			return ;
 		}
 
 		// Paralax
 		if( name.equals( TX_PARALLAX ) )
 		{
-			_currentPosition.setTrackingParallax( value );
-			return;
+			_currentPosition.setTrackingParallax( value ) ;
+			return ;
 		}
 
-		super.processXmlElementContent( name , value , pos );
+		super.processXmlElementContent( name , value , pos ) ;
 	}
 
 	/**
@@ -911,15 +910,15 @@ public class SpTelescopeObsComp extends SpObsComp
 	{
 		if( name.equals( TX_BASE ) )
 		{
-			_currentPosition = null;
+			_currentPosition = null ;
 
 			// save() just means reset() in this context.
-			getAvEditFSM().save();
+			getAvEditFSM().save() ;
 
-			return;
+			return ;
 		}
 
-		super.processXmlElementEnd( name );
+		super.processXmlElementEnd( name ) ;
 	}
 
 	/**
@@ -929,7 +928,7 @@ public class SpTelescopeObsComp extends SpObsComp
 	{
 		// Fix so that we can translate REFERNCE to SKY for UKIRT
 		if( ( value.equals( "REFERENCE" ) ) && ( System.getProperty( "ot.cfgdir" ).indexOf( "ukirt" ) != -1 ) )
-			value = "SKY";
+			value = "SKY" ;
 
 		if( elementName.equals( TX_BASE ) && attributeName.equals( TX_TYPE ) )
 		{
@@ -937,44 +936,44 @@ public class SpTelescopeObsComp extends SpObsComp
 			// TCS XML element BASE is something else.
 			if( value.equals( TX_TYPE_SCIENCE ) )
 			{
-				SpTelescopePos.createDefaultBasePosition( _avTable );
-				_currentPosition = getPosList().getBasePosition();
+				SpTelescopePos.createDefaultBasePosition( _avTable ) ;
+				_currentPosition = getPosList().getBasePosition() ;
 			}
 			else
 			{
-				_currentPosition = getPosList().createPosition( value , 0. , 0. );
+				_currentPosition = getPosList().createPosition( value , 0. , 0. ) ;
 			}
 
-			return;
+			return ;
 		}
 
 		if( elementName.equals( TX_SPHERICAL_SYSTEM ) )
-			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL );
+			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL ) ;
 		else if( elementName.equals( TX_CONIC_SYSTEM ) )
-			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC );
+			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC ) ;
 		else if( elementName.equals( TX_NAMED_SYSTEM ) )
-			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED );
+			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
 
 		if( ( elementName.equals( TX_SPHERICAL_SYSTEM ) || elementName.equals( TX_OFFSET ) ) && attributeName.equals( TX_SYSTEM ) )
 		{
 			if( value.equals( TX_J2000 ) )
 			{
-				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK5 ] );
-				return;
+				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK5 ] ) ;
+				return ;
 			}
 			else if( value.equals( TX_B1950 ) )
 			{
-				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK4 ] );
-				return;
+				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK4 ] ) ;
+				return ;
 			}
 			else if( value.equals( TX_AZEL ) )
 			{
-				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.AZ_EL ] );
-				return;
+				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.AZ_EL ] ) ;
+				return ;
 			}
 
-			_currentPosition.setCoordSys( value );
-			return;
+			_currentPosition.setCoordSys( value ) ;
+			return ;
 		}
 
 		// Type of conic or name system (comet, major, minor etc.)
@@ -982,34 +981,34 @@ public class SpTelescopeObsComp extends SpObsComp
 		{
 			if( _currentPosition != null )
 			{
-				_currentPosition.setConicOrNamedType( value );
+				_currentPosition.setConicOrNamedType( value ) ;
 
 				if( elementName.equals( TX_NAMED_SYSTEM ) )
-					_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED );
+					_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
 
-				return;
+				return ;
 			}
 		}
 
 		if( elementName.equals( TX_RV ) )
 		{
 			if( _currentPosition == null )
-				return;
+				return ;
 
 			if( attributeName.equals( TX_RV_DEFN ) )
-				_currentPosition.setTrackingRadialVelocityDefn( value );
+				_currentPosition.setTrackingRadialVelocityDefn( value ) ;
 			else if( attributeName.equals( TX_RV_FRAME ) )
-				_currentPosition.setTrackingRadialVelocityFrame( value );
-			return;
+				_currentPosition.setTrackingRadialVelocityFrame( value ) ;
+			return ;
 		}
 
 		if( elementName.equals( TX_EPOCH ) || elementName.equals( TX_EPOCH_PERIH ) || elementName.equals( TX_INCLINATION ) || elementName.equals( TX_ANODE ) || elementName.equals( TX_PERIHELION ) || elementName.equals( TX_AORQ ) || elementName.equals( TX_E ) || elementName.equals( TX_LORM ) || elementName.equals( TX_N ) || elementName.equals( TX_PM1 ) || elementName.equals( TX_PM2 ) )
 		{
 			// ignore
-			return;
+			return ;
 		}
 
-		super.processXmlAttribute( elementName , attributeName , value );
+		super.processXmlAttribute( elementName , attributeName , value ) ;
 	}
 
 	/**
@@ -1017,11 +1016,10 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public String getXML( String indent )
 	{
-		StringBuffer stringBuffer = new StringBuffer();
+		StringBuffer stringBuffer = new StringBuffer() ;
 
-		toXML( indent , stringBuffer );
+		toXML( indent , stringBuffer ) ;
 
-		return stringBuffer.toString();
+		return stringBuffer.toString() ;
 	}
-
 }

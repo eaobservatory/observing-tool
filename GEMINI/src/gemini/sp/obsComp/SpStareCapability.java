@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp.obsComp;
+package gemini.sp.obsComp ;
 
 /**
  * A base class for IR instrument observation component items.
@@ -12,13 +12,13 @@ package gemini.sp.obsComp;
 public class SpStareCapability extends SpInstCapability implements SpInstConstants
 {
 
-	public static final String CAPABILITY_NAME = "stare";
+	public static final String CAPABILITY_NAME = "stare" ;
 
 	/**
 	 */
 	public SpStareCapability()
 	{
-		super( CAPABILITY_NAME );
+		super( CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -27,8 +27,8 @@ public class SpStareCapability extends SpInstCapability implements SpInstConstan
      */
 	public int getCoadds()
 	{
-		int coadds = _avTable.getInt( ATTR_COADDS , 0 );
-		return coadds;
+		int coadds = _avTable.getInt( ATTR_COADDS , 0 ) ;
+		return coadds ;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class SpStareCapability extends SpInstCapability implements SpInstConstan
      */
 	public String getCoaddsAsString()
 	{
-		return String.valueOf( getCoadds() );
+		return String.valueOf( getCoadds() ) ;
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class SpStareCapability extends SpInstCapability implements SpInstConstan
      */
 	public void setCoadds( int coadds )
 	{
-		_avTable.set( ATTR_COADDS , coadds );
+		_avTable.set( ATTR_COADDS , coadds ) ;
 	}
 
 	/**
@@ -52,13 +52,13 @@ public class SpStareCapability extends SpInstCapability implements SpInstConstan
      */
 	public void setCoadds( String coadds )
 	{
-		int i = 1;
+		int i = 1 ;
 		try
 		{
-			i = Integer.parseInt( coadds );
+			i = Integer.parseInt( coadds ) ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_COADDS , i );
+		_avTable.set( ATTR_COADDS , i ) ;
 	}
 }
