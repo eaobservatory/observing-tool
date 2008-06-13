@@ -20,9 +20,7 @@
  * BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING,
  * MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-package gemini.util;
-
-import java.util.Enumeration;
+package gemini.util ;
 
 /**
  * A simple queue class modified from the following author.
@@ -30,34 +28,4 @@ import java.util.Enumeration;
  * @version 1.00 07 Feb 1996
  * @author Cay Horstmann
  */
-public class Queue
-{
-
-	private LinkedList _data = new LinkedList();
-
-	public void append( Object o )
-	{
-		_data.append( o );
-	}
-
-	public Object remove()
-	{
-		return _data.remove();
-	}
-
-	public int size()
-	{
-		return _data.size();
-	}
-
-	public Enumeration elements()
-	{
-		return _data.elements();
-	}
-
-	public void clear()
-	{
-		_data.clear();
-	}
-
-}
+public class Queue extends LinkedList{}
