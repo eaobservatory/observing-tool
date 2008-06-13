@@ -1,29 +1,29 @@
 // $Id$
 
-package orac.jcmt.inst;
+package orac.jcmt.inst ;
 
-import java.io.IOException;
-import java.util.Hashtable;
+import java.io.IOException ;
+import java.util.Hashtable ;
 
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.obsComp.SpMicroStepUser;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpMicroStepUser ;
 
 public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 {
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" ) ;
 
 	//	Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstSCUBA2() );
+		SpFactory.registerPrototype( new SpInstSCUBA2() ) ;
 	}
 
-	public static String[] JIGGLE_PATTERNS = { "DREAM" };
+	public static String[] JIGGLE_PATTERNS = { "DREAM" } ;
 
 	public static String[][] MICROSTEP_PATTERNS ;
 
@@ -32,34 +32,34 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public SpInstSCUBA2()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
 		// Read in the instrument config file
-		String baseDir = System.getProperty( "ot.cfgdir" );
-		String cfgFile = baseDir + "scuba2.cfg";
-		_readCfgFile( cfgFile );
+		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		String cfgFile = baseDir + "scuba2.cfg" ;
+		_readCfgFile( cfgFile ) ;
 	}
 
 	private void _readCfgFile( String filename )
 	{
-		InstCfgReader instCfg = null;
-		InstCfg instInfo = null;
-		String block = null;
-		instCfg = new InstCfgReader( filename );
+		InstCfgReader instCfg = null ;
+		InstCfg instInfo = null ;
+		String block = null ;
+		instCfg = new InstCfgReader( filename ) ;
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( InstCfg.matchAttr( instInfo , "microstep_patterns" ) )
-					MICROSTEP_PATTERNS = instInfo.getValueAs2DArray();
+					MICROSTEP_PATTERNS = instInfo.getValueAs2DArray() ;
 				else
-					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() );
+					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() ) ;
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading SUCBA2 inst. cfg file" );
+			System.out.println( "Error reading SUCBA2 inst. cfg file" ) ;
 		}
 	}
 
@@ -70,7 +70,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public String[] getJigglePatterns()
 	{
-		return JIGGLE_PATTERNS;
+		return JIGGLE_PATTERNS ;
 	}
 
 	/**
@@ -86,29 +86,29 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public double getDefaultScanDy()
 	{
-		return 180.;
+		return 180. ;
 	}
 
 	public Hashtable getMicroStepPatterns()
 	{
 		Hashtable<String,double[][]> result = new Hashtable<String,double[][]>() ;
 
-		double[][] offsets;
+		double[][] offsets ;
 
 		for( int i = 0 ; i < MICROSTEP_PATTERNS.length ; i++ )
 		{
-			offsets = new double[ ( MICROSTEP_PATTERNS[ i ].length - 1 ) / 2 ][ 2 ];
+			offsets = new double[ ( MICROSTEP_PATTERNS[ i ].length - 1 ) / 2 ][ 2 ] ;
 
-			int k = 1;
+			int k = 1 ;
 			for( int j = 0 ; j < offsets.length ; j++ )
 			{
-				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
-				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
+				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
+				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
 			}
-			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets );
+			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets ) ;
 		}
 
-		return result;
+		return result ;
 	}
 	
 	public double[] getScienceArea()
