@@ -867,6 +867,21 @@ public final class SpTreeMan implements SpInsertConstants
 		return ( SpObsContextItem )spItem ;
 	}
 
+	private static Class classForName( String name )
+	{
+		Class c = null ;
+		try
+		{
+			c = Class.forName( name ) ;
+		}
+		catch( Exception ex )
+		{
+			System.out.println( "Problem instantiating: " + name ) ;
+			System.out.println( ex ) ;
+		}
+		return c ;
+	}
+	
 	/**
      * Find all of the items which are instances of the class indicated by the
      * given fully-qualified className that are in the scope of the given
@@ -874,32 +889,23 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static Vector findAllItems( SpItem rootItem , String className )
 	{
-		// Get the class from the className
-		Class c = null ;
-		try
-		{
-			c = Class.forName( className ) ;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "Problem instantiating: " + className ) ;
-			System.out.println( ex ) ;
-		}
-
-		if( c == null )
-			return null ;
-
 		Vector<SpItem> v = new Vector<SpItem>() ;
-		if( rootItem instanceof SpObsComp )
-		{
-			_findAllItems( rootItem.parent() , c , v ) ;
-		}
-		else
-		{
-			if( rootItem.getClass().equals( c ) )
-				v.addElement( rootItem ) ;
+		// Get the class from the className
+		Class c = classForName( className ) ;
 
-			_findAllItems( rootItem , c , v ) ;
+		if( c != null )
+		{
+			if( rootItem instanceof SpObsComp )
+			{
+				_findAllItems( rootItem.parent() , c , v ) ;
+			}
+			else
+			{
+				if( rootItem.getClass().equals( c ) )
+					v.addElement( rootItem ) ;
+	
+				_findAllItems( rootItem , c , v ) ;
+			}
 		}
 		return v ;
 	}
@@ -912,30 +918,24 @@ public final class SpTreeMan implements SpInsertConstants
 	public static Vector findAllInstances( SpItem rootItem , String name )
 	{
 		Vector<SpItem> v = new Vector<SpItem>() ;
-		if( name == null || name.length() == 0 )
-			return v ;
-
-		Class c ;
-		try
+		if( name != null || name.length() > 0 )
 		{
-			c = Class.forName( name ) ;
-		}
-		catch( ClassNotFoundException ex )
-		{
-			return v ;
-		}
-
-		if( rootItem instanceof SpObsContextItem )
-		{
-			// Start searching from the parent node
-			_findAllInstances( rootItem , c , v ) ;
-		}
-		else
-		{
-			if( c.isInstance( rootItem ) )
-				v.addElement( rootItem ) ;
-
-			_findAllInstances( rootItem.parent() , c , v ) ;
+			Class c = classForName( name ) ;
+			if( c != null )
+			{
+				if( rootItem instanceof SpObsContextItem )
+				{
+					// Start searching from the parent node
+					_findAllInstances( rootItem , c , v ) ;
+				}
+				else
+				{
+					if( c.isInstance( rootItem ) )
+						v.addElement( rootItem ) ;
+		
+					_findAllInstances( rootItem.parent() , c , v ) ;
+				}
+			}
 		}
 		return v ;
 	}

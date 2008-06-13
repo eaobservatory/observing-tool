@@ -199,7 +199,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			if( parent instanceof SpMSB )
 			{
 				recipes = SpTreeMan.findAllItems( parent , SpDRRecipe.class.getName() ) ;
-				if( recipes != null && recipes.size() > 0 )
+				if( recipes.size() > 0 )
 					break ;
 			}
 			parent = parent.parent() ;

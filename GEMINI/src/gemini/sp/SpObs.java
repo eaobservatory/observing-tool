@@ -674,22 +674,20 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		int nOffsets = 0 ;
 		// Get all the child offsets
 		Vector offsets = SpTreeMan.findAllItems( this , SpIterOffset.class.getName() ) ;
-		if( offsets != null )
+
+		for( int i = 0 ; i < offsets.size() ; i++ )
 		{
-			for( int i = 0 ; i < offsets.size() ; i++ )
+			SpIterOffset offset = ( SpIterOffset )offsets.get( i ) ;
+			int myNOffs = offset.getPosList().size() ;
+			if( offset.hasNamedSkyChild() )
+				myNOffs *= ( offset.getNumIterObserveChildren( offset ) ) ;
+			Vector uSteps = SpTreeMan.findAllItems( offset , SpIterMicroStep.class.getName() ) ;
+			if( uSteps != null && uSteps.size() != 0 && inst instanceof SpMicroStepUser )
 			{
-				SpIterOffset offset = ( SpIterOffset )offsets.get( i ) ;
-				int myNOffs = offset.getPosList().size() ;
-				if( offset.hasNamedSkyChild() )
-					myNOffs *= ( offset.getNumIterObserveChildren( offset ) ) ;
-				Vector uSteps = SpTreeMan.findAllItems( offset , SpIterMicroStep.class.getName() ) ;
-				if( uSteps != null && uSteps.size() != 0 && inst instanceof SpMicroStepUser )
-				{
-					SpIterMicroStep us = ( SpIterMicroStep )uSteps.get( 0 ) ;
-					myNOffs *= us.getNOffsets() ;
-				}
-				nOffsets += myNOffs ;
+				SpIterMicroStep us = ( SpIterMicroStep )uSteps.get( 0 ) ;
+				myNOffs *= us.getNOffsets() ;
 			}
+			nOffsets += myNOffs ;
 		}
 
 		/*
