@@ -7,14 +7,14 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.util;
+package orac.ukirt.util ;
 
-import gemini.sp.SpTelescopePos;
-import gemini.util.CoordSys;
-import orac.util.TelescopeUtil;
-import orac.util.SpItemDOM;
-import orac.validation.SpValidation;
-import orac.ukirt.validation.UkirtSpValidation;
+import gemini.sp.SpTelescopePos ;
+import gemini.util.CoordSys ;
+import orac.util.TelescopeUtil ;
+import orac.util.SpItemDOM ;
+import orac.validation.SpValidation ;
+import orac.ukirt.validation.UkirtSpValidation ;
 
 /**
  * Used for UKIRT specific features.
@@ -23,18 +23,18 @@ import orac.ukirt.validation.UkirtSpValidation;
  */
 public class UkirtUtil implements TelescopeUtil
 {
-	private static final String[] COORD_SYS_FK5_FK4 = CoordSys.COORD_SYS;
-	private static final String[] CHOP_SYSTEM = { CoordSys.COORD_SYS[ CoordSys.FK5 ] };
-	private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation();
+	private static final String[] COORD_SYS_FK5_FK4 = CoordSys.COORD_SYS ;
+	private static final String[] CHOP_SYSTEM = { CoordSys.COORD_SYS[ CoordSys.FK5 ] } ;
+	private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation() ;
 
 	public SpValidation getValidationTool()
 	{
-		return _ukirtSpValidation;
+		return _ukirtSpValidation ;
 	}
 
 	public String getBaseTag()
 	{
-		return SpTelescopePos.BASE_TAG;
+		return SpTelescopePos.BASE_TAG ;
 	}
 
 	/**
@@ -51,15 +51,15 @@ public class UkirtUtil implements TelescopeUtil
 		switch( feature )
 		{
 			case FEATURE_TARGET_INFO_CHOP :
-				return false;
+				return false ;
 			case FEATURE_FLAG_AS_STANDARD :
-				return true;
+				return true ;
 			case FEATURE_TARGET_INFO_PROP_MOTION :
-				return true;
+				return true ;
 			case FEATURE_TARGET_INFO_TRACKING :
-				return false;
+				return false ;
 			default :
-				return false;
+				return false ;
 		}
 	}
 
@@ -71,19 +71,19 @@ public class UkirtUtil implements TelescopeUtil
 	 */
 	public void installPreTranslator() throws Exception
 	{
-		SpItemDOM.setPreTranslator( new UkirtPreTranslator( SpTelescopePos.BASE_TAG , SpTelescopePos.GUIDE_TAGS[ 0 ] ) );
+		SpItemDOM.setPreTranslator( new UkirtPreTranslator( SpTelescopePos.BASE_TAG , SpTelescopePos.GUIDE_TAGS[ 0 ] ) ) ;
 	}
 
 	public String[] getCoordSys()
 	{
-		return COORD_SYS_FK5_FK4;
+		return COORD_SYS_FK5_FK4 ;
 	}
 
 	public String[] getCoordSysFor( String purpose )
 	{
 		if( purpose.equals( CHOP ) )
-			return CHOP_SYSTEM;
+			return CHOP_SYSTEM ;
 
-		return null;
+		return null ;
 	}
 }

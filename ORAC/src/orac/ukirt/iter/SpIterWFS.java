@@ -1,34 +1,35 @@
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.IterConfigItem;
+import gemini.sp.iter.IterConfigItem ;
 
-import gemini.util.ConfigWriter;
+import gemini.util.ConfigWriter ;
+import gemini.util.TranslationUtils ;
 
-import orac.ukirt.inst.SpInstWFS;
+import orac.ukirt.inst.SpInstWFS ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.List ;
+import java.util.Vector ;
 
 public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslatable
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "iterWFS" , "WFS" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "iterWFS" , "WFS" ) ;
 	static
 	{
-		SpFactory.registerPrototype( new SpIterWFS() );
+		SpFactory.registerPrototype( new SpIterWFS() ) ;
 	}
 
 	/** Deafault ctor */
 	public SpIterWFS()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -36,10 +37,10 @@ public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslata
 	 */
 	public IterConfigItem[] getAvailableItems()
 	{
-		IterConfigItem icilensPos = new IterConfigItem( "LensPos" , SpInstWFS.ATTR_LENS_POS + "Iter" , SpInstWFS.LENS_POS );
-		IterConfigItem[] iciA = { icilensPos , getExposureTimeConfigItem() , getCoaddsConfigItem() };
+		IterConfigItem icilensPos = new IterConfigItem( "LensPos" , SpInstWFS.ATTR_LENS_POS + "Iter" , SpInstWFS.LENS_POS ) ;
+		IterConfigItem[] iciA = { icilensPos , getExposureTimeConfigItem() , getCoaddsConfigItem() } ;
 
-		return iciA;
+		return iciA ;
 	}
 
 	/**
@@ -47,50 +48,50 @@ public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslata
 	 */
 	public String getItemName()
 	{
-		return "WFS";
+		return "WFS" ;
 	}
 
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		SpInstWFS inst;
+		SpInstWFS inst ;
 		try
 		{
-			inst = ( SpInstWFS )SpTreeMan.findInstrument( this );
+			inst = ( SpInstWFS )SpTreeMan.findInstrument( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new SpTranslationNotSupportedException( "No WFS instrument in scope" );
+			throw new SpTranslationNotSupportedException( "No WFS instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs();
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		List iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable configTable = inst.getConfigItems();
+			Hashtable configTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "exposureTimeIter" ) )
-					configTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) );
+					configTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					configTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) );
+					configTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
 
 				if( iterList.contains( "lensPosIter" ) )
-					configTable.put( "lensPos" , ( String )getConfigSteps( "lensPosIter" ).get( i ) );
+					configTable.put( "lensPos" , ( String )getConfigSteps( "lensPosIter" ).get( i ) ) ;
 			}
 
 			try
 			{
-				ConfigWriter.getCurrentInstance().write( configTable );
+				ConfigWriter.getCurrentInstance().write( configTable ) ;
 			}
 			catch( Exception e )
 			{
-				throw new SpTranslationNotSupportedException( "Unable to write config file for WFS iterator:" + e.getMessage() );
+				throw new SpTranslationNotSupportedException( "Unable to write config file for WFS iterator:" + e.getMessage() ) ;
 			}
-			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 
-			Enumeration e = this.children();
-			gemini.util.TranslationUtils.recurse( e , v ) ;
+			Enumeration e = this.children() ;
+			TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }

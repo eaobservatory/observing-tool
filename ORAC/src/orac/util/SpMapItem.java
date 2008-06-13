@@ -7,7 +7,7 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
 /**
  * Iterators that implement the map feature
@@ -23,7 +23,7 @@ package orac.util;
  */
 public interface SpMapItem
 {
-	public double getWidth();
-	public double getHeight();
-	public double getPosAngle();
+	public double getWidth() ;
+	public double getHeight() ;
+	public double getPosAngle() ;
 }

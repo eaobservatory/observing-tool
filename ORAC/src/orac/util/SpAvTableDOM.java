@@ -1,16 +1,16 @@
-package orac.util;
+package orac.util ;
 
-import gemini.sp.SpAvTable;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.traversal.TreeWalker;
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xerces.dom.DocumentImpl;
-import java.util.Vector;
-import java.util.StringTokenizer;
-import java.util.Enumeration;
-import java.util.Arrays;
+import gemini.sp.SpAvTable ;
+import org.w3c.dom.Element ;
+import org.w3c.dom.Node ;
+import org.w3c.dom.NodeList ;
+import org.w3c.dom.traversal.TreeWalker ;
+import org.apache.xerces.dom.ElementImpl ;
+import org.apache.xerces.dom.DocumentImpl ;
+import java.util.Vector ;
+import java.util.StringTokenizer ;
+import java.util.Enumeration ;
+import java.util.Arrays ;
 
 /**
  *
@@ -43,36 +43,36 @@ import java.util.Arrays;
  * -->
  *
  * <!-- for javadoc -->
- * (1)       one.two.three   some text        &lt;one&gt;
- *                                              &lt;two&gt;
- *                                                &lt;three&gt;some text&lt;/three&gt;
- *                                              &lt;/two&gt;
- *                                            &lt;/one&gt;
+ * (1)       one.two.three   some text        &lt ;one&gt ;
+ *                                              &lt ;two&gt ;
+ *                                                &lt ;three&gt ;some text&lt ;/three&gt ;
+ *                                              &lt ;/two&gt ;
+ *                                            &lt ;/one&gt ;
  * 
- * (2)       one.two:three   some text        &lt;one&gt;
- *                                              &lt;two three="some text"&gt;&lt;/two&gt;
- *                                            &lt;/one&gt;
+ * (2)       one.two:three   some text        &lt ;one&gt ;
+ *                                              &lt ;two three="some text"&gt ;&lt ;/two&gt ;
+ *                                            &lt ;/one&gt ;
  * 
- * (3)                                        &lt;one&gt;
- *                                              &lt;two&gt;
- *           one.two#1.three some text            &lt;three&gt;some text&lt;/three&gt;
- *                                              &lt;/two&gt;
- *                                              &lt;two&gt;
- *           one.two#2.three some more text       &lt;three&gt;some more text&lt;/three&gt;
- *                                              &lt;/two&gt;
- *                                              &lt;two&gt;
- *           one.two#3:myAttr.three something else  &lt;three myAttr="something else"/&gt;
+ * (3)                                        &lt ;one&gt ;
+ *                                              &lt ;two&gt ;
+ *           one.two#1.three some text            &lt ;three&gt ;some text&lt ;/three&gt ;
+ *                                              &lt ;/two&gt ;
+ *                                              &lt ;two&gt ;
+ *           one.two#2.three some more text       &lt ;three&gt ;some more text&lt ;/three&gt ;
+ *                                              &lt ;/two&gt ;
+ *                                              &lt ;two&gt ;
+ *           one.two#3:myAttr.three something else  &lt ;three myAttr="something else"/&gt ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SpAvTableDOM
 {
-	public static final String META_DATA_TAG = "MetaData";
+	public static final String META_DATA_TAG = "MetaData" ;
 
 	/**
 	 * The attribute value table that is represented by this class.
 	 */
-	protected SpAvTable _avTab;
+	protected SpAvTable _avTab ;
 
 	/**
 	 * Owner document that the attribute value table of this class and possibly all the other
@@ -80,26 +80,26 @@ public class SpAvTableDOM
 	 *
 	 * @see #_avTab
 	 */
-	protected DocumentImpl _document;// = new DocumentImpl();
+	protected DocumentImpl _document ;// = new DocumentImpl() ;
 
 	/**
 	 * The root of the DOM sub tree that represents the attribute value table of this class.
 	 *
 	 * @see #_avTab
 	 */
-	protected ElementImpl _element;
-	protected TreeWalker _treeWalker;
+	protected ElementImpl _element ;
+	protected TreeWalker _treeWalker ;
 
 	/**
 	 * This constuctor should be used in for processing entire the science programs.
 	 */
 	public SpAvTableDOM( SpAvTable avTab , ElementImpl element )
 	{
-		_element = element;
-		_document = ( DocumentImpl )element.getOwnerDocument();
-		_treeWalker = _document.createTreeWalker( _element , ( short )0 , null );
+		_element = element ;
+		_document = ( DocumentImpl )element.getOwnerDocument() ;
+		_treeWalker = _document.createTreeWalker( _element , ( short )0 , null ) ;
 
-		_avTab = avTab;
+		_avTab = avTab ;
 
 	}
 
@@ -107,22 +107,22 @@ public class SpAvTableDOM
 	{
 		// Construct AvToDom classes using a sorted attribute array.
 
-		Enumeration e = _avTab.attributes();
-		Vector attributeVector = new Vector();
+		Enumeration e = _avTab.attributes() ;
+		Vector attributeVector = new Vector() ;
 
 		while( e.hasMoreElements() )
-			attributeVector.add( ( String )e.nextElement() );
+			attributeVector.add( ( String )e.nextElement() ) ;
 
-		String[] attributeArray = new String[ attributeVector.size() ];
-		attributeVector.toArray( attributeArray );
-		Arrays.sort( attributeArray );
+		String[] attributeArray = new String[ attributeVector.size() ] ;
+		attributeVector.toArray( attributeArray ) ;
+		Arrays.sort( attributeArray ) ;
 
-		AvToDom avToDom;
+		AvToDom avToDom ;
 
 		for( int i = 0 ; i < attributeArray.length ; i++ )
 		{
-			avToDom = new AvToDom( attributeArray[ i ] );
-			avToDom.parseAttributeValue();
+			avToDom = new AvToDom( attributeArray[ i ] ) ;
+			avToDom.parseAttributeValue() ;
 		}
 	}
 
@@ -131,21 +131,21 @@ public class SpAvTableDOM
 	 */
 	class AvToDom
 	{
-		protected StringTokenizer _attrTokenizer;
-		protected Vector _values;
-		protected Node _nodePointer;
-		protected String _xmlTag;
+		protected StringTokenizer _attrTokenizer ;
+		protected Vector _values ;
+		protected Node _nodePointer ;
+		protected String _xmlTag ;
 
 		/**
 		 * XML attribute.
 		 * 
 		 * <!-- XML attributes are placed insight xml tags: <tag my_attribute="my value"> -->
 		 * <!-- for javadoc -->
-		 *      XML attributes are placed insight xml tags: &lt;tag my_attribute="my value"&gt;
+		 *      XML attributes are placed insight xml tags: &lt ;tag my_attribute="my value"&gt ;
 		 *
 		 * @see #_avTabAttribute
 		 */
-		protected String _xmlAttribute;
+		protected String _xmlAttribute ;
 
 		/**
 		 * SpAvTable attribute.
@@ -156,12 +156,12 @@ public class SpAvTableDOM
 		 * @see orac.util.SpAvTableDOM
 		 * @see #_xmlAttribute
 		 */
-		protected String _avTabAttribute;
-		protected String _userData;
+		protected String _avTabAttribute ;
+		protected String _userData ;
 
 		public AvToDom( String avTabAttribute )
 		{
-			_avTabAttribute = avTabAttribute;
+			_avTabAttribute = avTabAttribute ;
 
 			// The SpAvTable attributes that start with a '.' are a special case.
 			// This dot notations has been part of the gemini OT from the start and is
@@ -206,43 +206,43 @@ public class SpAvTableDOM
 			// retrieve the value.
 
 			if( _avTabAttribute.startsWith( "." ) )
-				_attrTokenizer = new StringTokenizer( META_DATA_TAG + _avTabAttribute , "." );
+				_attrTokenizer = new StringTokenizer( META_DATA_TAG + _avTabAttribute , "." ) ;
 			else
-				_attrTokenizer = new StringTokenizer( _avTabAttribute , "." );
+				_attrTokenizer = new StringTokenizer( _avTabAttribute , "." ) ;
 		}
 
 		protected void parseNextToken()
 		{
-			String token = _attrTokenizer.nextToken();
+			String token = _attrTokenizer.nextToken() ;
 
 			// If token has the form tag:attr then break it up accordingly.
 			if( token.indexOf( ':' ) != -1 )
 			{
-				_xmlTag = token.substring( 0 , token.indexOf( ':' ) );
-				_xmlAttribute = token.substring( token.indexOf( ':' ) + 1 );
+				_xmlTag = token.substring( 0 , token.indexOf( ':' ) ) ;
+				_xmlAttribute = token.substring( token.indexOf( ':' ) + 1 ) ;
 			}
 			else
 			{
-				_xmlTag = token;
+				_xmlTag = token ;
 			}
 
 			// Special case. Token was of the form ":someToken"
 			if( _xmlTag.equals( "" ) && ( _xmlAttribute != null ) )
 			{
-				( ( Element )_treeWalker.getCurrentNode() ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) );
-				return;
+				( ( Element )_treeWalker.getCurrentNode() ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) ) ;
+				return ;
 			}
 
 			// user data is the token + '#' + a number but NOT ':' + attribute if these form the end of the token.
-			_userData = _xmlTag;
+			_userData = _xmlTag ;
 
 			// If this tag appears more then once has to have a unique attribute name in SpAvTable.
 			// This is done by appending '#' and a numer to the tag.
 			// In xml this is not needed and the tail of the _xmlTag ('#' followed by a number can be discarded.)
 			if( _xmlTag.indexOf( '#' ) != -1 )
-				_xmlTag = _xmlTag.substring( 0 , _xmlTag.indexOf( '#' ) );
+				_xmlTag = _xmlTag.substring( 0 , _xmlTag.indexOf( '#' ) ) ;
 
-			NodeList nodeList = _treeWalker.getCurrentNode().getChildNodes();
+			NodeList nodeList = _treeWalker.getCurrentNode().getChildNodes() ;
 
 			// If no multiple tags with the same name are intended in the parent tag then try whether a
 			// tag with the name _xmlTag exists already, set the attribute, if there is one, set the
@@ -256,46 +256,46 @@ public class SpAvTableDOM
 					{
 						// NOTE that there can only be one xml attributes with the same name in a tag (?) and attributes have only one value.
 						// Therefore only the first entry in the value vector is used and the others are ignored.
-						( ( Element )nodeList.item( i ) ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) );
+						( ( Element )nodeList.item( i ) ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) ) ;
 					}
 					else
 					{
 						if( System.getProperty( "DEBUG" ) != null )
-							System.out.println( "Used to creating text node (1) here: " + _avTab.get( _avTabAttribute , 0 ) + " as child of " + nodeList.item( i ).getNodeName() );					
+							System.out.println( "Used to creating text node (1) here: " + _avTab.get( _avTabAttribute , 0 ) + " as child of " + nodeList.item( i ).getNodeName() ) ;					
 					}
 
-					_treeWalker.setCurrentNode( nodeList.item( i ) );
-					return;
+					_treeWalker.setCurrentNode( nodeList.item( i ) ) ;
+					return ;
 				}
 			}
 
 			// Not returned yet? Or multiple tags intended? Then a node has to be created.
-			Node child = null;
+			Node child = null ;
 			// Is not the final section of _avTabAttribute (Sections are separated by '.' in the attribute string _avTabAttribute.)
 			if( _attrTokenizer.hasMoreTokens() )
 			{
-				child = _treeWalker.getCurrentNode().appendChild( _document.createElement( _xmlTag ) );
-				( ( ElementImpl )child ).setUserData( _userData );
+				child = _treeWalker.getCurrentNode().appendChild( _document.createElement( _xmlTag ) ) ;
+				( ( ElementImpl )child ).setUserData( _userData ) ;
 			}
 			else
 			{
 				// Is the final section of the attribute string _avTabAttribute.
-				Vector v = _avTab.getAll( _avTabAttribute );
+				Vector v = _avTab.getAll( _avTabAttribute ) ;
 
 				if( v != null && v.size() > 0 )
 				{
-					child = _treeWalker.getCurrentNode().appendChild( _document.createElement( _xmlTag ) );
-					( ( ElementImpl )child ).setUserData( _userData );
+					child = _treeWalker.getCurrentNode().appendChild( _document.createElement( _xmlTag ) ) ;
+					( ( ElementImpl )child ).setUserData( _userData ) ;
 
 					if( v.size() < 2 )
 					{
 						if( _xmlAttribute == null )
-							child.appendChild( _document.createTextNode( _avTab.get( _avTabAttribute , 0 ) ) );
+							child.appendChild( _document.createTextNode( _avTab.get( _avTabAttribute , 0 ) ) ) ;
 					}
 					else
 					{
 						for( int i = 0 ; i < v.size() ; ++i )
-							child.appendChild( _document.createElement( "value" ) ).appendChild( _document.createTextNode( _avTab.get( _avTabAttribute , i ) ) );
+							child.appendChild( _document.createElement( "value" ) ).appendChild( _document.createTextNode( _avTab.get( _avTabAttribute , i ) ) ) ;
 					}
 				}
 			}
@@ -306,22 +306,22 @@ public class SpAvTableDOM
 			{
 				try
 				{
-					( ( Element )child ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) );
+					( ( Element )child ).setAttribute( _xmlAttribute , _avTab.get( _avTabAttribute , 0 ) ) ;
 				}
 				catch( Exception e )
 				{
-					e.printStackTrace();
+					e.printStackTrace() ;
 				}
 			}
 
-			_treeWalker.setCurrentNode( child );
+			_treeWalker.setCurrentNode( child ) ;
 		}
 
 		public void parseAttributeValue()
 		{
-			_treeWalker.setCurrentNode( _element );
+			_treeWalker.setCurrentNode( _element ) ;
 			while( _attrTokenizer.hasMoreTokens() )
-				parseNextToken();
+				parseNextToken() ;
 		}
 	}
 }

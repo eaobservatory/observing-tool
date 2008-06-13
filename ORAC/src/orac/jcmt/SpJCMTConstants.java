@@ -7,9 +7,9 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt;
+package orac.jcmt ;
 
-import gemini.sp.SpMSB;
+import gemini.sp.SpMSB ;
 
 /**
  * Constants for JCMT instrument components and iterators.
@@ -40,42 +40,42 @@ public interface SpJCMTConstants
 	 * Note that the returned duration takes into account the number of integrations and overheads.
 	 * So the duration does <b>not</b> have to be multiplied by the number of integrations.
 	 */
-	public static final String ATTR_ELAPSED_TIME = SpMSB.ATTR_ELAPSED_TIME;
+	public static final String ATTR_ELAPSED_TIME = SpMSB.ATTR_ELAPSED_TIME ;
 
 	// Generic JCMT iterator. Many of the attribute are actually only used for the Heterodyne instrument.
 
 	/** Switching mode (Nod, Chop, Frequency, None). */
-	public static final String ATTR_SWITCHING_MODE = "switchingMode";
+	public static final String ATTR_SWITCHING_MODE = "switchingMode" ;
 
 	/** Reference offset, x. */
-	public static final String ATTR_REFERENCE_OFFSET_X = "referenceOffset.x";
+	public static final String ATTR_REFERENCE_OFFSET_X = "referenceOffset.x" ;
 
 	/** Reference offset, y. */
-	public static final String ATTR_REFERENCE_OFFSET_Y = "referenceOffset.y";
+	public static final String ATTR_REFERENCE_OFFSET_Y = "referenceOffset.y" ;
 
 	/** Reference offset, system. */
-	public static final String ATTR_REFERENCE_OFFSET_SYSTEM = "referenceOffset.system";
+	public static final String ATTR_REFERENCE_OFFSET_SYSTEM = "referenceOffset.system" ;
 
 	/** Frequency offset, throw. */
-	public static final String ATTR_FREQUENCY_OFFSET_THROW = "frequencyOffset.throw";
+	public static final String ATTR_FREQUENCY_OFFSET_THROW = "frequencyOffset.throw" ;
 
 	/** Frequency offset, rate. */
-	public static final String ATTR_FREQUENCY_OFFSET_RATE = "frequencyOffset.rate";
+	public static final String ATTR_FREQUENCY_OFFSET_RATE = "frequencyOffset.rate" ;
 
 	// Scan/Raster Iterator
-	public static final String ATTR_SCANAREA_X0 = "SCAN_AREA.AREA:X0";
-	public static final String ATTR_SCANAREA_Y0 = "SCAN_AREA.AREA:Y0";
-	public static final String ATTR_SCANAREA_WIDTH = "SCAN_AREA.AREA:WIDTH";
-	public static final String ATTR_SCANAREA_HEIGHT = "SCAN_AREA.AREA:HEIGHT";
-	public static final String ATTR_SCANAREA_TYPE = "SCAN_AREA.AREA:TYPE";
-	public static final String ATTR_SCANAREA_PA = "SCAN_AREA.AREA.PA";
-	public static final String ATTR_SCANAREA_SCAN_VELOCITY = "SCAN_AREA.SCAN:VELOCITY";
-	public static final String ATTR_SCANAREA_SCAN_SYSTEM = "SCAN_AREA.SCAN:SYSTEM";
-	public static final String ATTR_SCANAREA_SCAN_DY = "SCAN_AREA.SCAN:DY";
-	public static final String ATTR_SCANAREA_SCAN_REVERSAL = "SCAN_AREA.SCAN:REVERSAL";
-	public static final String ATTR_SCANAREA_SCAN_TIMESTEP = "SCAN_AREA.SCAN:TIME_STEP";
-	public static final String ATTR_SCANAREA_SCAN_TYPE = "SCAN_AREA.SCAN:TYPE";
-	public static final String ATTR_SCANAREA_SCAN_PA = "SCAN_AREA.SCAN:PA";
+	public static final String ATTR_SCANAREA_X0 = "SCAN_AREA.AREA:X0" ;
+	public static final String ATTR_SCANAREA_Y0 = "SCAN_AREA.AREA:Y0" ;
+	public static final String ATTR_SCANAREA_WIDTH = "SCAN_AREA.AREA:WIDTH" ;
+	public static final String ATTR_SCANAREA_HEIGHT = "SCAN_AREA.AREA:HEIGHT" ;
+	public static final String ATTR_SCANAREA_TYPE = "SCAN_AREA.AREA:TYPE" ;
+	public static final String ATTR_SCANAREA_PA = "SCAN_AREA.AREA.PA" ;
+	public static final String ATTR_SCANAREA_SCAN_VELOCITY = "SCAN_AREA.SCAN:VELOCITY" ;
+	public static final String ATTR_SCANAREA_SCAN_SYSTEM = "SCAN_AREA.SCAN:SYSTEM" ;
+	public static final String ATTR_SCANAREA_SCAN_DY = "SCAN_AREA.SCAN:DY" ;
+	public static final String ATTR_SCANAREA_SCAN_REVERSAL = "SCAN_AREA.SCAN:REVERSAL" ;
+	public static final String ATTR_SCANAREA_SCAN_TIMESTEP = "SCAN_AREA.SCAN:TIME_STEP" ;
+	public static final String ATTR_SCANAREA_SCAN_TYPE = "SCAN_AREA.SCAN:TYPE" ;
+	public static final String ATTR_SCANAREA_SCAN_PA = "SCAN_AREA.SCAN:PA" ;
 
 	/**
 	 * Scan Systems.
@@ -87,17 +87,17 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt;SCAN_AREA&gt;
-	 *   &lt;SCAN SYSTEM="FPLANE"&gt;
-	 *   &lt;/SCAN&gt;
-	 * &lt;SCAN_AREA&gt;
+	 * &lt ;SCAN_AREA&gt ;
+	 *   &lt ;SCAN SYSTEM="FPLANE"&gt ;
+	 *   &lt ;/SCAN&gt ;
+	 * &lt ;SCAN_AREA&gt ;
 	 * </pre>
 	 */
-	public static final String TRACKING = "TRACKING";
-	public static final String AZEL = "AZEL";
-	public static final String MOUNT = "MOUNT";
-	public static final String FPLANE = "FPLANE";
-	public static final String[] SCAN_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE };
+	public static final String TRACKING = "TRACKING" ;
+	public static final String AZEL = "AZEL" ;
+	public static final String MOUNT = "MOUNT" ;
+	public static final String FPLANE = "FPLANE" ;
+	public static final String[] SCAN_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE } ;
 
 	/**
 	 * Scan Strategies.
@@ -130,16 +130,16 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt;CHOP SYSTEM="TRACKING"&gt;
-	 * &lt;/CHOP&gt;
+	 * &lt ;CHOP SYSTEM="TRACKING"&gt ;
+	 * &lt ;/CHOP&gt ;
 	 * </pre>
 	 */
-	public static final String[] CHOP_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE , "SCAN" };
+	public static final String[] CHOP_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE , "SCAN" } ;
 
 	/**
 	 * Index for {@link #CHOP_SYSTEMS}.
 	 */
-	public static final int CHOP_SYSTEM_TARCKING = 0;
+	public static final int CHOP_SYSTEM_TARCKING = 0 ;
 
 	/**
 	 * Systems for jiggle.
@@ -151,133 +151,132 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt;JIGGLE SYSTEM="TRACKING"&gt;
-	 * &lt;/JIGGLE&gt;
+	 * &lt ;JIGGLE SYSTEM="TRACKING"&gt ;
+	 * &lt ;/JIGGLE&gt ;
 	 * </pre>
 	 */
-	public static final String[] JIGGLE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE };
-	public static final String ATTR_SECS_PER_CYCLE = "secsPerCycle";
-	public static final String ATTR_CYCLE_REVERSAL = "cycleReversal";
-	public static final String ATTR_SAMPLE_TIME = "sampleTime";
-	public static final String ATTR_AUTOMATIC_TARGET = "autoTarget";
-	public static final String ATTR_CONT_CAL = "continuousCal";
-	public static final String ATTR_DO_AT_CURRENT_AZ = "useCurrentAz";
-	public static final String ATTR_WIDE_PHOTOMETRY = "widePhotometry";
-	public static final String ATTR_CONTINUUM_MODE = "continuumMode";
-	public static final String ATTR_SAMPLES_PER_REVOLUTION = "samplesPerRevolution";
+	public static final String[] JIGGLE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE } ;
+	public static final String ATTR_SECS_PER_CYCLE = "secsPerCycle" ;
+	public static final String ATTR_CYCLE_REVERSAL = "cycleReversal" ;
+	public static final String ATTR_SAMPLE_TIME = "sampleTime" ;
+	public static final String ATTR_AUTOMATIC_TARGET = "autoTarget" ;
+	public static final String ATTR_CONT_CAL = "continuousCal" ;
+	public static final String ATTR_DO_AT_CURRENT_AZ = "useCurrentAz" ;
+	public static final String ATTR_WIDE_PHOTOMETRY = "widePhotometry" ;
+	public static final String ATTR_CONTINUUM_MODE = "continuumMode" ;
+	public static final String ATTR_SAMPLES_PER_REVOLUTION = "samplesPerRevolution" ;
 
 	/** Jiggle Iterator. */
-	public static final String ATTR_JIGGLE_PA = "jigglePa";
-	public static final String ATTR_JIGGLE_SYSTEM = "jiggleSystem";
-	public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
-	public static final String ATTR_JIGGLE_PATTERN = "jigglePattern";
-	public static final String ATTR_JIGGLES_PER_CYCLE = "jigglePerCycle";
+	public static final String ATTR_JIGGLE_PA = "jigglePa" ;
+	public static final String ATTR_JIGGLE_SYSTEM = "jiggleSystem" ;
+	public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference" ;
+	public static final String ATTR_JIGGLE_PATTERN = "jigglePattern" ;
+	public static final String ATTR_JIGGLES_PER_CYCLE = "jigglePerCycle" ;
 
 	/** Stare Iterator. */
-	public static final String[] STARE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE };
+	public static final String[] STARE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE } ;
 	public static final String ATTR_STARE_PA = "starePa" ;
 	public static final String ATTR_STARE_SYSTEM = "stareSystem" ;
 	
 	/** Focus Iterator. */
 	public static final String ATTR_AXIS = "axis" ;
-	public static final String ATTR_STEPS = "steps";
-	public static final String ATTR_FOCUS_POINTS = "focusPoints";
+	public static final String ATTR_STEPS = "steps" ;
+	public static final String ATTR_FOCUS_POINTS = "focusPoints" ;
 
 	/** Pointing Iterator */
-	public static final String ATTR_SPECTRAL_MODE = "spectralMode";
-	public static final String SPECTRAL_MODE_CONTINUUM = "continuum";
-	public static final String SPECTRAL_MODE_SPECTRAL_LINE = "spectralLine";
-	public static final String ATTR_POINTING_PIXEL = "pointingPixel";
-	public static final String ATTR_POINTING_METHOD = "pointingMethod"; // SdW - 01/10/03
-	public static final String POINTING_PIXEL_AUTOMATIC = "Automatic";
-	public static final String POINTING_PIXEL_MANUAL = "Manual";
+	public static final String ATTR_SPECTRAL_MODE = "spectralMode" ;
+	public static final String SPECTRAL_MODE_CONTINUUM = "continuum" ;
+	public static final String SPECTRAL_MODE_SPECTRAL_LINE = "spectralLine" ;
+	public static final String ATTR_POINTING_PIXEL = "pointingPixel" ;
+	public static final String ATTR_POINTING_METHOD = "pointingMethod" ; // SdW - 01/10/03
+	public static final String POINTING_PIXEL_AUTOMATIC = "Automatic" ;
+	public static final String POINTING_PIXEL_MANUAL = "Manual" ;
 
 	/** Raster Iterator */
-	public static final String ATTR_RASTER_MODE = "rasterMode";
-	public static final String RASTER_MODE_ALONG_ROW = "alongRow";
-	public static final String RASTER_MODE_INTERLEAVED = "interleaved";
-	public static final String ATTR_ROW_REVERSAL = "rowReversal";
-	public static final String ATTR_ROWS_PER_CAL = "rowsPerCal";
-	public static final String ATTR_ROWS_PER_REF = "rowsPerRef";
-	public static final String ATTR_SCALE_FACTOR = "scaleFactor";
+	public static final String ATTR_RASTER_MODE = "rasterMode" ;
+	public static final String RASTER_MODE_ALONG_ROW = "alongRow" ;
+	public static final String RASTER_MODE_INTERLEAVED = "interleaved" ;
+	public static final String ATTR_ROW_REVERSAL = "rowReversal" ;
+	public static final String ATTR_ROWS_PER_CAL = "rowsPerCal" ;
+	public static final String ATTR_ROWS_PER_REF = "rowsPerRef" ;
+	public static final String ATTR_SCALE_FACTOR = "scaleFactor" ;
 
 	/**
 	 * Skydip Iterator.
 	 *
 	 * Number of positions.
 	 */
-	public static final String ATTR_POSITIONS = "positions";
-	public static final String ATTR_START_POSITION = "startPosition";
+	public static final String ATTR_POSITIONS = "positions" ;
+	public static final String ATTR_START_POSITION = "startPosition" ;
 
 	/**
 	 * Noise Iterator.
 	 *
 	 * Noise source attribute.
 	 */
-	public static final String ATTR_NOISE_SOURCE = "noiseSource";
+	public static final String ATTR_NOISE_SOURCE = "noiseSource" ;
 
 	/**
 	 * Noise Iterator.
 	 *
 	 * Noise sources: REFLECTOR, SKY, ZENITH, ECCOSORB.
 	 */
-	public static final String[] NOISE_SOURCES = { "REFLECTOR" , "SKY" , "ZENITH" , "ECCOSORB" };
-	public static final String ATTR_UNITS = "units";
+	public static final String[] NOISE_SOURCES = { "REFLECTOR" , "SKY" , "ZENITH" , "ECCOSORB" } ;
+	public static final String ATTR_UNITS = "units" ;
 
 	/**
 	 * Constant value.
 	 * @see #ATTR_UNITS
 	 */
-	public static final String VALUE_DEGREES = "degrees";
+	public static final String VALUE_DEGREES = "degrees" ;
 
 	/**
 	 * Constant value.
 	 * @see #ATTR_UNITS
 	 */
-	public static final String VALUE_SECONDS = "seconds";
+	public static final String VALUE_SECONDS = "seconds" ;
 
 	/**
 	 * Constant value.
 	 * @see #ATTR_UNITS
 	 */
-	public static final String VALUE_ARC_SECONDS = "arcseconds";
+	public static final String VALUE_ARC_SECONDS = "arcseconds" ;
 
 	/**
 	 * Constant value.
 	 * @see #ATTR_UNITS
 	 */
-	public static final String VALUE_ARC_MINUTES = "arcminutes";
+	public static final String VALUE_ARC_MINUTES = "arcminutes" ;
 
 	// SCUBA constants
 
 	/** Filter */
-	public static final String ATTR_FILTER = "filter";
+	public static final String ATTR_FILTER = "filter" ;
 
 	/** Primary Bolometer */
-	public static final String ATTR_PRIMARY_BOLOMETER = "primaryBolometer";
+	public static final String ATTR_PRIMARY_BOLOMETER = "primaryBolometer" ;
 
 	/** Vector with all bolometers */
-	public static final String ATTR_BOLOMETERS = "bolometers";
+	public static final String ATTR_BOLOMETERS = "bolometers" ;
 
 	/** SCUBA start up time. SCUBA constants for time estimation. */
-	public static final double SCUBA_STARTUP_TIME = 40;
+	public static final double SCUBA_STARTUP_TIME = 40 ;
 
 	/** Scuba scan map chop frequency in Hz. */
-	public static final double SCAN_MAP_CHOP_FREQUENCY = 8;
+	public static final double SCAN_MAP_CHOP_FREQUENCY = 8 ;
 
 	/** Scuba array diameter in arcseconds. */
-	public static final double SCUBA_ARRAY_DIAMETER = 138;
-	public static final String SWITCHING_MODE_CHOP = "Chop";
-	public static final String SWITCHING_MODE_NOD = "Nod";
-	public static final String SWITCHING_MODE_BEAM = "Beam";
-	public static final String SWITCHING_MODE_POSITION = "Position";
-	public static final String SWITCHING_MODE_FREQUENCY_S = "Frequency-Slow";
-	public static final String SWITCHING_MODE_FREQUENCY_F = "Frequency-Fast";
-	public static final String SWITCHING_MODE_NONE = "None";
-	public static final String ATTR_ARRAY_CENTRED = "arrayCentred";
-	public static final String SEPARATE_OFFS = "separateOffs";
+	public static final double SCUBA_ARRAY_DIAMETER = 138 ;
+	public static final String SWITCHING_MODE_CHOP = "Chop" ;
+	public static final String SWITCHING_MODE_NOD = "Nod" ;
+	public static final String SWITCHING_MODE_BEAM = "Beam" ;
+	public static final String SWITCHING_MODE_POSITION = "Position" ;
+	public static final String SWITCHING_MODE_FREQUENCY_S = "Frequency-Slow" ;
+	public static final String SWITCHING_MODE_FREQUENCY_F = "Frequency-Fast" ;
+	public static final String SWITCHING_MODE_NONE = "None" ;
+	public static final String ATTR_ARRAY_CENTRED = "arrayCentred" ;
+	public static final String SEPARATE_OFFS = "separateOffs" ;
 	
 	/** SCUBA-2 */
 	public static final double SCUBA2_STARTUP_TIME = 20. ;
-	
 }

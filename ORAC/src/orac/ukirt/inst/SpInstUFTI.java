@@ -7,94 +7,94 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.inst;
+package orac.ukirt.inst ;
 
 import java.io.IOException ;
 import java.util.Hashtable ;
 import java.util.NoSuchElementException ;
 import java.util.StringTokenizer ;
 
-import orac.util.LookUpTable;
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
+import orac.util.LookUpTable ;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
 
-import gemini.util.Angle;
+import gemini.util.Angle ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.obsComp.SpStareCapability ;
 
 /**
  * The UFTI instrument Observation Component
  */
 public final class SpInstUFTI extends SpUKIRTInstObsComp
 {
-	public static final String ATTR_MODE = "acqMode";
-	public static final String ATTR_READAREA = "readoutArea";
-	public static final String ATTR_FILTER = "filter";
-	public static final String ATTR_SRCMAG = "sourceMag";
-	public static final String ATTR_POLARISER = "polariser";
-	public static final String ATTR_FILTER_TYPE = ".gui.filterType";
-	public static String[] MODES;
-	public static LookUpTable READAREAS;
-	public static LookUpTable POLARISERS;
-	public static LookUpTable BROAD_BAND_FILTERS;
-	public static LookUpTable NARROW_BAND_FILTERS;
-	public static LookUpTable SPECIAL_FILTERS;
-	public static String[] SRCMAGS;
-	public static LookUpTable EXPTIMES;
-	public static String DEFAULT_MODE;
-	public static String DEFAULT_FILTER;
-	public static String[] DETECTOR_SIZE;
-	public static int DETECTOR_WIDTH;
-	public static int DETECTOR_HEIGHT;
-	public static double PLATESCALE;
-	public static String[][] EXPTIME_LIMITS;
-	public static String[] INSTRUMENT_APER; // Array of inst aper values
-	static String FILTER_NONE = "None";
+	public static final String ATTR_MODE = "acqMode" ;
+	public static final String ATTR_READAREA = "readoutArea" ;
+	public static final String ATTR_FILTER = "filter" ;
+	public static final String ATTR_SRCMAG = "sourceMag" ;
+	public static final String ATTR_POLARISER = "polariser" ;
+	public static final String ATTR_FILTER_TYPE = ".gui.filterType" ;
+	public static String[] MODES ;
+	public static LookUpTable READAREAS ;
+	public static LookUpTable POLARISERS ;
+	public static LookUpTable BROAD_BAND_FILTERS ;
+	public static LookUpTable NARROW_BAND_FILTERS ;
+	public static LookUpTable SPECIAL_FILTERS ;
+	public static String[] SRCMAGS ;
+	public static LookUpTable EXPTIMES ;
+	public static String DEFAULT_MODE ;
+	public static String DEFAULT_FILTER ;
+	public static String[] DETECTOR_SIZE ;
+	public static int DETECTOR_WIDTH ;
+	public static int DETECTOR_HEIGHT ;
+	public static double PLATESCALE ;
+	public static String[][] EXPTIME_LIMITS ;
+	public static String[] INSTRUMENT_APER ; // Array of inst aper values
+	static String FILTER_NONE = "None" ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UFTI" , "UFTI" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UFTI" , "UFTI" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstUFTI() );
+		SpFactory.registerPrototype( new SpInstUFTI() ) ;
 	}
 
 	public SpInstUFTI()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		addCapability( new SpStareCapability() );
+		addCapability( new SpStareCapability() ) ;
 
 		// Read in the instrument config file.
-		String baseDir = System.getProperty( "ot.cfgdir" );
-		String cfgFile = baseDir + "ufti.cfg";
-		_readCfgFile( cfgFile );
+		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		String cfgFile = baseDir + "ufti.cfg" ;
+		_readCfgFile( cfgFile ) ;
 
-		String attr = ATTR_MODE;
-		String value = DEFAULT_MODE;
-		_avTable.noNotifySet( attr , value , 0 );
+		String attr = ATTR_MODE ;
+		String value = DEFAULT_MODE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_READAREA;
-		value = ( String )READAREAS.elementAt( 0 , 0 );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_READAREA ;
+		value = ( String )READAREAS.elementAt( 0 , 0 ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_FILTER;
-		value = DEFAULT_FILTER;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_FILTER ;
+		value = DEFAULT_FILTER ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_COADDS;
-		_avTable.noNotifySet( attr , "1" , 0 );
+		attr = ATTR_COADDS ;
+		_avTable.noNotifySet( attr , "1" , 0 ) ;
 
-		attr = ATTR_SRCMAG;
-		value = SRCMAGS[ 0 ];
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_SRCMAG ;
+		value = SRCMAGS[ 0 ] ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_POLARISER;
-		value = ( String )POLARISERS.elementAt( 0 , 0 );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_POLARISER ;
+		value = ( String )POLARISERS.elementAt( 0 , 0 ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 	}
 
 	/**
@@ -102,90 +102,90 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	private void _readCfgFile( String filename )
 	{
-		InstCfgReader instCfg = null;
-		InstCfg instInfo = null;
-		String block = null;
+		InstCfgReader instCfg = null ;
+		InstCfg instInfo = null ;
+		String block = null ;
 
-		instCfg = new InstCfgReader( filename );
+		instCfg = new InstCfgReader( filename ) ;
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( instInfo.getKeyword().equalsIgnoreCase( "modes" ) )
 				{
-					MODES = instInfo.getValueAsArray();
+					MODES = instInfo.getValueAsArray() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "readareas" ) )
 				{
-					READAREAS = instInfo.getValueAsLUT();
+					READAREAS = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "bb_filters" ) )
 				{
-					BROAD_BAND_FILTERS = instInfo.getValueAsLUT();
+					BROAD_BAND_FILTERS = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "nb_filters" ) )
 				{
-					NARROW_BAND_FILTERS = instInfo.getValueAsLUT();
+					NARROW_BAND_FILTERS = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "other_filters" ) )
 				{
-					SPECIAL_FILTERS = instInfo.getValueAsLUT();
+					SPECIAL_FILTERS = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "polarisers" ) )
 				{
-					POLARISERS = instInfo.getValueAsLUT();
+					POLARISERS = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "default_mode" ) )
 				{
-					DEFAULT_MODE = instInfo.getValue();
+					DEFAULT_MODE = instInfo.getValue() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "default_filter" ) )
 				{
-					DEFAULT_FILTER = instInfo.getValue();
+					DEFAULT_FILTER = instInfo.getValue() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "exptimes" ) )
 				{
-					EXPTIMES = instInfo.getValueAsLUT();
+					EXPTIMES = instInfo.getValueAsLUT() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "magnitudes" ) )
 				{
-					SRCMAGS = instInfo.getValueAsArray();
+					SRCMAGS = instInfo.getValueAsArray() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "instrument_port" ) )
 				{
-					INSTRUMENT_PORT = instInfo.getValue();
-					setPort( INSTRUMENT_PORT );
+					INSTRUMENT_PORT = instInfo.getValue() ;
+					setPort( INSTRUMENT_PORT ) ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) )
 				{
-					INSTRUMENT_APER = instInfo.getValueAsArray();
+					INSTRUMENT_APER = instInfo.getValueAsArray() ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "plate_scale" ) )
 				{
-					String ps = instInfo.getValue();
+					String ps = instInfo.getValue() ;
 					try
 					{
-						Double tmp = Double.valueOf( ps );
-						PLATESCALE = tmp.doubleValue();
+						Double tmp = Double.valueOf( ps ) ;
+						PLATESCALE = tmp.doubleValue() ;
 					}
 					catch( Exception ex ){}
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "detector_size" ) )
 				{
-					DETECTOR_SIZE = instInfo.getValueAsArray();
-					DETECTOR_WIDTH = Integer.parseInt( DETECTOR_SIZE[ 0 ] );
-					DETECTOR_HEIGHT = Integer.parseInt( DETECTOR_SIZE[ 1 ] );
+					DETECTOR_SIZE = instInfo.getValueAsArray() ;
+					DETECTOR_WIDTH = Integer.parseInt( DETECTOR_SIZE[ 0 ] ) ;
+					DETECTOR_HEIGHT = Integer.parseInt( DETECTOR_SIZE[ 1 ] ) ;
 				}
 				else if( instInfo.getKeyword().equalsIgnoreCase( "exptime_limits" ) )
 				{
-					EXPTIME_LIMITS = instInfo.getValueAs2DArray();
+					EXPTIME_LIMITS = instInfo.getValueAs2DArray() ;
 				}
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading UFTI instrument cfg file." );
+			System.out.println( "Error reading UFTI instrument cfg file." ) ;
 		}
 	}
 
@@ -194,7 +194,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -202,13 +202,13 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public double getExpTime()
 	{
-		double time = getExposureTime();
+		double time = getExposureTime() ;
 		if( time == 0. )
 		{
-			time = getDefaultExpTime();
-			setExpTime( Double.toString( time ) );
+			time = getDefaultExpTime() ;
+			setExpTime( Double.toString( time ) ) ;
 		}
-		return time;
+		return time ;
 	}
 
 	/**
@@ -216,15 +216,15 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setExpTime( String seconds )
 	{
-		String timeAsStr;
+		String timeAsStr ;
 
-		timeAsStr = seconds;
+		timeAsStr = seconds ;
 		if( timeAsStr == null )
 		{
-			double time = getDefaultExpTime();
-			timeAsStr = Double.toString( time );
+			double time = getDefaultExpTime() ;
+			timeAsStr = Double.toString( time ) ;
 		}
-		setExposureTime( timeAsStr );
+		setExposureTime( timeAsStr ) ;
 	}
 
 	/**
@@ -234,51 +234,51 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	public double getDefaultExpTime()
 	{
 		double exptime = 0. ;
-		String sm = getSourceMagnitude();
-		String filt = getFilter();
+		String sm = getSourceMagnitude() ;
+		String filt = getFilter() ;
 
 		// Determine the row from the filter in use.
-		LookUpTable delut = EXPTIMES;
-		int row = 0;
+		LookUpTable delut = EXPTIMES ;
+		int row = 0 ;
 		try
 		{
-			row = delut.indexInColumn( filt , 0 );
+			row = delut.indexInColumn( filt , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Array index 0 out of bounds; there is probably " + "something seriously wrong with the ufti.cfg file." );
+			System.out.println( "Array index 0 out of bounds ; there is probably " + "something seriously wrong with the ufti.cfg file." ) ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "No such filter " + filt + " found in exposure times lookup table." );
+			System.out.println( "No such filter " + filt + " found in exposure times lookup table." ) ;
 		}
 
 		// Determine the column from the source magnitude.
-		int column = 0;
+		int column = 0 ;
 		try
 		{
-			column = delut.indexInRow( sm , 0 );
+			column = delut.indexInRow( sm , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Array index 0 out of bounds; there is probably " + "something seriously wrong with the ufti.cfg file." );
+			System.out.println( "Array index 0 out of bounds ; there is probably " + "something seriously wrong with the ufti.cfg file." ) ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "No such source mag " + sm + " found in " + "exposure times lookup table." );
+			System.out.println( "No such source mag " + sm + " found in " + "exposure times lookup table." ) ;
 		}
 
 		// Get the element (= default exposure time).
 		try
 		{
-			Double et = Double.valueOf( ( String )delut.elementAt( row , column ) );
-			exptime = et.doubleValue();
+			Double et = Double.valueOf( ( String )delut.elementAt( row , column ) ) ;
+			exptime = et.doubleValue() ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Error converting default exposure time." );
+			System.out.println( "Error converting default exposure time." ) ;
 		}
-		return exptime;
+		return exptime ;
 	}
 
 	/**
@@ -287,13 +287,13 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	public int getNoCoadds()
 	{
 
-		int coadds = getStareCapability().getCoadds();
+		int coadds = getStareCapability().getCoadds() ;
 		if( coadds == 0 )
 		{
-			coadds = getDefaultCoadds();
-			setNoCoadds( coadds );
+			coadds = getDefaultCoadds() ;
+			setNoCoadds( coadds ) ;
 		}
-		return coadds;
+		return coadds ;
 	}
 
 	/**
@@ -302,8 +302,8 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	public void setNoCoadds( int coadds )
 	{
 		if( coadds == 0 )
-			coadds = getDefaultCoadds();
-		getStareCapability().setCoadds( coadds );
+			coadds = getDefaultCoadds() ;
+		getStareCapability().setCoadds( coadds ) ;
 	}
 
 	/**
@@ -311,15 +311,15 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setNoCoadds( String coadds )
 	{
-		int c = 0;
+		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds );
-			c = tmp.intValue();
+			Integer tmp = Integer.valueOf( coadds ) ;
+			c = tmp.intValue() ;
 		}
 		catch( Exception ex ){}
 
-		setNoCoadds( c );
+		setNoCoadds( c ) ;
 	}
 
 	/**
@@ -327,20 +327,20 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public int getDefaultCoadds()
 	{
-		float et = ( float )getExpTime();
+		float et = ( float )getExpTime() ;
 		if( et == 0. )
-			return 1;
-		int coadds = 0;
+			return 1 ;
+		int coadds = 0 ;
 		try
 		{
-			float f = ( float )( 5. / et + 0.5 );
-			coadds = Math.round( f );
+			float f = ( float )( 5. / et + 0.5 ) ;
+			coadds = Math.round( f ) ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Error calculating default no. coadds" );
+			System.out.println( "Error calculating default no. coadds" ) ;
 		}
-		return ( int )coadds;
+		return ( int )coadds ;
 	}
 
 	/**
@@ -348,13 +348,13 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public String getSourceMagnitude()
 	{
-		String sm = _avTable.get( ATTR_SRCMAG );
+		String sm = _avTable.get( ATTR_SRCMAG ) ;
 		if( sm == null )
 		{
-			_avTable.noNotifySet( ATTR_SRCMAG , SRCMAGS[ 0 ] , 0 );
-			sm = SRCMAGS[ 0 ];
+			_avTable.noNotifySet( ATTR_SRCMAG , SRCMAGS[ 0 ] , 0 ) ;
+			sm = SRCMAGS[ 0 ] ;
 		}
-		return sm;
+		return sm ;
 	}
 
 	/**
@@ -362,7 +362,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setSourceMagnitude( String sm )
 	{
-		_avTable.set( ATTR_SRCMAG , sm );
+		_avTable.set( ATTR_SRCMAG , sm ) ;
 	}
 
 	/**
@@ -370,8 +370,8 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultAcquisition()
 	{
-		_avTable.rm( ATTR_EXPOSURE_TIME );
-		_avTable.rm( ATTR_COADDS );
+		_avTable.rm( ATTR_EXPOSURE_TIME ) ;
+		_avTable.rm( ATTR_COADDS ) ;
 	}
 
 	/**
@@ -380,15 +380,15 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	public double[] getScienceArea()
 	{
 		// The size depends upon the selected readout Area.
-		String ra = getReadoutArea();
+		String ra = getReadoutArea() ;
 
 		// Split it into its constituent dimensions.
-		StringTokenizer st = new StringTokenizer( ra , "x" );
-		int xsize = Integer.parseInt( st.nextToken() );
-		int ysize = Integer.parseInt( st.nextToken() );
-		double[] size = new double[] { PLATESCALE * xsize , PLATESCALE * ysize };
+		StringTokenizer st = new StringTokenizer( ra , "x" ) ;
+		int xsize = Integer.parseInt( st.nextToken() ) ;
+		int ysize = Integer.parseInt( st.nextToken() ) ;
+		double[] size = new double[] { PLATESCALE * xsize , PLATESCALE * ysize } ;
 
-		return size;
+		return size ;
 	}
 
 	/**
@@ -396,11 +396,11 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public String getReadoutArea()
 	{
-		String readoutArea = _avTable.get( ATTR_READAREA );
+		String readoutArea = _avTable.get( ATTR_READAREA ) ;
 		if( readoutArea == null )
-			readoutArea = ( String )READAREAS.elementAt( 0 , 0 );
+			readoutArea = ( String )READAREAS.elementAt( 0 , 0 ) ;
 
-		return readoutArea;
+		return readoutArea ;
 	}
 
 	/**
@@ -409,13 +409,13 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setReadoutArea( String readoutArea )
 	{
-		_avTable.set( ATTR_READAREA , readoutArea );
+		_avTable.set( ATTR_READAREA , readoutArea ) ;
 
 		// Hack to cause an update in the position editor.  Set the position angle to do this.
-		setPosAngleDegrees( 0. );
+		setPosAngleDegrees( 0. ) ;
 
 		// When the readout area changes so may the X,Y instrument apertures.
-		setInstAper();
+		setInstAper() ;
 
 		// Don't know what to do about Z yet.
 	}
@@ -425,22 +425,22 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public int getReadoutAreaIndex()
 	{
-		String readout = getReadoutArea();
-		int roaIndex = 0;
+		String readout = getReadoutArea() ;
+		int roaIndex = 0 ;
 
 		try
 		{
-			roaIndex = READAREAS.indexInColumn( readout , 0 );
+			roaIndex = READAREAS.indexInColumn( readout , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Failed to find polariser index!" );
+			System.out.println( "Failed to find polariser index!" ) ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "Failed to find polariser index!" );
+			System.out.println( "Failed to find polariser index!" ) ;
 		}
-		return roaIndex;
+		return roaIndex ;
 	}
 
 	/**
@@ -448,12 +448,12 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public String getAcqMode()
 	{
-		String acqMode = _avTable.get( ATTR_MODE );
+		String acqMode = _avTable.get( ATTR_MODE ) ;
 		if( acqMode == null )
 		{
-			acqMode = MODES[ 0 ];
+			acqMode = MODES[ 0 ] ;
 		}
-		return acqMode;
+		return acqMode ;
 	}
 
 	/**
@@ -461,7 +461,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setAcqMode( String acqMode )
 	{
-		_avTable.set( ATTR_MODE , acqMode );
+		_avTable.set( ATTR_MODE , acqMode ) ;
 	}
 
 	/**
@@ -469,11 +469,11 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( ATTR_FILTER );
+		String filter = _avTable.get( ATTR_FILTER ) ;
 		if( filter == null )
-			filter = DEFAULT_FILTER;
+			filter = DEFAULT_FILTER ;
 
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -481,7 +481,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( ATTR_FILTER , filter );
+		_avTable.set( ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -489,11 +489,11 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public String getPolariser()
 	{
-		String pol = _avTable.get( ATTR_POLARISER );
+		String pol = _avTable.get( ATTR_POLARISER ) ;
 		if( pol == null )
-			pol = ( String )POLARISERS.elementAt( 0 , 0 );
+			pol = ( String )POLARISERS.elementAt( 0 , 0 ) ;
 
-		return pol;
+		return pol ;
 	}
 
 	/**
@@ -501,10 +501,10 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setPolariser( String polariser )
 	{
-		_avTable.set( ATTR_POLARISER , polariser );
+		_avTable.set( ATTR_POLARISER , polariser ) ;
 
 		// When the polariser changes so will the X,Y instrument apertures.
-		setInstAper();
+		setInstAper() ;
 	}
 
 	/**
@@ -512,22 +512,22 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public int getPolariserIndex()
 	{
-		String polariser = getPolariser();
-		int polIndex = 0;
+		String polariser = getPolariser() ;
+		int polIndex = 0 ;
 
 		try
 		{
-			polIndex = POLARISERS.indexInColumn( polariser , 0 );
+			polIndex = POLARISERS.indexInColumn( polariser , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Failed to find polariser index!" );
+			System.out.println( "Failed to find polariser index!" ) ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "Failed to find polariser index!" );
+			System.out.println( "Failed to find polariser index!" ) ;
 		}
-		return polIndex;
+		return polIndex ;
 	}
 
 	/**
@@ -541,7 +541,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	{
 		// Confirm to UFTI restrictions: Must be = 0.0!
 		if( posAngle != 0. )
-			super.setPosAngleDegrees( 0. );
+			super.setPosAngleDegrees( 0. ) ;
 	}
 
 	/**
@@ -549,7 +549,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public void setPosAngleRadians( double posAngle )
 	{
-		this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) );
+		this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) ) ;
 	}
 
 	/**
@@ -560,14 +560,14 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr );
-			posAngle = pa.doubleValue();
+			Double pa = Double.valueOf( posAngleStr ) ;
+			posAngle = pa.doubleValue() ;
 		}
 		catch( NumberFormatException e )
 		{
-			System.out.println( "Error converting string angle to double." );
+			System.out.println( "Error converting string angle to double." ) ;
 		}
-		this.setPosAngleDegrees( posAngle );
+		this.setPosAngleDegrees( posAngle ) ;
 	}
 
 	/**
@@ -579,26 +579,26 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	public void setInstAper()
 	{
 		// Need polariser and indices to polariser and readout-area lookup tables.
-		String polariser = getPolariser();
-		int roai = getReadoutAreaIndex();
-		int poli = getPolariserIndex();
+		String polariser = getPolariser() ;
+		int roai = getReadoutAreaIndex() ;
+		int poli = getPolariserIndex() ;
 
 		// Read the X,Y instrument apertures from the readout-area lookup table.
-		double x = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 1 ) ) ).doubleValue();
-		double y = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 2 ) ) ).doubleValue();
+		double x = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 1 ) ) ).doubleValue() ;
+		double y = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 2 ) ) ).doubleValue() ;
 
 		// Polariser overrides readout area.  (Is there a check that prevents sub-arrays being used with the polariser?)
 		if( polariser.equalsIgnoreCase( "prism" ) || polariser.equalsIgnoreCase( "FP" ) )
 		{
-			x = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 1 ) ) ).doubleValue();
-			y = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 2 ) ) ).doubleValue();
+			x = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 1 ) ) ).doubleValue() ;
+			y = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 2 ) ) ).doubleValue() ;
 		}
 
 		// Store the revised instrument apertures.
-		setInstApX( String.valueOf( x ) );
-		setInstApY( String.valueOf( y ) );
-		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
-		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+		setInstApX( String.valueOf( x ) ) ;
+		setInstApY( String.valueOf( y ) ) ;
+		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] ) ;
+		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 	}
 
 	/**
@@ -612,7 +612,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public double getExposureOverhead()
 	{
-		String readoutArea = getReadoutArea();
+		String readoutArea = getReadoutArea() ;
 
 		if( readoutArea.equalsIgnoreCase( "1024x1024" ) )
 			return 4. ;
@@ -629,46 +629,46 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 	 */
 	public double[] getExpTimeLimits()
 	{
-		double[] limits = new double[ 2 ];
-		String roa = getReadoutArea();
-		String mode = getAcqMode();
+		double[] limits = new double[ 2 ] ;
+		String roa = getReadoutArea() ;
+		String mode = getAcqMode() ;
 
 		for( int i = 0 ; i < EXPTIME_LIMITS.length ; i++ )
 		{
 			if( EXPTIME_LIMITS[ i ][ 0 ].equals( roa ) && EXPTIME_LIMITS[ i ][ 1 ].equals( mode ) )
 			{
 				// Get the limits
-				limits[ 0 ] = Double.parseDouble( EXPTIME_LIMITS[ i ][ 2 ] );
-				limits[ 1 ] = Double.parseDouble( EXPTIME_LIMITS[ i ][ 3 ] );
+				limits[ 0 ] = Double.parseDouble( EXPTIME_LIMITS[ i ][ 2 ] ) ;
+				limits[ 1 ] = Double.parseDouble( EXPTIME_LIMITS[ i ][ 3 ] ) ;
 			}
 		}
-		return limits;
+		return limits ;
 	}
 
 	public Hashtable getConfigItems()
 	{
-		Hashtable list = new Hashtable();
-		list.put( "instrument" , "UFTI" );
-		list.put( "version" , "1" );
-		list.put( "readMode" , getAcqMode() );
-		list.put( "readArea" , getReadoutArea() );
+		Hashtable list = new Hashtable() ;
+		list.put( "instrument" , "UFTI" ) ;
+		list.put( "version" , "1" ) ;
+		list.put( "readMode" , getAcqMode() ) ;
+		list.put( "readArea" , getReadoutArea() ) ;
 		
-		String filter = getFilter();
+		String filter = getFilter() ;
 		if( getPolariser().equals( "prism" ) )
-			filter = filter + "+pol";
+			filter = filter + "+pol" ;
 		
-		list.put( "filter" , filter );
-		list.put( "expTime" , "" + getExposureTime() );
-		list.put( "objNumExp" , "" + getCoadds() );
-		list.put( "darkNumExp" , "1" );
+		list.put( "filter" , filter ) ;
+		list.put( "expTime" , "" + getExposureTime() ) ;
+		list.put( "objNumExp" , "" + getCoadds() ) ;
+		list.put( "darkNumExp" , "1" ) ;
 		
-		setInstAper();
+		setInstAper() ;
 		
-		list.put( "instAperX" , "" + getInstApX() );
-		list.put( "instAperY" , "" + getInstApY() );
-		list.put( "instAperZ" , "" + getInstApZ() );
-		list.put( "instAperL" , "" + getInstApL() );
+		list.put( "instAperX" , "" + getInstApX() ) ;
+		list.put( "instAperY" , "" + getInstApY() ) ;
+		list.put( "instAperZ" , "" + getInstApZ() ) ;
+		list.put( "instAperL" , "" + getInstApL() ) ;
 		
-		return list;
+		return list ;
 	}
 }

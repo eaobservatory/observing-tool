@@ -1,17 +1,17 @@
-package orac.ukirt.inst;
+package orac.ukirt.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpStareCapability ;
 
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
 
-import java.io.File;
+import java.io.File ;
 
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.Arrays ;
+import java.util.Hashtable ;
+import java.util.List ;
 
 /**
  * The Wavefront Sensor instrument component
@@ -20,23 +20,23 @@ import java.util.List;
 public final class SpInstWFS extends SpUKIRTInstObsComp
 {
 	// Public attributes
-	public static String ATTR_LENS_POS = "lensPos";
+	public static String ATTR_LENS_POS = "lensPos" ;
 
-	public static String[] LENS_POS;
+	public static String[] LENS_POS ;
 
 	private double DEFAULT_EXPTIME = 60. ;
 
-	private int DEFAULT_COADDS = 1;
+	private int DEFAULT_COADDS = 1 ;
 
-	private String DEFAULT_LENS_POS = "0.000";
+	private String DEFAULT_LENS_POS = "0.000" ;
 
-	public static String[] INSTRUMENT_APER; // Array of inst aper values
+	public static String[] INSTRUMENT_APER ; // Array of inst aper values
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.WFS" , "WFS" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.WFS" , "WFS" ) ;
 
 	static
 	{
-		SpFactory.registerPrototype( new SpInstWFS() );
+		SpFactory.registerPrototype( new SpInstWFS() ) ;
 	}
 
 	/**
@@ -45,13 +45,13 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 	 */
 	public SpInstWFS()
 	{
-		super( SP_TYPE );
-		addCapability( new SpStareCapability() );
+		super( SP_TYPE ) ;
+		addCapability( new SpStareCapability() ) ;
 
-		String cfgFile = System.getProperty( "ot.cfgdir" ) + File.separator + "wfs.cfg";
-		_readCfgFile( cfgFile );
+		String cfgFile = System.getProperty( "ot.cfgdir" ) + File.separator + "wfs.cfg" ;
+		_readCfgFile( cfgFile ) ;
 
-		_avTable.noNotifySet( ATTR_LENS_POS , DEFAULT_LENS_POS , 0 );
+		_avTable.noNotifySet( ATTR_LENS_POS , DEFAULT_LENS_POS , 0 ) ;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 	 */
 	public List getAvailableLensPositions()
 	{
-		return Arrays.asList( LENS_POS );
+		return Arrays.asList( LENS_POS ) ;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 	 */
 	public void setLensPos( String value )
 	{
-		_avTable.set( ATTR_LENS_POS , value );
+		_avTable.set( ATTR_LENS_POS , value ) ;
 	}
 
 	/** Get the current lens position */
@@ -75,110 +75,110 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 	{
 		if( _avTable.exists( ATTR_LENS_POS ) )
 		{
-			String lensPos = _avTable.get( ATTR_LENS_POS );
+			String lensPos = _avTable.get( ATTR_LENS_POS ) ;
 			if( !( getAvailableLensPositions().contains( lensPos ) ) )
-				_avTable.set( ATTR_LENS_POS , getDefaultLensPos() );
+				_avTable.set( ATTR_LENS_POS , getDefaultLensPos() ) ;
 		}
 		else
 		{
-			_avTable.set( ATTR_LENS_POS , getDefaultLensPos() );
+			_avTable.set( ATTR_LENS_POS , getDefaultLensPos() ) ;
 		}
-		return _avTable.get( ATTR_LENS_POS );
+		return _avTable.get( ATTR_LENS_POS ) ;
 	}
 
 	/** Get the current exposure time (seconds) */
 	public double getExpTime()
 	{
-		double time = getExposureTime();
+		double time = getExposureTime() ;
 		if( time == 0. )
 		{
-			time = getDefaultExpTime();
-			setExpTime( Double.toString( time ) );
+			time = getDefaultExpTime() ;
+			setExpTime( Double.toString( time ) ) ;
 		}
-		return time;
+		return time ;
 	}
 
 	/** Set the number of coadds */
 	public void setCoadds( int coadds )
 	{
 		if( coadds <= 0 )
-			coadds = getDefaultCoadds();
+			coadds = getDefaultCoadds() ;
 		
-		getStareCapability().setCoadds( coadds );
+		getStareCapability().setCoadds( coadds ) ;
 	}
 
 	/** Set the number of coadds */
 	public void setCoadds( String coadds )
 	{
-		int c = 0;
+		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds );
-			c = tmp.intValue();
+			Integer tmp = Integer.valueOf( coadds ) ;
+			c = tmp.intValue() ;
 		}
 		catch( Exception ex )
 		{
-			c = getDefaultCoadds();
+			c = getDefaultCoadds() ;
 		}
 
-		setCoadds( c );
+		setCoadds( c ) ;
 	}
 
 	/** get the number of coadds */
 	public int getCoadds()
 	{
-		int coadds = getStareCapability().getCoadds();
+		int coadds = getStareCapability().getCoadds() ;
 		if( coadds == 0 )
 		{
-			coadds = getDefaultCoadds();
-			setCoadds( coadds );
+			coadds = getDefaultCoadds() ;
+			setCoadds( coadds ) ;
 		}
-		return coadds;
+		return coadds ;
 	}
 
 	/** Set the instrument apertures */
 	public void setInstAper()
 	{
-		setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
-		setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
-		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
-		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+		setInstApX( INSTRUMENT_APER[ XAP_INDEX ] ) ;
+		setInstApY( INSTRUMENT_APER[ YAP_INDEX ] ) ;
+		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] ) ;
+		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 	}
 
 	public Hashtable getConfigItems()
 	{
-		Hashtable list = new Hashtable();
-		list.put( "instrument" , "WFS" );
-		list.put( "version" , "1.0" );
-		list.put( "expTime" , "" + getExposureTime() );
-		list.put( "objNumExp" , "" + getCoadds() );
-		list.put( "lensPos" , getLensPos() );
+		Hashtable list = new Hashtable() ;
+		list.put( "instrument" , "WFS" ) ;
+		list.put( "version" , "1.0" ) ;
+		list.put( "expTime" , "" + getExposureTime() ) ;
+		list.put( "objNumExp" , "" + getCoadds() ) ;
+		list.put( "lensPos" , getLensPos() ) ;
 
-		setInstAper();
-		list.put( "instAperX" , "" + getInstApX() );
-		list.put( "instAperY" , "" + getInstApY() );
-		list.put( "instAperZ" , "" + getInstApZ() );
-		list.put( "instAperL" , "" + getInstApL() );
+		setInstAper() ;
+		list.put( "instAperX" , "" + getInstApX() ) ;
+		list.put( "instAperY" , "" + getInstApY() ) ;
+		list.put( "instAperZ" , "" + getInstApZ() ) ;
+		list.put( "instAperL" , "" + getInstApL() ) ;
 
-		return list;
+		return list ;
 	}
 
 	private void _readCfgFile( String fileName )
 	{
-		InstCfgReader instCfg = new InstCfgReader( fileName );
-		InstCfg instInfo = null;
-		String block = null;
+		InstCfgReader instCfg = new InstCfgReader( fileName ) ;
+		InstCfg instInfo = null ;
+		String block = null ;
 
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( InstCfg.matchAttr( instInfo , "default_coadds" ) )
 				{
 					try
 					{
-						DEFAULT_COADDS = Integer.parseInt( instInfo.getValue() );
+						DEFAULT_COADDS = Integer.parseInt( instInfo.getValue() ) ;
 					}
 					catch( NumberFormatException nfe )
 					{
@@ -189,7 +189,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 				{
 					try
 					{
-						DEFAULT_EXPTIME = Double.parseDouble( instInfo.getValue() );
+						DEFAULT_EXPTIME = Double.parseDouble( instInfo.getValue() ) ;
 					}
 					catch( NumberFormatException nfe )
 					{
@@ -198,41 +198,41 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "lens_pos" ) )
 				{
-					LENS_POS = instInfo.getValueAsArray();
+					LENS_POS = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_lenspos" ) )
 				{
-					DEFAULT_LENS_POS = instInfo.getValue();
+					DEFAULT_LENS_POS = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "instrument_aper" ) )
 				{
-					INSTRUMENT_APER = instInfo.getValueAsArray();
+					INSTRUMENT_APER = instInfo.getValueAsArray() ;
 				}
 			}
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
 	private int getDefaultCoadds()
 	{
-		return DEFAULT_COADDS;
+		return DEFAULT_COADDS ;
 	}
 
 	public double getDefaultExpTime()
 	{
-		return DEFAULT_EXPTIME;
+		return DEFAULT_EXPTIME ;
 	}
 
 	private String getDefaultLensPos()
 	{
-		return DEFAULT_LENS_POS;
+		return DEFAULT_LENS_POS ;
 	}
 
 	private SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 }

@@ -7,45 +7,45 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.obsComp;
+package orac.jcmt.obsComp ;
 
-import gemini.sp.SpFactory;
-import gemini.util.Format;
+import gemini.sp.SpFactory ;
+import gemini.util.Format ;
 
 /**
  * Site Quality observation component.
  */
 public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 {
-	public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated";
-	public static final String ATTR_MIN_TAU = "minTau";
-	public static final String ATTR_MAX_TAU = "maxTau";
-	public static final String ATTR_NOISE_CALCULATION_TAU = "noiseCalculationTau";
-	public static final String ATTR_SEEING = "seeing";
-	public static final int NO_VALUE = 0;
-	protected static final String XML_SEEING = "seeing";
-	protected static final String XML_CSO_TAU = "csoTau";
-	protected static final String XML_MAX = "max";
-	protected static final String XML_MIN = "min";
+	public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated" ;
+	public static final String ATTR_MIN_TAU = "minTau" ;
+	public static final String ATTR_MAX_TAU = "maxTau" ;
+	public static final String ATTR_NOISE_CALCULATION_TAU = "noiseCalculationTau" ;
+	public static final String ATTR_SEEING = "seeing" ;
+	public static final int NO_VALUE = 0 ;
+	protected static final String XML_SEEING = "seeing" ;
+	protected static final String XML_CSO_TAU = "csoTau" ;
+	protected static final String XML_MAX = "max" ;
+	protected static final String XML_MIN = "min" ;
 
 	public static final double[][] SEEING_RANGES = 
 	{ 
-		{ 0. , 0.5 } , 
+		{ 0. , .5 } , 
 		{ 0. , 1. } , 
 		{ 0. , 3. } , 
 		{ 0. , Double.POSITIVE_INFINITY } // not used
-	};
+	} ;
 
 	/** Value for "Don't care option in GUI."  */
-	public static final int SEEING_ANY = SEEING_RANGES.length;
+	public static final int SEEING_ANY = SEEING_RANGES.length ;
 
 	/** Used for XML parsing. @see #processXmlElementContent(java.lang.String,java.lang.String) */
-	private String _previousXmlElement = "";
+	private String _previousXmlElement = "" ;
 
 	// Register the prototype. This replaces gemini.sp.obsComp.SpSiteQualityObsComp with orac.jcmt.obsComp.SpSiteQualityObsComp
 	static
 	{
-		SpFactory.registerPrototype( new SpSiteQualityObsComp() );
+		SpFactory.registerPrototype( new SpSiteQualityObsComp() ) ;
 	}
 
 	/**
@@ -53,9 +53,9 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public SpSiteQualityObsComp()
 	{
-		_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "true" , 0 );
-		_avTable.noNotifySet( ATTR_SEEING , "" + SEEING_ANY , 0 );
-		_avTable.noNotifySet( ATTR_NOISE_CALCULATION_TAU , "0.08" , 0 );
+		_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "true" , 0 ) ;
+		_avTable.noNotifySet( ATTR_SEEING , "" + SEEING_ANY , 0 ) ;
+		_avTable.noNotifySet( ATTR_NOISE_CALCULATION_TAU , "0.08" , 0 ) ;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setTauBandAllocated( boolean value )
 	{
-		_avTable.set( ATTR_TAU_BAND_ALLOCATED , value );
+		_avTable.set( ATTR_TAU_BAND_ALLOCATED , value ) ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public boolean tauBandAllocated()
 	{
-		return _avTable.getBool( ATTR_TAU_BAND_ALLOCATED );
+		return _avTable.getBool( ATTR_TAU_BAND_ALLOCATED ) ;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setMinTau( double value )
 	{
-		_avTable.set( ATTR_MIN_TAU , value );
+		_avTable.set( ATTR_MIN_TAU , value ) ;
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setMinTau( String value )
 	{
-		setMinTau( Format.toDouble( value ) );
+		setMinTau( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public double getMinTau()
 	{
-		return _avTable.getDouble( ATTR_MIN_TAU , NO_VALUE );
+		return _avTable.getDouble( ATTR_MIN_TAU , NO_VALUE ) ;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setMaxTau( double value )
 	{
-		_avTable.set( ATTR_MAX_TAU , value );
+		_avTable.set( ATTR_MAX_TAU , value ) ;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setMaxTau( String value )
 	{
-		setMaxTau( Format.toDouble( value ) );
+		setMaxTau( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public double getMaxTau()
 	{
-		return _avTable.getDouble( ATTR_MAX_TAU , NO_VALUE );
+		return _avTable.getDouble( ATTR_MAX_TAU , NO_VALUE ) ;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setNoiseCalculationTau( double value )
 	{
-		_avTable.set( ATTR_NOISE_CALCULATION_TAU , value );
+		_avTable.set( ATTR_NOISE_CALCULATION_TAU , value ) ;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setNoiseCalculationTau( String value )
 	{
-		setNoiseCalculationTau( Format.toDouble( value ) );
+		setNoiseCalculationTau( Format.toDouble( value ) ) ;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public double getNoiseCalculationTau()
 	{
-		return _avTable.getDouble( ATTR_NOISE_CALCULATION_TAU , NO_VALUE );
+		return _avTable.getDouble( ATTR_NOISE_CALCULATION_TAU , NO_VALUE ) ;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public void setSeeing( int seeing )
 	{
-		_avTable.set( ATTR_SEEING , seeing );
+		_avTable.set( ATTR_SEEING , seeing ) ;
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	 */
 	public int getSeeing()
 	{
-		return _avTable.getInt( ATTR_SEEING , NO_VALUE );
+		return _avTable.getInt( ATTR_SEEING , NO_VALUE ) ;
 	}
 
 	/**
@@ -172,10 +172,10 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 		for( int i = 0 ; i < SEEING_RANGES.length ; i++ )
 		{
 			if( ( max > SEEING_RANGES[ i ][ 0 ] ) && ( max <= SEEING_RANGES[ i ][ 1 ] ) )
-				return i;
+				return i ;
 		}
 
-		return SEEING_ANY;
+		return SEEING_ANY ;
 	}
 
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
@@ -185,18 +185,18 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 			// if getSeeing() == SEEING_ANY then the option "Don't Care" has been chosen and no XML should be written for seeing.
 			if( getSeeing() < SEEING_ANY )
 			{
-				xmlBuffer.append( "\n  " + indent + "<" + XML_SEEING + ">" );
-				xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + SEEING_RANGES[ getSeeing() ][ 0 ] + "</" + XML_MIN + ">" );
-				xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + SEEING_RANGES[ getSeeing() ][ 1 ] + "</" + XML_MAX + ">" );
-				xmlBuffer.append( "\n  " + indent + "</" + XML_SEEING + ">" );
+				xmlBuffer.append( "\n  " + indent + "<" + XML_SEEING + ">" ) ;
+				xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + SEEING_RANGES[ getSeeing() ][ 0 ] + "</" + XML_MIN + ">" ) ;
+				xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + SEEING_RANGES[ getSeeing() ][ 1 ] + "</" + XML_MAX + ">" ) ;
+				xmlBuffer.append( "\n  " + indent + "</" + XML_SEEING + ">" ) ;
 			}
 		}
 		else if( avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) && ( !tauBandAllocated() ) )
 		{
-			xmlBuffer.append( "\n  " + indent + "<" + XML_CSO_TAU + ">" );
-			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + getMinTau() + "</" + XML_MIN + ">" );
-			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMaxTau() + "</" + XML_MAX + ">" );
-			xmlBuffer.append( "\n  " + indent + "</" + XML_CSO_TAU + ">" );
+			xmlBuffer.append( "\n  " + indent + "<" + XML_CSO_TAU + ">" ) ;
+			xmlBuffer.append( "\n    " + indent + "<" + XML_MIN + ">" + getMinTau() + "</" + XML_MIN + ">" ) ;
+			xmlBuffer.append( "\n    " + indent + "<" + XML_MAX + ">" + getMaxTau() + "</" + XML_MAX + ">" ) ;
+			xmlBuffer.append( "\n  " + indent + "</" + XML_CSO_TAU + ">" ) ;
 		}
 		else if( avAttr.equals( ATTR_MIN_TAU ) || ( avAttr.equals( ATTR_MAX_TAU ) || avAttr.equals( ATTR_TAU_BAND_ALLOCATED ) ) )
 		{
@@ -205,7 +205,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 		}
 		else
 		{
-			super.processAvAttribute( avAttr , indent , xmlBuffer );
+			super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
 		}
 	}
 
@@ -213,16 +213,16 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	{
 		if( name.equals( XML_SEEING ) )
 		{
-			_previousXmlElement = name;
+			_previousXmlElement = name ;
 		}
 		else if( name.equals( XML_CSO_TAU ) )
 		{
-			_previousXmlElement = name;
-			_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "false" , 0 );
+			_previousXmlElement = name ;
+			_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "false" , 0 ) ;
 		}
 		else
 		{
-			super.processXmlElementStart( name );
+			super.processXmlElementStart( name ) ;
 		}
 	}
 
@@ -230,48 +230,48 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 	{
 		if( name.equals( XML_SEEING ) )
 		{
-			_previousXmlElement = name;
+			_previousXmlElement = name ;
 		}
 		else if( name.equals( XML_CSO_TAU ) )
 		{
-			_previousXmlElement = name;
-			_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "false" , 0 );
+			_previousXmlElement = name ;
+			_avTable.noNotifySet( ATTR_TAU_BAND_ALLOCATED , "false" , 0 ) ;
 		}
 		else if( name.equals( XML_MAX ) )
 		{
 			if( _previousXmlElement.equals( XML_SEEING ) )
 			{
-				double max = Double.POSITIVE_INFINITY;
+				double max = Double.POSITIVE_INFINITY ;
 
 				try
 				{
-					max = Double.parseDouble( value );
+					max = Double.parseDouble( value ) ;
 				}
 				catch( Exception e )
 				{
 					// ignore
 				}
 
-				_avTable.noNotifySet( ATTR_SEEING , "" + getSeeingFromMax( max ) , 0 );
+				_avTable.noNotifySet( ATTR_SEEING , "" + getSeeingFromMax( max ) , 0 ) ;
 
-				return;
+				return ;
 			}
 			if( _previousXmlElement.equals( XML_CSO_TAU ) )
 			{
-				double max = Double.POSITIVE_INFINITY;
+				double max = Double.POSITIVE_INFINITY ;
 
 				try
 				{
-					max = Double.parseDouble( value );
+					max = Double.parseDouble( value ) ;
 				}
 				catch( Exception e )
 				{
 					// ignore
 				}
 
-				_avTable.noNotifySet( ATTR_MAX_TAU , "" + max , 0 );
+				_avTable.noNotifySet( ATTR_MAX_TAU , "" + max , 0 ) ;
 
-				return;
+				return ;
 			}
 		}
 		else if( name.equals( XML_MIN ) )
@@ -282,21 +282,21 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 
 				try
 				{
-					min = Double.parseDouble( value );
+					min = Double.parseDouble( value ) ;
 				}
 				catch( Exception e )
 				{
 					// ignore
 				}
 
-				_avTable.noNotifySet( ATTR_MIN_TAU , "" + min , 0 );
+				_avTable.noNotifySet( ATTR_MIN_TAU , "" + min , 0 ) ;
 
-				return;
+				return ;
 			}
 		}
 		else
 		{
-			super.processXmlElementContent( name , value );
+			super.processXmlElementContent( name , value ) ;
 		}
 	}
 }

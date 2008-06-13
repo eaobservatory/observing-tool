@@ -1,7 +1,7 @@
-package orac.validation;
+package orac.validation ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import java.util.Vector;
+import gemini.sp.obsComp.SpInstObsComp ;
+import java.util.Vector ;
 
 /**
  * Interface for instrument component validation.
@@ -10,5 +10,5 @@ import java.util.Vector;
  */
 public interface InstrumentValidation
 {
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report );
+	public void checkInstrument( SpInstObsComp instObsComp , Vector report ) ;
 }

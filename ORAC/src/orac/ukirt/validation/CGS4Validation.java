@@ -1,10 +1,10 @@
-package orac.ukirt.validation;
+package orac.ukirt.validation ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import orac.ukirt.inst.SpInstCGS4;
-import orac.validation.InstrumentValidation;
-import orac.validation.ErrorMessage;
-import java.util.Vector;
+import gemini.sp.obsComp.SpInstObsComp ;
+import orac.ukirt.inst.SpInstCGS4 ;
+import orac.validation.InstrumentValidation ;
+import orac.validation.ErrorMessage ;
+import java.util.Vector ;
 
 /**
  * Implements validation of CGS4.
@@ -13,73 +13,73 @@ import java.util.Vector;
  */
 public class CGS4Validation implements InstrumentValidation
 {
-	final double CENTRAL_WAVELENGTH_MIN = 0.88;
-	final double CENTRAL_WAVELENGTH_MAX = 5.2;
-	final double ORDER_FOR_40_OR_150_GRATING_MAX = 5;
-	final double ORDER_FOR_ECHELLE_GRATING_MIN = 10;
-	final double EXPOSURE_TIME_RECOMMENDED_MIN = 0.12;
-	final double EXPOSURE_TIME_MIN = 0.012;
-	private static Vector _masks = new Vector();
-	private static Vector _samplings = new Vector();
-	private static Vector _posAngles = new Vector();
+	final double CENTRAL_WAVELENGTH_MIN = 0.88 ;
+	final double CENTRAL_WAVELENGTH_MAX = 5.2 ;
+	final double ORDER_FOR_40_OR_150_GRATING_MAX = 5 ;
+	final double ORDER_FOR_ECHELLE_GRATING_MIN = 10 ;
+	final double EXPOSURE_TIME_RECOMMENDED_MIN = 0.12 ;
+	final double EXPOSURE_TIME_MIN = 0.012 ;
+	private static Vector _masks = new Vector() ;
+	private static Vector _samplings = new Vector() ;
+	private static Vector _posAngles = new Vector() ;
 
 	public void checkInstrument( SpInstObsComp instObsComp , Vector report )
 	{
-		SpInstCGS4 spInstCGS4 = ( SpInstCGS4 )instObsComp;
-		double centralWavelength = spInstCGS4.getCentralWavelength();
-		String grating = spInstCGS4.getDisperser();
-		int order = spInstCGS4.getOrder();
-		double expTime = spInstCGS4.getExpTime();
-		boolean ndFilter = spInstCGS4.getNdFilter();
+		SpInstCGS4 spInstCGS4 = ( SpInstCGS4 )instObsComp ;
+		double centralWavelength = spInstCGS4.getCentralWavelength() ;
+		String grating = spInstCGS4.getDisperser() ;
+		int order = spInstCGS4.getOrder() ;
+		double expTime = spInstCGS4.getExpTime() ;
+		boolean ndFilter = spInstCGS4.getNdFilter() ;
 
 		if( report == null )
-			report = new Vector();
+			report = new Vector() ;
 
 		// Checking central wavelength.
 		if( ( centralWavelength < CENTRAL_WAVELENGTH_MIN ) || ( centralWavelength > CENTRAL_WAVELENGTH_MAX ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "central wavelength" , CENTRAL_WAVELENGTH_MIN + ".." + CENTRAL_WAVELENGTH_MAX , "" + centralWavelength ) );
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "central wavelength" , CENTRAL_WAVELENGTH_MIN + ".." + CENTRAL_WAVELENGTH_MAX , "" + centralWavelength ) ) ;
 
 		// Checking grating.
 		if( ( grating.equals( "40lpmm" ) || grating.equals( "150lpmm" ) ) && ( order > ORDER_FOR_40_OR_150_GRATING_MAX ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , "<= " + ORDER_FOR_40_OR_150_GRATING_MAX , "" + order ) );
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , "<= " + ORDER_FOR_40_OR_150_GRATING_MAX , "" + order ) ) ;
 		else if( ( grating.equals( "echelle" ) ) && ( order < ORDER_FOR_ECHELLE_GRATING_MIN ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , ">= " + ORDER_FOR_ECHELLE_GRATING_MIN , "" + order ) );
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , ">= " + ORDER_FOR_ECHELLE_GRATING_MIN , "" + order ) ) ;
 
 		// Checking eposure time.
 		if( expTime < EXPOSURE_TIME_MIN )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "exposure time" , ">= " + EXPOSURE_TIME_MIN , "" + expTime ) );
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "exposure time" , ">= " + EXPOSURE_TIME_MIN , "" + expTime ) ) ;
 		else if( expTime < 0.12 )
-			report.add( new ErrorMessage( ErrorMessage.WARNING , "CGS4" , "found exposure time " + expTime + ", subarray needs to be set by TSS." ) );
+			report.add( new ErrorMessage( ErrorMessage.WARNING , "CGS4" , "found exposure time " + expTime + ", subarray needs to be set by TSS." ) ) ;
 
 		// Checking for invalid ND filter/grating combination.
 		if( ndFilter && grating.equals( "echelle" ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "ND filter cannot be selected in combination with grating \"echelle\"" ) );
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "ND filter cannot be selected in combination with grating \"echelle\"" ) ) ;
 
-		addMask( spInstCGS4.getMask() );
-		addSampling( spInstCGS4.getSampling() );
-		addPosAngle( spInstCGS4.getPosAngleDegreesStr() );
+		addMask( spInstCGS4.getMask() ) ;
+		addSampling( spInstCGS4.getSampling() ) ;
+		addPosAngle( spInstCGS4.getPosAngleDegreesStr() ) ;
 	}
 
 	public static void reset()
 	{
-		_masks = new Vector();
-		_samplings = new Vector();
-		_posAngles = new Vector();
+		_masks = new Vector() ;
+		_samplings = new Vector() ;
+		_posAngles = new Vector() ;
 	}
 
 	public static Vector getMasks()
 	{
-		return _masks;
+		return _masks ;
 	}
 
 	public static Vector getSamplings()
 	{
-		return _samplings;
+		return _samplings ;
 	}
 
 	public static Vector getPosAngles()
 	{
-		return _posAngles;
+		return _posAngles ;
 	}
 
 	/**
@@ -92,12 +92,12 @@ public class CGS4Validation implements InstrumentValidation
 	{
 		if( _masks.contains( mask ) )
 		{
-			return false;
+			return false ;
 		}
 		else
 		{
-			_masks.add( mask );
-			return true;
+			_masks.add( mask ) ;
+			return true ;
 		}
 	}
 
@@ -111,12 +111,12 @@ public class CGS4Validation implements InstrumentValidation
 	{
 		if( _samplings.contains( sampling ) )
 		{
-			return false;
+			return false ;
 		}
 		else
 		{
-			_samplings.add( sampling );
-			return true;
+			_samplings.add( sampling ) ;
+			return true ;
 		}
 	}
 
@@ -130,12 +130,12 @@ public class CGS4Validation implements InstrumentValidation
 	{
 		if( _posAngles.contains( posAngle ) )
 		{
-			return false;
+			return false ;
 		}
 		else
 		{
-			_posAngles.add( posAngle );
-			return true;
+			_posAngles.add( posAngle ) ;
+			return true ;
 		}
 	}
 }

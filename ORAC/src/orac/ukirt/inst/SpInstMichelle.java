@@ -9,29 +9,29 @@
 // This version started 2000 Oct 26 based on Gemini version
 // and Alan Bridger's work on the CGS4 instrument
 // author: Alan Pickup = dap@roe.ac.uk         2001 Feb
-package orac.ukirt.inst;
+package orac.ukirt.inst ;
 
 import java.io.IOException ;
 import java.io.FileWriter ;
 import java.util.NoSuchElementException ;
 
-import orac.util.LookUpTable;
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
+import orac.util.LookUpTable ;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
 
 import gemini.util.MathUtil ;
 import gemini.util.Angle ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpChopCapability;
-import gemini.sp.obsComp.SpStareCapability;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterConfigObs;
-import orac.ukirt.iter.SpIterBiasObs;
-import orac.ukirt.iter.SpIterDarkObs;
-import orac.ukirt.iter.SpIterMichelleCalObs;
+import gemini.sp.obsComp.SpChopCapability ;
+import gemini.sp.obsComp.SpStareCapability ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterConfigObs ;
+import orac.ukirt.iter.SpIterBiasObs ;
+import orac.ukirt.iter.SpIterDarkObs ;
+import orac.ukirt.iter.SpIterMichelleCalObs ;
 
 /**
  * The Michelle instrument.
@@ -42,677 +42,677 @@ import orac.ukirt.iter.SpIterMichelleCalObs;
 public final class SpInstMichelle extends SpUKIRTInstObsComp
 {
 	// Attributes presented to user
-	public static String ATTR_CONFIG_TYPE = "configType";
-	public static String ATTR_CAMERA = "camera";
-	public static String ATTR_POLARIMETRY = "polarimetry";
-	public static String ATTR_MASK = "mask";
-	public static String ATTR_MASK_ANGLE = "maskAngle";
-	public static String ATTR_DISPERSER = "disperser";
-	public static String ATTR_ORDER = "order";
-	public static String ATTR_SAMPLING = "sampling";
-	public static String ATTR_CENTRAL_WAVELENGTH = "centralWavelength";
-	public static String ATTR_FILTER = "filter";
-	public static String ATTR_FILTER_CATEGORY = "filterCategory";
-	public static String ATTR_FILTER_OT = "filterOT";
-	public static String ATTR_SCIENCE_AREA = "scienceArea";
-	public static String ATTR_SPECTRAL_COVERAGE = "spectralCoverage";
-	public static String ATTR_PIXEL_FOV = "pixelFOV";
-	public static String ATTR_DARKFILTER = "darkFilter";
-	public static String ATTR_WAVEPLATE = "waveplate";
-	public static String ATTR_FLAT_SAMPLING = "flatSampling";
-	public static String ATTR_MODE = "mode";
-	public static String ATTR_CHOP_FREQUENCY = "chopFrequency";
-	public static String ATTR_CHOP_DELAY = "chopDelay";
-	public static String ATTR_READ_INTERVAL = "readInterval";
-	public static String ATTR_NRESETS = "nresets";
-	public static String ATTR_NREADS = "nreads";
-	public static String ATTR_WAVEFORM = "waveform";
-	public static String ATTR_RESET_DELAY = "resetDelay";
-	public static String ATTR_IDLE_PERIOD = "idlePeriod";
-	public static String ATTR_MUST_IDLES = "mustIdles";
-	public static String ATTR_NULL_CYCLES = "nullCycles";
-	public static String ATTR_NULL_EXPOSURES = "nullExposures";
-	public static String ATTR_NULL_READS = "nullReads";
-	public static String ATTR_DUTY_CYCLE = "dutyCycle";
-	public static String ATTR_OBSERVATION_TIME = "observationTime";
-	public static String ATTR_OBSTIME_OT = "obsTimeOT";
-	public static String NO_VALUE = "none";
-	public static final int CAMERA_IMAGING = 0;
-	public static final int CAMERA_SPECTROSCOPY = 1;
+	public static String ATTR_CONFIG_TYPE = "configType" ;
+	public static String ATTR_CAMERA = "camera" ;
+	public static String ATTR_POLARIMETRY = "polarimetry" ;
+	public static String ATTR_MASK = "mask" ;
+	public static String ATTR_MASK_ANGLE = "maskAngle" ;
+	public static String ATTR_DISPERSER = "disperser" ;
+	public static String ATTR_ORDER = "order" ;
+	public static String ATTR_SAMPLING = "sampling" ;
+	public static String ATTR_CENTRAL_WAVELENGTH = "centralWavelength" ;
+	public static String ATTR_FILTER = "filter" ;
+	public static String ATTR_FILTER_CATEGORY = "filterCategory" ;
+	public static String ATTR_FILTER_OT = "filterOT" ;
+	public static String ATTR_SCIENCE_AREA = "scienceArea" ;
+	public static String ATTR_SPECTRAL_COVERAGE = "spectralCoverage" ;
+	public static String ATTR_PIXEL_FOV = "pixelFOV" ;
+	public static String ATTR_DARKFILTER = "darkFilter" ;
+	public static String ATTR_WAVEPLATE = "waveplate" ;
+	public static String ATTR_FLAT_SAMPLING = "flatSampling" ;
+	public static String ATTR_MODE = "mode" ;
+	public static String ATTR_CHOP_FREQUENCY = "chopFrequency" ;
+	public static String ATTR_CHOP_DELAY = "chopDelay" ;
+	public static String ATTR_READ_INTERVAL = "readInterval" ;
+	public static String ATTR_NRESETS = "nresets" ;
+	public static String ATTR_NREADS = "nreads" ;
+	public static String ATTR_WAVEFORM = "waveform" ;
+	public static String ATTR_RESET_DELAY = "resetDelay" ;
+	public static String ATTR_IDLE_PERIOD = "idlePeriod" ;
+	public static String ATTR_MUST_IDLES = "mustIdles" ;
+	public static String ATTR_NULL_CYCLES = "nullCycles" ;
+	public static String ATTR_NULL_EXPOSURES = "nullExposures" ;
+	public static String ATTR_NULL_READS = "nullReads" ;
+	public static String ATTR_DUTY_CYCLE = "dutyCycle" ;
+	public static String ATTR_OBSERVATION_TIME = "observationTime" ;
+	public static String ATTR_OBSTIME_OT = "obsTimeOT" ;
+	public static String NO_VALUE = "none" ;
+	public static final int CAMERA_IMAGING = 0 ;
+	public static final int CAMERA_SPECTROSCOPY = 1 ;
 
 	// Class variables representing defaults, LUTs, etc
-	public static String CONFIG_TYPE;
-	public static String VERSION;
-	public static String[] INSTRUMENT_APER_IM_POL;
-	public static String[] DETECTOR_SIZE;
-	public static int DETECTOR_WIDTH;
-	public static int DETECTOR_HEIGHT;
-	public static double DETANGLE;
-	public static double PIXPITCH;
-	public static String DARKFILTER;
-	public static String DEFAULT_FILTER;
-	public static String DEFAULT_FILTER_CAT_TARGET_ACQ;
-	public static String DEFAULT_FILTER_TARGET_ACQ;
-	public static int DEFAULT_COADDS_TARGET_ACQ;
-	public static String[] CAMERAS;
-	public static String DEFAULT_CAMERA;
-	public static double N_TO_Q_BOUNDARY;
-	public static String DEFAULT_FLAT_SOURCE;
-	public static String DEFAULT_FLAT_SAMPLING;
-	public static String[] FLAT_SOURCES;
-	public static String[] POLARIMETRY;
-	public static String DEFAULT_POLARIMETRY;
-	public static LookUpTable WAVEPLATES;
+	public static String CONFIG_TYPE ;
+	public static String VERSION ;
+	public static String[] INSTRUMENT_APER_IM_POL ;
+	public static String[] DETECTOR_SIZE ;
+	public static int DETECTOR_WIDTH ;
+	public static int DETECTOR_HEIGHT ;
+	public static double DETANGLE ;
+	public static double PIXPITCH ;
+	public static String DARKFILTER ;
+	public static String DEFAULT_FILTER ;
+	public static String DEFAULT_FILTER_CAT_TARGET_ACQ ;
+	public static String DEFAULT_FILTER_TARGET_ACQ ;
+	public static int DEFAULT_COADDS_TARGET_ACQ ;
+	public static String[] CAMERAS ;
+	public static String DEFAULT_CAMERA ;
+	public static double N_TO_Q_BOUNDARY ;
+	public static String DEFAULT_FLAT_SOURCE ;
+	public static String DEFAULT_FLAT_SAMPLING ;
+	public static String[] FLAT_SOURCES ;
+	public static String[] POLARIMETRY ;
+	public static String DEFAULT_POLARIMETRY ;
+	public static LookUpTable WAVEPLATES ;
 
 	// Imaging
-	public static double IMAGING_PIXEL_SCALE;
-	public static double[] IMAGING_FIELD_OF_VIEW = null;
-	public static LookUpTable NBANDFILT;
-	public static LookUpTable QBANDFILT;
-	public static LookUpTable SPECFILT;
-	public static LookUpTable FILTERS;
+	public static double IMAGING_PIXEL_SCALE ;
+	public static double[] IMAGING_FIELD_OF_VIEW = null ;
+	public static LookUpTable NBANDFILT ;
+	public static LookUpTable QBANDFILT ;
+	public static LookUpTable SPECFILT ;
+	public static LookUpTable FILTERS ;
 
 	// Spectroscopy
-	public static double SPECT_PIXEL_SCALE;
-	public static double SPECT_FOCAL_LENGTH;
-	public static double[] SPECT_FIELD_OF_VIEW;
-	public static String[] SAMPLINGS;
-	public static String DEFAULT_SAMPLING;
-	public static String DEFAULT_SAMPLING_TARGET_ACQ;
-	public static LookUpTable DISPERSERS;
-	public static String DEFAULT_DISPERSER;
-	public static int CENTRAL_ROW;
-	public static int PEAK_ROW;
-	public static LookUpTable MASKS;
-	public static String DEFAULT_MASK;
+	public static double SPECT_PIXEL_SCALE ;
+	public static double SPECT_FOCAL_LENGTH ;
+	public static double[] SPECT_FIELD_OF_VIEW ;
+	public static String[] SAMPLINGS ;
+	public static String DEFAULT_SAMPLING ;
+	public static String DEFAULT_SAMPLING_TARGET_ACQ ;
+	public static LookUpTable DISPERSERS ;
+	public static String DEFAULT_DISPERSER ;
+	public static int CENTRAL_ROW ;
+	public static int PEAK_ROW ;
+	public static LookUpTable MASKS ;
+	public static String DEFAULT_MASK ;
 
 	// Disperser 1
-	public static LookUpTable ORDERS1;
-	public static LookUpTable BLOCKERS1;
+	public static LookUpTable ORDERS1 ;
+	public static LookUpTable BLOCKERS1 ;
 
 	// Disperser 2
-	public static LookUpTable ORDERS2;
-	public static LookUpTable BLOCKERS2;
+	public static LookUpTable ORDERS2 ;
+	public static LookUpTable BLOCKERS2 ;
 
 	// Disperser 3
-	public static LookUpTable ORDERS3;
-	public static LookUpTable BLOCKERS3;
+	public static LookUpTable ORDERS3 ;
+	public static LookUpTable BLOCKERS3 ;
 
 	// Disperser 4
-	public static LookUpTable ORDERS4;
-	public static LookUpTable BLOCKERS4;
+	public static LookUpTable ORDERS4 ;
+	public static LookUpTable BLOCKERS4 ;
 
 	// Disperser 5
-	public static LookUpTable ORDERS5;
-	public static LookUpTable BLOCKERS5;
+	public static LookUpTable ORDERS5 ;
+	public static LookUpTable BLOCKERS5 ;
 
 	// Data acquisition - general
-	public static LookUpTable CHOPS;
-	public static String DEFAULT_CHOPFREQ;
-	public static double KPOL;
-	public static double KSKY;
-	public static double KIM;
-	public static double KBAND;
-	public static double KWELL;
-	public static double TEXPBASE;
-	public static double TEXPMIN;
-	public static double TEXPMAX;
-	public static double DEFAULT_TOBS;
-	public static String DEFAULT_MODE;
-	public static LookUpTable EXPTIMINGS;
-	public static double DEFAULT_EXPTIME;
-	public static double EXPOSURE_OVERHEAD = 0.01;
-	public static double READ_INTERVAL;
-	public static int NULL_READS;
-	public static double RESET_DELAY;
-	public static LookUpTable DACONFS;
-	public static LookUpTable MODES;
-	public static LookUpTable WAVEFORMS;
+	public static LookUpTable CHOPS ;
+	public static String DEFAULT_CHOPFREQ ;
+	public static double KPOL ;
+	public static double KSKY ;
+	public static double KIM ;
+	public static double KBAND ;
+	public static double KWELL ;
+	public static double TEXPBASE ;
+	public static double TEXPMIN ;
+	public static double TEXPMAX ;
+	public static double DEFAULT_TOBS ;
+	public static String DEFAULT_MODE ;
+	public static LookUpTable EXPTIMINGS ;
+	public static double DEFAULT_EXPTIME ;
+	public static double EXPOSURE_OVERHEAD = 0.01 ;
+	public static double READ_INTERVAL ;
+	public static int NULL_READS ;
+	public static double RESET_DELAY ;
+	public static LookUpTable DACONFS ;
+	public static LookUpTable MODES ;
+	public static LookUpTable WAVEFORMS ;
 
 	// Data acquisition - bias
-	public static double DEFBIASEXPTIME;
-	public static int DEFBIASCOADDS;
+	public static double DEFBIASEXPTIME ;
+	public static int DEFBIASCOADDS ;
 
 	// Instance variables of the class
-	double flatObservationTime;
-	double arcObservationTime;
-	double targetAcqObservationTime;
-	double flatExposureTime;
-	double arcExposureTime;
-	double targetAcqExposureTime;
+	double flatObservationTime ;
+	double arcObservationTime ;
+	double targetAcqObservationTime ;
+	double flatExposureTime ;
+	double arcExposureTime ;
+	double targetAcqExposureTime ;
 
 	// Data acquisition - dark
 	// Data acquisition - flat & arcs
-	String flat_source;
-	public String W_mode;
-	public String W_waveform;
-	public int W_nreads;
-	public int W_nresets;
-	public double W_resetDelay;
-	public double W_readInterval;
-	public double W_idlePeriod;
-	public int W_mustIdles;
-	public int W_nullCycles;
-	public int W_nullExposures;
-	public int W_nullReads;
-	public String W_chopFrequency;
-	public double W_chopDelay;
-	public int W_coadds;
-	public double W_dutyCycle;
-	public double W_obsTime;
+	String flat_source ;
+	public String W_mode ;
+	public String W_waveform ;
+	public int W_nreads ;
+	public int W_nresets ;
+	public double W_resetDelay ;
+	public double W_readInterval ;
+	public double W_idlePeriod ;
+	public int W_mustIdles ;
+	public int W_nullCycles ;
+	public int W_nullExposures ;
+	public int W_nullReads ;
+	public String W_chopFrequency ;
+	public double W_chopDelay ;
+	public int W_coadds ;
+	public double W_dutyCycle ;
+	public double W_obsTime ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.michelle" , "Michelle" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.michelle" , "Michelle" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstMichelle() );
+		SpFactory.registerPrototype( new SpInstMichelle() ) ;
 	}
 
 	// Constructor reads instrument .cfg file and initialises values
 	public SpInstMichelle()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		addCapability( new SpChopCapability() );
-		addCapability( new SpStareCapability() );
+		addCapability( new SpChopCapability() ) ;
+		addCapability( new SpStareCapability() ) ;
 
 		// Read in the instrument config file
-		String baseDir = System.getProperty( "ot.cfgdir" );
-		String cfgFile = baseDir + "michelle.cfg";
-		_readCfgFile( cfgFile );
+		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		String cfgFile = baseDir + "michelle.cfg" ;
+		_readCfgFile( cfgFile ) ;
 
 		// Set the initial values of the attributes
-		String attr = ATTR_CONFIG_TYPE;
-		String value = CONFIG_TYPE;
-		_avTable.noNotifySet( attr , value , 0 );
+		String attr = ATTR_CONFIG_TYPE ;
+		String value = CONFIG_TYPE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_VERSION;
-		value = VERSION;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_VERSION ;
+		value = VERSION ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_CAMERA;
-		value = DEFAULT_CAMERA;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_CAMERA ;
+		value = DEFAULT_CAMERA ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_MASK;
-		value = DEFAULT_MASK;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_MASK ;
+		value = DEFAULT_MASK ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_MASK_ANGLE;
-		_avTable.noNotifySet( attr , "0.0" , 0 );
+		attr = ATTR_MASK_ANGLE ;
+		_avTable.noNotifySet( attr , "0.0" , 0 ) ;
 
-		attr = ATTR_POS_ANGLE;
-		_avTable.noNotifySet( attr , "0.0" , 0 );
+		attr = ATTR_POS_ANGLE ;
+		_avTable.noNotifySet( attr , "0.0" , 0 ) ;
 
-		attr = ATTR_DISPERSER;
-		value = DEFAULT_DISPERSER;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_DISPERSER ;
+		value = DEFAULT_DISPERSER ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_ORDER;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_ORDER ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_CENTRAL_WAVELENGTH;
-		_avTable.noNotifySet( attr , "10.0" , 0 );
+		attr = ATTR_CENTRAL_WAVELENGTH ;
+		_avTable.noNotifySet( attr , "10.0" , 0 ) ;
 
-		attr = ATTR_POLARIMETRY;
-		value = DEFAULT_POLARIMETRY;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_POLARIMETRY ;
+		value = DEFAULT_POLARIMETRY ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_FILTER;
-		value = DEFAULT_FILTER;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_FILTER ;
+		value = DEFAULT_FILTER ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_DARKFILTER;
-		value = DARKFILTER;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_DARKFILTER ;
+		value = DARKFILTER ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_SAMPLING;
-		value = DEFAULT_SAMPLING;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_SAMPLING ;
+		value = DEFAULT_SAMPLING ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_SCIENCE_AREA;
-		_avTable.noNotifySet( attr , "0.0 x 0.0" , 0 );
+		attr = ATTR_SCIENCE_AREA ;
+		_avTable.noNotifySet( attr , "0.0 x 0.0" , 0 ) ;
 
-		attr = ATTR_PIXEL_FOV;
-		_avTable.noNotifySet( attr , "0.0 x 0.0" , 0 );
+		attr = ATTR_PIXEL_FOV ;
+		_avTable.noNotifySet( attr , "0.0 x 0.0" , 0 ) ;
 
-		attr = ATTR_MODE;
-		value = DEFAULT_MODE;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_MODE ;
+		value = DEFAULT_MODE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_CHOP_FREQUENCY;
-		value = DEFAULT_CHOPFREQ;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_CHOP_FREQUENCY ;
+		value = DEFAULT_CHOPFREQ ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_CHOP_DELAY;
-		_avTable.noNotifySet( attr , "0.0" , 0 );
+		attr = ATTR_CHOP_DELAY ;
+		_avTable.noNotifySet( attr , "0.0" , 0 ) ;
 
-		attr = ATTR_EXPOSURE_TIME;
-		value = Double.toString( DEFAULT_EXPTIME );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_EXPOSURE_TIME ;
+		value = Double.toString( DEFAULT_EXPTIME ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_READ_INTERVAL;
-		value = Double.toString( READ_INTERVAL );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_READ_INTERVAL ;
+		value = Double.toString( READ_INTERVAL ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_NREADS;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_NREADS ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_NRESETS;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_NRESETS ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_IDLE_PERIOD;
-		_avTable.noNotifySet( attr , "0.0" , 0 );
+		attr = ATTR_IDLE_PERIOD ;
+		_avTable.noNotifySet( attr , "0.0" , 0 ) ;
 
-		attr = ATTR_MUST_IDLES;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_MUST_IDLES ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_RESET_DELAY;
-		value = Double.toString( RESET_DELAY );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_RESET_DELAY ;
+		value = Double.toString( RESET_DELAY ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_NULL_CYCLES;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_NULL_CYCLES ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_NULL_EXPOSURES;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_NULL_EXPOSURES ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_NULL_READS;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_NULL_READS ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_WAVEFORM;
-		_avTable.noNotifySet( attr , "unspecified" , 0 );
+		attr = ATTR_WAVEFORM ;
+		_avTable.noNotifySet( attr , "unspecified" , 0 ) ;
 
-		attr = ATTR_COADDS;
-		_avTable.noNotifySet( attr , "1" , 0 );
+		attr = ATTR_COADDS ;
+		_avTable.noNotifySet( attr , "1" , 0 ) ;
 
-		attr = ATTR_DUTY_CYCLE;
-		_avTable.noNotifySet( attr , "0.0" , 0 );
+		attr = ATTR_DUTY_CYCLE ;
+		_avTable.noNotifySet( attr , "0.0" , 0 ) ;
 
-		attr = ATTR_OBSERVATION_TIME;
-		value = Double.toString( DEFAULT_TOBS );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_OBSERVATION_TIME ;
+		value = Double.toString( DEFAULT_TOBS ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_OBSTIME_OT;
-		value = Double.toString( DEFAULT_TOBS );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_OBSTIME_OT ;
+		value = Double.toString( DEFAULT_TOBS ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		// Initialise instance variables
-		initInstance();
+		initInstance() ;
 	}
 
 	private void _readCfgFile( String filename )
 	{
-		InstCfgReader instCfg = null;
-		InstCfg instInfo = null;
-		String block = null;
-		int i;
-		instCfg = new InstCfgReader( filename );
+		InstCfgReader instCfg = null ;
+		InstCfg instInfo = null ;
+		String block = null ;
+		int i ;
+		instCfg = new InstCfgReader( filename ) ;
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( InstCfg.matchAttr( instInfo , "instrument_port" ) )
 				{
-					INSTRUMENT_PORT = instInfo.getValue();
-					setPort( INSTRUMENT_PORT );
+					INSTRUMENT_PORT = instInfo.getValue() ;
+					setPort( INSTRUMENT_PORT ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "config_type" ) )
 				{
-					CONFIG_TYPE = instInfo.getValue();
+					CONFIG_TYPE = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "version" ) )
 				{
-					VERSION = instInfo.getValue();
+					VERSION = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "instrument_aper" ) )
 				{
-					INSTRUMENT_APER = instInfo.getValueAsArray();
+					INSTRUMENT_APER = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "instrument_aper_im_pol" ) )
 				{
-					INSTRUMENT_APER_IM_POL = instInfo.getValueAsArray();
+					INSTRUMENT_APER_IM_POL = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "detector_size" ) )
 				{
-					DETECTOR_SIZE = instInfo.getValueAsArray();
-					DETECTOR_WIDTH = Integer.parseInt( DETECTOR_SIZE[ 0 ] );
-					DETECTOR_HEIGHT = Integer.parseInt( DETECTOR_SIZE[ 1 ] );
+					DETECTOR_SIZE = instInfo.getValueAsArray() ;
+					DETECTOR_WIDTH = Integer.parseInt( DETECTOR_SIZE[ 0 ] ) ;
+					DETECTOR_HEIGHT = Integer.parseInt( DETECTOR_SIZE[ 1 ] ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "imaging_field_of_view" ) )
 				{
-					String starray[] = instInfo.getValueAsArray();
-					IMAGING_FIELD_OF_VIEW = new double[ starray.length ];
+					String starray[] = instInfo.getValueAsArray() ;
+					IMAGING_FIELD_OF_VIEW = new double[ starray.length ] ;
 					for( i = 0 ; i < starray.length ; i++ )
-						IMAGING_FIELD_OF_VIEW[ i ] = Double.valueOf( starray[ i ] ).doubleValue();
+						IMAGING_FIELD_OF_VIEW[ i ] = Double.valueOf( starray[ i ] ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "detangle" ) )
 				{
-					DETANGLE = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DETANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "pixpitch" ) )
 				{
-					PIXPITCH = Double.valueOf( instInfo.getValue() ).doubleValue();
+					PIXPITCH = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "darkfilter" ) )
 				{
-					DARKFILTER = instInfo.getValue();
+					DARKFILTER = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_filter" ) )
 				{
-					DEFAULT_FILTER = instInfo.getValue();
+					DEFAULT_FILTER = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_filter_cat_target_acq" ) )
 				{
-					DEFAULT_FILTER_CAT_TARGET_ACQ = instInfo.getValue();
+					DEFAULT_FILTER_CAT_TARGET_ACQ = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_filter_target_acq" ) )
 				{
-					DEFAULT_FILTER_TARGET_ACQ = instInfo.getValue();
+					DEFAULT_FILTER_TARGET_ACQ = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_coadds_target_acq" ) )
 				{
-					DEFAULT_COADDS_TARGET_ACQ = Integer.valueOf( instInfo.getValue() ).intValue();
+					DEFAULT_COADDS_TARGET_ACQ = Integer.valueOf( instInfo.getValue() ).intValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "cameras" ) )
 				{
-					CAMERAS = instInfo.getValueAsArray();
+					CAMERAS = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "n_to_q_boundary" ) )
 				{
-					N_TO_Q_BOUNDARY = Double.valueOf( instInfo.getValue() ).doubleValue();
+					N_TO_Q_BOUNDARY = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_camera" ) )
 				{
-					DEFAULT_CAMERA = instInfo.getValue();
+					DEFAULT_CAMERA = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "polarimetry" ) )
 				{
-					POLARIMETRY = instInfo.getValueAsArray();
+					POLARIMETRY = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_polarimetry" ) )
 				{
-					DEFAULT_POLARIMETRY = instInfo.getValue();
+					DEFAULT_POLARIMETRY = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "waveplates" ) )
 				{
-					WAVEPLATES = instInfo.getValueAsLUT();
+					WAVEPLATES = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "imaging_pixel_scale" ) )
 				{
-					IMAGING_PIXEL_SCALE = Double.valueOf( instInfo.getValue() ).doubleValue();
+					IMAGING_PIXEL_SCALE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "nbandfilt" ) )
 				{
-					NBANDFILT = instInfo.getValueAsLUT();
+					NBANDFILT = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "qbandfilt" ) )
 				{
-					QBANDFILT = instInfo.getValueAsLUT();
+					QBANDFILT = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "specfilt" ) )
 				{
-					SPECFILT = instInfo.getValueAsLUT();
+					SPECFILT = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "filters" ) )
 				{
-					FILTERS = instInfo.getValueAsLUT();
+					FILTERS = instInfo.getValueAsLUT() ;
 					// insert the filter set tables
 					try
 					{
-						int row = FILTERS.indexInColumn( "NBANDFILT" , 1 );
-						FILTERS.setElementAt( NBANDFILT , row , 1 );
-						row = FILTERS.indexInColumn( "QBANDFILT" , 1 );
-						FILTERS.setElementAt( QBANDFILT , row , 1 );
-						row = FILTERS.indexInColumn( "SPECFILT" , 1 );
-						FILTERS.setElementAt( SPECFILT , row , 1 );
+						int row = FILTERS.indexInColumn( "NBANDFILT" , 1 ) ;
+						FILTERS.setElementAt( NBANDFILT , row , 1 ) ;
+						row = FILTERS.indexInColumn( "QBANDFILT" , 1 ) ;
+						FILTERS.setElementAt( QBANDFILT , row , 1 ) ;
+						row = FILTERS.indexInColumn( "SPECFILT" , 1 ) ;
+						FILTERS.setElementAt( SPECFILT , row , 1 ) ;
 					}
 					catch( NoSuchElementException ex )
 					{
-						System.out.println( "Error indexing in filters table in Michelle cfg file" );
-						System.out.println( ex );
+						System.out.println( "Error indexing in filters table in Michelle cfg file" ) ;
+						System.out.println( ex ) ;
 					}
 					catch( ArrayIndexOutOfBoundsException ex )
 					{
-						System.out.println( "Unexpected error setting Michelle luts" );
-						System.out.println( ex );
+						System.out.println( "Unexpected error setting Michelle luts" ) ;
+						System.out.println( ex ) ;
 					}
 				}
 				else if( InstCfg.matchAttr( instInfo , "spect_pixel_scale" ) )
 				{
-					SPECT_PIXEL_SCALE = Double.valueOf( instInfo.getValue() ).doubleValue();
+					SPECT_PIXEL_SCALE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "spect_focal_length" ) )
 				{
-					SPECT_FOCAL_LENGTH = Double.valueOf( instInfo.getValue() ).doubleValue();
+					SPECT_FOCAL_LENGTH = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "flat_sources" ) )
 				{
-					FLAT_SOURCES = instInfo.getValueAsArray();
+					FLAT_SOURCES = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "samplings" ) )
 				{
-					SAMPLINGS = instInfo.getValueAsArray();
+					SAMPLINGS = instInfo.getValueAsArray() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_sampling" ) )
 				{
-					DEFAULT_SAMPLING = instInfo.getValue();
+					DEFAULT_SAMPLING = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_sampling_target_acq" ) )
 				{
-					DEFAULT_SAMPLING_TARGET_ACQ = instInfo.getValue();
+					DEFAULT_SAMPLING_TARGET_ACQ = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_flat_source" ) )
 				{
-					DEFAULT_FLAT_SOURCE = instInfo.getValue();
+					DEFAULT_FLAT_SOURCE = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_flat_sampling" ) )
 				{
-					DEFAULT_FLAT_SAMPLING = instInfo.getValue();
+					DEFAULT_FLAT_SAMPLING = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "orders1" ) )
 				{
-					ORDERS1 = instInfo.getValueAsLUT();
+					ORDERS1 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "blockers1" ) )
 				{
-					BLOCKERS1 = instInfo.getValueAsLUT();
+					BLOCKERS1 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "orders2" ) )
 				{
-					ORDERS2 = instInfo.getValueAsLUT();
+					ORDERS2 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "blockers2" ) )
 				{
-					BLOCKERS2 = instInfo.getValueAsLUT();
+					BLOCKERS2 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "orders3" ) )
 				{
-					ORDERS3 = instInfo.getValueAsLUT();
+					ORDERS3 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "blockers3" ) )
 				{
-					BLOCKERS3 = instInfo.getValueAsLUT();
+					BLOCKERS3 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "orders4" ) )
 				{
-					ORDERS4 = instInfo.getValueAsLUT();
+					ORDERS4 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "blockers4" ) )
 				{
-					BLOCKERS4 = instInfo.getValueAsLUT();
+					BLOCKERS4 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "orders5" ) )
 				{
-					ORDERS5 = instInfo.getValueAsLUT();
+					ORDERS5 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "blockers5" ) )
 				{
-					BLOCKERS5 = instInfo.getValueAsLUT();
+					BLOCKERS5 = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "dispersers" ) )
 				{
-					DISPERSERS = instInfo.getValueAsLUT();
+					DISPERSERS = instInfo.getValueAsLUT() ;
 					// insert the order tables
 					try
 					{
-						int row = DISPERSERS.indexInColumn( "ORDERS1" , 4 );
-						DISPERSERS.setElementAt( ORDERS1 , row , 4 );
-						row = DISPERSERS.indexInColumn( "ORDERS2" , 4 );
-						DISPERSERS.setElementAt( ORDERS2 , row , 4 );
-						row = DISPERSERS.indexInColumn( "ORDERS3" , 4 );
-						DISPERSERS.setElementAt( ORDERS3 , row , 4 );
-						row = DISPERSERS.indexInColumn( "ORDERS4" , 4 );
-						DISPERSERS.setElementAt( ORDERS4 , row , 4 );
-						row = DISPERSERS.indexInColumn( "ORDERS5" , 4 );
-						DISPERSERS.setElementAt( ORDERS5 , row , 4 );
-						row = DISPERSERS.indexInColumn( "BLOCKERS1" , 5 );
-						DISPERSERS.setElementAt( BLOCKERS1 , row , 5 );
-						row = DISPERSERS.indexInColumn( "BLOCKERS2" , 5 );
-						DISPERSERS.setElementAt( BLOCKERS2 , row , 5 );
-						row = DISPERSERS.indexInColumn( "BLOCKERS3" , 5 );
-						DISPERSERS.setElementAt( BLOCKERS3 , row , 5 );
-						row = DISPERSERS.indexInColumn( "BLOCKERS4" , 5 );
-						DISPERSERS.setElementAt( BLOCKERS4 , row , 5 );
-						row = DISPERSERS.indexInColumn( "BLOCKERS5" , 5 );
-						DISPERSERS.setElementAt( BLOCKERS5 , row , 5 );
+						int row = DISPERSERS.indexInColumn( "ORDERS1" , 4 ) ;
+						DISPERSERS.setElementAt( ORDERS1 , row , 4 ) ;
+						row = DISPERSERS.indexInColumn( "ORDERS2" , 4 ) ;
+						DISPERSERS.setElementAt( ORDERS2 , row , 4 ) ;
+						row = DISPERSERS.indexInColumn( "ORDERS3" , 4 ) ;
+						DISPERSERS.setElementAt( ORDERS3 , row , 4 ) ;
+						row = DISPERSERS.indexInColumn( "ORDERS4" , 4 ) ;
+						DISPERSERS.setElementAt( ORDERS4 , row , 4 ) ;
+						row = DISPERSERS.indexInColumn( "ORDERS5" , 4 ) ;
+						DISPERSERS.setElementAt( ORDERS5 , row , 4 ) ;
+						row = DISPERSERS.indexInColumn( "BLOCKERS1" , 5 ) ;
+						DISPERSERS.setElementAt( BLOCKERS1 , row , 5 ) ;
+						row = DISPERSERS.indexInColumn( "BLOCKERS2" , 5 ) ;
+						DISPERSERS.setElementAt( BLOCKERS2 , row , 5 ) ;
+						row = DISPERSERS.indexInColumn( "BLOCKERS3" , 5 ) ;
+						DISPERSERS.setElementAt( BLOCKERS3 , row , 5 ) ;
+						row = DISPERSERS.indexInColumn( "BLOCKERS4" , 5 ) ;
+						DISPERSERS.setElementAt( BLOCKERS4 , row , 5 ) ;
+						row = DISPERSERS.indexInColumn( "BLOCKERS5" , 5 ) ;
+						DISPERSERS.setElementAt( BLOCKERS5 , row , 5 ) ;
 					}
 					catch( NoSuchElementException ex )
 					{
-						System.out.println( "Error indexing in dispersers table in Michelle cfg file" );
-						System.out.println( ex );
+						System.out.println( "Error indexing in dispersers table in Michelle cfg file" ) ;
+						System.out.println( ex ) ;
 					}
 					catch( ArrayIndexOutOfBoundsException ex )
 					{
-						System.out.println( "Unexpected error setting Michelle luts" );
-						System.out.println( ex );
+						System.out.println( "Unexpected error setting Michelle luts" ) ;
+						System.out.println( ex ) ;
 					}
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_disperser" ) )
 				{
-					DEFAULT_DISPERSER = instInfo.getValue();
+					DEFAULT_DISPERSER = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "central_row" ) )
 				{
-					CENTRAL_ROW = Integer.parseInt( instInfo.getValue() );
+					CENTRAL_ROW = Integer.parseInt( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "peak_row" ) )
 				{
-					PEAK_ROW = Integer.parseInt( instInfo.getValue() );
+					PEAK_ROW = Integer.parseInt( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "masks" ) )
 				{
-					MASKS = instInfo.getValueAsLUT();
+					MASKS = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_mask" ) )
 				{
-					DEFAULT_MASK = instInfo.getValue();
+					DEFAULT_MASK = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "chops" ) )
 				{
-					CHOPS = instInfo.getValueAsLUT();
+					CHOPS = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_chopfreq" ) )
 				{
-					DEFAULT_CHOPFREQ = instInfo.getValue();
+					DEFAULT_CHOPFREQ = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "kpol" ) )
 				{
-					KPOL = Double.valueOf( instInfo.getValue() ).doubleValue();
+					KPOL = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "ksky" ) )
 				{
-					KSKY = Double.valueOf( instInfo.getValue() ).doubleValue();
+					KSKY = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "kim" ) )
 				{
-					KIM = Double.valueOf( instInfo.getValue() ).doubleValue();
+					KIM = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "kband" ) )
 				{
-					KBAND = Double.valueOf( instInfo.getValue() ).doubleValue();
+					KBAND = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "kwell" ) )
 				{
-					KWELL = Double.valueOf( instInfo.getValue() ).doubleValue();
+					KWELL = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_mode" ) )
 				{
-					DEFAULT_MODE = instInfo.getValue();
+					DEFAULT_MODE = instInfo.getValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptimings" ) )
 				{
-					EXPTIMINGS = instInfo.getValueAsLUT();
+					EXPTIMINGS = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_exptime" ) )
 				{
-					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "texpbase" ) )
 				{
-					TEXPBASE = Double.valueOf( instInfo.getValue() ).doubleValue();
+					TEXPBASE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "texpmin" ) )
 				{
-					TEXPMIN = Double.valueOf( instInfo.getValue() ).doubleValue();
+					TEXPMIN = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "texpmax" ) )
 				{
-					TEXPMAX = Double.valueOf( instInfo.getValue() ).doubleValue();
+					TEXPMAX = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_tobs" ) )
 				{
-					DEFAULT_TOBS = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_TOBS = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "defbiasexptime" ) )
 				{
-					DEFBIASEXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFBIASEXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "defbiascoadds" ) )
 				{
-					DEFBIASCOADDS = Integer.parseInt( instInfo.getValue() );
+					DEFBIASCOADDS = Integer.parseInt( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "read_interval" ) )
 				{
-					READ_INTERVAL = Double.valueOf( instInfo.getValue() ).doubleValue();
+					READ_INTERVAL = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "null_reads" ) )
 				{
-					NULL_READS = Integer.parseInt( instInfo.getValue() );
+					NULL_READS = Integer.parseInt( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "reset_delay" ) )
 				{
-					RESET_DELAY = Double.valueOf( instInfo.getValue() ).doubleValue();
+					RESET_DELAY = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "daconfs" ) )
 				{
-					DACONFS = instInfo.getValueAsLUT();
+					DACONFS = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "modes" ) )
 				{
-					MODES = instInfo.getValueAsLUT();
+					MODES = instInfo.getValueAsLUT() ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "waveforms" ) )
 				{
-					WAVEFORMS = instInfo.getValueAsLUT();
+					WAVEFORMS = instInfo.getValueAsLUT() ;
 				}
 				else
 				{
-					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() );
+					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() ) ;
 				}
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading Michelle inst. cfg file" );
+			System.out.println( "Error reading Michelle inst. cfg file" ) ;
 		}
 	}
 
 	public static LookUpTable getDispersers()
 	{
-		return DISPERSERS;
+		return DISPERSERS ;
 	}
 
 	/**
@@ -720,7 +720,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public SpChopCapability getChopCapability()
 	{
-		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME );
+		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -728,7 +728,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -736,7 +736,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setPixelFOV( String pixelFOV )
 	{
-		_avTable.set( ATTR_PIXEL_FOV , pixelFOV );
+		_avTable.set( ATTR_PIXEL_FOV , pixelFOV ) ;
 	}
 
 	/**
@@ -744,7 +744,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double[] getPixelFOV()
 	{
-		return getPixelFOV( "OBJECT" );
+		return getPixelFOV( "OBJECT" ) ;
 	}
 
 	/**
@@ -752,19 +752,19 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double[] getPixelFOV( String obsType )
 	{
-		double pfov[] = new double[ 2 ];
+		double pfov[] = new double[ 2 ] ;
 		if( isImaging() || obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
-			pfov[ 0 ] = IMAGING_PIXEL_SCALE;
-			pfov[ 1 ] = IMAGING_PIXEL_SCALE;
+			pfov[ 0 ] = IMAGING_PIXEL_SCALE ;
+			pfov[ 1 ] = IMAGING_PIXEL_SCALE ;
 		}
 		else
 		{
-			double ma = getMaskAngle() * Math.PI / 180.0;
-			pfov[ 0 ] = SPECT_PIXEL_SCALE / Math.cos( ma );
-			pfov[ 1 ] = SPECT_PIXEL_SCALE * Math.cos( ma );
+			double ma = getMaskAngle() * Math.PI / 180.0 ;
+			pfov[ 0 ] = SPECT_PIXEL_SCALE / Math.cos( ma ) ;
+			pfov[ 1 ] = SPECT_PIXEL_SCALE * Math.cos( ma ) ;
 		}
-		return pfov;
+		return pfov ;
 	}
 
 	/**
@@ -772,7 +772,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getPixelFOVString()
 	{
-		return getPixelFOVString( "OBJECT" );
+		return getPixelFOVString( "OBJECT" ) ;
 	}
 
 	/**
@@ -780,14 +780,14 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getPixelFOVString( String obsType )
 	{
-		double pfov[];
-		pfov = getPixelFOV( obsType );
-		double w = MathUtil.round( pfov[ 0 ] , 2 );
-		double h = MathUtil.round( pfov[ 1 ] , 2 );
-		String pfovs = w + " x " + h;
+		double pfov[] ;
+		pfov = getPixelFOV( obsType ) ;
+		double w = MathUtil.round( pfov[ 0 ] , 2 ) ;
+		double h = MathUtil.round( pfov[ 1 ] , 2 ) ;
+		String pfovs = w + " x " + h ;
 		if( obsType.equalsIgnoreCase( "OBJECT" ) )
-			setPixelFOV( pfovs );
-		return pfovs;
+			setPixelFOV( pfovs ) ;
+		return pfovs ;
 	}
 
 	/**
@@ -795,7 +795,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setScienceArea( String scienceArea )
 	{
-		_avTable.set( ATTR_SCIENCE_AREA , scienceArea );
+		_avTable.set( ATTR_SCIENCE_AREA , scienceArea ) ;
 	}
 
 	/**
@@ -803,7 +803,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double[] getScienceArea()
 	{
-		return getScienceArea( "OBJECT" );
+		return getScienceArea( "OBJECT" ) ;
 	}
 
 	/**
@@ -811,21 +811,21 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double[] getScienceArea( String obsType )
 	{
-		double fov[] = new double[ 2 ];
+		double fov[] = new double[ 2 ] ;
 		if( isImaging() || obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
-			fov[ 0 ] = IMAGING_FIELD_OF_VIEW[ 0 ];
-			fov[ 1 ] = IMAGING_FIELD_OF_VIEW[ 1 ];
+			fov[ 0 ] = IMAGING_FIELD_OF_VIEW[ 0 ] ;
+			fov[ 1 ] = IMAGING_FIELD_OF_VIEW[ 1 ] ;
 		}
 		else
 		{
-			double w = getMaskWidthPixels();
-			double h = getMaskHeightPixels();
-			double ma = getMaskAngle() * Math.PI / 180.0;
-			fov[ 0 ] = SPECT_PIXEL_SCALE * w / Math.cos( ma );
-			fov[ 1 ] = SPECT_PIXEL_SCALE * h * Math.cos( ma );
+			double w = getMaskWidthPixels() ;
+			double h = getMaskHeightPixels() ;
+			double ma = getMaskAngle() * Math.PI / 180.0 ;
+			fov[ 0 ] = SPECT_PIXEL_SCALE * w / Math.cos( ma ) ;
+			fov[ 1 ] = SPECT_PIXEL_SCALE * h * Math.cos( ma ) ;
 		}
-		return fov;
+		return fov ;
 	}
 
 	/**
@@ -833,7 +833,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getScienceAreaString()
 	{
-		return getScienceAreaString( "OBJECT" );
+		return getScienceAreaString( "OBJECT" ) ;
 	}
 
 	/**
@@ -841,15 +841,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getScienceAreaString( String obsType )
 	{
-		double fov[];
-		fov = getScienceArea( obsType );
-		double w = MathUtil.round( fov[ 0 ] , 2 );
-		double h = MathUtil.round( fov[ 1 ] , 2 );
-		String fovs = w + " x " + h;
+		double fov[] ;
+		fov = getScienceArea( obsType ) ;
+		double w = MathUtil.round( fov[ 0 ] , 2 ) ;
+		double h = MathUtil.round( fov[ 1 ] , 2 ) ;
+		String fovs = w + " x " + h ;
 		if( obsType.equalsIgnoreCase( "OBJECT" ) )
-			setScienceArea( fovs );
+			setScienceArea( fovs ) ;
 		/* Update the pixel field of view too */
-		return fovs;
+		return fovs ;
 	}
 
 	/**
@@ -858,8 +858,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public boolean isImaging()
 	{
-		String camera = getCamera();
-		return( camera.equalsIgnoreCase( "imaging" ) );
+		String camera = getCamera() ;
+		return( camera.equalsIgnoreCase( "imaging" ) ) ;
 	}
 
 	/**
@@ -867,8 +867,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setCamera( String camera )
 	{
-		_avTable.set( ATTR_CAMERA , camera );
-		setInstAper();
+		_avTable.set( ATTR_CAMERA , camera ) ;
+		setInstAper() ;
 	}
 
 	/**
@@ -877,12 +877,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public void initInstance()
 	{
 		// Initialise instance variables and initial config
-		flat_source = null;
-		flatObservationTime = DEFAULT_TOBS;
-		arcObservationTime = DEFAULT_TOBS;
-		targetAcqObservationTime = DEFAULT_TOBS;
-		useDefaultAcquisition();
-		setAcquisition();
+		flat_source = null ;
+		flatObservationTime = DEFAULT_TOBS ;
+		arcObservationTime = DEFAULT_TOBS ;
+		targetAcqObservationTime = DEFAULT_TOBS ;
+		useDefaultAcquisition() ;
+		setAcquisition() ;
 	}
 
 	/**
@@ -890,13 +890,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getCamera()
 	{
-		String camera = _avTable.get( ATTR_CAMERA );
+		String camera = _avTable.get( ATTR_CAMERA ) ;
 		if( camera == null )
 		{
-			camera = DEFAULT_CAMERA;
-			setCamera( camera );
+			camera = DEFAULT_CAMERA ;
+			setCamera( camera ) ;
 		}
-		return camera;
+		return camera ;
 	}
 
 	/**
@@ -904,11 +904,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getDisperserList()
 	{
-		String disperserList[] = new String[ DISPERSERS.getNumRows() ];
+		String disperserList[] = new String[ DISPERSERS.getNumRows() ] ;
 		for( int i = 0 ; i < DISPERSERS.getNumRows() ; i++ )
-			disperserList[ i ] = ( String )DISPERSERS.elementAt( i , 0 );
+			disperserList[ i ] = ( String )DISPERSERS.elementAt( i , 0 ) ;
 
-		return disperserList;
+		return disperserList ;
 	}
 
 	/**
@@ -916,9 +916,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setDisperser( String disperser )
 	{
-		_avTable.set( ATTR_DISPERSER , disperser );
-		useDefaultCentralWavelength();
-		setInstAper();
+		_avTable.set( ATTR_DISPERSER , disperser ) ;
+		useDefaultCentralWavelength() ;
+		setInstAper() ;
 	}
 
 	/**
@@ -926,13 +926,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDisperser()
 	{
-		String disperser = _avTable.get( ATTR_DISPERSER );
+		String disperser = _avTable.get( ATTR_DISPERSER ) ;
 		if( disperser == null )
 		{
-			_avTable.noNotifySet( ATTR_DISPERSER , DEFAULT_DISPERSER , 0 );
-			disperser = DEFAULT_DISPERSER;
+			_avTable.noNotifySet( ATTR_DISPERSER , DEFAULT_DISPERSER , 0 ) ;
+			disperser = DEFAULT_DISPERSER ;
 		}
-		return disperser;
+		return disperser ;
 	}
 
 	/**
@@ -940,22 +940,22 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getDisperserIndex()
 	{
-		String disperser = getDisperser();
-		int dispindex = 0;
+		String disperser = getDisperser() ;
+		int dispindex = 0 ;
 
 		try
 		{
-			dispindex = DISPERSERS.indexInColumn( disperser , 0 );
+			dispindex = DISPERSERS.indexInColumn( disperser , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Failed to find disperser index!" );
+			System.out.println( "Failed to find disperser index!" ) ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "Failed to find disperser index!" );
+			System.out.println( "Failed to find disperser index!" ) ;
 		}
-		return dispindex;
+		return dispindex ;
 	}
 
 	/**
@@ -963,7 +963,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultCentralWavelength()
 	{
-		_avTable.rm( ATTR_CENTRAL_WAVELENGTH );
+		_avTable.rm( ATTR_CENTRAL_WAVELENGTH ) ;
 	}
 
 	/**
@@ -971,11 +971,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setCentralWavelength( double cwl )
 	{
-		_avTable.set( ATTR_CENTRAL_WAVELENGTH , cwl );
+		_avTable.set( ATTR_CENTRAL_WAVELENGTH , cwl ) ;
 		if( !isImaging() )
 		{
-			useDefaultOrder();
-			useDefaultFilterOT();
+			useDefaultOrder() ;
+			useDefaultFilterOT() ;
 		}
 	}
 
@@ -987,11 +987,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cwl );
-			d = tmp.doubleValue();
+			Double tmp = Double.valueOf( cwl ) ;
+			d = tmp.doubleValue() ;
 		}
 		catch( Exception ex ){}
-		setCentralWavelength( d );
+		setCentralWavelength( d ) ;
 	}
 
 	/**
@@ -999,13 +999,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultCentralWavelength()
 	{
-		int di = getDisperserIndex();
+		int di = getDisperserIndex() ;
 		try
 		{
-			return Double.valueOf( ( String )DISPERSERS.elementAt( di , 3 ) ).doubleValue();
+			return Double.valueOf( ( String )DISPERSERS.elementAt( di , 3 ) ).doubleValue() ;
 		}
 		catch( NumberFormatException e ){}
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -1013,7 +1013,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getCentralWavelength()
 	{
-		return getCentralWavelength( "OBJECT" );
+		return getCentralWavelength( "OBJECT" ) ;
 	}
 
 	/**
@@ -1021,25 +1021,25 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getCentralWavelength( String obsType )
 	{
-		double cwl;
+		double cwl ;
 		if( isImaging() || obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
 			/* Get centre wavelength of filter */
-			int fi = getFilterIndex( obsType );
-			cwl = Double.valueOf( ( String )getFilterLUT().elementAt( fi , 3 ) ).doubleValue();
+			int fi = getFilterIndex( obsType ) ;
+			cwl = Double.valueOf( ( String )getFilterLUT().elementAt( fi , 3 ) ).doubleValue() ;
 			if( isImaging() )
-				setCentralWavelength( cwl );
+				setCentralWavelength( cwl ) ;
 		}
 		else
 		{
-			cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0. );
+			cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0. ) ;
 			if( cwl == 0. )
 			{
-				cwl = getDefaultCentralWavelength();
-				setCentralWavelength( cwl );
+				cwl = getDefaultCentralWavelength() ;
+				setCentralWavelength( cwl ) ;
 			}
 		}
-		return cwl;
+		return cwl ;
 	}
 
 	/**
@@ -1047,7 +1047,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getCentralWavelengthString()
 	{
-		return getCentralWavelengthString( "OBJECT" );
+		return getCentralWavelengthString( "OBJECT" ) ;
 	}
 
 	/**
@@ -1055,9 +1055,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getCentralWavelengthString( String obsType )
 	{
-		double cwl = MathUtil.round( getCentralWavelength( obsType ) , 3 );
-		String cwls = Double.toString( cwl );
-		return cwls;
+		double cwl = MathUtil.round( getCentralWavelength( obsType ) , 3 ) ;
+		String cwls = Double.toString( cwl ) ;
+		return cwls ;
 	}
 
 	/**
@@ -1065,11 +1065,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getMaskList()
 	{
-		String maskList[] = new String[ MASKS.getNumRows() ];
+		String maskList[] = new String[ MASKS.getNumRows() ] ;
 		for( int i = 0 ; i < MASKS.getNumRows() ; i++ )
-			maskList[ i ] = ( String )MASKS.elementAt( i , 0 );
+			maskList[ i ] = ( String )MASKS.elementAt( i , 0 ) ;
 
-		return maskList;
+		return maskList ;
 	}
 
 	/**
@@ -1077,7 +1077,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setMask( String mask )
 	{
-		_avTable.set( ATTR_MASK , mask );
+		_avTable.set( ATTR_MASK , mask ) ;
 	}
 
 	/**
@@ -1085,13 +1085,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getMask()
 	{
-		String mask = _avTable.get( ATTR_MASK );
+		String mask = _avTable.get( ATTR_MASK ) ;
 		if( mask == null )
 		{
-			mask = DEFAULT_MASK;
-			setMask( mask );
+			mask = DEFAULT_MASK ;
+			setMask( mask ) ;
 		}
-		return mask;
+		return mask ;
 	}
 
 	/**
@@ -1099,16 +1099,16 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getMaskIndex()
 	{
-		int mask;
+		int mask ;
 		try
 		{
-			mask = MASKS.indexInColumn( getMask() , 0 );
+			mask = MASKS.indexInColumn( getMask() , 0 ) ;
 		}
 		catch( Exception ex )
 		{
-			mask = 0;
+			mask = 0 ;
 		}
-		return mask;
+		return mask ;
 	}
 
 	/**
@@ -1118,7 +1118,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	{
 		try
 		{
-			return new Double( ( String )MASKS.elementAt( getMaskIndex() , 1 ) ).doubleValue();
+			return new Double( ( String )MASKS.elementAt( getMaskIndex() , 1 ) ).doubleValue() ;
 		}
 		catch( IndexOutOfBoundsException e )
 		{
@@ -1137,7 +1137,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	{
 		try
 		{
-			return new Double( ( String )MASKS.elementAt( getMaskIndex() , 2 ) ).doubleValue();
+			return new Double( ( String )MASKS.elementAt( getMaskIndex() , 2 ) ).doubleValue() ;
 		}
 		catch( IndexOutOfBoundsException e )
 		{
@@ -1161,11 +1161,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		if( isImaging() )
 		{
 			if( posAngle != 0. )
-				super.setPosAngleDegrees( 0. );
+				super.setPosAngleDegrees( 0. ) ;
 		}
 		else
 		{
-			super.setPosAngleDegrees( posAngle );
+			super.setPosAngleDegrees( posAngle ) ;
 		}
 	}
 
@@ -1174,7 +1174,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setPosAngleRadians( double posAngle )
 	{
-		this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) );
+		this.setPosAngleDegrees( Angle.radiansToDegrees( posAngle ) ) ;
 	}
 
 	/**
@@ -1185,14 +1185,14 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr );
-			posAngle = pa.doubleValue();
+			Double pa = Double.valueOf( posAngleStr ) ;
+			posAngle = pa.doubleValue() ;
 		}
 		catch( NumberFormatException e )
 		{
-			System.out.println( "Error converting string angle to double." );
+			System.out.println( "Error converting string angle to double." ) ;
 		}
-		this.setPosAngleDegrees( posAngle );
+		this.setPosAngleDegrees( posAngle ) ;
 	}
 
 	/**
@@ -1200,11 +1200,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getFilterCategoryList()
 	{
-		String filterCategoryList[] = new String[ FILTERS.getNumRows() ];
+		String filterCategoryList[] = new String[ FILTERS.getNumRows() ] ;
 		for( int i = 0 ; i < FILTERS.getNumRows() ; i++ )
-			filterCategoryList[ i ] = ( String )FILTERS.elementAt( i , 0 );
+			filterCategoryList[ i ] = ( String )FILTERS.elementAt( i , 0 ) ;
 
-		return filterCategoryList;
+		return filterCategoryList ;
 	}
 
 	/**
@@ -1212,8 +1212,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFilterCategory( String filterCategory )
 	{
-		_avTable.set( ATTR_FILTER_CATEGORY , filterCategory );
-		useDefaultFilterOT();
+		_avTable.set( ATTR_FILTER_CATEGORY , filterCategory ) ;
+		useDefaultFilterOT() ;
 	}
 
 	/**
@@ -1221,8 +1221,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultFilterCategory()
 	{
-		_avTable.rm( ATTR_FILTER_CATEGORY );
-		useDefaultFilterOT();
+		_avTable.rm( ATTR_FILTER_CATEGORY ) ;
+		useDefaultFilterOT() ;
 	}
 
 	/**
@@ -1230,8 +1230,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDefaultFilterCategory()
 	{
-		String filterCategory = ( String )FILTERS.elementAt( 0 , 0 );
-		return filterCategory;
+		String filterCategory = ( String )FILTERS.elementAt( 0 , 0 ) ;
+		return filterCategory ;
 	}
 
 	/**
@@ -1239,13 +1239,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getFilterCategory()
 	{
-		String filterCategory = _avTable.get( ATTR_FILTER_CATEGORY );
+		String filterCategory = _avTable.get( ATTR_FILTER_CATEGORY ) ;
 		if( filterCategory == null )
 		{
-			filterCategory = getDefaultFilterCategory();
-			setFilterCategory( filterCategory );
+			filterCategory = getDefaultFilterCategory() ;
+			setFilterCategory( filterCategory ) ;
 		}
-		return filterCategory;
+		return filterCategory ;
 	}
 
 	/**
@@ -1253,23 +1253,23 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getFilterCategoryIndex()
 	{
-		String filterCategory = getFilterCategory();
-		int fcIndex;
+		String filterCategory = getFilterCategory() ;
+		int fcIndex ;
 		try
 		{
-			fcIndex = FILTERS.indexInColumn( filterCategory , 0 );
+			fcIndex = FILTERS.indexInColumn( filterCategory , 0 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
-			System.out.println( "Failed to find filter category index" );
-			fcIndex = 0;
+			System.out.println( "Failed to find filter category index" ) ;
+			fcIndex = 0 ;
 		}
 		catch( NoSuchElementException ex )
 		{
-			System.out.println( "Failed to find filter index" );
-			fcIndex = 0;
+			System.out.println( "Failed to find filter index" ) ;
+			fcIndex = 0 ;
 		}
-		return fcIndex;
+		return fcIndex ;
 	}
 
 	/**
@@ -1277,9 +1277,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public LookUpTable getFilterLUT()
 	{
-		int fcIndex = getFilterCategoryIndex();
-		LookUpTable flut = ( LookUpTable )FILTERS.elementAt( fcIndex , 1 );
-		return flut;
+		int fcIndex = getFilterCategoryIndex() ;
+		LookUpTable flut = ( LookUpTable )FILTERS.elementAt( fcIndex , 1 ) ;
+		return flut ;
 	}
 
 	/**
@@ -1287,12 +1287,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getFilterList()
 	{
-		LookUpTable flut = getFilterLUT();
-		String filterList[] = new String[ flut.getNumRows() ];
+		LookUpTable flut = getFilterLUT() ;
+		String filterList[] = new String[ flut.getNumRows() ] ;
 		for( int i = 0 ; i < flut.getNumRows() ; i++ )
-			filterList[ i ] = ( String )flut.elementAt( i , 0 );
+			filterList[ i ] = ( String )flut.elementAt( i , 0 ) ;
 
-		return filterList;
+		return filterList ;
 	}
 
 	/**
@@ -1300,7 +1300,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultFilterOT()
 	{
-		_avTable.rm( ATTR_FILTER_OT );
+		_avTable.rm( ATTR_FILTER_OT ) ;
 	}
 
 	/**
@@ -1308,7 +1308,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFilterOT( String filterOT )
 	{
-		_avTable.set( ATTR_FILTER_OT , filterOT );
+		_avTable.set( ATTR_FILTER_OT , filterOT ) ;
 	}
 
 	/**
@@ -1316,9 +1316,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDefaultFilterOT()
 	{
-		LookUpTable flut = getFilterLUT();
-		String filterOT = ( String )flut.elementAt( 0 , 0 );
-		return filterOT;
+		LookUpTable flut = getFilterLUT() ;
+		String filterOT = ( String )flut.elementAt( 0 , 0 ) ;
+		return filterOT ;
 	}
 
 	/**
@@ -1326,13 +1326,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getFilterOT()
 	{
-		String filterOT = _avTable.get( ATTR_FILTER_OT );
+		String filterOT = _avTable.get( ATTR_FILTER_OT ) ;
 		if( filterOT == null )
 		{
-			filterOT = getDefaultFilterOT();
-			setFilterOT( filterOT );
+			filterOT = getDefaultFilterOT() ;
+			setFilterOT( filterOT ) ;
 		}
-		return filterOT;
+		return filterOT ;
 	}
 
 	/**
@@ -1340,7 +1340,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getFilterIndex()
 	{
-		return getFilterIndex( "OBJECT" );
+		return getFilterIndex( "OBJECT" ) ;
 	}
 
 	/**
@@ -1348,15 +1348,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getFilterIndex( String obsType )
 	{
-		LookUpTable flut = getFilterLUT();
-		String filter = null;
+		LookUpTable flut = getFilterLUT() ;
+		String filter = null ;
 		if( obsType.equalsIgnoreCase( "TARGETACQ" ) )
-			filter = DEFAULT_FILTER_TARGET_ACQ;
+			filter = DEFAULT_FILTER_TARGET_ACQ ;
 		else
-			filter = getFilterOT();
+			filter = getFilterOT() ;
 
-		int fIndex = flut.indexInColumn( filter , 0 );
-		return fIndex;
+		int fIndex = flut.indexInColumn( filter , 0 ) ;
+		return fIndex ;
 	}
 
 	/**
@@ -1364,7 +1364,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( ATTR_FILTER , filter );
+		_avTable.set( ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -1372,7 +1372,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getFilter()
 	{
-		return getFilter( "OBJECT" );
+		return getFilter( "OBJECT" ) ;
 	}
 
 	/**
@@ -1380,42 +1380,42 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getFilter( String obsType )
 	{
-		int ci = 1;
-		String filter = null;
+		int ci = 1 ;
+		String filter = null ;
 		if( isImaging() )
 		{
 			/* ci is the column index in the filter category lut */
 			if( isPolarimetry() )
-				ci = 2;
+				ci = 2 ;
 			
-			filter = ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , ci );
+			filter = ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , ci ) ;
 		}
 		else if( obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
-			return DEFAULT_FILTER_TARGET_ACQ;
+			return DEFAULT_FILTER_TARGET_ACQ ;
 		}
 		else
 		{
-			int di = getDisperserIndex();
-			double cwl = getCentralWavelength();
+			int di = getDisperserIndex() ;
+			double cwl = getCentralWavelength() ;
 			/* ci is the column index in the BLOCKERS lut */
 			if( isPolarimetry() )
-				ci = 2;
+				ci = 2 ;
 
 			try
 			{
-				LookUpTable blut = ( LookUpTable )DISPERSERS.elementAt( di , 5 );
-				int pos = blut.rangeInColumn( cwl , 0 );
-				filter = ( String )blut.elementAt( pos , ci );
+				LookUpTable blut = ( LookUpTable )DISPERSERS.elementAt( di , 5 ) ;
+				int pos = blut.rangeInColumn( cwl , 0 ) ;
+				filter = ( String )blut.elementAt( pos , ci ) ;
 			}
 			catch( Exception ex )
 			{
-				System.out.println( "Error getting blocking filter" );
-				System.out.println( "For disperser " + di + " and lambda " + cwl );
+				System.out.println( "Error getting blocking filter" ) ;
+				System.out.println( "For disperser " + di + " and lambda " + cwl ) ;
 			}
 		}
-		setFilter( filter );
-		return filter;
+		setFilter( filter ) ;
+		return filter ;
 	}
 
 	/**
@@ -1423,7 +1423,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDarkFilter()
 	{
-		return DARKFILTER;
+		return DARKFILTER ;
 	}
 
 	/**
@@ -1431,24 +1431,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getArcFilter()
 	{
-		String arcFilter = "undefined";
+		String arcFilter = "undefined" ;
 		if( !isImaging() )
 		{
-			int di = getDisperserIndex();
-			double cwl = getCentralWavelength();
+			int di = getDisperserIndex() ;
+			double cwl = getCentralWavelength() ;
 			try
 			{
-				LookUpTable blut = ( LookUpTable )DISPERSERS.elementAt( di , 5 );
-				int pos = blut.rangeInColumn( cwl , 0 );
-				arcFilter = ( String )blut.elementAt( pos , 3 );
+				LookUpTable blut = ( LookUpTable )DISPERSERS.elementAt( di , 5 ) ;
+				int pos = blut.rangeInColumn( cwl , 0 ) ;
+				arcFilter = ( String )blut.elementAt( pos , 3 ) ;
 			}
 			catch( Exception ex )
 			{
-				System.out.println( "Error getting blocking filter for arc obs" );
-				System.out.println( "For disperser " + di + " and lambda " + cwl );
+				System.out.println( "Error getting blocking filter for arc obs" ) ;
+				System.out.println( "For disperser " + di + " and lambda " + cwl ) ;
 			}
 		}
-		return arcFilter;
+		return arcFilter ;
 	}
 
 	/**
@@ -1456,10 +1456,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getMode()
 	{
-		String mode = _avTable.get( ATTR_MODE );
+		String mode = _avTable.get( ATTR_MODE ) ;
 		if( mode == null )
-			mode = DEFAULT_MODE;
-		return mode;
+			mode = DEFAULT_MODE ;
+		return mode ;
 	}
 
 	/**
@@ -1467,7 +1467,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultOrder()
 	{
-		_avTable.rm( ATTR_ORDER );
+		_avTable.rm( ATTR_ORDER ) ;
 	}
 
 	/**
@@ -1475,7 +1475,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setOrder( int order )
 	{
-		_avTable.set( ATTR_ORDER , order );
+		_avTable.set( ATTR_ORDER , order ) ;
 	}
 
 	/**
@@ -1483,24 +1483,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getDefaultOrder()
 	{
-		int order = 0;
+		int order = 0 ;
 		if( isImaging() )
-			return 0;
-		int di = getDisperserIndex();
-		double cwl = getCentralWavelength();
+			return 0 ;
+		int di = getDisperserIndex() ;
+		double cwl = getCentralWavelength() ;
 		try
 		{
-			LookUpTable dolut = ( LookUpTable )DISPERSERS.elementAt( di , 4 );
-			int pos = dolut.rangeInColumn( cwl , 0 );
-			order = Integer.parseInt( ( String )dolut.elementAt( pos , 1 ) );
+			LookUpTable dolut = ( LookUpTable )DISPERSERS.elementAt( di , 4 ) ;
+			int pos = dolut.rangeInColumn( cwl , 0 ) ;
+			order = Integer.parseInt( ( String )dolut.elementAt( pos , 1 ) ) ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Error getting default order" );
-			System.out.println( "For disperser " + di + " and lambda " + cwl );
-			order = 0;
+			System.out.println( "Error getting default order" ) ;
+			System.out.println( "For disperser " + di + " and lambda " + cwl ) ;
+			order = 0 ;
 		}
-		return order;
+		return order ;
 	}
 
 	/**
@@ -1508,13 +1508,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getOrder()
 	{
-		int o = _avTable.getInt( ATTR_ORDER , 0 );
+		int o = _avTable.getInt( ATTR_ORDER , 0 ) ;
 		if( o == 0 )
 		{
-			o = getDefaultOrder();
-			setOrder( o );
+			o = getDefaultOrder() ;
+			setOrder( o ) ;
 		}
-		return o;
+		return o ;
 	}
 
 	/**
@@ -1522,7 +1522,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getOrderString()
 	{
-		return Integer.toString( getOrder() );
+		return Integer.toString( getOrder() ) ;
 	}
 
 	/**
@@ -1530,7 +1530,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setPolarimetry( String polarimetry )
 	{
-		_avTable.set( ATTR_POLARIMETRY , polarimetry );
+		_avTable.set( ATTR_POLARIMETRY , polarimetry ) ;
 	}
 
 	/**
@@ -1538,13 +1538,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getPolarimetry()
 	{
-		String polarimetry = _avTable.get( ATTR_POLARIMETRY );
+		String polarimetry = _avTable.get( ATTR_POLARIMETRY ) ;
 		if( polarimetry == null )
 		{
-			polarimetry = DEFAULT_POLARIMETRY;
-			setPolarimetry( polarimetry );
+			polarimetry = DEFAULT_POLARIMETRY ;
+			setPolarimetry( polarimetry ) ;
 		}
-		return polarimetry;
+		return polarimetry ;
 	}
 
 	/**
@@ -1552,7 +1552,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public boolean isPolarimetry()
 	{
-		return( getPolarimetry().equalsIgnoreCase( "yes" ) );
+		return( getPolarimetry().equalsIgnoreCase( "yes" ) ) ;
 	}
 
 	/**
@@ -1561,7 +1561,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public void setPixelSampling( String pixelSampling )
 	{
 		/* Possibly check that requested sampling is valid */
-		_avTable.set( ATTR_SAMPLING , pixelSampling );
+		_avTable.set( ATTR_SAMPLING , pixelSampling ) ;
 	}
 
 	/**
@@ -1570,9 +1570,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public String getPixelSampling()
 	{
 		if( isImaging() )
-			return "1x1";
-		String sampling = _avTable.get( ATTR_SAMPLING );
-		return sampling;
+			return "1x1" ;
+		String sampling = _avTable.get( ATTR_SAMPLING ) ;
+		return sampling ;
 	}
 
 	/**
@@ -1580,9 +1580,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getRule()
 	{
-		int di = getDisperserIndex();
-		double rule = Double.valueOf( ( String )DISPERSERS.elementAt( di , 1 ) ).doubleValue();
-		return rule;
+		int di = getDisperserIndex() ;
+		double rule = Double.valueOf( ( String )DISPERSERS.elementAt( di , 1 ) ).doubleValue() ;
+		return rule ;
 	}
 
 	/**
@@ -1591,12 +1591,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public double getAngleOfIncidence()
 	{
 		if( isImaging() )
-			return 0;
-		int n = getOrder();
-		double cwl = getCentralWavelength();
-		double rule = getRule();
-		double aoi = Math.asin( ( n * cwl ) / ( 2. * rule ) );
-		return aoi;
+			return 0 ;
+		int n = getOrder() ;
+		double cwl = getCentralWavelength() ;
+		double rule = getRule() ;
+		double aoi = Math.asin( ( n * cwl ) / ( 2. * rule ) ) ;
+		return aoi ;
 	}
 
 	/**
@@ -1604,7 +1604,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setSpectralCoverage( String spectralCoverage )
 	{
-		_avTable.set( ATTR_SPECTRAL_COVERAGE , spectralCoverage );
+		_avTable.set( ATTR_SPECTRAL_COVERAGE , spectralCoverage ) ;
 	}
 
 	/**
@@ -1612,23 +1612,23 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double[] getSpectralCoverage()
 	{
-		double scov[] = new double[ 2 ];
+		double scov[] = new double[ 2 ] ;
 		if( isImaging() )
 		{
-			scov[ 0 ] = 0;
-			scov[ 1 ] = 0;
+			scov[ 0 ] = 0 ;
+			scov[ 1 ] = 0 ;
 		}
 		else
 		{
-			double a = getAngleOfIncidence();
-			double rule = getRule();
-			int n = getOrder();
-			double range = ( rule / n ) * ( Math.sin( a + DETANGLE ) - Math.sin( a - DETANGLE ) );
-			double cwl = getCentralWavelength();
+			double a = getAngleOfIncidence() ;
+			double rule = getRule() ;
+			int n = getOrder() ;
+			double range = ( rule / n ) * ( Math.sin( a + DETANGLE ) - Math.sin( a - DETANGLE ) ) ;
+			double cwl = getCentralWavelength() ;
 			scov[ 0 ] = cwl - range / 2. ;
 			scov[ 1 ] = cwl + range / 2. ;
 		}
-		return scov;
+		return scov ;
 	}
 
 	/**
@@ -1636,17 +1636,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getSpectralCoverageString()
 	{
-		double scov[];
-		String scovs = null;
-		scov = getSpectralCoverage();
+		double scov[] ;
+		String scovs = null ;
+		scov = getSpectralCoverage() ;
 		if( ( scov[ 0 ] != 0. ) && ( scov[ 1 ] != 0. ) )
 		{
-			double lo = MathUtil.round( scov[ 0 ] , 2 );
-			double hi = MathUtil.round( scov[ 1 ] , 2 );
-			scovs = lo + " - " + hi;
+			double lo = MathUtil.round( scov[ 0 ] , 2 ) ;
+			double hi = MathUtil.round( scov[ 1 ] , 2 ) ;
+			scovs = lo + " - " + hi ;
 		}
-		setSpectralCoverage( scovs );
-		return scovs;
+		setSpectralCoverage( scovs ) ;
+		return scovs ;
 	}
 
 	/**
@@ -1655,11 +1655,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public double getDispersion()
 	{
 		if( isImaging() )
-			return 0;
-		double aoi = getAngleOfIncidence();
-		double cwl = getCentralWavelength();
-		double disp = 2. * ( Math.tan( aoi ) ) / cwl;
-		return disp;
+			return 0 ;
+		double aoi = getAngleOfIncidence() ;
+		double cwl = getCentralWavelength() ;
+		double disp = 2. * ( Math.tan( aoi ) ) / cwl ;
+		return disp ;
 	}
 
 	/**
@@ -1668,8 +1668,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public void setMaskAngle( double maskAngle )
 	{
 		// Trim the number of decimal places...
-		double ma = MathUtil.round( maskAngle , 4 );
-		_avTable.set( ATTR_MASK_ANGLE , ma );
+		double ma = MathUtil.round( maskAngle , 4 ) ;
+		_avTable.set( ATTR_MASK_ANGLE , ma ) ;
 	}
 
 	/**
@@ -1678,12 +1678,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public double getMaskAngle()
 	{
 		if( isImaging() )
-			return 0;
-		double ma = Math.atan( 0.611 * Math.tan( getAngleOfIncidence() ) );
+			return 0 ;
+		double ma = Math.atan( 0.611 * Math.tan( getAngleOfIncidence() ) ) ;
 		// Convert to degrees
-		ma = ma * 180. / Math.PI;
-		setMaskAngle( ma );
-		return ma;
+		ma = ma * 180. / Math.PI ;
+		setMaskAngle( ma ) ;
+		return ma ;
 	}
 
 	/**
@@ -1691,7 +1691,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getResolvingPower()
 	{
-		return getResolvingPower( "OBJECT" );
+		return getResolvingPower( "OBJECT" ) ;
 	}
 
 	/**
@@ -1699,24 +1699,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getResolvingPower( String obsType )
 	{
-		double rp;
+		double rp ;
 		if( isImaging() || obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
 			/* For imaging, this is 1/bandpass for current filter */
-			rp = 1. / Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 4 ) ).doubleValue();
+			rp = 1. / Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 4 ) ).doubleValue() ;
 		}
 		else
 		{
-			double disp = getDispersion();
-			double cwl = getCentralWavelength();
-			double w = getMaskWidthPixels();
+			double disp = getDispersion() ;
+			double cwl = getCentralWavelength() ;
+			double w = getMaskWidthPixels() ;
 			double ma = getMaskAngle() * Math.PI / 180. ;
-			rp = ( disp * cwl * SPECT_FOCAL_LENGTH * Math.cos( ma ) ) / ( w * PIXPITCH );
+			rp = ( disp * cwl * SPECT_FOCAL_LENGTH * Math.cos( ma ) ) / ( w * PIXPITCH ) ;
 			/* Resolving power clipped at 20,000 */
 			if( rp > 20000. )
 				rp = 20000. ;
 		}
-		return rp;
+		return rp ;
 	}
 
 	/**
@@ -1724,7 +1724,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getResolvingPowerString()
 	{
-		return getResolvingPowerString( "OBJECT" );
+		return getResolvingPowerString( "OBJECT" ) ;
 	}
 
 	/**
@@ -1732,9 +1732,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getResolvingPowerString( String obsType )
 	{
-		double rp = MathUtil.round( getResolvingPower( obsType ) , 1 );
-		String rps = Double.toString( rp );
-		return rps;
+		double rp = MathUtil.round( getResolvingPower( obsType ) , 1 ) ;
+		String rps = Double.toString( rp ) ;
+		return rps ;
 	}
 
 	/**
@@ -1742,7 +1742,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setWaveplate( String waveplate )
 	{
-		_avTable.set( ATTR_WAVEPLATE , waveplate );
+		_avTable.set( ATTR_WAVEPLATE , waveplate ) ;
 	}
 
 	/**
@@ -1750,7 +1750,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getWaveplate()
 	{
-		return getWaveplate( "OBJECT" );
+		return getWaveplate( "OBJECT" ) ;
 	}
 
 	/**
@@ -1758,28 +1758,28 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getWaveplate( String obsType )
 	{
-		String waveplate = "none";
+		String waveplate = "none" ;
 		if( isPolarimetry() )
 		{
-			double cwl;
+			double cwl ;
 			/* Get centre wavelength of filter */
 			if( isImaging() )
-				cwl = Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 3 ) ).doubleValue();
+				cwl = Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 3 ) ).doubleValue() ;
 			else
-				cwl = getCentralWavelength( obsType );
+				cwl = getCentralWavelength( obsType ) ;
 
 			try
 			{
-				int pos = WAVEPLATES.rangeInColumn( cwl , 0 );
-				waveplate = ( String )WAVEPLATES.elementAt( pos , 1 );
+				int pos = WAVEPLATES.rangeInColumn( cwl , 0 ) ;
+				waveplate = ( String )WAVEPLATES.elementAt( pos , 1 ) ;
 			}
 			catch( Exception ex )
 			{
-				System.out.println( "Error getting waveplate" );
+				System.out.println( "Error getting waveplate" ) ;
 			}
 		}
-		setWaveplate( waveplate );
-		return waveplate;
+		setWaveplate( waveplate ) ;
+		return waveplate ;
 	}
 
 	/**
@@ -1787,7 +1787,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFlatSource( String flatSource )
 	{
-		flat_source = flatSource;
+		flat_source = flatSource ;
 	}
 
 	/**
@@ -1797,9 +1797,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public String getFlatSource()
 	{
 		if( flat_source == null )
-			flat_source = getFlatList()[ 0 ];
+			flat_source = getFlatList()[ 0 ] ;
 
-		return flat_source;
+		return flat_source ;
 	}
 
 	/**
@@ -1807,7 +1807,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFlatSampling( String flatSampling )
 	{
-		_avTable.set( ATTR_FLAT_SAMPLING , flatSampling );
+		_avTable.set( ATTR_FLAT_SAMPLING , flatSampling ) ;
 	}
 
 	/**
@@ -1815,39 +1815,39 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getFlatList()
 	{
-		int fo = 0;
+		int fo = 0 ;
 		if( !isImaging() )
 		{
-			int di = getDisperserIndex();
-			fo = Integer.valueOf( ( String )DISPERSERS.elementAt( di , 10 ) ).intValue();
+			int di = getDisperserIndex() ;
+			fo = Integer.valueOf( ( String )DISPERSERS.elementAt( di , 10 ) ).intValue() ;
 		}
 		switch( fo )
 		{
 			case 0 :
 			{
-				String flatList[] = new String[ 1 ];
-				flatList[ 0 ] = "sky";
-				return flatList;
+				String flatList[] = new String[ 1 ] ;
+				flatList[ 0 ] = "sky" ;
+				return flatList ;
 			}
 			case 1 :
 			{
-				String flatList[] = new String[ 1 ];
-				flatList[ 0 ] = "shutter";
-				return flatList;
+				String flatList[] = new String[ 1 ] ;
+				flatList[ 0 ] = "shutter" ;
+				return flatList ;
 			}
 			case 2 :
 			{
-				String flatList[] = new String[ 2 ];
-				flatList[ 0 ] = "shutter";
-				flatList[ 1 ] = "hot sphere";
-				return flatList;
+				String flatList[] = new String[ 2 ] ;
+				flatList[ 0 ] = "shutter" ;
+				flatList[ 1 ] = "hot sphere" ;
+				return flatList ;
 			}
 			case 3 :
 			default :
 			{
-				String flatList[] = new String[ 1 ];
-				flatList[ 0 ] = "hot sphere";
-				return flatList;
+				String flatList[] = new String[ 1 ] ;
+				flatList[ 0 ] = "hot sphere" ;
+				return flatList ;
 			}
 		}
 	}
@@ -1857,11 +1857,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String[] getChopList()
 	{
-		String chopList[] = new String[ CHOPS.getNumRows() ];
+		String chopList[] = new String[ CHOPS.getNumRows() ] ;
 		for( int i = 0 ; i < CHOPS.getNumRows() ; i++ )
-			chopList[ i ] = ( String )CHOPS.elementAt( i , 0 );
+			chopList[ i ] = ( String )CHOPS.elementAt( i , 0 ) ;
 
-		return chopList;
+		return chopList ;
 	}
 
 	/**
@@ -1869,7 +1869,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setChopFreq( String chopFreq )
 	{
-		_avTable.set( ATTR_CHOP_FREQUENCY , chopFreq );
+		_avTable.set( ATTR_CHOP_FREQUENCY , chopFreq ) ;
 	}
 
 	/**
@@ -1881,26 +1881,26 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		{
 			if( isPolarimetry() )
 			{
-				setInstApX( INSTRUMENT_APER_IM_POL[ XAP_INDEX ] );
-				setInstApY( INSTRUMENT_APER_IM_POL[ YAP_INDEX ] );
-				setInstApZ( INSTRUMENT_APER_IM_POL[ ZAP_INDEX ] );
-				setInstApL( INSTRUMENT_APER_IM_POL[ LAP_INDEX ] );
+				setInstApX( INSTRUMENT_APER_IM_POL[ XAP_INDEX ] ) ;
+				setInstApY( INSTRUMENT_APER_IM_POL[ YAP_INDEX ] ) ;
+				setInstApZ( INSTRUMENT_APER_IM_POL[ ZAP_INDEX ] ) ;
+				setInstApL( INSTRUMENT_APER_IM_POL[ LAP_INDEX ] ) ;
 			}
 			else
 			{
-				setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
-				setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
-				setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
-				setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+				setInstApX( INSTRUMENT_APER[ XAP_INDEX ] ) ;
+				setInstApY( INSTRUMENT_APER[ YAP_INDEX ] ) ;
+				setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] ) ;
+				setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 			}
 		}
 		else
 		{
-			int di = getDisperserIndex();
-			setInstApX( ( String )DISPERSERS.elementAt( di , 6 ) );
-			setInstApY( ( String )DISPERSERS.elementAt( di , 7 ) );
-			setInstApZ( ( String )DISPERSERS.elementAt( di , 8 ) );
-			setInstApL( ( String )DISPERSERS.elementAt( di , 9 ) );
+			int di = getDisperserIndex() ;
+			setInstApX( ( String )DISPERSERS.elementAt( di , 6 ) ) ;
+			setInstApY( ( String )DISPERSERS.elementAt( di , 7 ) ) ;
+			setInstApZ( ( String )DISPERSERS.elementAt( di , 8 ) ) ;
+			setInstApL( ( String )DISPERSERS.elementAt( di , 9 ) ) ;
 		}
 	}
 
@@ -1909,7 +1909,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getExpbaseMult()
 	{
-		return getExpbaseMult( "OBJECT" );
+		return getExpbaseMult( "OBJECT" ) ;
 	}
 
 	/**
@@ -1917,32 +1917,32 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getExpbaseMult( String obsType )
 	{
-		int i1;
-		double rp = getResolvingPower( obsType );
-		double rpMin = Double.valueOf( ( String )EXPTIMINGS.elementAt( 0 , 0 ) ).doubleValue();
-		int iMax = EXPTIMINGS.getNumRows() - 1;
-		double rpMax = Double.valueOf( ( String )EXPTIMINGS.elementAt( iMax , 0 ) ).doubleValue();
+		int i1 ;
+		double rp = getResolvingPower( obsType ) ;
+		double rpMin = Double.valueOf( ( String )EXPTIMINGS.elementAt( 0 , 0 ) ).doubleValue() ;
+		int iMax = EXPTIMINGS.getNumRows() - 1 ;
+		double rpMax = Double.valueOf( ( String )EXPTIMINGS.elementAt( iMax , 0 ) ).doubleValue() ;
 		if( rp <= rpMin )
 		{
-			rp = rpMin;
-			i1 = 1;
+			rp = rpMin ;
+			i1 = 1 ;
 		}
 		else if( rp >= rpMax )
 		{
-			rp = rpMax;
-			i1 = iMax;
+			rp = rpMax ;
+			i1 = iMax ;
 		}
 		else
 		{
-			i1 = EXPTIMINGS.rangeInColumn( rp , 0 );
+			i1 = EXPTIMINGS.rangeInColumn( rp , 0 ) ;
 		}
-		int i0 = i1 - 1;
-		double rp0 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i0 , 0 ) ).doubleValue();
-		double m0 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i0 , 1 ) ).doubleValue();
-		double rp1 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i1 , 0 ) ).doubleValue();
-		double m1 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i1 , 1 ) ).doubleValue();
-		int interpm = ( int )( m0 + ( ( m1 - m0 ) * ( rp - rp0 ) / ( rp1 - rp0 ) ) );
-		return interpm;
+		int i0 = i1 - 1 ;
+		double rp0 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i0 , 0 ) ).doubleValue() ;
+		double m0 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i0 , 1 ) ).doubleValue() ;
+		double rp1 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i1 , 0 ) ).doubleValue() ;
+		double m1 = Double.valueOf( ( String )EXPTIMINGS.elementAt( i1 , 1 ) ).doubleValue() ;
+		int interpm = ( int )( m0 + ( ( m1 - m0 ) * ( rp - rp0 ) / ( rp1 - rp0 ) ) ) ;
+		return interpm ;
 	}
 
 	/**
@@ -1950,7 +1950,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultChopFreq()
 	{
-		_avTable.rm( ATTR_CHOP_FREQUENCY );
+		_avTable.rm( ATTR_CHOP_FREQUENCY ) ;
 	}
 
 	/**
@@ -1958,13 +1958,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getChopFreq()
 	{
-		String cfs = _avTable.get( ATTR_CHOP_FREQUENCY );
+		String cfs = _avTable.get( ATTR_CHOP_FREQUENCY ) ;
 		if( cfs == null )
 		{
-			cfs = getDefaultChopFrequency( "OBJECT" );
-			setChopFreq( cfs );
+			cfs = getDefaultChopFrequency( "OBJECT" ) ;
+			setChopFreq( cfs ) ;
 		}
-		return cfs;
+		return cfs ;
 	}
 
 	/**
@@ -1972,11 +1972,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getChopFreqRound()
 	{
-		String cfs = getChopFreq();
-		double cfd = Double.valueOf( cfs ).doubleValue();
-		double cfdr = MathUtil.round( cfd , 3 );
-		String cfsr = Double.toString( cfdr );
-		return cfsr;
+		String cfs = getChopFreq() ;
+		double cfd = Double.valueOf( cfs ).doubleValue() ;
+		double cfdr = MathUtil.round( cfd , 3 ) ;
+		String cfsr = Double.toString( cfdr ) ;
+		return cfsr ;
 	}
 
 	/**
@@ -1984,7 +1984,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFlatExpTime( double flatExpTime )
 	{
-		flatExposureTime = flatExpTime;
+		flatExposureTime = flatExpTime ;
 	}
 
 	/**
@@ -1992,7 +1992,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getFlatExpTime()
 	{
-		return flatExposureTime;
+		return flatExposureTime ;
 	}
 
 	/**
@@ -2000,7 +2000,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setArcExpTime( double arcExpTime )
 	{
-		arcExposureTime = arcExpTime;
+		arcExposureTime = arcExpTime ;
 	}
 
 	/**
@@ -2008,7 +2008,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getArcExpTime()
 	{
-		return arcExposureTime;
+		return arcExposureTime ;
 	}
 
 	/**
@@ -2016,7 +2016,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setTargetAcqExpTime( double targetAcqExpTime )
 	{
-		targetAcqExposureTime = targetAcqExpTime;
+		targetAcqExposureTime = targetAcqExpTime ;
 	}
 
 	/**
@@ -2025,7 +2025,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getTargetAcqExpTime()
 	{
-		return targetAcqExposureTime;
+		return targetAcqExposureTime ;
 	}
 
 	/**
@@ -2033,7 +2033,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDefaultChopFrequency()
 	{
-		return getDefaultChopFrequency( "OBJECT" );
+		return getDefaultChopFrequency( "OBJECT" ) ;
 	}
 
 	/**
@@ -2041,27 +2041,27 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDefaultChopFrequency( String obsType )
 	{
-		String dcfs;
-		int i;
-		double rp = getResolvingPower( obsType );
-		double rpMin = Double.valueOf( ( String )EXPTIMINGS.elementAt( 0 , 0 ) ).doubleValue();
-		int iMax = EXPTIMINGS.getNumRows() - 1;
-		double rpMax = Double.valueOf( ( String )EXPTIMINGS.elementAt( iMax , 0 ) ).doubleValue();
+		String dcfs ;
+		int i ;
+		double rp = getResolvingPower( obsType ) ;
+		double rpMin = Double.valueOf( ( String )EXPTIMINGS.elementAt( 0 , 0 ) ).doubleValue() ;
+		int iMax = EXPTIMINGS.getNumRows() - 1 ;
+		double rpMax = Double.valueOf( ( String )EXPTIMINGS.elementAt( iMax , 0 ) ).doubleValue() ;
 		if( rp <= rpMin )
-			i = 0;
+			i = 0 ;
 		else if( rp >= rpMax )
-			i = iMax - 1;
+			i = iMax - 1 ;
 		else
-			i = EXPTIMINGS.rangeInColumn( rp , 0 ) - 1;
+			i = EXPTIMINGS.rangeInColumn( rp , 0 ) - 1 ;
 
-		double cwl = getCentralWavelength();
+		double cwl = getCentralWavelength() ;
 
 		if( cwl < N_TO_Q_BOUNDARY )
-			dcfs = ( String )EXPTIMINGS.elementAt( i , 2 );
+			dcfs = ( String )EXPTIMINGS.elementAt( i , 2 ) ;
 		else
-			dcfs = ( String )EXPTIMINGS.elementAt( i , 3 );
+			dcfs = ( String )EXPTIMINGS.elementAt( i , 3 ) ;
 
-		return dcfs;
+		return dcfs ;
 	}
 
 	/**
@@ -2069,7 +2069,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setChopDelay( double chopDelay )
 	{
-		_avTable.set( ATTR_CHOP_DELAY , chopDelay );
+		_avTable.set( ATTR_CHOP_DELAY , chopDelay ) ;
 	}
 
 	/**
@@ -2077,17 +2077,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getChopDelay()
 	{
-		int i;
-		int iMax = CHOPS.getNumRows() - 1;
-		double cMax = Double.valueOf( ( String )CHOPS.elementAt( iMax , 0 ) ).doubleValue();
-		double cfd = Double.valueOf( getChopFreq() ).doubleValue();
+		int i ;
+		int iMax = CHOPS.getNumRows() - 1 ;
+		double cMax = Double.valueOf( ( String )CHOPS.elementAt( iMax , 0 ) ).doubleValue() ;
+		double cfd = Double.valueOf( getChopFreq() ).doubleValue() ;
 		if( cfd >= cMax )
-			i = iMax - 1;
+			i = iMax - 1 ;
 		else
-			i = CHOPS.rangeInColumn( cfd , 0 );
+			i = CHOPS.rangeInColumn( cfd , 0 ) ;
 
-		double cd = Double.valueOf( ( String )CHOPS.elementAt( i , 1 ) ).doubleValue();
-		return cd;
+		double cd = Double.valueOf( ( String )CHOPS.elementAt( i , 1 ) ).doubleValue() ;
+		return cd ;
 	}
 
 	/**
@@ -2095,7 +2095,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setReadInterval( double readInterval )
 	{
-		_avTable.set( ATTR_READ_INTERVAL , readInterval );
+		_avTable.set( ATTR_READ_INTERVAL , readInterval ) ;
 	}
 
 	/**
@@ -2103,8 +2103,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getResetDelay()
 	{
-		double rd = _avTable.getDouble( ATTR_RESET_DELAY , 0. );
-		return rd;
+		double rd = _avTable.getDouble( ATTR_RESET_DELAY , 0. ) ;
+		return rd ;
 	}
 
 	/**
@@ -2112,8 +2112,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getReadInterval()
 	{
-		double ri = _avTable.getDouble( ATTR_READ_INTERVAL , 0. );
-		return ri;
+		double ri = _avTable.getDouble( ATTR_READ_INTERVAL , 0. ) ;
+		return ri ;
 	}
 
 	/**
@@ -2121,7 +2121,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setNreads( int nreads )
 	{
-		_avTable.set( ATTR_NREADS , nreads );
+		_avTable.set( ATTR_NREADS , nreads ) ;
 	}
 
 	/**
@@ -2129,7 +2129,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultObservationTime()
 	{
-		_avTable.set( ATTR_OBSTIME_OT , DEFAULT_TOBS );
+		_avTable.set( ATTR_OBSTIME_OT , DEFAULT_TOBS ) ;
 	}
 
 	/**
@@ -2137,7 +2137,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultExposureTime()
 	{
-		_avTable.rm( ATTR_EXPOSURE_TIME );
+		_avTable.rm( ATTR_EXPOSURE_TIME ) ;
 	}
 
 	/**
@@ -2145,7 +2145,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setObservationTime( double obsTime )
 	{
-		_avTable.set( ATTR_OBSTIME_OT , obsTime );
+		_avTable.set( ATTR_OBSTIME_OT , obsTime ) ;
 	}
 
 	/**
@@ -2153,8 +2153,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getObservationTime()
 	{
-		double obsTime = _avTable.getDouble( ATTR_OBSTIME_OT , 0. );
-		return obsTime;
+		double obsTime = _avTable.getDouble( ATTR_OBSTIME_OT , 0. ) ;
+		return obsTime ;
 	}
 
 	/**
@@ -2164,8 +2164,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getActualObservationTime()
 	{
-		updateDAObjConf();
-		return _avTable.getDouble( ATTR_OBSERVATION_TIME , 0. );
+		updateDAObjConf() ;
+		return _avTable.getDouble( ATTR_OBSERVATION_TIME , 0. ) ;
 	}
 
 	/**
@@ -2173,7 +2173,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setFlatObservationTime( double flatObsTime )
 	{
-		flatObservationTime = flatObsTime;
+		flatObservationTime = flatObsTime ;
 	}
 
 	/**
@@ -2181,7 +2181,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getFlatObservationTime()
 	{
-		return flatObservationTime;
+		return flatObservationTime ;
 	}
 
 	/**
@@ -2189,7 +2189,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setArcObservationTime( double arcObsTime )
 	{
-		arcObservationTime = arcObsTime;
+		arcObservationTime = arcObsTime ;
 	}
 
 	/**
@@ -2197,7 +2197,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getArcObservationTime()
 	{
-		return arcObservationTime;
+		return arcObservationTime ;
 	}
 
 	/**
@@ -2205,7 +2205,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getTargetAcqObservationTime()
 	{
-		return targetAcqObservationTime;
+		return targetAcqObservationTime ;
 	}
 
 	/**
@@ -2213,7 +2213,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setTargetAcqObservationTime( double targetAcqObsTime )
 	{
-		targetAcqObservationTime = targetAcqObsTime;
+		targetAcqObservationTime = targetAcqObsTime ;
 	}
 
 	/**
@@ -2221,9 +2221,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getObservationTimeString()
 	{
-		double obt = getObservationTime();
-		String obts = Double.toString( obt );
-		return obts;
+		double obt = getObservationTime() ;
+		String obts = Double.toString( obt ) ;
+		return obts ;
 	}
 
 	/**
@@ -2231,14 +2231,14 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getExpTime()
 	{
-		double time = getExposureTime();
+		double time = getExposureTime() ;
 
 		if( time == 0. )
 		{
-			time = getDefaultExpTime();
-			setExpTime( Double.toString( time ) );
+			time = getDefaultExpTime() ;
+			setExpTime( Double.toString( time ) ) ;
 		}
-		return time;
+		return time ;
 	}
 
 	/**
@@ -2246,8 +2246,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getExpTimeString()
 	{
-		String timeAsString = Double.toString( MathUtil.round( getExpTime() , 4 ) );
-		return timeAsString;
+		String timeAsString = Double.toString( MathUtil.round( getExpTime() , 4 ) ) ;
+		return timeAsString ;
 	}
 
 	/**
@@ -2255,11 +2255,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setExpTime( String seconds )
 	{
-		String timeAsStr;
+		String timeAsStr ;
 
-		timeAsStr = seconds;
+		timeAsStr = seconds ;
 		if( timeAsStr != null )
-			setExposureTime( timeAsStr );
+			setExposureTime( timeAsStr ) ;
 	}
 
 	/**
@@ -2267,7 +2267,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultSkyExpTime()
 	{
-		return getDefaultSkyExpTime( "OBJECT" );
+		return getDefaultSkyExpTime( "OBJECT" ) ;
 	}
 
 	/**
@@ -2275,20 +2275,20 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultSkyExpTime( String obsType )
 	{
-		double set = TEXPBASE * getExpbaseMult( obsType ) * KSKY;
+		double set = TEXPBASE * getExpbaseMult( obsType ) * KSKY ;
 
 		if( isPolarimetry() )
-			set = KPOL * set;
+			set = KPOL * set ;
 		if( isImaging() || obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
-			double mult = Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 5 ) ).doubleValue();
-			set = mult * set;
+			double mult = Double.valueOf( ( String )getFilterLUT().elementAt( getFilterIndex( obsType ) , 5 ) ).doubleValue() ;
+			set = mult * set ;
 		}
 		if( getCentralWavelength( obsType ) < 15.0 )
-			set = KBAND * set;
-		set = set * KWELL;
+			set = KBAND * set ;
+		set = set * KWELL ;
 
-		return set;
+		return set ;
 	}
 
 	/**
@@ -2297,20 +2297,20 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double limitExpTime( double et )
 	{
-		double let = et;
+		double let = et ;
 		if( let > TEXPMAX )
-			let = TEXPMAX;
+			let = TEXPMAX ;
 		
-		double ot = getObservationTime();
+		double ot = getObservationTime() ;
 		if( let > ot )
-			let = ot;
+			let = ot ;
 		
 		if( let > TEXPMIN )
-			let = ( ( int )( let / TEXPMIN ) ) * TEXPMIN;
+			let = ( ( int )( let / TEXPMIN ) ) * TEXPMIN ;
 		else if( let < TEXPMIN )
-			let = TEXPMIN;
+			let = TEXPMIN ;
 		
-		return let;
+		return let ;
 	}
 
 	/**
@@ -2318,7 +2318,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultExpTime()
 	{
-		return getDefaultExpTime( "OBJECT" );
+		return getDefaultExpTime( "OBJECT" ) ;
 	}
 
 	/**
@@ -2326,9 +2326,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultExpTime( String obsType )
 	{
-		double et = getDefaultSkyExpTime( obsType );
-		et = limitExpTime( et );
-		return et;
+		double et = getDefaultSkyExpTime( obsType ) ;
+		et = limitExpTime( et ) ;
+		return et ;
 	}
 
 	/**
@@ -2336,11 +2336,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultFlatExpTime()
 	{
-		double fet = getDefaultSkyExpTime();
+		double fet = getDefaultSkyExpTime() ;
 		if( getFlatSource().equalsIgnoreCase( "mirror" ) )
-			fet = fet / KSKY;
-		fet = limitExpTime( fet );
-		return fet;
+			fet = fet / KSKY ;
+		fet = limitExpTime( fet ) ;
+		return fet ;
 	}
 
 	/**
@@ -2348,9 +2348,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultTargetAcqExpTime()
 	{
-		double et = getDefaultSkyExpTime( "TARGETACQ" );
-		et = limitExpTime( et );
-		return et;
+		double et = getDefaultSkyExpTime( "TARGETACQ" ) ;
+		et = limitExpTime( et ) ;
+		return et ;
 	}
 
 	/**
@@ -2358,7 +2358,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public int getDefaultTargetAcqCoadds()
 	{
-		return DEFAULT_COADDS_TARGET_ACQ;
+		return DEFAULT_COADDS_TARGET_ACQ ;
 	}
 
 	/**
@@ -2367,9 +2367,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public double getDefaultBiasExpTime()
 	{
 		if( DEFBIASEXPTIME == 0. )
-			return super.getDefaultBiasExpTime();
+			return super.getDefaultBiasExpTime() ;
 
-		return DEFBIASEXPTIME;
+		return DEFBIASEXPTIME ;
 	}
 
 	/**
@@ -2378,9 +2378,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public int getDefaultBiasCoadds()
 	{
 		if( DEFBIASCOADDS == 0 )
-			return super.getDefaultBiasCoadds();
+			return super.getDefaultBiasCoadds() ;
 
-		return DEFBIASCOADDS;
+		return DEFBIASCOADDS ;
 	}
 
 	/**
@@ -2388,7 +2388,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setMode( String mode )
 	{
-		_avTable.set( ATTR_MODE , mode );
+		_avTable.set( ATTR_MODE , mode ) ;
 	}
 
 	/**
@@ -2396,7 +2396,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setDutyCycle( double dutyCycle )
 	{
-		_avTable.set( ATTR_DUTY_CYCLE , dutyCycle );
+		_avTable.set( ATTR_DUTY_CYCLE , dutyCycle ) ;
 	}
 
 	/**
@@ -2404,8 +2404,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String getDutyCycle()
 	{
-		String dc = _avTable.get( ATTR_DUTY_CYCLE );
-		return dc;
+		String dc = _avTable.get( ATTR_DUTY_CYCLE ) ;
+		return dc ;
 	}
 
 	/**
@@ -2414,9 +2414,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public String getDutyCycleRound()
 	{
 		double dcd = Double.valueOf( getDutyCycle() ).doubleValue() * 100. ;
-		double dcdr = MathUtil.round( dcd , 1 );
-		String dcsr = Double.toString( dcdr );
-		return dcsr;
+		double dcdr = MathUtil.round( dcd , 1 ) ;
+		String dcsr = Double.toString( dcdr ) ;
+		return dcsr ;
 	}
 
 	/**
@@ -2424,8 +2424,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDADarkConf()
 	{
-		String obsType = "Dark";
-		updateDAConf( obsType );
+		String obsType = "Dark" ;
+		updateDAConf( obsType ) ;
 	}
 
 	/**
@@ -2433,8 +2433,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDAFlatConf()
 	{
-		String obsType = "Flat";
-		updateDAConf( obsType );
+		String obsType = "Flat" ;
+		updateDAConf( obsType ) ;
 	}
 
 	/**
@@ -2442,8 +2442,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDAArcConf()
 	{
-		String obsType = "Arc";
-		updateDAConf( obsType );
+		String obsType = "Arc" ;
+		updateDAConf( obsType ) ;
 	}
 
 	/**
@@ -2451,8 +2451,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDATargetAcqConf()
 	{
-		String obsType = "TARGETACQ";
-		updateDAConf( obsType );
+		String obsType = "TARGETACQ" ;
+		updateDAConf( obsType ) ;
 	}
 
 	/**
@@ -2460,24 +2460,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDAObjConf()
 	{
-		String obsType = "Object";
-		updateDAConf( obsType );
-		_avTable.set( ATTR_MODE , W_mode );
-		_avTable.set( ATTR_WAVEFORM , W_waveform );
-		_avTable.set( ATTR_NREADS , W_nreads );
-		_avTable.set( ATTR_NRESETS , W_nresets );
-		_avTable.set( ATTR_RESET_DELAY , W_resetDelay );
-		_avTable.set( ATTR_READ_INTERVAL , W_readInterval );
-		_avTable.set( ATTR_IDLE_PERIOD , W_idlePeriod );
-		_avTable.set( ATTR_MUST_IDLES , W_mustIdles );
-		_avTable.set( ATTR_NULL_CYCLES , W_nullCycles );
-		_avTable.set( ATTR_NULL_EXPOSURES , W_nullExposures );
-		_avTable.set( ATTR_NULL_READS , W_nullReads );
-		_avTable.set( ATTR_OBSERVATION_TIME , W_obsTime );
-		setChopFreq( W_chopFrequency );
-		setChopDelay( W_chopDelay );
-		setCoadds( W_coadds );
-		setDutyCycle( W_dutyCycle );
+		String obsType = "Object" ;
+		updateDAConf( obsType ) ;
+		_avTable.set( ATTR_MODE , W_mode ) ;
+		_avTable.set( ATTR_WAVEFORM , W_waveform ) ;
+		_avTable.set( ATTR_NREADS , W_nreads ) ;
+		_avTable.set( ATTR_NRESETS , W_nresets ) ;
+		_avTable.set( ATTR_RESET_DELAY , W_resetDelay ) ;
+		_avTable.set( ATTR_READ_INTERVAL , W_readInterval ) ;
+		_avTable.set( ATTR_IDLE_PERIOD , W_idlePeriod ) ;
+		_avTable.set( ATTR_MUST_IDLES , W_mustIdles ) ;
+		_avTable.set( ATTR_NULL_CYCLES , W_nullCycles ) ;
+		_avTable.set( ATTR_NULL_EXPOSURES , W_nullExposures ) ;
+		_avTable.set( ATTR_NULL_READS , W_nullReads ) ;
+		_avTable.set( ATTR_OBSERVATION_TIME , W_obsTime ) ;
+		setChopFreq( W_chopFrequency ) ;
+		setChopDelay( W_chopDelay ) ;
+		setCoadds( W_coadds ) ;
+		setDutyCycle( W_dutyCycle ) ;
 	}
 
 	/**
@@ -2485,111 +2485,111 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void updateDAConf( String obsType )
 	{
-		int ci; /* lookup column number */
-		int ri; /* loopup row number */
+		int ci ; /* lookup column number */
+		int ri ; /* loopup row number */
 		double expTime = 0. ;
 		double obsTime = 0. ;
 		/* Get appropriate exposure and observation time for this obsType */
 		if( obsType.equalsIgnoreCase( "OBJECT" ) )
 		{
-			expTime = getExpTime();
-			obsTime = getObservationTime();
+			expTime = getExpTime() ;
+			obsTime = getObservationTime() ;
 		}
 		else if( obsType.equalsIgnoreCase( "DARK" ) )
 		{
 			/* Exposure time must be same as for object */
-			expTime = getExpTime();
-			obsTime = getObservationTime();
+			expTime = getExpTime() ;
+			obsTime = getObservationTime() ;
 		}
 		else if( obsType.equalsIgnoreCase( "FLAT" ) )
 		{
-			expTime = getFlatExpTime();
-			obsTime = getFlatObservationTime();
+			expTime = getFlatExpTime() ;
+			obsTime = getFlatObservationTime() ;
 		}
 		else if( obsType.equalsIgnoreCase( "ARC" ) )
 		{
-			expTime = getArcExpTime();
-			obsTime = getArcObservationTime();
+			expTime = getArcExpTime() ;
+			obsTime = getArcObservationTime() ;
 		}
 		else if( obsType.equalsIgnoreCase( "TARGETACQ" ) )
 		{
-			expTime = getTargetAcqExpTime();
-			obsTime = getTargetAcqObservationTime();
+			expTime = getTargetAcqExpTime() ;
+			obsTime = getTargetAcqObservationTime() ;
 		}
 		double TDelay = 0. ;
 		double actExpTime = 0. ;
 		double totalExposure = 0. ;
 		double actChopDelay = 0. ;
-		double cfd = Double.valueOf( getDefaultChopFrequency( obsType ) ).doubleValue();
+		double cfd = Double.valueOf( getDefaultChopFrequency( obsType ) ).doubleValue() ;
 
 		double dwellTime = 0. ;
 
-		int numCycles = 0;
+		int numCycles = 0 ;
 		if( cfd > 0. )
-			dwellTime = 0.5 / cfd;
+			dwellTime = 0.5 / cfd ;
 
-		String daconf = null;
+		String daconf = null ;
 		/* Get column number of lookup - depends on chop frequency */
 		if( cfd < 0.001 )
-			ci = 1;
+			ci = 1 ;
 		else
-			ci = DACONFS.rangeInRow( cfd , 0 );
+			ci = DACONFS.rangeInRow( cfd , 0 ) ;
 
 		/* Get row number of loopup - depends on exposure time */
-		ri = DACONFS.rangeInColumn( expTime , 0 );
+		ri = DACONFS.rangeInColumn( expTime , 0 ) ;
 		if( ri < 0 )
-			ri = DACONFS.getNumRows() - 1;
+			ri = DACONFS.getNumRows() - 1 ;
 		else
-			ri -= 1;
+			ri -= 1 ;
 		
 		/* Perform DACONFS lookup */
-		daconf = ( String )DACONFS.elementAt( ri , ci );
+		daconf = ( String )DACONFS.elementAt( ri , ci ) ;
 		/* Find corresponding row in MODES lut */
-		ri = MODES.indexInColumn( daconf , 0 );
+		ri = MODES.indexInColumn( daconf , 0 ) ;
 		/* Lookup the W_* values */
-		W_mode = ( String )MODES.elementAt( ri , 1 );
-		W_waveform = ( String )MODES.elementAt( ri , 2 );
-		W_nresets = Integer.parseInt( ( String )MODES.elementAt( ri , 3 ) );
-		W_resetDelay = Double.valueOf( ( String )MODES.elementAt( ri , 4 ) ).doubleValue();
-		W_readInterval = Double.valueOf( ( String )MODES.elementAt( ri , 5 ) ).doubleValue();
-		W_idlePeriod = Double.valueOf( ( String )MODES.elementAt( ri , 6 ) ).doubleValue();
-		W_mustIdles = Integer.parseInt( ( String )MODES.elementAt( ri , 7 ) );
-		W_nullCycles = Integer.parseInt( ( String )MODES.elementAt( ri , 8 ) );
-		W_nullExposures = Integer.parseInt( ( String )MODES.elementAt( ri , 9 ) );
-		W_nullReads = Integer.parseInt( ( String )MODES.elementAt( ri , 10 ) );
+		W_mode = ( String )MODES.elementAt( ri , 1 ) ;
+		W_waveform = ( String )MODES.elementAt( ri , 2 ) ;
+		W_nresets = Integer.parseInt( ( String )MODES.elementAt( ri , 3 ) ) ;
+		W_resetDelay = Double.valueOf( ( String )MODES.elementAt( ri , 4 ) ).doubleValue() ;
+		W_readInterval = Double.valueOf( ( String )MODES.elementAt( ri , 5 ) ).doubleValue() ;
+		W_idlePeriod = Double.valueOf( ( String )MODES.elementAt( ri , 6 ) ).doubleValue() ;
+		W_mustIdles = Integer.parseInt( ( String )MODES.elementAt( ri , 7 ) ) ;
+		W_nullCycles = Integer.parseInt( ( String )MODES.elementAt( ri , 8 ) ) ;
+		W_nullExposures = Integer.parseInt( ( String )MODES.elementAt( ri , 9 ) ) ;
+		W_nullReads = Integer.parseInt( ( String )MODES.elementAt( ri , 10 ) ) ;
 
 		/* Set ifChop and ifND flags */
-		boolean ifChop = W_mode.equalsIgnoreCase( "CHOP" ) || W_mode.equalsIgnoreCase( "NDCHOP" );
-		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "NDCHOP" );
+		boolean ifChop = W_mode.equalsIgnoreCase( "CHOP" ) || W_mode.equalsIgnoreCase( "NDCHOP" ) ;
+		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "NDCHOP" ) ;
 
 		/* Perform WAVEFORMS lookup */
-		ri = WAVEFORMS.indexInColumn( W_waveform , 0 );
+		ri = WAVEFORMS.indexInColumn( W_waveform , 0 ) ;
 		/* Lookup waveform clock period */
-		double clkPeriod = Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 1 ) ).doubleValue() * 1.e-9;
+		double clkPeriod = Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 1 ) ).doubleValue() * 1.e-9 ;
 		/* Loopup "expWhileRead" flag */
-		int expWR = Integer.parseInt( ( String )WAVEFORMS.elementAt( ri , 2 ) );
+		int expWR = Integer.parseInt( ( String )WAVEFORMS.elementAt( ri , 2 ) ) ;
 		/* Lookup idle waveform duration */
-		double idleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 3 ) ).doubleValue();
+		double idleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 3 ) ).doubleValue() ;
 		/* Lookup NDidle waveform duration */
-		double NDidleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 4 ) ).doubleValue();
+		double NDidleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 4 ) ).doubleValue() ;
 		/* Lookup NDread waveform duration */
-		double NDreadT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 6 ) ).doubleValue();
+		double NDreadT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 6 ) ).doubleValue() ;
 		/* Lookup readReset waveform duration */
-		double readResetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 8 ) ).doubleValue();
+		double readResetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 8 ) ).doubleValue() ;
 		/* Lookup appropriate reset waveform duration */
 		double TEnd = 0. ;
 		double resetT = 0. ;
 		if( ifND )
 		{
 			/* Use NDreset waveform */
-			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 5 ) ).doubleValue();
-			TEnd = NDreadT;
+			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 5 ) ).doubleValue() ;
+			TEnd = NDreadT ;
 		}
 		else
 		{
 			/* Use reset waveform */
-			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 7 ) ).doubleValue();
-			TEnd = resetT;
+			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 7 ) ).doubleValue() ;
+			TEnd = resetT ;
 		}
 
 		/* Build script section */
@@ -2599,46 +2599,46 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		if( W_idlePeriod > 0.00001 && W_mustIdles > 0 )
 		{
 			if( idleT > W_idlePeriod )
-				TGone = idleT * W_mustIdles;
+				TGone = idleT * W_mustIdles ;
 			else
-				TGone = W_idlePeriod * W_mustIdles;
+				TGone = W_idlePeriod * W_mustIdles ;
 		}
 
 		/* Handle initial chop delay */
 		if( ifChop )
 		{
-			W_chopDelay = getChopDelay();
+			W_chopDelay = getChopDelay() ;
 			/* Delay required excludes time already gone and time to do resets */
-			TDelay = W_chopDelay - ( W_nresets * resetT ) - TGone;
+			TDelay = W_chopDelay - ( W_nresets * resetT ) - TGone ;
 			actChopDelay = 0. ;
 			if( TDelay > 0. )
 			{
 				/* 1st option is to generate NDIdles */
 				if( NDidleT > 0.00001 )
-					actChopDelay = Math.ceil( TDelay / NDidleT ) * NDidleT;
+					actChopDelay = Math.ceil( TDelay / NDidleT ) * NDidleT ;
 				else if( W_idlePeriod > 0.00001 )
-					actChopDelay = Math.ceil( TDelay / W_idlePeriod ) * W_idlePeriod;
+					actChopDelay = Math.ceil( TDelay / W_idlePeriod ) * W_idlePeriod ;
 				else
-					actChopDelay = TDelay;
+					actChopDelay = TDelay ;
 				
-				TGone = TGone + actChopDelay;
+				TGone = TGone + actChopDelay ;
 			}
 		}
 
 		/* Set up exposures in this beam */
-		boolean ifExposing = true;
+		boolean ifExposing = true ;
 		/* nexp = exposures in chop phase including null exposures */
-		int nexp = 0;
+		int nexp = 0 ;
 		/* Real (non-null) exposures in whole observation */
-		int numExpBeam = 0;
-		int numExp = 0;
+		int numExpBeam = 0 ;
+		int numExp = 0 ;
 		double TStart = 0. ;
 		double readT = 0. ;
-		W_nreads = 0;
+		W_nreads = 0 ;
 		while( ifExposing )
 		{
 			nexp++ ;
-			TStart = TGone;
+			TStart = TGone ;
 			if( nexp == 1 )
 				TGone += resetT ; /* First exposure starts with reset */
 			else if( !ifND )
@@ -2648,7 +2648,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 			/* Insert any additional resets */
 			if( W_nresets > 1 )
-				TGone = TGone + ( ( W_nresets - 1 ) * resetT );
+				TGone = TGone + ( ( W_nresets - 1 ) * resetT ) ;
 
 			/* Insert ND exposure */
 			if( ifND )
@@ -2658,9 +2658,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				{
 					/* Execute NDidles if defined */
 					if( NDidleT > 0.00001 )
-						TGone += Math.ceil( W_resetDelay / NDidleT ) * NDidleT;
+						TGone += Math.ceil( W_resetDelay / NDidleT ) * NDidleT ;
 					else
-						TGone += W_resetDelay;
+						TGone += W_resetDelay ;
 				}
 				/* 
 				 * Insert NDreads, including nullReads 
@@ -2668,34 +2668,34 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				 * This differs from the readInterval if NDidling is enabled 
 				 */
 				if( NDidleT > 0.00001 )
-					readT = Math.round( W_readInterval / NDidleT ) * NDidleT;
+					readT = Math.round( W_readInterval / NDidleT ) * NDidleT ;
 				else
-					readT = W_readInterval;
+					readT = W_readInterval ;
 
 				/* Compute number of reads in the exposure time */
-				W_nreads = ( int )Math.round( expTime / readT ) + 1;
+				W_nreads = ( int )Math.round( expTime / readT ) + 1 ;
 
 				/* 
 				 * Increase TGone by time to take these, plus any nullReads 
 				 * minus the last read (which is appended below) 
 				 */
-				TGone += ( ( W_nreads + W_nullReads - 1 ) * readT );
-				actExpTime = ( W_nreads - 1 ) * readT;
+				TGone += ( ( W_nreads + W_nullReads - 1 ) * readT ) ;
+				actExpTime = ( W_nreads - 1 ) * readT ;
 			}
 			else
 			{
 				/* Non-ND. Wait for the exposure time to expire */
 				if( expWR == 0 )
-					TDelay = expTime;
+					TDelay = expTime ;
 				else
-					TDelay = expTime - readResetT;
+					TDelay = expTime - readResetT ;
 				
 				if( NDidleT > 0.00001 )
 					TGone += Math.round( TDelay / NDidleT ) * NDidleT ; /* Spend TDelay generating NDidles */
 				else
-					TGone += TDelay;
+					TGone += TDelay ;
 				
-				actExpTime = expTime;
+				actExpTime = expTime ;
 			}
 
 			/* Check for further exposures */
@@ -2712,8 +2712,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				else
 				{
 					/* No more exposures required - set ifExposing to false */
-					ifExposing = false;
-					numExpBeam = nexp - W_nullExposures;
+					ifExposing = false ;
+					numExpBeam = nexp - W_nullExposures ;
 				}
 			}
 			else
@@ -2731,57 +2731,57 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				else
 				{
 					/* No - set ifExposing to false */
-					ifExposing = false;
-					numExp = nexp - W_nullExposures;
+					ifExposing = false ;
+					numExp = nexp - W_nullExposures ;
 				}
 			}
 		} /* End of while loop */
 
 		/* Insert final read (ND) or readReset (non-ND) */
 		if( ifND )
-			TGone += NDreadT;
+			TGone += NDreadT ;
 		else
-			TGone += readResetT;
+			TGone += readResetT ;
 
 		/* If chopping, take TGone as new dwell time and compute new chop frequency */
 		if( ifChop )
 		{
-			dwellTime = TGone;
-			cfd = 0.5 / dwellTime;
-			String cfs = Double.toString( cfd );
-			W_chopFrequency = cfs;
-			numCycles = ( int )Math.round( obsTime * cfd * 2. );
+			dwellTime = TGone ;
+			cfd = 0.5 / dwellTime ;
+			String cfs = Double.toString( cfd ) ;
+			W_chopFrequency = cfs ;
+			numCycles = ( int )Math.round( obsTime * cfd * 2. ) ;
 			if( numCycles < 1 )
-				numCycles = 1;
-			numExp = numExpBeam * numCycles;
+				numCycles = 1 ;
+			numExp = numExpBeam * numCycles ;
 		}
 		else
 		{
-			W_chopFrequency = "0.0";
+			W_chopFrequency = "0.0" ;
 		}
 
 		/* Report actual observation time */
 		W_obsTime = 0. ;
 		if( ifChop )
-			W_obsTime = dwellTime * 2. * ( numCycles + W_nullCycles );
+			W_obsTime = dwellTime * 2. * ( numCycles + W_nullCycles ) ;
 		else
-			W_obsTime = TGone;
+			W_obsTime = TGone ;
 
 		/* Update the number of required coadds */
-		W_coadds = numExp;
+		W_coadds = numExp ;
 
-		double totalChopDelay = 0;
+		double totalChopDelay = 0 ;
 		/* Compute duty cycle */
 		if( ifChop )
 		{
-			totalExposure = numExp * 2. * actExpTime;
-			totalChopDelay = 2. * ( numCycles + W_nullCycles ) * actChopDelay;
-			W_dutyCycle = totalExposure / ( W_obsTime - totalChopDelay );
+			totalExposure = numExp * 2. * actExpTime ;
+			totalChopDelay = 2. * ( numCycles + W_nullCycles ) * actChopDelay ;
+			W_dutyCycle = totalExposure / ( W_obsTime - totalChopDelay ) ;
 		}
 		else
 		{
-			totalExposure = actExpTime * numExp;
-			W_dutyCycle = totalExposure / W_obsTime;
+			totalExposure = actExpTime * numExp ;
+			W_dutyCycle = totalExposure / W_obsTime ;
 		}
 	}
 
@@ -2790,8 +2790,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public String updateDAConf( String obsType , double expTime , double obsTime , double cfd , FileWriter output )
 	{
-		int ci; /* lookup column number */
-		int ri; /* loopup row number */
+		int ci ; /* lookup column number */
+		int ri ; /* loopup row number */
 
 		double TDelay = 0. ;
 		double actExpTime = 0. ;
@@ -2800,72 +2800,72 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 		double dwellTime = 0. ;
 
-		int numCycles = 0;
+		int numCycles = 0 ;
 		if( cfd > 0. )
-			dwellTime = 0.5 / cfd;
+			dwellTime = 0.5 / cfd ;
 
-		String daconf = null;
+		String daconf = null ;
 		/* Get column number of lookup - depends on chop frequency */
 		if( cfd < 0.001 )
-			ci = 1;
+			ci = 1 ;
 		else
-			ci = DACONFS.rangeInRow( cfd , 0 );
+			ci = DACONFS.rangeInRow( cfd , 0 ) ;
 
 		/* Get row number of loopup - depends on exposure time */
-		ri = DACONFS.rangeInColumn( expTime , 0 );
+		ri = DACONFS.rangeInColumn( expTime , 0 ) ;
 		if( ri < 0 )
-			ri = DACONFS.getNumRows() - 1;
+			ri = DACONFS.getNumRows() - 1 ;
 		else
-			ri = ri - 1;
+			ri = ri - 1 ;
 		
 		/* Perform DACONFS lookup */
-		daconf = ( String )DACONFS.elementAt( ri , ci );
+		daconf = ( String )DACONFS.elementAt( ri , ci ) ;
 		/* Find corresponding row in MODES lut */
-		ri = MODES.indexInColumn( daconf , 0 );
+		ri = MODES.indexInColumn( daconf , 0 ) ;
 		/* Lookup the W_* values */
-		W_mode = ( String )MODES.elementAt( ri , 1 );
-		W_waveform = ( String )MODES.elementAt( ri , 2 );
-		W_nresets = Integer.parseInt( ( String )MODES.elementAt( ri , 3 ) );
-		W_resetDelay = Double.valueOf( ( String )MODES.elementAt( ri , 4 ) ).doubleValue();
-		W_readInterval = Double.valueOf( ( String )MODES.elementAt( ri , 5 ) ).doubleValue();
-		W_idlePeriod = Double.valueOf( ( String )MODES.elementAt( ri , 6 ) ).doubleValue();
-		W_mustIdles = Integer.parseInt( ( String )MODES.elementAt( ri , 7 ) );
-		W_nullCycles = Integer.parseInt( ( String )MODES.elementAt( ri , 8 ) );
-		W_nullExposures = Integer.parseInt( ( String )MODES.elementAt( ri , 9 ) );
-		W_nullReads = Integer.parseInt( ( String )MODES.elementAt( ri , 10 ) );
+		W_mode = ( String )MODES.elementAt( ri , 1 ) ;
+		W_waveform = ( String )MODES.elementAt( ri , 2 ) ;
+		W_nresets = Integer.parseInt( ( String )MODES.elementAt( ri , 3 ) ) ;
+		W_resetDelay = Double.valueOf( ( String )MODES.elementAt( ri , 4 ) ).doubleValue() ;
+		W_readInterval = Double.valueOf( ( String )MODES.elementAt( ri , 5 ) ).doubleValue() ;
+		W_idlePeriod = Double.valueOf( ( String )MODES.elementAt( ri , 6 ) ).doubleValue() ;
+		W_mustIdles = Integer.parseInt( ( String )MODES.elementAt( ri , 7 ) ) ;
+		W_nullCycles = Integer.parseInt( ( String )MODES.elementAt( ri , 8 ) ) ;
+		W_nullExposures = Integer.parseInt( ( String )MODES.elementAt( ri , 9 ) ) ;
+		W_nullReads = Integer.parseInt( ( String )MODES.elementAt( ri , 10 ) ) ;
 
 		/* Set ifChop and ifND flags */
-		boolean ifChop = W_mode.equalsIgnoreCase( "CHOP" ) || W_mode.equalsIgnoreCase( "NDCHOP" );
-		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "NDCHOP" );
+		boolean ifChop = W_mode.equalsIgnoreCase( "CHOP" ) || W_mode.equalsIgnoreCase( "NDCHOP" ) ;
+		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "NDCHOP" ) ;
 
 		/* Perform WAVEFORMS lookup */
-		ri = WAVEFORMS.indexInColumn( W_waveform , 0 );
+		ri = WAVEFORMS.indexInColumn( W_waveform , 0 ) ;
 		/* Lookup waveform clock period */
-		double clkPeriod = Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 1 ) ).doubleValue() * 1.e-9;
+		double clkPeriod = Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 1 ) ).doubleValue() * 1.e-9 ;
 		/* Loopup "expWhileRead" flag */
-		int expWR = Integer.parseInt( ( String )WAVEFORMS.elementAt( ri , 2 ) );
+		int expWR = Integer.parseInt( ( String )WAVEFORMS.elementAt( ri , 2 ) ) ;
 		/* Lookup idle waveform duration */
-		double idleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 3 ) ).doubleValue();
+		double idleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 3 ) ).doubleValue() ;
 		/* Lookup NDidle waveform duration */
-		double NDidleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 4 ) ).doubleValue();
+		double NDidleT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 4 ) ).doubleValue() ;
 		/* Lookup NDread waveform duration */
-		double NDreadT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 6 ) ).doubleValue();
+		double NDreadT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 6 ) ).doubleValue() ;
 		/* Lookup readReset waveform duration */
-		double readResetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 8 ) ).doubleValue();
+		double readResetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 8 ) ).doubleValue() ;
 		/* Lookup appropriate reset waveform duration */
 		double TEnd = 0. ;
 		double resetT = 0. ;
 		if( ifND )
 		{
 			/* Use NDreset waveform */
-			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 5 ) ).doubleValue();
-			TEnd = NDreadT;
+			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 5 ) ).doubleValue() ;
+			TEnd = NDreadT ;
 		}
 		else
 		{
 			/* Use reset waveform */
-			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 7 ) ).doubleValue();
-			TEnd = resetT;
+			resetT = clkPeriod * Double.valueOf( ( String )WAVEFORMS.elementAt( ri , 7 ) ).doubleValue() ;
+			TEnd = resetT ;
 		}
 
 		/* Build script section */
@@ -2875,45 +2875,45 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		if( W_idlePeriod > 0.00001 && W_mustIdles > 0 )
 		{
 			if( idleT > W_idlePeriod )
-				TGone = idleT * W_mustIdles;
+				TGone = idleT * W_mustIdles ;
 			else
-				TGone = W_idlePeriod * W_mustIdles;
+				TGone = W_idlePeriod * W_mustIdles ;
 		}
 
 		/* Handle initial chop delay */
 		if( ifChop )
 		{
-			W_chopDelay = getChopDelay();
+			W_chopDelay = getChopDelay() ;
 			/* Delay required excludes time already gone and time to do resets */
-			TDelay = W_chopDelay - ( W_nresets * resetT ) - TGone;
+			TDelay = W_chopDelay - ( W_nresets * resetT ) - TGone ;
 			actChopDelay = 0. ;
 			if( TDelay > 0. )
 			{
 				/* 1st option is to generate NDIdles */
 				if( NDidleT > 0.00001 )
-					actChopDelay = Math.ceil( TDelay / NDidleT ) * NDidleT;
+					actChopDelay = Math.ceil( TDelay / NDidleT ) * NDidleT ;
 				else if( W_idlePeriod > 0.00001 )
-					actChopDelay = Math.ceil( TDelay / W_idlePeriod ) * W_idlePeriod;
+					actChopDelay = Math.ceil( TDelay / W_idlePeriod ) * W_idlePeriod ;
 				else
-					actChopDelay = TDelay;
-				TGone = TGone + actChopDelay;
+					actChopDelay = TDelay ;
+				TGone = TGone + actChopDelay ;
 			}
 		}
 
 		/* Set up exposures in this beam */
-		boolean ifExposing = true;
+		boolean ifExposing = true ;
 		/* nexp = exposures in chop phase including null exposures */
-		int nexp = 0;
+		int nexp = 0 ;
 		/* Real (non-null) exposures in whole observation */
-		int numExpBeam = 0;
-		int numExp = 0;
+		int numExpBeam = 0 ;
+		int numExp = 0 ;
 		double TStart = 0. ;
 		double readT = 0. ;
-		W_nreads = 0;
+		W_nreads = 0 ;
 		while( ifExposing )
 		{
 			nexp++ ;
-			TStart = TGone;
+			TStart = TGone ;
 			if( nexp == 1 )
 			{
 				TGone += resetT ; /* First exposure starts with reset */
@@ -2929,7 +2929,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 			/* Insert any additional resets */
 			if( W_nresets > 1 )
-				TGone = TGone + ( ( W_nresets - 1 ) * resetT );
+				TGone = TGone + ( ( W_nresets - 1 ) * resetT ) ;
 
 			/* Insert ND exposure */
 			if( ifND )
@@ -2939,37 +2939,37 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				{
 					/* Execute NDidles if defined */
 					if( NDidleT > 0.00001 )
-						TGone += Math.ceil( W_resetDelay / NDidleT ) * NDidleT;
+						TGone += Math.ceil( W_resetDelay / NDidleT ) * NDidleT ;
 					else
-						TGone += W_resetDelay;
+						TGone += W_resetDelay ;
 				}
 				/* Insert NDreads, including nullReads */
 				/* How long does each read take? This differs from the readInterval if NDidling is enabled */
 				if( NDidleT > 0.00001 )
-					readT = Math.round( W_readInterval / NDidleT ) * NDidleT;
+					readT = Math.round( W_readInterval / NDidleT ) * NDidleT ;
 				else
-					readT = W_readInterval;
+					readT = W_readInterval ;
 
 				/* Compute number of reads in the exposure time */
-				W_nreads = ( int )Math.round( expTime / readT ) + 1;
+				W_nreads = ( int )Math.round( expTime / readT ) + 1 ;
 				/* Increase TGone by time to take these, plus any nullReads minus the last read (which is appended below) */
-				TGone += ( ( W_nreads + W_nullReads - 1 ) * readT );
-				actExpTime = ( W_nreads - 1 ) * readT;
+				TGone += ( ( W_nreads + W_nullReads - 1 ) * readT ) ;
+				actExpTime = ( W_nreads - 1 ) * readT ;
 			}
 			else
 			{
 				/* Non-ND. Wait for the exposure time to expire */
 				if( expWR == 0 )
-					TDelay = expTime;
+					TDelay = expTime ;
 				else
-					TDelay = expTime - readResetT;
+					TDelay = expTime - readResetT ;
 
 				if( NDidleT > 0.00001 )
 					TGone += Math.round( TDelay / NDidleT ) * NDidleT ; /* Spend TDelay generating NDidles */
 				else
-					TGone += TDelay;
+					TGone += TDelay ;
 				
-				actExpTime = expTime;
+				actExpTime = expTime ;
 			}
 
 			/* Check for further exposures */
@@ -2986,8 +2986,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				else
 				{
 					/* No more exposures required - set ifExposing to false */
-					ifExposing = false;
-					numExpBeam = nexp - W_nullExposures;
+					ifExposing = false ;
+					numExpBeam = nexp - W_nullExposures ;
 				}
 			}
 			else
@@ -3005,8 +3005,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 				else
 				{
 					/* No - set ifExposing to false */
-					ifExposing = false;
-					numExp = nexp - W_nullExposures;
+					ifExposing = false ;
+					numExp = nexp - W_nullExposures ;
 				}
 			}
 
@@ -3014,61 +3014,61 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 		/* Insert final read (ND) or readReset (non-ND) */
 		if( ifND )
-			TGone += NDreadT;
+			TGone += NDreadT ;
 		else
-			TGone += readResetT;
+			TGone += readResetT ;
 
 		/* If chopping, take TGone as new dwell time and compute new 
 		 chop frequency */
 		if( ifChop )
 		{
-			dwellTime = TGone;
-			cfd = 0.5 / dwellTime;
-			String cfs = Double.toString( cfd );
-			W_chopFrequency = cfs;
-			numCycles = ( int )Math.round( obsTime * cfd * 2. );
+			dwellTime = TGone ;
+			cfd = 0.5 / dwellTime ;
+			String cfs = Double.toString( cfd ) ;
+			W_chopFrequency = cfs ;
+			numCycles = ( int )Math.round( obsTime * cfd * 2. ) ;
 			if( numCycles < 1 )
-				numCycles = 1;
-			numExp = numExpBeam * numCycles;
+				numCycles = 1 ;
+			numExp = numExpBeam * numCycles ;
 		}
 		else
 		{
-			W_chopFrequency = "0.0";
+			W_chopFrequency = "0.0" ;
 		}
 
 		/* Report actual observation time */
-		W_obsTime = 0.0;
+		W_obsTime = 0.0 ;
 		if( ifChop )
-			W_obsTime = dwellTime * 2. * ( numCycles + W_nullCycles );
+			W_obsTime = dwellTime * 2. * ( numCycles + W_nullCycles ) ;
 		else
-			W_obsTime = TGone;
+			W_obsTime = TGone ;
 
 		/* Update the number of required coadds */
-		W_coadds = numExp;
+		W_coadds = numExp ;
 
-		double totalChopDelay = 0;
+		double totalChopDelay = 0 ;
 		/* Compute duty cycle */
 		if( ifChop )
 		{
-			totalExposure = numExp * 2. * actExpTime;
-			totalChopDelay = 2. * ( numCycles + W_nullCycles ) * actChopDelay;
-			W_dutyCycle = totalExposure / ( W_obsTime - totalChopDelay );
+			totalExposure = numExp * 2. * actExpTime ;
+			totalChopDelay = 2. * ( numCycles + W_nullCycles ) * actChopDelay ;
+			W_dutyCycle = totalExposure / ( W_obsTime - totalChopDelay ) ;
 		}
 		else
 		{
-			totalExposure = actExpTime * numExp;
-			W_dutyCycle = totalExposure / W_obsTime;
+			totalExposure = actExpTime * numExp ;
+			W_dutyCycle = totalExposure / W_obsTime ;
 		}
 
 		try
 		{
-			output.write( expTime + " " + cfd + " " + W_obsTime + " " + W_chopFrequency + " " + W_coadds + " " + W_dutyCycle * 100.0 + " " + W_chopDelay + " " + actExpTime + " " + numCycles + " " + W_nullCycles + " " + actChopDelay + " " + totalChopDelay + " " + totalExposure + " " + 1.0 / expTime + "\n" );
+			output.write( expTime + " " + cfd + " " + W_obsTime + " " + W_chopFrequency + " " + W_coadds + " " + W_dutyCycle * 100.0 + " " + W_chopDelay + " " + actExpTime + " " + numCycles + " " + W_nullCycles + " " + actChopDelay + " " + totalChopDelay + " " + totalExposure + " " + 1.0 / expTime + "\n" ) ;
 		}
 		catch( IOException e )
 		{
-			System.out.println( "IOException writing to output" );
+			System.out.println( "IOException writing to output" ) ;
 		}
-		return daconf;
+		return daconf ;
 	}
 
 	/**
@@ -3076,7 +3076,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setCoadds( int coadds )
 	{
-		getStareCapability().setCoadds( coadds );
+		getStareCapability().setCoadds( coadds ) ;
 	}
 
 	/**
@@ -3084,15 +3084,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void setCoadds( String coadds )
 	{
-		int c = 0;
+		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds );
-			c = tmp.intValue();
+			Integer tmp = Integer.valueOf( coadds ) ;
+			c = tmp.intValue() ;
 		}
 		catch( Exception ex ){}
 
-		setCoadds( c );
+		setCoadds( c ) ;
 	}
 
 	/**
@@ -3100,10 +3100,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	 */
 	public void useDefaultAcquisition()
 	{
-		useDefaultExposureTime();
-		useDefaultObservationTime();
-		useDefaultChopFreq();
-		setCoadds( 0 );
+		useDefaultExposureTime() ;
+		useDefaultObservationTime() ;
+		useDefaultChopFreq() ;
+		setCoadds( 0 ) ;
 	}
 
 	/**
@@ -3112,11 +3112,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public void setAcquisition()
 	{
 		/* Setup for normal exposures */
-		double et = getExpTime();
-		String filter = getFilter();
-		String waveplate = getWaveplate();
-		double ma = getMaskAngle();
-		updateDAObjConf();
+		double et = getExpTime() ;
+		String filter = getFilter() ;
+		String waveplate = getWaveplate() ;
+		double ma = getMaskAngle() ;
+		updateDAObjConf() ;
 	}
 
 	/**
@@ -3147,26 +3147,26 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 		public void update( SpIterStep spIterStep )
 		{
-			currentIterStepItem = spIterStep.item;
+			currentIterStepItem = spIterStep.item ;
 		}
 
 		public double getObserveStepTime()
 		{
-			// extra_oh is a constant overheads related to certain observe iterators:
-			// 30 seconds for dark, arc, flat or bias (in addition to the times to do
-			// their respective eye), and 30 secs each time an instrument iterator changes a filter.  
+			/*
+			 * extra_oh is a constant overheads related to certain observe iterators:
+			 * 30 seconds for dark, arc, flat or bias (in addition to the times to do
+			 * their respective eye), and 30 secs each time an instrument iterator changes a filter.
+			*/
 			double extra_oh = 0. ;
 
 			if( ( currentIterStepItem != null ) && ( ( currentIterStepItem instanceof SpIterBiasObs ) || ( currentIterStepItem instanceof SpIterDarkObs ) || ( currentIterStepItem instanceof SpIterMichelleCalObs ) || ( currentIterStepItem instanceof SpIterConfigObs ) ) )
-			{
-
 				extra_oh = 30. ;
-			}
 
-			int sampling_x = Integer.valueOf( getPixelSampling().substring( 0 , 1 ) ).intValue();
-			int sampling_y = Integer.valueOf( getPixelSampling().substring( 2 , 3 ) ).intValue();
 
-			// Integration over head;
+			int sampling_x = Integer.valueOf( getPixelSampling().substring( 0 , 1 ) ).intValue() ;
+			int sampling_y = Integer.valueOf( getPixelSampling().substring( 2 , 3 ) ).intValue() ;
+
+			// Integration over head ;
 			double int_oh = 0. ;
 
 			if( ( sampling_x * sampling_y ) > 1 )
@@ -3174,13 +3174,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 
 			// In the future a Michelle specific observation overhead might be added, possibly replacing _obs_oh.
 
-			return ( sampling_x * sampling_y * getActualObservationTime() ) + int_oh + _obs_oh + extra_oh;
+			return ( sampling_x * sampling_y * getActualObservationTime() ) + int_oh + _obs_oh + extra_oh ;
 		}
 	}
 
 	public IterationTracker createIterationTracker()
 	{
-		return new IterTrackerMichelle();
+		return new IterTrackerMichelle() ;
 	}
 
 }

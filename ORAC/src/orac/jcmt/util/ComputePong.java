@@ -290,7 +290,7 @@ public class ComputePong
 		for( int i = 0 ; i < nSeg ; i++ )
 		{
 			double xStartArcCenter = 0. ;
-			double yStartArcCenter = 0.;
+			double yStartArcCenter = 0. ;
 			double startThetaInit = 0. ;
 			double startThetaFin= 0. ;
 			double startRotDir = 0. ;
@@ -341,8 +341,8 @@ public class ComputePong
 				yStart = yStartNom + my * curveRadius ;
 				xEnd = xEndNom - mx * curveRadius ;
 				yEnd = yEndNom - my * curveRadius ;
-				dx = xEnd - xStart;
-				dy = yEnd - yStart;
+				dx = xEnd - xStart ;
+				dy = yEnd - yStart ;
 				length = Math.sqrt( dx * dx + dy * dy ) ;
 		
 				/*
@@ -362,7 +362,7 @@ public class ComputePong
 				* straight segment are the most complicated parts of the
 				* path. We need to figure out the angular position at which the
 				* arc starts and the direction of motion while in the
-				* arc. rot_dir == 1 => CCW; rot_dir == -1 => CW. These values
+				* arc. rot_dir == 1 => CCW ; rot_dir == -1 => CW. These values
 				* depend on whether the start/end points are on the +X, -X, +Y,
 				* or -Y boundaries, and the direction of the path
 				* leaving/approaching the boundary.

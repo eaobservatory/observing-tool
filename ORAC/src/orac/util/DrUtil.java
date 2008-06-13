@@ -1,4 +1,4 @@
-package orac.util;
+package orac.util ;
 
 /**
  * Utility class for calculations related to data reduction issues.
@@ -12,13 +12,13 @@ package orac.util;
  */
 public class DrUtil
 {
-	public static final int STATUS_SUCCESSFUL = 0;
+	public static final int STATUS_SUCCESSFUL = 0 ;
 
 	/** Failure due to invalid parameters. */
-	public static final int STATUS_INVALID_PARAMETERS = -1;
+	public static final int STATUS_INVALID_PARAMETERS = -1 ;
 
 	/** Bad value because transmission out of range of fit. */
-	public static final int STATUS_OUT_OF_RANGE_OF_FIT = -2;
+	public static final int STATUS_OUT_OF_RANGE_OF_FIT = -2 ;
 
 	/**
 	 * Incorrect number of parameters.
@@ -26,10 +26,10 @@ public class DrUtil
 	 * Example a mode has been specified that requires a
 	 * different version of the method, one with a different argument list.
 	 */
-	public static final int STATUS_INCORRECT_ARGUMENT_LIST = -3;
+	public static final int STATUS_INCORRECT_ARGUMENT_LIST = -3 ;
 
 	/** Calculation failed for whatever reason. */
-	public static final int STATUS_FAILED = -4;
+	public static final int STATUS_FAILED = -4 ;
 
 	/**
 	 * Calculates an airmass estimate based on dec of target and telescope latitude.
@@ -41,7 +41,7 @@ public class DrUtil
 	 */
 	public static double airmass( double dec , double latitude )
 	{
-		return 1. / ( 0.9 * Math.cos( ( ( dec - latitude ) * Math.PI ) / 180. ) );
+		return 1. / ( 0.9 * Math.cos( ( ( dec - latitude ) * Math.PI ) / 180. ) ) ;
 	}
 	
 	/**
@@ -74,13 +74,13 @@ public class DrUtil
 		// check validity of airmass and tau
 		if( ( airmass < 1. ) || ( tau < 0. ) )
 		{
-			status[ 0 ] = STATUS_FAILED;
+			status[ 0 ] = STATUS_FAILED ;
 			return 0. ;
 		}
 
 		// Finally, return the transmission coefficient as a function of airmass and zenith sky opacity
 
-		status[ 0 ] = STATUS_SUCCESSFUL;
-		return StrictMath.exp( ( -tau ) * airmass );
+		status[ 0 ] = STATUS_SUCCESSFUL ;
+		return StrictMath.exp( ( -tau ) * airmass ) ;
 	}
 }

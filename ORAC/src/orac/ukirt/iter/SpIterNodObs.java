@@ -4,16 +4,16 @@
 //
 // $Id$
 //
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
 /**
  * Nod Iterator item.
@@ -26,22 +26,22 @@ import java.util.Vector;
  */
 public class SpIterNodObs extends SpIterObserveBase
 {
-	public static final String ATTR_NOD_PATTERN = "nodPattern";
-	public static String CHOP_BEAM_A = "A";
-	public static String CHOP_BEAM_B = "B";
-	public static String CHOP_BEAM_MIDDLE = "MIDDLE";
+	public static final String ATTR_NOD_PATTERN = "nodPattern" ;
+	public static String CHOP_BEAM_A = "A" ;
+	public static String CHOP_BEAM_B = "B" ;
+	public static String CHOP_BEAM_MIDDLE = "MIDDLE" ;
 	public static String[][] NOD_PATTERNS = 
 	{ 
 		{ CHOP_BEAM_A , CHOP_BEAM_B } , 
 		{ CHOP_BEAM_A , CHOP_BEAM_B , CHOP_BEAM_B , CHOP_BEAM_A } 
-	};
+	} ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "nodObs" , "Nod" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "nodObs" , "Nod" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterNodObs() );
+		SpFactory.registerPrototype( new SpIterNodObs() ) ;
 	}
 
 	/**
@@ -49,8 +49,8 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public SpIterNodObs()
 	{
-		super( SP_TYPE );
-		_avTable.noNotifySetAll( ATTR_NOD_PATTERN , stringArrayToVector( NOD_PATTERNS[ 0 ] ) );
+		super( SP_TYPE ) ;
+		_avTable.noNotifySetAll( ATTR_NOD_PATTERN , stringArrayToVector( NOD_PATTERNS[ 0 ] ) ) ;
 	}
 
 	/**
@@ -59,9 +59,9 @@ public class SpIterNodObs extends SpIterObserveBase
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return "Nod (" + getCount() + "X)";
+		return "Nod (" + getCount() + "X)" ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public SpIterEnumeration elements()
 	{
-		return null;
+		return null ;
 	}
 
 	/**
@@ -81,10 +81,10 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public String[] getNodPattern()
 	{
-		String[] result = new String[ getNodPatternVector().size() ];
-		getNodPatternVector().copyInto( result );
+		String[] result = new String[ getNodPatternVector().size() ] ;
+		getNodPatternVector().copyInto( result ) ;
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public Vector getNodPatternVector()
 	{
-		return _avTable.getAll( ATTR_NOD_PATTERN );
+		return _avTable.getAll( ATTR_NOD_PATTERN ) ;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public void setNodPattern( Vector nodPattern )
 	{
-		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern );
+		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern ) ;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public void setNodPattern( String[] nodPatternArray )
 	{
-		setNodPattern( stringArrayToVector( nodPatternArray ) );
+		setNodPattern( stringArrayToVector( nodPatternArray ) ) ;
 	}
 
 	/**
@@ -118,27 +118,27 @@ public class SpIterNodObs extends SpIterObserveBase
 	 */
 	public static Enumeration patterns()
 	{
-		Vector allPatterns = new Vector();
-		Vector onePattern;
+		Vector allPatterns = new Vector() ;
+		Vector onePattern ;
 
 		for( int i = 0 ; i < NOD_PATTERNS.length ; i++ )
 		{
-			onePattern = new Vector();
+			onePattern = new Vector() ;
 			for( int j = 0 ; j < NOD_PATTERNS[ i ].length ; j++ )
-				onePattern.addElement( NOD_PATTERNS[ i ][ j ] );
-			allPatterns.addElement( onePattern );
+				onePattern.addElement( NOD_PATTERNS[ i ][ j ] ) ;
+			allPatterns.addElement( onePattern ) ;
 		}
 
-		return allPatterns.elements();
+		return allPatterns.elements() ;
 	}
 
 	public static Vector stringArrayToVector( String[] stringArray )
 	{
-		Vector result = new Vector();
+		Vector result = new Vector() ;
 
 		for( int i = 0 ; i < stringArray.length ; i++ )
-			result.addElement( stringArray[ i ] );
+			result.addElement( stringArray[ i ] ) ;
 
-		return result;
+		return result ;
 	}
 }

@@ -7,9 +7,9 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import org.apache.xerces.dom.ElementImpl;
+import org.apache.xerces.dom.ElementImpl ;
 
 /**
  * PreTranslator.
@@ -25,12 +25,12 @@ public interface PreTranslator
 	 *
 	 * @param  element DOM element from {@link orac.util.SpItemDOM}
 	 */
-	public void translate( ElementImpl element ) throws Exception;
+	public void translate( ElementImpl element ) throws Exception ;
 
 	/**
 	 * Removes telescope specific changes.
 	 *
 	 * @param  element DOM element from {@link orac.util.SpItemDOM}
 	 */
-	public void reverse( ElementImpl element ) throws Exception;
+	public void reverse( ElementImpl element ) throws Exception ;
 }

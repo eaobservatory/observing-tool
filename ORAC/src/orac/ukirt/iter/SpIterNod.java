@@ -4,47 +4,47 @@
 //
 // $Id$
 //
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterComp;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterComp ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
 //
 // The Enumeration of the steps produced by the Nod iterator.
 //
 class SpIterNodEnumeration extends SpIterEnumeration
 {
-	private String[] _nodPattern;
-	private int _curIndex = 0;
+	private String[] _nodPattern ;
+	private int _curIndex = 0 ;
 
 	SpIterNodEnumeration( SpIterNod iterComp )
 	{
-		super( iterComp );
-		_nodPattern = iterComp.getNodPattern();
+		super( iterComp ) ;
+		_nodPattern = iterComp.getNodPattern() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curIndex < _nodPattern.length );
+		return( _curIndex < _nodPattern.length ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		SpIterValue[] sivA = { new SpIterValue( "chop beam" , _nodPattern[ _curIndex ] ) , };
-		return new SpIterStep( "nod" , _curIndex++ , _iterComp , sivA );
+		SpIterValue[] sivA = { new SpIterValue( "chop beam" , _nodPattern[ _curIndex ] ) , } ;
+		return new SpIterStep( "nod" , _curIndex++ , _iterComp , sivA ) ;
 	}
 
 }
@@ -56,22 +56,22 @@ class SpIterNodEnumeration extends SpIterEnumeration
  */
 public class SpIterNod extends SpIterComp
 {
-	public static final String ATTR_NOD_PATTERN = "nodPattern";
-	public static String CHOP_BEAM_A = "A";
-	public static String CHOP_BEAM_B = "B";
-	public static String CHOP_BEAM_MIDDLE = "MIDDLE";
+	public static final String ATTR_NOD_PATTERN = "nodPattern" ;
+	public static String CHOP_BEAM_A = "A" ;
+	public static String CHOP_BEAM_B = "B" ;
+	public static String CHOP_BEAM_MIDDLE = "MIDDLE" ;
 	public static String[][] NOD_PATTERNS = 
 	{ 
 		{ CHOP_BEAM_A , CHOP_BEAM_B } , 
 		{ CHOP_BEAM_A , CHOP_BEAM_B , CHOP_BEAM_B , CHOP_BEAM_A } 
-	};
+	} ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "nod" , "Nod" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "nod" , "Nod" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterNod() );
+		SpFactory.registerPrototype( new SpIterNod() ) ;
 	}
 
 	/**
@@ -79,8 +79,8 @@ public class SpIterNod extends SpIterComp
 	 */
 	public SpIterNod()
 	{
-		super( SP_TYPE );
-		_avTable.noNotifySetAll( ATTR_NOD_PATTERN , stringArrayToVector( NOD_PATTERNS[ 0 ] ) );
+		super( SP_TYPE ) ;
+		_avTable.noNotifySetAll( ATTR_NOD_PATTERN , stringArrayToVector( NOD_PATTERNS[ 0 ] ) ) ;
 	}
 
 	/**
@@ -89,16 +89,16 @@ public class SpIterNod extends SpIterComp
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return "Nod";
+		return "Nod" ;
 	}
 
 	/**
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterNodEnumeration( this );
+		return new SpIterNodEnumeration( this ) ;
 	}
 
 	/**
@@ -108,10 +108,10 @@ public class SpIterNod extends SpIterComp
 	 */
 	public String[] getNodPattern()
 	{
-		String[] result = new String[ getNodPatternVector().size() ];
-		getNodPatternVector().copyInto( result );
+		String[] result = new String[ getNodPatternVector().size() ] ;
+		getNodPatternVector().copyInto( result ) ;
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class SpIterNod extends SpIterComp
 	 */
 	public Vector getNodPatternVector()
 	{
-		return _avTable.getAll( ATTR_NOD_PATTERN );
+		return _avTable.getAll( ATTR_NOD_PATTERN ) ;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class SpIterNod extends SpIterComp
 	 */
 	public void setNodPattern( Vector nodPattern )
 	{
-		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern );
+		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern ) ;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class SpIterNod extends SpIterComp
 	 */
 	public void setNodPattern( String[] nodPatternArray )
 	{
-		setNodPattern( stringArrayToVector( nodPatternArray ) );
+		setNodPattern( stringArrayToVector( nodPatternArray ) ) ;
 	}
 
 	/**
@@ -145,27 +145,27 @@ public class SpIterNod extends SpIterComp
 	 */
 	public static Enumeration patterns()
 	{
-		Vector allPatterns = new Vector();
-		Vector onePattern;
+		Vector<Vector> allPatterns = new Vector<Vector>() ;
+		Vector<String> onePattern ;
 
 		for( int i = 0 ; i < NOD_PATTERNS.length ; i++ )
 		{
-			onePattern = new Vector();
+			onePattern = new Vector<String>() ;
 			for( int j = 0 ; j < NOD_PATTERNS[ i ].length ; j++ )
-				onePattern.addElement( NOD_PATTERNS[ i ][ j ] );
-			allPatterns.addElement( onePattern );
+				onePattern.addElement( NOD_PATTERNS[ i ][ j ] ) ;
+			allPatterns.addElement( onePattern ) ;
 		}
 
-		return allPatterns.elements();
+		return allPatterns.elements() ;
 	}
 
 	public static Vector stringArrayToVector( String[] stringArray )
 	{
-		Vector result = new Vector();
+		Vector result = new Vector() ;
 
 		for( int i = 0 ; i < stringArray.length ; i++ )
-			result.addElement( stringArray[ i ] );
+			result.addElement( stringArray[ i ] ) ;
 
-		return result;
+		return result ;
 	}
 }

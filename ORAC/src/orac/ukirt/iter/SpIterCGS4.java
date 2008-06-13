@@ -5,37 +5,38 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
 import java.util.Hashtable ;
 import java.util.Vector ;
 import java.util.List ;
 import java.util.Enumeration ;
 
-import orac.ukirt.inst.SpInstCGS4;
+import orac.ukirt.inst.SpInstCGS4 ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.iter.IterConfigItem;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.iter.IterConfigItem ;
 
-import gemini.util.ConfigWriter;
+import gemini.util.ConfigWriter ;
+import gemini.util.TranslationUtils ;
 
 /**
  * The CGS4 configuration iterator.
  */
 public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instCGS4" , "CGS4" );
-	private IterConfigItem iciInstAperL;
-	private Hashtable _myTable = null;
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instCGS4" , "CGS4" ) ;
+	private IterConfigItem iciInstAperL ;
+	private Hashtable _myTable = null ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterCGS4() );
+		SpFactory.registerPrototype( new SpIterCGS4() ) ;
 	}
 
 	/**
@@ -43,7 +44,7 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public SpIterCGS4()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public String getItemName()
 	{
-		return "CGS4";
+		return "CGS4" ;
 	}
 
 	/**
@@ -62,9 +63,9 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	public void addConfigItem( IterConfigItem ici , int size )
 	{
 		if( ici.attribute.equals( SpInstCGS4.ATTR_CENTRAL_WAVELENGTH + "Iter" ) )
-			super.addConfigItemNoDef( iciInstAperL , size );
+			super.addConfigItemNoDef( iciInstAperL , size ) ;
 
-		super.addConfigItem( ici , size );
+		super.addConfigItem( ici , size ) ;
 	}
 
 	/**
@@ -73,10 +74,10 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void deleteConfigItem( String attribute )
 	{
-		super.deleteConfigItem( attribute );
+		super.deleteConfigItem( attribute ) ;
 
 		if( attribute.equals( SpInstCGS4.ATTR_CENTRAL_WAVELENGTH + "Iter" ) )
-			super.deleteConfigItem( iciInstAperL.attribute );
+			super.deleteConfigItem( iciInstAperL.attribute ) ;
 	}
 
 	/**
@@ -86,11 +87,11 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void setConfigStep( String attribute , String value , int index )
 	{
-		_avTable.set( attribute , value , index );
+		_avTable.set( attribute , value , index ) ;
 
 		// If central wavelength then set L inst aper to same.
 		if( attribute.equals( SpInstCGS4.ATTR_CENTRAL_WAVELENGTH + "Iter" ) )
-			_avTable.set( SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter" , value , index );
+			_avTable.set( SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter" , value , index ) ;
 	}
 
 	/**
@@ -98,11 +99,11 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public IterConfigItem[] getAvailableItems()
 	{
-		IterConfigItem iciMode = new IterConfigItem( "Mode" , SpInstCGS4.ATTR_MODE + "Iter" , SpInstCGS4.MODES );
-		iciInstAperL = new IterConfigItem( "InstAperL" , SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter" , null );
-		IterConfigItem[] iciA = { iciMode , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciInstAperL };
+		IterConfigItem iciMode = new IterConfigItem( "Mode" , SpInstCGS4.ATTR_MODE + "Iter" , SpInstCGS4.MODES ) ;
+		iciInstAperL = new IterConfigItem( "InstAperL" , SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter" , null ) ;
+		IterConfigItem[] iciA = { iciMode , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciInstAperL } ;
 
-		return iciA;
+		return iciA ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -112,55 +113,55 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// Make sure we have a valid instrument
-		SpInstCGS4 inst;
+		SpInstCGS4 inst ;
 		try
 		{
-			inst = ( SpInstCGS4 )SpTreeMan.findInstrument( this );
+			inst = ( SpInstCGS4 )SpTreeMan.findInstrument( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new SpTranslationNotSupportedException( "No CGS4 instrument in scope" );
+			throw new SpTranslationNotSupportedException( "No CGS4 instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs();
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		List iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			_myTable = inst.getConfigItems();
+			_myTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "exposureTimeIter" ) )
-					_myTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) );
+					_myTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 				if( iterList.contains( "coaddsIter" ) )
-					_myTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) );
+					_myTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
 				if( iterList.contains( "acqModeIter" ) )
-					_myTable.put( "readMode" , ( String )getConfigSteps( "acqModeIter" ).get( i ) );
+					_myTable.put( "readMode" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperXIter" ) )
-					_myTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) );
+					_myTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperYIter" ) )
-					_myTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) );
+					_myTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperZIter" ) )
-					_myTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) );
+					_myTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperLIter" ) )
 				{
-					_myTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) );
-					_myTable.put( "centralWavelength" , ( String )getConfigSteps( "instAperLIter" ).get( i ) );
+					_myTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
+					_myTable.put( "centralWavelength" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
 				}
 
 				try
 				{
-					ConfigWriter.getCurrentInstance().write( _myTable );
+					ConfigWriter.getCurrentInstance().write( _myTable ) ;
 				}
 				catch( Exception e )
 				{
-					throw new SpTranslationNotSupportedException( "Unable to write config file for CGS4 iterator:" + e.getMessage() );
+					throw new SpTranslationNotSupportedException( "Unable to write config file for CGS4 iterator:" + e.getMessage() ) ;
 				}
 				
-				v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+				v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 
 				// translate all the cildren...
-				Enumeration e = this.children();
-				gemini.util.TranslationUtils.recurse( e , v ) ;
+				Enumeration e = this.children() ;
+				TranslationUtils.recurse( e , v ) ;
 			}
 		}
 	}
@@ -170,10 +171,10 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public Hashtable getIterTable()
 	{
-		Hashtable clone = null;
+		Hashtable clone = null ;
 		if( _myTable != null )
-			clone = new Hashtable( _myTable );
+			clone = new Hashtable( _myTable ) ;
 
-		return clone;
+		return clone ;
 	}
 }

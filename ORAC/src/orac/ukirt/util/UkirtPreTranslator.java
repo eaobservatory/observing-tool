@@ -7,9 +7,9 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.ukirt.util;
+package orac.ukirt.util ;
 
-import orac.util.TcsPreTranslator;
+import orac.util.TcsPreTranslator ;
 
 /**
  * XML PreTranslator for UKIRT.
@@ -20,12 +20,11 @@ import orac.util.TcsPreTranslator;
  */
 public class UkirtPreTranslator extends TcsPreTranslator
 {
-
-	private static final String[] TCS_TARGET_TYPES = { "science" , "guide" };
+	private static final String[] TCS_TARGET_TYPES = { "science" , "guide" } ;
 
 	public UkirtPreTranslator( String baseTag , String guideTag ) throws Exception
 	{
-		super( baseTag , guideTag );
+		super( baseTag , guideTag ) ;
 	}
 
 	/**
@@ -39,10 +38,10 @@ public class UkirtPreTranslator extends TcsPreTranslator
 	 *
 	 * Note that the tag which is defined as "Base" in ot.cfg and also displayed as
 	 * "Base" in the OT is changed to "science" in the TCS XML output to avoid confusion
-	 * with the existing &lt;base&gt; element in the TCS XML.
+	 * with the existing &lt ;base&gt ; element in the TCS XML.
 	 */
 	protected String[] getTcsTargetTypes()
 	{
-		return TCS_TARGET_TYPES;
+		return TCS_TARGET_TYPES ;
 	}
 }

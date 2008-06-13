@@ -7,9 +7,9 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import orac.validation.SpValidation;
+import orac.validation.SpValidation ;
 
 /**
  * Used for telescope specific features.
@@ -31,35 +31,35 @@ public interface TelescopeUtil
 	 *
 	 * Do <i>not</i> confuse with Telescope Position Editor features.
 	 */
-	public static final int FEATURE_TARGET_INFO_CHOP = 0;
+	public static final int FEATURE_TARGET_INFO_CHOP = 0 ;
 
 	/**
 	 * Target Information Component, Tab "Proper Motion".
 	 *
 	 * Do <i>not</i> confuse with Telescope Position Editor features.
 	 */
-	public static final int FEATURE_TARGET_INFO_PROP_MOTION = 1;
+	public static final int FEATURE_TARGET_INFO_PROP_MOTION = 1 ;
 
 	/**
 	 * Target Information Component, Tab "Tracking Details".
 	 *
 	 * Do <i>not</i> confuse with Telescope Position Editor features.
 	 */
-	public static final int FEATURE_TARGET_INFO_TRACKING = 2;
+	public static final int FEATURE_TARGET_INFO_TRACKING = 2 ;
 
 	/**
 	 * Offset iterator, PA.
 	 */
-	public static final int FEATURE_OFFSET_GRID_PA = 3;
+	public static final int FEATURE_OFFSET_GRID_PA = 3 ;
 
 	/**
 	 * "Flag as standard" option on Observation component.
 	 */
-	public static final int FEATURE_FLAG_AS_STANDARD = 4;
-	public static final String CHOP = "chop";
+	public static final int FEATURE_FLAG_AS_STANDARD = 4 ;
+	public static final String CHOP = "chop" ;
 
 	/** TCS radial velocity definitions */
-	public static final String[] TCS_RV_DEFINITIONS = { "radio" , "optical" , "redshift" };
+	public static final String[] TCS_RV_DEFINITIONS = { "radio" , "optical" , "redshift" } ;
 
 	/** TCS radial velocity frames */
 	public static final String[] TCS_RV_FRAMES = 
@@ -71,14 +71,14 @@ public interface TelescopeUtil
 		"TOPOCENTRIC" 
 	} ;
 
-	public SpValidation getValidationTool();
+	public SpValidation getValidationTool() ;
 
 	/**
 	 * Get telescope specific base tag.
 	 *
 	 * For example "Base" for UKIRT and "Science" for JCMT.
 	 */
-	public String getBaseTag();
+	public String getBaseTag() ;
 
 	/**
 	 * Returns true if the user input for targetTag
@@ -86,23 +86,23 @@ public interface TelescopeUtil
 	 *
 	 * E.g. "reference" position for ACSIS/JCMT.
 	 */
-	public boolean isOffsetTarget( String targetTag );
+	public boolean isOffsetTarget( String targetTag ) ;
 
-	public boolean supports( int feature );
+	public boolean supports( int feature ) ;
 
-	public void installPreTranslator() throws Exception;
+	public void installPreTranslator() throws Exception ;
 
 	/**
 	 * Returns an array of default coordinates.
 	 *
 	 * To be used to target information component.
 	 */
-	public String[] getCoordSys();
+	public String[] getCoordSys() ;
 
 	/**
 	 * Returns an array of coordinate system for a given purpose.
 	 *
 	 * @param purpose E.g. Chop, Jiggle, Offset etc.
 	 */
-	public String[] getCoordSysFor( String purpose );
+	public String[] getCoordSysFor( String purpose ) ;
 }

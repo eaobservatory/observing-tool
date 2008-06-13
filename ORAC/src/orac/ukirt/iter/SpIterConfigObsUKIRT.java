@@ -4,19 +4,19 @@
 //
 // $Id$
 //
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.iter.SpIterConfigObs;
-import gemini.sp.iter.IterConfigItem;
-import orac.ukirt.inst.SpUKIRTInstObsComp;
-import java.io.File;
-import java.util.Vector;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.iter.SpIterConfigObs ;
+import gemini.sp.iter.IterConfigItem ;
+import orac.ukirt.inst.SpUKIRTInstObsComp ;
+import java.io.File ;
+import java.util.Vector ;
 
 /**
  * This class extends the SpIterConfigObs class and adds some UKIRT
@@ -28,7 +28,7 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 
 	public SpIterConfigObsUKIRT( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -36,13 +36,13 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		SpItem _baseItem = parent();
+		SpItem _baseItem = parent() ;
 
 		// Added by RDK
 		if( _baseItem == null )
-			return null;
+			return null ;
 		else
-			return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem );
+			return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
 		//End of Added by RDK
 	}
 
@@ -51,15 +51,15 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	 */
 	public void insertConfigStep( int index )
 	{
-		super.insertConfigStep( index );
-		Vector v = getConfigAttribs();
+		super.insertConfigStep( index ) ;
+		Vector v = getConfigAttribs() ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			String defval = "";
+			String a = ( String )v.elementAt( i ) ;
+			String defval = "" ;
 			if( index > 0 )
-				defval = getConfigStep( a , index - 1 );
-			setConfigStep( a , defval , index );
+				defval = getConfigStep( a , index - 1 ) ;
+			setConfigStep( a , defval , index ) ;
 		}
 	}
 
@@ -69,22 +69,22 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	public void addConfigItem( IterConfigItem ici , int size )
 	{
 
-		super.addConfigItem( ici , size );
+		super.addConfigItem( ici , size ) ;
 
 		// Get default from the associated instrument
-		SpInstObsComp _inst = getInstrumentItem();
-		String defval = "";
-		int l = ici.attribute.length();
-		defval = _inst.getTable().get( ici.attribute.substring( 0 , l - 4 ) );
+		SpInstObsComp _inst = getInstrumentItem() ;
+		String defval = "" ;
+		int l = ici.attribute.length() ;
+		defval = _inst.getTable().get( ici.attribute.substring( 0 , l - 4 ) ) ;
 
 		if( size == 0 )
 		{
-			setConfigStep( ici.attribute , defval , 0 );
+			setConfigStep( ici.attribute , defval , 0 ) ;
 		}
 		else
 		{
 			for( int i = 0 ; i < size ; i++ )
-				setConfigStep( ici.attribute , defval , i );
+				setConfigStep( ici.attribute , defval , i ) ;
 		}
 
 	}
@@ -94,7 +94,7 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	 */
 	public void addConfigItemNoDef( IterConfigItem ici , int size )
 	{
-		super.addConfigItem( ici , size );
+		super.addConfigItem( ici , size ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -103,15 +103,15 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		String confDir = System.getProperty( "CONF_PATH" );
+		String confDir = System.getProperty( "CONF_PATH" ) ;
 		if( confDir == null || confDir.equals( "" ) || !( new File( confDir ).exists() ) )
-			confDir = System.getProperty( "user.home" );
+			confDir = System.getProperty( "user.home" ) ;
 
 		// Get default values from the instrument
-		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null || !( inst instanceof SpUKIRTInstObsComp ) )
-			throw new SpTranslationNotSupportedException( "No instrument, or not a UKIRT instrument" );
+			throw new SpTranslationNotSupportedException( "No instrument, or not a UKIRT instrument" ) ;
 
-		IterConfigItem[] a_ici = getAvailableItems();
+		IterConfigItem[] a_ici = getAvailableItems() ;
 	}
 }

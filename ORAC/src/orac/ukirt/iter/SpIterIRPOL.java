@@ -7,13 +7,15 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpType;
-import gemini.sp.iter.IterConfigItem;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpType ;
+import gemini.sp.iter.IterConfigItem ;
+
+import gemini.util.TranslationUtils ;
 
 import java.util.Vector ;
 import java.util.Enumeration ;
@@ -24,12 +26,12 @@ import java.util.List ;
  */
 public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instIRPOL" , "IRPOL" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instIRPOL" , "IRPOL" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterIRPOL() );
+		SpFactory.registerPrototype( new SpIterIRPOL() ) ;
 	}
 
 	// Hardwire the allowed angles, so that they are accessible to all instruments.
@@ -51,14 +53,14 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 		"292.5" , 
 		"315.0" , 
 		"337.5" 
-	};
+	} ;
 
 	/**
 	 * Default constructor.
 	 */
 	public SpIterIRPOL()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -67,7 +69,7 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public String getItemName()
 	{
-		return "IRPOL";
+		return "IRPOL" ;
 	}
 
 	/**
@@ -75,10 +77,10 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 	 */
 	public void addConfigItem( IterConfigItem ici , int size )
 	{
-		super.addConfigItemNoDef( ici , size );
+		super.addConfigItemNoDef( ici , size ) ;
 
 		// Then set a default value
-		setConfigStep( ici.attribute , ALLOWED_ANGLES[ 0 ] , 0 );
+		setConfigStep( ici.attribute , ALLOWED_ANGLES[ 0 ] , 0 ) ;
 	}
 
 	/**
@@ -87,21 +89,21 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 	public IterConfigItem[] getAvailableItems()
 	{
 		// Hardwire the allowed angles.
-		IterConfigItem iciWPLAngle = new IterConfigItem( "Waveplate Angle" , "IRPOLIter" , ALLOWED_ANGLES );
-		IterConfigItem[] iciA = { iciWPLAngle };
+		IterConfigItem iciWPLAngle = new IterConfigItem( "Waveplate Angle" , "IRPOLIter" , ALLOWED_ANGLES ) ;
+		IterConfigItem[] iciA = { iciWPLAngle } ;
 
-		return iciA;
+		return iciA ;
 	}
 
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		List iterList = getConfigAttribs();
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size();
+		List iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			v.add( "polAngle " + ( String )getConfigSteps( "IRPOLIter" ).get( i ) );
-			Enumeration e = this.children();
-			gemini.util.TranslationUtils.recurse( e , v ) ;
+			v.add( "polAngle " + ( String )getConfigSteps( "IRPOLIter" ).get( i ) ) ;
+			Enumeration e = this.children() ;
+			TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }

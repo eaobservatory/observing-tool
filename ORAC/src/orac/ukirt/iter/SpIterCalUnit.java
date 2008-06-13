@@ -4,13 +4,13 @@
 //
 // $Id$
 //
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.IterConfigItem;
-import gemini.sp.iter.SpIterConfigObs;
+import gemini.sp.iter.IterConfigItem ;
+import gemini.sp.iter.SpIterConfigObs ;
 
 /**
  * The CalUnit configuration iterator.
@@ -18,12 +18,12 @@ import gemini.sp.iter.SpIterConfigObs;
 public class SpIterCalUnit extends SpIterConfigObs
 {
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "calUnit" , "Cal Unit (Advanced)" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "calUnit" , "Cal Unit (Advanced)" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterCalUnit() );
+		SpFactory.registerPrototype( new SpIterCalUnit() ) ;
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class SpIterCalUnit extends SpIterConfigObs
 	 */
 	public SpIterCalUnit()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class SpIterCalUnit extends SpIterConfigObs
 	 */
 	public String getItemName()
 	{
-		return "Cal Unit";
+		return "Cal Unit" ;
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class SpIterCalUnit extends SpIterConfigObs
 	 */
 	public IterConfigItem[] getAvailableItems()
 	{
-		IterConfigItem iciLamps = new IterConfigItem( "Lamp" , SpCalUnitConstants.ATTR_LAMP + "Iter" , SpCalUnitConstants.CGS4_ARC_LAMPS );
-		IterConfigItem iciFilters = new IterConfigItem( "Filter" , SpCalUnitConstants.ATTR_FILTER + "Iter" , SpCalUnitConstants.CGS4_FILTERS );
-		IterConfigItem iciModes = new IterConfigItem( "Mode" , SpCalUnitConstants.ATTR_MODE + "Iter" , SpCalUnitConstants.MODES );
-		IterConfigItem[] iciA = { iciLamps , iciFilters , iciModes , getExposureTimeConfigItem() , getCoaddsConfigItem() };
+		IterConfigItem iciLamps = new IterConfigItem( "Lamp" , SpCalUnitConstants.ATTR_LAMP + "Iter" , SpCalUnitConstants.CGS4_ARC_LAMPS ) ;
+		IterConfigItem iciFilters = new IterConfigItem( "Filter" , SpCalUnitConstants.ATTR_FILTER + "Iter" , SpCalUnitConstants.CGS4_FILTERS ) ;
+		IterConfigItem iciModes = new IterConfigItem( "Mode" , SpCalUnitConstants.ATTR_MODE + "Iter" , SpCalUnitConstants.MODES ) ;
+		IterConfigItem[] iciA = { iciLamps , iciFilters , iciModes , getExposureTimeConfigItem() , getCoaddsConfigItem() } ;
 
-		return iciA;
+		return iciA ;
 	}
 }

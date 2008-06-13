@@ -7,16 +7,16 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import orac.util.PreTranslator;
-import gemini.sp.SpTelescopePos;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Vector;
-import org.w3c.dom.NodeList;
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xerces.dom.DocumentImpl;
+import orac.util.PreTranslator ;
+import gemini.sp.SpTelescopePos ;
+import java.util.Arrays ;
+import java.util.Hashtable ;
+import java.util.Vector ;
+import org.w3c.dom.NodeList ;
+import org.apache.xerces.dom.ElementImpl ;
+import org.apache.xerces.dom.DocumentImpl ;
 
 /**
  * XML (DOM) PreTranslator for UKIRT and JCMT.
@@ -35,21 +35,21 @@ import org.apache.xerces.dom.DocumentImpl;
  */
 public abstract class TcsPreTranslator implements PreTranslator
 {
-	protected String EXCECPTION_MESSAGE_PREFIX = "Problem pre-translating xml: ";
+	protected String EXCECPTION_MESSAGE_PREFIX = "Problem pre-translating xml: " ;
 
 	/**
 	 * Telescope specific target types.
 	 */
-	private static String[] TELESCOPE_TARGET_TAGS;
+	private static String[] TELESCOPE_TARGET_TAGS ;
 
 	/**
 	 * Target types used by the JAC OCS TCS.
 	 */
-	protected abstract String[] getTcsTargetTypes();
+	protected abstract String[] getTcsTargetTypes() ;
 
 	public TcsPreTranslator( String telescopeTarget1 , String telescopeTarget2 ) throws Exception
 	{
-		TELESCOPE_TARGET_TAGS = new String[] { telescopeTarget1 , telescopeTarget2 };
+		TELESCOPE_TARGET_TAGS = new String[] { telescopeTarget1 , telescopeTarget2 } ;
 	}
 
 	/**
@@ -58,10 +58,10 @@ public abstract class TcsPreTranslator implements PreTranslator
 	public void translate( ElementImpl element ) throws Exception
 	{
 		if( ( getTcsTargetTypes() == null ) || ( getTcsTargetTypes().length != 2 ) || ( TELESCOPE_TARGET_TAGS == null ) || ( TELESCOPE_TARGET_TAGS.length != 2 ) )
-			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n2 TCS target types and 2 telescope target tags needed for translation." );
+			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n2 TCS target types and 2 telescope target tags needed for translation." ) ;
 
-		translateAllTargetInformation( element );
-		translateAllOffsetIterators( element );
+		translateAllTargetInformation( element ) ;
+		translateAllOffsetIterators( element ) ;
 	}
 
 	/**
@@ -70,10 +70,10 @@ public abstract class TcsPreTranslator implements PreTranslator
 	public void reverse( ElementImpl element ) throws Exception
 	{
 		if( ( getTcsTargetTypes() == null ) || ( getTcsTargetTypes().length != 2 ) || ( TELESCOPE_TARGET_TAGS == null ) || ( TELESCOPE_TARGET_TAGS.length != 2 ) )
-			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n2 TCS target types and 2 telescope target tags needed for reverse translation." );
+			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n2 TCS target types and 2 telescope target tags needed for reverse translation." ) ;
 
-		reverseAllTargetInformation( element );
-		reverseAllOffsetIterators( element );
+		reverseAllTargetInformation( element ) ;
+		reverseAllOffsetIterators( element ) ;
 	}
 
 	/**
@@ -91,77 +91,77 @@ public abstract class TcsPreTranslator implements PreTranslator
 	{
 
 		if( !element.getTagName().equals( "SpTelescopeObsComp" ) )
-			return;
+			return ;
 
 		try
 		{
-			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument();
+			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument() ;
 
 			// Elements before conversion.
-			ElementImpl targetListElement;
-			NodeList valueList;
+			ElementImpl targetListElement ;
+			NodeList valueList ;
 
 			// Converted elements.
-			ElementImpl baseElement = null;
-			ElementImpl child;
+			ElementImpl baseElement = null ;
+			ElementImpl child ;
 
 			for( int i = 0 ; i < TELESCOPE_TARGET_TAGS.length ; i++ )
 			{
-				targetListElement = ( ElementImpl )element.getElementsByTagName( TELESCOPE_TARGET_TAGS[ i ] ).item( 0 );
+				targetListElement = ( ElementImpl )element.getElementsByTagName( TELESCOPE_TARGET_TAGS[ i ] ).item( 0 ) ;
 
 				if( targetListElement != null )
 				{
-					boolean translationNeeded = true;
+					boolean translationNeeded = true ;
 
 					// If conicSystem or namedSystem then do not translate this target.
-					NodeList targetSystemList = targetListElement.getElementsByTagName( "conicSystem" );
+					NodeList targetSystemList = targetListElement.getElementsByTagName( "conicSystem" ) ;
 					if( ( targetSystemList != null ) && ( targetSystemList.getLength() > 0 ) )
-						translationNeeded = false;
+						translationNeeded = false ;
 
-					targetSystemList = targetListElement.getElementsByTagName( "namedSystem" );
+					targetSystemList = targetListElement.getElementsByTagName( "namedSystem" ) ;
 					if( ( targetSystemList != null ) && ( targetSystemList.getLength() > 0 ) )
-						translationNeeded = false;
+						translationNeeded = false ;
 
 					if( translationNeeded )
 					{
-						valueList = targetListElement.getElementsByTagName( "value" );
+						valueList = targetListElement.getElementsByTagName( "value" ) ;
 
 						// Don't confuse OCS TCS element <base> with Ukirt telescope tag "Base".
-						baseElement = ( ElementImpl )document.createElement( "base" );
+						baseElement = ( ElementImpl )document.createElement( "base" ) ;
 
 						// Add target element and add type attribute.
-						child = ( ElementImpl )baseElement.appendChild( document.createElement( "target" ) );
-						child.setAttribute( "type" , getTcsTargetTypes()[ i ] );
+						child = ( ElementImpl )baseElement.appendChild( document.createElement( "target" ) ) ;
+						child.setAttribute( "type" , getTcsTargetTypes()[ i ] ) ;
 
 						// Add targetName element with text node containing the target name.
-						child = ( ElementImpl )child.appendChild( document.createElement( "targetName" ) );
-						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.NAME_INDEX ).getFirstChild().getNodeValue() ) );
+						child = ( ElementImpl )child.appendChild( document.createElement( "targetName" ) ) ;
+						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.NAME_INDEX ).getFirstChild().getNodeValue() ) ) ;
 
 						// Set child to target element again.
-						child = ( ElementImpl )child.getParentNode();
+						child = ( ElementImpl )child.getParentNode() ;
 
 						// Add hmsdegSystem element and add type attribute.
-						child = ( ElementImpl )child.appendChild( document.createElement( "hmsdegSystem" ) );
-						String system = valueList.item( SpTelescopePos.COORD_SYS_INDEX ).getFirstChild().getNodeValue();
+						child = ( ElementImpl )child.appendChild( document.createElement( "hmsdegSystem" ) ) ;
+						String system = valueList.item( SpTelescopePos.COORD_SYS_INDEX ).getFirstChild().getNodeValue() ;
 						if( system.equals( "FK4 (B1950)" ) )
-							system = "B1950";
+							system = "B1950" ;
 						if( system.equals( "FK5 (J2000)" ) )
-							system = "J2000";
-						child.setAttribute( "type" , system );
+							system = "J2000" ;
+						child.setAttribute( "type" , system ) ;
 
 						// Add c1 target with text node containing RA.
-						child = ( ElementImpl )child.appendChild( document.createElement( "c1" ) );
-						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.XAXIS_INDEX ).getFirstChild().getNodeValue() ) );
+						child = ( ElementImpl )child.appendChild( document.createElement( "c1" ) ) ;
+						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.XAXIS_INDEX ).getFirstChild().getNodeValue() ) ) ;
 
 						// Set child to hmsdegSystem element again.
-						child = ( ElementImpl )child.getParentNode();
+						child = ( ElementImpl )child.getParentNode() ;
 
 						// Add c2 target with text node containing Dec.
-						child = ( ElementImpl )child.appendChild( document.createElement( "c2" ) );
-						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.YAXIS_INDEX ).getFirstChild().getNodeValue() ) );
+						child = ( ElementImpl )child.appendChild( document.createElement( "c2" ) ) ;
+						child.appendChild( document.createTextNode( valueList.item( SpTelescopePos.YAXIS_INDEX ).getFirstChild().getNodeValue() ) ) ;
 
 						// Replace old target list element (Sp style value array) with new base element (TCS XML)
-						element.replaceChild( baseElement , targetListElement );
+						element.replaceChild( baseElement , targetListElement ) ;
 					}
 				}
 			}
@@ -171,38 +171,38 @@ public abstract class TcsPreTranslator implements PreTranslator
 			{
 				if( element.getElementsByTagName( "chopping" ).item( 0 ).getFirstChild().getNodeValue().equals( "true" ) )
 				{
-					ElementImpl chopElement = ( ElementImpl )document.createElement( "chop" );
+					ElementImpl chopElement = ( ElementImpl )document.createElement( "chop" ) ;
 
 					if( element.getElementsByTagName( "chopAngle" ).item( 0 ) != null )
 					{
-						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopAngle" ).item( 0 ) );
-						child.setAttribute( "units" , "degrees" );
-						chopElement.appendChild( child );
+						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopAngle" ).item( 0 ) ) ;
+						child.setAttribute( "units" , "degrees" ) ;
+						chopElement.appendChild( child ) ;
 					}
 
 					if( element.getElementsByTagName( "chopThrow" ).item( 0 ) != null )
 					{
-						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopThrow" ).item( 0 ) );
-						child.setAttribute( "units" , "arcseconds" );
-						chopElement.appendChild( child );
+						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopThrow" ).item( 0 ) ) ;
+						child.setAttribute( "units" , "arcseconds" ) ;
+						chopElement.appendChild( child ) ;
 					}
 
 					if( element.getElementsByTagName( "chopSystem" ).item( 0 ) != null )
 					{
-						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopSystem" ).item( 0 ) );
-						chopElement.appendChild( child );
+						child = ( ElementImpl )element.removeChild( element.getElementsByTagName( "chopSystem" ).item( 0 ) ) ;
+						chopElement.appendChild( child ) ;
 					}
 
-					element.appendChild( chopElement );
+					element.appendChild( chopElement ) ;
 				}
 				else
 				{
-					element.removeChild( element.getElementsByTagName( "chopAngle" ).item( 0 ) );
-					element.removeChild( element.getElementsByTagName( "chopThrow" ).item( 0 ) );
+					element.removeChild( element.getElementsByTagName( "chopAngle" ).item( 0 ) ) ;
+					element.removeChild( element.getElementsByTagName( "chopThrow" ).item( 0 ) ) ;
 
 					try
 					{
-						element.removeChild( element.getElementsByTagName( "chopSystem" ).item( 0 ) );
+						element.removeChild( element.getElementsByTagName( "chopSystem" ).item( 0 ) ) ;
 					}
 					catch( Exception e )
 					{
@@ -210,14 +210,14 @@ public abstract class TcsPreTranslator implements PreTranslator
 					}
 				}
 
-				element.removeChild( element.getElementsByTagName( "chopping" ).item( 0 ) );
+				element.removeChild( element.getElementsByTagName( "chopping" ).item( 0 ) ) ;
 			}
 		}
 		// Make sure RuntimeExceptions are not ignored.
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			throw new Exception( "Problem while converting target information to TCS XML format." );
+			e.printStackTrace() ;
+			throw new Exception( "Problem while converting target information to TCS XML format." ) ;
 		}
 	}
 
@@ -236,153 +236,153 @@ public abstract class TcsPreTranslator implements PreTranslator
 	{
 
 		if( !element.getTagName().equals( "SpTelescopeObsComp" ) )
-			return;
+			return ;
 
 		try
 		{
-			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument();
+			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument() ;
 
 			// Elements before conversion.
-			NodeList baseNodes = element.getElementsByTagName( "base" );
-			ElementImpl baseElement;
+			NodeList baseNodes = element.getElementsByTagName( "base" ) ;
+			ElementImpl baseElement ;
 
 			// Converted elements.
-			ElementImpl targetListElement = null;
-			String value = null;
-			String type = null;
-			Vector targetElementVector = new Vector();
+			ElementImpl targetListElement = null ;
+			String value = null ;
+			String type = null ;
+			Vector<ElementImpl> targetElementVector = new Vector<ElementImpl>() ;
 
 			// There should be one or two <base> elements (one for each telescope target tag).
 			for( int i = 0 ; i < baseNodes.getLength() ; i++ )
 			{
-				baseElement = ( ElementImpl )baseNodes.item( i );
+				baseElement = ( ElementImpl )baseNodes.item( i ) ;
 
 				// tag
-				type = ( ( ElementImpl )baseElement.getElementsByTagName( "target" ).item( 0 ) ).getAttribute( "type" );
+				type = ( ( ElementImpl )baseElement.getElementsByTagName( "target" ).item( 0 ) ).getAttribute( "type" ) ;
 
 				// ?? MFO
 				// If baseNodes.getAttribute("type") isn't one of getTcsTargetTypes() then use it directly without converting it.
 				if( type.equals( getTcsTargetTypes()[ 0 ] ) )
-					value = TELESCOPE_TARGET_TAGS[ 0 ];
+					value = TELESCOPE_TARGET_TAGS[ 0 ] ;
 				else if( type.equals( getTcsTargetTypes()[ 1 ] ) )
-					value = TELESCOPE_TARGET_TAGS[ 1 ];
+					value = TELESCOPE_TARGET_TAGS[ 1 ] ;
 				else
-					value = type;
+					value = type ;
 
 				// Create Element for telescope target tags.
-				targetListElement = ( ElementImpl )document.createElement( value );
+				targetListElement = ( ElementImpl )document.createElement( value ) ;
 
 				// Set text of first value element to the telescope target tag too.
-				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) );
+				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) ) ;
 
 				// target name
 				try
 				{
-					value = baseElement.getElementsByTagName( "targetName" ).item( 0 ).getFirstChild().getNodeValue();
+					value = baseElement.getElementsByTagName( "targetName" ).item( 0 ).getFirstChild().getNodeValue() ;
 				}
 				catch( NullPointerException e )
 				{
-					value = "";
+					value = "" ;
 				}
-				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) );
+				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) ) ;
 
 				// RA
 				try
 				{
-					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getElementsByTagName( "c1" ).item( 0 ).getFirstChild().getNodeValue();
+					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getElementsByTagName( "c1" ).item( 0 ).getFirstChild().getNodeValue() ;
 				}
 				catch( NullPointerException e )
 				{
-					value = "";
+					value = "" ;
 				}
-				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) );
+				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) ) ;
 
 				// Dec
 				try
 				{
-					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getElementsByTagName( "c2" ).item( 0 ).getFirstChild().getNodeValue();
+					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getElementsByTagName( "c2" ).item( 0 ).getFirstChild().getNodeValue() ;
 				}
 				catch( NullPointerException e )
 				{
-					value = "";
+					value = "" ;
 				}
-				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) );
+				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) ) ;
 
 				// System
 				try
 				{
-					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getAttribute( "type" );
+					value = ( ( ElementImpl )( baseElement.getElementsByTagName( "hmsdegSystem" ).item( 0 ) ) ).getAttribute( "type" ) ;
 				}
 				catch( NullPointerException e )
 				{
-					value = "";
+					value = "" ;
 				}
 				if( value.equals( "B1950" ) )
-					value = "FK4 (B1950)";
+					value = "FK4 (B1950)" ;
 				if( value.equals( "J2000" ) )
-					value = "FK5 (J2000)";
-				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) );
+					value = "FK5 (J2000)" ;
+				targetListElement.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( value ) ) ;
 
 				// Replacing baseElement element immediately with targetListElement)
 				// seems to cause problems because all baseElement nodes seem to be removed as they all have
 				// the same node name. So add targetListElement to targetElementVector and do the replacing later.
-				targetElementVector.add( targetListElement );
+				targetElementVector.add( targetListElement ) ;
 			}
 
 			// Remove all TCS XML "base" elements children
 			while( baseNodes.getLength() > 0 )
-				element.removeChild( baseNodes.item( 0 ) );
+				element.removeChild( baseNodes.item( 0 ) ) ;
 
 			// Add telescope target tag elements.
 			for( int i = 0 ; i < targetElementVector.size() ; i++ )
-				element.appendChild( ( ElementImpl )targetElementVector.get( i ) );
+				element.appendChild( ( ElementImpl )targetElementVector.get( i ) ) ;
 
 			// Deal with chop parameters
-			ElementImpl chopElement;
-			ElementImpl child;
+			ElementImpl chopElement ;
+			ElementImpl child ;
 
 			if( element.getElementsByTagName( "chop" ).getLength() > 0 )
 			{
-				chopElement = ( ElementImpl )element.getElementsByTagName( "chop" ).item( 0 );
+				chopElement = ( ElementImpl )element.getElementsByTagName( "chop" ).item( 0 ) ;
 
-				child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopAngle" ).item( 0 ) );
-				child.removeAttribute( "units" );
-				element.appendChild( child );
+				child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopAngle" ).item( 0 ) ) ;
+				child.removeAttribute( "units" ) ;
+				element.appendChild( child ) ;
 
-				child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopThrow" ).item( 0 ) );
-				child.removeAttribute( "units" );
-				element.appendChild( child );
+				child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopThrow" ).item( 0 ) ) ;
+				child.removeAttribute( "units" ) ;
+				element.appendChild( child ) ;
 
 				try
 				{
-					child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopSystem" ).item( 0 ) );
-					element.appendChild( child );
+					child = ( ElementImpl )chopElement.removeChild( chopElement.getElementsByTagName( "chopSystem" ).item( 0 ) ) ;
+					element.appendChild( child ) ;
 				}
 				catch( Exception e )
 				{
 					// Throws a NullPointerException if there is no chopSystem. Ignore.
 				}
 
-				child = ( ElementImpl )element.appendChild( document.createElement( "chopping" ) );
-				child.appendChild( document.createTextNode( "true" ) );
+				child = ( ElementImpl )element.appendChild( document.createElement( "chopping" ) ) ;
+				child.appendChild( document.createTextNode( "true" ) ) ;
 			}
 			else
 			{
-				child = ( ElementImpl )element.appendChild( document.createElement( "chopping" ) );
-				child.appendChild( document.createTextNode( "false" ) );
-				child = ( ElementImpl )element.appendChild( document.createElement( "chopAngle" ) );
-				child.appendChild( document.createTextNode( "" ) );
-				child = ( ElementImpl )element.appendChild( document.createElement( "chopThrow" ) );
-				child.appendChild( document.createTextNode( "" ) );
-				child = ( ElementImpl )element.appendChild( document.createElement( "chopSystem" ) );
-				child.appendChild( document.createTextNode( "" ) );
+				child = ( ElementImpl )element.appendChild( document.createElement( "chopping" ) ) ;
+				child.appendChild( document.createTextNode( "false" ) ) ;
+				child = ( ElementImpl )element.appendChild( document.createElement( "chopAngle" ) ) ;
+				child.appendChild( document.createTextNode( "" ) ) ;
+				child = ( ElementImpl )element.appendChild( document.createElement( "chopThrow" ) ) ;
+				child.appendChild( document.createTextNode( "" ) ) ;
+				child = ( ElementImpl )element.appendChild( document.createElement( "chopSystem" ) ) ;
+				child.appendChild( document.createTextNode( "" ) ) ;
 			}
 		}
 		// Make sure RuntimeExceptions are not ignored.
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			throw new Exception( "Problem while converting TCS XML to value array." );
+			e.printStackTrace() ;
+			throw new Exception( "Problem while converting TCS XML to value array." ) ;
 		}
 	}
 
@@ -393,10 +393,10 @@ public abstract class TcsPreTranslator implements PreTranslator
 	 */
 	private void translateAllTargetInformation( ElementImpl element ) throws Exception
 	{
-		NodeList telescopeObsCompList = element.getElementsByTagName( "SpTelescopeObsComp" );
+		NodeList telescopeObsCompList = element.getElementsByTagName( "SpTelescopeObsComp" ) ;
 
 		for( int i = 0 ; i < telescopeObsCompList.getLength() ; i++ )
-			translateTargetInformation( ( ElementImpl )telescopeObsCompList.item( i ) );
+			translateTargetInformation( ( ElementImpl )telescopeObsCompList.item( i ) ) ;
 	}
 
 	/**
@@ -406,10 +406,10 @@ public abstract class TcsPreTranslator implements PreTranslator
 	 */
 	private void reverseAllTargetInformation( ElementImpl element ) throws Exception
 	{
-		NodeList telescopeObsCompList = element.getElementsByTagName( "SpTelescopeObsComp" );
+		NodeList telescopeObsCompList = element.getElementsByTagName( "SpTelescopeObsComp" ) ;
 
 		for( int i = 0 ; i < telescopeObsCompList.getLength() ; i++ )
-			reverseTargetInformation( ( ElementImpl )telescopeObsCompList.item( i ) );
+			reverseTargetInformation( ( ElementImpl )telescopeObsCompList.item( i ) ) ;
 	}
 
 	/**
@@ -426,93 +426,93 @@ public abstract class TcsPreTranslator implements PreTranslator
 	private void translateOffsetIterator( ElementImpl element ) throws Exception
 	{
 		if( !element.getTagName().equals( "SpIterOffset" ) )
-			return;
+			return ;
 
 		try
 		{
-			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument();
+			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument() ;
 
 			// Science Program XML elements
-			ElementImpl sp_offsetPositions; // <offsetPositions>
-			ElementImpl sp_OffsetN; // <OffsetN> where N is an integer at the end of the tag name string
-			NodeList sp_offsetPositions_values; // <value>   These are the <value> elements in
+			ElementImpl sp_offsetPositions ; // <offsetPositions>
+			ElementImpl sp_OffsetN ; // <OffsetN> where N is an integer at the end of the tag name string
+			NodeList sp_offsetPositions_values ; // <value>   These are the <value> elements in
 			//           sp_offsetPositions (<offsetPositions>)
 			//           There is one such element for each offset position.
 
-			NodeList sp_OffsetN_values; // <value>   These are the <value> elements in
+			NodeList sp_OffsetN_values ; // <value>   These are the <value> elements in
 			//           sp_OffsetN_values (<OffsetN>)
 			//           There is one such element for p and one for q.
-			String sp_OffsetN_name; // OffsetN name String.
-			String[] sp_OffsetN_nameArray; // Array of OffsetN name Strings (used for sorting).
+			String sp_OffsetN_name ; // OffsetN name String.
+			String[] sp_OffsetN_nameArray ; // Array of OffsetN name Strings (used for sorting).
 
 			// TCS XML elements
-			ElementImpl tcs_obsArea; // <obsArea>
-			ElementImpl tcs_offset; // <offset>
-			Hashtable tcs_offset_table = new Hashtable();
+			ElementImpl tcs_obsArea ; // <obsArea>
+			ElementImpl tcs_offset ; // <offset>
+			Hashtable<String,ElementImpl> tcs_offset_table = new Hashtable<String,ElementImpl>() ;
 			// Hashtable containing tcs_offsets so that they can be sorted.
 
 			// Get hold of the offset positions.
-			sp_offsetPositions = ( ElementImpl )element.getElementsByTagName( "offsetPositions" ).item( 0 );
+			sp_offsetPositions = ( ElementImpl )element.getElementsByTagName( "offsetPositions" ).item( 0 ) ;
 			if( sp_offsetPositions == null )
-				throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n\nCould not find offset positions in offset iterator." );
+				throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n\nCould not find offset positions in offset iterator." ) ;
 
 			// Get hold of the values in sp_offsetPositions list.
-			sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName( "value" );
+			sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName( "value" ) ;
 
 			// If there is only one offset position then it is directly inside <offsetPositions> (no <value> tag).
 			if( ( sp_offsetPositions_values == null ) || ( sp_offsetPositions_values.getLength() < 1 ) )
 			{
 				// Put the single offset position inside <offsetPositions> into a <value> element.
-				sp_offsetPositions.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( sp_offsetPositions.getFirstChild().getNodeValue() ) );
+				sp_offsetPositions.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( sp_offsetPositions.getFirstChild().getNodeValue() ) ) ;
 
 				// Now try again
-				sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName( "value" );
+				sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName( "value" ) ;
 			}
 
 			// Create obsArea element for TCS XML.
-			tcs_obsArea = ( ElementImpl )document.createElement( "obsArea" );
-			sp_OffsetN_nameArray = new String[ sp_offsetPositions_values.getLength() ];
+			tcs_obsArea = ( ElementImpl )document.createElement( "obsArea" ) ;
+			sp_OffsetN_nameArray = new String[ sp_offsetPositions_values.getLength() ] ;
 
 			for( int i = 0 ; i < sp_offsetPositions_values.getLength() ; i++ )
 			{
-				tcs_offset = ( ElementImpl )document.createElement( "offset" );
-				tcs_offset.setAttribute( "id" , "offset" + ( i + 1 ) );
-				sp_OffsetN_name = sp_offsetPositions_values.item( i ).getFirstChild().getNodeValue();
-				tcs_offset_table.put( sp_OffsetN_name , tcs_offset );
-				sp_OffsetN_nameArray[ i ] = sp_OffsetN_name;
+				tcs_offset = ( ElementImpl )document.createElement( "offset" ) ;
+				tcs_offset.setAttribute( "id" , "offset" + ( i + 1 ) ) ;
+				sp_OffsetN_name = sp_offsetPositions_values.item( i ).getFirstChild().getNodeValue() ;
+				tcs_offset_table.put( sp_OffsetN_name , tcs_offset ) ;
+				sp_OffsetN_nameArray[ i ] = sp_OffsetN_name ;
 
-				sp_OffsetN = ( ElementImpl )element.getElementsByTagName( sp_OffsetN_name ).item( 0 );
+				sp_OffsetN = ( ElementImpl )element.getElementsByTagName( sp_OffsetN_name ).item( 0 ) ;
 
 				if( sp_OffsetN != null )
 				{
-					sp_OffsetN_values = sp_OffsetN.getElementsByTagName( "value" );
+					sp_OffsetN_values = sp_OffsetN.getElementsByTagName( "value" ) ;
 
-					tcs_offset.appendChild( document.createElement( "dc1" ) ).appendChild( document.createTextNode( sp_OffsetN_values.item( 0 ).getFirstChild().getNodeValue() ) );
+					tcs_offset.appendChild( document.createElement( "dc1" ) ).appendChild( document.createTextNode( sp_OffsetN_values.item( 0 ).getFirstChild().getNodeValue() ) ) ;
 
-					tcs_offset.appendChild( document.createElement( "dc2" ) ).appendChild( document.createTextNode( sp_OffsetN_values.item( 1 ).getFirstChild().getNodeValue() ) );
+					tcs_offset.appendChild( document.createElement( "dc2" ) ).appendChild( document.createTextNode( sp_OffsetN_values.item( 1 ).getFirstChild().getNodeValue() ) ) ;
 
 					// Remove sp_OffsetN <OffsetN>.
-					element.removeChild( sp_OffsetN );
+					element.removeChild( sp_OffsetN ) ;
 				}
 			}
 
 			// Sort offsets and append them to tcs_obsArea <obsArea>.
-			Arrays.sort( sp_OffsetN_nameArray );
+			Arrays.sort( sp_OffsetN_nameArray ) ;
 
 			for( int i = 0 ; i < sp_OffsetN_nameArray.length ; i++ )
-				tcs_obsArea.appendChild( ( ElementImpl )tcs_offset_table.get( sp_OffsetN_nameArray[ i ] ) );
+				tcs_obsArea.appendChild( ( ElementImpl )tcs_offset_table.get( sp_OffsetN_nameArray[ i ] ) ) ;
 
 			// Remove sp_offsetPositions <offsetPositions>.
-			element.removeChild( sp_offsetPositions );
+			element.removeChild( sp_offsetPositions ) ;
 
 			// Append tcs_obsArea <obsArea>.
-			element.appendChild( tcs_obsArea );
+			element.appendChild( tcs_obsArea ) ;
 		}
 		catch( Exception e )
 		{
 			// Make sure RuntimeExceptions are not ignored.
-			e.printStackTrace();
-			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n\nProblem converting offset iterator to TCS XML format." + "\n\n" + e );
+			e.printStackTrace() ;
+			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "\n\nProblem converting offset iterator to TCS XML format." + "\n\n" + e ) ;
 		}
 	}
 
@@ -523,10 +523,10 @@ public abstract class TcsPreTranslator implements PreTranslator
 	 */
 	private void translateAllOffsetIterators( ElementImpl element ) throws Exception
 	{
-		NodeList offsetIteratorList = element.getElementsByTagName( "SpIterOffset" );
+		NodeList offsetIteratorList = element.getElementsByTagName( "SpIterOffset" ) ;
 
 		for( int i = 0 ; i < offsetIteratorList.getLength() ; i++ )
-			translateOffsetIterator( ( ElementImpl )offsetIteratorList.item( i ) );
+			translateOffsetIterator( ( ElementImpl )offsetIteratorList.item( i ) ) ;
 	}
 
 	/**
@@ -543,83 +543,83 @@ public abstract class TcsPreTranslator implements PreTranslator
 	private void reverseOffsetIterator( ElementImpl element ) throws Exception
 	{
 		if( !element.getTagName().equals( "SpIterOffset" ) )
-			return;
+			return ;
 
 		try
 		{
-			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument();
+			DocumentImpl document = ( DocumentImpl )element.getOwnerDocument() ;
 
 			// Science Program XML elements
-			ElementImpl sp_offsetPositions; // <offsetPositions>
-			ElementImpl sp_OffsetN; // <OffsetN> where N is an integer at the end of the tag name string
-			ElementImpl sp_OffsetN_value; // <value>   <value> element in sp_OffsetN_values (<OffsetN>)
+			ElementImpl sp_offsetPositions ; // <offsetPositions>
+			ElementImpl sp_OffsetN ; // <OffsetN> where N is an integer at the end of the tag name string
+			ElementImpl sp_OffsetN_value ; // <value>   <value> element in sp_OffsetN_values (<OffsetN>)
 			//           There is one such element for p and one for q.
 
 			// TCS XML elements
-			ElementImpl tcs_obsArea; // <obsArea>
-			NodeList tcs_offsets; // <offset>
-			Hashtable tcs_offset_table = new Hashtable();
+			ElementImpl tcs_obsArea ; // <obsArea>
+			NodeList tcs_offsets ; // <offset>
+			Hashtable<String,ElementImpl> tcs_offset_table = new Hashtable<String,ElementImpl>() ;
 			// Hashtable containing tcs_offsets so that they can be sorted.
-			String tcs_offset_id; // "offsetN" in <offset id="offsetN"> where N is the number of this offset
-			String[] tcs_offset_id_array; // Array of tcs_offset_id Strings (used for sorting).
-			int tcs_offset_number; // N in <offset id="offsetN">
-			String tcs_dc1;
-			String tcs_dc2;
+			String tcs_offset_id ; // "offsetN" in <offset id="offsetN"> where N is the number of this offset
+			String[] tcs_offset_id_array ; // Array of tcs_offset_id Strings (used for sorting).
+			int tcs_offset_number ; // N in <offset id="offsetN">
+			String tcs_dc1 ;
+			String tcs_dc2 ;
 
 			// Get tcs_obsArea (<obsArea>).
-			tcs_obsArea = ( ElementImpl )element.getElementsByTagName( "obsArea" ).item( 0 );
+			tcs_obsArea = ( ElementImpl )element.getElementsByTagName( "obsArea" ).item( 0 ) ;
 
 			// Get <offset> elements.
-			tcs_offsets = tcs_obsArea.getElementsByTagName( "offset" );
+			tcs_offsets = tcs_obsArea.getElementsByTagName( "offset" ) ;
 
 			// Append sp_offsetPositions (<offsetPositions>) to element (<SpIterOffset>).
-			sp_offsetPositions = ( ElementImpl )element.appendChild( document.createElement( "offsetPositions" ) );
+			sp_offsetPositions = ( ElementImpl )element.appendChild( document.createElement( "offsetPositions" ) ) ;
 
-			tcs_offset_id_array = new String[ tcs_offsets.getLength() ];
+			tcs_offset_id_array = new String[ tcs_offsets.getLength() ] ;
 
 			for( int i = 0 ; i < tcs_offsets.getLength() ; i++ )
 			{
 				// Get the offset id string.
-				tcs_offset_id = ( ( ElementImpl )tcs_offsets.item( i ) ).getAttribute( "id" );
-				tcs_offset_id_array[ i ] = tcs_offset_id;
-				tcs_offset_table.put( tcs_offset_id , ( ElementImpl )tcs_offsets.item( i ) );
+				tcs_offset_id = ( ( ElementImpl )tcs_offsets.item( i ) ).getAttribute( "id" ) ;
+				tcs_offset_id_array[ i ] = tcs_offset_id ;
+				tcs_offset_table.put( tcs_offset_id , ( ElementImpl )tcs_offsets.item( i ) ) ;
 			}
 
 			// Sort offset id array.
-			Arrays.sort( tcs_offset_id_array );
+			Arrays.sort( tcs_offset_id_array ) ;
 
 			for( int i = 0 ; i < tcs_offsets.getLength() ; i++ )
 			{
 				// Parse the offset number at the end of the offset id string.
 				// This relies on the offset string being of the form "offsetN" where N is an integer.
-				tcs_offset_number = Integer.parseInt( tcs_offset_id_array[ i ].substring( 6 ) );
+				tcs_offset_number = Integer.parseInt( tcs_offset_id_array[ i ].substring( 6 ) ) ;
 
-				tcs_dc1 = ( ( ElementImpl )tcs_offset_table.get( tcs_offset_id_array[ i ] ) ).getElementsByTagName( "dc1" ).item( 0 ).getFirstChild().getNodeValue();
-				tcs_dc2 = ( ( ElementImpl )tcs_offset_table.get( tcs_offset_id_array[ i ] ) ).getElementsByTagName( "dc2" ).item( 0 ).getFirstChild().getNodeValue();
+				tcs_dc1 = ( tcs_offset_table.get( tcs_offset_id_array[ i ] ) ).getElementsByTagName( "dc1" ).item( 0 ).getFirstChild().getNodeValue() ;
+				tcs_dc2 = ( tcs_offset_table.get( tcs_offset_id_array[ i ] ) ).getElementsByTagName( "dc2" ).item( 0 ).getFirstChild().getNodeValue() ;
 
 				// Create sp_OffsetN (<OffsetN>) where N is tcs_offset_number - 1.
-				sp_OffsetN = ( ElementImpl )element.appendChild( document.createElement( "Offset" + ( tcs_offset_number - 1 ) ) );
+				sp_OffsetN = ( ElementImpl )element.appendChild( document.createElement( "Offset" + ( tcs_offset_number - 1 ) ) ) ;
 
 				// Create <value> element for dc1.
-				sp_OffsetN_value = ( ElementImpl )sp_OffsetN.appendChild( document.createElement( "value" ) );
-				sp_OffsetN_value.appendChild( document.createTextNode( tcs_dc1 ) );
+				sp_OffsetN_value = ( ElementImpl )sp_OffsetN.appendChild( document.createElement( "value" ) ) ;
+				sp_OffsetN_value.appendChild( document.createTextNode( tcs_dc1 ) ) ;
 
 				// Create <value> element for dc2.
-				sp_OffsetN_value = ( ElementImpl )sp_OffsetN.appendChild( document.createElement( "value" ) );
-				sp_OffsetN_value.appendChild( document.createTextNode( tcs_dc2 ) );
+				sp_OffsetN_value = ( ElementImpl )sp_OffsetN.appendChild( document.createElement( "value" ) ) ;
+				sp_OffsetN_value.appendChild( document.createTextNode( tcs_dc2 ) ) ;
 
 				// Append tag name of sp_OffsetN (<OffsetN>) to offset list sp_offsetPositions (<offsetPositions>).
-				sp_offsetPositions.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( "Offset" + ( tcs_offset_number - 1 ) ) );
+				sp_offsetPositions.appendChild( document.createElement( "value" ) ).appendChild( document.createTextNode( "Offset" + ( tcs_offset_number - 1 ) ) ) ;
 			}
 
 			// Remove tcs_obsArea (<obsArea>).
-			element.removeChild( tcs_obsArea );
+			element.removeChild( tcs_obsArea ) ;
 		}
 		// Make sure RuntimeExceptions are not ignored.
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "Problem converting offset iterator from TCS XML." );
+			e.printStackTrace() ;
+			throw new Exception( EXCECPTION_MESSAGE_PREFIX + "Problem converting offset iterator from TCS XML." ) ;
 		}
 	}
 
@@ -630,9 +630,9 @@ public abstract class TcsPreTranslator implements PreTranslator
 	 */
 	private void reverseAllOffsetIterators( ElementImpl element ) throws Exception
 	{
-		NodeList offsetIteratorList = element.getElementsByTagName( "SpIterOffset" );
+		NodeList offsetIteratorList = element.getElementsByTagName( "SpIterOffset" ) ;
 
 		for( int i = 0 ; i < offsetIteratorList.getLength() ; i++ )
-			reverseOffsetIterator( ( ElementImpl )offsetIteratorList.item( i ) );
+			reverseOffsetIterator( ( ElementImpl )offsetIteratorList.item( i ) ) ;
 	}
 }

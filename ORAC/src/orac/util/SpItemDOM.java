@@ -7,175 +7,174 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpAvTable;
-import gemini.sp.SpRootItem;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpFactory;
-import gemini.sp.SpInsertData;
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xerces.dom.TextImpl;
-import org.apache.xerces.dom.DocumentImpl;
-import org.apache.xml.serialize.XMLSerializer;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xerces.parsers.DOMParser;
-import org.xml.sax.InputSource;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.NamedNodeMap;
-import java.util.Vector;
-import java.util.StringTokenizer;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.io.StringWriter;
-import java.io.Reader;
+import gemini.sp.SpItem ;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpInsertData ;
+import org.apache.xerces.dom.ElementImpl ;
+import org.apache.xerces.dom.TextImpl ;
+import org.apache.xerces.dom.DocumentImpl ;
+import org.apache.xml.serialize.XMLSerializer ;
+import org.apache.xml.serialize.OutputFormat ;
+import org.apache.xerces.parsers.DOMParser ;
+import org.xml.sax.InputSource ;
+import org.w3c.dom.NodeList ;
+import org.w3c.dom.NamedNodeMap ;
+import java.util.Vector ;
+import java.util.StringTokenizer ;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.io.StringWriter ;
+import java.io.Reader ;
 
 /**
  * @author Martin Folger
  */
 public class SpItemDOM
 {
-
-	public static final String SP_ITEM_DATA_TAG = "ItemData";
-	public static final String SP_ITEM_TYPE = "type";
-	public static final String SP_ITEM_SUBTYPE = "subtype";
-	public static final String SP_ITEM_NAME = "name";
-	public static final String SP_ITEM_PACKAGE = "package";
-	protected static PreTranslator _preTranslator = null;
+	public static final String SP_ITEM_DATA_TAG = "ItemData" ;
+	public static final String SP_ITEM_TYPE = "type" ;
+	public static final String SP_ITEM_SUBTYPE = "subtype" ;
+	public static final String SP_ITEM_NAME = "name" ;
+	public static final String SP_ITEM_PACKAGE = "package" ;
+	protected static PreTranslator _preTranslator = null ;
 
 	/**
 	 * The root of the DOM sub tree that represents the SpItem of this class.
 	 */
-	protected ElementImpl _element;
+	protected ElementImpl _element ;
 
 	public SpItemDOM( SpItem spItem ) throws Exception
 	{
-		this( spItem , new DocumentImpl() );
+		this( spItem , new DocumentImpl() ) ;
 	}
 
 	private SpItemDOM( SpItem spItem , DocumentImpl ownerDoc ) throws Exception
 	{
-		String classNameTag = spItem.getClass().getName().substring( spItem.getClass().getName().lastIndexOf( "." ) + 1 );
-		_element = ( ElementImpl )ownerDoc.createElement( classNameTag );
+		String classNameTag = spItem.getClass().getName().substring( spItem.getClass().getName().lastIndexOf( "." ) + 1 ) ;
+		_element = ( ElementImpl )ownerDoc.createElement( classNameTag ) ;
 
 		// Parse av table and write result into _element.
-		( new SpAvTableDOM( spItem.getTable() , _element ) ).parseAvTable();
+		( new SpAvTableDOM( spItem.getTable() , _element ) ).parseAvTable() ;
 
 		// Append children
-		Enumeration children = spItem.children();
+		Enumeration children = spItem.children() ;
 		while( children.hasMoreElements() )
-			_element.appendChild( ( new SpItemDOM( ( SpItem )children.nextElement() , ownerDoc ) ).getElement() );
+			_element.appendChild( ( new SpItemDOM( ( SpItem )children.nextElement() , ownerDoc ) ).getElement() ) ;
 
 		// Create item data node
-		ElementImpl itemData = ( ElementImpl )ownerDoc.createElement( SP_ITEM_DATA_TAG );
-		itemData.setAttribute( SP_ITEM_TYPE , spItem.typeStr() );
-		itemData.setAttribute( SP_ITEM_SUBTYPE , spItem.subtypeStr() );
-		itemData.setAttribute( SP_ITEM_NAME , spItem.name() );
-		itemData.setAttribute( SP_ITEM_PACKAGE , spItem.getClass().getName().substring( 0 , spItem.getClass().getName().lastIndexOf( "." ) ) );
+		ElementImpl itemData = ( ElementImpl )ownerDoc.createElement( SP_ITEM_DATA_TAG ) ;
+		itemData.setAttribute( SP_ITEM_TYPE , spItem.typeStr() ) ;
+		itemData.setAttribute( SP_ITEM_SUBTYPE , spItem.subtypeStr() ) ;
+		itemData.setAttribute( SP_ITEM_NAME , spItem.name() ) ;
+		itemData.setAttribute( SP_ITEM_PACKAGE , spItem.getClass().getName().substring( 0 , spItem.getClass().getName().lastIndexOf( "." ) ) ) ;
 
 		// Insert item data node as first child.
-		_element.insertBefore( itemData , _element.getFirstChild() );
+		_element.insertBefore( itemData , _element.getFirstChild() ) ;
 	}
 
 	public SpItemDOM( Reader xmlReader ) throws Exception
 	{
-		DOMParser parser = new DOMParser();
+		DOMParser parser = new DOMParser() ;
 
-		parser.parse( new InputSource( xmlReader ) );
+		parser.parse( new InputSource( xmlReader ) ) ;
 
-		_element = ( ElementImpl )parser.getDocument().getDocumentElement();
+		_element = ( ElementImpl )parser.getDocument().getDocumentElement() ;
 
 		if( _preTranslator != null )
-			_preTranslator.reverse( _element );
+			_preTranslator.reverse( _element ) ;
 	}
 
 	ElementImpl getElement()
 	{
-		return _element;
+		return _element ;
 	}
 
 	public String toXML( String indent ) throws Exception
 	{
 		if( _preTranslator != null )
-			_preTranslator.translate( _element );
+			_preTranslator.translate( _element ) ;
 
-		OutputFormat format = new OutputFormat( _element.getOwnerDocument() ); //Serialize DOM
-		format.setIndenting( true );
-		format.setIndent( 2 );
-		format.setLineSeparator( "\n" + indent );
-		format.setOmitXMLDeclaration( false );
-		format.setEncoding( "ISO-8859-1" );
+		OutputFormat format = new OutputFormat( _element.getOwnerDocument() ) ; //Serialize DOM
+		format.setIndenting( true ) ;
+		format.setIndent( 2 ) ;
+		format.setLineSeparator( "\n" + indent ) ;
+		format.setOmitXMLDeclaration( false ) ;
+		format.setEncoding( "ISO-8859-1" ) ;
 
-		StringWriter stringOut = new StringWriter(); //Writer will be a String
-		XMLSerializer serial = new XMLSerializer( stringOut , format );
-		serial.asDOMSerializer(); // As a DOM Serializer
+		StringWriter stringOut = new StringWriter() ; //Writer will be a String
+		XMLSerializer serial = new XMLSerializer( stringOut , format ) ;
+		serial.asDOMSerializer() ; // As a DOM Serializer
 
-		serial.serialize( _element ); 
-		return indent + stringOut.toString(); //Spit out DOM as a String
+		serial.serialize( _element ) ; 
+		return indent + stringOut.toString() ; //Spit out DOM as a String
 	}
 
 	public String toXML() throws Exception
 	{
-		return toXML( "" );
+		return toXML( "" ) ;
 	}
 
 	/**
-	 * @return DOM element representing &lt;SP_ITEM_DATA_TAG&gt; if there is one
+	 * @return DOM element representing &lt ;SP_ITEM_DATA_TAG&gt ; if there is one
 	 *         or null otherwise.
 	 */
 	public ElementImpl getItemDataElement( ElementImpl element )
 	{
-		NodeList nodeList = element.getChildNodes();
+		NodeList nodeList = element.getChildNodes() ;
 
 		for( int i = 0 ; i < nodeList.getLength() ; i++ )
 		{
 			if( ( nodeList.item( i ) instanceof ElementImpl ) && nodeList.item( i ).getNodeName().equals( SP_ITEM_DATA_TAG ) )
-				return ( ElementImpl )nodeList.item( i );
+				return ( ElementImpl )nodeList.item( i ) ;
 		}
 
-		return null;
+		return null ;
 	}
 
 	public static void fillAvTable( String nameSoFar , ElementImpl remainingTree , SpAvTable avTab )
 	{
 		// Ignore ItemData
 		if( ( remainingTree.getNodeName().equals( "ItemData" ) ) )
-			return;
+			return ;
 
-		String nodeName = remainingTree.getNodeName();
+		String nodeName = remainingTree.getNodeName() ;
 		if( remainingTree.getUserData() != null )
-			nodeName += remainingTree.getUserData();
+			nodeName += remainingTree.getUserData() ;
 
-		String prefix;
+		String prefix ;
 		if( ( nameSoFar != null ) && ( nameSoFar.trim() != "" ) )
 		{
 			if( nameSoFar.equals( SpAvTableDOM.META_DATA_TAG ) )
-				prefix = ".";
+				prefix = "." ;
 			else
-				prefix = nameSoFar + ".";
+				prefix = nameSoFar + "." ;
 		}
 		else
 		{
-			prefix = "";
+			prefix = "" ;
 		}
 
 		// Deal with attributes
 		if( remainingTree.getAttributes() != null && remainingTree.getAttributes().getLength() > 0 )
 		{
-			NamedNodeMap nodeMap = remainingTree.getAttributes();
+			NamedNodeMap nodeMap = remainingTree.getAttributes() ;
 			for( int i = 0 ; i < nodeMap.getLength() ; i++ )
-				avTab.noNotifySet( prefix + nodeName + ":" + nodeMap.item( i ).getNodeName() , nodeMap.item( i ).getNodeValue() , 0 );
+				avTab.noNotifySet( prefix + nodeName + ":" + nodeMap.item( i ).getNodeName() , nodeMap.item( i ).getNodeValue() , 0 ) ;
 		}
 
 		// Deal with child nodes
-		NodeList nodeList = remainingTree.getChildNodes();
+		NodeList nodeList = remainingTree.getChildNodes() ;
 
 		// Check whether there are siblings with the same node name (tag name) and set user data to string "#" + number
-		setNumbers( nodeList );
+		setNumbers( nodeList ) ;
 
-		Vector valueVector = new Vector();
+		Vector valueVector = new Vector() ;
 		for( int i = 0 ; i < nodeList.getLength() ; i++ )
 		{
 			if( nodeList.item( i ) instanceof ElementImpl )
@@ -183,30 +182,30 @@ public class SpItemDOM
 				if( nodeList.item( i ).getNodeName().equals( "value" ) )
 				{
 					if( ( nodeList.item( i ).getFirstChild() != null ) && ( nodeList.item( i ).getFirstChild().getNodeValue() != null ) )
-						valueVector.add( nodeList.item( i ).getFirstChild().getNodeValue() );
+						valueVector.add( nodeList.item( i ).getFirstChild().getNodeValue() ) ;
 					else
-						valueVector.add( "" );
+						valueVector.add( "" ) ;
 				}
 				else
 				{
-					fillAvTable( prefix + nodeName , ( ElementImpl )nodeList.item( i ) , avTab );
+					fillAvTable( prefix + nodeName , ( ElementImpl )nodeList.item( i ) , avTab ) ;
 				}
 			}
 			else if( nodeList.item( i ) instanceof TextImpl )
 			{
 				// Ignore extra items beginning with "\n" created by DOMParser.parse().
 				if( !nodeList.item( i ).getNodeValue().startsWith( "\n" ) )
-					avTab.noNotifySet( prefix + nodeName , nodeList.item( i ).getNodeValue() , 0 );
+					avTab.noNotifySet( prefix + nodeName , nodeList.item( i ).getNodeValue() , 0 ) ;
 			}
 			else
 			{
-				/*MFO TODO: better error handling.*/System.out.println( "Unknown node type: " + nodeList.item( i ).getClass().getName() );
+				/*MFO TODO: better error handling.*/System.out.println( "Unknown node type: " + nodeList.item( i ).getClass().getName() ) ;
 			}
 		}
 
 		// adding value vector
 		if( valueVector.size() > 0 )
-			avTab.noNotifySetAll( prefix + nodeName , valueVector );
+			avTab.noNotifySetAll( prefix + nodeName , valueVector ) ;
 	}
 
 	public SpRootItem getSpItem()
@@ -214,80 +213,80 @@ public class SpItemDOM
 		/*MFO TODO: better error handling.*/
 		try
 		{
-			SpRootItem spRootItem = ( SpRootItem )getSpItem( _element );
+			SpRootItem spRootItem = ( SpRootItem )getSpItem( _element ) ;
 
 			// return deepCopy of spRootItem instead of spRootItem to prevent bug that cases GUIDE row in target list table not to be displayed.
-			return ( SpRootItem )spRootItem.deepCopy();
+			return ( SpRootItem )spRootItem.deepCopy() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
-	 * @return SpItem if the DOM element represent an SpItem (i.e. has a &lt;SP_ITEM_DATA_TAG&gt;)
+	 * @return SpItem if the DOM element represent an SpItem (i.e. has a &lt ;SP_ITEM_DATA_TAG&gt ;)
 	 *         or null otherwise.
 	 */
 	protected SpItem getSpItem( ElementImpl element )
 	{
-		ElementImpl itemDataElement = getItemDataElement( element );
+		ElementImpl itemDataElement = getItemDataElement( element ) ;
 
 		// If element has no item data child then it does not represent an SpItem.
 		if( itemDataElement == null )
-			return null;
+			return null ;
 
-		SpType spType = SpType.get( itemDataElement.getAttribute( SP_ITEM_TYPE ) , itemDataElement.getAttribute( SP_ITEM_SUBTYPE ) );
+		SpType spType = SpType.get( itemDataElement.getAttribute( SP_ITEM_TYPE ) , itemDataElement.getAttribute( SP_ITEM_SUBTYPE ) ) ;
 
-		SpItem spItem = SpFactory.createShallow( spType );
-		spItem.name( itemDataElement.getAttribute( SP_ITEM_NAME ) );
+		SpItem spItem = SpFactory.createShallow( spType ) ;
+		spItem.name( itemDataElement.getAttribute( SP_ITEM_NAME ) ) ;
 
 		// Deal with attributes in SpItem XML Element (the ones who are represented by attribute names starting with ":" in the SpAvTable)
 		if( ( element.getAttributes() != null ) && ( element.getAttributes().getLength() > 0 ) )
 		{
-			NamedNodeMap nodeMap = element.getAttributes();
+			NamedNodeMap nodeMap = element.getAttributes() ;
 			for( int i = 0 ; i < nodeMap.getLength() ; i++ )
-				spItem.getTable().set( ":" + nodeMap.item( i ).getNodeName() , nodeMap.item( i ).getNodeValue() );
+				spItem.getTable().set( ":" + nodeMap.item( i ).getNodeName() , nodeMap.item( i ).getNodeValue() ) ;
 		}
 
-		NodeList nodeList = element.getChildNodes();
-		setNumbers( nodeList );
-		ElementImpl childElement = null;
-		Vector childV = new Vector();
+		NodeList nodeList = element.getChildNodes() ;
+		setNumbers( nodeList ) ;
+		ElementImpl childElement = null ;
+		Vector childV = new Vector() ;
 
 		for( int i = 0 ; i < nodeList.getLength() ; i++ )
 		{
 			if( nodeList.item( i ) instanceof ElementImpl )
 			{
-				childElement = ( ElementImpl )nodeList.item( i );
+				childElement = ( ElementImpl )nodeList.item( i ) ;
 
 				// Re-use itemDataElement for children.
-				itemDataElement = getItemDataElement( childElement );
+				itemDataElement = getItemDataElement( childElement ) ;
 
 				// DOM element represents an SpItem.
 				// else DOM element represents an SpAvTable attribute.
 				if( itemDataElement != null )
-					childV.addElement( getSpItem( childElement ) );
+					childV.addElement( getSpItem( childElement ) ) ;
 				else
-					fillAvTable( "" , childElement , spItem.getTable() );
+					fillAvTable( "" , childElement , spItem.getTable() ) ;
 			}
 		}
 
 		if( ( childV != null ) && ( childV.size() > 0 ) )
 		{
-			SpItem[] spItemA = new SpItem[ childV.size() ];
+			SpItem[] spItemA = new SpItem[ childV.size() ] ;
 
 			// Convert the vector into an array.
 			for( int i = 0 ; i < spItemA.length ; ++i )
-				spItemA[ i ] = ( SpItem )childV.elementAt( i );
+				spItemA[ i ] = ( SpItem )childV.elementAt( i ) ;
 
-			SpInsertData spID = SpTreeMan.evalInsertInside( spItemA , spItem );
+			SpInsertData spID = SpTreeMan.evalInsertInside( spItemA , spItem ) ;
 			if( spID != null )
-				SpTreeMan.insert( spID );
+				SpTreeMan.insert( spID ) ;
 		}
 
-		return spItem;
+		return spItem ;
 	}
 
 	/**
@@ -297,44 +296,44 @@ public class SpItemDOM
 	{
 		if( args.length != 1 )
 		{
-			System.out.println( "Usage: AvTableToDom input_file" );
-			System.out.println( "   input_file: contains key value pairs for initialising the test table" );
-			return;
+			System.out.println( "Usage: AvTableToDom input_file" ) ;
+			System.out.println( "   input_file: contains key value pairs for initialising the test table" ) ;
+			return ;
 		}
 
-		java.util.Properties props = new java.util.Properties();
+		java.util.Properties props = new java.util.Properties() ;
 		try
 		{
-			props.load( new java.io.FileInputStream( args[ 0 ] ) );
+			props.load( new java.io.FileInputStream( args[ 0 ] ) ) ;
 		}
 		catch( Exception e )
 		{
-			System.out.println( "Problems loading properties form file " + args[ 0 ] + ": " + e );
+			System.out.println( "Problems loading properties form file " + args[ 0 ] + ": " + e ) ;
 		}
 
-		Enumeration e = props.propertyNames();
-		String key = null;
-		String property = null;
-		Vector vector = null;
-		SpAvTable table = new SpAvTable();
+		Enumeration e = props.propertyNames() ;
+		String key = null ;
+		String property = null ;
+		Vector vector = null ;
+		SpAvTable table = new SpAvTable() ;
 		while( e.hasMoreElements() )
 		{
-			key = ( String )e.nextElement();
-			property = props.getProperty( key );
+			key = ( String )e.nextElement() ;
+			property = props.getProperty( key ) ;
 
 			if( property.startsWith( "{" ) && property.endsWith( "}" ) )
 			{
-				vector = new Vector();
-				StringTokenizer stringTokenizer = new StringTokenizer( property , ";,{} " );
+				vector = new Vector() ;
+				StringTokenizer stringTokenizer = new StringTokenizer( property , " ;,{} " ) ;
 
 				while( stringTokenizer.hasMoreTokens() )
-					vector.add( stringTokenizer.nextToken() );
+					vector.add( stringTokenizer.nextToken() ) ;
 
-				table.setAll( key , vector );
+				table.setAll( key , vector ) ;
 			}
 			else
 			{
-				table.set( key , property );
+				table.set( key , property ) ;
 			}
 		}
 	}
@@ -346,30 +345,30 @@ public class SpItemDOM
 	public static void setNumbers( NodeList siblings )
 	{
 		if( siblings == null )
-			return;
+			return ;
 
-		Hashtable elementTable = new Hashtable();
+		Hashtable elementTable = new Hashtable() ;
 
 		for( int i = 0 ; i < siblings.getLength() ; i++ )
 		{
 			if( elementTable.get( siblings.item( i ).getNodeName() ) == null )
-				elementTable.put( siblings.item( i ).getNodeName() , new Vector() );
+				elementTable.put( siblings.item( i ).getNodeName() , new Vector() ) ;
 
-			( ( Vector )( elementTable.get( siblings.item( i ).getNodeName() ) ) ).add( siblings.item( i ) );
+			( ( Vector )( elementTable.get( siblings.item( i ).getNodeName() ) ) ).add( siblings.item( i ) ) ;
 		}
 
-		Enumeration tableEntries = elementTable.elements();
-		Vector elementVector;
+		Enumeration tableEntries = elementTable.elements() ;
+		Vector elementVector ;
 		while( tableEntries.hasMoreElements() )
 		{
-			elementVector = ( Vector )tableEntries.nextElement();
+			elementVector = ( Vector )tableEntries.nextElement() ;
 
 			if( elementVector.size() > 1 )
 			{
 				for( int i = 0 ; i < elementVector.size() ; i++ )
 				{
 					if( elementVector.get( i ) instanceof ElementImpl )
-						( ( ElementImpl )elementVector.get( i ) ).setUserData( "#" + i );
+						( ( ElementImpl )elementVector.get( i ) ).setUserData( "#" + i ) ;
 				}
 			}
 		}
@@ -377,6 +376,6 @@ public class SpItemDOM
 
 	public static void setPreTranslator( PreTranslator preTranslator )
 	{
-		_preTranslator = preTranslator;
+		_preTranslator = preTranslator ;
 	}
 }

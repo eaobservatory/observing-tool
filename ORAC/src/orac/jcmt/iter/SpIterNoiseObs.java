@@ -7,12 +7,12 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * Noise Iterator for JCMT (SCUBA).
@@ -21,12 +21,12 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public class SpIterNoiseObs extends SpIterJCMTObs
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "noiseObs" , "Noise" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "noiseObs" , "Noise" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterNoiseObs() );
+		SpFactory.registerPrototype( new SpIterNoiseObs() ) ;
 	}
 
 	/**
@@ -34,14 +34,14 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	 */
 	public SpIterNoiseObs()
 	{
-		super( SP_TYPE );
-		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 );
+		super( SP_TYPE ) ;
+		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
 	}
 
 	/** Get the noise source. */
 	public String getNoiseSource()
 	{
-		return _avTable.get( ATTR_NOISE_SOURCE );
+		return _avTable.get( ATTR_NOISE_SOURCE ) ;
 	}
 
 	/**
@@ -56,27 +56,27 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 		for( int i = 0 ; i < NOISE_SOURCES.length ; i++ )
 		{
 			if( noiseSource.equals( NOISE_SOURCES[ i ] ) )
-				_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] );
+				_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] ) ;
 		}
 	}
 
 	public double getElapsedTime()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-			time = 1.1 + SCUBA_STARTUP_TIME;
+			time = 1.1 + SCUBA_STARTUP_TIME ;
 
-		return time;
+		return time ;
 	}
 
 	public void setupForHeterodyne()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 	}
 
 	public void setupForSCUBA()
 	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 	}
 }

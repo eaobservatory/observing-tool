@@ -7,11 +7,11 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.util;
+package orac.util ;
 
 import java.util.Vector ;
 import java.util.StringTokenizer ;
-import orac.util.LookUpTable;
+import orac.util.LookUpTable ;
 
 /**
  * This implements the parsing of instrument config information
@@ -20,19 +20,19 @@ import orac.util.LookUpTable;
  */
 public class InstCfg
 {
-	private String keyword;
+	private String keyword ;
 
-	private String value;
+	private String value ;
 
 	// Helper shorthand method to match attributes
 	public static boolean matchAttr( InstCfg info , String attr )
 	{
-		return info.getKeyword().equalsIgnoreCase( attr );
+		return info.getKeyword().equalsIgnoreCase( attr ) ;
 	}
 
 	public static boolean likeAttr( InstCfg info , String attr )
 	{
-		return ( info.getKeyword().toLowerCase().indexOf( attr.toLowerCase() ) == -1 ) ? false : true;
+		return ( info.getKeyword().toLowerCase().indexOf( attr.toLowerCase() ) == -1 ) ? false : true ;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class InstCfg
 	 */
 	public String getKeyword()
 	{
-		return keyword;
+		return keyword ;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class InstCfg
 	 */
 	public String getValue()
 	{
-		return _clean( value );
+		return _clean( value ) ;
 	}
 
 	/**
@@ -68,12 +68,12 @@ public class InstCfg
 	public String[] getValueAsArray()
 	{
 		String[] split = value.split( "," ) ;
-		String[] result = new String[ split.length ];
-		int i = 0;
+		String[] result = new String[ split.length ] ;
+		int i = 0 ;
 		while( i < split.length )
 			result[ i ] = _clean( split[ i++ ] ) ;
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -81,46 +81,46 @@ public class InstCfg
 	 */
 	public String[][] getValueAs2DArray()
 	{
-		String temp;
+		String temp ;
 
 		// try to tokenize with "{" or "}" as delimiters. This should give us the "rows"
-		StringTokenizer st = new StringTokenizer( value , "{}" );
-		int size = st.countTokens();
-		String[] rows = new String[ size ];
-		int i = 0;
+		StringTokenizer st = new StringTokenizer( value , "{}" ) ;
+		int size = st.countTokens() ;
+		String[] rows = new String[ size ] ;
+		int i = 0 ;
 		while( st.hasMoreTokens() )
 		{
-			temp = st.nextToken().trim();
+			temp = st.nextToken().trim() ;
 			if( temp.length() != 0 )
-				rows[ i++ ] = temp;
+				rows[ i++ ] = temp ;
 		}
-		int numRows = i;
+		int numRows = i ;
 
 		// now split each "row". Encode as strings.
-		st = new StringTokenizer( rows[ 0 ] , "," );
-		int numCols;
-		String[][] result = new String[ numRows ][];
+		st = new StringTokenizer( rows[ 0 ] , "," ) ;
+		int numCols ;
+		String[][] result = new String[ numRows ][] ;
 
 		for( i = 0 ; i < numRows ; i++ )
 		{
-			st = new StringTokenizer( rows[ i ] , "," );
-			numCols = st.countTokens();
-			result[ i ] = new String[ numCols ];
-			int j = 0;
+			st = new StringTokenizer( rows[ i ] , "," ) ;
+			numCols = st.countTokens() ;
+			result[ i ] = new String[ numCols ] ;
+			int j = 0 ;
 			while( st.hasMoreTokens() )
 			{
-				temp = st.nextToken().trim();
+				temp = st.nextToken().trim() ;
 				try
 				{
-					result[ i ][ j++ ] = _clean( temp );
+					result[ i ][ j++ ] = _clean( temp ) ;
 				}
 				catch( ArrayIndexOutOfBoundsException e )
 				{
-					System.out.println( "    ArrayIndexOutOfBoundsException occured with i = " + i + " and j = " + j );
+					System.out.println( "    ArrayIndexOutOfBoundsException occured with i = " + i + " and j = " + j ) ;
 				}
 			}
 		}
-		return result;
+		return result ;
 	}
 
 	/**
@@ -129,12 +129,12 @@ public class InstCfg
 	public Vector getValueAsVector()
 	{
 		String[] split = value.split( "," ) ;
-		Vector result = new Vector();
-		int i = 0;
+		Vector<String> result = new Vector<String>() ;
+		int i = 0 ;
 		while( i < split.length )
-			result.addElement( _clean( split[ i ] ) );
+			result.addElement( _clean( split[ i ] ) ) ;
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -142,42 +142,43 @@ public class InstCfg
 	 */
 	public LookUpTable getValueAsLUT()
 	{
-		String temp;
+		String temp ;
 
 		// try to tokenize with "{" or "}" as delimiters. This should give us the "rows"
-		StringTokenizer st = new StringTokenizer( value , "{}" );
-		Vector rows = new Vector();
+		StringTokenizer st = new StringTokenizer( value , "{}" ) ;
+		Vector<String> rows = new Vector<String>() ;
 		while( st.hasMoreTokens() )
 		{
-			temp = st.nextToken().trim();
+			temp = st.nextToken().trim() ;
 			if( temp.length() != 0 )
-				rows.addElement( temp );
+				rows.addElement( temp ) ;
 		}
 
-		int numRows = rows.size();
+		int numRows = rows.size() ;
 
-		LookUpTable result = new LookUpTable();
+		LookUpTable result = new LookUpTable() ;
 
 		for( int i = 0 ; i < numRows ; i++ )
 		{
-			st = new StringTokenizer( ( String )rows.elementAt( i ) , "," );
-			Vector row = new Vector();
-			while( st.hasMoreTokens() )
-				row.addElement( _clean( st.nextToken() ) );
+			Vector<String> row = new Vector<String>() ;
+			String rowString = ( String )rows.elementAt( i ) ;
+			String[] split = rowString.split( "," ) ;
+			for( String element : split )
+				row.addElement( _clean( element ) ) ;
 
-			result.addRow( row );
+			result.addRow( row ) ;
 		}
-		return result;
+		return result ;
 	}
 
 	// "Clean" a string, i.e. remove {}" characters and trim it
 	private String _clean( String string )
 	{
-		String retstr;
-		retstr = string.replace( '{' , ' ' );
-		retstr = retstr.replace( '}' , ' ' );
-		retstr = retstr.replace( '\"' , ' ' );
-		retstr = retstr.trim();
-		return retstr;
+		String retstr ;
+		retstr = string.replace( '{' , ' ' ) ;
+		retstr = retstr.replace( '}' , ' ' ) ;
+		retstr = retstr.replace( '\"' , ' ' ) ;
+		retstr = retstr.trim() ;
+		return retstr ;
 	}
 }

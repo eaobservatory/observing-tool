@@ -7,10 +7,10 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.util;
+package orac.util ;
 
-import java.util.Vector;
-import java.util.NoSuchElementException;
+import java.util.Vector ;
+import java.util.NoSuchElementException ;
 
 /**
  * This implements a look up table utility class. The table is implemented
@@ -21,9 +21,9 @@ import java.util.NoSuchElementException;
  */
 public class LookUpTable extends Vector
 {
-	private int numRows;
-	private int numColumns;
-	private Vector lut;
+	private int numRows ;
+	private int numColumns ;
+	private Vector<Vector> lut ;
 
 	/*
 	 * The constructor initializes the lut.
@@ -34,7 +34,7 @@ public class LookUpTable extends Vector
 	 */
 	public LookUpTable()
 	{
-		lut = new Vector();
+		lut = new Vector<Vector>() ;
 	}
 
 	/**
@@ -43,11 +43,11 @@ public class LookUpTable extends Vector
 	public LookUpTable( int numRows , int numColumns ) throws NegativeArraySizeException
 	{
 		if( numRows < 0 || numColumns < 0 )
-			throw new NegativeArraySizeException();
+			throw new NegativeArraySizeException() ;
 
-		lut = new Vector( numRows );
+		lut = new Vector<Vector>( numRows ) ;
 		for( int i = 0 ; i < numRows ; i++ )
-			lut.addElement( new Vector( numColumns ) );
+			lut.addElement( new Vector( numColumns ) ) ;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class LookUpTable extends Vector
 	 */
 	public int getNumRows()
 	{
-		return numRows;
+		return numRows ;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class LookUpTable extends Vector
 	 */
 	public int getNumColumns()
 	{
-		return numColumns;
+		return numColumns ;
 	}
 
 	/**
@@ -71,9 +71,9 @@ public class LookUpTable extends Vector
 	 */
 	public void addRow( Vector row )
 	{
-		lut.addElement( row );
-		numRows = lut.size();
-		numColumns = Math.max( numColumns , row.size() );
+		lut.addElement( row ) ;
+		numRows = lut.size() ;
+		numColumns = Math.max( numColumns , row.size() ) ;
 	}
 
 	/**
@@ -106,12 +106,12 @@ public class LookUpTable extends Vector
 	public void setElementAt( Object obj , int rowPos , int colPos ) throws ArrayIndexOutOfBoundsException
 	{
 		if( rowPos < 0 || rowPos >= numRows || colPos < 0 || colPos >= numColumns )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector();
-		vRow = this.getRow( rowPos );
-		vRow.setElementAt( obj , colPos );
-		this.setRowAt( vRow , rowPos );
+		Vector vRow = new Vector() ;
+		vRow = this.getRow( rowPos ) ;
+		vRow.setElementAt( obj , colPos ) ;
+		this.setRowAt( vRow , rowPos ) ;
 	}
 
 	/**
@@ -120,9 +120,9 @@ public class LookUpTable extends Vector
 	public void setRowAt( Vector row , int rowPos ) throws ArrayIndexOutOfBoundsException
 	{
 		if( rowPos < 0 || rowPos >= numRows )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		lut.setElementAt( row , rowPos );
+		lut.setElementAt( row , rowPos ) ;
 	}
 
 	/**
@@ -136,11 +136,11 @@ public class LookUpTable extends Vector
 	 */
 	public Vector[] getAsVectorArray()
 	{
-		Vector[] v = new Vector[ numRows ];
+		Vector[] v = new Vector[ numRows ] ;
 		for( int i = 0 ; i < numRows ; i++ )
-			v[ i ] = this.getRow( i );
+			v[ i ] = this.getRow( i ) ;
 
-		return v;
+		return v ;
 	}
 
 	/**
@@ -148,13 +148,13 @@ public class LookUpTable extends Vector
 	 */
 	public Vector getRow( int row ) throws ArrayIndexOutOfBoundsException
 	{
-		Vector vRow = new Vector( numColumns );
+		Vector vRow = new Vector( numColumns ) ;
 
 		if( row < 0 || row > numRows )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		vRow = ( Vector )lut.elementAt( row );
-		return vRow;
+		vRow = ( Vector )lut.elementAt( row ) ;
+		return vRow ;
 	}
 
 	/**
@@ -162,17 +162,17 @@ public class LookUpTable extends Vector
 	 */
 	public Vector getColumn( int column ) throws ArrayIndexOutOfBoundsException
 	{
-		Vector vCol = new Vector( numRows );
+		Vector vCol = new Vector( numRows ) ;
 
 		if( column < 0 || column > numColumns )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
 		for( int i = 0 ; i < numRows ; i++ )
 		{
-			Vector vRow = this.getRow( i );
-			vCol.addElement( vRow.elementAt( column ) );
+			Vector vRow = this.getRow( i ) ;
+			vCol.addElement( vRow.elementAt( column ) ) ;
 		}
-		return vCol;
+		return vCol ;
 	}
 
 	/**
@@ -181,13 +181,13 @@ public class LookUpTable extends Vector
 	public Object elementAt( int row , int column ) throws ArrayIndexOutOfBoundsException
 	{
 		if( row < 0 || row >= numRows || column < 0 || column >= numColumns )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns );
-		vRow = this.getRow( row );
+		Vector vRow = new Vector( numColumns ) ;
+		vRow = this.getRow( row ) ;
 		if( vRow == null )
-			return null;
-		return( vRow.elementAt( column ) );
+			return null ;
+		return( vRow.elementAt( column ) ) ;
 	}
 
 	/**
@@ -196,16 +196,16 @@ public class LookUpTable extends Vector
 	public int indexInColumn( String str , int column ) throws ArrayIndexOutOfBoundsException , NoSuchElementException
 	{
 		if( column < 0 || column >= numColumns )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vCol = new Vector( numRows );
-		vCol = this.getColumn( column );
+		Vector vCol = new Vector( numRows ) ;
+		vCol = this.getColumn( column ) ;
 		for( int i = 0 ; i < numRows ; i++ )
 		{
 			if( str.equals( vCol.elementAt( i ) ) )
-				return i;
+				return i ;
 		}
-		throw new NoSuchElementException();
+		throw new NoSuchElementException() ;
 	}
 
 	/**
@@ -214,16 +214,16 @@ public class LookUpTable extends Vector
 	public int indexInRow( String str , int row ) throws ArrayIndexOutOfBoundsException , NoSuchElementException
 	{
 		if( row < 0 || row >= numRows )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns );
-		vRow = this.getRow( row );
+		Vector vRow = new Vector( numColumns ) ;
+		vRow = this.getRow( row ) ;
 		for( int i = 0 ; i < numColumns ; i++ )
 		{
 			if( str.equals( vRow.elementAt( i ) ) )
-				return i;
+				return i ;
 		}
-		throw new NoSuchElementException();
+		throw new NoSuchElementException() ;
 	}
 
 	/**
@@ -234,24 +234,24 @@ public class LookUpTable extends Vector
 	public int rangeInColumn( double dval , int column ) throws ArrayIndexOutOfBoundsException
 	{
 		if( column < 0 || column >= numColumns )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vCol = new Vector( numRows );
-		vCol = this.getColumn( column );
+		Vector vCol = new Vector( numRows ) ;
+		vCol = this.getColumn( column ) ;
 		for( int i = 0 ; i < numRows ; i++ )
 		{
 			try
 			{
 				if( new Double( ( String )vCol.elementAt( i ) ).doubleValue() < dval )
-					continue;
+					continue ;
 			}
 			catch( NumberFormatException ex )
 			{
-				continue;
+				continue ;
 			}
-			return i;
+			return i ;
 		}
-		return -1;
+		return -1 ;
 	}
 
 	/**
@@ -262,23 +262,23 @@ public class LookUpTable extends Vector
 	public int rangeInRow( double dval , int row ) throws ArrayIndexOutOfBoundsException
 	{
 		if( row < 0 || row >= numRows )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns );
-		vRow = this.getRow( row );
+		Vector vRow = new Vector( numColumns ) ;
+		vRow = this.getRow( row ) ;
 		for( int i = 0 ; i < numColumns ; i++ )
 		{
 			try
 			{
 				if( new Double( ( String )vRow.elementAt( i ) ).doubleValue() < dval )
-					continue;
+					continue ;
 			}
 			catch( NumberFormatException ex )
 			{
-				continue;
+				continue ;
 			}
-			return i;
+			return i ;
 		}
-		return -1;
+		return -1 ;
 	}
 }

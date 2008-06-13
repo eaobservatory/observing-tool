@@ -1,7 +1,7 @@
-package orac.jcmt.util;
+package orac.jcmt.util ;
 
-import java.util.Hashtable;
-import orac.util.DrUtil;
+import java.util.Hashtable ;
+import orac.util.DrUtil ;
 
 /**
  * Noise calculations for SCUBA.
@@ -22,15 +22,14 @@ import orac.util.DrUtil;
  */
 public class ScubaNoise
 {
-
 	/** Table which stores constant NEFD values for different filters. */
-	public static final Hashtable nefd_table = new Hashtable();
+	public static final Hashtable nefd_table = new Hashtable() ;
 
 	static
 	{
-		nefd_table.put( "2000" , new Double( 120. ) );
-		nefd_table.put( "1350" , new Double( 60. ) );
-		nefd_table.put( "1100" , new Double( 60. ) );
+		nefd_table.put( "2000" , new Double( 120. ) ) ;
+		nefd_table.put( "1350" , new Double( 60. ) ) ;
+		nefd_table.put( "1100" , new Double( 60. ) ) ;
 	}
 
 	/**
@@ -51,11 +50,11 @@ public class ScubaNoise
 	{
 
 		// Some of the fits use a 10th order polynomial and some use a simple power law.
-		Hashtable POWERLAW = new Hashtable();
+		Hashtable POWERLAW = new Hashtable() ;
 
 		// Store these as parameters of a simple power law  NEFD = a x^b
-		POWERLAW.put( "850" , new double[] { 62.13036 , -1.19450 } ); // wideband
-		POWERLAW.put( "450" , new double[] { 265.22623 , -0.88198 } ); // wideband
+		POWERLAW.put( "850" , new double[] { 62.13036 , -1.19450 } ) ; // wideband
+		POWERLAW.put( "450" , new double[] { 265.22623 , -0.88198 } ) ; // wideband
 
 		// The coefficients stuff needs to be hacked to make it a bit more
 		// obvious -- should probably convert them all to power laws
@@ -67,46 +66,46 @@ public class ScubaNoise
 		// reduce the waviness caused later by the initial curviness. How scientific.
 
 		// 450: < .25
-		double[] COEFF450_1 = { 31481.3782 , -1443452.4 , 37587422.2 , -622243777 , 6.89288759e+09 , -5.22809174e+10 , 2.7230432e+11 , -9.57251741e+11 , 2.16914012e+12 , -2.85909821e+12 , 1.66471902e+12 };
+		double[] COEFF450_1 = { 31481.3782 , -1443452.4 , 37587422.2 , -622243777 , 6.89288759e+09 , -5.22809174e+10 , 2.7230432e+11 , -9.57251741e+11 , 2.16914012e+12 , -2.85909821e+12 , 1.66471902e+12 } ;
 
 		// 450: >= .25
-		double[] COEFF450_2 = { 1398.42405 , 47297.8604 , -687552.05 , 4106666.55 , -13058035.6 , 20679439.3 , -2303458.01 , -52848760.7 , 96780620.5 , -75797136.7 , 23242534 };
+		double[] COEFF450_2 = { 1398.42405 , 47297.8604 , -687552.05 , 4106666.55 , -13058035.6 , 20679439.3 , -2303458.01 , -52848760.7 , 96780620.5 , -75797136.7 , 23242534 } ;
 
 		// # 850: < .4
-		double[] COEFF850_1 = { 12437.1852 , -460404.695 , 9321936.98 , -116452272 , 949460006 , -5.19307203e+09 , 1.91830323e+10 , -4.71851636e+10 , 7.3996495e+10 , -6.68951861e+10 , 2.65178399e+10 };
+		double[] COEFF850_1 = { 12437.1852 , -460404.695 , 9321936.98 , -116452272 , 949460006 , -5.19307203e+09 , 1.91830323e+10 , -4.71851636e+10 , 7.3996495e+10 , -6.68951861e+10 , 2.65178399e+10 } ;
 
 		// 850: >= .4
-		double[] COEFF850_2 = { 1916.91829 , -12209.0652 , 39905.7003 , -72395.673 , 58575.4075 , 24271.7059 , -93325.9314 , 64243.6412 , 5940.05505 , -25228.7225 , 8364.3555 };
+		double[] COEFF850_2 = { 1916.91829 , -12209.0652 , 39905.7003 , -72395.673 , 58575.4075 , 24271.7059 , -93325.9314 , 64243.6412 , 5940.05505 , -25228.7225 , 8364.3555 } ;
 
 		// 350: < .2
-		double[] COEFF350_1 = { 48781.2086 , -2257045.6 , 57372483.6 , -876500659 , 8.02746219e+09 , -3.79248127e+10 , -2.99837363e+09 , 1.1429173e+12 , -6.59462154e+12 , 1.67617625e+13 , -1.68313616e+13 };
+		double[] COEFF350_1 = { 48781.2086 , -2257045.6 , 57372483.6 , -876500659 , 8.02746219e+09 , -3.79248127e+10 , -2.99837363e+09 , 1.1429173e+12 , -6.59462154e+12 , 1.67617625e+13 , -1.68313616e+13 } ;
 
 		// 350: >= .2
-		double[] COEFF350_2 = { 4098.53825 , 44223.7807 , -878256.106 , 5201060.54 , -12535618.9 , 1480625.25 , 35235905.7 , 50099615 , -423756300 , 705809349 , -393468673 };
+		double[] COEFF350_2 = { 4098.53825 , 44223.7807 , -878256.106 , 5201060.54 , -12535618.9 , 1480625.25 , 35235905.7 , 50099615 , -423756300 , 705809349 , -393468673 } ;
 
 		// 750: < .4
-		double[] COEFF750_1 = { 16767.0584 , -630783.391 , 13015863.5 , -166075120 , 1.38549852e+09 , -7.76512034e+09 , 2.94254867e+10 , -7.43149661e+10 , 1.1974169e+11 , -1.11282628e+11 , 4.53684768e+10 };
+		double[] COEFF750_1 = { 16767.0584 , -630783.391 , 13015863.5 , -166075120 , 1.38549852e+09 , -7.76512034e+09 , 2.94254867e+10 , -7.43149661e+10 , 1.1974169e+11 , -1.11282628e+11 , 4.53684768e+10 } ;
 
 		// 750: >= .4
-		double[] COEFF750_2 = { 2324.86396 , -12506.7929 , 27839.396 , -6118.9046 , -97065.4346 , 168324.253 , 22767.7548 , -398552.827 , 533122.588 , -310784.71 , 70736.76 };
+		double[] COEFF750_2 = { 2324.86396 , -12506.7929 , 27839.396 , -6118.9046 , -97065.4346 , 168324.253 , 22767.7548 , -398552.827 , 533122.588 , -310784.71 , 70736.76 } ;
 
 		// Calculate the NEFD as a function of transmission. First parameter is 
 		// wavelength (450, 850, 350 or 750 microns) and second parameter is sky 
 		// transmission coeff. 
-		double val;
-		double[] thisarray = null;
-		status[ 0 ] = DrUtil.STATUS_SUCCESSFUL;
+		double val ;
+		double[] thisarray = null ;
+		status[ 0 ] = DrUtil.STATUS_SUCCESSFUL ;
 
-		int wavelengthInt = ( int )wavelength;
+		int wavelengthInt = ( int )wavelength ;
 
 		// Handle constant NEFD cases
 		if( nefd_table.containsKey( "" + wavelengthInt ) )
-			return ( ( Double )nefd_table.get( "" + wavelengthInt ) ).doubleValue();
+			return ( ( Double )nefd_table.get( "" + wavelengthInt ) ).doubleValue() ;
 
 		// See if transmission is reasonable (i.e. between 0 and 1)
 		if( trans < 0. )
 		{
-			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 			return 0. ;
 		}
 
@@ -115,107 +114,107 @@ public class ScubaNoise
 		{
 			case 450 :
 				if( trans < .25 )
-					thisarray = COEFF450_1;
+					thisarray = COEFF450_1 ;
 				else
-					thisarray = COEFF450_2;
+					thisarray = COEFF450_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt );
+					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .042 || trans > .641 )
-					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
+					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT ;
 
-				//last SWITCH;
-				break;
+				//last SWITCH ;
+				break ;
 
 			case 850 :
 
 				if( trans < .4 )
-					thisarray = COEFF850_1;
+					thisarray = COEFF850_1 ;
 				else
-					thisarray = COEFF850_2;
+					thisarray = COEFF850_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt );
+					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .937 )
-					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
+					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT ;
 
-				//last SWITCH;
-				break;
+				//last SWITCH ;
+				break ;
 
 			case 350 :
 
 				if( trans < .2 )
-					thisarray = COEFF350_1;
+					thisarray = COEFF350_1 ;
 				else
-					thisarray = COEFF350_2;
+					thisarray = COEFF350_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt );
+					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .437 )
-					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
+					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT ;
 
-				//last SWITCH;
-				break;
+				//last SWITCH ;
+				break ;
 
 			case 750 :
 
 				if( trans < .4 )
-					thisarray = COEFF750_1;
+					thisarray = COEFF750_1 ;
 				else
-					thisarray = COEFF750_2;
+					thisarray = COEFF750_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt );
+					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .875 )
-					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
+					status[ 0 ] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT ;
 
-				//last SWITCH;
-				break;
+				//last SWITCH ;
+				break ;
 
 			default :
-				status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+				status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 		}
 
 		// now evaluate the power series or the powerlaw
 		if( POWERLAW.containsKey( "" + wavelengthInt ) )
 		{
-			val = thisarray[ 0 ] * ( exp( trans , thisarray[ 1 ] ) );
+			val = thisarray[ 0 ] * ( exp( trans , thisarray[ 1 ] ) ) ;
 		}
 		else
 		{
-			val = 0;
+			val = 0 ;
 			for( int i = 0 ; i <= 10 ; i++ )
-				val += thisarray[ i ] * exp( trans , i );
+				val += thisarray[ i ] * exp( trans , i ) ;
 		}
 
-		return val;
+		return val ;
 	}
 
 	public static double scunefd( double wavelength , double airmass , double csoTau , int[] status )
 	{
-		double tau = csoTau2Tau( wavelength , csoTau , status );
+		double tau = csoTau2Tau( wavelength , csoTau , status ) ;
 		if( status[ 0 ] != DrUtil.STATUS_SUCCESSFUL )
 			return 0. ;
 
-		double trans = DrUtil.transmission( airmass , tau , status );
+		double trans = DrUtil.transmission( airmass , tau , status ) ;
 		if( status[ 0 ] != DrUtil.STATUS_SUCCESSFUL )
 			return 0. ;
 
-		return scunefd( wavelength , trans , status );
+		return scunefd( wavelength , trans , status ) ;
 	}
 
 	/** Find the ammount of overhead in seconds for an observation when you know the
 	 *  number of integrations.
 
-	 ($overhead,$status) = overhead($integrations,$mode);
+	 ($overhead,$status) = overhead($integrations,$mode) ;
 
 	 =head2 Parameters
 
@@ -257,16 +256,16 @@ public class ScubaNoise
 	 #------------------------------------------------------------------------------
 	 */
 	//  public static double overhead(int integrations, String mode, int [] status) {
-	//    throw new RuntimeException("The method overhead() is not implented.");
+	//    throw new RuntimeException("The method overhead() is not implented.") ;
 	/*
-	 my $integration = $_[0];
-	 my $mode = uc $_[1];
-	 my $overhead;
+	 my $integration = $_[0] ;
+	 my $mode = uc $_[1] ;
+	 my $overhead ;
 
 	 # want a positive number of integrations
 
 	 if ($integration <= 0) {
-	 return (0,-1);
+	 return (0,-1) ;
 	 }
 
 	 CASE: {
@@ -277,23 +276,23 @@ public class ScubaNoise
 
 	 # note: number of exposures = number of integrations
 	 
-	 my $switch = $integration*2;
+	 my $switch = $integration*2 ;
 	 
-	 $overhead = 40 + $switch*2.5 + $integration*3;
+	 $overhead = 40 + $switch*2.5 + $integration*3 ;
 	 
-	 last CASE;
+	 last CASE ;
 	 }
 	 
 	 # --- Second Case: 64 Pt. Jiggle ---
 	 
 	 if ($mode eq 'JIG64') {
 	 
-	 my $exposure = $integration*4;
-	 my $switch = $exposure*2;
+	 my $exposure = $integration*4 ;
+	 my $switch = $exposure*2 ;
 	 
-	 $overhead = 40 + $switch*3 + $exposure*3;
+	 $overhead = 40 + $switch*3 + $exposure*3 ;
 	 
-	 last CASE;
+	 last CASE ;
 	 }
 	 
 	 # --- Third Case: 16 Pt. Jiggle ---
@@ -302,21 +301,21 @@ public class ScubaNoise
 	 
 	 # note: number of exposures = number of integrations
 	 
-	 my $switch = $integration*2;
+	 my $switch = $integration*2 ;
 	 
-	 $overhead = 40 + $switch*3 + $integration*3;
+	 $overhead = 40 + $switch*3 + $integration*3 ;
 	 
-	 last CASE;
+	 last CASE ;
 	 }
 	 
 	 # Bad exit status if none of the instruments matched
 	 
-	 return (0,-1);
+	 return (0,-1) ;
 	 }
 	 
 	 # Good exit status
 
-	 return ($overhead,0);
+	 return ($overhead,0) ;
 	 */
 	//}
 	/** Noise Level calculation.
@@ -326,12 +325,12 @@ public class ScubaNoise
 	 * The first case is for jiggle mapping, photometry and polarimetry. The second 
 	 * is for scan mapping, where map dimensions must be specified. 
 
-	 ($noise,$status) = noise_level($int,$filter,$mode,$nefd);
+	 ($noise,$status) = noise_level($int,$filter,$mode,$nefd) ;
 
 	 or
 
 	 ($noise,$status) = 
-	 noise_level($int,$filter,$mode,$nefd,$length,$width);
+	 noise_level($int,$filter,$mode,$nefd,$length,$width) ;
 
 
 	 =head2 Parameters
@@ -388,13 +387,13 @@ public class ScubaNoise
 	{
 		if( mode.equalsIgnoreCase( "SCAN" ) )
 		{
-			status[ 0 ] = DrUtil.STATUS_INCORRECT_ARGUMENT_LIST;
+			status[ 0 ] = DrUtil.STATUS_INCORRECT_ARGUMENT_LIST ;
 			return 0. ;
 		}
 		else
 		{
 			// If mode is not SCAN then the length and width parameters will be ignored in the following call.
-			return noise_level( integrations , wavelength , mode , nefd , status , 0.0 , 0.0 );
+			return noise_level( integrations , wavelength , mode , nefd , status , 0.0 , 0.0 ) ;
 		}
 	}
 
@@ -402,7 +401,7 @@ public class ScubaNoise
 	{
 
 		// This is really the integration time per beam for phot and jiggle For scan map it is a bit more complicated
-		double integrationTime = integrations;
+		double integrationTime = integrations ;
 
 		// Need map dimensions if scan mapping
 		if( mode.equalsIgnoreCase( "SCAN" ) )
@@ -410,7 +409,7 @@ public class ScubaNoise
 			// now check dimensions
 			if( length <= 0 || width <= 0 )
 			{
-				status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+				status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 				return 0. ;
 			}
 		}
@@ -418,28 +417,28 @@ public class ScubaNoise
 		// Make sure we have positive integration time
 		if( integrations <= 0 )
 		{
-			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 			return 0. ;
 		}
 
 		// Check NEFD value
 		if( nefd <= 0 )
 		{
-			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 			return 0. ;
 		}
 
 		// First need to translate the mode and integrations number into an actual time.
 		// Assume a 9pt jiggle pattern for "PHOT"
 		if( mode.equalsIgnoreCase( "PHOT" ) )
-			integrationTime = 18.0 * integrations;
+			integrationTime = 18.0 * integrations ;
 		else if( mode.equalsIgnoreCase( "JIG16" ) )
-			integrationTime = 32 * integrations;
+			integrationTime = 32 * integrations ;
 		else if( mode.equalsIgnoreCase( "JIG64" ) )
-			integrationTime = 128 * integrations;
+			integrationTime = 128 * integrations ;
 
 		// Basic noise calculation
-		double noise = nefd / StrictMath.sqrt( integrationTime );
+		double noise = nefd / StrictMath.sqrt( integrationTime ) ;
 
 		// Now we have special factors for different modes:
 
@@ -454,23 +453,23 @@ public class ScubaNoise
 			// --- 2nd Case ---  Jiggle Mapping (factor of 4)
 			if( mode.equalsIgnoreCase( "JIG16" ) || mode.equalsIgnoreCase( "JIG64" ) )
 			{
-				noise *= 4;
+				noise *= 4 ;
 			}
 			else
 			{
 				// --- 3rd Case --- Scan Map 
 				if( mode.equalsIgnoreCase( "SCAN" ) )
 				{
-					noise *= StrictMath.sqrt( ( 138.0 + length ) * width / 9. );
+					noise *= StrictMath.sqrt( ( 138.0 + length ) * width / 9. ) ;
 
 					if( ( wavelength == 350 ) || ( wavelength == 450 ) )
 					{
-						noise /= StrictMath.sqrt( 91 );
+						noise /= StrictMath.sqrt( 91 ) ;
 					}
 					else
 					{
 						if( ( wavelength == 750 ) || ( wavelength == 850 ) )
-							noise /= StrictMath.sqrt( 37. * 4. );
+							noise /= StrictMath.sqrt( 37. * 4. ) ;
 					}
 				}
 				else
@@ -478,20 +477,20 @@ public class ScubaNoise
 					// --- 4th Case --- Polarimetry 
 					if( mode.equalsIgnoreCase( "POL" ) )
 					{
-						noise *= StrictMath.sqrt( 18. );
+						noise *= StrictMath.sqrt( 18. ) ;
 					}
 					else
 					{
 						// --- if no match bad exit status ---
-						status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+						status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 						return 0. ;
 					}
 				}
 			}
 		}
 
-		status[ 0 ] = DrUtil.STATUS_SUCCESSFUL;
-		return noise;
+		status[ 0 ] = DrUtil.STATUS_SUCCESSFUL ;
+		return noise ;
 	}
 
 	/* #------------------------------------------------------------------------------ */
@@ -500,7 +499,7 @@ public class ScubaNoise
 	 #------------------------------------------------------------------------------
 	 # End of PERL code and documentation footer.
 	 #------------------------------------------------------------------------------
-	 1;
+	 1 ;
 
 	 =head1 NOTES
 
@@ -527,60 +526,60 @@ public class ScubaNoise
 
 	public static double exp( double base , double x )
 	{
-		return StrictMath.exp( x * StrictMath.log( base ) );
+		return StrictMath.exp( x * StrictMath.log( base ) ) ;
 	}
 
 	public static void main( String[] args )
 	{
 		try
 		{
-			int integrations = Integer.parseInt( args[ 0 ] );
-			String mode = args[ 1 ];
-			double wavelength = Double.parseDouble( args[ 2 ] );
-			double csoTau = Double.parseDouble( args[ 3 ] );
-			double airmass = Double.parseDouble( args[ 4 ] );
+			int integrations = Integer.parseInt( args[ 0 ] ) ;
+			String mode = args[ 1 ] ;
+			double wavelength = Double.parseDouble( args[ 2 ] ) ;
+			double csoTau = Double.parseDouble( args[ 3 ] ) ;
+			double airmass = Double.parseDouble( args[ 4 ] ) ;
 
 			double length = 0. ;
 			double width = 0. ;
 
 			if( args.length >= 8 )
 			{
-				length = Double.parseDouble( args[ 5 ] );
-				width = Double.parseDouble( args[ 6 ] );
+				length = Double.parseDouble( args[ 5 ] ) ;
+				width = Double.parseDouble( args[ 6 ] ) ;
 			}
 
-			System.out.println( "Using:" );
-			System.out.println( "  int          = " + integrations );
-			System.out.println( "  mode         = " + mode );
-			System.out.println( "  wavelength   = " + wavelength );
-			System.out.println( "  csoTau       = " + csoTau );
-			System.out.println( "  airmass      = " + airmass );
-			System.out.println( "  length       = " + length );
-			System.out.println( "  width        = " + width );
+			System.out.println( "Using:" ) ;
+			System.out.println( "  int          = " + integrations ) ;
+			System.out.println( "  mode         = " + mode ) ;
+			System.out.println( "  wavelength   = " + wavelength ) ;
+			System.out.println( "  csoTau       = " + csoTau ) ;
+			System.out.println( "  airmass      = " + airmass ) ;
+			System.out.println( "  length       = " + length ) ;
+			System.out.println( "  width        = " + width ) ;
 
-			System.out.println( "Calculated:" );
+			System.out.println( "Calculated:" ) ;
 
-			int[] status = { 0 };
+			int[] status = { 0 } ;
 			double trans = 0. ;
 			double nefd = 0. ;
 			double noise = 0. ;
 			// Get transmission
 
-			trans = DrUtil.transmission( airmass , csoTau , status );
-			System.out.println( "  transmission = " + trans + "\t\t(status " + status[ 0 ] + ")" );
+			trans = DrUtil.transmission( airmass , csoTau , status ) ;
+			System.out.println( "  transmission = " + trans + "\t\t(status " + status[ 0 ] + ")" ) ;
 
 			// Get nefd
-			nefd = scunefd( wavelength , trans , status );
-			System.out.println( "  nefd         = " + nefd + "\t\t(status " + status[ 0 ] + ")" );
+			nefd = scunefd( wavelength , trans , status ) ;
+			System.out.println( "  nefd         = " + nefd + "\t\t(status " + status[ 0 ] + ")" ) ;
 
 			// Get noise
-			noise = noise_level( integrations , wavelength , mode , nefd , status , length , width );
-			System.out.println( "  noise        = " + noise + "\t\t(status " + status[ 0 ] + ")" );
+			noise = noise_level( integrations , wavelength , mode , nefd , status , length , width ) ;
+			System.out.println( "  noise        = " + noise + "\t\t(status " + status[ 0 ] + ")" ) ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			System.out.println( "Usage: ScubaNoise integrations mode wavelength csoTau airmass [length width]" );
+			e.printStackTrace() ;
+			System.out.println( "Usage: ScubaNoise integrations mode wavelength csoTau airmass [length width]" ) ;
 		}
 	}
 
@@ -622,31 +621,31 @@ public class ScubaNoise
 		// the relation y = a(x + b), and each element of the hash is an array
 		// containing a and b.
 		// The reverse relationships are calculated immediately afterwards
-		Hashtable tauRelation = new Hashtable();
-		tauRelation.put( "450" , new double[] { 26.2 , -0.014 } ); // wideband filters
-		tauRelation.put( "850" , new double[] { 4.02 , -0.001 } ); // wideband filter
-		tauRelation.put( "350" , new double[] { 28 , -0.012 } );
-		tauRelation.put( "750" , new double[] { 9.3 , -0.007 } );
-		tauRelation.put( "1100" , new double[] { 1.4 , 0.0 } );
-		tauRelation.put( "1350" , new double[] { 1.4 , 0.0 } );
-		tauRelation.put( "2000" , new double[] { 0.9 , 0.0 } );
+		Hashtable tauRelation = new Hashtable() ;
+		tauRelation.put( "450" , new double[] { 26.2 , -0.014 } ) ; // wideband filters
+		tauRelation.put( "850" , new double[] { 4.02 , -0.001 } ) ; // wideband filter
+		tauRelation.put( "350" , new double[] { 28 , -0.012 } ) ;
+		tauRelation.put( "750" , new double[] { 9.3 , -0.007 } ) ;
+		tauRelation.put( "1100" , new double[] { 1.4 , 0.0 } ) ;
+		tauRelation.put( "1350" , new double[] { 1.4 , 0.0 } ) ;
+		tauRelation.put( "2000" , new double[] { 0.9 , 0.0 } ) ;
 
 		if( csoTau < 0. )
 		{
-			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+			status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 			return 0. ;
 		}
 
 		if( tauRelation.containsKey( "" + ( ( int )wavelength ) ) )
 		{
-			status[ 0 ] = DrUtil.STATUS_SUCCESSFUL;
+			status[ 0 ] = DrUtil.STATUS_SUCCESSFUL ;
 
-			double[] coefficients = ( double[] )tauRelation.get( "" + ( ( int )wavelength ) );
+			double[] coefficients = ( double[] )tauRelation.get( "" + ( ( int )wavelength ) ) ;
 
-			return coefficients[ 0 ] * ( csoTau + coefficients[ 1 ] );
+			return coefficients[ 0 ] * ( csoTau + coefficients[ 1 ] ) ;
 		}
 
-		status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS;
+		status[ 0 ] = DrUtil.STATUS_INVALID_PARAMETERS ;
 		return 0. ;
 	}
 }

@@ -7,26 +7,26 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpInsertData;
-import gemini.sp.SpTreeMan;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpInsertData ;
+import gemini.sp.SpTreeMan ;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.IOException;
-import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.XMLReader;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.InputSource;
+import java.io.Reader ;
+import java.io.StringReader ;
+import java.io.FileReader ;
+import java.io.FileWriter ;
+import java.io.BufferedReader ;
+import java.io.IOException ;
+import javax.xml.parsers.SAXParserFactory ;
+import org.xml.sax.helpers.DefaultHandler ;
+import org.xml.sax.XMLReader ;
+import org.xml.sax.Attributes ;
+import org.xml.sax.SAXException ;
+import org.xml.sax.InputSource ;
 
 /**
  * Utility class for reading in Science Programs etc from XML.
@@ -46,13 +46,13 @@ import org.xml.sax.InputSource;
  * the new characters being appended to the old ones and in
  * {@link gemini.sp.SpItem.processXmlElementContent(java.lang.String,java.lang.String)}
  * to be called again with the old and appended new characters.<br>
- * A special case is the XML element <tt>&lt;value&gt;</tt> which is used to represent one of multible values
+ * A special case is the XML element <tt>&lt ;value&gt ;</tt> which is used to represent one of multible values
  * of one SpAvTable entry. Since <tt>"value"</tt> is a reserved String that should not be used as an SpAvTable
- * attribute name it can be assumed that a <tt>&lt;value&gt;</tt> element does not contain any further
- * XML elements inside it. So in this case of the <tt>&lt;value&gt;</tt> element
+ * attribute name it can be assumed that a <tt>&lt ;value&gt ;</tt> element does not contain any further
+ * XML elements inside it. So in this case of the <tt>&lt ;value&gt ;</tt> element
  *{@link gemini.sp.SpItem.processXmlElementContent(java.lang.String,java.lang.String,int)} is only invoked
  * in {@link endElement(java.lang.String,java.lang.String,java.lang.String)} at the end of the
- * <tt>&lt;value&gt;</tt> element.
+ * <tt>&lt ;value&gt ;</tt> element.
  *
  * <ul>The following SpItem methods are invoked during the parsing of the SpItem XML
  *   <li> {@link gemini.sp.SpItem#processXmlElementStart(java.lang.String)}
@@ -71,21 +71,21 @@ public class SpInputXML extends DefaultHandler
 	 *
 	 * First 200 characters of XML file are read into this buffer to check format.
 	 */
-	private static char[] _xmlBuffer = new char[ 200 ];
-	public static final String XML_ATTR_TYPE = "type";
-	public static final String XML_ATTR_SUBTYPE = "subtype";
-	private String _currentElement;
-	private SpItem _currentSpItem;
-	private boolean _ignoreCharacters = false;
-	private String _valueArrayElement = null;
-	private int _valueArrayPos = 0;
+	private static char[] _xmlBuffer = new char[ 200 ] ;
+	public static final String XML_ATTR_TYPE = "type" ;
+	public static final String XML_ATTR_SUBTYPE = "subtype" ;
+	private String _currentElement ;
+	private SpItem _currentSpItem ;
+	private boolean _ignoreCharacters = false ;
+	private String _valueArrayElement = null ;
+	private int _valueArrayPos = 0 ;
 
 	/*
 	 * The following is used to prevent attempts to insert SpTelescopeObsComp
 	 * into SurveyContainers.  In this case, the obsComp are stored internally
 	 * in the SurveyContainers.
 	 */
-	protected boolean ignoreObsComp = false;
+	protected boolean ignoreObsComp = false ;
 
 	/**
 	 * True if the first characters in side this element are encountered.
@@ -93,57 +93,57 @@ public class SpInputXML extends DefaultHandler
 	 * The method {@link #characters(char[], int, int)} is sometimes called more than
 	 * once whithin one XML element. This seems to be dependend on the parser that is used.
 	 */
-	private boolean _firstCharacters = false;
-	private String _characterBuffer = null;
+	private boolean _firstCharacters = false ;
+	private String _characterBuffer = null ;
 
 	public void startElement( String namespaceURI , String localName , String qName , Attributes atts ) throws SAXException
 	{
-		_firstCharacters = true;
+		_firstCharacters = true ;
 
 		if( _currentSpItem != null )
-			_currentSpItem.processXmlElementStart( qName );
+			_currentSpItem.processXmlElementStart( qName ) ;
 
 		// Check whether the element represents an SpItem.
 		if( qName.startsWith( "Sp" ) && ( atts.getValue( SpItem.XML_ATTR_TYPE ) != null ) && ( atts.getValue( SpItem.XML_ATTR_SUBTYPE ) != null ) )
 		{
 			if( qName.equals( "SpSurveyContainer" ) )
-				ignoreObsComp = true;
+				ignoreObsComp = true ;
 
-			_ignoreCharacters = true;
+			_ignoreCharacters = true ;
 
 			if( ignoreObsComp && qName.equals( "SpTelescopeObsComp" ) )
-				return;
+				return ;
 
-			SpItem spItem = SpFactory.createShallow( SpType.get( atts.getValue( XML_ATTR_TYPE ) , atts.getValue( XML_ATTR_SUBTYPE ) ) );
+			SpItem spItem = SpFactory.createShallow( SpType.get( atts.getValue( XML_ATTR_TYPE ) , atts.getValue( XML_ATTR_SUBTYPE ) ) ) ;
 
 			// Add the new element to the tree (unless it is the root item).
 			if( _currentSpItem != null )
 			{
-				SpInsertData spID;
+				SpInsertData spID ;
 				if( _currentSpItem.childCount() < 1 )
 				{
-					spID = SpTreeMan.evalInsertInside( spItem , _currentSpItem );
+					spID = SpTreeMan.evalInsertInside( spItem , _currentSpItem ) ;
 
 					if( spID == null )
-						System.out.println( "Could not insert " + spItem + " into " + _currentSpItem );
+						System.out.println( "Could not insert " + spItem + " into " + _currentSpItem ) ;
 				}
 				else
 				{
-					spID = SpTreeMan.evalInsertAfter( spItem , _currentSpItem.lastChild() );
+					spID = SpTreeMan.evalInsertAfter( spItem , _currentSpItem.lastChild() ) ;
 
 					if( spID == null )
-						System.out.println( "Could not insert " + spItem + " after " + _currentSpItem.lastChild() );
+						System.out.println( "Could not insert " + spItem + " after " + _currentSpItem.lastChild() ) ;
 				}
 
 				if( spID != null )
-					SpTreeMan.insert( spID );
+					SpTreeMan.insert( spID ) ;
 			}
 
-			_currentSpItem = spItem;
+			_currentSpItem = spItem ;
 		}
 		else
 		{
-			_ignoreCharacters = false;
+			_ignoreCharacters = false ;
 		}
 
 		if( qName.equals( "value" ) )
@@ -154,72 +154,72 @@ public class SpInputXML extends DefaultHandler
 			}
 			else
 			{
-				_valueArrayPos = 0;
-				_valueArrayElement = _currentElement;
+				_valueArrayPos = 0 ;
+				_valueArrayElement = _currentElement ;
 			}
 		}
 
-		_currentElement = qName;
+		_currentElement = qName ;
 
 		// Deal with attributes of XML element.
 		for( int i = 0 ; i < atts.getLength() ; i++ )
-			_currentSpItem.processXmlAttribute( qName , atts.getQName( i ) , atts.getValue( i ) );
+			_currentSpItem.processXmlAttribute( qName , atts.getQName( i ) , atts.getValue( i ) ) ;
 	}
 
 	public void endElement( String uri , String localName , String qName )
 	{
 		if( qName.equals( _valueArrayElement ) )
-			_valueArrayElement = null;
+			_valueArrayElement = null ;
 
 		if( _characterBuffer != null )
 		{
 			if( _valueArrayElement != null )
 			{
-				_currentSpItem.processXmlElementContent( _valueArrayElement , new String( _characterBuffer.trim() ) , _valueArrayPos );
-				_characterBuffer = null;
+				_currentSpItem.processXmlElementContent( _valueArrayElement , new String( _characterBuffer.trim() ) , _valueArrayPos ) ;
+				_characterBuffer = null ;
 			}
 			else if( ( _currentElement != null ) && ( _characterBuffer.trim().length() != 0 ) )
 			{
-				_currentSpItem.processXmlElementContent( _currentElement , new String( _characterBuffer.trim() ) );
-				_characterBuffer = null;
+				_currentSpItem.processXmlElementContent( _currentElement , new String( _characterBuffer.trim() ) ) ;
+				_characterBuffer = null ;
 			}
 		}
 
-		_currentSpItem.processXmlElementEnd( qName );
+		_currentSpItem.processXmlElementEnd( qName ) ;
 
 		if( qName.equals( _currentSpItem.getXmlElementName() ) )
 		{
 			if( _currentSpItem.parent() != null )
-				_currentSpItem = _currentSpItem.parent();
+				_currentSpItem = _currentSpItem.parent() ;
 		}
 
 		if( qName.equals( "SpSurveyContainer" ) )
-			ignoreObsComp = false;
+			ignoreObsComp = false ;
 
-		_currentElement = null;
+		_currentElement = null ;
 	}
 
 	public void characters( char[] ch , int start , int length )
 	{
 
 		if( _ignoreCharacters )
-			return;
+			return ;
 
 		if( _firstCharacters )
 		{
-			_characterBuffer = null;
-			_firstCharacters = false;
+			_characterBuffer = null ;
+			_firstCharacters = false ;
 		}
 		
 		if( _characterBuffer == null )
-			_characterBuffer = new String( ch , start , length );
+			_characterBuffer = new String( ch , start , length ) ;
 		else
-			_characterBuffer = _characterBuffer + new String( ch , start , length );
+			_characterBuffer = _characterBuffer + new String( ch , start , length ) ;
 	}
 
 	public SpItem xmlToSpItem( String xml ) throws Exception
 	{
-		return xmlToSpItem( new StringReader( xml ) );
+		return xmlToSpItem( new StringReader( xml ) ) ;
 	}
 
 	public SpItem xmlToSpItem( Reader reader ) throws Exception
@@ -228,18 +228,18 @@ public class SpInputXML extends DefaultHandler
 		// A BufferedReader is only need to reset the stream inside isOldXmlFormat(BufferedReader). Once there
 		// are no Science Programs in the old XML format in circulation anymore things like
 		// isOldXmlFormat, SpItemDOM can go and the normal. Reader can be used instead of the BufferedReader.
-		BufferedReader bufferedReader = new BufferedReader( reader );
+		BufferedReader bufferedReader = new BufferedReader( reader ) ;
 		if( isOldXmlFormat( bufferedReader ) )
 		{
-			System.out.println( "Converting from old XML format." );
-			return ( new SpItemDOM( bufferedReader ) ).getSpItem();
+			System.out.println( "Converting from old XML format." ) ;
+			return ( new SpItemDOM( bufferedReader ) ).getSpItem() ;
 		}
 
-		XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-		xmlReader.setContentHandler( this );
-		xmlReader.parse( new InputSource( bufferedReader ) );
+		XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader() ;
+		xmlReader.setContentHandler( this ) ;
+		xmlReader.parse( new InputSource( bufferedReader ) ) ;
 
-		return _currentSpItem;
+		return _currentSpItem ;
 	}
 
 	/**
@@ -253,21 +253,21 @@ public class SpInputXML extends DefaultHandler
 	{
 		try
 		{
-			reader.mark( _xmlBuffer.length + 10 );
-			reader.read( _xmlBuffer , 0 , _xmlBuffer.length );
-			reader.reset();
+			reader.mark( _xmlBuffer.length + 10 ) ;
+			reader.read( _xmlBuffer , 0 , _xmlBuffer.length ) ;
+			reader.reset() ;
 
-			String xmlStart = new String( _xmlBuffer );
+			String xmlStart = new String( _xmlBuffer ) ;
 
 			if( ( xmlStart != null ) && ( xmlStart.indexOf( "ItemData" ) >= 0 ) )
-				return true;
+				return true ;
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Problem while checking XML format: " + e + ". Using new XML format." );
+			System.out.println( "Problem while checking XML format: " + e + ". Using new XML format." ) ;
 		}
 
-		return false;
+		return false ;
 	}
 
 	/** Test method. */
@@ -275,16 +275,16 @@ public class SpInputXML extends DefaultHandler
 	{
 		try
 		{
-			FileReader fr = new FileReader( args[ 0 ] );
-			SpItem spItem = ( new SpInputXML() ).xmlToSpItem( fr );
-			fr.close();
-			FileWriter fw = new FileWriter( args[ 0 ] );
-			fw.write( spItem.toXML() );
-			fw.close();
+			FileReader fr = new FileReader( args[ 0 ] ) ;
+			SpItem spItem = ( new SpInputXML() ).xmlToSpItem( fr ) ;
+			fr.close() ;
+			FileWriter fw = new FileWriter( args[ 0 ] ) ;
+			fw.write( spItem.toXML() ) ;
+			fw.close() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 }

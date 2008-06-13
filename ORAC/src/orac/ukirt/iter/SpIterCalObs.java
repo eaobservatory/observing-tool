@@ -4,53 +4,53 @@
 //
 // $Id$
 //
-package orac.ukirt.iter;
+package orac.ukirt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
 class SpIterCalObsEnumeration extends SpIterEnumeration
 {
-	private int _curCount = 0;
-	private int _maxCount;
-	private String _calType;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount ;
+	private String _calType ;
+	private SpIterValue[] _values ;
 
 	SpIterCalObsEnumeration( SpIterCalObs iterObserve )
 	{
-		super( iterObserve );
-		_maxCount = iterObserve.getCount();
-		_calType = iterObserve.getCalTypeString();
+		super( iterObserve ) ;
+		_maxCount = iterObserve.getCount() ;
+		_calType = iterObserve.getCalTypeString() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterCalObs ico = ( SpIterCalObs )_iterComp;
-		_values = new SpIterValue[ 5 ];
+		SpIterCalObs ico = ( SpIterCalObs )_iterComp ;
+		_values = new SpIterValue[ 5 ] ;
 
-		_values[ 0 ] = new SpIterValue( SpCalUnitConstants.ATTR_LAMP , ico.getLamp() );
-		_values[ 1 ] = new SpIterValue( SpCalUnitConstants.ATTR_FILTER , ico.getFilter() );
-		_values[ 2 ] = new SpIterValue( SpCalUnitConstants.ATTR_MODE , ico.getMode() );
-		_values[ 3 ] = new SpIterValue( SpCalUnitConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) );
+		_values[ 0 ] = new SpIterValue( SpCalUnitConstants.ATTR_LAMP , ico.getLamp() ) ;
+		_values[ 1 ] = new SpIterValue( SpCalUnitConstants.ATTR_FILTER , ico.getFilter() ) ;
+		_values[ 2 ] = new SpIterValue( SpCalUnitConstants.ATTR_MODE , ico.getMode() ) ;
+		_values[ 3 ] = new SpIterValue( SpCalUnitConstants.ATTR_EXPOSURE_TIME , String.valueOf( ico.getExposureTime() ) ) ;
 
-		_values[ 4 ] = new SpIterValue( SpCalUnitConstants.ATTR_COADDS , String.valueOf( ico.getCoadds() ) );
+		_values[ 4 ] = new SpIterValue( SpCalUnitConstants.ATTR_COADDS , String.valueOf( ico.getCoadds() ) ) ;
 
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( _calType , _curCount++ , _iterComp , _values );
+		return new SpIterStep( _calType , _curCount++ , _iterComp , _values ) ;
 	}
 }
 
@@ -61,17 +61,17 @@ public class SpIterCalObs extends SpIterObserveBase
 {
 
 	/** Identifier for a FLAT calibration. */
-	public static final int FLAT = 0;
+	public static final int FLAT = 0 ;
 
 	/** Identifier for an ARC calibration. */
-	public static final int ARC = 1;
+	public static final int ARC = 1 ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "CGS4calUnitObs" , "CGS4 Cal Unit Observe" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "CGS4calUnitObs" , "CGS4 Cal Unit Observe" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterCalObs() );
+		SpFactory.registerPrototype( new SpIterCalObs() ) ;
 	}
 
 	/**
@@ -79,17 +79,17 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public SpIterCalObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		System.out.println( "In SpIterCalObs" );
+		System.out.println( "In SpIterCalObs" ) ;
 
-		String defLamp = SpCalUnitConstants.CGS4_ARC_LAMPS[ 0 ];
-		String defFilter = SpCalUnitConstants.CGS4_FILTERS[ 0 ];
-		String defMode = SpCalUnitConstants.MODES[ 0 ];
+		String defLamp = SpCalUnitConstants.CGS4_ARC_LAMPS[ 0 ] ;
+		String defFilter = SpCalUnitConstants.CGS4_FILTERS[ 0 ] ;
+		String defMode = SpCalUnitConstants.MODES[ 0 ] ;
 
-		_avTable.noNotifySet( SpCalUnitConstants.ATTR_LAMP , defLamp , 0 );
-		_avTable.noNotifySet( SpCalUnitConstants.ATTR_FILTER , defFilter , 0 );
-		_avTable.noNotifySet( SpCalUnitConstants.ATTR_MODE , defMode , 0 );
+		_avTable.noNotifySet( SpCalUnitConstants.ATTR_LAMP , defLamp , 0 ) ;
+		_avTable.noNotifySet( SpCalUnitConstants.ATTR_FILTER , defFilter , 0 ) ;
+		_avTable.noNotifySet( SpCalUnitConstants.ATTR_MODE , defMode , 0 ) ;
 	}
 
 	/**
@@ -98,16 +98,16 @@ public class SpIterCalObs extends SpIterObserveBase
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return getCalTypeString() + " (" + getCount() + "X)";
+		return getCalTypeString() + " (" + getCount() + "X)" ;
 	}
 
 	/**
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterCalObsEnumeration( this );
+		return new SpIterCalObsEnumeration( this ) ;
 	}
 
 	/**
@@ -115,11 +115,11 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public String getLamp()
 	{
-		String lamp = _avTable.get( SpCalUnitConstants.ATTR_LAMP );
+		String lamp = _avTable.get( SpCalUnitConstants.ATTR_LAMP ) ;
 		if( lamp == null )
-			lamp = SpCalUnitConstants.CGS4_ARC_LAMPS[ 0 ];
+			lamp = SpCalUnitConstants.CGS4_ARC_LAMPS[ 0 ] ;
 		
-		return lamp;
+		return lamp ;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public void setLamp( String lamp )
 	{
-		_avTable.set( SpCalUnitConstants.ATTR_LAMP , lamp );
+		_avTable.set( SpCalUnitConstants.ATTR_LAMP , lamp ) ;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public int getCalType()
 	{
-		return ARC;
+		return ARC ;
 	}
 
 	/**
@@ -144,9 +144,9 @@ public class SpIterCalObs extends SpIterObserveBase
 	public String getCalTypeString()
 	{
 		if( getCalType() == FLAT )
-			return "Flat";
+			return "Flat" ;
 
-		return "Arc";
+		return "Arc" ;
 	}
 
 	/**
@@ -154,11 +154,11 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( SpCalUnitConstants.ATTR_FILTER );
+		String filter = _avTable.get( SpCalUnitConstants.ATTR_FILTER ) ;
 		if( filter == null )
-			filter = SpCalUnitConstants.CGS4_FILTERS[ 0 ];
+			filter = SpCalUnitConstants.CGS4_FILTERS[ 0 ] ;
 		
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( SpCalUnitConstants.ATTR_FILTER , filter );
+		_avTable.set( SpCalUnitConstants.ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -174,11 +174,11 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public String getMode()
 	{
-		String mode = _avTable.get( SpCalUnitConstants.ATTR_MODE );
+		String mode = _avTable.get( SpCalUnitConstants.ATTR_MODE ) ;
 		if( mode == null )
-			mode = SpCalUnitConstants.MODES[ 0 ];
+			mode = SpCalUnitConstants.MODES[ 0 ] ;
 		
-		return mode;
+		return mode ;
 	}
 
 	/**
@@ -186,6 +186,6 @@ public class SpIterCalObs extends SpIterObserveBase
 	 */
 	public void setMode( String mode )
 	{
-		_avTable.set( SpCalUnitConstants.ATTR_MODE , mode );
+		_avTable.set( SpCalUnitConstants.ATTR_MODE , mode ) ;
 	}
 }

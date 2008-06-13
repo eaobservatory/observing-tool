@@ -7,7 +7,7 @@
 /*                                                              */
 /*==============================================================*/
 
-package orac.util;
+package orac.util ;
 
 import java.io.FileNotFoundException ;
 import java.io.BufferedReader ;
@@ -22,30 +22,30 @@ import java.net.MalformedURLException ;
  */
 public class InstCfgReader
 {
-	private BufferedReader cfgFile;
+	private BufferedReader cfgFile ;
 
 	/**
 	 * The constructor
 	 */
 	public InstCfgReader( URL baseURL , String cfgFilename )
 	{
-		URL url = null;
+		URL url = null ;
 		try
 		{
-			url = new URL( baseURL , cfgFilename );
+			url = new URL( baseURL , cfgFilename ) ;
 		}
 		catch( MalformedURLException ex )
 		{
-			System.out.println( "Problem constructing the inst. config file URL: " + ex );
+			System.out.println( "Problem constructing the inst. config file URL: " + ex ) ;
 		}
 
 		try
 		{
-			cfgFile = new BufferedReader( new InputStreamReader( url.openStream() ) );
+			cfgFile = new BufferedReader( new InputStreamReader( url.openStream() ) ) ;
 		}
 		catch( IOException ex )
 		{
-			System.out.println( "Problem opening the inst. config file: " + ex );
+			System.out.println( "Problem opening the inst. config file: " + ex ) ;
 		}
 
 	}
@@ -54,11 +54,11 @@ public class InstCfgReader
 	{
 		try
 		{
-			cfgFile = new BufferedReader( new FileReader( cfgFilename ) );
+			cfgFile = new BufferedReader( new FileReader( cfgFilename ) ) ;
 		}
 		catch( FileNotFoundException ex )
 		{
-			System.out.println( "Problem opening the inst. config file: " + ex );
+			System.out.println( "Problem opening the inst. config file: " + ex ) ;
 		}
 	}
 
@@ -70,8 +70,8 @@ public class InstCfgReader
 	 */
 	public String readBlock() throws IOException
 	{
-		String line;
-		String block = "";
+		String line ;
+		String block = "" ;
 
 		// while there are more lines
 		while( ( line = cfgFile.readLine() ) != null )
@@ -79,22 +79,22 @@ public class InstCfgReader
 
 			// ignore blanks
 			if( line.length() == 0 )
-				continue;
+				continue ;
 
 			// ignore comments if not yet started block
 			if( line.startsWith( "#" ) && block == "" )
-				continue;
+				continue ;
 
 			// if we have started block and its a comment then exit while
 			if( line.startsWith( "#" ) && block != "" )
-				break;
+				break ;
 
 			// append line to block
-			block = block + line;
+			block = block + line ;
 		}
 		if( block == "" )
-			return null;
-		return block;
+			return null ;
+		return block ;
 	}
 
 	public void close()
@@ -103,10 +103,10 @@ public class InstCfgReader
 		{
 			try
 			{
-				cfgFile.close();
+				cfgFile.close() ;
 			}
 			catch( IOException e ){}
-			cfgFile = null;
+			cfgFile = null ;
 		}
 	}
 }

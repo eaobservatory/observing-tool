@@ -7,24 +7,24 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.util;
+package orac.util ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpMSB;
-import gemini.sp.SpAND;
-import gemini.sp.SpOR;
-import gemini.sp.SpObsContextItem;
-import gemini.sp.SpRootItem;
-import gemini.sp.obsComp.SpSiteQualityObsComp;
-import gemini.sp.obsComp.SpSchedConstObsComp;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpObs;
-import gemini.sp.SpNote;
-import gemini.sp.SpHierarchyChangeObserver;
-import gemini.sp.obsComp.SpDRObsComp;
-import java.util.Vector;
-import java.util.Enumeration;
-import java.util.Iterator;
+import gemini.sp.SpItem ;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpAND ;
+import gemini.sp.SpOR ;
+import gemini.sp.SpObsContextItem ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.obsComp.SpSiteQualityObsComp ;
+import gemini.sp.obsComp.SpSchedConstObsComp ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpObs ;
+import gemini.sp.SpNote ;
+import gemini.sp.SpHierarchyChangeObserver ;
+import gemini.sp.obsComp.SpDRObsComp ;
+import java.util.Vector ;
+import java.util.Enumeration ;
+import java.util.Iterator ;
 
 /**
  * Utilities for SpItem trees.
@@ -41,7 +41,7 @@ public class SpItemUtilities
 	 *
 	 * @see #ID_REF_SUFFIX
 	 */
-	public static final String ATTR_ID = ":id";
+	public static final String ATTR_ID = ":id" ;
 
 	/**
 	 */
@@ -52,13 +52,13 @@ public class SpItemUtilities
 	 * For, say, SpTelescopeObsComp we get the SpAvTable attribute
 	 * name "SpTelescopeObsCompRef:idref" with the XML representation:
 	 * <!-- <SpTelescopeObsCompRef id="some_id"> -->
-	 *      &lt;SpTelescopeObsCompRef id="some_id"&gt;
+	 *      &lt ;SpTelescopeObsCompRef id="some_id"&gt ;
 	 * inside the the SpMSB element.
 	 *   
 	 */
-	public static final String ID_REF_SUFFIX = "Ref:idref";
+	public static final String ID_REF_SUFFIX = "Ref:idref" ;
 
-	private static int _idCounter = 0;
+	private static int _idCounter = 0 ;
 
 	/**
 	 * This method calls saveElapsedTime() on all MSBs and Observations that are MSBs.
@@ -78,18 +78,18 @@ public class SpItemUtilities
 	{
 		if( spItem instanceof SpMSB )
 		{
-			( ( SpMSB )spItem ).saveElapsedTime();
-			( ( SpMSB )spItem ).saveTotalTime();
+			( ( SpMSB )spItem ).saveElapsedTime() ;
+			( ( SpMSB )spItem ).saveTotalTime() ;
 		}
 
 		if( spItem instanceof SpObsContextItem )
 		{
-			SpItem child = spItem.child();
+			SpItem child = spItem.child() ;
 
 			while( child != null )
 			{
-				saveElapsedTimes( child );
-				child = child.next();
+				saveElapsedTimes( child ) ;
+				child = child.next() ;
 			}
 		}
 	}
@@ -101,16 +101,16 @@ public class SpItemUtilities
 	public static void updateMsbAttributes( SpItem spItem )
 	{
 		if( spItem instanceof SpObs )
-			( ( SpObs )spItem ).updateMsbAttributes();
+			( ( SpObs )spItem ).updateMsbAttributes() ;
 
 		if( spItem instanceof SpObsContextItem )
 		{
-			SpItem child = spItem.child();
+			SpItem child = spItem.child() ;
 
 			while( child != null )
 			{
-				updateMsbAttributes( child );
-				child = child.next();
+				updateMsbAttributes( child ) ;
+				child = child.next() ;
 			}
 		}
 	}
@@ -129,17 +129,17 @@ public class SpItemUtilities
 		{
 			public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild )
 			{
-				updateMsbAttributes( parent );
+				updateMsbAttributes( parent ) ;
 			}
 
 			public void spItemsMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 			{
-				updateMsbAttributes( oldParent );
-				updateMsbAttributes( newParent );
+				updateMsbAttributes( oldParent ) ;
+				updateMsbAttributes( newParent ) ;
 			}
 
 			public void spItemsRemoved( SpItem parent , SpItem[] children ){}
-		};
+		} ;
 	}
 
 	/**
@@ -147,26 +147,26 @@ public class SpItemUtilities
 	 */
 	public static void removeReferenceIDs( SpItem spItem )
 	{
-		spItem.getTable().noNotifyRm( ATTR_ID );
+		spItem.getTable().noNotifyRm( ATTR_ID ) ;
 
-		Iterator attributes = spItem.getTable().getAttrIterator();
-		String idrefAttribute = null;
+		Iterator attributes = spItem.getTable().getAttrIterator() ;
+		String idrefAttribute = null ;
 
 		while( attributes.hasNext() )
 		{
-			idrefAttribute = ( String )attributes.next();
+			idrefAttribute = ( String )attributes.next() ;
 			if( idrefAttribute.endsWith( ID_REF_SUFFIX ) )
-				attributes.remove();
+				attributes.remove() ;
 		}
 
 		if( spItem instanceof SpObsContextItem )
 		{
-			SpItem child = spItem.child();
+			SpItem child = spItem.child() ;
 
 			while( child != null )
 			{
-				removeReferenceIDs( child );
-				child = child.next();
+				removeReferenceIDs( child ) ;
+				child = child.next() ;
 			}
 		}
 	}
@@ -177,27 +177,27 @@ public class SpItemUtilities
 	public static void setReferenceIDs( SpItem spItem )
 	{
 		if( spItem instanceof SpRootItem )
-			_idCounter = 0;
+			_idCounter = 0 ;
 		if( spItem instanceof SpObsContextItem )
 		{
 			if( spItem instanceof SpMSB )
 			{
-				_insertReferenceIDsFor( SpTreeMan.findTargetList( spItem ) , spItem );
-				_insertReferenceIDsFor( SpTreeMan.findInstrument( spItem ) , spItem );
-				_insertReferenceIDsFor( findSiteQuality( spItem ) , spItem );
-				_insertReferenceIDsFor( findSchedConstraint( spItem ) , spItem );
-				_insertReferenceIDsFor( findDRRecipe( spItem ) , spItem );
-				_insertReferenceIDsFor( findProgramNotes( spItem.getRootItem() , new Vector() ) , spItem );
-				_insertReferenceIDsFor( findParentNotes( spItem , new Vector() ) , spItem );
+				_insertReferenceIDsFor( SpTreeMan.findTargetList( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( SpTreeMan.findInstrument( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( findSiteQuality( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( findSchedConstraint( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( findDRRecipe( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( findProgramNotes( spItem.getRootItem() , new Vector<SpItem>() ) , spItem ) ;
+				_insertReferenceIDsFor( findParentNotes( spItem , new Vector<SpItem>() ) , spItem ) ;
 			}
 			else
 			{
-				SpItem child = spItem.child();
+				SpItem child = spItem.child() ;
 
 				while( child != null )
 				{
-					setReferenceIDs( child );
-					child = child.next();
+					setReferenceIDs( child ) ;
+					child = child.next() ;
 				}
 			}
 		}
@@ -215,10 +215,10 @@ public class SpItemUtilities
 	protected static void _insertReferenceIDsFor( Vector spObsCompVector , SpItem spItem )
 	{
 		if( spObsCompVector == null )
-			return;
+			return ;
 
 		for( int i = 0 ; i < spObsCompVector.size() ; i++ )
-			_insertReferenceIDsFor( ( SpItem )spObsCompVector.get( i ) , spItem );
+			_insertReferenceIDsFor( ( SpItem )spObsCompVector.get( i ) , spItem ) ;
 	}
 
 	/**
@@ -231,25 +231,25 @@ public class SpItemUtilities
 	protected static void _insertReferenceIDsFor( SpItem spObsComp , SpItem spItem )
 	{
 		if( ( spObsComp == null ) || ( spItem == null ) )
-			return;
+			return ;
 
 		// See whether the spObsComp (e.g. observation component or SpNote) has an id already. If so use it for idref of the SpMSB.
-		String idString = spObsComp.getTable().get( ATTR_ID );
+		String idString = spObsComp.getTable().get( ATTR_ID ) ;
 		if( idString != null )
 		{
 			if( spObsComp.getClass().getName().indexOf( "SpNote" ) == -1 )
-				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX , idString , 0 );
+				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX , idString , 0 ) ;
 			else
-				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX + idString , idString , 0 );
+				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX + idString , idString , 0 ) ;
 		}
 		// No id yet. Use _idCounter for both spObsComp (e.g. observation component or SpNote) and spItem (e.g. SpMSB/SpObs). 
 		else
 		{
-			spObsComp.getTable().noNotifySet( ATTR_ID , "" + _idCounter , 0 );
+			spObsComp.getTable().noNotifySet( ATTR_ID , "" + _idCounter , 0 ) ;
 			if( spObsComp.getClass().getName().indexOf( "SpNote" ) == -1 )
-				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX , "" + _idCounter , 0 );
+				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX , "" + _idCounter , 0 ) ;
 			else
-				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX + _idCounter , "" + _idCounter , 0 );
+				spItem.getTable().noNotifySet( spObsComp.getClass().getName().substring( spObsComp.getClass().getName().lastIndexOf( "." ) + 1 ) + ID_REF_SUFFIX + _idCounter , "" + _idCounter , 0 ) ;
 
 			_idCounter++ ;
 		}
@@ -261,18 +261,18 @@ public class SpItemUtilities
 	 */
 	public static SpSiteQualityObsComp findSiteQualityInContext( SpItem spItem )
 	{
-		SpSiteQualityObsComp sqc = null;
-		Enumeration e = spItem.children();
+		SpSiteQualityObsComp sqc = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpSiteQualityObsComp )
 			{
-				sqc = ( SpSiteQualityObsComp )child;
-				break;
+				sqc = ( SpSiteQualityObsComp )child ;
+				break ;
 			}
 		}
-		return sqc;
+		return sqc ;
 	}
 
 	/**
@@ -281,18 +281,18 @@ public class SpItemUtilities
 	 */
 	public static SpSchedConstObsComp findSchedConstraintInContext( SpItem spItem )
 	{
-		SpSchedConstObsComp scc = null;
-		Enumeration e = spItem.children();
+		SpSchedConstObsComp scc = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpSchedConstObsComp )
 			{
-				scc = ( SpSchedConstObsComp )child;
-				break;
+				scc = ( SpSchedConstObsComp )child ;
+				break ;
 			}
 		}
-		return scc;
+		return scc ;
 	}
 
 	/**
@@ -301,18 +301,18 @@ public class SpItemUtilities
 	 */
 	public static SpDRObsComp findDRRecipeInContext( SpItem spItem )
 	{
-		SpDRObsComp drr = null;
-		Enumeration e = spItem.children();
+		SpDRObsComp drr = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpDRObsComp )
 			{
-				drr = ( SpDRObsComp )child;
-				break;
+				drr = ( SpDRObsComp )child ;
+				break ;
 			}
 		}
-		return drr;
+		return drr ;
 	}
 
 	/**
@@ -321,26 +321,26 @@ public class SpItemUtilities
 	 */
 	public static SpNote findNoteInContext( SpItem spItem )
 	{
-		SpNote note = null;
-		Enumeration e = spItem.children();
+		SpNote note = null ;
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpNote )
 			{
-				note = ( SpNote )child;
+				note = ( SpNote )child ;
 				if( note.isObserveInstruction() )
 				{
-					break;
+					break ;
 				}
 				else
 				{
-					note = null;
-					continue;
+					note = null ;
+					continue ;
 				}
 			}
 		}
-		return note;
+		return note ;
 	}
 
 	/**
@@ -352,27 +352,27 @@ public class SpItemUtilities
 	public static SpSiteQualityObsComp findSiteQuality( SpItem spItem )
 	{
 		if( spItem instanceof SpSiteQualityObsComp )
-			return ( SpSiteQualityObsComp )spItem;
+			return ( SpSiteQualityObsComp )spItem ;
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpSiteQualityObsComp sqc;
+		SpSiteQualityObsComp sqc ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 
-			sqc = findSiteQualityInContext( parent );
+			sqc = findSiteQualityInContext( parent ) ;
 		}
 		else
 		{
-			sqc = findSiteQualityInContext( spItem );
+			sqc = findSiteQualityInContext( spItem ) ;
 		}
 
 		if( ( sqc == null ) && ( parent != null ) )
-			return findSiteQuality( parent );
+			return findSiteQuality( parent ) ;
 
-		return sqc;
+		return sqc ;
 	}
 
 	/**
@@ -384,27 +384,27 @@ public class SpItemUtilities
 	public static SpSchedConstObsComp findSchedConstraint( SpItem spItem )
 	{
 		if( spItem instanceof SpSchedConstObsComp )
-			return ( SpSchedConstObsComp )spItem;
+			return ( SpSchedConstObsComp )spItem ;
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpSchedConstObsComp scc;
+		SpSchedConstObsComp scc ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 
-			scc = findSchedConstraintInContext( parent );
+			scc = findSchedConstraintInContext( parent ) ;
 		}
 		else
 		{
-			scc = findSchedConstraintInContext( spItem );
+			scc = findSchedConstraintInContext( spItem ) ;
 		}
 
 		if( ( scc == null ) && ( parent != null ) )
-			return findSchedConstraint( parent );
+			return findSchedConstraint( parent ) ;
 
-		return scc;
+		return scc ;
 	}
 
 	/**
@@ -416,27 +416,27 @@ public class SpItemUtilities
 	public static SpDRObsComp findDRRecipe( SpItem spItem )
 	{
 		if( spItem instanceof SpDRObsComp )
-			return ( SpDRObsComp )spItem;
+			return ( SpDRObsComp )spItem ;
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpDRObsComp drr;
+		SpDRObsComp drr ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 
-			drr = findDRRecipeInContext( parent );
+			drr = findDRRecipeInContext( parent ) ;
 		}
 		else
 		{
-			drr = findDRRecipeInContext( spItem );
+			drr = findDRRecipeInContext( spItem ) ;
 		}
 
 		if( ( drr == null ) && ( parent != null ) )
-			return findDRRecipe( parent );
+			return findDRRecipe( parent ) ;
 
-		return drr;
+		return drr ;
 	}
 
 	/**
@@ -454,62 +454,62 @@ public class SpItemUtilities
 	public static SpNote findNote( SpItem spItem )
 	{
 		if( spItem instanceof SpNote )
-			return ( SpNote )spItem;
+			return ( SpNote )spItem ;
 
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 
-		SpNote note;
+		SpNote note ;
 		if( !( spItem instanceof SpObsContextItem ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 
-			note = findNoteInContext( parent );
+			note = findNoteInContext( parent ) ;
 		}
 		else
 		{
-			note = findNoteInContext( spItem );
+			note = findNoteInContext( spItem ) ;
 		}
 
 		if( ( note == null ) && ( parent != null ) )
-			return findNote( parent );
+			return findNote( parent ) ;
 
-		return note;
+		return note ;
 	}
 
-	public static Vector findProgramNotes( SpItem spItem , Vector notes )
+	public static Vector findProgramNotes( SpItem spItem , Vector<SpItem> notes )
 	{
 		// Now get all the children
-		Enumeration e = spItem.children();
+		Enumeration e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof gemini.sp.SpNote )
 			{
 				if( ( ( SpNote )child ).isObserveInstruction() )
-					notes.add( child );
+					notes.add( child ) ;
 			}
 		}
-		return notes;
+		return notes ;
 	}
 
-	public static Vector findParentNotes( SpItem spItem , Vector notes )
+	public static Vector findParentNotes( SpItem spItem , Vector<SpItem> notes )
 	{
-		SpItem parent = spItem.parent();
+		SpItem parent = spItem.parent() ;
 		while( !( parent instanceof SpRootItem ) )
 		{
 			if( parent instanceof SpAND || parent instanceof SpOR )
 			{
-				Enumeration e = parent.children();
+				Enumeration e = parent.children() ;
 				while( e.hasMoreElements() )
 				{
-					SpItem child = ( SpItem )e.nextElement();
+					SpItem child = ( SpItem )e.nextElement() ;
 					if( child instanceof SpNote && ( ( SpNote )child ).isObserveInstruction() )
-						notes.add( child );
+						notes.add( child ) ;
 				}
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
-		return notes;
+		return notes ;
 	}
 }

@@ -8,28 +8,28 @@
 /*==============================================================*/
 // This version started 2003-Mar-31 based on SpInstUIST
 // author: Alan Pickup = dap@roe.ac.uk         2003-Mar
-package orac.ukirt.inst;
+package orac.ukirt.inst ;
 
 import java.io.IOException ;
 import java.util.Hashtable ;
 
-import orac.util.LookUpTable;
-import orac.util.InstCfg;
-import orac.util.InstCfgReader;
+import orac.util.LookUpTable ;
+import orac.util.InstCfg ;
+import orac.util.InstCfgReader ;
 
 import gemini.util.MathUtil ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpChopCapability;
-import gemini.sp.obsComp.SpStareCapability;
-import gemini.sp.obsComp.SpMicroStepUser;
+import gemini.sp.obsComp.SpChopCapability ;
+import gemini.sp.obsComp.SpStareCapability ;
+import gemini.sp.obsComp.SpMicroStepUser ;
 
-import gemini.sp.iter.SpIterConfigObs;
-import orac.ukirt.iter.SpIterBiasObs;
-import orac.ukirt.iter.SpIterDarkObs;
-import orac.ukirt.iter.SpIterWFCAMCalObs;
+import gemini.sp.iter.SpIterConfigObs ;
+import orac.ukirt.iter.SpIterBiasObs ;
+import orac.ukirt.iter.SpIterDarkObs ;
+import orac.ukirt.iter.SpIterWFCAMCalObs ;
 
 /**
  * The WFCAM instrument.
@@ -40,7 +40,7 @@ import orac.ukirt.iter.SpIterWFCAMCalObs;
 public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStepUser
 {
 	/** Width and height of one IR detector in arcsecs. */
-	public static final double DETECTOR_SIZE = 817.2;
+	public static final double DETECTOR_SIZE = 817.2 ;
 
 	/**
 	 * Percentage of DETECTOR_SIZE that makes up the gap
@@ -49,126 +49,126 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	public static final double DETECTOR_SPACING = 94. ;
 
 	// Attributes presented to user
-	public static String ATTR_CONFIG_TYPE = "configType";
-	public static String ATTR_READMODE = "readMode";
-	public static String ATTR_FILTER = "filter";
-	public static String NO_VALUE = "none";
+	public static String ATTR_CONFIG_TYPE = "configType" ;
+	public static String ATTR_READMODE = "readMode" ;
+	public static String ATTR_FILTER = "filter" ;
+	public static String NO_VALUE = "none" ;
 
 	// Class variables representing defaults, LUTs, etc
-	public static String CONFIG_TYPE;
-	public static String VERSION;
-	public static String[] READMODES;
-	public static String DEFAULT_READMODE;
-	public static LookUpTable FILTERS;
-	public static String[][] MICROSTEP_PATTERNS;
-	public static String DEFAULT_FILTER;
-	public static double DEFAULT_EXPTIME;
-	public static double DEFAULT_FLAT_EXPTIME;
-	public static double DEFAULT_FOCUS_EXPTIME;
-	public static double DEFAULT_POSANGLE;
-	public static int DEFAULT_COADDS;
-	public static int DEFAULT_FLAT_COADDS;
-	public static int DEFAULT_FOCUS_COADDS;
+	public static String CONFIG_TYPE ;
+	public static String VERSION ;
+	public static String[] READMODES ;
+	public static String DEFAULT_READMODE ;
+	public static LookUpTable FILTERS ;
+	public static String[][] MICROSTEP_PATTERNS ;
+	public static String DEFAULT_FILTER ;
+	public static double DEFAULT_EXPTIME ;
+	public static double DEFAULT_FLAT_EXPTIME ;
+	public static double DEFAULT_FOCUS_EXPTIME ;
+	public static double DEFAULT_POSANGLE ;
+	public static int DEFAULT_COADDS ;
+	public static int DEFAULT_FLAT_COADDS ;
+	public static int DEFAULT_FOCUS_COADDS ;
 
-	public static String[] INSTRUMENT_APER; // Array of inst aper values
+	public static String[] INSTRUMENT_APER ; // Array of inst aper values
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.WFCAM" , "WFCAM" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.WFCAM" , "WFCAM" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstWFCAM() );
+		SpFactory.registerPrototype( new SpInstWFCAM() ) ;
 	}
 
 	// Constructor reads instrument .cfg file and initialises values
 	public SpInstWFCAM()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		addCapability( new SpChopCapability() );
-		addCapability( new SpStareCapability() );
+		addCapability( new SpChopCapability() ) ;
+		addCapability( new SpStareCapability() ) ;
 
 		// Read in the instrument config file
-		String baseDir = System.getProperty( "ot.cfgdir" );
-		String cfgFile = baseDir + "wfcam.cfg";
-		_readCfgFile( cfgFile );
+		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		String cfgFile = baseDir + "wfcam.cfg" ;
+		_readCfgFile( cfgFile ) ;
 
 		// Set the initial values of the attributes
-		String attr = ATTR_CONFIG_TYPE;
-		String value = CONFIG_TYPE;
-		_avTable.noNotifySet( attr , value , 0 );
+		String attr = ATTR_CONFIG_TYPE ;
+		String value = CONFIG_TYPE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_VERSION;
-		value = VERSION;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_VERSION ;
+		value = VERSION ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_READMODE;
-		value = DEFAULT_READMODE;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_READMODE ;
+		value = DEFAULT_READMODE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_FILTER;
-		value = DEFAULT_FILTER;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_FILTER ;
+		value = DEFAULT_FILTER ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_EXPOSURE_TIME;
-		value = Double.toString( DEFAULT_EXPTIME );
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_EXPOSURE_TIME ;
+		value = Double.toString( DEFAULT_EXPTIME ) ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		setCoadds( DEFAULT_COADDS );
+		setCoadds( DEFAULT_COADDS ) ;
 
 		// Initialise instance variables
-		initInstance();
+		initInstance() ;
 
 	}
 
 	private void _readCfgFile( String filename )
 	{
-		InstCfgReader instCfg = null;
-		InstCfg instInfo = null;
-		String block = null;
-		instCfg = new InstCfgReader( filename );
+		InstCfgReader instCfg = null ;
+		InstCfg instInfo = null ;
+		String block = null ;
+		instCfg = new InstCfgReader( filename ) ;
 		try
 		{
 			while( ( block = instCfg.readBlock() ) != null )
 			{
-				instInfo = new InstCfg( block );
+				instInfo = new InstCfg( block ) ;
 				if( InstCfg.matchAttr( instInfo , "config_type" ) )
-					CONFIG_TYPE = instInfo.getValue();
+					CONFIG_TYPE = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "version" ) )
-					VERSION = instInfo.getValue();
+					VERSION = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_posangle" ) )
-					DEFAULT_POSANGLE = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_POSANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				else if( InstCfg.matchAttr( instInfo , "readmodes" ) )
-					READMODES = instInfo.getValueAsArray();
+					READMODES = instInfo.getValueAsArray() ;
 				else if( InstCfg.matchAttr( instInfo , "default_readmode" ) )
-					DEFAULT_READMODE = instInfo.getValue();
+					DEFAULT_READMODE = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "filters" ) )
-					FILTERS = instInfo.getValueAsLUT();
+					FILTERS = instInfo.getValueAsLUT() ;
 				else if( InstCfg.matchAttr( instInfo , "microstep_patterns" ) )
-					MICROSTEP_PATTERNS = instInfo.getValueAs2DArray();
+					MICROSTEP_PATTERNS = instInfo.getValueAs2DArray() ;
 				else if( InstCfg.matchAttr( instInfo , "default_filter" ) )
-					DEFAULT_FILTER = instInfo.getValue();
+					DEFAULT_FILTER = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_exptime" ) )
-					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_flat_exptime" ) )
-					DEFAULT_FLAT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_FLAT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_focus_exptime" ) )
-					DEFAULT_FOCUS_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue();
+					DEFAULT_FOCUS_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_coadds" ) )
-					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue();
+					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_flat_coadds" ) )
-					DEFAULT_FLAT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue();
+					DEFAULT_FLAT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_focus_coadds" ) )
-					DEFAULT_FOCUS_COADDS = Integer.valueOf( instInfo.getValue() ).intValue();	
+					DEFAULT_FOCUS_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;	
 				else if( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) )
-					INSTRUMENT_APER = instInfo.getValueAsArray();
+					INSTRUMENT_APER = instInfo.getValueAsArray() ;
 				else
-					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() );
+					System.out.println( "Unmatched keyword:" + instInfo.getKeyword() ) ;
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading WFCAM inst. cfg file" );
+			System.out.println( "Error reading WFCAM inst. cfg file" ) ;
 		}
 	}
 
@@ -177,7 +177,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public SpChopCapability getChopCapability()
 	{
-		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME );
+		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -185,7 +185,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -202,7 +202,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void setPosAngleDegrees( double posAngle )
 	{
-		super.setPosAngleDegrees( posAngle );
+		super.setPosAngleDegrees( posAngle ) ;
 	}
 
 	/**
@@ -213,14 +213,14 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr );
-			posAngle = pa.doubleValue();
+			Double pa = Double.valueOf( posAngleStr ) ;
+			posAngle = pa.doubleValue() ;
 		}
 		catch( NumberFormatException e )
 		{
-			System.out.println( "Error converting string angle to double." );
+			System.out.println( "Error converting string angle to double." ) ;
 		}
-		this.setPosAngleDegrees( posAngle );
+		this.setPosAngleDegrees( posAngle ) ;
 	}
 
 	/**
@@ -228,7 +228,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void useDefaultFilter()
 	{
-		_avTable.rm( ATTR_FILTER );
+		_avTable.rm( ATTR_FILTER ) ;
 	}
 
 	/**
@@ -236,7 +236,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( ATTR_FILTER , filter );
+		_avTable.set( ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -244,23 +244,23 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( ATTR_FILTER );
+		String filter = _avTable.get( ATTR_FILTER ) ;
 		if( filter == null )
 		{
-			filter = DEFAULT_FILTER;
-			setFilter( filter );
+			filter = DEFAULT_FILTER ;
+			setFilter( filter ) ;
 		}
-		return filter;
+		return filter ;
 	}
 
 	public String[] getFilterList()
 	{
-		int nfilters = FILTERS.getNumRows();
-		String filterList[] = new String[ nfilters ];
+		int nfilters = FILTERS.getNumRows() ;
+		String filterList[] = new String[ nfilters ] ;
 		for( int i = 0 ; i < nfilters ; i++ )
-			filterList[ i ] = ( String )FILTERS.elementAt( i , 0 );
+			filterList[ i ] = ( String )FILTERS.elementAt( i , 0 ) ;
 
-		return filterList;
+		return filterList ;
 	}
 
 	/**
@@ -268,7 +268,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void useDefaultReadMode()
 	{
-		_avTable.rm( ATTR_READMODE );
+		_avTable.rm( ATTR_READMODE ) ;
 	}
 
 	/**
@@ -276,7 +276,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void setReadMode( String readMode )
 	{
-		_avTable.set( ATTR_READMODE , readMode );
+		_avTable.set( ATTR_READMODE , readMode ) ;
 	}
 
 	/**
@@ -284,18 +284,18 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public String getReadMode()
 	{
-		String readMode = _avTable.get( ATTR_READMODE );
+		String readMode = _avTable.get( ATTR_READMODE ) ;
 		if( readMode == null )
 		{
-			readMode = DEFAULT_READMODE;
-			setReadMode( readMode );
+			readMode = DEFAULT_READMODE ;
+			setReadMode( readMode ) ;
 		}
-		return readMode;
+		return readMode ;
 	}
 
 	public String[] getReadModeList()
 	{
-		return READMODES;
+		return READMODES ;
 	}
 
 	/**
@@ -303,8 +303,8 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public String getExposureTimeString()
 	{
-		String ets = Double.toString( MathUtil.round( getExposureTime() , 3 ) );
-		return ets;
+		String ets = Double.toString( MathUtil.round( getExposureTime() , 3 ) ) ;
+		return ets ;
 	}
 
 	/**
@@ -312,7 +312,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public double getDefaultFlatExpTime()
 	{
-		return DEFAULT_FLAT_EXPTIME;
+		return DEFAULT_FLAT_EXPTIME ;
 	}
 
 	/**
@@ -320,7 +320,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public int getDefaultFlatCoadds()
 	{
-		return DEFAULT_FLAT_COADDS;
+		return DEFAULT_FLAT_COADDS ;
 	}
 
 	/**
@@ -328,7 +328,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public double getDefaultFocusExpTime()
 	{
-		return DEFAULT_FOCUS_EXPTIME;
+		return DEFAULT_FOCUS_EXPTIME ;
 	}
 
 	/**
@@ -336,7 +336,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public int getDefaultFocusCoadds()
 	{
-		return DEFAULT_FOCUS_COADDS;
+		return DEFAULT_FOCUS_COADDS ;
 	}
 
 	/**
@@ -344,8 +344,8 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public String getCoaddsString()
 	{
-		int coadds = getStareCapability().getCoadds();
-		return Integer.toString( coadds );
+		int coadds = getStareCapability().getCoadds() ;
+		return Integer.toString( coadds ) ;
 	}
 
 	/**
@@ -353,7 +353,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void setCoadds( int coadds )
 	{
-		getStareCapability().setCoadds( coadds );
+		getStareCapability().setCoadds( coadds ) ;
 	}
 
 	/**
@@ -361,15 +361,15 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 	 */
 	public void setCoadds( String coadds )
 	{
-		int c = 0;
+		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds );
-			c = tmp.intValue();
+			Integer tmp = Integer.valueOf( coadds ) ;
+			c = tmp.intValue() ;
 		}
 		catch( Exception ex ){}
 
-		setCoadds( c );
+		setCoadds( c ) ;
 	}
 
 	public double getExposureOverhead()
@@ -379,25 +379,25 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 
 	public Hashtable getMicroStepPatterns()
 	{
-		Hashtable result = new Hashtable();
+		Hashtable result = new Hashtable() ;
 
-		double[][] offsets;
+		double[][] offsets ;
 
 		for( int i = 0 ; i < MICROSTEP_PATTERNS.length ; i++ )
 		{
-			offsets = new double[ ( MICROSTEP_PATTERNS[ i ].length - 1 ) / 2 ][ 2 ];
+			offsets = new double[ ( MICROSTEP_PATTERNS[ i ].length - 1 ) / 2 ][ 2 ] ;
 
-			int k = 1;
+			int k = 1 ;
 			for( int j = 0 ; j < offsets.length ; j++ )
 			{
-				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
-				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] );
+				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
+				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
 			}
 
-			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets );
+			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets ) ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -443,32 +443,32 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 
 	public void setInstAper()
 	{
-		setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
-		setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
-		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
-		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+		setInstApX( INSTRUMENT_APER[ XAP_INDEX ] ) ;
+		setInstApY( INSTRUMENT_APER[ YAP_INDEX ] ) ;
+		setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] ) ;
+		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 	}
 
 	public Hashtable getConfigItems()
 	{
-		Hashtable t = new Hashtable();
+		Hashtable t = new Hashtable() ;
 
-		t.put( "instrument" , "WFCAM" );
-		t.put( "version" , "1" );
-		t.put( "configType" , "Normal" );
-		t.put( "type" , "object" );
-		t.put( "filter" , getFilter() );
-		t.put( "instPort" , "Centre" );
-		t.put( "readMode" , getReadMode() );
-		t.put( "exposureTime" , "" + getExposureTime() );
-		t.put( "coadds" , "" + getCoadds() );
-		setInstAper();
-		t.put( "instAperX" , "" + getInstApX() );
-		t.put( "instAperY" , "" + getInstApY() );
-		t.put( "instAperZ" , "" + getInstApZ() );
-		t.put( "instAperL" , "" + getInstApL() );
+		t.put( "instrument" , "WFCAM" ) ;
+		t.put( "version" , "1" ) ;
+		t.put( "configType" , "Normal" ) ;
+		t.put( "type" , "object" ) ;
+		t.put( "filter" , getFilter() ) ;
+		t.put( "instPort" , "Centre" ) ;
+		t.put( "readMode" , getReadMode() ) ;
+		t.put( "exposureTime" , "" + getExposureTime() ) ;
+		t.put( "coadds" , "" + getCoadds() ) ;
+		setInstAper() ;
+		t.put( "instAperX" , "" + getInstApX() ) ;
+		t.put( "instAperY" , "" + getInstApY() ) ;
+		t.put( "instAperZ" , "" + getInstApZ() ) ;
+		t.put( "instAperL" , "" + getInstApL() ) ;
 
-		return t;
+		return t ;
 	}
 
 	/**
@@ -484,18 +484,18 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 			// 30 seconds for dark, arc, flat or bias (in addition to the times to do
 			// their respective eye), and 30 secs each time an instrument iterator changes a filter.  
 			double extra_oh = 0. ;
-			_obs_oh = 2.5;
+			_obs_oh = 2.5 ;
 			_int_oh = 0. ;
 
 			if( ( currentIterStepItem != null ) && ( ( currentIterStepItem instanceof SpIterBiasObs ) || ( currentIterStepItem instanceof SpIterDarkObs ) || ( currentIterStepItem instanceof SpIterWFCAMCalObs ) || ( currentIterStepItem instanceof SpIterConfigObs ) ) )
 				extra_oh = 30. ;
 
-			return( currentNoCoadds * ( currentExposureTime + getExposureOverhead() ) + _int_oh + _obs_oh + extra_oh );
+			return( currentNoCoadds * ( currentExposureTime + getExposureOverhead() ) + _int_oh + _obs_oh + extra_oh ) ;
 		}
 	}
 
 	public IterationTracker createIterationTracker()
 	{
-		return new IterTrackerWFCAM();
+		return new IterTrackerWFCAM() ;
 	}
 }

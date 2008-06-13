@@ -7,13 +7,13 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.inst;
+package orac.jcmt.inst ;
 
-import gemini.sp.SpType;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.iter.SpIterStep;
+import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.iter.SpIterStep ;
 
-import orac.jcmt.SpJCMTConstants;
+import orac.jcmt.SpJCMTConstants ;
 
 /**
  * A base class for JCMT instrument observation component items. This extends
@@ -28,7 +28,7 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
 	 */
 	public SpJCMTInstObsComp( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -38,41 +38,41 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
 	 */
 	public class IterTrackerJCMT extends IterationTracker
 	{
-		double currentElapsedTime = 0.0;
+		double currentElapsedTime = 0.0 ;
 
 		public void update( SpIterStep spIterStep )
 		{
 			try
 			{
-				String attribute = null;
-				String value = null;
+				String attribute = null ;
+				String value = null ;
 
 				for( int i = 0 ; i < spIterStep.values.length ; i++ )
 				{
 					// SpIterStep.values     is an array of SpIterValue
 					// SpIterValue.values    is an array of String the first of which contains
-					attribute = spIterStep.values[ i ].attribute;
-					value = spIterStep.values[ i ].values[ 0 ];
+					attribute = spIterStep.values[ i ].attribute ;
+					value = spIterStep.values[ i ].values[ 0 ] ;
 
 					if( attribute.equals( ATTR_ELAPSED_TIME ) )
-						currentElapsedTime = Double.valueOf( value ).doubleValue();
+						currentElapsedTime = Double.valueOf( value ).doubleValue() ;
 				}
 			}
 			catch( Exception e )
 			{
-				System.out.println( "Could not process iteration step " + spIterStep.title + " for time estimation:\n\n" + e );
+				System.out.println( "Could not process iteration step " + spIterStep.title + " for time estimation:\n\n" + e ) ;
 			}
 		}
 
 		public double getObserveStepTime()
 		{
-			return currentElapsedTime;
+			return currentElapsedTime ;
 		}
 	}
 
 	public IterationTracker createIterationTracker()
 	{
-		return new IterTrackerJCMT();
+		return new IterTrackerJCMT() ;
 	}
 
 	/**
@@ -80,23 +80,23 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
 	 *
 	 * @return String array of jiggle pattern options.
 	 */
-	public abstract String[] getJigglePatterns();
+	public abstract String[] getJigglePatterns() ;
 
 	/**
 	 * Returns instrument specific default value for scan dx.
 	 */
-	public abstract double getDefaultScanVelocity();
+	public abstract double getDefaultScanVelocity() ;
 
 	/**
 	 * Returns instrument specific default value for scan dx.
 	 */
-	public abstract double getDefaultScanDy();
+	public abstract double getDefaultScanDy() ;
 
 	/**
 	 * Returns a time estimate in seconds for slewing the telescope (JCMT): 60 seconds.
 	 */
 	public double getSlewTime()
 	{
-		return 0.;
+		return 0. ;
 	}
 }

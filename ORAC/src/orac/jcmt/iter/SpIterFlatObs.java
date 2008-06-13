@@ -7,10 +7,10 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
 /**
  * Focus Iterator for JCMT.
@@ -20,12 +20,12 @@ import gemini.sp.SpType;
 public class SpIterFlatObs extends SpIterJCMTObs
 {
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "flatObs" , "Flat Field" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "flatObs" , "Flat Field" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterFlatObs() );
+		SpFactory.registerPrototype( new SpIterFlatObs() ) ;
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class SpIterFlatObs extends SpIterJCMTObs
 	 */
 	public SpIterFlatObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	public double getElapsedTime()

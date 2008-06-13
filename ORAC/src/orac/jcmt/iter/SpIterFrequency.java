@@ -7,15 +7,15 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package orac.jcmt.iter;
+package orac.jcmt.iter ;
 
-import orac.ukirt.iter.SpIterConfigObsUKIRT;
+import orac.ukirt.iter.SpIterConfigObsUKIRT ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.iter.IterConfigItem;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.iter.IterConfigItem ;
 
-import java.util.*;
+import java.util.Vector ;
 
 /**
  * The Frequency iterator.
@@ -25,12 +25,12 @@ import java.util.*;
 public class SpIterFrequency extends SpIterConfigObsUKIRT
 {
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "frequency" , "Frequency" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "frequency" , "Frequency" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterFrequency() );
+		SpFactory.registerPrototype( new SpIterFrequency() ) ;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT
 	 */
 	public SpIterFrequency()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT
 	 */
 	public Vector getConfigAttribs()
 	{
-		return new Vector();
+		return new Vector() ;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT
 	 */
 	public String getItemName()
 	{
-		return "Frequency";
+		return "Frequency" ;
 	}
 
 	/**
@@ -93,13 +93,13 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT
 				"CO (3 - 2)" , 
 				"C-13-O (3 - 2)" , 
 				"There is more to come." 
-		};
-		IterConfigItem lineTransitionConfigItem = new IterConfigItem( "Line/Transition" , "lineTransition" , lineTransitionChoices );
-		IterConfigItem frequencyConfigItem = new IterConfigItem( "Frequency" , "frequency" , null );
-		String[] sidebandChoices = { "usb" , "lsb" , "best" };
-		IterConfigItem sidebandConfigItem = new IterConfigItem( "Sideband" , "sideband" , sidebandChoices );
-		IterConfigItem[] result = { lineTransitionConfigItem , frequencyConfigItem , sidebandConfigItem };
+		} ;
+		IterConfigItem lineTransitionConfigItem = new IterConfigItem( "Line/Transition" , "lineTransition" , lineTransitionChoices ) ;
+		IterConfigItem frequencyConfigItem = new IterConfigItem( "Frequency" , "frequency" , null ) ;
+		String[] sidebandChoices = { "usb" , "lsb" , "best" } ;
+		IterConfigItem sidebandConfigItem = new IterConfigItem( "Sideband" , "sideband" , sidebandChoices ) ;
+		IterConfigItem[] result = { lineTransitionConfigItem , frequencyConfigItem , sidebandConfigItem } ;
 
-		return result;
+		return result ;
 	}
 }
