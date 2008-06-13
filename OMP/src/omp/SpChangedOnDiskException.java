@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package omp;
+package omp ;
 
 /**
  * This Exception is thrown when the Server throws a Server.SpChangedOnDisk
@@ -17,9 +17,8 @@ package omp;
  */
 public class SpChangedOnDiskException extends Exception
 {
-
 	SpChangedOnDiskException( String message )
 	{
-		super( message );
+		super( message ) ;
 	}
 }

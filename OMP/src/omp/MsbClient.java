@@ -1,11 +1,11 @@
-package omp;
+package omp ;
 
 import java.io.FileWriter ;
 import java.io.StringReader ;
 import java.net.URL ;
-import gemini.sp.SpItem;
+import gemini.sp.SpItem ;
 
-import orac.util.SpInputXML;
+import orac.util.SpInputXML ;
 
 /**
  * MsbClient.java
@@ -21,7 +21,6 @@ import orac.util.SpInputXML;
  */
 public class MsbClient extends SoapClient
 {
-
 	/**
      * <code>queryMSB</code> Perform a query to the MsbServer with the given
      * query String. Success will return a true value and write the msbSummary
@@ -35,31 +34,29 @@ public class MsbClient extends SoapClient
 	{
 		try
 		{
-			URL url = new URL( System.getProperty( "msbServer" ) );
-			flushParameter();
-			addParameter( "xmlquery" , String.class , xmlQueryString );
+			URL url = new URL( System.getProperty( "msbServer" ) ) ;
+			flushParameter() ;
+			addParameter( "xmlquery" , String.class , xmlQueryString ) ;
 
-			FileWriter fw = new FileWriter( System.getProperty( "msbSummary" ) );
-			Object tmp = doCall( url , "urn:OMP::MSBServer" , "queryMSB" );
+			FileWriter fw = new FileWriter( System.getProperty( "msbSummary" ) ) ;
+			Object tmp = doCall( url , "urn:OMP::MSBServer" , "queryMSB" ) ;
 
 			if( tmp != null )
 			{
-				fw.write( ( String )tmp );
-				fw.close();
+				fw.write( ( String )tmp ) ;
+				fw.close() ;
 			}
 			else
 			{
-				return false;
+				return false ;
 			}
-
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			return false;
+			e.printStackTrace() ;
+			return false ;
 		}
-		return true;
-
+		return true ;
 	}
 
 	/**
@@ -73,39 +70,38 @@ public class MsbClient extends SoapClient
      */
 	public static SpItem fetchMSB( Integer msbid )
 	{
-		SpItem spItem = null;
+		SpItem spItem = null ;
 		try
 		{
-			System.out.println( "" + msbid );
+			System.out.println( "" + msbid ) ;
 
-			URL url = new URL( System.getProperty( "msbServer" ) );
-			flushParameter();
-			addParameter( "key" , Integer.class , msbid );
+			URL url = new URL( System.getProperty( "msbServer" ) ) ;
+			flushParameter() ;
+			addParameter( "key" , Integer.class , msbid ) ;
 
-			FileWriter fw = new FileWriter( System.getProperty( "msbFile" ) );
-			String spXML = ( String )doCall( url , "urn:OMP::MSBServer" , "fetchMSB" );
+			FileWriter fw = new FileWriter( System.getProperty( "msbFile" ) ) ;
+			String spXML = ( String )doCall( url , "urn:OMP::MSBServer" , "fetchMSB" ) ;
 
 			if( spXML != null )
 			{
-				StringReader r = new StringReader( spXML );
-				spItem = ( SpItem )( new SpInputXML() ).xmlToSpItem( r );
+				StringReader r = new StringReader( spXML ) ;
+				spItem = ( SpItem )( new SpInputXML() ).xmlToSpItem( r ) ;
 
-				fw.write( ( String )spXML );
-				fw.close();
+				fw.write( ( String )spXML ) ;
+				fw.close() ;
 			}
 			else
 			{
-				return spItem;
+				return spItem ;
 			}
 
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			return spItem;
+			e.printStackTrace() ;
+			return spItem ;
 		}
-
-		return spItem;
+		return spItem ;
 	}
 
 	/**
@@ -120,24 +116,17 @@ public class MsbClient extends SoapClient
 	{
 		try
 		{
-			URL url = new URL( System.getProperty( "msbServer" ) );
-			flushParameter();
-			addParameter( "projID" , String.class , projID );
-			addParameter( "checksum" , String.class , checksum );
+			URL url = new URL( System.getProperty( "msbServer" ) ) ;
+			flushParameter() ;
+			addParameter( "projID" , String.class , projID ) ;
+			addParameter( "checksum" , String.class , checksum ) ;
 
-			Object tmp = doCall( url , "urn:OMP::MSBServer" , "doneMSB" );
-
-			if( tmp != null )
-			{
-				// tmp has something with success
-			}
-
+			Object tmp = doCall( url , "urn:OMP::MSBServer" , "doneMSB" ) ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
-		return;
 	}
 
 	/**
@@ -148,8 +137,7 @@ public class MsbClient extends SoapClient
      */
 	public static void main( String[] args )
 	{
-		MsbClient.queryMSB( "<Query><Moon>Dark</Moon></Query>" );
-		MsbClient.fetchMSB( new Integer( 96 ) );
+		MsbClient.queryMSB( "<Query><Moon>Dark</Moon></Query>" ) ;
+		MsbClient.fetchMSB( new Integer( 96 ) ) ;
 	}
-
 }

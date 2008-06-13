@@ -1,18 +1,18 @@
-package omp;
+package omp ;
 
-import java.net.URL;
-import java.util.Vector;
-import javax.swing.JOptionPane;
+import java.net.URL ;
+import java.util.Vector ;
+import javax.swing.JOptionPane ;
 
-import org.apache.log4j.Logger;
-import org.apache.soap.Header;
-import org.apache.soap.Constants;
-import org.apache.soap.Fault;
-import org.apache.soap.rpc.Parameter;
-import org.apache.soap.rpc.Call;
-import org.apache.soap.rpc.Response;
-import org.apache.soap.transport.http.SOAPHTTPConnection;
-import org.apache.soap.SOAPException;
+import org.apache.log4j.Logger ;
+import org.apache.soap.Header ;
+import org.apache.soap.Constants ;
+import org.apache.soap.Fault ;
+import org.apache.soap.rpc.Parameter ;
+import org.apache.soap.rpc.Call ;
+import org.apache.soap.rpc.Response ;
+import org.apache.soap.transport.http.SOAPHTTPConnection ;
+import org.apache.soap.SOAPException ;
 
 /**
  * SoapClient.java
@@ -27,7 +27,6 @@ import org.apache.soap.SOAPException;
  */
 public class SoapClient
 {
-
 	/**
      * Soap fault caused by attempt to store a Science Program to server whose
      * time stamp has changed.
@@ -36,11 +35,11 @@ public class SoapClient
 	public static final String OLD_FAULT_CODE_SP_CHANGED_ON_DISK = "SOAP-ENV:Server." + SP_CHANGED_ON_DISK ;
 	public final static String FAULT_CODE_SP_CHANGED_ON_DISK = "soap:Server." + SP_CHANGED_ON_DISK ;
 
-	private static Header header = null;
+	private static Header header = null ;
 
-	private static Vector params = new Vector();
+	private static Vector params = new Vector() ;
 
-	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser";
+	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser" ;
 
 	/**
      * <code>addParameter</code>. Add a Parameter to the next Call that is to
@@ -60,7 +59,7 @@ public class SoapClient
      */
 	protected static void addParameter( String name , Class type , Object val )
 	{
-		params.add( new Parameter( name , type , val , null ) );
+		params.add( new Parameter( name , type , val , null ) ) ;
 	}
 
 	/**
@@ -70,7 +69,7 @@ public class SoapClient
      */
 	protected static void flushParameter()
 	{
-		params.clear();
+		params.clear() ;
 	}
 
 	/**
@@ -89,72 +88,71 @@ public class SoapClient
      */
 	protected static Object doCall( URL url , String soapAction , String methodName ) throws Exception
 	{
-		Object obj = new Object();
+		Object obj = new Object() ;
 
 		try
 		{
-			Call call = new Call();
+			Call call = new Call() ;
 
-			call.setTargetObjectURI( soapAction );
-			call.setEncodingStyleURI( Constants.NS_URI_SOAP_ENC );
-			call.setMethodName( methodName );
-			call.setParams( params );
+			call.setTargetObjectURI( soapAction ) ;
+			call.setEncodingStyleURI( Constants.NS_URI_SOAP_ENC ) ;
+			call.setMethodName( methodName ) ;
+			call.setParams( params ) ;
 			if( header != null )
-				call.setHeader( header );
-			soapAction += "#" + methodName;
+				call.setHeader( header ) ;
+			soapAction += "#" + methodName ;
 			if( System.getProperty( "http.proxyHost" ) != null && System.getProperty( "http.proxyHost" ).length() > 0 )
 			{
-				System.out.println( "Using proxy server" );
-				SOAPHTTPConnection st = new SOAPHTTPConnection();
-				st.setProxyHost( System.getProperty( "http.proxyHost" ) );
-				st.setProxyPort( Integer.parseInt( System.getProperty( "http.proxyPort" ) ) );
-				call.setSOAPTransport( st );
+				System.out.println( "Using proxy server" ) ;
+				SOAPHTTPConnection st = new SOAPHTTPConnection() ;
+				st.setProxyHost( System.getProperty( "http.proxyHost" ) ) ;
+				st.setProxyPort( Integer.parseInt( System.getProperty( "http.proxyPort" ) ) ) ;
+				call.setSOAPTransport( st ) ;
 			}
-			Response resp = call.invoke( url , soapAction );
+			Response resp = call.invoke( url , soapAction ) ;
 			// check response
 			if( !resp.generatedFault() )
 			{
-				Parameter ret = resp.getReturnValue();
+				Parameter ret = resp.getReturnValue() ;
 				if( ret == null )
-					obj = null;
+					obj = null ;
 				else
-					obj = ret.getValue();
+					obj = ret.getValue() ;
 
 				// Reset the params vector.
-				params.clear();
+				params.clear() ;
 
-				// return result;
-				return obj;
+				// return result ;
+				return obj ;
 			}
 			else
 			{
-				Fault fault = resp.getFault();
+				Fault fault = resp.getFault() ;
 
 				// Handle special fault codes here.
 				String faultCode = fault.getFaultCode() ;
 				if( faultCode.endsWith( SP_CHANGED_ON_DISK ) )
-					throw new SpChangedOnDiskException( fault.getFaultString() );
+					throw new SpChangedOnDiskException( fault.getFaultString() ) ;
 				else if( faultCode.equals( FAULT_CODE_INVALID_USER ) )
-					throw new InvalidUserException( fault.getFaultString() );
+					throw new InvalidUserException( fault.getFaultString() ) ;
 
-				JOptionPane.showMessageDialog( null , "Code:    " + fault.getFaultCode() + "\n" + "Problem: " + fault.getFaultString() , "Error Message" , JOptionPane.ERROR_MESSAGE );
+				JOptionPane.showMessageDialog( null , "Code:    " + fault.getFaultCode() + "\n" + "Problem: " + fault.getFaultString() , "Error Message" , JOptionPane.ERROR_MESSAGE ) ;
 			}
-
 		}
 		catch( SpChangedOnDiskException e )
 		{
 			// Re-throw SpChangedOnDiskException so it can be handled somewhere else.
-			throw e;
+			throw e ;
 		}
 		catch( SOAPException se )
 		{
-			Logger.getLogger( SoapClient.class ).error( se.getMessage() );
-			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE );
+			Logger.getLogger( SoapClient.class ).error( se.getMessage() ) ;
+			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE ) ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
-		return null;
+		return null ;
 	}
 }
