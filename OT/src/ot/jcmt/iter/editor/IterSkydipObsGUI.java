@@ -7,7 +7,7 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 import javax.swing.JPanel ;
@@ -24,7 +24,7 @@ import java.awt.GridLayout ;
 
 public class IterSkydipObsGUI extends IterJCMTGenericGUI
 {
-	CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt();
+	CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt() ;
 	JPanel display = new JPanel() ;
 	GridLayout layout = new GridLayout( 1 , 1 ) ;
 
@@ -32,18 +32,18 @@ public class IterSkydipObsGUI extends IterJCMTGenericGUI
 	{
 		try
 		{
-			jbInit();
+			jbInit() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
 	private void jbInit() throws Exception
 	{
-		currentAzimuth.setText( "Do Skydip at Current Azimuth?" );
-		currentAzimuth.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		currentAzimuth.setText( "Do Skydip at Current Azimuth?" ) ;
+		currentAzimuth.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		this.setLayout( layout ) ;
 		this.add( currentAzimuth ) ;
 	}

@@ -4,21 +4,21 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import gemini.sp.iter.SpIterMicroStep;
+import gemini.sp.iter.SpIterMicroStep ;
 
-import gemini.sp.SpOffsetPosList;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpMicroStepUser;
+import gemini.sp.SpOffsetPosList ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpMicroStepUser ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import java.util.TreeSet;
-import java.util.Vector;
+import java.util.TreeSet ;
+import java.util.Vector ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for MicroStep iterator component.
@@ -27,33 +27,33 @@ import jsky.app.ot.editor.OtItemEditor;
  */
 public final class EdIterMicroStep extends OtItemEditor implements ActionListener
 {
-	private IterMicroStepGUI _w;
+	private IterMicroStepGUI _w ;
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/** For internal use only. */
-	private Vector _patternVector = new Vector();
+	private Vector _patternVector = new Vector() ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterMicroStep()
 	{
-		_title = "MicroStep Iterator";
-		_presSource = _w = new IterMicroStepGUI();
-		_description = "Use this editor to specify a microstep pattern.";
+		_title = "MicroStep Iterator" ;
+		_presSource = _w = new IterMicroStepGUI() ;
+		_description = "Use this editor to specify a microstep pattern." ;
 
-		_w.microStepPattern.addActionListener( this );
+		_w.microStepPattern.addActionListener( this ) ;
 	}
 
 	/**
 	 */
 	protected void _init()
 	{
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -62,27 +62,27 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
-		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
+		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem ;
 
-		SpInstObsComp inst = microStepIter.getInstrumentItem();
+		SpInstObsComp inst = microStepIter.getInstrumentItem() ;
 
-		_patternVector.clear();
+		_patternVector.clear() ;
 
 		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
 		{
-			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() );
+			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() ) ;
 			if( !ts.contains( SpIterMicroStep.NO_PATTERN ) )
-				_patternVector.add( SpIterMicroStep.NO_PATTERN );
+				_patternVector.add( SpIterMicroStep.NO_PATTERN ) ;
 			
-			_patternVector.addAll( ts );
+			_patternVector.addAll( ts ) ;
 		}
 
-		_w.microStepPattern.setChoices( _patternVector );
-		_w.microStepPattern.setValue( microStepIter.getPattern() );
+		_w.microStepPattern.setChoices( _patternVector ) ;
+		_w.microStepPattern.setValue( microStepIter.getPattern() ) ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -92,32 +92,32 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	{
 		if( !ignoreActions )
 		{
-			SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
+			SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem ;
 	
-			SpInstObsComp inst = microStepIter.getInstrumentItem();
+			SpInstObsComp inst = microStepIter.getInstrumentItem() ;
 	
 			if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
-				_updateSpIterMicroStep( ( String )_w.microStepPattern.getSelectedItem() );
+				_updateSpIterMicroStep( ( String )_w.microStepPattern.getSelectedItem() ) ;
 		}
 	}
 
 	private void _updateSpIterMicroStep( String pattern )
 	{
-		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
-		SpInstObsComp inst = microStepIter.getInstrumentItem();
+		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem ;
+		SpInstObsComp inst = microStepIter.getInstrumentItem() ;
 
-		microStepIter.setPattern( pattern );
+		microStepIter.setPattern( pattern ) ;
 
-		SpOffsetPosList opl = microStepIter.getPosList();
+		SpOffsetPosList opl = microStepIter.getPosList() ;
 
-		opl.removeAllPositions();
+		opl.removeAllPositions() ;
 
 		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) && ( !pattern.equals( SpIterMicroStep.NO_PATTERN ) ) )
 		{
-			double[][] offsets = ( double[][] )( ( SpMicroStepUser )inst ).getMicroStepPatterns().get( _w.microStepPattern.getSelectedItem() );
+			double[][] offsets = ( double[][] )( ( SpMicroStepUser )inst ).getMicroStepPatterns().get( _w.microStepPattern.getSelectedItem() ) ;
 
 			for( int i = 0 ; i < offsets.length ; i++ )
-				opl.createPosition( offsets[ i ][ 0 ] , offsets[ i ][ 1 ] );
+				opl.createPosition( offsets[ i ][ 0 ] , offsets[ i ][ 1 ] ) ;
 		}
 		else
 		{
@@ -127,7 +127,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 			// In either case the microstep iterator has no effect.
 			// The microstep iterator should be used with an instruments classes that implement the SpMicroStepUser interface and provide a list of meaningful instrument specific microstep patterns.
 			// For instruments that do not implement the SpMicroStepUser interface SpIterMicroStep.NO_PATTERN is the only selectable choice.
-			opl.createPosition( 0. , 0. );
+			opl.createPosition( 0. , 0. ) ;
 		}
 	}
 }

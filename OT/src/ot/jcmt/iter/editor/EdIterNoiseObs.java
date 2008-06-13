@@ -7,15 +7,15 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
-import gemini.sp.SpItem;
-import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.SpJCMTConstants;
-import orac.jcmt.iter.SpIterNoiseObs;
-import orac.jcmt.inst.SpInstHeterodyne;
+import gemini.sp.SpItem ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.SpJCMTConstants ;
+import orac.jcmt.iter.SpIterNoiseObs ;
+import orac.jcmt.inst.SpInstHeterodyne ;
 
 /**
  * This is the editor for Noise Observe Mode iterator component.
@@ -24,23 +24,23 @@ import orac.jcmt.inst.SpInstHeterodyne;
  */
 public final class EdIterNoiseObs extends EdIterJCMTGeneric
 {
-	private IterNoiseObsGUI _w; // the GUI layout panel
-	private SpIterNoiseObs _iterObs;
+	private IterNoiseObsGUI _w ; // the GUI layout panel
+	private SpIterNoiseObs _iterObs ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterNoiseObs()
 	{
-		super( new IterNoiseObsGUI() );
+		super( new IterNoiseObsGUI() ) ;
 
-		_title = "Noise";
-		_presSource = _w = ( IterNoiseObsGUI )super._w;
-		_description = "Noise Observation Mode (SCUBA)";
+		_title = "Noise" ;
+		_presSource = _w = ( IterNoiseObsGUI )super._w ;
+		_description = "Noise Observation Mode (SCUBA)" ;
 
-		_w.noiseSourceComboBox.setChoices( SpJCMTConstants.NOISE_SOURCES );
+		_w.noiseSourceComboBox.setChoices( SpJCMTConstants.NOISE_SOURCES ) ;
 
-		_w.noiseSourceComboBox.addWatcher( this );
+		_w.noiseSourceComboBox.addWatcher( this ) ;
 	}
 
 	/**
@@ -48,27 +48,27 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 	 */
 	public void setup( SpItem spItem )
 	{
-		_iterObs = ( SpIterNoiseObs )spItem;
-		super.setup( spItem );
+		_iterObs = ( SpIterNoiseObs )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	protected void _updateWidgets()
 	{
-		_w.noiseSourceComboBox.setValue( _iterObs.getNoiseSource() );
-		super._updateWidgets();
+		_w.noiseSourceComboBox.setValue( _iterObs.getNoiseSource() ) ;
+		super._updateWidgets() ;
 	}
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		if( ddlbwe == _w.noiseSourceComboBox )
-			_iterObs.setNoiseSource( SpJCMTConstants.NOISE_SOURCES[ index ] );
+			_iterObs.setNoiseSource( SpJCMTConstants.NOISE_SOURCES[ index ] ) ;
 		else
-			super.dropDownListBoxAction( ddlbwe , index , val );
+			super.dropDownListBoxAction( ddlbwe , index , val ) ;
 	}
 
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
-		super.setInstrument( spInstObsComp );
+		super.setInstrument( spInstObsComp ) ;
 		_w.noiseSourceComboBox.setEnabled( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) ) ;
 	}
 }

@@ -7,30 +7,30 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot;
+package ot ;
 
-import java.awt.Point;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTargetDragEvent;
-import java.awt.dnd.DropTargetEvent;
-import java.io.IOException;
-import gemini.sp.SpInsertData;
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import jsky.app.ot.util.DnDUtils;
-import ot.util.DialogUtil;
+import java.awt.Point ;
+import java.awt.datatransfer.Transferable ;
+import java.awt.datatransfer.UnsupportedFlavorException ;
+import java.awt.dnd.DnDConstants ;
+import java.awt.dnd.DropTargetDragEvent ;
+import java.awt.dnd.DropTargetEvent ;
+import java.io.IOException ;
+import gemini.sp.SpInsertData ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTreeMan ;
+import jsky.app.ot.util.DnDUtils ;
+import ot.util.DialogUtil ;
 
-import jsky.app.ot.OtTreeDragSource;
-import jsky.app.ot.OtTreeDropTarget;
-import jsky.app.ot.OtDragDropObject;
-import jsky.app.ot.OtTreeWidget;
-import jsky.app.ot.OtTreeNodeWidget;
-import java.awt.Image;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
+import jsky.app.ot.OtTreeDragSource ;
+import jsky.app.ot.OtTreeDropTarget ;
+import jsky.app.ot.OtDragDropObject ;
+import jsky.app.ot.OtTreeWidget ;
+import jsky.app.ot.OtTreeNodeWidget ;
+import java.awt.Image ;
+import java.awt.event.KeyListener ;
+import java.awt.event.KeyEvent ;
+import javax.swing.ImageIcon ;
 
 /**
  * Implements "Drop Inside" vs "Drop After".
@@ -45,27 +45,27 @@ import javax.swing.ImageIcon;
  */
 public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyListener
 {
-	protected String INSERT_INSIDE_GIF = "ot/images/insert_inside.gif";
-	protected String INSERT_AFTER_GIF = "ot/images/insert_after.gif";
-	protected String INSERT_NO_GIF = "ot/images/insert_no.gif";
-	protected Image[] insertImage = new Image[ 3 ];
+	protected String INSERT_INSIDE_GIF = "ot/images/insert_inside.gif" ;
+	protected String INSERT_AFTER_GIF = "ot/images/insert_after.gif" ;
+	protected String INSERT_NO_GIF = "ot/images/insert_no.gif" ;
+	protected Image[] insertImage = new Image[ 3 ] ;
 
 	/**
 	 * Insert source node inside target node.
 	 */
-	public static final int INSERT_INSIDE = 0;
+	public static final int INSERT_INSIDE = 0 ;
 
 	/**
 	 * Insert source node after target node.
 	 */
-	public static final int INSERT_AFTER = 1;
+	public static final int INSERT_AFTER = 1 ;
 
 	/**
 	 * Do not insert source node.
 	 *
 	 * Reject it.
 	 */
-	public static final int INSERT_NO = 2;
+	public static final int INSERT_NO = 2 ;
 
 	/**
 	 * Determines the feedback the user gets during dragging a node over this target node.
@@ -76,7 +76,7 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	 * {@link #INSERT_AFTER}   "Down arrow",       will be dropped after  this target node.
 	 * {@link #INSERT_NO}      "X",                drop will be rejected.
 	 */
-	protected int currentInsertMode = INSERT_INSIDE;
+	protected int currentInsertMode = INSERT_INSIDE ;
 
 	/**
 	 * Offset for switching between inserting inside or after target node.
@@ -86,112 +86,112 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	 * and the source node is inserted inside the target node.
 	 * Otherwise the INSERT_AFTER_GIF is displayed and the source node is inserted after the target node.
 	 */
-	protected int OFFSET_INSERT_INSIDE = 40;
+	protected int OFFSET_INSERT_INSIDE = 40 ;
 
-	protected Point previousLocation = new Point();
+	protected Point previousLocation = new Point() ;
 
-	protected Point location = new Point();
+	protected Point location = new Point() ;
 
-	protected OtAdvancedTreeDragSource dragSource;
+	protected OtAdvancedTreeDragSource dragSource ;
 
 	public OtAdvancedTreeDropTarget( OtTreeWidget treeWidget , OtAdvancedTreeDragSource source )
 	{
-		super( treeWidget );
+		super( treeWidget ) ;
 
-		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_INSIDE_GIF ) ) ).getImage();
-		insertImage[ INSERT_AFTER ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_AFTER_GIF ) ) ).getImage();
-		insertImage[ INSERT_NO ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_NO_GIF ) ) ).getImage();
+		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_INSIDE_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_AFTER ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_AFTER_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_NO ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_NO_GIF ) ) ).getImage() ;
 
-		dragSource = source;
+		dragSource = source ;
 
-		tree.addKeyListener( this );
+		tree.addKeyListener( this ) ;
 	}
 
 	public void dragExit( DropTargetEvent dte )
 	{
-		super.dragExit( dte );
+		super.dragExit( dte ) ;
 
 		// repaint tree to get rid of insertImage that might be left over.
-		tree.repaint();
+		tree.repaint() ;
 	}
 
 	public void dragOver( DropTargetDragEvent dtde )
 	{
-		boolean okToInsertInside = isAcceptableDropLocation( dtde , INSERT_INSIDE );
-		boolean okToInsertAfter = isAcceptableDropLocation( dtde , INSERT_AFTER );
+		boolean okToInsertInside = isAcceptableDropLocation( dtde , INSERT_INSIDE ) ;
+		boolean okToInsertAfter = isAcceptableDropLocation( dtde , INSERT_AFTER ) ;
 
 		try
 		{
-			location.x = tree.getPathBounds( tree.getPathForLocation( dtde.getLocation().x , dtde.getLocation().y ) ).x;
-			location.y = tree.getPathBounds( tree.getPathForLocation( dtde.getLocation().x , dtde.getLocation().y ) ).y;
+			location.x = tree.getPathBounds( tree.getPathForLocation( dtde.getLocation().x , dtde.getLocation().y ) ).x ;
+			location.y = tree.getPathBounds( tree.getPathForLocation( dtde.getLocation().x , dtde.getLocation().y ) ).y ;
 		}
 		catch( NullPointerException e )
 		{
-			return;
+			return ;
 		}
 
 		// If mouse has moved over another node, repaint tree to get rid of orange arrow that
 		// might still be on top of a previous node.
 		if( previousLocation.x != location.x || previousLocation.y != location.y )
-			tree.repaint();
+			tree.repaint() ;
 
 		if( okToInsertAfter && okToInsertInside )
 		{
 			if( dtde.getLocation().x < ( location.x + OFFSET_INSERT_INSIDE ) )
-				currentInsertMode = INSERT_AFTER;
+				currentInsertMode = INSERT_AFTER ;
 			else
-				currentInsertMode = INSERT_INSIDE;
+				currentInsertMode = INSERT_INSIDE ;
 		}
 		else if( okToInsertAfter )
 		{
-			currentInsertMode = INSERT_AFTER;
+			currentInsertMode = INSERT_AFTER ;
 		}
 		else if( okToInsertInside )
 		{
-			currentInsertMode = INSERT_INSIDE;
+			currentInsertMode = INSERT_INSIDE ;
 		}
 		else
 		{
-			currentInsertMode = INSERT_NO;
+			currentInsertMode = INSERT_NO ;
 		}
 
-		dtde.getDropTargetContext().getComponent().getGraphics().drawImage( insertImage[ currentInsertMode ] , location.x , location.y , null );
+		dtde.getDropTargetContext().getComponent().getGraphics().drawImage( insertImage[ currentInsertMode ] , location.x , location.y , null ) ;
 
-		previousLocation.x = location.x;
-		previousLocation.y = location.y;
+		previousLocation.x = location.x ;
+		previousLocation.y = location.y ;
 
-		dragSource.overTreeNode( dtde );
+		dragSource.overTreeNode( dtde ) ;
 
-		super.dragOver( dtde );
+		super.dragOver( dtde ) ;
 	}
 
 	// This method handles a drop for a list of files
 	protected boolean dropNodes( int action , Transferable transferable , Point location ) throws IOException , UnsupportedFlavorException
 	{
-		OtDragDropObject ddo = ( OtDragDropObject )transferable.getTransferData( OtDragDropObject.dataFlavor );
+		OtDragDropObject ddo = ( OtDragDropObject )transferable.getTransferData( OtDragDropObject.dataFlavor ) ;
 
 		// MFO: The following 7 lines are retained from ot-0.5.
-		OtTreeNodeWidget node = getNode( location );
+		OtTreeNodeWidget node = getNode( location ) ;
 		if( node == null )
-			return false;
+			return false ;
 
-		DnDUtils.debugPrintln( ( action == DnDConstants.ACTION_COPY ? "Copy" : "Move" ) + " item " + ddo.getSpItem() + " to targetNode " + node );
+		DnDUtils.debugPrintln( ( action == DnDConstants.ACTION_COPY ? "Copy" : "Move" ) + " item " + ddo.getSpItem() + " to targetNode " + node ) ;
 
 		// Highlight the drop location while we perform the drop
-		_spTree.setIgnoreSelection( true );
-		_spTree.selectNode( getNode( location ) );
-		_spTree.setIgnoreSelection( false );
+		_spTree.setIgnoreSelection( true ) ;
+		_spTree.selectNode( getNode( location ) ) ;
+		_spTree.setIgnoreSelection( false ) ;
 
 		// MFO: The following 32 lines are retained from ot-0.5.
-		//      (except: try/catch and _spTree.setProgram(prog); from ot-0.9.0)
+		//      (except: try/catch and _spTree.setProgram(prog) ; from ot-0.9.0)
 
 		// Copy source object to the target
-		SpInsertData spID = getSpInsertData( ddo , node , currentInsertMode );
+		SpInsertData spID = getSpInsertData( ddo , node , currentInsertMode ) ;
 		if( spID == null )
-			return false;
+			return false ;
 
-		OtTreeWidget ownerTW = ddo.getOwner();
-		SpItem[] newItems = spID.items;
+		OtTreeWidget ownerTW = ddo.getOwner() ;
+		SpItem[] newItems = spID.items ;
 
 		try
 		{
@@ -202,14 +202,14 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 				{
 					// Copying items      
 					for( int i = 0 ; i < newItems.length ; ++i )
-						newItems[ i ] = newItems[ i ].deepCopy();
+						newItems[ i ] = newItems[ i ].deepCopy() ;
 
-					newItems = _spTree.addItems( spID );
+					newItems = _spTree.addItems( spID ) ;
 				}
 				else
 				{
 					// Moving items
-					_spTree.mvItems( spID );
+					_spTree.mvItems( spID ) ;
 				}
 			}
 			else
@@ -218,21 +218,23 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 				{
 					// Make a copy, since these items are owned by another tree.
 					for( int i = 0 ; i < newItems.length ; ++i )
-						newItems[ i ] = newItems[ i ].deepCopy();
+						newItems[ i ] = newItems[ i ].deepCopy() ;
 				}
-				newItems = _spTree.addItems( spID );
+				newItems = _spTree.addItems( spID ) ;
 			}
 
-			// force redrawing of the tree
-			//   resetProg seems to have caused the gaps in the tree between obs components in a group.
-			//   Unless other problems araise updateNodeExpansions should be used instead.
-			//   See also revision 1.6 of orac3/OT/src/jsky/app/ot/OtTreeDropTarget.java
-			//_spTree.resetProg(_spTree.getProg());
-			_spTree.updateNodeExpansions();
+			/*
+			 * force redrawing of the tree
+			 * resetProg seems to have caused the gaps in the tree between obs components in a group.
+			 * Unless other problems araise updateNodeExpansions should be used instead.
+			 * See also revision 1.6 of orac3/OT/src/jsky/app/ot/OtTreeDropTarget.java
+			 * _spTree.resetProg(_spTree.getProg()) ;
+			 */
+			_spTree.updateNodeExpansions() ;
 		}
 		catch( Exception e )
 		{
-			DialogUtil.error( _spTree , e );
+			DialogUtil.error( _spTree , e ) ;
 		}
 
 		return newItems != null ;
@@ -240,16 +242,16 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 
 	protected boolean isAcceptableDropLocation( DropTargetDragEvent dtde , int insertMode )
 	{
-		OtDragDropObject ddo = OtTreeDragSource._dragObject;
+		OtDragDropObject ddo = OtTreeDragSource._dragObject ;
 		if( ddo == null )
-			return false;
+			return false ;
 
 		// get the node under the mouse
-		OtTreeNodeWidget node = getNode( dtde.getLocation() );
+		OtTreeNodeWidget node = getNode( dtde.getLocation() ) ;
 		if( node == null )
-			return false;
+			return false ;
 
-		return( getSpInsertData( ddo , node , insertMode ) != null );
+		return( getSpInsertData( ddo , node , insertMode ) != null ) ;
 	}
 
 	/**
@@ -259,17 +261,17 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	protected SpInsertData getSpInsertData( OtDragDropObject ddo , OtTreeNodeWidget node , int insertMode )
 	{
 		// See whether we can insert the newItem.
-		SpItem[] newItems = ddo.getSpItems();
-		SpItem spItem = node.getItem();
+		SpItem[] newItems = ddo.getSpItems() ;
+		SpItem spItem = node.getItem() ;
 
-		SpInsertData spID = null;
+		SpInsertData spID = null ;
 
 		if( insertMode == INSERT_AFTER )
-			spID = SpTreeMan.evalInsertAfter( newItems , spItem );
+			spID = SpTreeMan.evalInsertAfter( newItems , spItem ) ;
 		else if( insertMode == INSERT_INSIDE )
-			spID = SpTreeMan.evalInsertInside( newItems , spItem );
+			spID = SpTreeMan.evalInsertInside( newItems , spItem ) ;
 
-		return spID;
+		return spID ;
 	}
 
 	public void keyPressed( KeyEvent e )
@@ -278,12 +280,12 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 		{
 			try
 			{
-				_spTree.rmAllSelectedItems();
+				_spTree.rmAllSelectedItems() ;
 			}
 			// IllegalArgumentException is thrown if user attempts to delete Science Program root node.
 			catch( IllegalArgumentException exception )
 			{
-				DialogUtil.error( _spTree , exception.getMessage() );
+				DialogUtil.error( _spTree , exception.getMessage() ) ;
 			}
 		}
 	}

@@ -4,20 +4,20 @@
 //
 // $Id$
 //
-package ot.phase1;
+package ot.phase1 ;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import java.io.File ;
+import java.io.IOException ;
+import java.net.URL ;
 
-import gemini.sp.SpItem;
-import gemini.util.HTMLAnchor;
+import gemini.sp.SpItem ;
+import gemini.util.HTMLAnchor ;
 
 public interface Phase1HTMLDocument
 {
-	public void generate( SpItem prog ) throws IOException;
-	public void generate( String filename , SpItem prog ) throws IOException;
-	public void generate( File file , SpItem prog ) throws IOException;
-	public HTMLAnchor[] getAnchors();
-	public URL getURL();
+	public void generate( SpItem prog ) throws IOException ;
+	public void generate( String filename , SpItem prog ) throws IOException ;
+	public void generate( File file , SpItem prog ) throws IOException ;
+	public HTMLAnchor[] getAnchors() ;
+	public URL getURL() ;
 }

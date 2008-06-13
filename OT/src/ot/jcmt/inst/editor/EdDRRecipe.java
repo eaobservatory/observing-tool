@@ -7,47 +7,47 @@
 /*                                                              */
 /*==============================================================*/
 
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpItem;
-import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.inst.SpInstHeterodyne;
-import jsky.app.ot.gui.KeyPressWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.gui.TableWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpItem ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.inst.SpInstHeterodyne ;
+import jsky.app.ot.gui.KeyPressWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.gui.TableWidgetExt ;
+import jsky.app.ot.gui.TableWidgetWatcher ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
 
-import jsky.app.ot.editor.OtItemEditor;
-import orac.jcmt.inst.SpDRRecipe;
-import orac.util.LookUpTable;
+import jsky.app.ot.editor.OtItemEditor ;
+import orac.jcmt.inst.SpDRRecipe ;
+import orac.util.LookUpTable ;
 
-import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Vector;
+import java.awt.event.KeyEvent ;
+import java.awt.CardLayout ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import java.util.Vector ;
 
 // MFO: Preliminary. Get rid of GUI stuff inside this class.
-import javax.swing.JComponent;
+import javax.swing.JComponent ;
 
 /**
  * This is the editor for the DRRecipe item.
  */
 public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , TextBoxWidgetWatcher , TableWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
-	private static final String INST_STR_SCUBA2 = "scuba2";
-	private static final String INST_STR_HETERODYNE = "heterodyne";
-	private SpDRRecipe _spDRRecipe;
-	private SpInstObsComp _inst;
-	private String _currentRecipeSelected;
-	private String _instStr;
-	private DRRecipeGUI _w; // the GUI layout
+	private static final String INST_STR_SCUBA2 = "scuba2" ;
+	private static final String INST_STR_HETERODYNE = "heterodyne" ;
+	private SpDRRecipe _spDRRecipe ;
+	private SpInstObsComp _inst ;
+	private String _currentRecipeSelected ;
+	private String _instStr ;
+	private DRRecipeGUI _w ; // the GUI layout
 	
 	private boolean initd = false ;
 
@@ -56,10 +56,10 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public EdDRRecipe()
 	{
-		_title = "DR Recipe";
-		_presSource = _w = new DRRecipeGUI();
-		_description = "Enter the Data Reduction recipe to be used"; // for each observation type";
-		_resizable = true;
+		_title = "DR Recipe" ;
+		_presSource = _w = new DRRecipeGUI() ;
+		_description = "Enter the Data Reduction recipe to be used" ; // for each observation type" ;
+		_resizable = true ;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but has always been hard-wired in a similar way.
-		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() ) ;
 
 		// The recipes
 		TextBoxWidgetExt rtbw = null ;
@@ -89,7 +89,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		{
 			final String type = availableTypes[ index ] ;
 			_w.setEnabled( type , true ) ;
-			rtbw = ( TextBoxWidgetExt )getWidget( type );
+			rtbw = ( TextBoxWidgetExt )getWidget( type ) ;
 
 			if( rtbw == null )
 			{
@@ -97,32 +97,32 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 				continue ;
 			}
 			
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 			
-			cbw = ( CommandButtonWidgetExt )getWidget( type + "Set" );
+			cbw = ( CommandButtonWidgetExt )getWidget( type + "Set" ) ;
 			cbw.deleteWatchers() ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setRecipeForType( _currentRecipeSelected , type , _instStr );
+					_spDRRecipe.setRecipeForType( _currentRecipeSelected , type , _instStr ) ;
 	
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( type );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( type ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 		}
 
 		// The table of possible recipes
-		TableWidgetExt twe;
-		twe = ( TableWidgetExt )getWidget( "recipeTable" );
-		twe.setColumnHeaders( new String[]{ "Recipe Name" , "Description" } );
-		twe.addWatcher( this );
+		TableWidgetExt twe ;
+		twe = ( TableWidgetExt )getWidget( "recipeTable" ) ;
+		twe.setColumnHeaders( new String[]{ "Recipe Name" , "Description" } ) ;
+		twe.addWatcher( this ) ;
 
 		// button to reset the recipe to default
-		cbw = ( CommandButtonWidgetExt )getWidget( "defaultName" );
+		cbw = ( CommandButtonWidgetExt )getWidget( "defaultName" ) ;
 		cbw.deleteWatchers() ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
@@ -130,9 +130,9 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			{
 				_spDRRecipe.setDefaultsForInstrument( _instStr ) ;
 				_currentRecipeSelected = null ;
-				_updateWidgets();
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 		
 		initd = true ;
 	}
@@ -144,10 +144,10 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _showRecipeType( LookUpTable recipes )
 	{
-		Vector[] rowsV = new Vector[ recipes.getNumRows() ];
-		rowsV = recipes.getAsVectorArray();
-		TableWidgetExt tw = ( TableWidgetExt )getWidget( "recipeTable" );
-		tw.setRows( rowsV );
+		Vector[] rowsV = new Vector[ recipes.getNumRows() ] ;
+		rowsV = recipes.getAsVectorArray() ;
+		TableWidgetExt tw = ( TableWidgetExt )getWidget( "recipeTable" ) ;
+		tw.setRows( rowsV ) ;
 	}
 
 	/**
@@ -160,23 +160,23 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but has always been hard-wired in a similar way.
-		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() ) ;
 
 		// First fill in the text box.
-		TextBoxWidgetExt tbwe;
+		TextBoxWidgetExt tbwe ;
 
 		String[] availableTypes = _spDRRecipe.getAvailableTypes( _instStr ) ;
 		
 		for( int index = 0 ; index < availableTypes.length ; index++ )
 		{
 			String type = availableTypes[ index ] ;
-			tbwe = ( TextBoxWidgetExt )getWidget( type );
+			tbwe = ( TextBoxWidgetExt )getWidget( type ) ;
 			try
 			{
-				recipe = _spDRRecipe.getRecipeForType( type );
+				recipe = _spDRRecipe.getRecipeForType( type ) ;
 				if( recipe == null )
 					recipe = "" ;
-				tbwe.setValue( recipe );
+				tbwe.setValue( recipe ) ;
 			}
 			catch( NullPointerException ex ){}
 		}
@@ -188,15 +188,15 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// What I really need to do is introduce imaging/spec capabilities into
 		// instruments which I can then get. Imager-spectrometers will be a special case
 
-		LookUpTable rarray = null;
+		LookUpTable rarray = null ;
 
 		if( _instStr.equalsIgnoreCase( INST_STR_SCUBA2 ) )
 			rarray = SpDRRecipe.SCUBA2 ;
 		else if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
-			rarray = SpDRRecipe.HETERODYNE;
+			rarray = SpDRRecipe.HETERODYNE ;
 
 		// Show the correct recipes, and select the option widget for the type
-		_showRecipeType( rarray );
+		_showRecipeType( rarray ) ;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		_inst = tmpInst ;
 		
 		if( _inst instanceof SpInstHeterodyne )
-			_instStr = INST_STR_HETERODYNE;
+			_instStr = INST_STR_HETERODYNE ;
 		else
 			_instStr = INST_STR_SCUBA2 ;
 			
@@ -224,7 +224,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		else
 			_updateRecipeWidgets() ;
 		
-		super.setup( spItem );
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -232,7 +232,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected void _updateWidgets()
 	{
-		_updateRecipeWidgets();
+		_updateRecipeWidgets() ;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public void refresh()
 	{
-		_updateWidgets();
+		_updateWidgets() ;
 	}
 
 	/**
@@ -259,7 +259,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		// This is the watcher entered hen the user types a character in a text box
 		// widget, Currently the user specified recipe is the only such widget.
-		_currentRecipeSelected = tbwe.getText().trim();
+		_currentRecipeSelected = tbwe.getText().trim() ;
 	}
 
 	/**
@@ -271,33 +271,33 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 	{
-		_currentRecipeSelected = ( String )twe.getCell( 0 , rowIndex );
-		String _defaultRecipe = "QUICK_LOOK";
+		_currentRecipeSelected = ( String )twe.getCell( 0 , rowIndex ) ;
+		String _defaultRecipe = "QUICK_LOOK" ;
 
 		// Allow for blank lines and headings. The latter is defined to contain
 		// at least two lowercase letters or any space (testing for a colon
 		// might also be useful). Merely substitute the default recipe.
 		if( _currentRecipeSelected.length() == 0 )
 		{
-			_currentRecipeSelected = _defaultRecipe;
+			_currentRecipeSelected = _defaultRecipe ;
 		}
 		else
 		{
-			int count = 0;
+			int count = 0 ;
 			for( int i = 0 ; i < _currentRecipeSelected.length() ; i++ )
 			{
 				if( Character.isWhitespace( _currentRecipeSelected.charAt( i ) ) )
 				{
-					_currentRecipeSelected = _defaultRecipe;
-					break;
+					_currentRecipeSelected = _defaultRecipe ;
+					break ;
 				}
 				else if( Character.isLowerCase( _currentRecipeSelected.charAt( i ) ) )
 				{
 					count++ ;
 					if( count > 1 )
 					{
-						_currentRecipeSelected = _defaultRecipe;
-						break;
+						_currentRecipeSelected = _defaultRecipe ;
+						break ;
 					}
 				}
 			}
@@ -328,19 +328,19 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		try
 		{
-			return ( JComponent )( _w.getClass().getDeclaredField( widgetName ).get( _w ) );
+			return ( JComponent )( _w.getClass().getDeclaredField( widgetName ).get( _w ) ) ;
 		}
 		catch( NoSuchFieldException e )
 		{
 			if( ( System.getProperty( "DEBUG" ) != null ) && System.getProperty( "DEBUG" ).equalsIgnoreCase( "ON" ) )
-				System.out.println( "Could not find widget / component \"" + widgetName + "\"." );
+				System.out.println( "Could not find widget / component \"" + widgetName + "\"." ) ;
 
-			return null;
+			return null ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			return null;
+			e.printStackTrace() ;
+			return null ;
 		}
 	}
 }

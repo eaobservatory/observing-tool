@@ -6,176 +6,176 @@
  * @author Martin Folger
  * @version 1.0
  */
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Color;
-import java.awt.Insets;
+import java.awt.GridBagLayout ;
+import java.awt.BorderLayout ;
+import java.awt.CardLayout ;
+import java.awt.GridBagConstraints ;
+import java.awt.Color ;
+import java.awt.Insets ;
 import java.awt.Font ;
-import java.lang.reflect.Field;
+import java.lang.reflect.Field ;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.JScrollPane ;
 
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TableWidgetExt ;
 
 public class DRRecipeGUI extends JPanel
 {
 	Class whatami = this.getClass() ;
 	
-	JLabel recipeNameLabel = new JLabel();
-	JLabel obeservationTypeLabel = new JLabel();
+	JLabel recipeNameLabel = new JLabel() ;
+	JLabel obeservationTypeLabel = new JLabel() ;
 
 	// Beginning of types
 		
-	JLabel rasterLabel = new JLabel();	
-	CommandButtonWidgetExt rasterRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt rasterRecipe = new TextBoxWidgetExt();
+	JLabel rasterLabel = new JLabel() ;	
+	CommandButtonWidgetExt rasterRecipeSet = new CommandButtonWidgetExt() ;
+	TextBoxWidgetExt rasterRecipe = new TextBoxWidgetExt() ;
 	Object[] raster = { rasterRecipeSet , rasterRecipe } ;
 	
-	JLabel jiggleLabel = new JLabel();	
-	CommandButtonWidgetExt jiggleRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt jiggleRecipe = new TextBoxWidgetExt();
+	JLabel jiggleLabel = new JLabel() ;	
+	CommandButtonWidgetExt jiggleRecipeSet = new CommandButtonWidgetExt() ;
+	TextBoxWidgetExt jiggleRecipe = new TextBoxWidgetExt() ;
 	Object[] jiggle = { jiggleRecipeSet , jiggleRecipe } ;
 	
-	JLabel stareLabel = new JLabel();	
-	CommandButtonWidgetExt stareRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt stareRecipe = new TextBoxWidgetExt();
+	JLabel stareLabel = new JLabel() ;	
+	CommandButtonWidgetExt stareRecipeSet = new CommandButtonWidgetExt() ;
+	TextBoxWidgetExt stareRecipe = new TextBoxWidgetExt() ;
 	Object[] stare = { stareRecipeSet , stareRecipe } ;
 	
-	JLabel pointingLabel = new JLabel();	
-	CommandButtonWidgetExt pointingRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt pointingRecipe = new TextBoxWidgetExt();
+	JLabel pointingLabel = new JLabel() ;	
+	CommandButtonWidgetExt pointingRecipeSet = new CommandButtonWidgetExt() ;
+	TextBoxWidgetExt pointingRecipe = new TextBoxWidgetExt() ;
 	Object[] pointing = { pointingRecipeSet , pointingRecipe } ;
 	
-	JLabel focusLabel = new JLabel();	
-	CommandButtonWidgetExt focusRecipeSet = new CommandButtonWidgetExt();
-	TextBoxWidgetExt focusRecipe = new TextBoxWidgetExt();
+	JLabel focusLabel = new JLabel() ;	
+	CommandButtonWidgetExt focusRecipeSet = new CommandButtonWidgetExt() ;
+	TextBoxWidgetExt focusRecipe = new TextBoxWidgetExt() ;
 	Object[] focus = { focusRecipeSet , focusRecipe } ;
 	
 	Object[] types = { raster , jiggle , stare , pointing , focus } ;
 	
 	// End of types
 	
-	TableWidgetExt recipeTable = new TableWidgetExt();
+	TableWidgetExt recipeTable = new TableWidgetExt() ;
 	
-	CommandButtonWidgetExt defaultName = new CommandButtonWidgetExt();
+	CommandButtonWidgetExt defaultName = new CommandButtonWidgetExt() ;
 
 	// the following names are not very helpful
-	JPanel panel = new JPanel();
+	JPanel panel = new JPanel() ;
 	JPanel bigPanel = new JPanel() ;
-	JPanel thatPanel = new JPanel();
-	JPanel anotherPanel = new JPanel();
-	JScrollPane scrollPane = new JScrollPane();
+	JPanel thatPanel = new JPanel() ;
+	JPanel anotherPanel = new JPanel() ;
+	JScrollPane scrollPane = new JScrollPane() ;
 
-	CardLayout cardLayout = new CardLayout();
-	BorderLayout borderLayout = new BorderLayout();
+	CardLayout cardLayout = new CardLayout() ;
+	BorderLayout borderLayout = new BorderLayout() ;
 	BorderLayout layout = new BorderLayout() ;
 	GridBagLayout panelGridbag = new GridBagLayout() ;
-	GridBagLayout anotherGridbag = new GridBagLayout();
+	GridBagLayout anotherGridbag = new GridBagLayout() ;
 
 	public DRRecipeGUI()
 	{
 		try
 		{
-			jbInit();
+			jbInit() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
 	private void jbInit() throws Exception
 	{
-		this.setLayout( cardLayout );
+		this.setLayout( cardLayout ) ;
 		panel.setLayout( layout ) ;
 		thatPanel.setLayout( panelGridbag ) ;
 		bigPanel.setLayout( borderLayout ) ;
 		anotherPanel.setLayout( anotherGridbag ) ;
 		
-		recipeNameLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		recipeNameLabel.setForeground( Color.black );
-		recipeNameLabel.setText( "Recipe Name" );
+		recipeNameLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		recipeNameLabel.setForeground( Color.black ) ;
+		recipeNameLabel.setText( "Recipe Name" ) ;
 		
-		obeservationTypeLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		obeservationTypeLabel.setForeground( Color.black );
-		obeservationTypeLabel.setText( "Observation Type" );
+		obeservationTypeLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		obeservationTypeLabel.setForeground( Color.black ) ;
+		obeservationTypeLabel.setText( "Observation Type" ) ;
 	
-		defaultName.setText( "Default" );
+		defaultName.setText( "Default" ) ;
 		
 		// Beginning of types
 		
-		rasterLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		rasterLabel.setForeground( Color.black );
-		rasterLabel.setText( "Raster" );
-		rasterRecipeSet.setText( "Set" );
+		rasterLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		rasterLabel.setForeground( Color.black ) ;
+		rasterLabel.setText( "Raster" ) ;
+		rasterRecipeSet.setText( "Set" ) ;
 		
-		jiggleLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		jiggleLabel.setForeground( Color.black );
-		jiggleLabel.setText( "Jiggle" );
-		jiggleRecipeSet.setText( "Set" );
+		jiggleLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		jiggleLabel.setForeground( Color.black ) ;
+		jiggleLabel.setText( "Jiggle" ) ;
+		jiggleRecipeSet.setText( "Set" ) ;
 		
-		stareLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		stareLabel.setForeground( Color.black );
-		stareLabel.setText( "Stare" );
-		stareRecipeSet.setText( "Set" );
+		stareLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		stareLabel.setForeground( Color.black ) ;
+		stareLabel.setText( "Stare" ) ;
+		stareRecipeSet.setText( "Set" ) ;
 		
-		pointingLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		pointingLabel.setForeground( Color.black );
-		pointingLabel.setText( "Pointing" );
-		pointingRecipeSet.setText( "Set" );
+		pointingLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		pointingLabel.setForeground( Color.black ) ;
+		pointingLabel.setText( "Pointing" ) ;
+		pointingRecipeSet.setText( "Set" ) ;
 		
-		focusLabel.setFont( new Font( "Dialog" , 0 , 12 ) );
-		focusLabel.setForeground( Color.black );
-		focusLabel.setText( "Focus" );
-		focusRecipeSet.setText( "Set" );
+		focusLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
+		focusLabel.setForeground( Color.black ) ;
+		focusLabel.setText( "Focus" ) ;
+		focusRecipeSet.setText( "Set" ) ;
 
 		// End of types
 		
-		this.add( panel , "heterodyne" );
+		this.add( panel , "heterodyne" ) ;
 
-		panel.add( thatPanel , BorderLayout.NORTH );
+		panel.add( thatPanel , BorderLayout.NORTH ) ;
 
-		thatPanel.add( recipeNameLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( obeservationTypeLabel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( recipeNameLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 1. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( obeservationTypeLabel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
 		// Beginning of types
 		
-		thatPanel.add( rasterLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		thatPanel.add( rasterRecipeSet , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( rasterRecipe , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( rasterLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) ) ;
+		thatPanel.add( rasterRecipeSet , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( rasterRecipe , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
-		thatPanel.add( jiggleLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		thatPanel.add( jiggleRecipeSet , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( jiggleRecipe , new GridBagConstraints( 2 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( jiggleLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) ) ;
+		thatPanel.add( jiggleRecipeSet , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( jiggleRecipe , new GridBagConstraints( 2 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
-		thatPanel.add( stareLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		thatPanel.add( stareRecipeSet , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( stareRecipe , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( stareLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) ) ;
+		thatPanel.add( stareRecipeSet , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( stareRecipe , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
-		thatPanel.add( pointingLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		thatPanel.add( pointingRecipeSet , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( pointingRecipe , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( pointingLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) ) ;
+		thatPanel.add( pointingRecipeSet , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( pointingRecipe , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
-		thatPanel.add( focusLabel , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) );
-		thatPanel.add( focusRecipeSet , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		thatPanel.add( focusRecipe , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		thatPanel.add( focusLabel , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 15 , 0 ) ) ;
+		thatPanel.add( focusRecipeSet , new GridBagConstraints( 1 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		thatPanel.add( focusRecipe , new GridBagConstraints( 2 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		
 		// End of types
 		
-		panel.add( bigPanel , BorderLayout.CENTER );
+		panel.add( bigPanel , BorderLayout.CENTER ) ;
 		
 		bigPanel.add( anotherPanel , BorderLayout.NORTH ) ;
-		anotherPanel.add( defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		bigPanel.add( scrollPane , BorderLayout.CENTER );
-		scrollPane.getViewport().add( recipeTable , null );
+		anotherPanel.add( defaultName , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		bigPanel.add( scrollPane , BorderLayout.CENTER ) ;
+		scrollPane.getViewport().add( recipeTable , null ) ;
 		reset() ;
 	}
 	

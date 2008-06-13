@@ -1,6 +1,6 @@
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import jsky.app.ot.editor.EdIterGenericConfig;
+import jsky.app.ot.editor.EdIterGenericConfig ;
 
 /**
  * @author M.Folger@roe.ac.uk
@@ -16,8 +16,8 @@ public class EdIterUKIRTGeneric extends EdIterGenericConfig
 	protected boolean isUserEditable( String attribute )
 	{
 		if( attribute.toLowerCase().startsWith( "instaper" ) )
-			return false;
+			return false ;
 		else
-			return super.isUserEditable( attribute );
+			return super.isUserEditable( attribute ) ;
 	}
 }

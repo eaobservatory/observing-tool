@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package ot.ukirt.inst.editor;
+package ot.ukirt.inst.editor ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpChopCapability;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpChopCapability ;
 
 import javax.swing.JComponent ;
-import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 /**
  * Support for exposures/chop pos, chop cycles/nod, and nod cycles/obs.
@@ -24,9 +24,9 @@ public class EdChopCapability
 	 */
 	private SpChopCapability _getChopCap( OtItemEditor itemEditor )
 	{
-		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem();
-		String name = SpChopCapability.CAPABILITY_NAME;
-		return ( SpChopCapability )spInst.getCapability( name );
+		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem() ;
+		String name = SpChopCapability.CAPABILITY_NAME ;
+		return ( SpChopCapability )spInst.getCapability( name ) ;
 	}
 
 	/**
@@ -35,29 +35,29 @@ public class EdChopCapability
 	 */
 	protected void _init( final EdCompInstBase gw , final OtItemEditor itemEditor )
 	{
-		TextBoxWidgetExt tbwe;
+		TextBoxWidgetExt tbwe ;
 
-		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" );
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" ) ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getChopCap( itemEditor ).setExposuresPerChopPosition( tbwe.getText() );
+				_getChopCap( itemEditor ).setExposuresPerChopPosition( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 
-		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" );
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" ) ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getChopCap( itemEditor ).setCyclesPerObserve( tbwe.getText() );
+				_getChopCap( itemEditor ).setCyclesPerObserve( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 	}
 
 	/**
@@ -65,11 +65,11 @@ public class EdChopCapability
 	 */
 	protected void _updateWidgets( EdCompInstBase gw , SpChopCapability chopCap )
 	{
-		TextBoxWidgetExt tbwe;
-		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" );
-		tbwe.setText( chopCap.getExposuresPerChopPositionAsString() );
-		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" );
-		tbwe.setText( chopCap.getCyclesPerObserveAsString() );
+		TextBoxWidgetExt tbwe ;
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "expPerChopPos" ) ;
+		tbwe.setText( chopCap.getExposuresPerChopPositionAsString() ) ;
+		tbwe = ( TextBoxWidgetExt )getWidget( gw , "cyclesPerObs" ) ;
+		tbwe.setText( chopCap.getCyclesPerObserveAsString() ) ;
 	}
 
 	/**
@@ -81,19 +81,19 @@ public class EdChopCapability
 	{
 		try
 		{
-			return ( JComponent )( gw.getClass().getDeclaredField( widgetName ).get( gw ) );
+			return ( JComponent )( gw.getClass().getDeclaredField( widgetName ).get( gw ) ) ;
 		}
 		catch( NoSuchFieldException e )
 		{
 			if( ( System.getProperty( "DEBUG" ) != null ) && System.getProperty( "DEBUG" ).equalsIgnoreCase( "ON" ) )
-				System.out.println( "Could not find widget / component \"" + widgetName + "\"." );
+				System.out.println( "Could not find widget / component \"" + widgetName + "\"." ) ;
 
-			return null;
+			return null ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			return null;
+			e.printStackTrace() ;
+			return null ;
 		}
 	}
 }

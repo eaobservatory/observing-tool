@@ -7,18 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import gemini.sp.SpItem;
-import orac.jcmt.inst.SpInstSCUBA;
-import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.gui.ListBoxWidgetExt;
-import jsky.app.ot.gui.ListBoxWidgetWatcher;
+import gemini.sp.SpItem ;
+import orac.jcmt.inst.SpInstSCUBA ;
+import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.gui.ListBoxWidgetExt ;
+import jsky.app.ot.gui.ListBoxWidgetWatcher ;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.util.Enumeration ;
+import java.util.Vector ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
 /**
  * This is the editor for the Scuba instrument component.
@@ -27,34 +27,34 @@ import java.awt.event.ActionEvent;
  */
 public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidgetWatcher , ActionListener
 {
-	private SpInstSCUBA _instSCUBA;
-	private ScubaGUI _w; // the GUI layout
-	private boolean _ignoreActions = false;
+	private SpInstSCUBA _instSCUBA ;
+	private ScubaGUI _w ; // the GUI layout
+	private boolean _ignoreActions = false ;
 
 	/**
 	 * GUI with SCUBA arrays for bolometer selection.
 	 */
-	private ScubaArraysFrame _scubaArraysGUI = new ScubaArraysFrame();
+	private ScubaArraysFrame _scubaArraysGUI = new ScubaArraysFrame() ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdCompInstSCUBA()
 	{
-		_title = "JCMT SCUBA";
-		_presSource = _w = new ScubaGUI();
-		_description = "The SCUBA instrument is configured with this component.";
+		_title = "JCMT SCUBA" ;
+		_presSource = _w = new ScubaGUI() ;
+		_description = "The SCUBA instrument is configured with this component." ;
 
-		Enumeration filters = SpInstSCUBA.filters();
-		Vector filterVector = new Vector();
+		Enumeration filters = SpInstSCUBA.filters() ;
+		Vector filterVector = new Vector() ;
 
 		while( filters.hasMoreElements() )
-			filterVector.add( filters.nextElement() );
+			filterVector.add( filters.nextElement() ) ;
 
-		_w.filterList.setChoices( filterVector );
+		_w.filterList.setChoices( filterVector ) ;
 
-		_w.filterList.addWatcher( this );
-		_w.editBolometers.addActionListener( this );
+		_w.filterList.addWatcher( this ) ;
+		_w.editBolometers.addActionListener( this ) ;
 	}
 
 	/**
@@ -62,8 +62,8 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidget
 	 */
 	public void setup( SpItem spItem )
 	{
-		_instSCUBA = ( SpInstSCUBA )spItem;
-		super.setup( spItem );
+		_instSCUBA = ( SpInstSCUBA )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -72,18 +72,18 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidget
 	 */
 	protected void _updateWidgets()
 	{
-		_ignoreActions = true;
+		_ignoreActions = true ;
 
-		_w.filterList.setValue( _instSCUBA.getFilter() );
+		_w.filterList.setValue( _instSCUBA.getFilter() ) ;
 
 		if( _instSCUBA.getBolometers() != null )
-			_w.additionalBolometers.setChoices( _instSCUBA.getBolometers() );
+			_w.additionalBolometers.setChoices( _instSCUBA.getBolometers() ) ;
 		else
-			_w.additionalBolometers.clear();
+			_w.additionalBolometers.clear() ;
 
-		_w.primaryBolometer.setValue( _instSCUBA.getPrimaryBolometer() );
+		_w.primaryBolometer.setValue( _instSCUBA.getPrimaryBolometer() ) ;
 
-		_ignoreActions = false;
+		_ignoreActions = false ;
 	}
 
 	/**
@@ -92,13 +92,13 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidget
 	 */
 	public void refresh()
 	{
-		_updateWidgets();
+		_updateWidgets() ;
 	}
 
 	public void listBoxAction( ListBoxWidgetExt lbwe , int index , java.lang.String val )
 	{
 		if( System.getProperty( "DEBUG" ) != null )
-			System.out.println( "in listBoxAction, value = " + val );
+			System.out.println( "in listBoxAction, value = " + val ) ;
 	}
 
 	public void listBoxSelect( ListBoxWidgetExt lbwe , int index , java.lang.String val )
@@ -106,31 +106,31 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidget
 		if( _ignoreActions )
 		{
 			if( System.getProperty( "DEBUG" ) != null )
-				System.out.println( "in listBoxSelect, value = " + val + ", IGNORING" );
+				System.out.println( "in listBoxSelect, value = " + val + ", IGNORING" ) ;
 
-			return;
+			return ;
 		}
 
 		if( System.getProperty( "DEBUG" ) != null )
-			System.out.println( "in listBoxSelect, value = " + val + ", NOT ignoring" );
+			System.out.println( "in listBoxSelect, value = " + val + ", NOT ignoring" ) ;
 
 
 		if( lbwe == _w.filterList )
 		{
-			_instSCUBA.setFilter( _w.filterList.getStringValue() );
+			_instSCUBA.setFilter( _w.filterList.getStringValue() ) ;
 
 			// Setting the sub-instruments to the empty String array will cause _updateWidgets()
 			// to make the first entry of the sub-instrument list the primary sub-instrument
 			//  and the only sub-instrument selected. These settings put into _instSCUBA as well.
-			_instSCUBA.setBolometers( null );
-			_instSCUBA.setPrimaryBolometer( null );
+			_instSCUBA.setBolometers( null ) ;
+			_instSCUBA.setPrimaryBolometer( null ) ;
 		}
 
-		_updateWidgets();
+		_updateWidgets() ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
-		_scubaArraysGUI.show( this );
+		_scubaArraysGUI.show( this ) ;
 	}
 }

@@ -7,15 +7,15 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot;
+package ot ;
 
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import java.awt.Font ;
+import javax.swing.JTextArea ;
+import javax.swing.JFileChooser ;
+import javax.swing.JOptionPane ;
 
-import java.io.PrintWriter;
-import java.io.IOException;
+import java.io.PrintWriter ;
+import java.io.IOException ;
 
 /**
  * Frame for displaying formatted ASCII text.
@@ -35,43 +35,43 @@ public class FormattedStringBox extends ReportBox
 	 * JTextArea works better with pack(). So _textPane of the super class is
 	 * removed from the frame and _textArea is added instead.
 	 */
-	protected JTextArea _textArea = new JTextArea();
+	protected JTextArea _textArea = new JTextArea() ;
 
 	protected FormattedStringBox()
 	{
 
-		_fileChooser.addChoosableFileFilter( _asciiFileFilter );
+		_fileChooser.addChoosableFileFilter( _asciiFileFilter ) ;
 
-		_textArea.setFont( new Font( "Monospaced" , 0 , 10 ) );
+		_textArea.setFont( new Font( "Monospaced" , 0 , 10 ) ) ;
 
-		_printButton.setVisible( false );
-		_saveButton.setVisible( false );
+		_printButton.setVisible( false ) ;
+		_saveButton.setVisible( false ) ;
 
-		remove( _textPane );
-		jScrollPane1.getViewport().add( _textArea , null );
+		remove( _textPane ) ;
+		jScrollPane1.getViewport().add( _textArea , null ) ;
 
-		setVisible( true );
+		setVisible( true ) ;
 	}
 
 	public FormattedStringBox( String message )
 	{
-		this();
+		this() ;
 
-		_textArea.setText( message );
-		int columns = message.indexOf( "\n" ) + 5;
-		_textArea.setColumns( columns );
-		_textArea.setRows( 30 );
-		_textArea.setLineWrap( true );
-		_textArea.setWrapStyleWord( true );
-		setLocation( 100 , 300 );
-		pack();
-		setVisible( true );
+		_textArea.setText( message ) ;
+		int columns = message.indexOf( "\n" ) + 5 ;
+		_textArea.setColumns( columns ) ;
+		_textArea.setRows( 30 ) ;
+		_textArea.setLineWrap( true ) ;
+		_textArea.setWrapStyleWord( true ) ;
+		setLocation( 100 , 300 ) ;
+		pack() ;
+		setVisible( true ) ;
 	}
 
 	public FormattedStringBox( String message , String title )
 	{
-		this( message );
-		setTitle( title );
+		this( message ) ;
+		setTitle( title ) ;
 	}
 
 	/**
@@ -83,24 +83,24 @@ public class FormattedStringBox extends ReportBox
 	{
 		if( _fileChooser.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION )
 		{
-			String fileName = _fileChooser.getSelectedFile().getPath();
+			String fileName = _fileChooser.getSelectedFile().getPath() ;
 	
 			if( fileName == null )
 			{
 				try
 				{
 					PrintWriter printWriter = new PrintWriter( fileName ) ;
-					String[] split = _textArea.getText().split( "\n" );
+					String[] split = _textArea.getText().split( "\n" ) ;
 					
 					int i = 0 ;
 					while( i < split.length )
-						printWriter.println( split[ i++ ] );
+						printWriter.println( split[ i++ ] ) ;
 					printWriter.flush() ;
-					printWriter.close();
+					printWriter.close() ;
 				}
 				catch( IOException e )
 				{
-					JOptionPane.showMessageDialog( this , "Problems writing to file \"" + fileName + "\": " + e , "Save Error" , JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog( this , "Problems writing to file \"" + fileName + "\": " + e , "Save Error" , JOptionPane.ERROR_MESSAGE ) ;
 				}
 			}
 		}

@@ -51,31 +51,31 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	 * This constant should remain distinct from the STATUS constants used in
 	 * {@link orac.util.DrUtil}.
 	 */
-	protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
+	protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5 ;
 
-	protected IterJCMTGenericGUI _w; // the GUI layout panel
-	protected SpIterJCMTObs _iterObs;
-	protected String _noiseToolTip = "";
+	protected IterJCMTGenericGUI _w ; // the GUI layout panel
+	protected SpIterJCMTObs _iterObs ;
+	protected String _noiseToolTip = "" ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterJCMTGeneric( IterJCMTGenericGUI w )
 	{
-		_title = "JCMT Observe";
-		_presSource = _w = w;
-		_description = "Iterator Component for JCMT";
-		_w.switchingMode.addWatcher( this );
-		_w.frequencyOffset_throw.addWatcher( this );
-		_w.frequencyOffset_rate.addWatcher( this );
-		_w.secsPerCycle.addWatcher( this );
-		_w.cycleReversal.addWatcher( this );
-		_w.continuousCal.addWatcher( this );
-		_w.stepSize.addWatcher( this );
-		_w.jiggleAtReference.addWatcher( this );
-		_w.jigglesPerCycle.addWatcher( this );
-		_w.sampleTime.addWatcher( this );
-		_w.automaticTarget.addWatcher( this );
+		_title = "JCMT Observe" ;
+		_presSource = _w = w ;
+		_description = "Iterator Component for JCMT" ;
+		_w.switchingMode.addWatcher( this ) ;
+		_w.frequencyOffset_throw.addWatcher( this ) ;
+		_w.frequencyOffset_rate.addWatcher( this ) ;
+		_w.secsPerCycle.addWatcher( this ) ;
+		_w.cycleReversal.addWatcher( this ) ;
+		_w.continuousCal.addWatcher( this ) ;
+		_w.stepSize.addWatcher( this ) ;
+		_w.jiggleAtReference.addWatcher( this ) ;
+		_w.jigglesPerCycle.addWatcher( this ) ;
+		_w.sampleTime.addWatcher( this ) ;
+		_w.automaticTarget.addWatcher( this ) ;
 	}
 
 	/**
@@ -83,17 +83,17 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	 */
 	public void setup( SpItem spItem )
 	{
-		_iterObs = ( SpIterJCMTObs )spItem;
-		super.setup( spItem );
+		_iterObs = ( SpIterJCMTObs )spItem ;
+		super.setup( spItem ) ;
 
-		_w.switchingMode.deleteWatcher( this );
-		_w.switchingMode.setChoices( _iterObs.getSwitchingModeOptions() );
+		_w.switchingMode.deleteWatcher( this ) ;
+		_w.switchingMode.setChoices( _iterObs.getSwitchingModeOptions() ) ;
 
 		_w.switchingMode.setEnabled( _w.switchingMode.getItemCount() > 1 ) ;
 
-		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
+		_w.switchingMode.setValue( _iterObs.getSwitchingMode() ) ;
 
-		_w.switchingMode.addWatcher( this );
+		_w.switchingMode.addWatcher( this ) ;
 	}
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
@@ -102,36 +102,36 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		{
 			if( val.equals( SWITCHING_MODE_FREQUENCY_S ) )
 			{
-				_w.frequencyPanel.setVisible( true );
-				_w.frequencyOffset_rate.setEnabled( false );
+				_w.frequencyPanel.setVisible( true ) ;
+				_w.frequencyOffset_rate.setEnabled( false ) ;
 				if( _iterObs.getSecsPerCycle() != 0 )
 				{
-					NumberFormat nf = NumberFormat.getInstance();
-					nf.setMaximumFractionDigits( 5 );
-					_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) );
+					NumberFormat nf = NumberFormat.getInstance() ;
+					nf.setMaximumFractionDigits( 5 ) ;
+					_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) ) ;
 				}
 				else
 				{
-					_w.frequencyOffset_rate.setValue( 0. );
+					_w.frequencyOffset_rate.setValue( 0. ) ;
 				}
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
-				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
+				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() ) ;
+				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() ) ;
 			}
 			else if( val.equals( SWITCHING_MODE_FREQUENCY_F ) )
 			{
-				_w.frequencyPanel.setVisible( true );
-				_w.frequencyOffset_rate.setEnabled( false );
-				_w.frequencyOffset_rate.setValue( 0.5 );
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
-				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
+				_w.frequencyPanel.setVisible( true ) ;
+				_w.frequencyOffset_rate.setEnabled( false ) ;
+				_w.frequencyOffset_rate.setValue( 0.5 ) ;
+				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() ) ;
+				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() ) ;
 			}
 			else
 			{
-				_w.frequencyPanel.setVisible( false );
-				_iterObs.rmFrequencyOffsetValues();
+				_w.frequencyPanel.setVisible( false ) ;
+				_iterObs.rmFrequencyOffsetValues() ;
 			}
-			_iterObs.setSwitchingMode( val );
-			_updateWidgets();
+			_iterObs.setSwitchingMode( val ) ;
+			_updateWidgets() ;
 		}
 	}
 
@@ -142,34 +142,34 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 
 		if( tbwe == _w.frequencyOffset_throw )
 		{
-			_iterObs.setFrequencyOffsetThrow( tbwe.getValue() );
+			_iterObs.setFrequencyOffsetThrow( tbwe.getValue() ) ;
 		}
 		else if( tbwe == _w.frequencyOffset_rate )
 		{
-			_iterObs.setFrequencyOffsetRate( tbwe.getValue() );
+			_iterObs.setFrequencyOffsetRate( tbwe.getValue() ) ;
 		}
 		else if( tbwe == _w.secsPerCycle )
 		{
-			_iterObs.setSecsPerCycle( _w.secsPerCycle.getValue() );
+			_iterObs.setSecsPerCycle( _w.secsPerCycle.getValue() ) ;
 			if( !_w.frequencyOffset_rate.isEnabled() )
 			{
-				NumberFormat nf = NumberFormat.getInstance();
-				nf.setMaximumFractionDigits( 5 );
-				_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) );
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
+				NumberFormat nf = NumberFormat.getInstance() ;
+				nf.setMaximumFractionDigits( 5 ) ;
+				_w.frequencyOffset_rate.setValue( nf.format( 1. / _iterObs.getSecsPerCycle() ) ) ;
+				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() ) ;
 			}
 		}
 		else if( tbwe == _w.jigglesPerCycle )
 		{
-			_iterObs.setJigglesPerCycle( _w.jigglesPerCycle.getValue() );
+			_iterObs.setJigglesPerCycle( _w.jigglesPerCycle.getValue() ) ;
 		}
 		else if( tbwe == _w.stepSize )
 		{
-			_iterObs.setStepSize( _w.stepSize.getValue() );
+			_iterObs.setStepSize( _w.stepSize.getValue() ) ;
 		}
 		else if( tbwe == _w.sampleTime )
 		{
-			_iterObs.setSampleTime( _w.sampleTime.getValue() );
+			_iterObs.setSampleTime( _w.sampleTime.getValue() ) ;
 		}
 	}
 
@@ -178,42 +178,42 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.cycleReversal )
-			_iterObs.setCycleReversal( _w.cycleReversal.getBooleanValue() );
+			_iterObs.setCycleReversal( _w.cycleReversal.getBooleanValue() ) ;
 		else if( cbwe == _w.jiggleAtReference )
-			_iterObs.setJiggleAtReference( _w.jiggleAtReference.getBooleanValue() );
+			_iterObs.setJiggleAtReference( _w.jiggleAtReference.getBooleanValue() ) ;
 		else if( cbwe == _w.automaticTarget )
-			_iterObs.setAutomaticTarget( _w.automaticTarget.getBooleanValue() );
+			_iterObs.setAutomaticTarget( _w.automaticTarget.getBooleanValue() ) ;
 		else if( cbwe == _w.continuousCal )
-			_iterObs.setContinuousCal( _w.continuousCal.getBooleanValue() );
+			_iterObs.setContinuousCal( _w.continuousCal.getBooleanValue() ) ;
 	}
 
 	protected void _updateWidgets()
 	{
-		setInstrument( SpTreeMan.findInstrument( _spItem ) );
+		setInstrument( SpTreeMan.findInstrument( _spItem ) ) ;
 
-		String switchingMode = _iterObs.getSwitchingMode();
-		_w.switchingMode.setValue( switchingMode );
+		String switchingMode = _iterObs.getSwitchingMode() ;
+		_w.switchingMode.setValue( switchingMode ) ;
 		if( ( switchingMode != null ) && ( SWITCHING_MODE_FREQUENCY_S.equals( switchingMode ) || SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) )
 		{
-			_w.frequencyPanel.setVisible( true );
-			_w.frequencyOffset_rate.setEnabled( false );
+			_w.frequencyPanel.setVisible( true ) ;
+			_w.frequencyOffset_rate.setEnabled( false ) ;
 		}
 		else
 		{
-			_w.frequencyPanel.setVisible( false );
+			_w.frequencyPanel.setVisible( false ) ;
 		}
-		_w.frequencyOffset_throw.setValue( _iterObs.getFrequencyOffsetThrow() );
-		_w.frequencyOffset_rate.setValue( _iterObs.getFrequencyOffsetRate() );
-		_w.secsPerCycle.setValue( _iterObs.getSecsPerCycle() );
-		_w.cycleReversal.setValue( _iterObs.getCycleReversal() );
-		_w.stepSize.setValue( _iterObs.getStepSize() );
-		_w.jiggleAtReference.setValue( _iterObs.getJiggleAtReference() );
-		_w.jigglesPerCycle.setValue( _iterObs.getJigglesPerCycle() );
-		_w.sampleTime.setValue( _iterObs.getSampleTime() );
-		_w.automaticTarget.setValue( _iterObs.getAutomaticTarget() );
-		_w.noiseTextBox.setValue( calculateNoise() );
-		_w.noiseTextBox.setToolTipText( _noiseToolTip );
-		_w.continuousCal.setValue( _iterObs.getContinuousCal() );
+		_w.frequencyOffset_throw.setValue( _iterObs.getFrequencyOffsetThrow() ) ;
+		_w.frequencyOffset_rate.setValue( _iterObs.getFrequencyOffsetRate() ) ;
+		_w.secsPerCycle.setValue( _iterObs.getSecsPerCycle() ) ;
+		_w.cycleReversal.setValue( _iterObs.getCycleReversal() ) ;
+		_w.stepSize.setValue( _iterObs.getStepSize() ) ;
+		_w.jiggleAtReference.setValue( _iterObs.getJiggleAtReference() ) ;
+		_w.jigglesPerCycle.setValue( _iterObs.getJigglesPerCycle() ) ;
+		_w.sampleTime.setValue( _iterObs.getSampleTime() ) ;
+		_w.automaticTarget.setValue( _iterObs.getAutomaticTarget() ) ;
+		_w.noiseTextBox.setValue( calculateNoise() ) ;
+		_w.noiseTextBox.setToolTipText( _noiseToolTip ) ;
+		_w.continuousCal.setValue( _iterObs.getContinuousCal() ) ;
 	}
 
 	/**
@@ -224,18 +224,18 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	{
 		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
 		{
-			_w.switchingMode.setVisible( true );
-			_w.switchingModeLabel.setVisible( true );
-			_w.jLabel2.setText( "K" );
+			_w.switchingMode.setVisible( true ) ;
+			_w.switchingModeLabel.setVisible( true ) ;
+			_w.jLabel2.setText( "K" ) ;
 
 			_w.frequencyPanel.setVisible( _w.switchingMode.getValue() != null && ( _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_S ) || _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_F ) ) ) ;
 		}
 		else
 		{
-			_w.jLabel2.setText( "mJy" );
-			_w.switchingMode.setVisible( false );
-			_w.switchingModeLabel.setVisible( false );
-			_w.frequencyPanel.setVisible( false );
+			_w.jLabel2.setText( "mJy" ) ;
+			_w.switchingMode.setVisible( false ) ;
+			_w.switchingModeLabel.setVisible( false ) ;
+			_w.frequencyPanel.setVisible( false ) ;
 		}
 	}
 
@@ -244,25 +244,25 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	 */
 	protected String calculateNoise()
 	{
-		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( _iterObs );
+		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( _iterObs ) ;
 		if( telescopeObsComp == null )
 		{
-			_noiseToolTip = "No target";
-			return "No target";
+			_noiseToolTip = "No target" ;
+			return "No target" ;
 		}
 
-		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs );
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs ) ;
 		if( instObsComp == null )
 		{
-			_noiseToolTip = "No instruments";
-			return "No instrument";
+			_noiseToolTip = "No instruments" ;
+			return "No instrument" ;
 		}
 
-		SpSiteQualityObsComp siteQualityObsComp = ( SpSiteQualityObsComp )SpItemUtilities.findSiteQuality( _iterObs );
+		SpSiteQualityObsComp siteQualityObsComp = ( SpSiteQualityObsComp )SpItemUtilities.findSiteQuality( _iterObs ) ;
 		if( siteQualityObsComp == null )
 		{
-			_noiseToolTip = "No site quality";
-			return "No site quality";
+			_noiseToolTip = "No site quality" ;
+			return "No site quality" ;
 		}
 
 		double airmass = 0. ;
@@ -277,68 +277,68 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 
 		if( instObsComp instanceof SpInstSCUBA )
 		{
-			int[] status = { 0 };
+			int[] status = { 0 } ;
 			double noise = 0. ;
-			double wavelength;
-			double nefd;
+			double wavelength ;
+			double nefd ;
 
 			if( ( (( SpInstSCUBA )instObsComp).getFilter() != null ) && (( SpInstSCUBA )instObsComp).getFilter().toUpperCase().endsWith( "PHOT" ) )
 			{
 
 				if( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer() == null )
 				{
-					_noiseToolTip = "No wavelength";
-					return "No wavelength";
+					_noiseToolTip = "No wavelength" ;
+					return "No wavelength" ;
 				}
 
-				wavelength = Double.parseDouble( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer().substring( 1 ) );
-				nefd = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
-				noise = calculateNoise( wavelength , nefd , status );
+				wavelength = Double.parseDouble( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer().substring( 1 ) ) ;
+				nefd = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
+				noise = calculateNoise( wavelength , nefd , status ) ;
 
 				if( status[ 0 ] == 0 )
 				{
-					_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd = " + ( Math.rint( nefd * 10 ) / 10 ) + ", noise = " + ( Math.rint( noise * 10 ) / 10 );
-					return "" + ( Math.rint( noise * 10 ) / 10 );
+					_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd = " + ( Math.rint( nefd * 10 ) / 10 ) + ", noise = " + ( Math.rint( noise * 10 ) / 10 ) ;
+					return "" + ( Math.rint( noise * 10 ) / 10 ) ;
 				}
 			}
 			else
 			{
-				String noise450Str;
+				String noise450Str ;
 
 				wavelength = 450. ;
-				double nefd450 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
-				double noise450 = calculateNoise( wavelength , nefd450 , status );
+				double nefd450 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
+				double noise450 = calculateNoise( wavelength , nefd450 , status ) ;
 
 				if( status[ 0 ] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED )
 				{
-					_noiseToolTip = "Not implemented";
-					return "Not implemented.";
+					_noiseToolTip = "Not implemented" ;
+					return "Not implemented." ;
 				}
 
 				if( status[ 0 ] == 0 )
-					noise450Str = "" + ( Math.rint( noise450 * 10 ) / 10 );
+					noise450Str = "" + ( Math.rint( noise450 * 10 ) / 10 ) ;
 				else
-					noise450Str = "error " + status[ 0 ];
+					noise450Str = "error " + status[ 0 ] ;
 
-				String noise850Str;
+				String noise850Str ;
 
 				wavelength = 850. ;
-				double nefd850 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status );
-				double noise850 = calculateNoise( wavelength , nefd850 , status );
+				double nefd850 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
+				double noise850 = calculateNoise( wavelength , nefd850 , status ) ;
 
 				if( status[ 0 ] == 0 )
-					noise850Str = "" + ( Math.rint( noise850 * 10 ) / 10 );
+					noise850Str = "" + ( Math.rint( noise850 * 10 ) / 10 ) ;
 				else
-					noise850Str = "error " + status[ 0 ];
+					noise850Str = "error " + status[ 0 ] ;
 
-				_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd(450) = " + ( Math.rint( nefd450 * 10 ) / 10 ) + ", noise(450) = " + ( Math.rint( noise450 * 10 ) / 10 ) + ", nefd(850) = " + ( Math.rint( nefd850 * 10 ) / 10 ) + ", noise(850) = " + ( Math.rint( noise850 * 10 ) / 10 );
+				_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd(450) = " + ( Math.rint( nefd450 * 10 ) / 10 ) + ", noise(450) = " + ( Math.rint( noise450 * 10 ) / 10 ) + ", nefd(850) = " + ( Math.rint( nefd850 * 10 ) / 10 ) + ", noise(850) = " + ( Math.rint( noise850 * 10 ) / 10 ) ;
 
-				return "" + noise450Str + " (450), " + noise850Str + " (850)";
+				return "" + noise450Str + " (450), " + noise850Str + " (850)" ;
 			}
 		}
 		else if( instObsComp instanceof SpInstHeterodyne )
 		{
-			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau );
+			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau ) ;
 		}
 
 		_noiseToolTip = "Not available" ;
@@ -352,7 +352,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	 */
 	protected double calculateNoise( double wavelength , double nefd , int[] status )
 	{
-		status[ 0 ] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
+		status[ 0 ] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED ;
 		return 0. ;
 	}
 

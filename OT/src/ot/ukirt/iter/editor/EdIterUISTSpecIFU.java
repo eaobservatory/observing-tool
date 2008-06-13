@@ -1,9 +1,9 @@
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import java.util.List;
+import java.util.List ;
 
-import gemini.sp.iter.IterConfigItem;
-import gemini.sp.iter.SpIterConfigBase;
+import gemini.sp.iter.IterConfigItem ;
+import gemini.sp.iter.SpIterConfigBase ;
 
 /**
  * @author r.kackley@jach.hawaii.edu
@@ -20,42 +20,42 @@ public class EdIterUISTSpecIFU extends EdIterUKIRTGeneric
 	public void cellValueChanged( String newVal , boolean finishedEditing )
 	{
 		// Get the selected cell's coordinates
-		int[] coord = _iterTab.getSelectedCoordinates();
+		int[] coord = _iterTab.getSelectedCoordinates() ;
 		if( ( coord[ 0 ] == -1 ) || ( coord[ 1 ] == -1 ) )
-			return;
+			return ;
 			
-		int colIndex = coord[ 0 ];
-		int rowIndex = coord[ 1 ];
+		int colIndex = coord[ 0 ] ;
+		int rowIndex = coord[ 1 ] ;
 
 		// Figure out the IterConfigItem that goes with the selected cell
-		IterConfigItem ici = _getConfigItem( colIndex );
+		IterConfigItem ici = _getConfigItem( colIndex ) ;
 		if( ici == null )
-			throw new RuntimeException( "couldn't find the IterConfigItem associated with column: " + colIndex );
+			throw new RuntimeException( "couldn't find the IterConfigItem associated with column: " + colIndex ) ;
 
-		( ( SpIterConfigBase )_spItem ).setConfigStep( ici.attribute , newVal , rowIndex );
+		( ( SpIterConfigBase )_spItem ).setConfigStep( ici.attribute , newVal , rowIndex ) ;
 
 		// Update the entire row
-		SpIterConfigBase icb = ( SpIterConfigBase )_spItem;
-		List l = icb.getConfigAttribs();
-		int index = 0;
+		SpIterConfigBase icb = ( SpIterConfigBase )_spItem ;
+		List l = icb.getConfigAttribs() ;
+		int index = 0 ;
 		for( int i = 0 ; i < l.size() ; ++i )
 		{
-			String attrib = ( String )l.get( i );
+			String attrib = ( String )l.get( i ) ;
 			if( isUserEditable( attrib ) )
 			{
-				List vals = icb.getConfigSteps( attrib );
-				_iterTab.setCell( vals.get( rowIndex ) , index , rowIndex );
-				++index;
+				List vals = icb.getConfigSteps( attrib ) ;
+				_iterTab.setCell( vals.get( rowIndex ) , index , rowIndex ) ;
+				++index ;
 			}
 		}
 
-		++rowIndex;
+		++rowIndex ;
 
 		if( ( finishedEditing ) && ( rowIndex < _iterTab.getRowCount() ) )
 		{
 			// Move to the next cell down in the column
-			_iterTab.selectCell( colIndex , rowIndex );
-			_iterTab.focusAtCell( colIndex , rowIndex );
+			_iterTab.selectCell( colIndex , rowIndex ) ;
+			_iterTab.focusAtCell( colIndex , rowIndex ) ;
 		}
 	}
 }

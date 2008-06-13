@@ -7,7 +7,7 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
 import javax.swing.JPanel ;
 import javax.swing.BorderFactory ;
@@ -29,31 +29,31 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
 public class IterNoiseObsGUI extends IterJCMTGenericGUI
 {
-	JPanel noisePanel = new JPanel();
-	FlowLayout flowLayout1 = new FlowLayout();
-	DropDownListBoxWidgetExt noiseSourceComboBox = new DropDownListBoxWidgetExt();
+	JPanel noisePanel = new JPanel() ;
+	FlowLayout flowLayout1 = new FlowLayout() ;
+	DropDownListBoxWidgetExt noiseSourceComboBox = new DropDownListBoxWidgetExt() ;
 
 	public IterNoiseObsGUI()
 	{
 		try
 		{
-			jbInit();
+			jbInit() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
 	private void jbInit() throws Exception
 	{
-		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
-		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Noise setup" );
-		noisePanel.setBorder( titleBorder );
-		noisePanel.setLayout( flowLayout1 );
-		secsPerCycle.setColumns( 8 );
-		noiseSourceComboBox.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		this.add( noisePanel , BorderLayout.CENTER );
-		noisePanel.add( noiseSourceComboBox , null );
+		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED ) ;
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Noise setup" ) ;
+		noisePanel.setBorder( titleBorder ) ;
+		noisePanel.setLayout( flowLayout1 ) ;
+		secsPerCycle.setColumns( 8 ) ;
+		noiseSourceComboBox.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		this.add( noisePanel , BorderLayout.CENTER ) ;
+		noisePanel.add( noiseSourceComboBox , null ) ;
 	}
 }

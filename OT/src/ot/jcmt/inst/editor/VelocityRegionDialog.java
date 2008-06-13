@@ -7,26 +7,26 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import orac.jcmt.inst.SpDRRecipe;
-import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpDRRecipe ;
+import orac.jcmt.inst.SpInstHeterodyne ;
 import edfreq.FrequencyEditorCfg ;
 import edfreq.EdFreq ;
-import edfreq.region.VelocityRegionEditor;
-import ot.util.DialogUtil;
+import edfreq.region.VelocityRegionEditor ;
+import ot.util.DialogUtil ;
 
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTreeMan ;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import java.awt.BorderLayout ;
+import java.awt.Graphics ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import javax.swing.JDialog ;
+import javax.swing.JPanel ;
+import javax.swing.JButton ;
 
 /**
  * This class provides a frame for the VelocityRegionEditor.
@@ -43,111 +43,111 @@ import javax.swing.JButton;
  */
 public class VelocityRegionDialog extends JDialog implements ActionListener
 {
-	private JButton okButton = new JButton( "OK" );
-	private JButton cancelButton = new JButton( "Cancel" );
-	private JPanel buttonPanel = new JPanel();
-	private EdDRRecipe _drRecipeEditor;
-	private SpDRRecipe _drRecipe;
-	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
-	private VelocityRegionEditor _vre = new VelocityRegionEditor( this );
+	private JButton okButton = new JButton( "OK" ) ;
+	private JButton cancelButton = new JButton( "Cancel" ) ;
+	private JPanel buttonPanel = new JPanel() ;
+	private EdDRRecipe _drRecipeEditor ;
+	private SpDRRecipe _drRecipe ;
+	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration() ;
+	private VelocityRegionEditor _vre = new VelocityRegionEditor( this ) ;
 
 	public VelocityRegionDialog()
 	{
-		setTitle( "Baseline Fit Regions (km.s-1)" );
-		setModal( true );
+		setTitle( "Baseline Fit Regions (km.s-1)" ) ;
+		setModal( true ) ;
 
-		buttonPanel.add( okButton );
-		buttonPanel.add( cancelButton );
+		buttonPanel.add( okButton ) ;
+		buttonPanel.add( cancelButton ) ;
 
-		add( _vre , BorderLayout.CENTER );
-		add( buttonPanel , BorderLayout.SOUTH );
-		pack();
-		setLocation( 100 , 100 );
+		add( _vre , BorderLayout.CENTER ) ;
+		add( buttonPanel , BorderLayout.SOUTH ) ;
+		pack() ;
+		setLocation( 100 , 100 ) ;
 
-		setDefaultCloseOperation( HIDE_ON_CLOSE );
+		setDefaultCloseOperation( HIDE_ON_CLOSE ) ;
 
-		okButton.addActionListener( this );
-		cancelButton.addActionListener( this );
+		okButton.addActionListener( this ) ;
+		cancelButton.addActionListener( this ) ;
 	}
 
 	public void show( SpDRRecipe drRecipe , SpInstHeterodyne instHeterodyne , EdDRRecipe drRecipeEditor )
 	{
 		if( instHeterodyne.getBand() == null )
 		{
-			DialogUtil.error( this , "Heterodyne component has not been edited." );
-			return;
+			DialogUtil.error( this , "Heterodyne component has not been edited." ) ;
+			return ;
 		}
 
-		_drRecipe = drRecipe;
-		_drRecipeEditor = drRecipeEditor;
+		_drRecipe = drRecipe ;
+		_drRecipeEditor = drRecipeEditor ;
 
-		double redshift;
-		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne );
+		double redshift ;
+		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne ) ;
 		if( tgt != null )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition();
-			redshift = tp.getRedshift();
+			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition() ;
+			redshift = tp.getRedshift() ;
 		}
 		else
 		{
 			redshift = 0. ;
 		}
 
-		double feIF = instHeterodyne.getFeIF();
-		double feBandWidth = instHeterodyne.getFeBandWidth();
-		double restFrequency = instHeterodyne.getRestFrequency( 0 );
+		double feIF = instHeterodyne.getFeIF() ;
+		double feBandWidth = instHeterodyne.getFeBandWidth() ;
+		double restFrequency = instHeterodyne.getRestFrequency( 0 ) ;
 
-		_vre.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() );
+		_vre.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() ) ;
 
-		_vre.updateDisplay( restFrequency , feIF , feBandWidth , redshift );
+		_vre.updateDisplay( restFrequency , feIF , feBandWidth , redshift ) ;
 
 		for( int i = 0 ; i < Integer.parseInt( instHeterodyne.getBandMode() ) ; i++ )
-			_vre.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i );
+			_vre.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i ) ;
 
-		_vre.removeAllRegions( false );
+		_vre.removeAllRegions( false ) ;
 
-		_vre.resetLayout();
+		_vre.resetLayout() ;
 
-		show();
+		setVisible( true ) ;
 	}
 
 	public void applyAndHide()
 	{
-		apply();
-		hide();
+		apply() ;
+		setVisible( false ) ;
 	}
 
 	public void apply()
 	{
-		double[][] baselineFitRegions = _vre.getBaselineFitRegions();
+		double[][] baselineFitRegions = _vre.getBaselineFitRegions() ;
 
 		for( int i = 0 ; i < baselineFitRegions.length ; i++ )
 		{
 			// Return values are in Hz - we need to convert this to velocity
-			double min = ( baselineFitRegions[ i ][ 0 ] - _vre.getMainLine() ) / _vre.getMainLine();
-			min *= EdFreq.LIGHTSPEED;
-			double max = ( baselineFitRegions[ i ][ 1 ] - _vre.getMainLine() ) / _vre.getMainLine();
-			max *= EdFreq.LIGHTSPEED;
+			double min = ( baselineFitRegions[ i ][ 0 ] - _vre.getMainLine() ) / _vre.getMainLine() ;
+			min *= EdFreq.LIGHTSPEED ;
+			double max = ( baselineFitRegions[ i ][ 1 ] - _vre.getMainLine() ) / _vre.getMainLine() ;
+			max *= EdFreq.LIGHTSPEED ;
 		}
 
-		_drRecipeEditor.refresh();
+		_drRecipeEditor.refresh() ;
 	}
 
 	public void cancel()
 	{
-		hide();
+		setVisible( false ) ;
 	}
 
 	public void update( Graphics g )
 	{
-		super.update( g );
+		super.update( g ) ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
 		if( e.getSource() == okButton )
-			applyAndHide();
+			applyAndHide() ;
 		else if( e.getSource() == cancelButton )
-			hide();
+			setVisible( false ) ;
 	}
 }

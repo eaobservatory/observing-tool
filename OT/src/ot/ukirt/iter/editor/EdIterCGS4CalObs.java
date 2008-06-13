@@ -4,28 +4,28 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
 import java.util.Vector ;
-import java.text.DecimalFormat;
+import java.text.DecimalFormat ;
 
-import orac.ukirt.inst.SpInstCGS4;
-import orac.ukirt.iter.SpIterCGS4CalObs;
-import orac.ukirt.iter.SpCGS4CalUnitConstants;
+import orac.ukirt.inst.SpInstCGS4 ;
+import orac.ukirt.iter.SpIterCGS4CalObs ;
+import orac.ukirt.iter.SpCGS4CalUnitConstants ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTreeMan ;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import java.awt.CardLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.CardLayout ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for the CGS4 CalUnit Observation iterator.
@@ -33,77 +33,77 @@ import jsky.app.ot.editor.OtItemEditor;
 public final class EdIterCGS4CalObs extends OtItemEditor implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
 	/** Identifier for a FLAT calibration. */
-	public static final int FLAT = 0;
+	public static final int FLAT = 0 ;
 
 	/** Identifier for an ARC calibration. */
-	public static final int ARC = 1;
+	public static final int ARC = 1 ;
 
-	private IterCGS4CalObsGUI _w; // the GUI layout
+	private IterCGS4CalObsGUI _w ; // the GUI layout
 
 	/**
 	 * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
 	 * action events caused by initializing widgets.
 	 */
-	private boolean _ignoreActionEvents = false;
+	private boolean _ignoreActionEvents = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterCGS4CalObs()
 	{
-		_title = "CGS4 Cal Unit Observation";
-		_presSource = _w = new IterCGS4CalObsGUI();
-		_description = "Configure CGS4's Calibration Unit with this component.";
+		_title = "CGS4 Cal Unit Observation" ;
+		_presSource = _w = new IterCGS4CalObsGUI() ;
+		_description = "Configure CGS4's Calibration Unit with this component." ;
 
 		for( int i = 0 ; i < 100 ; i++ )
-			_w.repeatComboBox.addItem( "" + ( i + 1 ) );
+			_w.repeatComboBox.addItem( "" + ( i + 1 ) ) ;
 
-		_w.calType.addActionListener( this );
-		_w.lamp.addActionListener( this );
-		_w.filter.addActionListener( this );
-		_w.mode.addActionListener( this );
-		_w.flatSampling.addActionListener( this );
-		_w.repeatComboBox.addActionListener( this );
-		_w.defaultValues.addActionListener( this );
+		_w.calType.addActionListener( this ) ;
+		_w.lamp.addActionListener( this ) ;
+		_w.filter.addActionListener( this ) ;
+		_w.mode.addActionListener( this ) ;
+		_w.flatSampling.addActionListener( this ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
+		_w.defaultValues.addActionListener( this ) ;
 	}
 
 	/**
 	 */
 	protected void _init()
 	{
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
 		// Set the calibration choices
-		_w.calType.setChoices( SpCGS4CalUnitConstants.CALTYPES );
+		_w.calType.setChoices( SpCGS4CalUnitConstants.CALTYPES ) ;
 
 		// Set the lamp choices
-		_w.lamp.setChoices( SpIterCGS4CalObs.ARC_LAMPS );
+		_w.lamp.setChoices( SpIterCGS4CalObs.ARC_LAMPS ) ;
 
 		// Show the filter
-		_w.filter.setChoices( SpIterCGS4CalObs.FILTERS );
+		_w.filter.setChoices( SpIterCGS4CalObs.FILTERS ) ;
 
 		// Show the mode
-		_w.mode.setChoices( SpIterCGS4CalObs.MODES );
+		_w.mode.setChoices( SpIterCGS4CalObs.MODES ) ;
 
 		// Exposure time
-		_w.exposureTime.addWatcher( this );
+		_w.exposureTime.addWatcher( this ) ;
 
 		// Coadds
-		_w.coadds.addWatcher( this );
+		_w.coadds.addWatcher( this ) ;
 
 		// CVF Wavelength
-		_w.cvfWavelength.addWatcher( this );
+		_w.cvfWavelength.addWatcher( this ) ;
 
 		// Flat sampling
-		Vector samplingChoiceVector = new Vector();
-		samplingChoiceVector.add( "1x1" );
-		samplingChoiceVector.add( "AS_OBJECT" );
-		_w.flatSampling.setChoices( samplingChoiceVector );
-		_w.flatSampling.setValue( "AS_OBJECT" );
+		Vector<String> samplingChoiceVector = new Vector<String>() ;
+		samplingChoiceVector.add( "1x1" ) ;
+		samplingChoiceVector.add( "AS_OBJECT" ) ;
+		_w.flatSampling.setChoices( samplingChoiceVector ) ;
+		_w.flatSampling.setValue( "AS_OBJECT" ) ;
 
-		super._init();
+		super._init() ;
 
-		_ignoreActionEvents = false;
+		_ignoreActionEvents = false ;
 
 	}
 
@@ -113,90 +113,90 @@ public final class EdIterCGS4CalObs extends OtItemEditor implements TextBoxWidge
 	 */
 	protected void _updateWidgets()
 	{
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
-		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem;
+		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem ;
 
 		// Get the choices and defaults from the instrument.
 
 		// Show the calib. type
-		_w.calType.setValue( ico.getCalTypeString() );
+		_w.calType.setValue( ico.getCalTypeString() ) ;
 
 		// Show the lamp
-		_updateLampChoices();
+		_updateLampChoices() ;
 
 		// Make sure _ignoreActionEvents is set to true again after having been set to false at the end of _updateLampChoices()
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
-		String lamp = ico.getLamp();
-		_w.lamp.setValue( lamp );
-		ico.setLamp( lamp );
+		String lamp = ico.getLamp() ;
+		_w.lamp.setValue( lamp ) ;
+		ico.setLamp( lamp ) ;
 
 		// Show the filter, for flats, inherit from instrument, for arcs choose.
-		String filter = ico.getFilter();
-		_w.filter.setValue( filter );
-		ico.setFilter( filter );
+		String filter = ico.getFilter() ;
+		_w.filter.setValue( filter ) ;
+		ico.setFilter( filter ) ;
 
 		// Show the mode
-		String mode = ico.getMode();
-		_w.mode.setValue( mode );
-		ico.setMode( mode );
+		String mode = ico.getMode() ;
+		_w.mode.setValue( mode ) ;
+		ico.setMode( mode ) ;
 
 		// Observe repetitions
-		_w.repeatComboBox.setSelectedIndex( ico.getCount() - 1 );
+		_w.repeatComboBox.setSelectedIndex( ico.getCount() - 1 ) ;
 
 		// Exposure time
-		_w.exposureTime.setValue( ico.getExposureTime() );
+		_w.exposureTime.setValue( ico.getExposureTime() ) ;
 
 		// Coadds
-		_w.coadds.setValue( ico.getCoadds() );
+		_w.coadds.setValue( ico.getCoadds() ) ;
 
 		// Cvf wavelength
-		_w.cvfWavelength.setValue( ico.getCvfWavelength() );
+		_w.cvfWavelength.setValue( ico.getCvfWavelength() ) ;
 
 		// Deal with CVF wavelength according to state of inst & caltype
-		SpItem _baseItem = ico;
-		SpInstCGS4 _instCgs4 = ( SpInstCGS4 )SpTreeMan.findInstrument( _baseItem );
-		String grat = _instCgs4.getDisperser();
+		SpItem _baseItem = ico ;
+		SpInstCGS4 _instCgs4 = ( SpInstCGS4 )SpTreeMan.findInstrument( _baseItem ) ;
+		String grat = _instCgs4.getDisperser() ;
 		if( grat.equalsIgnoreCase( "echelle" ) )
 		{
 			if( ico.getCalType() == ARC )
 			{
 				// MFO: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
-				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "ARC" );
+				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "ARC" ) ;
 			}
 			else if( ico.getCalType() == FLAT )
 			{
-				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" );
-				_w.flatCVFWavelength.setValue( ico.getCvfWavelength() );
-				double offset = ico.getCvfWavelength() - _instCgs4.getCentralWavelength();
-				DecimalFormat df = new DecimalFormat();
-				df.setMaximumFractionDigits( 6 );
-				_w.flatCVFOffset.setValue( df.format( offset ) );
+				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" ) ;
+				_w.flatCVFWavelength.setValue( ico.getCvfWavelength() ) ;
+				double offset = ico.getCvfWavelength() - _instCgs4.getCentralWavelength() ;
+				DecimalFormat df = new DecimalFormat() ;
+				df.setMaximumFractionDigits( 6 ) ;
+				_w.flatCVFOffset.setValue( df.format( offset ) ) ;
 			}
 		}
 		else
 		{
 			// Deal with Flat Sampling according to state of inst & caltype
-			_w.flatSampling.setValue( ico.getFlatSampling() );
+			_w.flatSampling.setValue( ico.getFlatSampling() ) ;
 			if( ico.getCalType() == FLAT )
 			{
 				// MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
-				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" );
+				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" ) ;
 
-				_w.flatSampling.setChoices( ico.getFlatSamplingChoices() );
-				_w.flatSampling.setValue( ico.getFlatSampling() );
-				_w.flatCVFWavelength.setValue( "n/a" );
-				_w.flatCVFOffset.setValue( "n/a" );
+				_w.flatSampling.setChoices( ico.getFlatSamplingChoices() ) ;
+				_w.flatSampling.setValue( ico.getFlatSampling() ) ;
+				_w.flatCVFWavelength.setValue( "n/a" ) ;
+				_w.flatCVFOffset.setValue( "n/a" ) ;
 			}
 			else
 			{
 				// MFO: "EMPTY" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
-				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "EMPTY" );
+				( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "EMPTY" ) ;
 			}
 		}
 
-		_ignoreActionEvents = false;
+		_ignoreActionEvents = false ;
 	}
 
 	//
@@ -204,20 +204,20 @@ public final class EdIterCGS4CalObs extends OtItemEditor implements TextBoxWidge
 	//
 	private void _updateLampChoices()
 	{
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
 		// do I need this? Does it work?
-		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem;
+		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem ;
 
 		// get value of calType, set lamp choices accordingly
 		if( ico.getCalType() == FLAT )
-			_w.lamp.setChoices( SpIterCGS4CalObs.FLAT_LAMPS );
+			_w.lamp.setChoices( SpIterCGS4CalObs.FLAT_LAMPS ) ;
 		else
-			_w.lamp.setChoices( SpIterCGS4CalObs.ARC_LAMPS );
+			_w.lamp.setChoices( SpIterCGS4CalObs.ARC_LAMPS ) ;
 
-		//   _updateWidgets();
+		//   _updateWidgets() ;
 
-		_ignoreActionEvents = false;
+		_ignoreActionEvents = false ;
 	}
 
 	/**
@@ -225,14 +225,14 @@ public final class EdIterCGS4CalObs extends OtItemEditor implements TextBoxWidge
 	 */
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem;
+		SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem ;
 
 		if( tbwe == _w.exposureTime )
-			ico.setExposureTime( tbwe.getText() );
+			ico.setExposureTime( tbwe.getText() ) ;
 		else if( tbwe == _w.coadds )
-			ico.setCoadds( tbwe.getText() );
+			ico.setCoadds( tbwe.getText() ) ;
 		else if( tbwe == _w.cvfWavelength )
-			ico.setCvfWavelength( tbwe.getText() );
+			ico.setCvfWavelength( tbwe.getText() ) ;
 	}
 
 	/**
@@ -257,47 +257,47 @@ public final class EdIterCGS4CalObs extends OtItemEditor implements TextBoxWidge
 	{
 		if( !_ignoreActionEvents )
 		{
-			Object w = evt.getSource();
+			Object w = evt.getSource() ;
 	
-			SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem;
+			SpIterCGS4CalObs ico = ( SpIterCGS4CalObs )_spItem ;
 	
 			if( w == _w.calType )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setCalType( ddlbw.getStringValue() );
-				ico.useDefaults();
-				_updateWidgets();
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setCalType( ddlbw.getStringValue() ) ;
+				ico.useDefaults() ;
+				_updateWidgets() ;
 			}
 			else if( w == _w.lamp )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setLamp( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setLamp( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.filter )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setFilter( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setFilter( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.mode )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setMode( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setMode( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.flatSampling )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
 				if( ddlbw.getItemCount() > 0 )
-					ico.setFlatSampling( ddlbw.getStringValue() );
+					ico.setFlatSampling( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.repeatComboBox )
 			{
-				int i = _w.repeatComboBox.getSelectedIndex() + 1;
-				ico.setCount( i );
+				int i = _w.repeatComboBox.getSelectedIndex() + 1 ;
+				ico.setCount( i ) ;
 			}
 			else if( w == _w.defaultValues )
 			{
-				ico.useDefaults();
-				_updateWidgets();
+				ico.useDefaults() ;
+				_updateWidgets() ;
 			}
 		}
 	}

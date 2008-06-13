@@ -12,20 +12,20 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import orac.ukirt.iter.SpIterWFCAMCalObs;
+import orac.ukirt.iter.SpIterWFCAMCalObs ;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for the WFCAM Calibration Observation iterator.
@@ -33,82 +33,82 @@ import jsky.app.ot.editor.OtItemEditor;
 public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
 	/** Identifier for a SKYFLAT calibration. */
-	public static final int SKYFLAT = 0;
+	public static final int SKYFLAT = 0 ;
 
 	/** Identifier for a DOMEFLAT calibration. */
-	public static final int DOMEFLAT = 1;
+	public static final int DOMEFLAT = 1 ;
 
 	/** Identifier for a FOCUS calibration. */
-	public static final int FOCUS = 2;
+	public static final int FOCUS = 2 ;
 	
 	/** Identifier for a DARK calibration. */
 	public static final int DARK = 3 ;
 
-	private IterWFCAMCalObsGUI _w; // the GUI layout
+	private IterWFCAMCalObsGUI _w ; // the GUI layout
 
 	/**
 	 * This flag is set true while methods like _init is executed to prevent actionPerformed() to do react to
 	 * action events caused by initializing widgets.
 	 */
-	private boolean _ignoreActionEvents = false;
+	private boolean _ignoreActionEvents = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterWFCAMCalObs()
 	{
-		_title = "WFCAM Calibration Observation";
-		_presSource = _w = new IterWFCAMCalObsGUI();
-		_description = "Configure a WFCAM FLAT or FOCUS observation with this component.";
+		_title = "WFCAM Calibration Observation" ;
+		_presSource = _w = new IterWFCAMCalObsGUI() ;
+		_description = "Configure a WFCAM FLAT or FOCUS observation with this component." ;
 
 		for( int i = 0 ; i < 100 ; i++ )
-			_w.repeatComboBox.addItem( "" + ( i + 1 ) );
+			_w.repeatComboBox.addItem( "" + ( i + 1 ) ) ;
 
-		_w.CalType.addActionListener( this );
-		_w.ReadMode.addActionListener( this );
-		_w.Filter.addActionListener( this );
-		_w.repeatComboBox.addActionListener( this );
-		_w.useDefaults.addActionListener( this );
+		_w.CalType.addActionListener( this ) ;
+		_w.ReadMode.addActionListener( this ) ;
+		_w.Filter.addActionListener( this ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
+		_w.useDefaults.addActionListener( this ) ;
 	}
 
 	/**
 	 */
 	protected void _init()
 	{
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw;
-		CommandButtonWidgetExt cbw;
+		DropDownListBoxWidgetExt ddlbw ;
+		CommandButtonWidgetExt cbw ;
 
 		// Set the calType choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType;
+		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
 
 		// Set the readMode choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode;
+		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode ;
 
 		// Set the filter choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter;
+		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter ;
 
-		TextBoxWidgetExt tbw;
+		TextBoxWidgetExt tbw ;
 
 		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.ExpTime;
-		tbw.addWatcher( this );
+		tbw = ( TextBoxWidgetExt )_w.ExpTime ;
+		tbw.addWatcher( this ) ;
 
 		// Coadds
-		tbw = ( TextBoxWidgetExt )_w.Coadds;
-		tbw.addWatcher( this );
+		tbw = ( TextBoxWidgetExt )_w.Coadds ;
+		tbw.addWatcher( this ) ;
 
 		// Focus
-		tbw = ( TextBoxWidgetExt )_w.focusPos;
-		tbw.addWatcher( this );
+		tbw = ( TextBoxWidgetExt )_w.focusPos ;
+		tbw.addWatcher( this ) ;
 
 		// default button
-		cbw = ( CommandButtonWidgetExt )_w.useDefaults;
+		cbw = ( CommandButtonWidgetExt )_w.useDefaults ;
 
-		super._init();
+		super._init() ;
 
-		_ignoreActionEvents = false;
+		_ignoreActionEvents = false ;
 	}
 
 	/**
@@ -118,81 +118,81 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 
 	protected void _updateWidgets()
 	{
-		_updateWidgets( null );
+		_updateWidgets( null ) ;
 	}
 
 	protected void _updateWidgets( Object source )
 	{
-		_ignoreActionEvents = true;
+		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw;
+		DropDownListBoxWidgetExt ddlbw ;
 
-		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
+		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem ;
 
 		// Get the choices and defaults from the instrument.
 
 		// Update calType selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType;
-		ddlbw.setChoices( ico.getCalTypeChoices() );
-		ddlbw.setValue( ico.getCalType() );
-		if( ico.getCalType() == this.FOCUS )
+		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
+		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
+		ddlbw.setValue( ico.getCalType() ) ;
+		if( ico.getCalType() == FOCUS )
 		{
-			_w.focusPos.setVisible( true );
-			_w.focusLabel.setVisible( true );
-			_w.focusPos.setEditable( true );
+			_w.focusPos.setVisible( true ) ;
+			_w.focusLabel.setVisible( true ) ;
+			_w.focusPos.setEditable( true ) ;
 		}
 		else
 		{
-			_w.focusPos.setVisible( false );
-			_w.focusLabel.setVisible( false );
-			_w.focusPos.setEditable( false );
+			_w.focusPos.setVisible( false ) ;
+			_w.focusLabel.setVisible( false ) ;
+			_w.focusPos.setEditable( false ) ;
 		}
 
 		// Update readMode selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode;
-		ddlbw.setChoices( ico.getReadModeChoices() );
-		ddlbw.setValue( ico.getReadMode() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode ;
+		ddlbw.setChoices( ico.getReadModeChoices() ) ;
+		ddlbw.setValue( ico.getReadMode() ) ;
 
 		// Update filters selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter;
-		ddlbw.setChoices( ico.getFilterChoices() );
-		ddlbw.setValue( ico.getFilter() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter ;
+		ddlbw.setChoices( ico.getFilterChoices() ) ;
+		ddlbw.setValue( ico.getFilter() ) ;
 
 		// Observe repetitions
-		_w.repeatComboBox.setValue( ico.getCount() - 1 );
+		_w.repeatComboBox.setValue( ico.getCount() - 1 ) ;
 
-		TextBoxWidgetExt tbw;
+		TextBoxWidgetExt tbw ;
 
 		// Exposure time
 		if( _w.ExpTime != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.ExpTime;
-			String expTimeStr = String.valueOf( ico.getExposureTime() );
-			tbw.setValue( expTimeStr );
+			tbw = ( TextBoxWidgetExt )_w.ExpTime ;
+			String expTimeStr = String.valueOf( ico.getExposureTime() ) ;
+			tbw.setValue( expTimeStr ) ;
 			if( _w.focusPos.isVisible() && _w.focusPos != source )
-				_w.focusPos.setValue( "" + ico.getFocus() );
+				_w.focusPos.setValue( "" + ico.getFocus() ) ;
 		}
 
 		// Coadds
 		else if( _w.Coadds != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.Coadds;
-			tbw.setValue( ico.getCoaddsString() );
+			tbw = ( TextBoxWidgetExt )_w.Coadds ;
+			tbw.setValue( ico.getCoaddsString() ) ;
 			if( _w.focusPos.isVisible() && _w.focusPos != source )
-				_w.focusPos.setValue( "" + ico.getFocus() );
+				_w.focusPos.setValue( "" + ico.getFocus() ) ;
 		}
 
 		// Focus
 		if( _w.focusPos != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.ExpTime;
-			String expTimeStr = String.valueOf( ico.getExposureTime() );
-			tbw.setValue( expTimeStr );
-			tbw = ( TextBoxWidgetExt )_w.Coadds;
-			tbw.setValue( ico.getCoaddsString() );
+			tbw = ( TextBoxWidgetExt )_w.ExpTime ;
+			String expTimeStr = String.valueOf( ico.getExposureTime() ) ;
+			tbw.setValue( expTimeStr ) ;
+			tbw = ( TextBoxWidgetExt )_w.Coadds ;
+			tbw.setValue( ico.getCoaddsString() ) ;
 		}
 
-		_ignoreActionEvents = false;
+		_ignoreActionEvents = false ;
 	}
 
 	/**
@@ -200,17 +200,17 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 	 */
 	public void textBoxKeyPress( TextBoxWidgetExt tbw )
 	{
-		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
+		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem ;
 		if( tbw == _w.ExpTime )
 		{
 			try
 			{
-				String ets = tbw.getText();
-				double et = Double.parseDouble( ets );
+				String ets = tbw.getText() ;
+				double et = Double.parseDouble( ets ) ;
 				if( et > 0.00001 )
 				{
-					ico.setExposureTime( ets );
-					_updateWidgets( _w.ExpTime );
+					ico.setExposureTime( ets ) ;
+					_updateWidgets( _w.ExpTime ) ;
 				}
 			}
 			catch( Exception ex )
@@ -222,12 +222,12 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		{
 			try
 			{
-				String coaddsString = tbw.getText();
-				int coadds = Integer.parseInt( coaddsString );
+				String coaddsString = tbw.getText() ;
+				int coadds = Integer.parseInt( coaddsString ) ;
 				if( coadds > 0 )
 				{
-					ico.setCoadds( coadds );
-					_updateWidgets( _w.Coadds );
+					ico.setCoadds( coadds ) ;
+					_updateWidgets( _w.Coadds ) ;
 				}
 			}
 			catch( Exception ex )
@@ -239,9 +239,9 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		{
 			try
 			{
-				double focusValue = Double.parseDouble( tbw.getText() );
-				ico.setFocus( focusValue );
-				_updateWidgets( _w.focusPos );
+				double focusValue = Double.parseDouble( tbw.getText() ) ;
+				ico.setFocus( focusValue ) ;
+				_updateWidgets( _w.focusPos ) ;
 			}
 			catch( Exception e )
 			{
@@ -273,38 +273,38 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 	{
 		if( !_ignoreActionEvents )
 		{
-			Object w = evt.getSource();
+			Object w = evt.getSource() ;
 	
-			SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem;
+			SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem ;
 	
 			if( w == _w.CalType )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setCalType( ddlbw.getStringValue() );
-				ico.useDefaults();
-				_updateWidgets();
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setCalType( ddlbw.getStringValue() ) ;
+				ico.useDefaults() ;
+				_updateWidgets() ;
 			}
 			else if( w == _w.ReadMode )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setReadMode( ddlbw.getStringValue() );
-				_updateWidgets();
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setReadMode( ddlbw.getStringValue() ) ;
+				_updateWidgets() ;
 			}
 			else if( w == _w.Filter )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setFilter( ddlbw.getStringValue() );
-				_updateWidgets();
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setFilter( ddlbw.getStringValue() ) ;
+				_updateWidgets() ;
 			}
 			else if( w == _w.repeatComboBox )
 			{
-				int i = _w.repeatComboBox.getIntegerValue() + 1;
-				ico.setCount( i );
+				int i = _w.repeatComboBox.getIntegerValue() + 1 ;
+				ico.setCount( i ) ;
 			}
 			else if( w == _w.useDefaults )
 			{
-				ico.useDefaults();
-				_updateWidgets();
+				ico.useDefaults() ;
+				_updateWidgets() ;
 			}
 		}
 	}

@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package ot.editor;
+package ot.editor ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.editor.OtItemEditor;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.editor.OtItemEditor ;
 
-import gemini.sp.SpOR;
+import gemini.sp.SpOR ;
 
 /**
  * OR folder editor.
@@ -22,26 +22,26 @@ import gemini.sp.SpOR;
  */
 public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
-	private OrEditorGUI _w; // the GUI layout
+	private OrEditorGUI _w ; // the GUI layout
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdOrFolder()
 	{
-		_title = "Or Folder Editor";
-		_presSource = _w = new OrEditorGUI();
-		_description = "Change the title of the item here.";
+		_title = "Or Folder Editor" ;
+		_presSource = _w = new OrEditorGUI() ;
+		_description = "Change the title of the item here." ;
 
 		for( int i = 0 ; i < 100 ; i++ )
-			_w.numberOfItems.addItem( "" + i );
+			_w.numberOfItems.addItem( "" + i ) ;
 
-		_w.numberOfItems.addActionListener( this );
+		_w.numberOfItems.addActionListener( this ) ;
 	}
 
 	/**
@@ -49,8 +49,8 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	 */
 	protected void _init()
 	{
-		TextBoxWidgetExt tbw = _w.itemTitle;
-		tbw.addWatcher( this );
+		TextBoxWidgetExt tbw = _w.itemTitle ;
+		tbw.addWatcher( this ) ;
 	}
 
 	/**
@@ -60,16 +60,16 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	protected void _updateWidgets()
 	{
 		// Show the title
-		TextBoxWidgetExt tbw = _w.itemTitle;
-		String title = _spItem.getTitleAttr();
+		TextBoxWidgetExt tbw = _w.itemTitle ;
+		String title = _spItem.getTitleAttr() ;
 		if( title != null )
-			tbw.setText( title );
+			tbw.setText( title ) ;
 		else
-			tbw.setText( "" );
+			tbw.setText( "" ) ;
 
-		ignoreActions = true;
-		_w.numberOfItems.setSelectedIndex( ( ( SpOR )_spItem ).getNumberOfItems() );
-		ignoreActions = false;
+		ignoreActions = true ;
+		_w.numberOfItems.setSelectedIndex( ( ( SpOR )_spItem ).getNumberOfItems() ) ;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -78,7 +78,7 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	 */
 	public void textBoxKeyPress( TextBoxWidgetExt tbw )
 	{
-		_spItem.setTitleAttr( tbw.getText().trim() );
+		_spItem.setTitleAttr( tbw.getText().trim() ) ;
 	}
 
 	/**
@@ -90,6 +90,6 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	public void actionPerformed( ActionEvent evt )
 	{
 		if( !ignoreActions )
-			(( SpOR )_spItem).setNumberOfItems( _w.numberOfItems.getSelectedIndex() );
+			(( SpOR )_spItem).setNumberOfItems( _w.numberOfItems.getSelectedIndex() ) ;
 	}
 }

@@ -4,46 +4,46 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import orac.ukirt.iter.SpIterUISTTargetAcq;
+import orac.ukirt.iter.SpIterUISTTargetAcq ;
 
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
 
-import gemini.sp.SpItem;
+import gemini.sp.SpItem ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import ot.util.DialogUtil;
-import jsky.app.ot.editor.OtItemEditor;
+import ot.util.DialogUtil ;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for UIST Spectroscopy/IFU Target Acquistion iterator component.
  */
 public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
-	private SpIterUISTTargetAcq _ita;
-	private IterUISTTargetAcqGUI _w;
+	private SpIterUISTTargetAcq _ita ;
+	private IterUISTTargetAcqGUI _w ;
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterUISTTargetAcq()
 	{
-		_title = "UIST Spec/IFU Target Acquisition Iterator";
-		_presSource = _w = new IterUISTTargetAcqGUI();
-		_description = "Configure UIST spectroscopy/IFU camera for target acquisition.";
+		_title = "UIST Spec/IFU Target Acquisition Iterator" ;
+		_presSource = _w = new IterUISTTargetAcqGUI() ;
+		_description = "Configure UIST spectroscopy/IFU camera for target acquisition." ;
 
-		_w.defaultAcquisition.addActionListener( this );
+		_w.defaultAcquisition.addActionListener( this ) ;
 	}
 
 	/**
@@ -59,19 +59,19 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_ita.setSourceMag( val );
-				_ita.useDefaultAcquisition();
-				_updateWidgets();
+				_ita.setSourceMag( val ) ;
+				_ita.useDefaultAcquisition() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		// Exposure time
-		_w.exposureTime.addWatcher( this );
+		_w.exposureTime.addWatcher( this ) ;
 
 		// Coadds
-		_w.coadds.addWatcher( this );
+		_w.coadds.addWatcher( this ) ;
 
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -79,8 +79,8 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	 */
 	public void setup( SpItem spItem )
 	{
-		_ita = ( SpIterUISTTargetAcq )spItem;
-		super.setup( spItem );
+		_ita = ( SpIterUISTTargetAcq )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -89,43 +89,43 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
-		_ita.useDefaultDisperser();
+		_ita.useDefaultDisperser() ;
 
 		try
 		{
 			// Source magnitude
-			_updateSourceMagChoices();
+			_updateSourceMagChoices() ;
 		}
 		catch( NullPointerException ex )
 		{
-			DialogUtil.error( _w , "Can't get source magnitude: probably because UIST instrument component is missing" );
-			return;
+			DialogUtil.error( _w , "Can't get source magnitude: probably because UIST instrument component is missing" ) ;
+			return ;
 		}
 
-		_updateSourceMag();
+		_updateSourceMag() ;
 
 		try
 		{
 			// Exposure Time
-			_w.exposureTime.setValue( _ita.getExposureTimeString() );
+			_w.exposureTime.setValue( _ita.getExposureTimeString() ) ;
 		}
 		catch( NullPointerException ex )
 		{
-			DialogUtil.error( _w , "Can't set exposure time: probably because UIST instrument component is in imaging mode" );
-			return;
+			DialogUtil.error( _w , "Can't set exposure time: probably because UIST instrument component is in imaging mode" ) ;
+			return ;
 		}
 
 		// Coadds
-		_w.coadds.setValue( _ita.getCoadds() );
+		_w.coadds.setValue( _ita.getCoadds() ) ;
 		// Hacky fix for a bug whereby sometimes the coadds does not get written out in the xml
-		_ita.setCoadds( _w.coadds.getValue() );
+		_ita.setCoadds( _w.coadds.getValue() ) ;
 
 		// Disperser
-		_w.disperser.setValue( _ita.getDisperser() );
+		_w.disperser.setValue( _ita.getDisperser() ) ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	//
@@ -134,11 +134,11 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	private void _updateSourceMagChoices()
 	{
 
-		int numChoices = _ita.getSourceMagList().length;
-		String choices[] = new String[ numChoices ];
-		choices = _ita.getSourceMagList();
-		_w.sourceMag.setMaximumRowCount( numChoices );
-		_w.sourceMag.setChoices( choices );
+		int numChoices = _ita.getSourceMagList().length ;
+		String choices[] = new String[ numChoices ] ;
+		choices = _ita.getSourceMagList() ;
+		_w.sourceMag.setMaximumRowCount( numChoices ) ;
+		_w.sourceMag.setChoices( choices ) ;
 	}
 
 	//
@@ -146,8 +146,8 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	//
 	private void _updateSourceMag()
 	{
-		String sourceMag = _ita.getSourceMag();
-		_w.sourceMag.setValue( sourceMag );
+		String sourceMag = _ita.getSourceMag() ;
+		_w.sourceMag.setValue( sourceMag ) ;
 	}
 
 	/**
@@ -156,9 +156,9 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _w.exposureTime )
-			_ita.setExposureTime( tbwe.getText() );
+			_ita.setExposureTime( tbwe.getText() ) ;
 		else if( tbwe == _w.coadds )
-			_ita.setCoadds( tbwe.getText() );
+			_ita.setCoadds( tbwe.getText() ) ;
 	}
 
 	/**
@@ -173,14 +173,13 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 	{
 		if( !ignoreActions )
 		{
-			Object w = evt.getSource();
+			Object w = evt.getSource() ;
 	
 			if( w == _w.defaultAcquisition )
 			{
-				_ita.useDefaultSourceMag();
-				_ita.useDefaultAcquisition();
-				_updateWidgets();
-				return;
+				_ita.useDefaultSourceMag() ;
+				_ita.useDefaultAcquisition() ;
+				_updateWidgets() ;
 			}
 		}
 	}

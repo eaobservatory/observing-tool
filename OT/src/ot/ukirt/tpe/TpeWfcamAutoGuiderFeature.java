@@ -4,18 +4,18 @@
 //
 // $Id$
 //
-package ot.ukirt.tpe;
+package ot.ukirt.tpe ;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Color ;
+import java.awt.Graphics ;
 
-import jsky.app.ot.tpe.TpeImageFeature;
-import jsky.app.ot.tpe.TpeImageWidget;
+import jsky.app.ot.tpe.TpeImageFeature ;
+import jsky.app.ot.tpe.TpeImageWidget ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
 
-import gemini.util.Angle;
-import jsky.app.ot.util.PolygonD;
+import gemini.util.Angle ;
+import jsky.app.ot.util.PolygonD ;
 
 /**
  * Draws the WFCAM autoguider CCD footprint.
@@ -44,17 +44,17 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 	/**
 	 * Autoguider CCD angle in degrees.
 	 */
-	public static final double AUTOGUIDER_ANGLE = 46.8;
+	public static final double AUTOGUIDER_ANGLE = 46.8 ;
 
-	private PolygonD _autoguiderAreaPD;
-	private boolean _valid = false;
+	private PolygonD _autoguiderAreaPD ;
+	private boolean _valid = false ;
 
 	/**
 	 * Construct the feature with its name and description.
 	 */
 	public TpeWfcamAutoGuiderFeature()
 	{
-		super( "WFCAM AG" , "WFCAM Autoguider Footprint" );
+		super( "WFCAM AG" , "WFCAM Autoguider Footprint" ) ;
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 	 */
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
-		_valid = false;
+		super.reinit( iw , fii ) ;
+		_valid = false ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 	 */
 	public void posAngleUpdate( FitsImageInfo fii )
 	{
-		_valid = false;
+		_valid = false ;
 	}
 
 	/**
@@ -81,39 +81,39 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 	{
 		if( _autoguiderAreaPD == null )
 		{
-			_autoguiderAreaPD = new PolygonD();
-			_autoguiderAreaPD.xpoints = new double[ 5 ];
-			_autoguiderAreaPD.ypoints = new double[ 5 ];
-			_autoguiderAreaPD.npoints = 5;
+			_autoguiderAreaPD = new PolygonD() ;
+			_autoguiderAreaPD.xpoints = new double[ 5 ] ;
+			_autoguiderAreaPD.ypoints = new double[ 5 ] ;
+			_autoguiderAreaPD.npoints = 5 ;
 		}
 
-		double[] xpoints = _autoguiderAreaPD.xpoints;
-		double[] ypoints = _autoguiderAreaPD.ypoints;
+		double[] xpoints = _autoguiderAreaPD.xpoints ;
+		double[] ypoints = _autoguiderAreaPD.ypoints ;
 
-		double x = ( double )fii.baseScreenPos.x;
-		double y = ( double )fii.baseScreenPos.y;
+		double x = ( double )fii.baseScreenPos.x ;
+		double y = ( double )fii.baseScreenPos.y ;
 
 		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2. ;
 		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2. ;
 
-		xpoints[ 0 ] = x - w;
-		xpoints[ 1 ] = x + w;
-		ypoints[ 0 ] = y - h;
-		ypoints[ 1 ] = y - h;
+		xpoints[ 0 ] = x - w ;
+		xpoints[ 1 ] = x + w ;
+		ypoints[ 0 ] = y - h ;
+		ypoints[ 1 ] = y - h ;
 
-		xpoints[ 2 ] = x + w;
-		xpoints[ 3 ] = x - w;
-		ypoints[ 2 ] = y + h;
-		ypoints[ 3 ] = y + h;
+		xpoints[ 2 ] = x + w ;
+		xpoints[ 3 ] = x - w ;
+		ypoints[ 2 ] = y + h ;
+		ypoints[ 3 ] = y + h ;
 
-		xpoints[ 4 ] = xpoints[ 0 ];
-		ypoints[ 4 ] = ypoints[ 0 ];
+		xpoints[ 4 ] = xpoints[ 0 ] ;
+		ypoints[ 4 ] = ypoints[ 0 ] ;
 
 		// Rotate by AUTOGUIDER_ANGLE.
 		// The skyRotate method is used for this although the rotation is NOT due to sky rotation but to the way the autoguider CCD is fixed in WFCAM.
-		_iw.skyRotate( _autoguiderAreaPD , Angle.degreesToRadians( AUTOGUIDER_ANGLE ) );
+		_iw.skyRotate( _autoguiderAreaPD , Angle.degreesToRadians( AUTOGUIDER_ANGLE ) ) ;
 
-		_valid = true;
+		_valid = true ;
 	}
 
 	/**
@@ -122,9 +122,9 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
 		if( !_valid )
-			_calc( fii );
+			_calc( fii ) ;
 
-		g.setColor( Color.magenta );
-		g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() );
+		g.setColor( Color.magenta ) ;
+		g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() ) ;
 	}
 }

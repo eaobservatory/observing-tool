@@ -7,63 +7,63 @@
 /*                                                              */
 /*==============================================================*/
 
-package ot.ukirt.inst.editor;
+package ot.ukirt.inst.editor ;
 
-import orac.util.LookUpTable;
-import orac.ukirt.inst.SpInstCGS4;
+import orac.util.LookUpTable ;
+import orac.ukirt.inst.SpInstCGS4 ;
 
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import gemini.sp.SpItem;
-import jsky.app.ot.util.MathUtil;
+import gemini.sp.SpItem ;
+import jsky.app.ot.util.MathUtil ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
+import jsky.app.ot.tpe.TelescopePosEditor ;
+import jsky.app.ot.tpe.TpeManager ;
 
 /**
  * This is the editor for the CGS4 instrument Observation Component
  */
 public final class EdCompInstCGS4 extends EdCompInstBase
 {
-	private SpInstCGS4 _instCGS4;
-	private Cgs4GUI _w; // the GUI layout
+	private SpInstCGS4 _instCGS4 ;
+	private Cgs4GUI _w ; // the GUI layout
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdCompInstCGS4()
 	{
-		_title = "CGS4";
-		_presSource = _w = new Cgs4GUI();
-		_description = "The CGS4 instrument is configured with this component.";
+		_title = "CGS4" ;
+		_presSource = _w = new Cgs4GUI() ;
+		_description = "The CGS4 instrument is configured with this component." ;
 
-		CommandButtonWidgetExt cbw;
-		DropDownListBoxWidgetExt ddlbw;
-		TextBoxWidgetExt tbw;
+		CommandButtonWidgetExt cbw ;
+		DropDownListBoxWidgetExt ddlbw ;
+		TextBoxWidgetExt tbw ;
 
 		//
 		// Disperser
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser;
-		LookUpTable disps = SpInstCGS4.DISPERSERS;
-		Vector v = new Vector();
+		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser ;
+		LookUpTable disps = SpInstCGS4.DISPERSERS ;
+		Vector v = new Vector() ;
 		for( int i = 0 ; i < SpInstCGS4.getDispersers().getNumRows() ; ++i )
 		{
-			String res = ( String )disps.elementAt( i , 1 );
+			String res = ( String )disps.elementAt( i , 1 ) ;
 			if( i == 2 )
-				res = "40000";
-			v.addElement( disps.elementAt( i , 0 ) + " (R\u007e" + res + ")" );
+				res = "40000" ;
+			v.addElement( disps.elementAt( i , 0 ) + " (R\u007e" + res + ")" ) ;
 		}
-		ddlbw.setChoices( v );
+		ddlbw.setChoices( v ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -71,20 +71,20 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setDisperser( _dispTrim( val ) );
-				_updateOrder();
-				_updateFilter();
-				_updateMaskMenu();
-				_instCGS4.useDefaultAcquisition();
-				_updateWidgets();
+				_instCGS4.setDisperser( _dispTrim( val ) ) ;
+				_updateOrder() ;
+				_updateFilter() ;
+				_updateMaskMenu() ;
+				_instCGS4.useDefaultAcquisition() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// source magnitude
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag;
-		ddlbw.setChoices( SpInstCGS4.SRCMAGS );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag ;
+		ddlbw.setChoices( SpInstCGS4.SRCMAGS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -92,17 +92,17 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setSourceMagnitude( val );
-				_instCGS4.useDefaultAcquisition();
-				_updateWidgets();
+				_instCGS4.setSourceMagnitude( val ) ;
+				_instCGS4.useDefaultAcquisition() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// sampling
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling;
-		ddlbw.setChoices( SpInstCGS4.SAMPLINGS );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling ;
+		ddlbw.setChoices( SpInstCGS4.SAMPLINGS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -110,16 +110,16 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setSampling( val );
-				_updateWidgets();
+				_instCGS4.setSampling( val ) ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Mask
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask;
-		ddlbw.setChoices( SpInstCGS4.MASKS.getColumn( 0 ) );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw.setChoices( SpInstCGS4.MASKS.getColumn( 0 ) ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -127,20 +127,20 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setMask( val );
-				_updateWidgets();
+				_instCGS4.setMask( val ) ;
+				_updateWidgets() ;
 
-				TelescopePosEditor tpe = TpeManager.get( _instCGS4 );
+				TelescopePosEditor tpe = TpeManager.get( _instCGS4 ) ;
 				if( tpe != null )
-					tpe.repaint();
+					tpe.repaint() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Polariser
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser;
-		ddlbw.setChoices( SpInstCGS4.POLARISERS );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser ;
+		ddlbw.setChoices( SpInstCGS4.POLARISERS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -148,16 +148,16 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setPolariser( val );
-				_updateWidgets();
+				_instCGS4.setPolariser( val ) ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Acq. Mode
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode;
-		ddlbw.setChoices( SpInstCGS4.MODES );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode ;
+		ddlbw.setChoices( SpInstCGS4.MODES ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -165,115 +165,115 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instCGS4.setMode( val );
-				_updateSecondaryAcqMode();
-				_updateWidgets();
+				_instCGS4.setMode( val ) ;
+				_updateSecondaryAcqMode() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Central Wavelength
 		//
-		tbw = ( TextBoxWidgetExt )_w.centralWavelength;
+		tbw = ( TextBoxWidgetExt )_w.centralWavelength ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instCGS4.setCentralWavelength( tbw.getText() );
-				_updateWavelengthCoverage();
-				_updateResolution();
-				_updateOrder();
-				_updateFilter();
-				_instCGS4.useDefaultAcquisition();
-				_updateExpInfo();
-				_updateSecondaryAcqMode();
+				_instCGS4.setCentralWavelength( tbw.getText() ) ;
+				_updateWavelengthCoverage() ;
+				_updateResolution() ;
+				_updateOrder() ;
+				_updateFilter() ;
+				_instCGS4.useDefaultAcquisition() ;
+				_updateExpInfo() ;
+				_updateSecondaryAcqMode() ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
-		} );
+		} ) ;
 
 		//
 		// CVF offset
 		//
-		tbw = ( TextBoxWidgetExt )_w.cvfOffset;
+		tbw = ( TextBoxWidgetExt )_w.cvfOffset ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instCGS4.setCvfOffset( tbw.getText() );
+				_instCGS4.setCvfOffset( tbw.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
-		} );
+		} ) ;
 
 		//
 		// Order
 		//
-		tbw = ( TextBoxWidgetExt )_w.order;
+		tbw = ( TextBoxWidgetExt )_w.order ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instCGS4.setOrder( tbw.getText() );
-				_updateWavelengthCoverage();
-				_updateResolution();
+				_instCGS4.setOrder( tbw.getText() ) ;
+				_updateWavelengthCoverage() ;
+				_updateResolution() ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
-		} );
+		} ) ;
 
-		cbw = ( CommandButtonWidgetExt )_w.defaultOrder;
+		cbw = ( CommandButtonWidgetExt )_w.defaultOrder ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				_instCGS4.useDefaultOrder();
-				_updateWidgets();
+				_instCGS4.useDefaultOrder() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
-		CheckBoxWidgetExt cbwe;
-		cbwe = ( CheckBoxWidgetExt )_w.useND;
+		CheckBoxWidgetExt cbwe ;
+		cbwe = ( CheckBoxWidgetExt )_w.useND ;
 		cbwe.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt cbw )
 			{
-				_instCGS4.setNdFilter( cbw.getBooleanValue() );
-				_updateWidgets();
+				_instCGS4.setNdFilter( cbw.getBooleanValue() ) ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.exposureTime;
+		tbw = ( TextBoxWidgetExt )_w.exposureTime ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instCGS4.setExpTime( tbw.getText() );
+				_instCGS4.setExpTime( tbw.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){}
-		} );
+		} ) ;
 
-		cbw = ( CommandButtonWidgetExt )_w.defaultAcquisition;
+		cbw = ( CommandButtonWidgetExt )_w.defaultAcquisition ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				_instCGS4.useDefaultAcquisition();
-				_instCGS4.setCvfOffset( _instCGS4.getCentralWavelength() );
-				_updateWidgets();
+				_instCGS4.useDefaultAcquisition() ;
+				_instCGS4.setCvfOffset( _instCGS4.getCentralWavelength() ) ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		_w.coadds.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instCGS4.setNoCoadds( tbw.getText() );
+				_instCGS4.setNoCoadds( tbw.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){}
-		} );
+		} ) ;
 
 	}
 
@@ -282,7 +282,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private String _dispTrim( String disperser )
 	{
-		return disperser.substring( 0 , disperser.lastIndexOf( '(' ) ).trim();
+		return disperser.substring( 0 , disperser.lastIndexOf( '(' ) ).trim() ;
 	}
 
 	//
@@ -290,18 +290,18 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private String _fullDispName( String disperser )
 	{
-		LookUpTable d = SpInstCGS4.DISPERSERS;
+		LookUpTable d = SpInstCGS4.DISPERSERS ;
 		try
 		{
-			int i = d.indexInColumn( disperser , 0 );
-			String res = ( String )d.elementAt( i , 1 );
+			int i = d.indexInColumn( disperser , 0 ) ;
+			String res = ( String )d.elementAt( i , 1 ) ;
 			if( i == 2 )
-				res = "40000";
-			return( d.elementAt( i , 0 ) + " (R\u007e" + res + ")" );
+				res = "40000" ;
+			return( d.elementAt( i , 0 ) + " (R\u007e" + res + ")" ) ;
 		}
 		catch( Exception ex )
 		{
-			return null;
+			return null ;
 		}
 	}
 
@@ -310,8 +310,8 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	 */
 	public void setup( SpItem spItem )
 	{
-		_instCGS4 = ( SpInstCGS4 )spItem;
-		super.setup( spItem );
+		_instCGS4 = ( SpInstCGS4 )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -320,53 +320,53 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	 */
 	protected void _updateWidgets()
 	{
-		DropDownListBoxWidgetExt ddlbw;
-		TextBoxWidgetExt tbw;
-		CheckBoxWidgetExt cbwe;
+		DropDownListBoxWidgetExt ddlbw ;
+		TextBoxWidgetExt tbw ;
+		CheckBoxWidgetExt cbwe ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode;
-		ddlbw.setValue( _instCGS4.getMode() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode ;
+		ddlbw.setValue( _instCGS4.getMode() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser;
-		ddlbw.setValue( _fullDispName( _instCGS4.getDisperser() ) );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser ;
+		ddlbw.setValue( _fullDispName( _instCGS4.getDisperser() ) ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag;
-		ddlbw.setValue( _instCGS4.getSourceMagnitude() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag ;
+		ddlbw.setValue( _instCGS4.getSourceMagnitude() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask;
-		ddlbw.setValue( _instCGS4.getMask() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw.setValue( _instCGS4.getMask() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser;
-		ddlbw.setValue( _instCGS4.getPolariser() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser ;
+		ddlbw.setValue( _instCGS4.getPolariser() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling;
-		ddlbw.setValue( _instCGS4.getSampling() );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling ;
+		ddlbw.setValue( _instCGS4.getSampling() ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.centralWavelength;
-		double centralWavelength = _instCGS4.getCentralWavelength();
-		tbw.setText( Double.toString( centralWavelength ) );
+		tbw = ( TextBoxWidgetExt )_w.centralWavelength ;
+		double centralWavelength = _instCGS4.getCentralWavelength() ;
+		tbw.setText( Double.toString( centralWavelength ) ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.order;
-		int order = _instCGS4.getOrder();
-		tbw.setText( Integer.toString( order ) );
+		tbw = ( TextBoxWidgetExt )_w.order ;
+		int order = _instCGS4.getOrder() ;
+		tbw.setText( Integer.toString( order ) ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.filter;
-		tbw.setText( _instCGS4.getFilter() );
+		tbw = ( TextBoxWidgetExt )_w.filter ;
+		tbw.setText( _instCGS4.getFilter() ) ;
 
-		cbwe = ( CheckBoxWidgetExt )_w.useND;
-		cbwe.setValue( _instCGS4.getNdFilter() );
+		cbwe = ( CheckBoxWidgetExt )_w.useND ;
+		cbwe.setValue( _instCGS4.getNdFilter() ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.cvfOffset;
-		tbw.setValue( _instCGS4.getCvfOffset() );
+		tbw = ( TextBoxWidgetExt )_w.cvfOffset ;
+		tbw.setValue( _instCGS4.getCvfOffset() ) ;
 
-		_updateScienceFOV();
-		_updateWavelengthCoverage();
-		_updateResolution();
+		_updateScienceFOV() ;
+		_updateWavelengthCoverage() ;
+		_updateResolution() ;
 
-		super._updateWidgets();
+		super._updateWidgets() ;
 
-		_updateExpInfo();
-		_updateSecondaryAcqMode();
+		_updateExpInfo() ;
+		_updateSecondaryAcqMode() ;
 	}
 
 	//
@@ -375,13 +375,13 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateScienceFOV()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.scienceFOV;
-		double[] scienceArea = _instCGS4.getScienceArea();
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.scienceFOV ;
+		double[] scienceArea = _instCGS4.getScienceArea() ;
 
-		double w = MathUtil.round( scienceArea[ 0 ] , 2 );
-		double h = MathUtil.round( scienceArea[ 1 ] , 2 );
+		double w = MathUtil.round( scienceArea[ 0 ] , 2 ) ;
+		double h = MathUtil.round( scienceArea[ 1 ] , 2 ) ;
 
-		tbw.setText( w + " x " + h );
+		tbw.setText( w + " x " + h ) ;
 	}
 
 	//
@@ -389,10 +389,10 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateOrder()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.order;
-		int o = _instCGS4.getDefaultOrder();
-		_instCGS4.setOrder( o );
-		tbw.setText( Integer.toString( o ) );
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.order ;
+		int o = _instCGS4.getDefaultOrder() ;
+		_instCGS4.setOrder( o ) ;
+		tbw.setText( Integer.toString( o ) ) ;
 	}
 
 	//
@@ -400,10 +400,10 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateMaskMenu()
 	{
-		DropDownListBoxWidgetExt ddlbw;
-		Vector menu = _instCGS4.getMaskMenu();
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask;
-		ddlbw.setChoices( menu );
+		DropDownListBoxWidgetExt ddlbw ;
+		Vector menu = _instCGS4.getMaskMenu() ;
+		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw.setChoices( menu ) ;
 	}
 
 	//
@@ -415,8 +415,8 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		// This Swing OT (OT3) does not have such a  filter text box widget. 
 		// But _instCGS4 has a filter attribute that has to be set to a default filter when _updateFilter is called.
 
-		String filter = _instCGS4.getDefaultFilter();
-		_instCGS4.setFilter( filter );
+		String filter = _instCGS4.getDefaultFilter() ;
+		_instCGS4.setFilter( filter ) ;
 	}
 
 	//
@@ -424,16 +424,16 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateExpInfo()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime;
-		double d = _instCGS4.getExpTime();
-		String e = Double.toString( d );
-		_instCGS4.setExpTime( e );
-		tbw.setText( e );
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime ;
+		double d = _instCGS4.getExpTime() ;
+		String e = Double.toString( d ) ;
+		_instCGS4.setExpTime( e ) ;
+		tbw.setText( e ) ;
 
-		tbw = _w.coadds;
-		int coadds = _instCGS4.getNoCoadds();
-		_instCGS4.setNoCoadds( coadds );
-		tbw.setText( Integer.toString( coadds ) );
+		tbw = _w.coadds ;
+		int coadds = _instCGS4.getNoCoadds() ;
+		_instCGS4.setNoCoadds( coadds ) ;
+		tbw.setText( Integer.toString( coadds ) ) ;
 	}
 
 	//
@@ -448,17 +448,17 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateWavelengthCoverage()
 	{
-		TextBoxWidgetExt tbw;
-		tbw = ( TextBoxWidgetExt )_w.wavelengthCoverage;
+		TextBoxWidgetExt tbw ;
+		tbw = ( TextBoxWidgetExt )_w.wavelengthCoverage ;
 
-		double coverage[] = _instCGS4.getWavelengthCoverage();
+		double coverage[] = _instCGS4.getWavelengthCoverage() ;
 		//  If resolution > 10000  (arbitrary) display 4 dec. pl., otherwise 2.
-		int dp = 2;
+		int dp = 2 ;
 		if( _instCGS4.getResolution() > 10000 )
-			dp = 4;
-		double ll = MathUtil.round( coverage[ 0 ] , dp );
-		double ul = MathUtil.round( coverage[ 1 ] , dp );
-		tbw.setText( ll + "-" + ul );
+			dp = 4 ;
+		double ll = MathUtil.round( coverage[ 0 ] , dp ) ;
+		double ul = MathUtil.round( coverage[ 1 ] , dp ) ;
+		tbw.setText( ll + "-" + ul ) ;
 	}
 
 	//
@@ -466,25 +466,25 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateResolution()
 	{
-		TextBoxWidgetExt tbw;
-		tbw = ( TextBoxWidgetExt )_w.resolution;
+		TextBoxWidgetExt tbw ;
+		tbw = ( TextBoxWidgetExt )_w.resolution ;
 
-		int res = ( new Double( _instCGS4.getResolution() ) ).intValue();
-		tbw.setText( Integer.toString( res ) );
+		int res = ( new Double( _instCGS4.getResolution() ) ).intValue() ;
+		tbw.setText( Integer.toString( res ) ) ;
 	}
 
 	public TextBoxWidgetExt getCoaddsTextBox()
 	{
-		return new TextBoxWidgetExt();
+		return new TextBoxWidgetExt() ;
 	}
 
 	public TextBoxWidgetExt getExposureTimeTextBox()
 	{
-		return new TextBoxWidgetExt();
+		return new TextBoxWidgetExt() ;
 	}
 
 	public TextBoxWidgetExt getPosAngleTextBox()
 	{
-		return _w.posAngle;
+		return _w.posAngle ;
 	}
 }

@@ -7,18 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
-import java.awt.event.KeyListener;
-import java.awt.Color;
+import java.awt.event.KeyListener ;
+import java.awt.Color ;
 import java.awt.Component ;
 import java.awt.event.KeyEvent ;
-import java.text.DecimalFormat;
-import java.util.Observer;
-import java.util.Observable;
-import java.util.TreeMap;
+import java.text.DecimalFormat ;
+import java.util.Observer ;
+import java.util.Observable ;
+import java.util.TreeMap ;
 
-import javax.swing.JTextField;
+import javax.swing.JTextField ;
 
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
@@ -92,7 +92,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	{
 		super( new IterRasterObsGUI() ) ;
 
-		_title = "Scan/Raster";
+		_title = "Scan/Raster" ;
 		_presSource = _w = ( IterRasterObsGUI )super._w ;
 		_description = "Scan/Raster Map" ;
 
@@ -413,7 +413,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-		_iterObs.getAvEditFSM().deleteObserver( this );
+		_iterObs.getAvEditFSM().deleteObserver( this ) ;
 
 		if( tbwe == _w.dx )
 		{
@@ -439,14 +439,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( tbwe == _w.dy )
 		{
-			_iterObs.setScanDy( _w.dy.getValue() );
+			_iterObs.setScanDy( _w.dy.getValue() ) ;
 			if( !( _w.dy.getValue().equals( "" ) ) )
-				_w.noiseTextBox.setValue( calculateNoise() );
-			updateSizeOfPixels();
+				_w.noiseTextBox.setValue( calculateNoise() ) ;
+			updateSizeOfPixels() ;
 		}
 		else if( tbwe == _w.width )
 		{
-			_iterObs.setWidth( _w.width.getValue() );
+			_iterObs.setWidth( _w.width.getValue() ) ;
 
 			if( !( _w.width.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() ) ;
@@ -455,7 +455,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( tbwe == _w.height )
 		{
-			_iterObs.setHeight( _w.height.getValue() );
+			_iterObs.setHeight( _w.height.getValue() ) ;
 
 			if( !( _w.height.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() ) ;
@@ -504,11 +504,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			super.textBoxKeyPress( tbwe ) ;
 		}
-		updateTimes();
-		updateThermometer();
+		updateTimes() ;
+		updateThermometer() ;
 		super._updateWidgets() ;
 
-		_iterObs.getAvEditFSM().addObserver( this );
+		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
 	
 	private void resetTPE()
@@ -523,42 +523,42 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
-		_iterObs.getAvEditFSM().deleteObserver( this );
+		_iterObs.getAvEditFSM().deleteObserver( this ) ;
 
 		if( ddlbwe == _w.scanSystem )
 		{
-			_iterObs.setScanSystem( SCAN_SYSTEMS[ index ] );
+			_iterObs.setScanSystem( SCAN_SYSTEMS[ index ] ) ;
 		}
 		else if( ddlbwe == _w.scanAngle )
 		{
-			Object value = _w.scanAngle.getValue();
+			Object value = _w.scanAngle.getValue() ;
 			if( value.equals( SCAN_PA_CHOICES[ 0 ] ) )
 			{
-				_w.scanAngle.setEditable( false );
-				_iterObs.setScanAngles( null );
+				_w.scanAngle.setEditable( false ) ;
+				_iterObs.setScanAngles( null ) ;
 			}
 			else if( value.equals( SCAN_PA_CHOICES[ 1 ] ) )
 			{
-				_w.scanAngle.setEditable( true );
-				_w.scanAngle.setValue( "" );
+				_w.scanAngle.setEditable( true ) ;
+				_w.scanAngle.setValue( "" ) ;
 
-				_iterObs.setScanSystem( _w.scanSystem.getStringValue() );
+				_iterObs.setScanSystem( _w.scanSystem.getStringValue() ) ;
 			}
 		}
 		else if( ddlbwe == _w.sampleTime )
 		{
-			_iterObs.setSampleTime( _w.sampleTime.getStringValue() );
-			_w.noiseTextBox.setValue( calculateNoise() );
+			_iterObs.setSampleTime( _w.sampleTime.getStringValue() ) ;
+			_w.noiseTextBox.setValue( calculateNoise() ) ;
 		}
 		else if( ddlbwe == _w.scanSystem )
 		{
-			_iterObs.setScanAngles( _w.scanSystem.getStringValue() );
+			_iterObs.setScanAngles( _w.scanSystem.getStringValue() ) ;
 		}
 		else if( ddlbwe == _w.harpRasters )
 		{
-			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ];
-			_iterObs.setScanDy( value );
-			_w.dy.setValue( _iterObs.getScanDy() );
+			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ] ;
+			_iterObs.setScanDy( value ) ;
+			_w.dy.setValue( _iterObs.getScanDy() ) ;
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
@@ -581,19 +581,19 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else
 		{
-			super.dropDownListBoxAction( ddlbwe , index , val );
+			super.dropDownListBoxAction( ddlbwe , index , val ) ;
 		}
-		updateTimes();
-		updateThermometer();
+		updateTimes() ;
+		updateThermometer() ;
 
-		_iterObs.getAvEditFSM().addObserver( this );
+		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
 
 	public void keyPressed( KeyEvent e ){}
 
 	public void keyReleased( KeyEvent e )
 	{
-		_iterObs.getAvEditFSM().deleteObserver( this );
+		_iterObs.getAvEditFSM().deleteObserver( this ) ;
 
 		Component component = _w.scanAngle.getEditor().getEditorComponent() ;
 		if( e.getSource() == component )
@@ -604,7 +604,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		super._updateWidgets() ;
 
-		_iterObs.getAvEditFSM().addObserver( this );
+		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
 
 	public void keyTyped( KeyEvent e ){}
@@ -654,7 +654,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else{}
 		
-		super.setInstrument( spInstObsComp );
+		super.setInstrument( spInstObsComp ) ;
 		addWatchers() ;
 	}
 
@@ -674,7 +674,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 ) ;
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 );
+			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
 		else
 			return -999.9 ;
 	}

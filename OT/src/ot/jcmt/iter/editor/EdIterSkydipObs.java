@@ -7,13 +7,13 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
-import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
-import gemini.sp.SpItem;
-import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.iter.SpIterSkydipObs;
+import gemini.sp.SpItem ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.iter.SpIterSkydipObs ;
 
 /**
  * This is the editor for Skydip Observe Mode iterator component.
@@ -22,22 +22,22 @@ import orac.jcmt.iter.SpIterSkydipObs;
  */
 public final class EdIterSkydipObs extends EdIterJCMTGeneric
 {
-	private IterSkydipObsGUI _w; // the GUI layout panel
+	private IterSkydipObsGUI _w ; // the GUI layout panel
 
-	private SpIterSkydipObs _iterObs;
+	private SpIterSkydipObs _iterObs ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterSkydipObs()
 	{
-		super( new IterSkydipObsGUI() );
+		super( new IterSkydipObsGUI() ) ;
 
-		_title = "Skydip";
-		_presSource = _w = ( IterSkydipObsGUI )super._w;
-		_description = "Skydip Observation Mode";
+		_title = "Skydip" ;
+		_presSource = _w = ( IterSkydipObsGUI )super._w ;
+		_description = "Skydip Observation Mode" ;
 
-		_w.currentAzimuth.addWatcher( this );
+		_w.currentAzimuth.addWatcher( this ) ;
 		_w.jPanel1.setVisible( false ) ;
 	}
 
@@ -46,26 +46,26 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric
 	 */
 	public void setup( SpItem spItem )
 	{
-		_iterObs = ( SpIterSkydipObs )spItem;
-		super.setup( spItem );
+		_iterObs = ( SpIterSkydipObs )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	protected void _updateWidgets()
 	{
-		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() );
+		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() ) ;
 
-		super._updateWidgets();
+		super._updateWidgets() ;
 	}
 
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.currentAzimuth )
-			_iterObs.setDoAtCurrentAz( _w.currentAzimuth.getBooleanValue() );
+			_iterObs.setDoAtCurrentAz( _w.currentAzimuth.getBooleanValue() ) ;
 	}
 
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
-		super.setInstrument( spInstObsComp );
+		super.setInstrument( spInstObsComp ) ;
 	}
 
 }

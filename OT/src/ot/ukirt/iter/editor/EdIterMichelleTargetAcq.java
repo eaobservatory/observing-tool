@@ -4,45 +4,45 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import orac.ukirt.iter.SpIterMichelleTargetAcq;
+import orac.ukirt.iter.SpIterMichelleTargetAcq ;
 
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import gemini.sp.SpItem;
+import gemini.sp.SpItem ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import ot.util.DialogUtil;
-import jsky.app.ot.editor.OtItemEditor;
+import ot.util.DialogUtil ;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for Michelle Spectroscopy Target Acquistion iterator component.
  */
 public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
-	private SpIterMichelleTargetAcq _ita;
-	private boolean haveInitialised = false;
-	private IterMichelleTargetAcqGUI _w;
+	private SpIterMichelleTargetAcq _ita ;
+	private boolean haveInitialised = false ;
+	private IterMichelleTargetAcqGUI _w ;
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterMichelleTargetAcq()
 	{
-		_title = "Michelle Spectroscopy Target Acquisition Iterator";
-		_presSource = _w = new IterMichelleTargetAcqGUI();
-		_description = "Configure Michelle spectroscopy camera for target acquisition.";
+		_title = "Michelle Spectroscopy Target Acquisition Iterator" ;
+		_presSource = _w = new IterMichelleTargetAcqGUI() ;
+		_description = "Configure Michelle spectroscopy camera for target acquisition." ;
 
-		_w.defaultAcquisition.addActionListener( this );
+		_w.defaultAcquisition.addActionListener( this ) ;
 	}
 
 	/**
@@ -50,9 +50,9 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	protected void _init()
 	{
 		// Coadds
-		_w.coadds.addWatcher( this );
+		_w.coadds.addWatcher( this ) ;
 
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -60,10 +60,10 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	 */
 	public void setup( SpItem spItem )
 	{
-		_ita = ( SpIterMichelleTargetAcq )spItem;
+		_ita = ( SpIterMichelleTargetAcq )spItem ;
 
-		haveInitialised = false;
-		super.setup( spItem );
+		haveInitialised = false ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -72,28 +72,28 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
-		_ita.useDefaultDisperser();
+		_ita.useDefaultDisperser() ;
 
 		try
 		{
 			// Exposure Time
-			_w.exposureTime.setValue( _ita.getExposureTimeString() );
+			_w.exposureTime.setValue( _ita.getExposureTimeString() ) ;
 		}
 		catch( NullPointerException ex )
 		{
-			DialogUtil.error( _w , "Can't set exposure time: probably because Michelle instrument component is in imaging mode" );
-			return;
+			DialogUtil.error( _w , "Can't set exposure time: probably because Michelle instrument component is in imaging mode" ) ;
+			return ;
 		}
 
 		// Coadds
-		_w.coadds.setValue( _ita.getCoadds() );
+		_w.coadds.setValue( _ita.getCoadds() ) ;
 
 		// Update data acquisition config
-		_ita.updateDAConf();
+		_ita.updateDAConf() ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _w.coadds )
-			_ita.setCoadds( tbwe.getText() );
+			_ita.setCoadds( tbwe.getText() ) ;
 	}
 
 	/**
@@ -116,15 +116,14 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	public void actionPerformed( ActionEvent evt )
 	{
 		if( ignoreActions )
-			return;
+			return ;
 
-		Object w = evt.getSource();
+		Object w = evt.getSource() ;
 
 		if( w == _w.defaultAcquisition )
 		{
-			_ita.useDefaultAcquisition();
-			_updateWidgets();
-			return;
+			_ita.useDefaultAcquisition() ;
+			_updateWidgets() ;
 		}
 	}
 }

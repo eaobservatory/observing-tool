@@ -7,7 +7,7 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.iter.editor;
+package ot.jcmt.iter.editor ;
 
 /**
  * Title:        <p>
@@ -24,11 +24,11 @@ public class IterFlatObsGUI extends IterJCMTGenericGUI
 	{
 		try
 		{
-			jbInit();
+			jbInit() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 

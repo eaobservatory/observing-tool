@@ -1,4 +1,4 @@
-package ot;
+package ot ;
 
 /**
  * Constants for the OT
@@ -7,6 +7,6 @@ package ot;
  */
 public interface OtConstants
 {
-	public static final String UKIRT = "ukirt";
-	public static final String JCMT = "jcmt";
+	public static final String UKIRT = "ukirt" ;
+	public static final String JCMT = "jcmt" ;
 }

@@ -18,15 +18,15 @@ import gemini.util.MJDUtils ;
 
 public class QuickMatch
 {
-	static final String word = "[a-zA-Z]";
+	static final String word = "[a-zA-Z]" ;
 	static final String keyValueRegex = "\\s*" + word + "+(\\s|\\-)?" + word + "*=\\s*" ;
-	static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*";
-	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d+\\.?\\d*";
-	static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}";
-	static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}";
-	static final String nameRegex = "^\\s*JPL/HORIZONS\\s+.+\\s+" + nameDateRegex + "\\s+" + nameTimeRegex + "\\s*$";
+	static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*" ;
+	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d+\\.?\\d*" ;
+	static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}" ;
+	static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}" ;
+	static final String nameRegex = "^\\s*JPL/HORIZONS\\s+.+\\s+" + nameDateRegex + "\\s+" + nameTimeRegex + "\\s*$" ;
 	static final String numberRegex = "\\d*\\.?\\d+((D|E)\\d+)?" ;
-	private static QuickMatch quickmatch;
+	private static QuickMatch quickmatch ;
 
 	Matcher keyValueMatcher ;
 	static Pattern keyValuePattern ;
@@ -42,7 +42,7 @@ public class QuickMatch
 
 	static
 	{
-		keyValuePattern = Pattern.compile( keyValueRegex );
+		keyValuePattern = Pattern.compile( keyValueRegex ) ;
 		numberPattern = Pattern.compile( numberRegex ) ;
 		epochPattern = Pattern.compile( epochRegex ) ;
 		tpPattern = Pattern.compile( tpRegex ) ;
@@ -50,12 +50,12 @@ public class QuickMatch
 
 	public static void main( String[] args )
 	{
-		String input = "  EPOCH=  2453800.5 ! 2006-Mar-06.00 (CT)         RMSW= n.a.  ";
+		String input = "  EPOCH=  2453800.5 ! 2006-Mar-06.00 (CT)         RMSW= n.a.  " ;
 		if( args.length != 0 )
-			input = args[ 0 ];
-		QuickMatch match = getInstance();
-		TreeMap merged = match.parseLine( input );
-		printMap( merged );
+			input = args[ 0 ] ;
+		QuickMatch match = getInstance() ;
+		TreeMap merged = match.parseLine( input ) ;
+		printMap( merged ) ;
 	}
 
 	public boolean isName( String line )
@@ -90,21 +90,21 @@ public class QuickMatch
 	public static void printMap( TreeMap map )
 	{
 		if( map == null )
-			return;
-		String key , value;
-		Object tmp;
+			return ;
+		String key , value ;
+		Object tmp ;
 		while( map.size() != 0 )
 		{
-			tmp = map.lastKey();
+			tmp = map.lastKey() ;
 			if( !( tmp instanceof String ) )
 			{
-				System.out.println( tmp + " not a String - something *really* wrong" );
-				System.exit( -8 );
+				System.out.println( tmp + " not a String - something *really* wrong" ) ;
+				System.exit( -8 ) ;
 			}
-			key = ( String )tmp;
-			tmp = map.remove( key );
-			value = tmp.toString();
-			System.out.println( key + " == " + value );
+			key = ( String )tmp ;
+			tmp = map.remove( key ) ;
+			value = tmp.toString() ;
+			System.out.println( key + " == " + value ) ;
 		}
 
 	}
@@ -114,8 +114,8 @@ public class QuickMatch
 	public static synchronized QuickMatch getInstance()
 	{
 		if( quickmatch == null )
-			quickmatch = new QuickMatch();
-		return quickmatch;
+			quickmatch = new QuickMatch() ;
+		return quickmatch ;
 	}
 
 	public TreeMap parseLine( String line )

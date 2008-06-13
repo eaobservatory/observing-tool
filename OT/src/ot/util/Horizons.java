@@ -30,12 +30,12 @@ import java.io.ObjectOutputStream ;
 
 public class Horizons
 {
-	static final String server = "http://ssd.jpl.nasa.gov/";
-	static final String script = "horizons_batch.cgi?batch=1";
-	private static boolean caching = true;
-	private String cacheDirectory = null;
-	private static boolean search = false;
-	private static Horizons horizons = null;
+	static final String server = "http://ssd.jpl.nasa.gov/" ;
+	static final String script = "horizons_batch.cgi?batch=1" ;
+	private static boolean caching = true ;
+	private String cacheDirectory = null ;
+	private static boolean search = false ;
+	private static Horizons horizons = null ;
 
 	private Horizons(){}
 
@@ -76,7 +76,7 @@ public class Horizons
 		String version = System.getProperty( "ot.version" ) ;
 		if( version == null )
 			version = "" ;
-		return version;
+		return version ;
 	}
 
 	private String getCacheDirectory()
@@ -96,7 +96,7 @@ public class Horizons
 			}
 			catch( Exception e )
 			{
-				caching = false;
+				caching = false ;
 				System.out.println( "Caching of orbital elements disabled " + e ) ;
 			}
 		}
@@ -304,8 +304,8 @@ public class Horizons
 
 	private TreeMap parse( Vector<String> vector )
 	{
-		String line;
-		TreeMap treeMap = new TreeMap();
+		String line ;
+		TreeMap treeMap = new TreeMap() ;
 		QuickMatch quickMatch = QuickMatch.getInstance() ;
 		TreeMap tmpMap = null ;
 		while( vector.size() != 0 )

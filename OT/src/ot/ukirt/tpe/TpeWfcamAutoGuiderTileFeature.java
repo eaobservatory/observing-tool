@@ -1,15 +1,15 @@
-package ot.ukirt.tpe;
+package ot.ukirt.tpe ;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Color ;
+import java.awt.Graphics ;
 
-import jsky.app.ot.tpe.TpeImageFeature;
-import jsky.app.ot.tpe.TpeImageWidget;
+import jsky.app.ot.tpe.TpeImageFeature ;
+import jsky.app.ot.tpe.TpeImageWidget ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
 
-import gemini.util.Angle;
-import jsky.app.ot.util.PolygonD;
+import gemini.util.Angle ;
+import jsky.app.ot.util.PolygonD ;
 
 /**
  * Draws the WFCAM autoguider CCD footprint.
@@ -38,16 +38,16 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	 * Autoguider CCD angle in degrees.
 	 * Apparently it wasn't installed straight.
 	 */
-	public static final double AUTOGUIDER_ANGLE = 46.8;
+	public static final double AUTOGUIDER_ANGLE = 46.8 ;
 
-	private PolygonD _autoguiderAreaPD;
+	private PolygonD _autoguiderAreaPD ;
 
 	/**
 	 * Construct the feature with its name and description.
 	 */
 	public TpeWfcamAutoGuiderTileFeature()
 	{
-		super( "WFCAM TILE AG" , "WFCAM Autoguider Tile Footprint" );
+		super( "WFCAM TILE AG" , "WFCAM Autoguider Tile Footprint" ) ;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	 */
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
+		super.reinit( iw , fii ) ;
 	}
 
 	/**
@@ -66,43 +66,43 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	/**
 	 * Calculate the polygon describing the screen location of the science area.
 	 */
-	double[] xOffsets = { 550. , 0. , -550. , 0. };
+	double[] xOffsets = { 550. , 0. , -550. , 0. } ;
 
-	double[] yOffsets = { 0. , 550. , 0 , -550. };
+	double[] yOffsets = { 0. , 550. , 0 , -550. } ;
 
 	private void _calc( FitsImageInfo fii , int i )
 	{
 		if( _autoguiderAreaPD == null )
 		{
-			_autoguiderAreaPD = new PolygonD();
-			_autoguiderAreaPD.xpoints = new double[ 5 ];
-			_autoguiderAreaPD.ypoints = new double[ 5 ];
-			_autoguiderAreaPD.npoints = 5;
+			_autoguiderAreaPD = new PolygonD() ;
+			_autoguiderAreaPD.xpoints = new double[ 5 ] ;
+			_autoguiderAreaPD.ypoints = new double[ 5 ] ;
+			_autoguiderAreaPD.npoints = 5 ;
 		}
 
-		double[] xpoints = _autoguiderAreaPD.xpoints;
-		double[] ypoints = _autoguiderAreaPD.ypoints;
+		double[] xpoints = _autoguiderAreaPD.xpoints ;
+		double[] ypoints = _autoguiderAreaPD.ypoints ;
 
-		double xOffset = xOffsets[ i ];
-		double yOffset = yOffsets[ i ];
-		double x = ( double )fii.baseScreenPos.x + ( xOffset * fii.pixelsPerArcsec );
-		double y = ( double )fii.baseScreenPos.y + ( yOffset * fii.pixelsPerArcsec );
+		double xOffset = xOffsets[ i ] ;
+		double yOffset = yOffsets[ i ] ;
+		double x = ( double )fii.baseScreenPos.x + ( xOffset * fii.pixelsPerArcsec ) ;
+		double y = ( double )fii.baseScreenPos.y + ( yOffset * fii.pixelsPerArcsec ) ;
 
 		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2. ;
 		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2. ;
 
-		xpoints[ 0 ] = x - w;
-		xpoints[ 1 ] = x + w;
-		ypoints[ 0 ] = y - h;
-		ypoints[ 1 ] = y - h;
+		xpoints[ 0 ] = x - w ;
+		xpoints[ 1 ] = x + w ;
+		ypoints[ 0 ] = y - h ;
+		ypoints[ 1 ] = y - h ;
 
-		xpoints[ 2 ] = x + w;
-		xpoints[ 3 ] = x - w;
-		ypoints[ 2 ] = y + h;
-		ypoints[ 3 ] = y + h;
+		xpoints[ 2 ] = x + w ;
+		xpoints[ 3 ] = x - w ;
+		ypoints[ 2 ] = y + h ;
+		ypoints[ 3 ] = y + h ;
 
-		xpoints[ 4 ] = xpoints[ 0 ];
-		ypoints[ 4 ] = ypoints[ 0 ];
+		xpoints[ 4 ] = xpoints[ 0 ] ;
+		ypoints[ 4 ] = ypoints[ 0 ] ;
 
 		/* 
 		 * Rotate by AUTOGUIDER_ANGLE.
@@ -110,7 +110,7 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 		 * is NOT due to sky rotation but to the way the autoguider CCD
 		 * is fixed in WFCAM.
 		 */
-		_iw.skyRotate( _autoguiderAreaPD , Angle.degreesToRadians( AUTOGUIDER_ANGLE ) );
+		_iw.skyRotate( _autoguiderAreaPD , Angle.degreesToRadians( AUTOGUIDER_ANGLE ) ) ;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 	 */
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
-		g.setColor( Color.magenta );
+		g.setColor( Color.magenta ) ;
 		for( int i = 0 ; i < 4 ; i++ )
 		{
-			_calc( fii , i );
-			g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() );
+			_calc( fii , i ) ;
+			g.drawPolygon( _autoguiderAreaPD.getAWTPolygon() ) ;
 		}
 	}
 }

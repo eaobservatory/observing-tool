@@ -4,17 +4,17 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import orac.ukirt.iter.SpIterNod;
+import orac.ukirt.iter.SpIterNod ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for Nod iterator component.
@@ -23,36 +23,36 @@ import jsky.app.ot.editor.OtItemEditor;
  */
 public final class EdIterNod extends OtItemEditor implements ActionListener
 {
-	private IterNodGUI _w;
+	private IterNodGUI _w ;
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterNod()
 	{
-		_title = "Nod Iterator";
-		_presSource = _w = new IterNodGUI();
-		_description = "Take the specified number of nod exposures.";
+		_title = "Nod Iterator" ;
+		_presSource = _w = new IterNodGUI() ;
+		_description = "Take the specified number of nod exposures." ;
 
 		// If the choices can change depending on other settings then the adding of
 		// choice items will have to be done in _init or _updateWidgets (see other editor components)
-		Enumeration nodPatterns = SpIterNod.patterns();
+		Enumeration nodPatterns = SpIterNod.patterns() ;
 		while( nodPatterns.hasMoreElements() )
-			_w.nodPattern.addItem( ( Vector )nodPatterns.nextElement() );
+			_w.nodPattern.addItem( ( Vector )nodPatterns.nextElement() ) ;
 
-		_w.nodPattern.addActionListener( this );
+		_w.nodPattern.addActionListener( this ) ;
 	}
 
 	/**
 	 */
 	protected void _init()
 	{
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -61,14 +61,14 @@ public final class EdIterNod extends OtItemEditor implements ActionListener
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
-		SpIterNod nodIter = ( SpIterNod )_spItem;
+		SpIterNod nodIter = ( SpIterNod )_spItem ;
 
 		// Nod Pattern
-		_w.nodPattern.setValue( nodIter.getNodPatternVector() );
+		_w.nodPattern.setValue( nodIter.getNodPatternVector() ) ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -78,12 +78,12 @@ public final class EdIterNod extends OtItemEditor implements ActionListener
 	{
 		if( !ignoreActions )
 		{
-			Object w = evt.getSource();
+			Object w = evt.getSource() ;
 	
-			SpIterNod nodIter = ( SpIterNod )_spItem;
+			SpIterNod nodIter = ( SpIterNod )_spItem ;
 	
 			if( w == _w.nodPattern )
-				nodIter.setNodPattern( ( Vector )_w.nodPattern.getSelectedItem() );
+				nodIter.setNodPattern( ( Vector )_w.nodPattern.getSelectedItem() ) ;
 		}
 	}
 }

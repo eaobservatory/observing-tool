@@ -8,10 +8,10 @@
  * Allan Brighton  1999/05/03  Created
  */
 
-package ot.util;
+package ot.util ;
 
-import javax.swing.*;
-import java.awt.Component;
+import javax.swing.JOptionPane ;
+import java.awt.Component ;
 
 /** 
  * Utility class with static methods for commonly used dialogs.
@@ -28,7 +28,7 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static void error( Component parentComponent , String msg )
 	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Error" , JOptionPane.ERROR_MESSAGE );
+		JOptionPane.showMessageDialog( parentComponent , msg , "Error" , JOptionPane.ERROR_MESSAGE ) ;
 	}
 
 	/** 
@@ -38,13 +38,13 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static void error( Component parentComponent , Exception e )
 	{
-		e.printStackTrace();
+		e.printStackTrace() ;
 
-		String s = e.getMessage();
+		String s = e.getMessage() ;
 		if( s == null || s.trim().length() == 0 )
-			s = e.toString();
+			s = e.toString() ;
 
-		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE );
+		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
 	}
 
 	/** 
@@ -55,11 +55,11 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static void error( Component parentComponent , String msg , Exception e )
 	{
-		e.printStackTrace();
+		e.printStackTrace() ;
 
-		String s = msg + ": " + e.toString();
+		String s = msg + ": " + e.toString() ;
 
-		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE );
+		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
 	}
 
 	/** 
@@ -69,7 +69,7 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static void message( Component parentComponent , String msg )
 	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Message" , JOptionPane.INFORMATION_MESSAGE );
+		JOptionPane.showMessageDialog( parentComponent , msg , "Message" , JOptionPane.INFORMATION_MESSAGE ) ;
 	}
 
 	/** 
@@ -80,7 +80,7 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static String input( Component parentComponent , String msg )
 	{
-		return JOptionPane.showInputDialog( parentComponent , msg , "Input" , JOptionPane.QUESTION_MESSAGE );
+		return JOptionPane.showInputDialog( parentComponent , msg , "Input" , JOptionPane.QUESTION_MESSAGE ) ;
 	}
 
 	/** 
@@ -92,6 +92,6 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 	 */
 	public static int confirm( Component parentComponent , String msg )
 	{
-		return JOptionPane.showConfirmDialog( parentComponent , msg );
+		return JOptionPane.showConfirmDialog( parentComponent , msg ) ;
 	}
 }

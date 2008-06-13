@@ -4,96 +4,96 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel ;
+import javax.swing.JComboBox ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 // The following two classes will have to be swapped for the respective ukirts ones (currently commented out).
 // But at the moment the ukirt configuration does not use EdIterCalObs but only ot_ukirt.iter.editor.EdIterCGS4CalObs.
-import jsky.app.ot.gemini.iter.SpCalUnitConstants;
-import jsky.app.ot.gemini.iter.SpIterCalObs;
+import jsky.app.ot.gemini.iter.SpCalUnitConstants ;
+import jsky.app.ot.gemini.iter.SpIterCalObs ;
 
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 /**
  * This is the editor for the CalUnit Observation iterator.
  */
 public final class EdIterCalObs extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
-	private IterCalObsGUI _w; // the GUI layout panel
+	private IterCalObsGUI _w ; // the GUI layout panel
 
 	// If true, ignore action events
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterCalObs()
 	{
-		_title = "Cal Unit Observation";
-		_presSource = _w = new IterCalObsGUI();
-		_description = "Configure the Calibration Unit with this component.";
+		_title = "Cal Unit Observation" ;
+		_presSource = _w = new IterCalObsGUI() ;
+		_description = "Configure the Calibration Unit with this component." ;
 
 		// Note: The original bongo code used a SpinBoxWidget, but since Swing doesn't have one, try using a JComboBox instead...
-		Object[] ar = new Object[ 99 ];
+		Object[] ar = new Object[ 99 ] ;
 		for( int i = 0 ; i < 99 ; i++ )
-			ar[ i ] = new Integer( i + 1 );
-		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) );
-		_w.repeatComboBox.addActionListener( this );
+			ar[ i ] = new Integer( i + 1 ) ;
+		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
 
-		_w.lamp.addActionListener( this );
-		_w.filter.addActionListener( this );
-		_w.diffuser.addActionListener( this );
+		_w.lamp.addActionListener( this ) ;
+		_w.filter.addActionListener( this ) ;
+		_w.diffuser.addActionListener( this ) ;
 	}
 
 	/**
 	 */
 	protected void _init()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
 		try
 		{
-			DropDownListBoxWidgetExt ddlbw;
+			DropDownListBoxWidgetExt ddlbw ;
 
 			// Set the lamp choices
-			ddlbw = _w.lamp;
-			ddlbw.setChoices( SpCalUnitConstants.LAMPS );
+			ddlbw = _w.lamp ;
+			ddlbw.setChoices( SpCalUnitConstants.LAMPS ) ;
 
 			// Show the filter
-			ddlbw = _w.filter;
-			ddlbw.setChoices( SpCalUnitConstants.FILTERS );
+			ddlbw = _w.filter ;
+			ddlbw.setChoices( SpCalUnitConstants.FILTERS ) ;
 
 			// Show the diffuser
-			ddlbw = _w.diffuser;
-			ddlbw.setChoices( SpCalUnitConstants.DIFFUSERS );
+			ddlbw = _w.diffuser ;
+			ddlbw.setChoices( SpCalUnitConstants.DIFFUSERS ) ;
 
-			TextBoxWidgetExt tbwe;
+			TextBoxWidgetExt tbwe ;
 
 			// Exposure time
-			tbwe = _w.exposureTime;
-			tbwe.addWatcher( this );
+			tbwe = _w.exposureTime ;
+			tbwe.addWatcher( this ) ;
 
 			// Coadds
-			tbwe = _w.coadds;
-			tbwe.addWatcher( this );
+			tbwe = _w.coadds ;
+			tbwe.addWatcher( this ) ;
 		}
 		catch( Exception e )
 		{
-			throw new RuntimeException( e.toString() );
+			throw new RuntimeException( e.toString() ) ;
 		}
 
-		ignoreActions = false;
+		ignoreActions = false ;
 
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -102,46 +102,46 @@ public final class EdIterCalObs extends OtItemEditor implements TextBoxWidgetWat
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
 		try
 		{
-			DropDownListBoxWidgetExt ddlbw;
+			DropDownListBoxWidgetExt ddlbw ;
 
-			SpIterCalObs ico = ( SpIterCalObs )_spItem;
+			SpIterCalObs ico = ( SpIterCalObs )_spItem ;
 
 			// Show the lamp
-			ddlbw = _w.lamp;
-			ddlbw.setValue( ico.getLamp() );
+			ddlbw = _w.lamp ;
+			ddlbw.setValue( ico.getLamp() ) ;
 
 			// Show the filter
-			ddlbw = _w.filter;
-			ddlbw.setValue( ico.getFilter() );
+			ddlbw = _w.filter ;
+			ddlbw.setValue( ico.getFilter() ) ;
 
 			// Show the diffuser 
-			ddlbw = _w.diffuser;
-			ddlbw.setValue( ico.getDiffuser() );
+			ddlbw = _w.diffuser ;
+			ddlbw.setValue( ico.getDiffuser() ) ;
 
 			// Observe Repetitions
-			JComboBox sbw = _w.repeatComboBox;
-			sbw.getModel().setSelectedItem( new Integer( ico.getCount() ) );
+			JComboBox sbw = _w.repeatComboBox ;
+			sbw.getModel().setSelectedItem( new Integer( ico.getCount() ) ) ;
 
-			TextBoxWidgetExt tbwe;
+			TextBoxWidgetExt tbwe ;
 
 			// Exposure time
-			tbwe = _w.exposureTime;
-			tbwe.setValue( ico.getExposureTime() );
+			tbwe = _w.exposureTime ;
+			tbwe.setValue( ico.getExposureTime() ) ;
 
 			// Coadds
-			tbwe = _w.coadds;
-			tbwe.setValue( ico.getCoadds() );
+			tbwe = _w.coadds ;
+			tbwe.setValue( ico.getCoadds() ) ;
 		}
 		catch( Exception e )
 		{
-			throw new RuntimeException( e.toString() );
+			throw new RuntimeException( e.toString() ) ;
 		}
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -149,12 +149,12 @@ public final class EdIterCalObs extends OtItemEditor implements TextBoxWidgetWat
 	 */
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-		SpIterCalObs ico = ( SpIterCalObs )_spItem;
+		SpIterCalObs ico = ( SpIterCalObs )_spItem ;
 
 		if( tbwe == _w.exposureTime )
-			ico.setExposureTime( tbwe.getText() );
+			ico.setExposureTime( tbwe.getText() ) ;
 		else if( tbwe == _w.coadds )
-			ico.setCoadds( tbwe.getText() );
+			ico.setCoadds( tbwe.getText() ) ;
 	}
 
 	/**
@@ -169,29 +169,29 @@ public final class EdIterCalObs extends OtItemEditor implements TextBoxWidgetWat
 	{
 		if( !ignoreActions )
 		{
-			Object w = evt.getSource();
-			SpIterCalObs ico = ( SpIterCalObs )_spItem;
+			Object w = evt.getSource() ;
+			SpIterCalObs ico = ( SpIterCalObs )_spItem ;
 	
 			if( w == _w.lamp )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setLamp( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setLamp( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.filter )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setFilter( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setFilter( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.diffuser )
 			{
-				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
-				ico.setDiffuser( ddlbw.getStringValue() );
+				DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w ;
+				ico.setDiffuser( ddlbw.getStringValue() ) ;
 			}
 			else if( w == _w.repeatComboBox )
 			{
-				JComboBox sbw = _w.repeatComboBox;
-				int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue();
-				ico.setCount( i );
+				JComboBox sbw = _w.repeatComboBox ;
+				int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
+				ico.setCount( i ) ;
 			}
 		}
 	}

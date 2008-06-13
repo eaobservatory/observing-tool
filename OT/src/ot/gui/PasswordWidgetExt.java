@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package ot.gui;
+package ot.gui ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
@@ -12,8 +12,8 @@ import javax.swing.JPasswordField ;
 import javax.swing.JFrame ;
 import javax.swing.event.DocumentListener ;
 import javax.swing.event.DocumentEvent ;
-import jsky.util.gui.BasicWindowMonitor;
-import jsky.app.ot.gui.DescriptiveWidget;
+import jsky.util.gui.BasicWindowMonitor ;
+import jsky.app.ot.gui.DescriptiveWidget ;
 
 /**
  * A TextBoxWidget that permits clients to register as key press watchers.
@@ -22,22 +22,19 @@ import jsky.app.ot.gui.DescriptiveWidget;
  */
 public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidget , DocumentListener , ActionListener
 {
-	// if true, ignore changes in the text box content
-	private boolean _ignoreChanges = false;
-
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
 	 * the widget.
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default constructor */
 	public PasswordWidgetExt()
 	{
-		getDocument().addDocumentListener( this );
-		addActionListener( this );
+		getDocument().addDocumentListener( this ) ;
+		addActionListener( this ) ;
 	}
 
 	// -- For the DocumentListener interface --
@@ -70,7 +67,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -79,7 +76,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -89,10 +86,10 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	{
 		try
 		{
-			return ( Double.valueOf( ( String )getValue() ) ).doubleValue();
+			return ( Double.valueOf( ( String )getValue() ) ).doubleValue() ;
 		}
 		catch( Exception ex ){}
-		return def;
+		return def ;
 	}
 
 	/**
@@ -100,7 +97,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public void setValue( double d )
 	{
-		setText( String.valueOf( d ) );
+		setText( String.valueOf( d ) ) ;
 	}
 
 	/**
@@ -110,21 +107,11 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	{
 		try
 		{
-			return Integer.parseInt( ( String )getValue() );
+			return Integer.parseInt( ( String )getValue() ) ;
 		}
 		catch( Exception ex ){}
 
-		return def;
-	}
-
-	/**
-	 * Set the current value
-	 */
-	public void setText( String s )
-	{
-		_ignoreChanges = true;
-		super.setText( s );
-		_ignoreChanges = false;
+		return def ;
 	}
 
 	/**
@@ -132,7 +119,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public void setValue( int i )
 	{
-		setText( String.valueOf( i ) );
+		setText( String.valueOf( i ) ) ;
 	}
 
 	/**
@@ -140,7 +127,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public void setValue( String s )
 	{
-		setText( s );
+		setText( s ) ;
 	}
 
 	/**
@@ -148,7 +135,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public String getValue()
 	{
-		return new String( getPassword() );
+		return new String( getPassword() ) ;
 	}
 
 	/**
@@ -156,13 +143,13 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "PasswordWidgetExt" );
+		JFrame frame = new JFrame( "PasswordWidgetExt" ) ;
 
-		PasswordWidgetExt tbw = new PasswordWidgetExt();
+		PasswordWidgetExt tbw = new PasswordWidgetExt() ;
 
-		frame.add( "Center" , tbw );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , tbw ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

@@ -7,26 +7,26 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import orac.jcmt.inst.SpDRRecipe;
-import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpDRRecipe ;
+import orac.jcmt.inst.SpInstHeterodyne ;
 import edfreq.EdFreq ;
 import edfreq.FrequencyEditorCfg ;
-import edfreq.region.SpectralRegionEditor;
-import ot.util.DialogUtil;
+import edfreq.region.SpectralRegionEditor ;
+import ot.util.DialogUtil ;
 
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTreeMan ;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import java.awt.BorderLayout ;
+import java.awt.Graphics ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import javax.swing.JDialog ;
+import javax.swing.JPanel ;
+import javax.swing.JButton ;
 
 /**
  * This class provides a frame for the SpectralRegionEditor.
@@ -43,106 +43,106 @@ import javax.swing.JButton;
  */
 public class SpectralRegionDialog extends JDialog implements ActionListener
 {
-	private JButton okButton = new JButton( "OK" );
-	private JButton cancelButton = new JButton( "Cancel" );
-	private JPanel buttonPanel = new JPanel();
-	private EdDRRecipe _drRecipeEditor;
-	private SpDRRecipe _drRecipe;
-	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
-	private SpectralRegionEditor _spectralRegionEditor = new SpectralRegionEditor( this );
+	private JButton okButton = new JButton( "OK" ) ;
+	private JButton cancelButton = new JButton( "Cancel" ) ;
+	private JPanel buttonPanel = new JPanel() ;
+	private EdDRRecipe _drRecipeEditor ;
+	private SpDRRecipe _drRecipe ;
+	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration() ;
+	private SpectralRegionEditor _spectralRegionEditor = new SpectralRegionEditor( this ) ;
 
 	public SpectralRegionDialog()
 	{
-		setTitle( "Baseline Fit and Line Regions" );
-		setModal( true );
+		setTitle( "Baseline Fit and Line Regions" ) ;
+		setModal( true ) ;
 
-		buttonPanel.add( okButton );
-		buttonPanel.add( cancelButton );
+		buttonPanel.add( okButton ) ;
+		buttonPanel.add( cancelButton ) ;
 
-		add( _spectralRegionEditor , BorderLayout.CENTER );
-		add( buttonPanel , BorderLayout.SOUTH );
-		pack();
-		setLocation( 100 , 100 );
+		add( _spectralRegionEditor , BorderLayout.CENTER ) ;
+		add( buttonPanel , BorderLayout.SOUTH ) ;
+		pack() ;
+		setLocation( 100 , 100 ) ;
 
-		setDefaultCloseOperation( HIDE_ON_CLOSE );
+		setDefaultCloseOperation( HIDE_ON_CLOSE ) ;
 
-		okButton.addActionListener( this );
-		cancelButton.addActionListener( this );
+		okButton.addActionListener( this ) ;
+		cancelButton.addActionListener( this ) ;
 	}
 
 	public void show( SpDRRecipe drRecipe , SpInstHeterodyne instHeterodyne , EdDRRecipe drRecipeEditor )
 	{
 		if( instHeterodyne.getBand() == null )
 		{
-			DialogUtil.error( this , "Heterodyne component has not been edited." );
-			return;
+			DialogUtil.error( this , "Heterodyne component has not been edited." ) ;
+			return ;
 		}
 
-		_drRecipe = drRecipe;
-		_drRecipeEditor = drRecipeEditor;
+		_drRecipe = drRecipe ;
+		_drRecipeEditor = drRecipeEditor ;
 
-		double redshift;
-		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne );
+		double redshift ;
+		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne ) ;
 		if( tgt != null )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition();
-			redshift = tp.getRedshift();
+			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition() ;
+			redshift = tp.getRedshift() ;
 		}
 		else
 		{
 			redshift = 0. ;
 		}
 
-		double feIF = instHeterodyne.getFeIF();
-		double feBandWidth = instHeterodyne.getFeBandWidth();
-		double restFrequency = instHeterodyne.getRestFrequency( 0 );
-		double obsFrequency = EdFreq.getObsFrequency( restFrequency , redshift );
-		double lo1Hz = EdFreq.getLO1( obsFrequency , instHeterodyne.getCentreFrequency( 0 ) , instHeterodyne.getBand() );
+		double feIF = instHeterodyne.getFeIF() ;
+		double feBandWidth = instHeterodyne.getFeBandWidth() ;
+		double restFrequency = instHeterodyne.getRestFrequency( 0 ) ;
+		double obsFrequency = EdFreq.getObsFrequency( restFrequency , redshift ) ;
+		double lo1Hz = EdFreq.getLO1( obsFrequency , instHeterodyne.getCentreFrequency( 0 ) , instHeterodyne.getBand() ) ;
 
-		_spectralRegionEditor.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() );
+		_spectralRegionEditor.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() ) ;
 
-		_spectralRegionEditor.updateLineDisplay( lo1Hz - ( feIF + ( 0.5 * feBandWidth ) ) , lo1Hz + ( feIF + ( 0.5 * feBandWidth ) ) , feIF , feBandWidth , redshift );
+		_spectralRegionEditor.updateLineDisplay( lo1Hz - ( feIF + ( 0.5 * feBandWidth ) ) , lo1Hz + ( feIF + ( 0.5 * feBandWidth ) ) , feIF , feBandWidth , redshift ) ;
 
 		for( int i = 0 ; i < Integer.parseInt( instHeterodyne.getBandMode() ) ; i++ )
-			_spectralRegionEditor.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i );
+			_spectralRegionEditor.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i ) ;
 
-		_spectralRegionEditor.setMainLine( instHeterodyne.getRestFrequency( 0 ) );
+		_spectralRegionEditor.setMainLine( instHeterodyne.getRestFrequency( 0 ) ) ;
 
-		_spectralRegionEditor.removeAllRegions( false );
+		_spectralRegionEditor.removeAllRegions( false ) ;
 
-		_spectralRegionEditor.createCombinedRegions( false );
+		_spectralRegionEditor.createCombinedRegions( false ) ;
 
-		_spectralRegionEditor.resetLayout();
+		_spectralRegionEditor.resetLayout() ;
 
-		show();
+		setVisible( true ) ;
 	}
 
 	public void applyAndHide()
 	{
-		apply();
-		hide();
+		apply() ;
+		setVisible( false ) ;
 	}
 
 	public void apply()
 	{
-		_drRecipeEditor.refresh();
+		_drRecipeEditor.refresh() ;
 	}
 
 	public void cancel()
 	{
-		hide();
+		setVisible( false ) ;
 	}
 
 	public void update( Graphics g )
 	{
-		super.update( g );
+		super.update( g ) ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
 		if( e.getSource() == okButton )
-			applyAndHide();
+			applyAndHide() ;
 		else if( e.getSource() == cancelButton )
-			hide();
+			setVisible( false ) ;
 	}
 }

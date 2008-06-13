@@ -7,51 +7,51 @@
 /*                                                              */
 /*==============================================================*/
 
-package ot.ukirt.inst.editor;
+package ot.ukirt.inst.editor ;
 
-import gemini.sp.*;
-import gemini.sp.obsComp.*;
-import jsky.app.ot.gui.KeyPressWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.gui.TableWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import ot.util.DialogUtil;
+import gemini.sp.* ;
+import gemini.sp.obsComp.* ;
+import jsky.app.ot.gui.KeyPressWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.gui.TableWidgetExt ;
+import jsky.app.ot.gui.TableWidgetWatcher ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
+import ot.util.DialogUtil ;
 
-import jsky.app.ot.editor.OtItemEditor;
-import orac.ukirt.inst.SpDRRecipe;
-import orac.util.LookUpTable;
+import jsky.app.ot.editor.OtItemEditor ;
+import orac.ukirt.inst.SpDRRecipe ;
+import orac.util.LookUpTable ;
 
-import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
-import java.util.Vector;
+import java.awt.event.KeyEvent ;
+import java.awt.CardLayout ;
+import java.util.Vector ;
 
 // MFO: Preliminary. Get rid of GUI stuff inside this class.
-import javax.swing.JComponent;
+import javax.swing.JComponent ;
 
 /**
  * This is the editor for the DRRecipe item.
  */
 public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , TextBoxWidgetWatcher , TableWidgetWatcher
 {
-	private SpDRRecipe _spDRRecipe;
-	private String _currentRecipeSelected;
-	private String _instStr;
-	private DRRecipeGUI _w; // the GUI layout
+	private SpDRRecipe _spDRRecipe ;
+	private String _currentRecipeSelected ;
+	private String _instStr ;
+	private DRRecipeGUI _w ; // the GUI layout
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdDRRecipe()
 	{
-		_title = "DR Recipe";
-		_presSource = _w = new DRRecipeGUI();
-		_description = "Enter the Data Reduction recipe to be used for each observation type";
-		_resizable = true;
+		_title = "DR Recipe" ;
+		_presSource = _w = new DRRecipeGUI() ;
+		_description = "Enter the Data Reduction recipe to be used for each observation type" ;
+		_resizable = true ;
 	}
 
 	/**
@@ -69,274 +69,274 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected void _initInstWidgets()
 	{
-		CommandButtonWidgetExt cbw = null;
-		CheckBoxWidgetExt ckbw = null;
+		CommandButtonWidgetExt cbw = null ;
+		CheckBoxWidgetExt ckbw = null ;
 
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
+		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
 
 		// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but is done in a similar way with instrument specific panels (see below).  
-		( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" ) ;
 
 		try
 		{
-			_instStr = inst.type().getReadable();
-			System.out.println( "Inst is " + _instStr );
+			_instStr = inst.type().getReadable() ;
+			System.out.println( "Inst is " + _instStr ) ;
 
 			// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 			// respective panels managed my the CardLayout of DRRecipeGUI).
 			// Might not be elegant but has always been hard-wired in a similar way.
-			( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() );
+			( ( CardLayout )( _w.getLayout() ) ).show( _w , _instStr.toLowerCase() ) ;
 
 		}
 		catch( NullPointerException ex )
 		{
-			DialogUtil.error( _w , "Can't identify instrument: probably none in scope?" );
-			return;
+			DialogUtil.error( _w , "Can't identify instrument: probably none in scope?" ) ;
+			return ;
 		}
 
 		// The recipes
-		TextBoxWidgetExt rtbw;
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" );
+		TextBoxWidgetExt rtbw ;
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" ) ;
 
 		try
 		{
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 
 			// button to set the recipe
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "biasSet" );
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "biasSet" ) ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setBiasRecipeName( _currentRecipeSelected );
+					_spDRRecipe.setBiasRecipeName( _currentRecipeSelected ) ;
 
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 			// check box for group membership
-			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "biasInGroup" );
+			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "biasInGroup" ) ;
 			ckbw.addWatcher( new CheckBoxWidgetWatcher()
 			{
 				public void checkBoxAction( CheckBoxWidgetExt ckbw )
 				{
 					// Set the value
-					_spDRRecipe.setBiasInGroup( ckbw.getBooleanValue() );
+					_spDRRecipe.setBiasInGroup( ckbw.getBooleanValue() ) ;
 				}
-			} );
+			} ) ;
 		}
 		catch( NullPointerException ex ){}
 
 		// FOCUS
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" ) ;
 
 		try
 		{
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 
 			// button to set the dark recipe
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "focusSet" );
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "focusSet" ) ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setFocusRecipeName( _currentRecipeSelected );
+					_spDRRecipe.setFocusRecipeName( _currentRecipeSelected ) ;
 
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 			// check box for group membership
-			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "focusInGroup" );
+			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "focusInGroup" ) ;
 			ckbw.addWatcher( new CheckBoxWidgetWatcher()
 			{
 				public void checkBoxAction( CheckBoxWidgetExt ckbw )
 				{
 					// Set the value
-					_spDRRecipe.setFocusInGroup( ckbw.getBooleanValue() );
+					_spDRRecipe.setFocusInGroup( ckbw.getBooleanValue() ) ;
 				}
-			} );
+			} ) ;
 		}
 		catch( NullPointerException ex ){}
 
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" ) ;
 
 		try
 		{
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 
 			// button to set the dark recipe
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "darkSet" );
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "darkSet" ) ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setDarkRecipeName( _currentRecipeSelected );
+					_spDRRecipe.setDarkRecipeName( _currentRecipeSelected ) ;
 
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 			// check box for group membership
-			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "darkInGroup" );
+			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "darkInGroup" ) ;
 			ckbw.addWatcher( new CheckBoxWidgetWatcher()
 			{
 				public void checkBoxAction( CheckBoxWidgetExt ckbw )
 				{
 					// Set the value
-					_spDRRecipe.setDarkInGroup( ckbw.getBooleanValue() );
+					_spDRRecipe.setDarkInGroup( ckbw.getBooleanValue() ) ;
 				}
-			} );
+			} ) ;
 		}
 		catch( NullPointerException ex ){}
 
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" ) ;
 
 		try
 		{
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 			
 			// button to set the dark recipe
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "flatSet" );
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "flatSet" ) ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setFlatRecipeName( _currentRecipeSelected );
+					_spDRRecipe.setFlatRecipeName( _currentRecipeSelected ) ;
 
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 			// check box for group membership
-			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "flatInGroup" );
+			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "flatInGroup" ) ;
 			ckbw.addWatcher( new CheckBoxWidgetWatcher()
 			{
 				public void checkBoxAction( CheckBoxWidgetExt ckbw )
 				{
 					// Set the value
-					_spDRRecipe.setFlatInGroup( ckbw.getBooleanValue() );
+					_spDRRecipe.setFlatInGroup( ckbw.getBooleanValue() ) ;
 				}
-			} );
+			} ) ;
 		}
 		catch( NullPointerException ex ){}
 
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" ) ;
 
 		try
 		{
-			rtbw.setEditable( false );
+			rtbw.setEditable( false ) ;
 
 			// button to set the dark recipe
-			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "arcSet" );
+			cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "arcSet" ) ;
 			cbw.addWatcher( new CommandButtonWidgetWatcher()
 			{
 				public void commandButtonAction( CommandButtonWidgetExt cbw )
 				{
 					// Set the selected table value
-					_spDRRecipe.setArcRecipeName( _currentRecipeSelected );
+					_spDRRecipe.setArcRecipeName( _currentRecipeSelected ) ;
 
-					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" );
-					tbwe.setText( _currentRecipeSelected );
-					_disableRecipeEntry( true );
+					TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" ) ;
+					tbwe.setText( _currentRecipeSelected ) ;
+					_disableRecipeEntry( true ) ;
 				}
-			} );
+			} ) ;
 			// check box for group membership
-			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "arcInGroup" );
+			ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "arcInGroup" ) ;
 			ckbw.addWatcher( new CheckBoxWidgetWatcher()
 			{
 				public void checkBoxAction( CheckBoxWidgetExt ckbw )
 				{
 					// Set the value
-					_spDRRecipe.setArcInGroup( ckbw.getBooleanValue() );
+					_spDRRecipe.setArcInGroup( ckbw.getBooleanValue() ) ;
 				}
-			} );
+			} ) ;
 		}
 		catch( NullPointerException ex ){}
 
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" );
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" ) ;
 
-		rtbw.setEditable( false );
+		rtbw.setEditable( false ) ;
 
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "skySet" );
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "skySet" ) ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
 				// Set the selected table value
-				_spDRRecipe.setSkyRecipeName( _currentRecipeSelected );
+				_spDRRecipe.setSkyRecipeName( _currentRecipeSelected ) ;
 
-				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" );
-				tbwe.setText( _currentRecipeSelected );
-				_disableRecipeEntry( true );
+				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" ) ;
+				tbwe.setText( _currentRecipeSelected ) ;
+				_disableRecipeEntry( true ) ;
 			}
-		} );
+		} ) ;
 		// check box for group membership
-		ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "skyInGroup" );
+		ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "skyInGroup" ) ;
 		ckbw.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt ckbw )
 			{
 				// Set the value
-				_spDRRecipe.setSkyInGroup( ckbw.getBooleanValue() );
+				_spDRRecipe.setSkyInGroup( ckbw.getBooleanValue() ) ;
 			}
-		} );
-		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
+		} ) ;
+		rtbw = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" ) ;
 		// Disable it so it the user cannot use it.
-		// _disableRecipeEntry(true);
-		rtbw.setEditable( false );
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "objectSet" );
+		// _disableRecipeEntry(true) ;
+		rtbw.setEditable( false ) ;
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "objectSet" ) ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
 				// Set the selected table value
-				_spDRRecipe.setObjectRecipeName( _currentRecipeSelected );
-				_spDRRecipe.setTitleAttr( _currentRecipeSelected );
+				_spDRRecipe.setObjectRecipeName( _currentRecipeSelected ) ;
+				_spDRRecipe.setTitleAttr( _currentRecipeSelected ) ;
 
-				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
-				tbwe.setText( _currentRecipeSelected );
-				_disableRecipeEntry( true );
+				TextBoxWidgetExt tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" ) ;
+				tbwe.setText( _currentRecipeSelected ) ;
+				_disableRecipeEntry( true ) ;
 			}
-		} );
+		} ) ;
 		// check box for group membership
-		ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "objectInGroup" );
+		ckbw = ( CheckBoxWidgetExt )getWidget( _instStr , "objectInGroup" ) ;
 		ckbw.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt ckbw )
 			{
 				// Set the value
-				_spDRRecipe.setObjectInGroup( ckbw.getBooleanValue() );
+				_spDRRecipe.setObjectInGroup( ckbw.getBooleanValue() ) ;
 			}
-		} );
+		} ) ;
 
 		// The table of possible recipes
-		TableWidgetExt twe;
-		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
-		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } );
-		twe.addWatcher( this );
+		TableWidgetExt twe ;
+		twe = ( TableWidgetExt )getWidget( _instStr , "recipeTable" ) ;
+		twe.setColumnHeaders( new String[] { "Recipe Name" , "Description" } ) ;
+		twe.addWatcher( this ) ;
 
 		// button to reset the recipe to default
-		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" );
+		cbw = ( CommandButtonWidgetExt )getWidget( _instStr , "defaultName" ) ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				_spDRRecipe.useDefaults( _instStr );
-				_currentRecipeSelected = "QUICK_LOOK";
-				_updateWidgets();
+				_spDRRecipe.useDefaults( _instStr ) ;
+				_currentRecipeSelected = "QUICK_LOOK" ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 	}
 
 	private void _disableRecipeEntry( boolean tf ){}
@@ -347,10 +347,10 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _showRecipeType( LookUpTable recipes )
 	{
-		Vector[] rowsV = new Vector[ recipes.getNumRows() ];
-		rowsV = recipes.getAsVectorArray();
-		TableWidgetExt tw = ( TableWidgetExt )getWidget( _instStr , "recipeTable" );
-		tw.setRows( rowsV );
+		Vector[] rowsV = new Vector[ recipes.getNumRows() ] ;
+		rowsV = recipes.getAsVectorArray() ;
+		TableWidgetExt tw = ( TableWidgetExt )getWidget( _instStr , "recipeTable" ) ;
+		tw.setRows( rowsV ) ;
 	}
 
 	/**
@@ -358,98 +358,98 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _updateRecipeWidgets()
 	{
-		String recipe = null;
-		String instStr;
+		String recipe = null ;
+		String instStr ;
 
 		// get instrument  so we can determine which recipe selections to show
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) );
+		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
 
 		// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
 		// Might not be elegant but is done in a similar way with instrument specific panels (see below).  
-		( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" );
+		( ( CardLayout )( _w.getLayout() ) ).show( _w , "empty" ) ;
 
 		try
 		{
-			instStr = inst.type().getReadable();
+			instStr = inst.type().getReadable() ;
 
 			// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 			// respective panels managed my the CardLayout of DRRecipeGUI).
 			// Might not be elegant but has always been hard-wired in a similar way.
-			( ( CardLayout )( _w.getLayout() ) ).show( _w , instStr.toLowerCase() );
+			( ( CardLayout )( _w.getLayout() ) ).show( _w , instStr.toLowerCase() ) ;
 
 		}
 		catch( NullPointerException ex )
 		{
-			System.out.println( "No instrument found in scope" );
-			return;
+			System.out.println( "No instrument found in scope" ) ;
+			return ;
 		}
 
 		// First fill in the text box.
-		TextBoxWidgetExt tbwe;
-		CheckBoxWidgetExt cbwe;
+		TextBoxWidgetExt tbwe ;
+		CheckBoxWidgetExt cbwe ;
 
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "biasRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getBiasRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "biasInGroup" );
-			cbwe.setValue( _spDRRecipe.getFocusInGroup() );
+			recipe = _spDRRecipe.getBiasRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "biasInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getFocusInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "focusRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getFocusRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "focusInGroup" );
-			cbwe.setValue( _spDRRecipe.getFocusInGroup() );
+			recipe = _spDRRecipe.getFocusRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "focusInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getFocusInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "darkRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getDarkRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "darkInGroup" );
-			cbwe.setValue( _spDRRecipe.getDarkInGroup() );
+			recipe = _spDRRecipe.getDarkRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "darkInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getDarkInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "flatRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getFlatRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "flatInGroup" );
-			cbwe.setValue( _spDRRecipe.getFlatInGroup() );
+			recipe = _spDRRecipe.getFlatRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "flatInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getFlatInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "arcRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getArcRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "arcInGroup" );
-			cbwe.setValue( _spDRRecipe.getArcInGroup() );
+			recipe = _spDRRecipe.getArcRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "arcInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getArcInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "skyRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getSkyRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "skyInGroup" );
-			cbwe.setValue( _spDRRecipe.getSkyInGroup() );
+			recipe = _spDRRecipe.getSkyRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "skyInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getSkyInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
-		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" );
+		tbwe = ( TextBoxWidgetExt )getWidget( _instStr , "objectRecipe" ) ;
 		try
 		{
-			recipe = _spDRRecipe.getObjectRecipeName();
-			tbwe.setValue( recipe );
-			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "objectInGroup" );
-			cbwe.setValue( _spDRRecipe.getObjectInGroup() );
+			recipe = _spDRRecipe.getObjectRecipeName() ;
+			tbwe.setValue( recipe ) ;
+			cbwe = ( CheckBoxWidgetExt )getWidget( _instStr , "objectInGroup" ) ;
+			cbwe.setValue( _spDRRecipe.getObjectInGroup() ) ;
 		}
 		catch( NullPointerException ex ){}
 
@@ -460,23 +460,23 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		// What I really need to do is introduce imaging/spec capabilities into
 		// instruments which I can then get.  Imager-spectrometers will be a special case
 
-		LookUpTable rarray = null;
+		LookUpTable rarray = null ;
 
 		if( instStr.equalsIgnoreCase( "UFTI" ) )
-			rarray = SpDRRecipe.UFTI;
+			rarray = SpDRRecipe.UFTI ;
 		else if( instStr.equalsIgnoreCase( "IRCAM3" ) )
-			rarray = SpDRRecipe.IRCAM3;
+			rarray = SpDRRecipe.IRCAM3 ;
 		else if( instStr.equalsIgnoreCase( "CGS4" ) )
-			rarray = SpDRRecipe.CGS4;
+			rarray = SpDRRecipe.CGS4 ;
 		else if( instStr.equalsIgnoreCase( "Michelle" ) )
-			rarray = SpDRRecipe.MICHELLE;
+			rarray = SpDRRecipe.MICHELLE ;
 		else if( instStr.equalsIgnoreCase( "UIST" ) )
-			rarray = SpDRRecipe.UIST;
+			rarray = SpDRRecipe.UIST ;
 		else if( instStr.equalsIgnoreCase( "WFCAM" ) )
-			rarray = SpDRRecipe.WFCAM;
+			rarray = SpDRRecipe.WFCAM ;
 
 		// Show the correct recipes, and select the option widget for the type
-		_showRecipeType( rarray );
+		_showRecipeType( rarray ) ;
 
 	}
 
@@ -486,9 +486,9 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public void setup( SpItem spItem )
 	{
-		_spDRRecipe = ( SpDRRecipe )spItem;
-		_initInstWidgets();
-		super.setup( spItem );
+		_spDRRecipe = ( SpDRRecipe )spItem ;
+		_initInstWidgets() ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -497,7 +497,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected void _updateWidgets()
 	{
-		_updateRecipeWidgets();
+		_updateRecipeWidgets() ;
 
 	}
 
@@ -515,7 +515,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		// This is the watcher entered hen the user types a character in a text box
 		// widget, Currently the user specified recipe is the only such widget.
-		_currentRecipeSelected = tbwe.getText().trim();
+		_currentRecipeSelected = tbwe.getText().trim() ;
 
 	}
 
@@ -527,33 +527,33 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 	{
-		_currentRecipeSelected = ( String )twe.getCell( 0 , rowIndex );
-		String _defaultRecipe = "QUICK_LOOK";
+		_currentRecipeSelected = ( String )twe.getCell( 0 , rowIndex ) ;
+		String _defaultRecipe = "QUICK_LOOK" ;
 
 		// Allow for blank lines and headings.  The latter is defined to contain
 		// at least two lowercase letters or any space (testing for a colon
 		// might also be useful).  Merely substitute the default recipe.   
 		if( _currentRecipeSelected.length() == 0 )
 		{
-			_currentRecipeSelected = _defaultRecipe;
+			_currentRecipeSelected = _defaultRecipe ;
 		}
 		else
 		{
-			int count = 0;
+			int count = 0 ;
 			for( int i = 0 ; i < _currentRecipeSelected.length() ; i++ )
 			{
 				if( Character.isWhitespace( _currentRecipeSelected.charAt( i ) ) )
 				{
-					_currentRecipeSelected = _defaultRecipe;
-					break;
+					_currentRecipeSelected = _defaultRecipe ;
+					break ;
 				}
 				else if( Character.isLowerCase( _currentRecipeSelected.charAt( i ) ) )
 				{
 					count++ ;
 					if( count > 1 )
 					{
-						_currentRecipeSelected = _defaultRecipe;
-						break;
+						_currentRecipeSelected = _defaultRecipe ;
+						break ;
 					}
 				}
 			}
@@ -571,7 +571,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	protected JComponent getWidget( String instrument , String widgetName )
 	{
-		return getWidget( instrument.toLowerCase() + "_" + widgetName );
+		return getWidget( instrument.toLowerCase() + "_" + widgetName ) ;
 	}
 
 	/**
@@ -595,19 +595,19 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		try
 		{
-			return ( JComponent )( _w.getClass().getDeclaredField( widgetName ).get( _w ) );
+			return ( JComponent )( _w.getClass().getDeclaredField( widgetName ).get( _w ) ) ;
 		}
 		catch( NoSuchFieldException e )
 		{
 			if( ( System.getProperty( "DEBUG" ) != null ) && System.getProperty( "DEBUG" ).equalsIgnoreCase( "ON" ) )
-				System.out.println( "Could not find widget / component \"" + widgetName + "\"." );
+				System.out.println( "Could not find widget / component \"" + widgetName + "\"." ) ;
 
-			return null;
+			return null ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			return null;
+			e.printStackTrace() ;
+			return null ;
 		}
 	}
 }

@@ -7,31 +7,31 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot;
+package ot ;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.Component;
-import java.awt.BorderLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import jsky.app.ot.OT;
-import jsky.app.ot.LoginInfo;
-import jsky.app.ot.OtProgWindow;
-import jsky.app.ot.OtWindowInternalFrame;
-import jsky.app.ot.OtWindowFrame;
-import jsky.app.ot.gui.StopActionWidget;
-import jsky.util.gui.DialogUtil;
-import omp.SpClient;
-import omp.SpChangedOnDiskException;
-import gemini.sp.SpItem;
-import gemini.sp.SpRootItem;
-import gemini.sp.SpProg;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import java.awt.Dimension ;
+import java.awt.Toolkit ;
+import java.awt.Component ;
+import java.awt.BorderLayout ;
+import javax.swing.JInternalFrame ;
+import javax.swing.JDesktopPane ;
+import javax.swing.JLayeredPane ;
+import javax.swing.JFrame ;
+import javax.swing.JOptionPane ;
+import jsky.app.ot.OT ;
+import jsky.app.ot.LoginInfo ;
+import jsky.app.ot.OtProgWindow ;
+import jsky.app.ot.OtWindowInternalFrame ;
+import jsky.app.ot.OtWindowFrame ;
+import jsky.app.ot.gui.StopActionWidget ;
+import jsky.util.gui.DialogUtil ;
+import omp.SpClient ;
+import omp.SpChangedOnDiskException ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.SpProg ;
 
 /**
  * Dialog for database access.
@@ -45,62 +45,62 @@ public class DatabaseDialog implements ActionListener
 	/**
 	 * This is a subclass of JPanel so it can be used for internal as well as other frames.
 	 */
-	private DatabaseDialogGUI _w;
+	private DatabaseDialogGUI _w ;
 
 	/**
 	 * Is only used if the OT is started with internal frames.
 	 */
-	private JInternalFrame _internalFrame;
+	private JInternalFrame _internalFrame ;
 
 	/**
 	 * Is only used if the OT is started with internal frames.
 	 */
-	private static JFrame _dialogComponent;
-	public static int ACCESS_MODE_FETCH = 0;
-	public static int ACCESS_MODE_STORE = 1;
-	private static int _mode = ACCESS_MODE_FETCH;
-	private static SpItem _spItemToBeSaved = null;
-	private DatabaseAccessThread _databaseAccessThread;
-	private StopActionWidget _stopAction = new StopActionWidget();
-	private boolean _databaseAccessAborted = false;
+	private static JFrame _dialogComponent ;
+	public static int ACCESS_MODE_FETCH = 0 ;
+	public static int ACCESS_MODE_STORE = 1 ;
+	private static int _mode = ACCESS_MODE_FETCH ;
+	private static SpItem _spItemToBeSaved = null ;
+	private DatabaseAccessThread _databaseAccessThread ;
+	private StopActionWidget _stopAction = new StopActionWidget() ;
+	private boolean _databaseAccessAborted = false ;
 
 	/**
 	 *
 	 */
-	private String _title;
+	private String _title ;
 
 	public DatabaseDialog()
 	{
-		_title = "Fetch Program";
-		_w = new DatabaseDialogGUI();
-		_w.add( _stopAction , BorderLayout.NORTH );
+		_title = "Fetch Program" ;
+		_w = new DatabaseDialogGUI() ;
+		_w.add( _stopAction , BorderLayout.NORTH ) ;
 
-		_w.confirmButton.addActionListener( this );
-		_w.closeButton.addActionListener( this );
-		_w.passwordTextBox.addActionListener( this );
-		_stopAction.getStopButton().addActionListener( this );
+		_w.confirmButton.addActionListener( this ) ;
+		_w.closeButton.addActionListener( this ) ;
+		_w.passwordTextBox.addActionListener( this ) ;
+		_stopAction.getStopButton().addActionListener( this ) ;
 	}
 
 	public void fetchProgram()
 	{
-		show( DatabaseDialog.ACCESS_MODE_FETCH , OT.getDesktop() );
+		show( DatabaseDialog.ACCESS_MODE_FETCH , OT.getDesktop() ) ;
 	}
 
 	public void storeProgram( SpItem spItem )
 	{
 		SpProg prog = ( SpProg )spItem ;
-		String projectID = prog.getProjectID();
-		prog.setOTVersion();
-		prog.setTelescope();
+		String projectID = prog.getProjectID() ;
+		prog.setOTVersion() ;
+		prog.setTelescope() ;
 
 		if( ( projectID == null ) || projectID.trim().equals( "" ) )
 		{
-			DialogUtil.error( _w , "Please specify a Project ID (Science Program component)." );
+			DialogUtil.error( _w , "Please specify a Project ID (Science Program component)." ) ;
 		}
 		else
 		{
-			_spItemToBeSaved = spItem;
-			show( DatabaseDialog.ACCESS_MODE_STORE , OT.getDesktop() );
+			_spItemToBeSaved = spItem ;
+			show( DatabaseDialog.ACCESS_MODE_STORE , OT.getDesktop() ) ;
 		}
 	}
 
@@ -112,51 +112,51 @@ public class DatabaseDialog implements ActionListener
 	 */
 	public void show( int accessMode , JDesktopPane desktop )
 	{
-		_mode = accessMode;
+		_mode = accessMode ;
 		if( accessMode == ACCESS_MODE_STORE )
 		{
-			_title = "Store Program";
-			_w.loginTextBox.setEditable( false );
+			_title = "Store Program" ;
+			_w.loginTextBox.setEditable( false ) ;
 
 			if( ( _spItemToBeSaved != null ) && ( _spItemToBeSaved instanceof SpProg ) )
-				_w.loginTextBox.setText( ( ( SpProg )_spItemToBeSaved ).getProjectID() );
+				_w.loginTextBox.setText( ( ( SpProg )_spItemToBeSaved ).getProjectID() ) ;
 			else
-				_w.loginTextBox.setText( "" );
+				_w.loginTextBox.setText( "" ) ;
 		}
 		else
 		{
-			_title = "Fetch Program";
-			_w.loginTextBox.setEditable( true );
+			_title = "Fetch Program" ;
+			_w.loginTextBox.setEditable( true ) ;
 		}
 
 		if( desktop != null )
 		{
-			_internalFrame = new JInternalFrame( _title );
-			_internalFrame.add( _w );
-			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER );
-			_w.setVisible( true );
-			_internalFrame.setVisible( true );
-			_internalFrame.setLocation( 150 , 150 );
-			_internalFrame.pack();
+			_internalFrame = new JInternalFrame( _title ) ;
+			_internalFrame.add( _w ) ;
+			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER ) ;
+			_w.setVisible( true ) ;
+			_internalFrame.setVisible( true ) ;
+			_internalFrame.setLocation( 150 , 150 ) ;
+			_internalFrame.pack() ;
 		}
 		else
 		{
 			if( _dialogComponent == null )
 			{
-				_dialogComponent = new JFrame();
+				_dialogComponent = new JFrame() ;
 
-				_dialogComponent.add( _w );
-				_dialogComponent.pack();
+				_dialogComponent.add( _w ) ;
+				_dialogComponent.pack() ;
 
 				// center the window on the screen
-				Dimension dim = _dialogComponent.getSize();
-				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-				_dialogComponent.setLocation( screen.width / 2 - dim.width / 2 , screen.height / 2 - dim.height / 2 );
+				Dimension dim = _dialogComponent.getSize() ;
+				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
+				_dialogComponent.setLocation( screen.width / 2 - dim.width / 2 , screen.height / 2 - dim.height / 2 ) ;
 			}
 
-			_dialogComponent.setTitle( _title );
-			_dialogComponent.setVisible( true );
-			_dialogComponent.setState( JFrame.NORMAL );
+			_dialogComponent.setTitle( _title ) ;
+			_dialogComponent.setVisible( true ) ;
+			_dialogComponent.setState( JFrame.NORMAL ) ;
 		}
 	}
 
@@ -165,15 +165,15 @@ public class DatabaseDialog implements ActionListener
 	 */
 	public void show( int accessMode )
 	{
-		show( accessMode , null );
+		show( accessMode , null ) ;
 	}
 
 	public void hide()
 	{
 		if( _internalFrame != null )
-			_internalFrame.dispose();
+			_internalFrame.dispose() ;
 		else
-			_dialogComponent.setVisible( false );
+			_dialogComponent.setVisible( false ) ;
 	}
 
 	/**
@@ -183,73 +183,73 @@ public class DatabaseDialog implements ActionListener
 	 */
 	public void setMode( int mode )
 	{
-		_mode = mode;
+		_mode = mode ;
 	}
 
 	protected void fetchProgram( String projectID , String password )
 	{
-		SpItem spItem = null;
+		SpItem spItem = null ;
 
 		try
 		{
-			spItem = SpClient.fetchProgram( projectID , password );
+			spItem = SpClient.fetchProgram( projectID , password ) ;
 		}
 		catch( NullPointerException npe )
 		{
-			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + npe.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE );
-			_stopAction.actionsFinished();
-			hide();
-			return;
+			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + npe.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE ) ;
+			_stopAction.actionsFinished() ;
+			hide() ;
+			return ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + e.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE );
-			_stopAction.actionsFinished();
-			hide();
-			return;
+			e.printStackTrace() ;
+			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + e.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE ) ;
+			_stopAction.actionsFinished() ;
+			hide() ;
+			return ;
 		}
 
 		// If the user has aborted fetchProgram by hitting "Stop" then do not display the science program.
 		if( _databaseAccessAborted )
 		{
-			hide();
-			return;
+			hide() ;
+			return ;
 		}
 
 		// database argument is not needed, 0 is just a dummy.
-		LoginInfo li = new LoginInfo( projectID , 0 , password );
+		LoginInfo li = new LoginInfo( projectID , 0 , password ) ;
 
 		if( OT.getDesktop() == null )
 		{
-			new OtWindowFrame( new OtProgWindow( ( SpRootItem )spItem , li ) );
+			new OtWindowFrame( new OtProgWindow( ( SpRootItem )spItem , li ) ) ;
 		}
 		else
 		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpRootItem )spItem , li ) );
-			OT.getDesktop().add( c , JLayeredPane.DEFAULT_LAYER );
-			OT.getDesktop().moveToFront( c );
+			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpRootItem )spItem , li ) ) ;
+			OT.getDesktop().add( c , JLayeredPane.DEFAULT_LAYER ) ;
+			OT.getDesktop().moveToFront( c ) ;
 		}
 
-		hide();
+		hide() ;
 	}
 
 	protected void storeProgram( String password )
 	{
-		storeProgram( password , false );
+		storeProgram( password , false ) ;
 	}
 
 	protected void storeProgram( String password , boolean force )
 	{
 		try
 		{
-			SpClient.SpStoreResult result = SpClient.storeProgram( ( SpProg )_spItemToBeSaved , password , force );
+			SpClient.SpStoreResult result = SpClient.storeProgram( ( SpProg )_spItemToBeSaved , password , force ) ;
 
-			( ( SpProg )_spItemToBeSaved ).setTimestamp( result.timestamp );
+			( ( SpProg )_spItemToBeSaved ).setTimestamp( result.timestamp ) ;
 
-			String dialogString = result.summary + "\nYour Program has been successfully submitted!" + "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP TIMESTAMP INFORMATION.";
+			String dialogString = result.summary + "\nYour Program has been successfully submitted!" + "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP TIMESTAMP INFORMATION." ;
 
-			new FormattedStringBox( dialogString , "Database Message" );
+			new FormattedStringBox( dialogString , "Database Message" ) ;
 		}
 		catch( SpChangedOnDiskException e )
 		{
@@ -258,17 +258,17 @@ public class DatabaseDialog implements ActionListener
 				// Call storeProgram and force storing despite inconsistent time stamp.
 				// (Unless the current call had the force flag set already. This should not happen.)
 				if( !force )
-					storeProgram( password , true );
+					storeProgram( password , true ) ;
 			}
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog( _dialogComponent , "Could not store Science Program.\n" + e.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE );
-			_stopAction.actionsFinished();
+			e.printStackTrace() ;
+			JOptionPane.showMessageDialog( _dialogComponent , "Could not store Science Program.\n" + e.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE ) ;
+			_stopAction.actionsFinished() ;
 		}
 
-		hide();
+		hide() ;
 	}
 
 	/**
@@ -277,31 +277,31 @@ public class DatabaseDialog implements ActionListener
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		Object w = evt.getSource();
+		Object w = evt.getSource() ;
 
 		if( w == _w.confirmButton )
-			accessDatabase();
+			accessDatabase() ;
 		else if( w == _w.closeButton )
-			hide();
+			hide() ;
 		else if( w == _stopAction.getStopButton() )
-			_databaseAccessAborted = true;
+			_databaseAccessAborted = true ;
 		else if( w == _w.passwordTextBox )
-			_w.confirmButton.doClick();
+			_w.confirmButton.doClick() ;
 	}
 
 	public void accessDatabase()
 	{
-		_databaseAccessThread = new DatabaseAccessThread();
-		_databaseAccessThread.start();
-		_stopAction.actionsStarted();
-		_w.confirmButton.setEnabled( false );
+		_databaseAccessThread = new DatabaseAccessThread() ;
+		_databaseAccessThread.start() ;
+		_stopAction.actionsStarted() ;
+		_w.confirmButton.setEnabled( false ) ;
 	}
 
 	public void databaseAccessFinished()
 	{
-		_databaseAccessAborted = false;
-		_stopAction.actionsFinished();
-		_w.confirmButton.setEnabled( true );
+		_databaseAccessAborted = false ;
+		_stopAction.actionsFinished() ;
+		_w.confirmButton.setEnabled( true ) ;
 	}
 
 	/**
@@ -317,11 +317,11 @@ public class DatabaseDialog implements ActionListener
 		{
 			// loginTextBox contains the proejctID aka Science Program name.
 			if( _mode == ACCESS_MODE_STORE )
-				storeProgram( new String( _w.passwordTextBox.getPassword() ) );
+				storeProgram( new String( _w.passwordTextBox.getPassword() ) ) ;
 			else
-				fetchProgram( _w.loginTextBox.getText() , new String( _w.passwordTextBox.getPassword() ) );
+				fetchProgram( _w.loginTextBox.getText() , new String( _w.passwordTextBox.getPassword() ) ) ;
 
-			databaseAccessFinished();
+			databaseAccessFinished() ;
 		}
 	}
 }

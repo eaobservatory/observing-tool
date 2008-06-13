@@ -7,14 +7,14 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot;
+package ot ;
 
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DropTargetDragEvent;
-import java.util.EventObject;
+import java.awt.dnd.DragSourceDragEvent ;
+import java.awt.dnd.DropTargetDragEvent ;
+import java.util.EventObject ;
 
-import jsky.app.ot.OtTreeDragSource;
-import jsky.app.ot.OtTreeWidget;
+import jsky.app.ot.OtTreeDragSource ;
+import jsky.app.ot.OtTreeWidget ;
 
 /**
  * This class adds extra functionality to its parent class.
@@ -40,29 +40,29 @@ public class OtAdvancedTreeDragSource extends OtTreeDragSource
 	 * FIFO containing boolean values stating whether the last dragOver calls happended
 	 * on the DropTargetListener (true) as opposed to the DragSourceListener i.e. this class (false).
 	 */
-	protected boolean[] wasDragOverDropTarget = new boolean[ 3 ];
+	protected boolean[] wasDragOverDropTarget = new boolean[ 3 ] ;
 
 	/**
 	 * Constructor
 	 */
 	public OtAdvancedTreeDragSource( OtTreeWidget spTree )
 	{
-		super( spTree );
+		super( spTree ) ;
 	}
 
 	public void dragOver( DragSourceDragEvent dsde )
 	{
-		overTreeNode( dsde );
+		overTreeNode( dsde ) ;
 
 		if( treeNeedsRepainting() )
 		{
-			_tree.repaint();
+			_tree.repaint() ;
 
 			if( System.getProperty( "DEBUG" ) != null )
-				System.out.println( "Repainting tree." );
+				System.out.println( "Repainting tree." ) ;
 		}
 
-		super.dragOver( dsde );
+		super.dragOver( dsde ) ;
 	}
 
 	/**
@@ -79,16 +79,16 @@ public class OtAdvancedTreeDragSource extends OtTreeDragSource
 	public boolean overTreeNode( EventObject eventObject )
 	{
 		// Result is true if the most recent event was a DropTargetDragEvent.
-		boolean result = wasDragOverDropTarget[ 0 ];
+		boolean result = wasDragOverDropTarget[ 0 ] ;
 
 		// Shift elements in FIFO.
-		wasDragOverDropTarget[ 2 ] = wasDragOverDropTarget[ 1 ];
-		wasDragOverDropTarget[ 1 ] = wasDragOverDropTarget[ 0 ];
+		wasDragOverDropTarget[ 2 ] = wasDragOverDropTarget[ 1 ] ;
+		wasDragOverDropTarget[ 1 ] = wasDragOverDropTarget[ 0 ] ;
 
 		// Set first entry in FIFO according to whether eventObject is a DropTargetDragEvent.
 		wasDragOverDropTarget[ 0 ] = eventObject instanceof DropTargetDragEvent ;
 
-		return result;
+		return result ;
 	}
 
 	/**

@@ -1,8 +1,8 @@
 // $Id$
 
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import javax.swing.JPanel;
+import javax.swing.JPanel ;
 
 public class Scuba2GUI extends JPanel
 {

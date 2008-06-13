@@ -7,18 +7,18 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import orac.jcmt.inst.SpInstSCUBA;
-import ot.jcmt.inst.editor.scuba.ScubaArrays;
-import ot.jcmt.inst.editor.scuba.Bolometer;
+import orac.jcmt.inst.SpInstSCUBA ;
+import ot.jcmt.inst.editor.scuba.ScubaArrays ;
+import ot.jcmt.inst.editor.scuba.Bolometer ;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import java.awt.BorderLayout ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import javax.swing.JDialog ;
+import javax.swing.JPanel ;
+import javax.swing.JButton ;
 
 /**
  * This class provides a frame for the ScubaArrays GUI.
@@ -32,67 +32,67 @@ import javax.swing.JButton;
  */
 public class ScubaArraysFrame extends JDialog implements ActionListener
 {
-	private JButton okButton = new JButton( "OK" );
-	private JButton cancelButton = new JButton( "Cancel" );
-	private JPanel buttonPanel = new JPanel();
-	private EdCompInstSCUBA _scubaEditor;
-	private SpInstSCUBA _instSCUBA;
-	private ScubaArrays _scubaArrays = new ScubaArrays( System.getProperty( "ot.cfgdir" ) + "flat.dat" );
+	private JButton okButton = new JButton( "OK" ) ;
+	private JButton cancelButton = new JButton( "Cancel" ) ;
+	private JPanel buttonPanel = new JPanel() ;
+	private EdCompInstSCUBA _scubaEditor ;
+	private SpInstSCUBA _instSCUBA ;
+	private ScubaArrays _scubaArrays = new ScubaArrays( System.getProperty( "ot.cfgdir" ) + "flat.dat" ) ;
 
 	public ScubaArraysFrame()
 	{
-		setTitle( "SCUBA Bolometer Selection" );
-		setModal( true );
+		setTitle( "SCUBA Bolometer Selection" ) ;
+		setModal( true ) ;
 
-		buttonPanel.add( okButton );
-		buttonPanel.add( cancelButton );
+		buttonPanel.add( okButton ) ;
+		buttonPanel.add( cancelButton ) ;
 
-		getContentPane().add( _scubaArrays.getDisplayPanel() , BorderLayout.CENTER );
-		getContentPane().add( buttonPanel , BorderLayout.SOUTH );
-		pack();
-		setLocation( 100 , 100 );
+		getContentPane().add( _scubaArrays.getDisplayPanel() , BorderLayout.CENTER ) ;
+		getContentPane().add( buttonPanel , BorderLayout.SOUTH ) ;
+		pack() ;
+		setLocation( 100 , 100 ) ;
 
-		setDefaultCloseOperation( HIDE_ON_CLOSE );
+		setDefaultCloseOperation( HIDE_ON_CLOSE ) ;
 
-		okButton.addActionListener( this );
-		cancelButton.addActionListener( this );
+		okButton.addActionListener( this ) ;
+		cancelButton.addActionListener( this ) ;
 	}
 
 	public void show( EdCompInstSCUBA scubaEditor )
 	{
-		_scubaEditor = scubaEditor;
-		_instSCUBA = ( SpInstSCUBA )scubaEditor.getCurrentSpItem();
+		_scubaEditor = scubaEditor ;
+		_instSCUBA = ( SpInstSCUBA )scubaEditor.getCurrentSpItem() ;
 
 		// Set appropriate bolometers enabled and reset all bolometers.
-		String[] bolometerTypeStrings = SpInstSCUBA.getBolometersFor( _instSCUBA.getFilter() );
-		int bolometerTypeBitMask = Bolometer.BOLOMETER_NONE;
+		String[] bolometerTypeStrings = SpInstSCUBA.getBolometersFor( _instSCUBA.getFilter() ) ;
+		int bolometerTypeBitMask = Bolometer.BOLOMETER_NONE ;
 
 		for( int i = 0 ; i < bolometerTypeStrings.length ; i++ )
-			bolometerTypeBitMask += Bolometer.toBolometerType( bolometerTypeStrings[ i ] );
+			bolometerTypeBitMask += Bolometer.toBolometerType( bolometerTypeStrings[ i ] ) ;
 
-		_scubaArrays.update( bolometerTypeBitMask , _instSCUBA.getBolometers() , _instSCUBA.getPrimaryBolometer() );
+		_scubaArrays.update( bolometerTypeBitMask , _instSCUBA.getBolometers() , _instSCUBA.getPrimaryBolometer() ) ;
 
-		show();
+		setVisible( true ) ;
 	}
 
 	public void applyAndHide()
 	{
-		_instSCUBA.setBolometers( _scubaArrays.getBolometers() );
-		_instSCUBA.setPrimaryBolometer( _scubaArrays.getPrimaryBolometer() );
-		_scubaEditor.refresh();
-		hide();
+		_instSCUBA.setBolometers( _scubaArrays.getBolometers() ) ;
+		_instSCUBA.setPrimaryBolometer( _scubaArrays.getPrimaryBolometer() ) ;
+		_scubaEditor.refresh() ;
+		setVisible( false ) ;
 	}
 
 	public void cancel()
 	{
-		hide();
+		setVisible( false ) ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
 		if( e.getSource() == okButton )
-			applyAndHide();
+			applyAndHide() ;
 		else if( e.getSource() == cancelButton )
-			hide();
+			setVisible( false ) ;
 	}
 }

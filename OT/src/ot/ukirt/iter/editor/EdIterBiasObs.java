@@ -4,44 +4,44 @@
 //
 // $Id$
 //
-package ot.ukirt.iter.editor;
+package ot.ukirt.iter.editor ;
 
-import orac.ukirt.iter.SpIterBiasObs;
+import orac.ukirt.iter.SpIterBiasObs ;
 
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Color ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
 
-import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * This is the editor for Bias Observe iterator component.
  */
 public final class EdIterBiasObs extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
-	private IterBiasObsGUI _w;
+	private IterBiasObsGUI _w ;
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterBiasObs()
 	{
-		_title = "Bias Iterator";
-		_presSource = _w = new IterBiasObsGUI();
-		_description = "Take the specified number of bias exposures.";
+		_title = "Bias Iterator" ;
+		_presSource = _w = new IterBiasObsGUI() ;
+		_description = "Take the specified number of bias exposures." ;
 
 		for( int i = 0 ; i < 100 ; i++ )
-			_w.repeatComboBox.addItem( "" + ( i + 1 ) );
+			_w.repeatComboBox.addItem( "" + ( i + 1 ) ) ;
 
-		_w.repeatComboBox.addActionListener( this );
+		_w.repeatComboBox.addActionListener( this ) ;
 	}
 
 	/**
@@ -49,10 +49,10 @@ public final class EdIterBiasObs extends OtItemEditor implements TextBoxWidgetWa
 	protected void _init()
 	{
 		// Coadds
-		_w.coadds.setEnabled( false );
-		_w.coadds.setDisabledTextColor( Color.black );
+		_w.coadds.setEnabled( false ) ;
+		_w.coadds.setDisabledTextColor( Color.black ) ;
 
-		super._init();
+		super._init() ;
 	}
 
 	/**
@@ -61,20 +61,20 @@ public final class EdIterBiasObs extends OtItemEditor implements TextBoxWidgetWa
 	 */
 	protected void _updateWidgets()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 
-		SpIterBiasObs iterObs = ( SpIterBiasObs )_spItem;
+		SpIterBiasObs iterObs = ( SpIterBiasObs )_spItem ;
 
 		// Repetitions
-		_w.repeatComboBox.setSelectedIndex( iterObs.getCount() - 1 );
+		_w.repeatComboBox.setSelectedIndex( iterObs.getCount() - 1 ) ;
 
 		// Exposure Time
-		_w.exposureTime.setValue( iterObs.getExposureTime() );
+		_w.exposureTime.setValue( iterObs.getExposureTime() ) ;
 
 		// Coadds
-		_w.coadds.setValue( iterObs.getCoadds() );
+		_w.coadds.setValue( iterObs.getCoadds() ) ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -94,14 +94,14 @@ public final class EdIterBiasObs extends OtItemEditor implements TextBoxWidgetWa
 	{
 		if( !ignoreActions )
 		{
-			Object w = evt.getSource();
+			Object w = evt.getSource() ;
 	
-			SpIterBiasObs iterObs = ( SpIterBiasObs )_spItem;
+			SpIterBiasObs iterObs = ( SpIterBiasObs )_spItem ;
 	
 			if( w == _w.repeatComboBox )
 			{
-				int i = _w.repeatComboBox.getSelectedIndex() + 1;
-				iterObs.setCount( i );
+				int i = _w.repeatComboBox.getSelectedIndex() + 1 ;
+				iterObs.setCount( i ) ;
 			}
 		}
 	}

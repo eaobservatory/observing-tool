@@ -7,12 +7,12 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-package ot.jcmt.inst.editor;
+package ot.jcmt.inst.editor ;
 
-import java.awt.GridBagLayout;
-import java.awt.AWTEvent;
-import java.awt.Dimension;
-import javax.swing.JPanel;
+import java.awt.GridBagLayout ;
+import java.awt.AWTEvent ;
+import java.awt.Dimension ;
+import javax.swing.JPanel ;
 
 /**
  * ACSIS DR GUI.
@@ -21,26 +21,26 @@ import javax.swing.JPanel;
  */
 public class DataReductionScreen extends JPanel
 {
-	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	GridBagLayout gridBagLayout1 = new GridBagLayout() ;
 
 	// Construct the frame
 	public DataReductionScreen()
 	{
-		enableEvents( AWTEvent.WINDOW_EVENT_MASK );
+		enableEvents( AWTEvent.WINDOW_EVENT_MASK ) ;
 		try
 		{
-			jbInit();
+			jbInit() ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
 	// Component initialization
 	private void jbInit() throws Exception
 	{
-		this.setLayout( gridBagLayout1 );
-		this.setSize( new Dimension( 501 , 564 ) );
+		this.setLayout( gridBagLayout1 ) ;
+		this.setSize( new Dimension( 501 , 564 ) ) ;
 	}
 }
