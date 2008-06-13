@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * The observation folder item. Observation Folders define a new scope and may
@@ -18,7 +18,7 @@ public class SpObsFolder extends SpObsContextItem
      */
 	protected SpObsFolder()
 	{
-		super( SpType.OBSERVATION_FOLDER );
+		super( SpType.OBSERVATION_FOLDER ) ;
 	}
 
 	/**
@@ -26,10 +26,10 @@ public class SpObsFolder extends SpObsContextItem
      */
 	public String getTitle()
 	{
-		String title = getTitleAttr();
+		String title = getTitleAttr() ;
 		if( ( title == null ) || title.equals( "" ) )
-			title = type().getReadable();
+			title = type().getReadable() ;
 
-		return title;
+		return title ;
 	}
 }

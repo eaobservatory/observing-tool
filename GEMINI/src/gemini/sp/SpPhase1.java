@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
+import java.util.Enumeration ;
 
 /**
  * The Phase 1 Proposal program item. This item contains attributes for the
@@ -21,7 +21,7 @@ public class SpPhase1 extends SpRootItem
      */
 	protected SpPhase1()
 	{
-		super( SpType.PHASE_1 );
+		super( SpType.PHASE_1 ) ;
 	}
 
 	/**
@@ -31,26 +31,26 @@ public class SpPhase1 extends SpRootItem
 	public SpProg createProgram()
 	{
 		// Make a new program and give it the same title as the phase 1 program.
-		SpProg spProg = ( SpProg )SpFactory.createShallow( SpType.SCIENCE_PROGRAM );
-		String title = getTitleAttr();
+		SpProg spProg = ( SpProg )SpFactory.createShallow( SpType.SCIENCE_PROGRAM ) ;
+		String title = getTitleAttr() ;
 		if( title != null )
-			spProg.setTitleAttr( title );
+			spProg.setTitleAttr( title ) ;
 
 		// Copy all of the child SpItems to the new program.
-		Enumeration e = children();
-		SpItem afterChild = null;
+		Enumeration e = children() ;
+		SpItem afterChild = null ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
-			SpItem copy = child.deepCopy();
+			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem copy = child.deepCopy() ;
 
-			spProg.doInsert( copy , afterChild );
-			afterChild = copy;
+			spProg.doInsert( copy , afterChild ) ;
+			afterChild = copy ;
 		}
 
 		// Set the Phase1 reference in the new program
-		spProg.setPhase1Item( this );
+		spProg.setPhase1Item( this ) ;
 
-		return spProg;
+		return spProg ;
 	}
 }

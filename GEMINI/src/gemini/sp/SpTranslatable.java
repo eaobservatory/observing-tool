@@ -1,6 +1,6 @@
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 public interface SpTranslatable
 {

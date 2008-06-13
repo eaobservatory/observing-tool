@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * Data that describes the insertion of a set of SpItems into or after another
@@ -23,7 +23,7 @@ package gemini.sp;
  * <pre>
  *    Observation Folder
  *       Site Quality (Observation Component)
- *   --&gt; where a new Observation would go if inserted inside of the folder
+ *   --&gt ; where a new Observation would go if inserted inside of the folder
  * </pre>
  * 
  * @see SpTreeMan
@@ -41,13 +41,13 @@ public final class SpInsertData implements SpInsertConstants
      *                                  children of the referant
      * </pre>
      */
-	public int result;
+	public int result ;
 
 	/** The set of items that will be inserted. */
-	public SpItem[] items;
+	public SpItem[] items ;
 
 	/** Insert relative to this item. */
-	public SpItem referant;
+	public SpItem referant ;
 
 	/**
      * The set of items that would be replaced by the insertion (if any). Items
@@ -55,42 +55,42 @@ public final class SpInsertData implements SpInsertConstants
      * is being inserted into a scope that already contains an item of its type.
      * For instance, an instrument must be unique in its scope.
      */
-	public SpItem[] replaceItems;
+	public SpItem[] replaceItems ;
 
 	/** Construct the SpInsertData with all the fields except replaceItems. */
 	SpInsertData( int result , SpItem[] items , SpItem referant )
 	{
-		this.result = result;
-		this.items = items;
-		this.referant = referant;
+		this.result = result ;
+		this.items = items ;
+		this.referant = referant ;
 	}
 
 	/** Construct the SpInsertData with all the fields. */
 	SpInsertData( int result , SpItem[] items , SpItem referant , SpItem[] replaceItems )
 	{
-		this.result = result;
-		this.items = items;
-		this.referant = referant;
-		this.replaceItems = replaceItems;
+		this.result = result ;
+		this.items = items ;
+		this.referant = referant ;
+		this.replaceItems = replaceItems ;
 	}
 
 	/** For debugging. */
 	public String toString()
 	{
-		String posn;
+		String posn ;
 		switch( result )
 		{
 			case INS_INSIDE :
-				posn = "INS_INSIDE";
-				break;
+				posn = "INS_INSIDE" ;
+				break ;
 			case INS_AFTER :
-				posn = "INS_AFTER";
-				break;
+				posn = "INS_AFTER" ;
+				break ;
 			default :
-				posn = "UNKNOWN (" + result + ")";
+				posn = "UNKNOWN (" + result + ")" ;
 		}
 
-		return getClass().getName() + "[" + posn + ", " + "(" + referant.getTitle() + ", " + referant.typeStr() + ", " + referant.subtypeStr() + "), " + ", replaceItems=" + replaceItems + "]";
+		return getClass().getName() + "[" + posn + ", " + "(" + referant.getTitle() + ", " + referant.typeStr() + ", " + referant.subtypeStr() + "), " + ", replaceItems=" + replaceItems + "]" ;
 	}
 
 }

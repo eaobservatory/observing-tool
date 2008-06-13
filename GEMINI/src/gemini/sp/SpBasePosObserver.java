@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * An interface that should be supported by clients wishing to be informed of
@@ -16,11 +16,10 @@ package gemini.sp;
  */
 public interface SpBasePosObserver
 {
-
 	// RA,Dec changed to x,y. coordSys added. (MFO, April 12, 2002)
 	/**
      * Notification that the base position has changed. x and y are specified in
      * degrees.
      */
-	public void basePosUpdate( double x , double y , double xoff , double yoff , int coordSys );
+	public void basePosUpdate( double x , double y , double xoff , double yoff , int coordSys ) ;
 }

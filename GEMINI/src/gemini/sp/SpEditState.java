@@ -4,12 +4,12 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Observable ;
+import java.util.Observer ;
+import java.util.Vector ;
 
 /**
  * The SpEditState class implements a simple state machine that tracks the edit
@@ -28,34 +28,34 @@ public final class SpEditState implements Observer , java.io.Serializable
      * The item is in this state if its attributes have not been edited since
      * the last time they were saved.
      */
-	public static final int UNEDITED = 0;
+	public static final int UNEDITED = 0 ;
 
 	/**
      * The item is in this state if its attributes have been edited since the
      * last time they were saved.
      */
-	public static final int EDITED = 1;
+	public static final int EDITED = 1 ;
 
 	//
 	// This is the program or plan item at the root of the hierarchy.
 	//
-	private SpItem _spItem;
+	private SpItem _spItem ;
 
 	//
 	// The edit state of the item's attribute/value table. One of UNEDITED,
 	// or EDITED.
 	//
-	private int _state;
+	private int _state ;
 
 	//
 	// Observers of structure changes.
 	//
-	private Vector _hierObservers = new Vector();
+	private Vector _hierObservers = new Vector() ;
 
 	//
 	// Observers of edit state changes.
 	//
-	private Vector _editObservers = new Vector();
+	private Vector _editObservers = new Vector() ;
 
 	//
 	// Construct with an SpItem. This constructor is not public and so cannot
@@ -64,9 +64,9 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	SpEditState( SpItem spItem )
 	{
-		_spItem = spItem;
-		_spItem.addObserver( this );
-		_state = UNEDITED;
+		_spItem = spItem ;
+		_spItem.addObserver( this ) ;
+		_state = UNEDITED ;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public SpItem getItem()
 	{
-		return _spItem;
+		return _spItem ;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public int getState()
 	{
-		return _state;
+		return _state ;
 	}
 
 	/**
@@ -93,9 +93,9 @@ public final class SpEditState implements Observer , java.io.Serializable
 	public synchronized final void addHierarchyChangeObserver( SpHierarchyChangeObserver hco )
 	{
 		if( _hierObservers.contains( hco ) )
-			return;
+			return ;
 
-		_hierObservers.addElement( hco );
+		_hierObservers.addElement( hco ) ;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void deleteHierarchyChangeObserver( SpHierarchyChangeObserver hco )
 	{
-		_hierObservers.removeElement( hco );
+		_hierObservers.removeElement( hco ) ;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void deleteHierarchyChangeObservers()
 	{
-		_hierObservers.removeAllElements();
+		_hierObservers.removeAllElements() ;
 	}
 
 	//
@@ -119,19 +119,19 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone();
+			v = ( Vector )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			SpHierarchyChangeObserver hco;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i );
-			hco.spItemsAdded( parent , newChildren , afterChild );
+			SpHierarchyChangeObserver hco ;
+			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco.spItemsAdded( parent , newChildren , afterChild ) ;
 		}
-		setEdited();
+		setEdited() ;
 	}
 
 	//
@@ -139,37 +139,37 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	void notifyRemoved( SpItem parent , SpItem[] children )
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone();
+			v = ( Vector )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			SpHierarchyChangeObserver hco;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i );
-			hco.spItemsRemoved( parent , children );
+			SpHierarchyChangeObserver hco ;
+			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco.spItemsRemoved( parent , children ) ;
 		}
-		setEdited();
+		setEdited() ;
 	}
 
 	// Not yet used.
 	void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone();
+			v = ( Vector )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			SpHierarchyChangeObserver hco;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i );
-			hco.spItemsMoved( oldParent , children , newParent , afterChild );
+			SpHierarchyChangeObserver hco ;
+			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco.spItemsMoved( oldParent , children , newParent , afterChild ) ;
 		}
-		setEdited();
+		setEdited() ;
 	}
 
 	/**
@@ -180,9 +180,9 @@ public final class SpEditState implements Observer , java.io.Serializable
 	public synchronized final void addEditChangeObserver( SpEditChangeObserver eco )
 	{
 		if( _editObservers.contains( eco ) )
-			return;
+			return ;
 
-		_editObservers.addElement( eco );
+		_editObservers.addElement( eco ) ;
 	}
 
 	/**
@@ -190,7 +190,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void deleteEditChangeObserver( SpEditChangeObserver eco )
 	{
-		_editObservers.removeElement( eco );
+		_editObservers.removeElement( eco ) ;
 	}
 
 	/**
@@ -198,7 +198,7 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void deleteEditChangeObservers()
 	{
-		_editObservers.removeAllElements();
+		_editObservers.removeAllElements() ;
 	}
 
 	//
@@ -206,17 +206,17 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	private void _notifyEditChange()
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_editObservers.clone();
+			v = ( Vector )_editObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			SpEditChangeObserver eco;
-			eco = ( SpEditChangeObserver )v.elementAt( i );
-			eco.spEditStateChange( _spItem );
+			SpEditChangeObserver eco ;
+			eco = ( SpEditChangeObserver )v.elementAt( i ) ;
+			eco.spEditStateChange( _spItem ) ;
 		}
 	}
 
@@ -225,8 +225,8 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	private void _changeState( int newState )
 	{
-		_state = newState;
-		_notifyEditChange();
+		_state = newState ;
+		_notifyEditChange() ;
 	}
 
 	/**
@@ -238,12 +238,12 @@ public final class SpEditState implements Observer , java.io.Serializable
 		{
 			case EDITED :
 				// Do not notify observers of each edit
-				// _changeState(EDITED);
-				break;
+				// _changeState(EDITED) ;
+				break ;
 
 			case UNEDITED :
-				_changeState( EDITED );
-				break;
+				_changeState( EDITED ) ;
+				break ;
 		}
 	}
 
@@ -255,13 +255,13 @@ public final class SpEditState implements Observer , java.io.Serializable
 	{
 		if( obs instanceof SpAvEditState )
 		{
-			SpAvEditState avEditFSM = ( SpAvEditState )obs;
+			SpAvEditState avEditFSM = ( SpAvEditState )obs ;
 			// Only interrested when the av edit state changes to edited
 			if( avEditFSM.getState() != SpAvEditState.EDITED )
-				return;
+				return ;
 		}
 
-		setEdited();
+		setEdited() ;
 	}
 
 	/**
@@ -274,14 +274,14 @@ public final class SpEditState implements Observer , java.io.Serializable
 		{
 			case UNEDITED :
 				// Do nothing
-				break;
+				break ;
 
 			case EDITED :
-				_changeState( UNEDITED );
-				break;
+				_changeState( UNEDITED ) ;
+				break ;
 		}
 
-		_resetAvEditState( _spItem );
+		_resetAvEditState( _spItem ) ;
 	}
 
 	//
@@ -289,10 +289,10 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	private void _resetAvEditState( SpItem spItem )
 	{
-		spItem.getAvEditFSM().save();
-		Enumeration children = spItem.children();
+		spItem.getAvEditFSM().save() ;
+		Enumeration children = spItem.children() ;
 		while( children.hasMoreElements() )
-			_resetAvEditState( ( SpItem )children.nextElement() );
+			_resetAvEditState( ( SpItem )children.nextElement() ) ;
 	}
 
 	/**
@@ -300,18 +300,18 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public String toString()
 	{
-		String ret = getClass().getName() + "[state=";
+		String ret = getClass().getName() + "[state=" ;
 		switch( _state )
 		{
 			case UNEDITED :
-				ret += "UNEDITED";
-				break;
+				ret += "UNEDITED" ;
+				break ;
 			case EDITED :
-				ret += "EDITED";
-				break;
+				ret += "EDITED" ;
+				break ;
 			default :
-				ret += "UNKOWN!";
+				ret += "UNKOWN!" ;
 		}
-		return ret + "]";
+		return ret + "]" ;
 	}
 }

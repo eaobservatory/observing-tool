@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * The observation group item. Observation groups are a lot like folders (but
@@ -14,13 +14,11 @@ package gemini.sp;
  */
 public class SpObsGroup extends SpObsContextItem
 {
-
 	/**
      * Default constructor.
      */
 	protected SpObsGroup()
 	{
-		super( SpType.OBSERVATION_GROUP );
+		super( SpType.OBSERVATION_GROUP ) ;
 	}
-
 }

@@ -4,13 +4,13 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
-import gemini.util.TelescopePos;
-import gemini.util.TelescopePosList;
+import gemini.util.TelescopePos ;
+import gemini.util.TelescopePosList ;
 
 /**
  * A data object that describes a list of telescope offset positions.
@@ -19,28 +19,28 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 {
 
 	// The name of the attribute that holds the target list
-	public static final String OFFSET_POS_LIST = "offsetPositions";
+	public static final String OFFSET_POS_LIST = "offsetPositions" ;
 
 	// The name of the attribute that holds the sky list
-	public static final String SKY_POS_LIST = "skyPositions";
+	public static final String SKY_POS_LIST = "skyPositions" ;
 
 	// The name of the attribute that holds the guide list
-	public static final String GUIDE_POS_LIST = "guidePositions";
+	public static final String GUIDE_POS_LIST = "guidePositions" ;
 
 	/** The name of the attribute that holds the position angle. */
-	public static String ATTR_POS_ANGLE = "PA";
+	public static String ATTR_POS_ANGLE = "PA" ;
 
-	private SpAvTable _avTab; // The table that holds the positions
-	private Vector _posList; // A vector of SpOffsetPos objects
-	private Vector _skyOffsets = new Vector();
-	private Vector _guideOffsets = new Vector();
+	private SpAvTable _avTab ; // The table that holds the positions
+	private Vector _posList ; // A vector of SpOffsetPos objects
+	private Vector _skyOffsets = new Vector() ;
+	private Vector _guideOffsets = new Vector() ;
 
 	/**
      * Create with a an attribute/value table.
      */
 	public SpOffsetPosList( SpAvTable avTab )
 	{
-		setTable( avTab );
+		setTable( avTab ) ;
 	}
 
 	/**
@@ -50,20 +50,20 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	{
 		synchronized( this )
 		{
-			_avTab = avTab;
+			_avTab = avTab ;
 
 			if( _posList != null )
 			{
 				for( int i = 0 ; i < _posList.size() ; ++i )
 				{
-					SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i );
-					op.deleteWatchers();
+					SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i ) ;
+					op.deleteWatchers() ;
 				}
 			}
 
-			_posList = getAllPositions( avTab , this );
+			_posList = getAllPositions( avTab , this ) ;
 		}
-		_notifyOfReset();
+		_notifyOfReset() ;
 	}
 
 	/**
@@ -72,8 +72,8 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	public static SpOffsetPos extractPosition( SpAvTable avTab , String tag , SpOffsetPosList list )
 	{
 		if( !avTab.exists( tag ) )
-			return null;
-		return new SpOffsetPos( avTab , tag , list );
+			return null ;
+		return new SpOffsetPos( avTab , tag , list ) ;
 	}
 
 	/**
@@ -81,23 +81,23 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public static Vector getAllPositions( SpAvTable avTab , SpOffsetPosList list )
 	{
-		Vector v = new Vector();
+		Vector v = new Vector() ;
 
-		Vector opv = avTab.getAll( OFFSET_POS_LIST );
+		Vector opv = avTab.getAll( OFFSET_POS_LIST ) ;
 		if( opv == null )
-			return v;
+			return v ;
 
-		SpOffsetPos op;
+		SpOffsetPos op ;
 
-		Enumeration e = opv.elements();
+		Enumeration e = opv.elements() ;
 		while( e.hasMoreElements() )
 		{
-			String tag = ( String )e.nextElement();
-			op = SpOffsetPosList.extractPosition( avTab , tag , list );
+			String tag = ( String )e.nextElement() ;
+			op = SpOffsetPosList.extractPosition( avTab , tag , list ) ;
 			if( op != null )
-				v.addElement( op );
+				v.addElement( op ) ;
 		}
-		return v;
+		return v ;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public Vector getSkyOffsets()
 	{
-		return _skyOffsets;
+		return _skyOffsets ;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public Vector getGuideOffsets()
 	{
-		return _guideOffsets;
+		return _guideOffsets ;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public double getPosAngle()
 	{
-		return _avTab.getDouble( ATTR_POS_ANGLE , 0.0 );
+		return _avTab.getDouble( ATTR_POS_ANGLE , 0.0 ) ;
 	}
 
 	/**
@@ -135,14 +135,14 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public void setPosAngle( double posAngle )
 	{
-		_avTab.set( ATTR_POS_ANGLE , posAngle );
+		_avTab.set( ATTR_POS_ANGLE , posAngle ) ;
 
 		// Trigger telescope position watcher notification.
-		TelescopePos tp;
+		TelescopePos tp ;
 		for( int i = 0 ; i < size() ; i++ )
 		{
-			tp = getPositionAt( i );
-			tp.setXY( tp.getXaxis() , tp.getYaxis() );
+			tp = getPositionAt( i ) ;
+			tp.setXY( tp.getXaxis() , tp.getYaxis() ) ;
 		}
 	}
 
@@ -151,16 +151,16 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	//
 	private synchronized String _getUniqueTag()
 	{
-		int i;
-		int size = _avTab.size( OFFSET_POS_LIST );
+		int i ;
+		int size = _avTab.size( OFFSET_POS_LIST ) ;
 		for( i = 0 ; i < size ; ++i )
 		{
-			String tag = _avTab.get( SpOffsetPos.OFFSET_TAG + i );
+			String tag = _avTab.get( SpOffsetPos.OFFSET_TAG + i ) ;
 			if( tag == null )
-				break;
+				break ;
 		}
 
-		return SpOffsetPos.OFFSET_TAG + i;
+		return SpOffsetPos.OFFSET_TAG + i ;
 	}
 
 	//
@@ -168,15 +168,15 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	//
 	private synchronized String _getUniqueSkyTag()
 	{
-		int i;
-		int size = _avTab.size( SKY_POS_LIST );
+		int i ;
+		int size = _avTab.size( SKY_POS_LIST ) ;
 		for( i = 0 ; i < size ; ++i )
 		{
-			String tag = _avTab.get( SpOffsetPos.SKY_TAG + i );
+			String tag = _avTab.get( SpOffsetPos.SKY_TAG + i ) ;
 			if( tag == null )
-				break;
+				break ;
 		}
-		return SpOffsetPos.SKY_TAG + i;
+		return SpOffsetPos.SKY_TAG + i ;
 	}
 
 	//
@@ -184,15 +184,15 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	//
 	private synchronized String _getUniqueGuideTag()
 	{
-		int i;
-		int size = _avTab.size( GUIDE_POS_LIST );
+		int i ;
+		int size = _avTab.size( GUIDE_POS_LIST ) ;
 		for( i = 0 ; i < size ; ++i )
 		{
-			String tag = _avTab.get( SpOffsetPos.GUIDE_TAG + i );
+			String tag = _avTab.get( SpOffsetPos.GUIDE_TAG + i ) ;
 			if( tag == null )
-				break;
+				break ;
 		}
-		return SpOffsetPos.GUIDE_TAG + i;
+		return SpOffsetPos.GUIDE_TAG + i ;
 	}
 
 	//
@@ -205,7 +205,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public synchronized int size()
 	{
-		return _posList.size();
+		return _posList.size() ;
 	}
 
 	/**
@@ -216,9 +216,9 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	public synchronized TelescopePos getPositionAt( int index )
 	{
 		if( ( index < 0 ) || ( _posList.size() <= index ) )
-			return null;
+			return null ;
 
-		return ( TelescopePos )_posList.elementAt( index );
+		return ( TelescopePos )_posList.elementAt( index ) ;
 	}
 
 	/**
@@ -228,7 +228,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public synchronized boolean exists( String tag )
 	{
-		return _avTab.exists( tag );
+		return _avTab.exists( tag ) ;
 	}
 
 	/**
@@ -241,11 +241,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	{
 		for( int i = 0 ; i < _posList.size() ; ++i )
 		{
-			SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i );
+			SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i ) ;
 			if( op.getTag().equals( tag ) )
-				return i;
+				return i ;
 		}
-		return -1;
+		return -1 ;
 	}
 
 	// End of TelescopePosList interface implementation.
@@ -257,11 +257,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized void _addOffsetPosition( String tag )
 	{
 		// Add the tag to the list of user tags
-		int size = _avTab.size( OFFSET_POS_LIST );
+		int size = _avTab.size( OFFSET_POS_LIST ) ;
 		if( size == 0 )
-			_avTab.set( OFFSET_POS_LIST , tag );
+			_avTab.set( OFFSET_POS_LIST , tag ) ;
 		else
-			_avTab.set( OFFSET_POS_LIST , tag , size );
+			_avTab.set( OFFSET_POS_LIST , tag , size ) ;
 	}
 
 	//
@@ -270,11 +270,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized void _addSkyOffsetPosition( String tag )
 	{
 		// Add the tag to the list of user tags
-		int size = _avTab.size( SKY_POS_LIST );
+		int size = _avTab.size( SKY_POS_LIST ) ;
 		if( size == 0 )
-			_avTab.set( SKY_POS_LIST , tag );
+			_avTab.set( SKY_POS_LIST , tag ) ;
 		else
-			_avTab.set( SKY_POS_LIST , tag , size );
+			_avTab.set( SKY_POS_LIST , tag , size ) ;
 	}
 
 	//
@@ -283,11 +283,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized void _addGuideOffsetPosition( String tag )
 	{
 		// Add the tag to the list of user tags
-		int size = _avTab.size( GUIDE_POS_LIST );
+		int size = _avTab.size( GUIDE_POS_LIST ) ;
 		if( size == 0 )
-			_avTab.set( GUIDE_POS_LIST , tag );
+			_avTab.set( GUIDE_POS_LIST , tag ) ;
 		else
-			_avTab.set( GUIDE_POS_LIST , tag , size );
+			_avTab.set( GUIDE_POS_LIST , tag , size ) ;
 	}
 
 	//
@@ -295,21 +295,21 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	//
 	private synchronized void _insertOffsetPosition( String tag , int index )
 	{
-		Vector v = _avTab.getAll( OFFSET_POS_LIST );
+		Vector v = _avTab.getAll( OFFSET_POS_LIST ) ;
 		if( v == null )
 		{
-			_addOffsetPosition( tag );
-			return;
+			_addOffsetPosition( tag ) ;
+			return ;
 		}
 
 		if( index >= v.size() )
 		{
-			_addOffsetPosition( tag );
-			return;
+			_addOffsetPosition( tag ) ;
+			return ;
 		}
 
-		v.insertElementAt( tag , index );
-		_avTab.setAll( OFFSET_POS_LIST , v );
+		v.insertElementAt( tag , index ) ;
+		_avTab.setAll( OFFSET_POS_LIST , v ) ;
 	}
 
 	/**
@@ -319,7 +319,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition()
 	{
-		return createPosition( -1 , 0.0 , 0.0 );
+		return createPosition( -1 , 0.0 , 0.0 ) ;
 	}
 
 	/**
@@ -329,7 +329,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition( double xOff , double yOff )
 	{
-		return createPosition( -1 , xOff , yOff );
+		return createPosition( -1 , xOff , yOff ) ;
 	}
 
 	/**
@@ -339,7 +339,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition( int index )
 	{
-		return createPosition( index , 0.0 , 0.0 );
+		return createPosition( index , 0.0 , 0.0 ) ;
 	}
 
 	/**
@@ -349,26 +349,26 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition( int index , double xOff , double yOff )
 	{
-		SpOffsetPos op;
+		SpOffsetPos op ;
 		synchronized( this )
 		{
-			String tag = _getUniqueTag();
+			String tag = _getUniqueTag() ;
 			if( index == -1 )
-				_addOffsetPosition( tag );
+				_addOffsetPosition( tag ) ;
 			else
-				_insertOffsetPosition( tag , index );
+				_insertOffsetPosition( tag , index ) ;
 
 			// Create the position
-			op = new SpOffsetPos( _avTab , tag , this );
-			op.noNotifySetXY( xOff , yOff );
+			op = new SpOffsetPos( _avTab , tag , this ) ;
+			op.noNotifySetXY( xOff , yOff ) ;
 
 			if( ( index == -1 ) || ( index >= _posList.size() ) )
-				_posList.addElement( op );
+				_posList.addElement( op ) ;
 			else
-				_posList.insertElementAt( op , index );
+				_posList.insertElementAt( op , index ) ;
 		}
-		_notifyOfAdd( op );
-		return op;
+		_notifyOfAdd( op ) ;
+		return op ;
 	}
 
 	/**
@@ -380,14 +380,14 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 		{
 			for( int i = 0 ; i < _posList.size() ; ++i )
 			{
-				SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i );
-				_avTab.rm( op.getTag() );
-				op.deleteWatchers();
+				SpOffsetPos op = ( SpOffsetPos )_posList.elementAt( i ) ;
+				_avTab.rm( op.getTag() ) ;
+				op.deleteWatchers() ;
 			}
-			_avTab.setAll( OFFSET_POS_LIST , new Vector() );
-			_posList.removeAllElements();
+			_avTab.setAll( OFFSET_POS_LIST , new Vector() ) ;
+			_posList.removeAllElements() ;
 		}
-		_notifyOfReset();
+		_notifyOfReset() ;
 	}
 
 	//
@@ -395,13 +395,13 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	//
 	private synchronized boolean _removePosition( TelescopePos tp , int index )
 	{
-		SpOffsetPos op = ( SpOffsetPos )tp;
+		SpOffsetPos op = ( SpOffsetPos )tp ;
 
-		_posList.removeElementAt( index );
-		_avTab.rm( op.getTag() );
-		_avTab.rm( OFFSET_POS_LIST , index );
-		op.deleteWatchers();
-		return true;
+		_posList.removeElementAt( index ) ;
+		_avTab.rm( op.getTag() ) ;
+		_avTab.rm( OFFSET_POS_LIST , index ) ;
+		op.deleteWatchers() ;
+		return true ;
 	}
 
 	/**
@@ -411,20 +411,20 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public void removePosition( TelescopePos tp )
 	{
-		boolean result = false;
+		boolean result = false ;
 
 		synchronized( this )
 		{
 			// See where the offset position current is
-			int index = getPositionIndex( tp );
+			int index = getPositionIndex( tp ) ;
 			if( index == -1 )
-				return;
+				return ;
 
-			result = _removePosition( tp , index );
+			result = _removePosition( tp , index ) ;
 		}
 		
 		if( result )
-			_notifyOfRemove( tp );
+			_notifyOfRemove( tp ) ;
 	}
 
 	/**
@@ -437,20 +437,20 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public void removePositionAt( int index )
 	{
-		TelescopePos tp;
-		boolean result;
+		TelescopePos tp ;
+		boolean result ;
 		synchronized( this )
 		{
 			// Find the offset position at this index, and then remove it.
-			tp = getPositionAt( index );
+			tp = getPositionAt( index ) ;
 			if( tp == null )
-				return;
+				return ;
 
-			result = _removePosition( tp , index );
+			result = _removePosition( tp , index ) ;
 		}
 
 		if( result )
-			_notifyOfRemove( tp );
+			_notifyOfRemove( tp ) ;
 	}
 
 	//
@@ -461,25 +461,25 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized int _decrementPosition( SpOffsetPos op )
 	{
 		// See where the offset position current is
-		Vector v = _avTab.getAll( OFFSET_POS_LIST );
-		int i = v.indexOf( op.getTag() );
+		Vector v = _avTab.getAll( OFFSET_POS_LIST ) ;
+		int i = v.indexOf( op.getTag() ) ;
 
 		if( i == -1 )
-			return -1;
+			return -1 ;
 
 		// Can't decrement past the beginning of the list
 		if( i == 0 )
-			return i;
+			return i ;
 
-		v.removeElementAt( i );
-		v.insertElementAt( op.getTag() , i - 1 );
+		v.removeElementAt( i ) ;
+		v.insertElementAt( op.getTag() , i - 1 ) ;
 
-		_avTab.setAll( OFFSET_POS_LIST , v );
+		_avTab.setAll( OFFSET_POS_LIST , v ) ;
 
-		_posList.removeElementAt( i );
-		_posList.insertElementAt( op , i - 1 );
+		_posList.removeElementAt( i ) ;
+		_posList.insertElementAt( op , i - 1 ) ;
 
-		return i - 1;
+		return i - 1 ;
 	}
 
 	/**
@@ -488,11 +488,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public int decrementPosition( SpOffsetPos op )
 	{
-		int i = _decrementPosition( op );
+		int i = _decrementPosition( op ) ;
 		
 		if( i != -1 )
-			_notifyOfReorder( op );
-		return i;
+			_notifyOfReorder( op ) ;
+		return i ;
 	}
 
 	//
@@ -503,24 +503,24 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized int _incrementPosition( SpOffsetPos op )
 	{
 		// See where the offset position current is
-		Vector v = _avTab.getAll( OFFSET_POS_LIST );
-		int i = v.indexOf( op.getTag() );
+		Vector v = _avTab.getAll( OFFSET_POS_LIST ) ;
+		int i = v.indexOf( op.getTag() ) ;
 		if( i == -1 )
-			return -1;
+			return -1 ;
 
 		// Can't increment past the end of the list
 		if( i + 1 == v.size() )
-			return i;
+			return i ;
 
-		v.removeElementAt( i );
-		v.insertElementAt( op.getTag() , i + 1 );
+		v.removeElementAt( i ) ;
+		v.insertElementAt( op.getTag() , i + 1 ) ;
 
-		_avTab.setAll( OFFSET_POS_LIST , v );
+		_avTab.setAll( OFFSET_POS_LIST , v ) ;
 
-		_posList.removeElementAt( i );
-		_posList.insertElementAt( op , i + 1 );
+		_posList.removeElementAt( i ) ;
+		_posList.insertElementAt( op , i + 1 ) ;
 
-		return i + 1;
+		return i + 1 ;
 	}
 
 	/**
@@ -529,11 +529,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public int incrementPosition( SpOffsetPos op )
 	{
-		int i = _incrementPosition( op );
+		int i = _incrementPosition( op ) ;
 		if( i != -1 )
-			_notifyOfReorder( op );
+			_notifyOfReorder( op ) ;
 
-		return i;
+		return i ;
 	}
 
 	//
@@ -544,24 +544,24 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized int _positionToBack( SpOffsetPos op )
 	{
 		// See where the offset position current is
-		Vector v = _avTab.getAll( OFFSET_POS_LIST );
-		int i = v.indexOf( op.getTag() );
+		Vector v = _avTab.getAll( OFFSET_POS_LIST ) ;
+		int i = v.indexOf( op.getTag() ) ;
 		if( i == -1 )
-			return -1;
+			return -1 ;
 
 		// Already at the back of the list
 		if( i + 1 == v.size() )
-			return i;
+			return i ;
 
-		v.removeElementAt( i );
-		v.addElement( op.getTag() );
+		v.removeElementAt( i ) ;
+		v.addElement( op.getTag() ) ;
 
-		_avTab.setAll( OFFSET_POS_LIST , v );
+		_avTab.setAll( OFFSET_POS_LIST , v ) ;
 
-		_posList.removeElementAt( i );
-		_posList.addElement( op );
+		_posList.removeElementAt( i ) ;
+		_posList.addElement( op ) ;
 
-		return( v.size() - 1 );
+		return( v.size() - 1 ) ;
 	}
 
 	/**
@@ -570,11 +570,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public int positionToBack( SpOffsetPos op )
 	{
-		int i = _positionToBack( op );
+		int i = _positionToBack( op ) ;
 		if( i != -1 )
-			_notifyOfReorder( op );
+			_notifyOfReorder( op ) ;
 
-		return i;
+		return i ;
 	}
 
 	//
@@ -585,24 +585,24 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 	private synchronized int _positionToFront( SpOffsetPos op )
 	{
 		// See where the offset position current is
-		Vector v = _avTab.getAll( OFFSET_POS_LIST );
-		int i = v.indexOf( op.getTag() );
+		Vector v = _avTab.getAll( OFFSET_POS_LIST ) ;
+		int i = v.indexOf( op.getTag() ) ;
 		if( i == -1 )
-			return -1;
+			return -1 ;
 
 		// Already at the front of the list
 		if( i == 0 )
-			return 0;
+			return 0 ;
 
-		v.removeElementAt( i );
-		v.insertElementAt( op.getTag() , 0 );
+		v.removeElementAt( i ) ;
+		v.insertElementAt( op.getTag() , 0 ) ;
 
-		_avTab.setAll( OFFSET_POS_LIST , v );
+		_avTab.setAll( OFFSET_POS_LIST , v ) ;
 
-		_posList.removeElementAt( i );
-		_posList.insertElementAt( op , 0 );
+		_posList.removeElementAt( i ) ;
+		_posList.insertElementAt( op , 0 ) ;
 
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -611,11 +611,11 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public int positionToFront( SpOffsetPos op )
 	{
-		int i = _positionToFront( op );
+		int i = _positionToFront( op ) ;
 		if( i != -1 )
-			_notifyOfReorder( op );
+			_notifyOfReorder( op ) ;
 
-		return i;
+		return i ;
 	}
 
 	/**
@@ -623,7 +623,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public void resetSkyPositions()
 	{
-		_skyOffsets.clear();
+		_skyOffsets.clear() ;
 	}
 
 	/**
@@ -631,7 +631,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public void resetGuidePositions()
 	{
-		_guideOffsets.clear();
+		_guideOffsets.clear() ;
 	}
 
 	/**
@@ -641,17 +641,17 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createSkyPosition( double xoff , double yoff )
 	{
-		SpOffsetPos op;
+		SpOffsetPos op ;
 		synchronized( this )
 		{
-			String tag = _getUniqueSkyTag();
-			_addSkyOffsetPosition( tag );
+			String tag = _getUniqueSkyTag() ;
+			_addSkyOffsetPosition( tag ) ;
 
-			op = new SpOffsetPos( _avTab , tag , this );
-			op.noNotifySetXY( xoff , yoff );
-			_skyOffsets.addElement( op );
+			op = new SpOffsetPos( _avTab , tag , this ) ;
+			op.noNotifySetXY( xoff , yoff ) ;
+			_skyOffsets.addElement( op ) ;
 		}
-		return op;
+		return op ;
 	}
 
 	/**
@@ -661,17 +661,17 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createGuideOffset( double xoff , double yoff )
 	{
-		SpOffsetPos op;
+		SpOffsetPos op ;
 		synchronized( this )
 		{
-			String tag = _getUniqueGuideTag();
-			_addGuideOffsetPosition( tag );
+			String tag = _getUniqueGuideTag() ;
+			_addGuideOffsetPosition( tag ) ;
 
-			op = new SpOffsetPos( _avTab , tag , this );
-			op.noNotifySetXY( xoff , yoff );
-			_guideOffsets.addElement( op );
+			op = new SpOffsetPos( _avTab , tag , this ) ;
+			op.noNotifySetXY( xoff , yoff ) ;
+			_guideOffsets.addElement( op ) ;
 		}
-		return op;
+		return op ;
 	}
 
 	/**
@@ -679,14 +679,14 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public synchronized String toString()
 	{
-		String out = getClass().getName() + "[";
+		String out = getClass().getName() + "[" ;
 
 		if( _posList.size() >= 1 )
-			out += ( ( SpOffsetPos )_posList.elementAt( 0 ) ).toString();
+			out += ( ( SpOffsetPos )_posList.elementAt( 0 ) ).toString() ;
 
 		for( int i = 1 ; i < _posList.size() ; ++i )
-			out += "," + ( ( SpOffsetPos )_posList.elementAt( i ) ).toString();
+			out += "," + ( ( SpOffsetPos )_posList.elementAt( i ) ).toString() ;
 
-		return out + "]";
+		return out + "]" ;
 	}
 }

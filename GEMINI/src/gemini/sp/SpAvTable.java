@@ -4,12 +4,12 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Iterator ;
+import java.util.TreeMap ;
+import java.util.Vector ;
 
 //
 // This is an implementation class used only by SpAttrTable, holding a
@@ -19,33 +19,33 @@ import java.util.Vector;
 //
 final class SpAttr implements java.io.Serializable
 {
-	private String _description;
-	private Vector _values;
+	private String _description ;
+	private Vector _values ;
 
 	public SpAttr( String descr , Vector values )
 	{
-		_description = descr;
-		_values = values;
+		_description = descr ;
+		_values = values ;
 	}
 
 	public String getDescription()
 	{
-		return _description;
+		return _description ;
 	}
 
 	public void setDescription( String descr )
 	{
-		_description = descr;
+		_description = descr ;
 	}
 
 	public Vector getValues()
 	{
-		return _values;
+		return _values ;
 	}
 
 	public void setValues( Vector values )
 	{
-		_values = values;
+		_values = values ;
 	}
 
 }
@@ -59,17 +59,17 @@ final class SpAttr implements java.io.Serializable
 public final class SpAvTable implements java.io.Serializable
 {
 	// The table of attributes and values.
-	private TreeMap _avTable;
+	private TreeMap _avTable ;
 
 	// The state machine that tracks this table's edits for its SpItem.
-	private SpAvEditState _editFSM;
+	private SpAvEditState _editFSM ;
 
 	/**
      * Default constructor.
      */
 	public SpAvTable()
 	{
-		_avTable = new TreeMap();
+		_avTable = new TreeMap() ;
 	}
 
 	//
@@ -77,7 +77,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	SpAvTable( TreeMap avTable )
 	{
-		_avTable = avTable;
+		_avTable = avTable ;
 	}
 
 	//
@@ -87,7 +87,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	void setStateMachine( SpAvEditState editFSM )
 	{
-		_editFSM = editFSM;
+		_editFSM = editFSM ;
 	}
 
 	//
@@ -96,13 +96,13 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private SpAttr _getSpAttr( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
 		{
-			a = new SpAttr( "No Description" , new Vector() );
-			_avTable.put( name , a );
+			a = new SpAttr( "No Description" , new Vector() ) ;
+			_avTable.put( name , a ) ;
 		}
-		return a;
+		return a ;
 	}
 
 	/**
@@ -114,8 +114,8 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void noNotifySetDescription( String name , String descr )
 	{
-		SpAttr a = _getSpAttr( name );
-		a.setDescription( descr );
+		SpAttr a = _getSpAttr( name ) ;
+		a.setDescription( descr ) ;
 	}
 
 	/**
@@ -125,13 +125,13 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _editFSM != null )
 		{
-			_editFSM.editPending();
-			noNotifySetDescription( name , descr );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			noNotifySetDescription( name , descr ) ;
+			_editFSM.editComplete() ;
 		}
 		else
 		{
-			noNotifySetDescription( name , descr );
+			noNotifySetDescription( name , descr ) ;
 		}
 	}
 
@@ -140,10 +140,10 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public String getDescription( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return null;
-		return a.getDescription();
+			return null ;
+		return a.getDescription() ;
 	}
 
 	/**
@@ -155,20 +155,20 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void noNotifySet( String name , String value , int pos )
 	{
-		SpAttr a = _getSpAttr( name );
-		Vector v = a.getValues();
+		SpAttr a = _getSpAttr( name ) ;
+		Vector v = a.getValues() ;
 
-		v.ensureCapacity( pos + 1 );
-		int size = v.size();
+		v.ensureCapacity( pos + 1 ) ;
+		int size = v.size() ;
 		if( size < ( pos + 1 ) )
 		{
-			v.setSize( pos + 1 );
+			v.setSize( pos + 1 ) ;
 
 			// Add empty strings for the missing elements
 			for( int i = size ; i < pos ; ++i )
-				v.setElementAt( "" , i );
+				v.setElementAt( "" , i ) ;
 		}
-		v.setElementAt( value , pos );
+		v.setElementAt( value , pos ) ;
 	}
 
 	//
@@ -177,7 +177,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private boolean _isHiddenAttr( String name )
 	{
-		return ( name != null ) && ( name.length() > 0 ) && ( name.charAt( 0 ) == '.' );
+		return ( name != null ) && ( name.length() > 0 ) && ( name.charAt( 0 ) == '.' ) ;
 	}
 
 	/**
@@ -187,19 +187,19 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) )
 		{
-			noNotifySet( name , value , pos );
+			noNotifySet( name , value , pos ) ;
 		}
 		else
 		{
 			if( _editFSM != null )
 			{
-				_editFSM.editPending();
-				noNotifySet( name , value , pos );
-				_editFSM.editComplete();
+				_editFSM.editPending() ;
+				noNotifySet( name , value , pos ) ;
+				_editFSM.editComplete() ;
 			}
 			else
 			{
-				noNotifySet( name , value , pos );
+				noNotifySet( name , value , pos ) ;
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , String value )
 	{
-		set( name , value , 0 );
+		set( name , value , 0 ) ;
 	}
 
 	/**
@@ -223,15 +223,15 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void noNotifySetAll( String name , Vector v )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
 		{
-			a = new SpAttr( "No Description" , v );
-			_avTable.put( name , a );
+			a = new SpAttr( "No Description" , v ) ;
+			_avTable.put( name , a ) ;
 		}
 		else
 		{
-			a.setValues( v );
+			a.setValues( v ) ;
 		}
 	}
 
@@ -244,19 +244,19 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) )
 		{
-			noNotifySetAll( name , v );
+			noNotifySetAll( name , v ) ;
 		}
 		else
 		{
 			if( _editFSM != null )
 			{
-				_editFSM.editPending();
-				noNotifySetAll( name , v );
-				_editFSM.editComplete();
+				_editFSM.editPending() ;
+				noNotifySetAll( name , v ) ;
+				_editFSM.editComplete() ;
 			}
 			else
 			{
-				noNotifySetAll( name , v );
+				noNotifySetAll( name , v ) ;
 			}
 		}
 	}
@@ -266,7 +266,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , boolean value )
 	{
-		set( name , value , 0 );
+		set( name , value , 0 ) ;
 	}
 
 	/**
@@ -276,9 +276,9 @@ public final class SpAvTable implements java.io.Serializable
 	public void set( String name , boolean value , int pos )
 	{
 		if( value )
-			set( name , "true" , pos );
+			set( name , "true" , pos ) ;
 		else
-			set( name , "false" , pos );
+			set( name , "false" , pos ) ;
 	}
 
 	/**
@@ -286,7 +286,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , int value )
 	{
-		set( name , value , 0 );
+		set( name , value , 0 ) ;
 	}
 
 	/**
@@ -295,7 +295,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , int value , int pos )
 	{
-		set( name , String.valueOf( value ) , pos );
+		set( name , String.valueOf( value ) , pos ) ;
 	}
 
 	/**
@@ -303,7 +303,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , double value )
 	{
-		set( name , value , 0 );
+		set( name , value , 0 ) ;
 	}
 
 	/**
@@ -312,7 +312,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void set( String name , double value , int pos )
 	{
-		set( name , String.valueOf( value ) , pos );
+		set( name , String.valueOf( value ) , pos ) ;
 	}
 
 	/**
@@ -320,7 +320,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public String get( String name )
 	{
-		return get( name , 0 );
+		return get( name , 0 ) ;
 	}
 
 	/**
@@ -329,15 +329,15 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public String get( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return null;
+			return null ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( v == null ) || ( v.size() <= pos ) )
-			return null;
+			return null ;
 
-		return ( String )v.elementAt( pos );
+		return ( String )v.elementAt( pos ) ;
 	}
 
 	/**
@@ -345,11 +345,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public Vector getAll( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return null;
+			return null ;
 
-		return a.getValues();
+		return a.getValues() ;
 	}
 
 	/**
@@ -359,22 +359,22 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( name.equals( "*" ) )
 		{
-			System.out.println( _avTable.toString() );
+			System.out.println( _avTable.toString() ) ;
 		}
 		else
 		{
 
-			Vector v = getAll( name );
+			Vector v = getAll( name ) ;
 			if( v == null )
 			{
-				System.out.println( name + ": DOES NOT EXIST IN TABLE" );
-				return;
+				System.out.println( name + ": DOES NOT EXIST IN TABLE" ) ;
+				return ;
 			}
 
-			System.out.println( name + " contains:" );
+			System.out.println( name + " contains:" ) ;
 			for( int i = 0 ; i < v.size() ; ++i )
-				System.out.println( '\t' + ( String )v.elementAt( i ) );
-			System.out.println( "-- EOD --" );
+				System.out.println( '\t' + ( String )v.elementAt( i ) ) ;
+			System.out.println( "-- EOD --" ) ;
 		}
 	}
 
@@ -383,7 +383,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public boolean getBool( String name )
 	{
-		return getBool( name , 0 );
+		return getBool( name , 0 ) ;
 	}
 
 	/**
@@ -392,8 +392,8 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public boolean getBool( String name , int pos )
 	{
-		String value = get( name , pos );
-		return( ( value != null ) && value.equals( "true" ) );
+		String value = get( name , pos ) ;
+		return( ( value != null ) && value.equals( "true" ) ) ;
 	}
 
 	/**
@@ -401,7 +401,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public int getInt( String name , int def )
 	{
-		return getInt( name , 0 , def );
+		return getInt( name , 0 , def ) ;
 	}
 
 	/**
@@ -410,15 +410,15 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public int getInt( String name , int pos , int def )
 	{
-		String value = get( name , pos );
+		String value = get( name , pos ) ;
 		if( value == null )
-			return def;
+			return def ;
 		try
 		{
-			return Integer.parseInt( value );
+			return Integer.parseInt( value ) ;
 		}
 		catch( Exception ex ){}
-		return def;
+		return def ;
 	}
 
 	/**
@@ -426,7 +426,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public double getDouble( String name , double def )
 	{
-		return getDouble( name , 0 , def );
+		return getDouble( name , 0 , def ) ;
 	}
 
 	/**
@@ -435,15 +435,15 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public double getDouble( String name , int pos , double def )
 	{
-		String value = get( name , pos );
+		String value = get( name , pos ) ;
 		if( value == null )
-			return def;
+			return def ;
 		try
 		{
-			return Double.valueOf( value ).doubleValue();
+			return Double.valueOf( value ).doubleValue() ;
 		}
 		catch( Exception ex ){}
-		return def;
+		return def ;
 	}
 
 	/**
@@ -453,19 +453,19 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) )
 		{
-			_avTable.remove( name );
+			_avTable.remove( name ) ;
 		}
 		else
 		{
 			if( _editFSM != null )
 			{
-				_editFSM.editPending();
-				_avTable.remove( name );
-				_editFSM.editComplete();
+				_editFSM.editPending() ;
+				_avTable.remove( name ) ;
+				_editFSM.editComplete() ;
 			}
 			else
 			{
-				_avTable.remove( name );
+				_avTable.remove( name ) ;
 			}
 		}
 	}
@@ -477,17 +477,17 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void noNotifyRm( String name )
 	{
-		_avTable.remove( name );
+		_avTable.remove( name ) ;
 	}
 
 	private void _rmValue( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
-		v.removeElementAt( pos );
+		Vector v = a.getValues() ;
+		v.removeElementAt( pos ) ;
 	}
 
 	/**
@@ -497,13 +497,13 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_rmValue( name , pos );
+			_rmValue( name , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_rmValue( name , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_rmValue( name , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -514,13 +514,13 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _editFSM != null )
 		{
-			_editFSM.editPending();
-			_avTable.clear();
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_avTable.clear() ;
+			_editFSM.editComplete() ;
 		}
 		else
 		{
-			_avTable.clear();
+			_avTable.clear() ;
 		}
 	}
 
@@ -530,14 +530,14 @@ public final class SpAvTable implements java.io.Serializable
 	public void noNotifyRmAll()
 	{
 		// Clear all of the SpAttr vectors...
-		Iterator e = _avTable.keySet().iterator();
+		Iterator e = _avTable.keySet().iterator() ;
 		while( e.hasNext() )
 		{
-			SpAttr a = ( SpAttr )_avTable.get( ( String )e.next() );
+			SpAttr a = ( SpAttr )_avTable.get( ( String )e.next() ) ;
 			if( a != null && a.getValues() != null )
-				a.getValues().clear();
+				a.getValues().clear() ;
 		}
-		_avTable.clear();
+		_avTable.clear() ;
 	}
 
 	/**
@@ -545,7 +545,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public int size()
 	{
-		return _avTable.size();
+		return _avTable.size() ;
 	}
 
 	/**
@@ -553,7 +553,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public boolean exists( String name )
 	{
-		return _avTable.containsKey( name );
+		return _avTable.containsKey( name ) ;
 	}
 
 	/**
@@ -561,14 +561,14 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public int size( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return 0;
+			return 0 ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( v == null )
-			return 0;
-		return v.size();
+			return 0 ;
+		return v.size() ;
 	}
 
 	/**
@@ -581,8 +581,8 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _editFSM != null )
 		{
-			_editFSM.editPending();
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -591,7 +591,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public Iterator getAttrIterator()
 	{
-		return _avTable.keySet().iterator();
+		return _avTable.keySet().iterator() ;
 	}
 
 	/**
@@ -601,22 +601,22 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		return new Enumeration()
 		{
-			private Iterator _keys = _avTable.keySet().iterator();
-			private String _nextKey = null;
+			private Iterator _keys = _avTable.keySet().iterator() ;
+			private String _nextKey = null ;
 
 			public synchronized boolean hasMoreElements()
 			{
-				_nextKey = null;
+				_nextKey = null ;
 				if( _keys.hasNext() )
-					_nextKey = ( String )_keys.next();
-				return( _nextKey != null );
+					_nextKey = ( String )_keys.next() ;
+				return( _nextKey != null ) ;
 			}
 
 			public synchronized Object nextElement()
 			{
-				return _nextKey;
+				return _nextKey ;
 			}
-		};
+		} ;
 	}
 
 	/**
@@ -626,29 +626,29 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		return new Enumeration()
 		{
-			private Iterator _keys = _avTable.keySet().iterator();
-			private String _nextKey = null;
+			private Iterator _keys = _avTable.keySet().iterator() ;
+			private String _nextKey = null ;
 
 			public boolean hasMoreElements()
 			{
-				_nextKey = null;
+				_nextKey = null ;
 				while( _keys.hasNext() )
 				{
-					String key = ( String )_keys.next();
+					String key = ( String )_keys.next() ;
 					if( key.startsWith( prefix ) )
 					{
-						_nextKey = key;
-						break;
+						_nextKey = key ;
+						break ;
 					}
 				}
-				return( _nextKey != null );
+				return( _nextKey != null ) ;
 			}
 
 			public Object nextElement()
 			{
-				return _nextKey;
+				return _nextKey ;
 			}
-		};
+		} ;
 	}
 
 	/**
@@ -657,25 +657,25 @@ public final class SpAvTable implements java.io.Serializable
 	public SpAvTable copy()
 	{
 		// Shallow copy the table structure.
-		TreeMap htCopy = ( TreeMap )_avTable.clone();
+		TreeMap htCopy = ( TreeMap )_avTable.clone() ;
 
 		// Make a copy of the values.
-		Iterator keys = _avTable.keySet().iterator();
+		Iterator keys = _avTable.keySet().iterator() ;
 		while( keys.hasNext() )
 		{
-			String key = ( String )keys.next();
-			SpAttr a = ( SpAttr )_avTable.get( key );
-			Vector v = new Vector();
+			String key = ( String )keys.next() ;
+			SpAttr a = ( SpAttr )_avTable.get( key ) ;
+			Vector v = new Vector() ;
 			if( a != null )
-				v = a.getValues();
+				v = a.getValues() ;
 			if( v != null )
-				v = ( Vector )v.clone();
+				v = ( Vector )v.clone() ;
 			else
-				v = new Vector();
-			htCopy.put( key , new SpAttr( a.getDescription() , v ) );
+				v = new Vector() ;
+			htCopy.put( key , new SpAttr( a.getDescription() , v ) ) ;
 		}
 
-		return new SpAvTable( htCopy );
+		return new SpAvTable( htCopy ) ;
 	}
 
 	//
@@ -683,23 +683,23 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _setSize( String name , int newSize )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 
 		if( newSize < v.size() )
 		{
-			v.setSize( newSize );
+			v.setSize( newSize ) ;
 		}
 		else if( newSize > v.size() )
 		{
 			// Set the new size, and make the new elements be empty strings.
-			int oldSize = v.size();
-			v.setSize( newSize );
+			int oldSize = v.size() ;
+			v.setSize( newSize ) ;
 			for( int i = oldSize ; i < newSize ; ++i )
-				v.setElementAt( "" , i );
+				v.setElementAt( "" , i ) ;
 		}
 	}
 
@@ -713,13 +713,13 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_setSize( name , newSize );
+			_setSize( name , newSize ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_setSize( name , newSize );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_setSize( name , newSize ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -730,13 +730,13 @@ public final class SpAvTable implements java.io.Serializable
 	{
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			noNotifySet( name , value , size( name ) );
+			noNotifySet( name , value , size( name ) ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			noNotifySet( name , value , size( name ) );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			noNotifySet( name , value , size( name ) ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -746,9 +746,9 @@ public final class SpAvTable implements java.io.Serializable
 	private void _insertAt( String value , Vector v , int pos )
 	{
 		if( pos >= v.size() )
-			v.addElement( value );
+			v.addElement( value ) ;
 		else
-			v.insertElementAt( value , pos );
+			v.insertElementAt( value , pos ) ;
 	}
 
 	/**
@@ -756,23 +756,23 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void insertAt( String name , String value , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( pos < 0 ) || ( pos > v.size() ) )
-			return;
+			return ;
 
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_insertAt( value , v , pos );
+			_insertAt( value , v , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_insertAt( value , v , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_insertAt( value , v , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -781,9 +781,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _indexToFirst( Vector v , int pos )
 	{
-		Object o = v.elementAt( pos );
-		v.removeElementAt( pos );
-		v.insertElementAt( o , 0 );
+		Object o = v.elementAt( pos ) ;
+		v.removeElementAt( pos ) ;
+		v.insertElementAt( o , 0 ) ;
 	}
 
 	/**
@@ -792,23 +792,23 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void indexToFirst( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
-			return;
+			return ;
 
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_indexToFirst( v , pos );
+			_indexToFirst( v , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_indexToFirst( v , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_indexToFirst( v , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -817,9 +817,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _decrementIndex( Vector v , int pos )
 	{
-		Object o = v.elementAt( pos );
-		v.removeElementAt( pos );
-		v.insertElementAt( o , pos - 1 );
+		Object o = v.elementAt( pos ) ;
+		v.removeElementAt( pos ) ;
+		v.insertElementAt( o , pos - 1 ) ;
 	}
 
 	/**
@@ -828,23 +828,23 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void decrementIndex( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
-			return;
+			return ;
 
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_decrementIndex( v , pos );
+			_decrementIndex( v , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_decrementIndex( v , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_decrementIndex( v , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -853,12 +853,12 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _incrementIndex( Vector v , int pos )
 	{
-		Object o = v.elementAt( pos );
-		v.removeElementAt( pos );
+		Object o = v.elementAt( pos ) ;
+		v.removeElementAt( pos ) ;
 		if( ( pos + 1 ) >= v.size() )
-			v.addElement( o );
+			v.addElement( o ) ;
 		else
-			v.insertElementAt( o , pos + 1 );
+			v.insertElementAt( o , pos + 1 ) ;
 	}
 
 	/**
@@ -867,23 +867,23 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void incrementIndex( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
-			return;
+			return ;
 
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_incrementIndex( v , pos );
+			_incrementIndex( v , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_incrementIndex( v , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_incrementIndex( v , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 
@@ -892,9 +892,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _indexToLast( Vector v , int pos )
 	{
-		Object o = v.elementAt( pos );
-		v.removeElementAt( pos );
-		v.addElement( o );
+		Object o = v.elementAt( pos ) ;
+		v.removeElementAt( pos ) ;
+		v.addElement( o ) ;
 	}
 
 	/**
@@ -903,23 +903,23 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void indexToLast( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name );
+		SpAttr a = ( SpAttr )_avTable.get( name ) ;
 		if( a == null )
-			return;
+			return ;
 
-		Vector v = a.getValues();
+		Vector v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
-			return;
+			return ;
 
 		if( _isHiddenAttr( name ) || ( _editFSM == null ) )
 		{
-			_indexToLast( v , pos );
+			_indexToLast( v , pos ) ;
 		}
 		else
 		{
-			_editFSM.editPending();
-			_indexToLast( v , pos );
-			_editFSM.editComplete();
+			_editFSM.editPending() ;
+			_indexToLast( v , pos ) ;
+			_editFSM.editComplete() ;
 		}
 	}
 }

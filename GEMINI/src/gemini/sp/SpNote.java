@@ -4,10 +4,10 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.ArrayList ;
+import java.util.Enumeration ;
 
 /**
  * The Note item. Notes are arbitrary text information that may be entered at
@@ -16,23 +16,23 @@ import java.util.Enumeration;
 public class SpNote extends SpItem
 {
 
-	public static final String ATTR_NOTE = "note";
+	public static final String ATTR_NOTE = "note" ;
 
 	/**
      * This attribute records whether this note should be highlighted.
      * 
      * @see #isObserveInstruction()
      */
-	public static final String ATTR_OBSERVE_INSTRUCTION = ":observeInstruction";
+	public static final String ATTR_OBSERVE_INSTRUCTION = ":observeInstruction" ;
 
 	/**
      * Default constructor.
      */
 	public SpNote()
 	{
-		super( SpType.NOTE );
+		super( SpType.NOTE ) ;
 
-		_avTable.noNotifySet( ATTR_NOTE , "" , 0 );
+		_avTable.noNotifySet( ATTR_NOTE , "" , 0 ) ;
 	}
 
 	/**
@@ -40,12 +40,12 @@ public class SpNote extends SpItem
      */
 	public String getTitle()
 	{
-		String title = type().getReadable();
-		String titleAttr = getTitleAttr();
+		String title = type().getReadable() ;
+		String titleAttr = getTitleAttr() ;
 		if( ( titleAttr != null ) && !( titleAttr.equals( "" ) ) )
-			title = title + ": " + titleAttr;
+			title = title + ": " + titleAttr ;
 		
-		return title;
+		return title ;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class SpNote extends SpItem
      */
 	public void setNote( String text )
 	{
-		_avTable.set( ATTR_NOTE , text );
+		_avTable.set( ATTR_NOTE , text ) ;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class SpNote extends SpItem
      */
 	public String getNote()
 	{
-		return _avTable.get( ATTR_NOTE );
+		return _avTable.get( ATTR_NOTE ) ;
 	}
 
 	/**
@@ -72,9 +72,9 @@ public class SpNote extends SpItem
 	public void setObserveInstruction( boolean value )
 	{
 		if( value )
-			_avTable.set( ATTR_OBSERVE_INSTRUCTION , value );
+			_avTable.set( ATTR_OBSERVE_INSTRUCTION , value ) ;
 		else
-			_avTable.rm( ATTR_OBSERVE_INSTRUCTION );
+			_avTable.rm( ATTR_OBSERVE_INSTRUCTION ) ;
 	}
 
 	/**
@@ -83,20 +83,20 @@ public class SpNote extends SpItem
      */
 	public String[] getInstructions()
 	{
-		ArrayList rtnArray = new ArrayList();
-		Enumeration e = _avTable.attributes();
+		ArrayList rtnArray = new ArrayList() ;
+		Enumeration e = _avTable.attributes() ;
 		if( e != null )
 		{
 			while( e.hasMoreElements() )
 			{
-				String key = ( String )e.nextElement();
+				String key = ( String )e.nextElement() ;
 				if( key.startsWith( "." ) || key.startsWith( ":" ) || key.equals( ATTR_TITLE ) || key.equals( ATTR_NOTE ) )
-					continue;
-				String value = _avTable.get( key );
-				rtnArray.add( key + " = " + value );
+					continue ;
+				String value = _avTable.get( key ) ;
+				rtnArray.add( key + " = " + value ) ;
 			}
 		}
-		return( ( String[] )rtnArray.toArray( new String[ 0 ] ) );
+		return( ( String[] )rtnArray.toArray( new String[ 0 ] ) ) ;
 	}
 
 	/**
@@ -108,21 +108,21 @@ public class SpNote extends SpItem
      */
 	public boolean isObserveInstruction()
 	{
-		return _avTable.getBool( ATTR_OBSERVE_INSTRUCTION );
+		return _avTable.getBool( ATTR_OBSERVE_INSTRUCTION ) ;
 	}
 
 	public void setAVPair( String name , String value )
 	{
-		_avTable.set( name , value );
+		_avTable.set( name , value ) ;
 	}
 
 	public String getValueFor( String name )
 	{
-		return _avTable.get( name );
+		return _avTable.get( name ) ;
 	}
 
 	public void rmAVPair( String name )
 	{
-		_avTable.rm( name );
+		_avTable.rm( name ) ;
 	}
 }

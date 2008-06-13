@@ -4,10 +4,10 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * This is a base class for SpItems that define a observation context. In other
@@ -38,14 +38,14 @@ import gemini.sp.obsComp.SpInstObsComp;
 public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPosAngleObserver
 {
 
-	SpObsData _obsData;
+	SpObsData _obsData ;
 
 	/**
      * Construct with the specific SpType of the subclass.
      */
 	protected SpObsContextItem( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -53,9 +53,9 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected Object clone()
 	{
-		SpObsContextItem spClone = ( SpObsContextItem )super.clone();
-		spClone._obsData = null;
-		return spClone;
+		SpObsContextItem spClone = ( SpObsContextItem )super.clone() ;
+		spClone._obsData = null ;
+		return spClone ;
 	}
 
 	/**
@@ -64,8 +64,8 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	public SpObsData getObsData()
 	{
 		if( _obsData == null )
-			_obsData = new SpObsData();
-		return _obsData;
+			_obsData = new SpObsData() ;
+		return _obsData ;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	public void basePosUpdate( double ra , double dec , double xoff , double yoff , int coordSys )
 	{
-		_obsData.setBasePos( ra , dec , xoff , yoff , coordSys );
+		_obsData.setBasePos( ra , dec , xoff , yoff , coordSys ) ;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	public void posAngleUpdate( double posAngle )
 	{
-		_obsData.setPosAngle( posAngle );
+		_obsData.setPosAngle( posAngle ) ;
 	}
 
 	//
@@ -97,11 +97,11 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	void _fixObsDataAfterInsert( SpItem newItem )
 	{
 		if( newItem instanceof SpTelescopeObsComp )
-			SpObsData.completeSpTelescopeObsCompInsertion( ( SpTelescopeObsComp )newItem );
+			SpObsData.completeSpTelescopeObsCompInsertion( ( SpTelescopeObsComp )newItem ) ;
 		else if( newItem instanceof SpInstObsComp )
-			SpObsData.completeSpInstObsCompInsertion( ( SpInstObsComp )newItem );
+			SpObsData.completeSpInstObsCompInsertion( ( SpInstObsComp )newItem ) ;
 		else if( newItem instanceof SpObsContextItem )
-			SpObsData.completeSpObsContextItemInsertion( ( SpObsContextItem )newItem );
+			SpObsData.completeSpObsContextItemInsertion( ( SpObsContextItem )newItem ) ;
 	}
 
 	//
@@ -111,12 +111,12 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	void _fixObsDataBeforeExtract( SpItem spItem )
 	{
 		if( spItem instanceof SpTelescopeObsComp )
-			SpObsData.prepareSpTelescopeObsCompExtract( spItem );
+			SpObsData.prepareSpTelescopeObsCompExtract( spItem ) ;
 		else if( spItem instanceof SpInstObsComp )
-			SpObsData.prepareSpInstObsCompExtract( spItem );
+			SpObsData.prepareSpInstObsCompExtract( spItem ) ;
 
 		else if( spItem instanceof SpObsContextItem )
-			SpObsData.prepareSpObsContextItemExtract( spItem );
+			SpObsData.prepareSpObsContextItemExtract( spItem ) ;
 	}
 
 	/**
@@ -125,8 +125,8 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected void doInsert( SpItem newChild , SpItem afterChild )
 	{
-		super.doInsert( newChild , afterChild );
-		_fixObsDataAfterInsert( newChild );
+		super.doInsert( newChild , afterChild ) ;
+		_fixObsDataAfterInsert( newChild ) ;
 	}
 
 	/**
@@ -134,8 +134,8 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected void doExtract( SpItem child )
 	{
-		_fixObsDataBeforeExtract( child );
-		super.doExtract( child );
+		_fixObsDataBeforeExtract( child ) ;
+		super.doExtract( child ) ;
 	}
 
 	//
@@ -159,8 +159,8 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected void insert( SpItem[] newChildren , SpItem afterChild )
 	{
-		_fixChainStateBeforeInsert( newChildren , afterChild );
-		super.insert( newChildren , afterChild );
+		_fixChainStateBeforeInsert( newChildren , afterChild ) ;
+		super.insert( newChildren , afterChild ) ;
 	}
 
 	/**
@@ -169,8 +169,8 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected void extract( SpItem[] children )
 	{
-		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] );
-		super.extract( children );
+		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] ) ;
+		super.extract( children ) ;
 	}
 
 	/**
@@ -179,12 +179,12 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
      */
 	protected void move( SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] );
+		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] ) ;
 		if( newParent instanceof SpObsContextItem )
 		{
-			SpObsContextItem newCtx = ( SpObsContextItem )newParent;
-			newCtx._fixChainStateBeforeInsert( children , afterChild );
+			SpObsContextItem newCtx = ( SpObsContextItem )newParent ;
+			newCtx._fixChainStateBeforeInsert( children , afterChild ) ;
 		}
-		super.move( children , newParent , afterChild );
+		super.move( children , newParent , afterChild ) ;
 	}
 }

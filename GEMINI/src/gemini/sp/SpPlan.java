@@ -4,20 +4,18 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * The science plan item.
  */
 public class SpPlan extends SpRootItem
 {
-
 	/**
      * Default constructor.
      */
 	protected SpPlan()
 	{
-		super( SpType.SCIENCE_PLAN );
+		super( SpType.SCIENCE_PLAN ) ;
 	}
-
 }

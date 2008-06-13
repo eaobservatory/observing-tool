@@ -3,13 +3,13 @@
 // See the file COPYRIGHT for complete details.
 //
 //
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.util.Assert;
-import gemini.util.XmlUtil;
+import gemini.util.Assert ;
+import gemini.util.XmlUtil ;
 
-import java.util.Enumeration;
-import java.util.Observable;
+import java.util.Enumeration ;
+import java.util.Observable ;
 
 //
 // Implements Enumeration. Can be used to iterate over the SpItem's
@@ -18,14 +18,14 @@ import java.util.Observable;
 final class SpChildren implements Enumeration , java.io.Serializable
 {
 
-	private SpItem _curChild;
+	private SpItem _curChild ;
 
 	//
 	// Construct with an item.
 	//
 	public SpChildren( SpItem item )
 	{
-		_curChild = item.child();
+		_curChild = item.child() ;
 	}
 
 	//
@@ -33,7 +33,7 @@ final class SpChildren implements Enumeration , java.io.Serializable
 	//
 	public boolean hasMoreElements()
 	{
-		return _curChild != null;
+		return _curChild != null ;
 	}
 
 	//
@@ -41,9 +41,9 @@ final class SpChildren implements Enumeration , java.io.Serializable
 	//
 	public Object nextElement()
 	{
-		SpItem item = _curChild;
-		_curChild = _curChild.next();
-		return item;
+		SpItem item = _curChild ;
+		_curChild = _curChild.next() ;
+		return item ;
 	}
 
 }
@@ -88,29 +88,29 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 {
 
 	/** The title attribute. */
-	public static final String ATTR_TITLE = "title";
+	public static final String ATTR_TITLE = "title" ;
 
 	/**
      * The default name for items that haven't been stored in the ODB. The ODB
      * assigns a unique name once the item is stored.
      */
-	public static final String NO_NAME = "new";
+	public static final String NO_NAME = "new" ;
 
-	public static final String XML_ATTR_TYPE = "type";
+	public static final String XML_ATTR_TYPE = "type" ;
 
-	public static final String XML_ATTR_SUBTYPE = "subtype";
+	public static final String XML_ATTR_SUBTYPE = "subtype" ;
 
-	public static final String XML_META_PREFIX = "meta";
+	public static final String XML_META_PREFIX = "meta" ;
 
 	/** The class name is used as XML element name for an SpItem. */
-	protected String _className;
+	protected String _className ;
 
 	/**
      * The item's name as assigned by the ODB.
      * 
      * @see #NO_NAME
      */
-	protected String _name;
+	protected String _name ;
 
 	/**
      * The item's type. This could be seen as a bit redundant perhaps, since
@@ -118,25 +118,25 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * 
      * @see #type
      */
-	protected SpType _type;
+	protected SpType _type ;
 
 	/**
      * The item's table of attributes and values.
      */
-	protected SpAvTable _avTable;
+	protected SpAvTable _avTable ;
 
 	/**
      * The state machine associated with this item's AV table. It is used to
      * mark that an item has had its attribute's updated and to support
      * discarding changes.
      */
-	protected SpAvEditState _editAvFSM;
+	protected SpAvEditState _editAvFSM ;
 
 	/**
      * The state machine associated with the program or plan as a whole. It is
      * used to mark whether the program has been updated.
      */
-	protected SpEditState _editFSM;
+	protected SpEditState _editFSM ;
 
 	/**
      * The "next" SpItem related to this item. Items are arranged in a hierarchy
@@ -145,7 +145,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * 
      * @see #next()
      */
-	protected SpItem _next = null;
+	protected SpItem _next = null ;
 
 	/**
      * The parent of this SpItem.
@@ -153,7 +153,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * @see #_next
      * @see #parent()
      */
-	protected SpItem _parent = null;
+	protected SpItem _parent = null ;
 
 	/**
      * The first child of this item. Other children can be found by following
@@ -162,7 +162,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * @see #_next
      * @see #child()
      */
-	protected SpItem _firstChild = null;
+	protected SpItem _firstChild = null ;
 
 	/**
      * Generic user data stored on behalf of the client.
@@ -170,21 +170,21 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * @see #getClientData
      * @see #setClientData
      */
-	protected Object _clientData;
+	protected Object _clientData ;
 
 	/**
      * Construct with type.
      */
 	protected SpItem( SpType type )
 	{
-		_name = NO_NAME;
-		_type = type;
-		_editAvFSM = new SpAvEditState( this );
+		_name = NO_NAME ;
+		_type = type ;
+		_editAvFSM = new SpAvEditState( this ) ;
 
-		_avTable = new SpAvTable();
-		_avTable.setStateMachine( _editAvFSM );
+		_avTable = new SpAvTable() ;
+		_avTable.setStateMachine( _editAvFSM ) ;
 
-		_className = getClass().getName().substring( getClass().getName().lastIndexOf( "." ) + 1 );
+		_className = getClass().getName().substring( getClass().getName().lastIndexOf( "." ) + 1 ) ;
 	}
 
 	/**
@@ -197,13 +197,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public String getTitle()
 	{
-		String title = _type.getReadable();
+		String title = _type.getReadable() ;
 
 		// Append the title in the "title" attribute
-		String attrTitle = getTitleAttr();
+		String attrTitle = getTitleAttr() ;
 		if( ( attrTitle != null ) && !( attrTitle.equals( "" ) ) )
-			title = title + ": " + attrTitle;
-		return title;
+			title = title + ": " + attrTitle ;
+		return title ;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public String getTitleAttr()
 	{
-		return _avTable.get( ATTR_TITLE );
+		return _avTable.get( ATTR_TITLE ) ;
 	}
 
 	/**
@@ -224,7 +224,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public void setTitleAttr( String title )
 	{
-		_avTable.set( ATTR_TITLE , title );
+		_avTable.set( ATTR_TITLE , title ) ;
 	}
 
 	/**
@@ -236,8 +236,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		// this method to return it (See SpObsContextItem). For most items,
 		// this implementation is correct:
 		if( _parent == null )
-			return null;
-		return _parent.getObsData();
+			return null ;
+		return _parent.getObsData() ;
 	}
 
 	/**
@@ -248,8 +248,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public final int getEditState()
 	{
 		if( _editFSM != null )
-			return _editFSM.getState();
-		return SpEditState.UNEDITED;
+			return _editFSM.getState() ;
+		return SpEditState.UNEDITED ;
 	}
 
 	/**
@@ -261,11 +261,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	{
 		if( _editFSM == null )
 		{
-			SpItem temParent = parent();
+			SpItem temParent = parent() ;
 			if( temParent != null )
-				_editFSM = temParent.getEditFSM();
+				_editFSM = temParent.getEditFSM() ;
 		}
-		return _editFSM;
+		return _editFSM ;
 	}
 
 	//
@@ -275,29 +275,29 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public void setEditFSM( SpEditState fsm )
 	{
 		if( fsm == _editFSM )
-			return;
+			return ;
 
 		if( _editFSM != null )
 		{
 			if( _editFSM == fsm )
-				return;
-			deleteObserver( _editFSM );
-			_editAvFSM.deleteObserver( _editFSM );
+				return ;
+			deleteObserver( _editFSM ) ;
+			_editAvFSM.deleteObserver( _editFSM ) ;
 		}
 
-		_editFSM = fsm;
+		_editFSM = fsm ;
 
 		if( fsm != null )
 		{
-			addObserver( fsm );
-			_editAvFSM.addObserver( fsm );
+			addObserver( fsm ) ;
+			_editAvFSM.addObserver( fsm ) ;
 		}
 
-		SpItem child = _firstChild;
+		SpItem child = _firstChild ;
 		while( child != null )
 		{
-			child.setEditFSM( fsm );
-			child = child.next();
+			child.setEditFSM( fsm ) ;
+			child = child.next() ;
 		}
 	}
 
@@ -306,7 +306,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public SpItem parent()
 	{
-		return _parent;
+		return _parent ;
 	}
 
 	/**
@@ -317,17 +317,17 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final SpItem child()
 	{
-		return _firstChild;
+		return _firstChild ;
 	}
 
 	public final SpItem lastChild()
 	{
-		SpItem child = child();
+		SpItem child = child() ;
 
 		while( ( child != null ) && ( child.next() != null ) )
-			child = child.next();
+			child = child.next() ;
 
-		return child;
+		return child ;
 	}
 
 	/**
@@ -337,7 +337,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final SpItem next()
 	{
-		return _next;
+		return _next ;
 	}
 
 	/**
@@ -349,16 +349,16 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public final SpItem prev()
 	{
 		if( _parent == null )
-			return null;
+			return null ;
 
-		SpItem child = _parent.child();
+		SpItem child = _parent.child() ;
 		if( child == this )
-			return null;
+			return null ;
 
 		while( child.next() != this )
-			child = child.next();
+			child = child.next() ;
 
-		return child;
+		return child ;
 	}
 
 	/**
@@ -366,7 +366,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final Enumeration children()
 	{
-		return new SpChildren( this );
+		return new SpChildren( this ) ;
 	}
 
 	/**
@@ -374,10 +374,10 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final int childCount()
 	{
-		int i = 0;
+		int i = 0 ;
 		for( SpItem child = child() ; child != null ; child = child.next() )
-			++i;
-		return i;
+			++i ;
+		return i ;
 	}
 
 	/**
@@ -386,9 +386,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public final SpItem getRootItem()
 	{
 		if( _parent == null )
-			return this;
+			return this ;
 
-		return _parent.getRootItem();
+		return _parent.getRootItem() ;
 	}
 
 	/**
@@ -400,7 +400,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final String name()
 	{
-		return _name;
+		return _name ;
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final SpType type()
 	{
-		return _type;
+		return _type ;
 	}
 
 	/**
@@ -421,7 +421,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final String typeStr()
 	{
-		return _type.getType();
+		return _type.getType() ;
 	}
 
 	/**
@@ -431,7 +431,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final String subtypeStr()
 	{
-		return _type.getSubtype();
+		return _type.getSubtype() ;
 	}
 
 	//
@@ -442,7 +442,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	//
 	void parent( SpItem newParent )
 	{
-		_parent = newParent;
+		_parent = newParent ;
 	}
 
 	//
@@ -453,7 +453,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	//
 	void next( SpItem newSib )
 	{
-		_next = newSib;
+		_next = newSib ;
 	}
 
 	//
@@ -463,9 +463,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	//
 	public final void name( String name )
 	{
-		_name = name;
-		setChanged();
-		notifyObservers();
+		_name = name ;
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 	/**
@@ -478,7 +478,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final void setClientData( Object o )
 	{
-		_clientData = o;
+		_clientData = o ;
 	}
 
 	/**
@@ -488,7 +488,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final Object getClientData()
 	{
-		return _clientData;
+		return _clientData ;
 	}
 
 	/**
@@ -502,41 +502,41 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected Object clone()
 	{
-		SpItem spClone;
+		SpItem spClone ;
 		try
 		{
-			spClone = ( SpItem )super.clone();
+			spClone = ( SpItem )super.clone() ;
 		}
 		catch( CloneNotSupportedException ex )
 		{
 			// Won't happen, since SpItem implements cloneable ...
-			return null;
+			return null ;
 		}
 
-		spClone._name = NO_NAME;
+		spClone._name = NO_NAME ;
 		// spClone.type : is okay to share reference
-		spClone._avTable = _avTable.copy();
-		spClone._editAvFSM = new SpAvEditState( spClone );
-		spClone._avTable.setStateMachine( spClone._editAvFSM );
+		spClone._avTable = _avTable.copy() ;
+		spClone._editAvFSM = new SpAvEditState( spClone ) ;
+		spClone._avTable.setStateMachine( spClone._editAvFSM ) ;
 
 		// Null the hierarchy related fields, since the copy hasn't been
 		// inserted anywhere yet.
-		spClone._editFSM = null;
-		spClone._next = null;
-		spClone._parent = null;
-		spClone._firstChild = null;
+		spClone._editFSM = null ;
+		spClone._next = null ;
+		spClone._parent = null ;
+		spClone._firstChild = null ;
 
 		// Clone the client data, if possible
 		if( ( _clientData != null ) && ( _clientData instanceof SpCloneableClientData ) )
 		{
-			SpCloneableClientData ccd = ( SpCloneableClientData )_clientData;
-			spClone._clientData = ccd.clone( spClone );
+			SpCloneableClientData ccd = ( SpCloneableClientData )_clientData ;
+			spClone._clientData = ccd.clone( spClone ) ;
 		}
 		else
 		{
-			spClone._clientData = null;
+			spClone._clientData = null ;
 		}
-		return spClone;
+		return spClone ;
 	}
 
 	/**
@@ -545,18 +545,18 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public SpItem deepCopy()
 	{
-		SpItem spCopy = ( SpItem )clone();
+		SpItem spCopy = ( SpItem )clone() ;
 
 		// Copy each child
-		SpItem lastChild = null;
+		SpItem lastChild = null ;
 		for( SpItem child = _firstChild ; child != null ; child = child.next() )
 		{
-			SpItem spChildCopy = ( SpItem )child.deepCopy();
-			spCopy.doInsert( spChildCopy , lastChild );
-			lastChild = spChildCopy;
+			SpItem spChildCopy = ( SpItem )child.deepCopy() ;
+			spCopy.doInsert( spChildCopy , lastChild ) ;
+			lastChild = spChildCopy ;
 		}
 
-		return spCopy;
+		return spCopy ;
 	}
 
 	/**
@@ -565,7 +565,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public SpItem shallowCopy()
 	{
-		return ( SpItem )clone();
+		return ( SpItem )clone() ;
 	}
 
 	/**
@@ -574,7 +574,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final boolean hasBeenNamed()
 	{
-		return !_name.equals( NO_NAME );
+		return !_name.equals( NO_NAME ) ;
 	}
 
 	/**
@@ -584,8 +584,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public final String id()
 	{
 		if( _parent != null )
-			return _parent.id() + ":" + _name;
-		return _name;
+			return _parent.id() + ":" + _name ;
+		return _name ;
 	}
 
 	/**
@@ -595,7 +595,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final SpAvEditState getAvEditFSM()
 	{
-		return _editAvFSM;
+		return _editAvFSM ;
 	}
 
 	/**
@@ -608,9 +608,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public final int getAvEditState()
 	{
 		if( _editAvFSM != null )
-			return _editAvFSM.getState();
+			return _editAvFSM.getState() ;
 		else
-			return SpAvEditState.UNEDITED;
+			return SpAvEditState.UNEDITED ;
 	}
 
 	/**
@@ -618,7 +618,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public final SpAvTable getTable()
 	{
-		return _avTable;
+		return _avTable ;
 	}
 
 	/**
@@ -626,11 +626,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void setTable( SpAvTable avTable )
 	{
-		_avTable = avTable;
-		_avTable.setStateMachine( _editAvFSM );
+		_avTable = avTable ;
+		_avTable.setStateMachine( _editAvFSM ) ;
 
-		setChanged();
-		notifyObservers();
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 	/**
@@ -639,14 +639,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	protected void replaceTable( SpAvTable avTable )
 	{
 		if( avTable == _avTable )
-			return;
+			return ;
 
-		_editAvFSM.editPending();
-		_avTable = avTable;
-		_avTable.setStateMachine( _editAvFSM );
+		_editAvFSM.editPending() ;
+		_avTable = avTable ;
+		_avTable.setStateMachine( _editAvFSM ) ;
 
-		setChanged();
-		notifyObservers();
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 	/**
@@ -666,18 +666,18 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	{
 		if( afterChild == null )
 		{
-			newChild.parent( this );
-			newChild.next( _firstChild );
-			_firstChild = newChild;
-			newChild.setEditFSM( _editFSM );
+			newChild.parent( this ) ;
+			newChild.next( _firstChild ) ;
+			_firstChild = newChild ;
+			newChild.setEditFSM( _editFSM ) ;
 		}
 		else
 		{
-			Assert.notFalse( afterChild.parent() == this );
-			newChild.parent( this );
-			newChild.next( afterChild.next() );
-			afterChild.next( newChild );
-			newChild.setEditFSM( _editFSM );
+			Assert.notFalse( afterChild.parent() == this ) ;
+			newChild.parent( this ) ;
+			newChild.next( afterChild.next() ) ;
+			afterChild.next( newChild ) ;
+			newChild.setEditFSM( _editFSM ) ;
 		}
 	}
 
@@ -687,11 +687,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void insert( SpItem[] newChildren , SpItem afterChild )
 	{
-		doInsert( newChildren[ 0 ] , afterChild );
+		doInsert( newChildren[ 0 ] , afterChild ) ;
 		for( int i = 1 ; i < newChildren.length ; ++i )
-			doInsert( newChildren[ i ] , newChildren[ i - 1 ] );
+			doInsert( newChildren[ i ] , newChildren[ i - 1 ] ) ;
 		if( _editFSM != null )
-			_editFSM.notifyAdded( this , newChildren , afterChild );
+			_editFSM.notifyAdded( this , newChildren , afterChild ) ;
 	}
 
 	/**
@@ -702,20 +702,20 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void doExtract( SpItem child )
 	{
-		Assert.notFalse( child.parent() == this );
+		Assert.notFalse( child.parent() == this ) ;
 
 		if( child == _firstChild )
 		{
-			_firstChild = _firstChild.next();
+			_firstChild = _firstChild.next() ;
 		}
 		else
 		{
-			SpItem prev = _firstChild;
+			SpItem prev = _firstChild ;
 			while( prev.next() != child )
-				prev = prev.next();
-			prev.next( child.next() );
+				prev = prev.next() ;
+			prev.next( child.next() ) ;
 		}
-		child.parent( null );
+		child.parent( null ) ;
 	}
 
 	/**
@@ -724,8 +724,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	protected void extract( SpItem[] children )
 	{
 		for( int i = 0 ; i < children.length ; ++i )
-			doExtract( children[ i ] );
-		_editFSM.notifyRemoved( this , children );
+			doExtract( children[ i ] ) ;
+		_editFSM.notifyRemoved( this , children ) ;
 	}
 
 	/**
@@ -735,8 +735,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	{
 		if( _parent != null )
 		{
-			SpItem[] spItemA = { this };
-			_parent.extract( spItemA );
+			SpItem[] spItemA = { this } ;
+			_parent.extract( spItemA ) ;
 		}
 	}
 
@@ -746,16 +746,16 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void move( SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		doExtract( children[ 0 ] );
-		newParent.doInsert( children[ 0 ] , afterChild );
+		doExtract( children[ 0 ] ) ;
+		newParent.doInsert( children[ 0 ] , afterChild ) ;
 
 		for( int i = 1 ; i < children.length ; ++i )
 		{
-			doExtract( children[ i ] );
-			newParent.doInsert( children[ i ] , children[ i - 1 ] );
+			doExtract( children[ i ] ) ;
+			newParent.doInsert( children[ i ] , children[ i - 1 ] ) ;
 		}
 
-		_editFSM.notifyMoved( this , children , newParent , afterChild );
+		_editFSM.notifyMoved( this , children , newParent , afterChild ) ;
 	}
 
 	/**
@@ -766,9 +766,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		for( SpItem child = _firstChild ; child != null ; child = child.next() )
 		{
 			if( child.name().equals( name ) )
-				return child;
+				return child ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -776,7 +776,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public void print()
 	{
-		print( "" );
+		print( "" ) ;
 	}
 
 	/**
@@ -785,28 +785,28 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public void print( String indentStr )
 	{
-		String t = name() + ": " + typeStr() + " (" + subtypeStr() + ")";
-		System.out.println( indentStr + t );
+		String t = name() + ": " + typeStr() + " (" + subtypeStr() + ")" ;
+		System.out.println( indentStr + t ) ;
 
-		indentStr = indentStr + "   ";
+		indentStr = indentStr + "   " ;
 
 		// Print the attributes
-		Enumeration keys = _avTable.attributes();
+		Enumeration keys = _avTable.attributes() ;
 		while( keys.hasMoreElements() )
 		{
-			String key = ( String )keys.nextElement();
-			System.out.println( indentStr + key + " (" + _avTable.getDescription( key ) + ")" );
-			System.out.println( indentStr + "--> " + _avTable.getAll( key ).toString() );
+			String key = ( String )keys.nextElement() ;
+			System.out.println( indentStr + key + " (" + _avTable.getDescription( key ) + ")" ) ;
+			System.out.println( indentStr + "--> " + _avTable.getAll( key ).toString() ) ;
 		}
 
 		// Print the children
 		for( SpItem child = _firstChild ; child != null ; child = child.next() )
-			child.print( indentStr + "   " );
+			child.print( indentStr + "   " ) ;
 	}
 
 	public String getXmlElementName()
 	{
-		return _className;
+		return _className ;
 	}
 
 	/**
@@ -818,18 +818,18 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * This allows to keep the basic form
      * 
      * <pre><tt>
-     * &lt;SpItem &lt;i&gt;user attributes (XML representation of SpAvTable attributes starting with ':')&lt;/i&gt; type=&quot;x&quot; sybtype=&quot;y&quot;&gt;
-     *   &lt;i&gt;XML representation of SpAvTable&lt;/i&gt;
-     * &lt;SpItem&gt;
+     * &lt ;SpItem &lt ;i&gt ;user attributes (XML representation of SpAvTable attributes starting with ':')&lt ;/i&gt ; type=&quot ;x&quot ; sybtype=&quot ;y&quot ;&gt ;
+     *   &lt ;i&gt ;XML representation of SpAvTable&lt ;/i&gt ;
+     * &lt ;SpItem&gt ;
      * </tt></pre>
      */
 	public String toXML()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer() ;
 
-		toXML( "" , buffer );
+		toXML( "" , buffer ) ;
 
-		return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + buffer.toString();
+		return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + buffer.toString() ;
 	}
 
 	/**
@@ -844,54 +844,54 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void toXML( String indent , StringBuffer xmlBuffer )
 	{
-		Enumeration avAttributes;
-		String avAttr;
-		SpItem child;
+		Enumeration avAttributes ;
+		String avAttr ;
+		SpItem child ;
 
-		xmlBuffer.append( "\n" + indent + "<" + _className );
+		xmlBuffer.append( "\n" + indent + "<" + _className ) ;
 
 		// Get those AV table attributes that are to represented by XML
         // attributes
 		// i.e. those that start with the character ':'.
-		avAttributes = _avTable.attributes( ":" );
+		avAttributes = _avTable.attributes( ":" ) ;
 
 		// Write the XML attributes
 		while( avAttributes.hasMoreElements() )
 		{
-			avAttr = ( String )avAttributes.nextElement();
+			avAttr = ( String )avAttributes.nextElement() ;
 			if( avAttr.indexOf( "xmlns" ) != -1 || avAttr.indexOf( "schemaLocation" ) != -1 )
-				continue;
-			xmlBuffer.append( " " + avAttr.substring( 1 ) + "=\"" + _avTable.get( avAttr ) + "\"" );
+				continue ;
+			xmlBuffer.append( " " + avAttr.substring( 1 ) + "=\"" + _avTable.get( avAttr ) + "\"" ) ;
 		}
 
 		// Add type and subtype as XML attributes
 		if( typeStr().startsWith( "p" ) )
 		{
-			xmlBuffer.append( " type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\"\n" );
-			xmlBuffer.append( "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" );
-			xmlBuffer.append( "\txmlns=\"http://omp.jach.hawaii.edu/schema/TOML\">\n" );
+			xmlBuffer.append( " type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\"\n" ) ;
+			xmlBuffer.append( "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" ) ;
+			xmlBuffer.append( "\txmlns=\"http://omp.jach.hawaii.edu/schema/TOML\">\n" ) ;
 		}
 		else
 		{
-			xmlBuffer.append( " type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">" );
+			xmlBuffer.append( " type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">" ) ;
 		}
 
 		// Now get hold of and process all AV table attributes.
 		// The once starting with the character ':' have been dealt with already
 		// and will be ignored by processAvAttribute().
-		avAttributes = _avTable.attributes();
+		avAttributes = _avTable.attributes() ;
 
 		while( avAttributes.hasMoreElements() )
-			processAvAttribute( ( String )avAttributes.nextElement() , indent , xmlBuffer );
+			processAvAttribute( ( String )avAttributes.nextElement() , indent , xmlBuffer ) ;
 
 		// Deal with the child items.
-		child = child();
+		child = child() ;
 		while( child != null )
 		{
-			child.toXML( indent + "  " , xmlBuffer );
-			child = child.next();
+			child.toXML( indent + "  " , xmlBuffer ) ;
+			child = child.next() ;
 		}
-		xmlBuffer.append( "\n" + indent + "</" + _className + ">" );
+		xmlBuffer.append( "\n" + indent + "</" + _className + ">" ) ;
 	}
 
 	/**
@@ -907,13 +907,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>"attribute"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt;value&gt;12.3&lt;/attribute&gt;</td>
+     * <td>&lt ;value&gt ;12.3&lt ;/attribute&gt ;</td>
      * </tr>
      * <tr>
      * <td>Example:<br>
      * <tt>"expTime"</tt></td>
      * <td><tt>12.3</tt></td>
-     * <td>&lt;expTime&gt;12.3&lt;/expTime&gt;</td>
+     * <td>&lt ;expTime&gt ;12.3&lt ;/expTime&gt ;</td>
      * </tr>
      * <tr>
      * <td span=3><br>
@@ -925,11 +925,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <td>
      * 
      * <pre>
-     * &lt;attribute&gt;
-     * 	 &lt;value&gt;value Vector entry 1&lt;/value&gt;
-     * 	 &lt;value&gt;value Vector entry 2&lt;/value&gt;
-     * 	 &lt;value&gt;value Vector entry 3&lt;/value&gt;
-     * 	 &lt;/attribute&gt;
+     * &lt ;attribute&gt ;
+     * 	 &lt ;value&gt ;value Vector entry 1&lt ;/value&gt ;
+     * 	 &lt ;value&gt ;value Vector entry 2&lt ;/value&gt ;
+     * 	 &lt ;value&gt ;value Vector entry 3&lt ;/value&gt ;
+     * 	 &lt ;/attribute&gt ;
      * </pre>
      * 
      * </td>
@@ -941,11 +941,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <td>
      * 
      * <pre>
-     * &lt;expTimes&gt;
-     * 	 &lt;value&gt;12.3&lt;/value&gt;
-     * 	 &lt;value&gt;23.4&lt;/value&gt;
-     * 	 &lt;value&gt;34.4&lt;/value&gt;
-     * 	 &lt;/expTimes&gt;
+     * &lt ;expTimes&gt ;
+     * 	 &lt ;value&gt ;12.3&lt ;/value&gt ;
+     * 	 &lt ;value&gt ;23.4&lt ;/value&gt ;
+     * 	 &lt ;value&gt ;34.4&lt ;/value&gt ;
+     * 	 &lt ;/expTimes&gt ;
      * </pre>
      * 
      * </td>
@@ -957,14 +957,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>":attribute"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt;SpItem attribute="value"&gt; ... &lt;/SpItem&gt;<br>
+     * <td>&lt ;SpItem attribute="value"&gt ; ... &lt ;/SpItem&gt ;<br>
      * where SpItem is any subclass of SpItem</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>":optional"</tt></td>
      * <td><tt>"true"</tt></td>
-     * <td>&lt;SpItem optional="true"&gt; ... &lt;/SpItem&gt;<br>
+     * <td>&lt ;SpItem optional="true"&gt ; ... &lt ;/SpItem&gt ;<br>
      * where SpItem is any subclass of SpItem</td>
      * </tr>
      * <tr>
@@ -974,13 +974,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>"attrPrefix:attrSuffix"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt;attrPrefix attrSuffix="value"/&gt;</td>
+     * <td>&lt ;attrPrefix attrSuffix="value"/&gt ;</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>"acquisation:mode"</tt></td>
      * <td><tt>"imaging"</tt></td>
-     * <td>&lt;acquisation mode="imaging"/&gt;</td>
+     * <td>&lt ;acquisation mode="imaging"/&gt ;</td>
      * </tr>
      * <tr>
      * <td span=3><br>
@@ -989,14 +989,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>".string1.string2.string3 ..."</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt;meta_string1_string2_string3 ...&gt;
-     * value&lt;/meta_string1_string2_string3 ...&gt;</td>
+     * <td>&lt ;meta_string1_string2_string3 ...&gt ;
+     * value&lt ;/meta_string1_string2_string3 ...&gt ;</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>"gui.collapsed"</tt></td>
      * <td><tt>"true"</tt></td>
-     * <td>&lt;meta_gui_collapsed&gt; true&lt;/meta_gui_collapsed&gt;</td>
+     * <td>&lt ;meta_gui_collapsed&gt ; true&lt ;/meta_gui_collapsed&gt ;</td>
      * </tr>
      * </table>
      * 
@@ -1029,14 +1029,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * another is <tt>acquisation = "on"</tt> then they will be translated as
      * 
      * <pre>
-     *   &lt;acquisation mode=&quot;imaging&quot;&gt;
-     *   &lt;acquisation&gt;on&lt;/acquisation&gt;
+     *   &lt ;acquisation mode=&quot ;imaging&quot ;&gt ;
+     *   &lt ;acquisation&gt ;on&lt ;/acquisation&gt ;
      * </pre>
      * 
      * and <b>not</b> as
      * 
      * <pre>
-     *   &lt;acquisation mode=&quot;imaging&quot;&gt;on&lt;/acquisation&gt;
+     *   &lt ;acquisation mode=&quot ;imaging&quot ;&gt ;on&lt ;/acquisation&gt ;
      * </pre>
      * 
      * <h3>Overriding processAvAttribute()</h3>
@@ -1065,29 +1065,29 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
 	{
 		if( avAttr.indexOf( "xmlns" ) != -1 )
-			return;
+			return ;
 
 		if( !avAttr.startsWith( ":" ) )
 		{
 			if( _avTable.getAll( avAttr ).size() == 1 )
 			{
-				xmlBuffer.append( "\n  " + indent + avToXml( avAttr , _avTable.get( avAttr ) ) );
+				xmlBuffer.append( "\n  " + indent + avToXml( avAttr , _avTable.get( avAttr ) ) ) ;
 			}
 			else
 			{
-				String value;
-				xmlBuffer.append( "\n  " + indent + "<" + avAttr + ">" );
+				String value ;
+				xmlBuffer.append( "\n  " + indent + "<" + avAttr + ">" ) ;
 
 				for( int i = 0 ; i < _avTable.getAll( avAttr ).size() ; i++ )
 				{
-					value = _avTable.get( avAttr , i );
+					value = _avTable.get( avAttr , i ) ;
 
 					if( ( value != null ) && ( value.length() > 0 ) )
-						xmlBuffer.append( "\n    " + indent + "<value>" + _avTable.get( avAttr , i ) + "</value>" );
+						xmlBuffer.append( "\n    " + indent + "<value>" + _avTable.get( avAttr , i ) + "</value>" ) ;
 					else
-						xmlBuffer.append( "\n    " + indent + "<value>" + "</value>" );
+						xmlBuffer.append( "\n    " + indent + "<value>" + "</value>" ) ;
 				}
-				xmlBuffer.append( "\n  " + indent + "</" + avAttr + ">" );
+				xmlBuffer.append( "\n  " + indent + "</" + avAttr + ">" ) ;
 			}
 		}
 	}
@@ -1121,7 +1121,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public void processXmlElementContent( String name , String value )
 	{
-		processXmlElementContent( name , value , 0 );
+		processXmlElementContent( name , value , 0 ) ;
 	}
 
 	/**
@@ -1129,7 +1129,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * is parsed.
      * 
      * This methods is used when the XML contains a number of
-     * <tt>&lt;value&gt;text&lt;/value&gt;</tt> elements. These value elements
+     * <tt>&lt ;value&gt ;text&lt ;/value&gt ;</tt> elements. These value elements
      * are used as the XML representation of mulitple values of one
      * {@link gemini.sp.SpAvTable} attribute. Each SpAvTable attribute can have
      * multiple values each of which is stored at a certain position in a
@@ -1144,41 +1144,41 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      *            XML element name
      * @param value
      *            <tt><i>value</i></tt> in
-     *            <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element
+     *            <tt>&lt ;value&gt ;<i>value</i>&lt ;/value&gt ;</tt> element
      *            number <i>pos</i>
      * @param pos
      *            Indicates which
-     *            <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element's
+     *            <tt>&lt ;value&gt ;<i>value</i>&lt ;/value&gt ;</tt> element's
      *            value is returned. Corresponds to the position of the value in
      *            side the Vector of the SpAvTable attribute <i>name</i>.
      */
 	public void processXmlElementContent( String name , String value , int pos )
 	{
 		if( ( name == null ) || ( name.length() < 1 ) )
-			return;
+			return ;
 
 		// Ignore chaining - no longer needed...
 		if( name.equals( SpObs.ATTR_CHAINED_NEXT ) || name.equals( SpObs.ATTR_CHAINED_PREV ) )
-			return;
+			return ;
 		// Hacky fix for chnage in priority - try to work out a better fix later
 		if( name.equals( "priority" ) )
 		{
 			if( value.equals( "High" ) )
-				value = "1";
+				value = "1" ;
 			else if( value.equals( "Medium" ) )
-				value = "49";
+				value = "49" ;
 			if( value.equals( "Low" ) )
-				value = "99";
+				value = "99" ;
 		}
 
 		// also horrid
 		if( name.equals( "velocityFrame" ) && value.equals( "LSR" ) )
-			value = "LSRK";
+			value = "LSRK" ;
 
 		if( name.startsWith( XML_META_PREFIX ) )
-			_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos );
+			_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos ) ;
 		else
-			_avTable.noNotifySet( name , value , pos );
+			_avTable.noNotifySet( name , value , pos ) ;
 	}
 
 	/**
@@ -1212,10 +1212,10 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public void processXmlAttribute( String elementName , String attributeName , String value )
 	{
 		if( ( attributeName == null ) || ( value == null ) || ( attributeName.length() < 1 ) || ( value.length() < 1 ) )
-			return;
+			return ;
 
 		if( attributeName.equals( XML_ATTR_TYPE ) || attributeName.equals( XML_ATTR_SUBTYPE ) )
-			return;
+			return ;
 
 		/*
          * If the elementName is the class name, i.e. it is an XML attribute of
@@ -1223,9 +1223,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
          * Otherwise the av attribute is "elementName:attributeName".
          */
 		if( _className.equals( elementName ) )
-			_avTable.noNotifySet( ":" + attributeName , value , 0 );
+			_avTable.noNotifySet( ":" + attributeName , value , 0 ) ;
 		else
-			_avTable.noNotifySet( elementName + ":" + attributeName , value , 0 );
+			_avTable.noNotifySet( elementName + ":" + attributeName , value , 0 ) ;
 	}
 
 	/**
@@ -1235,18 +1235,18 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	{
 		// Special case for SpNoteRef - strip any trailing numeric before writing...
 		if( avAttr.startsWith( "SpNoteRef" ) )
-			avAttr = "SpNoteRef:idref";
+			avAttr = "SpNoteRef:idref" ;
 
 		if( avAttr.indexOf( ':' ) < 0 )
 		{
 			if( avAttr.startsWith( "." ) )
-				return "<" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" + value + "</" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">";
+				return "<" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" + value + "</" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" ;
 			else
-				return "<" + avAttr + ">" + XmlUtil.asciiToXml( value ) + "</" + avAttr + ">";
+				return "<" + avAttr + ">" + XmlUtil.asciiToXml( value ) + "</" + avAttr + ">" ;
 		}
 		else
 		{
-			return "<" + avAttr.substring( 0 , avAttr.indexOf( ':' ) ) + " " + avAttr.substring( avAttr.indexOf( ':' ) + 1 ) + "=\"" + value + "\"/>";
+			return "<" + avAttr.substring( 0 , avAttr.indexOf( ':' ) ) + " " + avAttr.substring( avAttr.indexOf( ':' ) + 1 ) + "=\"" + value + "\"/>" ;
 		}
 	}
 }

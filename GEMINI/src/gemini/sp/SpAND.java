@@ -7,9 +7,9 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
+import java.util.Enumeration ;
 
 /**
  * OMP class.
@@ -18,13 +18,12 @@ import java.util.Enumeration;
  */
 public class SpAND extends SpObsContextItem
 {
-
 	/**
      * Default constructor.
      */
 	protected SpAND()
 	{
-		super( SpType.AND_FOLDER );
+		super( SpType.AND_FOLDER ) ;
 	}
 
 	/**
@@ -32,26 +31,26 @@ public class SpAND extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
+		double elapsedTime = 0. ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0.0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0. )
+					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
 			}
 		}
 
-		return elapsedTime;
+		return elapsedTime ;
 	}
 
 	/**
@@ -59,24 +58,24 @@ public class SpAND extends SpObsContextItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
+		double elapsedTime = 0. ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0.0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0. )
+					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
 			}
 		}
-		return elapsedTime;
+		return elapsedTime ;
 	}
 }

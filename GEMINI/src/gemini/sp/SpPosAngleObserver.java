@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * An interface that should be supported by clients wishing to be informed of
@@ -16,12 +16,11 @@ package gemini.sp;
  */
 public interface SpPosAngleObserver
 {
-
 	/**
      * Notification that the position angle has changed.
      * 
      * @param posAngle
      *            The position angle in degrees.
      */
-	public void posAngleUpdate( double posAngle );
+	public void posAngleUpdate( double posAngle ) ;
 }

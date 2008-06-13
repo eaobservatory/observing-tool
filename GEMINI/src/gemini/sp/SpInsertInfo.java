@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 final class SpInsertInfo implements SpInsertConstants
 {
@@ -14,10 +14,10 @@ final class SpInsertInfo implements SpInsertConstants
      * 
      * @see SpInsertConstants
      */
-	public int result;
+	public int result ;
 
 	/** Insert relative to this item. */
-	public SpItem referant;
+	public SpItem referant ;
 
 	/**
      * The item that will be replaced by this insertion (if any). Items are
@@ -25,19 +25,19 @@ final class SpInsertInfo implements SpInsertConstants
      * being inserted into a scope that already contains an item of its type.
      * For instance, an instrument must be unique in its scope.
      */
-	public SpItem replaceItem;
+	public SpItem replaceItem ;
 
 	SpInsertInfo( int result , SpItem referant )
 	{
-		this.result = result;
-		this.referant = referant;
+		this.result = result ;
+		this.referant = referant ;
 	}
 
 	SpInsertInfo( int result , SpItem referant , SpItem replaceItem )
 	{
-		this.result = result;
-		this.referant = referant;
-		this.replaceItem = replaceItem;
+		this.result = result ;
+		this.referant = referant ;
+		this.replaceItem = replaceItem ;
 	}
 
 	/**
@@ -45,18 +45,18 @@ final class SpInsertInfo implements SpInsertConstants
      */
 	public String toString()
 	{
-		String posn;
+		String posn ;
 		switch( result )
 		{
 			case INS_INSIDE :
-				posn = "INS_INSIDE";
-				break;
+				posn = "INS_INSIDE" ;
+				break ;
 			case INS_AFTER :
-				posn = "INS_AFTER";
-				break;
+				posn = "INS_AFTER" ;
+				break ;
 			default :
-				posn = "UNKNOWN (" + result + ")";
+				posn = "UNKNOWN (" + result + ")" ;
 		}
-		return getClass().getName() + "[" + posn + ", " + "(" + referant.name() + ", " + referant.typeStr() + ", " + referant.subtypeStr() + ")" + ", replace=" + replaceItem + "]";
+		return getClass().getName() + "[" + posn + ", " + "(" + referant.name() + ", " + referant.typeStr() + ", " + referant.subtypeStr() + ")" + ", replace=" + replaceItem + "]" ;
 	}
 }

@@ -7,9 +7,9 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
+import java.util.Enumeration ;
 
 /**
  * OMP class.
@@ -20,15 +20,15 @@ public class SpOR extends SpObsContextItem
 {
 
 	/** This attribute records the number of items in the OR folder. */
-	public static final String ATTR_NUMBER_OF_ITEMS = ":numberOfItems";
+	public static final String ATTR_NUMBER_OF_ITEMS = ":numberOfItems" ;
 
 	/**
      * Default constructor.
      */
 	protected SpOR()
 	{
-		super( SpType.OR_FOLDER );
-		_avTable.noNotifySet( ATTR_NUMBER_OF_ITEMS , "1" , 0 );
+		super( SpType.OR_FOLDER ) ;
+		_avTable.noNotifySet( ATTR_NUMBER_OF_ITEMS , "1" , 0 ) ;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class SpOR extends SpObsContextItem
      */
 	public void setNumberOfItems( int numberOfItems )
 	{
-		_avTable.set( ATTR_NUMBER_OF_ITEMS , numberOfItems );
+		_avTable.set( ATTR_NUMBER_OF_ITEMS , numberOfItems ) ;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class SpOR extends SpObsContextItem
      */
 	public int getNumberOfItems()
 	{
-		return _avTable.getInt( ATTR_NUMBER_OF_ITEMS , 1 );
+		return _avTable.getInt( ATTR_NUMBER_OF_ITEMS , 1 ) ;
 	}
 
 	/**
@@ -61,40 +61,40 @@ public class SpOR extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0;
+		double elapsedTime = 0.0 ;
 
 		// Records the number of children that have a duration, i.e. SpAND and
 		// SpMSB (and its subclass SpObs).
-		int n = 0;
+		int n = 0 ;
 
-		Enumeration children = children();
-		SpItem spItem = null;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
 				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 				n++ ;
 			}
 
 			if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getTotalTime();
+				elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
 				n++ ;
 			}
 
 			if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
 				n++ ;
 			}
 		}
 
-		return ( elapsedTime / n ) * getNumberOfItems();
+		return ( elapsedTime / n ) * getNumberOfItems() ;
 	}
 
 	/**
@@ -107,41 +107,41 @@ public class SpOR extends SpObsContextItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0;
+		double elapsedTime = 0.0 ;
 
 		// Records the number of children that have a duration, i.e. SpAND and
 		// SpMSB (and its subclass SpObs).
-		int n = 0;
+		int n = 0 ;
 
-		Enumeration children = children();
-		SpItem spItem = null;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
 				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0 )
 				{
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 					n++ ;
 				}
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpAND )spItem ).getElapsedTime() ;
 				n++ ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
 				n++ ;
 			}
 		}
 
 		if( elapsedTime != 0. )
-			elapsedTime = ( elapsedTime / n ) * getNumberOfItems();
-		return elapsedTime;
+			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
+		return elapsedTime ;
 	}
 }

@@ -7,11 +7,11 @@
 /*                                                              */
 /* ============================================================== */
 
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
-import java.util.Enumeration;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpSurveyObsComp ;
+import java.util.Enumeration ;
 
 /**
  * OMP class.
@@ -22,51 +22,51 @@ public class SpMSB extends SpObsContextItem
 {
 
 	/** This attribute records the observation priority. */
-	public static final String ATTR_PRIORITY = "priority";
-	public static final String ATTR_LIBRARY_VERSION = "library_version";
-	public static final String KEYWORD_IDENTIFIER = "$";
-	public static final String LIBRARY_VERSION = "Revision";
+	public static final String ATTR_PRIORITY = "priority" ;
+	public static final String ATTR_LIBRARY_VERSION = "library_version" ;
+	public static final String KEYWORD_IDENTIFIER = "$" ;
+	public static final String LIBRARY_VERSION = "Revision" ;
 
 	/**
      * High observation priority, relative to the other observations in the
      * science program.
      */
-	public static final int PRIORITY_HIGH = 1;
+	public static final int PRIORITY_HIGH = 1 ;
 
 	/**
      * Medium observation priority, relative to the other observations in the
      * science program.
      */
-	public static final int PRIORITY_MEDIUM = 49;
+	public static final int PRIORITY_MEDIUM = 49 ;
 
 	/**
      * Low observation priority, relative to the other observations in the
      * science program.
      */
-	public static final int PRIORITY_LOW = 99;
-	public static String[] PRIORITIES = { "High" , "Medium" , "Low" };
-	private static final int numPriorities = 99;
+	public static final int PRIORITY_LOW = 99 ;
+	public static String[] PRIORITIES = { "High" , "Medium" , "Low" } ;
+	private static final int numPriorities = 99 ;
 
 	/** This attribute records the number of remaining MSBs. */
-	public static final String ATTR_REMAINING = ":remaining";
-	public static final String ATTR_CHECKSUM = ":checksum";
+	public static final String ATTR_REMAINING = ":remaining" ;
+	public static final String ATTR_CHECKSUM = ":checksum" ;
 
 	/** This attribute records the estimated duration of the MSB. */
-	public static final String ATTR_ELAPSED_TIME = "estimatedDuration";
+	public static final String ATTR_ELAPSED_TIME = "estimatedDuration" ;
 
 	/** This attribute records the estimated total duration of the MSB. */
-	public static final String ATTR_TOTAL_TIME = "totalDuration";
+	public static final String ATTR_TOTAL_TIME = "totalDuration" ;
 
 	/**
      * String used to indecate that the MSB has been removed.
      * 
      * @see #REMOVED_CODE
      */
-	public static final String REMOVED_STRING = "REMOVED";
-	public static final String REMOVE_STRING = "(UN)REMOVE";
+	public static final String REMOVED_STRING = "REMOVED" ;
+	public static final String REMOVE_STRING = "(UN)REMOVE" ;
 
 	/** This attribute records whether an MSB has been suspended */
-	public static final String ATTR_SUSPEND = ":suspend";
+	public static final String ATTR_SUSPEND = ":suspend" ;
 
 	/**
      * The databases uses this number to indecate that an MSB has been removed.
@@ -75,16 +75,16 @@ public class SpMSB extends SpObsContextItem
      * 
      * @deprecated Removed MSB's and now indicated using -remaing
      */
-	public static final int REMOVED_CODE = -999;
+	public static final int REMOVED_CODE = -999 ;
 
 	/**
      * Default constructor.
      */
 	protected SpMSB()
 	{
-		super( SpType.MSB_FOLDER );
-		_avTable.noNotifySet( ATTR_REMAINING , "1" , 0 );
-		_avTable.noNotifySet( ATTR_PRIORITY , "99" , 0 );
+		super( SpType.MSB_FOLDER ) ;
+		_avTable.noNotifySet( ATTR_REMAINING , "1" , 0 ) ;
+		_avTable.noNotifySet( ATTR_PRIORITY , "99" , 0 ) ;
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class SpMSB extends SpObsContextItem
      */
 	protected SpMSB( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -107,14 +107,14 @@ public class SpMSB extends SpObsContextItem
      */
 	public String getTitle()
 	{
-		String title = getTitleAttr();
+		String title = getTitleAttr() ;
 		if( ( title == null ) || title.equals( "" ) )
-			title = type().getReadable();
+			title = type().getReadable() ;
 
 		if( getNumberRemaining() < 0 )
-			return title + " (" + REMOVED_STRING + ")";
+			return title + " (" + REMOVED_STRING + ")" ;
 		else
-			return title + " (" + getNumberRemaining() + "X)";
+			return title + " (" + getNumberRemaining() + "X)" ;
 	}
 
 	/**
@@ -122,23 +122,23 @@ public class SpMSB extends SpObsContextItem
      */
 	public int getPriority()
 	{
-		String str = _avTable.get( ATTR_PRIORITY );
+		String str = _avTable.get( ATTR_PRIORITY ) ;
 		if( str == null )
-			return PRIORITY_LOW;
+			return PRIORITY_LOW ;
 
 		for( int i = 0 ; i < PRIORITIES.length ; ++i )
 		{
 			if( str.equals( PRIORITIES[ i ] ) )
 			{
 				if( i == 0 )
-					return PRIORITY_HIGH;
+					return PRIORITY_HIGH ;
 				if( i == 1 )
-					return PRIORITY_MEDIUM;
+					return PRIORITY_MEDIUM ;
 				if( i == 2 )
-					return PRIORITY_LOW;
+					return PRIORITY_LOW ;
 			}
 		}
-		return( ( new Integer( str ) ).intValue() );
+		return( ( new Integer( str ) ).intValue() ) ;
 	}
 
 	/**
@@ -146,10 +146,10 @@ public class SpMSB extends SpObsContextItem
      */
 	public int getPriorityString()
 	{
-		String str = _avTable.get( ATTR_PRIORITY );
+		String str = _avTable.get( ATTR_PRIORITY ) ;
 		if( str == null )
-			return PRIORITY_LOW;
-		return( ( new Integer( str ) ).intValue() );
+			return PRIORITY_LOW ;
+		return( ( new Integer( str ) ).intValue() ) ;
 	}
 
 	/**
@@ -158,9 +158,9 @@ public class SpMSB extends SpObsContextItem
 	public void setPriority( int priority )
 	{
 		if( ( priority < 0 ) || ( priority > numPriorities ) )
-			return;
+			return ;
 
-		_avTable.set( ATTR_PRIORITY , priority );
+		_avTable.set( ATTR_PRIORITY , priority ) ;
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public void setLibraryRevision()
 	{
-		_avTable.set( ATTR_LIBRARY_VERSION , KEYWORD_IDENTIFIER + LIBRARY_VERSION + KEYWORD_IDENTIFIER );
+		_avTable.set( ATTR_LIBRARY_VERSION , KEYWORD_IDENTIFIER + LIBRARY_VERSION + KEYWORD_IDENTIFIER ) ;
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public String getLibraryRevision()
 	{
-		return _avTable.get( ATTR_LIBRARY_VERSION );
+		return _avTable.get( ATTR_LIBRARY_VERSION ) ;
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public int getNumberRemaining()
 	{
-		return _avTable.getInt( ATTR_REMAINING , 1 );
+		return _avTable.getInt( ATTR_REMAINING , 1 ) ;
 	}
 
 	/**
@@ -200,15 +200,15 @@ public class SpMSB extends SpObsContextItem
      */
 	public void setNumberRemaining( int remaining )
 	{
-		_avTable.set( ATTR_REMAINING , remaining );
+		_avTable.set( ATTR_REMAINING , remaining ) ;
 	}
 
 	public String getChecksum()
 	{
 		if( _avTable.exists( ATTR_CHECKSUM ) )
-			return _avTable.get( ATTR_CHECKSUM );
+			return _avTable.get( ATTR_CHECKSUM ) ;
 		else
-			return "";
+			return "" ;
 	}
 
 	/**
@@ -216,10 +216,10 @@ public class SpMSB extends SpObsContextItem
      */
 	public boolean isSuspended()
 	{
-		boolean suspended = false;
+		boolean suspended = false ;
 		if( _avTable.exists( ATTR_SUSPEND ) )
-			suspended = true;
-		return suspended;
+			suspended = true ;
+		return suspended ;
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public void unSuspend()
 	{
-		_avTable.rm( ATTR_SUSPEND );
+		_avTable.rm( ATTR_SUSPEND ) ;
 	}
 
 	/**
@@ -239,32 +239,32 @@ public class SpMSB extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
-		boolean containsSurvey = false;
+		double elapsedTime = 0.0 ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
+		boolean containsSurvey = false ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpObs )
 			{
-				elapsedTime += ( ( SpObs )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpObs )spItem ).getElapsedTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				containsSurvey = true;
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime();
+				containsSurvey = true ;
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
 			}
 		}
 
-		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this );
+		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this ) ;
 
 		// Add a slew time if we don't have a Survey child - the Survey child already adds a slew
 		if( spInstObsComp != null && !containsSurvey )
-			elapsedTime += spInstObsComp.getSlewTime();
-		return elapsedTime;
+			elapsedTime += spInstObsComp.getSlewTime() ;
+		return elapsedTime ;
 	}
 
 	/**
@@ -275,49 +275,49 @@ public class SpMSB extends SpObsContextItem
      * does not include times for calibration and optional observations
      */
 
-	protected static boolean isUKIRT = false;
+	protected static boolean isUKIRT = false ;
 
-	protected static boolean cachedTelescope = false;
+	protected static boolean cachedTelescope = false ;
 
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
+		double elapsedTime = 0.0 ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		if( !cachedTelescope )
 		{
-			isUKIRT = "UKIRT".equalsIgnoreCase( System.getProperty( "TELESCOPE" ) );
-			cachedTelescope = true;
+			isUKIRT = "UKIRT".equalsIgnoreCase( System.getProperty( "TELESCOPE" ) ) ;
+			cachedTelescope = true ;
 		}
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpObs && ( !( ( ( SpObs )spItem ).isOptional() ) || isUKIRT ) )
-				elapsedTime += ( ( SpObs )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpObs )spItem ).getElapsedTime() ;
 			else if( spItem instanceof SpSurveyContainer )
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
 		}
 
-		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this );
+		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this ) ;
 
 		/*
          * The targetCount is set assuming that there is either a target list or
          * a survey component in the scope but not both.
          */
-		int targetCount = 1;
+		int targetCount = 1 ;
 
-		SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp( this );
+		SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp( this ) ;
 
 		if( surveyObsComp != null )
-			targetCount = surveyObsComp.size();
+			targetCount = surveyObsComp.size() ;
 
 		if( spInstObsComp != null )
-			return ( elapsedTime + spInstObsComp.getSlewTime() ) * targetCount;
+			return ( elapsedTime + spInstObsComp.getSlewTime() ) * targetCount ;
 		else
-			return elapsedTime * targetCount;
+			return elapsedTime * targetCount ;
 	}
 
 	/**
@@ -327,7 +327,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public void saveTotalTime()
 	{
-		_avTable.set( ATTR_TOTAL_TIME , getTotalTime() );
+		_avTable.set( ATTR_TOTAL_TIME , getTotalTime() ) ;
 	}
 
 	/**
@@ -337,17 +337,17 @@ public class SpMSB extends SpObsContextItem
      */
 	public void saveElapsedTime()
 	{
-		_avTable.set( ATTR_ELAPSED_TIME , getElapsedTime() );
+		_avTable.set( ATTR_ELAPSED_TIME , getElapsedTime() ) ;
 	}
 
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
 	{
 		if( avAttr.equals( ATTR_TOTAL_TIME ) )
-			xmlBuffer.append( "\n  " + indent + "<" + ATTR_TOTAL_TIME + " units=\"seconds\">" + getTotalTime() + "</" + ATTR_TOTAL_TIME + ">" );
+			xmlBuffer.append( "\n  " + indent + "<" + ATTR_TOTAL_TIME + " units=\"seconds\">" + getTotalTime() + "</" + ATTR_TOTAL_TIME + ">" ) ;
 		else if( avAttr.equals( ATTR_ELAPSED_TIME ) )
-			xmlBuffer.append( "\n  " + indent + "<" + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime() + "</" + ATTR_ELAPSED_TIME + ">" );
+			xmlBuffer.append( "\n  " + indent + "<" + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime() + "</" + ATTR_ELAPSED_TIME + ">" ) ;
 		else
-			super.processAvAttribute( avAttr , indent , xmlBuffer );
+			super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
 	}
 
 	public void processXmlAttribute( String elementName , String attributeName , String value )
@@ -355,8 +355,8 @@ public class SpMSB extends SpObsContextItem
 		// Do not save units = seconds to the AV table because the XML attribute units="seconds"
 		// is added in processAvAttribute. So ignore units = seconds.
 		if( attributeName.equals( "units" ) && value.equals( "seconds" ) )
-			return;
+			return ;
 
-		super.processXmlAttribute( elementName , attributeName , value );
+		super.processXmlAttribute( elementName , attributeName , value ) ;
 	}
 }

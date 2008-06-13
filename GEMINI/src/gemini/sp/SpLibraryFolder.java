@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * The library folder item.
@@ -17,7 +17,7 @@ public class SpLibraryFolder extends SpObsContextItem
      */
 	protected SpLibraryFolder()
 	{
-		super( SpType.LIBRARY_FOLDER );
+		super( SpType.LIBRARY_FOLDER ) ;
 	}
 
 	/**
@@ -25,9 +25,9 @@ public class SpLibraryFolder extends SpObsContextItem
      */
 	public String getTitle()
 	{
-		String title = getTitleAttr();
+		String title = getTitleAttr() ;
 		if( ( title == null ) || title.equals( "" ) )
-			title = type().getReadable();
-		return title;
+			title = type().getReadable() ;
+		return title ;
 	}
 }

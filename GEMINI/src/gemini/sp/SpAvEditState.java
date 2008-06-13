@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 import java.util.Observable ;
 
@@ -15,42 +15,41 @@ import java.util.Observable ;
  */
 public final class SpAvEditState extends Observable implements java.io.Serializable
 {
-
 	/**
      * The item is in this state if its attributes have not been edited since
      * the last time they were saved.
      */
-	public static final int UNEDITED = 0;
+	public static final int UNEDITED = 0 ;
 
 	/**
      * The item is in this state if its attributes have been edited since the
      * last time they were saved.
      */
-	public static final int EDITED = 1;
+	public static final int EDITED = 1 ;
 
 	/**
      * The item is in this state if its attributes have been edited, but the
      * changes have been "undone".
      */
-	public static final int EDIT_UNDONE = 2;
+	public static final int EDIT_UNDONE = 2 ;
 
 	//
 	// This is the item whose av table this class manages. SpItems and
 	// SpAvEditStates are one-to-one.
 	//
-	private SpItem _spItem;
+	private SpItem _spItem ;
 
 	//
 	// The edit state of the item's attribute/value table. One of UNEDITED,
 	// EDITED, or EDIT_UNDONE.
 	//
-	private int _state;
+	private int _state ;
 
 	//
 	// This is a copy of the AvTable in its "previous" state. It only
 	// exists when the table has been edited but not saved.
 	//
-	private SpAvTable _prevTable;
+	private SpAvTable _prevTable ;
 
 	//
 	// This variable controls whether each individual edit causes the
@@ -58,7 +57,7 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 	//
 	// @see #setEachEditNotifies
 	//
-	private boolean _eachEditNotifies = true;
+	private boolean _eachEditNotifies = true ;
 
 	//
 	// Construct with an SpItem. This constructor is not public and so cannot
@@ -67,8 +66,8 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 	//
 	SpAvEditState( SpItem spItem )
 	{
-		_spItem = spItem;
-		_state = UNEDITED;
+		_spItem = spItem ;
+		_state = UNEDITED ;
 	}
 
 	/**
@@ -76,7 +75,7 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
      */
 	public SpItem getItem()
 	{
-		return _spItem;
+		return _spItem ;
 	}
 
 	/**
@@ -84,7 +83,7 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
      */
 	public int getState()
 	{
-		return _state;
+		return _state ;
 	}
 
 	/**
@@ -94,7 +93,7 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
      */
 	public void setEachEditNotifies( boolean state )
 	{
-		_eachEditNotifies = state;
+		_eachEditNotifies = state ;
 	}
 
 	//
@@ -102,9 +101,9 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 	//
 	private void _changeState( int newState )
 	{
-		_state = newState;
-		setChanged();
-		notifyObservers();
+		_state = newState ;
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 	//
@@ -118,12 +117,12 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 		switch( _state )
 		{
 			case EDITED :
-				break;
+				break ;
 
 			case UNEDITED :
 			case EDIT_UNDONE :
-				_prevTable = _spItem.getTable().copy();
-				break;
+				_prevTable = _spItem.getTable().copy() ;
+				break ;
 		}
 	}
 
@@ -140,13 +139,13 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 			case EDITED :
 				// Notify observers of each edit
 				if( _eachEditNotifies )
-					_changeState( EDITED );
-				break;
+					_changeState( EDITED ) ;
+				break ;
 
 			case UNEDITED :
 			case EDIT_UNDONE :
-				_changeState( EDITED );
-				break;
+				_changeState( EDITED ) ;
+				break ;
 		}
 	}
 
@@ -157,30 +156,30 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
      */
 	public void undo()
 	{
-		SpAvTable temp;
+		SpAvTable temp ;
 
 		switch( _state )
 		{
 			case UNEDITED :
 				// Do nothing
-				break;
+				break ;
 
 			case EDITED :
-				temp = _spItem.getTable();
-				_spItem.setTable( _prevTable );
-				_prevTable = temp; // Save this in case of subsequent redo
+				temp = _spItem.getTable() ;
+				_spItem.setTable( _prevTable ) ;
+				_prevTable = temp ; // Save this in case of subsequent redo
 
-				_changeState( EDIT_UNDONE );
-				break;
+				_changeState( EDIT_UNDONE ) ;
+				break ;
 
 			case EDIT_UNDONE :
 				// Undo an undo ... Make the edits valid again
-				temp = _spItem.getTable();
-				_spItem.setTable( _prevTable );
-				_prevTable = temp;
+				temp = _spItem.getTable() ;
+				_spItem.setTable( _prevTable ) ;
+				_prevTable = temp ;
 
-				_changeState( EDITED );
-				break;
+				_changeState( EDITED ) ;
+				break ;
 		}
 	}
 
@@ -194,14 +193,13 @@ public final class SpAvEditState extends Observable implements java.io.Serializa
 		{
 			case UNEDITED :
 				// Do nothing
-				break;
+				break ;
 
 			case EDITED :
 			case EDIT_UNDONE :
-				_prevTable = null;
-				_changeState( UNEDITED );
-				break;
+				_prevTable = null ;
+				_changeState( UNEDITED ) ;
+				break ;
 		}
 	}
-
 }

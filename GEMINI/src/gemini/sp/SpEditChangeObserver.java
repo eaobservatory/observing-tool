@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * An interface supported by clients of the SpEditState that wish to be notified
@@ -15,7 +15,6 @@ package gemini.sp;
  */
 public interface SpEditChangeObserver
 {
-
 	/**
      * Notification that the program has been edited.
      * 
@@ -23,5 +22,5 @@ public interface SpEditChangeObserver
      *            The root of the Science Program tree that has been modified in
      *            some way.
      */
-	public void spEditStateChange( SpItem root );
+	public void spEditStateChange( SpItem root ) ;
 }

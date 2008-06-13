@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.util.Assert;
+import gemini.util.Assert ;
 
 /**
  * The observation link item.
@@ -19,7 +19,7 @@ public class SpObsLink extends SpItem
      */
 	protected SpObsLink()
 	{
-		super( SpType.OBSERVATION_LINK );
+		super( SpType.OBSERVATION_LINK ) ;
 	}
 
 	/**
@@ -27,8 +27,8 @@ public class SpObsLink extends SpItem
      */
 	protected SpObsLink( SpObs spObs )
 	{
-		super( SpType.OBSERVATION_LINK );
-		linkTo( spObs );
+		super( SpType.OBSERVATION_LINK ) ;
+		linkTo( spObs ) ;
 	}
 
 	/**
@@ -36,17 +36,16 @@ public class SpObsLink extends SpItem
      */
 	public void linkTo( SpObs spObs )
 	{
-		Assert.notFalse( spObs.hasBeenNamed() );
+		Assert.notFalse( spObs.hasBeenNamed() ) ;
 
 		// Put a copy of the observation as this link's only child
-		SpItem spItem = spObs.deepCopy();
-		spItem.name( spObs.name() );
+		SpItem spItem = spObs.deepCopy() ;
+		spItem.name( spObs.name() ) ;
 
-		SpItem[] spItemA = { spItem };
-		insert( spItemA , null );
+		SpItem[] spItemA = { spItem } ;
+		insert( spItemA , null ) ;
 
 		// Add a ".target" attribute
-		_avTable.set( ".target" , spObs.name() );
+		_avTable.set( ".target" , spObs.name() ) ;
 	}
-
 }

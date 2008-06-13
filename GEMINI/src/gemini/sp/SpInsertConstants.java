@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * This interface is used in conjunction with the SpTreeMan class to define how
@@ -14,10 +14,9 @@ package gemini.sp;
  */
 public interface SpInsertConstants
 {
-
 	/** Insert as the first child of the referant. */
-	public static final int INS_INSIDE = 0;
+	public static final int INS_INSIDE = 0 ;
 
 	/** Insert after the referant as a sibling. */
-	public static final int INS_AFTER = 1;
+	public static final int INS_AFTER = 1 ;
 }

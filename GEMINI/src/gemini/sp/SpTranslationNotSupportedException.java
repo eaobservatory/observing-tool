@@ -1,16 +1,14 @@
-package gemini.sp;
+package gemini.sp ;
 
 public class SpTranslationNotSupportedException extends Exception
 {
-
 	public SpTranslationNotSupportedException()
 	{
-		super();
+		super() ;
 	}
 
 	public SpTranslationNotSupportedException( String message )
 	{
-		super( message );
+		super( message ) ;
 	}
-
 }

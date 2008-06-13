@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import gemini.util.TelescopePos;
+import gemini.util.TelescopePos ;
 
 /**
  * A data object that describes an offset position and includes methods for
@@ -16,20 +16,20 @@ public final class SpOffsetPos extends TelescopePos
 {
 
 	// The prefix of all SpOffsetPos tags
-	public static final String OFFSET_TAG = "Offset";
+	public static final String OFFSET_TAG = "Offset" ;
 
 	// Prefix for all sky offset tags
-	public static final String SKY_TAG = "SkyOffset";
+	public static final String SKY_TAG = "SkyOffset" ;
 
 	// Prefix for all guide offset tags
-	public static final String GUIDE_TAG = "GuideOffset";
+	public static final String GUIDE_TAG = "GuideOffset" ;
 
 	// Indices of the the fields of a position
-	public static final int XAXIS_INDEX = 0;
+	public static final int XAXIS_INDEX = 0 ;
 
-	public static final int YAXIS_INDEX = 1;
+	public static final int YAXIS_INDEX = 1 ;
 
-	private SpAvTable _avTab; // The table that holds this position
+	private SpAvTable _avTab ; // The table that holds this position
 
 	/**
      * Create a SpOffsetPos object, bound to an attribute with the same name as
@@ -37,22 +37,22 @@ public final class SpOffsetPos extends TelescopePos
      */
 	protected SpOffsetPos( SpAvTable avTab , String tag , SpOffsetPosList list )
 	{
-		super( tag , list );
-		_avTab = avTab;
+		super( tag , list ) ;
+		_avTab = avTab ;
 
 		if( avTab.exists( tag ) )
 		{
-			_xaxis = avTab.getDouble( tag , XAXIS_INDEX , 0.0 );
-			_yaxis = avTab.getDouble( tag , YAXIS_INDEX , 0.0 );
+			_xaxis = avTab.getDouble( tag , XAXIS_INDEX , 0.0 ) ;
+			_yaxis = avTab.getDouble( tag , YAXIS_INDEX , 0.0 ) ;
 		}
 		else
 		{
 			// Create a new (blank) position and a new attribute
-			_xaxis = 0.0;
-			_yaxis = 0.0;
+			_xaxis = 0.0 ;
+			_yaxis = 0.0 ;
 
-			avTab.set( tag , 0.0 , XAXIS_INDEX );
-			avTab.set( tag , 0.0 , YAXIS_INDEX );
+			avTab.set( tag , 0.0 , XAXIS_INDEX ) ;
+			avTab.set( tag , 0.0 , YAXIS_INDEX ) ;
 		}
 	}
 
@@ -62,7 +62,7 @@ public final class SpOffsetPos extends TelescopePos
      */
 	public boolean isOffsetPosition()
 	{
-		return true;
+		return true ;
 	}
 
 	/**
@@ -72,10 +72,10 @@ public final class SpOffsetPos extends TelescopePos
      */
 	public synchronized void noNotifySetXY( double xaxis , double yaxis )
 	{
-		_xaxis = xaxis;
-		_yaxis = yaxis;
-		_avTab.set( _tag , xaxis , XAXIS_INDEX );
-		_avTab.set( _tag , yaxis , YAXIS_INDEX );
+		_xaxis = xaxis ;
+		_yaxis = yaxis ;
+		_avTab.set( _tag , xaxis , XAXIS_INDEX ) ;
+		_avTab.set( _tag , yaxis , YAXIS_INDEX ) ;
 	}
 
 	/**
@@ -85,10 +85,10 @@ public final class SpOffsetPos extends TelescopePos
 	{
 		synchronized( this )
 		{
-			_avTab.set( _tag , xaxis , XAXIS_INDEX );
-			_avTab.set( _tag , yaxis , YAXIS_INDEX );
+			_avTab.set( _tag , xaxis , XAXIS_INDEX ) ;
+			_avTab.set( _tag , yaxis , YAXIS_INDEX ) ;
 		}
-		super.setXY( xaxis , yaxis );
+		super.setXY( xaxis , yaxis ) ;
 	}
 
 	/**
@@ -96,16 +96,16 @@ public final class SpOffsetPos extends TelescopePos
      */
 	public void setXY( String xaxis , String yaxis )
 	{
-		double x = 0.0;
-		double y = 0.0;
+		double x = 0. ;
+		double y = 0. ;
 		try
 		{
-			x = Double.valueOf( xaxis ).doubleValue();
-			y = Double.valueOf( yaxis ).doubleValue();
+			x = Double.valueOf( xaxis ) ;
+			y = Double.valueOf( yaxis ) ;
 		}
 		catch( Exception ex ){}
 
-		setXY( x , y );
+		setXY( x , y ) ;
 	}
 
 	/**
@@ -113,6 +113,6 @@ public final class SpOffsetPos extends TelescopePos
      */
 	public synchronized String toString()
 	{
-		return getClass().getName() + "[tag=" + _tag + ", xaxis=" + _xaxis + ", yaxis=" + _yaxis + "]";
+		return getClass().getName() + "[tag=" + _tag + ", xaxis=" + _xaxis + ", yaxis=" + _yaxis + "]" ;
 	}
 }

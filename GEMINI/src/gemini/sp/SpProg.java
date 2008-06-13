@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
-import java.util.Enumeration;
+import java.util.Enumeration ;
 
 /**
  * The science program item.
@@ -15,29 +15,29 @@ public class SpProg extends SpRootItem
 {
 
 	/** The PI (principal investigator) attribute. */
-	public static final String ATTR_PI = "pi";
+	public static final String ATTR_PI = "pi" ;
 
 	/** The country attribute. */
-	public static final String ATTR_COUNTRY = "country";
+	public static final String ATTR_COUNTRY = "country" ;
 
 	/** The project ID. */
-	public static final String ATTR_PROJECT_ID = "projectID";
+	public static final String ATTR_PROJECT_ID = "projectID" ;
 
 	/** The timestamp. */
-	public static final String ATTR_TIMESTAMP = ":timestamp";
+	public static final String ATTR_TIMESTAMP = ":timestamp" ;
 
 	// The Phase 1 proposal item. It stores all the information entered
 	// during the Phase 1 proposal definition.
-	private SpPhase1 _phase1Item;
+	private SpPhase1 _phase1Item ;
 
 	/**
      * Default constructor.
      */
 	protected SpProg()
 	{
-		super( SpType.SCIENCE_PROGRAM );
-		setTelescope();
-		setOTVersion();
+		super( SpType.SCIENCE_PROGRAM ) ;
+		setTelescope() ;
+		setOTVersion() ;
 	}
 
 	//
@@ -45,7 +45,7 @@ public class SpProg extends SpRootItem
 	//
 	void setPhase1Item( SpPhase1 p1 )
 	{
-		_phase1Item = p1;
+		_phase1Item = p1 ;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class SpProg extends SpRootItem
      */
 	public SpPhase1 getPhase1Item()
 	{
-		return _phase1Item;
+		return _phase1Item ;
 	}
 
 	/**
@@ -67,9 +67,9 @@ public class SpProg extends SpRootItem
 	public String getPI()
 	{
 		if( _avTable.get( ATTR_PI ) != null )
-			return _avTable.get( ATTR_PI );
+			return _avTable.get( ATTR_PI ) ;
 		else
-			return "";
+			return "" ;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class SpProg extends SpRootItem
      */
 	public void setPI( String pi )
 	{
-		_avTable.set( ATTR_PI , pi );
+		_avTable.set( ATTR_PI , pi ) ;
 	}
 
 	/**
@@ -92,9 +92,9 @@ public class SpProg extends SpRootItem
 	public String getCountry()
 	{
 		if( _avTable.get( ATTR_COUNTRY ) != null )
-			return _avTable.get( ATTR_COUNTRY );
+			return _avTable.get( ATTR_COUNTRY ) ;
 		else
-			return "";
+			return "" ;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class SpProg extends SpRootItem
      */
 	public void setCountry( String country )
 	{
-		_avTable.set( ATTR_COUNTRY , country );
+		_avTable.set( ATTR_COUNTRY , country ) ;
 	}
 
 	/**
@@ -117,9 +117,9 @@ public class SpProg extends SpRootItem
 	public String getProjectID()
 	{
 		if( _avTable.get( ATTR_PROJECT_ID ) != null )
-			return _avTable.get( ATTR_PROJECT_ID );
+			return _avTable.get( ATTR_PROJECT_ID ) ;
 		else
-			return "";
+			return "" ;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class SpProg extends SpRootItem
      */
 	public void setProjectID( String projectID )
 	{
-		_avTable.set( ATTR_PROJECT_ID , projectID );
+		_avTable.set( ATTR_PROJECT_ID , projectID ) ;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class SpProg extends SpRootItem
      */
 	public void setTimestamp( int timestamp )
 	{
-		_avTable.set( ATTR_TIMESTAMP , timestamp );
+		_avTable.set( ATTR_TIMESTAMP , timestamp ) ;
 	}
 
 	/**
@@ -147,41 +147,41 @@ public class SpProg extends SpRootItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
+		double elapsedTime = 0.0 ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
 				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getTotalTime();
+				elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
 			}
 			else if( spItem instanceof SpOR )
 			{
 				try
 				{
-					elapsedTime += ( ( SpAND )spItem ).getTotalTime();
+					elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
 				}
 				catch( Exception e )
 				{
 					// Ignore
 				}
-				elapsedTime += ( ( SpOR )spItem ).getTotalTime();
+				elapsedTime += ( ( SpOR )spItem ).getTotalTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
 			}
 		}
-		return elapsedTime;
+		return elapsedTime ;
 	}
 
 	/**
@@ -189,41 +189,41 @@ public class SpProg extends SpRootItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0;
-		Enumeration children = children();
-		SpItem spItem = null;
+		double elapsedTime = 0.0 ;
+		Enumeration children = children() ;
+		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement();
+			spItem = ( SpItem )children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
 				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() );
+					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpAND )spItem ).getElapsedTime() ;
 			}
 			else if( spItem instanceof SpOR )
 			{
-				elapsedTime += ( ( SpOR )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpOR )spItem ).getElapsedTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
 			}
 		}
 
-		return elapsedTime;
+		return elapsedTime ;
 	}
 
 	public void processXmlElementContent( String element , String value )
 	{
 		if( element.equals( ATTR_OT_VERSION ) )
-			setOTVersion();
+			setOTVersion() ;
 		else
-			super.processXmlElementContent( element , value );
+			super.processXmlElementContent( element , value ) ;
 	}
 }

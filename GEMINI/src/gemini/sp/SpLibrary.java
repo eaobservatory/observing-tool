@@ -4,22 +4,21 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * The library item.
  */
 public class SpLibrary extends SpRootItem
 {
-
 	/**
      * Default constructor. Initializes the SpLibrary with a default library
      * folder.
      */
 	protected SpLibrary()
 	{
-		super( SpType.LIBRARY );
-		setOTVersion();
+		super( SpType.LIBRARY ) ;
+		setOTVersion() ;
 	}
 
 	/**
@@ -27,16 +26,15 @@ public class SpLibrary extends SpRootItem
      */
 	protected SpLibrary( SpLibraryFolder lfPrototype )
 	{
-		this();
-		doInsert( lfPrototype , null );
+		this() ;
+		doInsert( lfPrototype , null ) ;
 	}
 
 	public void processXmlElementContent( String element , String value )
 	{
 		if( element.equals( ATTR_OT_VERSION ) )
-			setOTVersion();
+			setOTVersion() ;
 		else
-			super.processXmlElementContent( element , value );
+			super.processXmlElementContent( element , value ) ;
 	}
-
 }

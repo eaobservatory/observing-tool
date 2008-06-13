@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * An interface supported by clients of the SpEditState that wish to be notified
@@ -15,20 +15,19 @@ package gemini.sp;
  */
 public interface SpHierarchyChangeObserver
 {
-
 	/**
      * Notification that items have been added to a node in the program.
      */
-	public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild );
+	public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild ) ;
 
 	/**
      * Notification that items have been removed from a node in the program.
      */
-	public void spItemsRemoved( SpItem parent , SpItem[] children );
+	public void spItemsRemoved( SpItem parent , SpItem[] children ) ;
 
 	/**
      * Notification that items have been moved from a node in the program to
      * another node in the program.
      */
-	public void spItemsMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild );
+	public void spItemsMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild ) ;
 }

@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp;
+package gemini.sp ;
 
 /**
  * An interface that client data classes can support if they are cloneable.
@@ -14,10 +14,9 @@ package gemini.sp;
  */
 public interface SpCloneableClientData extends Cloneable
 {
-
 	/**
      * Clone the client data. The SpItem argument is the item that should be
      * associated with the new clone.
      */
-	public Object clone( SpItem spItem );
+	public Object clone( SpItem spItem ) ;
 }
