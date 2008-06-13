@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
 /**
  * The SpIterValue is a part of an SpIterStep. It describes the configuration of
@@ -13,19 +13,19 @@ package gemini.sp.iter;
  */
 public class SpIterValue implements java.io.Serializable
 {
-	public String attribute;
-	public String[] values;
+	public String attribute ;
+	public String[] values ;
 
 	public SpIterValue( String a , String v )
 	{
-		attribute = a;
-		values = new String[ 1 ];
-		values[ 0 ] = v;
+		attribute = a ;
+		values = new String[ 1 ] ;
+		values[ 0 ] = v ;
 	}
 
 	public SpIterValue( String a , String[] v )
 	{
-		attribute = a;
-		values = v;
+		attribute = a ;
+		values = v ;
 	}
 }

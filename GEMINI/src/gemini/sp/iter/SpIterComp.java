@@ -4,23 +4,22 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpType;
+import gemini.sp.SpItem ;
+import gemini.sp.SpType ;
 
 /**
  * This is the base class for all iterator Science Program components.
  */
 public abstract class SpIterComp extends SpItem
 {
-
 	/**
      * Construct with a subtype.
      */
 	public SpIterComp( SpType type )
 	{
-		super( type );
+		super( type ) ;
 	}
 
 	/**
@@ -28,11 +27,11 @@ public abstract class SpIterComp extends SpItem
      */
 	public String getTitle()
 	{
-		String title = type().getReadable();
-		String titleAttr = getTitleAttr();
+		String title = type().getReadable() ;
+		String titleAttr = getTitleAttr() ;
 		if( ( titleAttr != null ) && !( titleAttr.equals( "" ) ) )
-			title = title + ": " + titleAttr;
-		return title;
+			title = title + ": " + titleAttr ;
+		return title ;
 	}
 
 	/**
@@ -40,6 +39,5 @@ public abstract class SpIterComp extends SpItem
      * this enumeration to step through all the values that this iterator can
      * produce.
      */
-	public abstract SpIterEnumeration elements();
-
+	public abstract SpIterEnumeration elements() ;
 }

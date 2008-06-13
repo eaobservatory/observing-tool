@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpType;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpItem ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
 //
 // Defines the attributes used by the repeat iterator.
@@ -20,8 +20,8 @@ import java.util.Vector;
 interface SpIterRepeatConstants
 {
 
-	public static final String COUNT = "repeatCount";
-	public static final int COUNT_DEF = 1;
+	public static final String COUNT = "repeatCount" ;
+	public static final int COUNT_DEF = 1 ;
 }
 
 //
@@ -29,29 +29,29 @@ interface SpIterRepeatConstants
 //
 class SpIterRepeatEnumeration extends SpIterEnumeration implements SpIterRepeatConstants
 {
-	private int _curCount = 0;
-	private int _maxCount;
+	private int _curCount = 0 ;
+	private int _maxCount ;
 
 	SpIterRepeatEnumeration( SpIterRepeat iterRepeat )
 	{
-		super( iterRepeat );
-		_maxCount = iterRepeat.getCount();
+		super( iterRepeat ) ;
+		_maxCount = iterRepeat.getCount() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		SpIterValue siv = new SpIterValue( "loop" , String.valueOf( _curCount + 1 ) );
-		return new SpIterStep( "comment" , _curCount++ , _iterComp , siv );
+		SpIterValue siv = new SpIterValue( "loop" , String.valueOf( _curCount + 1 ) ) ;
+		return new SpIterStep( "comment" , _curCount++ , _iterComp , siv ) ;
 	}
 
 }
@@ -68,39 +68,39 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
      */
 	public SpIterRepeat()
 	{
-		super( SpType.ITERATOR_COMPONENT_REPEAT );
+		super( SpType.ITERATOR_COMPONENT_REPEAT ) ;
 
-		_avTable.noNotifySet( COUNT , String.valueOf( COUNT_DEF ) , 0 );
+		_avTable.noNotifySet( COUNT , String.valueOf( COUNT_DEF ) , 0 ) ;
 	}
 
 	/** Override getTitle to return the repeat count. */
 	public String getTitle()
 	{
-		return "Repeat (" + getCount() + "X)";
+		return "Repeat (" + getCount() + "X)" ;
 	}
 
 	/** Get the repeat count. */
 	public int getCount()
 	{
-		return _avTable.getInt( COUNT , COUNT_DEF );
+		return _avTable.getInt( COUNT , COUNT_DEF ) ;
 	}
 
 	/** Set the repeat count as an integer. */
 	public void setCount( int i )
 	{
-		_avTable.set( COUNT , i );
+		_avTable.set( COUNT , i ) ;
 	}
 
 	/** Set the repeat count as a String. */
 	public void setCount( String s )
 	{
-		_avTable.set( COUNT , s );
+		_avTable.set( COUNT , s ) ;
 	}
 
 	/** Enumerate the values of this iterator. */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterRepeatEnumeration( this );
+		return new SpIterRepeatEnumeration( this ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -115,7 +115,7 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
 		SpTranslatable previous = null ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpTranslatable )
 			{
 				translatable = ( SpTranslatable )child ;
@@ -134,9 +134,9 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
 		if( translatable != null  )
 			translatable.translateEpilog( childVector ) ;
 		
-		childVector.add( "breakPoint" );
+		childVector.add( "breakPoint" ) ;
 
 		for( int i = 0 ; i < getCount() ; i++ )
-			v.addAll( childVector );
+			v.addAll( childVector ) ;
 	}
 }

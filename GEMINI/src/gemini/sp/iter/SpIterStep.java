@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
 /**
  * A "data" holder that describes a single iteration step of an iterator. An
@@ -17,46 +17,45 @@ package gemini.sp.iter;
  */
 public class SpIterStep implements java.io.Serializable
 {
-
 	/** The title of the iteration step. */
-	public String title;
+	public String title ;
 
 	/** The iteration step number this step represents. */
-	public int stepCount;
+	public int stepCount ;
 
 	/**
      * The SpIterComp from which this step comes. Each step is associated with a
      * single SpIterComp.
      */
-	public SpIterComp item;
+	public SpIterComp item ;
 
 	/** Attribute/value set from this step. */
-	public SpIterValue[] values;
+	public SpIterValue[] values ;
 
 	private SpIterStep( String title , int stepCount , SpIterComp item )
 	{
-		this.title = title;
-		this.stepCount = stepCount;
-		this.item = item;
+		this.title = title ;
+		this.stepCount = stepCount ;
+		this.item = item ;
 	}
 
 	public SpIterStep( String title , int stepCount , SpIterComp item , SpIterValue[] values )
 	{
-		this( title , stepCount , item );
-		this.values = values;
+		this( title , stepCount , item ) ;
+		this.values = values ;
 	}
 
 	public SpIterStep( String title , int stepCount , SpIterComp item , SpIterValue value )
 	{
-		this( title , stepCount , item );
+		this( title , stepCount , item ) ;
 		if( value != null )
 		{
-			this.values = new SpIterValue[ 1 ];
-			this.values[ 0 ] = value;
+			this.values = new SpIterValue[ 1 ] ;
+			this.values[ 0 ] = value ;
 		}
 		else
 		{
-			this.values = new SpIterValue[ 0 ];
+			this.values = new SpIterValue[ 0 ] ;
 		}
 	}
 }

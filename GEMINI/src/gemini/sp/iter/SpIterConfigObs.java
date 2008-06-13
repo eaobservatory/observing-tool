@@ -4,11 +4,11 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpType;
-import gemini.sp.obsComp.SpInstConstants;
-import java.util.Vector;
+import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpInstConstants ;
+import java.util.Vector ;
 
 /**
  * A configuration iterator base class for iterators that include exposure time
@@ -16,13 +16,12 @@ import java.util.Vector;
  */
 public abstract class SpIterConfigObs extends SpIterConfigBase
 {
-
 	/**
      * Default constructor.
      */
 	public SpIterConfigObs( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -30,7 +29,7 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      */
 	protected IterConfigItem getExposureTimeConfigItem()
 	{
-		return new IterConfigItem( "Exp. Time" , SpInstConstants.ATTR_EXPOSURE_TIME + "Iter" );
+		return new IterConfigItem( "Exp. Time" , SpInstConstants.ATTR_EXPOSURE_TIME + "Iter" ) ;
 	}
 
 	/**
@@ -38,7 +37,7 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      */
 	protected IterConfigItem getCoaddsConfigItem()
 	{
-		return new IterConfigItem( "Coadds" , SpInstConstants.ATTR_COADDS + "Iter" , null );
+		return new IterConfigItem( "Coadds" , SpInstConstants.ATTR_COADDS + "Iter" , null ) ;
 	}
 
 	/**
@@ -47,7 +46,7 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      */
 	public Vector getExposureTimes()
 	{
-		return _avTable.getAll( SpInstConstants.ATTR_EXPOSURE_TIME + "Iter" );
+		return _avTable.getAll( SpInstConstants.ATTR_EXPOSURE_TIME + "Iter" ) ;
 	}
 
 	/**
@@ -56,7 +55,6 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      */
 	public Vector getCoadds()
 	{
-		return _avTable.getAll( SpInstConstants.ATTR_COADDS + "Iter" );
+		return _avTable.getAll( SpInstConstants.ATTR_COADDS + "Iter" ) ;
 	}
-
 }

@@ -8,36 +8,35 @@
 /* ============================================================== */
 // $Id$
 
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpType;
-import gemini.sp.SpFactory;
+import gemini.sp.SpType ;
+import gemini.sp.SpFactory ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * This class defines the Enumeration for SpIterChop.
  */
 class SpIterChopEnumeration extends SpIterEnumeration
 {
+	private SpIterChop _iterChop ;
 
-	private SpIterChop _iterChop;
+	private int _totalSteps ;
 
-	private int _totalSteps;
-
-	private int _curStep = 0;
+	private int _curStep = 0 ;
 
 	SpIterChopEnumeration( SpIterChop iterChop )
 	{
-		super( iterChop );
+		super( iterChop ) ;
 
-		_iterChop = iterChop;
-		_totalSteps = iterChop.getStepCount();
+		_iterChop = iterChop ;
+		_totalSteps = iterChop.getStepCount() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curStep < _totalSteps );
+		return( _curStep < _totalSteps ) ;
 	}
 
 	// Trim the "Iter" off the end of an iteration item attribute name.
@@ -45,35 +44,34 @@ class SpIterChopEnumeration extends SpIterEnumeration
 	{
 		if( attribute.endsWith( "Iter" ) )
 		{
-			int endIndex = attribute.length() - 4;
-			return attribute.substring( 0 , endIndex );
+			int endIndex = attribute.length() - 4 ;
+			return attribute.substring( 0 , endIndex ) ;
 		}
-		return attribute;
+		return attribute ;
 	}
 
 	// Get the chop step corresponding with the given step.
 	private SpIterValue[] _getChopValues( int stepIndex )
 	{
-		SpIterValue[] values = new SpIterValue[ 3 ];
+		SpIterValue[] values = new SpIterValue[ 3 ] ;
 
-		values[ 0 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_THROW ) , _iterChop.getThrowAsString( stepIndex ) );
-		values[ 1 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_ANGLE ) , _iterChop.getAngleAsString( stepIndex ) );
-		values[ 2 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_COORD_FRAME ) , _iterChop.getCoordFrame( stepIndex ) );
+		values[ 0 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_THROW ) , _iterChop.getThrowAsString( stepIndex ) ) ;
+		values[ 1 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_ANGLE ) , _iterChop.getAngleAsString( stepIndex ) ) ;
+		values[ 2 ] = new SpIterValue( _trimIter( SpIterChop.ATTR_COORD_FRAME ) , _iterChop.getCoordFrame( stepIndex ) ) ;
 
-		return values;
+		return values ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		SpIterValue[] values = _getChopValues( _curStep );
-		return new SpIterStep( "chop" , _curStep++ , _iterComp , values );
+		SpIterValue[] values = _getChopValues( _curStep ) ;
+		return new SpIterStep( "chop" , _curStep++ , _iterComp , values ) ;
 	}
-
 }
 
 /**
@@ -84,33 +82,32 @@ class SpIterChopEnumeration extends SpIterEnumeration
  */
 public class SpIterChop extends SpIterComp
 {
-
 	/**
      * Records a vector of chop throws.
      * 
      * Each vector element represents one chop iterator step.
      */
-	public static String ATTR_THROW = "THROW";
+	public static String ATTR_THROW = "THROW" ;
 
 	/**
      * Records a vector of chop angles.
      * 
      * Each vector element represents one chop iterator step.
      */
-	public static String ATTR_ANGLE = "PA";
+	public static String ATTR_ANGLE = "PA" ;
 
 	/**
      * Records a vector of chop coordinates frames.
      * 
      * Each vector element represents one chop iterator step.
      */
-	public static String ATTR_COORD_FRAME = "SYSTEM";
+	public static String ATTR_COORD_FRAME = "SYSTEM" ;
 
-	private static String _defaultThrow = "0.0";
+	private static String _defaultThrow = "0.0" ;
 
-	private static String _defaultAngle = "0.0";
+	private static String _defaultAngle = "0.0" ;
 
-	private static String _defaultCoordFrame = "";
+	private static String _defaultCoordFrame = "" ;
 
 	/**
      * Index of step that is currently selected in the chop iterator editor.
@@ -120,24 +117,24 @@ public class SpIterChop extends SpIterComp
      * needed for the XML representation of this iterator. And a change of the
      * selected step should not result in this item being marked as edited.
      */
-	private int _selectedIndex = -1;
+	private int _selectedIndex = -1 ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "chop" , "Chop" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "chop" , "Chop" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterChop() );
+		SpFactory.registerPrototype( new SpIterChop() ) ;
 	}
 
 	public SpIterChop()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	public SpIterEnumeration elements()
 	{
-		return new SpIterChopEnumeration( this );
+		return new SpIterChopEnumeration( this ) ;
 	}
 
 	/**
@@ -146,31 +143,31 @@ public class SpIterChop extends SpIterComp
 	public static void setChopDefaults( String[] chopDefaults )
 	{
 		if( chopDefaults == null )
-			return;
+			return ;
 		
 		if( chopDefaults.length > 0 )
-			_defaultThrow = chopDefaults[ 0 ];
+			_defaultThrow = chopDefaults[ 0 ] ;
 
 		if( chopDefaults.length > 1 )
-			_defaultAngle = chopDefaults[ 1 ];
+			_defaultAngle = chopDefaults[ 1 ] ;
 
 		if( chopDefaults.length > 2 )
-			_defaultCoordFrame = chopDefaults[ 2 ];
+			_defaultCoordFrame = chopDefaults[ 2 ] ;
 	}
 
 	public static String getDefaultThrow()
 	{
-		return _defaultThrow;
+		return _defaultThrow ;
 	}
 
 	public static String getDefaultAngle()
 	{
-		return _defaultAngle;
+		return _defaultAngle ;
 	}
 
 	public static String getDefaultCoordFrame()
 	{
-		return _defaultCoordFrame;
+		return _defaultCoordFrame ;
 	}
 
 	/**
@@ -180,93 +177,93 @@ public class SpIterChop extends SpIterComp
      */
 	public void addInitialStep()
 	{
-		_avTable.noNotifySet( ATTR_THROW , _defaultThrow , 0 );
-		_avTable.noNotifySet( ATTR_ANGLE , _defaultAngle , 0 );
-		_avTable.noNotifySet( ATTR_COORD_FRAME , _defaultCoordFrame , 0 );
+		_avTable.noNotifySet( ATTR_THROW , _defaultThrow , 0 ) ;
+		_avTable.noNotifySet( ATTR_ANGLE , _defaultAngle , 0 ) ;
+		_avTable.noNotifySet( ATTR_COORD_FRAME , _defaultCoordFrame , 0 ) ;
 	}
 
 	public double getThrow( int step )
 	{
-		return _avTable.getDouble( ATTR_THROW , step , 0.0 );
+		return _avTable.getDouble( ATTR_THROW , step , 0. ) ;
 	}
 
 	public String getThrowAsString( int step )
 	{
-		return _avTable.get( ATTR_THROW , step );
+		return _avTable.get( ATTR_THROW , step ) ;
 	}
 
 	public void setThrow( String throwValue , int step )
 	{
-		_avTable.set( ATTR_THROW , throwValue , step );
+		_avTable.set( ATTR_THROW , throwValue , step ) ;
 	}
 
 	public void setThrow( double throwValue , int step )
 	{
-		_avTable.set( ATTR_THROW , Math.rint( throwValue * 10.0 ) / 10.0 , step );
+		_avTable.set( ATTR_THROW , Math.rint( throwValue * 10. ) / 10. , step ) ;
 	}
 
 	public double getAngle( int step )
 	{
-		return _avTable.getDouble( ATTR_ANGLE , step , 0.0 );
+		return _avTable.getDouble( ATTR_ANGLE , step , 0. ) ;
 	}
 
 	public String getAngleAsString( int step )
 	{
-		return _avTable.get( ATTR_ANGLE , step );
+		return _avTable.get( ATTR_ANGLE , step ) ;
 	}
 
 	public void setAngle( String angle , int step )
 	{
-		_avTable.set( ATTR_ANGLE , angle , step );
+		_avTable.set( ATTR_ANGLE , angle , step ) ;
 	}
 
 	public void setAngle( double angle , int step )
 	{
-		_avTable.set( ATTR_ANGLE , Math.rint( angle * 10.0 ) / 10.0 , step );
+		_avTable.set( ATTR_ANGLE , Math.rint( angle * 10. ) / 10. , step ) ;
 	}
 
 	public String getCoordFrame( int step )
 	{
-		return _avTable.get( ATTR_COORD_FRAME , step );
+		return _avTable.get( ATTR_COORD_FRAME , step ) ;
 	}
 
 	public void setCoordFrame( String coordFrame , int step )
 	{
-		_avTable.set( ATTR_COORD_FRAME , coordFrame , step );
+		_avTable.set( ATTR_COORD_FRAME , coordFrame , step ) ;
 	}
 
 	public int getSelectedIndex()
 	{
-		return _selectedIndex;
+		return _selectedIndex ;
 	}
 
 	public void setSelectedIndex( int selectedIndex )
 	{
-		_selectedIndex = selectedIndex;
+		_selectedIndex = selectedIndex ;
 	}
 
 	public Vector getStep( int i )
 	{
 		if( getThrowAsString( i ) == null )
-			return null;
+			return null ;
 
-		Vector result = new Vector();
+		Vector result = new Vector() ;
 
-		result.add( getThrowAsString( i ) );
-		result.add( getAngleAsString( i ) );
-		result.add( getCoordFrame( i ) );
+		result.add( getThrowAsString( i ) ) ;
+		result.add( getAngleAsString( i ) ) ;
+		result.add( getCoordFrame( i ) ) ;
 
-		return result;
+		return result ;
 	}
 
 	public Vector[] getAllSteps()
 	{
-		Vector[] result = new Vector[ getStepCount() ];
+		Vector[] result = new Vector[ getStepCount() ] ;
 
 		for( int i = 0 ; i < getStepCount() ; i++ )
-			result[ i ] = getStep( i );
+			result[ i ] = getStep( i ) ;
 
-		return result;
+		return result ;
 	}
 
 	public int getStepCount()
@@ -274,7 +271,7 @@ public class SpIterChop extends SpIterComp
 		int size = 0 ;
 		try
 		{
-			size = _avTable.getAll( ATTR_THROW ).size();
+			size = _avTable.getAll( ATTR_THROW ).size() ;
 		}
 		catch( Exception e ){}
 		return size ;
@@ -293,17 +290,17 @@ public class SpIterChop extends SpIterComp
 		if( avAttr.equals( ATTR_THROW ) )
 		{
 			// Append <SECONDARY> element.
-			xmlBuffer.append( "\n" + indent + "  <SECONDARY>" );
+			xmlBuffer.append( "\n" + indent + "  <SECONDARY>" ) ;
 
 			for( int i = 0 ; i < getStepCount() ; i++ )
 			{
-				xmlBuffer.append( "\n" + indent + "    <CHOP " + ATTR_COORD_FRAME + "=\"" + getCoordFrame( i ) + "\">" );
-				xmlBuffer.append( "\n" + indent + "      <" + ATTR_THROW + ">" + getThrow( i ) + "</" + ATTR_THROW + ">" );
-				xmlBuffer.append( "\n" + indent + "      <" + ATTR_ANGLE + ">" + getAngle( i ) + "</" + ATTR_ANGLE + ">" );
-				xmlBuffer.append( "\n" + indent + "    </CHOP>" );
+				xmlBuffer.append( "\n" + indent + "    <CHOP " + ATTR_COORD_FRAME + "=\"" + getCoordFrame( i ) + "\">" ) ;
+				xmlBuffer.append( "\n" + indent + "      <" + ATTR_THROW + ">" + getThrow( i ) + "</" + ATTR_THROW + ">" ) ;
+				xmlBuffer.append( "\n" + indent + "      <" + ATTR_ANGLE + ">" + getAngle( i ) + "</" + ATTR_ANGLE + ">" ) ;
+				xmlBuffer.append( "\n" + indent + "    </CHOP>" ) ;
 			}
 
-			xmlBuffer.append( "\n" + indent + "  </SECONDARY>" );
+			xmlBuffer.append( "\n" + indent + "  </SECONDARY>" ) ;
 		}
 		else if( !avAttr.equals( ATTR_ANGLE ) && !avAttr.startsWith( ATTR_COORD_FRAME ) )
 		{
@@ -319,21 +316,21 @@ public class SpIterChop extends SpIterComp
 		{
 			if( name.equals( ATTR_THROW ) )
 			{
-				int n = 0;
+				int n = 0 ;
 	
 				if( _avTable.getAll( ATTR_THROW ) != null )
-					n = _avTable.getAll( ATTR_THROW ).size();
+					n = _avTable.getAll( ATTR_THROW ).size() ;
 	
-				_avTable.noNotifySet( ATTR_THROW , value , n );
+				_avTable.noNotifySet( ATTR_THROW , value , n ) ;
 			}
 			else if( name.equals( ATTR_ANGLE ) )
 			{
-				int n = 0;
+				int n = 0 ;
 	
 				if( _avTable.getAll( ATTR_ANGLE ) != null )
-					n = _avTable.getAll( ATTR_ANGLE ).size();
+					n = _avTable.getAll( ATTR_ANGLE ).size() ;
 	
-				_avTable.noNotifySet( ATTR_ANGLE , value , n );
+				_avTable.noNotifySet( ATTR_ANGLE , value , n ) ;
 			}
 			else
 			{
@@ -347,16 +344,16 @@ public class SpIterChop extends SpIterComp
 		// Check for coordinate frame (system) in <CHOP SYSTEM="system">
 		if( elementName.equals( "CHOP" ) && attributeName.equals( ATTR_COORD_FRAME ) )
 		{
-			int n = 0;
+			int n = 0 ;
 
 			if( _avTable.getAll( ATTR_COORD_FRAME ) != null )
-				n = _avTable.getAll( ATTR_COORD_FRAME ).size();
+				n = _avTable.getAll( ATTR_COORD_FRAME ).size() ;
 
-			_avTable.noNotifySet( ATTR_COORD_FRAME , value , n );
+			_avTable.noNotifySet( ATTR_COORD_FRAME , value , n ) ;
 		}
 		else
 		{
-			super.processXmlAttribute( elementName , attributeName , value );
+			super.processXmlAttribute( elementName , attributeName , value ) ;
 		}
 	}
 }

@@ -4,26 +4,26 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpAvTable;
-import gemini.sp.SpOffsetPos;
-import gemini.sp.SpOffsetPosList;
-import gemini.sp.SpType;
-import gemini.sp.SpItem;
-import gemini.sp.SpPosAngleObserver;
-import gemini.sp.SpObsData;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpOffsetPos ;
+import gemini.sp.SpOffsetPosList ;
+import gemini.sp.SpType ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpPosAngleObserver ;
+import gemini.sp.SpObsData ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
 
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.util.MathUtil;
-import gemini.util.TelescopePos;
+import gemini.util.MathUtil ;
+import gemini.util.TelescopePos ;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
 //
 // The Enumeration of the steps produced by the Offset iterator.
@@ -31,31 +31,31 @@ import java.util.Vector;
 class SpIterOffsetEnumeration extends SpIterEnumeration
 {
 
-	private TelescopePos[] _positions;
+	private TelescopePos[] _positions ;
 
-	private int _curIndex = 0;
+	private int _curIndex = 0 ;
 
 	SpIterOffsetEnumeration( SpIterOffset iterComp )
 	{
-		super( iterComp );
-		_positions = iterComp.getPosList().getAllPositions();
+		super( iterComp ) ;
+		_positions = iterComp.getPosList().getAllPositions() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curIndex < _positions.length );
+		return( _curIndex < _positions.length ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		SpOffsetPos op = ( SpOffsetPos )_positions[ _curIndex ];
-		SpIterValue[] sivA = { new SpIterValue( "p" , String.valueOf( op.getXaxis() ) ) , new SpIterValue( "q" , String.valueOf( op.getYaxis() ) ) };
-		return new SpIterStep( ( ( SpIterOffset )_iterComp ).title_offset() , _curIndex++ , _iterComp , sivA );
+		SpOffsetPos op = ( SpOffsetPos )_positions[ _curIndex ] ;
+		SpIterValue[] sivA = { new SpIterValue( "p" , String.valueOf( op.getXaxis() ) ) , new SpIterValue( "q" , String.valueOf( op.getYaxis() ) ) } ;
+		return new SpIterStep( ( ( SpIterOffset )_iterComp ).title_offset() , _curIndex++ , _iterComp , sivA ) ;
 	}
 
 }
@@ -76,14 +76,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      * Note that this is <b>not</b> the SpObsData object that is returned by
      * getObsData().
      */
-	private SpObsData _posAngleObsData = new SpObsData();
+	private SpObsData _posAngleObsData = new SpObsData() ;
 
 	/**
      * The position list uses the attributes and values contained in this
      * SpItem's attribute table to construct and maintain a list of offset
      * positions.
      */
-	protected SpOffsetPosList _posList;
+	protected SpOffsetPosList _posList ;
 
 	/** Needed for XML parsing. */
 	private double xOffNew = 0. ;
@@ -92,19 +92,19 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	private double yOffNew = 0. ;
 
 	// Number of named sky children associated
-	private boolean _hasNamedSkyChild = false;
+	private boolean _hasNamedSkyChild = false ;
 
 	/**
      * Default constructor.
      */
 	public SpIterOffset()
 	{
-		super( SpType.ITERATOR_COMPONENT_OFFSET );
+		super( SpType.ITERATOR_COMPONENT_OFFSET ) ;
 	}
 
 	protected SpIterOffset( SpType spType )
 	{
-		super( spType );
+		super( spType ) ;
 	}
 
 	/**
@@ -123,11 +123,11 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	public SpOffsetPosList getPosList()
 	{
 		// See comment above
-		_posList = new SpOffsetPosList( _avTable );
+		_posList = new SpOffsetPosList( _avTable ) ;
 		if( _posList.size() == 0 )
-			_posList.createPosition( 0. , 0. );
+			_posList.createPosition( 0. , 0. ) ;
 
-		return _posList;
+		return _posList ;
 	}
 
 	/**
@@ -144,34 +144,34 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	public SpOffsetPosList getCurrentPosList()
 	{
 		if( _posList == null )
-			_posList = new SpOffsetPosList( _avTable );
+			_posList = new SpOffsetPosList( _avTable ) ;
 
-		return _posList;
+		return _posList ;
 	}
 
 	/** Get the Position Angle. */
 	public double getPosAngle()
 	{
-		return getCurrentPosList().getPosAngle();
+		return getCurrentPosList().getPosAngle() ;
 	}
 
 	/** Set the Position Angle as double. */
 	public void setPosAngle( double pa )
 	{
-		getCurrentPosList().setPosAngle( pa );
+		getCurrentPosList().setPosAngle( pa ) ;
 
-		_posAngleObsData.setPosAngle( pa );
+		_posAngleObsData.setPosAngle( pa ) ;
 
 		// SdW - Look for children which implement implement SpPosAngleObserver
-		Enumeration e = children();
+		Enumeration e = children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
-			Class[] interfaces = child.getClass().getInterfaces();
+			SpItem child = ( SpItem )e.nextElement() ;
+			Class[] interfaces = child.getClass().getInterfaces() ;
 			for( int i = 0 ; i < interfaces.length ; i++ )
 			{
 				if( interfaces[ i ].getName().indexOf( "SpPosAngleObserver" ) != -1 )
-					( ( SpPosAngleObserver )child ).posAngleUpdate( pa );
+					( ( SpPosAngleObserver )child ).posAngleUpdate( pa ) ;
 			}
 		}
 		// END
@@ -194,7 +194,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public void addPosAngleObserver( SpPosAngleObserver pao )
 	{
-		_posAngleObsData.addPosAngleObserver( pao );
+		_posAngleObsData.addPosAngleObserver( pao ) ;
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public void deletePosAngleObserver( SpPosAngleObserver pao )
 	{
-		_posAngleObsData.deletePosAngleObserver( pao );
+		_posAngleObsData.deletePosAngleObserver( pao ) ;
 	}
 
 	/**
@@ -214,10 +214,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		for( int i = 0 ; i < newChildren.length ; i++ )
 		{
 			if( newChildren[ i ] instanceof SpPosAngleObserver )
-				addPosAngleObserver( ( SpPosAngleObserver )newChildren[ i ] );
+				addPosAngleObserver( ( SpPosAngleObserver )newChildren[ i ] ) ;
 		}
 
-		super.insert( newChildren , afterChild );
+		super.insert( newChildren , afterChild ) ;
 	}
 
 	/**
@@ -226,9 +226,9 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	protected void setTable( SpAvTable avTab )
 	{
-		super.setTable( avTab );
+		super.setTable( avTab ) ;
 		if( _posList != null )
-			_posList.setTable( avTab );
+			_posList.setTable( avTab ) ;
 	}
 
 	/**
@@ -237,9 +237,9 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	protected void replaceTable( SpAvTable avTab )
 	{
-		super.replaceTable( avTab );
+		super.replaceTable( avTab ) ;
 		if( _posList != null )
-			_posList.setTable( avTab );
+			_posList.setTable( avTab ) ;
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterOffsetEnumeration( this );
+		return new SpIterOffsetEnumeration( this ) ;
 	}
 
 	/**
@@ -261,14 +261,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public boolean containsNestedOffsets()
 	{
-		Enumeration e = children();
+		Enumeration e = children() ;
 		while( e.hasMoreElements() )
 		{
 			if( e.nextElement() instanceof SpIterOffset )
-				return true;
+				return true ;
 		}
 
-		return false;
+		return false ;
 	}
 
 	/**
@@ -279,14 +279,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public boolean containsMicroSteps()
 	{
-		Enumeration e = children();
+		Enumeration e = children() ;
 		while( e.hasMoreElements() )
 		{
 			if( e.nextElement() instanceof SpIterMicroStep )
-				return true;
+				return true ;
 		}
 
-		return false;
+		return false ;
 	}
 
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
@@ -302,37 +302,37 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 
 		// Ignore any sky offsets
 		if( avAttr.equals( SpOffsetPosList.SKY_POS_LIST ) )
-			return;
+			return ;
 
 		if( avAttr.equals( SpOffsetPosList.GUIDE_POS_LIST ) )
-			return;
+			return ;
 
 		if( avAttr.equals( SpOffsetPosList.OFFSET_POS_LIST ) )
 		{
 			// Append <obsArea> element.
-			xmlBuffer.append( "\n" + indent + "  <obsArea>" );
-			xmlBuffer.append( "\n" + indent + "    <PA>" + getPosAngle() + "</PA>" );
+			xmlBuffer.append( "\n" + indent + "  <obsArea>" ) ;
+			xmlBuffer.append( "\n" + indent + "    <PA>" + getPosAngle() + "</PA>" ) ;
 
 			for( int i = 0 ; i < _posList.size() ; i++ )
 			{
-				xmlBuffer.append( "\n" + indent + "    <OFFSET>" );
-				xmlBuffer.append( "\n" + indent + "      <DC1>" + _posList.getPositionAt( i ).getXaxis() + "</DC1>" );
-				xmlBuffer.append( "\n" + indent + "      <DC2>" + _posList.getPositionAt( i ).getYaxis() + "</DC2>" );
-				xmlBuffer.append( "\n" + indent + "    </OFFSET>" );
+				xmlBuffer.append( "\n" + indent + "    <OFFSET>" ) ;
+				xmlBuffer.append( "\n" + indent + "      <DC1>" + _posList.getPositionAt( i ).getXaxis() + "</DC1>" ) ;
+				xmlBuffer.append( "\n" + indent + "      <DC2>" + _posList.getPositionAt( i ).getYaxis() + "</DC2>" ) ;
+				xmlBuffer.append( "\n" + indent + "    </OFFSET>" ) ;
 			}
 
-			xmlBuffer.append( "\n" + indent + "  </obsArea>" );
+			xmlBuffer.append( "\n" + indent + "  </obsArea>" ) ;
 
-			return;
+			return ;
 		}
 
 		if( avAttr.equals( SpOffsetPosList.ATTR_POS_ANGLE ) || avAttr.startsWith( SpOffsetPos.OFFSET_TAG ) || avAttr.startsWith( SpOffsetPos.SKY_TAG ) || avAttr.startsWith( SpOffsetPos.GUIDE_TAG ) )
 		{
 			// Ignore. Dealt with in <obsArea> element (see above).
-			return;
+			return ;
 		}
 
-		super.processAvAttribute( avAttr , indent , xmlBuffer );
+		super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
 	}
 
 	public void processXmlElementContent( String name , String value )
@@ -342,19 +342,19 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 			if( name.equals( "PA" ) )
 			{
 				// Added by SdW - allows posAngle in target attribute to override that supplied if it exists...
-				SpInstObsComp inst = SpTreeMan.findInstrument( this );
+				SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 				if( inst != null && inst.getPosAngleDegrees() != 0. )
-					value = inst.getPosAngleDegreesStr();
+					value = inst.getPosAngleDegreesStr() ;
 	
 				// END
-				setPosAngle( value );
+				setPosAngle( value ) ;
 			}
 			else if( name.equals( "DC1" ) )
 			{
 				xOffNew = 0. ;
 				try
 				{
-					xOffNew = Double.parseDouble( value );
+					xOffNew = Double.parseDouble( value ) ;
 				}
 				catch( Exception e ){}
 			}
@@ -363,7 +363,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 				yOffNew = 0. ;
 				try
 				{
-					yOffNew = Double.parseDouble( value );
+					yOffNew = Double.parseDouble( value ) ;
 				}
 				catch( Exception e ){}
 			}
@@ -378,14 +378,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	{
 		if( name.equals( "OFFSET" ) )
 		{
-			_posList.createPosition( xOffNew , yOffNew );
+			_posList.createPosition( xOffNew , yOffNew ) ;
 			xOffNew = 0. ;
 			yOffNew = 0. ;
 		}
 		else if( name.equals( "obsArea" ) )
 		{
 			// save() just means reset() in this context.
-			getAvEditFSM().save();
+			getAvEditFSM().save() ;
 		}
 		else
 		{
@@ -395,34 +395,34 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 
 	public String title_offset()
 	{
-		return "offset";
+		return "offset" ;
 	}
 
 	public void setNamedSkyChild( boolean exists )
 	{
-		_hasNamedSkyChild = true;
+		_hasNamedSkyChild = true ;
 	}
 
 	public boolean hasNamedSkyChild()
 	{
-		return _hasNamedSkyChild;
+		return _hasNamedSkyChild ;
 	}
 
 	public int getNumIterObserveChildren( SpItem item )
 	{
-		int n = 0;
+		int n = 0 ;
 
-		Enumeration e = item.children();
+		Enumeration e = item.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( child instanceof SpIterFolder )
-				n += getNumIterObserveChildren( child );
+				n += getNumIterObserveChildren( child ) ;
 			else if( child instanceof SpIterObserveBase )
 				n++ ;
 		}
 
-		return n;
+		return n ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -432,14 +432,14 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// If this has a microstep iterator child, we will delegate to it and not put offsets here
-		Enumeration children = this.children();
-		boolean hasMicrostepChild = false;
+		Enumeration children = this.children() ;
+		boolean hasMicrostepChild = false ;
 		while( children.hasMoreElements() )
 		{
 			if( children.nextElement() instanceof SpIterMicroStep )
 			{
-				hasMicrostepChild = true;
-				break;
+				hasMicrostepChild = true ;
+				break ;
 			}
 		}
 
@@ -447,10 +447,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		SpTranslatable previous = null ;
 		if( hasMicrostepChild )
 		{
-			children = this.children();
+			children = this.children() ;
 			while( children.hasMoreElements() )
 			{
-				SpItem child = ( SpItem )children.nextElement();
+				SpItem child = ( SpItem )children.nextElement() ;
 				if( child instanceof SpTranslatable )
 				{
 					translatable = ( SpTranslatable )child ;
@@ -472,10 +472,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 			for( int i = 0 ; i < _posList.size() ; i++ )
 			{
 				boolean firstRun = true ;
-				children = this.children();
+				children = this.children() ;
 				while( children.hasMoreElements() )
 				{
-					SpItem child = ( SpItem )children.nextElement();
+					SpItem child = ( SpItem )children.nextElement() ;
 					if( child instanceof SpTranslatable )
 					{
 						translatable = ( SpTranslatable )child ;

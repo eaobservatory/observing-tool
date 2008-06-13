@@ -4,10 +4,10 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpType;
-import java.util.Vector;
+import gemini.sp.SpType ;
+import java.util.Vector ;
 
 //
 // This class defines the Enumeration for all SpIterConfigBase subclasses.
@@ -17,27 +17,26 @@ import java.util.Vector;
 //
 class SpIterConfigEnumeration extends SpIterEnumeration
 {
+	private SpIterConfigBase _iterConfig ;
 
-	private SpIterConfigBase _iterConfig;
+	private Vector _configItemAttr ;
 
-	private Vector _configItemAttr;
+	private int _totalSteps ;
 
-	private int _totalSteps;
-
-	private int _curStep = 0;
+	private int _curStep = 0 ;
 
 	SpIterConfigEnumeration( SpIterConfigBase iterConfig )
 	{
-		super( iterConfig );
+		super( iterConfig ) ;
 
-		_iterConfig = iterConfig;
-		_configItemAttr = iterConfig.getConfigAttribs();
-		_totalSteps = iterConfig.getConfigStepCount();
+		_iterConfig = iterConfig ;
+		_configItemAttr = iterConfig.getConfigAttribs() ;
+		_totalSteps = iterConfig.getConfigStepCount() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return ( _configItemAttr != null ) && ( _configItemAttr.size() > 0 ) && ( _curStep < _totalSteps );
+		return ( _configItemAttr != null ) && ( _configItemAttr.size() > 0 ) && ( _curStep < _totalSteps ) ;
 	}
 
 	// Trim the "Iter" off the end of an iteration item attribute name.
@@ -45,38 +44,38 @@ class SpIterConfigEnumeration extends SpIterEnumeration
 	{
 		if( attribute.endsWith( "Iter" ) )
 		{
-			int endIndex = attribute.length() - 4;
-			return attribute.substring( 0 , endIndex );
+			int endIndex = attribute.length() - 4 ;
+			return attribute.substring( 0 , endIndex ) ;
 		}
-		return attribute;
+		return attribute ;
 	}
 
 	// Get the configuration step corresponding with the given step.
 	private SpIterValue[] _getConfigValues( int stepIndex )
 	{
-		String attr , val;
+		String attr , val ;
 
-		SpIterValue[] values = new SpIterValue[ _configItemAttr.size() ];
+		SpIterValue[] values = new SpIterValue[ _configItemAttr.size() ] ;
 
 		for( int i = 0 ; i < _configItemAttr.size() ; ++i )
 		{
-			attr = ( String )_configItemAttr.elementAt( i );
-			val = _iterConfig.getConfigStep( attr , stepIndex );
-			values[ i ] = new SpIterValue( _trimIter( attr ) , val );
+			attr = ( String )_configItemAttr.elementAt( i ) ;
+			val = _iterConfig.getConfigStep( attr , stepIndex ) ;
+			values[ i ] = new SpIterValue( _trimIter( attr ) , val ) ;
 		}
 
-		return values;
+		return values ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		SpIterValue[] values = _getConfigValues( _curStep );
-		return new SpIterStep( "config" , _curStep++ , _iterComp , values );
+		SpIterValue[] values = _getConfigValues( _curStep ) ;
+		return new SpIterStep( "config" , _curStep++ , _iterComp , values ) ;
 	}
 
 }
@@ -97,7 +96,7 @@ public abstract class SpIterConfigBase extends SpIterComp
      * { filterIter , integrationTimeIter }
      * </pre>.
      */
-	public static final String ATTR_ITER_ATTRIBUTES = "iterConfigList";
+	public static final String ATTR_ITER_ATTRIBUTES = "iterConfigList" ;
 
 	/**
      * The array of configuration items offered by this iterator. This must be
@@ -106,26 +105,26 @@ public abstract class SpIterConfigBase extends SpIterComp
      * 
      * @see #getAvailableItems()
      */
-	protected IterConfigItem[] _iterConfigItems;
+	protected IterConfigItem[] _iterConfigItems ;
 
 	/**
      * Constructor.
      */
 	public SpIterConfigBase( SpType spType )
 	{
-		super( spType );
-		_iterConfigItems = getAvailableItems();
+		super( spType ) ;
+		_iterConfigItems = getAvailableItems() ;
 	}
 
 	/**
      * Get the name of the item being iterated over. Subclasses must define.
      */
-	public abstract String getItemName();
+	public abstract String getItemName() ;
 
 	/**
      * Get an array containing the IterConfigItems offered by this iterator.
      */
-	public abstract IterConfigItem[] getAvailableItems();
+	public abstract IterConfigItem[] getAvailableItems() ;
 
 	/**
      * Get the IterConfigItem that corresponds with the given attribute.
@@ -135,9 +134,9 @@ public abstract class SpIterConfigBase extends SpIterComp
 		for( int i = 0 ; i < _iterConfigItems.length ; ++i )
 		{
 			if( _iterConfigItems[ i ].attribute.equals( attribute ) )
-				return _iterConfigItems[ i ];
+				return _iterConfigItems[ i ] ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -145,7 +144,7 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public Vector getConfigAttribs()
 	{
-		return _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		return _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 	}
 
 	/**
@@ -153,7 +152,7 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public Vector getConfigSteps( String attribute )
 	{
-		return _avTable.getAll( attribute );
+		return _avTable.getAll( attribute ) ;
 	}
 
 	/**
@@ -161,7 +160,7 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public String getConfigStep( String attribute , int index )
 	{
-		return _avTable.get( attribute , index );
+		return _avTable.get( attribute , index ) ;
 	}
 
 	/**
@@ -169,7 +168,7 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void setConfigStep( String attribute , String value , int index )
 	{
-		_avTable.set( attribute , value , index );
+		_avTable.set( attribute , value , index ) ;
 	}
 
 	/**
@@ -183,7 +182,7 @@ public abstract class SpIterConfigBase extends SpIterComp
 		 * So just use the first attribute in the list.
 		 */
 		
-		String firstAttrib = _avTable.get( ATTR_ITER_ATTRIBUTES , 0 );
+		String firstAttrib = _avTable.get( ATTR_ITER_ATTRIBUTES , 0 ) ;
 		if( firstAttrib == null )
 			return 0 ;
 
@@ -195,9 +194,9 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void addConfigItem( IterConfigItem ici , int size )
 	{
-		_avTable.add( ATTR_ITER_ATTRIBUTES , ici.attribute );
-		_avTable.setAll( ici.attribute , new Vector() );
-		_avTable.setSize( ici.attribute , size );
+		_avTable.add( ATTR_ITER_ATTRIBUTES , ici.attribute ) ;
+		_avTable.setAll( ici.attribute , new Vector() ) ;
+		_avTable.setSize( ici.attribute , size ) ;
 	}
 
 	/**
@@ -205,17 +204,17 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void deleteConfigItem( String attribute )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
+			String a = ( String )v.elementAt( i ) ;
 			if( a.equals( attribute ) )
 			{
-				_avTable.rm( ATTR_ITER_ATTRIBUTES , i );
-				break;
+				_avTable.rm( ATTR_ITER_ATTRIBUTES , i ) ;
+				break ;
 			}
 		}
-		_avTable.rm( attribute );
+		_avTable.rm( attribute ) ;
 	}
 
 	/**
@@ -224,11 +223,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void insertConfigStep( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.insertAt( a , "" , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.insertAt( a , "" , index ) ;
 		}
 	}
 
@@ -237,11 +236,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void deleteConfigStep( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.rm( a , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.rm( a , index ) ;
 		}
 	}
 
@@ -250,11 +249,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void configStepToFirst( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.indexToFirst( a , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.indexToFirst( a , index ) ;
 		}
 	}
 
@@ -263,11 +262,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void configStepDecrement( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.decrementIndex( a , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.decrementIndex( a , index ) ;
 		}
 	}
 
@@ -276,11 +275,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void configStepIncrement( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.incrementIndex( a , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.incrementIndex( a , index ) ;
 		}
 	}
 
@@ -289,11 +288,11 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public void configStepToLast( int index )
 	{
-		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES );
+		Vector v = _avTable.getAll( ATTR_ITER_ATTRIBUTES ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i );
-			_avTable.indexToLast( a , index );
+			String a = ( String )v.elementAt( i ) ;
+			_avTable.indexToLast( a , index ) ;
 		}
 	}
 
@@ -302,7 +301,6 @@ public abstract class SpIterConfigBase extends SpIterComp
      */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterConfigEnumeration( this );
+		return new SpIterConfigEnumeration( this ) ;
 	}
-
 }

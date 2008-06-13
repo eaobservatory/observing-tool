@@ -4,21 +4,21 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.lang.reflect.Field ;
+import java.lang.reflect.InvocationTargetException ;
+import java.lang.reflect.Method ;
+import java.util.Enumeration ;
+import java.util.Vector ;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpType;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
+import gemini.sp.SpItem ;
+import gemini.sp.SpType ;
+import gemini.sp.SpTranslatable ;
+import gemini.sp.SpTranslationNotSupportedException ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpInstObsComp.IterationTracker ;
 
 /**
  * The Iterator Folder (or "Sequence") item. The job of the folder is to hold
@@ -38,7 +38,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
      */
 	public SpIterFolder()
 	{
-		super( SpType.SEQUENCE );
+		super( SpType.SEQUENCE ) ;
 	}
 
 	/**
@@ -53,22 +53,22 @@ public class SpIterFolder extends SpItem implements SpTranslatable
      */
 	public Vector compile()
 	{
-		Vector code = new Vector();
+		Vector code = new Vector() ;
 
-		Enumeration e = children();
+		Enumeration e = children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement();
+			SpItem child = ( SpItem )e.nextElement() ;
 			if( !( child instanceof SpIterComp ) )
-				continue;
+				continue ;
 
-			SpIterComp sic = ( SpIterComp )child;
+			SpIterComp sic = ( SpIterComp )child ;
 
-			SpIterEnumeration sie = sic.elements();
+			SpIterEnumeration sie = sic.elements() ;
 			while( sie.hasMoreElements() )
-				code.addElement( sie.nextElement() );
+				code.addElement( sie.nextElement() ) ;
 		}
-		return code;
+		return code ;
 	}
 
 	/**
@@ -76,98 +76,98 @@ public class SpIterFolder extends SpItem implements SpTranslatable
      */
 	public void printSummary()
 	{
-		Enumeration e = children();
+		Enumeration e = children() ;
 		while( e.hasMoreElements() )
 		{
-			SpIterComp sic = ( SpIterComp )e.nextElement();
+			SpIterComp sic = ( SpIterComp )e.nextElement() ;
 
-			System.out.println( "#########" );
-			SpIterEnumeration sie = sic.elements();
+			System.out.println( "#########" ) ;
+			SpIterEnumeration sie = sic.elements() ;
 			while( sie.hasMoreElements() )
 			{
-				System.out.println( "----------" );
-				Vector v = ( Vector )sie.nextElement();
+				System.out.println( "----------" ) ;
+				Vector v = ( Vector )sie.nextElement() ;
 
 				for( int i = 0 ; i < v.size() ; ++i )
 				{
-					SpIterStep sis = ( SpIterStep )v.elementAt( i );
-					System.out.print( sis.title );
+					SpIterStep sis = ( SpIterStep )v.elementAt( i ) ;
+					System.out.print( sis.title ) ;
 					try
 					{
 						if( sis.stepCount != 1 )
-							System.out.print( " (" + sis.stepCount + ")" );
+							System.out.print( " (" + sis.stepCount + ")" ) ;
 					}
 					finally
 					{
-						System.out.println();
+						System.out.println() ;
 					}
 					for( int j = 0 ; j < sis.values.length ; ++j )
 					{
-						SpIterValue siv = ( SpIterValue )sis.values[ j ];
-						System.out.println( '\t' + siv.attribute + " = " + siv.values[ 0 ] );
+						SpIterValue siv = ( SpIterValue )sis.values[ j ] ;
+						System.out.println( '\t' + siv.attribute + " = " + siv.values[ 0 ] ) ;
 					}
 				}
 			}
 
 			if( sie.hasCleanup() )
 			{
-				System.out.println( "----------" );
-				SpIterValue siv = ( SpIterValue )sie.cleanup();
-				System.out.println( siv.attribute );
+				System.out.println( "----------" ) ;
+				SpIterValue siv = ( SpIterValue )sie.cleanup() ;
+				System.out.println( siv.attribute ) ;
 				for( int j = 0 ; j < siv.values.length ; ++j )
-					System.out.println( '\t' + siv.values[ j ] );
+					System.out.println( '\t' + siv.values[ j ] ) ;
 			}
-			System.out.println( "^^^^^^^^^" );
+			System.out.println( "^^^^^^^^^" ) ;
 		}
 	}
 
 	public double getElapsedTime()
 	{
-		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 
 		if( instrument == null )
 			return 0. ;
 
-		Vector iterStepVector = compile();
-		Vector iterStepSubVector = null;
-		SpIterStep spIterStep = null;
-		IterationTracker iterationTracker = instrument.createIterationTracker();
+		Vector iterStepVector = compile() ;
+		Vector iterStepSubVector = null ;
+		SpIterStep spIterStep = null ;
+		IterationTracker iterationTracker = instrument.createIterationTracker() ;
 		double elapsedTime = 0. ;
 
-		int nPol = 0;
+		int nPol = 0 ;
 
-		int iterStepVectorSize = 0;
+		int iterStepVectorSize = 0 ;
 		if( iterStepVector != null )
-			iterStepVectorSize = iterStepVector.size();
+			iterStepVectorSize = iterStepVector.size() ;
 
-		Object spIterStareObs = null;
-		int offsets = 0;
+		Object spIterStareObs = null ;
+		int offsets = 0 ;
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
-			iterStepSubVector = ( Vector )iterStepVector.get( i );
+			iterStepSubVector = ( Vector )iterStepVector.get( i ) ;
 
-			int iterStepSubVectorSize = 0;
+			int iterStepSubVectorSize = 0 ;
 			if( iterStepSubVector != null )
-				iterStepSubVectorSize = iterStepSubVector.size();
+				iterStepSubVectorSize = iterStepSubVector.size() ;
 
 			for( int j = 0 ; j < iterStepSubVectorSize ; j++ )
 			{
-				spIterStep = ( SpIterStep )iterStepSubVector.get( j );
+				spIterStep = ( SpIterStep )iterStepSubVector.get( j ) ;
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
 					nPol++ ;
 				
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
 				{
-					spIterStareObs = spIterStep.item;
+					spIterStareObs = spIterStep.item ;
 					offsets++ ;
-					continue;
+					continue ;
 				}
 
-				iterationTracker.update( spIterStep );
+				iterationTracker.update( spIterStep ) ;
 
 				if( spIterStep.item instanceof SpIterObserveBase )
-					elapsedTime += iterationTracker.getObserveStepTime();
+					elapsedTime += iterationTracker.getObserveStepTime() ;
 
 				if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
 				{
@@ -177,7 +177,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 						{
 							// If for each OFFSET_TIME added an exposure overhead can be
 							// subtracted since this is done while the telescope moves.
-							elapsedTime += ( OFFSET_TIME - instrument.getExposureOverhead() );
+							elapsedTime += ( OFFSET_TIME - instrument.getExposureOverhead() ) ;
 						}
 					}
 				}
@@ -187,85 +187,85 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		// http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
 		if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1 )
 		{
-			double totalIntegrationTime = 0.;
+			double totalIntegrationTime = 0. ;
 			try
 			{
-				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" );
-				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[] {} );
-				Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[] {} );
-				Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[] {} );
+				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
+				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[] {} ) ;
+				Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[] {} ) ;
+				Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[] {} ) ;
 
-				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[] {} );
+				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[] {} ) ;
 
 				if( switchingMode != null )
 				{
-					boolean isBeamSwitch = false;
-					boolean isPositionSwitch = false;
+					boolean isBeamSwitch = false ;
+					boolean isPositionSwitch = false ;
 
-					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" );
-					Object beamSwitch = beamSwitchField.get( spIterStareObs );
-					isBeamSwitch = switchingMode.equals( beamSwitch );
+					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
+					Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
+					isBeamSwitch = switchingMode.equals( beamSwitch ) ;
 
-					Field positionSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_POSITION" );
-					Object positionSwitch = positionSwitchField.get( spIterStareObs );
-					isPositionSwitch = switchingMode.equals( positionSwitch );
+					Field positionSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_POSITION" ) ;
+					Object positionSwitch = positionSwitchField.get( spIterStareObs ) ;
+					isPositionSwitch = switchingMode.equals( positionSwitch ) ;
 
-					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} );
-					int integrationTimePerPoint = 0;
+					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
+					int integrationTimePerPoint = 0 ;
 					if( secsPerCycle != null && secsPerCycle instanceof Integer )
-						integrationTimePerPoint = ( ( Integer )secsPerCycle ).intValue();
+						integrationTimePerPoint = ( ( Integer )secsPerCycle ).intValue() ;
 
-					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} );
+					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
 
 					if( isBeamSwitch )
 					{
-						totalIntegrationTime = 2.3 * offsets * integrationTimePerPoint + 100.;
+						totalIntegrationTime = 2.3 * offsets * integrationTimePerPoint + 100. ;
 					}
 					else if( isPositionSwitch )
 					{
-						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} );
+						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} ) ;
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
-							boolean sharedOff = !( ( Boolean )separateOff ).booleanValue();
+							boolean sharedOff = !( ( Boolean )separateOff ).booleanValue() ;
 							if( offsets == 1 )
-								totalIntegrationTime = 2.45 * integrationTimePerPoint + 80.;
+								totalIntegrationTime = 2.45 * integrationTimePerPoint + 80. ;
 							else if( sharedOff || integrationTimePerPoint >= 15 )
-								totalIntegrationTime = 2.65 * offsets * integrationTimePerPoint + 80.;
+								totalIntegrationTime = 2.65 * offsets * integrationTimePerPoint + 80. ;
 							else
-								totalIntegrationTime = 2. * offsets * integrationTimePerPoint + 190.;
+								totalIntegrationTime = 2. * offsets * integrationTimePerPoint + 190. ;
 						}
 					}
 
-					boolean addContinuum = false;
-					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} );
+					boolean addContinuum = false ;
+					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
 					if( continuum != null && continuum instanceof Boolean )
-						addContinuum = ( ( Boolean )continuum ).booleanValue();
+						addContinuum = ( ( Boolean )continuum ).booleanValue() ;
 					if( addContinuum )
-						totalIntegrationTime *= 1.2;
+						totalIntegrationTime *= 1.2 ;
 				}
-				totalIntegrationTime -= offsets * OFFSET_TIME;
+				totalIntegrationTime -= offsets * OFFSET_TIME ;
 			}
 			catch( ClassNotFoundException cnfe )
 			{
-				System.out.println( "Could not find class " + cnfe );
+				System.out.println( "Could not find class " + cnfe ) ;
 			}
 			catch( IllegalAccessException iae )
 			{
-				System.out.println( "Could not access " + iae );
+				System.out.println( "Could not access " + iae ) ;
 			}
 			catch( NoSuchMethodException nsme )
 			{
-				System.out.println( "Could not find method " + nsme );
+				System.out.println( "Could not find method " + nsme ) ;
 			}
 			catch( InvocationTargetException ite )
 			{
-				System.out.println( "Could not invoke method " + ite );
+				System.out.println( "Could not invoke method " + ite ) ;
 			}
 			catch( NoSuchFieldException nsfe )
 			{
-				System.out.println( "Could not find field " + nsfe );
+				System.out.println( "Could not find field " + nsfe ) ;
 			}
-			elapsedTime += totalIntegrationTime;
+			elapsedTime += totalIntegrationTime ;
 		}
 
 		if( nPol > 1 )
@@ -277,7 +277,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			}
 		}
 
-		return elapsedTime;
+		return elapsedTime ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -286,7 +286,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		Enumeration e = this.children();
+		Enumeration e = this.children() ;
 		gemini.util.TranslationUtils.recurse( e , v ) ;
 	}
 }

@@ -4,12 +4,12 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package gemini.sp.iter ;
 
-import gemini.sp.SpItem;
+import gemini.sp.SpItem ;
 
-import java.util.Vector;
-import java.util.Enumeration;
+import java.util.Vector ;
+import java.util.Enumeration ;
 
 //
 // This is a helper class for SpIterEnumeration. It is constructed with
@@ -20,11 +20,11 @@ import java.util.Enumeration;
 class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 {
 
-	private SpIterComp _iterParent;
+	private SpIterComp _iterParent ;
 
-	private SpIterComp _curChild;
+	private SpIterComp _curChild ;
 
-	private Enumeration _children;
+	private Enumeration _children ;
 
 	//
 	// Construct with the parent class whose children's SpIterEnumerations
@@ -32,8 +32,8 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 	//
 	SpIterChildEnumeration( SpIterComp iterParent )
 	{
-		_iterParent = iterParent;
-		reinit();
+		_iterParent = iterParent ;
+		reinit() ;
 	}
 
 	//
@@ -41,17 +41,17 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 	//
 	private SpIterComp _getNextChild()
 	{
-		SpIterComp icChild = null;
+		SpIterComp icChild = null ;
 		while( _children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )_children.nextElement();
+			SpItem child = ( SpItem )_children.nextElement() ;
 			if( child instanceof SpIterComp )
 			{
-				icChild = ( SpIterComp )child;
-				break;
+				icChild = ( SpIterComp )child ;
+				break ;
 			}
 		}
-		return icChild;
+		return icChild ;
 	}
 
 	//
@@ -62,10 +62,10 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 	void reinit()
 	{
 		// Get a new enumeration of the children items of the parent.
-		_children = _iterParent.children();
+		_children = _iterParent.children() ;
 
 		// Reset the _curChild to be the first child of the parent.
-		_curChild = _getNextChild();
+		_curChild = _getNextChild() ;
 	}
 
 	//
@@ -77,7 +77,7 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 		// returned by nextElement, _curChild is moved to the next child (if any).
 		// This means that there are more elements so long as _curChild isn't null.
 
-		return( _curChild != null );
+		return( _curChild != null ) ;
 	}
 
 	//
@@ -87,9 +87,9 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 	//
 	public Object nextElement()
 	{
-		SpIterEnumeration sie = _curChild.elements();
-		_curChild = _getNextChild();
-		return sie;
+		SpIterEnumeration sie = _curChild.elements() ;
+		_curChild = _getNextChild() ;
+		return sie ;
 	}
 
 }
@@ -174,11 +174,11 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 public abstract class SpIterEnumeration implements Enumeration , java.io.Serializable
 {
 
-	protected SpIterComp _iterComp;
-	private SpIterChildEnumeration _children;
-	private SpIterEnumeration _childEnum;
-	private SpIterStep _curElement;
-	private boolean _firstTime = true;
+	protected SpIterComp _iterComp ;
+	private SpIterChildEnumeration _children ;
+	private SpIterEnumeration _childEnum ;
+	private SpIterStep _curElement ;
+	private boolean _firstTime = true ;
 
 	/**
      * Construct the SpIterEnumeration with the iterator component that it will
@@ -186,24 +186,24 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	public SpIterEnumeration( SpIterComp iterComp )
 	{
-		_iterComp = iterComp;
-		_children = new SpIterChildEnumeration( iterComp );
+		_iterComp = iterComp ;
+		_children = new SpIterChildEnumeration( iterComp ) ;
 	}
 
 	/**
      * Return true if there are more steps in the SpIterComp.
      */
-	protected abstract boolean _thisHasMoreElements();
+	protected abstract boolean _thisHasMoreElements() ;
 
 	/**
      * Return the first step in the iterator.
      */
-	protected abstract SpIterStep _thisFirstElement();
+	protected abstract SpIterStep _thisFirstElement() ;
 
 	/**
      * Return the next step in the iterator.
      */
-	protected abstract SpIterStep _thisNextElement();
+	protected abstract SpIterStep _thisNextElement() ;
 
 	/**
      * This method has not come to its fruition. No subclasses currently
@@ -211,7 +211,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	protected boolean _thisHasCleanup()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -220,7 +220,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	protected SpIterStep _thisCleanup()
 	{
-		return null;
+		return null ;
 	}
 
 	/**
@@ -231,30 +231,30 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
 	public boolean hasMoreElements()
 	{
 		if( _firstTime )
-			return _thisHasMoreElements();
+			return _thisHasMoreElements() ;
 
 		if( _childEnum != null )
 		{
 			if( _childEnum.hasMoreElements() || _childEnum.hasCleanup() )
 			{
-				return true;
+				return true ;
 			}
 			else if( _children.hasMoreElements() )
 			{
-				_childEnum = ( SpIterEnumeration )_children.nextElement();
-				return hasMoreElements();
+				_childEnum = ( SpIterEnumeration )_children.nextElement() ;
+				return hasMoreElements() ;
 			}
 		}
 		else
 		{
 			if( _children.hasMoreElements() )
 			{
-				_childEnum = ( SpIterEnumeration )_children.nextElement();
-				return hasMoreElements();
+				_childEnum = ( SpIterEnumeration )_children.nextElement() ;
+				return hasMoreElements() ;
 			}
 		}
 
-		return _thisHasMoreElements();
+		return _thisHasMoreElements() ;
 	}
 
 	/**
@@ -262,7 +262,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	public boolean hasCleanup()
 	{
-		return _thisHasCleanup();
+		return _thisHasCleanup() ;
 	}
 
 	/**
@@ -272,59 +272,59 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	public Object nextElement()
 	{
-		Vector v;
+		Vector v ;
 
 		if( _firstTime )
 		{
-			_firstTime = false;
-			_curElement = _thisFirstElement();
+			_firstTime = false ;
+			_curElement = _thisFirstElement() ;
 		}
 
 		// Base case: an iterComp without children
 		if( _childEnum == null )
 		{
 			if( _curElement == null )
-				_curElement = _thisNextElement();
-			v = new Vector();
-			v.insertElementAt( _curElement , 0 );
-			_curElement = null;
+				_curElement = _thisNextElement() ;
+			v = new Vector() ;
+			v.insertElementAt( _curElement , 0 ) ;
+			_curElement = null ;
 
-			return v;
+			return v ;
 		}
 
 		// The iterComp had children
 
 		if( _childEnum.hasMoreElements() )
 		{
-			v = ( Vector )_childEnum.nextElement();
+			v = ( Vector )_childEnum.nextElement() ;
 
 			if( _curElement != null )
 			{
 				// This is the first time through, so include my step in the vector of steps.
-				v.insertElementAt( _curElement , 0 );
+				v.insertElementAt( _curElement , 0 ) ;
 
 				/*
                  * Set _curElement to null so that the next time through my step
                  * won't be added again (it will have already been executed).
                  */
-				_curElement = null;
+				_curElement = null ;
 			}
-			return v;
+			return v ;
 
 		}
 		else if( _childEnum.hasCleanup() )
 		{
-			v = new Vector();
-			v.addElement( _childEnum.cleanup() );
-			return v;
+			v = new Vector() ;
+			v.addElement( _childEnum.cleanup() ) ;
+			return v ;
 		}
 
 		// Reached the end of the child's values, move to the next element
-		_children.reinit();
-		_childEnum = ( SpIterEnumeration )_children.nextElement();
+		_children.reinit() ;
+		_childEnum = ( SpIterEnumeration )_children.nextElement() ;
 
-		_curElement = _thisNextElement();
-		return nextElement();
+		_curElement = _thisNextElement() ;
+		return nextElement() ;
 	}
 
 	/**
@@ -332,6 +332,6 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      */
 	public Object cleanup()
 	{
-		return _thisCleanup();
+		return _thisCleanup() ;
 	}
 }
