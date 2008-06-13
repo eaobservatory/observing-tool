@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * A simple reader/writer locking pattern base class.
@@ -12,17 +12,17 @@ package gemini.util;
 public class ReaderWriter
 {
 
-	protected int _activeReaders = 0;
-	protected int _activeWriters = 0;
-	protected int _waitingReaders = 0;
-	protected int _waitingWriters = 0;
+	protected int _activeReaders = 0 ;
+	protected int _activeWriters = 0 ;
+	protected int _waitingReaders = 0 ;
+	protected int _waitingWriters = 0 ;
 
 	//
 	// Check whether it is ok to read. Multiple readers are permitted.
 	//
 	private boolean _allowReader()
 	{
-		return ( _waitingWriters == 0 ) && ( _activeWriters == 0 );
+		return ( _waitingWriters == 0 ) && ( _activeWriters == 0 ) ;
 	}
 
 	//
@@ -31,7 +31,7 @@ public class ReaderWriter
 	//
 	private boolean _allowWriter()
 	{
-		return ( _activeReaders == 0 ) && ( _activeWriters == 0 );
+		return ( _activeReaders == 0 ) && ( _activeWriters == 0 ) ;
 	}
 
 	/**
@@ -40,17 +40,17 @@ public class ReaderWriter
      */
 	public synchronized void getReadPermission()
 	{
-		++_waitingReaders;
+		++_waitingReaders ;
 		while( !_allowReader() )
 		{
 			try
 			{
-				wait();
+				wait() ;
 			}
 			catch( InterruptedException ex ){}
 		}
-		--_waitingReaders;
-		++_activeReaders;
+		--_waitingReaders ;
+		++_activeReaders ;
 	}
 
 	/**
@@ -58,8 +58,8 @@ public class ReaderWriter
      */
 	public synchronized void returnReadPermission()
 	{
-		--_activeReaders;
-		notifyAll();
+		--_activeReaders ;
+		notifyAll() ;
 	}
 
 	/**
@@ -67,17 +67,17 @@ public class ReaderWriter
      */
 	public synchronized void getWritePermission()
 	{
-		++_waitingWriters;
+		++_waitingWriters ;
 		while( !_allowWriter() )
 		{
 			try
 			{
-				wait();
+				wait() ;
 			}
 			catch( InterruptedException ex ){}
 		}
-		--_waitingWriters;
-		++_activeWriters;
+		--_waitingWriters ;
+		++_activeWriters ;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class ReaderWriter
      */
 	public synchronized void returnWritePermission()
 	{
-		--_activeWriters;
-		notifyAll();
+		--_activeWriters ;
+		notifyAll() ;
 	}
 }

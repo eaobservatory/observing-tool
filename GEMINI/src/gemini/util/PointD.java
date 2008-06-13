@@ -4,32 +4,31 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.awt.Point;
+import java.awt.Point ;
 
 /**
  * Like a java.awt.Point, but instead of integer coordinates, doubles are used.
  */
 public class PointD
 {
-
-	public double x;
-	public double y;
+	public double x ;
+	public double y ;
 
 	public PointD( double x , double y )
 	{
-		this.x = x;
-		this.y = y;
+		this.x = x ;
+		this.y = y ;
 	}
 
 	public Point getAWTPoint()
 	{
-		return new Point( ( int )( x + 0.5 ) , ( int )( y + 0.5 ) );
+		return new Point( ( int )( x + .5 ) , ( int )( y + .5 ) ) ;
 	}
 
 	public String toString()
 	{
-		return getClass().getName() + "[x=" + x + ", y=" + y + "]";
+		return getClass().getName() + "[x=" + x + ", y=" + y + "]" ;
 	}
 }

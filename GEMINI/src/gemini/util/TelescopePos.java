@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * Base class for telescope positions.
@@ -15,30 +15,30 @@ public abstract class TelescopePos implements java.io.Serializable
 {
 
 	/** The position's <i>unique</i> string tag. */
-	protected String _tag;
+	protected String _tag ;
 
 	/** The position's xaxis (for example, its RA). */
-	protected double _xaxis;
+	protected double _xaxis ;
 
 	/** The position's yaxis (for example, its Dec). */
-	protected double _yaxis;
+	protected double _yaxis ;
 
-	protected double _xoff;
+	protected double _xoff ;
 
-	protected double _yoff;
+	protected double _yoff ;
 
 	/** The list that the position belongs to, if any. */
-	protected TelescopePosList _list;
+	protected TelescopePosList _list ;
 
 	// TelescopePos change watchers.
-	private Vector _watchers;
+	private Vector _watchers ;
 
 	/**
      * Construct with a <i>unique</i> tag.
      */
 	protected TelescopePos( String tag )
 	{
-		_tag = tag;
+		_tag = tag ;
 	}
 
 	/**
@@ -47,8 +47,8 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected TelescopePos( String tag , TelescopePosList list )
 	{
-		this( tag );
-		_list = list;
+		this( tag ) ;
+		_list = list ;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public boolean isOffsetPosition()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public boolean isValid()
 	{
-		return true;
+		return true ;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public final String getTag()
 	{
-		return _tag;
+		return _tag ;
 	}
 
 	/**
@@ -83,13 +83,13 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public final synchronized double getXaxis()
 	{
-		double xaxis;
+		double xaxis ;
 		if( getTag().equalsIgnoreCase( "base" ) )
-			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ];
+			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ] ;
 		else
-			xaxis = _xaxis;
+			xaxis = _xaxis ;
 
-		return xaxis;
+		return xaxis ;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public final synchronized double getRealXaxis()
 	{
-		return _xaxis;
+		return _xaxis ;
 	}
 
 	/**
@@ -108,13 +108,13 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public final synchronized double getYaxis()
 	{
-		double yaxis;
+		double yaxis ;
 		if( getTag().equalsIgnoreCase( "base" ) )
-			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ];
+			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ] ;
 		else
-			yaxis = _yaxis;
+			yaxis = _yaxis ;
 			
-		return yaxis;
+		return yaxis ;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public final synchronized double getRealYaxis()
 	{
-		return _yaxis;
+		return _yaxis ;
 	}
 
 	/**
@@ -131,7 +131,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized String getRealXaxisAsString()
 	{
-		return String.valueOf( _xaxis );
+		return String.valueOf( _xaxis ) ;
 	}
 
 	/**
@@ -140,13 +140,13 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized String getXaxisAsString()
 	{
-		double xaxis;
+		double xaxis ;
 		if( getTag().equalsIgnoreCase( "base" ) )
-			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ];
+			xaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 0 ] ;
 		else
-			xaxis = _xaxis;
+			xaxis = _xaxis ;
 
-		return String.valueOf( xaxis );
+		return String.valueOf( xaxis ) ;
 	}
 
 	/**
@@ -155,13 +155,13 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized String getYaxisAsString()
 	{
-		double yaxis;
+		double yaxis ;
 		if( getTag().equalsIgnoreCase( "base" ) )
-			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ];
+			yaxis = RADecMath.getAbsolute( _xaxis , _yaxis , _xoff , _yoff )[ 1 ] ;
 		else
-			yaxis = _yaxis;
+			yaxis = _yaxis ;
 
-		return String.valueOf( yaxis );
+		return String.valueOf( yaxis ) ;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized String getRealYaxisAsString()
 	{
-		return String.valueOf( _yaxis );
+		return String.valueOf( _yaxis ) ;
 	}
 
 	/**
@@ -180,10 +180,10 @@ public abstract class TelescopePos implements java.io.Serializable
 	{
 		synchronized( this )
 		{
-			_xaxis = x;
-			_yaxis = y;
+			_xaxis = x ;
+			_yaxis = y ;
 		}
-		_notifyOfLocationUpdate();
+		_notifyOfLocationUpdate() ;
 	}
 
 	/**
@@ -192,11 +192,11 @@ public abstract class TelescopePos implements java.io.Serializable
 	public synchronized void addWatcher( TelescopePosWatcher tpw )
 	{
 		if( _watchers == null )
-			_watchers = new Vector();
+			_watchers = new Vector() ;
 		else if( _watchers.contains( tpw ) )
-			return;
+			return ;
 
-		_watchers.addElement( tpw );
+		_watchers.addElement( tpw ) ;
 	}
 
 	/**
@@ -205,9 +205,9 @@ public abstract class TelescopePos implements java.io.Serializable
 	public synchronized void deleteWatcher( TelescopePosWatcher tpw )
 	{
 		if( _watchers == null )
-			return;
+			return ;
 
-		_watchers.removeElement( tpw );
+		_watchers.removeElement( tpw ) ;
 	}
 
 	/**
@@ -216,9 +216,9 @@ public abstract class TelescopePos implements java.io.Serializable
 	public synchronized void deleteWatchers()
 	{
 		if( _watchers == null )
-			return;
+			return ;
 
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -227,9 +227,9 @@ public abstract class TelescopePos implements java.io.Serializable
 	protected final synchronized Vector _getWatchers()
 	{
 		if( _watchers == null )
-			return null;
+			return null ;
 
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -237,15 +237,15 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected void _notifyOfLocationUpdate()
 	{
-		Vector v = _getWatchers();
+		Vector v = _getWatchers() ;
 		if( v == null )
-			return;
+			return ;
 		
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TelescopePosWatcher tpw;
-			tpw = ( TelescopePosWatcher )v.elementAt( i );
-			tpw.telescopePosLocationUpdate( this );
+			TelescopePosWatcher tpw ;
+			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw.telescopePosLocationUpdate( this ) ;
 		}
 	}
 
@@ -254,15 +254,15 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected void _notifyOfGenericUpdate()
 	{
-		Vector v = _getWatchers();
+		Vector v = _getWatchers() ;
 		if( v == null )
-			return;
+			return ;
 		
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TelescopePosWatcher tpw;
-			tpw = ( TelescopePosWatcher )v.elementAt( i );
-			tpw.telescopePosGenericUpdate( this );
+			TelescopePosWatcher tpw ;
+			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw.telescopePosGenericUpdate( this ) ;
 		}
 	}
 
@@ -272,7 +272,7 @@ public abstract class TelescopePos implements java.io.Serializable
 	public void select()
 	{
 		if( _list != null )
-			_list.setSelectedPos( this );
+			_list.setSelectedPos( this ) ;
 	}
 
 	/**
@@ -280,6 +280,6 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized String toString()
 	{
-		return getClass().getName() + "[tag=" + getTag() + ", xaxis=" + HHMMSS.valStr( getXaxis() ) + ", yaxis=" + DDMMSS.valStr( getYaxis() ) + ", xoff=" + _xoff + ", yoff=" + _yoff + "]";
+		return getClass().getName() + "[tag=" + getTag() + ", xaxis=" + HHMMSS.valStr( getXaxis() ) + ", yaxis=" + DDMMSS.valStr( getYaxis() ) + ", xoff=" + _xoff + ", yoff=" + _yoff + "]" ;
 	}
 }

@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * A basic (ordered) property list inspired by the Maribma PropertyList
@@ -14,33 +14,32 @@ import java.util.Vector;
  */
 public class BasicPropertyList
 {
-
 	// Class that holds the data for a property.
 	class PropertyListEntry
 	{
-		String name;
-		Object value;
+		String name ;
+		Object value ;
 	}
 
 	// Stores the properties
-	private Vector _props = new Vector();
+	private Vector _props = new Vector() ;
 
 	// Store a set of change watchers.
-	private Vector _watchers = new Vector();
+	private Vector _watchers = new Vector() ;
 
 	//
 	// Lookup an entry, returning null if not found.
 	//
 	private PropertyListEntry _lookupEntry( String name )
 	{
-		int sz = _props.size();
+		int sz = _props.size() ;
 		for( int i = 0 ; i < sz ; ++i )
 		{
-			PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i );
+			PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i ) ;
 			if( ple.name.equals( name ) )
-				return ple;
+				return ple ;
 		}
-		return null;
+		return null ;
 	}
 
 	//
@@ -49,14 +48,14 @@ public class BasicPropertyList
 	//
 	private PropertyListEntry _getEntry( String name )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ple == null )
 		{
-			ple = new PropertyListEntry();
-			ple.name = name;
-			_props.addElement( ple );
+			ple = new PropertyListEntry() ;
+			ple.name = name ;
+			_props.addElement( ple ) ;
 		}
-		return ple;
+		return ple ;
 	}
 
 	/**
@@ -66,8 +65,8 @@ public class BasicPropertyList
 	public synchronized void addWatcher( PropertyWatcher watcher )
 	{
 		if( _watchers.contains( watcher ) )
-			return;
-		_watchers.addElement( watcher );
+			return ;
+		_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -75,7 +74,7 @@ public class BasicPropertyList
      */
 	public synchronized void deleteWatcher( PropertyWatcher watcher )
 	{
-		_watchers.removeElement( watcher );
+		_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class BasicPropertyList
      */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -91,7 +90,7 @@ public class BasicPropertyList
      */
 	private synchronized final Vector _getWatchers()
 	{
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -99,12 +98,12 @@ public class BasicPropertyList
      */
 	private void _notifyChange( String propertyName )
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			PropertyWatcher pw = ( PropertyWatcher )v.elementAt( i );
-			pw.propertyChange( propertyName );
+			PropertyWatcher pw = ( PropertyWatcher )v.elementAt( i ) ;
+			pw.propertyChange( propertyName ) ;
 		}
 	}
 
@@ -114,10 +113,10 @@ public class BasicPropertyList
      */
 	public synchronized Object getValue( String name )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ple == null )
-			return null;
-		return ple.value;
+			return null ;
+		return ple.value ;
 	}
 
 	/**
@@ -125,21 +124,21 @@ public class BasicPropertyList
      */
 	public String[] getPropertyNames()
 	{
-		Vector propNames = new Vector();
+		Vector propNames = new Vector() ;
 
 		synchronized( this )
 		{
-			int sz = _props.size();
+			int sz = _props.size() ;
 			for( int i = 0 ; i < sz ; ++i )
 			{
-				PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i );
-				propNames.addElement( ple.name );
+				PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i ) ;
+				propNames.addElement( ple.name ) ;
 			}
 		}
 
-		String[] namesA = new String[ propNames.size() ];
-		propNames.copyInto( namesA );
-		return namesA;
+		String[] namesA = new String[ propNames.size() ] ;
+		propNames.copyInto( namesA ) ;
+		return namesA ;
 	}
 
 	/**
@@ -148,11 +147,11 @@ public class BasicPropertyList
      */
 	public synchronized boolean getBoolean( String name , boolean def )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ( ple != null ) && ( ple.value instanceof Boolean ) )
-			return ( ( Boolean )ple.value ).booleanValue();
+			return ( ( Boolean )ple.value ).booleanValue() ;
 		
-		return def;
+		return def ;
 	}
 
 	/**
@@ -164,9 +163,9 @@ public class BasicPropertyList
      */
 	public synchronized void setBoolean( String name , boolean value )
 	{
-		PropertyListEntry ple = _getEntry( name );
-		ple.value = new Boolean( value );
-		_notifyChange( name );
+		PropertyListEntry ple = _getEntry( name ) ;
+		ple.value = new Boolean( value ) ;
+		_notifyChange( name ) ;
 	}
 
 	/**
@@ -178,11 +177,11 @@ public class BasicPropertyList
      */
 	public synchronized int getChoice( String name , int def )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ( ple != null ) && ( ple.value instanceof ChoiceProperty ) )
-			return ( ( ChoiceProperty )ple.value ).getCurValue();
+			return ( ( ChoiceProperty )ple.value ).getCurValue() ;
 
-		return def;
+		return def ;
 	}
 
 	/**
@@ -192,11 +191,11 @@ public class BasicPropertyList
      */
 	public synchronized String[] getChoiceOptions( String name )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ( ple != null ) && ( ple.value instanceof ChoiceProperty ) )
-			return ( ( ChoiceProperty )ple.value ).getChoices();
+			return ( ( ChoiceProperty )ple.value ).getChoices() ;
 
-		return null;
+		return null ;
 	}
 
 	/**
@@ -215,11 +214,11 @@ public class BasicPropertyList
      */
 	public synchronized void setChoice( String name , String[] options , int value )
 	{
-		PropertyListEntry ple = _getEntry( name );
-		ChoiceProperty cp = new ChoiceProperty( options );
-		cp.setCurValue( value );
-		ple.value = cp;
-		_notifyChange( name );
+		PropertyListEntry ple = _getEntry( name ) ;
+		ChoiceProperty cp = new ChoiceProperty( options ) ;
+		cp.setCurValue( value ) ;
+		ple.value = cp ;
+		_notifyChange( name ) ;
 	}
 
 	/**
@@ -230,12 +229,11 @@ public class BasicPropertyList
      */
 	public synchronized void setChoice( String name , int value )
 	{
-		PropertyListEntry ple = _lookupEntry( name );
+		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ( ple != null ) && ( ple.value instanceof ChoiceProperty ) )
 		{
-			( ( ChoiceProperty )ple.value ).setCurValue( value );
-			_notifyChange( name );
+			( ( ChoiceProperty )ple.value ).setCurValue( value ) ;
+			_notifyChange( name ) ;
 		}
 	}
-
 }

@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * This class represents an object property that consists of a set of possible
@@ -12,12 +12,11 @@ package gemini.util;
  */
 public class ChoiceProperty
 {
-
 	// Choices
-	private String[] _choices;
+	private String[] _choices ;
 
 	// The current choice index.
-	private int _curValue = -1;
+	private int _curValue = -1 ;
 
 	/**
      * Construct with the set of choices. The initial choice is the 1'st element
@@ -25,9 +24,9 @@ public class ChoiceProperty
      */
 	public ChoiceProperty( String[] choices )
 	{
-		_choices = choices;
+		_choices = choices ;
 		if( choices.length > 0 )
-			_curValue = 0;
+			_curValue = 0 ;
 	}
 
 	/**
@@ -35,7 +34,7 @@ public class ChoiceProperty
      */
 	public String[] getChoices()
 	{
-		return _choices;
+		return _choices ;
 	}
 
 	/**
@@ -43,7 +42,7 @@ public class ChoiceProperty
      */
 	public int getCurValue()
 	{
-		return _curValue;
+		return _curValue ;
 	}
 
 	/**
@@ -52,10 +51,9 @@ public class ChoiceProperty
 	public void setCurValue( int value )
 	{
 		if( value >= _choices.length )
-			_curValue = _choices.length - 1;
+			_curValue = _choices.length - 1 ;
 		else if( value < 0 )
-			_curValue = 0;
-		_curValue = value;
+			_curValue = 0 ;
+		_curValue = value ;
 	}
-
 }

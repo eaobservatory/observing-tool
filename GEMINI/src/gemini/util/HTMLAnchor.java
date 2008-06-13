@@ -1,4 +1,4 @@
-package gemini.util;
+package gemini.util ;
 
 /**
  * A class that describes an anchor in an HTML document. This class groups the
@@ -6,15 +6,15 @@ package gemini.util;
  */
 public class HTMLAnchor
 {
-	public String anchorString;
+	public String anchorString ;
 
-	public String text;
+	public String text ;
 
 	public HTMLAnchor(){}
 
 	public HTMLAnchor( String anchorString , String text )
 	{
-		this.anchorString = anchorString;
-		this.text = text;
+		this.anchorString = anchorString ;
+		this.text = text ;
 	}
 }

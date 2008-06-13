@@ -4,14 +4,13 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * An interface supported by applications that are "closeable".
  */
 public interface CloseableApp
 {
-
 	/** Close the application, returning true if successful. */
-	public boolean closeApp();
+	public boolean closeApp() ;
 }

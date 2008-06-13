@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * This is a very simple class that can be used to associate two objects, a task
@@ -12,16 +12,15 @@ package gemini.util;
  */
 public class Pair
 {
-
-	public Object first = null;
-	public Object second = null;
+	public Object first = null ;
+	public Object second = null ;
 
 	/**
      * Construct a Pair from two objects.
      */
 	public Pair( Object o1 , Object o2 )
 	{
-		first = o1;
-		second = o2;
+		first = o1 ;
+		second = o2 ;
 	}
 }

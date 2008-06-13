@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 import java.io.File ;
 import java.io.FileInputStream ;
@@ -13,32 +13,31 @@ import java.io.IOException ;
 import java.io.InputStream ;
 import java.io.BufferedReader ;
 import java.io.InputStreamReader ;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Vector;
+import java.net.MalformedURLException ;
+import java.net.URL ;
+import java.util.Vector ;
 
 /**
  * A class for reading and parsing ESO skycat.cfg files. This is just a start.
  */
 public class SkycatCfgReader
 {
-
 	/**
      * This is the name of the directory that will be used by default to look
      * for the skycat.cfg file.
      */
-	public static final String DEFAULT_DIRECTORY = ".gemini";
+	public static final String DEFAULT_DIRECTORY = ".gemini" ;
 
 	/**
      * The file containing the skycat information.
      */
-	public static final String SKYCAT_CFG_FILE = "skycat.cfg";
+	public static final String SKYCAT_CFG_FILE = "skycat.cfg" ;
 
 	// A vector of SkycatServer objects for the catalog servers.
-	private static Vector _catalog;
+	private static Vector _catalog ;
 
 	// A vector of SkycatServer objects for the image servers.
-	private static Vector _imagesrv;
+	private static Vector _imagesrv ;
 
 	/**
      * Load the config file called "skycat.cfg" from the user's home directory
@@ -47,18 +46,18 @@ public class SkycatCfgReader
      */
 	public static boolean load()
 	{
-		String homedir = System.getProperty( "user.home" );
+		String homedir = System.getProperty( "user.home" ) ;
 		if( homedir == null )
-			return false;
+			return false ;
 
-		String absdir = homedir + File.separatorChar + DEFAULT_DIRECTORY;
-		File f = new File( absdir , SKYCAT_CFG_FILE );
+		String absdir = homedir + File.separatorChar + DEFAULT_DIRECTORY ;
+		File f = new File( absdir , SKYCAT_CFG_FILE ) ;
 
-		boolean res = load( f );
+		boolean res = load( f ) ;
 		if( res )
-			System.out.println( "Using the skycat.cfg file: " + f.getAbsolutePath() );
+			System.out.println( "Using the skycat.cfg file: " + f.getAbsolutePath() ) ;
 
-		return res;
+		return res ;
 	}
 
 	/**
@@ -68,13 +67,13 @@ public class SkycatCfgReader
      */
 	public static boolean load( String dir )
 	{
-		File f = new File( dir , SKYCAT_CFG_FILE );
+		File f = new File( dir , SKYCAT_CFG_FILE ) ;
 
-		boolean res = load( f );
+		boolean res = load( f ) ;
 		if( res )
-			System.out.println( "Using the skycat.cfg file: " + f.getAbsolutePath() );
+			System.out.println( "Using the skycat.cfg file: " + f.getAbsolutePath() ) ;
 
-		return res;
+		return res ;
 	}
 
 	/**
@@ -83,20 +82,20 @@ public class SkycatCfgReader
      */
 	public static boolean load( File f )
 	{
-		FileInputStream fis = null;
+		FileInputStream fis = null ;
 		try
 		{
-			fis = new FileInputStream( f );
-			return load( fis );
+			fis = new FileInputStream( f ) ;
+			return load( fis ) ;
 		}
 		catch( FileNotFoundException ex )
 		{
-			return false;
+			return false ;
 		}
 		catch( IOException ex )
 		{
-			System.out.println( "Error reading: " + f.getAbsolutePath() );
-			return false;
+			System.out.println( "Error reading: " + f.getAbsolutePath() ) ;
+			return false ;
 		}
 	}
 
@@ -109,11 +108,11 @@ public class SkycatCfgReader
 	{
 		try
 		{
-			return load( url.openStream() );
+			return load( url.openStream() ) ;
 		}
 		catch( IOException ex )
 		{
-			return false;
+			return false ;
 		}
 	}
 
@@ -124,18 +123,18 @@ public class SkycatCfgReader
      */
 	public static boolean load( URL baseURL , String file )
 	{
-		URL url;
+		URL url ;
 		try
 		{
-			url = new URL( baseURL , file );
+			url = new URL( baseURL , file ) ;
 		}
 		catch( MalformedURLException ex )
 		{
-			System.out.println( "Problem constructing the URL: " + ex );
-			return false;
+			System.out.println( "Problem constructing the URL: " + ex ) ;
+			return false ;
 		}
 
-		return load( url );
+		return load( url ) ;
 	}
 
 	/**
@@ -143,22 +142,22 @@ public class SkycatCfgReader
      */
 	public static boolean load( InputStream is ) throws IOException
 	{
-		_catalog = new Vector();
-		_imagesrv = new Vector();
+		_catalog = new Vector() ;
+		_imagesrv = new Vector() ;
 
-		BufferedReader br = null;
+		BufferedReader br = null ;
 		try
 		{
-			br = new BufferedReader( new InputStreamReader( is ) );
-			_parse( br );
+			br = new BufferedReader( new InputStreamReader( is ) ) ;
+			_parse( br ) ;
 		}
 		finally
 		{
 			if( br != null )
-				br.close();
+				br.close() ;
 		}
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -167,15 +166,15 @@ public class SkycatCfgReader
      */
 	public static SkycatServer[] getCatalogServers()
 	{
-		int size = _catalog.size();
+		int size = _catalog.size() ;
 		if( size == 0 )
-			return null;
+			return null ;
 
-		SkycatServer[] a = new SkycatServer[ size ];
+		SkycatServer[] a = new SkycatServer[ size ] ;
 		for( int i = 0 ; i < size ; ++i )
-			a[ i ] = ( SkycatServer )_catalog.elementAt( i );
+			a[ i ] = ( SkycatServer )_catalog.elementAt( i ) ;
 
-		return a;
+		return a ;
 	}
 
 	/**
@@ -184,16 +183,16 @@ public class SkycatCfgReader
      */
 	public static SkycatServer[] getImageServers()
 	{
-		int size = _imagesrv.size();
+		int size = _imagesrv.size() ;
 		if( size == 0 )
-			return null;
+			return null ;
 
 
-		SkycatServer[] a = new SkycatServer[ size ];
+		SkycatServer[] a = new SkycatServer[ size ] ;
 		for( int i = 0 ; i < size ; ++i )
-			a[ i ] = ( SkycatServer )_imagesrv.elementAt( i );
+			a[ i ] = ( SkycatServer )_imagesrv.elementAt( i ) ;
 
-		return a;
+		return a ;
 	}
 
 	//
@@ -201,46 +200,46 @@ public class SkycatCfgReader
 	//
 	private static void _parse( BufferedReader br ) throws IOException
 	{
-		String line;
+		String line ;
 		while( ( line = br.readLine() ) != null )
 		{
 			if( !line.startsWith( SkycatServer.SERV_TYPE_TAG ) )
-				continue;
+				continue ;
 
-			SkycatServer ss = new SkycatServer();
+			SkycatServer ss = new SkycatServer() ;
 
-			ss.serv_type = _parseLine( line , SkycatServer.SERV_TYPE_TAG );
+			ss.serv_type = _parseLine( line , SkycatServer.SERV_TYPE_TAG ) ;
 			if( ss.serv_type == null )
-				continue;
+				continue ;
 
-			line = br.readLine();
+			line = br.readLine() ;
 			if( line == null )
 				return ;
 			
-			ss.long_name = _parseLine( line , SkycatServer.LONG_NAME_TAG );
+			ss.long_name = _parseLine( line , SkycatServer.LONG_NAME_TAG ) ;
 			if( ss.long_name == null )
-				continue;
+				continue ;
 
-			line = br.readLine();
+			line = br.readLine() ;
 			if( line == null )
-				return;
+				return ;
 			
-			ss.short_name = _parseLine( line , SkycatServer.SHORT_NAME_TAG );
+			ss.short_name = _parseLine( line , SkycatServer.SHORT_NAME_TAG ) ;
 			if( ss.short_name == null )
-				continue;
+				continue ;
 
-			line = br.readLine();
+			line = br.readLine() ;
 			if( line == null )
-				return;
+				return ;
 			
-			ss.url = _parseLine( line , SkycatServer.URL_TAG );
+			ss.url = _parseLine( line , SkycatServer.URL_TAG ) ;
 			if( ss.url == null )
-				continue;
+				continue ;
 
 			if( ss.serv_type.equals( SkycatServer.CATALOG_TYPE ) )
-				_catalog.addElement( ss );
+				_catalog.addElement( ss ) ;
 			else if( ss.serv_type.equals( SkycatServer.IMAGE_TYPE ) )
-				_imagesrv.addElement( ss );
+				_imagesrv.addElement( ss ) ;
 		}
 	}
 
@@ -251,11 +250,10 @@ public class SkycatCfgReader
 	{
 		// Make sure this line has the right tag
 		if( !line.startsWith( tag ) )
-			return null;
+			return null ;
 
 		// Parse the line
-		int i = line.indexOf( ':' );
-		return line.substring( i + 1 ).trim();
+		int i = line.indexOf( ':' ) ;
+		return line.substring( i + 1 ).trim() ;
 	}
-
 }

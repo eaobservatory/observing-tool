@@ -4,14 +4,13 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * An interface used by clients interested in knowing about property changes.
  */
 public interface AppPropertyWatcher
 {
-
 	/** The given property has the given new value. */
-	public void propertyChange( String property , String value );
+	public void propertyChange( String property , String value ) ;
 }

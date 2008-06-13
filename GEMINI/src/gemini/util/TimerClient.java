@@ -1,4 +1,4 @@
-package gemini.util;
+package gemini.util ;
 
 /**
  * An interface to be implemented by clients of Timer objects. I decided against
@@ -8,12 +8,11 @@ package gemini.util;
  */
 public interface TimerClient
 {
-
 	/**
      * Receive notification of a clock tick.
      * 
      * @return the time in milliseconds when the next tick should happen, or
      *         non-positive number to remove the client.
      */
-	long tick( long time );
+	long tick( long time ) ;
 }

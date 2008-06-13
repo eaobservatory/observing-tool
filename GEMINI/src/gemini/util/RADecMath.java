@@ -4,28 +4,25 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * Simple RA/Dec math routines. See also HHMMSS and DDMMSS.
  */
 public final class RADecMath
 {
-
-	//
 	// Rotate the given x/y point through the given angle.
-	//
 	private static double[] _rotate( double x , double y , double angle )
 	{
-		double rad = Angle.degreesToRadians( angle );
-		double sin = Angle.sinRadians( rad );
-		double cos = Angle.cosRadians( rad );
+		double rad = Angle.degreesToRadians( angle ) ;
+		double sin = Angle.sinRadians( rad ) ;
+		double cos = Angle.cosRadians( rad ) ;
 
-		double x2 = ( x * cos ) - ( y * sin );
-		double y2 = ( x * sin ) + ( y * cos );
+		double x2 = ( x * cos ) - ( y * sin ) ;
+		double y2 = ( x * sin ) + ( y * cos ) ;
 
-		double[] d = { x2 , y2 };
-		return d;
+		double[] d = { x2 , y2 } ;
+		return d ;
 	}
 
 	//
@@ -34,15 +31,15 @@ public final class RADecMath
 	//
 	private static double _getXOff( double pos , double base )
 	{
-		pos = Angle.normalizeDegrees( pos );
-		base = Angle.normalizeDegrees( base );
+		pos = Angle.normalizeDegrees( pos ) ;
+		base = Angle.normalizeDegrees( base ) ;
 
 		// In most cases, getting the offset is a simple subtraction. The
 		// difficulty comes when the positions are around 0:00:00 RA, with
 		// one slightly east (e.g., 23:59:59) and one slightly west (e.g.,
 		// 0:00:01) of 0.
 
-		double offDegrees = pos - base;
+		double offDegrees = pos - base ;
 
 		if( Math.abs( offDegrees ) > 180 )
 		{
@@ -50,16 +47,16 @@ public final class RADecMath
 			// greater than 180, one angle must be between 0 and 180, and the other
 			// between 180 and 360. Make them both over 180.
 			if( pos < 180 )
-				pos += 360.0;
+				pos += 360.0 ;
 			else
-				base += 360.0;
+				base += 360.0 ;
 
-			offDegrees = pos - base;
+			offDegrees = pos - base ;
 		}
 
-		Assert.notFalse( offDegrees <= 180 );
+		Assert.notFalse( offDegrees <= 180 ) ;
 
-		return offDegrees * 3600.0; // Return arcsec
+		return offDegrees * 3600.0 ; // Return arcsec
 	}
 
 	/**
@@ -70,47 +67,47 @@ public final class RADecMath
 	{
 		if( posDec > 90.0 )
 		{
-			posDec = 180.0 - posDec;
-			posRA = Angle.normalizeDegrees( posRA + 180.0 );
+			posDec = 180.0 - posDec ;
+			posRA = Angle.normalizeDegrees( posRA + 180.0 ) ;
 		}
 		else if( posDec < -90.0 )
 		{
-			posDec = -180.0 - posDec;
-			posRA = Angle.normalizeDegrees( posRA + 180.0 );
+			posDec = -180.0 - posDec ;
+			posRA = Angle.normalizeDegrees( posRA + 180.0 ) ;
 		}
 
 		if( baseDec > 90.0 )
 		{
-			baseDec = 180.0 - baseDec;
-			baseRA = Angle.normalizeDegrees( baseRA + 180.0 );
+			baseDec = 180.0 - baseDec ;
+			baseRA = Angle.normalizeDegrees( baseRA + 180.0 ) ;
 		}
 		else if( posDec < -90.0 )
 		{
-			baseDec = -180.0 - baseDec;
-			baseRA = Angle.normalizeDegrees( baseRA + 180.0 );
+			baseDec = -180.0 - baseDec ;
+			baseRA = Angle.normalizeDegrees( baseRA + 180.0 ) ;
 		}
 
-		double xOff = _getXOff( posRA , baseRA );
-		double yOff = ( posDec - baseDec ) * 3600.0;
+		double xOff = _getXOff( posRA , baseRA ) ;
+		double yOff = ( posDec - baseDec ) * 3600.0 ;
 
-		double[] t;
+		double[] t ;
 		if( posAngle == 0.0 )
 		{
 			// Check for a 0 posAngle, just because I suspect it will be a common
 			// case. Would be correct to call _rotate with a 0 posAngle anyway.
-			double[] t2 = { xOff , yOff };
-			t = t2;
+			double[] t2 = { xOff , yOff } ;
+			t = t2 ;
 		}
 		else
 		{
-			double[] t2 = _rotate( xOff , yOff , posAngle );
-			t = t2;
+			double[] t2 = _rotate( xOff , yOff , posAngle ) ;
+			t = t2 ;
 		}
 
-		t[ 0 ] = ( ( double )Math.round( t[ 0 ] * 1000.0 ) ) / 1000.0;
-		t[ 1 ] = ( ( double )Math.round( t[ 1 ] * 1000.0 ) ) / 1000.0;
+		t[ 0 ] = ( ( double )Math.round( t[ 0 ] * 1000.0 ) ) / 1000.0 ;
+		t[ 1 ] = ( ( double )Math.round( t[ 1 ] * 1000.0 ) ) / 1000.0 ;
 
-		return t;
+		return t ;
 	}
 
 	/**
@@ -119,7 +116,7 @@ public final class RADecMath
      */
 	public static double[] getOffset( double posRA , double posDec , double baseRA , double baseDec )
 	{
-		return getOffset( posRA , posDec , baseRA , baseDec , 0.0 );
+		return getOffset( posRA , posDec , baseRA , baseDec , 0.0 ) ;
 	}
 
 	/**
@@ -129,28 +126,28 @@ public final class RADecMath
 	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff , double posAngle )
 	{
 		// Rotate the offset back through the position angle
-		double[] off = { xOff , yOff };
+		double[] off = { xOff , yOff } ;
 		if( posAngle != 0.0 )
-			off = _rotate( xOff , yOff , -posAngle );
+			off = _rotate( xOff , yOff , -posAngle ) ;
 
-		double newDec = dec + off[ 1 ] / 3600;
+		double newDec = dec + off[ 1 ] / 3600 ;
 
-		double newXOff = ( off[ 0 ] / 3600.0 ) / Math.cos( Math.toRadians( newDec ) );
-		double newRA = Angle.normalizeDegrees( ra + newXOff );
+		double newXOff = ( off[ 0 ] / 3600.0 ) / Math.cos( Math.toRadians( newDec ) ) ;
+		double newRA = Angle.normalizeDegrees( ra + newXOff ) ;
 
 		if( newDec > 90.0 )
 		{
-			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
-			newDec = 180.0 - newDec;
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ) ; // Add 12 hours
+			newDec = 180.0 - newDec ;
 		}
 		else if( newDec < -90.0 )
 		{
-			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
-			newDec = -180.0 - newDec;
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ) ; // Add 12 hours
+			newDec = -180.0 - newDec ;
 		}
 
-		double[] t = { newRA , newDec };
-		return t;
+		double[] t = { newRA , newDec } ;
+		return t ;
 	}
 
 	/**
@@ -159,7 +156,7 @@ public final class RADecMath
      */
 	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff )
 	{
-		return getAbsolute( ra , dec , xOff , yOff , 0.0 );
+		return getAbsolute( ra , dec , xOff , yOff , 0.0 ) ;
 	}
 
 	/**
@@ -170,22 +167,22 @@ public final class RADecMath
 	{
 		// For now, assume everything is FK5/J2000
 		// Or FK4 - added by AB for ORAC 13-Oct-99
-		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) );
+		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) ) ;
 
-		double ra = 0.0;
-		double dec = 0.0;
+		double ra = 0.0 ;
+		double dec = 0.0 ;
 		try
 		{
-			ra = HHMMSS.valueOf( xaxis );
-			dec = DDMMSS.valueOf( yaxis );
+			ra = HHMMSS.valueOf( xaxis ) ;
+			dec = DDMMSS.valueOf( yaxis ) ;
 		}
 		catch( Exception ex )
 		{
-			return null;
+			return null ;
 		}
 
-		double[] pos = { ra , dec };
-		return pos;
+		double[] pos = { ra , dec } ;
+		return pos ;
 	}
 
 	/**
@@ -196,10 +193,9 @@ public final class RADecMath
 	{
 		// For now, assume everything is FK5/J200
 		// Or FK4 - added by AB for ORAC 13-Oct-99
-		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) || ( coordSystem == CoordSys.HADEC ) );
+		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) || ( coordSystem == CoordSys.HADEC ) ) ;
 
-		String[] pos = { HHMMSS.valStr( ra ) , DDMMSS.valStr( dec ) };
-		return pos;
+		String[] pos = { HHMMSS.valStr( ra ) , DDMMSS.valStr( dec ) } ;
+		return pos ;
 	}
-
 }

@@ -28,22 +28,21 @@
  * @author Cay Horstmann
  */
 
-package gemini.util;
+package gemini.util ;
 
 public class LinkedList
 {
-
-	private Link head;
-	private Link tail;
-	private Link pre; // predecessor of cursor
-	private int len;
+	private Link head ;
+	private Link tail ;
+	private Link pre ; // predecessor of cursor
+	private int len ;
 
 	/**
      * Resets the cursor.
      */
 	public void reset()
 	{
-		pre = null;
+		pre = null ;
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class LinkedList
      */
 	public boolean hasMoreElements()
 	{
-		return cursor() != null;
+		return cursor() != null ;
 	}
 
 	/**
@@ -64,13 +63,13 @@ public class LinkedList
 	public Object nextElement()
 	{
 		if( pre == null )
-			pre = head;
+			pre = head ;
 		else
-			pre = pre.next;
+			pre = pre.next ;
 
 		if( pre == null )
-			throw new java.util.NoSuchElementException();
-		return pre.data;
+			throw new java.util.NoSuchElementException() ;
+		return pre.data ;
 	}
 
 	/**
@@ -78,18 +77,18 @@ public class LinkedList
      */
 	public void clear()
 	{
-		Link cur = head;
+		Link cur = head ;
 		while( cur != null )
 		{
-			cur.data = null;
-			Link tmp = cur;
-			cur = cur.next;
-			tmp.next = null;
+			cur.data = null ;
+			Link tmp = cur ;
+			cur = cur.next ;
+			tmp.next = null ;
 		}
-		pre = null;
-		head = null;
-		tail = null;
-		len = 0;
+		pre = null ;
+		head = null ;
+		tail = null ;
+		len = 0 ;
 	}
 
 	/**
@@ -99,10 +98,10 @@ public class LinkedList
      */
 	public Object currentElement()
 	{
-		Link cur = cursor();
+		Link cur = cursor() ;
 		if( cur == null )
-			throw new java.util.NoSuchElementException();
-		return cur.data;
+			throw new java.util.NoSuchElementException() ;
+		return cur.data ;
 	}
 
 	/**
@@ -113,22 +112,22 @@ public class LinkedList
      */
 	public void insert( Object n )
 	{
-		Link p = new Link( n , cursor() );
+		Link p = new Link( n , cursor() ) ;
 
 		if( pre != null )
 		{
-			pre.next = p;
+			pre.next = p ;
 			if( pre == tail )
-				tail = p;
+				tail = p ;
 		}
 		else
 		{
 			if( head == null )
-				tail = p;
-			head = p;
+				tail = p ;
+			head = p ;
 		}
 
-		pre = p;
+		pre = p ;
 		len++ ;
 	}
 
@@ -140,15 +139,15 @@ public class LinkedList
      */
 	public void append( Object n )
 	{
-		Link p = new Link( n , null );
+		Link p = new Link( n , null ) ;
 		if( head == null )
 		{
-			head = tail = p;
+			head = tail = p ;
 		}
 		else
 		{
-			tail.next = p;
-			tail = p;
+			tail.next = p ;
+			tail = p ;
 		}
 		len++ ;
 	}
@@ -162,21 +161,21 @@ public class LinkedList
      */
 	public Object remove()
 	{
-		Link cur = cursor();
+		Link cur = cursor() ;
 		if( cur == null )
-			throw new java.util.NoSuchElementException();
+			throw new java.util.NoSuchElementException() ;
 		
 		if( tail == cur )
-			tail = pre;
+			tail = pre ;
 		
 		if( pre != null )
-			pre.next = cur.next;
+			pre.next = cur.next ;
 		else
 
-			head = cur.next;
+			head = cur.next ;
 
 		len-- ;
-		return cur.data;
+		return cur.data ;
 	}
 
 	/**
@@ -184,7 +183,7 @@ public class LinkedList
      */
 	public int size()
 	{
-		return len;
+		return len ;
 	}
 
 	/**
@@ -192,53 +191,50 @@ public class LinkedList
      */
 	public java.util.Enumeration elements()
 	{
-		return new ListEnumeration( head );
+		return new ListEnumeration( head ) ;
 	}
 
 	private Link cursor()
 	{
 		if( pre == null )
-			return head;
+			return head ;
 		else
-			return pre.next;
+			return pre.next ;
 	}
 
 	public static void main( String[] args )
 	{
-		LinkedList a = new LinkedList();
+		LinkedList a = new LinkedList() ;
 		for( int i = 1 ; i <= 10 ; i++ )
-			a.insert( new Integer( i ) );
+			a.insert( new Integer( i ) ) ;
 
-		java.util.Enumeration e = a.elements();
+		java.util.Enumeration e = a.elements() ;
 		while( e.hasMoreElements() )
-			System.out.println( e.nextElement() );
+			System.out.println( e.nextElement() ) ;
 
-		a.reset();
+		a.reset() ;
 		while( a.hasMoreElements() )
 		{
-			a.remove();
-			a.nextElement();
+			a.remove() ;
+			a.nextElement() ;
 		}
-		a.reset();
+		a.reset() ;
 		
 		while( a.hasMoreElements() )
-			System.out.println( a.nextElement() );
+			System.out.println( a.nextElement() ) ;
 	}
-
 }
 
 class Link
 {
-
-	Object data;
-	Link next;
+	Object data ;
+	Link next ;
 
 	Link( Object d , Link n )
 	{
-		data = d;
-		next = n;
+		data = d ;
+		next = n ;
 	}
-
 }
 
 /**
@@ -247,11 +243,11 @@ class Link
 class ListEnumeration implements java.util.Enumeration
 {
 
-	private Link cursor;
+	private Link cursor ;
 
 	public ListEnumeration( Link l )
 	{
-		cursor = l;
+		cursor = l ;
 	}
 
 	/**
@@ -259,7 +255,7 @@ class ListEnumeration implements java.util.Enumeration
      */
 	public boolean hasMoreElements()
 	{
-		return cursor != null;
+		return cursor != null ;
 	}
 
 	/**
@@ -272,9 +268,9 @@ class ListEnumeration implements java.util.Enumeration
 	public Object nextElement()
 	{
 		if( cursor == null )
-			throw new java.util.NoSuchElementException();
-		Object r = cursor.data;
-		cursor = cursor.next;
-		return r;
+			throw new java.util.NoSuchElementException() ;
+		Object r = cursor.data ;
+		cursor = cursor.next ;
+		return r ;
 	}
 }

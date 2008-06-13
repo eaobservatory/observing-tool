@@ -19,7 +19,7 @@ public class TranslationUtils
 			SpTranslatable previous = null ;
 			while( e.hasMoreElements() )
 			{
-				SpItem child = ( SpItem )e.nextElement();
+				SpItem child = ( SpItem )e.nextElement() ;
 				if( child instanceof SpTranslatable )
 				{
 					translatable = ( SpTranslatable )child ;

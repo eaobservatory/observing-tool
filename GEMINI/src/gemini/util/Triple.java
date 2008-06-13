@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * This is a very simple class that can be used to associate three objects, a
@@ -12,18 +12,17 @@ package gemini.util;
  */
 public class Triple
 {
-
-	public Object first = null;;
-	public Object second = null;
-	public Object third = null;
+	public Object first = null ;;
+	public Object second = null ;
+	public Object third = null ;
 
 	/**
      * Construct a Triple from three objects.
      */
 	public Triple( Object o1 , Object o2 , Object o3 )
 	{
-		first = o1;
-		second = o2;
-		third = o3;
+		first = o1 ;
+		second = o2 ;
+		third = o3 ;
 	}
 }

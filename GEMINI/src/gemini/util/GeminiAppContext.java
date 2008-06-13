@@ -4,12 +4,12 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File ;
+import java.io.IOException ;
+import java.net.MalformedURLException ;
+import java.net.URL ;
 
 /**
  * An application context (supporting a subset of the methods in
@@ -32,21 +32,20 @@ import java.net.URL;
  */
 public class GeminiAppContext
 {
-
 	// The singleton
-	private static GeminiAppContext _instance;
+	private static GeminiAppContext _instance ;
 
 	// These two are used by normal applications
-	private String _baseDir;
+	private String _baseDir ;
 
-	private URL _baseURL;
+	private URL _baseURL ;
 
 	/**
      * Get the instance.
      */
 	public static synchronized GeminiAppContext instance()
 	{
-		return _instance;
+		return _instance ;
 	}
 
 	/**
@@ -54,9 +53,9 @@ public class GeminiAppContext
 	private static synchronized void setInstance( GeminiAppContext gac )
 	{
 		if( _instance != null )
-			throw new RuntimeException( "Tried to create a second app context." );
+			throw new RuntimeException( "Tried to create a second app context." ) ;
 
-		_instance = gac;
+		_instance = gac ;
 	}
 
 	/**
@@ -66,25 +65,25 @@ public class GeminiAppContext
 	{
 		try
 		{
-			File f = new File( baseDir );
-			_baseDir = f.getCanonicalPath();
+			File f = new File( baseDir ) ;
+			_baseDir = f.getCanonicalPath() ;
 		}
 		catch( IOException ex )
 		{
-			System.out.println( "Couldn't create the canonical path from: " + baseDir );
-			return;
+			System.out.println( "Couldn't create the canonical path from: " + baseDir ) ;
+			return ;
 		}
 
 		try
 		{
-			_baseURL = new URL( "file" , "localhost" , _baseDir + "/." );
+			_baseURL = new URL( "file" , "localhost" , _baseDir + "/." ) ;
 		}
 		catch( MalformedURLException ex )
 		{
-			System.out.println( ex );
-			return;
+			System.out.println( ex ) ;
+			return ;
 		}
-		setInstance( this );
+		setInstance( this ) ;
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class GeminiAppContext
      */
 	public URL getBase()
 	{
-		return _baseURL;
+		return _baseURL ;
 	}
 
 	/**
@@ -100,10 +99,10 @@ public class GeminiAppContext
      */
 	public String[] listChannelDirectory( String directory )
 	{
-			char c = File.separatorChar;
-			directory = directory.replace( '/' , c );
-			File f = new File( _baseDir + c + directory );
-			return f.list();
+			char c = File.separatorChar ;
+			directory = directory.replace( '/' , c ) ;
+			File f = new File( _baseDir + c + directory ) ;
+			return f.list() ;
 	}
 
 	/**
@@ -111,6 +110,6 @@ public class GeminiAppContext
      */
 	public void stop()
 	{
-		System.exit( 0 );
+		System.exit( 0 ) ;
 	}
 }

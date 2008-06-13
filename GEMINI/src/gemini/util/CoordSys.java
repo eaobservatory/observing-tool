@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * Utility class support for the coordinate systems supported by Gemini.
@@ -16,17 +16,17 @@ package gemini.util;
 public class CoordSys
 {
 	// The possible coordinate systems.
-	public static final int FK5 = 0;
-	public static final int FK4 = 1;
-	public static final int AZ_EL = 2;
-	public static final int GAL = 3;
-	public static final int HADEC = 4;
+	public static final int FK5 = 0 ;
+	public static final int FK4 = 1 ;
+	public static final int AZ_EL = 2 ;
+	public static final int GAL = 3 ;
+	public static final int HADEC = 4 ;
 	
-	public static final String FK5_STRING = "FK5 (J2000)";
-	public static final String FK4_STRING = "FK4 (B1950)";
-	public static final String AZ_EL_STRING = "Az/El";
-	public static final String GAL_STRING = "Galactic";
-	public static final String HADEC_STRING = "HADEC";
+	public static final String FK5_STRING = "FK5 (J2000)" ;
+	public static final String FK4_STRING = "FK4 (B1950)" ;
+	public static final String AZ_EL_STRING = "Az/El" ;
+	public static final String GAL_STRING = "Galactic" ;
+	public static final String HADEC_STRING = "HADEC" ;
 	
 	public static final String FK5_SHORT_STRING = "FK5" ; 	 
 	public static final String FK4_SHORT_STRING = "FK4" ; 	 
@@ -37,20 +37,20 @@ public class CoordSys
 	/**
      * Readable coordinate system strings.
      */
-	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING };
-    public static final String[] SHORT_COORD_SYS = { FK5_SHORT_STRING , FK4_SHORT_STRING , AZ_EL_SHORT_STRING , GAL_SHORT_STRING , HADEC_SHORT_STRING };
+	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING } ;
+    public static final String[] SHORT_COORD_SYS = { FK5_SHORT_STRING , FK4_SHORT_STRING , AZ_EL_SHORT_STRING , GAL_SHORT_STRING , HADEC_SHORT_STRING } ;
 
 	// MFO (March 08, 2002)
 	/**
      * Coordinate System x axis labels.
      */
-	public static final String[] X_AXIS_LABEL = { "Ra" , "Ra" , "Az" , "Long" , "HA" };
+	public static final String[] X_AXIS_LABEL = { "Ra" , "Ra" , "Az" , "Long" , "HA" } ;
 
 	// MFO (March 08, 2002)
 	/**
      * Coordinate System y axis labels.
      */
-	public static final String[] Y_AXIS_LABEL = { "Dec" , "Dec" , "El" , "Lat" , "Dec" };
+	public static final String[] Y_AXIS_LABEL = { "Dec" , "Dec" , "El" , "Lat" , "Dec" } ;
 
 	/**
      * Get an integer representing a coordinate system from its associated
@@ -70,7 +70,7 @@ public class CoordSys
 					return i ;
 		}
 
-		return -1;
+		return -1 ;
 	}
 
 	/**
@@ -80,8 +80,8 @@ public class CoordSys
 	public static String getSystem( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= COORD_SYS.length ) )
-			return null;
-		return COORD_SYS[ coordSysInt ];
+			return null ;
+		return COORD_SYS[ coordSysInt ] ;
 	}
 
 	/**
@@ -91,8 +91,8 @@ public class CoordSys
 	public static String getXAxisLabel( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= X_AXIS_LABEL.length ) )
-			return null;
-		return X_AXIS_LABEL[ coordSysInt ];
+			return null ;
+		return X_AXIS_LABEL[ coordSysInt ] ;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class CoordSys
 	public static String getYAxisLabel( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= Y_AXIS_LABEL.length ) )
-			return null;
-		return Y_AXIS_LABEL[ coordSysInt ];
+			return null ;
+		return Y_AXIS_LABEL[ coordSysInt ] ;
 	}
 }

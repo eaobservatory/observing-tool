@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * Interface implemented by clients of the BasicPropertyList that want to be
@@ -12,7 +12,6 @@ package gemini.util;
  */
 public interface PropertyWatcher
 {
-
 	/** The named property changed. */
-	public void propertyChange( String propertyName );
+	public void propertyChange( String propertyName ) ;
 }

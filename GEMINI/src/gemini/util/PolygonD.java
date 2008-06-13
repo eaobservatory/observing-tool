@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.awt.Polygon;
+import java.awt.Polygon ;
 
 /**
  * Like a java.awt.Polygon, but instead of integer coordinates, doubles are
@@ -15,10 +15,10 @@ import java.awt.Polygon;
 public class PolygonD implements Cloneable
 {
 
-	public int npoints = 0;
-	public double xpoints[] = new double[ 4 ];
-	public double ypoints[] = new double[ 4 ];
-	private Polygon _awtPolygon;
+	public int npoints = 0 ;
+	public double xpoints[] = new double[ 4 ] ;
+	public double ypoints[] = new double[ 4 ] ;
+	private Polygon _awtPolygon ;
 
 	/**
      * Creates an empty polygon.
@@ -30,11 +30,11 @@ public class PolygonD implements Cloneable
      */
 	public PolygonD( PolygonD srcPD )
 	{
-		this.npoints = srcPD.npoints;
-		this.xpoints = new double[ this.npoints ];
-		this.ypoints = new double[ this.npoints ];
-		System.arraycopy( srcPD.xpoints , 0 , this.xpoints , 0 , this.npoints );
-		System.arraycopy( srcPD.ypoints , 0 , this.ypoints , 0 , this.npoints );
+		this.npoints = srcPD.npoints ;
+		this.xpoints = new double[ this.npoints ] ;
+		this.ypoints = new double[ this.npoints ] ;
+		System.arraycopy( srcPD.xpoints , 0 , this.xpoints , 0 , this.npoints ) ;
+		System.arraycopy( srcPD.ypoints , 0 , this.ypoints , 0 , this.npoints ) ;
 	}
 
 	/**
@@ -49,51 +49,51 @@ public class PolygonD implements Cloneable
      */
 	public PolygonD( double[] xpoints , double[] ypoints , int npoints )
 	{
-		this.npoints = npoints;
-		this.xpoints = new double[ npoints ];
-		this.ypoints = new double[ npoints ];
-		System.arraycopy( xpoints , 0 , this.xpoints , 0 , npoints );
-		System.arraycopy( ypoints , 0 , this.ypoints , 0 , npoints );
+		this.npoints = npoints ;
+		this.xpoints = new double[ npoints ] ;
+		this.ypoints = new double[ npoints ] ;
+		System.arraycopy( xpoints , 0 , this.xpoints , 0 , npoints ) ;
+		System.arraycopy( ypoints , 0 , this.ypoints , 0 , npoints ) ;
 	}
 
 	public Polygon getAWTPolygon()
 	{
 		if( ( _awtPolygon == null ) || ( _awtPolygon.npoints != npoints ) )
-			_awtPolygon = new Polygon( new int[ npoints ] , new int[ npoints ] , npoints );
+			_awtPolygon = new Polygon( new int[ npoints ] , new int[ npoints ] , npoints ) ;
 
 		for( int i = 0 ; i < npoints ; ++i )
 		{
 			if( _awtPolygon.xpoints[ i ] < 0.0 )
-				_awtPolygon.xpoints[ i ] = ( int )( xpoints[ i ] - 0.5 );
+				_awtPolygon.xpoints[ i ] = ( int )( xpoints[ i ] - 0.5 ) ;
 			else
-				_awtPolygon.xpoints[ i ] = ( int )( xpoints[ i ] + 0.5 );
+				_awtPolygon.xpoints[ i ] = ( int )( xpoints[ i ] + 0.5 ) ;
 
 			if( _awtPolygon.ypoints[ i ] < 0.0 )
-				_awtPolygon.ypoints[ i ] = ( int )( ypoints[ i ] - 0.5 );
+				_awtPolygon.ypoints[ i ] = ( int )( ypoints[ i ] - 0.5 ) ;
 			else
-				_awtPolygon.ypoints[ i ] = ( int )( ypoints[ i ] + 0.5 );
+				_awtPolygon.ypoints[ i ] = ( int )( ypoints[ i ] + 0.5 ) ;
 		}
-		return _awtPolygon;
+		return _awtPolygon ;
 	}
 
 	public String toString()
 	{
-		return getClass().getName() + "[x=" + xpoints + ", y=" + ypoints + "]";
+		return getClass().getName() + "[x=" + xpoints + ", y=" + ypoints + "]" ;
 	}
 
 	public Object clone()
 	{
-		PolygonD pd;
+		PolygonD pd ;
 		try
 		{
-			pd = ( PolygonD )super.clone();
+			pd = ( PolygonD )super.clone() ;
 		}
 		catch( CloneNotSupportedException ex )
 		{
-			return null;
+			return null ;
 		}
-		pd.xpoints = ( double[] )xpoints.clone();
-		pd.ypoints = ( double[] )ypoints.clone();
-		return pd;
+		pd.xpoints = ( double[] )xpoints.clone() ;
+		pd.ypoints = ( double[] )ypoints.clone() ;
+		return pd ;
 	}
 }

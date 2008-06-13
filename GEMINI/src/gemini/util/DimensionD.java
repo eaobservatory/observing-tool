@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.awt.Dimension;
+import java.awt.Dimension ;
 
 /**
  * Like a java.awt.Dimension, but instead of integer coordinates, doubles are
@@ -14,38 +14,37 @@ import java.awt.Dimension;
  */
 public class DimensionD
 {
+	public double height ;
 
-	public double height;
-
-	public double width;
+	public double width ;
 
 	public DimensionD(){}
 
 	public DimensionD( Dimension d )
 	{
-		height = ( double )d.height;
-		width = ( double )d.width;
+		height = ( double )d.height ;
+		width = ( double )d.width ;
 	}
 
 	public DimensionD( DimensionD d )
 	{
-		height = d.height;
-		width = d.width;
+		height = d.height ;
+		width = d.width ;
 	}
 
 	public DimensionD( double width , double height )
 	{
-		this.height = height;
-		this.width = width;
+		this.height = height ;
+		this.width = width ;
 	}
 
 	public Dimension getAWTDimension()
 	{
-		return new Dimension( ( int )( width + 0.5 ) , ( int )( height + 0.5 ) );
+		return new Dimension( ( int )( width + .5 ) , ( int )( height + .5 ) ) ;
 	}
 
 	public String toString()
 	{
-		return getClass().getName() + "[width=" + width + ", height=" + height + "]";
+		return getClass().getName() + "[width=" + width + ", height=" + height + "]" ;
 	}
 }

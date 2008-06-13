@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * A collection of useful math routines that seem to have been forgotten or not
@@ -18,8 +18,8 @@ public class MathUtil
      */
 	public static double round( double d , int precision )
 	{
-		int mult = ( int )Math.pow( 10 , precision );
-		return ( ( double )Math.round( d * mult ) ) / mult;
+		int mult = ( int )Math.pow( 10 , precision ) ;
+		return ( ( double )Math.round( d * mult ) ) / mult ;
 	}
 
 	/**
@@ -27,22 +27,22 @@ public class MathUtil
      */
 	public static String doubleToString( double d , int precision )
 	{
-		StringBuffer out = new StringBuffer();
+		StringBuffer out = new StringBuffer() ;
 
 		if( d < 0 )
-			out.append( '-' );
-		int i = ( int )d;
-		out.append( i );
-		d = d - ( double )i;
-		out.append( '.' );
+			out.append( '-' ) ;
+		int i = ( int )d ;
+		out.append( i ) ;
+		d = d - ( double )i ;
+		out.append( '.' ) ;
 		for( int j = 0 ; j < precision ; ++j )
 		{
-			d = d * 10.0;
-			i = ( int )d;
-			out.append( i );
-			d = d - ( double )i;
+			d = d * 10. ;
+			i = ( int )d ;
+			out.append( i ) ;
+			d = d - ( double )i ;
 		}
-		return out.toString();
+		return out.toString() ;
 	}
 
 	/**
@@ -50,6 +50,6 @@ public class MathUtil
      */
 	public static String doubleToString( double d )
 	{
-		return doubleToString( d , 10 );
+		return doubleToString( d , 10 ) ;
 	}
 }

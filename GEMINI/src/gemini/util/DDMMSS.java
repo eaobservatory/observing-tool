@@ -16,17 +16,17 @@
  * ownership remains with the UI.
  * 
  * You should have received a full statement of copyright and conditions for use
- * with this package; if not, a copy may be obtained from the above address.
+ * with this package ; if not, a copy may be obtained from the above address.
  * Please see this statement for more details.
  */
-package gemini.util;
+package gemini.util ;
 
 /**
  * Support for converting between angles in string and double representations.
  */
 public class DDMMSS extends XXMMSS
 {
-	public static final String MYNAME = "Degree-Angle (+/- 90) Coordinate Axis Position Formatter";
+	public static final String MYNAME = "Degree-Angle (+/- 90) Coordinate Axis Position Formatter" ;
 	
 	/**
 	 * 
@@ -43,49 +43,49 @@ public class DDMMSS extends XXMMSS
      */
 	public static String valStr( double degrees , int prec )
 	{
-		int sign = ( degrees < 0 ) ? -1 : 1;
-		degrees = Math.abs( degrees );
+		int sign = ( degrees < 0 ) ? -1 : 1 ;
+		degrees = Math.abs( degrees ) ;
 
-		int dd = ( int )degrees;
+		int dd = ( int )degrees ;
 		double tmp = ( degrees - ( double )dd ) * 60. ;
-		int mm = ( int )tmp;
+		int mm = ( int )tmp ;
 		double ss = ( tmp - ( double )mm ) * 60. ;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
 		{
-			ss = 0;
-			mm += 1;
+			ss = 0 ;
+			mm += 1 ;
 			if( mm >= 60 )
 			{
-				mm = 0;
-				dd += 1;
+				mm = 0 ;
+				dd += 1 ;
 			}
 		}
 
-		StringBuffer out = new StringBuffer();
+		StringBuffer out = new StringBuffer() ;
 		if( sign < 0 )
-			out.append( '-' );
-		out.append( dd );
+			out.append( '-' ) ;
+		out.append( dd ) ;
 		if( prec == -2 )
-			return out.toString();
+			return out.toString() ;
 
-		out.append( ':' );
+		out.append( ':' ) ;
 		if( mm < 10 )
-			out.append( '0' );
-		out.append( mm );
+			out.append( '0' ) ;
+		out.append( mm ) ;
 		if( prec == -1 )
-			return out.toString();
+			return out.toString() ;
 
-		out.append( ':' );
+		out.append( ':' ) ;
 
 		// Ignoring prec for now
 		ss = ( ( double )Math.round( ss * 100. ) ) / 100. ;
 		if( ss < 10 )
-			out.append( '0' );
-		out.append( ss );
+			out.append( '0' ) ;
+		out.append( ss ) ;
 
-		return out.toString();
+		return out.toString() ;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class DDMMSS extends XXMMSS
      */
 	public static String valStr( double degrees )
 	{
-		return valStr( degrees , -3 );
+		return valStr( degrees , -3 ) ;
 	}
 
 	/**
@@ -133,17 +133,17 @@ public class DDMMSS extends XXMMSS
 
 		if( valid = validFormat( ddmmss ) )
 		{
-			double[] values = stringTodoubleTriplet( ddmmss );
+			double[] values = stringTodoubleTriplet( ddmmss ) ;
 	
-			double degrees = values[ 0 ];
-			double minutes = values[ 1 ];
-			double seconds = values[ 2 ];
+			double degrees = values[ 0 ] ;
+			double minutes = values[ 1 ] ;
+			double seconds = values[ 2 ] ;
 	
 			if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-				valid = false;
+				valid = false ;
 		}
 
-		return valid;
+		return valid ;
 	}
 
 	/**
@@ -153,10 +153,10 @@ public class DDMMSS extends XXMMSS
 	{
 		for( int i = 0 ; i < args.length ; ++i )
 		{
-			double converted = DDMMSS.valueOf( args[ i ] );
-			String back = DDMMSS.valStr( converted );
-			System.out.println( args[ i ] + " = " + converted );
-			System.out.println( converted + " = " + back );
+			double converted = DDMMSS.valueOf( args[ i ] ) ;
+			String back = DDMMSS.valStr( converted ) ;
+			System.out.println( args[ i ] + " = " + converted ) ;
+			System.out.println( converted + " = " + back ) ;
 		}
 	}
 }

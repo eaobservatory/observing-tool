@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
-import java.net.URLEncoder;
+import java.net.URLEncoder ;
 
 /**
  * A simple CGI script query string encoder. It can be used to incrementally
@@ -18,33 +18,33 @@ import java.net.URLEncoder;
 public class QueryString
 {
 
-	String query;
+	String query ;
 
 	public QueryString()
 	{
-		query = "";
+		query = "" ;
 	}
 
 	public QueryString( Object value )
 	{
-		query = URLEncoder.encode( value.toString() );
+		query = URLEncoder.encode( value.toString() ) ;
 	}
 
 	public QueryString( Object name , Object value )
 	{
-		query = URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() );
+		query = URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() ) ;
 	}
 
 	public void add( Object name , Object value )
 	{
 		if( !query.equals( "" ) )
-			query += "&";
+			query += "&" ;
 
-		query += URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() );
+		query += URLEncoder.encode( name.toString() ) + "=" + URLEncoder.encode( value.toString() ) ;
 	}
 
 	public String toString()
 	{
-		return query;
+		return query ;
 	}
 }

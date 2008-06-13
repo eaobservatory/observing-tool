@@ -7,15 +7,15 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package gemini.util;
+package gemini.util ;
 
-import java.io.Reader;
-import java.io.FileReader;
-import java.io.StringReader;
-import java.io.LineNumberReader;
-import java.io.IOException;
-import java.util.Vector;
-import java.util.StringTokenizer;
+import java.io.Reader ;
+import java.io.FileReader ;
+import java.io.StringReader ;
+import java.io.LineNumberReader ;
+import java.io.IOException ;
+import java.util.Vector ;
+import java.util.StringTokenizer ;
 
 /**
  * Simple utility to convert special characters.
@@ -23,9 +23,9 @@ import java.util.StringTokenizer;
  * Converts
  * 
  * <pre>
- * '&lt;' to and from &quot;&amp;lt;&quot;    &lt;!-- '&lt;' to and from &quot;&lt;&quot; --&gt;
- * '&gt;' to and from &quot;&amp;gt;&quot;    &lt;!-- '&gt;' to and from &quot;&gt;&quot; --&gt;
- * '&amp;' to and from &quot;&amp;amp;&quot;  &lt;!-- '&amp;' to and from &quot;&amp;&quot; --&gt;
+ * '&lt ;' to and from &quot ;&amp ;lt ;&quot ;    &lt ;!-- '&lt ;' to and from &quot ;&lt ;&quot ; --&gt ;
+ * '&gt ;' to and from &quot ;&amp ;gt ;&quot ;    &lt ;!-- '&gt ;' to and from &quot ;&gt ;&quot ; --&gt ;
+ * '&amp ;' to and from &quot ;&amp ;amp ;&quot ;  &lt ;!-- '&amp ;' to and from &quot ;&amp ;&quot ; --&gt ;
  * </pre>
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
@@ -36,29 +36,29 @@ public class XmlUtil
 	public static String asciiToXml( String ascii )
 	{
 		if( ascii == null )
-			return "";
+			return "" ;
 
-		StringBuffer result = new StringBuffer();
+		StringBuffer result = new StringBuffer() ;
 
 		for( int i = 0 ; i < ascii.length() ; i++ )
 		{
 			switch( ascii.charAt( i ) )
 			{
 				case '<' :
-					result.append( "&lt;" );
-					break;
+					result.append( "&lt ;" ) ;
+					break ;
 				case '>' :
-					result.append( "&gt;" );
-					break;
+					result.append( "&gt ;" ) ;
+					break ;
 				case '&' :
-					result.append( "&amp;" );
-					break;
+					result.append( "&amp ;" ) ;
+					break ;
 				default :
-					result.append( ascii.charAt( i ) );
+					result.append( ascii.charAt( i ) ) ;
 			}
 		}
 
-		return result.toString();
+		return result.toString() ;
 	}
 
 	/**
@@ -68,35 +68,35 @@ public class XmlUtil
      */
 	public static String xmlToAscii( String xml )
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuffer result = new StringBuffer() ;
 
 		for( int i = 0 ; i < xml.length() ; i++ )
 		{
 			if( xml.charAt( i ) == '&' )
 			{
-				if( xml.substring( i ).startsWith( "&lt;" ) )
+				if( xml.substring( i ).startsWith( "&lt ;" ) )
 				{
-					result.append( "<" );
-					i += 3;
+					result.append( "<" ) ;
+					i += 3 ;
 				}
-				else if( xml.substring( i ).startsWith( "&gt;" ) )
+				else if( xml.substring( i ).startsWith( "&gt ;" ) )
 				{
-					result.append( ">" );
-					i += 3;
+					result.append( ">" ) ;
+					i += 3 ;
 				}
-				else if( xml.substring( i ).startsWith( "&amp;" ) )
+				else if( xml.substring( i ).startsWith( "&amp ;" ) )
 				{
-					result.append( "&" );
-					i += 4;
+					result.append( "&" ) ;
+					i += 4 ;
 				}
 			}
 			else
 			{
-				result.append( xml.charAt( i ) );
+				result.append( xml.charAt( i ) ) ;
 			}
 		}
 
-		return result.toString();
+		return result.toString() ;
 	}
 
 	/** Test and debug method. */
@@ -106,17 +106,17 @@ public class XmlUtil
 		{
 			if( args[ 0 ].equals( "-toXml" ) )
 			{
-				System.out.println( asciiToXml( args[ 1 ] ) );
-				return;
+				System.out.println( asciiToXml( args[ 1 ] ) ) ;
+				return ;
 			}
 			else if( args[ 0 ].equals( "-toAscii" ) )
 			{
-				System.out.println( xmlToAscii( args[ 1 ] ) );
-				return;
+				System.out.println( xmlToAscii( args[ 1 ] ) ) ;
+				return ;
 			}
 		}
 
-		System.out.println( "Usage: orac.util.XmlUtil (-toXml | toAscii) \"string\"" );
+		System.out.println( "Usage: orac.util.XmlUtil (-toXml | toAscii) \"string\"" ) ;
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class XmlUtil
      * Note that this method does not perform any formal XML parsing at all. All
      * it does is extracting all the lines betwenn the occurrances of the start
      * and end tag of an element (including these lines themselves). Therefore
-     * the method can <b>not</b> extract empty elements such as &lt;element
-     * attr="value"/&gt;
+     * the method can <b>not</b> extract empty elements such as &lt ;element
+     * attr="value"/&gt ;
      * 
      * @param element
      *            Name of the XML element to be extracted.
@@ -141,7 +141,7 @@ public class XmlUtil
      */
 	public static String[] extractElement( String element , String xml )
 	{
-		return extractElement( element , new StringReader( xml ) );
+		return extractElement( element , new StringReader( xml ) ) ;
 	}
 
 	/**
@@ -149,92 +149,92 @@ public class XmlUtil
      */
 	public static String[] extractElement( String element , Reader reader )
 	{
-		LineNumberReader lineNumberReader = new LineNumberReader( reader );
+		LineNumberReader lineNumberReader = new LineNumberReader( reader ) ;
 
-		String line = null;
-		boolean processingElement = false;
-		StringBuffer elementBuffer = new StringBuffer();
-		Vector elementVector = new Vector();
-		int offset = 0;
+		String line = null ;
+		boolean processingElement = false ;
+		StringBuffer elementBuffer = new StringBuffer() ;
+		Vector elementVector = new Vector() ;
+		int offset = 0 ;
 
 		do
 		{
 			try
 			{
-				line = lineNumberReader.readLine();
+				line = lineNumberReader.readLine() ;
 			}
 			catch( IOException e )
 			{
-				e.printStackTrace();
+				e.printStackTrace() ;
 			}
 
 			if( line != null )
 			{
 				if( line.indexOf( "<" + element ) >= 0 )
 				{
-					processingElement = true;
-					offset = line.length() - line.trim().length();
+					processingElement = true ;
+					offset = line.length() - line.trim().length() ;
 				}
 
 				if( processingElement == true )
 				{
-					elementBuffer.append( line.substring( offset ) + "\n" );
+					elementBuffer.append( line.substring( offset ) + "\n" ) ;
 
 					if( line.indexOf( "</" + element ) >= 0 )
 					{
-						processingElement = false;
-						elementVector.add( elementBuffer.toString() );
-						elementBuffer.setLength( 0 );
+						processingElement = false ;
+						elementVector.add( elementBuffer.toString() ) ;
+						elementBuffer.setLength( 0 ) ;
 					}
 				}
 			}
 		}
-		while( line != null );
+		while( line != null ) ;
 
-		String[] result = new String[ elementVector.size() ];
+		String[] result = new String[ elementVector.size() ] ;
 
 		for( int i = 0 ; i < elementVector.size() ; i++ )
-			result[ i ] = ( String )elementVector.get( i );
+			result[ i ] = ( String )elementVector.get( i ) ;
 
-		return result;
+		return result ;
 	}
 
 	public static void main( String[] args )
 	{
 		if( args.length < 2 )
 		{
-			System.out.println( "Usage: XmlUtil \"element1 element2 ...\" file" );
-			return;
+			System.out.println( "Usage: XmlUtil \"element1 element2 ...\" file" ) ;
+			return ;
 		}
 
 		try
 		{
-			StringTokenizer stringTokenizer = new StringTokenizer( args[ 0 ] , " " );
+			StringTokenizer stringTokenizer = new StringTokenizer( args[ 0 ] , " " ) ;
 
-			String[][] elements = new String[ stringTokenizer.countTokens() ][];
+			String[][] elements = new String[ stringTokenizer.countTokens() ][] ;
 
 			for( int i = 0 ; i < elements.length ; i++ )
-				elements[ i ] = extractElement( stringTokenizer.nextToken() , new FileReader( args[ 1 ] ) );
+				elements[ i ] = extractElement( stringTokenizer.nextToken() , new FileReader( args[ 1 ] ) ) ;
 
 			if( elements.length < 1 )
 			{
-				System.out.println( "No element found." );
-				return;
+				System.out.println( "No element found." ) ;
+				return ;
 			}
 
 			for( int i = 0 ; i < elements[ 0 ].length ; i++ )
 			{
-				System.out.println( "\n--------------------------------\n" );
-				System.out.println( "------------- " + ( i + 1 ) + " ----------------\n" );
-				System.out.println( "--------------------------------\n" );
+				System.out.println( "\n--------------------------------\n" ) ;
+				System.out.println( "------------- " + ( i + 1 ) + " ----------------\n" ) ;
+				System.out.println( "--------------------------------\n" ) ;
 
 				for( int j = 0 ; j < elements.length ; j++ )
-					System.out.println( elements[ j ][ i ] );
+					System.out.println( elements[ j ][ i ] ) ;
 			}
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Problems with file " + args[ 0 ] + ": " + e );
+			System.out.println( "Problems with file " + args[ 0 ] + ": " + e ) ;
 		}
 	}
 }

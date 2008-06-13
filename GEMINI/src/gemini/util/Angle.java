@@ -4,22 +4,22 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * A utility class for angles.
  */
 public final class Angle
 {
-
-	private static double _ERROR = 0.000001;
+	private static double _ERROR = 0.000001 ;
+	private static final double twoPI = Math.PI * 2. ;
 
 	/**
      * Convert from degrees to radians.
      */
 	public static double degreesToRadians( double degrees )
 	{
-		return degrees * Math.PI / 180.0;
+		return degrees * Math.PI / 180. ;
 	}
 
 	/**
@@ -27,7 +27,7 @@ public final class Angle
      */
 	public static double radiansToDegrees( double radians )
 	{
-		return radians * 180.0 / Math.PI;
+		return radians * 180. / Math.PI ;
 	}
 
 	/**
@@ -37,10 +37,10 @@ public final class Angle
 	public static boolean almostZeroDegrees( double angle )
 	{
 		if( ( angle >= -_ERROR ) && ( angle <= _ERROR ) )
-			return true;
+			return true ;
 		if( ( angle >= ( 360 - _ERROR ) ) && ( angle <= ( 360 + _ERROR ) ) )
-			return true;
-		return false;
+			return true ;
+		return false ;
 	}
 
 	/**
@@ -50,13 +50,12 @@ public final class Angle
 	public static boolean almostZeroRadians( double angle )
 	{
 		if( ( angle >= -_ERROR ) && ( angle <= _ERROR ) )
-			return true;
+			return true ;
 
-		double twoPI = Math.PI * 2.0;
 		if( ( angle >= ( twoPI - _ERROR ) ) && ( angle <= ( twoPI + _ERROR ) ) )
-			return true;
+			return true ;
 
-		return false;
+		return false ;
 	}
 
 	//
@@ -66,7 +65,7 @@ public final class Angle
 	//
 	private static boolean _almostZero( double n )
 	{
-		return ( n >= -_ERROR ) && ( n <= _ERROR );
+		return ( n >= -_ERROR ) && ( n <= _ERROR ) ;
 	}
 
 	/**
@@ -74,11 +73,11 @@ public final class Angle
      */
 	public static double sinRadians( double angle )
 	{
-		double d = Math.sin( angle );
+		double d = Math.sin( angle ) ;
 		if( _almostZero( d ) )
-			return 0;
+			return 0 ;
 
-		return d;
+		return d ;
 	}
 
 	/**
@@ -86,11 +85,11 @@ public final class Angle
      */
 	public static double cosRadians( double angle )
 	{
-		double d = Math.cos( angle );
+		double d = Math.cos( angle ) ;
 		if( _almostZero( d ) )
-			return 0;
+			return 0 ;
 
-		return d;
+		return d ;
 	}
 
 	/**
@@ -98,11 +97,11 @@ public final class Angle
      */
 	public static double atanRadians( double angle )
 	{
-		double d = Math.atan( angle );
+		double d = Math.atan( angle ) ;
 		if( _almostZero( d ) )
-			return 0;
+			return 0 ;
 
-		return d;
+		return d ;
 	}
 
 	/**
@@ -111,22 +110,22 @@ public final class Angle
      */
 	public static double normalizeDegrees( double in )
 	{
-		double out = in;
+		double out = in ;
 		if( in < 0 )
 		{
-			int t = ( ( int )( -in / 360.0 ) ) + 1;
-			out = in + ( ( double )( 360 * t ) );
+			int t = ( ( int )( -in / 360. ) ) + 1 ;
+			out = in + ( ( double )( 360 * t ) ) ;
 		}
-		else if( in >= 360.0 )
+		else if( in >= 360. )
 		{
-			int t = ( int )( in / 360.0 );
-			out = in - ( ( double )( 360 * t ) );
+			int t = ( int )( in / 360. ) ;
+			out = in - ( ( double )( 360 * t ) ) ;
 		}
 		if( almostZeroDegrees( out ) )
 		{
-			return 0.0;
+			return 0. ;
 		}
-		return out;
+		return out ;
 	}
 
 	/**
@@ -135,20 +134,19 @@ public final class Angle
      */
 	public static double normalizeRadians( double radians )
 	{
-		double twoPI = Math.PI * 2.0;
-		double abs = Math.abs( radians );
+		double abs = Math.abs( radians ) ;
 
 		if( abs >= twoPI )
-			abs -= ( ( int )( abs / twoPI ) ) * twoPI;
+			abs -= ( ( int )( abs / twoPI ) ) * twoPI ;
 		
 		if( almostZeroRadians( abs ) )
-			radians = 0.0;
+			radians = 0.0 ;
 		else if( radians > 0 )
-			radians = abs;
+			radians = abs ;
 		else
-			radians = twoPI - abs;
+			radians = twoPI - abs ;
 
-		return radians;
+		return radians ;
 	}
 
 	/**
@@ -157,12 +155,12 @@ public final class Angle
      */
 	public static double stringToAngle( String angle )
 	{
-		double val = 0;
+		double val = 0 ;
 		try
 		{
-			val = Double.valueOf( angle ).doubleValue();
+			val = Double.valueOf( angle ).doubleValue() ;
 		}
 		catch( NumberFormatException ex ){}
-		return val;
+		return val ;
 	}
 }

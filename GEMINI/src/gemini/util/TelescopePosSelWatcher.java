@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package gemini.util;
+package gemini.util ;
 
 /**
  * An interface supported by clients of TelescopePosList who want to be notified
@@ -14,5 +14,5 @@ public interface TelescopePosSelWatcher
 {
 
 	/** A position has been selected. */
-	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp );
+	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp ) ;
 }
