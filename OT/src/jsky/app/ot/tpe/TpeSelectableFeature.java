@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.app.ot.fits.gui.FitsMouseEvent;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
 /**
  * This is an interface supported by TpeImageFeatures that support
@@ -18,5 +18,5 @@ public interface TpeSelectableFeature
 	 * Select an item, returning it if successful.  Return null if nothing
 	 * is selected.
 	 */
-	public Object select( FitsMouseEvent evt );
+	public Object select( FitsMouseEvent evt ) ;
 }

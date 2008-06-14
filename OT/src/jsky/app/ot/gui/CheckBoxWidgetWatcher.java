@@ -11,7 +11,7 @@
  * @version     1.0, 8/8/97
  */
 
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * A class implements this interface if it wants to register itself
@@ -22,5 +22,5 @@ public interface CheckBoxWidgetWatcher
 	/**
 	 * An option was selected.
 	 */
-	public void checkBoxAction( CheckBoxWidgetExt cbwe );
+	public void checkBoxAction( CheckBoxWidgetExt cbwe ) ;
 }

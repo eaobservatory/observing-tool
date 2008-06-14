@@ -4,20 +4,20 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import javax.swing.ButtonGroup;
+import javax.swing.ButtonGroup ;
 
-import jsky.app.ot.gui.OptionWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.OptionWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-import orac.util.OracUtilities;
+import orac.util.OracUtilities ;
 
-import gemini.sp.SpProg;
+import gemini.sp.SpProg ;
 
 /**
  * This is the editor for the Science Program component.  At this point,
@@ -28,30 +28,30 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 
 	// Attributes edited by this editor
 	// changed for OMP by MFO, 7 August 2001
-	private static final String KIND = "kind";
-	private ProgramGUI _w; // the GUI layout panel
+	private static final String KIND = "kind" ;
+	private ProgramGUI _w ; // the GUI layout panel
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdProgram()
 	{
-		_title = "Program";
-		_presSource = _w = new ProgramGUI();
-		_description = "General program information taken from the proposal.";
-		_resizable = true;
+		_title = "Program" ;
+		_presSource = _w = new ProgramGUI() ;
+		_description = "General program information taken from the proposal." ;
+		_resizable = true ;
 
 		// group the option buttons (radio buttons)
-		ButtonGroup grp = new ButtonGroup();
-		grp.add( _w.queueOption );
-		grp.add( _w.classicalOption );
-		_w.queueOption.addActionListener( this );
-		_w.classicalOption.addActionListener( this );
-		_w.infoBox.setVisible( false );
+		ButtonGroup grp = new ButtonGroup() ;
+		grp.add( _w.queueOption ) ;
+		grp.add( _w.classicalOption ) ;
+		_w.queueOption.addActionListener( this ) ;
+		_w.classicalOption.addActionListener( this ) ;
+		_w.infoBox.setVisible( false ) ;
 
-		_w.propKindLabel.setVisible( false );
-		_w.queueOption.setVisible( false );
-		_w.classicalOption.setVisible( false );
+		_w.propKindLabel.setVisible( false ) ;
+		_w.queueOption.setVisible( false ) ;
+		_w.classicalOption.setVisible( false ) ;
 	}
 
 	/**
@@ -59,13 +59,13 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 	 */
 	protected void _init()
 	{
-		TextBoxWidgetExt tbwe = _w.titleBox;
-		tbwe.addWatcher( this );
+		TextBoxWidgetExt tbwe = _w.titleBox ;
+		tbwe.addWatcher( this ) ;
 
 		// added for OMP by MFO, 7 August 2001
-		_w.piBox.addWatcher( this );
-		_w.countryBox.addWatcher( this );
-		_w.projectIdBox.addWatcher( this );
+		_w.piBox.addWatcher( this ) ;
+		_w.countryBox.addWatcher( this ) ;
+		_w.projectIdBox.addWatcher( this ) ;
 	}
 
 	/**
@@ -73,30 +73,30 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 	 */
 	protected void _updateWidgets()
 	{
-		String val;
+		String val ;
 
 		// Title
-		TextBoxWidgetExt tbwe = _w.titleBox;
-		val = _spItem.getTitleAttr();
+		TextBoxWidgetExt tbwe = _w.titleBox ;
+		val = _spItem.getTitleAttr() ;
 		if( val == null )
-			tbwe.setText( "" );
+			tbwe.setText( "" ) ;
 		else
-			tbwe.setText( val );
+			tbwe.setText( val ) ;
 
 		// PI (changed for OMP by MFO, 7 August 2001)
-		_w.piBox.setText( ( ( SpProg )_spItem ).getPI() );
+		_w.piBox.setText( ( ( SpProg )_spItem ).getPI() ) ;
 
 		// Country (changed for OMP by MFO, 7 August 2001)
-		_w.countryBox.setText( ( ( SpProg )_spItem ).getCountry() );
+		_w.countryBox.setText( ( ( SpProg )_spItem ).getCountry() ) ;
 
 		// Project ID (added for OMP by MFO, 7 August 2001)
-		_w.projectIdBox.setText( ( ( SpProg )_spItem ).getProjectID() );
+		_w.projectIdBox.setText( ( ( SpProg )_spItem ).getProjectID() ) ;
 
-		_showPropKind( _avTab.get( KIND ) );
+		_showPropKind( _avTab.get( KIND ) ) ;
 
-		double time = ( ( SpProg )_spItem ).getElapsedTime();
-		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( time , 1 ) );
-		_w.totalTime.setText( OracUtilities.secsToHHMMSS( ( ( SpProg )_spItem ).getTotalTime() , 1 ) );
+		double time = ( ( SpProg )_spItem ).getElapsedTime() ;
+		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( time , 1 ) ) ;
+		_w.totalTime.setText( OracUtilities.secsToHHMMSS( ( ( SpProg )_spItem ).getTotalTime() , 1 ) ) ;
 	}
 
 	/**
@@ -104,15 +104,15 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 	 */
 	void _showPropKind( String kind )
 	{
-		OptionWidgetExt ow;
+		OptionWidgetExt ow ;
 
 		// Proposal Kind
 		if( ( kind == null ) || kind.equals( "queue" ) )
-			ow = _w.queueOption;
+			ow = _w.queueOption ;
 		else
-			ow = _w.classicalOption;
+			ow = _w.classicalOption ;
 
-		ow.setValue( true );
+		ow.setValue( true ) ;
 	}
 
 	/**
@@ -122,13 +122,13 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _w.titleBox )
-			_spItem.setTitleAttr( tbwe.getText().trim() );
+			_spItem.setTitleAttr( tbwe.getText().trim() ) ;
 		else if( tbwe == _w.piBox )
-			( ( SpProg )_spItem ).setPI( tbwe.getText().trim() );
+			( ( SpProg )_spItem ).setPI( tbwe.getText().trim() ) ;
 		else if( tbwe == _w.countryBox )
-			( ( SpProg )_spItem ).setCountry( tbwe.getText().trim() );
+			( ( SpProg )_spItem ).setCountry( tbwe.getText().trim() ) ;
 		else if( tbwe == _w.projectIdBox )
-			( ( SpProg )_spItem ).setProjectID( tbwe.getText().trim() );
+			( ( SpProg )_spItem ).setProjectID( tbwe.getText().trim() ) ;
 	}
 
 	/**
@@ -142,11 +142,11 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		Object w = evt.getSource();
+		Object w = evt.getSource() ;
 
 		if( w == _w.queueOption )
-			_showPropKind( "queue" );
+			_showPropKind( "queue" ) ;
 		else if( w == _w.classicalOption )
-			_showPropKind( "classical" );
+			_showPropKind( "classical" ) ;
 	}
 }

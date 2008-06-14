@@ -4,10 +4,10 @@ package jsky.app.ot.util ;
 
 public class XXMMSS
 {
-	protected static final String rapattern =  "\\d{1,2}( \\d{1,2}( \\d{1,2}(\\.\\d*)?)?)?";
+	protected static final String rapattern =  "\\d{1,2}( \\d{1,2}( \\d{1,2}(\\.\\d*)?)?)?" ;
 	protected static final String decpattern = "^(\\+|-)?" + rapattern ;
 
-	protected static final String rapatterncolon =  "\\d{1,2}(:\\d{1,2}(:\\d{1,2}(\\.\\d*)?)?)?";
+	protected static final String rapatterncolon =  "\\d{1,2}(:\\d{1,2}(:\\d{1,2}(\\.\\d*)?)?)?" ;
 	protected static final String decpatterncolon = "^(\\+|-)?" + rapatterncolon ;
 	
 	public static double[] stringTodoubleTriplet( String hhmmss )
@@ -21,6 +21,6 @@ public class XXMMSS
 			values[ index ] = new Double( current ) ;
 		}
 
-		return values;
+		return values ;
 	}
 }

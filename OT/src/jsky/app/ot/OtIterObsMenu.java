@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
@@ -12,10 +12,10 @@ import java.util.Vector ;
 import javax.swing.JMenuItem ;
 import javax.swing.JMenu ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import jsky.util.QuickSort;
+import jsky.util.QuickSort ;
 
 //
 // A  menu used to create "observe" iterators (cal unit flats
@@ -29,19 +29,19 @@ class OtIterObsMenu extends JMenu
 	 */
 	public OtIterObsMenu( OtTreeWidget treeWidget )
 	{
-		super( "Create an Observation Iterator" );
+		super( "Create an Observation Iterator" ) ;
 
 		// Sort the iterator types
-		Vector spTypeV = OtCfg.obsIteratorTypes;
-		OtSortableSpType[] sst = new OtSortableSpType[ spTypeV.size() ];
+		Vector spTypeV = OtCfg.obsIteratorTypes ;
+		OtSortableSpType[] sst = new OtSortableSpType[ spTypeV.size() ] ;
 		for( int i = 0 ; i < sst.length ; ++i )
-			sst[ i ] = new OtSortableSpType( ( SpType )spTypeV.elementAt( i ) );
+			sst[ i ] = new OtSortableSpType( ( SpType )spTypeV.elementAt( i ) ) ;
 
-		QuickSort.sort( sst , 0 , sst.length , null );
+		QuickSort.sort( sst , 0 , sst.length , null ) ;
 
 		// Add each type
 		for( int i = 0 ; i < sst.length ; ++i )
-			_add( treeWidget , sst[ i ].spType );
+			_add( treeWidget , sst[ i ].spType ) ;
 	}
 
 	//
@@ -51,14 +51,14 @@ class OtIterObsMenu extends JMenu
 	//
 	private void _add( final OtTreeWidget treeWidget , final SpType spType )
 	{
-		JMenuItem menuItem = new JMenuItem( spType.getReadable() );
+		JMenuItem menuItem = new JMenuItem( spType.getReadable() ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				treeWidget.addItem( SpFactory.create( spType ) );
+				treeWidget.addItem( SpFactory.create( spType ) ) ;
 			}
-		} );
-		add( menuItem );
+		} ) ;
+		add( menuItem ) ;
 	}
 }

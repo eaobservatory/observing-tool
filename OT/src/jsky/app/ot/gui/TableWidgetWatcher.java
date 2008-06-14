@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * An interface supported by clients that which to be notified of
@@ -15,10 +15,10 @@ public interface TableWidgetWatcher
 	/**
 	 * Called when a row is selected.
 	 */
-	public void tableRowSelected( TableWidgetExt twe , int rowIndex );
+	public void tableRowSelected( TableWidgetExt twe , int rowIndex ) ;
 
 	/**
 	 * Called when a row is double clicked (or return key is pressed).
 	 */
-	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex );
+	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ) ;
 }

@@ -4,13 +4,13 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import gemini.sp.SpCloneableClientData;
-import gemini.sp.SpItem;
-import jsky.app.ot.tpe.TpeFeatureClientData;
-import jsky.app.ot.tpe.TpeImageFeature;
-import ot.util.DialogUtil;
+import gemini.sp.SpCloneableClientData ;
+import gemini.sp.SpItem ;
+import jsky.app.ot.tpe.TpeFeatureClientData ;
+import jsky.app.ot.tpe.TpeImageFeature ;
+import ot.util.DialogUtil ;
 
 /**
  * This class groups information that should be stored with each SpItem
@@ -24,24 +24,24 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 	 * The TreeNodeWidget representing the item in the structure/hierarchy
 	 * editor display.
 	 */
-	public OtTreeNodeWidget tnw;
+	public OtTreeNodeWidget tnw ;
 
 	/**
 	 * The full class name of the editor for this node.
 	 */
-	public String itemEditorClass;
+	public String itemEditorClass ;
 
 	/**
 	 * The full class name of any TpeImageFeature subclasses that should
 	 * be associated with this item (if any).  This may turn into an array
 	 * in a future release.
 	 */
-	public String tpeImageFeatureClass;
+	public String tpeImageFeatureClass ;
 
 	//
 	// A reference to an instantiated TpeImageFeature.
 	//
-	TpeImageFeature _feature;
+	TpeImageFeature _feature ;
 
 	/**
 	 * Construct with an OtTreeNodeWidget and the name of the item editor
@@ -49,8 +49,8 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 	 */
 	public OtClientData( OtTreeNodeWidget tnw , String itemEditorClass )
 	{
-		this.tnw = tnw;
-		this.itemEditorClass = itemEditorClass;
+		this.tnw = tnw ;
+		this.itemEditorClass = itemEditorClass ;
 	}
 
 	/**
@@ -59,8 +59,8 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 	 */
 	public OtClientData( OtTreeNodeWidget tnw , String itemEditorClass , String imageFeatureClass )
 	{
-		this( tnw , itemEditorClass );
-		tpeImageFeatureClass = imageFeatureClass;
+		this( tnw , itemEditorClass ) ;
+		tpeImageFeatureClass = imageFeatureClass ;
 	}
 
 	/**
@@ -69,23 +69,23 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 	 */
 	public Object clone( SpItem spItem )
 	{
-		OtClientData cd;
+		OtClientData cd ;
 		try
 		{
-			cd = ( OtClientData )super.clone();
+			cd = ( OtClientData )super.clone() ;
 		}
 		catch( CloneNotSupportedException ex )
 		{
 			// This won't happen so long as SpCloneableClientData implements
 			// Cloneable
-			return null;
+			return null ;
 		}
 
-		cd.tnw = ( OtTreeNodeWidget )this.tnw.copy();
-		cd.tnw.setItem( spItem );
-		cd.tnw.setText( spItem.getTitle() );
+		cd.tnw = ( OtTreeNodeWidget )this.tnw.copy() ;
+		cd.tnw.setItem( spItem ) ;
+		cd.tnw.setText( spItem.getTitle() ) ;
 
-		return cd;
+		return cd ;
 	}
 
 	/**
@@ -97,15 +97,15 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 		{
 			try
 			{
-				Class c = Class.forName( tpeImageFeatureClass );
-				_feature = ( TpeImageFeature )c.newInstance();
+				Class c = Class.forName( tpeImageFeatureClass ) ;
+				_feature = ( TpeImageFeature )c.newInstance() ;
 			}
 			catch( Exception ex )
 			{
-				DialogUtil.error( tnw.getTreeWidget() , "Problem instantiating: " + tpeImageFeatureClass , ex );
-				_feature = null;
+				DialogUtil.error( tnw.getTreeWidget() , "Problem instantiating: " + tpeImageFeatureClass , ex ) ;
+				_feature = null ;
 			}
 		}
-		return _feature;
+		return _feature ;
 	}
 }

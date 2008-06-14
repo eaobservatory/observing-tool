@@ -4,28 +4,28 @@
 //
 // $Id$
 //
-package jsky.app.ot.fits.gui;
+package jsky.app.ot.fits.gui ;
 
-import jsky.coords.wcscon;
+import jsky.coords.wcscon ;
 
-import jsky.app.ot.gui.image.ImageView;
-import jsky.app.ot.gui.image.ViewportViewObserver;
-import jsky.app.ot.gui.image.ViewportImageWidget;
+import jsky.app.ot.gui.image.ImageView ;
+import jsky.app.ot.gui.image.ViewportViewObserver ;
+import jsky.app.ot.gui.image.ViewportImageWidget ;
 
-import gemini.util.TelescopePos;
-import gemini.util.TelescopePosList;
-import gemini.util.TelescopePosListWatcher;
-import gemini.util.TelescopePosWatcher;
-import gemini.util.CoordSys;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
-import gemini.sp.SpOffsetPosList;
+import gemini.util.TelescopePos ;
+import gemini.util.TelescopePosList ;
+import gemini.util.TelescopePosListWatcher ;
+import gemini.util.TelescopePosWatcher ;
+import gemini.util.CoordSys ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
+import gemini.sp.SpOffsetPosList ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.awt.geom.Point2D;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.ArrayList ;
+import java.util.Arrays ;
+import java.awt.geom.Point2D ;
 
 /**
  * An auxiliary class used to maintain a mapping between telescope positions
@@ -33,25 +33,25 @@ import java.awt.geom.Point2D;
  */
 public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatcher , TelescopePosWatcher
 {
-	public static final int MARKER_SIZE = 4; // FIX THIS ...
-	protected FitsImageWidget _iw;
-	protected TelescopePosList _tpl;
-	protected Hashtable _posTable = new Hashtable();
-	protected boolean _valid = false;
+	public static final int MARKER_SIZE = 4 ; // FIX THIS ...
+	protected FitsImageWidget _iw ;
+	protected TelescopePosList _tpl ;
+	protected Hashtable _posTable = new Hashtable() ;
+	protected boolean _valid = false ;
 
 	/** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
-	private Point2D.Double _convertedPosition = new Point2D.Double();
+	private Point2D.Double _convertedPosition = new Point2D.Double() ;
 
 	/**
 	 * Construct with an image widget.
 	 */
 	public FitsPosMap( FitsImageWidget iw )
 	{
-		_iw = iw;
+		_iw = iw ;
 
 		// Need to know when the view changes so that the position map
 		// can be updated with the correct locations of the positions.
-		_iw.addViewObserver( this );
+		_iw.addViewObserver( this ) ;
 	}
 
 	/**
@@ -59,13 +59,13 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public void free()
 	{
-		_iw.deleteViewObserver( this );
+		_iw.deleteViewObserver( this ) ;
 
-		_stopObservingPosList();
+		_stopObservingPosList() ;
 
-		_tpl = null;
-		_posTable.clear();
-		_iw = null;
+		_tpl = null ;
+		_posTable.clear() ;
+		_iw = null ;
 	}
 
 	/**
@@ -75,13 +75,13 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 		// Quit observing any of the previous positions.
 		if( _tpl != null )
 		{
-			_tpl.deleteWatcher( this );
+			_tpl.deleteWatcher( this ) ;
 
-			TelescopePos[] tpA = _tpl.getAllPositions();
+			TelescopePos[] tpA = _tpl.getAllPositions() ;
 			for( int i = 0 ; i < tpA.length ; ++i )
 			{
-				TelescopePos tp = tpA[ i ];
-				tp.deleteWatcher( this );
+				TelescopePos tp = tpA[ i ] ;
+				tp.deleteWatcher( this ) ;
 			}
 		}
 	}
@@ -93,15 +93,15 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	{
 		if( tpl != _tpl )
 		{
-			_stopObservingPosList();
+			_stopObservingPosList() ;
 	
-			_tpl = tpl;
-			_valid = false;
+			_tpl = tpl ;
+			_valid = false ;
 	
 			if( _tpl != null )
 			{
 				if( getPosTable() != null )
-					_iw.repaint();
+					_iw.repaint() ;
 			}
 		}
 	}
@@ -112,14 +112,14 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public Hashtable getPosTable()
 	{
 		if( _valid )
-			return _posTable;
+			return _posTable ;
 
 		if( _iw.isInitialized() && _initPosTable() )
 		{
-			_valid = true;
-			return _posTable;
+			_valid = true ;
+			return _posTable ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -127,28 +127,28 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public TelescopePosList getTelescopePosList()
 	{
-		return _tpl;
+		return _tpl ;
 	}
 
 	/**
 	 */
 	public void updatePosition( FitsPosMapEntry pme , FitsMouseEvent fme )
 	{
-		pme.screenPos.x = fme.xWidget;
-		pme.screenPos.y = fme.yWidget;
+		pme.screenPos.x = fme.xWidget ;
+		pme.screenPos.y = fme.yWidget ;
 
-		TelescopePos tp = pme.telescopePos;
+		TelescopePos tp = pme.telescopePos ;
 
-		tp.deleteWatcher( this );
+		tp.deleteWatcher( this ) ;
 
 		if( tp.isOffsetPosition() )
-			tp.setXY( fme.xOffset , fme.yOffset );
+			tp.setXY( fme.xOffset , fme.yOffset ) ;
 		else
-			tp.setXY( fme.ra , fme.dec );
+			tp.setXY( fme.ra , fme.dec ) ;
 
-		tp.addWatcher( this );
+		tp.addWatcher( this ) ;
 
-		_iw.repaint();
+		_iw.repaint() ;
 	}
 
 	/**
@@ -156,23 +156,23 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public boolean isClose( int x , int y , String tag )
 	{
-		FitsPosMapEntry pme = getPositionMapEntry( tag );
+		FitsPosMapEntry pme = getPositionMapEntry( tag ) ;
 		if( pme == null )
-			return false;
+			return false ;
 
-		Point2D.Double p = pme.screenPos;
+		Point2D.Double p = pme.screenPos ;
 		if( p == null )
-			return false;
+			return false ;
 
-		double dx = Math.abs( p.x - x );
+		double dx = Math.abs( p.x - x ) ;
 		if( dx > MARKER_SIZE )
-			return false;
+			return false ;
 
-		double dy = Math.abs( p.y - y );
+		double dy = Math.abs( p.y - y ) ;
 		if( dy > MARKER_SIZE )
-			return false;
+			return false ;
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -180,30 +180,30 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public FitsPosMapEntry locate( int x , int y )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return null;
+			return null ;
 
-		Enumeration enumeration = posTable.elements();
+		Enumeration enumeration = posTable.elements() ;
 		while( enumeration.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement();
-			Point2D.Double p = pme.screenPos;
+			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement() ;
+			Point2D.Double p = pme.screenPos ;
 			if( p == null )
-				continue;
+				continue ;
 
 			// Is this position under the mouse indicator?
-			double dx = Math.abs( p.x - x );
+			double dx = Math.abs( p.x - x ) ;
 			if( dx > MARKER_SIZE )
-				continue;
+				continue ;
 
-			double dy = Math.abs( p.y - y );
+			double dy = Math.abs( p.y - y ) ;
 			if( dy > MARKER_SIZE )
-				continue;
+				continue ;
 
-			return pme;
+			return pme ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -212,11 +212,11 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public FitsPosMapEntry getPositionMapEntry( String tag )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return null;
+			return null ;
 
-		return ( FitsPosMapEntry )posTable.get( tag );
+		return ( FitsPosMapEntry )posTable.get( tag ) ;
 	}
 
 	/**
@@ -224,11 +224,11 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public final Enumeration getAllPositionMapEntries()
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return ( new Hashtable() ).elements();
+			return ( new Hashtable() ).elements() ;
 
-		return posTable.elements();
+		return posTable.elements() ;
 	}
 
 	/**
@@ -236,11 +236,11 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public TelescopePos locatePos( int x , int y )
 	{
-		FitsPosMapEntry pme = locate( x , y );
+		FitsPosMapEntry pme = locate( x , y ) ;
 		if( pme == null )
-			return null;
+			return null ;
 
-		return pme.telescopePos;
+		return pme.telescopePos ;
 	}
 
 	/**
@@ -248,16 +248,16 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public Point2D.Double getLocationFromTag( String tag )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return null;
+			return null ;
 
 		// Get the base position
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tag );
+		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tag ) ;
 		if( pme == null )
-			return null;
+			return null ;
 
-		return pme.screenPos;
+		return pme.screenPos ;
 	}
 
 	/**
@@ -268,35 +268,35 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	private boolean _initPosTable()
 	{
 		if( _tpl == null )
-			return false;
+			return false ;
 
-		_posTable.clear();
-		_tpl.addWatcher( this ); // We are a TelescopePosListWatcher
+		_posTable.clear() ;
+		_tpl.addWatcher( this ) ; // We are a TelescopePosListWatcher
 
-		//TelescopePos[] tpA = _tpl.getAllPositions();
-		ArrayList tpA = new ArrayList( Arrays.asList( _tpl.getAllPositions() ) );
+		//TelescopePos[] tpA = _tpl.getAllPositions() ;
+		ArrayList tpA = new ArrayList( Arrays.asList( _tpl.getAllPositions() ) ) ;
 		if( _tpl instanceof SpOffsetPosList )
 		{
-			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getSkyOffsets() );
-			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getGuideOffsets() );
+			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getSkyOffsets() ) ;
+			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getGuideOffsets() ) ;
 		}
 		for( int i = 0 ; i < tpA.size() ; ++i )
 		{
-			TelescopePos tp = ( TelescopePos )tpA.get( i );
-			tp.addWatcher( this );
+			TelescopePos tp = ( TelescopePos )tpA.get( i ) ;
+			tp.addWatcher( this ) ;
 
-			Point2D.Double p = telescopePosToImageWidget( tp );
-			_posTable.put( tp.getTag() , new FitsPosMapEntry( p , tp ) );
+			Point2D.Double p = telescopePosToImageWidget( tp ) ;
+			_posTable.put( tp.getTag() , new FitsPosMapEntry( p , tp ) ) ;
 
 			// Create a shdow base tag for the case where the base is an offset position
 			if( tp instanceof SpTelescopePos && ( ( SpTelescopePos )tp ).isBasePosition() && tp.isOffsetPosition() )
 			{
-				Point2D.Double ps = realTelescopePosToImageWidget( tp );
-				_posTable.put( "SHADOW" , new FitsPosMapEntry( ps , tp ) );
+				Point2D.Double ps = realTelescopePosToImageWidget( tp ) ;
+				_posTable.put( "SHADOW" , new FitsPosMapEntry( ps , tp ) ) ;
 			}
 		}
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -305,16 +305,16 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	protected void _updateScreenLocations()
 	{
-		Enumeration e = _posTable.elements();
+		Enumeration e = _posTable.elements() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement();
-			TelescopePos tp = pme.telescopePos;
-			pme.screenPos = telescopePosToImageWidget( tp );
+			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			TelescopePos tp = pme.telescopePos ;
+			pme.screenPos = telescopePosToImageWidget( tp ) ;
 			if( tp.getTag().equalsIgnoreCase( "base" ) && tp.isOffsetPosition() )
 			{
-				FitsPosMapEntry pmeShadow = ( FitsPosMapEntry )_posTable.get( "SHADOW" );
-				pmeShadow.screenPos = realTelescopePosToImageWidget( tp );
+				FitsPosMapEntry pmeShadow = ( FitsPosMapEntry )_posTable.get( "SHADOW" ) ;
+				pmeShadow.screenPos = realTelescopePosToImageWidget( tp ) ;
 			}
 		}
 	}
@@ -324,9 +324,9 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public void posListReset( TelescopePosList tpl , TelescopePos[] newList )
 	{
 		if( tpl != _tpl )
-			return;
-		_updateMap( newList );
-		_iw.repaint();
+			return ;
+		_updateMap( newList ) ;
+		_iw.repaint() ;
 	}
 
 	/**
@@ -334,9 +334,9 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public void posListReordered( TelescopePosList tpl , TelescopePos[] newList , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
-		_updateMap( newList );
-		_iw.repaint();
+			return ;
+		_updateMap( newList ) ;
+		_iw.repaint() ;
 	}
 
 	/**
@@ -344,18 +344,18 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public void posListAddedPosition( TelescopePosList tpl , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
-		Hashtable posTable = getPosTable();
+			return ;
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return;
+			return ;
 
-		tp.addWatcher( this );
+		tp.addWatcher( this ) ;
 
-		FitsPosMapEntry pme;
-		pme = new FitsPosMapEntry( telescopePosToImageWidget( tp ) , tp );
-		posTable.put( tp.getTag() , pme ); // Replaces existing one if present
+		FitsPosMapEntry pme ;
+		pme = new FitsPosMapEntry( telescopePosToImageWidget( tp ) , tp ) ;
+		posTable.put( tp.getTag() , pme ) ; // Replaces existing one if present
 
-		_iw.repaint();
+		_iw.repaint() ;
 	}
 
 	/**
@@ -363,15 +363,15 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public void posListRemovedPosition( TelescopePosList tpl , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
-		Hashtable posTable = getPosTable();
+			return ;
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return;
+			return ;
 
-		posTable.remove( tp.getTag() );
-		tp.deleteWatcher( this );
+		posTable.remove( tp.getTag() ) ;
+		tp.deleteWatcher( this ) ;
 
-		_iw.repaint();
+		_iw.repaint() ;
 	}
 
 	/**
@@ -380,20 +380,20 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	//private boolean
 	private void _updateMap( TelescopePos[] tpA )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
-			return;
+			return ;
 
 		// First remove anything from the table that doesn't exist anymore
-		Enumeration keys = posTable.keys();
+		Enumeration keys = posTable.keys() ;
 		while( keys.hasMoreElements() )
 		{
-			String tag = ( String )keys.nextElement();
+			String tag = ( String )keys.nextElement() ;
 			if( !_tpl.exists( tag ) )
 			{
-				FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.remove( tag );
+				FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.remove( tag ) ;
 				if( pme != null )
-					pme.telescopePos.deleteWatcher( this );
+					pme.telescopePos.deleteWatcher( this ) ;
 			}
 		}
 
@@ -401,15 +401,15 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 		// sure that the PositionMaps that are there are still valid.
 		for( int i = 0 ; i < tpA.length ; ++i )
 		{
-			TelescopePos tp = tpA[ i ];
-			FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() );
+			TelescopePos tp = tpA[ i ] ;
+			FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
 
 			if( ( pme == null ) || ( pme.telescopePos != tp ) )
 			{
-				tp.addWatcher( this );
+				tp.addWatcher( this ) ;
 
-				pme = new FitsPosMapEntry( telescopePosToImageWidget( tp ) , tp );
-				posTable.put( tp.getTag() , pme ); // Replaces existing one if present
+				pme = new FitsPosMapEntry( telescopePosToImageWidget( tp ) , tp ) ;
+				posTable.put( tp.getTag() , pme ) ; // Replaces existing one if present
 			}
 		}
 	}
@@ -419,27 +419,27 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public void telescopePosLocationUpdate( TelescopePos tp )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return;
+			return ;
 
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() );
+		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
 
 		// Really should be an error not to find tp.tag in the posTable ...
 		if( pme != null )
 		{
 			// Was the position valid before the update?
-			boolean wasValid = ( pme.screenPos != null );
+			boolean wasValid = ( pme.screenPos != null ) ;
 
-			pme.screenPos = telescopePosToImageWidget( tp );
+			pme.screenPos = telescopePosToImageWidget( tp ) ;
 
 			// Is the position valid now after the update?
-			boolean isValid = ( pme.screenPos != null );
+			boolean isValid = ( pme.screenPos != null ) ;
 
 			if( !wasValid && !isValid )
-				return;
+				return ;
 
-			_iw.repaint();
+			_iw.repaint() ;
 		}
 	}
 
@@ -448,14 +448,14 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public void telescopePosGenericUpdate( TelescopePos tp )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return;
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() );
+			return ;
+		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
 
 		// Just repaint to be safe
 		if( pme != null )
-			_iw.repaint();
+			_iw.repaint() ;
 	}
 
 	/**
@@ -465,9 +465,9 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public void viewportViewChange( ViewportImageWidget iw , ImageView iv )
 	{
 		if( _valid )
-			_updateScreenLocations();
+			_updateScreenLocations() ;
 		else
-			getPosTable();
+			getPosTable() ;
 	}
 
 	/**
@@ -477,20 +477,20 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	private Point2D.Double realTelescopePosToImageWidget( TelescopePos tp )
 	{
 		if( !( tp instanceof SpTelescopePos ) || !( ( SpTelescopePos )tp ).isBasePosition() )
-			return null;
+			return null ;
 
-		_convertedPosition.x = ( ( SpTelescopePos )tp ).getRealXaxis();
-		_convertedPosition.y = ( ( SpTelescopePos )tp ).getRealYaxis();
+		_convertedPosition.x = ( ( SpTelescopePos )tp ).getRealXaxis() ;
+		_convertedPosition.y = ( ( SpTelescopePos )tp ).getRealYaxis() ;
 		switch( ( ( SpTelescopePos )tp ).getCoordSys() )
 		{
 			case CoordSys.FK4 :
-				wcscon.fk425( _convertedPosition );
-				break;
+				wcscon.fk425( _convertedPosition ) ;
+				break ;
 			case CoordSys.GAL :
-				wcscon.gal2fk5( _convertedPosition );
-				break;
+				wcscon.gal2fk5( _convertedPosition ) ;
+				break ;
 		}
-		return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+		return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 	}
 
 	// Added by MFO, April 10, 2002.
@@ -515,135 +515,135 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 			{
 				if( _tpl instanceof SpTelescopePosList )
 				{
-					SpTelescopePos basePosition = ( ( SpTelescopePosList )_tpl ).getBasePosition();
+					SpTelescopePos basePosition = ( ( SpTelescopePosList )_tpl ).getBasePosition() ;
 
-					_convertedPosition.x = basePosition.getXaxis();
-					_convertedPosition.y = basePosition.getYaxis();
+					_convertedPosition.x = basePosition.getXaxis() ;
+					_convertedPosition.y = basePosition.getYaxis() ;
 
-					int baseCoordSystem = basePosition.getCoordSys();
-					int offsetCoordSystem = ( ( SpTelescopePos )tp ).getCoordSys();
+					int baseCoordSystem = basePosition.getCoordSys() ;
+					int offsetCoordSystem = ( ( SpTelescopePos )tp ).getCoordSys() ;
 
 					if( offsetCoordSystem == CoordSys.FK5 )
 					{
 						if( baseCoordSystem == CoordSys.FK5 )
 						{
-							double dec;
+							double dec ;
 							if( _convertedPosition.y > 89.9 )
-								dec = 89.9;
+								dec = 89.9 ;
 							else
-								dec = _convertedPosition.y;
+								dec = _convertedPosition.y ;
 
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.FK4 )
 						{
-							wcscon.fk425( _convertedPosition );
-							double dec = _convertedPosition.y;
+							wcscon.fk425( _convertedPosition ) ;
+							double dec = _convertedPosition.y ;
 							if( dec > 89.9 )
-								dec = 89.9;
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+								dec = 89.9 ;
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.GAL )
 						{
-							wcscon.gal2fk5( _convertedPosition );
-							double dec = _convertedPosition.y;
+							wcscon.gal2fk5( _convertedPosition ) ;
+							double dec = _convertedPosition.y ;
 							if( dec > 89.9 )
-								dec = 89.9;
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+								dec = 89.9 ;
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / ( Math.cos( Math.toRadians( dec ) ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 					}
 					else if( offsetCoordSystem == CoordSys.FK4 )
 					{
 						if( baseCoordSystem == CoordSys.FK5 )
 						{
-							wcscon.fk524( _convertedPosition );
-							double dec = _convertedPosition.y;
+							wcscon.fk524( _convertedPosition ) ;
+							double dec = _convertedPosition.y ;
 							if( dec > 89.9 )
-								dec = 89.9;
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.fk425( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+								dec = 89.9 ;
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.fk425( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.FK4 )
 						{
-							double dec = _convertedPosition.y;
+							double dec = _convertedPosition.y ;
 							if( dec > 89.9 )
-								dec = 89.9;
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.fk425( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+								dec = 89.9 ;
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.fk425( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.GAL )
 						{
-							wcscon.gal2fk4( _convertedPosition );
-							double dec = _convertedPosition.y;
+							wcscon.gal2fk4( _convertedPosition ) ;
+							double dec = _convertedPosition.y ;
 							if( dec > 89.9 )
-								dec = 89.9;
-							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.fk425( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+								dec = 89.9 ;
+							_convertedPosition.x += ( ( tp.getXaxis() / 3600.0 ) / Math.cos( Math.toRadians( dec ) ) ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.fk425( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 					}
 					else if( offsetCoordSystem == CoordSys.GAL )
 					{
 						if( baseCoordSystem == CoordSys.FK5 )
 						{
-							wcscon.fk52gal( _convertedPosition );
-							_convertedPosition.x += ( tp.getXaxis() / 3600.0 );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.gal2fk5( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+							wcscon.fk52gal( _convertedPosition ) ;
+							_convertedPosition.x += ( tp.getXaxis() / 3600.0 ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.gal2fk5( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.FK4 )
 						{
-							wcscon.fk42gal( _convertedPosition );
-							_convertedPosition.x += ( tp.getXaxis() / 3600.0 );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.gal2fk5( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+							wcscon.fk42gal( _convertedPosition ) ;
+							_convertedPosition.x += ( tp.getXaxis() / 3600.0 ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.gal2fk5( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 						else if( baseCoordSystem == CoordSys.GAL )
 						{
-							_convertedPosition.x += ( tp.getXaxis() / 3600.0 );
-							_convertedPosition.y += ( tp.getYaxis() / 3600.0 );
-							wcscon.gal2fk5( _convertedPosition );
-							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+							_convertedPosition.x += ( tp.getXaxis() / 3600.0 ) ;
+							_convertedPosition.y += ( tp.getYaxis() / 3600.0 ) ;
+							wcscon.gal2fk5( _convertedPosition ) ;
+							return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 						}
 					}
 				}
 				else
 				{
-					System.out.println( "_tpl = " + _tpl );
+					System.out.println( "_tpl = " + _tpl ) ;
 				}
 			}
 			else
 			{
-				_convertedPosition.x = tp.getXaxis();
-				_convertedPosition.y = tp.getYaxis();
+				_convertedPosition.x = tp.getXaxis() ;
+				_convertedPosition.y = tp.getYaxis() ;
 
-				int coordSystem = ( ( SpTelescopePos )tp ).getCoordSys();
+				int coordSystem = ( ( SpTelescopePos )tp ).getCoordSys() ;
 
 				switch( coordSystem )
 				{
 					case CoordSys.FK4 :
-						wcscon.fk425( _convertedPosition );
-						break;
+						wcscon.fk425( _convertedPosition ) ;
+						break ;
 					case CoordSys.GAL :
-						wcscon.gal2fk5( _convertedPosition );
-						break;
+						wcscon.gal2fk5( _convertedPosition ) ;
+						break ;
 				}
-				return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y );
+				return _iw.raDecToImageWidget( _convertedPosition.x , _convertedPosition.y ) ;
 			}
 		}
-		return _iw.telescopePosToImageWidget( tp );
+		return _iw.telescopePosToImageWidget( tp ) ;
 	}
 }

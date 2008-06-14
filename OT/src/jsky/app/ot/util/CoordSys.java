@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 /**
  * Utility class support for the coordinate systems supported by Gemini.
@@ -16,33 +16,33 @@ package jsky.app.ot.util;
 public class CoordSys
 {
 	// The possible coordinate systems.
-	public static final int FK5 = 0;
-	public static final int FK4 = 1;
-	public static final int AZ_EL = 2;
-	public static final int GAL = 3;
-	public static final int HADEC = 4;
-	public static final String FK5_STRING = "FK5 (J2000)";
-	public static final String FK4_STRING = "FK4 (B1950)";
-	public static final String AZ_EL_STRING = "Az/El";
-	public static final String GAL_STRING = "Galactic";
-	public static final String HADEC_STRING = "HADEC";
+	public static final int FK5 = 0 ;
+	public static final int FK4 = 1 ;
+	public static final int AZ_EL = 2 ;
+	public static final int GAL = 3 ;
+	public static final int HADEC = 4 ;
+	public static final String FK5_STRING = "FK5 (J2000)" ;
+	public static final String FK4_STRING = "FK4 (B1950)" ;
+	public static final String AZ_EL_STRING = "Az/El" ;
+	public static final String GAL_STRING = "Galactic" ;
+	public static final String HADEC_STRING = "HADEC" ;
 
 	/**
 	 * Readable coordinate system strings.
 	 */
-	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING };
+	public static final String[] COORD_SYS = { FK5_STRING , FK4_STRING , AZ_EL_STRING , GAL_STRING , HADEC_STRING } ;
 
 	// MFO (March 08, 2002)
 	/**
 	 * Coordinate System x axis labels.
 	 */
-	public static final String[] X_AXIS_LABEL = { "Ra" , "Ra" , "Az" , "Long" , "HA" };
+	public static final String[] X_AXIS_LABEL = { "Ra" , "Ra" , "Az" , "Long" , "HA" } ;
 
 	// MFO (March 08, 2002)
 	/**
 	 * Coordinate System y axis labels.
 	 */
-	public static final String[] Y_AXIS_LABEL = { "Dec" , "Dec" , "El" , "Lat" , "Dec" };
+	public static final String[] Y_AXIS_LABEL = { "Dec" , "Dec" , "El" , "Lat" , "Dec" } ;
 
 	/**
 	 * Get an integer representing a coordinate system from its associated
@@ -51,17 +51,17 @@ public class CoordSys
 	public static int getSystem( String coordSysString )
 	{
 		if( coordSysString.equals( FK5_STRING ) )
-			return FK5;
+			return FK5 ;
 		else if( coordSysString.equals( FK4_STRING ) )
-			return FK4;
+			return FK4 ;
 		else if( coordSysString.equals( AZ_EL_STRING ) )
-			return AZ_EL;
+			return AZ_EL ;
 		else if( coordSysString.equals( GAL_STRING ) )
-			return GAL;
+			return GAL ;
 		else if( coordSysString.equals( HADEC_STRING ) )
-			return HADEC;
+			return HADEC ;
 
-		return -1;
+		return -1 ;
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class CoordSys
 	public static String getSystem( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= COORD_SYS.length ) )
-			return null;
-		return COORD_SYS[ coordSysInt ];
+			return null ;
+		return COORD_SYS[ coordSysInt ] ;
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class CoordSys
 	public static String getXAxisLabel( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= X_AXIS_LABEL.length ) )
-			return null;
-		return X_AXIS_LABEL[ coordSysInt ];
+			return null ;
+		return X_AXIS_LABEL[ coordSysInt ] ;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class CoordSys
 	public static String getYAxisLabel( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= Y_AXIS_LABEL.length ) )
-			return null;
-		return Y_AXIS_LABEL[ coordSysInt ];
+			return null ;
+		return Y_AXIS_LABEL[ coordSysInt ] ;
 	}
 }

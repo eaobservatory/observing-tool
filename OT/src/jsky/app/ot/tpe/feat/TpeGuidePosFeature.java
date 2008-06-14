@@ -4,39 +4,39 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe.feat;
+package jsky.app.ot.tpe.feat ;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.geom.Point2D;
-import java.util.Arrays;
-import java.util.ArrayList;
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
-import jsky.app.ot.fits.gui.FitsPosMapEntry;
-import gemini.util.CoordSys;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
-import jsky.app.ot.tpe.TpeCreateableFeature;
-import jsky.app.ot.tpe.TpeImageWidget;
-import jsky.app.ot.tpe.TpePositionMap;
-import jsky.app.ot.util.BasicPropertyList;
-import jsky.app.ot.util.PropertyWatcher;
+import java.awt.Color ;
+import java.awt.Graphics ;
+import java.awt.geom.Point2D ;
+import java.util.Arrays ;
+import java.util.ArrayList ;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
+import jsky.app.ot.fits.gui.FitsPosMapEntry ;
+import gemini.util.CoordSys ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
+import jsky.app.ot.tpe.TpeCreateableFeature ;
+import jsky.app.ot.tpe.TpeImageWidget ;
+import jsky.app.ot.tpe.TpePositionMap ;
+import jsky.app.ot.util.BasicPropertyList ;
+import jsky.app.ot.util.PropertyWatcher ;
 
 public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreateableFeature , PropertyWatcher
 {
-	private static String DEFAULT_NAME = "Guide";
-	private static String _tpeViewGuideLabel = null;
-	private static final String PROP_SHOW_TAGS = "Show Tags";
-	private static BasicPropertyList _props;
-	private static boolean _offsetPosition = false;
+	private static String DEFAULT_NAME = "Guide" ;
+	private static String _tpeViewGuideLabel = null ;
+	private static final String PROP_SHOW_TAGS = "Show Tags" ;
+	private static BasicPropertyList _props ;
+	private static boolean _offsetPosition = false ;
 
 	static
 	{
 		// Initialize the properties supported by the TpeGuidePosFeature.
 
-		_props = new BasicPropertyList();
-		_props.setBoolean( PROP_SHOW_TAGS , true );
+		_props = new BasicPropertyList() ;
+		_props.setBoolean( PROP_SHOW_TAGS , true ) ;
 	}
 
 	/**
@@ -44,30 +44,30 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public TpeGuidePosFeature()
 	{
-		super( DEFAULT_NAME , "Location(s) of the guide stars." );
+		super( DEFAULT_NAME , "Location(s) of the guide stars." ) ;
 	}
 
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
+		super.reinit( iw , fii ) ;
 
-		_props.addWatcher( this );
+		_props.addWatcher( this ) ;
 
 		// Tell the position map that the guide star choices are visible.
-		TpePositionMap pm = TpePositionMap.getMap( iw );
-		pm.setFindGuideStars( true );
+		TpePositionMap pm = TpePositionMap.getMap( iw ) ;
+		pm.setFindGuideStars( true ) ;
 	}
 
 	public void unloaded()
 	{
 		// Tell the position map that the guide star choices are no longer visible.
-		TpePositionMap pm = TpePositionMap.getExistingMap( _iw );
+		TpePositionMap pm = TpePositionMap.getExistingMap( _iw ) ;
 		if( pm != null )
-			pm.setFindGuideStars( false );
+			pm.setFindGuideStars( false ) ;
 
-		_props.deleteWatcher( this );
+		_props.deleteWatcher( this ) ;
 
-		super.unloaded();
+		super.unloaded() ;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public void propertyChange( String propName )
 	{
-		_iw.repaint( this );
+		_iw.repaint( this ) ;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public BasicPropertyList getProperties()
 	{
-		return _props;
+		return _props ;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public void setDrawTags( boolean drawTags )
 	{
-		_props.setBoolean( PROP_SHOW_TAGS , drawTags );
+		_props.setBoolean( PROP_SHOW_TAGS , drawTags ) ;
 	}
 
 	/**
@@ -102,91 +102,91 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public boolean getDrawTags()
 	{
-		return _props.getBoolean( PROP_SHOW_TAGS , true );
+		return _props.getBoolean( PROP_SHOW_TAGS , true ) ;
 	}
 
 	/**
 	 */
 	public String[] getCreateButtonLabels()
 	{
-		return SpTelescopePos.getGuideStarTags();
+		return SpTelescopePos.getGuideStarTags() ;
 	}
 
 	/**
 	 */
 	public boolean create( FitsMouseEvent fme , FitsImageInfo fii , String label )
 	{
-		SpTelescopePosList tpl = getSpTelescopePosList();
+		SpTelescopePosList tpl = getSpTelescopePosList() ;
 		if( tpl == null )
-			return false;
+			return false ;
 
-		String tag = null;
-		String[] guideTags = SpTelescopePos.getGuideStarTags();
+		String tag = null ;
+		String[] guideTags = SpTelescopePos.getGuideStarTags() ;
 		for( int i = 0 ; i < guideTags.length ; ++i )
 		{
 			if( label.startsWith( guideTags[ i ] ) )
 			{
-				tag = label;
-				break;
+				tag = label ;
+				break ;
 			}
 		}
 		if( tag == null )
-			return false;
+			return false ;
 
-		SpTelescopePos tp;
-		tp = ( SpTelescopePos )tpl.getPosition( tag );
+		SpTelescopePos tp ;
+		tp = ( SpTelescopePos )tpl.getPosition( tag ) ;
 
 		// Try to find a catalog star near this one.
 		if( tp != null )
 		{
-			tp.setOffsetPosition( false );
-			tp.setCoordSys( CoordSys.FK5 );
-			tp.setXY( fme.ra , fme.dec );
-			String name = tp.getName();
+			tp.setOffsetPosition( false ) ;
+			tp.setCoordSys( CoordSys.FK5 ) ;
+			tp.setXY( fme.ra , fme.dec ) ;
+			String name = tp.getName() ;
 			if( ( name != null ) && !name.equals( "" ) )
-				tp.setName( "" );
+				tp.setName( "" ) ;
 		}
 		else
 		{
 			if( "SKY".equals( tag ) || "SKYGUIDE".equals( tag ) )
 			{
-				int id = 0;
+				int id = 0 ;
 				while( tpl.exists( tag + id ) )
 					id++ ;
 
-				tag = tag + id;
+				tag = tag + id ;
 			}
-			tp = tpl.createPosition( tag , fme.ra , fme.dec );
+			tp = tpl.createPosition( tag , fme.ra , fme.dec ) ;
 		}
-		return true;
+		return true ;
 	}
 
 	/**
 	 */
 	public boolean erase( FitsMouseEvent fme )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
-		SpTelescopePosList tpl = ( SpTelescopePosList )pm.getTelescopePosList();
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
+		SpTelescopePosList tpl = ( SpTelescopePosList )pm.getTelescopePosList() ;
 		if( tpl == null )
-			return false;
+			return false ;
 
-		int x = fme.xWidget;
-		int y = fme.yWidget;
+		int x = fme.xWidget ;
+		int y = fme.yWidget ;
 
-		FitsPosMapEntry pme;
+		FitsPosMapEntry pme ;
 
-		String[] guideTags = SpTelescopePos.getGuideStarTags();
+		String[] guideTags = SpTelescopePos.getGuideStarTags() ;
 		for( int i = 0 ; i < guideTags.length ; ++i )
 		{
-			pme = pm.getPositionMapEntry( guideTags[ i ] );
+			pme = pm.getPositionMapEntry( guideTags[ i ] ) ;
 			if( ( pme != null ) && ( positionIsClose( pme , x , y ) ) )
 			{
-				tpl.removePosition( ( SpTelescopePos )pme.telescopePos );
-				return true;
+				tpl.removePosition( ( SpTelescopePos )pme.telescopePos ) ;
+				return true ;
 			}
 		}
 
-		return false;
+		return false ;
 	}
 
 	/**
@@ -194,50 +194,50 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public Object select( FitsMouseEvent fme )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		int x = fme.xWidget;
-		int y = fme.yWidget;
+		int x = fme.xWidget ;
+		int y = fme.yWidget ;
 
-		FitsPosMapEntry pme;
-		String[] guideTags = SpTelescopePos.getGuideStarTags();
+		FitsPosMapEntry pme ;
+		String[] guideTags = SpTelescopePos.getGuideStarTags() ;
 		for( int i = 0 ; i < guideTags.length ; ++i )
 		{
-			pme = pm.getPositionMapEntry( guideTags[ i ] );
+			pme = pm.getPositionMapEntry( guideTags[ i ] ) ;
 			if( ( pme != null ) && ( positionIsClose( pme , x , y ) ) )
 			{
-				pme.telescopePos.select();
-				return pme.telescopePos;
+				pme.telescopePos.select() ;
+				return pme.telescopePos ;
 			}
 		}
-		return null;
+		return null ;
 	}
 
 	/**
 	 */
 	private final void _drawGuideStar( Graphics g , Point2D.Double p , int size , String tag )
 	{
-		g.setColor( Color.green );
-		g.drawRect( ( int )( p.x - size / 2 ) , ( int )( p.y - size / 2 ) , size , size );
+		g.setColor( Color.green ) ;
+		g.drawRect( ( int )( p.x - size / 2 ) , ( int )( p.y - size / 2 ) , size , size ) ;
 
 		if( getDrawTags() )
 		{
 			// Draw the tag--should use font metrics to position the tag
-			g.setFont( FONT );
-			g.drawString( tag , ( int )( p.x + size ) , ( int )( p.y + size ) );
+			g.setFont( FONT ) ;
+			g.drawString( tag , ( int )( p.x + size ) , ( int )( p.y + size ) ) ;
 		}
 	}
 
 	private final void _drawSkyBox( Graphics g , Point2D.Double p , int size , String tag )
 	{
-		g.setColor( Color.green.darker() );
-		g.drawRect( ( int )( p.x - size / 2 ) , ( int )( p.y - size / 2 ) , size , size );
+		g.setColor( Color.green.darker() ) ;
+		g.drawRect( ( int )( p.x - size / 2 ) , ( int )( p.y - size / 2 ) , size , size ) ;
 
 		if( getDrawTags() )
 		{
 			// Draw the tag--should use font metrics to position the tag
-			g.setFont( FONT );
-			g.drawString( tag , ( int )( p.x + size / 2 ) , ( int )( p.y - size / 2 ) );
+			g.setFont( FONT ) ;
+			g.drawString( tag , ( int )( p.x + size / 2 ) , ( int )( p.y - size / 2 ) ) ;
 		}
 	}
 
@@ -255,16 +255,16 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	private final void _drawGuideStar( Graphics g , Point2D.Double p , int size , String tag , Point2D.Double base )
 	{
-		g.setColor( Color.green );
-		double radius = Math.sqrt( ( ( p.x - base.x ) * ( p.x - base.x ) ) + ( ( p.y - base.y ) * ( p.y - base.y ) ) );
+		g.setColor( Color.green ) ;
+		double radius = Math.sqrt( ( ( p.x - base.x ) * ( p.x - base.x ) ) + ( ( p.y - base.y ) * ( p.y - base.y ) ) ) ;
 
-		g.drawArc( ( int )( base.x - radius ) , ( int )( base.y - radius ) , ( int )( 2.0 * radius ) , ( int )( 2.0 * radius ) , 0 , 360 );
+		g.drawArc( ( int )( base.x - radius ) , ( int )( base.y - radius ) , ( int )( 2.0 * radius ) , ( int )( 2.0 * radius ) , 0 , 360 ) ;
 
 		if( getDrawTags() )
 		{
 			// Draw the tag--should use font metrics to position the tag
-			g.setFont( FONT );
-			g.drawString( tag , ( int )( p.x + size ) , ( int )( p.y + size ) );
+			g.setFont( FONT ) ;
+			g.drawString( tag , ( int )( p.x + size ) , ( int )( p.y + size ) ) ;
 		}
 	}
 
@@ -272,49 +272,49 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		Point2D.Double base = pm.getLocationFromTag( SpTelescopePos.BASE_TAG );
+		Point2D.Double base = pm.getLocationFromTag( SpTelescopePos.BASE_TAG ) ;
 		if( base == null )
-			return;
+			return ;
 
 		// How many pixels do 10 arcsecs take?
-		int size = ( int )( 10 * fii.pixelsPerArcsec );
+		int size = ( int )( 10 * fii.pixelsPerArcsec ) ;
 
-		Point2D.Double p;
-		ArrayList tags = new ArrayList( Arrays.asList( SpTelescopePos.getGuideStarTags() ) );
-		tags.addAll( Arrays.asList( SpTelescopePos.getSkyTags() ) );
+		Point2D.Double p ;
+		ArrayList tags = new ArrayList( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
+		tags.addAll( Arrays.asList( SpTelescopePos.getSkyTags() ) ) ;
 		for( int i = 0 ; i < tags.size() ; ++i )
 		{
-			String currentTag = ( String )tags.get( i );
-			p = pm.getLocationFromTag( currentTag );
+			String currentTag = ( String )tags.get( i ) ;
+			p = pm.getLocationFromTag( currentTag ) ;
 			if( p != null )
 			{
-				SpTelescopePosList tpl = getSpTelescopePosList();
-				SpTelescopePos tp = null;
+				SpTelescopePosList tpl = getSpTelescopePosList() ;
+				SpTelescopePos tp = null ;
 
 				if( tpl != null )
-					tp = ( SpTelescopePos )tpl.getPosition( currentTag );
+					tp = ( SpTelescopePos )tpl.getPosition( currentTag ) ;
 
 				if( tp != null )
 				{
 					switch( tp.getCoordSys() )
 					{
 						case CoordSys.AZ_EL :
-							_drawGuideStar( g , p , size , currentTag , fii.baseScreenPos );
-							break;
+							_drawGuideStar( g , p , size , currentTag , fii.baseScreenPos ) ;
+							break ;
 						default :
-							_drawGuideStar( g , p , size , currentTag );
+							_drawGuideStar( g , p , size , currentTag ) ;
 							if( tp.getBoxSize() > 0.0 )
 							{
-								int skySize = ( int )( tp.getBoxSize() * fii.pixelsPerArcsec );
-								_drawSkyBox( g , p , skySize , "Random Area" );
+								int skySize = ( int )( tp.getBoxSize() * fii.pixelsPerArcsec ) ;
+								_drawSkyBox( g , p , skySize , "Random Area" ) ;
 							}
 					}
 				}
 				else
 				{
-					_drawGuideStar( g , p , size , currentTag );
+					_drawGuideStar( g , p , size , currentTag ) ;
 				}
 			}
 		}
@@ -324,36 +324,36 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public boolean dragStart( FitsMouseEvent fme , FitsImageInfo fii )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
-		FitsPosMapEntry pme;
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
+		FitsPosMapEntry pme ;
 
-		int x = fme.xWidget;
-		int y = fme.yWidget;
+		int x = fme.xWidget ;
+		int y = fme.yWidget ;
 
-		ArrayList tags = new ArrayList( Arrays.asList( SpTelescopePos.getGuideStarTags() ) );
-		tags.addAll( Arrays.asList( SpTelescopePos.getSkyTags() ) );
+		ArrayList<String> tags = new ArrayList<String>( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
+		tags.addAll( Arrays.asList( SpTelescopePos.getSkyTags() ) ) ;
 		for( int i = 0 ; i < tags.size() ; ++i )
 		{
-			pme = pm.getPositionMapEntry( ( String )tags.get( i ) );
+			pme = pm.getPositionMapEntry( tags.get( i ) ) ;
 			if( ( pme != null ) && ( positionIsClose( pme , x , y ) ) )
 			{
-				_dragObject = pme;
+				_dragObject = pme ;
 
-				SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos;
+				SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos ;
 
 				// Save whether this is an offset or not, so we can set the final position  to an offset as well
 				_offsetPosition = tp.isOffsetPosition() ;
 
-				tp.setOffsetPosition( false );
-				tp.setXY( fme.ra , fme.dec );
-				tp.setCoordSys( CoordSys.FK5 );
-				tp.setXY( fme.ra , fme.dec );
+				tp.setOffsetPosition( false ) ;
+				tp.setXY( fme.ra , fme.dec ) ;
+				tp.setCoordSys( CoordSys.FK5 ) ;
+				tp.setXY( fme.ra , fme.dec ) ;
 
-				return true;
+				return true ;
 			}
 		}
 
-		return false;
+		return false ;
 	}
 
 	/**
@@ -362,18 +362,18 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	{
 		if( _dragObject != null )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos;
+			SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos ;
 	
 			// See if we can snap to a catalog star
-			boolean snappedToCatStar = false;
+			boolean snappedToCatStar = false ;
 	
 			if( !snappedToCatStar )
 			{
-				super.dragStop( fme );
-				tp.setName( "" );
+				super.dragStop( fme ) ;
+				tp.setName( "" ) ;
 			}
 	
-			_dragObject = null;
+			_dragObject = null ;
 		}
 	}
 
@@ -382,7 +382,7 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	 */
 	public String getName()
 	{
-		return getTpeViewGuideLabel();
+		return getTpeViewGuideLabel() ;
 	}
 
 	/**
@@ -392,21 +392,21 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	{
 		if( _tpeViewGuideLabel == null )
 		{
-			String[] guideTags = SpTelescopePos.getGuideStarTags();
+			String[] guideTags = SpTelescopePos.getGuideStarTags() ;
 
 			if( ( guideTags != null ) && ( guideTags.length > 0 ) )
 			{
 				if( guideTags.length == 1 )
-					_tpeViewGuideLabel = guideTags[ 0 ];
+					_tpeViewGuideLabel = guideTags[ 0 ] ;
 				else
-					_tpeViewGuideLabel = guideTags[ 0 ] + " etc";
+					_tpeViewGuideLabel = guideTags[ 0 ] + " etc" ;
 			}
 			else
 			{
-				_tpeViewGuideLabel = DEFAULT_NAME;
+				_tpeViewGuideLabel = DEFAULT_NAME ;
 			}
 		}
 
-		return _tpeViewGuideLabel;
+		return _tpeViewGuideLabel ;
 	}
 }

@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import jsky.app.ot.OtItemEditorWindow;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import gemini.sp.SpAvTable;
-import gemini.sp.SpItem;
-import jsky.app.ot.util.Assert;
+import javax.swing.JPanel ;
+import javax.swing.JTextArea ;
+import jsky.app.ot.OtItemEditorWindow ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpItem ;
+import jsky.app.ot.util.Assert ;
 
 /**
  * This is the base class for all SpItem editors.  It uses a
@@ -23,31 +23,31 @@ import jsky.app.ot.util.Assert;
 public abstract class OtItemEditor
 {
 	/** Title to display in bold font on the OtItemEditorWindow. */
-	protected String _title;
+	protected String _title ;
 
 	/** Reference to the containing OtItemEditorWindow (needed to set the title) */
-	protected OtItemEditorWindow _otItemEditorWindow;
+	protected OtItemEditorWindow _otItemEditorWindow ;
 
 	/** Brief description of the editor to display on the OtItemEditorWindow. */
-	protected String _description;
+	protected String _description ;
 
 	/** The panel containing the presentation gui. */
-	protected JPanel _presSource;
+	protected JPanel _presSource ;
 
 	/** Can this editor be resized? */
-	protected boolean _resizable;
+	protected boolean _resizable ;
 
 	/** The SpItem being configured with this editor. */
-	protected SpItem _spItem;
+	protected SpItem _spItem ;
 
 	/** The attribute/value table of the current SpItem. */
-	protected SpAvTable _avTab;
+	protected SpAvTable _avTab ;
 
 	/** The loaded Presentation panel that contains the gui. */
-	protected JPanel _pres;
+	protected JPanel _pres ;
 
 	// Widgets in the OtItemEditorWindow
-	private JTextArea _descriptionWidget;
+	private JTextArea _descriptionWidget ;
 
 	/** Default constructor */
 	public OtItemEditor(){}
@@ -57,7 +57,7 @@ public abstract class OtItemEditor
 	 */
 	public String getTitle()
 	{
-		return _title;
+		return _title ;
 	}
 
 	/**
@@ -65,16 +65,16 @@ public abstract class OtItemEditor
 	 */
 	public String getDescription()
 	{
-		return _description;
+		return _description ;
 	}
 
 	/**
 	 * Get the panel containing the presentation.  The gui
-	 * should be set by the subclass;
+	 * should be set by the subclass ;
 	 */
 	public JPanel getPresSource()
 	{
-		return _presSource;
+		return _presSource ;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class OtItemEditor
 	 */
 	public boolean isResizable()
 	{
-		return _resizable;
+		return _resizable ;
 	}
 
 	/**
@@ -92,7 +92,7 @@ public abstract class OtItemEditor
 	 */
 	public void setResizable( boolean b )
 	{
-		_resizable = b;
+		_resizable = b ;
 	}
 
 	/**
@@ -101,8 +101,8 @@ public abstract class OtItemEditor
 	 */
 	public void setPresentation( JPanel presentation )
 	{
-		_pres = presentation;
-		_init();
+		_pres = presentation ;
+		_init() ;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public abstract class OtItemEditor
 	 */
 	public void setOtItemEditorWindow( OtItemEditorWindow w )
 	{
-		_otItemEditorWindow = w;
+		_otItemEditorWindow = w ;
 	}
 
 	/**
@@ -120,7 +120,7 @@ public abstract class OtItemEditor
 	 */
 	public void setDescriptionWidget( JTextArea descriptionWidget )
 	{
-		_descriptionWidget = descriptionWidget;
+		_descriptionWidget = descriptionWidget ;
 	}
 
 	/**
@@ -132,9 +132,9 @@ public abstract class OtItemEditor
 	 */
 	public void setEditorWindowTitle( String title )
 	{
-		_title = title;
+		_title = title ;
 		if( _otItemEditorWindow != null )
-			_otItemEditorWindow.setTitle( title );
+			_otItemEditorWindow.setTitle( title ) ;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public abstract class OtItemEditor
 	 */
 	public void setEditorWindowDescription( String description )
 	{
-		_descriptionWidget.setText( description );
+		_descriptionWidget.setText( description ) ;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public abstract class OtItemEditor
 	 */
 	public SpItem getCurrentSpItem()
 	{
-		return _spItem;
+		return _spItem ;
 	}
 
 	/**
@@ -163,7 +163,7 @@ public abstract class OtItemEditor
 	 */
 	protected void _init()
 	{
-		return;
+		return ;
 	}
 
 	/**
@@ -175,9 +175,9 @@ public abstract class OtItemEditor
 	 */
 	public void setup( SpItem spItem )
 	{
-		Assert.notNull( _pres );
-		_spItem = spItem;
-		update();
+		Assert.notNull( _pres ) ;
+		_spItem = spItem ;
+		update() ;
 	}
 
 	/**
@@ -186,8 +186,8 @@ public abstract class OtItemEditor
 	 */
 	public void update()
 	{
-		_avTab = _spItem.getTable();
-		_updateWidgets();
+		_avTab = _spItem.getTable() ;
+		_updateWidgets() ;
 	}
 
 	/**
@@ -200,7 +200,7 @@ public abstract class OtItemEditor
 	 * Subclasses must implement this method to initialize their presentation's
 	 * widgets correctly based on the current item.
 	 */
-	protected abstract void _updateWidgets();
+	protected abstract void _updateWidgets() ;
 
 	/**
 	 * A helper method that can be used to set the value of an attribute based
@@ -210,8 +210,8 @@ public abstract class OtItemEditor
 	 */
 	public final void setAttribute( TextBoxWidgetExt tbwe , String attribute , int def )
 	{
-		int i = tbwe.getIntegerValue( def );
-		_avTab.set( attribute , i );
+		int i = tbwe.getIntegerValue( def ) ;
+		_avTab.set( attribute , i ) ;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public abstract class OtItemEditor
 	 */
 	public final void setAttribute( TextBoxWidgetExt tbwe , String attribute , double def )
 	{
-		double d = tbwe.getDoubleValue( def );
-		_avTab.set( attribute , d );
+		double d = tbwe.getDoubleValue( def ) ;
+		_avTab.set( attribute , d ) ;
 	}
 }

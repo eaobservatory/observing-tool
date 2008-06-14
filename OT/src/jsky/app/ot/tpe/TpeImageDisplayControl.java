@@ -5,13 +5,13 @@
  * $Id$
  */
 
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
 import java.awt.Component ;
 import java.net.URL ;
 
-import jsky.navigator.NavigatorImageDisplayControl;
-import jsky.image.gui.DivaMainImageDisplay;
+import jsky.navigator.NavigatorImageDisplayControl ;
+import jsky.image.gui.DivaMainImageDisplay ;
 
 /**
  * Extends the NavigatorImageDisplayControl class by adding Gemini specific features.
@@ -29,7 +29,7 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , int size )
 	{
-		super( parent , size );
+		super( parent , size ) ;
 	}
 
 	/** 
@@ -39,7 +39,7 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent )
 	{
-		super( parent );
+		super( parent ) ;
 	}
 
 	/** 
@@ -51,7 +51,7 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , URL url )
 	{
-		super( parent , url );
+		super( parent , url ) ;
 	}
 
 	/** 
@@ -63,12 +63,12 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , String filename )
 	{
-		super( parent , filename );
+		super( parent , filename ) ;
 	}
 
 	/** Make and return the image display window */
 	protected DivaMainImageDisplay makeImageDisplay()
 	{
-		return new TpeImageWidget( parent );
+		return new TpeImageWidget( parent ) ;
 	}
 }

@@ -3,10 +3,10 @@
 // See the file COPYRIGHT for complete details.
 //
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import gemini.sp.SpItem;
-import java.util.Observable;
+import gemini.sp.SpItem ;
+import java.util.Observable ;
 
 /**
  * A TreeNodeWidget for SpObs items.  A special OtTreeNodeWidget is
@@ -24,7 +24,7 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 
 	public OtObsTreeNodeWidget( OtTreeWidget tree )
 	{
-		super( tree );
+		super( tree ) ;
 	}
 
 	/**
@@ -32,9 +32,9 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public OtTreeNodeWidget copy()
 	{
-		OtObsTreeNodeWidget newTNW = new OtObsTreeNodeWidget( ( OtTreeWidget )tree );
-		super.copyInto( newTNW );
-		return newTNW;
+		OtObsTreeNodeWidget newTNW = new OtObsTreeNodeWidget( ( OtTreeWidget )tree ) ;
+		super.copyInto( newTNW ) ;
+		return newTNW ;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public void setItem( SpItem spItem )
 	{
-		super.setItem( spItem );
+		super.setItem( spItem ) ;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public boolean getObsChained()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -66,6 +66,6 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public void update( Observable o , Object arg )
 	{
-		super.update( o , arg );
+		super.update( o , arg ) ;
 	}
 }

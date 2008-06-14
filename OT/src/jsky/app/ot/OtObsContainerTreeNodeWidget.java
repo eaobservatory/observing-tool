@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
 /**
  * A TreeNodeWidget for items that may contain of observations.  A special
@@ -15,7 +15,7 @@ public class OtObsContainerTreeNodeWidget extends OtTreeNodeWidget
 {
 	public OtObsContainerTreeNodeWidget( OtTreeWidget tree )
 	{
-		super( tree );
+		super( tree ) ;
 	}
 
 	public OtObsContainerTreeNodeWidget(){}
@@ -25,8 +25,8 @@ public class OtObsContainerTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public OtTreeNodeWidget copy()
 	{
-		OtObsContainerTreeNodeWidget newTNW = new OtObsContainerTreeNodeWidget( ( OtTreeWidget )tree );
-		super.copyInto( newTNW );
-		return newTNW;
+		OtObsContainerTreeNodeWidget newTNW = new OtObsContainerTreeNodeWidget( ( OtTreeWidget )tree ) ;
+		super.copyInto( newTNW ) ;
+		return newTNW ;
 	}
 }

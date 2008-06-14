@@ -5,15 +5,15 @@
  * $Id$
  */
 
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import javax.swing.JDesktopPane;
+import javax.swing.JDesktopPane ;
 
-import jsky.navigator.NavigatorImageDisplayInternalFrame;
-import jsky.image.gui.DivaMainImageDisplay;
-import jsky.image.gui.ImageDisplayControl;
-import jsky.image.gui.ImageDisplayMenuBar;
-import jsky.image.gui.ImageDisplayToolBar;
+import jsky.navigator.NavigatorImageDisplayInternalFrame ;
+import jsky.image.gui.DivaMainImageDisplay ;
+import jsky.image.gui.ImageDisplayControl ;
+import jsky.image.gui.ImageDisplayMenuBar ;
+import jsky.image.gui.ImageDisplayToolBar ;
 
 /**
  * Extends NavigatorImageDisplayInternalFrame to add OT/TPE specific features.
@@ -24,7 +24,7 @@ import jsky.image.gui.ImageDisplayToolBar;
 public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalFrame
 {
 	/** Tool bar with OT/TPE specific commands */
-	TelescopePosEditorToolBar tpeToolBar;
+	TelescopePosEditorToolBar tpeToolBar ;
 
 	/**
 	 * Create a top level window containing an ImageDisplayControl panel.
@@ -33,7 +33,7 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
 	 */
 	public TpeImageDisplayInternalFrame( JDesktopPane desktop , int size )
 	{
-		super( desktop , size );
+		super( desktop , size ) ;
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
 	 */
 	public TpeImageDisplayInternalFrame( JDesktopPane desktop )
 	{
-		super( desktop );
+		super( desktop ) ;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
 	 */
 	public TpeImageDisplayInternalFrame( JDesktopPane desktop , int size , String fileOrUrl )
 	{
-		super( desktop , size , fileOrUrl );
+		super( desktop , size , fileOrUrl ) ;
 	}
 
 	/**
@@ -65,13 +65,13 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
 	 */
 	public TpeImageDisplayInternalFrame( JDesktopPane desktop , String fileOrUrl )
 	{
-		super( desktop , fileOrUrl );
+		super( desktop , fileOrUrl ) ;
 	}
 
 	/** Make and return the menubar */
 	protected ImageDisplayMenuBar makeMenuBar( DivaMainImageDisplay mainImageDisplay , ImageDisplayToolBar toolBar )
 	{
-		return new TpeImageDisplayMenuBar( mainImageDisplay , toolBar );
+		return new TpeImageDisplayMenuBar( mainImageDisplay , toolBar ) ;
 	}
 
 	/**
@@ -81,32 +81,32 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
 	 */
 	protected ImageDisplayControl makeImageDisplayControl( int size )
 	{
-		return new TpeImageDisplayControl( this , /*statusPanel,*/size );
+		return new TpeImageDisplayControl( this , /*statusPanel,*/size ) ;
 	}
 
 	/** Make and return the toolbar */
 	protected ImageDisplayToolBar makeToolBar( DivaMainImageDisplay mainImageDisplay )
 	{
 		// add the Tpe tool bar while we are at it...
-		addTpeToolBar();
+		addTpeToolBar() ;
 
 		// Dragging can cause problems with two tool bars...
-		ImageDisplayToolBar toolBar = super.makeToolBar( mainImageDisplay );
-		toolBar.setFloatable( false );
-		return toolBar;
+		ImageDisplayToolBar toolBar = super.makeToolBar( mainImageDisplay ) ;
+		toolBar.setFloatable( false ) ;
+		return toolBar ;
 	}
 
 	/** Add a tool bar for OT/TPE specific operations. */
 	protected void addTpeToolBar()
 	{
-		TpeImageWidget imageDisplay = ( TpeImageWidget )imageDisplayControl.getImageDisplay();
-		tpeToolBar = new TelescopePosEditorToolBar( imageDisplay );
-		add( "West" , tpeToolBar );
+		TpeImageWidget imageDisplay = ( TpeImageWidget )imageDisplayControl.getImageDisplay() ;
+		tpeToolBar = new TelescopePosEditorToolBar( imageDisplay ) ;
+		add( "West" , tpeToolBar ) ;
 	}
 
 	/** Return the Tool bar with OT/TPE specific commands */
 	TelescopePosEditorToolBar getTpeToolBar()
 	{
-		return tpeToolBar;
+		return tpeToolBar ;
 	}
 }

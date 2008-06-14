@@ -4,11 +4,11 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import gemini.sp.SpItem;
-import jsky.util.gui.DialogUtil;
-import java.util.Hashtable;
+import gemini.sp.SpItem ;
+import jsky.util.gui.DialogUtil ;
+import java.util.Hashtable ;
 
 /**
  * This class is used to obtain the editor for SpItems.  Each program or plan
@@ -24,7 +24,7 @@ import java.util.Hashtable;
  */
 public final class OtItemEditorFactory
 {
-	private static Hashtable _editorMap = new Hashtable();
+	private static Hashtable<String,Hashtable> _editorMap = new Hashtable<String,Hashtable>() ;
 
 	/**
 	 * Get an item editor given an associated SpItem from the program and
@@ -32,33 +32,33 @@ public final class OtItemEditorFactory
 	 */
 	public static OtItemEditor getEditor( String editorClassName , SpItem spItem )
 	{
-		Hashtable ht = ( Hashtable )_editorMap.get( editorClassName );
+		Hashtable ht = _editorMap.get( editorClassName ) ;
 		if( ht == null )
 		{
-			ht = new Hashtable();
-			_editorMap.put( editorClassName , ht );
+			ht = new Hashtable() ;
+			_editorMap.put( editorClassName , ht ) ;
 		}
 
-		OtItemEditor ed = ( OtItemEditor )ht.get( spItem.getRootItem() );
+		OtItemEditor ed = ( OtItemEditor )ht.get( spItem.getRootItem() ) ;
 		if( ed == null )
 		{
 			try
 			{
-				Class c = Class.forName( editorClassName );
-				ed = ( OtItemEditor )c.newInstance();
-				ht.put( spItem.getRootItem() , ed );
+				Class c = Class.forName( editorClassName ) ;
+				ed = ( OtItemEditor )c.newInstance() ;
+				ht.put( spItem.getRootItem() , ed ) ;
 			}
 			catch( Exception ex )
 			{
 				// It is important to print this stack trace. The error dialog below does not
 				// give any detailed information about what went wrong. And this exception occurs frequenty
 				// when new components are added to the OT. (MFO, November 27, 2002)
-				ex.printStackTrace();
+				ex.printStackTrace() ;
 
-				DialogUtil.error( null , "Problem instantiating: " + editorClassName + ", " + ex );
-				return null;
+				DialogUtil.error( null , "Problem instantiating: " + editorClassName + ", " + ex ) ;
+				return null ;
 			}
 		}
-		return ed;
+		return ed ;
 	}
 }

@@ -4,18 +4,18 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.awt.Component;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import jsky.app.ot.gui.StopActionWatcher;
-import jsky.app.ot.gui.StopActionWidget;
-import jsky.app.ot.job.Job;
-import jsky.app.ot.job.JobWatcher;
-import gemini.sp.SpFactory;
-import gemini.sp.SpRootItem;
-import gemini.sp.SpType;
+import java.awt.Component ;
+import javax.swing.ImageIcon ;
+import javax.swing.JFrame ;
+import jsky.app.ot.gui.StopActionWatcher ;
+import jsky.app.ot.gui.StopActionWidget ;
+import jsky.app.ot.job.Job ;
+import jsky.app.ot.job.JobWatcher ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.SpType ;
 
 /**
  * The program hierarchy edit OtWindow subclass for science programs,
@@ -30,8 +30,8 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public OtProgWindow()
 	{
-		this( ( SpRootItem )SpFactory.create( SpType.SCIENCE_PROGRAM ) );
-		OtProps.setSaveShouldPrompt( true );
+		this( ( SpRootItem )SpFactory.create( SpType.SCIENCE_PROGRAM ) ) ;
+		OtProps.setSaveShouldPrompt( true ) ;
 	}
 
 	/**
@@ -39,8 +39,8 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public OtProgWindow( SpRootItem spItem )
 	{
-		super( spItem );
-		OtProps.setSaveShouldPrompt( false );
+		super( spItem ) ;
+		OtProps.setSaveShouldPrompt( false ) ;
 	}
 
 	/**
@@ -49,16 +49,16 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public OtProgWindow( SpRootItem spItem , FileInfo fileInfo )
 	{
-		super( spItem , fileInfo );
-		OtProps.setSaveShouldPrompt( false );
+		super( spItem , fileInfo ) ;
+		OtProps.setSaveShouldPrompt( false ) ;
 	}
 
 	public OtProgWindow( SpRootItem spItem , LoginInfo loginInfo )
 	{
-		this( spItem );
+		this( spItem ) ;
 
-		OtProps.setSaveShouldPrompt( false );
-		_progInfo.login = loginInfo;
+		OtProps.setSaveShouldPrompt( false ) ;
+		_progInfo.login = loginInfo ;
 	}
 
 	/**
@@ -66,14 +66,14 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	protected void _init( SpRootItem spItem , FileInfo fileInfo )
 	{
-		super._init( spItem , fileInfo );
+		super._init( spItem , fileInfo ) ;
 
-		_progInfo.isPlan = false;
-		SpType type = spItem.type();
+		_progInfo.isPlan = false ;
+		SpType type = spItem.type() ;
 		if( type.equals( SpType.SCIENCE_PLAN ) )
-			_progInfo.isPlan = true;
+			_progInfo.isPlan = true ;
 		else if( type.equals( SpType.LIBRARY ) )
-			libFolderAction.setEnabled( true );
+			libFolderAction.setEnabled( true ) ;
 	}
 
 	/**
@@ -82,46 +82,37 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public void setParentFrame( Component p )
 	{
-		super.setParentFrame( p );
+		super.setParentFrame( p ) ;
 
 		if( p instanceof JFrame && _curItem != null )
 		{
-			SpType type = _curItem.type();
-			JFrame f = ( JFrame )p;
+			SpType type = _curItem.type() ;
+			JFrame f = ( JFrame )p ;
 			if( type.equals( SpType.SCIENCE_PROGRAM ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/ngc104.gif" ) ).getImage() );
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/ngc104.gif" ) ).getImage() ) ;
 			else if( type.equals( SpType.SCIENCE_PLAN ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/comet.gif" ) ).getImage() );
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/comet.gif" ) ).getImage() ) ;
 			else if( type.equals( SpType.LIBRARY ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/libIcon.gif" ) ).getImage() );
+				f.setIconImage( new ImageIcon( getClass().getResource( "images/libIcon.gif" ) ).getImage() ) ;
 		}
 	}
 
 	/** Return true if the SP type is LIBRARY */
 	public boolean isLibrary()
 	{
-		return _curItem.type().equals( SpType.LIBRARY );
+		return _curItem.type().equals( SpType.LIBRARY ) ;
 	}
 
 	/** Add a library folder to the tree. */
 	public void addLibFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.LIBRARY_FOLDER ) );
+		_tw.addItem( SpFactory.create( SpType.LIBRARY_FOLDER ) ) ;
 	}
 
 	/** Return true if online */
 	public boolean isOnline()
 	{
-		return _progInfo.online;
-	}
-
-	//
-	// Check whether this program has ever been stored to the ODB.
-	//
-	private boolean _previouslyStored()
-	{
-		// Has this program ever been stored to the server?
-		return _tw.getProg().hasBeenNamed();
+		return _progInfo.online ;
 	}
 
 	/**
@@ -134,7 +125,7 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public void jobStarted( Job job )
 	{
-		System.out.println( "JOB STARTED" );
+		System.out.println( "JOB STARTED" ) ;
 	}
 
 	/**
@@ -142,7 +133,7 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 */
 	public void jobFinished( Job job )
 	{
-		System.out.println( "JOB FINISHED" );
+		System.out.println( "JOB FINISHED" ) ;
 	}
 
 	/** 
@@ -154,10 +145,10 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 		{
 			public void run()
 			{
-				OT.getDatabaseDialog().fetchProgram();
+				OT.getDatabaseDialog().fetchProgram() ;
 			}
-		} );
-		t.start();
+		} ) ;
+		t.start() ;
 	}
 
 	/** 
@@ -169,10 +160,9 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 		{
 			public void run()
 			{
-				OT.getDatabaseDialog().storeProgram( getItem() );
+				OT.getDatabaseDialog().storeProgram( getItem() ) ;
 			}
-		} );
-		t.start();
+		} ) ;
+		t.start() ;
 	}
-
 }

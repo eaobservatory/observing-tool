@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
 /**
  * This is a simple concrete OtTreeNodeWidget extension that defines
@@ -19,7 +19,7 @@ public class OtSimpleTreeNodeWidget extends OtTreeNodeWidget
 
 	public OtSimpleTreeNodeWidget( OtTreeWidget tree )
 	{
-		super( tree );
+		super( tree ) ;
 	}
 
 	public OtSimpleTreeNodeWidget(){}
@@ -29,8 +29,8 @@ public class OtSimpleTreeNodeWidget extends OtTreeNodeWidget
 	 */
 	public OtTreeNodeWidget copy()
 	{
-		OtTreeNodeWidget newTNW = new OtSimpleTreeNodeWidget( ( OtTreeWidget )tree );
-		super.copyInto( newTNW );
-		return newTNW;
+		OtTreeNodeWidget newTNW = new OtSimpleTreeNodeWidget( ( OtTreeWidget )tree ) ;
+		super.copyInto( newTNW ) ;
+		return newTNW ;
 	}
 }

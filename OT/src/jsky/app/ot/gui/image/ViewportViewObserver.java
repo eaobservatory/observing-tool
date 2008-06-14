@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui.image;
+package jsky.app.ot.gui.image ;
 
 /**
  * An interface supported by ViewportImageWidget clients that which to
@@ -17,5 +17,5 @@ public interface ViewportViewObserver
 	/**
 	 * Notify that the view has changed.
 	 */
-	public void viewportViewChange( ViewportImageWidget iw , ImageView iv );
+	public void viewportViewChange( ViewportImageWidget iw , ImageView iv ) ;
 }

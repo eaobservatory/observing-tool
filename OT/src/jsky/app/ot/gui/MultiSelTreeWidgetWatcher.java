@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * An extension of the TreeWidgetWatcher to support notification of
@@ -20,5 +20,5 @@ public interface MultiSelTreeWidgetWatcher extends TreeWidgetWatcher
 	/**
 	 * Receive notification that multiple nodes have been selected.
 	 */
-	public void multiNodeSelect( TreeWidgetExt tw , Vector nodes );
+	public void multiNodeSelect( TreeWidgetExt tw , Vector nodes ) ;
 }

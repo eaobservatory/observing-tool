@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.job;
+package jsky.app.ot.job ;
 
-import java.awt.Event;
+import java.awt.Event ;
 
 /**
  * An custom event that indicates a widget has some potentially long
@@ -16,16 +16,16 @@ import java.awt.Event;
  */
 public class JobEvent extends Event
 {
-	private Job _job;
+	private Job _job ;
 
 	/**
 	 * Construct from a Job.
 	 */
 	public JobEvent( Object target , Job job )
 	{
-		super( target , -1 , null );
+		super( target , -1 , null ) ;
 		// -1 NOT USED BY AWT EVENTS
-		_job = job;
+		_job = job ;
 	}
 
 	/**
@@ -33,9 +33,9 @@ public class JobEvent extends Event
 	 */
 	public JobEvent( Object target , Event evt , Job job )
 	{
-		super( target , evt.when , evt.id , evt.x , evt.y , evt.key , evt.modifiers , evt.arg );
-		_job = job;
-		id = -1; // NOT USED BY AWT EVENTS
+		super( target , evt.when , evt.id , evt.x , evt.y , evt.key , evt.modifiers , evt.arg ) ;
+		_job = job ;
+		id = -1 ; // NOT USED BY AWT EVENTS
 	}
 
 	/**
@@ -43,6 +43,6 @@ public class JobEvent extends Event
 	 */
 	public Job getJob()
 	{
-		return _job;
+		return _job ;
 	}
 }

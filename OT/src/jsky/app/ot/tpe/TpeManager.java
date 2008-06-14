@@ -4,16 +4,16 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import java.util.Hashtable;
-import java.util.Vector;
-import javax.swing.JDesktopPane;
-import gemini.sp.SpItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import jsky.util.gui.DialogUtil;
-import jsky.app.jskycat.JSkyCat;
+import java.util.Hashtable ;
+import java.util.Vector ;
+import javax.swing.JDesktopPane ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import jsky.util.gui.DialogUtil ;
+import jsky.app.jskycat.JSkyCat ;
 
 /**
  * This class manages TelescopePosEditors on behalf of clients.
@@ -25,33 +25,33 @@ public final class TpeManager implements TpeWatcher
 	/**
 	 * The position editor, one per TpeManager object.
 	 */
-	TelescopePosEditor _tpe;
+	TelescopePosEditor _tpe ;
 
 	/**
 	 * The root SpItem associated with the position editor.
 	 */
-	SpItem _spItem;
+	SpItem _spItem ;
 
 	/** Main window, when using internal frames */
-	static JDesktopPane desktop;
+	static JDesktopPane desktop ;
 
 	/**
 	 * Contains a mapping of Science Program/Plan items to Position Editors.
 	 */
-	private static Hashtable _map = new Hashtable();
+	private static Hashtable<SpItem,TpeManager> _map = new Hashtable<SpItem,TpeManager>() ;
 
 	/**
 	 * These are watchers interested in knowing when a TPE has been
 	 * opened for a given program, plan, or library.
 	 */
-	private static Hashtable _openWatchers = new Hashtable();
+	private static Hashtable _openWatchers = new Hashtable() ;
 
 	TpeManager( SpItem spItem , TelescopePosEditor tpe )
 	{
-		_spItem = spItem;
+		_spItem = spItem ;
 
-		_tpe = tpe;
-		_tpe.addWatcher( this );
+		_tpe = tpe ;
+		_tpe.addWatcher( this ) ;
 	}
 
 	/**
@@ -60,23 +60,23 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public void tpeClosed( TelescopePosEditor tpe )
 	{
-		_map.remove( _spItem );
-		_tpe.deleteWatcher( this );
-		_tpe = null;
-		_spItem = null;
+		_map.remove( _spItem ) ;
+		_tpe.deleteWatcher( this ) ;
+		_tpe = null ;
+		_spItem = null ;
 	}
 
 	/** Return the JDesktopPane, if using internal frames, otherwise null */
 	public static JDesktopPane getDesktop()
 	{
-		return desktop;
+		return desktop ;
 	}
 
 	/** Set the JDesktopPane to use for top level windows, if using internal frames */
 	public static void setDesktop( JDesktopPane dt )
 	{
-		JSkyCat.setDesktop( dt ); // base class of the TelescopePosEditor
-		desktop = dt;
+		JSkyCat.setDesktop( dt ) ; // base class of the TelescopePosEditor
+		desktop = dt ;
 	}
 
 	/**
@@ -86,13 +86,13 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public static TelescopePosEditor get( SpItem spItem )
 	{
-		SpItem root = findRootItem( spItem );
+		SpItem root = findRootItem( spItem ) ;
 
-		TpeManager man = ( TpeManager )_map.get( root );
+		TpeManager man = _map.get( root ) ;
 		if( man == null )
-			return null;
+			return null ;
 
-		return man._tpe;
+		return man._tpe ;
 	}
 
 	/**
@@ -102,34 +102,34 @@ public final class TpeManager implements TpeWatcher
 	{
 		try
 		{
-			SpItem root = findRootItem( spItem );
+			SpItem root = findRootItem( spItem ) ;
 
-			TpeManager man = ( TpeManager )_map.get( root );
+			TpeManager man = ( TpeManager )_map.get( root ) ;
 
 			if( man == null )
 			{
-				TelescopePosEditor tpe = new TelescopePosEditor( spItem );
-				man = new TpeManager( root , tpe );
-				_map.put( root , man );
-				_notifyOpen( root , tpe );
+				TelescopePosEditor tpe = new TelescopePosEditor( spItem ) ;
+				man = new TpeManager( root , tpe ) ;
+				_map.put( root , man ) ;
+				_notifyOpen( root , tpe ) ;
 			}
 			else if( man._tpe == null )
 			{
-				man._tpe = new TelescopePosEditor( spItem );
-				_notifyOpen( root , man._tpe );
+				man._tpe = new TelescopePosEditor( spItem ) ;
+				_notifyOpen( root , man._tpe ) ;
 			}
 
-			man._tpe.setImageFrameVisible( true );
+			man._tpe.setImageFrameVisible( true ) ;
 
-			return man._tpe;
+			return man._tpe ;
 		}
 		catch( NoClassDefFoundError e )
 		{
-			DialogUtil.error( "The Position Editor cannot be launched because of a missing class: " + e.getMessage() + "\n        Make sure you have Java Advanced Imaging installed (version 1.1 or higher)." );
+			DialogUtil.error( "The Position Editor cannot be launched because of a missing class: " + e.getMessage() + "\n        Make sure you have Java Advanced Imaging installed (version 1.1 or higher)." ) ;
 
-			e.printStackTrace();
+			e.printStackTrace() ;
 
-			throw e;
+			throw e ;
 		}
 	}
 
@@ -138,26 +138,26 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public static void remap( SpItem oldItem , SpItem newItem )
 	{
-		SpItem oldRoot = findRootItem( oldItem );
-		TpeManager man = ( TpeManager )_map.get( oldRoot );
+		SpItem oldRoot = findRootItem( oldItem ) ;
+		TpeManager man = _map.get( oldRoot ) ;
 
-		SpItem newRoot = findRootItem( newItem );
+		SpItem newRoot = findRootItem( newItem ) ;
 		if( man != null )
 		{
-			_map.remove( oldRoot );
-			man._spItem = newRoot;
-			_map.put( newRoot , man );
+			_map.remove( oldRoot ) ;
+			man._spItem = newRoot ;
+			_map.put( newRoot , man ) ;
 		}
 
-		_remapOpenWatchers( oldRoot , newRoot );
+		_remapOpenWatchers( oldRoot , newRoot ) ;
 	}
 
 	// Remap the tpe open watchers.
 	private synchronized static void _remapOpenWatchers( SpItem oldRoot , SpItem newRoot )
 	{
-		Vector v = ( Vector )_openWatchers.remove( oldRoot );
+		Vector v = ( Vector )_openWatchers.remove( oldRoot ) ;
 		if( v != null )
-			_openWatchers.put( newRoot , v );
+			_openWatchers.put( newRoot , v ) ;
 	}
 
 	/**
@@ -165,11 +165,11 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public static void remove( SpItem spItem )
 	{
-		SpItem root = findRootItem( spItem );
-		TpeManager man = ( TpeManager )_map.get( root );
+		SpItem root = findRootItem( spItem ) ;
+		TpeManager man = _map.get( root ) ;
 
 		if( man != null )
-			man._tpe.remove();
+			man._tpe.remove() ;
 	}
 
 	/**
@@ -178,18 +178,18 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public synchronized static void addWatcher( TpeManagerWatcher watcher , SpItem spItem )
 	{
-		SpItem spRoot = findRootItem( spItem );
-		Vector v = ( Vector )_openWatchers.get( spRoot );
+		SpItem spRoot = findRootItem( spItem ) ;
+		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
 		if( v == null )
 		{
-			v = new Vector();
-			_openWatchers.put( spRoot , v );
+			v = new Vector() ;
+			_openWatchers.put( spRoot , v ) ;
 		}
 
 		if( v.contains( watcher ) )
-			return;
+			return ;
 
-		v.addElement( watcher );
+		v.addElement( watcher ) ;
 	}
 
 	/**
@@ -197,14 +197,14 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public synchronized static void deleteWatcher( TpeManagerWatcher watcher , SpItem spItem )
 	{
-		SpItem spRoot = findRootItem( spItem );
-		Vector v = ( Vector )_openWatchers.get( spRoot );
+		SpItem spRoot = findRootItem( spItem ) ;
+		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
 		if( v == null )
-			return;
+			return ;
 
-		v.removeElement( watcher );
+		v.removeElement( watcher ) ;
 		if( v.size() == 0 )
-			_openWatchers.remove( spRoot );
+			_openWatchers.remove( spRoot ) ;
 	}
 
 	/**
@@ -212,7 +212,7 @@ public final class TpeManager implements TpeWatcher
 	 */
 	public synchronized static void deleteWatchers( SpItem spItem )
 	{
-		_openWatchers.remove( spItem );
+		_openWatchers.remove( spItem ) ;
 	}
 
 	/**
@@ -220,12 +220,12 @@ public final class TpeManager implements TpeWatcher
 	 */
 	private synchronized static Vector _getWatchers( SpItem spItem )
 	{
-		SpItem spRoot = findRootItem( spItem );
-		Vector v = ( Vector )_openWatchers.get( spRoot );
+		SpItem spRoot = findRootItem( spItem ) ;
+		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
 		if( v == null )
-			return null;
+			return null ;
 
-		return ( Vector )v.clone();
+		return ( Vector )v.clone() ;
 	}
 
 	/**
@@ -233,23 +233,23 @@ public final class TpeManager implements TpeWatcher
 	 */
 	private static void _notifyOpen( SpItem spItem , TelescopePosEditor tpe )
 	{
-		Vector v = _getWatchers( spItem );
+		Vector v = _getWatchers( spItem ) ;
 		if( v == null )
-			return;
+			return ;
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TpeManagerWatcher watcher = ( TpeManagerWatcher )v.elementAt( i );
-			watcher.tpeOpened( tpe );
+			TpeManagerWatcher watcher = ( TpeManagerWatcher )v.elementAt( i ) ;
+			watcher.tpeOpened( tpe ) ;
 		}
 	}
 
 	public static SpItem findRootItem( SpItem spItem )
 	{
 		if( ( spItem instanceof SpTelescopeObsComp ) && ( ( ( SpTelescopeObsComp )spItem ).getSurveyComponent() != null ) )
-			return SpTreeMan.findRootItem( ( ( SpTelescopeObsComp )spItem ).getSurveyComponent() );
+			return SpTreeMan.findRootItem( ( ( SpTelescopeObsComp )spItem ).getSurveyComponent() ) ;
 		else
-			return SpTreeMan.findRootItem( spItem );
+			return SpTreeMan.findRootItem( spItem ) ;
 	}
 }

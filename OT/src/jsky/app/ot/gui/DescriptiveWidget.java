@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * An interface that can be supported by widgets to provide a description
@@ -15,10 +15,10 @@ public interface DescriptiveWidget
 	/**
 	 * Set the widget's description.
 	 */
-	public void setDescription( String description );
+	public void setDescription( String description ) ;
 
 	/**
 	 * Get the widget's description.
 	 */
-	public String getDescription();
+	public String getDescription() ;
 }

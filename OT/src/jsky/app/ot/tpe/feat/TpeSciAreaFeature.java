@@ -4,27 +4,27 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe.feat;
+package jsky.app.ot.tpe.feat ;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Polygon;
+import java.awt.Color ;
+import java.awt.Graphics ;
+import java.awt.Polygon ;
 
-import jsky.app.ot.gui.DrawUtil;
+import jsky.app.ot.gui.DrawUtil ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
-import jsky.app.ot.util.Angle;
-import jsky.app.ot.util.PolygonD;
+import jsky.app.ot.util.Angle ;
+import jsky.app.ot.util.PolygonD ;
 
-import jsky.app.ot.tpe.TpeImageFeature;
-import jsky.app.ot.tpe.TpeDraggableFeature;
-import jsky.app.ot.tpe.TpeImageWidget;
-import jsky.app.ot.tpe.TpeSciArea;
-import java.awt.geom.Point2D;
+import jsky.app.ot.tpe.TpeImageFeature ;
+import jsky.app.ot.tpe.TpeDraggableFeature ;
+import jsky.app.ot.tpe.TpeImageWidget ;
+import jsky.app.ot.tpe.TpeSciArea ;
+import java.awt.geom.Point2D ;
 
 /**
  * An implementation class used to simplify the job of rotating science
@@ -32,62 +32,62 @@ import java.awt.geom.Point2D;
  */
 final class TpeSciAreaDragObject
 {
-	int _xb , _yb;
+	int _xb , _yb ;
 
-	double _angle = 0;
+	double _angle = 0 ;
 
 	/**
 	 * Construct with the base position at (xb,yb).
 	 */
 	public TpeSciAreaDragObject( int xb , int yb , int x , int y )
 	{
-		_xb = xb;
-		_yb = yb;
-		_angle = getAngle( x , y );
+		_xb = xb ;
+		_yb = yb ;
+		_angle = getAngle( x , y ) ;
 	}
 
 	public double nextAngleDiff( int x , int y )
 	{
-		double angle = getAngle( x , y );
+		double angle = getAngle( x , y ) ;
 
-		double val = angle - _angle;
-		_angle = angle;
+		double val = angle - _angle ;
+		_angle = angle ;
 
-		return val;
+		return val ;
 	}
 
 	public double getAngle( int x , int y )
 	{
-		double angle;
+		double angle ;
 
 		// All the points are in screen coordinates, which means y increases down
 		// This makes x and y relative to the origin in a right side up frame.
-		int xp = x - _xb;
-		int yp = _yb - y;
+		int xp = x - _xb ;
+		int yp = _yb - y ;
 
-		int xa = Math.abs( xp );
-		int ya = Math.abs( yp );
+		int xa = Math.abs( xp ) ;
+		int ya = Math.abs( yp ) ;
 
 		if( xa == 0 )
 		{
 			if( yp >= 0 )
-				return Math.PI * 0.5;
+				return Math.PI * 0.5 ;
 			else
-				return Math.PI * 1.5;
+				return Math.PI * 1.5 ;
 		}
 
-		angle = Angle.atanRadians( ( ( double )ya ) / ( ( double )xa ) );
+		angle = Angle.atanRadians( ( ( double )ya ) / ( ( double )xa ) ) ;
 
 		if( ( xp > 0 ) && ( yp >= 0 ) )
-			return angle;
+			return angle ;
 
 		if( ( xp < 0 ) && ( yp >= 0 ) )
-			return Math.PI - angle;
+			return Math.PI - angle ;
 
 		if( ( xp < 0 ) && ( yp < 0 ) )
-			return Math.PI + angle;
+			return Math.PI + angle ;
 
-		return Math.PI * 2. - angle;
+		return Math.PI * 2. - angle ;
 	}
 }
 
@@ -96,22 +96,22 @@ final class TpeSciAreaDragObject
  */
 public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFeature
 {
-	private TpeSciArea _sciArea;
-	private PolygonD _sciAreaPD;
-	private PolygonD _tickMarkPD;
-	private SpInstObsComp _instItem;
-	private boolean _valid = false;
-	private TpeSciAreaDragObject _dragObject;
-	private boolean _dragging = false;
-	private int _dragX;
-	private int _dragY;
+	private TpeSciArea _sciArea ;
+	private PolygonD _sciAreaPD ;
+	private PolygonD _tickMarkPD ;
+	private SpInstObsComp _instItem ;
+	private boolean _valid = false ;
+	private TpeSciAreaDragObject _dragObject ;
+	private boolean _dragging = false ;
+	private int _dragX ;
+	private int _dragY ;
 
 	/**
 	 * Construct the feature with its name and description. 
 	 */
 	public TpeSciAreaFeature()
 	{
-		super( "Sci Area" , "Science area." );
+		super( "Sci Area" , "Science area." ) ;
 	}
 
 	/**
@@ -119,9 +119,9 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	 */
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
-		_valid = false;
-		return;
+		super.reinit( iw , fii ) ;
+		_valid = false ;
+		return ;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	 */
 	public void posAngleUpdate( FitsImageInfo fii )
 	{
-		_valid = false;
+		_valid = false ;
 	}
 
 	/**
@@ -138,57 +138,57 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	private boolean _calc( FitsImageInfo fii )
 	{
 		// Need the instrument to get the science area
-		SpInstObsComp spInst = _iw.getInstrumentItem();
+		SpInstObsComp spInst = _iw.getInstrumentItem() ;
 		if( spInst == null )
-			return false;
+			return false ;
 
 		if( _sciArea == null )
 		{
-			_sciArea = _iw.getSciArea();
+			_sciArea = _iw.getSciArea() ;
 			if( _sciArea == null )
-				return false;
+				return false ;
 		}
 
-		boolean updated = _sciArea.update( spInst , fii );
+		boolean updated = _sciArea.update( spInst , fii ) ;
 
 		// Already have the current values
 		if( _valid && !updated && ( _sciAreaPD != null ) && ( spInst == _instItem ) )
-			return true;
+			return true ;
 
-		_instItem = spInst;
+		_instItem = spInst ;
 
-		double xBase = ( double )fii.baseScreenPos.x;
-		double yBase = ( double )fii.baseScreenPos.y;
-		_sciAreaPD = _sciArea.getPolygonDAt( xBase , yBase );
+		double xBase = ( double )fii.baseScreenPos.x ;
+		double yBase = ( double )fii.baseScreenPos.y ;
+		_sciAreaPD = _sciArea.getPolygonDAt( xBase , yBase ) ;
 
 		// Init the _tickMarkPD
 		if( _tickMarkPD == null )
 		{
-			double[] xpoints = new double[ 4 ];
-			double[] ypoints = new double[ 4 ];
-			_tickMarkPD = new PolygonD( xpoints , ypoints , 4 );
+			double[] xpoints = new double[ 4 ] ;
+			double[] ypoints = new double[ 4 ] ;
+			_tickMarkPD = new PolygonD( xpoints , ypoints , 4 ) ;
 		}
 
-		double x = xBase;
+		double x = xBase ;
 		double y = yBase - _sciArea.height / 2. ;
 
-		_tickMarkPD.xpoints[ 0 ] = x;
-		_tickMarkPD.ypoints[ 0 ] = y - MARKER_SIZE * 2;
+		_tickMarkPD.xpoints[ 0 ] = x ;
+		_tickMarkPD.ypoints[ 0 ] = y - MARKER_SIZE * 2 ;
 
-		_tickMarkPD.xpoints[ 1 ] = x - MARKER_SIZE;
-		_tickMarkPD.ypoints[ 1 ] = y - 2;
+		_tickMarkPD.xpoints[ 1 ] = x - MARKER_SIZE ;
+		_tickMarkPD.ypoints[ 1 ] = y - 2 ;
 
-		_tickMarkPD.xpoints[ 2 ] = x + MARKER_SIZE;
-		_tickMarkPD.ypoints[ 2 ] = y - 2;
+		_tickMarkPD.xpoints[ 2 ] = x + MARKER_SIZE ;
+		_tickMarkPD.ypoints[ 2 ] = y - 2 ;
 
-		_tickMarkPD.xpoints[ 3 ] = _tickMarkPD.xpoints[ 0 ];
-		_tickMarkPD.ypoints[ 3 ] = _tickMarkPD.ypoints[ 0 ];
+		_tickMarkPD.xpoints[ 3 ] = _tickMarkPD.xpoints[ 0 ] ;
+		_tickMarkPD.ypoints[ 3 ] = _tickMarkPD.ypoints[ 0 ] ;
 
-		_iw.skyRotate( _tickMarkPD , _sciArea.posAngleRadians );
+		_iw.skyRotate( _tickMarkPD , _sciArea.posAngleRadians ) ;
 
-		_valid = true;
+		_valid = true ;
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -197,39 +197,39 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
 		if( !_calc( fii ) )
-			return;
+			return ;
 
-		g.setColor( Color.cyan );
+		g.setColor( Color.cyan ) ;
 
 		// Check whether _instItem is a multi-detector instrument.
 		// If it is then draw the footprint directly from the values returned
 		// by _instItem.getScienceArea() and do not use _sciArea, _sciAreaPD, _calc etc.
-		double[] sciAreaValues = _instItem.getScienceArea();
+		double[] sciAreaValues = _instItem.getScienceArea() ;
 		if( ( sciAreaValues != null ) && ( sciAreaValues.length == 4 ) )
 		{
-			drawMultiDetectorFootprint( g , sciAreaValues );
+			drawMultiDetectorFootprint( g , sciAreaValues ) ;
 
 			// Currently no tick mark or dragging for multi-detector footprint.
-			return;
+			return ;
 		}
 
-		g.drawPolygon( _sciAreaPD.getAWTPolygon() );
+		g.drawPolygon( _sciAreaPD.getAWTPolygon() ) ;
 
 		// If the shape is circular then forget about tick mark and dragging.
 		if( _sciArea.getShape() == TpeSciArea.CIRCULAR )
-			return;
+			return ;
 
-		g.fillPolygon( _tickMarkPD.getAWTPolygon() );
+		g.fillPolygon( _tickMarkPD.getAWTPolygon() ) ;
 
 		if( _dragging )
 		{
 			// Draw a little above the mouse
-			int baseX = _dragX;
-			int baseY = _dragY - 10;
+			int baseX = _dragX ;
+			int baseY = _dragY - 10 ;
 
 			// Draw a string displaying the rotation angle
-			String s = _instItem.getPosAngleDegreesStr();
-			DrawUtil.drawString( g , s , Color.cyan , Color.black , baseX , baseY );
+			String s = _instItem.getPosAngleDegreesStr() ;
+			DrawUtil.drawString( g , s , Color.cyan , Color.black , baseX , baseY ) ;
 		}
 	}
 
@@ -238,92 +238,92 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	 */
 	public void drawMultiDetectorFootprint( Graphics g , double[] sciAreaValues )
 	{
-		double width = sciAreaValues[ 0 ];
-		double height = sciAreaValues[ 1 ];
-		double xoffset = sciAreaValues[ 2 ];
-		double yoffset = sciAreaValues[ 3 ];
+		double width = sciAreaValues[ 0 ] ;
+		double height = sciAreaValues[ 1 ] ;
+		double xoffset = sciAreaValues[ 2 ] ;
+		double yoffset = sciAreaValues[ 3 ] ;
 
-		int[] xpoints = new int[ 4 ];
-		int[] ypoints = new int[ 4 ];
+		int[] xpoints = new int[ 4 ] ;
+		int[] ypoints = new int[ 4 ] ;
 
-		Point2D.Double p = null;
-		Polygon awtPolygon = null;
+		Point2D.Double p = null ;
+		Polygon awtPolygon = null ;
 
-		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , yoffset + ( 0.5 * height ) );
-		xpoints[ 0 ] = ( int )p.x;
-		ypoints[ 0 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 0 ] = ( int )p.x ;
+		ypoints[ 0 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , yoffset - ( 0.5 * height ) );
-		xpoints[ 1 ] = ( int )p.x;
-		ypoints[ 1 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 1 ] = ( int )p.x ;
+		ypoints[ 1 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , yoffset - ( 0.5 * height ) );
-		xpoints[ 2 ] = ( int )p.x;
-		ypoints[ 2 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 2 ] = ( int )p.x ;
+		ypoints[ 2 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , yoffset + ( 0.5 * height ) );
-		xpoints[ 3 ] = ( int )p.x;
-		ypoints[ 3 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 3 ] = ( int )p.x ;
+		ypoints[ 3 ] = ( int )p.y ;
 
-		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length );
-		g.drawPolygon( awtPolygon );
+		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length ) ;
+		g.drawPolygon( awtPolygon ) ;
 
-		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , -yoffset + ( 0.5 * height ) );
-		xpoints[ 0 ] = ( int )p.x;
-		ypoints[ 0 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , -yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 0 ] = ( int )p.x ;
+		ypoints[ 0 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , -yoffset - ( 0.5 * height ) );
-		xpoints[ 1 ] = ( int )p.x;
-		ypoints[ 1 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset + ( 0.5 * width ) , -yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 1 ] = ( int )p.x ;
+		ypoints[ 1 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , -yoffset - ( 0.5 * height ) );
-		xpoints[ 2 ] = ( int )p.x;
-		ypoints[ 2 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , -yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 2 ] = ( int )p.x ;
+		ypoints[ 2 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , -yoffset + ( 0.5 * height ) );
-		xpoints[ 3 ] = ( int )p.x;
-		ypoints[ 3 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( xoffset - ( 0.5 * width ) , -yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 3 ] = ( int )p.x ;
+		ypoints[ 3 ] = ( int )p.y ;
 
-		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length );
-		g.drawPolygon( awtPolygon );
+		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length ) ;
+		g.drawPolygon( awtPolygon ) ;
 
-		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , -yoffset + ( 0.5 * height ) );
-		xpoints[ 0 ] = ( int )p.x;
-		ypoints[ 0 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , -yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 0 ] = ( int )p.x ;
+		ypoints[ 0 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , -yoffset - ( 0.5 * height ) );
-		xpoints[ 1 ] = ( int )p.x;
-		ypoints[ 1 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , -yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 1 ] = ( int )p.x ;
+		ypoints[ 1 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , -yoffset - ( 0.5 * height ) );
-		xpoints[ 2 ] = ( int )p.x;
-		ypoints[ 2 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , -yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 2 ] = ( int )p.x ;
+		ypoints[ 2 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , -yoffset + ( 0.5 * height ) );
-		xpoints[ 3 ] = ( int )p.x;
-		ypoints[ 3 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , -yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 3 ] = ( int )p.x ;
+		ypoints[ 3 ] = ( int )p.y ;
 
-		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length );
-		g.drawPolygon( awtPolygon );
+		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length ) ;
+		g.drawPolygon( awtPolygon ) ;
 
-		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , yoffset + ( 0.5 * height ) );
-		xpoints[ 0 ] = ( int )p.x;
-		ypoints[ 0 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 0 ] = ( int )p.x ;
+		ypoints[ 0 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , yoffset - ( 0.5 * height ) );
-		xpoints[ 1 ] = ( int )p.x;
-		ypoints[ 1 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset + ( 0.5 * width ) , yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 1 ] = ( int )p.x ;
+		ypoints[ 1 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , yoffset - ( 0.5 * height ) );
-		xpoints[ 2 ] = ( int )p.x;
-		ypoints[ 2 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , yoffset - ( 0.5 * height ) ) ;
+		xpoints[ 2 ] = ( int )p.x ;
+		ypoints[ 2 ] = ( int )p.y ;
 
-		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , yoffset + ( 0.5 * height ) );
-		xpoints[ 3 ] = ( int )p.x;
-		ypoints[ 3 ] = ( int )p.y;
+		p = _iw.offsetToImageWidget( -xoffset - ( 0.5 * width ) , yoffset + ( 0.5 * height ) ) ;
+		xpoints[ 3 ] = ( int )p.x ;
+		ypoints[ 3 ] = ( int )p.y ;
 
-		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length );
-		g.drawPolygon( awtPolygon );
+		awtPolygon = new Polygon( xpoints , ypoints , xpoints.length ) ;
+		g.drawPolygon( awtPolygon ) ;
 	}
 
 	/**
@@ -333,59 +333,59 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	{
 		// If the shape is circular then forget about dragging.
 		if( _sciArea.getShape() == TpeSciArea.CIRCULAR )
-			return false;
+			return false ;
 
 		if( ( _sciAreaPD == null ) || ( _tickMarkPD == null ) )
-			return false;
+			return false ;
 
-		_dragObject = null;
+		_dragObject = null ;
 
 		// See if dragging by the corner
 		for( int i = 0 ; i < ( _sciAreaPD.npoints - 1 ) ; ++i )
 		{
-			int cornerx = ( int )( _sciAreaPD.xpoints[ i ] + 0.5 );
-			int cornery = ( int )( _sciAreaPD.ypoints[ i ] + 0.5 );
+			int cornerx = ( int )( _sciAreaPD.xpoints[ i ] + 0.5 ) ;
+			int cornery = ( int )( _sciAreaPD.ypoints[ i ] + 0.5 ) ;
 
-			int dx = Math.abs( cornerx - fme.xWidget );
+			int dx = Math.abs( cornerx - fme.xWidget ) ;
 			if( dx > MARKER_SIZE )
-				continue;
+				continue ;
 
-			int dy = Math.abs( cornery - fme.yWidget );
+			int dy = Math.abs( cornery - fme.yWidget ) ;
 			if( dy > MARKER_SIZE )
-				continue;
+				continue ;
 
-			Point2D.Double p = fii.baseScreenPos;
-			_dragObject = new TpeSciAreaDragObject( ( int )p.x , ( int )p.y , cornerx , cornery );
+			Point2D.Double p = fii.baseScreenPos ;
+			_dragObject = new TpeSciAreaDragObject( ( int )p.x , ( int )p.y , cornerx , cornery ) ;
 		}
 
 		// See if dragging by the tick mark (give a couple extra pixels to make it easier to grab)
 		if( _dragObject == null )
 		{
-			int x = ( int )( _tickMarkPD.xpoints[ 0 ] + 0.5 );
-			int dx = Math.abs( x - fme.xWidget );
+			int x = ( int )( _tickMarkPD.xpoints[ 0 ] + 0.5 ) ;
+			int dx = Math.abs( x - fme.xWidget ) ;
 			if( dx <= MARKER_SIZE + 2 )
 			{
-				int y0 = ( int )( _tickMarkPD.ypoints[ 0 ] + 0.5 );
-				int y1 = ( int )( _tickMarkPD.ypoints[ 1 ] + 0.5 );
-				int y = ( y0 + y1 ) / 2;
-				int dy = Math.abs( y - fme.yWidget );
+				int y0 = ( int )( _tickMarkPD.ypoints[ 0 ] + 0.5 ) ;
+				int y1 = ( int )( _tickMarkPD.ypoints[ 1 ] + 0.5 ) ;
+				int y = ( y0 + y1 ) / 2 ;
+				int dy = Math.abs( y - fme.yWidget ) ;
 				if( dy <= MARKER_SIZE + 2 )
 				{
-					Point2D.Double p = fii.baseScreenPos;
-					_dragObject = new TpeSciAreaDragObject( ( int )p.x , ( int )p.y , x , y );
+					Point2D.Double p = fii.baseScreenPos ;
+					_dragObject = new TpeSciAreaDragObject( ( int )p.x , ( int )p.y , x , y ) ;
 				}
 			}
 		}
 
-		_dragging = ( _dragObject != null );
+		_dragging = ( _dragObject != null ) ;
 		if( _dragging )
 		{
-			_dragX = fme.xWidget;
-			_dragY = fme.yWidget;
-			_instItem.getAvEditFSM().setEachEditNotifies( false );
+			_dragX = fme.xWidget ;
+			_dragY = fme.yWidget ;
+			_instItem.getAvEditFSM().setEachEditNotifies( false ) ;
 		}
 
-		return _dragging;
+		return _dragging ;
 	}
 
 	/**
@@ -395,17 +395,17 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	{
 		// If the shape is circular then forget about dragging.
 		if( _sciArea.getShape() == TpeSciArea.CIRCULAR )
-			return;
+			return ;
 
 		if( _dragObject != null && _instItem.canUpdatePosAngle() )
 		{
-			_dragX = fme.xWidget;
-			_dragY = fme.yWidget;
+			_dragX = fme.xWidget ;
+			_dragY = fme.yWidget ;
 
-			double diff = _dragObject.nextAngleDiff( fme.xWidget , fme.yWidget );
-			_instItem.addPosAngleRadians( diff );
+			double diff = _dragObject.nextAngleDiff( fme.xWidget , fme.yWidget ) ;
+			_instItem.addPosAngleRadians( diff ) ;
 
-			_iw.repaint();
+			_iw.repaint() ;
 		}
 	}
 
@@ -416,14 +416,14 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 	{
 		// If the shape is circular then forget about dragging.
 		if( _sciArea.getShape() == TpeSciArea.CIRCULAR )
-			return;
+			return ;
 
 		if( _dragObject != null )
 		{
-			_instItem.getAvEditFSM().setEachEditNotifies( true );
-			_dragging = false;
-			drag( fme );
-			_dragObject = null;
+			_instItem.getAvEditFSM().setEachEditNotifies( true ) ;
+			_dragging = false ;
+			drag( fme ) ;
+			_dragObject = null ;
 		}
 	}
 }

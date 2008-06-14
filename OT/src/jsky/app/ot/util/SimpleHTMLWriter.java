@@ -1,97 +1,97 @@
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
-import java.io.FilterWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.FilterWriter ;
+import java.io.IOException ;
+import java.io.Writer ;
 
 public class SimpleHTMLWriter extends FilterWriter
 {
 	public SimpleHTMLWriter( Writer out )
 	{
-		super( out );
+		super( out ) ;
 	}
 
 	public void writeSpace() throws IOException
 	{
-		out.write( ' ' );
+		out.write( ' ' ) ;
 	}
 
 	public void write( String str ) throws IOException
 	{
-		out.write( str , 0 , str.length() );
+		out.write( str , 0 , str.length() ) ;
 	}
 
 	public void writeLine( String line ) throws IOException
 	{
-		line += "\n";
-		out.write( line , 0 , line.length() );
+		line += "\n" ;
+		out.write( line , 0 , line.length() ) ;
 	}
 
 	public void writeBold( String text ) throws IOException
 	{
-		write( "<b>" + text + "</b>" );
+		write( "<b>" + text + "</b>" ) ;
 	}
 
 	public void writeParagraph() throws IOException
 	{
-		writeLine( "<p>" );
+		writeLine( "<p>" ) ;
 	}
 
 	public void writeParagraph( String paragraph ) throws IOException
 	{
-		write( "<p>" );
-		writeLine( paragraph );
+		write( "<p>" ) ;
+		writeLine( paragraph ) ;
 	}
 
 	public void writeHorizontalRule() throws IOException
 	{
-		writeHorizontalRule( 1 );
+		writeHorizontalRule( 1 ) ;
 	}
 
 	public void writeHorizontalRule( int size ) throws IOException
 	{
-		writeLine( "<hr size=" + size + ">" );
+		writeLine( "<hr size=" + size + ">" ) ;
 	}
 
 	public void writeBreak() throws IOException
 	{
-		writeLine( "<br clear=margin>" );
+		writeLine( "<br clear=margin>" ) ;
 	}
 
 	public void writeHeader( String text , int size ) throws IOException
 	{
-		writeLine( "<h" + size + ">" + text + "</h" + size + ">" );
+		writeLine( "<h" + size + ">" + text + "</h" + size + ">" ) ;
 	}
 
 	public void writeHeaderRefTarget( String anchor , String text , int size ) throws IOException
 	{
-		write( "<h" + size + ">" );
-		writeRefTarget( anchor , text );
-		writeLine( "</h" + size + ">" );
+		write( "<h" + size + ">" ) ;
+		writeRefTarget( anchor , text ) ;
+		writeLine( "</h" + size + ">" ) ;
 	}
 
 	public void writeRefSource( String anchor , String text ) throws IOException
 	{
-		write( "<a href=\"#" + anchor + "\">" + text + "</a>" );
+		write( "<a href=\"#" + anchor + "\">" + text + "</a>" ) ;
 	}
 
 	public void writeRefTarget( String anchor , String text ) throws IOException
 	{
-		write( "<a name=\"" + anchor + "\">" + text + "</a>" );
+		write( "<a name=\"" + anchor + "\">" + text + "</a>" ) ;
 	}
 
 	public void write( char[] buff , int off , int len ) throws IOException
 	{
-		out.write( buff , off , len );
+		out.write( buff , off , len ) ;
 	}
 
 	public void flush() throws IOException
 	{
-		out.flush();
+		out.flush() ;
 	}
 
 	public void close() throws IOException
 	{
-		out.close();
+		out.close() ;
 	}
 }

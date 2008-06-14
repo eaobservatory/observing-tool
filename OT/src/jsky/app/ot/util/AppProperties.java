@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 import java.io.IOException ;
 import java.io.File ;
 import java.io.FileInputStream ;
 import java.io.FileOutputStream ;
 import java.io.FileNotFoundException ;
-import java.util.Properties;
+import java.util.Properties ;
 
 /**
  * A class for manipulating application property files.  These are
@@ -28,7 +28,7 @@ public class AppProperties
 	 * any directory explicity specified in one of these method calls
 	 * is relative to the user's home directory.
 	 */
-	public static final String DEFAULT_DIRECTORY = ".gemini";
+	public static final String DEFAULT_DIRECTORY = ".gemini" ;
 
 	/**
 	 * Create a java.io.File object pointing to the given directory (relative
@@ -37,13 +37,13 @@ public class AppProperties
 	 */
 	public static File getAppPropertyFile( String dir , String file )
 	{
-		String homedir = System.getProperty( "user.home" );
+		String homedir = System.getProperty( "user.home" ) ;
 		if( homedir == null )
-			return null;
+			return null ;
 
-		String absdir = homedir + File.separatorChar + dir;
+		String absdir = homedir + File.separatorChar + dir ;
 
-		return new File( absdir , file );
+		return new File( absdir , file ) ;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class AppProperties
 	 */
 	public static Properties load( String file )
 	{
-		return load( DEFAULT_DIRECTORY , file );
+		return load( DEFAULT_DIRECTORY , file ) ;
 	}
 
 	/**
@@ -63,32 +63,32 @@ public class AppProperties
 	 */
 	public static Properties load( String dir , String file )
 	{
-		File f = getAppPropertyFile( dir , file );
+		File f = getAppPropertyFile( dir , file ) ;
 		if( f == null )
-			return null;
+			return null ;
 
-		FileInputStream fis;
+		FileInputStream fis ;
 		try
 		{
-			fis = new FileInputStream( f );
+			fis = new FileInputStream( f ) ;
 		}
 		catch( FileNotFoundException ex )
 		{
-			return null;
+			return null ;
 		}
 
-		Properties p = new Properties();
+		Properties p = new Properties() ;
 		try
 		{
-			p.load( fis );
+			p.load( fis ) ;
 		}
 		catch( IOException ex )
 		{
-			System.out.println( "Error reading: " + f.getAbsolutePath() );
-			return null;
+			System.out.println( "Error reading: " + f.getAbsolutePath() ) ;
+			return null ;
 		}
 
-		return p;
+		return p ;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class AppProperties
 	 */
 	public static boolean save( String file , String comment , Properties p )
 	{
-		return save( DEFAULT_DIRECTORY , file , comment , p );
+		return save( DEFAULT_DIRECTORY , file , comment , p ) ;
 	}
 
 	/**
@@ -108,50 +108,50 @@ public class AppProperties
 	 */
 	public static boolean save( String dir , String file , String comment , Properties p )
 	{
-		File f = getAppPropertyFile( dir , file );
+		File f = getAppPropertyFile( dir , file ) ;
 		if( f == null )
-			return false;
+			return false ;
 
-		FileOutputStream fos;
+		FileOutputStream fos ;
 		try
 		{
-			fos = new FileOutputStream( f );
+			fos = new FileOutputStream( f ) ;
 		}
 		catch( IOException ex )
 		{
 			// See if the .gemini directory exists
-			String path = f.getParent();
-			File fdir = new File( path );
+			String path = f.getParent() ;
+			File fdir = new File( path ) ;
 			try
 			{
 				if( fdir.exists() )
 				{
-					System.out.println( "Error writing: " + f.getAbsolutePath() );
-					return false; // The directory is there so give up
+					System.out.println( "Error writing: " + f.getAbsolutePath() ) ;
+					return false ; // The directory is there so give up
 				}
 
 				// Make the .gemini directory.
-				fdir.mkdir();
+				fdir.mkdir() ;
 			}
 			catch( Exception ex2 )
 			{
 				// Trouble checking or creating the directory, give up.
-				System.out.println( "Error writing: " + f.getAbsolutePath() );
-				return false;
+				System.out.println( "Error writing: " + f.getAbsolutePath() ) ;
+				return false ;
 			}
 
 			// Try again now that the directory exists
-			return save( dir , file , comment , p );
+			return save( dir , file , comment , p ) ;
 		}
 
 		try
 		{
-			p.store( fos , comment );
+			p.store( fos , comment ) ;
 		}
 		catch( IOException e )
 		{
-			return false;
+			return false ;
 		}
-		return true;
+		return true ;
 	}
 }

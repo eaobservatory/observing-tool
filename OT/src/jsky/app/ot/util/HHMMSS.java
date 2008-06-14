@@ -16,7 +16,7 @@
  * ownership remains with the UI.
  * 
  * You should have received a full statement of copyright and conditions for use
- * with this package; if not, a copy may be obtained from the above address.
+ * with this package ; if not, a copy may be obtained from the above address.
  * Please see this statement for more details.
  * 
  */
@@ -28,7 +28,7 @@ package jsky.app.ot.util ;
  */
 public final class HHMMSS extends XXMMSS
 {
-	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter";
+	public static final String MYNAME = "Time-Angle Coordinate Axis Position Formatter" ;
 	
 	/**
 	 * 
@@ -46,50 +46,50 @@ public final class HHMMSS extends XXMMSS
 	public static String valStr( double degrees , int prec )
 	{
 		// Make sure the angle is between 0 (inclusive) and 360 (exclusive)
-		degrees = Angle.normalizeDegrees( degrees );
+		degrees = Angle.normalizeDegrees( degrees ) ;
 
 		double tmp = degrees / 15. ;
 
-		int hh = ( int )tmp;
+		int hh = ( int )tmp ;
 		tmp = ( tmp - ( double )hh ) * 60. ;
-		int mm = ( int )tmp;
+		int mm = ( int )tmp ;
 		double ss = ( tmp - ( double )mm ) * 60. ;
 
 		// correct for formating errors caused by rounding
 		if( ss > 59.99999 )
 		{
-			ss = 0;
-			mm += 1;
+			ss = 0 ;
+			mm += 1 ;
 			if( mm >= 60 )
 			{
-				mm = 0;
-				hh += 1;
+				mm = 0 ;
+				hh += 1 ;
 				if( hh >= 24 )
 					hh -= 24. ;
 			}
 		}
 
-		StringBuffer out = new StringBuffer();
-		out.append( hh );
+		StringBuffer out = new StringBuffer() ;
+		out.append( hh ) ;
 		if( prec == -2 )
-			return out.toString();
+			return out.toString() ;
 
-		out.append( ':' );
+		out.append( ':' ) ;
 		if( mm < 10 )
-			out.append( '0' );
-		out.append( mm );
+			out.append( '0' ) ;
+		out.append( mm ) ;
 		if( prec == -1 )
-			return out.toString();
+			return out.toString() ;
 
-		out.append( ':' );
+		out.append( ':' ) ;
 
 		// Ignoring prec for now.
 		ss = ( ( double )Math.round( ss * 1000. ) ) / 1000. ;
 		if( ss < 10 )
-			out.append( '0' );
-		out.append( ss );
+			out.append( '0' ) ;
+		out.append( ss ) ;
 
-		return out.toString();
+		return out.toString() ;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public final class HHMMSS extends XXMMSS
      */
 	public static String valStr( double degrees )
 	{
-		return valStr( degrees , -3 );
+		return valStr( degrees , -3 ) ;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public final class HHMMSS extends XXMMSS
 		double[] vals = stringTodoubleTriplet( s ) ;
 
 		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) * 15. ;
-		return Angle.normalizeDegrees( out );
+		return Angle.normalizeDegrees( out ) ;
 	}
 
 	/**
@@ -132,21 +132,21 @@ public final class HHMMSS extends XXMMSS
 	 */
 	public static boolean validate( String hhmmss )
 	{
-		boolean valid = true;
+		boolean valid = true ;
 		
 		if( valid = validFormat( hhmmss ) )
 		{
-			double[] values = stringTodoubleTriplet( hhmmss );
+			double[] values = stringTodoubleTriplet( hhmmss ) ;
 	
-			double hours = values[ 0 ];
-			double minutes = values[ 1 ];
-			double seconds = values[ 2 ];
+			double hours = values[ 0 ] ;
+			double minutes = values[ 1 ] ;
+			double seconds = values[ 2 ] ;
 	
 			if( hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-				valid = false;
+				valid = false ;
 		}
 
-		return valid;
+		return valid ;
 	}
 
 	/**
@@ -156,10 +156,10 @@ public final class HHMMSS extends XXMMSS
 	{
 		for( int i = 0 ; i < args.length ; ++i )
 		{
-			double converted = HHMMSS.valueOf( args[ i ] );
-			String back = HHMMSS.valStr( converted );
-			System.out.println( args[ i ] + " = " + converted );
-			System.out.println( converted + " = " + back );
+			double converted = HHMMSS.valueOf( args[ i ] ) ;
+			String back = HHMMSS.valStr( converted ) ;
+			System.out.println( args[ i ] + " = " + converted ) ;
+			System.out.println( converted + " = " + back ) ;
 		}
 	}
 }

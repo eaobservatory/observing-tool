@@ -5,7 +5,7 @@
  * $Id$
  */
 
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.FlowLayout ;
 import java.awt.event.ActionEvent ;
@@ -13,7 +13,7 @@ import java.awt.event.ActionListener ;
 import java.beans.PropertyChangeListener ;
 import java.beans.PropertyChangeEvent ;
 import java.net.URL ;
-import java.util.Vector;
+import java.util.Vector ;
 import javax.swing.JButton ;
 import javax.swing.JPanel ;
 import javax.swing.AbstractAction ;
@@ -21,7 +21,7 @@ import javax.swing.Timer ;
 import javax.swing.ImageIcon ;
 import javax.swing.JFrame ;
 import javax.swing.border.BevelBorder ;
-import jsky.util.gui.BasicWindowMonitor;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /** 
  * This widget displays a blinking red LED and a stop sign button and
@@ -33,28 +33,28 @@ import jsky.util.gui.BasicWindowMonitor;
 public class StopActionWidget extends JPanel
 {
 	/** Handle for the "LED" button */
-	protected JButton led;
+	protected JButton led ;
 
 	/** Handle for the "Stop" button */
-	protected JButton stopButton;
+	protected JButton stopButton ;
 
 	// The watchers interested in when the actions are stopped
-	private Vector _watchers = new Vector();
+	private Vector<StopActionWatcher> _watchers = new Vector<StopActionWatcher>() ;
 
 	/** Action linked to the stop button and led */
 	protected AbstractAction stopAction = new AbstractAction( "Stop" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
-			setEnabled( false );
+			setEnabled( false ) ;
 		}
-	};
+	} ;
 
 	/** Timer used for blinking the led */
-	protected Timer timer;
+	protected Timer timer ;
 
 	/** The current state of the led (for blinking) */
-	protected boolean ledState;
+	protected boolean ledState ;
 
 	/**
 	 * Create the red LED and the stop button. The stop button is
@@ -64,9 +64,9 @@ public class StopActionWidget extends JPanel
 	 */
 	public StopActionWidget()
 	{
-		setLayout( new FlowLayout( FlowLayout.LEFT , 0 , 0 ) );
-		add( createLed() );
-		add( createStopButton() );
+		setLayout( new FlowLayout( FlowLayout.LEFT , 0 , 0 ) ) ;
+		add( createLed() ) ;
+		add( createStopButton() ) ;
 	}
 
 	/**
@@ -74,17 +74,17 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createLed()
 	{
-		ClassLoader cl = ClassLoader.getSystemClassLoader();
-		URL url = cl.getResource( "jsky/app/ot/images/red_led.gif" );
-		led = new JButton( new ImageIcon( url ) );
-		led.setFocusPainted( false );
-		led.setBorderPainted( false );
+		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
+		URL url = cl.getResource( "jsky/app/ot/images/red_led.gif" ) ;
+		led = new JButton( new ImageIcon( url ) ) ;
+		led.setFocusPainted( false ) ;
+		led.setBorderPainted( false ) ;
 
-		url = cl.getResource( "jsky/app/ot/images/red_led_disabled.gif" );
-		led.setDisabledIcon( new ImageIcon( url ) );
-		led.addActionListener( stopAction );
+		url = cl.getResource( "jsky/app/ot/images/red_led_disabled.gif" ) ;
+		led.setDisabledIcon( new ImageIcon( url ) ) ;
+		led.addActionListener( stopAction ) ;
 
-		return led;
+		return led ;
 	}
 
 	/**
@@ -92,14 +92,14 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createStopButton()
 	{
-		ClassLoader cl = ClassLoader.getSystemClassLoader();
-		URL url = cl.getResource( "jsky/app/ot/images/stop-sign.gif" );
-		stopButton = new JButton( new ImageIcon( url ) );
-		stopButton.setFocusPainted( false );
-		stopButton.setBorder( new BevelBorder( BevelBorder.RAISED ) );
+		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
+		URL url = cl.getResource( "jsky/app/ot/images/stop-sign.gif" ) ;
+		stopButton = new JButton( new ImageIcon( url ) ) ;
+		stopButton.setFocusPainted( false ) ;
+		stopButton.setBorder( new BevelBorder( BevelBorder.RAISED ) ) ;
 
-		url = cl.getResource( "jsky/app/ot/images/stop-sign-disabled.gif" );
-		stopButton.setDisabledIcon( new ImageIcon( url ) );
+		url = cl.getResource( "jsky/app/ot/images/stop-sign-disabled.gif" ) ;
+		stopButton.setDisabledIcon( new ImageIcon( url ) ) ;
 
 		stopAction.addPropertyChangeListener( new PropertyChangeListener()
 		{
@@ -107,23 +107,23 @@ public class StopActionWidget extends JPanel
 			{
 				if( evt.getPropertyName().equals( "enabled" ) )
 				{
-					boolean enabled = ( ( Boolean )evt.getNewValue() ).booleanValue();
-					stopButton.setEnabled( enabled );
-					blinkLed( enabled );
+					boolean enabled = ( ( Boolean )evt.getNewValue() ).booleanValue() ;
+					stopButton.setEnabled( enabled ) ;
+					blinkLed( enabled ) ;
 					if( !enabled )
-						_stopAction();
+						_stopAction() ;
 				}
 			}
-		} );
-		stopButton.addActionListener( stopAction );
-		stopAction.setEnabled( false );
-		return stopButton;
+		} ) ;
+		stopButton.addActionListener( stopAction ) ;
+		stopAction.setEnabled( false ) ;
+		return stopButton ;
 	}
 
 	/** If enabled is true, start blinking the led, otherwise stop blinking */
 	protected void blinkLed( boolean enabled )
 	{
-		led.setEnabled( ledState = enabled );
+		led.setEnabled( ledState = enabled ) ;
 		if( enabled )
 		{
 			if( timer == null )
@@ -132,37 +132,37 @@ public class StopActionWidget extends JPanel
 				{
 					public void actionPerformed( ActionEvent ev )
 					{
-						ledState = !ledState;
-						led.setEnabled( ledState );
+						ledState = !ledState ;
+						led.setEnabled( ledState ) ;
 					}
-				} );
-				timer.start();
+				} ) ;
+				timer.start() ;
 			}
 			else
 			{
-				timer.restart();
+				timer.restart() ;
 			}
 		}
 		else
 		{
 			if( timer != null )
-				timer.stop();
+				timer.stop() ;
 		}
 	}
 
 	public JButton getStopButton()
 	{
-		return stopButton;
+		return stopButton ;
 	}
 
 	public AbstractAction getStopAction()
 	{
-		return stopAction;
+		return stopAction ;
 	}
 
 	public JButton getLED()
 	{
-		return led;
+		return led ;
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class StopActionWidget extends JPanel
 	 */
 	public void actionsStarted()
 	{
-		stopAction.setEnabled( true );
+		stopAction.setEnabled( true ) ;
 	}
 
 	/**
@@ -179,25 +179,25 @@ public class StopActionWidget extends JPanel
 	 */
 	public void actionsFinished()
 	{
-		stopAction.setEnabled( false );
+		stopAction.setEnabled( false ) ;
 	}
 
 	/** Return true if the stop action is enabled */
 	public boolean isBusy()
 	{
-		return stopAction.isEnabled();
+		return stopAction.isEnabled() ;
 	}
 
 	/** Enable stop action */
 	public void setBusy()
 	{
-		stopAction.setEnabled( true );
+		stopAction.setEnabled( true ) ;
 	}
 
 	/** Disable stop action */
 	public void setIdle()
 	{
-		stopAction.setEnabled( false );
+		stopAction.setEnabled( false ) ;
 	}
 
 	//
@@ -206,13 +206,13 @@ public class StopActionWidget extends JPanel
 	//
 	private void _stopAction()
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			StopActionWatcher watcher;
-			watcher = ( StopActionWatcher )v.elementAt( i );
-			watcher.stopAction( this );
+			StopActionWatcher watcher ;
+			watcher = ( StopActionWatcher )v.elementAt( i ) ;
+			watcher.stopAction( this ) ;
 		}
 	}
 
@@ -222,7 +222,7 @@ public class StopActionWidget extends JPanel
 	public synchronized final void addWatcher( StopActionWatcher watcher )
 	{
 		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher );
+			_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class StopActionWidget extends JPanel
 	 */
 	public synchronized final void deleteWatcher( StopActionWatcher watcher )
 	{
-		_watchers.removeElement( watcher );
+		_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class StopActionWidget extends JPanel
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -246,7 +246,7 @@ public class StopActionWidget extends JPanel
 	 */
 	private synchronized final Vector _getWatchers()
 	{
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -254,31 +254,31 @@ public class StopActionWidget extends JPanel
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "Test" );
+		JFrame frame = new JFrame( "Test" ) ;
 
-		final StopActionWidget panel = new StopActionWidget();
-		final JButton button = new JButton( "Test" );
+		final StopActionWidget panel = new StopActionWidget() ;
+		final JButton button = new JButton( "Test" ) ;
 		panel.addWatcher( new StopActionWatcher()
 		{
 			public void stopAction( StopActionWidget saw )
 			{
-				button.setEnabled( true );
+				button.setEnabled( true ) ;
 			}
-		} );
+		} ) ;
 
 		button.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ev )
 			{
-				panel.actionsStarted();
-				button.setEnabled( false );
+				panel.actionsStarted() ;
+				button.setEnabled( false ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , panel );
-		frame.add( "South" , button );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , panel ) ;
+		frame.add( "South" , button ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

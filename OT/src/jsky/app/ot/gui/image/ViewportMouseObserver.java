@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui.image;
+package jsky.app.ot.gui.image ;
 
 /**
  * An interface supported by ViewportImageWidget clients that which to
@@ -17,5 +17,5 @@ public interface ViewportMouseObserver
 	/**
 	 * Notification that a new mouse event has arrived.
 	 */
-	public void viewportMouseEvent( ViewportImageWidget iw , ViewportMouseEvent vme );
+	public void viewportMouseEvent( ViewportImageWidget iw , ViewportMouseEvent vme ) ;
 }

@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
-import java.io.Serializable;
+import java.io.Serializable ;
 
 /**
  * This (immutable) class describes a server definition in a Skycat config
@@ -14,20 +14,20 @@ import java.io.Serializable;
  */
 public final class SkycatCfgEntry implements Cloneable , Comparable , Serializable
 {
-	public static final String ARCHIVE_TYPE = "archive";
-	public static final String CATALOG_TYPE = "catalog";
-	public static final String IMAGE_TYPE = "imagesvr";
-	public static final String NAME_TYPE = "namesvr";
-	public static final String LONG_NAME_TAG = "long_name";
-	public static final String SERV_TYPE_TAG = "serv_type";
-	public static final String SHORT_NAME_TAG = "short_name";
-	public static final String SYMBOL_TAG = "symbol";
-	public static final String URL_TAG = "url";
-	private String _servType;
-	private String _longName;
-	private String _shortName;
-	private String _urlString;
-	private String _symbol;
+	public static final String ARCHIVE_TYPE = "archive" ;
+	public static final String CATALOG_TYPE = "catalog" ;
+	public static final String IMAGE_TYPE = "imagesvr" ;
+	public static final String NAME_TYPE = "namesvr" ;
+	public static final String LONG_NAME_TAG = "long_name" ;
+	public static final String SERV_TYPE_TAG = "serv_type" ;
+	public static final String SHORT_NAME_TAG = "short_name" ;
+	public static final String SYMBOL_TAG = "symbol" ;
+	public static final String URL_TAG = "url" ;
+	private String _servType ;
+	private String _longName ;
+	private String _shortName ;
+	private String _urlString ;
+	private String _symbol ;
 
 	/**
 	 * Constructs with each of the fields.  Only symbol may be null.
@@ -35,13 +35,13 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	public SkycatCfgEntry( String type , String longName , String shortName , String url , String symbol )
 	{
 		if( ( type == null ) || ( longName == null ) || ( shortName == null ) || ( url == null ) )
-			throw new IllegalArgumentException( "Cannot construct SkycatCfgEntry with null arguments." );
+			throw new IllegalArgumentException( "Cannot construct SkycatCfgEntry with null arguments." ) ;
 
-		_servType = type;
-		_longName = longName;
-		_shortName = shortName;
-		_urlString = url;
-		_symbol = symbol;
+		_servType = type ;
+		_longName = longName ;
+		_shortName = shortName ;
+		_urlString = url ;
+		_symbol = symbol ;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String getServType()
 	{
-		return _servType;
+		return _servType ;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public boolean isServType( String type )
 	{
-		return _servType.equals( type );
+		return _servType.equals( type ) ;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String getLongName()
 	{
-		return _longName;
+		return _longName ;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String getShortName()
 	{
-		return _shortName;
+		return _shortName ;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String getURLString()
 	{
-		return _urlString;
+		return _urlString ;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String getSymbol()
 	{
-		return _symbol;
+		return _symbol ;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	public Object clone()
 	{
 		// This is an immutable object, no need to actually copy it.
-		return this;
+		return this ;
 	}
 
 	/**
@@ -117,42 +117,42 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	public int compareTo( Object obj )
 	{
 		// Okay to throw a ClassCastException if obj isn't a SkycatCfgEntry
-		SkycatCfgEntry sce = ( SkycatCfgEntry )obj;
+		SkycatCfgEntry sce = ( SkycatCfgEntry )obj ;
 
-		int res;
+		int res ;
 
-		res = _servType.compareTo( sce.getServType() );
+		res = _servType.compareTo( sce.getServType() ) ;
 		if( res != 0 )
-			return res;
+			return res ;
 		
-		res = _longName.compareTo( sce.getLongName() );
+		res = _longName.compareTo( sce.getLongName() ) ;
 		if( res != 0 )
-			return res;
+			return res ;
 
-		res = _shortName.compareTo( sce.getShortName() );
+		res = _shortName.compareTo( sce.getShortName() ) ;
 		if( res != 0 )
-			return res;
+			return res ;
 
-		res = _urlString.compareTo( sce.getURLString() );
+		res = _urlString.compareTo( sce.getURLString() ) ;
 		if( res != 0 )
-			return res;
+			return res ;
 
-		String sym = sce.getSymbol();
+		String sym = sce.getSymbol() ;
 		if( _symbol == null )
 		{
 			if( sym == null )
-				res = 0;
+				res = 0 ;
 			else
-				res = -1;
+				res = -1 ;
 		}
 		else
 		{
 			if( sym == null )
-				res = 1;
+				res = 1 ;
 			else
-				res = _symbol.compareTo( sym );
+				res = _symbol.compareTo( sym ) ;
 		}
-		return res;
+		return res ;
 	}
 
 	/**
@@ -162,23 +162,23 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	public boolean equals( Object obj )
 	{
 		if( this == obj )
-			return true;
+			return true ;
 		if( getClass() != obj.getClass() )
-			return false;
+			return false ;
 
-		SkycatCfgEntry sce = ( SkycatCfgEntry )obj;
+		SkycatCfgEntry sce = ( SkycatCfgEntry )obj ;
 
 		if( !_servType.equals( sce.getServType() ) )
-			return false;
+			return false ;
 		else if( !_longName.equals( sce.getLongName() ) )
-			return false;
+			return false ;
 		else if( !_shortName.equals( sce.getShortName() ) )
-			return false;
+			return false ;
 		else if( !_urlString.equals( sce.getURLString() ) )
-			return false;
+			return false ;
 
-		String sym = sce.getSymbol();
-		return ( _symbol == null ) ? ( sym == null ) : ( ( sym == null ) ? false : _symbol.equals( sym ) );
+		String sym = sce.getSymbol() ;
+		return ( _symbol == null ) ? ( sym == null ) : ( ( sym == null ) ? false : _symbol.equals( sym ) ) ;
 	}
 
 	/**
@@ -186,14 +186,14 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public int hashCode()
 	{
-		int result = _servType.hashCode();
-		result = 37 * result + _longName.hashCode();
-		result = 37 * result + _shortName.hashCode();
-		result = 37 * result + _urlString.hashCode();
+		int result = _servType.hashCode() ;
+		result = 37 * result + _longName.hashCode() ;
+		result = 37 * result + _shortName.hashCode() ;
+		result = 37 * result + _urlString.hashCode() ;
 		if( _symbol != null )
-			result = 37 * result + _symbol.hashCode();
+			result = 37 * result + _symbol.hashCode() ;
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -201,6 +201,6 @@ public final class SkycatCfgEntry implements Cloneable , Comparable , Serializab
 	 */
 	public String toString()
 	{
-		return getClass().getName() + "[" + _servType + ", " + _longName + ", " + _shortName + ", " + _urlString + ", " + _symbol + "]";
+		return getClass().getName() + "[" + _servType + ", " + _longName + ", " + _shortName + ", " + _urlString + ", " + _symbol + "]" ;
 	}
 }

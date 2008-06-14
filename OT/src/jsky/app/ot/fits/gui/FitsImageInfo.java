@@ -4,16 +4,16 @@
 //
 // $Id$
 //
-package jsky.app.ot.fits.gui;
+package jsky.app.ot.fits.gui ;
 
-import java.awt.geom.Point2D;
+import java.awt.geom.Point2D ;
 
 public final class FitsImageInfo
 {
 	/**
 	 * Screen coordinates of the center of the image.
 	 */
-	public Point2D.Double baseScreenPos;
+	public Point2D.Double baseScreenPos ;
 
 	/**
 	 * RA of the center in degrees.
@@ -45,6 +45,6 @@ public final class FitsImageInfo
 	 */
 	public String toString()
 	{
-		return getClass().getName() + "[baseScreenPos=" + baseScreenPos + ", ra=" + ra + ", dec=" + dec + ", pixelsPerArcsec=" + pixelsPerArcsec + ", theta=" + theta + ", posAngleDegrees=" + posAngleDegrees + "]";
+		return getClass().getName() + "[baseScreenPos=" + baseScreenPos + ", ra=" + ra + ", dec=" + dec + ", pixelsPerArcsec=" + pixelsPerArcsec + ", theta=" + theta + ", posAngleDegrees=" + posAngleDegrees + "]" ;
 	}
 }

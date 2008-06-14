@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.Component ;
 import javax.swing.JLabel ;
@@ -19,50 +19,50 @@ public class TreeWidgetCellRenderer extends DefaultTreeCellRenderer
 {
 	public Component getTreeCellRendererComponent( JTree tree , Object value , boolean sel , boolean expanded , boolean leaf , int row , boolean hasFocus )
 	{
-		super.getTreeCellRendererComponent( tree , value , sel , expanded , leaf , row , hasFocus );
+		super.getTreeCellRendererComponent( tree , value , sel , expanded , leaf , row , hasFocus ) ;
 
-		setBackgroundNonSelectionColor( tree.getBackground() );
+		setBackgroundNonSelectionColor( tree.getBackground() ) ;
 		if( this instanceof JLabel && value instanceof TreeNodeWidgetExt )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )value;
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )value ;
 			if( expanded )
 			{
-				ImageIcon imageIcon = node.getExpandIcon();
+				ImageIcon imageIcon = node.getExpandIcon() ;
 				if( imageIcon != null )
 				{
 					try
 					{
-						setIcon( imageIcon );
+						setIcon( imageIcon ) ;
 					}
 					catch( ClassCastException cce )
 					{
-						System.out.println( cce );
+						System.out.println( cce ) ;
 					}
 				}
 			}
 			else
 			{
-				ImageIcon imageIcon = node.getIcon();
+				ImageIcon imageIcon = node.getIcon() ;
 				if( imageIcon != null )
 				{
 					try
 					{
-						setIcon( imageIcon );
+						setIcon( imageIcon ) ;
 					}
 					catch( ClassCastException cce )
 					{
-						System.out.println( cce );
+						System.out.println( cce ) ;
 					}
 				}
 			}
-			setFont( node.getFont() );
-			setText( node.getText() );
+			setFont( node.getFont() ) ;
+			setText( node.getText() ) ;
 		}
 		else
 		{
-			System.out.println( "XXX TreeWidgetCellRenderer: ERROR" );
+			System.out.println( "XXX TreeWidgetCellRenderer: ERROR" ) ;
 		}
 
-		return this;
+		return this ;
 	}
 }

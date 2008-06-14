@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * A client implements this interface if it wants to register itself
@@ -18,5 +18,5 @@ public interface StopActionWatcher
 	/**
 	 * The stop button was pressed.
 	 */
-	public void stopAction( StopActionWidget saw );
+	public void stopAction( StopActionWidget saw ) ;
 }

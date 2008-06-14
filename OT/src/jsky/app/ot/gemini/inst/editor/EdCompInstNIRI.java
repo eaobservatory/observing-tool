@@ -4,51 +4,51 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst.editor;
+package jsky.app.ot.gemini.inst.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
+import java.util.Vector ;
 import javax.swing.ButtonGroup ;
 import javax.swing.JLabel ;
-import jsky.app.ot.gemini.inst.SpInstNIRI;
-import jsky.app.ot.gemini.inst.SpInstNIRIConstants;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.OptionWidgetExt;
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.gui.TableWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
+import jsky.app.ot.gemini.inst.SpInstNIRI ;
+import jsky.app.ot.gemini.inst.SpInstNIRIConstants ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.OptionWidgetExt ;
+import jsky.app.ot.gui.TableWidgetExt ;
+import jsky.app.ot.gui.TableWidgetWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.tpe.TelescopePosEditor ;
+import jsky.app.ot.tpe.TpeManager ;
 
 /**
  * This is the editor for Scheduling Info component.
  */
 public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
-	private EdStareCapability _edStareCapability;
-	private NiriGUI _w; // the GUI layout
+	private EdStareCapability _edStareCapability ;
+	private NiriGUI _w ; // the GUI layout
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdCompInstNIRI()
 	{
-		_title = "Near IR Imager";
-		_presSource = _w = new NiriGUI();
-		_description = "The NIRI instrument is configured with this component.";
+		_title = "Near IR Imager" ;
+		_presSource = _w = new NiriGUI() ;
+		_description = "The NIRI instrument is configured with this component." ;
 
-		_edStareCapability = new EdStareCapability();
+		_edStareCapability = new EdStareCapability() ;
 
-		ButtonGroup grp = new ButtonGroup();
-		grp.add( _w.filterBroadBand );
-		grp.add( _w.filterNarrowBand );
-		grp.add( _w.filterSpecial );
+		ButtonGroup grp = new ButtonGroup() ;
+		grp.add( _w.filterBroadBand ) ;
+		grp.add( _w.filterNarrowBand ) ;
+		grp.add( _w.filterSpecial ) ;
 
-		_w.filterBroadBand.addActionListener( this );
-		_w.filterNarrowBand.addActionListener( this );
-		_w.filterSpecial.addActionListener( this );
+		_w.filterBroadBand.addActionListener( this ) ;
+		_w.filterNarrowBand.addActionListener( this ) ;
+		_w.filterSpecial.addActionListener( this ) ;
 	}
 
 	/**
@@ -57,29 +57,29 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	protected void _init()
 	{
-		DropDownListBoxWidgetExt ddlbw;
+		DropDownListBoxWidgetExt ddlbw ;
 
-		ddlbw = _w.camera;
-		ddlbw.setChoices( SpInstNIRIConstants.CAMERAS );
+		ddlbw = _w.camera ;
+		ddlbw.setChoices( SpInstNIRIConstants.CAMERAS ) ;
 
-		ddlbw = _w.disperser;
-		ddlbw.setChoices( SpInstNIRIConstants.DISPERSERS );
+		ddlbw = _w.disperser ;
+		ddlbw.setChoices( SpInstNIRIConstants.DISPERSERS ) ;
 
-		ddlbw = _w.mask;
-		ddlbw.setChoices( SpInstNIRIConstants.MASKS );
+		ddlbw = _w.mask ;
+		ddlbw.setChoices( SpInstNIRIConstants.MASKS ) ;
 
-		_w.camera.addWatcher( this );
-		_w.mask.addWatcher( this );
-		_w.disperser.addWatcher( this );
+		_w.camera.addWatcher( this ) ;
+		_w.mask.addWatcher( this ) ;
+		_w.disperser.addWatcher( this ) ;
 
-		TableWidgetExt twe;
-		twe = _w.filterTable;
-		twe.setBackground( _w.getBackground() );
-		twe.setColumnHeaders( new String[] { "Filter" , "Wavel.(um)" } );
-		twe.addWatcher( this );
+		TableWidgetExt twe ;
+		twe = _w.filterTable ;
+		twe.setBackground( _w.getBackground() ) ;
+		twe.setColumnHeaders( new String[] { "Filter" , "Wavel.(um)" } ) ;
+		twe.addWatcher( this ) ;
 
-		super._init();
-		_edStareCapability._init( this );
+		super._init() ;
+		_edStareCapability._init( this ) ;
 	}
 
 	/**
@@ -88,20 +88,20 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	private void _showFilterType( String[][] filters )
 	{
-		Vector[] rowsV = new Vector[ filters.length ];
+		Vector[] rowsV = new Vector[ filters.length ] ;
 
 		for( int i = 0 ; i < filters.length ; ++i )
 		{
-			String[] row = filters[ i ];
-			Vector rowV = new Vector( row.length );
+			String[] row = filters[ i ] ;
+			Vector rowV = new Vector( row.length ) ;
 			for( int j = 0 ; j < row.length ; ++j )
-				rowV.addElement( row[ j ] );
+				rowV.addElement( row[ j ] ) ;
 
-			rowsV[ i ] = rowV;
+			rowsV[ i ] = rowV ;
 		}
 
-		TableWidgetExt tw = _w.filterTable;
-		tw.setRows( rowsV );
+		TableWidgetExt tw = _w.filterTable ;
+		tw.setRows( rowsV ) ;
 	}
 
 	/**
@@ -113,9 +113,9 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 		for( int i = 0 ; i < farray.length ; ++i )
 		{
 			if( filter.equals( farray[ i ][ 0 ] ) )
-				return i;
+				return i ;
 		}
-		return -1;
+		return -1 ;
 	}
 
 	/**
@@ -124,58 +124,58 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	private void _updateFilterWidgets()
 	{
 		// First fill in the text box.
-		JLabel stw = _w.filter;
-		String filter = ( ( SpInstNIRI )_spItem ).getFilter();
-		stw.setText( filter );
+		JLabel stw = _w.filter ;
+		String filter = ( ( SpInstNIRI )_spItem ).getFilter() ;
+		stw.setText( filter ) ;
 
 		// See which type of filter the selected filter is, if any.
-		String[][] farray = null;
-		OptionWidgetExt ow = null;
+		String[][] farray = null ;
+		OptionWidgetExt ow = null ;
 
-		int index = -1;
+		int index = -1 ;
 		if( filter == null )
 		{
-			farray = SpInstNIRIConstants.BROAD_BAND_FILTERS;
-			ow = _w.filterBroadBand;
+			farray = SpInstNIRIConstants.BROAD_BAND_FILTERS ;
+			ow = _w.filterBroadBand ;
 		}
 		else
 		{
-			farray = SpInstNIRIConstants.BROAD_BAND_FILTERS;
-			index = _getFilterIndex( filter , farray );
+			farray = SpInstNIRIConstants.BROAD_BAND_FILTERS ;
+			index = _getFilterIndex( filter , farray ) ;
 			if( index != -1 )
 			{
-				ow = _w.filterBroadBand;
+				ow = _w.filterBroadBand ;
 			}
 			else
 			{
-				farray = SpInstNIRIConstants.NARROW_BAND_FILTERS;
-				index = _getFilterIndex( filter , farray );
+				farray = SpInstNIRIConstants.NARROW_BAND_FILTERS ;
+				index = _getFilterIndex( filter , farray ) ;
 				if( index != -1 )
 				{
-					ow = _w.filterNarrowBand;
+					ow = _w.filterNarrowBand ;
 				}
 				else
 				{
-					farray = SpInstNIRIConstants.SPECIAL_FILTERS;
-					index = _getFilterIndex( filter , farray );
+					farray = SpInstNIRIConstants.SPECIAL_FILTERS ;
+					index = _getFilterIndex( filter , farray ) ;
 					if( index != -1 )
-						ow = _w.filterSpecial;
+						ow = _w.filterSpecial ;
 					else
-						ow = _w.filterBroadBand;
+						ow = _w.filterBroadBand ;
 				}
 			}
 		}
 
 		// Show the correct filters, and select the option widget for the type
-		_showFilterType( farray );
-		ow.setValue( true );
+		_showFilterType( farray ) ;
+		ow.setValue( true ) ;
 
 		// Select the filter in the table
 		if( ( filter != null ) && ( index != -1 ) )
 		{
-			TableWidgetExt tw = _w.filterTable;
-			tw.selectRowAt( index );
-			tw.focusAtRow( index );
+			TableWidgetExt tw = _w.filterTable ;
+			tw.selectRowAt( index ) ;
+			tw.focusAtRow( index ) ;
 		}
 	}
 
@@ -185,24 +185,24 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	protected void _updateWidgets()
 	{
-		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem;
+		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem ;
 
-		DropDownListBoxWidgetExt ddlbw;
+		DropDownListBoxWidgetExt ddlbw ;
 
-		ddlbw = _w.camera;
-		ddlbw.setValue( instNIRI.getCamera() );
+		ddlbw = _w.camera ;
+		ddlbw.setValue( instNIRI.getCamera() ) ;
 
-		ddlbw = _w.disperser;
-		ddlbw.setValue( instNIRI.getDisperser() );
+		ddlbw = _w.disperser ;
+		ddlbw.setValue( instNIRI.getDisperser() ) ;
 
-		ddlbw = _w.mask;
-		ddlbw.setValue( instNIRI.getMask() );
+		ddlbw = _w.mask ;
+		ddlbw.setValue( instNIRI.getMask() ) ;
 
-		_updateFilterWidgets();
-		_updateScienceFOV();
+		_updateFilterWidgets() ;
+		_updateScienceFOV() ;
 
-		super._updateWidgets();
-		_edStareCapability._updateWidgets( this , instNIRI.getStareCapability() );
+		super._updateWidgets() ;
+		_edStareCapability._updateWidgets( this , instNIRI.getStareCapability() ) ;
 	}
 
 	//
@@ -211,10 +211,10 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	//
 	private void _updateScienceFOV()
 	{
-		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem;
-		TextBoxWidgetExt tbw = _w.scienceFOV;
-		double[] scienceArea = instNIRI.getScienceArea();
-		tbw.setText( scienceArea[ 0 ] + " x " + scienceArea[ 1 ] );
+		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem ;
+		TextBoxWidgetExt tbw = _w.scienceFOV ;
+		double[] scienceArea = instNIRI.getScienceArea() ;
+		tbw.setText( scienceArea[ 0 ] + " x " + scienceArea[ 1 ] ) ;
 	}
 
 	/**
@@ -222,20 +222,20 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 	{
-		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem;
+		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem ;
 
-		String filter = ( String )twe.getCell( 0 , rowIndex );
+		String filter = ( String )twe.getCell( 0 , rowIndex ) ;
 
 		// Don't set the value if the new selection is the same as the old
 		// (otherwise, we'd fool the OT into thinking a change had been made)
-		String curValue = instNIRI.getFilter();
+		String curValue = instNIRI.getFilter() ;
 		if( ( curValue != null ) && ( curValue.equals( filter ) ) )
-			return;
+			return ;
 
-		instNIRI.setFilter( filter );
+		instNIRI.setFilter( filter ) ;
 
-		JLabel stw = _w.filter;
-		stw.setText( filter );
+		JLabel stw = _w.filter ;
+		stw.setText( filter ) ;
 	}
 
 	/**
@@ -250,16 +250,16 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	private void _selectFilterType( String[][] farray )
 	{
-		_showFilterType( farray );
-		String filter = ( ( SpInstNIRI )_spItem ).getFilter();
+		_showFilterType( farray ) ;
+		String filter = ( ( SpInstNIRI )_spItem ).getFilter() ;
 		if( filter != null )
 		{
-			int index = _getFilterIndex( filter , farray );
+			int index = _getFilterIndex( filter , farray ) ;
 			if( index != -1 )
 			{
-				TableWidgetExt tw = _w.filterTable;
-				tw.selectRowAt( index );
-				tw.focusAtRow( index );
+				TableWidgetExt tw = _w.filterTable ;
+				tw.selectRowAt( index ) ;
+				tw.focusAtRow( index ) ;
 			}
 		}
 	}
@@ -267,19 +267,19 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	/** Return the position angle text box */
 	public TextBoxWidgetExt getPosAngleTextBox()
 	{
-		return _w.posAngle;
+		return _w.posAngle ;
 	}
 
 	/** Return the exposure time text box */
 	public TextBoxWidgetExt getExposureTimeTextBox()
 	{
-		return _w.exposureTime;
+		return _w.exposureTime ;
 	}
 
 	/** Return the coadds text box. */
 	public TextBoxWidgetExt getCoaddsTextBox()
 	{
-		return _w.coadds;
+		return _w.coadds ;
 	}
 
 	/**
@@ -287,22 +287,22 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		Object w = evt.getSource();
+		Object w = evt.getSource() ;
 
 		if( w == _w.filterBroadBand )
 		{
-			_selectFilterType( SpInstNIRIConstants.BROAD_BAND_FILTERS );
-			return;
+			_selectFilterType( SpInstNIRIConstants.BROAD_BAND_FILTERS ) ;
+			return ;
 		}
 		else if( w == _w.filterNarrowBand )
 		{
-			_selectFilterType( SpInstNIRIConstants.NARROW_BAND_FILTERS );
-			return;
+			_selectFilterType( SpInstNIRIConstants.NARROW_BAND_FILTERS ) ;
+			return ;
 		}
 		else if( w == _w.filterSpecial )
 		{
-			_selectFilterType( SpInstNIRIConstants.SPECIAL_FILTERS );
-			return;
+			_selectFilterType( SpInstNIRIConstants.SPECIAL_FILTERS ) ;
+			return ;
 		}
 	}
 
@@ -316,29 +316,29 @@ public final class EdCompInstNIRI extends EdCompInstBase implements TableWidgetW
 	 */
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbw , int index , String val )
 	{
-		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem;
+		SpInstNIRI instNIRI = ( SpInstNIRI )_spItem ;
 
 		if( ddlbw == _w.camera )
 		{
-			instNIRI.setCamera( val );
-			_updateScienceFOV();
+			instNIRI.setCamera( val ) ;
+			_updateScienceFOV() ;
 
-			TelescopePosEditor tpe = TpeManager.get( _spItem );
+			TelescopePosEditor tpe = TpeManager.get( _spItem ) ;
 			if( tpe != null )
-				tpe.repaint();
+				tpe.repaint() ;
 		}
 		else if( ddlbw == _w.mask )
 		{
-			instNIRI.setMask( val );
-			_updateScienceFOV();
+			instNIRI.setMask( val ) ;
+			_updateScienceFOV() ;
 
-			TelescopePosEditor tpe = TpeManager.get( _spItem );
+			TelescopePosEditor tpe = TpeManager.get( _spItem ) ;
 			if( tpe != null )
-				tpe.repaint();
+				tpe.repaint() ;
 		}
 		else if( ddlbw == _w.disperser )
 		{
-			instNIRI.setDisperser( val );
+			instNIRI.setDisperser( val ) ;
 		}
 	}
 }

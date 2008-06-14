@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
+import java.util.Vector ;
 import javax.swing.JTable ;
 import javax.swing.table.DefaultTableModel ;
 
@@ -24,15 +24,15 @@ public class RowManipulateTableWidget extends JTable
 		{
 			public boolean isCellEditable( int row , int column )
 			{
-				return false;
+				return false ;
 			}
-		} );
-		setCellSelectionEnabled( false );
-		setRowSelectionAllowed( true );
-		setColumnSelectionAllowed( false );
+		} ) ;
+		setCellSelectionEnabled( false ) ;
+		setRowSelectionAllowed( true ) ;
+		setColumnSelectionAllowed( false ) ;
 
 		// need to change some code if this is enabled
-		getTableHeader().setReorderingAllowed( false );
+		getTableHeader().setReorderingAllowed( false ) ;
 	}
 
 	/**
@@ -42,106 +42,106 @@ public class RowManipulateTableWidget extends JTable
 	public void absInsertRowAt( Vector row , int index )
 	{
 		if( row == null )
-			row = new Vector( getModel().getColumnCount() );
+			row = new Vector( getModel().getColumnCount() ) ;
 
-		getModel().insertRow( index , row );
+		getModel().insertRow( index , row ) ;
 	}
 
 	/** Clear the table */
 	public void clear()
 	{
-		getModel().setRowCount( 0 );
+		getModel().setRowCount( 0 ) ;
 	}
 
 	/* Set the column headers */
 	public void setColumnHeaders( String[] names )
 	{
-		getModel().setColumnIdentifiers( names );
+		getModel().setColumnIdentifiers( names ) ;
 	}
 
 	/* Set the column headers */
 	public void setColumnHeaders( Vector names )
 	{
-		getModel().setColumnIdentifiers( names );
+		getModel().setColumnIdentifiers( names ) ;
 	}
 
 	/* Set the column widths in pixels. */
 	public void setColumnWidths( int[] ar )
 	{
 		for( int i = 0 ; i < ar.length ; ++i )
-			getColumnModel().getColumn( i ).setPreferredWidth( ar[ i ] );
+			getColumnModel().getColumn( i ).setPreferredWidth( ar[ i ] ) ;
 	}
 
 	/** Return the value in the cell at the given row and column. */
 	public Object getCell( int col , int row )
 	{
-		Vector data = getModel().getDataVector();
-		return ( ( Vector )data.get( row ) ).get( col );
+		Vector data = getModel().getDataVector() ;
+		return ( ( Vector )data.get( row ) ).get( col ) ;
 	}
 
 	/** Set the value in the cell at the given row and column. */
 	public void setCell( Object value , int col , int row )
 	{
-		getModel().setValueAt( value , row , col );
+		getModel().setValueAt( value , row , col ) ;
 	}
 
 	/** Remove all rows */
 	public void removeAllRows()
 	{
-		getModel().setRowCount( 0 );
+		getModel().setRowCount( 0 ) ;
 	}
 
 	/** Remove all columns */
 	public void removeAllColumns()
 	{
-		getModel().setColumnCount( 0 );
+		getModel().setColumnCount( 0 ) ;
 	}
 
 	/** Set the focus at the given row. */
 	public void focusAtRow( int index )
 	{
 		// XXX how to do this with JTable?
-		getSelectionModel().setSelectionInterval( index , index );
+		getSelectionModel().setSelectionInterval( index , index ) ;
 	}
 
 	/** Return the indexes of the selected rows */
 	public int[] getSelectedRowIndexes()
 	{
-		return getSelectedRows();
+		return getSelectedRows() ;
 	}
 
 	/** Remove the given row */
 	public void removeRowAt( int index )
 	{
-		getModel().removeRow( index );
+		getModel().removeRow( index ) ;
 	}
 
 	/** Remove the given column */
 	public void removeColumnAt( int index )
 	{
-		DefaultTableModel model = getModel();
-		int numCols = model.getColumnCount();
-		Vector columnNames = new Vector( numCols - 1 );
+		DefaultTableModel model = getModel() ;
+		int numCols = model.getColumnCount() ;
+		Vector<String> columnNames = new Vector<String>( numCols - 1 ) ;
 		for( int i = 0 ; i < numCols ; i++ )
 		{
 			if( i != index )
-				columnNames.add( model.getColumnName( i ) );
+				columnNames.add( model.getColumnName( i ) ) ;
 		}
-		int numRows = model.getRowCount();
-		Vector data = model.getDataVector();
-		Vector newData = new Vector( numRows );
+		int numRows = model.getRowCount() ;
+		Vector data = model.getDataVector() ;
+		Vector<Vector> newData = new Vector<Vector>( numRows ) ;
 		for( int i = 0 ; i < numRows ; i++ )
 		{
-			Vector row = new Vector( numCols - 1 );
+			Vector row = new Vector( numCols - 1 ) ;
 			for( int j = 0 ; j < numCols ; j++ )
 			{
 				if( j != index )
-					row.add( (( Vector )data.get( i )).get( j ) );
+					row.add( (( Vector )data.get( i )).get( j ) ) ;
 			}
-			newData.add( row );
+			newData.add( row ) ;
 		}
 
-		setModel( new DefaultTableModel( newData , columnNames ) );
+		setModel( new DefaultTableModel( newData , columnNames ) ) ;
 	}
 
 	/**
@@ -149,11 +149,11 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	protected void _printTableRow( int index , Vector v )
 	{
-		System.out.print( index + ") " );
+		System.out.print( index + ") " ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
-			System.out.print( "\t\"" + v.elementAt( i ) + "\"" );
+			System.out.print( "\t\"" + v.elementAt( i ) + "\"" ) ;
 
-		System.out.println();
+		System.out.println() ;
 	}
 
 	/**
@@ -163,16 +163,16 @@ public class RowManipulateTableWidget extends JTable
 	{
 		if( ( index > 0 ) && ( index < getModel().getRowCount() ) )
 		{
-			Vector[] va = getAllRowsData();
-			Vector vTemp = va[ index ];
+			Vector[] va = getAllRowsData() ;
+			Vector vTemp = va[ index ] ;
 	
 			// Move the rows above the index row down one.
 			for( int i = index ; i > 0 ; --i )
-				va[ i ] = va[ i - 1 ];
+				va[ i ] = va[ i - 1 ] ;
 	
-			va[ 0 ] = vTemp;
+			va[ 0 ] = vTemp ;
 
-			setRows( va );
+			setRows( va ) ;
 		}
 	}
 
@@ -183,13 +183,13 @@ public class RowManipulateTableWidget extends JTable
 	{
 		if( ( index > 0 ) && ( index < getModel().getRowCount() ) )
 		{
-			Vector[] va = getAllRowsData();
+			Vector[] va = getAllRowsData() ;
 	
-			Vector vTemp = va[ index - 1 ];
-			va[ index - 1 ] = va[ index ];
-			va[ index ] = vTemp;
+			Vector vTemp = va[ index - 1 ] ;
+			va[ index - 1 ] = va[ index ] ;
+			va[ index ] = vTemp ;
 	
-			setRows( va );
+			setRows( va ) ;
 		}
 	}
 
@@ -198,16 +198,16 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	public void absIncrementRowAt( int index )
 	{
-		int lastIndex = getModel().getRowCount() - 1;
+		int lastIndex = getModel().getRowCount() - 1 ;
 		if( ( index > 0 ) && ( index < lastIndex ) )
 		{
-			Vector[] va = getAllRowsData();
+			Vector[] va = getAllRowsData() ;
 	
-			Vector vTemp = va[ index ];
-			va[ index ] = va[ index + 1 ];
-			va[ index + 1 ] = vTemp;
+			Vector vTemp = va[ index ] ;
+			va[ index ] = va[ index + 1 ] ;
+			va[ index + 1 ] = vTemp ;
 	
-			setRows( va );
+			setRows( va ) ;
 		}
 	}
 
@@ -216,18 +216,18 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	public void absMoveToLastRowAt( int index )
 	{
-		int lastIndex = getModel().getRowCount() - 1;
+		int lastIndex = getModel().getRowCount() - 1 ;
 		if( ( index >= 0 ) && ( index < lastIndex ) )
 		{
-			Vector[] va = getAllRowsData();
+			Vector[] va = getAllRowsData() ;
 	
-			Vector vTemp = va[ index ];
+			Vector vTemp = va[ index ] ;
 			for( int i = index ; i < lastIndex ; ++i )
-				va[ i ] = va[ i + 1 ];
+				va[ i ] = va[ i + 1 ] ;
 
-			va[ lastIndex ] = vTemp;
+			va[ lastIndex ] = vTemp ;
 	
-			setRows( va );
+			setRows( va ) ;
 		}
 	}
 
@@ -238,9 +238,9 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	public Vector[] getAllRowsData()
 	{
-		Vector[] va = new Vector[ getModel().getRowCount() ];
-		getAllRowsData( va );
-		return va;
+		Vector[] va = new Vector[ getModel().getRowCount() ] ;
+		getAllRowsData( va ) ;
+		return va ;
 	}
 
 	/**
@@ -250,27 +250,27 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	public void getAllRowsData( Vector[] va )
 	{
-		int rowCount = getModel().getRowCount();
-		Vector data = getModel().getDataVector();
+		int rowCount = getModel().getRowCount() ;
+		Vector data = getModel().getDataVector() ;
 		for( int i = 0 ; i < rowCount ; ++i )
-			va[ i ] = ( Vector )data.get( i );
+			va[ i ] = ( Vector )data.get( i ) ;
 	}
 
 	/** Set the contents of the table */
 	public void setRows( Vector[] v )
 	{
-		int rowCount = v.length;
-		Vector data = new Vector( rowCount );
+		int rowCount = v.length ;
+		Vector<Vector> data = new Vector<Vector>( rowCount ) ;
 		for( int i = 0 ; i < rowCount ; ++i )
-			data.add( v[ i ] );
+			data.add( v[ i ] ) ;
 
-		DefaultTableModel model = getModel();
-		int colCount = model.getColumnCount();
-		Vector header = new Vector( colCount );
+		DefaultTableModel model = getModel() ;
+		int colCount = model.getColumnCount() ;
+		Vector<String> header = new Vector<String>( colCount ) ;
 		for( int i = 0 ; i < colCount ; ++i )
-			header.add( model.getColumnName( i ) );
+			header.add( model.getColumnName( i ) ) ;
 
-		model.setDataVector( data , header );
+		model.setDataVector( data , header ) ;
 	}
 
 	/**
@@ -279,13 +279,13 @@ public class RowManipulateTableWidget extends JTable
 	 */
 	public Vector getRowData( int index )
 	{
-		DefaultTableModel model = getModel();
+		DefaultTableModel model = getModel() ;
 		// do nothing if one of the parameters is incorrect
 		if( index < 0 || index >= model.getRowCount() )
-			return null;
+			return null ;
 
-		Vector data = getModel().getDataVector();
-		return ( Vector )data.get( index );
+		Vector data = getModel().getDataVector() ;
+		return ( Vector )data.get( index ) ;
 	}
 	
 	public DefaultTableModel getModel()

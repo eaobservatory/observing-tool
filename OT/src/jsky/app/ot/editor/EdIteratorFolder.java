@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import java.util.List;
+import java.util.List ;
 
-import gemini.sp.iter.SpIterFolder;
+import gemini.sp.iter.SpIterFolder ;
 
 /**
  * This is the editor for the "iterator folder" or "Sequence" item.
@@ -20,18 +20,18 @@ import gemini.sp.iter.SpIterFolder;
  */
 public final class EdIteratorFolder extends OtItemEditor implements ActionListener
 {
-	private IterEnumTableWidget _table;
-	private IterFolderGUI _w; // the GUI layout panel
+	private IterEnumTableWidget _table ;
+	private IterFolderGUI _w ; // the GUI layout panel
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIteratorFolder()
 	{
-		_title = "Sequence";
-		_presSource = _w = new IterFolderGUI();
-		_description = "Press the \"Show\" button to obtain a text representation of the dynamic sequence.";
-		_w.compileButton.addActionListener( this );
+		_title = "Sequence" ;
+		_presSource = _w = new IterFolderGUI() ;
+		_description = "Press the \"Show\" button to obtain a text representation of the dynamic sequence." ;
+		_w.compileButton.addActionListener( this ) ;
 	}
 
 	/**
@@ -39,8 +39,8 @@ public final class EdIteratorFolder extends OtItemEditor implements ActionListen
 	 */
 	protected void _init()
 	{
-		_table = _w.table;
-		_table.setColumnHeaders( new String[] { "Action" , "Details" } );
+		_table = _w.table ;
+		_table.setColumnHeaders( new String[] { "Action" , "Details" } ) ;
 	}
 
 	/**
@@ -49,22 +49,22 @@ public final class EdIteratorFolder extends OtItemEditor implements ActionListen
 	 */
 	protected void _updateWidgets()
 	{
-		_table.removeAllRows();
+		_table.removeAllRows() ;
 	}
 
 	private void _updateFolder()
 	{
-		SpIterFolder iterFolder = ( SpIterFolder )_spItem;
-		List code = iterFolder.compile();
+		SpIterFolder iterFolder = ( SpIterFolder )_spItem ;
+		List code = iterFolder.compile() ;
 
-		_table.removeAllRows();
+		_table.removeAllRows() ;
 		for( int i = 0 ; i < code.size() ; ++i )
 		{
-			Object o = code.get( i );
+			Object o = code.get( i ) ;
 			if( o instanceof List )
-				_table.addSteps( ( List )o );
+				_table.addSteps( ( List )o ) ;
 			else
-				System.out.println( "UNKNOWN iter element: " + o );
+				System.out.println( "UNKNOWN iter element: " + o ) ;
 		}
 	}
 
@@ -73,6 +73,6 @@ public final class EdIteratorFolder extends OtItemEditor implements ActionListen
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		_updateFolder();
+		_updateFolder() ;
 	}
 }

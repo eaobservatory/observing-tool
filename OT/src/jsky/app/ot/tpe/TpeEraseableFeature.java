@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.app.ot.fits.gui.FitsMouseEvent;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
 /**
  * This is an interface supported by TpeImageFeatures that can erase
@@ -17,5 +17,5 @@ public interface TpeEraseableFeature
 	/**
 	 * Erase an item, returning true if successful.
 	 */
-	public boolean erase( FitsMouseEvent evt );
+	public boolean erase( FitsMouseEvent evt ) ;
 }

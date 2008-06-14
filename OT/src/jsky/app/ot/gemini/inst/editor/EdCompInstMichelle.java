@@ -4,47 +4,47 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst.editor;
+package jsky.app.ot.gemini.inst.editor ;
 
-import java.util.Vector;
+import java.util.Vector ;
 import javax.swing.JPanel ;
-import javax.swing.border.TitledBorder;
-import jsky.app.ot.gemini.inst.SpInstMichelle;
-import jsky.app.ot.gemini.inst.SpInstMichelleConstants;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import gemini.sp.SpItem;
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
-import jsky.app.ot.util.MathUtil;
+import javax.swing.border.TitledBorder ;
+import jsky.app.ot.gemini.inst.SpInstMichelle ;
+import jsky.app.ot.gemini.inst.SpInstMichelleConstants ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import gemini.sp.SpItem ;
+import jsky.app.ot.tpe.TelescopePosEditor ;
+import jsky.app.ot.tpe.TpeManager ;
+import jsky.app.ot.util.MathUtil ;
 
 /**
  * This is the editor for Scheduling Info component.
  */
 public final class EdCompInstMichelle extends EdCompInstBase
 {
-	private EdChopCapability _edChopCapability;
-	private EdStareCapability _edStareCapability;
-	private SpInstMichelle _instMichelle;
-	private MichelleGUI _w; // the GUI layout
+	private EdChopCapability _edChopCapability ;
+	private EdStareCapability _edStareCapability ;
+	private SpInstMichelle _instMichelle ;
+	private MichelleGUI _w ; // the GUI layout
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdCompInstMichelle()
 	{
-		_title = "Michelle";
-		_presSource = _w = new MichelleGUI();
-		_description = "The Michelle instrument is configured with this component.";
+		_title = "Michelle" ;
+		_presSource = _w = new MichelleGUI() ;
+		_description = "The Michelle instrument is configured with this component." ;
 
-		_edChopCapability = new EdChopCapability();
-		_edStareCapability = new EdStareCapability();
+		_edChopCapability = new EdChopCapability() ;
+		_edStareCapability = new EdStareCapability() ;
 	}
 
 	/**
@@ -53,15 +53,15 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	 */
 	protected void _init()
 	{
-		CommandButtonWidgetExt cbw;
-		DropDownListBoxWidgetExt ddlbw;
-		TextBoxWidgetExt tbw;
+		CommandButtonWidgetExt cbw ;
+		DropDownListBoxWidgetExt ddlbw ;
+		TextBoxWidgetExt tbw ;
 
 		//
 		// Camera
 		//
-		ddlbw = _w.camera;
-		ddlbw.setChoices( SpInstMichelleConstants.CAMERAS );
+		ddlbw = _w.camera ;
+		ddlbw.setChoices( SpInstMichelleConstants.CAMERAS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -69,20 +69,20 @@ public final class EdCompInstMichelle extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instMichelle.setCamera( val );
-				_updateWidgets();
+				_instMichelle.setCamera( val ) ;
+				_updateWidgets() ;
 
-				TelescopePosEditor tpe = TpeManager.get( _instMichelle );
+				TelescopePosEditor tpe = TpeManager.get( _instMichelle ) ;
 				if( tpe != null )
-					tpe.repaint();
+					tpe.repaint() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Disperser
 		//
-		ddlbw = _w.disperser;
-		ddlbw.setChoices( SpInstMichelleConstants.DISPERSERS );
+		ddlbw = _w.disperser ;
+		ddlbw.setChoices( SpInstMichelleConstants.DISPERSERS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -90,16 +90,16 @@ public final class EdCompInstMichelle extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instMichelle.setDisperser( val );
-				_updateWidgets();
+				_instMichelle.setDisperser( val ) ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Mask
 		//
-		ddlbw = _w.mask;
-		ddlbw.setChoices( SpInstMichelleConstants.MASKS );
+		ddlbw = _w.mask ;
+		ddlbw.setChoices( SpInstMichelleConstants.MASKS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -107,25 +107,25 @@ public final class EdCompInstMichelle extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instMichelle.setMask( val );
-				_updateWidgets();
+				_instMichelle.setMask( val ) ;
+				_updateWidgets() ;
 
-				TelescopePosEditor tpe = TpeManager.get( _instMichelle );
+				TelescopePosEditor tpe = TpeManager.get( _instMichelle ) ;
 				if( tpe != null )
-					tpe.repaint();
+					tpe.repaint() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Filter
 		//
-		ddlbw = _w.filter;
-		String[][] filts = SpInstMichelleConstants.FILTERS;
-		Vector v = new Vector();
+		ddlbw = _w.filter ;
+		String[][] filts = SpInstMichelleConstants.FILTERS ;
+		Vector v = new Vector() ;
 		for( int i = 0 ; i < filts.length ; ++i )
-			v.addElement( filts[ i ][ 0 ] + " (" + filts[ i ][ 1 ] + ")" );
+			v.addElement( filts[ i ][ 0 ] + " (" + filts[ i ][ 1 ] + ")" ) ;
 
-		ddlbw.setChoices( v );
+		ddlbw.setChoices( v ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
@@ -133,59 +133,59 @@ public final class EdCompInstMichelle extends EdCompInstBase
 
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
-				_instMichelle.setFilter( _filtTrimWavelength( val ) );
+				_instMichelle.setFilter( _filtTrimWavelength( val ) ) ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Mode
 		//
-		CheckBoxWidgetExt cbwe;
-		cbwe = _w.mode;
+		CheckBoxWidgetExt cbwe ;
+		cbwe = _w.mode ;
 
 		cbwe.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt cb )
 			{
 				if( cb.getBooleanValue() )
-					_instMichelle.setMode( SpInstMichelleConstants.CHOP_MODE );
+					_instMichelle.setMode( SpInstMichelleConstants.CHOP_MODE ) ;
 				else
-					_instMichelle.setMode( SpInstMichelleConstants.STARE_MODE );
+					_instMichelle.setMode( SpInstMichelleConstants.STARE_MODE ) ;
 					
-				_updateWidgets();
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
 		//
 		// Central Wavelength
 		//
-		tbw = _w.centralWavelength;
+		tbw = _w.centralWavelength ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
 			{
-				_instMichelle.setCentralWavelength( tbw.getText() );
-				_updateWavelengthCoverage();
-				_updateDefaultCentralWavelengthButton();
+				_instMichelle.setCentralWavelength( tbw.getText() ) ;
+				_updateWavelengthCoverage() ;
+				_updateDefaultCentralWavelengthButton() ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
-		} );
+		} ) ;
 
-		cbw = _w.defaultCentralWavelength;
+		cbw = _w.defaultCentralWavelength ;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				_instMichelle.useDefaultCentralWavelength();
-				_updateWidgets();
+				_instMichelle.useDefaultCentralWavelength() ;
+				_updateWidgets() ;
 			}
-		} );
+		} ) ;
 
-		super._init();
+		super._init() ;
 
-		_edChopCapability._init( _w , this );
-		_edStareCapability._init( this );
+		_edChopCapability._init( _w , this ) ;
+		_edStareCapability._init( this ) ;
 	}
 
 	//
@@ -193,7 +193,7 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private String _filtTrimWavelength( String filter )
 	{
-		return filter.substring( 0 , filter.lastIndexOf( '(' ) ).trim();
+		return filter.substring( 0 , filter.lastIndexOf( '(' ) ).trim() ;
 	}
 
 	//
@@ -201,13 +201,13 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private int _filtGetIndex( String filter )
 	{
-		String[][] filts = SpInstMichelleConstants.FILTERS;
+		String[][] filts = SpInstMichelleConstants.FILTERS ;
 		for( int i = 0 ; i < filts.length ; ++i )
 		{
 			if( filts[ i ][ 0 ].equals( filter ) )
-				return i;
+				return i ;
 		}
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -215,8 +215,8 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	 */
 	public void setup( SpItem spItem )
 	{
-		_instMichelle = ( SpInstMichelle )spItem;
-		super.setup( spItem );
+		_instMichelle = ( SpInstMichelle )spItem ;
+		super.setup( spItem ) ;
 	}
 
 	/**
@@ -225,71 +225,71 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	 */
 	protected void _updateWidgets()
 	{
-		DropDownListBoxWidgetExt ddlbw;
-		TextBoxWidgetExt tbw;
+		DropDownListBoxWidgetExt ddlbw ;
+		TextBoxWidgetExt tbw ;
 
-		ddlbw = _w.camera;
-		ddlbw.setValue( _instMichelle.getCamera() );
+		ddlbw = _w.camera ;
+		ddlbw.setValue( _instMichelle.getCamera() ) ;
 
-		boolean disabled = false;
+		boolean disabled = false ;
 		if( _instMichelle.isImaging() )
-			disabled = true;
+			disabled = true ;
 
-		ddlbw = _w.disperser;
-		ddlbw.setValue( _instMichelle.getDisperser() );
-		ddlbw.setEnabled( !disabled );
+		ddlbw = _w.disperser ;
+		ddlbw.setValue( _instMichelle.getDisperser() ) ;
+		ddlbw.setEnabled( !disabled ) ;
 
-		ddlbw = _w.mask;
-		ddlbw.setValue( _instMichelle.getMask() );
-		ddlbw.setEnabled( !disabled );
+		ddlbw = _w.mask ;
+		ddlbw.setValue( _instMichelle.getMask() ) ;
+		ddlbw.setEnabled( !disabled ) ;
 
-		ddlbw = _w.filter;
-		ddlbw.setValue( _filtGetIndex( _instMichelle.getFilter() ) );
+		ddlbw = _w.filter ;
+		ddlbw.setValue( _filtGetIndex( _instMichelle.getFilter() ) ) ;
 
-		String mode = _instMichelle.getMode();
+		String mode = _instMichelle.getMode() ;
 
-		CheckBoxWidgetExt cbwe;
-		cbwe = _w.mode;
+		CheckBoxWidgetExt cbwe ;
+		cbwe = _w.mode ;
 
-		( ( TitledBorder )_w.chopPanel.getBorder() ).setTitle( mode + " Control" );
+		( ( TitledBorder )_w.chopPanel.getBorder() ).setTitle( mode + " Control" ) ;
 
-		JPanel chopGW = _w.chopControlGroup;
-		JPanel stareGW = _w.stareControlGroup;
+		JPanel chopGW = _w.chopControlGroup ;
+		JPanel stareGW = _w.stareControlGroup ;
 		if( mode.equals( _instMichelle.STARE_MODE ) )
 		{
-			_w.chopPanel.remove( chopGW );
-			_w.chopPanel.add( "Center" , stareGW );
-			_edStareCapability._updateWidgets( this , _instMichelle.getStareCapability() );
-			cbwe.setValue( false );
+			_w.chopPanel.remove( chopGW ) ;
+			_w.chopPanel.add( "Center" , stareGW ) ;
+			_edStareCapability._updateWidgets( this , _instMichelle.getStareCapability() ) ;
+			cbwe.setValue( false ) ;
 		}
 		else
 		{
-			_w.chopPanel.remove( stareGW );
-			_w.chopPanel.add( "Center" , chopGW );
-			_edChopCapability._updateWidgets( _w , _instMichelle.getChopCapability() );
-			cbwe.setValue( true );
+			_w.chopPanel.remove( stareGW ) ;
+			_w.chopPanel.add( "Center" , chopGW ) ;
+			_edChopCapability._updateWidgets( _w , _instMichelle.getChopCapability() ) ;
+			cbwe.setValue( true ) ;
 		}
-		_w.chopPanel.revalidate();
-		_w.getParent().repaint();
+		_w.chopPanel.revalidate() ;
+		_w.getParent().repaint() ;
 
-		tbw = ( TextBoxWidgetExt )_w.centralWavelength;
-		double centralWavelength = _instMichelle.getCentralWavelength();
+		tbw = ( TextBoxWidgetExt )_w.centralWavelength ;
+		double centralWavelength = _instMichelle.getCentralWavelength() ;
 		if( centralWavelength == 0. )
 		{
-			tbw.setText( "" );
-			tbw.setEnabled( false );
+			tbw.setText( "" ) ;
+			tbw.setEnabled( false ) ;
 		}
 		else
 		{
-			tbw.setText( Double.toString( centralWavelength ) );
-			tbw.setEnabled( true );
+			tbw.setText( Double.toString( centralWavelength ) ) ;
+			tbw.setEnabled( true ) ;
 		}
 
-		_updateScienceFOV();
-		_updateWavelengthCoverage();
-		_updateDefaultCentralWavelengthButton();
+		_updateScienceFOV() ;
+		_updateWavelengthCoverage() ;
+		_updateDefaultCentralWavelengthButton() ;
 
-		super._updateWidgets();
+		super._updateWidgets() ;
 
 	}
 
@@ -299,13 +299,13 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private void _updateScienceFOV()
 	{
-		TextBoxWidgetExt tbw = _w.scienceFOV;
-		double[] scienceArea = _instMichelle.getScienceArea();
+		TextBoxWidgetExt tbw = _w.scienceFOV ;
+		double[] scienceArea = _instMichelle.getScienceArea() ;
 
-		double w = MathUtil.round( scienceArea[ 0 ] , 2 );
-		double h = MathUtil.round( scienceArea[ 1 ] , 2 );
+		double w = MathUtil.round( scienceArea[ 0 ] , 2 ) ;
+		double h = MathUtil.round( scienceArea[ 1 ] , 2 ) ;
 
-		tbw.setText( w + " x " + h );
+		tbw.setText( w + " x " + h ) ;
 	}
 
 	//
@@ -314,23 +314,23 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private void _updateWavelengthCoverage()
 	{
-		TextBoxWidgetExt tbwLow , tbwHigh;
+		TextBoxWidgetExt tbwLow , tbwHigh ;
 
-		tbwLow = _w.wavelengthCoverageLow;
-		tbwHigh = _w.wavelengthCoverageHigh;
+		tbwLow = _w.wavelengthCoverageLow ;
+		tbwHigh = _w.wavelengthCoverageHigh ;
 
-		double[] range = _instMichelle.getWavelengthCoverage();
+		double[] range = _instMichelle.getWavelengthCoverage() ;
 		if( ( range[ 0 ] == 0. ) || ( range[ 1 ] == 0. ) )
 		{
-			tbwLow.setText( "" );
-			tbwHigh.setText( "" );
+			tbwLow.setText( "" ) ;
+			tbwHigh.setText( "" ) ;
 		}
 		else
 		{
-			range[ 0 ] = MathUtil.round( range[ 0 ] , 2 );
-			range[ 1 ] = MathUtil.round( range[ 1 ] , 2 );
-			tbwLow.setText( Double.toString( range[ 0 ] ) );
-			tbwHigh.setText( Double.toString( range[ 1 ] ) );
+			range[ 0 ] = MathUtil.round( range[ 0 ] , 2 ) ;
+			range[ 1 ] = MathUtil.round( range[ 1 ] , 2 ) ;
+			tbwLow.setText( Double.toString( range[ 0 ] ) ) ;
+			tbwHigh.setText( Double.toString( range[ 1 ] ) ) ;
 		}
 	}
 
@@ -342,33 +342,33 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private void _updateDefaultCentralWavelengthButton()
 	{
-		CommandButtonWidgetExt cbw;
-		cbw = _w.defaultCentralWavelength;
+		CommandButtonWidgetExt cbw ;
+		cbw = _w.defaultCentralWavelength ;
 
-		boolean disabled = false;
+		boolean disabled = false ;
 		if( _instMichelle.isImaging() )
-			disabled = true;
+			disabled = true ;
 		else if( _instMichelle.getCentralWavelength() == _instMichelle.getDefaultCentralWavelength() )
-			disabled = true;
+			disabled = true ;
 
-		cbw.setEnabled( !disabled );
+		cbw.setEnabled( !disabled ) ;
 	}
 
 	/** Return the coadds text box. */
 	public TextBoxWidgetExt getCoaddsTextBox()
 	{
-		return _w.coadds;
+		return _w.coadds ;
 	}
 
 	/** Return the position angle text box */
 	public TextBoxWidgetExt getPosAngleTextBox()
 	{
-		return _w.posAngle;
+		return _w.posAngle ;
 	}
 
 	/** Return the exposure time text box */
 	public TextBoxWidgetExt getExposureTimeTextBox()
 	{
-		return _w.exposureTime;
+		return _w.exposureTime ;
 	}
 }

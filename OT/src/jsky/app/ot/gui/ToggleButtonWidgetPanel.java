@@ -5,14 +5,14 @@
  * $Id$
  */
 
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.GridLayout ;
 import javax.swing.JPanel ;
 import javax.swing.JFrame ;
 import javax.swing.ButtonGroup ;
 import javax.swing.JLabel ;
-import jsky.util.gui.BasicWindowMonitor;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /** 
  * This widget displays a group of radio buttons in a tabular layout.
@@ -23,10 +23,10 @@ import jsky.util.gui.BasicWindowMonitor;
 public class ToggleButtonWidgetPanel extends JPanel
 {
 	/** Array of buttons to display */
-	private ToggleButtonWidget[] buttons;
+	private ToggleButtonWidget[] buttons ;
 
 	/** If true, multiple buttons may be selected, otherwise only one */
-	private boolean enableMultipleSelection;
+	private boolean enableMultipleSelection ;
 
 	/**
 	 * Create a panel containing toggle buttons, arranged in the
@@ -41,24 +41,24 @@ public class ToggleButtonWidgetPanel extends JPanel
 	 */
 	public ToggleButtonWidgetPanel( String[] names , int nrows , int ncols , boolean enableMultipleSelection , int hgap , int vgap )
 	{
-		setLayout( new GridLayout( nrows , ncols , hgap , vgap ) );
-		buttons = new ToggleButtonWidget[ names.length ];
-		ButtonGroup group = new ButtonGroup();
-		this.enableMultipleSelection = enableMultipleSelection;
+		setLayout( new GridLayout( nrows , ncols , hgap , vgap ) ) ;
+		buttons = new ToggleButtonWidget[ names.length ] ;
+		ButtonGroup group = new ButtonGroup() ;
+		this.enableMultipleSelection = enableMultipleSelection ;
 
 		for( int i = 0 ; i < names.length ; i++ )
 		{
 			if( names[ i ] == null )
 			{
-				buttons[ i ] = null;
-				add( new JLabel() );
+				buttons[ i ] = null ;
+				add( new JLabel() ) ;
 			}
 			else
 			{
-				buttons[ i ] = new ToggleButtonWidget( names[ i ] , enableMultipleSelection );
+				buttons[ i ] = new ToggleButtonWidget( names[ i ] , enableMultipleSelection ) ;
 				if( !enableMultipleSelection )
-					group.add( buttons[ i ] );
-				add( buttons[ i ] );
+					group.add( buttons[ i ] ) ;
+				add( buttons[ i ] ) ;
 			}
 		}
 	}
@@ -74,19 +74,19 @@ public class ToggleButtonWidgetPanel extends JPanel
 	 */
 	public ToggleButtonWidgetPanel( String[] names , int nrows , int ncols , boolean enableMultipleSelection )
 	{
-		this( names , nrows , ncols , enableMultipleSelection , 0 , 0 );
+		this( names , nrows , ncols , enableMultipleSelection , 0 , 0 ) ;
 	}
 
 	/** Return the number of buttons */
 	public int getNumberOfButtons()
 	{
-		return buttons.length;
+		return buttons.length ;
 	}
 
 	/** Return the nth button */
 	public ToggleButtonWidget getButton( int n )
 	{
-		return buttons[ n ];
+		return buttons[ n ] ;
 	}
 
 	/** Return the button with the given label. */
@@ -95,12 +95,12 @@ public class ToggleButtonWidgetPanel extends JPanel
 		for( int i = 0 ; i < buttons.length ; i++ )
 		{
 			if( buttons[ i ] == null )
-				continue;
-			String s = buttons[ i ].getText();
+				continue ;
+			String s = buttons[ i ].getText() ;
 			if( s != null && s.equals( label ) )
-				return buttons[ i ];
+				return buttons[ i ] ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -108,41 +108,41 @@ public class ToggleButtonWidgetPanel extends JPanel
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "ToggleButtonWidgetPanel" );
+		JFrame frame = new JFrame( "ToggleButtonWidgetPanel" ) ;
 
-		String[] names = { "one" , "two" , "three" , "four" , "five" , null , "six" , "seven" , "eight" , "nine" , "ten" };
+		String[] names = { "one" , "two" , "three" , "four" , "five" , null , "six" , "seven" , "eight" , "nine" , "ten" } ;
 
-		ToggleButtonWidgetPanel panel = new ToggleButtonWidgetPanel( names , 0 , 1 , true , 0 , 0 );
+		ToggleButtonWidgetPanel panel = new ToggleButtonWidgetPanel( names , 0 , 1 , true , 0 , 0 ) ;
 
 		for( int i = 0 ; i < names.length ; i++ )
 		{
-			ToggleButtonWidget b = panel.getButton( i );
+			ToggleButtonWidget b = panel.getButton( i ) ;
 			if( b == null )
-				continue;
+				continue ;
 			b.addWatcher( new ToggleButtonWidgetWatcher()
 			{
 				public void toggleButtonAction( ToggleButtonWidget tbw )
 				{
 					if( tbw.getBooleanValue() )
-						System.out.println( "Selected " + tbw.getText() );
+						System.out.println( "Selected " + tbw.getText() ) ;
 					else
-						System.out.println( "Deselected " + tbw.getText() );
+						System.out.println( "Deselected " + tbw.getText() ) ;
 				}
-			} );
+			} ) ;
 		}
 
-		ToggleButtonWidget tbw = ( ToggleButtonWidget )panel.getButton( "seven" );
+		ToggleButtonWidget tbw = ( ToggleButtonWidget )panel.getButton( "seven" ) ;
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
-				System.out.println( "Selected #7: " + tbw.getText() + ", " + tbw.isSelected() );
+				System.out.println( "Selected #7: " + tbw.getText() + ", " + tbw.isSelected() ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , panel );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , panel ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

@@ -4,36 +4,36 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe.feat;
+package jsky.app.ot.tpe.feat ;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Enumeration;
+import java.awt.Color ;
+import java.awt.Graphics ;
+import java.util.Enumeration ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.fits.gui.FitsPosMapEntry;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
-import jsky.app.ot.util.BasicPropertyList;
-import jsky.app.ot.util.PropertyWatcher;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.fits.gui.FitsPosMapEntry ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
+import jsky.app.ot.util.BasicPropertyList ;
+import jsky.app.ot.util.PropertyWatcher ;
 
-import jsky.app.ot.tpe.TpeImageWidget;
-import jsky.app.ot.tpe.TpePositionMap;
-import jsky.app.ot.tpe.TpeCreateableFeature;
-import java.awt.geom.Point2D;
+import jsky.app.ot.tpe.TpeImageWidget ;
+import jsky.app.ot.tpe.TpePositionMap ;
+import jsky.app.ot.tpe.TpeCreateableFeature ;
+import java.awt.geom.Point2D ;
 
 public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreateableFeature , PropertyWatcher
 {
-	private static final String PROP_SHOW_TAGS = "Show Tags";
-	private static BasicPropertyList _props;
+	private static final String PROP_SHOW_TAGS = "Show Tags" ;
+	private static BasicPropertyList _props ;
 
 	static
 	{
 		// Initialize the properties supported by the TpeGuidePosFeature.
 
-		_props = new BasicPropertyList();
-		_props.setBoolean( PROP_SHOW_TAGS , true );
+		_props = new BasicPropertyList() ;
+		_props.setBoolean( PROP_SHOW_TAGS , true ) ;
 	}
 
 	/**
@@ -41,30 +41,30 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public TpeTargetPosFeature()
 	{
-		super( "Target" , "Location of target positions." );
+		super( "Target" , "Location of target positions." ) ;
 	}
 
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
+		super.reinit( iw , fii ) ;
 
-		_props.addWatcher( this );
+		_props.addWatcher( this ) ;
 
 		// Tell the position map that the target positions are visible.
-		TpePositionMap pm = TpePositionMap.getMap( iw );
-		pm.setFindUserTarget( true );
+		TpePositionMap pm = TpePositionMap.getMap( iw ) ;
+		pm.setFindUserTarget( true ) ;
 	}
 
 	public void unloaded()
 	{
 		// Tell the position map that the target positions are not visible.
-		TpePositionMap pm = TpePositionMap.getExistingMap( _iw );
+		TpePositionMap pm = TpePositionMap.getExistingMap( _iw ) ;
 		if( pm != null )
-			pm.setFindUserTarget( false );
+			pm.setFindUserTarget( false ) ;
 
-		_props.deleteWatcher( this );
+		_props.deleteWatcher( this ) ;
 
-		super.unloaded();
+		super.unloaded() ;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public void propertyChange( String propName )
 	{
-		_iw.repaint( this );
+		_iw.repaint( this ) ;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public BasicPropertyList getProperties()
 	{
-		return _props;
+		return _props ;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public void setDrawTags( boolean drawTags )
 	{
-		_props.setBoolean( PROP_SHOW_TAGS , drawTags );
+		_props.setBoolean( PROP_SHOW_TAGS , drawTags ) ;
 	}
 
 	/**
@@ -99,52 +99,52 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public boolean getDrawTags()
 	{
-		return _props.getBoolean( PROP_SHOW_TAGS , true );
+		return _props.getBoolean( PROP_SHOW_TAGS , true ) ;
 	}
 
 	/**
 	 */
 	public String[] getCreateButtonLabels()
 	{
-		String[] s = { "Target" };
-		return s;
+		String[] s = { "Target" } ;
+		return s ;
 	}
 
 	/**
 	 */
 	public boolean create( FitsMouseEvent fme , FitsImageInfo fii , String label )
 	{
-		SpTelescopePosList tpl = getSpTelescopePosList();
+		SpTelescopePosList tpl = getSpTelescopePosList() ;
 		if( tpl == null )
-			return false;
+			return false ;
 
-		tpl.createPosition( fme.ra , fme.dec );
-		return true;
+		tpl.createPosition( fme.ra , fme.dec ) ;
+		return true ;
 	}
 
 	/**
 	 */
 	public boolean erase( FitsMouseEvent fme )
 	{
-		SpTelescopePosList tpl = getSpTelescopePosList();
+		SpTelescopePosList tpl = getSpTelescopePosList() ;
 		if( tpl == null )
-			return false;
+			return false ;
 
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries();
+		Enumeration e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement();
-			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos;
+			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos ;
 
 			if( positionIsClose( pme , fme.xWidget , fme.yWidget ) && tp.isUserPosition() )
 			{
-				tpl.removePosition( tp );
-				return true;
+				tpl.removePosition( tp ) ;
+				return true ;
 			}
 		}
-		return false;
+		return false ;
 	}
 
 	/**
@@ -152,53 +152,53 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public Object select( FitsMouseEvent fme )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
-		SpTelescopePos tp = ( SpTelescopePos )pm.locatePos( fme.xWidget , fme.yWidget );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
+		SpTelescopePos tp = ( SpTelescopePos )pm.locatePos( fme.xWidget , fme.yWidget ) ;
 		if( ( tp != null ) && tp.isUserPosition() )
 		{
-			tp.select();
-			return tp;
+			tp.select() ;
+			return tp ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
 	 */
 	public void draw( Graphics g , FitsImageInfo fii )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		g.setColor( Color.yellow );
+		g.setColor( Color.yellow ) ;
 
 		if( getDrawTags() )
-			g.setFont( FONT );
+			g.setFont( FONT ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries();
+		Enumeration e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement();
-			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos;
+			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos ;
 			if( tp.isUserPosition() )
 			{
-				Point2D.Double p = pme.screenPos;
+				Point2D.Double p = pme.screenPos ;
 				if( p == null )
-					continue;
+					continue ;
 
 				if( tp.isOffsetPosition() )
 				{
-					int r = MARKER_SIZE * 2;
-					g.drawOval( ( int )( p.x - MARKER_SIZE ) , ( int )( p.y - MARKER_SIZE ) , r , r );
+					int r = MARKER_SIZE * 2 ;
+					g.drawOval( ( int )( p.x - MARKER_SIZE ) , ( int )( p.y - MARKER_SIZE ) , r , r ) ;
 				}
 				else
 				{
-					g.drawLine( ( int )p.x , ( int )( p.y - MARKER_SIZE ) , ( int )p.x , ( int )( p.y + MARKER_SIZE ) );
-					g.drawLine( ( int )( p.x - MARKER_SIZE ) , ( int )p.y , ( int )( p.x + MARKER_SIZE ) , ( int )p.y );
+					g.drawLine( ( int )p.x , ( int )( p.y - MARKER_SIZE ) , ( int )p.x , ( int )( p.y + MARKER_SIZE ) ) ;
+					g.drawLine( ( int )( p.x - MARKER_SIZE ) , ( int )p.y , ( int )( p.x + MARKER_SIZE ) , ( int )p.y ) ;
 				}
 
 				if( getDrawTags() && ( tp.getTag() != null ) )
 				{
 					// Draw the tag--should use font metrics to position the tag
-					g.drawString( tp.getTag() , ( int )( p.x + MARKER_SIZE + 2 ) , ( int )( p.y + MARKER_SIZE * 2 ) );
+					g.drawString( tp.getTag() , ( int )( p.x + MARKER_SIZE + 2 ) , ( int )( p.y + MARKER_SIZE * 2 ) ) ;
 				}
 			}
 		}
@@ -208,19 +208,19 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	 */
 	public boolean dragStart( FitsMouseEvent fme , FitsImageInfo fii )
 	{
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries();
+		Enumeration e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement();
+			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
 
 			if( positionIsClose( pme , fme.xWidget , fme.yWidget ) && ( ( SpTelescopePos )pme.telescopePos ).isUserPosition() )
 			{
-				_dragObject = pme;
-				return true;
+				_dragObject = pme ;
+				return true ;
 			}
 		}
-		return false;
+		return false ;
 	}
 }

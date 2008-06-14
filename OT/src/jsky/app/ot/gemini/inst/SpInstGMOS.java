@@ -4,12 +4,12 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * The GMOS instrument.  GMOS is an imager and a spectrograph.  We are
@@ -19,17 +19,17 @@ import gemini.sp.obsComp.SpInstObsComp;
  */
 public final class SpInstGMOS extends SpInstObsComp
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.GMOS" , "GMOS" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.GMOS" , "GMOS" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstGMOS() );
+		SpFactory.registerPrototype( new SpInstGMOS() ) ;
 	}
 
 	public SpInstGMOS()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -37,6 +37,6 @@ public final class SpInstGMOS extends SpInstObsComp
 	 */
 	public double[] getScienceArea()
 	{
-		return new double[]{ 422. , 332. };
+		return new double[]{ 422. , 332. } ;
 	}
 }

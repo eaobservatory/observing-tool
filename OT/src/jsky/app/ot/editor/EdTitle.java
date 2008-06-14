@@ -4,10 +4,10 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 /**
  * This is a temporary editor for a few of the more important items that
@@ -16,16 +16,16 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
  */
 public final class EdTitle extends OtItemEditor implements TextBoxWidgetWatcher
 {
-	private TitleEditorGUI _w; // the GUI layout
+	private TitleEditorGUI _w ; // the GUI layout
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdTitle()
 	{
-		_title = "Title Editor";
-		_presSource = _w = new TitleEditorGUI();
-		_description = "Change the title of the item here.";
+		_title = "Title Editor" ;
+		_presSource = _w = new TitleEditorGUI() ;
+		_description = "Change the title of the item here." ;
 	}
 
 	/**
@@ -33,8 +33,8 @@ public final class EdTitle extends OtItemEditor implements TextBoxWidgetWatcher
 	 */
 	protected void _init()
 	{
-		TextBoxWidgetExt tbw = _w.itemTitle;
-		tbw.addWatcher( this );
+		TextBoxWidgetExt tbw = _w.itemTitle ;
+		tbw.addWatcher( this ) ;
 	}
 
 	/**
@@ -44,12 +44,12 @@ public final class EdTitle extends OtItemEditor implements TextBoxWidgetWatcher
 	protected void _updateWidgets()
 	{
 		// Show the title
-		TextBoxWidgetExt tbw = _w.itemTitle;
-		String title = _spItem.getTitleAttr();
+		TextBoxWidgetExt tbw = _w.itemTitle ;
+		String title = _spItem.getTitleAttr() ;
 		if( title != null )
-			tbw.setText( title );
+			tbw.setText( title ) ;
 		else
-			tbw.setText( "" );
+			tbw.setText( "" ) ;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public final class EdTitle extends OtItemEditor implements TextBoxWidgetWatcher
 	 */
 	public void textBoxKeyPress( TextBoxWidgetExt tbw )
 	{
-		_spItem.setTitleAttr( tbw.getText().trim() );
+		_spItem.setTitleAttr( tbw.getText().trim() ) ;
 	}
 
 	/**

@@ -203,7 +203,7 @@ public class OT extends JFrame
 	/** 
 	 * Make a new library
 	 */
-	public void newLibrary()
+	public static void newLibrary()
 	{
 		OtProps.setSaveShouldPrompt( true ) ;
 		// Changed by MFO, 15 February 2002
@@ -213,7 +213,7 @@ public class OT extends JFrame
 	/** 
 	 * Open a new science program.
 	 */
-	public void open()
+	public static void open()
 	{
 		OtProps.setSaveShouldPrompt( false ) ;
 		OtFileIO.open() ;
@@ -413,7 +413,7 @@ public class OT extends JFrame
 
 	// From ATC OT.java start
 
-	public void launchHelp()
+	public static void launchHelp()
 	{
 		if( OT.helpLauncher != null )
 		{
@@ -429,7 +429,7 @@ public class OT extends JFrame
 	/**
 	 * Show the news (release notes).
 	 */
-	public void showNews()
+	public static void showNews()
 	{
 		URL url ;
 		try

@@ -4,18 +4,18 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Vector;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import jsky.util.gui.BasicWindowMonitor;
+import java.awt.event.MouseAdapter ;
+import java.awt.event.MouseEvent ;
+import java.util.Vector ;
+import javax.swing.DefaultListModel ;
+import javax.swing.JFrame ;
+import javax.swing.JList ;
+import javax.swing.JScrollPane ;
+import javax.swing.event.ListSelectionEvent ;
+import javax.swing.event.ListSelectionListener ;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * An extension of the Marimba ListBoxWidget to selection observers.
@@ -25,7 +25,7 @@ import jsky.util.gui.BasicWindowMonitor;
 public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 {
 	// Observers
-	private Vector _watchers = new Vector();
+	private Vector<ListBoxWidgetWatcher> _watchers = new Vector<ListBoxWidgetWatcher>() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -33,7 +33,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default Constructor */
 	public ListBoxWidgetExt()
@@ -43,19 +43,19 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 			public void valueChanged( ListSelectionEvent e )
 			{
 				if( !e.getValueIsAdjusting() )
-					_notifySelect( getSelectedIndex() );
+					_notifySelect( getSelectedIndex() ) ;
 			}
-		} );
+		} ) ;
 
 		addMouseListener( new MouseAdapter()
 		{
 			public void mouseClicked( MouseEvent e )
 			{
 				if( e.getClickCount() == 2 )
-					_notifyAction( locationToIndex( e.getPoint() ) );
+					_notifyAction( locationToIndex( e.getPoint() ) ) ;
 			}
-		} );
-		setModel( new DefaultListModel() );
+		} ) ;
+		setModel( new DefaultListModel() ) ;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	public synchronized final void addWatcher( ListBoxWidgetWatcher watcher )
 	{
 		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher );
+			_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatcher( ListBoxWidgetWatcher watcher )
 	{
-		_watchers.removeElement( watcher );
+		_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -106,7 +106,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	private synchronized final Vector _getWatchers()
 	{
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	//
@@ -114,12 +114,12 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	private void _notifySelect( int index )
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i );
-			watcher.listBoxSelect( this , index , getStringValue() );
+			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i ) ;
+			watcher.listBoxSelect( this , index , getStringValue() ) ;
 		}
 	}
 
@@ -128,19 +128,19 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	private void _notifyAction( int index )
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i );
-			watcher.listBoxAction( this , index , getStringValue() );
+			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i ) ;
+			watcher.listBoxAction( this , index , getStringValue() ) ;
 		}
 	}
 
 	/** Return the String value of teh selected row */
 	public String getStringValue()
 	{
-		return ( String )getSelectedValue();
+		return ( String )getSelectedValue() ;
 	}
 
 	/**
@@ -156,69 +156,69 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "ListBoxWidgetExt" );
+		JFrame frame = new JFrame( "ListBoxWidgetExt" ) ;
 
-		ListBoxWidgetExt list = new ListBoxWidgetExt();
-		DefaultListModel model = new DefaultListModel();
+		ListBoxWidgetExt list = new ListBoxWidgetExt() ;
+		DefaultListModel model = new DefaultListModel() ;
 		for( int i = 0 ; i < 50 ; i++ )
-			model.addElement( "row " + i );
+			model.addElement( "row " + i ) ;
 
-		list.setModel( model );
+		list.setModel( model ) ;
 		list.addWatcher( new ListBoxWidgetWatcher()
 		{
 			public void listBoxSelect( ListBoxWidgetExt lbwe , int index , String val )
 			{
-				System.out.println( "listBoxSelect: " + index );
+				System.out.println( "listBoxSelect: " + index ) ;
 			}
 
 			public void listBoxAction( ListBoxWidgetExt lbwe , int index , String val )
 			{
-				System.out.println( "listBoxAction: " + index );
+				System.out.println( "listBoxAction: " + index ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , new JScrollPane( list ) );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , new JScrollPane( list ) ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 
 	/** Select the given value */
 	public void setValue( int i )
 	{
-		getSelectionModel().clearSelection();
+		getSelectionModel().clearSelection() ;
 		if( i >= 0 )
-			getSelectionModel().addSelectionInterval( i , i );
+			getSelectionModel().addSelectionInterval( i , i ) ;
 	}
 
 	/** Select the given value */
 	public void setValue( String s )
 	{
-		setValue( ( ( DefaultListModel )getModel() ).indexOf( s ) );
+		setValue( ( ( DefaultListModel )getModel() ).indexOf( s ) ) ;
 	}
 
 	/** Set the contents of the list */
 	public void setChoices( Vector v )
 	{
-		DefaultListModel model = new DefaultListModel();
-		int n = v.size();
+		DefaultListModel model = new DefaultListModel() ;
+		int n = v.size() ;
 		for( int i = 0 ; i < n ; i++ )
-			model.addElement( v.get( i ) );
-		setModel( model );
+			model.addElement( v.get( i ) ) ;
+		setModel( model ) ;
 	}
 
 	/** Set the contents of the list */
 	public void setChoices( Object[] ar )
 	{
-		DefaultListModel model = new DefaultListModel();
+		DefaultListModel model = new DefaultListModel() ;
 		for( int i = 0 ; i < ar.length ; i++ )
-			model.addElement( ar[ i ] );
-		setModel( model );
+			model.addElement( ar[ i ] ) ;
+		setModel( model ) ;
 	}
 
 	/** Clear  out the list */
 	public void clear()
 	{
-		( ( DefaultListModel )getModel() ).clear();
+		( ( DefaultListModel )getModel() ).clear() ;
 	}
 }

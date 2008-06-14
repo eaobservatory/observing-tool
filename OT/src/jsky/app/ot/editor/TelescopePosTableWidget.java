@@ -4,43 +4,43 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.Vector ;
 
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.OtCfg;
+import jsky.app.ot.gui.TableWidgetExt ;
+import jsky.app.ot.OtCfg ;
 
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
 
-import gemini.util.TelescopePos;
-import gemini.util.TelescopePosList;
-import gemini.util.TelescopePosListWatcher;
-import gemini.util.TelescopePosSelWatcher;
-import gemini.util.TelescopePosWatcher;
+import gemini.util.TelescopePos ;
+import gemini.util.TelescopePosList ;
+import gemini.util.TelescopePosListWatcher ;
+import gemini.util.TelescopePosSelWatcher ;
+import gemini.util.TelescopePosWatcher ;
 
 /**
  * An extension of the TableWidget to support telescope target lists.
  */
 public class TelescopePosTableWidget extends TableWidgetExt implements TelescopePosWatcher , TelescopePosListWatcher , TelescopePosSelWatcher
 {
-	private Hashtable _posTable;
-	private SpTelescopePosList _tpl;
-	private boolean _coordSysInTable = false; // MFO (April 12, 2002)
+	private Hashtable _posTable ;
+	private SpTelescopePosList _tpl ;
+	private boolean _coordSysInTable = false ; // MFO (April 12, 2002)
 
 	/**
 	 * Default constructor.
 	 */
 	public TelescopePosTableWidget()
 	{
-		_posTable = new Hashtable();
+		_posTable = new Hashtable() ;
 
 		// If there are more then 2 systems (FK5/FK4) then display the system of a target in a separate column in the target list table.
 		if( ( OtCfg.telescopeUtil.getCoordSys() != null ) && ( OtCfg.telescopeUtil.getCoordSys().length > 2 ) )
-			_coordSysInTable = true;
+			_coordSysInTable = true ;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public void telescopePosLocationUpdate( TelescopePos tp )
 	{
-		telescopePosGenericUpdate( tp );
+		telescopePosGenericUpdate( tp ) ;
 	}
 
 	/**
@@ -63,10 +63,10 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 		if( !( tp instanceof SpTelescopePos ) )
 		{
 			// This shouldn't happen ...
-			System.out.println( getClass().getName() + ": received a position " + " update for a non SpTelescopePos position: " + tp );
-			return;
+			System.out.println( getClass().getName() + ": received a position " + " update for a non SpTelescopePos position: " + tp ) ;
+			return ;
 		}
-		_updatePos( ( SpTelescopePos )tp );
+		_updatePos( ( SpTelescopePos )tp ) ;
 	}
 
 	/**
@@ -77,24 +77,24 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 		if( ( _tpl != null ) && ( _tpl != tpl ) )
 		{
 			// Quit watching previous positions
-			_tpl.deleteWatcher( this );
-			_tpl.deleteSelWatcher( this );
+			_tpl.deleteWatcher( this ) ;
+			_tpl.deleteSelWatcher( this ) ;
 
-			Enumeration e = _posTable.elements();
+			Enumeration e = _posTable.elements() ;
 			while( e.hasMoreElements() )
 			{
-				SpTelescopePos tp = ( SpTelescopePos )e.nextElement();
-				tp.deleteWatcher( this );
+				SpTelescopePos tp = ( SpTelescopePos )e.nextElement() ;
+				tp.deleteWatcher( this ) ;
 			}
 		}
 
 		// Watch the new list, and add all of its positions at once
-		_tpl = tpl;
-		_tpl.addWatcher( this );
-		_tpl.addSelWatcher( this );
-		_insertAllPos( _tpl.getAllPositions() );
+		_tpl = tpl ;
+		_tpl.addWatcher( this ) ;
+		_tpl.addSelWatcher( this ) ;
+		_insertAllPos( _tpl.getAllPositions() ) ;
 
-		selectRowAt( 0 );
+		selectRowAt( 0 ) ;
 	}
 
 	/**
@@ -105,13 +105,13 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
+			return ;
 
-		int index = _tpl.getPositionIndex( tp );
+		int index = _tpl.getPositionIndex( tp ) ;
 		if( index == -1 )
-			return;
+			return ;
 
-		_selectRowAt( index , false );
+		_selectRowAt( index , false ) ;
 	}
 
 	/**
@@ -120,18 +120,18 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	public void posListReset( TelescopePosList tpl , TelescopePos[] newList )
 	{
 		if( tpl != _tpl )
-			return;
+			return ;
 
 		// Quit watching the old positions
-		Enumeration e = _posTable.elements();
+		Enumeration e = _posTable.elements() ;
 		while( e.hasMoreElements() )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )e.nextElement();
-			tp.deleteWatcher( this );
+			SpTelescopePos tp = ( SpTelescopePos )e.nextElement() ;
+			tp.deleteWatcher( this ) ;
 		}
 
-		_insertAllPos( newList );
-		selectRowAt( 0 );
+		_insertAllPos( newList ) ;
+		selectRowAt( 0 ) ;
 	}
 
 	/**
@@ -141,11 +141,11 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	{
 		if( tpl != _tpl )
 		{
-			System.out.println( "XXX TelescopePosTableWidget.posListReordered: tpl != _tpl" );
-			return;
+			System.out.println( "XXX TelescopePosTableWidget.posListReordered: tpl != _tpl" ) ;
+			return ;
 		}
-		_insertAllPos( newList );
-		selectPos( tp );
+		_insertAllPos( newList ) ;
+		selectPos( tp ) ;
 	}
 
 	/**
@@ -154,19 +154,19 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	public void posListAddedPosition( TelescopePosList tpl , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
+			return ;
 
 		// Add the row to the table
-		int i = tpl.getPositionIndex( tp );
-		Vector v = _createPosRow( ( SpTelescopePos )tp );
-		absInsertRowAt( v , i );
+		int i = tpl.getPositionIndex( tp ) ;
+		Vector v = _createPosRow( ( SpTelescopePos )tp ) ;
+		absInsertRowAt( v , i ) ;
 
 		// Add the position to the posTable and observe it.
-		_posTable.put( tp.getTag() , tp );
-		tp.addWatcher( this );
+		_posTable.put( tp.getTag() , tp ) ;
+		tp.addWatcher( this ) ;
 
 		// Select the new position
-		selectPos( tp );
+		selectPos( tp ) ;
 	}
 
 	/**
@@ -175,50 +175,50 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	public void posListRemovedPosition( TelescopePosList tpl , TelescopePos tp )
 	{
 		if( tpl != _tpl )
-			return;
+			return ;
 
 		// Find the position in the table
-		int index = -1;
+		int index = -1 ;
 		for( int i = 0 ; i < getRowCount() ; ++i )
 		{
-			String tag = ( String )getCell( 0 , i );
+			String tag = ( String )getCell( 0 , i ) ;
 			if( tp.getTag().equals( tag ) )
 			{
-				index = i;
-				break;
+				index = i ;
+				break ;
 			}
 		}
 		
 		if( index == -1 )
-			return;
+			return ;
 
 		// Get the currently selected row
-		int[] selA = getSelectedRowIndexes();
-		int sel = -1;
+		int[] selA = getSelectedRowIndexes() ;
+		int sel = -1 ;
 		if( selA.length != 0 )
-			sel = selA[ 0 ];
+			sel = selA[ 0 ] ;
 
 		// Remove the row
-		removeRowAt( index );
-		tp.deleteWatcher( this );
-		_posTable.remove( tp.getTag() );
+		removeRowAt( index ) ;
+		tp.deleteWatcher( this ) ;
+		_posTable.remove( tp.getTag() ) ;
 
 		// Select the correct position
-		int rc = getRowCount();
+		int rc = getRowCount() ;
 		if( rc <= 0 )
-			return;
+			return ;
 
 		if( sel == -1 )
 		{
-			selectRowAt( 0 );
+			selectRowAt( 0 ) ;
 		}
 		else
 		{
 			if( ( sel > index ) || ( sel == rc ) )
-				--sel;
+				--sel ;
 
 			if( sel >= 0 )
-				selectRowAt( sel );
+				selectRowAt( sel ) ;
 		}
 	}
 
@@ -226,112 +226,112 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	private Vector _createPosRow( SpTelescopePos tp )
 	{
-		Vector v = new Vector();
-		v.addElement( tp.getTag() );
-		v.addElement( tp.getName() );
+		Vector v = new Vector() ;
+		v.addElement( tp.getTag() ) ;
+		v.addElement( tp.getName() ) ;
 
 		if( tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL || tp.getTag().equals( "REFERENCE" ) )
 		{
 			if( tp.isOffsetPosition() )
 			{
-				v.addElement( "" + tp.getXaxisAsString() + " (\u2206)" );
-				v.addElement( "" + tp.getYaxisAsString() + " (\u2206)" );
+				v.addElement( "" + tp.getXaxisAsString() + " (\u2206)" ) ;
+				v.addElement( "" + tp.getYaxisAsString() + " (\u2206)" ) ;
 			}
 			else
 			{
-				v.addElement( tp.getXaxisAsString() );
-				v.addElement( tp.getYaxisAsString() );
+				v.addElement( tp.getXaxisAsString() ) ;
+				v.addElement( tp.getYaxisAsString() ) ;
 			}
 		}
 		else
 		{
-			v.addElement( "  - - -" );
-			v.addElement( "  - - -" );
+			v.addElement( "  - - -" ) ;
+			v.addElement( "  - - -" ) ;
 		}
 
 		if( tp.getTag().equals( "REFERENCE" ) )
 		{
-			v.addElement( tp.getCoordSysAsString() );
+			v.addElement( tp.getCoordSysAsString() ) ;
 		}
 		else if( _coordSysInTable )
 		{
 			switch( tp.getSystemType() )
 			{
 				case SpTelescopePos.SYSTEM_CONIC :
-					v.addElement( "Orb. Elem." );
-					break;
+					v.addElement( "Orb. Elem." ) ;
+					break ;
 				case SpTelescopePos.SYSTEM_NAMED :
-					v.addElement( "Planets etc." );
-					break;
+					v.addElement( "Planets etc." ) ;
+					break ;
 				case SpTelescopePos.SYSTEM_SPHERICAL :
-					v.addElement( tp.getCoordSysAsString() );
-					break;
+					v.addElement( tp.getCoordSysAsString() ) ;
+					break ;
 			}
 		}
-		return v;
+		return v ;
 	}
 
 	/**
 	 */
 	private void _insertPos( SpTelescopePos tp , int rowIndex )
 	{
-		Vector v = _createPosRow( tp );
-		absInsertRowAt( v , rowIndex );
-		_posTable.put( tp.getTag() , tp );
+		Vector v = _createPosRow( tp ) ;
+		absInsertRowAt( v , rowIndex ) ;
+		_posTable.put( tp.getTag() , tp ) ;
 	}
 
 	/**
 	 */
 	private void _insertAllPos( TelescopePos[] tpA )
 	{
-		Vector[] dataV = new Vector[ tpA.length ];
+		Vector[] dataV = new Vector[ tpA.length ] ;
 
-		_posTable.clear();
+		_posTable.clear() ;
 		for( int i = 0 ; i < tpA.length ; ++i )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )tpA[ i ];
-			tp.addWatcher( this );
-			_posTable.put( tp.getTag() , tp );
-			dataV[ i ] = _createPosRow( tp );
+			SpTelescopePos tp = ( SpTelescopePos )tpA[ i ] ;
+			tp.addWatcher( this ) ;
+			_posTable.put( tp.getTag() , tp ) ;
+			dataV[ i ] = _createPosRow( tp ) ;
 		}
-		setRows( dataV );
+		setRows( dataV ) ;
 	}
 
 	/**
 	 */
 	private void _updatePos( SpTelescopePos tp )
 	{
-		int index = findPosIndex( tp.getTag() );
+		int index = findPosIndex( tp.getTag() ) ;
 		if( index == -1 )
-			return;
+			return ;
 
-		Vector v = _createPosRow( tp );
+		Vector v = _createPosRow( tp ) ;
 
-		setCell( ( String )v.elementAt( 0 ) , 0 , index );
-		setCell( ( String )v.elementAt( 1 ) , 1 , index );
-		setCell( ( String )v.elementAt( 2 ) , 2 , index );
-		setCell( ( String )v.elementAt( 3 ) , 3 , index );
+		setCell( ( String )v.elementAt( 0 ) , 0 , index ) ;
+		setCell( ( String )v.elementAt( 1 ) , 1 , index ) ;
+		setCell( ( String )v.elementAt( 2 ) , 2 , index ) ;
+		setCell( ( String )v.elementAt( 3 ) , 3 , index ) ;
 
 		if( _coordSysInTable )
-			setCell( ( String )v.elementAt( 4 ) , 4 , index );
+			setCell( ( String )v.elementAt( 4 ) , 4 , index ) ;
 	}
 
 	/**
 	 */
 	private void _removePos( String tag )
 	{
-		SpTelescopePos tp = ( SpTelescopePos )_posTable.get( tag );
+		SpTelescopePos tp = ( SpTelescopePos )_posTable.get( tag ) ;
 		if( tp != null )
 		{
-			_posTable.remove( tag );
+			_posTable.remove( tag ) ;
 	
 			for( int i = 0 ; i < getRowCount() ; ++i )
 			{
-				String curTag = ( String )getCell( 0 , i );
+				String curTag = ( String )getCell( 0 , i ) ;
 				if( tag.equals( curTag ) )
 				{
-					removeRowAt( i );
-					break;
+					removeRowAt( i ) ;
+					break ;
 				}
 			}
 		}
@@ -341,8 +341,8 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	private void _removeAllPos()
 	{
-		_posTable.clear();
-		removeAllRows();
+		_posTable.clear() ;
+		removeAllRows() ;
 	}
 
 	/**
@@ -350,12 +350,12 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public SpTelescopePos getSelectedPos()
 	{
-		int[] rows = getSelectedRowIndexes();
+		int[] rows = getSelectedRowIndexes() ;
 		if( rows.length == 0 )
-			return null;
+			return null ;
 
-		String tag = ( String )getCell( 0 , rows[ 0 ] );
-		return ( SpTelescopePos )_posTable.get( tag );
+		String tag = ( String )getCell( 0 , rows[ 0 ] ) ;
+		return ( SpTelescopePos )_posTable.get( tag ) ;
 	}
 
 	/**
@@ -363,17 +363,17 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public int findPosIndex( String tag )
 	{
-		int index = -1;
+		int index = -1 ;
 		for( int i = 0 ; i < getRowCount() ; ++i )
 		{
-			String s = ( String )getCell( 0 , i );
+			String s = ( String )getCell( 0 , i ) ;
 			if( s.equals( tag ) )
 			{
-				index = i;
-				break;
+				index = i ;
+				break ;
 			}
 		}
-		return index;
+		return index ;
 	}
 
 	/**
@@ -381,7 +381,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public SpTelescopePos getPos( String tag )
 	{
-		return ( SpTelescopePos )_posTable.get( tag );
+		return ( SpTelescopePos )_posTable.get( tag ) ;
 	}
 
 	private void _selectRowAt( int index , boolean selectPos )
@@ -391,17 +391,17 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 			// Select the TelescopePos at this row
 			if( selectPos && ( _tpl != null ) )
 			{
-				TelescopePos tp = _tpl.getPositionAt( index );
+				TelescopePos tp = _tpl.getPositionAt( index ) ;
 				if( tp != null )
 				{
-					_tpl.deleteSelWatcher( this );
-					tp.select();
-					_tpl.addSelWatcher( this );
+					_tpl.deleteSelWatcher( this ) ;
+					tp.select() ;
+					_tpl.addSelWatcher( this ) ;
 				}
 			}
 	
-			super.selectRowAt( index );
-			focusAtRow( index );
+			super.selectRowAt( index ) ;
+			focusAtRow( index ) ;
 		}
 	}
 
@@ -410,7 +410,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public void selectRowAt( int index )
 	{
-		_selectRowAt( index , true );
+		_selectRowAt( index , true ) ;
 	}
 
 	/**
@@ -418,12 +418,12 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public boolean selectPos( String tag )
 	{
-		int index = findPosIndex( tag );
+		int index = findPosIndex( tag ) ;
 		if( index == -1 )
-			return false;
+			return false ;
 
-		selectRowAt( index );
-		return true;
+		selectRowAt( index ) ;
+		return true ;
 	}
 
 	/**
@@ -431,23 +431,23 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public boolean selectPos( TelescopePos tp )
 	{
-		return selectPos( tp.getTag() );
+		return selectPos( tp.getTag() ) ;
 	}
 
 	/**
 	 */
 	public String toString()
 	{
-		String head = getClass().getName() + "[\n";
-		String body = "";
+		String head = getClass().getName() + "[\n" ;
+		String body = "" ;
 		for( int row = 0 ; row < getRowCount() ; ++row )
 		{
 			for( int col = 0 ; col < getColumnCount() ; ++col )
-				body += "\t" + ( String )getCell( col , row );
+				body += "\t" + ( String )getCell( col , row ) ;
 
-			body += "\n";
+			body += "\n" ;
 		}
-		body += "]";
-		return head + body;
+		body += "]" ;
+		return head + body ;
 	}
 }

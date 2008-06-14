@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 /**
  * Interface implemented by clients of the BasicPropertyList that
@@ -13,5 +13,5 @@ package jsky.app.ot.util;
 public interface PropertyWatcher
 {
 	/** The named property changed. */
-	public void propertyChange( String propertyName );
+	public void propertyChange( String propertyName ) ;
 }

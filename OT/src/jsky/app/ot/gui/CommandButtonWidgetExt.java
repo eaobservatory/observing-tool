@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.Font ;
 import java.awt.FontMetrics ;
@@ -18,8 +18,8 @@ import javax.swing.JButton ;
 import javax.swing.ImageIcon ;
 import javax.swing.Icon ;
 import javax.swing.JFrame ;
-import javax.swing.border.BevelBorder;
-import jsky.util.gui.BasicWindowMonitor;
+import javax.swing.border.BevelBorder ;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * A "description" property is added.  It serves the same purpose as
@@ -31,8 +31,8 @@ import jsky.util.gui.BasicWindowMonitor;
  */
 public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget , ActionListener
 {
-	private final static int _PADX = 2;
-	private final static int _PADY = 2;
+	private final static int _PADX = 2 ;
+	private final static int _PADY = 2 ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -40,51 +40,51 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	// The list of watchers.
-	private Vector _watchers = new Vector();
+	private Vector<CommandButtonWidgetWatcher> _watchers = new Vector<CommandButtonWidgetWatcher>() ;
 
 	/** The default constructor. */
 	public CommandButtonWidgetExt()
 	{
-		super();
-		init();
+		super() ;
+		init() ;
 	}
 
 	/** Constructor with label. */
 	public CommandButtonWidgetExt( String label )
 	{
-		super( label );
-		init();
+		super( label ) ;
+		init() ;
 	}
 
 	/** Constructor with icon. */
 	public CommandButtonWidgetExt( ImageIcon icon )
 	{
-		super( icon );
-		init();
+		super( icon ) ;
+		init() ;
 	}
 
 	/** Constructor with label and mode (mode ignored here). */
 	public CommandButtonWidgetExt( String label , int mode )
 	{
-		super( label );
-		init();
+		super( label ) ;
+		init() ;
 	}
 
 	/** Initialize the button */
 	protected void init()
 	{
-		addActionListener( this );
+		addActionListener( this ) ;
 
-		setFont( getFont().deriveFont( Font.PLAIN ) );
+		setFont( getFont().deriveFont( Font.PLAIN ) ) ;
 	}
 
 	/** Override parent class so that image buttons are raised */
 	public void setIcon( Icon defaultIcon )
 	{
-		super.setIcon( defaultIcon );
+		super.setIcon( defaultIcon ) ;
 
 		// make image buttons raised
 		addMouseListener( new MouseAdapter()
@@ -92,23 +92,23 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 			public void mousePressed( MouseEvent e )
 			{
 				if( isEnabled() )
-					setBorder( new BevelBorder( BevelBorder.LOWERED ) );
+					setBorder( new BevelBorder( BevelBorder.LOWERED ) ) ;
 			}
 
 			public void mouseReleased( MouseEvent e )
 			{
 				if( isEnabled() )
-					setBorder( new BevelBorder( BevelBorder.RAISED ) );
+					setBorder( new BevelBorder( BevelBorder.RAISED ) ) ;
 			}
-		} );
-		setFocusPainted( false );
-		setBorder( new BevelBorder( BevelBorder.RAISED ) );
+		} ) ;
+		setFocusPainted( false ) ;
+		setBorder( new BevelBorder( BevelBorder.RAISED ) ) ;
 	}
 
 	/** Called when the button is pressed */
 	public void actionPerformed( ActionEvent ae )
 	{
-		action();
+		action() ;
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	public synchronized final void addWatcher( CommandButtonWidgetWatcher watcher )
 	{
 		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher );
+			_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatcher( CommandButtonWidgetWatcher watcher )
 	{
-		_watchers.removeElement( watcher );
+		_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -159,7 +159,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	//
 	private synchronized final Vector _getWatchers()
 	{
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -167,13 +167,13 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public void action()
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			CommandButtonWidgetWatcher watcher;
-			watcher = ( CommandButtonWidgetWatcher )v.elementAt( i );
-			watcher.commandButtonAction( this );
+			CommandButtonWidgetWatcher watcher ;
+			watcher = ( CommandButtonWidgetWatcher )v.elementAt( i ) ;
+			watcher.commandButtonAction( this ) ;
 		}
 	}
 
@@ -182,49 +182,49 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public void resizeToContent()
 	{
-		int imgW = 0 , imgH = 0 , labW = 0 , labH = 0;
-		boolean havePic = false , haveText = false;
+		int imgW = 0 , imgH = 0 , labW = 0 , labH = 0 ;
+		boolean havePic = false , haveText = false ;
 
 		if( getIcon() != null )
 		{
-			imgW = Math.max( getIcon().getIconWidth() , 0 );
-			imgH = Math.max( getIcon().getIconHeight() , 0 );
-			havePic = true;
+			imgW = Math.max( getIcon().getIconWidth() , 0 ) ;
+			imgH = Math.max( getIcon().getIconHeight() , 0 ) ;
+			havePic = true ;
 		}
 
 		if( ( getText() != null ) && ( !getText().equals( "" ) ) )
 		{
-			FontMetrics fm = getFontMetrics( getFont() );
-			labW = fm.stringWidth( getText() );
-			labH = fm.getHeight();
-			haveText = true;
+			FontMetrics fm = getFontMetrics( getFont() ) ;
+			labW = fm.stringWidth( getText() ) ;
+			labH = fm.getHeight() ;
+			haveText = true ;
 		}
 
-		int w = 0 , h = 0;
+		int w = 0 , h = 0 ;
 
 		if( havePic && !haveText )
 		{
-			w = imgW;
-			h = imgH;
+			w = imgW ;
+			h = imgH ;
 		}
 		else if( havePic && haveText )
 		{
-			w = Math.max( imgW , labW );
+			w = Math.max( imgW , labW ) ;
 			if( imgH > 0 )
-				h = imgH + _PADY + labH;
+				h = imgH + _PADY + labH ;
 			else
-				h = labH;
+				h = labH ;
 		}
 		else
 		{
-			w = labW;
-			h = labH;
+			w = labW ;
+			h = labH ;
 		}
 
-		w += _PADX + _PADX;
-		h += _PADY + _PADY;
+		w += _PADX + _PADX ;
+		h += _PADY + _PADY ;
 
-		setPreferredSize( new Dimension( w , h ) );
+		setPreferredSize( new Dimension( w , h ) ) ;
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	public void press()
 	{
 		if( isEnabled() )
-			doClick();
+			doClick() ;
 	}
 
 	/**
@@ -244,20 +244,20 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "CommandButtonWidgetExt" );
+		JFrame frame = new JFrame( "CommandButtonWidgetExt" ) ;
 
-		CommandButtonWidgetExt button = new CommandButtonWidgetExt( "Push Me" );
+		CommandButtonWidgetExt button = new CommandButtonWidgetExt( "Push Me" ) ;
 		button.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
 			{
-				System.out.println( "OK" );
+				System.out.println( "OK" ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , button );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , button ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

@@ -5,13 +5,13 @@
  * $Id$
  */
 
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.navigator.NavigatorImageDisplayFrame;
-import jsky.image.gui.DivaMainImageDisplay;
-import jsky.image.gui.ImageDisplayMenuBar;
-import jsky.image.gui.ImageDisplayControl;
-import jsky.image.gui.ImageDisplayToolBar;
+import jsky.navigator.NavigatorImageDisplayFrame ;
+import jsky.image.gui.DivaMainImageDisplay ;
+import jsky.image.gui.ImageDisplayMenuBar ;
+import jsky.image.gui.ImageDisplayControl ;
+import jsky.image.gui.ImageDisplayToolBar ;
 
 /**
  * Extends NavigatorImageDisplayFrame to add OT/TPE specific features.
@@ -22,7 +22,7 @@ import jsky.image.gui.ImageDisplayToolBar;
 public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 {
 	/** Tool bar with Tpe specific commands */
-	TelescopePosEditorToolBar tpeToolBar;
+	TelescopePosEditorToolBar tpeToolBar ;
 
 	/**
 	 * Create a top level window containing an ImageDisplayControl panel.
@@ -31,7 +31,7 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	 */
 	public TpeImageDisplayFrame( int size )
 	{
-		super( size );
+		super( size ) ;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	 */
 	public TpeImageDisplayFrame()
 	{
-		super();
+		super() ;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	 */
 	public TpeImageDisplayFrame( int size , String fileOrUrl )
 	{
-		super( size , fileOrUrl );
+		super( size , fileOrUrl ) ;
 	}
 
 	/**
@@ -61,13 +61,13 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	 */
 	public TpeImageDisplayFrame( String fileOrUrl )
 	{
-		super( fileOrUrl );
+		super( fileOrUrl ) ;
 	}
 
 	/** Make and return the menubar */
 	protected ImageDisplayMenuBar makeMenuBar( DivaMainImageDisplay main , ImageDisplayToolBar toolBar )
 	{
-		return new TpeImageDisplayMenuBar( main , toolBar );
+		return new TpeImageDisplayMenuBar( main , toolBar ) ;
 	}
 
 	/**
@@ -77,32 +77,32 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 	 */
 	protected ImageDisplayControl makeImageDisplayControl( int size )
 	{
-		return new TpeImageDisplayControl( this , /*statusPanel,*/size );
+		return new TpeImageDisplayControl( this , /*statusPanel,*/size ) ;
 	}
 
 	/** Make and return the toolbar */
 	protected ImageDisplayToolBar makeToolBar( DivaMainImageDisplay mainImageDisplay )
 	{
 		// add the Tpe tool bar while we are at it...
-		addTpeToolBar();
+		addTpeToolBar() ;
 
 		// Dragging can cause problems with two tool bars...
-		ImageDisplayToolBar toolBar = super.makeToolBar( mainImageDisplay );
-		toolBar.setFloatable( false );
-		return toolBar;
+		ImageDisplayToolBar toolBar = super.makeToolBar( mainImageDisplay ) ;
+		toolBar.setFloatable( false ) ;
+		return toolBar ;
 	}
 
 	/** Add a tool bar for OT/TPE specific operations. */
 	protected void addTpeToolBar()
 	{
-		TpeImageWidget imageDisplay = ( TpeImageWidget )imageDisplayControl.getImageDisplay();
-		tpeToolBar = new TelescopePosEditorToolBar( imageDisplay );
-		add( "West" , tpeToolBar );
+		TpeImageWidget imageDisplay = ( TpeImageWidget )imageDisplayControl.getImageDisplay() ;
+		tpeToolBar = new TelescopePosEditorToolBar( imageDisplay ) ;
+		add( "West" , tpeToolBar ) ;
 	}
 
 	/** Return the Tool bar with OT/TPE specific commands */
 	TelescopePosEditorToolBar getTpeToolBar()
 	{
-		return tpeToolBar;
+		return tpeToolBar ;
 	}
 }

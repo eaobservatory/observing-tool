@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 /**
  * An interface used by clients interested in knowing about property
@@ -13,5 +13,5 @@ package jsky.app.ot.util;
 public interface AppPropertyWatcher
 {
 	/** The given property has the given new value. */
-	public void propertyChange( String property , String value );
+	public void propertyChange( String property , String value ) ;
 }

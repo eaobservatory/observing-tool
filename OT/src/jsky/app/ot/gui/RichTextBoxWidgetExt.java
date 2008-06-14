@@ -4,11 +4,11 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
-import javax.swing.JTextArea;
-import java.awt.event.KeyEvent;
+import java.util.Vector ;
+import javax.swing.JTextArea ;
+import java.awt.event.KeyEvent ;
 
 /**
  * A RichTextBoxWidget extension that supports listeners on its
@@ -22,7 +22,7 @@ import java.awt.event.KeyEvent;
 public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 {
 	// The observers
-	private Vector _watchers = new Vector();
+	private Vector<KeyPressWatcher> _watchers = new Vector<KeyPressWatcher>() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -30,13 +30,13 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default Constructor */
 	public RichTextBoxWidgetExt()
 	{
-		setLineWrap( true );
-		setWrapStyleWord( true );
+		setLineWrap( true ) ;
+		setWrapStyleWord( true ) ;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	public synchronized final void addWatcher( KeyPressWatcher kpw )
 	{
 		if( !_watchers.contains( kpw ) )
-			_watchers.addElement( kpw );
+			_watchers.addElement( kpw ) ;
 	}
 
 	/**
@@ -73,14 +73,14 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatcher( KeyPressWatcher kpw )
 	{
-		_watchers.removeElement( kpw );
+		_watchers.removeElement( kpw ) ;
 	}
 
 	/** Override base class version to intercept key events and notify watchers */
 	protected void processKeyEvent( KeyEvent e )
 	{
-		super.processKeyEvent( e );
-		_notifyKeyPress( e );
+		super.processKeyEvent( e ) ;
+		_notifyKeyPress( e ) ;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -96,16 +96,16 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	//
 	private void _notifyKeyPress( KeyEvent evt )
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			KeyPressWatcher kpw = ( KeyPressWatcher )v.elementAt( i );
-			kpw.keyPressed( evt );
+			KeyPressWatcher kpw = ( KeyPressWatcher )v.elementAt( i ) ;
+			kpw.keyPressed( evt ) ;
 		}
 	}
 }

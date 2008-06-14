@@ -4,19 +4,19 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableColumnModelEvent;
-import javax.swing.event.TableColumnModelListener;
-import javax.swing.table.DefaultTableModel;
-import jsky.util.gui.BasicWindowMonitor;
+import java.util.Vector ;
+import javax.swing.JFrame ;
+import javax.swing.JScrollPane ;
+import javax.swing.ListSelectionModel ;
+import javax.swing.event.ChangeEvent ;
+import javax.swing.event.ListSelectionEvent ;
+import javax.swing.event.ListSelectionListener ;
+import javax.swing.event.TableColumnModelEvent ;
+import javax.swing.event.TableColumnModelListener ;
+import javax.swing.table.DefaultTableModel ;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * A TableWidget subclass that supports selection of individual cells
@@ -31,19 +31,19 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
-	private Vector _watchers = new Vector();
+	public String description ;
+	private Vector<CellSelectTableWatcher> _watchers = new Vector<CellSelectTableWatcher>() ;
 
 	/**
 	 * Construct the CellSelectTableWidget, setting the selectMode to NONE.
 	 */
 	public CellSelectTableWidget()
 	{
-		setRowSelectionAllowed( true );
-		setColumnSelectionAllowed( true );
-		setCellSelectionEnabled( true );
-		setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		setShowHorizontalLines( true );
+		setRowSelectionAllowed( true ) ;
+		setColumnSelectionAllowed( true ) ;
+		setCellSelectionEnabled( true ) ;
+		setSelectionMode( ListSelectionModel.SINGLE_SELECTION ) ;
+		setShowHorizontalLines( true ) ;
 
 		// track row selections
 		getSelectionModel().addListSelectionListener( new ListSelectionListener()
@@ -52,19 +52,19 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 			{
 				if( !e.getValueIsAdjusting() )
 				{
-					int col = getSelectedColumn();
-					int row = getSelectionModel().getLeadSelectionIndex();
-					cellSelected( col , row );
+					int col = getSelectedColumn() ;
+					int row = getSelectionModel().getLeadSelectionIndex() ;
+					cellSelected( col , row ) ;
 				}
 			}
-		} );
+		} ) ;
 
 		// track column selections
 		getColumnModel().addColumnModelListener( new TableColumnModelListener()
 		{
 			public void columnAdded( TableColumnModelEvent e )
 			{
-				selectCell( e.getToIndex() , getSelectionModel().getLeadSelectionIndex() );
+				selectCell( e.getToIndex() , getSelectionModel().getLeadSelectionIndex() ) ;
 			}
 
 			public void columnRemoved( TableColumnModelEvent e ){}
@@ -77,12 +77,12 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 			{
 				if( !e.getValueIsAdjusting() )
 				{
-					int col = getColumnModel().getSelectionModel().getLeadSelectionIndex();
-					int row = getSelectedRow();
-					cellSelected( col , row );
+					int col = getColumnModel().getSelectionModel().getLeadSelectionIndex() ;
+					int row = getSelectedRow() ;
+					cellSelected( col , row ) ;
 				}
 			}
-		} );
+		} ) ;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public boolean getRowLine()
 	{
-		return getShowHorizontalLines();
+		return getShowHorizontalLines() ;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public void setRowLine( boolean rowLine )
 	{
-		setShowHorizontalLines( rowLine );
+		setShowHorizontalLines( rowLine ) ;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public boolean getRowHighlight()
 	{
-		return getRowSelectionAllowed();
+		return getRowSelectionAllowed() ;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public void setRowHighlight( boolean rowHighlight )
 	{
-		setRowSelectionAllowed( rowHighlight );
+		setRowSelectionAllowed( rowHighlight ) ;
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public void focusAtCell( int colIndex , int rowIndex )
 	{
-		selectCell( colIndex , rowIndex );
+		selectCell( colIndex , rowIndex ) ;
 	}
 
 	/**
@@ -149,10 +149,10 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	public void selectCell( int colIndex , int rowIndex )
 	{
 		if( ( colIndex < 0 ) || ( colIndex >= getModel().getColumnCount() ) )
-			return;
+			return ;
 		if( ( rowIndex < 0 ) || ( rowIndex >= getModel().getRowCount() ) )
-			return;
-		changeSelection( rowIndex , colIndex , false , false );
+			return ;
+		changeSelection( rowIndex , colIndex , false , false ) ;
 	}
 
 	/**
@@ -161,10 +161,10 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public int[] getSelectedCoordinates()
 	{
-		int colIndex = getSelectedColumn();
-		int rowIndex = getSelectedRow();
-		int[] c = { colIndex , rowIndex };
-		return c;
+		int colIndex = getSelectedColumn() ;
+		int rowIndex = getSelectedRow() ;
+		int[] c = { colIndex , rowIndex } ;
+		return c ;
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public Object getSelectedCell()
 	{
-		return getValueAt( getSelectedRow() , getSelectedColumn() );
+		return getValueAt( getSelectedRow() , getSelectedColumn() ) ;
 	}
 
 	/**
@@ -180,25 +180,25 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public void setSelectedCell( Object item )
 	{
-		int selectedCol = getSelectedColumn();
-		int selectedRow = getSelectedRow();
+		int selectedCol = getSelectedColumn() ;
+		int selectedRow = getSelectedRow() ;
 		if( ( selectedCol != -1 ) && ( selectedRow != -1 ) )
-			getModel().setValueAt( item , selectedRow , selectedCol );
+			getModel().setValueAt( item , selectedRow , selectedCol ) ;
 	}
 
 	/** Add an empty row to the table */
 	public void addRow()
 	{
-		DefaultTableModel model = getModel();
-		Vector v = new Vector( model.getColumnCount() );
-		model.addRow( v );
+		DefaultTableModel model = getModel() ;
+		Vector v = new Vector( model.getColumnCount() ) ;
+		model.addRow( v ) ;
 	}
 
 	/** Append an empty column to this table. */
 	public void addColumn( String header , int width )
 	{
-		getModel().addColumn( header );
-		getColumn( header ).setPreferredWidth( width );
+		getModel().addColumn( header ) ;
+		getColumn( header ).setPreferredWidth( width ) ;
 	}
 
 	/**
@@ -207,22 +207,22 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	public void cellSelected( int colIndex , int rowIndex )
 	{
 		if( ( colIndex < 0 ) || ( colIndex >= getModel().getColumnCount() ) )
-			return;
+			return ;
 		if( ( rowIndex < 0 ) || ( rowIndex >= getModel().getRowCount() ) )
-			return;
+			return ;
 
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			CellSelectTableWatcher cstw;
-			cstw = ( CellSelectTableWatcher )v.elementAt( i );
-			cstw.cellSelected( this , colIndex , rowIndex );
+			CellSelectTableWatcher cstw ;
+			cstw = ( CellSelectTableWatcher )v.elementAt( i ) ;
+			cstw.cellSelected( this , colIndex , rowIndex ) ;
 		}
 	}
 
@@ -232,7 +232,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	public synchronized final void addWatcher( CellSelectTableWatcher cstw )
 	{
 		if( !_watchers.contains( cstw ) )
-			_watchers.addElement( cstw );
+			_watchers.addElement( cstw ) ;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public synchronized final void deleteWatcher( CellSelectTableWatcher cstw )
 	{
-		_watchers.removeElement( cstw );
+		_watchers.removeElement( cstw ) ;
 	}
 
 	/**
@@ -248,7 +248,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -256,30 +256,30 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "CellSelectTableWidget" );
+		JFrame frame = new JFrame( "CellSelectTableWidget" ) ;
 
-		CellSelectTableWidget table = new CellSelectTableWidget();
-		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" };
-		table.setColumnHeaders( headers );
-		Vector[] v = new Vector[ 5 ];
+		CellSelectTableWidget table = new CellSelectTableWidget() ;
+		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" } ;
+		table.setColumnHeaders( headers ) ;
+		Vector[] v = new Vector[ 5 ] ;
 		for( int i = 0 ; i < v.length ; i++ )
 		{
-			v[ i ] = new Vector( 4 );
+			v[ i ] = new Vector( 4 ) ;
 			for( int j = 0 ; j < headers.length ; j++ )
-				v[ i ].add( "cell " + i + ", " + j );
+				v[ i ].add( "cell " + i + ", " + j ) ;
 		}
-		table.setRows( v );
+		table.setRows( v ) ;
 		table.addWatcher( new CellSelectTableWatcher()
 		{
 			public void cellSelected( CellSelectTableWidget w , int colIndex , int rowIndex )
 			{
-				System.out.println( "tableCellSelected: " + rowIndex + ", " + colIndex );
+				System.out.println( "tableCellSelected: " + rowIndex + ", " + colIndex ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , new JScrollPane( table ) );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , new JScrollPane( table ) ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

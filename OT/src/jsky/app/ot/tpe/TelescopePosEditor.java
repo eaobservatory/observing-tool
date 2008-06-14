@@ -5,41 +5,41 @@
  * $Id$
  */
 
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-import java.net.URL;
-import java.util.Vector;
-import java.util.Hashtable;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import jsky.app.jskycat.JSkyCat;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
-import jsky.app.ot.gui.image.ViewportImageWidget;
-import jsky.app.ot.gui.image.ViewportMouseEvent;
-import jsky.app.ot.gui.image.ViewportMouseObserver;
-import gemini.util.CoordSys;
-import gemini.sp.SpHierarchyChangeObserver;
-import gemini.sp.SpItem;
-import gemini.sp.SpObsContextItem;
-import gemini.sp.SpTelescopePos;
-import gemini.sp.SpTelescopePosList;
-import gemini.sp.SpTreeMan;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
-import jsky.app.ot.tpe.feat.TpeCatalogFeature;
-import jsky.app.ot.util.BasicPropertyList;
-import jsky.catalog.skycat.SkycatConfigFile;
-import jsky.navigator.NavigatorImageDisplayFrame;
-import jsky.navigator.NavigatorImageDisplayInternalFrame;
-import jsky.util.Preferences;
-import jsky.util.TclUtil;
-import jsky.util.gui.DialogUtil;
-import jsky.coords.wcscon;
+import java.awt.Component ;
+import java.awt.event.MouseEvent ;
+import java.awt.geom.Point2D ;
+import java.net.URL ;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import javax.swing.JDesktopPane ;
+import javax.swing.JFrame ;
+import javax.swing.JInternalFrame ;
+import jsky.app.jskycat.JSkyCat ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
+import jsky.app.ot.gui.image.ViewportImageWidget ;
+import jsky.app.ot.gui.image.ViewportMouseEvent ;
+import jsky.app.ot.gui.image.ViewportMouseObserver ;
+import gemini.util.CoordSys ;
+import gemini.sp.SpHierarchyChangeObserver ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpObsContextItem ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTelescopePosList ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.obsComp.SpSurveyObsComp ;
+import jsky.app.ot.tpe.feat.TpeCatalogFeature ;
+import jsky.app.ot.util.BasicPropertyList ;
+import jsky.catalog.skycat.SkycatConfigFile ;
+import jsky.navigator.NavigatorImageDisplayFrame ;
+import jsky.navigator.NavigatorImageDisplayInternalFrame ;
+import jsky.util.Preferences ;
+import jsky.util.TclUtil ;
+import jsky.util.gui.DialogUtil ;
+import jsky.coords.wcscon ;
 
 /**
  * Implements a telescope position editor for the Gemini telescope
@@ -55,57 +55,57 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 
 	// Lists of fully qualified image feature class names.  
 	// These are instantiated when a new TelescopePosEditor is created.
-	private static Vector _targetListFeatureClasses = new Vector();
-	private static Vector _instrumentFeatureClasses = new Vector();
-	private static Vector _otherFeatureClasses = new Vector();
-	private static final String BLANK_IMAGE = "Blank Image";
-	public static final String ANY_SERVER = "any";
-	public static final String FILE_IMAGE = "file";
-	private TpeImageFeature BASE_FEATURE;
-	private TpeImageFeature CATALOG_FEATURE;
-	private Vector _targetListFeatures = new Vector();
-	private Vector _instrumentFeatures = new Vector();
-	private SpTelescopePosList _posList;
-	private SpItem _spItem;
-	private SpObsContextItem _spContext;
+	private static Vector<String> _targetListFeatureClasses = new Vector<String>() ;
+	private static Vector<String> _instrumentFeatureClasses = new Vector<String>() ;
+	private static Vector<String> _otherFeatureClasses = new Vector<String>() ;
+	private static final String BLANK_IMAGE = "Blank Image" ;
+	public static final String ANY_SERVER = "any" ;
+	public static final String FILE_IMAGE = "file" ;
+	private TpeImageFeature BASE_FEATURE ;
+	private TpeImageFeature CATALOG_FEATURE ;
+	private Vector _targetListFeatures = new Vector() ;
+	private Vector _instrumentFeatures = new Vector() ;
+	private SpTelescopePosList _posList ;
+	private SpItem _spItem ;
+	private SpObsContextItem _spContext ;
 
 	// TpeWatchers
-	private Vector _watchers;
+	private Vector<TpeWatcher> _watchers ;
 
 	// The imaeg widget
-	private TpeImageWidget _iw;
-	private boolean _targetWidgetsOff = false;
-	private boolean _instWidgetsOff = false;
+	private TpeImageWidget _iw ;
+	private boolean _targetWidgetsOff = false ;
+	private boolean _instWidgetsOff = false ;
 
 	// Tool button helper
-	private TpeEditorTools _editorTools;
-	private TpeFeatureManager _featureMan;
-	private Hashtable _featureVisibleState = new Hashtable();
+	private TpeEditorTools _editorTools ;
+	private TpeFeatureManager _featureMan ;
+	private Hashtable<String,Boolean> _featureVisibleState = new Hashtable<String,Boolean>() ;
 
 	// image frame toolbar (on the side with toggle buttons)
-	private TelescopePosEditorToolBar _tpeToolBar;
+	private TelescopePosEditorToolBar _tpeToolBar ;
 
 	// image frame menubar
-	private TpeImageDisplayMenuBar _tpeMenuBar;
+	private TpeImageDisplayMenuBar _tpeMenuBar ;
 
 	/** Used in {@link #loadImage(java.lang.String)}. */
-	private Point2D.Double _convertedPosition = new Point2D.Double();
+	private Point2D.Double _convertedPosition = new Point2D.Double() ;
 
-	private static int _widthIncrement = 0;
+	private static int _widthIncrement = 0 ;
 
 	static
 	{
 		// Register the standard target list features.
 
-		registerTargetListFeature( "jsky.app.ot.tpe.feat.TpeBasePosFeature" );
-		registerTargetListFeature( "jsky.app.ot.tpe.feat.TpeGuidePosFeature" );
-		registerInstrumentFeature( "jsky.app.ot.tpe.feat.TpeSciAreaFeature" );
-		registerFeature( "jsky.app.ot.tpe.feat.TpeCatalogFeature" );
+		registerTargetListFeature( "jsky.app.ot.tpe.feat.TpeBasePosFeature" ) ;
+		registerTargetListFeature( "jsky.app.ot.tpe.feat.TpeGuidePosFeature" ) ;
+		registerInstrumentFeature( "jsky.app.ot.tpe.feat.TpeSciAreaFeature" ) ;
+		registerFeature( "jsky.app.ot.tpe.feat.TpeCatalogFeature" ) ;
 
 		// Set the default catalog config file URL (override with -Djsky.catalog.skycat.config=...)
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-		URL url = classLoader.getResource( "jsky/app/ot/cfg/skycat.cfg" );
-		SkycatConfigFile.setConfigFile( url );
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader() ;
+		URL url = classLoader.getResource( "jsky/app/ot/cfg/skycat.cfg" ) ;
+		SkycatConfigFile.setConfigFile( url ) ;
 	}
 
 	/**
@@ -118,62 +118,62 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public TelescopePosEditor( String imageFileOrUrl , boolean internalFrames , boolean showNavigator )
 	{
-		super( imageFileOrUrl , internalFrames , showNavigator );
+		super( imageFileOrUrl , internalFrames , showNavigator ) ;
 
 		// get the TPE toolbar handle
-		Component parent = _iw.getParentFrame();
+		Component parent = _iw.getParentFrame() ;
 		if( parent instanceof TpeImageDisplayFrame )
 		{
-			_tpeToolBar = ( ( TpeImageDisplayFrame )parent ).getTpeToolBar();
-			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayFrame )parent ).getJMenuBar();
+			_tpeToolBar = ( ( TpeImageDisplayFrame )parent ).getTpeToolBar() ;
+			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayFrame )parent ).getJMenuBar() ;
 		}
 		else if( parent instanceof TpeImageDisplayInternalFrame )
 		{
-			_tpeToolBar = ( ( TpeImageDisplayInternalFrame )parent ).getTpeToolBar();
-			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayInternalFrame )parent ).getJMenuBar();
+			_tpeToolBar = ( ( TpeImageDisplayInternalFrame )parent ).getTpeToolBar() ;
+			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayInternalFrame )parent ).getJMenuBar() ;
 		}
 		else
 		{
-			throw new RuntimeException( "internal error" );
+			throw new RuntimeException( "internal error" ) ;
 		}
 
-		_editorTools = new TpeEditorTools( this );
+		_editorTools = new TpeEditorTools( this ) ;
 
 		//
 		// Create and add the standard TpeImageFeatures
 		//
-		_iw.addMouseObserver( this );
-		_featureMan = new TpeFeatureManager( this , _iw );
+		_iw.addMouseObserver( this ) ;
+		_featureMan = new TpeFeatureManager( this , _iw ) ;
 
 		// Target list features
-		_targetListFeatures = _createFeatures( _targetListFeatureClasses );
+		_targetListFeatures = _createFeatures( _targetListFeatureClasses ) ;
 		for( int i = 0 ; i < _targetListFeatures.size() ; ++i )
-			_addFeature( ( TpeImageFeature )_targetListFeatures.elementAt( i ) );
+			_addFeature( ( TpeImageFeature )_targetListFeatures.elementAt( i ) ) ;
 
 		if( _targetListFeatures.firstElement() != null )
-			BASE_FEATURE = ( TpeImageFeature )_targetListFeatures.firstElement();
+			BASE_FEATURE = ( TpeImageFeature )_targetListFeatures.firstElement() ;
 		else
-			DialogUtil.error( "No base/science feature found." );
+			DialogUtil.error( "No base/science feature found." ) ;
 
 		// Instrument features
-		_instrumentFeatures = _createFeatures( _instrumentFeatureClasses );
+		_instrumentFeatures = _createFeatures( _instrumentFeatureClasses ) ;
 		for( int i = 0 ; i < _instrumentFeatures.size() ; ++i )
-			_addFeature( ( TpeImageFeature )_instrumentFeatures.elementAt( i ) );
+			_addFeature( ( TpeImageFeature )_instrumentFeatures.elementAt( i ) ) ;
 
 		// Other features
-		Vector v = _createFeatures( _otherFeatureClasses );
+		Vector v = _createFeatures( _otherFeatureClasses ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )v.elementAt( i );
-			_addFeature( tif );
+			TpeImageFeature tif = ( TpeImageFeature )v.elementAt( i ) ;
+			_addFeature( tif ) ;
 			if( tif instanceof TpeCatalogFeature )
-				CATALOG_FEATURE = tif;
+				CATALOG_FEATURE = tif ;
 		}
 
 		// Select the "Browse" tool.
-		_editorTools.gotoBrowseMode();
+		_editorTools.gotoBrowseMode() ;
 
-		_widthIncrement = _tpeToolBar.getPreferredSize().width - _tpeToolBar.getWidth();
+		_widthIncrement = _tpeToolBar.getPreferredSize().width - _tpeToolBar.getWidth() ;
 	}
 
 	/**
@@ -189,25 +189,25 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		try
 		{
 			// Get hold of dimensions stored in preferences.
-			String[] imageDisplayControlDimension = TclUtil.splitList( Preferences.get( TpeImageDisplayControl.class.getName() + ".size" ) );
+			String[] imageDisplayControlDimension = TclUtil.splitList( Preferences.get( TpeImageDisplayControl.class.getName() + ".size" ) ) ;
 
 			if( imageDisplayControlDimension != null )
 			{
-				String widthAsString = imageDisplayControlDimension[ 0 ];
+				String widthAsString = imageDisplayControlDimension[ 0 ] ;
 				if( widthAsString != null )
 				{
-					int width = Integer.parseInt( widthAsString );
+					int width = Integer.parseInt( widthAsString ) ;
 					// Increment width.
-					width += _widthIncrement;
+					width += _widthIncrement ;
 					// Set to new value.
-					imageDisplayControlDimension[ 0 ] = "" + width;
-					Preferences.set( TpeImageDisplayControl.class.getName() + ".size" , TclUtil.makeList( imageDisplayControlDimension ) );
+					imageDisplayControlDimension[ 0 ] = "" + width ;
+					Preferences.set( TpeImageDisplayControl.class.getName() + ".size" , TclUtil.makeList( imageDisplayControlDimension ) ) ;
 				}
 			}
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 	}
 
@@ -219,7 +219,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public TelescopePosEditor( String imageFileOrUrl )
 	{
-		this( imageFileOrUrl , false , false );
+		this( imageFileOrUrl , false , false ) ;
 	}
 
 	/**
@@ -232,15 +232,15 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public TelescopePosEditor( SpItem spItem )
 	{
-		this( null , false , false );
+		this( null , false , false ) ;
 
-		reset( _getPosList( spItem ) , spItem );
+		reset( _getPosList( spItem ) , spItem ) ;
 
 		if( _posList != null )
 		{
 			// Make the "Base" position feature (which should be the first target list dependent feature) visible.
-			TpeImageFeature tif = ( TpeImageFeature )_targetListFeatures.firstElement();
-			_featureMan.setVisible( tif , true );
+			TpeImageFeature tif = ( TpeImageFeature )_targetListFeatures.firstElement() ;
+			_featureMan.setVisible( tif , true ) ;
 		}
 	}
 
@@ -252,9 +252,9 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	protected NavigatorImageDisplayInternalFrame makeNavigatorImageDisplayInternalFrame( JDesktopPane desktop , String imageFileOrUrl )
 	{
-		TpeImageDisplayInternalFrame frame = new TpeImageDisplayInternalFrame( desktop , imageFileOrUrl );
-		_iw = ( TpeImageWidget )frame.getImageDisplayControl().getImageDisplay();
-		return frame;
+		TpeImageDisplayInternalFrame frame = new TpeImageDisplayInternalFrame( desktop , imageFileOrUrl ) ;
+		_iw = ( TpeImageWidget )frame.getImageDisplayControl().getImageDisplay() ;
+		return frame ;
 	}
 
 	/** 
@@ -264,22 +264,22 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	protected NavigatorImageDisplayFrame makeNavigatorImageDisplayFrame( String imageFileOrUrl )
 	{
-		TpeImageDisplayFrame frame = new TpeImageDisplayFrame( imageFileOrUrl );
-		_iw = ( TpeImageWidget )frame.getImageDisplayControl().getImageDisplay();
-		return frame;
+		TpeImageDisplayFrame frame = new TpeImageDisplayFrame( imageFileOrUrl ) ;
+		_iw = ( TpeImageWidget )frame.getImageDisplayControl().getImageDisplay() ;
+		return frame ;
 	}
 
 	/** Return the telescope position editor toolbar (the one with the toggle buttons) */
 	public TelescopePosEditorToolBar getTpeToolBar()
 	{
-		return _tpeToolBar;
+		return _tpeToolBar ;
 	}
 
 	/** Set the current cursor (was a Bongo Widget method) */
 	public void setCurrentMouseCursor( java.awt.Cursor currentMouseCursor )
 	{
-		setCursor( currentMouseCursor );
-		_iw.setCursor( currentMouseCursor );
+		setCursor( currentMouseCursor ) ;
+		_iw.setCursor( currentMouseCursor ) ;
 	}
 
 	//
@@ -291,11 +291,11 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private void _setTargetWidgetsDisabled( boolean disabled )
 	{
 		if( _targetWidgetsOff == disabled )
-			return;
-		_targetWidgetsOff = disabled;
+			return ;
+		_targetWidgetsOff = disabled ;
 
-		_editorTools.setCreateToolsDisabled( _targetListFeatures , disabled );
-		_featureMan.setDisabled( _targetListFeatures , disabled );
+		_editorTools.setCreateToolsDisabled( _targetListFeatures , disabled ) ;
+		_featureMan.setDisabled( _targetListFeatures , disabled ) ;
 	}
 
 	//
@@ -305,9 +305,9 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private void _setInstWidgetsDisabled( boolean disabled )
 	{
 		if( _instWidgetsOff == disabled )
-			return;
-		_instWidgetsOff = disabled;
-		_featureMan.setDisabled( _instrumentFeatures , disabled );
+			return ;
+		_instWidgetsOff = disabled ;
+		_featureMan.setDisabled( _instrumentFeatures , disabled ) ;
 	}
 
 	/**
@@ -320,7 +320,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public static void registerTargetListFeature( String className )
 	{
 		if( !_targetListFeatureClasses.contains( className ) )
-			_targetListFeatureClasses.addElement( className );
+			_targetListFeatureClasses.addElement( className ) ;
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public static void registerInstrumentFeature( String className )
 	{
 		if( !_instrumentFeatureClasses.contains( className ) )
-			_instrumentFeatureClasses.addElement( className );
+			_instrumentFeatureClasses.addElement( className ) ;
 	}
 
 	/**
@@ -343,7 +343,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public static void registerFeature( String className )
 	{
 		if( !_otherFeatureClasses.contains( className ) )
-			_otherFeatureClasses.addElement( className );
+			_otherFeatureClasses.addElement( className ) ;
 	}
 
 	//
@@ -351,13 +351,13 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	private static Vector _createFeatures( Vector classNames )
 	{
-		Vector v = new Vector();
+		Vector<TpeImageFeature> v = new Vector<TpeImageFeature>() ;
 		for( int i = 0 ; i < classNames.size() ; ++i )
 		{
-			String className = ( String )classNames.elementAt( i );
-			v.addElement( TpeImageFeature.createFeature( className ) );
+			String className = ( String )classNames.elementAt( i ) ;
+			v.addElement( TpeImageFeature.createFeature( className ) ) ;
 		}
-		return v;
+		return v ;
 	}
 
 	/**
@@ -368,14 +368,14 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public void addFeature( TpeImageFeature tif )
 	{
 		// See whether the feature was visible when last removed.
-		Boolean b = ( Boolean )_featureVisibleState.get( tif.getClass().getName() );
+		Boolean b = ( Boolean )_featureVisibleState.get( tif.getClass().getName() ) ;
 		if( b == null )
 		{
-			b = Boolean.TRUE;
-			_featureVisibleState.put( tif.getClass().getName() , b );
+			b = Boolean.TRUE ;
+			_featureVisibleState.put( tif.getClass().getName() , b ) ;
 		}
 
-		addFeature( tif , b.booleanValue() );
+		addFeature( tif , b.booleanValue() ) ;
 	}
 
 	/**
@@ -388,7 +388,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		{
 			// Make sure the current visibility state of the feature matches the desired state.
 			if( visible != tif.isVisible() )
-				_featureMan.setVisible( tif , visible );
+				_featureMan.setVisible( tif , visible ) ;
 		}
 	}
 
@@ -399,15 +399,15 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private boolean _addFeature( TpeImageFeature tif )
 	{
 		if( _featureMan.isFeaturePresent( tif ) )
-			return false; // already being displayed
+			return false ; // already being displayed
 
-		_featureMan.addFeature( tif );
+		_featureMan.addFeature( tif ) ;
 
 		// If this feature has properties, show them in the "View" menu.
-		final BasicPropertyList pl = tif.getProperties();
+		final BasicPropertyList pl = tif.getProperties() ;
 
-		_editorTools.addCreateTools( tif );
-		return true;
+		_editorTools.addCreateTools( tif ) ;
+		return true ;
 	}
 
 	/**
@@ -416,10 +416,10 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public synchronized void addWatcher( TpeWatcher tw )
 	{
 		if( _watchers == null )
-			_watchers = new Vector();
+			_watchers = new Vector<TpeWatcher>() ;
 		
 		if( _watchers.contains( tw ) )
-			_watchers.addElement( tw );
+			_watchers.addElement( tw ) ;
 	}
 
 	/**
@@ -428,7 +428,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public synchronized void deleteWatcher( TpeWatcher tw )
 	{
 		if( _watchers != null )
-			_watchers.removeElement( tw );
+			_watchers.removeElement( tw ) ;
 	}
 
 	/**
@@ -437,7 +437,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public synchronized void deleteWatchers()
 	{
 		if( _watchers != null )
-			_watchers.removeAllElements();
+			_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -446,9 +446,9 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private final synchronized Vector _getWatchers()
 	{
 		if( _watchers == null )
-			return null;
+			return null ;
 
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -456,15 +456,15 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	private void _notifyOfClose()
 	{
-		Vector v = _getWatchers();
+		Vector v = _getWatchers() ;
 		if( v == null )
-			return;
+			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TpeWatcher tw = ( TpeWatcher )v.elementAt( i );
-			tw.tpeClosed( this );
+			TpeWatcher tw = ( TpeWatcher )v.elementAt( i ) ;
+			tw.tpeClosed( this ) ;
 		}
-		deleteWatchers();
+		deleteWatchers() ;
 	}
 
 	/**
@@ -485,19 +485,19 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	{
 		if( _posList == null )
 		{
-			DialogUtil.error( "There is no target list!" );
-			return;
+			DialogUtil.error( "There is no target list!" ) ;
+			return ;
 		}
 
-		SpTelescopePos tp = _posList.getBasePosition();
+		SpTelescopePos tp = _posList.getBasePosition() ;
 		if( tp == null )
 		{
-			DialogUtil.error( "There is no base position!" );
-			return;
+			DialogUtil.error( "There is no base position!" ) ;
+			return ;
 		}
 
-		double[] raDec = getImageCenterLocation();
-		tp.setXY( raDec[ 0 ] , raDec[ 1 ] );
+		double[] raDec = getImageCenterLocation() ;
+		tp.setXY( raDec[ 0 ] , raDec[ 1 ] ) ;
 	}
 
 	/**
@@ -506,7 +506,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void loadFileImage()
 	{
-		open();
+		open() ;
 	}
 
 	/**
@@ -520,33 +520,33 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		if( _posList != null )
 		{
 			// Get the RA and Dec from the pos list.
-			SpTelescopePos tp = _posList.getBasePosition();
+			SpTelescopePos tp = _posList.getBasePosition() ;
 
-			_convertedPosition.x = tp.getXaxis();
-			_convertedPosition.y = tp.getYaxis();
+			_convertedPosition.x = tp.getXaxis() ;
+			_convertedPosition.y = tp.getYaxis() ;
 
 			switch( tp.getCoordSys() )
 			{
 				case CoordSys.FK4 :
-					wcscon.fk425( _convertedPosition );
-					break;
+					wcscon.fk425( _convertedPosition ) ;
+					break ;
 				case CoordSys.GAL :
-					wcscon.gal2fk5( _convertedPosition );
-					break;
+					wcscon.gal2fk5( _convertedPosition ) ;
+					break ;
 			}
 
-			ra = _convertedPosition.x;
-			dec = _convertedPosition.y;
+			ra = _convertedPosition.x ;
+			dec = _convertedPosition.y ;
 		}
 
 		if( server.equals( ANY_SERVER ) )
-			_iw.loadCachedImage( ra , dec );
+			_iw.loadCachedImage( ra , dec ) ;
 		else if( server.equals( BLANK_IMAGE ) )
-			_iw.blankImage( ra , dec );
+			_iw.blankImage( ra , dec ) ;
 		else if( server.equals( FILE_IMAGE ) )
-			loadFileImage();
+			loadFileImage() ;
 		else
-			throw new RuntimeException( "XXX fetch image from image server: " + server + ": not implemented" );
+			throw new RuntimeException( "XXX fetch image from image server: " + server + ": not implemented" ) ;
 	}
 
 	/**
@@ -554,7 +554,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void showCutLevelEditor()
 	{
-		_iw.editCutLevels();
+		_iw.editCutLevels() ;
 	}
 
 	/**
@@ -562,7 +562,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void saveCurrentImage()
 	{
-		throw new RuntimeException( "not implemented" );
+		throw new RuntimeException( "not implemented" ) ;
 	}
 
 	/**
@@ -570,7 +570,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void printCurrentImage()
 	{
-		throw new RuntimeException( "not implemented" );
+		throw new RuntimeException( "not implemented" ) ;
 	}
 
 	/**
@@ -579,10 +579,10 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public double[] getImageCenterLocation()
 	{
 		if( !_iw.getCoordinateConverter().isWCS() )
-			return null;
+			return null ;
 
-		Point2D.Double p = _iw.getCoordinateConverter().getWCSCenter();
-		return new double[]{ p.x , p.y };
+		Point2D.Double p = _iw.getCoordinateConverter().getWCSCenter() ;
+		return new double[]{ p.x , p.y } ;
 	}
 
 	/**
@@ -590,25 +590,25 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void remove()
 	{
-		TpePositionMap pm = TpePositionMap.removeMap( _iw );
+		TpePositionMap pm = TpePositionMap.removeMap( _iw ) ;
 		if( pm != null )
-			pm.free();
+			pm.free() ;
 
-		_iw.free();
-		_iw = null;
+		_iw.free() ;
+		_iw = null ;
 
 		if( _spItem != null )
-			_spItem.getEditFSM().deleteHierarchyChangeObserver( this );
+			_spItem.getEditFSM().deleteHierarchyChangeObserver( this ) ;
 
-		_spItem = null;
-		_spContext = null;
+		_spItem = null ;
+		_spContext = null ;
 
 		if( imageFrame instanceof JFrame )
-			( ( JFrame )imageFrame ).dispose();
+			( ( JFrame )imageFrame ).dispose() ;
 		else if( imageFrame instanceof JInternalFrame )
-			( ( JInternalFrame )imageFrame ).dispose();
+			( ( JInternalFrame )imageFrame ).dispose() ;
 
-		_notifyOfClose();
+		_notifyOfClose() ;
 	}
 
 	/**
@@ -617,7 +617,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public void action()
 	{
 		if( _editorTools.getImageFeature() != null )
-			_featureMan.setVisible( _editorTools.getImageFeature() , true );
+			_featureMan.setVisible( _editorTools.getImageFeature() , true ) ;
 	}
 
 	/**
@@ -627,19 +627,19 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	private SpObsContextItem _getContext( SpItem spItem )
 	{
-		SpObsContextItem spContext;
+		SpObsContextItem spContext ;
 		if( spItem instanceof SpObsContextItem )
 		{
 			if( spItem.parent() == null )
-				spContext = ( SpObsContextItem )spItem;
+				spContext = ( SpObsContextItem )spItem ;
 			else
-				spContext = ( SpObsContextItem )spItem.parent();
+				spContext = ( SpObsContextItem )spItem.parent() ;
 		}
 		else
 		{
-			spContext = SpTreeMan.findObsContext( spItem );
+			spContext = SpTreeMan.findObsContext( spItem ) ;
 		}
-		return spContext;
+		return spContext ;
 	}
 
 	//
@@ -649,11 +649,11 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private SpTelescopePosList _getPosList( SpItem spItem )
 	{
 		// Get the telescope target list associated with the item
-		SpTelescopeObsComp targetComp = SpTreeMan.findTargetList( spItem );
+		SpTelescopeObsComp targetComp = SpTreeMan.findTargetList( spItem ) ;
 		if( targetComp == null )
-			return null;
+			return null ;
 
-		return targetComp.getPosList();
+		return targetComp.getPosList() ;
 	}
 
 	//
@@ -661,7 +661,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	private boolean _instrumentInScope( SpItem spItem )
 	{
-		return( SpTreeMan.findInstrument( spItem ) != null );
+		return( SpTreeMan.findInstrument( spItem ) != null ) ;
 	}
 
 	//
@@ -671,12 +671,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	private void _addItemImageFeature( SpItem spItem )
 	{
-		Object o = spItem.getClientData();
+		Object o = spItem.getClientData() ;
 		if( o instanceof TpeFeatureClientData )
 		{
-			TpeImageFeature tif = ( ( TpeFeatureClientData )o ).getImageFeature();
+			TpeImageFeature tif = ( ( TpeFeatureClientData )o ).getImageFeature() ;
 			if( tif != null )
-				addFeature( tif );
+				addFeature( tif ) ;
 		}
 	}
 
@@ -685,12 +685,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	private void _deleteItemImageFeature( SpItem spItem )
 	{
-		Object o = spItem.getClientData();
+		Object o = spItem.getClientData() ;
 		if( o instanceof TpeFeatureClientData )
 		{
-			TpeImageFeature tif = ( ( TpeFeatureClientData )o ).getImageFeature();
+			TpeImageFeature tif = ( ( TpeFeatureClientData )o ).getImageFeature() ;
 			if( tif != null )
-				deleteFeature( tif );
+				deleteFeature( tif ) ;
 		}
 	}
 
@@ -703,12 +703,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	{
 		if( spItem instanceof SpSurveyObsComp )
 		{
-			SpSurveyObsComp spSurveyObsComp = ( SpSurveyObsComp )spItem;
-			spItem = spSurveyObsComp.getSpTelescopeObsComp( spSurveyObsComp.getSelectedTelObsComp() );
+			SpSurveyObsComp spSurveyObsComp = ( SpSurveyObsComp )spItem ;
+			spItem = spSurveyObsComp.getSpTelescopeObsComp( spSurveyObsComp.getSelectedTelObsComp() ) ;
 		}
 
 		// Find the telescope position list in the spItem's scope, if any, and pass it to reset().
-		reset( _getPosList( spItem ) , spItem );
+		reset( _getPosList( spItem ) , spItem ) ;
 	}
 
 	/**
@@ -721,56 +721,56 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		{
 			// Delete any features associated with the item
 			if( !( _spItem instanceof SpInstObsComp ) )
-				_deleteItemImageFeature( _spItem );
+				_deleteItemImageFeature( _spItem ) ;
 
 			// Delete any image features assocated with the instrument
 			// in the old scope.
-			SpInstObsComp oldInst = SpTreeMan.findInstrument( _spItem );
-			SpInstObsComp newInst = SpTreeMan.findInstrument( spItem );
+			SpInstObsComp oldInst = SpTreeMan.findInstrument( _spItem ) ;
+			SpInstObsComp newInst = SpTreeMan.findInstrument( spItem ) ;
 			if( ( oldInst != newInst ) && ( oldInst != null ) )
-				_deleteItemImageFeature( oldInst );
+				_deleteItemImageFeature( oldInst ) ;
 
 			// Watch the spItem hierarchy to know when telescope comps or inst
 			// comps are inserted into or removed from its scope.
 			if( TpeManager.findRootItem( _spItem ) != TpeManager.findRootItem( spItem ) )
-				_spItem.getEditFSM().deleteHierarchyChangeObserver( this );
+				_spItem.getEditFSM().deleteHierarchyChangeObserver( this ) ;
 		}
-		spItem.getEditFSM().addHierarchyChangeObserver( this );
+		spItem.getEditFSM().addHierarchyChangeObserver( this ) ;
 
 		// If switching position lists (or if this is the first call to reset),
 		// then get a new image.
 		if( ( _posList != posList ) || ( _spItem == null ) )
 		{
-			_posList = posList;
-			loadImage( ANY_SERVER );
+			_posList = posList ;
+			loadImage( ANY_SERVER ) ;
 		}
 
-		_spItem = spItem;
-		_spContext = _getContext( spItem );
+		_spItem = spItem ;
+		_spContext = _getContext( spItem ) ;
 
 		// If there is no position list, disable the target related items.
 		// Otherwise, make sure they are enabled.
-		_setTargetWidgetsDisabled( _posList == null );
+		_setTargetWidgetsDisabled( _posList == null ) ;
 
 		// If there is no instrument in this scope, make sure the instrument
 		// related items are disabled.  Otherwise, make sure they are enabled.
-		SpInstObsComp newInst = SpTreeMan.findInstrument( spItem );
-		_setInstWidgetsDisabled( newInst == null );
+		SpInstObsComp newInst = SpTreeMan.findInstrument( spItem ) ;
+		_setInstWidgetsDisabled( newInst == null ) ;
 
 		// Reset the position map with the new position list to work from.
-		TpePositionMap pm = TpePositionMap.getMap( _iw );
-		pm.reset( _posList );
+		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
+		pm.reset( _posList ) ;
 
 		// Tell the image widget that it has a new base item.
-		_iw.reset( _spItem );
+		_iw.reset( _spItem ) ;
 
 		// Add any image features associated with this item, and add any
 		// image features associated with instruments in its scope.
-		_addItemImageFeature( _spItem );
+		_addItemImageFeature( _spItem ) ;
 		if( newInst != null )
-			_addItemImageFeature( newInst );
+			_addItemImageFeature( newInst ) ;
 
-		_iw.repaint();
+		_iw.repaint() ;
 	}
 
 	/**
@@ -784,10 +784,10 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public void deleteFeature( TpeImageFeature tif )
 	{
 		// Remember whether the feature was visible or not when last removed.
-		_featureVisibleState.put( tif.getClass().getName() , tif.isVisible() );
+		_featureVisibleState.put( tif.getClass().getName() , tif.isVisible() ) ;
 
-		_editorTools.deleteCreateTools( tif );
-		_featureMan.deleteFeature( tif );
+		_editorTools.deleteCreateTools( tif ) ;
+		_featureMan.deleteFeature( tif ) ;
 	}
 
 	/**
@@ -796,22 +796,22 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void spHierarchyChange()
 	{
-		repaint(); // MFO (April 19, 2002)
+		repaint() ; // MFO (April 19, 2002)
 
-		SpObsContextItem spContext = _getContext( _spItem );
+		SpObsContextItem spContext = _getContext( _spItem ) ;
 		if( spContext == null )
-			return;
+			return ;
 
-		SpTelescopePosList posList = _getPosList( _spItem );
+		SpTelescopePosList posList = _getPosList( _spItem ) ;
 
 		// if the item's context has changed, reset
 		// else if the position list is different, reset
 		if( spContext != _spContext )
-			reset( posList , _spItem );
+			reset( posList , _spItem ) ;
 		else if( posList != _posList )
-			reset( posList , _spItem );
+			reset( posList , _spItem ) ;
 		else
-			_setInstWidgetsDisabled( !_instrumentInScope( _spItem ) );
+			_setInstWidgetsDisabled( !_instrumentInScope( _spItem ) ) ;
 	}
 
 	/**
@@ -820,7 +820,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild )
 	{
-		spHierarchyChange();
+		spHierarchyChange() ;
 	}
 
 	/**
@@ -829,7 +829,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void spItemsRemoved( SpItem parent , SpItem[] children )
 	{
-		spHierarchyChange();
+		spHierarchyChange() ;
 	}
 
 	/**
@@ -838,7 +838,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void spItemsMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		spHierarchyChange();
+		spHierarchyChange() ;
 	}
 
 	/**
@@ -849,46 +849,46 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		// Fits Mouse Event update
 
 		if( !( vme instanceof FitsMouseEvent ) )
-			return;
+			return ;
 
-		FitsMouseEvent mouseEvent = ( FitsMouseEvent )vme;
+		FitsMouseEvent mouseEvent = ( FitsMouseEvent )vme ;
 
 		// Shouldn't happen otherwise, but make sure the update came from the TpeImageWidget
 		if( mouseEvent.source != _iw )
-			return;
+			return ;
 
 		if( mouseEvent.id == MouseEvent.MOUSE_PRESSED )
 		{
 			switch( _editorTools.getMode() )
 			{
 				case TpeEditorTools.MODE_BROWSE :
-					break;
+					break ;
 
 				case TpeEditorTools.MODE_DRAG :
-					_iw.dragStart( mouseEvent );
-					break;
+					_iw.dragStart( mouseEvent ) ;
+					break ;
 
 				case TpeEditorTools.MODE_ERASE :
-					_iw.erase( mouseEvent );
-					break;
+					_iw.erase( mouseEvent ) ;
+					break ;
 
 				default :
 			}
-			_iw.select( mouseEvent );
+			_iw.select( mouseEvent ) ;
 		}
 		else if( mouseEvent.id == MouseEvent.MOUSE_CLICKED )
 		{
 			switch( _editorTools.getMode() )
 			{
 				case TpeEditorTools.MODE_ERASE :
-					_iw.erase( mouseEvent );
-					break;
+					_iw.erase( mouseEvent ) ;
+					break ;
 
 				case TpeEditorTools.MODE_CREATE :
-					TpeImageFeature tif;
-					tif = ( TpeImageFeature )_editorTools.getImageFeature();
-					_iw.create( mouseEvent , tif , _editorTools.getCurrentButtonLabel() );
-					break;
+					TpeImageFeature tif ;
+					tif = ( TpeImageFeature )_editorTools.getImageFeature() ;
+					_iw.create( mouseEvent , tif , _editorTools.getCurrentButtonLabel() ) ;
+					break ;
 			}
 		}
 		else if( mouseEvent.id == MouseEvent.MOUSE_DRAGGED )
@@ -897,33 +897,33 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 			{
 				case TpeEditorTools.MODE_DRAG :
 				{
-					_iw.drag( mouseEvent );
-					break;
+					_iw.drag( mouseEvent ) ;
+					break ;
 				}
 				case TpeEditorTools.MODE_ERASE :
 				{
-					_iw.erase( mouseEvent );
-					break;
+					_iw.erase( mouseEvent ) ;
+					break ;
 				}
 			}
 		}
 		else if( mouseEvent.id == MouseEvent.MOUSE_RELEASED )
 		{
 			if( _editorTools.getMode() == TpeEditorTools.MODE_DRAG )
-				_iw.dragStop( mouseEvent );
+				_iw.dragStop( mouseEvent ) ;
 		}
 	}
 
 	/** Set the image window frame's title. */
 	public void setTitle( String s )
 	{
-		_iw.setTitle( s );
+		_iw.setTitle( s ) ;
 	}
 
 	/** Return the image window frame's title. */
 	public String getTitle()
 	{
-		return _iw.getTitle();
+		return _iw.getTitle() ;
 	}
 
 	/**
@@ -943,69 +943,69 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public static void main( String[] args )
 	{
-		String imageFileOrUrl = null;
-		boolean internalFrames = false;
-		boolean showNavigator = false;
-		boolean ok = true;
+		String imageFileOrUrl = null ;
+		boolean internalFrames = false ;
+		boolean showNavigator = false ;
+		boolean ok = true ;
 
 		for( int i = 0 ; i < args.length ; i++ )
 		{
 			if( args[ i ].charAt( 0 ) == '-' )
 			{
-				String opt = args[ i ];
+				String opt = args[ i ] ;
 				if( opt.equals( "-internalframes" ) )
 				{
-					internalFrames = true;
+					internalFrames = true ;
 				}
 				else if( opt.equals( "-shownavigator" ) )
 				{
-					showNavigator = true;
+					showNavigator = true ;
 				}
 				else
 				{
-					System.out.println( "Unknown option: " + opt );
-					ok = false;
-					break;
+					System.out.println( "Unknown option: " + opt ) ;
+					ok = false ;
+					break ;
 				}
 			}
 			else
 			{
 				if( imageFileOrUrl != null )
 				{
-					System.out.println( "Please specify one image file or URL: " + imageFileOrUrl );
-					ok = false;
-					break;
+					System.out.println( "Please specify one image file or URL: " + imageFileOrUrl ) ;
+					ok = false ;
+					break ;
 				}
-				imageFileOrUrl = args[ i ];
+				imageFileOrUrl = args[ i ] ;
 			}
 		}
 
 		if( !ok )
 		{
-			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditor [-internalframes] [-shownavigator] [imageFileOrUrl]" );
-			System.exit( 1 );
+			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditor [-internalframes] [-shownavigator] [imageFileOrUrl]" ) ;
+			System.exit( 1 ) ;
 		}
 
-		new TelescopePosEditor( imageFileOrUrl , internalFrames , showNavigator );
+		new TelescopePosEditor( imageFileOrUrl , internalFrames , showNavigator ) ;
 	}
 
 	/**
-	 * MFO: Added to cause repaint to call _iw.repaint();
+	 * MFO: Added to cause repaint to call _iw.repaint() ;
 	 */
 	public void repaint()
 	{
-		super.repaint();
-		_iw.updateImage();
+		super.repaint() ;
+		_iw.updateImage() ;
 	}
 
 	public void open( String fileOrUrl )
 	{
-		super.open( fileOrUrl );
-		_iw.updateImage();
+		super.open( fileOrUrl ) ;
+		_iw.updateImage() ;
 	}
 
 	public boolean isVisible()
 	{
-		return imageFrame.isVisible();
+		return imageFrame.isVisible() ;
 	}
 }

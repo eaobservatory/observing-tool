@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.Vector ;
 
-import jsky.app.ot.gui.ToggleButtonWidget;
-import jsky.app.ot.gui.ToggleButtonWidgetWatcher;
+import jsky.app.ot.gui.ToggleButtonWidget ;
+import jsky.app.ot.gui.ToggleButtonWidgetWatcher ;
 
 /**
  * This is a helper object used to manage the various TpeImageFeatures.
@@ -22,33 +22,33 @@ final class TpeFeatureManager
 {
 	private class TpeFeatureData
 	{
-		TpeImageFeature tif; // The image feature itself
-		ToggleButtonWidget tbw; // The button used to toggle it
+		TpeImageFeature tif ; // The image feature itself
+		ToggleButtonWidget tbw ; // The button used to toggle it
 
 		public TpeFeatureData( TpeImageFeature tif , ToggleButtonWidget tbw )
 		{
-			this.tif = tif;
-			this.tbw = tbw;
+			this.tif = tif ;
+			this.tbw = tbw ;
 		}
 	}
 
-	private TelescopePosEditor _tpe;
-	private TelescopePosEditorToolBar _tpeToolBar;
-	private TpeImageWidget _iw;
-	private Hashtable _featureMap = new Hashtable();
+	private TelescopePosEditor _tpe ;
+	private TelescopePosEditorToolBar _tpeToolBar ;
+	private TpeImageWidget _iw ;
+	private Hashtable<String,TpeFeatureData> _featureMap = new Hashtable<String,TpeFeatureData>() ;
 
 	TpeFeatureManager( TelescopePosEditor tpe , TpeImageWidget iw )
 	{
-		_tpe = tpe;
-		_tpeToolBar = _tpe.getTpeToolBar();
-		_iw = iw;
+		_tpe = tpe ;
+		_tpeToolBar = _tpe.getTpeToolBar() ;
+		_iw = iw ;
 
 		// Hide all the toggle buttons
-		Enumeration e = _enumerateToggleButtons();
+		Enumeration e = _enumerateToggleButtons() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement();
-			tbw.setVisible( false );
+			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement() ;
+			tbw.setVisible( false ) ;
 		}
 	}
 
@@ -59,25 +59,25 @@ final class TpeFeatureManager
 	{
 		return new Enumeration()
 		{
-			private int i = 0;
+			private int i = 0 ;
 
 			public boolean hasMoreElements()
 			{
 				try
 				{
-					return( _tpeToolBar.getViewToggleButton( i ) != null );
+					return( _tpeToolBar.getViewToggleButton( i ) != null ) ;
 				}
 				catch( ArrayIndexOutOfBoundsException e )
 				{
-					return false;
+					return false ;
 				}
 			}
 
 			public Object nextElement()
 			{
-				return _tpeToolBar.getViewToggleButton( i++ );
+				return _tpeToolBar.getViewToggleButton( i++ ) ;
 			}
-		};
+		} ;
 	}
 
 	//
@@ -86,18 +86,18 @@ final class TpeFeatureManager
 	private ToggleButtonWidget _allocateToggleButton()
 	{
 		// Find an open toggle button
-		ToggleButtonWidget tbw = null;
-		Enumeration e = _enumerateToggleButtons();
+		ToggleButtonWidget tbw = null ;
+		Enumeration e = _enumerateToggleButtons() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement();
+			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement() ;
 			if( !( tmp.isVisible() ) )
 			{
-				tbw = tmp;
-				break;
+				tbw = tmp ;
+				break ;
 			}
 		}
-		return tbw;
+		return tbw ;
 	}
 
 	//
@@ -105,8 +105,8 @@ final class TpeFeatureManager
 	//
 	private void _freeToggleButton( ToggleButtonWidget tbw )
 	{
-		tbw.setVisible( false );
-		tbw.deleteWatchers();
+		tbw.setVisible( false ) ;
+		tbw.deleteWatchers() ;
 	}
 
 	/**
@@ -116,35 +116,35 @@ final class TpeFeatureManager
 	{
 		// See if this feature is already present.
 		if( _featureMap.get( tif.getName() ) != null )
-			return true;
+			return true ;
 
-		ToggleButtonWidget tbw = _allocateToggleButton();
+		ToggleButtonWidget tbw = _allocateToggleButton() ;
 		if( tbw == null )
-			return false;
+			return false ;
 
-		_featureMap.put( tif.getName() , new TpeFeatureData( tif , tbw ) );
+		_featureMap.put( tif.getName() , new TpeFeatureData( tif , tbw ) ) ;
 
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
 				if( tbw.getBooleanValue() )
-					_iw.addFeature( tif );
+					_iw.addFeature( tif ) ;
 				else
-					_iw.deleteFeature( tif );
+					_iw.deleteFeature( tif ) ;
 			}
-		} );
+		} ) ;
 
-		tbw.setText( tif.getName() );
-		tbw.setToolTipText( tif.getDescription() );
-		tbw.setVisible( true );
-		tbw.setEnabled( true );
+		tbw.setText( tif.getName() ) ;
+		tbw.setToolTipText( tif.getDescription() ) ;
+		tbw.setVisible( true ) ;
+		tbw.setEnabled( true ) ;
 
 		// hack, but need to enable this somewhere, otherwise catalog plotting wouldn't (shouldn't) be displayed
 		if( tif.getName().equals( "Catalog" ) )
-			tbw.setSelected( true );
+			tbw.setSelected( true ) ;
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -152,15 +152,15 @@ final class TpeFeatureManager
 	 */
 	public void deleteFeature( TpeImageFeature tif )
 	{
-		setVisible( tif , false );
+		setVisible( tif , false ) ;
 
-		TpeFeatureData tfd = ( TpeFeatureData )_featureMap.get( tif.getName() );
+		TpeFeatureData tfd = _featureMap.get( tif.getName() ) ;
 		if( tfd == null )
-			return;
+			return ;
 
-		ToggleButtonWidget tbw = tfd.tbw;
-		_freeToggleButton( tbw );
-		_featureMap.remove( tif.getName() );
+		ToggleButtonWidget tbw = tfd.tbw ;
+		_freeToggleButton( tbw ) ;
+		_featureMap.remove( tif.getName() ) ;
 	}
 
 	/**
@@ -168,11 +168,11 @@ final class TpeFeatureManager
 	 */
 	public TpeImageFeature getFeature( String name )
 	{
-		TpeFeatureData tfd = ( TpeFeatureData )_featureMap.get( name );
+		TpeFeatureData tfd = _featureMap.get( name ) ;
 		if( tfd == null )
-			return null;
+			return null ;
 
-		return tfd.tif;
+		return tfd.tif ;
 	}
 
 	/**
@@ -180,7 +180,7 @@ final class TpeFeatureManager
 	 */
 	public boolean isFeaturePresent( TpeImageFeature tif )
 	{
-		return( getFeature( tif.getName() ) != null );
+		return( getFeature( tif.getName() ) != null ) ;
 	}
 
 	/**
@@ -188,11 +188,11 @@ final class TpeFeatureManager
 	 */
 	public void toggleFeature( TpeImageFeature tif )
 	{
-		TpeFeatureData tfd = ( TpeFeatureData )_featureMap.get( tif.getName() );
+		TpeFeatureData tfd = _featureMap.get( tif.getName() ) ;
 		if( tfd == null )
-			return;
+			return ;
 
-		tfd.tbw.press();
+		tfd.tbw.press() ;
 	}
 
 	/**
@@ -201,7 +201,7 @@ final class TpeFeatureManager
 	public void setVisible( TpeImageFeature tif , boolean visible )
 	{
 		if( visible != tif.isVisible() )
-			toggleFeature( tif );
+			toggleFeature( tif ) ;
 	}
 
 	/**
@@ -209,12 +209,12 @@ final class TpeFeatureManager
 	 */
 	public void setDisabled( TpeImageFeature tif , boolean disabled )
 	{
-		TpeFeatureData tfd = ( TpeFeatureData )_featureMap.get( tif.getName() );
+		TpeFeatureData tfd = _featureMap.get( tif.getName() ) ;
 		if( tfd == null )
-			return;
+			return ;
 
-		setVisible( tif , !disabled );
-		tfd.tbw.setEnabled( !disabled );
+		setVisible( tif , !disabled ) ;
+		tfd.tbw.setEnabled( !disabled ) ;
 	}
 
 	/**
@@ -224,8 +224,8 @@ final class TpeFeatureManager
 	{
 		for( int i = 0 ; i < tifV.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i );
-			setDisabled( tif , disabled );
+			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i ) ;
+			setDisabled( tif , disabled ) ;
 		}
 	}
 }

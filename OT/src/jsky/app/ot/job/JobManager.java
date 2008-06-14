@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.job;
+package jsky.app.ot.job ;
 
-import jsky.app.ot.util.LinkedList;
+import jsky.app.ot.util.LinkedList ;
 
 /**
  * The JobManager singleton continually loops picking off Jobs and
@@ -17,18 +17,18 @@ public class JobManager implements Runnable
 	/**
 	 * The singleton JobManager.
 	 */
-	private static JobManager _instance;
+	private static JobManager _instance ;
 
 	/**
 	 * A dummy object that is used to insure only one JobManager is ever
 	 * created.
 	 */
-	private static Object _lock = new Object();
+	private static Object _lock = new Object() ;
 
 	/**
 	 * The list of jobs to perform.
 	 */
-	private LinkedList _jobQueue;
+	private LinkedList _jobQueue ;
 
 	/**
 	 * Get the singleton JobManager instance.
@@ -43,12 +43,12 @@ public class JobManager implements Runnable
 				if( _instance == null )
 				{
 					// We must be the first thread to try getInstance()
-					_instance = new JobManager();
-					( new Thread( _instance ) ).start();
+					_instance = new JobManager() ;
+					( new Thread( _instance ) ).start() ;
 				}
 			}
 		}
-		return _instance;
+		return _instance ;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class JobManager implements Runnable
 	 */
 	public static void addJob( Job job )
 	{
-		getInstance().addNewJob( job );
+		getInstance().addNewJob( job ) ;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class JobManager implements Runnable
 	 */
 	private JobManager()
 	{
-		_jobQueue = new LinkedList();
+		_jobQueue = new LinkedList() ;
 	}
 
 	/**
@@ -81,8 +81,8 @@ public class JobManager implements Runnable
 	{
 		synchronized( _jobQueue )
 		{
-			_jobQueue.append( job );
-			_jobQueue.notify(); // Only one JobManager so notifyAll not needed
+			_jobQueue.append( job ) ;
+			_jobQueue.notify() ; // Only one JobManager so notifyAll not needed
 		}
 	}
 
@@ -93,7 +93,7 @@ public class JobManager implements Runnable
 	{
 		while( true )
 		{
-			Job nextJob = null;
+			Job nextJob = null ;
 
 			synchronized( _jobQueue )
 			{
@@ -101,17 +101,17 @@ public class JobManager implements Runnable
 				{
 					try
 					{
-						_jobQueue.wait();
+						_jobQueue.wait() ;
 					}
 					catch( InterruptedException e )
 					{
-						System.out.println( "Job manager interrupted: " + e );
-						return;
+						System.out.println( "Job manager interrupted: " + e ) ;
+						return ;
 					}
 				}
-				nextJob = ( Job )_jobQueue.nextElement();
+				nextJob = ( Job )_jobQueue.nextElement() ;
 			}
-			( new Thread( new Worker( nextJob ) ) ).start();
+			( new Thread( new Worker( nextJob ) ) ).start() ;
 		}
 	}
 }

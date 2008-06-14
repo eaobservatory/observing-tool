@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.job;
+package jsky.app.ot.job ;
 
 /**
  * The JobWatcher interface is implemented by classes that want to know
@@ -12,7 +12,7 @@ package jsky.app.ot.job;
  */
 public interface JobWatcher
 {
-	public void jobStarted( Job job );
+	public void jobStarted( Job job ) ;
 
-	public void jobFinished( Job job );
+	public void jobFinished( Job job ) ;
 }

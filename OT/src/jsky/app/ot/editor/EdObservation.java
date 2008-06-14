@@ -4,82 +4,82 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import java.util.Observer;
-import java.util.Observable;
+import java.util.Observer ;
+import java.util.Observable ;
 
-import javax.swing.AbstractButton;
-import javax.swing.JToggleButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
+import javax.swing.AbstractButton ;
+import javax.swing.JToggleButton ;
+import javax.swing.JLabel ;
+import javax.swing.JOptionPane ;
+import javax.swing.JComboBox ;
 
-import jsky.app.ot.OtCfg;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.OtCfg ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
 
-import gemini.sp.SpAvEditState;
-import gemini.sp.SpItem;
-import gemini.sp.SpObs;
-import orac.util.OracUtilities;
+import gemini.sp.SpAvEditState ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpObs ;
+import orac.util.OracUtilities ;
 
 /**
  * This is the editor for the Observation item.
  */
 public final class EdObservation extends OtItemEditor implements TextBoxWidgetWatcher , CheckBoxWidgetWatcher , Observer , ActionListener
 {
-	private TextBoxWidgetExt _obsTitle;
-	private JLabel _obsState;
-	private JToggleButton _priHigh , _priMedium , _priLow;
-	private ObsGUI _w; // the GUI layout panel
+	private TextBoxWidgetExt _obsTitle ;
+	private JLabel _obsState ;
+	private JToggleButton _priHigh , _priMedium , _priLow ;
+	private ObsGUI _w ; // the GUI layout panel
 
 	/**
 	 * If true, ignore action events.
 	 */
-	private boolean ignoreActions = false;
+	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdObservation()
 	{
-		_title = "Observation";
-		_presSource = _w = new ObsGUI();
-		_description = "The observation is the smallest entity that can be scheduled.";
+		_title = "Observation" ;
+		_presSource = _w = new ObsGUI() ;
+		_description = "The observation is the smallest entity that can be scheduled." ;
 
-		_obsTitle = _w.obsTitle;
-		_obsTitle.addWatcher( this );
+		_obsTitle = _w.obsTitle ;
+		_obsTitle.addWatcher( this ) ;
 
-		_obsState = _w.obsState;
+		_obsState = _w.obsState ;
 
-		_w.jComboBox1.addActionListener( this );
+		_w.jComboBox1.addActionListener( this ) ;
 
-		_w.optional.addWatcher( this );
-		_w.standard.addWatcher( this );
+		_w.optional.addWatcher( this ) ;
+		_w.standard.addWatcher( this ) ;
 
 		// Added by MFO (22 February 2002)
 		if( !OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD ) )
 		{
-			_w.standard.setText( "Flag as Calibration" );
-			_w.optional.setVisible( false );
-			_w.optional.deleteWatcher( this );
+			_w.standard.setText( "Flag as Calibration" ) ;
+			_w.optional.setVisible( false ) ;
+			_w.optional.deleteWatcher( this ) ;
 		}
 
-		_w.remaining.addItem( SpObs.REMOVE_STRING );
+		_w.remaining.addItem( SpObs.REMOVE_STRING ) ;
 
 		for( int i = 0 ; i <= 100 ; i++ )
-			_w.remaining.addItem( "" + i );
+			_w.remaining.addItem( "" + i ) ;
 
-		_w.remaining.addActionListener( this );
+		_w.remaining.addActionListener( this ) ;
 
-		_w.obsStateLabel.setVisible( false );
-		_w.obsState.setVisible( false );
+		_w.obsStateLabel.setVisible( false ) ;
+		_w.obsState.setVisible( false ) ;
 	}
 
 	/**
@@ -94,10 +94,10 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	public void setup( SpItem spItem )
 	{
 		if( _spItem != null )
-			_spItem.getAvEditFSM().deleteObserver( this );
+			_spItem.getAvEditFSM().deleteObserver( this ) ;
 
-		super.setup( spItem );
-		_spItem.getAvEditFSM().addObserver( this );
+		super.setup( spItem ) ;
+		_spItem.getAvEditFSM().addObserver( this ) ;
 	}
 
 	/**
@@ -107,9 +107,9 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	public void cleanup( SpItem spItem )
 	{
 		if( _spItem != null )
-			_spItem.getAvEditFSM().deleteObserver( this );
+			_spItem.getAvEditFSM().deleteObserver( this ) ;
 
-		super.cleanup();
+		super.cleanup() ;
 	}
 
 	/**
@@ -119,44 +119,44 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	protected void _updateWidgets()
 	{
 		// Show the title
-		String title = _spItem.getTitleAttr();
+		String title = _spItem.getTitleAttr() ;
 		if( title != null )
-			_obsTitle.setText( title );
+			_obsTitle.setText( title ) ;
 		else
-			_obsTitle.setText( "" );
+			_obsTitle.setText( "" ) ;
 
-		String state = _avTab.get( "state" );
+		String state = _avTab.get( "state" ) ;
 		if( state == null )
-			_obsState.setText( "Not in Active Database" );
+			_obsState.setText( "Not in Active Database" ) ;
 		else
-			_obsState.setText( state );
+			_obsState.setText( state ) ;
 
-		ignoreActions = true; // MFO
+		ignoreActions = true ; // MFO
 
 		// Set the priority
-		int pri = ( ( SpObs )_spItem ).getPriority();
-		_w.jComboBox1.setSelectedIndex( pri - 1 );
+		int pri = ( ( SpObs )_spItem ).getPriority() ;
+		_w.jComboBox1.setSelectedIndex( pri - 1 ) ;
 
 		// Set whether or not this is a standard
-		_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() );
+		_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() ) ;
 
 		// Added for OMP (MFO, 7 August 2001)
-		_w.optional.setValue( ( ( SpObs )_spItem ).isOptional() );
+		_w.optional.setValue( ( ( SpObs )_spItem ).isOptional() ) ;
 
-		int numberRemaining = ( ( SpObs )_spItem ).getNumberRemaining();
+		int numberRemaining = ( ( SpObs )_spItem ).getNumberRemaining() ;
 
 		if( numberRemaining < 0 )
-			_w.remaining.setValue( SpObs.REMOVE_STRING );
+			_w.remaining.setValue( SpObs.REMOVE_STRING ) ;
 		else
-			_w.remaining.setSelectedIndex( numberRemaining + 1 );
+			_w.remaining.setSelectedIndex( numberRemaining + 1 ) ;
 
-		_w.unSuspendCB.addActionListener( this );
+		_w.unSuspendCB.addActionListener( this ) ;
 
-		ignoreActions = false;
+		ignoreActions = false ;
 
-		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( ( ( SpObs )_spItem ).getElapsedTime() , 1 ) );
+		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( ( ( SpObs )_spItem ).getElapsedTime() , 1 ) ) ;
 
-		_updateMsbDisplay();
+		_updateMsbDisplay() ;
 	}
 
 	/**
@@ -168,24 +168,24 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	 */
 	protected void _updateMsbDisplay()
 	{
-		ignoreActions = true;
+		ignoreActions = true ;
 		if( ( ( SpObs )_spItem ).isMSB() )
 		{
-			_w.msbPanel.setVisible( true );
-			_w.optional.setVisible( false );
+			_w.msbPanel.setVisible( true ) ;
+			_w.optional.setVisible( false ) ;
 			if( ( ( SpObs )_spItem ).isSuspended() )
-				_w.unSuspendCB.setVisible( true );
+				_w.unSuspendCB.setVisible( true ) ;
 			else
-				_w.unSuspendCB.setVisible( false );
+				_w.unSuspendCB.setVisible( false ) ;
 		}
 		else
 		{
-			_w.msbPanel.setVisible( false );
+			_w.msbPanel.setVisible( false ) ;
 
 			if( OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD ) )
-				_w.optional.setVisible( true );
+				_w.optional.setVisible( true ) ;
 		}
-		ignoreActions = false;
+		ignoreActions = false ;
 	}
 
 	/**
@@ -195,7 +195,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _obsTitle )
-			_spItem.setTitleAttr( _obsTitle.getText().trim() );
+			_spItem.setTitleAttr( _obsTitle.getText().trim() ) ;
 	}
 
 	/**
@@ -213,9 +213,9 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		if( o instanceof SpAvEditState )
 		{
 			// Set whether or not this is a standard
-			_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() );
+			_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() ) ;
 	
-			_updateMsbDisplay(); // MFO
+			_updateMsbDisplay() ; // MFO
 		}
 	}
 
@@ -225,10 +225,10 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	public void actionPerformed( ActionEvent evt )
 	{
 		if( ignoreActions )
-			return;
+			return ;
 
-		Object w = evt.getSource();
-		SpObs spObs = ( SpObs )_spItem;
+		Object w = evt.getSource() ;
+		SpObs spObs = ( SpObs )_spItem ;
 
 		// Added for OMP (MFO, 7 August 2001)
 		if( w == _w.remaining )
@@ -236,44 +236,44 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 			if( _w.remaining.getSelectedItem().equals( SpObs.REMOVE_STRING ) )
 			{
 				if( spObs.getNumberRemaining() == SpObs.REMOVED_CODE )
-					spObs.setNumberRemaining( 1 );
+					spObs.setNumberRemaining( 1 ) ;
 				else
-					spObs.setNumberRemaining( -1 * spObs.getNumberRemaining() );
+					spObs.setNumberRemaining( -1 * spObs.getNumberRemaining() ) ;
 
-				_updateWidgets();
+				_updateWidgets() ;
 			}
 			else
 			{
-				spObs.setNumberRemaining( _w.remaining.getSelectedIndex() - 1 );
+				spObs.setNumberRemaining( _w.remaining.getSelectedIndex() - 1 ) ;
 			}
 		}
 
 		if( w instanceof JComboBox )
-			spObs.setPriority( (( Integer )_w.jComboBox1.getSelectedItem()).intValue() );
+			spObs.setPriority( (( Integer )_w.jComboBox1.getSelectedItem()).intValue() ) ;
 		else if( ( w instanceof AbstractButton ) && !(( AbstractButton )w).isSelected() )
-			return;
+			return ;
 
 		if( w == _priHigh )
 		{
-			spObs.setPriority( SpObs.PRIORITY_HIGH );
+			spObs.setPriority( SpObs.PRIORITY_HIGH ) ;
 		}
 		else if( w == _priMedium )
 		{
-			spObs.setPriority( SpObs.PRIORITY_MEDIUM );
+			spObs.setPriority( SpObs.PRIORITY_MEDIUM ) ;
 		}
 		else if( w == _priLow )
 		{
-			spObs.setPriority( SpObs.PRIORITY_LOW );
+			spObs.setPriority( SpObs.PRIORITY_LOW ) ;
 		}
 		else if( w == _w.unSuspendCB )
 		{
-			String message = "This is an Irreversible Operation" + "\n" + "Are you sure you want to proceed?";
-			int option = JOptionPane.showConfirmDialog( _w , message , "Irreversible Operation" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
+			String message = "This is an Irreversible Operation" + "\n" + "Are you sure you want to proceed?" ;
+			int option = JOptionPane.showConfirmDialog( _w , message , "Irreversible Operation" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE ) ;
 			if( option == JOptionPane.NO_OPTION )
-				return;
+				return ;
 
-			spObs.unSuspend();
-			_w.unSuspendCB.setVisible( false );
+			spObs.unSuspend() ;
+			_w.unSuspendCB.setVisible( false ) ;
 		}
 	}
 
@@ -281,36 +281,36 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	{
 		if( checkBoxWidgetExt == _w.optional )
 		{
-			( ( SpObs )_spItem ).setOptional( _w.optional.isSelected() );
+			( ( SpObs )_spItem ).setOptional( _w.optional.isSelected() ) ;
 		}
 		else if( checkBoxWidgetExt == _w.standard )
 		{
 			// We can onlt do this if the observation is inside an MSB
-			SpItem parent = _spItem.parent();
+			SpItem parent = _spItem.parent() ;
 			while( parent != null )
 			{
 				if( parent instanceof gemini.sp.SpMSB )
 				{
-					_spItem.getAvEditFSM().deleteObserver( this );
-					( ( SpObs )_spItem ).setIsStandard( _w.standard.getBooleanValue() );
-					_spItem.getAvEditFSM().addObserver( this );
+					_spItem.getAvEditFSM().deleteObserver( this ) ;
+					( ( SpObs )_spItem ).setIsStandard( _w.standard.getBooleanValue() ) ;
+					_spItem.getAvEditFSM().addObserver( this ) ;
 
-					_w.standard.setValue( ( ( SpObs )_spItem ).getIsStandard() );
+					_w.standard.setValue( ( ( SpObs )_spItem ).getIsStandard() ) ;
 
 					if( !OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD ) )
 					{
-						_w.optional.setValue( _w.standard.getBooleanValue() );
-						( ( SpObs )_spItem ).setOptional( _w.standard.getBooleanValue() );
+						_w.optional.setValue( _w.standard.getBooleanValue() ) ;
+						( ( SpObs )_spItem ).setOptional( _w.standard.getBooleanValue() ) ;
 					}
-					return;
+					return ;
 				}
 				else
 				{
-					parent = parent.parent();
+					parent = parent.parent() ;
 				}
 			}
 			// If we get to here, then this is not inside an MSB so we can't do this
-			JOptionPane.showMessageDialog( null , "This can only be flagged as a calibration if it is inside an MSB." , "Operation not valid here" , JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null , "This can only be flagged as a calibration if it is inside an MSB." , "Operation not valid here" , JOptionPane.ERROR_MESSAGE ) ;
 		}
 	}
 }

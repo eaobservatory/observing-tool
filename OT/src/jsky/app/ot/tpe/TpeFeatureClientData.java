@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
 /**
  * An interface supported by ClientData subclasses that support
@@ -16,5 +16,5 @@ public interface TpeFeatureClientData
 	/**
 	 * Get the image feature.
 	 */
-	public TpeImageFeature getImageFeature();
+	public TpeImageFeature getImageFeature() ;
 }

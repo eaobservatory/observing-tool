@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.fits.gui;
+package jsky.app.ot.fits.gui ;
 
 /**
  * An interface supported by FitsImageWidget clients that wish to
@@ -15,5 +15,5 @@ public interface FitsImageInfoObserver
 	/**
 	 * Notify that image info has been updated.
 	 */
-	public void imageInfoUpdate( FitsImageWidget iw , FitsImageInfo fii );
+	public void imageInfoUpdate( FitsImageWidget iw , FitsImageInfo fii ) ;
 }

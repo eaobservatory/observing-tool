@@ -4,16 +4,16 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import jsky.app.ot.util.AppProperties;
-import jsky.app.ot.util.AppPropertyWatcher;
+import jsky.app.ot.util.AppProperties ;
+import jsky.app.ot.util.AppPropertyWatcher ;
 
-import java.awt.Point;
-import java.awt.Dimension;
-import java.util.Hashtable;
-import java.util.Properties;
-import java.util.Vector;
+import java.awt.Point ;
+import java.awt.Dimension ;
+import java.util.Hashtable ;
+import java.util.Properties ;
+import java.util.Vector ;
 
 /**
  * Global Observing Tool properties that are maintained on behalf of the
@@ -22,64 +22,64 @@ import java.util.Vector;
  */
 public class OtProps
 {
-	public static final String BACKGROUND_PATTERN = "background.pattern";
-	public static final String IMAGE_CACHE_SIZE = "image.cache.size";
-	public static final String SAVE_PROMPT = "save.prompt";
-	public static final String TOOLBAR_VISIBLE = "toolbar.visible";
-	public static final String WINDOW_LOCATION = "window.location";
-	public static final String WINDOW_SIZE = "window.size";
-	private static Properties _props;
-	private static Vector _watchers = new Vector();
-	private static Hashtable _singlePropWatchers = new Hashtable();
+	public static final String BACKGROUND_PATTERN = "background.pattern" ;
+	public static final String IMAGE_CACHE_SIZE = "image.cache.size" ;
+	public static final String SAVE_PROMPT = "save.prompt" ;
+	public static final String TOOLBAR_VISIBLE = "toolbar.visible" ;
+	public static final String WINDOW_LOCATION = "window.location" ;
+	public static final String WINDOW_SIZE = "window.size" ;
+	private static Properties _props ;
+	private static Vector _watchers = new Vector() ;
+	private static Hashtable _singlePropWatchers = new Hashtable() ;
 
 	/** Add a general property watcher. */
 	public synchronized static void addWatcher( AppPropertyWatcher apw )
 	{
 		if( _watchers.contains( apw ) )
-			return;
-		_watchers.addElement( apw );
+			return ;
+		_watchers.addElement( apw ) ;
 	}
 
 	/** Delete a general property watcher. */
 	public synchronized static void deleteWatcher( AppPropertyWatcher apw )
 	{
-		_watchers.removeElement( apw );
+		_watchers.removeElement( apw ) ;
 	}
 
 	/** Delete all general property watchers. */
 	public synchronized static void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/** Add a specific property watcher. */
 	public synchronized static void addWatcher( String property , AppPropertyWatcher apw )
 	{
-		Vector v = ( Vector )_singlePropWatchers.get( property );
+		Vector v = ( Vector )_singlePropWatchers.get( property ) ;
 		if( v == null )
 		{
-			v = new Vector();
-			_singlePropWatchers.put( property , v );
+			v = new Vector() ;
+			_singlePropWatchers.put( property , v ) ;
 		}
 		if( v.contains( apw ) )
-			return;
-		v.addElement( apw );
+			return ;
+		v.addElement( apw ) ;
 	}
 
 	/** Delete a specific property watcher. */
 	public synchronized static void deleteWatcher( String property , AppPropertyWatcher apw )
 	{
-		Vector v = ( Vector )_singlePropWatchers.get( property );
+		Vector v = ( Vector )_singlePropWatchers.get( property ) ;
 		if( v == null )
-			return;
+			return ;
 
-		v.removeElement( apw );
+		v.removeElement( apw ) ;
 	}
 
 	/** Delete all specific property watchers. */
 	public synchronized static void deleteWatchers( String property )
 	{
-		_singlePropWatchers.remove( property );
+		_singlePropWatchers.remove( property ) ;
 	}
 
 	//
@@ -87,23 +87,23 @@ public class OtProps
 	//
 	private static void _notifyPropertyChange( String property , String value )
 	{
-		Vector vGen = null;
-		Vector vSingle = null;
+		Vector vGen = null ;
+		Vector vSingle = null ;
 		try
 		{
 			synchronized( Class.forName( "ot.OtProps" ) )
 			{
 				if( _watchers.size() != 0 )
-					vGen = ( Vector )_watchers.clone();
+					vGen = ( Vector )_watchers.clone() ;
 
-				vSingle = ( Vector )_singlePropWatchers.get( property );
+				vSingle = ( Vector )_singlePropWatchers.get( property ) ;
 				if( vSingle != null )
-					vSingle = ( Vector )vSingle.clone();
+					vSingle = ( Vector )vSingle.clone() ;
 			}
 		}
 		catch( ClassNotFoundException ex )
 		{
-			return;
+			return ;
 		}
 
 		// Notify the general watchers.
@@ -111,8 +111,8 @@ public class OtProps
 		{
 			for( int i = 0 ; i < vGen.size() ; ++i )
 			{
-				AppPropertyWatcher apw = ( AppPropertyWatcher )vGen.elementAt( i );
-				apw.propertyChange( property , value );
+				AppPropertyWatcher apw = ( AppPropertyWatcher )vGen.elementAt( i ) ;
+				apw.propertyChange( property , value ) ;
 			}
 		}
 
@@ -121,8 +121,8 @@ public class OtProps
 		{
 			for( int i = 0 ; i < vSingle.size() ; ++i )
 			{
-				AppPropertyWatcher apw = ( AppPropertyWatcher )vSingle.elementAt( i );
-				apw.propertyChange( property , value );
+				AppPropertyWatcher apw = ( AppPropertyWatcher )vSingle.elementAt( i ) ;
+				apw.propertyChange( property , value ) ;
 			}
 		}
 	}
@@ -133,13 +133,13 @@ public class OtProps
 	private static void _getProps()
 	{
 		if( _props != null )
-			return;
+			return ;
 
-		_props = AppProperties.load( "ot.txt" );
+		_props = AppProperties.load( "ot.txt" ) ;
 		if( _props == null )
 		{
-			System.out.println( "Using default properties." );
-			_props = new Properties();
+			System.out.println( "Using default properties." ) ;
+			_props = new Properties() ;
 		}
 	}
 
@@ -148,8 +148,8 @@ public class OtProps
 	 */
 	public static boolean save()
 	{
-		_getProps();
-		return AppProperties.save( "ot.txt" , "Observing Tool Properties" , _props );
+		_getProps() ;
+		return AppProperties.save( "ot.txt" , "Observing Tool Properties" , _props ) ;
 	}
 
 	//
@@ -157,31 +157,31 @@ public class OtProps
 	//
 	private static int[] _getIntPair( String propName )
 	{
-		_getProps();
+		_getProps() ;
 
-		String dim = _props.getProperty( propName );
+		String dim = _props.getProperty( propName ) ;
 		if( dim == null )
-			return null;
+			return null ;
 
 		// Parse the string: width,height
-		int commaPos = dim.indexOf( ',' );
+		int commaPos = dim.indexOf( ',' ) ;
 		if( commaPos == -1 )
-			return null;
+			return null ;
 
-		int w , h;
+		int w , h ;
 		try
 		{
-			String wStr = dim.substring( 0 , commaPos );
-			String hStr = dim.substring( commaPos + 1 );
-			w = Integer.parseInt( wStr );
-			h = Integer.parseInt( hStr );
+			String wStr = dim.substring( 0 , commaPos ) ;
+			String hStr = dim.substring( commaPos + 1 ) ;
+			w = Integer.parseInt( wStr ) ;
+			h = Integer.parseInt( hStr ) ;
 		}
 		catch( Exception ex )
 		{
-			return null;
+			return null ;
 		}
 
-		return new int[] { w , h };
+		return new int[] { w , h } ;
 	}
 
 	//
@@ -190,9 +190,9 @@ public class OtProps
 	//
 	private static void _setIntPair( String propName , int w , int h )
 	{
-		_getProps();
-		_props.put( propName , w + "," + h );
-		_notifyPropertyChange( propName , w + "," + h );
+		_getProps() ;
+		_props.put( propName , w + "," + h ) ;
+		_notifyPropertyChange( propName , w + "," + h ) ;
 	}
 
 	/**
@@ -200,10 +200,10 @@ public class OtProps
 	 */
 	public static Dimension getWindowSize()
 	{
-		int[] dim = _getIntPair( WINDOW_SIZE );
+		int[] dim = _getIntPair( WINDOW_SIZE ) ;
 		if( dim == null )
-			return null;
-		return new Dimension( dim[ 0 ] , dim[ 1 ] );
+			return null ;
+		return new Dimension( dim[ 0 ] , dim[ 1 ] ) ;
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class OtProps
 	 */
 	public static void setWindowSize( int w , int h )
 	{
-		_setIntPair( WINDOW_SIZE , w , h );
+		_setIntPair( WINDOW_SIZE , w , h ) ;
 	}
 
 	/**
@@ -219,10 +219,10 @@ public class OtProps
 	 */
 	public static Point getWindowLocation()
 	{
-		int[] siz = _getIntPair( WINDOW_LOCATION );
+		int[] siz = _getIntPair( WINDOW_LOCATION ) ;
 		if( siz == null )
-			return null;
-		return new Point( siz[ 0 ] , siz[ 1 ] );
+			return null ;
+		return new Point( siz[ 0 ] , siz[ 1 ] ) ;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class OtProps
 	 */
 	public static void setWindowLocation( int x , int y )
 	{
-		_setIntPair( WINDOW_LOCATION , x , y );
+		_setIntPair( WINDOW_LOCATION , x , y ) ;
 	}
 
 	/**
@@ -238,10 +238,10 @@ public class OtProps
 	 */
 	public static Dimension getEditorSize( String classname )
 	{
-		int[] dim = _getIntPair( classname + ".size" );
+		int[] dim = _getIntPair( classname + ".size" ) ;
 		if( dim == null )
-			return null;
-		return new Dimension( dim[ 0 ] , dim[ 1 ] );
+			return null ;
+		return new Dimension( dim[ 0 ] , dim[ 1 ] ) ;
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class OtProps
 	 */
 	public static void setEditorSize( String classname , int w , int h )
 	{
-		_setIntPair( classname + ".size" , w , h );
+		_setIntPair( classname + ".size" , w , h ) ;
 	}
 
 	/**
@@ -260,22 +260,22 @@ public class OtProps
 	 */
 	public static int getImageCacheSize()
 	{
-		_getProps();
+		_getProps() ;
 
-		String s = _props.getProperty( IMAGE_CACHE_SIZE );
+		String s = _props.getProperty( IMAGE_CACHE_SIZE ) ;
 		if( s == null )
-			return -1;
+			return -1 ;
 
-		int size = -1;
+		int size = -1 ;
 		try
 		{
-			size = Integer.parseInt( s );
+			size = Integer.parseInt( s ) ;
 			if( size <= 0 )
-				size = -1;
+				size = -1 ;
 		}
 		catch( Exception ex ){}
 
-		return size;
+		return size ;
 	}
 
 	/**
@@ -283,12 +283,12 @@ public class OtProps
 	 */
 	public static void setBackgroundPattern( String patternFile )
 	{
-		String oldPattern = getBackgroundPattern();
+		String oldPattern = getBackgroundPattern() ;
 		if( ( oldPattern != null ) && patternFile.equals( oldPattern ) )
-			return;
+			return ;
 
-		_props.put( BACKGROUND_PATTERN , patternFile );
-		_notifyPropertyChange( BACKGROUND_PATTERN , patternFile );
+		_props.put( BACKGROUND_PATTERN , patternFile ) ;
+		_notifyPropertyChange( BACKGROUND_PATTERN , patternFile ) ;
 	}
 
 	/**
@@ -296,8 +296,8 @@ public class OtProps
 	 */
 	public static String getBackgroundPattern()
 	{
-		_getProps();
-		return ( String )_props.get( BACKGROUND_PATTERN );
+		_getProps() ;
+		return ( String )_props.get( BACKGROUND_PATTERN ) ;
 	}
 
 	/**
@@ -306,10 +306,10 @@ public class OtProps
 	public static void setSaveShouldPrompt( boolean save )
 	{
 		if( save == isSaveShouldPrompt() )
-			return;
+			return ;
 
-		_props.put( SAVE_PROMPT , String.valueOf( save ) );
-		_notifyPropertyChange( SAVE_PROMPT , String.valueOf( save ) );
+		_props.put( SAVE_PROMPT , String.valueOf( save ) ) ;
+		_notifyPropertyChange( SAVE_PROMPT , String.valueOf( save ) ) ;
 	}
 
 	/**
@@ -317,11 +317,11 @@ public class OtProps
 	 */
 	public static boolean isSaveShouldPrompt()
 	{
-		_getProps();
-		String tmp = ( String )_props.get( SAVE_PROMPT );
+		_getProps() ;
+		String tmp = ( String )_props.get( SAVE_PROMPT ) ;
 		if( tmp == null )
-			return true;
-		return Boolean.valueOf( tmp ).booleanValue();
+			return true ;
+		return Boolean.valueOf( tmp ).booleanValue() ;
 	}
 
 	/**
@@ -330,10 +330,10 @@ public class OtProps
 	public static void setToolBarVisible( boolean visible )
 	{
 		if( visible == isToolBarVisible() )
-			return;
+			return ;
 
-		_props.put( TOOLBAR_VISIBLE , String.valueOf( visible ) );
-		_notifyPropertyChange( TOOLBAR_VISIBLE , String.valueOf( visible ) );
+		_props.put( TOOLBAR_VISIBLE , String.valueOf( visible ) ) ;
+		_notifyPropertyChange( TOOLBAR_VISIBLE , String.valueOf( visible ) ) ;
 	}
 
 	/**
@@ -341,10 +341,10 @@ public class OtProps
 	 */
 	public static boolean isToolBarVisible()
 	{
-		_getProps();
-		String tmp = ( String )_props.get( TOOLBAR_VISIBLE );
+		_getProps() ;
+		String tmp = ( String )_props.get( TOOLBAR_VISIBLE ) ;
 		if( tmp == null )
-			return true;
-		return Boolean.valueOf( tmp ).booleanValue();
+			return true ;
+		return Boolean.valueOf( tmp ) ;
 	}
 }

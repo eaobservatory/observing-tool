@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * A TreeNodeWidget extension that supports multi-selection.  It is
@@ -23,13 +23,13 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	/** Constructor.  */
 	public MultiSelTreeNodeWidget( MultiSelTreeWidget tree )
 	{
-		super( tree );
+		super( tree ) ;
 	}
 
 	/** Constructor with a label. Used by subclasses of TreeNodeWidgetExt.  */
 	public MultiSelTreeNodeWidget( MultiSelTreeWidget tree , String label )
 	{
-		super( tree , label );
+		super( tree , label ) ;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	 */
 	public MultiSelTreeWidget getMultiSelTreeWidget()
 	{
-		return ( MultiSelTreeWidget )getTreeWidget();
+		return ( MultiSelTreeWidget )getTreeWidget() ;
 	}
 
 	/**
@@ -46,8 +46,8 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	 */
 	public void add( int pos , TreeNodeWidgetExt tnw )
 	{
-		getMultiSelTreeWidget().multiUnselect();
-		super.add( pos , tnw );
+		getMultiSelTreeWidget().multiUnselect() ;
+		super.add( pos , tnw ) ;
 	}
 
 	/**
@@ -61,9 +61,9 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 			{
 				// Turn off the multi-select
 				if( !isMultiSelected() )
-					getMultiSelTreeWidget().multiUnselect();
+					getMultiSelTreeWidget().multiUnselect() ;
 			}
-			super.setSelected( selected );
+			super.setSelected( selected ) ;
 		}
 	}
 
@@ -73,8 +73,8 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	public void action()
 	{
 		// Turn off the multi-select
-		getMultiSelTreeWidget().multiUnselect();
-		super.action();
+		getMultiSelTreeWidget().multiUnselect() ;
+		super.action() ;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	 */
 	public synchronized boolean multipleItemsSelected()
 	{
-		return getMultiSelTreeWidget().multipleItemsSelected();
+		return getMultiSelTreeWidget().multipleItemsSelected() ;
 	}
 
 	/**
@@ -93,14 +93,14 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	{
 		if( multipleItemsSelected() )
 		{
-			Vector v = getMultiSelTreeWidget().getMultiSelectNodes();
-			int n = v.size();
+			Vector v = getMultiSelTreeWidget().getMultiSelectNodes() ;
+			int n = v.size() ;
 			for( int i = 0 ; i < n ; i++ )
 			{
 				if( v.get( i ) == this )
-					return true;
+					return true ;
 			}
 		}
-		return false;
+		return false ;
 	}
 }

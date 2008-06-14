@@ -4,78 +4,78 @@
  *
  */
 
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.io.File;
-import java.io.FileReader;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Stack;
-import java.util.Vector;
-import javax.swing.AbstractAction;
-import javax.swing.JDesktopPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JTree;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
-import jsky.app.ot.ProgramInfo;
-import jsky.app.ot.gui.MultiSelTreeWidgetWatcher;
-import jsky.app.ot.gui.TreeNodeWidgetExt;
-import jsky.app.ot.gui.TreeWidgetExt;
-import jsky.app.ot.gui.TreeWidgetWatcher;
-import gemini.sp.SpEditChangeObserver;
-import gemini.sp.SpHierarchyChangeObserver;
-import gemini.sp.SpAvTable;
-import gemini.sp.SpEditState;
-import gemini.sp.SpFactory;
-import gemini.sp.SpInsertData;
-import gemini.sp.SpItem;
-import gemini.sp.SpLibrary;
-import gemini.sp.SpMSB;
-import gemini.sp.SpObs;
-import gemini.sp.SpObsFolder;
-import gemini.sp.SpObsGroup;
-import gemini.sp.SpPhase1;
-import gemini.sp.SpProg;
-import gemini.sp.SpRootItem;
-import gemini.sp.SpTreeMan;
-import gemini.sp.SpType;
-import gemini.util.ConfigWriter;
-import orac.util.SpInputXML;
-import ot.phase1.Phase1HTMLDocument;
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
-import jsky.app.ot.tpe.TpeManagerWatcher;
-import jsky.app.ot.util.CloseableApp;
-import jsky.app.ot.OtCfg;
-import ot.util.DialogUtil;
+import java.awt.Component ;
+import java.awt.event.ActionEvent ;
+import java.net.URL ;
+import java.io.File ;
+import java.io.FileReader ;
+import java.util.LinkedList ;
+import java.util.ListIterator ;
+import java.util.Observable ;
+import java.util.Observer ;
+import java.util.Stack ;
+import java.util.Vector ;
+import javax.swing.AbstractAction ;
+import javax.swing.JDesktopPane ;
+import javax.swing.JFileChooser ;
+import javax.swing.JFrame ;
+import javax.swing.JInternalFrame ;
+import javax.swing.JLayeredPane ;
+import javax.swing.JMenu ;
+import javax.swing.JOptionPane ;
+import javax.swing.JTree ;
+import javax.swing.event.ChangeEvent ;
+import javax.swing.event.ChangeListener ;
+import javax.swing.event.EventListenerList ;
+import jsky.app.ot.ProgramInfo ;
+import jsky.app.ot.gui.MultiSelTreeWidgetWatcher ;
+import jsky.app.ot.gui.TreeNodeWidgetExt ;
+import jsky.app.ot.gui.TreeWidgetExt ;
+import jsky.app.ot.gui.TreeWidgetWatcher ;
+import gemini.sp.SpEditChangeObserver ;
+import gemini.sp.SpHierarchyChangeObserver ;
+import gemini.sp.SpAvTable ;
+import gemini.sp.SpEditState ;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpInsertData ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpLibrary ;
+import gemini.sp.SpMSB ;
+import gemini.sp.SpObs ;
+import gemini.sp.SpObsFolder ;
+import gemini.sp.SpObsGroup ;
+import gemini.sp.SpPhase1 ;
+import gemini.sp.SpProg ;
+import gemini.sp.SpRootItem ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpType ;
+import gemini.util.ConfigWriter ;
+import orac.util.SpInputXML ;
+import ot.phase1.Phase1HTMLDocument ;
+import jsky.app.ot.tpe.TelescopePosEditor ;
+import jsky.app.ot.tpe.TpeManager ;
+import jsky.app.ot.tpe.TpeManagerWatcher ;
+import jsky.app.ot.util.CloseableApp ;
+import jsky.app.ot.OtCfg ;
+import ot.util.DialogUtil ;
 
-import orac.helptool.JHLauncher;
+import orac.helptool.JHLauncher ;
 
-import orac.validation.SpValidation;
-import orac.validation.ErrorMessage;
-import ot.ReportBox;
+import orac.validation.SpValidation ;
+import orac.validation.ErrorMessage ;
+import ot.ReportBox ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
-import orac.util.FileFilterXML;
+import orac.util.FileFilterXML ;
 
-import omp.SpClient;
+import omp.SpClient ;
 
-import orac.jcmt.inst.SpInstHeterodyne; // Temporary ACSIS translator
-import orac.jcmt.util.AcsisTranslator; // Temporary ACSIS translator
-import java.io.IOException; // Temporary ACSIS translator
+import orac.jcmt.inst.SpInstHeterodyne ; // Temporary ACSIS translator
+import orac.jcmt.util.AcsisTranslator ; // Temporary ACSIS translator
+import java.io.IOException ; // Temporary ACSIS translator
 
 /**
  * Button manager base class.  Helper classes derived from this
@@ -84,20 +84,20 @@ import java.io.IOException; // Temporary ACSIS translator
 abstract class ButtonManagerBase implements SpHierarchyChangeObserver , TreeWidgetWatcher
 {
 	/** The OT tree widget */
-	protected OtTreeWidget _tw;
+	protected OtTreeWidget _tw ;
 
 	/** The action object for the button and/or menu item. */
-	protected AbstractAction _action;
+	protected AbstractAction _action ;
 
 	/** The root of the science program tree */
-	protected SpItem _spRoot;
+	protected SpItem _spRoot ;
 
 	/** Initialize with the OT tree widget and the button's action object. */
 	ButtonManagerBase( OtTreeWidget tw , AbstractAction action )
 	{
-		_tw = tw;
-		_tw.addWatcher( this );
-		_action = action;
+		_tw = tw ;
+		_tw.addWatcher( this ) ;
+		_action = action ;
 	}
 
 	/** Reset to use the given science program tree. */
@@ -105,17 +105,17 @@ abstract class ButtonManagerBase implements SpHierarchyChangeObserver , TreeWidg
 	{
 		if( _spRoot != null )
 		{
-			_spRoot.getEditFSM().deleteHierarchyChangeObserver( this );
-			_spRoot.getTable().noNotifyRmAll();
+			_spRoot.getEditFSM().deleteHierarchyChangeObserver( this ) ;
+			_spRoot.getTable().noNotifyRmAll() ;
 		}
-		_spRoot = spRoot;
-		_spRoot.getEditFSM().addHierarchyChangeObserver( this );
+		_spRoot = spRoot ;
+		_spRoot.getEditFSM().addHierarchyChangeObserver( this ) ;
 	}
 
 	/** Receive notification that new items have been added to the program. */
 	public void spItemsAdded( SpItem parent , SpItem[] children , SpItem afterChild )
 	{
-		_updateButton();
+		_updateButton() ;
 	}
 
 	/** Receive notification that items have been removed from the program. */
@@ -124,20 +124,20 @@ abstract class ButtonManagerBase implements SpHierarchyChangeObserver , TreeWidg
 	/** Receive notification that items have been moved in the program. */
 	public void spItemsMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		_updateButton();
+		_updateButton() ;
 	}
 
 	/** Receive notification that a tree node is selected. */
 	public void nodeSelected( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
 	{
-		_updateButton();
+		_updateButton() ;
 	}
 
 	/** Receive notification that a node has been acted upon. */
 	public void nodeAction( TreeWidgetExt tw , TreeNodeWidgetExt tnw ){}
 
 	/** Enable or disable the button based upon the current context. */
-	abstract protected void _updateButton();
+	abstract protected void _updateButton() ;
 
 } // end ButtonManagerBase
 
@@ -150,52 +150,52 @@ abstract class GroupingButtonManagerBase extends ButtonManagerBase implements Mu
 {
 	GroupingButtonManagerBase( OtTreeWidget tw , AbstractAction action )
 	{
-		super( tw , action );
+		super( tw , action ) ;
 	}
 
 	// This method is called whenever multiple tree nodes are selected.
 	public void multiNodeSelect( TreeWidgetExt tw , Vector tnwA )
 	{
-		_updateButton();
+		_updateButton() ;
 	}
 
 	protected boolean _makeGroup( SpItem newItem , boolean carryOutActions )
 	{
-		SpItem[] spItemA = _tw.getMultiSelectedItems();
+		SpItem[] spItemA = _tw.getMultiSelectedItems() ;
 		if( ( spItemA == null ) || ( spItemA.length == 0 ) )
 		{
-			spItemA = new SpItem[ 1 ];
-			spItemA[ 0 ] = _tw.getSelectedItem();
+			spItemA = new SpItem[ 1 ] ;
+			spItemA[ 0 ] = _tw.getSelectedItem() ;
 			if( spItemA[ 0 ] == null )
 			{
-				_action.setEnabled( false );
-				return false;
+				_action.setEnabled( false ) ;
+				return false ;
 			}
 		}
 
-		SpItem lastItem = spItemA[ spItemA.length - 1 ];
+		SpItem lastItem = spItemA[ spItemA.length - 1 ] ;
 
-		SpInsertData spID = SpTreeMan.evalInsertAfter( newItem , lastItem );
+		SpInsertData spID = SpTreeMan.evalInsertAfter( newItem , lastItem ) ;
 		if( spID == null )
 		{
-			_action.setEnabled( false );
-			return false;
+			_action.setEnabled( false ) ;
+			return false ;
 		}
 
-		SpInsertData spID2 = SpTreeMan.evalInsertInside( spItemA , newItem );
+		SpInsertData spID2 = SpTreeMan.evalInsertInside( spItemA , newItem ) ;
 		if( spID2 == null )
 		{
-			_action.setEnabled( false );
-			return false;
+			_action.setEnabled( false ) ;
+			return false ;
 		}
 
-		_action.setEnabled( true );
+		_action.setEnabled( true ) ;
 		if( carryOutActions )
 		{
-			SpTreeMan.insert( spID );
-			SpTreeMan.move( spID2 );
+			SpTreeMan.insert( spID ) ;
+			SpTreeMan.move( spID2 ) ;
 		}
-		return true;
+		return true ;
 	}
 }
 
@@ -204,11 +204,11 @@ abstract class GroupingButtonManagerBase extends ButtonManagerBase implements Mu
  */
 class ObsGroupButtonManager extends GroupingButtonManagerBase
 {
-	private SpObsGroup _obsGroup = ( SpObsGroup )SpFactory.create( SpType.OBSERVATION_GROUP );
+	private SpObsGroup _obsGroup = ( SpObsGroup )SpFactory.create( SpType.OBSERVATION_GROUP ) ;
 
 	ObsGroupButtonManager( OtTreeWidget tw , AbstractAction action )
 	{
-		super( tw , action );
+		super( tw , action ) ;
 	}
 
 	/**
@@ -219,10 +219,10 @@ class ObsGroupButtonManager extends GroupingButtonManagerBase
 	/** Create an observation group. */
 	public void addGroup()
 	{
-		_tw.addItem( SpFactory.create( SpType.OBSERVATION_GROUP ) );
+		_tw.addItem( SpFactory.create( SpType.OBSERVATION_GROUP ) ) ;
 		// Create a new ObsGroup for next time
 		if( _makeGroup( _obsGroup , true ) )
-			_obsGroup = ( SpObsGroup )SpFactory.create( SpType.OBSERVATION_GROUP );
+			_obsGroup = ( SpObsGroup )SpFactory.create( SpType.OBSERVATION_GROUP ) ;
 	}
 
 } // end ObsGroupButtonManager
@@ -232,11 +232,11 @@ class ObsGroupButtonManager extends GroupingButtonManagerBase
 //
 class ObsFolderButtonManager extends GroupingButtonManagerBase
 {
-	private SpObsFolder _obsFolder = ( SpObsFolder )SpFactory.create( SpType.OBSERVATION_FOLDER );
+	private SpObsFolder _obsFolder = ( SpObsFolder )SpFactory.create( SpType.OBSERVATION_FOLDER ) ;
 
 	ObsFolderButtonManager( OtTreeWidget tw , AbstractAction action )
 	{
-		super( tw , action );
+		super( tw , action ) ;
 	}
 
 	/** Enable or disable the button based upon the current context. */
@@ -245,10 +245,10 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
 	/** Create an observation folder. */
 	public void addFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.OBSERVATION_FOLDER ) );
+		_tw.addItem( SpFactory.create( SpType.OBSERVATION_FOLDER ) ) ;
 		// Create a new folder for next time
 		if( _makeGroup( _obsFolder , true ) )
-			_obsFolder = ( SpObsFolder )SpFactory.create( SpType.OBSERVATION_FOLDER );
+			_obsFolder = ( SpObsFolder )SpFactory.create( SpType.OBSERVATION_FOLDER ) ;
 	}
 
 } // end ObsFolderButtonManager
@@ -265,70 +265,70 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
 public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeManagerWatcher , CloseableApp
 {
 	/** Displays the science program hierarchy. */
-	protected OtTreeWidget _tw;
+	protected OtTreeWidget _tw ;
 
 	/** The editor window for the selected node */
-	protected OtItemEditorWindow _itemEditor;
+	protected OtItemEditorWindow _itemEditor ;
 
 	/** The current science program root */
-	protected SpItem _curItem;
-	protected ProgramInfo _progInfo;
+	protected SpItem _curItem ;
+	protected ProgramInfo _progInfo ;
 
 	/** Manages the Observation Group enabled state */
-	protected ObsGroupButtonManager _obsGroupButtonMan;
+	protected ObsGroupButtonManager _obsGroupButtonMan ;
 
 	/** Manages the Observation Folder enabled state */
-	protected ObsFolderButtonManager _obsFolderButtonMan;
+	protected ObsFolderButtonManager _obsFolderButtonMan ;
 
 	/** Used to go back to a previous science program */
-	protected Stack backStack = new Stack();
+	protected Stack backStack = new Stack() ;
 
 	/** Used to go forward to the next science program */
-	protected Stack forwStack = new Stack();
+	protected Stack forwStack = new Stack() ;
 
 	/** Set when the back or forward actions are active to avoid the normal history handling */
-	protected boolean noStack = false;
+	protected boolean noStack = false ;
 
 	/** List of OtHistoryItem, for previously viewed science programs. */
-	protected LinkedList historyList = new LinkedList();
+	protected LinkedList historyList = new LinkedList() ;
 
 	/** list of listeners for change events */
-	protected EventListenerList listenerList = new EventListenerList();
+	protected EventListenerList listenerList = new EventListenerList() ;
 
 	// used to exit the application when the last main frame is closed
-	static protected int _frameCount = 0;
+	static protected int _frameCount = 0 ;
 
 	/** XML file filter (*.xml). MFO 04 June 2001 */
-	protected FileFilterXML xmlFilter = new FileFilterXML();
+	protected FileFilterXML xmlFilter = new FileFilterXML() ;
 
 	/**
 	 * Create an OtWindow of the appropriate type.
 	 */
 	public static void create( SpRootItem spItem , FileInfo fi )
 	{
-		SpType spType = spItem.type();
-		OtWindow editor = null;
+		SpType spType = spItem.type() ;
+		OtWindow editor = null ;
 		if( spType.equals( SpType.SCIENCE_PROGRAM ) || spType.equals( SpType.SCIENCE_PLAN ) || spType.equals( SpType.LIBRARY ) )
 		{
-			editor = new OtProgWindow( spItem , fi );
+			editor = new OtProgWindow( spItem , fi ) ;
 		}
 		else
 		{
-			DialogUtil.error( editor , "Can't create an OtWindow for type: " + spItem.type() );
-			return;
+			DialogUtil.error( editor , "Can't create an OtWindow for type: " + spItem.type() ) ;
+			return ;
 		}
 
 		// use internal frames?
-		JDesktopPane desktop = OT.getDesktop();
+		JDesktopPane desktop = OT.getDesktop() ;
 		if( desktop == null )
 		{
-			new OtWindowFrame( editor );
+			new OtWindowFrame( editor ) ;
 		}
 		else
 		{
-			Component c = new OtWindowInternalFrame( editor );
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER );
-			desktop.moveToFront( c );
+			Component c = new OtWindowInternalFrame( editor ) ;
+			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
+			desktop.moveToFront( c ) ;
 		}
 	}
 
@@ -337,7 +337,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected OtWindow( SpRootItem spItem )
 	{
-		this( spItem , null );
+		this( spItem , null ) ;
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected OtWindow( SpRootItem spItem , FileInfo fileInfo )
 	{
-		_init( spItem , fileInfo );
+		_init( spItem , fileInfo ) ;
 		_frameCount++ ;
 	}
 
@@ -355,80 +355,80 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	protected void _init( SpRootItem spItem , FileInfo fileInfo )
 	{
 		// Initialize the ProgramInfo structure
-		_progInfo = new ProgramInfo();
+		_progInfo = new ProgramInfo() ;
 
-		ProgramInfo.register( _progInfo , spItem );
+		ProgramInfo.register( _progInfo , spItem ) ;
 
 		if( fileInfo == null )
 		{
 			// Init FileInfo from attributes in the spItem if present.  
 			// This will allow programs obtained from the database to have their filename and directory already set.
-			fileInfo = new FileInfo();
-			SpAvTable avTab = spItem.getTable();
+			fileInfo = new FileInfo() ;
+			SpAvTable avTab = spItem.getTable() ;
 
-			String dir = OT.getOtUserDir();
-			String filename = avTab.get( ".gui.filename" );
-			boolean hasBeenSaved = avTab.getBool( ".gui.hasBeenSaved" );
+			String dir = OT.getOtUserDir() ;
+			String filename = avTab.get( ".gui.filename" ) ;
+			boolean hasBeenSaved = avTab.getBool( ".gui.hasBeenSaved" ) ;
 			if( ( dir != null ) && ( filename != null ) )
 			{
-				fileInfo.dir = dir;
-				fileInfo.filename = filename;
-				fileInfo.hasBeenSaved = hasBeenSaved;
+				fileInfo.dir = dir ;
+				fileInfo.filename = filename ;
+				fileInfo.hasBeenSaved = hasBeenSaved ;
 			}
 			else
 			{
-				fileInfo.dir = avTab.get( ".gui.dir" );
+				fileInfo.dir = avTab.get( ".gui.dir" ) ;
 			}
 		}
-		_progInfo.file = fileInfo;
+		_progInfo.file = fileInfo ;
 
 		// Set up the tree widget
-		_tw = this.tree;
+		_tw = this.tree ;
 		_tw.addWatcher( new TreeWidgetWatcher()
 		{
 			public void nodeSelected( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
 			{
-				OtWindow.this.nodeSelect( tw , tnw );
+				OtWindow.this.nodeSelect( tw , tnw ) ;
 			}
 
 			public void nodeAction( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
 			{
-				OtWindow.this.nodeAction( tw , tnw );
+				OtWindow.this.nodeAction( tw , tnw ) ;
 			}
-		} );
+		} ) ;
 
-		_obsGroupButtonMan = new ObsGroupButtonManager( _tw , obsGroupAction );
-		_obsFolderButtonMan = new ObsFolderButtonManager( _tw , obsFolderAction );
+		_obsGroupButtonMan = new ObsGroupButtonManager( _tw , obsGroupAction ) ;
+		_obsFolderButtonMan = new ObsFolderButtonManager( _tw , obsFolderAction ) ;
 
 		// Create the item editor window
 		if( _itemEditor == null )
 		{
-			_itemEditor = new OtItemEditorWindow();
-			editorPane.add( "Center" , _itemEditor );
-			_itemEditor.setParentFrame( parent );
-			_itemEditor.setOtWindow( this );
+			_itemEditor = new OtItemEditorWindow() ;
+			editorPane.add( "Center" , _itemEditor ) ;
+			_itemEditor.setParentFrame( parent ) ;
+			_itemEditor.setOtWindow( this ) ;
 		}
-		_itemEditor.setInfo( _progInfo );
+		_itemEditor.setInfo( _progInfo ) ;
 
 		// Initialize the title
-		_updateTitle( spItem );
+		_updateTitle( spItem ) ;
 
-		_updateEditPencil( spItem.getEditState() );
+		_updateEditPencil( spItem.getEditState() ) ;
 
 		// Watch filename changes
 		_progInfo.file.addObserver( new Observer()
 		{
 			public void update( Observable obs , Object arg )
 			{
-				_updateTitle();
+				_updateTitle() ;
 			}
-		} );
+		} ) ;
 
 		// Watch when a position editor is opened.
-		TpeManager.addWatcher( this , spItem );
+		TpeManager.addWatcher( this , spItem ) ;
 
 		// Set the program displayed in the tree.
-		resetItem( spItem );
+		resetItem( spItem ) ;
 	}
 
 	/**
@@ -437,63 +437,63 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	protected void _reinit( SpRootItem spItem , FileInfo fileInfo )
 	{
 		// Initialize the ProgramInfo structure
-		_progInfo = new ProgramInfo();
+		_progInfo = new ProgramInfo() ;
 
-		ProgramInfo.register( _progInfo , spItem );
+		ProgramInfo.register( _progInfo , spItem ) ;
 
 		if( fileInfo == null )
 		{
 			// Init FileInfo from attributes in the spItem if present.  
 			// This will allow programs obtained from the database to have their filename and directory already set.
-			fileInfo = new FileInfo();
-			SpAvTable avTab = spItem.getTable();
+			fileInfo = new FileInfo() ;
+			SpAvTable avTab = spItem.getTable() ;
 
-			String dir = OT.getOtUserDir();
-			String filename = avTab.get( ".gui.filename" );
-			boolean hasBeenSaved = avTab.getBool( ".gui.hasBeenSaved" );
+			String dir = OT.getOtUserDir() ;
+			String filename = avTab.get( ".gui.filename" ) ;
+			boolean hasBeenSaved = avTab.getBool( ".gui.hasBeenSaved" ) ;
 			if( ( dir != null ) && ( filename != null ) )
 			{
-				fileInfo.dir = dir;
-				fileInfo.filename = filename;
-				fileInfo.hasBeenSaved = hasBeenSaved;
+				fileInfo.dir = dir ;
+				fileInfo.filename = filename ;
+				fileInfo.hasBeenSaved = hasBeenSaved ;
 			}
 			else
 			{
-				dir = avTab.get( ".gui.dir" );
+				dir = avTab.get( ".gui.dir" ) ;
 			}
 		}
-		_progInfo.file = fileInfo;
+		_progInfo.file = fileInfo ;
 
 		// Set up the tree widget
-		_itemEditor.setInfo( _progInfo );
+		_itemEditor.setInfo( _progInfo ) ;
 
 		// Initialize the title
-		_updateTitle( spItem );
+		_updateTitle( spItem ) ;
 
-		_updateEditPencil( spItem.getEditState() );
+		_updateEditPencil( spItem.getEditState() ) ;
 
 		// Watch when a position editor is opened.
-		TpeManager.addWatcher( this , spItem );
+		TpeManager.addWatcher( this , spItem ) ;
 
 		// Set the program displayed in the tree.
-		resetItem( spItem );
+		resetItem( spItem ) ;
 
 		// notify any listeners that a new program was loaded
-		fireChange( new ChangeEvent( this ) );
+		fireChange( new ChangeEvent( this ) ) ;
 	}
 
 	/** Set the top level parent frame (or internal frame) used to close the window */
 	public void setParentFrame( Component p )
 	{
-		super.setParentFrame( p );
+		super.setParentFrame( p ) ;
 		if( _itemEditor != null )
-			_itemEditor.setParentFrame( p );
+			_itemEditor.setParentFrame( p ) ;
 	}
 
 	/** Return true if the program has been saved */
 	public boolean progHasBeenSaved()
 	{
-		return _progInfo.file.hasBeenSaved;
+		return _progInfo.file.hasBeenSaved ;
 	}
 
 	/**
@@ -501,13 +501,13 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public SpRootItem getItem()
 	{
-		return _tw.getProg();
+		return _tw.getProg() ;
 	}
 
 	/** Return the OT tree widget */
 	public OtTreeWidget getTreeWidget()
 	{
-		return _tw;
+		return _tw ;
 	}
 
 	/**
@@ -515,7 +515,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public boolean isEdited()
 	{
-		return( getItem().getEditState() == SpEditState.EDITED );
+		return( getItem().getEditState() == SpEditState.EDITED ) ;
 	}
 
 	/**
@@ -525,23 +525,23 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	void resetItem( SpRootItem spItem )
 	{
-		SpRootItem oldItem = getItem();
+		SpRootItem oldItem = getItem() ;
 		if( oldItem != null )
 		{
-			TpeManager.remap( oldItem , spItem );
-			oldItem.getEditFSM().deleteEditChangeObserver( this );
+			TpeManager.remap( oldItem , spItem ) ;
+			oldItem.getEditFSM().deleteEditChangeObserver( this ) ;
 		}
 
 		if( spItem != oldItem )
-			_tw.resetProg( spItem );
+			_tw.resetProg( spItem ) ;
 
 		// Initialize the title
-		_updateEditPencil( spItem.getEditState() );
-		spItem.getEditFSM().addEditChangeObserver( this );
-		spItem.getEditFSM().reset();
+		_updateEditPencil( spItem.getEditState() ) ;
+		spItem.getEditFSM().addEditChangeObserver( this ) ;
+		spItem.getEditFSM().reset() ;
 
-		_obsGroupButtonMan.resetItem( spItem );
-		_obsFolderButtonMan.resetItem( spItem );
+		_obsGroupButtonMan.resetItem( spItem ) ;
+		_obsFolderButtonMan.resetItem( spItem ) ;
 	}
 
 	/**
@@ -552,24 +552,24 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	{
 		// Never prompt to save a library - caveat emptor!
 		if( getItemType().equalsIgnoreCase( "library" ) )
-			return true;
+			return true ;
 
 		// If not edited, then it is okay to close this program.
 		if( !isEdited() && !OtProps.isSaveShouldPrompt() )
-			return true;
+			return true ;
 
 		// The program was edited and we should prompt, so do so.
-		String msg = "Save changes to " + getItemType() + " '" + getFilename() + "'?";
-		int response = DialogUtil.confirm( this , msg );
+		String msg = "Save changes to " + getItemType() + " '" + getFilename() + "'?" ;
+		int response = DialogUtil.confirm( this , msg ) ;
 		if( response == JOptionPane.CANCEL_OPTION )
-			return false;
+			return false ;
 
 		// If the user wants to save changes, it is okay to close if the save succeeds.
 		if( response == JOptionPane.YES_OPTION )
-			return doSaveChanges();
+			return doSaveChanges() ;
 
 		// The user didn't want to save changes, so go ahead and close.
-		return true;
+		return true ;
 	}
 
 	/**
@@ -577,7 +577,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public boolean doSaveChanges()
 	{
-		return OtFileIO.save( getItem() , _progInfo.file );
+		return OtFileIO.save( getItem() , _progInfo.file ) ;
 	}
 
 	/**
@@ -587,62 +587,62 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public boolean doSaveSequence()
 	{
-		OtTreeNodeWidget tnw;
-		tnw = ( OtTreeNodeWidget )OtWindow.this._tw.getSelectedNode();
-		SpItem spitem = tnw.getItem();
+		OtTreeNodeWidget tnw ;
+		tnw = ( OtTreeNodeWidget )OtWindow.this._tw.getSelectedNode() ;
+		SpItem spitem = tnw.getItem() ;
 
 		// Walk back up the tree to see if this is contained in a survey component since we can handle these
-		SpItem parent = spitem;
-		boolean inSurvey = false;
+		SpItem parent = spitem ;
+		boolean inSurvey = false ;
 		while( parent != null )
 		{
 			if( parent.type().equals( SpType.SURVEY_CONTAINER ) )
 			{
-				inSurvey = true;
-				break;
+				inSurvey = true ;
+				break ;
 			}
-			parent = parent.parent();
+			parent = parent.parent() ;
 		}
 		if( inSurvey )
 		{
-			DialogUtil.error( this , "Can not translate observations within a Survey Container" );
-			return false;
+			DialogUtil.error( this , "Can not translate observations within a Survey Container" ) ;
+			return false ;
 		}
 
 		// Check if this is an Observation.
 		if( !( spitem.type().equals( SpType.OBSERVATION ) ) )
-			spitem = findSpObs( spitem );
+			spitem = findSpObs( spitem ) ;
 
 		if( spitem != null )
 		{
-			SpObs spobs = ( SpObs )spitem;
+			SpObs spobs = ( SpObs )spitem ;
 
 			// Create a translator class and do the translation
 			try
 			{
-				Vector vector = new Vector() ;
-				spobs.translateProlog( vector );
-				spobs.translate( vector );
-				spobs.translateEpilog( vector );
+				Vector<String> vector = new Vector<String>() ;
+				spobs.translateProlog( vector ) ;
+				spobs.translate( vector ) ;
+				spobs.translateEpilog( vector ) ;
 			}
 			catch( Exception e )
 			{
-				e.printStackTrace();
-				DialogUtil.error( this , e.getMessage() );
-				return false;
+				e.printStackTrace() ;
+				DialogUtil.error( this , e.getMessage() ) ;
+				return false ;
 			}
 
 		}
 		else
 		{
 			// The user didn't select an observation item for the translation.
-			DialogUtil.error( this , "Selected node is not an observation or within an observation" );
-			return false;
+			DialogUtil.error( this , "Selected node is not an observation or within an observation" ) ;
+			return false ;
 		}
 
-		DialogUtil.message( this , "Observation saved to " + ConfigWriter.getCurrentInstance().getExecName() );
+		DialogUtil.message( this , "Observation saved to " + ConfigWriter.getCurrentInstance().getExecName() ) ;
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -653,73 +653,73 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public boolean doSaveAcsisOcsXml()
 	{
-		OtTreeNodeWidget tnw;
-		tnw = ( OtTreeNodeWidget )OtWindow.this._tw.getSelectedNode();
-		SpItem spitem = tnw.getItem();
+		OtTreeNodeWidget tnw ;
+		tnw = ( OtTreeNodeWidget )OtWindow.this._tw.getSelectedNode() ;
+		SpItem spitem = tnw.getItem() ;
 
 		// Check if this is an Observation.
 		if( !( spitem.type().equals( SpType.OBSERVATION ) ) )
-			spitem = findSpObs( spitem );
+			spitem = findSpObs( spitem ) ;
 
 		if( spitem != null )
 		{
-			SpObs spobs = ( SpObs )spitem;
+			SpObs spobs = ( SpObs )spitem ;
 
 			// Get the instrumnet in scope
-			SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( spitem ) );
+			SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( spitem ) ) ;
 
 			if( !( inst instanceof SpInstHeterodyne ) )
 			{
 				// The user didn't select an observation item for the translation.
-				DialogUtil.error( this , "Instrument component is not \"Het Setup\"" );
-				return false;
+				DialogUtil.error( this , "Instrument component is not \"Het Setup\"" ) ;
+				return false ;
 			}
-			JFileChooser _translatorFileChooser = new JFileChooser();
+			JFileChooser _translatorFileChooser = new JFileChooser() ;
 
-			_translatorFileChooser.setDialogTitle( "Choose a OCS XML directory." );
-			_translatorFileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
-			_translatorFileChooser.showSaveDialog( _tw );
+			_translatorFileChooser.setDialogTitle( "Choose a OCS XML directory." ) ;
+			_translatorFileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY ) ;
+			_translatorFileChooser.showSaveDialog( _tw ) ;
 
-			File selectedDir = _translatorFileChooser.getSelectedFile();
-			boolean fileOK = true;
+			File selectedDir = _translatorFileChooser.getSelectedFile() ;
+			boolean fileOK = true ;
 
 			// If no file has been selected or the selected file is not a normal file then abort.
 			if( ( selectedDir == null ) || ( selectedDir.exists() && ( !selectedDir.isDirectory() ) ) )
-				fileOK = false;
+				fileOK = false ;
 
 			if( fileOK && selectedDir.exists() )
 			{
-				JOptionPane.showMessageDialog( _tw , "Directory " + selectedDir + " exists and cannot be overriden automatically.\n" + "Please remove it manually or choose a different directory." , "Directory exists." , JOptionPane.WARNING_MESSAGE );
-				fileOK = false;
+				JOptionPane.showMessageDialog( _tw , "Directory " + selectedDir + " exists and cannot be overriden automatically.\n" + "Please remove it manually or choose a different directory." , "Directory exists." , JOptionPane.WARNING_MESSAGE ) ;
+				fileOK = false ;
 			}
 
 			if( fileOK )
 			{
-				AcsisTranslator _acsisTranslator = new AcsisTranslator();
+				AcsisTranslator _acsisTranslator = new AcsisTranslator() ;
 				try
 				{
-					_acsisTranslator.translate( spobs , ( SpInstHeterodyne )inst , selectedDir );
+					_acsisTranslator.translate( spobs , ( SpInstHeterodyne )inst , selectedDir ) ;
 				}
 				catch( IOException e )
 				{
-					e.printStackTrace();
-					DialogUtil.error( this , "ACSIS/OCS XML could not be saved to " + selectedDir + ": " + e );
-					return false;
+					e.printStackTrace() ;
+					DialogUtil.error( this , "ACSIS/OCS XML could not be saved to " + selectedDir + ": " + e ) ;
+					return false ;
 				}
 				catch( Exception e )
 				{
-					e.printStackTrace();
-					DialogUtil.error( this , "ACSIS/OCS XML translation problem: " + e );
-					return false;
+					e.printStackTrace() ;
+					DialogUtil.error( this , "ACSIS/OCS XML translation problem: " + e ) ;
+					return false ;
 				}
 			}
-			return true;
+			return true ;
 		}
 		else
 		{
 			// The user didn't select an observation item for the translation.
-			DialogUtil.error( this , "Selected node is not an observation or within an observation" );
-			return false;
+			DialogUtil.error( this , "Selected node is not an observation or within an observation" ) ;
+			return false ;
 		}
 	}
 
@@ -731,34 +731,34 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	public boolean closeApp()
 	{
 		if( !isOkayToClose() )
-			return false;
+			return false ;
 
-		SpItem spItem = _tw.getProg();
-		spItem.getEditFSM().deleteEditChangeObserver( this );
+		SpItem spItem = _tw.getProg() ;
+		spItem.getEditFSM().deleteEditChangeObserver( this ) ;
 
-		TpeManager.remove( spItem );
-		TpeManager.deleteWatchers( spItem );
+		TpeManager.remove( spItem ) ;
+		TpeManager.deleteWatchers( spItem ) ;
 
-		TelescopePosEditor.adjustWidthPreference();
+		TelescopePosEditor.adjustWidthPreference() ;
 
 		// Try to clear up memory
-		_tw.resetProg();
+		_tw.resetProg() ;
 
-		JDesktopPane desktop = OT.getDesktop();
+		JDesktopPane desktop = OT.getDesktop() ;
 
 		if( desktop == null )
 		{
-			( ( JFrame )parent ).setVisible( false );
-			( ( JFrame )parent ).dispose();
-			OT.removeOtWindowFrame( ( OtWindowFrame )parent );
+			( ( JFrame )parent ).setVisible( false ) ;
+			( ( JFrame )parent ).dispose() ;
+			OT.removeOtWindowFrame( ( OtWindowFrame )parent ) ;
 		}
 		else
 		{
-			parent.setVisible( false );
-			( ( JInternalFrame )parent ).dispose();
+			parent.setVisible( false ) ;
+			( ( JInternalFrame )parent ).dispose() ;
 		}
 
-		return true;
+		return true ;
 	}
 
 	/**
@@ -768,18 +768,18 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	{
 		// First, does this site support a way to create phase 1 html documents for the Phase 1 Browser?
 		if( !OtCfg.phase1Available() )
-			return false;
+			return false ;
 
-		SpItem spRoot = _tw.getProg();
+		SpItem spRoot = _tw.getProg() ;
 
 		// Is the document a Science Program.  If not, it doesn't have phase 1 info.
 		if( !( spRoot instanceof SpProg ) )
-			return false;
+			return false ;
 
 		// Does the Science Program have phase 1 info.  If created from scratch
 		// (not from a Phase 1 tool like the Gemini Phase1Gui) it will not.
-		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item();
-		return( p1 != null );
+		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item() ;
+		return( p1 != null ) ;
 	}
 
 	/**
@@ -787,39 +787,39 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void showPhase1()
 	{
-		SpItem spRoot = _tw.getProg();
+		SpItem spRoot = _tw.getProg() ;
 
 		if( !( spRoot instanceof SpProg ) )
 		{
-			DialogUtil.message( this , "Phase 1 information is only available for Science Programs." );
-			return;
+			DialogUtil.message( this , "Phase 1 information is only available for Science Programs." ) ;
+			return ;
 		}
 
-		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item();
+		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item() ;
 		if( p1 == null )
 		{
-			DialogUtil.message( this , "There is no Phase 1 Information for this Science Program." );
-			return;
+			DialogUtil.message( this , "There is no Phase 1 Information for this Science Program." ) ;
+			return ;
 		}
 
-		Phase1HTMLDocument doc = OtCfg.createHTMLDocument();
+		Phase1HTMLDocument doc = OtCfg.createHTMLDocument() ;
 
 		if( doc == null )
 		{
-			String msg = "This installation does not support Phase 1 Info browsing.";
-			DialogUtil.message( this , msg );
-			return;
+			String msg = "This installation does not support Phase 1 Info browsing." ;
+			DialogUtil.message( this , msg ) ;
+			return ;
 		}
 
 		try
 		{
-			doc.generate( p1 );
+			doc.generate( p1 ) ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Couldn't generate Phase1 information: " + ex );
-			ex.printStackTrace();
-			return;
+			System.out.println( "Couldn't generate Phase1 information: " + ex ) ;
+			ex.printStackTrace() ;
+			return ;
 		}
 	}
 
@@ -828,7 +828,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void showProg()
 	{
-		_tw.getProg().print();
+		_tw.getProg().print() ;
 	}
 
 	/**
@@ -838,7 +838,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void tpeOpened( TelescopePosEditor tpe )
 	{
-		tpe.setTitle( "Position Editor" );
+		tpe.setTitle( "Position Editor" ) ;
 	}
 
 	/**
@@ -846,7 +846,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public String getFilename()
 	{
-		return _progInfo.file.filename;
+		return _progInfo.file.filename ;
 	}
 
 	/**
@@ -855,7 +855,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public String getItemType()
 	{
-		return getItem().type().getReadable();
+		return getItem().type().getReadable() ;
 	}
 
 	/**
@@ -863,7 +863,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected void _updateTitle()
 	{
-		_updateTitle( _tw.getProg() );
+		_updateTitle( _tw.getProg() ) ;
 	}
 
 	/**
@@ -871,23 +871,23 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected void _updateTitle( SpItem spItem )
 	{
-		String prefix = "";
+		String prefix = "" ;
 		if( spItem.type().equals( SpType.SCIENCE_PROGRAM ) )
-			prefix += "Program: ";
+			prefix += "Program: " ;
 		else if( spItem.type().equals( SpType.SCIENCE_PLAN ) )
-			prefix += "Plan: ";
+			prefix += "Plan: " ;
 		else if( spItem.type().equals( SpType.LIBRARY ) )
-			prefix += "Library: ";
+			prefix += "Library: " ;
 		else
-			prefix += "UNKOWN TYPE: ";
+			prefix += "UNKOWN TYPE: " ;
 
-		setTitle( prefix + spItem.getTitle() );
+		setTitle( prefix + spItem.getTitle() ) ;
 		if( parent != null )
-			parent.setName( spItem.getTitle() );
+			parent.setName( spItem.getTitle() ) ;
 
-		TelescopePosEditor tpe = TpeManager.get( spItem );
+		TelescopePosEditor tpe = TpeManager.get( spItem ) ;
 		if( tpe != null )
-			tpe.setTitle( "Position Editor (" + getTitle() + ")" );
+			tpe.setTitle( "Position Editor (" + getTitle() + ")" ) ;
 	}
 
 	//
@@ -897,7 +897,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	//
 	private void _updateEditPencil( int state )
 	{
-		saveAction.setEnabled( state == SpEditState.EDITED );
+		saveAction.setEnabled( state == SpEditState.EDITED ) ;
 	}
 
 	/**
@@ -905,7 +905,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void spEditStateChange( SpItem rootNode )
 	{
-		_updateEditPencil( rootNode.getEditState() );
+		_updateEditPencil( rootNode.getEditState() ) ;
 	}
 
 	/**
@@ -913,14 +913,14 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void nodeSelect( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
 	{
-		SpItem spItem = ( ( OtTreeNodeWidget )tnw ).getItem();
+		SpItem spItem = ( ( OtTreeNodeWidget )tnw ).getItem() ;
 
-		_itemEditor.setItem( spItem );
-		TelescopePosEditor tpe = TpeManager.get( spItem );
+		_itemEditor.setItem( spItem ) ;
+		TelescopePosEditor tpe = TpeManager.get( spItem ) ;
 		if( tpe != null )
-			tpe.reset( spItem );
+			tpe.reset( spItem ) ;
 
-		_curItem = spItem;
+		_curItem = spItem ;
 	}
 
 	/**
@@ -928,7 +928,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void nodeAction( TreeWidgetExt tw , TreeNodeWidgetExt tnw )
 	{
-		_itemEditor.setItem( ( ( OtTreeNodeWidget )tnw ).getItem() );
+		_itemEditor.setItem( ( ( OtTreeNodeWidget )tnw ).getItem() ) ;
 	}
 
 	// The following three methods were added for the OMP project.
@@ -937,41 +937,41 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	/** Create an observation folder. */
 	public void addMsbFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.MSB_FOLDER ) );
+		_tw.addItem( SpFactory.create( SpType.MSB_FOLDER ) ) ;
 	}
 
 	/** Create an observation folder. */
 	public void addAndFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.AND_FOLDER ) );
+		_tw.addItem( SpFactory.create( SpType.AND_FOLDER ) ) ;
 	}
 
 	/** Create an observation folder. */
 	public void addOrFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.OR_FOLDER ) );
+		_tw.addItem( SpFactory.create( SpType.OR_FOLDER ) ) ;
 	}
 
 	/** Create an observation folder. */
 	public void addSurveyFolder()
 	{
-		_tw.addItem( SpFactory.create( SpType.SURVEY_CONTAINER ) );
+		_tw.addItem( SpFactory.create( SpType.SURVEY_CONTAINER ) ) ;
 	}
 
 	/** Create an observation folder. */
 	public void addFolder()
 	{
 		// MFO May 28 2001
-		_tw.addItem( SpFactory.create( SpType.OBSERVATION_FOLDER ) );
-		//_obsFolderButtonMan.addFolder();
+		_tw.addItem( SpFactory.create( SpType.OBSERVATION_FOLDER ) ) ;
+		//_obsFolderButtonMan.addFolder() ;
 	}
 
 	/** Create an observation group. */
 	public void addGroup()
 	{
 		// MFO May 28 2001
-		_tw.addItem( SpFactory.create( SpType.OBSERVATION_GROUP ) );
-		//_obsGroupButtonMan.addGroup();
+		_tw.addItem( SpFactory.create( SpType.OBSERVATION_GROUP ) ) ;
+		//_obsGroupButtonMan.addGroup() ;
 	}
 
 	/**Create an observation. */
@@ -981,36 +981,36 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		// After spObs has been added call spObs.updateMsbAttributes().
 		// This will set attributes in spObs according to whether spObs is the
 		// child node of an SpMSB or whether spObs is an MSB in its own right.
-		SpObs spObs = ( SpObs )SpFactory.create( SpType.OBSERVATION );
-		_tw.addItem( spObs );
-		spObs.updateMsbAttributes();
+		SpObs spObs = ( SpObs )SpFactory.create( SpType.OBSERVATION ) ;
+		_tw.addItem( spObs ) ;
+		spObs.updateMsbAttributes() ;
 
 		// Update collapsed/expanded display for tree nodes so that the SpIterFolder inside the Observation is displayed as expanded.
-		_tw.updateNodeExpansions();
+		_tw.updateNodeExpansions() ;
 	}
 
 	/** Add a note to the tree. */
 	public void addNote()
 	{
-		_tw.insertItemAfter( SpFactory.create( SpType.NOTE ) );
+		_tw.insertItemAfter( SpFactory.create( SpType.NOTE ) ) ;
 	}
 
 	/** Cut the selected item(s) to the clipboard. */
 	public void cut()
 	{
-		_tw.cutToClipboard();
+		_tw.cutToClipboard() ;
 	}
 
 	/** Copy the selected item(s) to the clipboard. */
 	public void copy()
 	{
-		_tw.copyToClipboard();
+		_tw.copyToClipboard() ;
 	}
 
 	/** Paste the selected item(s) from the clipboard. */
 	public void paste()
 	{
-		_tw.pasteFromClipboard();
+		_tw.pasteFromClipboard() ;
 	}
 
 	/** 
@@ -1018,16 +1018,16 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void newProgram()
 	{
-		JDesktopPane desktop = OT.getDesktop();
+		JDesktopPane desktop = OT.getDesktop() ;
 		if( desktop == null )
 		{
-			new OtWindowFrame( new OtProgWindow() );
+			new OtWindowFrame( new OtProgWindow() ) ;
 		}
 		else
 		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow() );
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER );
-			desktop.moveToFront( c );
+			Component c = new OtWindowInternalFrame( new OtProgWindow() ) ;
+			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
+			desktop.moveToFront( c ) ;
 		}
 	}
 
@@ -1041,25 +1041,25 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		if( newWindow )
 		{
 			// open in a new window
-			OtFileIO.open();
+			OtFileIO.open() ;
 		}
 		else
 		{
 			if( !isOkayToClose() )
-				return;
+				return ;
 
 			// open in this window
-			JFileChooser fileChooser = new JFileChooser( OT.getOtUserDir() );
-			fileChooser.addChoosableFileFilter( xmlFilter );
-			fileChooser.setFileFilter( xmlFilter );
+			JFileChooser fileChooser = new JFileChooser( OT.getOtUserDir() ) ;
+			fileChooser.addChoosableFileFilter( xmlFilter ) ;
+			fileChooser.setFileFilter( xmlFilter ) ;
 
-			int option = fileChooser.showOpenDialog( null );
+			int option = fileChooser.showOpenDialog( null ) ;
 			if( option != JFileChooser.APPROVE_OPTION || fileChooser.getSelectedFile() == null )
-				return;
+				return ;
 
-			File file = fileChooser.getSelectedFile();
+			File file = fileChooser.getSelectedFile() ;
 			if( file != null )
-				open( file );
+				open( file ) ;
 		}
 	}
 
@@ -1070,15 +1070,15 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void open( File file )
 	{
-		String dir = file.getParent();
-		String filename = file.getName();
+		String dir = file.getParent() ;
+		String filename = file.getName() ;
 		if( filename != null )
 		{
-			SpRootItem spItem = OtFileIO.fetchSp( dir , filename );
+			SpRootItem spItem = OtFileIO.fetchSp( dir , filename ) ;
 			if( spItem != null )
 			{
-				FileInfo fi = new FileInfo( dir , filename , true );
-				open( spItem , fi );
+				FileInfo fi = new FileInfo( dir , filename , true ) ;
+				open( spItem , fi ) ;
 			}
 		}
 	}
@@ -1091,8 +1091,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void open( SpRootItem spItem , FileInfo fi )
 	{
-		addToHistory();
-		_reinit( spItem , fi );
+		addToHistory() ;
+		_reinit( spItem , fi ) ;
 	}
 
 	/** 
@@ -1100,7 +1100,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void save()
 	{
-		doSaveChanges();
+		doSaveChanges() ;
 	}
 
 	/**
@@ -1109,32 +1109,32 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	public void back()
 	{
 		if( backStack.size() == 0 )
-			return;
+			return ;
 
-		SpRootItem rootItem = getItem();
+		SpRootItem rootItem = getItem() ;
 		if( rootItem != null )
 		{
-			String title = rootItem.getTitle();
-			FileInfo fi = _progInfo.file;
-			String filename = fi.dir + File.separatorChar + fi.filename;
-			forwStack.push( new OtHistoryItem( title , filename , rootItem ) );
-			forwAction.setEnabled( true );
+			String title = rootItem.getTitle() ;
+			FileInfo fi = _progInfo.file ;
+			String filename = fi.dir + File.separatorChar + fi.filename ;
+			forwStack.push( new OtHistoryItem( title , filename , rootItem ) ) ;
+			forwAction.setEnabled( true ) ;
 		}
 
-		OtHistoryItem item = ( OtHistoryItem )backStack.pop();
+		OtHistoryItem item = ( OtHistoryItem )backStack.pop() ;
 		if( backStack.size() == 0 )
-			backAction.setEnabled( false );
+			backAction.setEnabled( false ) ;
 		
-		noStack = true;
+		noStack = true ;
 		try
 		{
-			item.actionPerformed( ( ActionEvent )null );
+			item.actionPerformed( ( ActionEvent )null ) ;
 		}
 		catch( Exception e )
 		{
-			DialogUtil.error( this , e );
+			DialogUtil.error( this , e ) ;
 		}
-		noStack = false;
+		noStack = false ;
 	}
 
 	/**
@@ -1143,32 +1143,32 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	public void forward()
 	{
 		if( forwStack.size() == 0 )
-			return;
+			return ;
 
-		SpRootItem rootItem = getItem();
+		SpRootItem rootItem = getItem() ;
 		if( rootItem != null )
 		{
-			String title = rootItem.getTitle();
-			FileInfo fi = _progInfo.file;
-			String filename = fi.dir + File.separatorChar + fi.filename;
-			backStack.push( new OtHistoryItem( title , filename , rootItem ) );
-			backAction.setEnabled( true );
+			String title = rootItem.getTitle() ;
+			FileInfo fi = _progInfo.file ;
+			String filename = fi.dir + File.separatorChar + fi.filename ;
+			backStack.push( new OtHistoryItem( title , filename , rootItem ) ) ;
+			backAction.setEnabled( true ) ;
 		}
 
-		OtHistoryItem item = ( OtHistoryItem )forwStack.pop();
+		OtHistoryItem item = ( OtHistoryItem )forwStack.pop() ;
 		if( forwStack.size() == 0 )
-			forwAction.setEnabled( false );
+			forwAction.setEnabled( false ) ;
 		
-		noStack = true;
+		noStack = true ;
 		try
 		{
-			item.actionPerformed( ( ActionEvent )null );
+			item.actionPerformed( ( ActionEvent )null ) ;
 		}
 		catch( Exception e )
 		{
-			DialogUtil.error( this , e );
+			DialogUtil.error( this , e ) ;
 		}
-		noStack = false;
+		noStack = false ;
 	}
 
 	/** 
@@ -1176,44 +1176,44 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected void addToHistory()
 	{
-		SpRootItem rootItem = getItem();
+		SpRootItem rootItem = getItem() ;
 		if( !noStack && rootItem != null )
 		{
-			String title = rootItem.getTitle();
-			FileInfo fi = _progInfo.file;
-			String filename = fi.dir + File.separatorChar + fi.filename;
-			OtHistoryItem item = new OtHistoryItem( title , filename , rootItem );
+			String title = rootItem.getTitle() ;
+			FileInfo fi = _progInfo.file ;
+			String filename = fi.dir + File.separatorChar + fi.filename ;
+			OtHistoryItem item = new OtHistoryItem( title , filename , rootItem ) ;
 
-			backStack.push( item );
-			backAction.setEnabled( true );
+			backStack.push( item ) ;
+			backAction.setEnabled( true ) ;
 			if( forwStack.size() != 0 )
 			{
-				cleanupHistoryStack( forwStack );
-				forwStack.clear();
-				forwAction.setEnabled( false );
+				cleanupHistoryStack( forwStack ) ;
+				forwStack.clear() ;
+				forwAction.setEnabled( false ) ;
 			}
 
 			// add to the history list and remove duplicates
-			ListIterator it = ( ( LinkedList )historyList.clone() ).listIterator( 0 );
+			ListIterator it = ( ( LinkedList )historyList.clone() ).listIterator( 0 ) ;
 			for( int i = 0 ; it.hasNext() ; i++ )
 			{
-				OtHistoryItem hi = ( OtHistoryItem )it.next();
+				OtHistoryItem hi = ( OtHistoryItem )it.next() ;
 				if( hi.title.equals( title ) )
-					historyList.remove( i );
+					historyList.remove( i ) ;
 			}
-			historyList.addFirst( item );
+			historyList.addFirst( item ) ;
 			
 			if( historyList.size() > 20 )
-				historyList.removeLast();
+				historyList.removeLast() ;
 		}
 	}
 
 	/** Add history items (for previously displayed science programs) to the given menu */
 	public void addHistoryMenuItems( JMenu menu )
 	{
-		ListIterator it = historyList.listIterator( 0 );
+		ListIterator it = historyList.listIterator( 0 ) ;
 		while( it.hasNext() )
-			menu.add( ( OtHistoryItem )it.next() );
+			menu.add( ( OtHistoryItem )it.next() ) ;
 	}
 
 	/** 
@@ -1228,13 +1228,13 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	public void showPositionEditor()
 	{
 		// Figure out which node is selected.
-		OtTreeNodeWidget destTNW = ( OtTreeNodeWidget )_tw.getSelectedNode();
+		OtTreeNodeWidget destTNW = ( OtTreeNodeWidget )_tw.getSelectedNode() ;
 		if( destTNW == null )
-			destTNW = ( OtTreeNodeWidget )_tw.getRoot();
+			destTNW = ( OtTreeNodeWidget )_tw.getRoot() ;
 
-		SpItem spItem = destTNW.getItem();
+		SpItem spItem = destTNW.getItem() ;
 
-		TpeManager.open( spItem );
+		TpeManager.open( spItem ) ;
 	}
 
 	/**
@@ -1242,7 +1242,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void prioritize()
 	{
-		_tw.autoAssignPriority();
+		_tw.autoAssignPriority() ;
 	}
 
 	/**
@@ -1252,58 +1252,58 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public boolean doValidation()
 	{
-		SpItem spItem = _tw.getSelectedItem();
-		String reportBoxTitle = "Validation Report";
+		SpItem spItem = _tw.getSelectedItem() ;
+		String reportBoxTitle = "Validation Report" ;
 
 		// checking whether an item has been selected that can be checked and returning false otherwise.
 		if( !( spItem instanceof SpProg ) && !( spItem instanceof SpMSB ) )
 		{
-			new ReportBox( "Please select an observation, MSB or science program." );
-			return false;
+			new ReportBox( "Please select an observation, MSB or science program." ) ;
+			return false ;
 		}
 
 		if( OtCfg.telescopeUtil == null )
 		{
-			new ReportBox( "Could not find validation tool.\n" + "Make sure a telescope cfg class is specified in the ot.cfg file." , reportBoxTitle );
-			return false;
+			new ReportBox( "Could not find validation tool.\n" + "Make sure a telescope cfg class is specified in the ot.cfg file." , reportBoxTitle ) ;
+			return false ;
 		}
 
-		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
+		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool() ;
 
 		if( spValidation == null )
 		{
-			new ReportBox( "Could not find validation tool." , reportBoxTitle );
-			return false;
+			new ReportBox( "Could not find validation tool." , reportBoxTitle ) ;
+			return false ;
 		}
 
-		Vector report = new Vector();
+		Vector report = new Vector() ;
 
-		ErrorMessage.reset();
+		ErrorMessage.reset() ;
 
 		if( spItem instanceof SpMSB )
-			spValidation.checkMSB( ( SpMSB )spItem , report );
+			spValidation.checkMSB( ( SpMSB )spItem , report ) ;
 		else
-			spValidation.checkSciProgram( ( SpProg )spItem , report );
+			spValidation.checkSciProgram( ( SpProg )spItem , report ) ;
 
 		// ADDED BY SDW...
 		if( spItem instanceof SpProg || spItem instanceof SpLibrary )
-			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report );
+			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report ) ;
 
 		// at the moment there is no difference in how errors and warnings are handled.
 		if( ErrorMessage.getErrorCount() > 0 )
 		{
-			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle );
-			return false;
+			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle ) ;
+			return false ;
 		}
 		else if( ErrorMessage.getWarningCount() > 0 )
 		{
-			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle );
-			return false;
+			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle ) ;
+			return false ;
 		}
 		else
 		{
-			new ReportBox( spItem.type().getReadable() + " settings are valid." , reportBoxTitle );
-			return true;
+			new ReportBox( spItem.type().getReadable() + " settings are valid." , reportBoxTitle ) ;
+			return true ;
 		}
 	}
 
@@ -1314,33 +1314,33 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public static Vector doValidation( SpItem spItem )
 	{
-		Vector report = new Vector();
+		Vector<String> report = new Vector<String>() ;
 
 		if( OtCfg.telescopeUtil == null )
 		{
-			String message = "No Validation performed - Error getting TelescopeUtil";
-			report.add( message );
-			return report;
+			String message = "No Validation performed - Error getting TelescopeUtil" ;
+			report.add( message ) ;
+			return report ;
 		}
 
-		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
+		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool() ;
 
 		if( spValidation == null )
 		{
-			String message = "No validation performed - Could not find validation tool.";
-			report.add( message );
-			return report;
+			String message = "No validation performed - Could not find validation tool." ;
+			report.add( message ) ;
+			return report ;
 		}
 
-		ErrorMessage.reset();
+		ErrorMessage.reset() ;
 
-		spValidation.checkSciProgram( ( SpProg )spItem , report );
+		spValidation.checkSciProgram( ( SpProg )spItem , report ) ;
 
 		// ADDED BY SDW...
 		if( spItem instanceof SpProg || spItem instanceof SpLibrary )
-			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report );
+			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report ) ;
 
-		return report;
+		return report ;
 	}
 
 	/** 
@@ -1349,9 +1349,9 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void saveAs()
 	{
-		SpRootItem spItem = OtFileIO.saveAs( getItem() , _progInfo.file );
+		SpRootItem spItem = OtFileIO.saveAs( getItem() , _progInfo.file ) ;
 		if( spItem != null )
-			resetItem( spItem );
+			resetItem( spItem ) ;
 	}
 
 	/** 
@@ -1359,10 +1359,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void revertToSaved()
 	{
-		SpRootItem spItem;
-		spItem = OtFileIO.revertToSaved( _progInfo.file );
+		SpRootItem spItem ;
+		spItem = OtFileIO.revertToSaved( _progInfo.file ) ;
 		if( spItem != null )
-			resetItem( spItem );
+			resetItem( spItem ) ;
 	}
 
 	/**
@@ -1373,12 +1373,12 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	{
 		if( OT.getHelpLauncher() != null )
 		{
-			OT.getHelpLauncher().launch();
+			OT.getHelpLauncher().launch() ;
 		}
 		else
 		{
-			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" );
-			OT.setHelpLauncher( new JHLauncher( url ) );
+			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" ) ;
+			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}
 
@@ -1388,7 +1388,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	public void exit()
 	{
 		if( closeApp() )
-			System.exit( 0 );
+			System.exit( 0 ) ;
 	}
 
 	/** 
@@ -1396,7 +1396,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void close()
 	{
-		closeApp();
+		closeApp() ;
 	}
 
 	/** 
@@ -1404,36 +1404,36 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void editItemTitle()
 	{
-		String s = DialogUtil.input( this , "New Title:" );
+		String s = DialogUtil.input( this , "New Title:" ) ;
 		if( s != null && s.length() != 0 )
-			_curItem.setTitleAttr( s );
+			_curItem.setTitleAttr( s ) ;
 	}
 
 	public void collapseMSBs()
 	{
-		JTree tree = _tw.getTree();
+		JTree tree = _tw.getTree() ;
 		for( int i = 1 ; i < tree.getRowCount() ; i++ )
-			tree.collapseRow( i );
+			tree.collapseRow( i ) ;
 	}
 
 	public void replicateSp()
 	{
-		JFileChooser chooser = new JFileChooser( OT.getOtUserDir() );
-		chooser.setDialogTitle( "Select a catalog file" );
-		int option = chooser.showOpenDialog( null );
+		JFileChooser chooser = new JFileChooser( OT.getOtUserDir() ) ;
+		chooser.setDialogTitle( "Select a catalog file" ) ;
+		int option = chooser.showOpenDialog( null ) ;
 		if( option != JFileChooser.APPROVE_OPTION || chooser.getSelectedFile() == null )
-			return;
+			return ;
 
-		File file = chooser.getSelectedFile();
+		File file = chooser.getSelectedFile() ;
 		if( file != null )
 		{
 			try
 			{
-				SpItem replicatedItem = SpClient.replicateSp( ( SpItem )getItem() , file );
+				SpItem replicatedItem = SpClient.replicateSp( ( SpItem )getItem() , file ) ;
 				if( replicatedItem != null )
 				{
-					OtWindow.create( ( SpRootItem )replicatedItem , ( FileInfo )null );
-					OtProps.setSaveShouldPrompt( true );
+					OtWindow.create( ( SpRootItem )replicatedItem , ( FileInfo )null ) ;
+					OtProps.setSaveShouldPrompt( true ) ;
 				}
 			}
 			catch( Exception e ){}
@@ -1446,7 +1446,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void addChangeListener( ChangeListener l )
 	{
-		listenerList.add( ChangeListener.class , l );
+		listenerList.add( ChangeListener.class , l ) ;
 	}
 
 	/**
@@ -1454,7 +1454,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public void removeChangeListener( ChangeListener l )
 	{
-		listenerList.remove( ChangeListener.class , l );
+		listenerList.remove( ChangeListener.class , l ) ;
 	}
 
 	/**
@@ -1462,11 +1462,11 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	protected void fireChange( ChangeEvent e )
 	{
-		Object[] listeners = listenerList.getListenerList();
+		Object[] listeners = listenerList.getListenerList() ;
 		for( int i = listeners.length - 2 ; i >= 0 ; i -= 2 )
 		{
 			if( listeners[ i ] == ChangeListener.class )
-				( ( ChangeListener )listeners[ i + 1 ] ).stateChanged( e );
+				( ( ChangeListener )listeners[ i + 1 ] ).stateChanged( e ) ;
 		}
 	}
 
@@ -1478,13 +1478,13 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	protected class OtHistoryItem extends AbstractAction
 	{
 		/** the origial filename */
-		public String filename;
+		public String filename ;
 
 		/** The science program. */
-		public SpRootItem spItem;
+		public SpRootItem spItem ;
 
 		/** The item's title */
-		public String title;
+		public String title ;
 
 		/** 
 		 * Create an OT history item with the given title (for display),
@@ -1493,10 +1493,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		 */
 		public OtHistoryItem( String title , String filename , SpRootItem spItem )
 		{
-			super( title );
-			this.title = title;
-			this.filename = filename;
-			this.spItem = spItem;
+			super( title ) ;
+			this.title = title ;
+			this.filename = filename ;
+			this.spItem = spItem ;
 		}
 
 		// load the SpItem if it exists, otherwise the file
@@ -1504,20 +1504,20 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		{
 			if( spItem != null )
 			{
-				FileInfo fileInfo = null;
+				FileInfo fileInfo = null ;
 				if( filename != null )
 				{
-					File file = new File( filename );
-					String dir = file.getParent();
-					String name = file.getName();
-					fileInfo = new FileInfo( dir , name , true );
+					File file = new File( filename ) ;
+					String dir = file.getParent() ;
+					String name = file.getName() ;
+					fileInfo = new FileInfo( dir , name , true ) ;
 				}
-				open( spItem , fileInfo );
+				open( spItem , fileInfo ) ;
 			}
 			else if( filename != null )
 			{
-				File file = new File( filename );
-				open( file );
+				File file = new File( filename ) ;
+				open( file ) ;
 			}
 		}
 	}
@@ -1527,22 +1527,22 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		// Need one input, the name of an XML file
 		if( args.length != 1 )
 		{
-			System.out.println( "No file name specified" );
-			System.exit( 0 );
+			System.out.println( "No file name specified" ) ;
+			System.exit( 0 ) ;
 		}
 
 		try
 		{
-			OtCfg.init();
-			FileReader rdr = new FileReader( args[ 0 ] );
-			SpItem item = ( new SpInputXML() ).xmlToSpItem( rdr );
-			Vector report = OtWindow.doValidation( item );
-			System.out.println( report );
+			OtCfg.init() ;
+			FileReader rdr = new FileReader( args[ 0 ] ) ;
+			SpItem item = ( new SpInputXML() ).xmlToSpItem( rdr ) ;
+			Vector report = OtWindow.doValidation( item ) ;
+			System.out.println( report ) ;
 		}
 		catch( Exception e )
 		{
-			System.out.println( "Error in validation" );
-			e.printStackTrace();
+			System.out.println( "Error in validation" ) ;
+			e.printStackTrace() ;
 		}
 	}
 
@@ -1555,26 +1555,26 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 */
 	public static SpObs findSpObs( SpItem spItem )
 	{
-		SpItem parent; // Parent of spItem
+		SpItem parent ; // Parent of spItem
 
 		if( spItem.type().equals( SpType.OBSERVATION ) )
-			return ( SpObs )spItem;
+			return ( SpObs )spItem ;
 
 		// Get the parent.
-		parent = spItem.parent();
+		parent = spItem.parent() ;
 
 		// Either the item is an observation context, which is
 		// what we want, or continue the search one level higher in the hierarchy.
 		if( !( spItem.type().equals( SpType.OBSERVATION ) ) )
 		{
 			if( parent == null )
-				return null;
+				return null ;
 			else
-				return findSpObs( parent );
+				return findSpObs( parent ) ;
 		}
 		else
 		{
-			return ( SpObs )spItem;
+			return ( SpObs )spItem ;
 		}
 	}
 }

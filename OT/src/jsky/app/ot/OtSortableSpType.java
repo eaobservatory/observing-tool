@@ -4,29 +4,29 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import gemini.sp.SpType;
-import jsky.util.Sortable;
+import gemini.sp.SpType ;
+import jsky.util.Sortable ;
 
 //
 // Helper used in sorting a set of SpTypes.
 //
 class OtSortableSpType implements Sortable
 {
-	SpType spType;
+	SpType spType ;
 
 	OtSortableSpType( SpType spType )
 	{
-		this.spType = spType;
+		this.spType = spType ;
 	}
 
 	public int compareTo( Sortable other , Object rock )
 	{
 		if( !( other instanceof OtSortableSpType ) )
-			return 0;
+			return 0 ;
 
-		String otherReadable = ( ( OtSortableSpType )other ).spType.getReadable();
-		return spType.getReadable().compareTo( otherReadable );
+		String otherReadable = ( ( OtSortableSpType )other ).spType.getReadable() ;
+		return spType.getReadable().compareTo( otherReadable ) ;
 	}
 }

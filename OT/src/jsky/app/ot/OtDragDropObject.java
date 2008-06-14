@@ -4,11 +4,11 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import gemini.sp.SpItem;
+import java.awt.datatransfer.DataFlavor ;
+import java.awt.datatransfer.Transferable ;
+import gemini.sp.SpItem ;
 
 /**
  * This class ties an SpItem to the tree widget in which its associated
@@ -18,14 +18,14 @@ import gemini.sp.SpItem;
 public final class OtDragDropObject implements Transferable
 {
 	/** Identifies the object being dragged and dropped */
-	public final static DataFlavor dataFlavor = new DataFlavor( OtDragDropObject.class , "OtDragDropObject" );
+	public final static DataFlavor dataFlavor = new DataFlavor( OtDragDropObject.class , "OtDragDropObject" ) ;
 
 	// The tree node widget that owns the SpItem being dragged.  
 	// Will be null if this item is new and is not in any tree.
-	private OtTreeWidget _currentOwner;
+	private OtTreeWidget _currentOwner ;
 
 	// The item(s) being dragged.
-	private SpItem[] _spItemA;
+	private SpItem[] _spItemA ;
 
 	/**
 	 * This constructor should be used when dragging a newly created object
@@ -33,8 +33,8 @@ public final class OtDragDropObject implements Transferable
 	 */
 	OtDragDropObject( SpItem spItem )
 	{
-		_spItemA = new SpItem[ 1 ];
-		_spItemA[ 0 ] = spItem;
+		_spItemA = new SpItem[ 1 ] ;
+		_spItemA[ 0 ] = spItem ;
 	}
 
 	/**
@@ -43,8 +43,8 @@ public final class OtDragDropObject implements Transferable
 	 */
 	OtDragDropObject( SpItem spItem , OtTreeWidget treeWidget )
 	{
-		this( spItem );
-		_currentOwner = treeWidget;
+		this( spItem ) ;
+		_currentOwner = treeWidget ;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public final class OtDragDropObject implements Transferable
 	 */
 	OtDragDropObject( SpItem[] spItemA )
 	{
-		_spItemA = spItemA;
+		_spItemA = spItemA ;
 	}
 
 	/**
@@ -62,38 +62,38 @@ public final class OtDragDropObject implements Transferable
 	 */
 	OtDragDropObject( SpItem[] spItemA , OtTreeWidget treeWidget )
 	{
-		this( spItemA );
-		_currentOwner = treeWidget;
+		this( spItemA ) ;
+		_currentOwner = treeWidget ;
 	}
 
 	/** Is more than one item being dragged? */
 	boolean isMultiDrag()
 	{
-		return( _spItemA.length > 1 );
+		return( _spItemA.length > 1 ) ;
 	}
 
 	/** Get the first SpItem. */
 	public SpItem getSpItem()
 	{
-		return getSpItem( 0 );
+		return getSpItem( 0 ) ;
 	}
 
 	/** Get the nth SpItem. */
 	SpItem getSpItem( int i )
 	{
-		return _spItemA[ i ];
+		return _spItemA[ i ] ;
 	}
 
 	/** Get the set of SpItems. */
 	public SpItem[] getSpItems()
 	{
-		return _spItemA;
+		return _spItemA ;
 	}
 
 	/** Get the owner, the OtTreeWidget that contains the items being dragged. */
 	public OtTreeWidget getOwner()
 	{
-		return _currentOwner;
+		return _currentOwner ;
 	}
 
 	// Implementation of the Transferable interface
@@ -102,19 +102,19 @@ public final class OtDragDropObject implements Transferable
 	{
 		// MFO: DataFlavor.stringFlavor is only added because dropping nodes would not work under Windows (NT) otherwise.
 		//      The same trick is used in the Gemini OT (from ot-0.6, in jsky.app.ot.viewer.SPDragDropObject)
-		return new DataFlavor[] { dataFlavor , DataFlavor.stringFlavor };
+		return new DataFlavor[] { dataFlavor , DataFlavor.stringFlavor } ;
 	}
 
 	public boolean isDataFlavorSupported( DataFlavor fl )
 	{
-		return fl.equals( dataFlavor );
+		return fl.equals( dataFlavor ) ;
 	}
 
 	public Object getTransferData( DataFlavor fl )
 	{
 		if( !isDataFlavorSupported( fl ) )
-			return null;
+			return null ;
 
-		return this;
+		return this ;
 	}
 }

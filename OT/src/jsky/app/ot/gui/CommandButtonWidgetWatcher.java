@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * A client implements this interface if it wants to register itself
@@ -17,5 +17,5 @@ public interface CommandButtonWidgetWatcher
 	/**
 	 * A command button was pressed.
 	 */
-	public void commandButtonAction( CommandButtonWidgetExt cbwe );
+	public void commandButtonAction( CommandButtonWidgetExt cbwe ) ;
 }

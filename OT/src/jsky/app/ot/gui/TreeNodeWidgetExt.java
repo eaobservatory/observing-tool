@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.Font ;
 import java.util.Vector ;
 import java.util.Enumeration ;
 import javax.swing.ImageIcon ;
 import javax.swing.tree.DefaultTreeModel ;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.TreePath ;
 import javax.swing.tree.DefaultMutableTreeNode ;
 
 /**
@@ -24,28 +24,28 @@ import javax.swing.tree.DefaultMutableTreeNode ;
 public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 {
 	/** The tree to which this node belongs */
-	protected TreeWidgetExt tree;
+	protected TreeWidgetExt tree ;
 
 	/** The list of clients interested in TreeNodeWidget actions. */
-	protected Vector _watchers;
+	protected Vector<TreeNodeWidgetWatcher> _watchers ;
 
 	/** url string of the image for this node */
-	protected String src;
+	protected String src ;
 
 	/** The icon for the tree node. */
-	protected ImageIcon icon;
+	protected ImageIcon icon ;
 
 	/** url string of the image for this node when it is expanded */
-	protected String expandSrc;
+	protected String expandSrc ;
 
 	/** The icon for the tree node when it is expanded. */
-	protected ImageIcon expandIcon;
+	protected ImageIcon expandIcon ;
 
 	/** text displayed by the tree node */
-	protected String label;
+	protected String label ;
 
 	/** Font for text displayed by the tree node */
-	protected Font font;
+	protected Font font ;
 
 	/** Constructor (need to call setTree(TreeNodeWidgetExt) later).  */
 	public TreeNodeWidgetExt(){}
@@ -53,27 +53,27 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	/** Constructor.  */
 	public TreeNodeWidgetExt( TreeWidgetExt tree )
 	{
-		setTree( tree );
+		setTree( tree ) ;
 	}
 
 	/** Constructor with a label. Used by subclasses of TreeNodeWidgetExt.  */
 	public TreeNodeWidgetExt( TreeWidgetExt tree , String label )
 	{
-		super( label );
-		setText( label );
-		setTree( tree );
+		super( label ) ;
+		setText( label ) ;
+		setTree( tree ) ;
 	}
 
 	/** Set the tree that this node belongs to (required). */
 	public void setTree( TreeWidgetExt tree )
 	{
-		this.tree = tree;
+		this.tree = tree ;
 	}
 
 	/** Return the string representation of this node */
 	public String toString()
 	{
-		return label;
+		return label ;
 	}
 
 	/**
@@ -81,9 +81,9 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void copyInto( TreeNodeWidgetExt newTNW )
 	{
-		newTNW.setSrc( getSrc() );
-		newTNW.setExpandSrc( getExpandSrc() );
-		newTNW.setText( getText() );
+		newTNW.setSrc( getSrc() ) ;
+		newTNW.setExpandSrc( getExpandSrc() ) ;
+		newTNW.setText( getText() ) ;
 	}
 
 	/** Show or hide the subtree starting at this node */
@@ -91,13 +91,13 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 		if( tree != null )
 		{
-			TreePath path = new TreePath( getPath() );
+			TreePath path = new TreePath( getPath() ) ;
 			if( collapsed )
-				tree.getTree().collapsePath( path );
+				tree.getTree().collapsePath( path ) ;
 			else
-				tree.getTree().expandPath( path );
+				tree.getTree().expandPath( path ) ;
 	
-			tree.getTree().repaint();
+			tree.getTree().repaint() ;
 		}
 	}
 
@@ -105,8 +105,8 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public boolean isCollapsed()
 	{
 		if( tree != null )
-			return tree.getTree().isCollapsed( new TreePath( getPath() ) );
-		return false;
+			return tree.getTree().isCollapsed( new TreePath( getPath() ) ) ;
+		return false ;
 	}
 
 	/** 
@@ -114,15 +114,15 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void setSrc( String src )
 	{
-		this.src = src;
+		this.src = src ;
 		try
 		{
-			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + src ) );
+			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + src ) ) ;
 		}
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( src ) );
+			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( src ) ) ;
 		}
 	}
 
@@ -131,7 +131,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public String getSrc()
 	{
-		return src;
+		return src ;
 	}
 
 	/** 
@@ -139,14 +139,14 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public ImageIcon getIcon()
 	{
-		return icon;
+		return icon ;
 	}
 
 	/** Remove an icon */
 	public void rmIcons()
 	{
-		icon = null;
-		expandIcon = null;
+		icon = null ;
+		expandIcon = null ;
 	}
 
 	/** 
@@ -155,15 +155,15 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public void setExpandSrc( String expandSrc )
 	{
 
-		this.expandSrc = expandSrc;
+		this.expandSrc = expandSrc ;
 		try
 		{
-			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + expandSrc ) );
+			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + expandSrc ) ) ;
 		}
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( expandSrc ) );
+			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( expandSrc ) ) ;
 		}
 	}
 
@@ -172,7 +172,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public String getExpandSrc()
 	{
-		return expandSrc;
+		return expandSrc ;
 	}
 
 	/** 
@@ -180,39 +180,39 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public ImageIcon getExpandIcon()
 	{
-		return expandIcon;
+		return expandIcon ;
 	}
 
 	/** Set the text displayed by the tree node */
 	public void setText( String label )
 	{
-		this.label = label;
+		this.label = label ;
 		if( tree != null )
 		{
 			// this is needed to make the change appear immediately
-			DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel();
-			treeModel.nodeChanged( this );
+			DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel() ;
+			treeModel.nodeChanged( this ) ;
 		}
 	}
 
 	/** Return the text displayed by the tree node */
 	public String getText()
 	{
-		return label;
+		return label ;
 	}
 
 	/** Set the font for the text displayed by the tree node */
 	public void setFont( Font font )
 	{
-		this.font = font;
+		this.font = font ;
 		if( tree != null )
-			tree.getTree().repaint();
+			tree.getTree().repaint() ;
 	}
 
 	/** Return the font for the text displayed by the tree node */
 	public Font getFont()
 	{
-		return font;
+		return font ;
 	}
 
 	/**
@@ -221,9 +221,9 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public synchronized final void addWatcher( TreeNodeWidgetWatcher watcher )
 	{
 		if( _watchers == null )
-			_watchers = new Vector();
+			_watchers = new Vector<TreeNodeWidgetWatcher>() ;
 		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher );
+			_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -231,12 +231,12 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public final void addWatcherAll( TreeNodeWidgetWatcher watcher )
 	{
-		addWatcher( watcher );
-		Enumeration e = postorderEnumeration();
+		addWatcher( watcher ) ;
+		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() );
-			node.addWatcher( watcher );
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			node.addWatcher( watcher ) ;
 		}
 	}
 
@@ -246,7 +246,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public synchronized final void deleteWatcher( TreeNodeWidgetWatcher watcher )
 	{
 		if( _watchers != null )
-			_watchers.removeElement( watcher );
+			_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -254,12 +254,12 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public final void deleteWatcherAll( TreeNodeWidgetWatcher watcher )
 	{
-		deleteWatcher( watcher );
-		Enumeration e = postorderEnumeration();
+		deleteWatcher( watcher ) ;
+		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() );
-			node.deleteWatcher( watcher );
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			node.deleteWatcher( watcher ) ;
 		}
 	}
 
@@ -269,7 +269,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public synchronized final void deleteWatchers()
 	{
 		if( _watchers != null )
-			_watchers.removeAllElements();
+			_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -277,12 +277,12 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public final void deleteWatchersAll()
 	{
-		deleteWatchers();
-		Enumeration e = postorderEnumeration();
+		deleteWatchers() ;
+		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() );
-			node.deleteWatchers();
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			node.deleteWatchers() ;
 		}
 	}
 
@@ -291,23 +291,23 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void add( int pos , TreeNodeWidgetExt node )
 	{
-		TreeNodeWidgetExt selectedNode = tree.getSelectedNode();
-		DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel();
-		treeModel.insertNodeInto( node , this , pos );
+		TreeNodeWidgetExt selectedNode = tree.getSelectedNode() ;
+		DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel() ;
+		treeModel.insertNodeInto( node , this , pos ) ;
 		if( selectedNode != null )
-			selectedNode.select();
+			selectedNode.select() ;
 	}
 
 	/** Select this node */
 	public void select()
 	{
-		setSelected( true );
+		setSelected( true ) ;
 	}
 
 	/** Return the number of subnodes (for compat with bongo) */
 	public int getWidgetCount()
 	{
-		return getChildCount();
+		return getChildCount() ;
 	}
 
 	//
@@ -316,20 +316,20 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	void notifySelect()
 	{
 		if( _watchers == null )
-			return;
-		Vector v;
+			return ;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i );
-			tnww.nodeSelected( this );
+			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i ) ;
+			tnww.nodeSelected( this ) ;
 		}
-		tree.notifySelect( this );
+		tree.notifySelect( this ) ;
 	}
 
 	/**
@@ -339,8 +339,8 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 		if( tree.getSelectedNode() != this )
 		{
-			tree.selectNode( this );
-			notifySelect(); // XXX will this be called twice?
+			tree.selectNode( this ) ;
+			notifySelect() ; // XXX will this be called twice?
 		}
 	}
 
@@ -349,22 +349,22 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	void notifyAction()
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
 			if( _watchers == null )
-				return;
+				return ;
 
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i );
-			tnww.nodeAction( this );
+			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i ) ;
+			tnww.nodeAction( this ) ;
 		}
-		tree.notifyAction( this );
+		tree.notifyAction( this ) ;
 	}
 
 	/**
@@ -372,7 +372,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void action()
 	{
-		notifyAction();
+		notifyAction() ;
 	}
 
 	/**
@@ -380,7 +380,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void uncover()
 	{
-		tree.getTree().makeVisible( new TreePath( getPath() ) );
+		tree.getTree().makeVisible( new TreePath( getPath() ) ) ;
 	}
 
 	/**
@@ -388,7 +388,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void expand()
 	{
-		tree.getTree().expandPath( new TreePath( getPath() ) );
+		tree.getTree().expandPath( new TreePath( getPath() ) ) ;
 	}
 
 	/**
@@ -396,8 +396,8 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void remove()
 	{
-		DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel();
-		treeModel.removeNodeFromParent( this );
+		DefaultTreeModel treeModel = ( DefaultTreeModel )tree.getTree().getModel() ;
+		treeModel.removeNodeFromParent( this ) ;
 	}
 
 	/**
@@ -405,12 +405,12 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public TreeNodeWidgetExt getSelectedNode()
 	{
-		TreeNodeWidgetExt node = tree.getSelectedNode();
-		TreePath path = new TreePath( node.getPath() );
+		TreeNodeWidgetExt node = tree.getSelectedNode() ;
+		TreePath path = new TreePath( node.getPath() ) ;
 		if( path.isDescendant( new TreePath( getPath() ) ) )
-			return node;
+			return node ;
 
-		return null;
+		return null ;
 	}
 
 	/**
@@ -418,11 +418,11 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public Vector getChildren()
 	{
-		int n = getChildCount();
-		Vector v = new Vector( n );
+		int n = getChildCount() ;
+		Vector v = new Vector( n ) ;
 		for( int i = 0 ; i < n ; i++ )
-			v.add( getChildAt( i ) );
-		return v;
+			v.add( getChildAt( i ) ) ;
+		return v ;
 	}
 
 	/**
@@ -431,7 +431,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public final int getIndexOf( TreeNodeWidgetExt node )
 	{
-		return getIndex( node );
+		return getIndex( node ) ;
 	}
 
 	/**
@@ -439,13 +439,13 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public final int getMyIndex()
 	{
-		return ( ( TreeNodeWidgetExt )getParent() ).getIndexOf( this );
+		return ( ( TreeNodeWidgetExt )getParent() ).getIndexOf( this ) ;
 	}
 
 	/** Return the tree widget containing this node */
 	public TreeWidgetExt getTreeWidget()
 	{
-		return tree;
+		return tree ;
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 **/
 	public void setBothImageSrc( String imgSrc )
 	{
-		setSrc( imgSrc );
-		setExpandSrc( imgSrc );
+		setSrc( imgSrc ) ;
+		setExpandSrc( imgSrc ) ;
 	}
 }

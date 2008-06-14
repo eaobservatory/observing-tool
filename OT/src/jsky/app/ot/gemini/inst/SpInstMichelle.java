@@ -4,52 +4,52 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpChopCapability;
-import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpChopCapability ;
+import gemini.sp.obsComp.SpStareCapability ;
 
 /**
  * The Michelle instrument.
  */
 public final class SpInstMichelle extends SpInstObsComp implements SpInstMichelleConstants
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.michelle" , "Michelle" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.michelle" , "Michelle" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstMichelle() );
+		SpFactory.registerPrototype( new SpInstMichelle() ) ;
 	}
 
 	public SpInstMichelle()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		addCapability( new SpChopCapability() );
-		addCapability( new SpStareCapability() );
+		addCapability( new SpChopCapability() ) ;
+		addCapability( new SpStareCapability() ) ;
 
-		String attr = ATTR_CAMERA;
-		String value = CAMERAS[ 0 ];
-		_avTable.noNotifySet( attr , value , 0 );
+		String attr = ATTR_CAMERA ;
+		String value = CAMERAS[ 0 ] ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_MODE;
-		value = DEFAULT_MODE;
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_MODE ;
+		value = DEFAULT_MODE ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_FILTER;
-		value = FILTERS[ 0 ][ 0 ];
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_FILTER ;
+		value = FILTERS[ 0 ][ 0 ] ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_EXPOSURE_TIME;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_EXPOSURE_TIME ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_COADDS;
-		_avTable.noNotifySet( attr , "1" , 0 );
+		attr = ATTR_COADDS ;
+		_avTable.noNotifySet( attr , "1" , 0 ) ;
 	}
 
 	/**
@@ -57,7 +57,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public SpChopCapability getChopCapability()
 	{
-		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME );
+		return ( SpChopCapability )getCapability( SpChopCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -73,22 +73,22 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public double[] getScienceArea()
 	{
-		double arcsecPerPix;
+		double arcsecPerPix ;
 
-		int camera = getCameraIndex();
+		int camera = getCameraIndex() ;
 		if( camera == CAMERA_IMAGING )
-			arcsecPerPix = CAMERA_IMAGING_ARCSEC_PER_PIX;
+			arcsecPerPix = CAMERA_IMAGING_ARCSEC_PER_PIX ;
 		else
-			arcsecPerPix = CAMERA_SPECTROSCOPY_ARCSEC_PER_PIX;
+			arcsecPerPix = CAMERA_SPECTROSCOPY_ARCSEC_PER_PIX ;
 
-		double[] size = new double[ 2 ];
-		double w = ( double )getMaskWidthPixels();
+		double[] size = new double[ 2 ] ;
+		double w = ( double )getMaskWidthPixels() ;
 		if( w == 0. )
-			w = ( double )DETECTOR_WIDTH;
+			w = ( double )DETECTOR_WIDTH ;
 		
-		size[ 0 ] = w * arcsecPerPix;
-		size[ 1 ] = DETECTOR_HEIGHT * arcsecPerPix;
-		return size;
+		size[ 0 ] = w * arcsecPerPix ;
+		size[ 1 ] = DETECTOR_HEIGHT * arcsecPerPix ;
+		return size ;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public boolean isImaging()
 	{
-		return( getCameraIndex() == CAMERA_IMAGING );
+		return( getCameraIndex() == CAMERA_IMAGING ) ;
 	}
 
 	/**
@@ -105,11 +105,11 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public String getCamera()
 	{
-		String camera = _avTable.get( ATTR_CAMERA );
+		String camera = _avTable.get( ATTR_CAMERA ) ;
 		if( camera == null )
-			camera = CAMERAS[ 0 ];
+			camera = CAMERAS[ 0 ] ;
 
-		return camera;
+		return camera ;
 	}
 
 	/**
@@ -117,12 +117,12 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public int getCameraIndex()
 	{
-		String camera = _avTable.get( ATTR_CAMERA );
-		int index = CAMERA_IMAGING;
+		String camera = _avTable.get( ATTR_CAMERA ) ;
+		int index = CAMERA_IMAGING ;
 		if( ( camera == null ) || ( camera.equals( CAMERAS[ CAMERA_SPECTROSCOPY ] ) ) )
-			index = CAMERA_SPECTROSCOPY;
+			index = CAMERA_SPECTROSCOPY ;
 
-		return index;
+		return index ;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setCamera( String camera )
 	{
-		_avTable.set( ATTR_CAMERA , camera );
+		_avTable.set( ATTR_CAMERA , camera ) ;
 	}
 
 	/**
@@ -139,15 +139,15 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	public String getDisperser()
 	{
 		if( isImaging() )
-			return NO_VALUE;
+			return NO_VALUE ;
 
-		String disperser = _avTable.get( ATTR_DISPERSER );
+		String disperser = _avTable.get( ATTR_DISPERSER ) ;
 		if( disperser == null )
 		{
-			_avTable.noNotifySet( ATTR_DISPERSER , DEFAULT_DISPERSER , 0 );
-			disperser = DEFAULT_DISPERSER;
+			_avTable.noNotifySet( ATTR_DISPERSER , DEFAULT_DISPERSER , 0 ) ;
+			disperser = DEFAULT_DISPERSER ;
 		}
-		return disperser;
+		return disperser ;
 	}
 
 	/**
@@ -155,7 +155,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setDisperser( String disperser )
 	{
-		_avTable.set( ATTR_DISPERSER , disperser );
+		_avTable.set( ATTR_DISPERSER , disperser ) ;
 	}
 
 	/**
@@ -163,13 +163,13 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public int getDisperserIndex()
 	{
-		String disperser = getDisperser();
+		String disperser = getDisperser() ;
 		for( int i = 0 ; i < DISPERSERS.length ; ++i )
 		{
 			if( disperser.equals( DISPERSERS[ i ] ) )
-				return i;
+				return i ;
 		}
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -177,24 +177,24 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public int getDisperserR()
 	{
-		String disperser = getDisperser();
+		String disperser = getDisperser() ;
 		if( disperser.equals( NO_VALUE ) )
-			return 0;
+			return 0 ;
 
 		if( !disperser.startsWith( "R=" ) )
-			return 0;
+			return 0 ;
 
-		int space = disperser.indexOf( ' ' );
+		int space = disperser.indexOf( ' ' ) ;
 		if( space == -1 )
-			space = disperser.length();
+			space = disperser.length() ;
 
-		String rString = disperser.substring( 2 , space );
+		String rString = disperser.substring( 2 , space ) ;
 		try
 		{
-			return Integer.parseInt( rString );
+			return Integer.parseInt( rString ) ;
 		}
 		catch( NumberFormatException ex ){}
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -202,10 +202,10 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public double getCentralWavelength()
 	{
-		double cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0. );
+		double cwl = _avTable.getDouble( ATTR_CENTRAL_WAVELENGTH , 0. ) ;
 		if( cwl == 0. )
-			return getDefaultCentralWavelength();
-		return cwl;
+			return getDefaultCentralWavelength() ;
+		return cwl ;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public double getDefaultCentralWavelength()
 	{
-		return DEFAULT_CENTRAL_WAVELENGTH[ getDisperserIndex() ];
+		return DEFAULT_CENTRAL_WAVELENGTH[ getDisperserIndex() ] ;
 	}
 
 	/**
@@ -221,7 +221,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setCentralWavelength( double cwl )
 	{
-		_avTable.set( ATTR_CENTRAL_WAVELENGTH , cwl );
+		_avTable.set( ATTR_CENTRAL_WAVELENGTH , cwl ) ;
 	}
 
 	/**
@@ -232,12 +232,12 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cwl );
-			d = tmp.doubleValue();
+			Double tmp = Double.valueOf( cwl ) ;
+			d = tmp.doubleValue() ;
 		}
 		catch( Exception ex ){}
 
-		_avTable.set( ATTR_CENTRAL_WAVELENGTH , d );
+		_avTable.set( ATTR_CENTRAL_WAVELENGTH , d ) ;
 	}
 
 	/**
@@ -245,7 +245,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void useDefaultCentralWavelength()
 	{
-		_avTable.rm( ATTR_CENTRAL_WAVELENGTH );
+		_avTable.rm( ATTR_CENTRAL_WAVELENGTH ) ;
 	}
 
 	/**
@@ -254,14 +254,14 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public double[] getWavelengthCoverage()
 	{
-		int r = getDisperserR();
+		int r = getDisperserR() ;
 		if( r == 0 )
-			return new double[]{ 0. , 0. };
+			return new double[]{ 0. , 0. } ;
 
-		double centralWL = getCentralWavelength();
-		double coverage = ( DETECTOR_WIDTH / 2. ) * centralWL / r;
+		double centralWL = getCentralWavelength() ;
+		double coverage = ( DETECTOR_WIDTH / 2. ) * centralWL / r ;
 		double halfCoverage = coverage / 2. ;
-		return new double[] { centralWL - halfCoverage , centralWL + halfCoverage };
+		return new double[] { centralWL - halfCoverage , centralWL + halfCoverage } ;
 	}
 
 	/**
@@ -270,13 +270,13 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	public String getMask()
 	{
 		if( isImaging() )
-			return NO_VALUE;
+			return NO_VALUE ;
 
-		String mask = _avTable.get( ATTR_MASK );
+		String mask = _avTable.get( ATTR_MASK ) ;
 		if( mask == null )
-			mask = DEFAULT_MASK;
+			mask = DEFAULT_MASK ;
 
-		return mask;
+		return mask ;
 	}
 
 	/**
@@ -284,7 +284,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setMask( String mask )
 	{
-		_avTable.set( ATTR_MASK , mask );
+		_avTable.set( ATTR_MASK , mask ) ;
 	}
 
 	/**
@@ -292,13 +292,13 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public int getMaskIndex()
 	{
-		String mask = getMask();
+		String mask = getMask() ;
 		for( int i = 0 ; i < MASKS.length ; ++i )
 		{
 			if( mask.equals( MASKS[ i ] ) )
-				return i;
+				return i ;
 		}
-		return 0;
+		return 0 ;
 	}
 
 	/**
@@ -306,7 +306,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public int getMaskWidthPixels()
 	{
-		return MASK_WIDTH_PIXELS[ getMaskIndex() ];
+		return MASK_WIDTH_PIXELS[ getMaskIndex() ] ;
 	}
 
 	/**
@@ -314,10 +314,10 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( ATTR_FILTER );
+		String filter = _avTable.get( ATTR_FILTER ) ;
 		if( filter == null )
-			filter = NO_VALUE;
-		return filter;
+			filter = NO_VALUE ;
+		return filter ;
 	}
 
 	/**
@@ -325,7 +325,7 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( ATTR_FILTER , filter );
+		_avTable.set( ATTR_FILTER , filter ) ;
 	}
 
 	/**
@@ -333,10 +333,10 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public String getMode()
 	{
-		String mode = _avTable.get( ATTR_MODE );
+		String mode = _avTable.get( ATTR_MODE ) ;
 		if( mode == null )
-			mode = DEFAULT_MODE;
-		return mode;
+			mode = DEFAULT_MODE ;
+		return mode ;
 	}
 
 	/**
@@ -344,6 +344,6 @@ public final class SpInstMichelle extends SpInstObsComp implements SpInstMichell
 	 */
 	public void setMode( String mode )
 	{
-		_avTable.set( ATTR_MODE , mode );
+		_avTable.set( ATTR_MODE , mode ) ;
 	}
 }

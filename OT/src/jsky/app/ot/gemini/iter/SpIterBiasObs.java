@@ -4,65 +4,65 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.iter;
+package jsky.app.ot.gemini.iter ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration ;
+import gemini.sp.iter.SpIterObserveBase ;
+import gemini.sp.iter.SpIterStep ;
+import gemini.sp.iter.SpIterValue ;
 
-import gemini.sp.obsComp.SpInstConstants;
+import gemini.sp.obsComp.SpInstConstants ;
 
 /**
  * Enumerater for the elements of the Observe iterator.
  */
 class SpIterBiasObsEnumeration extends SpIterEnumeration
 {
-	private int _curCount = 0;
-	private int _maxCount;
-	private SpIterValue[] _values;
+	private int _curCount = 0 ;
+	private int _maxCount ;
+	private SpIterValue[] _values ;
 
 	SpIterBiasObsEnumeration( SpIterBiasObs iterObserve )
 	{
-		super( iterObserve );
-		_maxCount = iterObserve.getCount();
+		super( iterObserve ) ;
+		_maxCount = iterObserve.getCount() ;
 	}
 
 	protected boolean _thisHasMoreElements()
 	{
-		return( _curCount < _maxCount );
+		return( _curCount < _maxCount ) ;
 	}
 
 	protected SpIterStep _thisFirstElement()
 	{
-		SpIterBiasObs ibo = ( SpIterBiasObs )_iterComp;
-		String expTimeValue = String.valueOf( ibo.getExposureTime() );
-		String coaddsValue = String.valueOf( ibo.getCoadds() );
+		SpIterBiasObs ibo = ( SpIterBiasObs )_iterComp ;
+		String expTimeValue = String.valueOf( ibo.getExposureTime() ) ;
+		String coaddsValue = String.valueOf( ibo.getCoadds() ) ;
 
-		_values = new SpIterValue[ 2 ];
-		_values[ 0 ] = new SpIterValue( SpInstConstants.ATTR_EXPOSURE_TIME , expTimeValue );
-		_values[ 1 ] = new SpIterValue( SpInstConstants.ATTR_COADDS , coaddsValue );
+		_values = new SpIterValue[ 2 ] ;
+		_values[ 0 ] = new SpIterValue( SpInstConstants.ATTR_EXPOSURE_TIME , expTimeValue ) ;
+		_values[ 1 ] = new SpIterValue( SpInstConstants.ATTR_COADDS , coaddsValue ) ;
 
-		return _thisNextElement();
+		return _thisNextElement() ;
 	}
 
 	protected SpIterStep _thisNextElement()
 	{
-		return new SpIterStep( "bias" , _curCount++ , _iterComp , _values );
+		return new SpIterStep( "bias" , _curCount++ , _iterComp , _values ) ;
 	}
 }
 
 public class SpIterBiasObs extends SpIterObserveBase
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "biasObs" , "Bias" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "biasObs" , "Bias" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterBiasObs() );
+		SpFactory.registerPrototype( new SpIterBiasObs() ) ;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class SpIterBiasObs extends SpIterObserveBase
 	 */
 	public SpIterBiasObs()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -79,16 +79,16 @@ public class SpIterBiasObs extends SpIterObserveBase
 	public String getTitle()
 	{
 		if( getTitleAttr() != null )
-			return super.getTitle();
+			return super.getTitle() ;
 
-		return "Bias (" + getCount() + "X)";
+		return "Bias (" + getCount() + "X)" ;
 	}
 
 	/**
 	 */
 	public SpIterEnumeration elements()
 	{
-		return new SpIterBiasObsEnumeration( this );
+		return new SpIterBiasObsEnumeration( this ) ;
 	}
 
 	/**

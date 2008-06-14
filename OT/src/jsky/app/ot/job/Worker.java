@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.job;
+package jsky.app.ot.job ;
 
 /**
  * Workers have a one-to-one relationship with Jobs.  They implement
@@ -12,21 +12,21 @@ package jsky.app.ot.job;
  */
 class Worker implements Runnable
 {
-	private Job _job;
+	private Job _job ;
 
 	/**
 	 */
 	public Worker( Job job )
 	{
-		_job = job;
+		_job = job ;
 	}
 
 	/**
 	 */
 	public void run()
 	{
-		_job.notifyStarted();
-		_job.execute();
-		_job.notifyFinished();
+		_job.notifyStarted() ;
+		_job.execute() ;
+		_job.notifyFinished() ;
 	}
 }

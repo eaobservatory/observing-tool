@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.util.Observable;
+import java.util.Observable ;
 
 /**
  * This class stores "file" data associated with a program.  This includes
@@ -15,42 +15,42 @@ import java.util.Observable;
  */
 public class FileInfo extends Observable
 {
-	public String dir;
-	public String filename;
-	public boolean hasBeenSaved;
+	public String dir ;
+	public String filename ;
+	public boolean hasBeenSaved ;
 
 	public FileInfo()
 	{
-		filename = "Untitled";
-		hasBeenSaved = false;
+		filename = "Untitled" ;
+		hasBeenSaved = false ;
 	}
 
 	public FileInfo( String dir , String filename , boolean hasBeenSaved )
 	{
-		this.dir = dir;
-		this.filename = filename;
-		this.hasBeenSaved = hasBeenSaved;
+		this.dir = dir ;
+		this.filename = filename ;
+		this.hasBeenSaved = hasBeenSaved ;
 	}
 
 	public void setDir( String newDir )
 	{
-		dir = newDir;
+		dir = newDir ;
 	}
 
 	public void setFilename( String newFilename )
 	{
-		filename = newFilename;
-		setChanged();
-		notifyObservers();
+		filename = newFilename ;
+		setChanged() ;
+		notifyObservers() ;
 	}
 
 	public void setHasBeenSaved( boolean newHasBeenSaved )
 	{
-		hasBeenSaved = newHasBeenSaved;
+		hasBeenSaved = newHasBeenSaved ;
 	}
 
 	public String toString()
 	{
-		return "dir = " + dir + ", file = " + filename + ", hasBeenSaved = " + hasBeenSaved;
+		return "dir = " + dir + ", file = " + filename + ", hasBeenSaved = " + hasBeenSaved ;
 	}
 }

@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * The interface to be supported by CellSelectTableWidget clients that
@@ -17,5 +17,5 @@ public interface CellSelectTableWatcher
 	/**
 	 * The given cell was selected.
 	 */
-	public void cellSelected( CellSelectTableWidget w , int colIndex , int rowIndex );
+	public void cellSelected( CellSelectTableWidget w , int colIndex , int rowIndex ) ;
 }

@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
 /**
  * An interface supported by clients of the TpeManager who want
@@ -13,5 +13,5 @@ package jsky.app.ot.tpe;
 public interface TpeManagerWatcher
 {
 	/** The position editor has been opened, closed. */
-	public void tpeOpened( TelescopePosEditor tpe );
+	public void tpeOpened( TelescopePosEditor tpe ) ;
 }

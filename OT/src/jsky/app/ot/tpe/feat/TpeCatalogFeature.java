@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe.feat;
+package jsky.app.ot.tpe.feat ;
 
-import java.awt.Graphics;
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.tpe.TpeImageFeature;
-import jsky.app.ot.tpe.TpeImageWidget;
-import jsky.catalog.gui.TablePlotter;
-import jsky.navigator.Navigator;
+import java.awt.Graphics ;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.tpe.TpeImageFeature ;
+import jsky.app.ot.tpe.TpeImageWidget ;
+import jsky.catalog.gui.TablePlotter ;
+import jsky.navigator.Navigator ;
 
 public class TpeCatalogFeature extends TpeImageFeature
 {
@@ -20,7 +20,7 @@ public class TpeCatalogFeature extends TpeImageFeature
 	 */
 	public TpeCatalogFeature()
 	{
-		super( "Catalog" , "Plot of any catalog query results." );
+		super( "Catalog" , "Plot of any catalog query results." ) ;
 	}
 
 	/**
@@ -29,14 +29,14 @@ public class TpeCatalogFeature extends TpeImageFeature
 	 */
 	public void unloaded()
 	{
-		Navigator nav = _iw.getNavigator();
+		Navigator nav = _iw.getNavigator() ;
 		if( nav != null )
 		{
-			TablePlotter p = nav.getPlotter();
+			TablePlotter p = nav.getPlotter() ;
 			if( p != null )
-				p.setVisible( false );
+				p.setVisible( false ) ;
 		}
-		super.unloaded();
+		super.unloaded() ;
 	}
 
 	/**
@@ -44,13 +44,13 @@ public class TpeCatalogFeature extends TpeImageFeature
 	 */
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		super.reinit( iw , fii );
-		Navigator nav = _iw.getNavigator();
+		super.reinit( iw , fii ) ;
+		Navigator nav = _iw.getNavigator() ;
 		if( nav != null )
 		{
-			TablePlotter p = nav.getPlotter();
+			TablePlotter p = nav.getPlotter() ;
 			if( p != null )
-				p.setVisible( true );
+				p.setVisible( true ) ;
 		}
 	}
 

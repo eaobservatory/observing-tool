@@ -4,33 +4,33 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * The GNIRS instrument.
  */
 public class SpInstGNIRS extends SpInstObsComp
 {
-	public final static int GNIRS_LARGE = 0;
-	public final static int GNIRS_SMALL = 1;
+	public final static int GNIRS_LARGE = 0 ;
+	public final static int GNIRS_SMALL = 1 ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.GNIRS" , "GNIRS" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.GNIRS" , "GNIRS" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstGNIRS() );
+		SpFactory.registerPrototype( new SpInstGNIRS() ) ;
 	}
 
 	public SpInstGNIRS()
 	{
-		super( SP_TYPE );
-		_avTable.noNotifySet( "scienceArea" , "100" , 0 );
+		super( SP_TYPE ) ;
+		_avTable.noNotifySet( "scienceArea" , "100" , 0 ) ;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class SpInstGNIRS extends SpInstObsComp
 	 */
 	public int getOIWFSRadius()
 	{
-		return 90; // (arcsec) which is 1.5 arcmin
+		return 90 ; // (arcsec) which is 1.5 arcmin
 	}
 
 	/**
@@ -49,11 +49,11 @@ public class SpInstGNIRS extends SpInstObsComp
 		switch( mode )
 		{
 			case GNIRS_LARGE :
-				return new double[] { 1. , 100. };
+				return new double[] { 1. , 100. } ;
 			case GNIRS_SMALL :
-				return new double[] { 1. , 50. };
+				return new double[] { 1. , 50. } ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -62,10 +62,10 @@ public class SpInstGNIRS extends SpInstObsComp
 	 */
 	public double[] getScienceArea()
 	{
-		String scienceArea = _avTable.get( "scienceArea" );
+		String scienceArea = _avTable.get( "scienceArea" ) ;
 		if( ( scienceArea == null ) || scienceArea.equals( "100" ) )
-			return getScienceArea( GNIRS_LARGE );
+			return getScienceArea( GNIRS_LARGE ) ;
 
-		return getScienceArea( GNIRS_SMALL );
+		return getScienceArea( GNIRS_SMALL ) ;
 	}
 }

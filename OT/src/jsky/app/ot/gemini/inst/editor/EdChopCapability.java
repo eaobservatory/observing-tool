@@ -4,16 +4,16 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst.editor;
+package jsky.app.ot.gemini.inst.editor ;
 
 import javax.swing.JLabel ;
-import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import gemini.sp.obsComp.SpChopCapability;
-import gemini.sp.obsComp.SpInstObsComp;
+import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import gemini.sp.obsComp.SpChopCapability ;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * Support for exposures/chop pos, chop cycles/nod, and nod cycles/obs.
@@ -25,9 +25,9 @@ public class EdChopCapability
 	 */
 	private SpChopCapability _getChopCap( OtItemEditor itemEditor )
 	{
-		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem();
-		String name = SpChopCapability.CAPABILITY_NAME;
-		return ( SpChopCapability )spInst.getCapability( name );
+		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem() ;
+		String name = SpChopCapability.CAPABILITY_NAME ;
+		return ( SpChopCapability )spInst.getCapability( name ) ;
 	}
 
 	/**
@@ -36,53 +36,53 @@ public class EdChopCapability
 	 */
 	protected void _init( final MichelleGUI gw , final OtItemEditor itemEditor )
 	{
-		CheckBoxWidgetExt cbwe;
-		cbwe = gw.nodding;
+		CheckBoxWidgetExt cbwe ;
+		cbwe = gw.nodding ;
 		cbwe.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt cbwe )
 			{
-				boolean nodding = cbwe.getBooleanValue();
-				SpChopCapability chopCap = _getChopCap( itemEditor );
-				chopCap.setNodding( nodding );
-				_updateWidgets( gw , chopCap );
+				boolean nodding = cbwe.getBooleanValue() ;
+				SpChopCapability chopCap = _getChopCap( itemEditor ) ;
+				chopCap.setNodding( nodding ) ;
+				_updateWidgets( gw , chopCap ) ;
 			}
-		} );
+		} ) ;
 
-		TextBoxWidgetExt tbwe;
+		TextBoxWidgetExt tbwe ;
 
-		tbwe = gw.expPerChopPos;
+		tbwe = gw.expPerChopPos ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getChopCap( itemEditor ).setExposuresPerChopPosition( tbwe.getText() );
+				_getChopCap( itemEditor ).setExposuresPerChopPosition( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 
-		tbwe = gw.chopCyclesPerNod;
+		tbwe = gw.chopCyclesPerNod ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getChopCap( itemEditor ).setChopCyclesPerNod( tbwe.getText() );
+				_getChopCap( itemEditor ).setChopCyclesPerNod( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 
-		tbwe = gw.cyclesPerObs;
+		tbwe = gw.cyclesPerObs ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getChopCap( itemEditor ).setCyclesPerObserve( tbwe.getText() );
+				_getChopCap( itemEditor ).setCyclesPerObserve( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 	}
 
 	/**
@@ -91,16 +91,16 @@ public class EdChopCapability
 	 */
 	protected void _updateNoddingWidgets( MichelleGUI gw , boolean nodding )
 	{
-		TextBoxWidgetExt tbwe;
-		tbwe = gw.chopCyclesPerNod;
-		tbwe.setEnabled( nodding );
+		TextBoxWidgetExt tbwe ;
+		tbwe = gw.chopCyclesPerNod ;
+		tbwe.setEnabled( nodding ) ;
 
-		JLabel stw;
-		stw = gw.cyclesPerObsLabel;
+		JLabel stw ;
+		stw = gw.cyclesPerObsLabel ;
 		if( nodding )
-			stw.setText( "(nod cycles/obs)" );
+			stw.setText( "(nod cycles/obs)" ) ;
 		else
-			stw.setText( "(chop cycles/obs)" );
+			stw.setText( "(chop cycles/obs)" ) ;
 	}
 
 	/**
@@ -108,24 +108,24 @@ public class EdChopCapability
 	 */
 	protected void _updateWidgets( MichelleGUI gw , SpChopCapability chopCap )
 	{
-		boolean nodding = chopCap.getNodding();
+		boolean nodding = chopCap.getNodding() ;
 
-		CheckBoxWidgetExt cbwe;
-		cbwe = gw.nodding;
-		cbwe.setValue( nodding );
-		_updateNoddingWidgets( gw , nodding );
+		CheckBoxWidgetExt cbwe ;
+		cbwe = gw.nodding ;
+		cbwe.setValue( nodding ) ;
+		_updateNoddingWidgets( gw , nodding ) ;
 
-		TextBoxWidgetExt tbwe;
-		tbwe = gw.expPerChopPos;
-		tbwe.setText( chopCap.getExposuresPerChopPositionAsString() );
+		TextBoxWidgetExt tbwe ;
+		tbwe = gw.expPerChopPos ;
+		tbwe.setText( chopCap.getExposuresPerChopPositionAsString() ) ;
 
-		tbwe = gw.chopCyclesPerNod;
+		tbwe = gw.chopCyclesPerNod ;
 		if( nodding )
-			tbwe.setText( chopCap.getChopCyclesPerNodAsString() );
+			tbwe.setText( chopCap.getChopCyclesPerNodAsString() ) ;
 		else
-			tbwe.setText( "" );
+			tbwe.setText( "" ) ;
 
-		tbwe = gw.cyclesPerObs;
-		tbwe.setText( chopCap.getCyclesPerObserveAsString() );
+		tbwe = gw.cyclesPerObs ;
+		tbwe.setText( chopCap.getCyclesPerObserveAsString() ) ;
 	}
 }

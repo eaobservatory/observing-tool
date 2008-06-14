@@ -4,46 +4,46 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpStareCapability ;
 
 /**
  * The NIRI instrument.
  */
 public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstants
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.NIRI" , "NIRI" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.NIRI" , "NIRI" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstNIRI() );
+		SpFactory.registerPrototype( new SpInstNIRI() ) ;
 	}
 
 	public SpInstNIRI()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 
-		addCapability( new SpStareCapability() );
+		addCapability( new SpStareCapability() ) ;
 
-		String attr = ATTR_CAMERA;
-		String value = CAMERAS[ 0 ];
-		_avTable.noNotifySet( attr , value , 0 );
+		String attr = ATTR_CAMERA ;
+		String value = CAMERAS[ 0 ] ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_FILTER;
-		value = SPECIAL_FILTERS[ 0 ][ 0 ];
-		_avTable.noNotifySet( attr , value , 0 );
+		attr = ATTR_FILTER ;
+		value = SPECIAL_FILTERS[ 0 ][ 0 ] ;
+		_avTable.noNotifySet( attr , value , 0 ) ;
 
-		attr = ATTR_EXPOSURE_TIME;
-		_avTable.noNotifySet( attr , "0" , 0 );
+		attr = ATTR_EXPOSURE_TIME ;
+		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
-		attr = ATTR_COADDS;
-		_avTable.noNotifySet( attr , "1" , 0 );
+		attr = ATTR_COADDS ;
+		_avTable.noNotifySet( attr , "1" , 0 ) ;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public SpStareCapability getStareCapability()
 	{
-		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME );
+		return ( SpStareCapability )getCapability( SpStareCapability.CAPABILITY_NAME ) ;
 	}
 
 	/**
@@ -62,13 +62,13 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 		switch( mode )
 		{
 			case CAMERA_F6 :
-				return new double[]{ 123. , 123. };
+				return new double[]{ 123. , 123. } ;
 			case CAMERA_F14 :
-				return new double[]{ 51. , 51. };
+				return new double[]{ 51. , 51. } ;
 			case CAMERA_F32 :
-				return new double[]{ 20. , 20. };
+				return new double[]{ 20. , 20. } ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -77,22 +77,22 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	public double[] getScienceArea()
 	{
 		// The size depends upon the selected camera.
-		double[] size = getScienceArea( getCameraIndex() );
+		double[] size = getScienceArea( getCameraIndex() ) ;
 
 		// If a mask has been applied, shrink the width.
-		double width = size[ 0 ];
-		String mask = _avTable.get( ATTR_MASK );
+		double width = size[ 0 ] ;
+		String mask = _avTable.get( ATTR_MASK ) ;
 		if( mask != null )
 		{
 			if( mask.equals( MASK_0_1 ) )
-				width = 0.1;
+				width = 0.1 ;
 			else if( mask.equals( MASK_0_2 ) )
-				width = 0.2;
+				width = 0.2 ;
 			else if( mask.equals( MASK_1_0 ) )
 				width = 1. ;
 		}
-		size[ 0 ] = width;
-		return size;
+		size[ 0 ] = width ;
+		return size ;
 	}
 
 	/**
@@ -100,11 +100,11 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public String getCamera()
 	{
-		String camera = _avTable.get( ATTR_CAMERA );
+		String camera = _avTable.get( ATTR_CAMERA ) ;
 		if( camera == null )
-			camera = CAMERAS[ 0 ];
+			camera = CAMERAS[ 0 ] ;
 
-		return camera;
+		return camera ;
 	}
 
 	/**
@@ -112,13 +112,13 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public int getCameraIndex()
 	{
-		String camera = _avTable.get( ATTR_CAMERA );
-		int index = CAMERA_F32;
+		String camera = _avTable.get( ATTR_CAMERA ) ;
+		int index = CAMERA_F32 ;
 		if( ( camera == null ) || ( camera.equals( CAMERAS[ CAMERA_F6 ] ) ) )
-			index = CAMERA_F6;
+			index = CAMERA_F6 ;
 		else if( camera.equals( CAMERAS[ CAMERA_F14 ] ) )
-			index = CAMERA_F14;
-		return index;
+			index = CAMERA_F14 ;
+		return index ;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public void setCamera( String camera )
 	{
-		_avTable.set( ATTR_CAMERA , camera );
+		_avTable.set( ATTR_CAMERA , camera ) ;
 	}
 
 	/**
@@ -135,20 +135,20 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	public String getDisperser()
 	{
 		// For old programs, change "grism" to "disperser".
-		String grism = _avTable.get( "grism" );
+		String grism = _avTable.get( "grism" ) ;
 		if( grism != null )
 		{
-			setDisperser( grism );
-			_avTable.rm( "grism" );
-			return grism;
+			setDisperser( grism ) ;
+			_avTable.rm( "grism" ) ;
+			return grism ;
 		}
 
 		// For new programs, everything is fine.
-		String disperser = _avTable.get( ATTR_DISPERSER );
+		String disperser = _avTable.get( ATTR_DISPERSER ) ;
 		if( disperser == null )
-			disperser = DISPERSERS[ 0 ];
+			disperser = DISPERSERS[ 0 ] ;
 
-		return disperser;
+		return disperser ;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public void setDisperser( String disperser )
 	{
-		_avTable.set( ATTR_DISPERSER , disperser );
+		_avTable.set( ATTR_DISPERSER , disperser ) ;
 	}
 
 	/**
@@ -165,22 +165,22 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	public String getMask()
 	{
 		// For old programs, change "slit" to "mask".
-		String slit = _avTable.get( "slit" );
+		String slit = _avTable.get( "slit" ) ;
 		if( slit != null )
 		{
 			if( slit.indexOf( "arcsec" ) != -1 )
-				slit += " slit"; // Add the word "slit" to the slit masks
-			setMask( slit );
-			_avTable.rm( "slit" ); // Remove the old attribute
-			return slit;
+				slit += " slit" ; // Add the word "slit" to the slit masks
+			setMask( slit ) ;
+			_avTable.rm( "slit" ) ; // Remove the old attribute
+			return slit ;
 		}
 
 		// For new programs, everything is fine.
-		String mask = _avTable.get( ATTR_MASK );
+		String mask = _avTable.get( ATTR_MASK ) ;
 		if( mask == null )
-			mask = MASKS[ 0 ];
+			mask = MASKS[ 0 ] ;
 		
-		return mask;
+		return mask ;
 	}
 
 	/**
@@ -188,7 +188,7 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public void setMask( String mask )
 	{
-		_avTable.set( ATTR_MASK , mask );
+		_avTable.set( ATTR_MASK , mask ) ;
 	}
 
 	/**
@@ -196,11 +196,11 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public String getFilter()
 	{
-		String filter = _avTable.get( ATTR_FILTER );
+		String filter = _avTable.get( ATTR_FILTER ) ;
 		if( filter == null )
-			filter = FILTER_NONE;
+			filter = FILTER_NONE ;
 
-		return filter;
+		return filter ;
 	}
 
 	/**
@@ -208,6 +208,6 @@ public final class SpInstNIRI extends SpInstObsComp implements SpInstNIRIConstan
 	 */
 	public void setFilter( String filter )
 	{
-		_avTable.set( ATTR_FILTER , filter );
+		_avTable.set( ATTR_FILTER , filter ) ;
 	}
 }

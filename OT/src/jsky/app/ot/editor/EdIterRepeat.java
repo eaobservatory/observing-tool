@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel ;
+import javax.swing.JComboBox ;
 
-import gemini.sp.iter.SpIterRepeat;
+import gemini.sp.iter.SpIterRepeat ;
 
 /**
  * This is the editor for Repeat iterator component.
@@ -23,23 +23,23 @@ import gemini.sp.iter.SpIterRepeat;
  */
 public final class EdIterRepeat extends OtItemEditor implements ActionListener
 {
-	private IterRepeatGUI _w; // the GUI layout panel
+	private IterRepeatGUI _w ; // the GUI layout panel
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterRepeat()
 	{
-		_title = "Repeat Iterator";
-		_presSource = _w = new IterRepeatGUI();
-		_description = "Repeat exposures or other iterators.";
+		_title = "Repeat Iterator" ;
+		_presSource = _w = new IterRepeatGUI() ;
+		_description = "Repeat exposures or other iterators." ;
 
 		// Note: The original bongo code used a SpinBoxWidget, but since Swing doesn't have one, try using a JComboBox instead...
-		Object[] ar = new Object[ 99 ];
+		Object[] ar = new Object[ 99 ] ;
 		for( int i = 0 ; i < 99 ; i++ )
-			ar[ i ] = new Integer( i + 1 );
-		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) );
-		_w.repeatComboBox.addActionListener( this );
+			ar[ i ] = new Integer( i + 1 ) ;
+		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
 	}
 
 	/**
@@ -48,15 +48,15 @@ public final class EdIterRepeat extends OtItemEditor implements ActionListener
 	 */
 	protected void _updateWidgets()
 	{
-		JComboBox sbw;
+		JComboBox sbw ;
 
-		SpIterRepeat iterRepeat = ( SpIterRepeat )_spItem;
+		SpIterRepeat iterRepeat = ( SpIterRepeat )_spItem ;
 
 		// Repetitions
-		sbw = _w.repeatComboBox;
-		_w.repeatComboBox.removeActionListener( this );
-		sbw.setSelectedItem( new Integer( iterRepeat.getCount() ) );
-		_w.repeatComboBox.addActionListener( this );
+		sbw = _w.repeatComboBox ;
+		_w.repeatComboBox.removeActionListener( this ) ;
+		sbw.setSelectedItem( new Integer( iterRepeat.getCount() ) ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
 	}
 
 	/**
@@ -64,11 +64,11 @@ public final class EdIterRepeat extends OtItemEditor implements ActionListener
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		SpIterRepeat iterRepeat = ( SpIterRepeat )_spItem;
+		SpIterRepeat iterRepeat = ( SpIterRepeat )_spItem ;
 
-		JComboBox sbw = _w.repeatComboBox;
-		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue();
-		iterRepeat.setCount( i );
-		_spItem.setTitleAttr( "Repeat " + i + "X" );
+		JComboBox sbw = _w.repeatComboBox ;
+		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
+		iterRepeat.setCount( i ) ;
+		_spItem.setTitleAttr( "Repeat " + i + "X" ) ;
 	}
 }

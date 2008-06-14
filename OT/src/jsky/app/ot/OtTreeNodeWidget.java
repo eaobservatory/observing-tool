@@ -5,7 +5,7 @@
 // $Id$
 //
 
-package jsky.app.ot;
+package jsky.app.ot ;
 
 import java.awt.Color ;
 import java.awt.Font ;
@@ -13,10 +13,10 @@ import java.awt.FontMetrics ;
 import java.awt.Graphics ;
 import java.util.Observable ;
 import java.util.Observer ;
-import jsky.app.ot.gui.MultiSelTreeNodeWidget;
-import gemini.sp.SpAvEditState;
-import gemini.sp.SpItem;
-import jsky.app.ot.util.Assert;
+import jsky.app.ot.gui.MultiSelTreeNodeWidget ;
+import gemini.sp.SpAvEditState ;
+import gemini.sp.SpItem ;
+import jsky.app.ot.util.Assert ;
 
 //
 // A helper class used to draw various things on top of tree node
@@ -27,64 +27,64 @@ final class OtTnwDrawHelper
 	// Draw a white X on a red field.
 	static void drawNo( Graphics g )
 	{
-		g.setColor( Color.red );
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 );
+		g.setColor( Color.red ) ;
+		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
 
-		g.setColor( Color.white );
-		g.drawLine( 5 , 6 , 10 , 11 );
-		g.drawLine( 5 , 5 , 11 , 11 );
-		g.drawLine( 6 , 5 , 11 , 10 );
+		g.setColor( Color.white ) ;
+		g.drawLine( 5 , 6 , 10 , 11 ) ;
+		g.drawLine( 5 , 5 , 11 , 11 ) ;
+		g.drawLine( 6 , 5 , 11 , 10 ) ;
 
-		g.drawLine( 10 , 5 , 5 , 10 );
-		g.drawLine( 11 , 5 , 5 , 11 );
-		g.drawLine( 11 , 6 , 6 , 11 );
+		g.drawLine( 10 , 5 , 5 , 10 ) ;
+		g.drawLine( 11 , 5 , 5 , 11 ) ;
+		g.drawLine( 11 , 6 , 6 , 11 ) ;
 	}
 
 	// Draw a white downward pointing arrow on a red field.
 	static void drawDownArrow( Graphics g )
 	{
-		g.setColor( Color.red );
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 );
+		g.setColor( Color.red ) ;
+		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
 
-		g.setColor( Color.white );
-		g.drawLine( 8 , 4 , 8 , 10 );
-		g.drawLine( 9 , 4 , 9 , 10 );
+		g.setColor( Color.white ) ;
+		g.drawLine( 8 , 4 , 8 , 10 ) ;
+		g.drawLine( 9 , 4 , 9 , 10 ) ;
 
-		int[] xPoints = { 5 , 8 , 12 , 5 };
-		int[] yPoints = { 9 , 12 , 9 , 9 };
-		g.fillPolygon( xPoints , yPoints , 4 );
+		int[] xPoints = { 5 , 8 , 12 , 5 } ;
+		int[] yPoints = { 9 , 12 , 9 , 9 } ;
+		g.fillPolygon( xPoints , yPoints , 4 ) ;
 	}
 
 	// Draw a white left-to-right downward pointing arrow on a red field.
 	static void drawLeftRightDownArrow( Graphics g )
 	{
-		g.setColor( Color.red );
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 );
+		g.setColor( Color.red ) ;
+		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
 
-		g.setColor( Color.white );
-		g.drawLine( 5 , 6 , 10 , 11 );
-		g.drawLine( 5 , 5 , 11 , 11 );
-		g.drawLine( 6 , 5 , 11 , 10 );
+		g.setColor( Color.white ) ;
+		g.drawLine( 5 , 6 , 10 , 11 ) ;
+		g.drawLine( 5 , 5 , 11 , 11 ) ;
+		g.drawLine( 6 , 5 , 11 , 10 ) ;
 
-		int[] xPoints = { 7 , 11 , 11 , 7 };
-		int[] yPoints = { 11 , 11 , 7 , 11 };
-		g.drawPolygon( xPoints , yPoints , 4 );
+		int[] xPoints = { 7 , 11 , 11 , 7 } ;
+		int[] yPoints = { 11 , 11 , 7 , 11 } ;
+		g.drawPolygon( xPoints , yPoints , 4 ) ;
 	}
 
 	// Draw a black "!" on a yellow triangle.
 	static void drawExclamation( Graphics g )
 	{
-		g.setColor( Color.yellow );
-		int[] xPoints = { 1 , 14 , 8 , 7 , 1 };
-		int[] yPoints = { 15 , 15 , 1 , 1 , 15 };
-		g.fillPolygon( xPoints , yPoints , 5 );
+		g.setColor( Color.yellow ) ;
+		int[] xPoints = { 1 , 14 , 8 , 7 , 1 } ;
+		int[] yPoints = { 15 , 15 , 1 , 1 , 15 } ;
+		g.fillPolygon( xPoints , yPoints , 5 ) ;
 
-		g.setColor( Color.black );
-		g.setFont( new Font( "Dialog" , Font.BOLD , 14 ) );
-		FontMetrics fm = g.getFontMetrics();
-		int x = 8 - ( fm.stringWidth( "!" ) / 2 );
-		int y = 8 + fm.getAscent() / 2;
-		g.drawString( "!" , x , y );
+		g.setColor( Color.black ) ;
+		g.setFont( new Font( "Dialog" , Font.BOLD , 14 ) ) ;
+		FontMetrics fm = g.getFontMetrics() ;
+		int x = 8 - ( fm.stringWidth( "!" ) / 2 ) ;
+		int y = 8 + fm.getAscent() / 2 ;
+		g.drawString( "!" , x , y ) ;
 	}
 }
 
@@ -96,18 +96,18 @@ final class OtTnwDrawHelper
 public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements Observer , OtGuiAttributes
 {
 	/** The font for unedited items.  */
-	public static final Font DEFAULT_FONT = new Font( "Dialog" , Font.PLAIN , 12 );
+	public static final Font DEFAULT_FONT = new Font( "Dialog" , Font.PLAIN , 12 ) ;
 
 	/** The font for edited items.  */
-	public static final Font EDITED_FONT = new Font( "Dialog" , Font.ITALIC , 12 );
+	public static final Font EDITED_FONT = new Font( "Dialog" , Font.ITALIC , 12 ) ;
 
 	/** The SpItem associated one-to-one with this tree node widget.  */
-	protected SpItem _spItem = null;
+	protected SpItem _spItem = null ;
 
 	/** Constructor */
 	public OtTreeNodeWidget( OtTreeWidget tree )
 	{
-		super( tree );
+		super( tree ) ;
 	}
 
 	/** Constructor */
@@ -118,7 +118,7 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 * Maybe someday org.freebongo.gui.Widget.clone() will work and this won't be
 	 * needed anymore...
 	 */
-	public abstract OtTreeNodeWidget copy();
+	public abstract OtTreeNodeWidget copy() ;
 
 	/**
 	 * Set the Science Program item to edit.  This method should be
@@ -126,11 +126,11 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 */
 	public void setItem( SpItem spItem )
 	{
-		Assert.notFalse( _spItem == null );
+		Assert.notFalse( _spItem == null ) ;
 
-		_spItem = spItem;
-		_spItem.getAvEditFSM().addObserver( this );
-		update( _spItem.getAvEditFSM() , null );
+		_spItem = spItem ;
+		_spItem.getAvEditFSM().addObserver( this ) ;
+		update( _spItem.getAvEditFSM() , null ) ;
 	}
 
 	/**
@@ -138,7 +138,7 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 */
 	public SpItem getItem()
 	{
-		return _spItem;
+		return _spItem ;
 	}
 
 	/**
@@ -149,10 +149,10 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 */
 	public void setCollapsed( boolean collapsed )
 	{
-		super.setCollapsed( collapsed );
+		super.setCollapsed( collapsed ) ;
 
 		if( _spItem != null )
-			_spItem.getTable().set( GUI_COLLAPSED , collapsed );
+			_spItem.getTable().set( GUI_COLLAPSED , collapsed ) ;
 	}
 
 	/**
@@ -160,7 +160,7 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 */
 	public boolean isEdited()
 	{
-		return( _spItem.getAvEditState() == SpAvEditState.EDITED );
+		return( _spItem.getAvEditState() == SpAvEditState.EDITED ) ;
 	}
 
 	/**
@@ -169,15 +169,15 @@ public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements
 	 */
 	public void update( Observable o , Object arg )
 	{
-		SpAvEditState fsm = ( SpAvEditState )o;
+		SpAvEditState fsm = ( SpAvEditState )o ;
 		if( fsm.getState() == SpAvEditState.EDITED )
-			setFont( EDITED_FONT );
+			setFont( EDITED_FONT ) ;
 		else
-			setFont( DEFAULT_FONT );
+			setFont( DEFAULT_FONT ) ;
 
 		// See if there's a new title
-		String title = _spItem.getTitle();
+		String title = _spItem.getTitle() ;
 		if( getText() != title )
-			setText( title );
+			setText( title ) ;
 	}
 }

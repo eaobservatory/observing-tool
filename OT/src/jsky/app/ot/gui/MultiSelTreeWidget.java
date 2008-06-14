@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
+import java.util.Vector ;
 import javax.swing.tree.TreeCellRenderer ;
 import javax.swing.tree.TreeNode ;
 import javax.swing.tree.TreePath ;
@@ -15,9 +15,9 @@ import javax.swing.JFrame ;
 import javax.swing.JTree ;
 import java.awt.Component ;
 import java.awt.Dimension ;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import jsky.util.gui.BasicWindowMonitor;
+import java.awt.event.MouseListener ;
+import java.awt.event.MouseEvent ;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * A TreeWidget extension that supports multiselection as an option.
@@ -50,7 +50,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 *
 	 * MFO: May 28, 2001
 	 */
-	protected TreePath[] multipleSelection = null;
+	protected TreePath[] multipleSelection = null ;
 
 	/**
 	 * Reference to the TreeWidgetCellRenderer of {@link #tree}.
@@ -58,21 +58,21 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 * It is needed by this class to implement its own getTreeCellRendererComponent method.
 	 * MFO: May 28, 2001
 	 */
-	protected TreeWidgetCellRenderer cellRenderer = null;
+	protected TreeWidgetCellRenderer cellRenderer = null ;
 
 	public MultiSelTreeWidget()
 	{
-		super();
+		super() ;
 
 		// Get hold of the cell renderer.
 		// MFO: May 28, 2001
-		cellRenderer = ( TreeWidgetCellRenderer )tree.getCellRenderer();
+		cellRenderer = ( TreeWidgetCellRenderer )tree.getCellRenderer() ;
 
 		// Set cell renderer of tree to this class.
 		// MFO: May 28, 2001
-		tree.setCellRenderer( this );
+		tree.setCellRenderer( this ) ;
 
-		tree.addMouseListener( this );
+		tree.addMouseListener( this ) ;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 */
 	public boolean getMultiSelect()
 	{
-		return( tree.getSelectionModel().getSelectionMode() == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION );
+		return( tree.getSelectionModel().getSelectionMode() == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION ) ;
 	}
 
 	/**
@@ -89,9 +89,9 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	public void setMultiSelect( boolean ms )
 	{
 		if( ms )
-			tree.getSelectionModel().setSelectionMode( TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION );
+			tree.getSelectionModel().setSelectionMode( TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION ) ;
 		else
-			tree.getSelectionModel().setSelectionMode( TreeSelectionModel.SINGLE_TREE_SELECTION );
+			tree.getSelectionModel().setSelectionMode( TreeSelectionModel.SINGLE_TREE_SELECTION ) ;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 */
 	public synchronized boolean multipleItemsSelected()
 	{
-		return( tree.getSelectionCount() > 1 );
+		return( tree.getSelectionCount() > 1 ) ;
 	}
 
 	/**
@@ -113,29 +113,29 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 */
 	public Vector getMultiSelectNodes()
 	{
-		TreePath[] paths = tree.getSelectionPaths();
-		Vector v = null;
+		TreePath[] paths = tree.getSelectionPaths() ;
+		Vector v = null ;
 		if( paths != null )
 		{
-			v = new Vector( paths.length , 1 );
+			v = new Vector( paths.length , 1 ) ;
 			for( int i = 0 ; i < paths.length ; i++ )
-				v.add( i , paths[ i ].getLastPathComponent() );
+				v.add( i , paths[ i ].getLastPathComponent() ) ;
 		}
-		return v;
+		return v ;
 	}
 
 	/** Notify that multiple nodes have been selected.  */
 	protected void notifyMultiSelect()
 	{
-		Vector v = getWatchers();
-		int cnt = v.size();
+		Vector v = getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			Object o = v.elementAt( i );
+			Object o = v.elementAt( i ) ;
 			if( !( o instanceof MultiSelTreeWidgetWatcher ) )
-				continue;
-			MultiSelTreeWidgetWatcher mstww = ( MultiSelTreeWidgetWatcher )o;
-			mstww.multiNodeSelect( this , getMultiSelectNodes() );
+				continue ;
+			MultiSelTreeWidgetWatcher mstww = ( MultiSelTreeWidgetWatcher )o ;
+			mstww.multiNodeSelect( this , getMultiSelectNodes() ) ;
 		}
 	}
 
@@ -147,20 +147,20 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	public void setMultiSelectNodes( MultiSelTreeNodeWidget[] tnwA )
 	{
 		if( tnwA.length <= 1 )
-			return;
+			return ;
 
 		// Make sure that they all have the same parent
-		TreePath[] paths = new TreePath[ tnwA.length ];
+		TreePath[] paths = new TreePath[ tnwA.length ] ;
 		for( int i = 1 ; i < tnwA.length ; i++ )
 		{
 			if( tnwA[ i ].getParent() != tnwA[ i - 1 ].getParent() )
-				return;
-			paths[ i ] = new TreePath( tnwA[ i ].getPath() );
+				return ;
+			paths[ i ] = new TreePath( tnwA[ i ].getPath() ) ;
 		}
 
 		// Reset the selection
-		tree.clearSelection();
-		tree.setSelectionPaths( paths );
+		tree.clearSelection() ;
+		tree.setSelectionPaths( paths ) ;
 	}
 
 	/**
@@ -169,76 +169,76 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "MultiSelTreeWidget" );
-		MultiSelTreeWidget tree = new MultiSelTreeWidget();
-		tree.setPreferredSize( new Dimension( 360 , 400 ) );
-		frame.add( "Center" , tree );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		JFrame frame = new JFrame( "MultiSelTreeWidget" ) ;
+		MultiSelTreeWidget tree = new MultiSelTreeWidget() ;
+		tree.setPreferredSize( new Dimension( 360 , 400 ) ) ;
+		frame.add( "Center" , tree ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 
 	public TreePath[] getSelectionPaths()
 	{
-		TreePath[] allPaths;
-		TreePath[] result;
-		TreePath pointer;
-		Vector resultVector = new Vector();
+		TreePath[] allPaths ;
+		TreePath[] result ;
+		TreePath pointer ;
+		Vector<TreePath> resultVector = new Vector<TreePath>() ;
 
 		if( multipleSelection != null )
-			allPaths = multipleSelection;
+			allPaths = multipleSelection ;
 		else
-			allPaths = tree.getSelectionPaths();
+			allPaths = tree.getSelectionPaths() ;
 
 		if( allPaths == null )
-			return null;
+			return null ;
 
-		boolean hasAncesterAmongPaths = false;
+		boolean hasAncesterAmongPaths = false ;
 		for( int i = 0 ; i < allPaths.length ; i++ )
 		{
 			for( int j = 0 ; j < allPaths.length ; j++ )
 			{
-				pointer = allPaths[ i ].getParentPath();
+				pointer = allPaths[ i ].getParentPath() ;
 				while( pointer != null )
 				{
 					if( pointer == allPaths[ j ] )
 					{
-						hasAncesterAmongPaths = true;
-						break;
+						hasAncesterAmongPaths = true ;
+						break ;
 					}
 					else
 					{
-						pointer = pointer.getParentPath();
+						pointer = pointer.getParentPath() ;
 					}
 				}
 
 				if( hasAncesterAmongPaths )
-					break;
+					break ;
 			}
 			if( !hasAncesterAmongPaths )
-				resultVector.add( allPaths[ i ] );
+				resultVector.add( allPaths[ i ] ) ;
 		}
 
-		result = new TreePath[ resultVector.size() ];
+		result = new TreePath[ resultVector.size() ] ;
 
 		for( int i = 0 ; i < result.length ; i++ )
-			result[ i ] = ( TreePath )resultVector.get( i );
+			result[ i ] = ( TreePath )resultVector.get( i ) ;
 
-		return result;
+		return result ;
 	}
 
 	protected boolean isInMultipleSelection( TreeNode node )
 	{
 		if( multipleSelection == null )
-			return false;
+			return false ;
 
 		for( int i = 0 ; i < multipleSelection.length ; i++ )
 		{
 			if( multipleSelection[ i ].getLastPathComponent() == node )
-				return true;
+				return true ;
 		}
 
-		return false;
+		return false ;
 	}
 
 	/**
@@ -254,9 +254,9 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 		// If there is no multiple selection just pass all parameters on and
 		// return the result of the cellRenderer.getTreeCellRendererComponent.
 		if( multipleSelection != null )
-			return cellRenderer.getTreeCellRendererComponent( tree , value , isInMultipleSelection( ( TreeNode )value ) , expanded , leaf , row , hasFocus );
+			return cellRenderer.getTreeCellRendererComponent( tree , value , isInMultipleSelection( ( TreeNode )value ) , expanded , leaf , row , hasFocus ) ;
 		else
-			return cellRenderer.getTreeCellRendererComponent( tree , value , selected , expanded , leaf , row , hasFocus );
+			return cellRenderer.getTreeCellRendererComponent( tree , value , selected , expanded , leaf , row , hasFocus ) ;
 	}
 
 	// MFO: May 28, 2001
@@ -271,9 +271,9 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	public void mouseReleased( MouseEvent e )
 	{
 		if( tree.getSelectionCount() > 1 )
-			multipleSelection = tree.getSelectionPaths();
+			multipleSelection = tree.getSelectionPaths() ;
 		else
-			multipleSelection = null;
-		tree.repaint();
+			multipleSelection = null ;
+		tree.repaint() ;
 	}
 }

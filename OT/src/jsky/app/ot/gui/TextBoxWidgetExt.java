@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
@@ -13,7 +13,7 @@ import javax.swing.JTextField ;
 import javax.swing.JFrame ;
 import javax.swing.event.DocumentListener ;
 import javax.swing.event.DocumentEvent ;
-import jsky.util.gui.BasicWindowMonitor;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * A TextBoxWidget that permits clients to register as key press watchers.
@@ -23,10 +23,10 @@ import jsky.util.gui.BasicWindowMonitor;
 public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , DocumentListener , ActionListener
 {
 	// Observers
-	private Vector _watchers = new Vector();
+	private Vector _watchers = new Vector() ;
 
 	// if true, ignore changes in the text box content
-	private boolean _ignoreChanges = false;
+	private boolean _ignoreChanges = false ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -34,13 +34,13 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default constructor */
 	public TextBoxWidgetExt()
 	{
-		getDocument().addDocumentListener( this );
-		addActionListener( this );
+		getDocument().addDocumentListener( this ) ;
+		addActionListener( this ) ;
 	}
 
 	// -- For the DocumentListener interface --
@@ -53,7 +53,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	public void insertUpdate( DocumentEvent e )
 	{
 		if( !_ignoreChanges )
-			_notifyKeyPress();
+			_notifyKeyPress() ;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	public void removeUpdate( DocumentEvent e )
 	{
 		if( !_ignoreChanges )
-			_notifyKeyPress();
+			_notifyKeyPress() ;
 	}
 
 	/** Gives notification that an attribute or set of attributes changed. */
@@ -75,7 +75,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	/** Invoked when an action occurs. */
 	public void actionPerformed( ActionEvent e )
 	{
-		_notifyAction();
+		_notifyAction() ;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	public synchronized final void addWatcher( TextBoxWidgetWatcher watcher )
 	{
 		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher );
+			_watchers.addElement( watcher ) ;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public synchronized final void deleteWatcher( TextBoxWidgetWatcher watcher )
 	{
-		_watchers.removeElement( watcher );
+		_watchers.removeElement( watcher ) ;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -127,7 +127,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	//
 	private synchronized final Vector _getWatchers()
 	{
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	//
@@ -135,14 +135,14 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	// 
 	private void _notifyKeyPress()
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i );
+			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i ) ;
 			try
 			{
-				watcher.textBoxKeyPress( this );
+				watcher.textBoxKeyPress( this ) ;
 			}
 			catch( Exception e ){}
 		}
@@ -153,12 +153,12 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	//
 	private void _notifyAction()
 	{
-		Vector v = _getWatchers();
-		int cnt = v.size();
+		Vector v = _getWatchers() ;
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i );
-			watcher.textBoxAction( this );
+			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i ) ;
+			watcher.textBoxAction( this ) ;
 		}
 	}
 
@@ -169,10 +169,10 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	{
 		try
 		{
-			return ( Double.valueOf( ( String )getValue() ) ).doubleValue();
+			return ( Double.valueOf( ( String )getValue() ) ).doubleValue() ;
 		}
 		catch( Exception ex ){}
-		return def;
+		return def ;
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public void setValue( double d )
 	{
-		setText( String.valueOf( d ) );
+		setText( String.valueOf( d ) ) ;
 	}
 
 	/**
@@ -190,11 +190,11 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	{
 		try
 		{
-			return Integer.parseInt( ( String )getValue() );
+			return Integer.parseInt( ( String )getValue() ) ;
 		}
 		catch( Exception ex ){}
 
-		return def;
+		return def ;
 	}
 
 	/**
@@ -202,19 +202,19 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public void setText( String s )
 	{
-		_ignoreChanges = true;
+		_ignoreChanges = true ;
 
 		// added by MFO (14 August 2001)
 		try
 		{
-			super.setText( s );
+			super.setText( s ) ;
 		}
 		catch( Exception e )
 		{
-			e.printStackTrace();
+			e.printStackTrace() ;
 		}
 
-		_ignoreChanges = false;
+		_ignoreChanges = false ;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public void setValue( int i )
 	{
-		setText( String.valueOf( i ) );
+		setText( String.valueOf( i ) ) ;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public void setValue( String s )
 	{
-		setText( s );
+		setText( s ) ;
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public String getValue()
 	{
-		return getText();
+		return getText() ;
 	}
 
 	/**
@@ -246,25 +246,25 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "TextBoxWidgetExt" );
+		JFrame frame = new JFrame( "TextBoxWidgetExt" ) ;
 
-		TextBoxWidgetExt tbw = new TextBoxWidgetExt();
+		TextBoxWidgetExt tbw = new TextBoxWidgetExt() ;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				System.out.println( "textBoxKeyPress: " + tbwe.getValue() );
+				System.out.println( "textBoxKeyPress: " + tbwe.getValue() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe )
 			{
-				System.out.println( "textBoxAction: " + tbwe.getValue() );
+				System.out.println( "textBoxAction: " + tbwe.getValue() ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , tbw );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , tbw ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

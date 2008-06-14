@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * This interface should be supported by objects that are interrested in
@@ -17,10 +17,10 @@ public interface TreeNodeWidgetWatcher
 	/**
 	 * Receive notification that a node is selected.
 	 */
-	public void nodeSelected( TreeNodeWidgetExt tnw );
+	public void nodeSelected( TreeNodeWidgetExt tnw ) ;
 
 	/**
 	 * Receive notification that a node has been acted upon.
 	 */
-	public void nodeAction( TreeNodeWidgetExt tnw );
+	public void nodeAction( TreeNodeWidgetExt tnw ) ;
 }

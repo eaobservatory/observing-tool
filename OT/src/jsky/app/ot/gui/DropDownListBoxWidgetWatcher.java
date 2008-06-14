@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * An interface supported by clients that which to be notified of
@@ -15,10 +15,10 @@ public interface DropDownListBoxWidgetWatcher
 	/**
 	 * Called when an item is selected.
 	 */
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val );
+	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val ) ;
 
 	/**
 	 * Called when an item is double clicked.
 	 */
-	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val );
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val ) ;
 }

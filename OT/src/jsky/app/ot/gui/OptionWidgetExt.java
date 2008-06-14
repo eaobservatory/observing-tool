@@ -11,12 +11,12 @@
  * @version     $Version$
  */
 
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.util.Vector;
-import javax.swing.JRadioButton;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Vector ;
+import javax.swing.JRadioButton ;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
 /**
  * An OptionWidget that permits clients to register as button press watchers.
@@ -24,7 +24,7 @@ import java.awt.event.ActionListener;
 public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget , ActionListener
 {
 	// Observers
-	private Vector _watchers = new Vector();
+	private Vector<OptionWidgetWatcher> _watchers = new Vector<OptionWidgetWatcher>() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -32,12 +32,12 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default constructor */
 	public OptionWidgetExt()
 	{
-		addActionListener( this );
+		addActionListener( this ) ;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	public synchronized final void addWatcher( OptionWidgetWatcher ow )
 	{
 		if( !_watchers.contains( ow ) )
-			_watchers.addElement( ow );
+			_watchers.addElement( ow ) ;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	 */
 	public synchronized final void deleteWatcher( OptionWidgetWatcher ow )
 	{
-		_watchers.removeElement( ow );
+		_watchers.removeElement( ow ) ;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	 */
 	public synchronized final void deleteWidgetWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -91,24 +91,24 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	{
 		for( int i = 0 ; i < _watchers.size() ; ++i )
 		{
-			OptionWidgetWatcher ow = ( OptionWidgetWatcher )_watchers.elementAt( i );
-			ow.optionAction( this );
+			OptionWidgetWatcher ow = ( OptionWidgetWatcher )_watchers.elementAt( i ) ;
+			ow.optionAction( this ) ;
 		}
 	}
 
 	/** Called when the button is pressed */
 	public void actionPerformed( ActionEvent ae )
 	{
-		_notifyAction();
+		_notifyAction() ;
 	}
 
 	public void setValue( boolean value )
 	{
-		setSelected( value );
+		setSelected( value ) ;
 	}
 
 	public boolean getValue()
 	{
-		return isSelected();
+		return isSelected() ;
 	}
 }

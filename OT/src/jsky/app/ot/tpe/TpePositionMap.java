@@ -4,18 +4,18 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.app.ot.fits.gui.FitsImageWidget;
-import jsky.app.ot.fits.gui.FitsPosMap;
-import jsky.app.ot.fits.gui.FitsPosMapEntry;
+import jsky.app.ot.fits.gui.FitsImageWidget ;
+import jsky.app.ot.fits.gui.FitsPosMap ;
+import jsky.app.ot.fits.gui.FitsPosMapEntry ;
 
-import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePos ;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
 
-import java.awt.geom.Point2D;
+import java.awt.geom.Point2D ;
 
 /**
  * An auxiliary class used to maintain a mapping between telescope positions
@@ -23,10 +23,10 @@ import java.awt.geom.Point2D;
  */
 public class TpePositionMap extends FitsPosMap
 {
-	private static Hashtable _mapTable = new Hashtable();
-	private boolean _findBase = false;
-	private boolean _findUserTargets = false;
-	private boolean _findGuideStars = false;
+	private static Hashtable<TpeImageWidget,TpePositionMap> _mapTable = new Hashtable<TpeImageWidget,TpePositionMap>() ;
+	private boolean _findBase = false ;
+	private boolean _findUserTargets = false ;
+	private boolean _findGuideStars = false ;
 
 	/**
 	 * Get the position map associated with the given image widget, creating
@@ -34,13 +34,13 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public static TpePositionMap getMap( TpeImageWidget iw )
 	{
-		TpePositionMap tpm = ( TpePositionMap )_mapTable.get( iw );
+		TpePositionMap tpm = _mapTable.get( iw ) ;
 		if( tpm == null )
 		{
-			tpm = new TpePositionMap( iw );
-			_mapTable.put( iw , tpm );
+			tpm = new TpePositionMap( iw ) ;
+			_mapTable.put( iw , tpm ) ;
 		}
-		return tpm;
+		return tpm ;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public static TpePositionMap getExistingMap( TpeImageWidget iw )
 	{
-		return ( TpePositionMap )_mapTable.get( iw );
+		return _mapTable.get( iw ) ;
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public static TpePositionMap removeMap( TpeImageWidget iw )
 	{
-		return ( TpePositionMap )_mapTable.remove( iw );
+		return _mapTable.remove( iw ) ;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public TpePositionMap( FitsImageWidget iw )
 	{
-		super( iw );
+		super( iw ) ;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public void setFindBase( boolean find )
 	{
-		_findBase = find;
+		_findBase = find ;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public void setFindGuideStars( boolean find )
 	{
-		_findGuideStars = find;
+		_findGuideStars = find ;
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public void setFindUserTarget( boolean find )
 	{
-		_findUserTargets = find;
+		_findUserTargets = find ;
 	}
 
 	/**
@@ -100,51 +100,51 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public FitsPosMapEntry locate( int x , int y )
 	{
-		Hashtable posTable = getPosTable();
+		Hashtable posTable = getPosTable() ;
 		if( posTable == null )
-			return null;
+			return null ;
 
-		Enumeration enumeration = posTable.elements();
+		Enumeration enumeration = posTable.elements() ;
 		while( enumeration.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement();
-			Point2D.Double p = pme.screenPos;
+			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement() ;
+			Point2D.Double p = pme.screenPos ;
 			if( p == null )
-				continue;
+				continue ;
 
 			// Is this position under the mouse indicator?
-			double dx = Math.abs( p.x - x );
+			double dx = Math.abs( p.x - x ) ;
 			if( dx > MARKER_SIZE )
-				continue;
+				continue ;
 
-			double dy = Math.abs( p.y - y );
+			double dy = Math.abs( p.y - y ) ;
 			if( dy > MARKER_SIZE )
-				continue;
+				continue ;
 
 			// Is this position visible?
-			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos;
+			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos ;
 			if( tp.isBasePosition() )
 			{
 				if( _findBase )
-					return pme;
+					return pme ;
 				else
-					continue;
+					continue ;
 			}
 			else if( tp.isUserPosition() )
 			{
 				if( _findUserTargets )
-					return pme;
+					return pme ;
 				else
-					continue;
+					continue ;
 			}
 			else if( tp.isGuidePosition() )
 			{
 				if( _findGuideStars )
-					return pme;
+					return pme ;
 				else
-					continue;
+					continue ;
 			}
 		}
-		return null;
+		return null ;
 	}
 }

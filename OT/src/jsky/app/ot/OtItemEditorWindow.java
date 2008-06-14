@@ -4,24 +4,24 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import jsky.app.ot.editor.OtItemEditor;
-import jsky.app.ot.editor.OtItemEditorFactory;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import gemini.sp.SpAvEditState;
-import gemini.sp.SpItem;
-import jsky.app.ot.util.Assert;
+import java.awt.Component ;
+import java.awt.Frame ;
+import java.awt.event.MouseAdapter ;
+import java.awt.event.MouseEvent ;
+import java.util.Observable ;
+import java.util.Observer ;
+import javax.swing.JFrame ;
+import javax.swing.JPanel ;
+import javax.swing.JButton ;
+import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.editor.OtItemEditorFactory ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
+import gemini.sp.SpAvEditState ;
+import gemini.sp.SpItem ;
+import jsky.app.ot.util.Assert ;
 
 /**
  * This class presents the window in which specific item editors are
@@ -42,14 +42,14 @@ import jsky.app.ot.util.Assert;
 public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 {
 	/** The top level parent frame (or internal frame). */
-	private Component _parent;
+	private Component _parent ;
 
 	/** The top level parent frame (or internal frame). */
-	private OtWindow _otWindow;
-	private SpItem _curItem;
-	private ProgramInfo _progInfo;
-	private JPanel _content;
-	private OtItemEditor _editor;
+	private OtWindow _otWindow ;
+	private SpItem _curItem ;
+	private ProgramInfo _progInfo ;
+	private JPanel _content ;
+	private OtItemEditor _editor ;
 
 	/**
 	 * Default constructor.
@@ -60,48 +60,48 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbwe )
 			{
-				undo();
+				undo() ;
 			}
-		} );
+		} ) ;
 
 		_closeButton.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbwe )
 			{
-				close();
+				close() ;
 			}
-		} );
+		} ) ;
 
 		_showEditPencil.addMouseListener( new MouseAdapter()
 		{
 			public void mousePressed( MouseEvent e )
 			{
 				// If pencil is showing, we must be in the process of editing something.
-				Assert.notNull( _curItem );
+				Assert.notNull( _curItem ) ;
 				// Show the widgets as they were before editing
-				undo();
-				_showEditPencil.setIcon( _pencilDownIcon );
+				undo() ;
+				_showEditPencil.setIcon( _pencilDownIcon ) ;
 			}
 
 			public void mouseReleased( MouseEvent e )
 			{
 				// If pencil is showing, we must be in the process of editing something.
-				Assert.notNull( _curItem );
+				Assert.notNull( _curItem ) ;
 				// Show the widgets as they are now
-				undo();
-				_showEditPencil.setIcon( _pencilIcon );
+				undo() ;
+				_showEditPencil.setIcon( _pencilIcon ) ;
 			}
-		} );
+		} ) ;
 	}
 
 	/** Called when the window is closed */
 	public void close()
 	{
 		if( _progInfo.online )
-			save( _curItem ); // Save any changes
+			save( _curItem ) ; // Save any changes
 
 		if( _otWindow != null )
-			_otWindow.close();
+			_otWindow.close() ;
 	}
 
 	/**
@@ -111,34 +111,34 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	public void reinit( OtItemEditor ed )
 	{
 		if( ed == null )
-			return;
+			return ;
 
 		// Set the title displayed in the large, italic font at the top of the window.
-		setTitle( ed.getTitle() );
+		setTitle( ed.getTitle() ) ;
 
 		// Set the description of the item that is displayed
-		_descriptionBox.setText( ed.getDescription() );
+		_descriptionBox.setText( ed.getDescription() ) ;
 
 		// Get the content presentation
-		_content = ed.getPresSource();
+		_content = ed.getPresSource() ;
 
 		// Set the content
-		_contentPresentation.removeAll();
-		_contentPresentation.add( "Center" , _content );
-		_contentPresentation.revalidate();
+		_contentPresentation.removeAll() ;
+		_contentPresentation.add( "Center" , _content ) ;
+		_contentPresentation.revalidate() ;
 		if( _parent != null )
-			_parent.repaint();
+			_parent.repaint() ;
 
-		_editor = ed;
-		_editor.setPresentation( _content );
-		_editor.setOtItemEditorWindow( this );
-		_editor.setDescriptionWidget( _descriptionBox );
+		_editor = ed ;
+		_editor.setPresentation( _content ) ;
+		_editor.setOtItemEditorWindow( this ) ;
+		_editor.setDescriptionWidget( _descriptionBox ) ;
 	}
 
 	/** Set the title (tab label) for the given component */
 	public void setTitle( String title )
 	{
-		_border.setTitle( title );
+		_border.setTitle( title ) ;
 	}
 
 	/**
@@ -150,22 +150,22 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 		switch( state )
 		{
 			case SpAvEditState.UNEDITED :
-				_undoButton.setText( "Undo" );
-				_undoButton.setEnabled( false );
-				_showEditPencil.setVisible( false );
-				break;
+				_undoButton.setText( "Undo" ) ;
+				_undoButton.setEnabled( false ) ;
+				_showEditPencil.setVisible( false ) ;
+				break ;
 
 			case SpAvEditState.EDITED :
-				_undoButton.setText( "Undo" );
-				_undoButton.setEnabled( true );
-				_showEditPencil.setVisible( true );
-				break;
+				_undoButton.setText( "Undo" ) ;
+				_undoButton.setEnabled( true ) ;
+				_showEditPencil.setVisible( true ) ;
+				break ;
 
 			case SpAvEditState.EDIT_UNDONE :
-				_undoButton.setText( "Redo" );
-				_undoButton.setEnabled( true );
-				_showEditPencil.setVisible( true );
-				break;
+				_undoButton.setText( "Redo" ) ;
+				_undoButton.setEnabled( true ) ;
+				_showEditPencil.setVisible( true ) ;
+				break ;
 		}
 	}
 
@@ -175,7 +175,7 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	 */
 	public void setInfo( ProgramInfo pi )
 	{
-		_progInfo = pi;
+		_progInfo = pi ;
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	 */
 	public SpItem getItem()
 	{
-		return _curItem;
+		return _curItem ;
 	}
 
 	/**
@@ -198,35 +198,35 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 		if( _curItem != null )
 		{
 			if( _progInfo.online )
-				save( _curItem ); // Save changes to the item before editing the new one
+				save( _curItem ) ; // Save changes to the item before editing the new one
 
 			if( ( _editor != null ) && ( _curItem != spItem ) )
-				_editor.cleanup();
+				_editor.cleanup() ;
 
-			_curItem.getAvEditFSM().deleteObserver( this );
+			_curItem.getAvEditFSM().deleteObserver( this ) ;
 		}
 
 		// Get the appropriate editor for the spItem
-		OtClientData cd = ( OtClientData )spItem.getClientData();
-		Assert.notNull( cd );
-		Assert.notNull( cd.itemEditorClass );
-		OtItemEditor ed = OtItemEditorFactory.getEditor( cd.itemEditorClass , spItem );
+		OtClientData cd = ( OtClientData )spItem.getClientData() ;
+		Assert.notNull( cd ) ;
+		Assert.notNull( cd.itemEditorClass ) ;
+		OtItemEditor ed = OtItemEditorFactory.getEditor( cd.itemEditorClass , spItem ) ;
 
-		_curItem = spItem;
+		_curItem = spItem ;
 
 		// Will only add if not already an observer.
-		_curItem.getAvEditFSM().addObserver( this );
+		_curItem.getAvEditFSM().addObserver( this ) ;
 
 		// Show the right presentation, title and description.
-		reinit( ed );
+		reinit( ed ) ;
 
 		// Reset the "edit pencil" and undo buttons depending upon whether the
 		// item has been edited.
-		_reinitState( _curItem.getAvEditState() );
+		_reinitState( _curItem.getAvEditState() ) ;
 
 		// Tell the editor to show the values of this item.
 		if( _editor != null )
-			_editor.setup( spItem );
+			_editor.setup( spItem ) ;
 	}
 
 	/**
@@ -242,9 +242,9 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	{
 		if( o instanceof SpAvEditState )
 		{
-			SpAvEditState fsm = ( SpAvEditState )o;
+			SpAvEditState fsm = ( SpAvEditState )o ;
 			if( fsm == _curItem.getAvEditFSM() )
-				_reinitState( fsm.getState() );
+				_reinitState( fsm.getState() ) ;
 		}
 	}
 
@@ -253,8 +253,8 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	 */
 	public void undo()
 	{
-		_curItem.getAvEditFSM().undo();
-		_editor.update();
+		_curItem.getAvEditFSM().undo() ;
+		_editor.update() ;
 	}
 
 	//
@@ -263,9 +263,9 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	private boolean _isEdited( SpItem spItem )
 	{
 		if( spItem == null )
-			return false;
+			return false ;
 
-		return !( spItem.getAvEditState() == SpAvEditState.UNEDITED );
+		return !( spItem.getAvEditState() == SpAvEditState.UNEDITED ) ;
 	}
 
 	/**
@@ -275,9 +275,9 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	{
 		// Nothing to do
 		if( !_isEdited( spItem ) )
-			return;
+			return ;
 
-		spItem.getAvEditFSM().save();
+		spItem.getAvEditFSM().save() ;
 	}
 
 	/**
@@ -285,38 +285,38 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	 */
 	public void setVisible( boolean visible )
 	{
-		_parent.setVisible( visible );
+		_parent.setVisible( visible ) ;
 		if( !visible && _editor != null )
-				_editor.cleanup();
+				_editor.cleanup() ;
 	}
 
 	public boolean isVisible()
 	{
-		return _parent != null && _parent.isVisible();
+		return _parent != null && _parent.isVisible() ;
 	}
 
 	public void toFront()
 	{
 		if( _parent instanceof JFrame )
-			( ( JFrame )_parent ).setState( Frame.NORMAL );
+			( ( JFrame )_parent ).setState( Frame.NORMAL ) ;
 	}
 
 	/** Return the top level parent frame (or internal frame) used to close the window */
 	public Component getParentFrame()
 	{
-		return _parent;
+		return _parent ;
 	}
 
 	/** Set the top level parent frame (or internal frame) used to close the window */
 	public void setParentFrame( Component p )
 	{
-		_parent = p;
+		_parent = p ;
 	}
 
 	/** Set a reference to the parent panel. */
 	public void setOtWindow( OtWindow w )
 	{
-		_otWindow = w;
+		_otWindow = w ;
 	}
 
 	/**
@@ -326,8 +326,8 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	 */
 	public boolean isResizable()
 	{
-		// XXX allan return _resizable; 
-		return true;
+		// XXX allan return _resizable ; 
+		return true ;
 	}
 
 	/**
@@ -338,12 +338,12 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 	// Needed for survey component editor, added by MFO, January 08, 2003
 	public JButton getUndoButton()
 	{
-		return _undoButton;
+		return _undoButton ;
 	}
 
 	// Needed for survey component editor, added by MFO, January 08, 2003
 	public JButton getShowEditPencilButton()
 	{
-		return _showEditPencil;
+		return _showEditPencil ;
 	}
 }

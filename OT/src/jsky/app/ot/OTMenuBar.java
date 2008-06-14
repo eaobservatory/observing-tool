@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
@@ -19,27 +19,27 @@ import javax.swing.JComponent ;
 public class OTMenuBar extends JMenuBar
 {
 	/** Target class */
-	protected OT ot;
+	protected OT ot ;
 
 	/** Handle for the File menu */
-	protected JMenu fileMenu;
+	protected JMenu fileMenu ;
 
 	/** Handle for the Observing Database menu */
-	protected JMenu observingDatabaseMenu;
+	protected JMenu observingDatabaseMenu ;
 
 	/** Handle for the Help menu */
-	protected JMenu helpMenu;
+	protected JMenu helpMenu ;
 
 	/**
 	 * Create the menubar for the given JSkyCat instance
 	 */
 	public OTMenuBar( OT ot )
 	{
-		super();
-		this.ot = ot;
-		add( createFileMenu() );
-		add( createObservingDatabaseMenu() );
-		add( createHelpMenu() );
+		super() ;
+		this.ot = ot ;
+		add( createFileMenu() ) ;
+		add( createObservingDatabaseMenu() ) ;
+		add( createHelpMenu() ) ;
 	}
 
 	/**
@@ -47,27 +47,27 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenu createFileMenu()
 	{
-		fileMenu = new JMenu( "File" );
-		fileMenu.add( createFileNewProgramMenuItem() );
-		fileMenu.add( createFileNewPlanMenuItem() );
-		fileMenu.add( createFileNewLibraryMenuItem() );
-		fileMenu.add( createFileOpenMenuItem() );
+		fileMenu = new JMenu( "File" ) ;
+		fileMenu.add( createFileNewProgramMenuItem() ) ;
+		fileMenu.add( createFileNewPlanMenuItem() ) ;
+		fileMenu.add( createFileNewLibraryMenuItem() ) ;
+		fileMenu.add( createFileOpenMenuItem() ) ;
 
-		JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems();
+		JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems() ;
 		for( int i = 0 ; i < instLibraryMenuItems.length ; i++ )
 		{
 			if( instLibraryMenuItems[ i ] == null )
 			{
-				fileMenu.addSeparator();
-				continue;
+				fileMenu.addSeparator() ;
+				continue ;
 			}
-			fileMenu.add( instLibraryMenuItems[ i ] );
+			fileMenu.add( instLibraryMenuItems[ i ] ) ;
 		}
-		fileMenu.addSeparator();
-		fileMenu.add( createFilePreferencesMenuItem() );
-		fileMenu.addSeparator();
-		fileMenu.add( createFileExitMenuItem() );
-		return fileMenu;
+		fileMenu.addSeparator() ;
+		fileMenu.add( createFilePreferencesMenuItem() ) ;
+		fileMenu.addSeparator() ;
+		fileMenu.add( createFileExitMenuItem() ) ;
+		return fileMenu ;
 	}
 
 	/**
@@ -75,21 +75,21 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenu createObservingDatabaseMenu()
 	{
-		observingDatabaseMenu = new JMenu( "Observing Database" );
-		observingDatabaseMenu.add( createObservingDatabaseFetchProgramMenuItem() );
-		return observingDatabaseMenu;
+		observingDatabaseMenu = new JMenu( "Observing Database" ) ;
+		observingDatabaseMenu.add( createObservingDatabaseFetchProgramMenuItem() ) ;
+		return observingDatabaseMenu ;
 	}
 
 	protected JMenu createHelpMenu()
 	{
-		helpMenu = new JMenu( "Help" );
-		helpMenu.add( createHelpNewsMenuItem() );
-		helpMenu.add( createHelpAboutMenuItem() );
-		helpMenu.add( createHelpOtHelpMenuItem() );
+		helpMenu = new JMenu( "Help" ) ;
+		helpMenu.add( createHelpNewsMenuItem() ) ;
+		helpMenu.add( createHelpAboutMenuItem() ) ;
+		helpMenu.add( createHelpOtHelpMenuItem() ) ;
 
-		helpMenu.setAlignmentX( JComponent.RIGHT_ALIGNMENT );
+		helpMenu.setAlignmentX( JComponent.RIGHT_ALIGNMENT ) ;
 
-		return helpMenu;
+		return helpMenu ;
 	}
 
 	/**
@@ -97,15 +97,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileNewProgramMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "New Program" );
+		JMenuItem menuItem = new JMenuItem( "New Program" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.newProgram();
+				OT.newProgram() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -113,19 +113,19 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileNewPlanMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "New Plan" );
+		JMenuItem menuItem = new JMenuItem( "New Plan" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.newPlan();
+				ot.newPlan() ;
 			}
-		} );
+		} ) ;
 
 		// MFO 23 May 2001: "New Plan" menu item disabled.
-		menuItem.setEnabled( false );
+		menuItem.setEnabled( false ) ;
 
-		return menuItem;
+		return menuItem ;
 	}
 
 	/**
@@ -133,15 +133,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileNewLibraryMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "New Library" );
+		JMenuItem menuItem = new JMenuItem( "New Library" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.newLibrary();
+				OT.newLibrary() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -149,15 +149,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileOpenMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Open" );
+		JMenuItem menuItem = new JMenuItem( "Open" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.open();
+				OT.open() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	// from old ATC OT start
@@ -166,30 +166,30 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem[] createFileOpenInstLibraryMenuItems()
 	{
-		String[] libs = OtCfg.getLibraries();
+		String[] libs = OtCfg.getLibraries() ;
 
-		JMenuItem[] menuItems = new JMenuItem[ libs.length ];
+		JMenuItem[] menuItems = new JMenuItem[ libs.length ] ;
 
 		// CHanged for ORAC by AB, 1-Aug-00. Allow multiple libraries.
 		for( int i = 0 ; i < libs.length ; i++ )
 		{
-			final String libname = libs[ i ];
+			final String libname = libs[ i ] ;
 			if( libname.equals( "null" ) )
 			{
-				menuItems[ i ] = null;
-				continue;
+				menuItems[ i ] = null ;
+				continue ;
 			}
-			menuItems[ i ] = new JMenuItem( "Open " + libs[ i ] + " library" );
+			menuItems[ i ] = new JMenuItem( "Open " + libs[ i ] + " library" ) ;
 			menuItems[ i ].addActionListener( new ActionListener()
 			{
 				public void actionPerformed( ActionEvent e )
 				{
-					ot.openLibrary( libname + ".xml" );
+					ot.openLibrary( libname + ".xml" ) ;
 				}
-			} );
+			} ) ;
 		}
 
-		return menuItems;
+		return menuItems ;
 	}
 
 	/**
@@ -197,17 +197,17 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFilePreferencesMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Preferences" );
+		JMenuItem menuItem = new JMenuItem( "Preferences" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
 				// I suspect it should be possible to define OT.preferences() as non-static method and use ot.preferences(). 
 				// But it did cause an java.lang.IncompatibleClassChangeError in the past.
-				OT.preferences();
+				OT.preferences() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -215,17 +215,17 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileExitMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Exit" );
+		JMenuItem menuItem = new JMenuItem( "Exit" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
 				// I suspect it should be possible to define OT.exit() as non-static method and use ot.exit(). 
 				// But it did cause an java.lang.IncompatibleClassChangeError in the past.
-				OT.exit();
+				OT.exit() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -233,15 +233,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createObservingDatabaseFetchProgramMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Fetch Program" );
+		JMenuItem menuItem = new JMenuItem( "Fetch Program" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.fetchProgram();
+				OT.fetchProgram() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -249,15 +249,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createHelpNewsMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "News ..." );
+		JMenuItem menuItem = new JMenuItem( "News ..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.showNews();
+				OT.showNews() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -265,15 +265,15 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createHelpAboutMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "About ..." );
+		JMenuItem menuItem = new JMenuItem( "About ..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.showSplashScreen();
+				OT.showSplashScreen() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -281,14 +281,14 @@ public class OTMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createHelpOtHelpMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "OT Help ..." );
+		JMenuItem menuItem = new JMenuItem( "OT Help ..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				ot.launchHelp();
+				OT.launchHelp() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 }

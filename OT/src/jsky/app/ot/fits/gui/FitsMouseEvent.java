@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.fits.gui;
+package jsky.app.ot.fits.gui ;
 
-import jsky.app.ot.gui.image.ViewportMouseEvent;
+import jsky.app.ot.gui.image.ViewportMouseEvent ;
 
 /**
  * A mouse event that occurred in a FitsImageWidget.  This structure
@@ -19,42 +19,42 @@ public class FitsMouseEvent extends ViewportMouseEvent
 	/**
 	 * The RA of the event in degrees.
 	 */
-	public double ra;
+	public double ra ;
 
 	/**
 	 * The Dec of the event in degrees.
 	 */
-	public double dec;
+	public double dec ;
 
 	/**
 	 * The RA of the event as a String in HHMMSS format.
 	 */
-	public String raStr;
+	public String raStr ;
 
 	/**
 	 * The Dec of the event as a String in DDMMSS format.
 	 */
-	public String decStr;
+	public String decStr ;
 
 	/**
 	 * The X offset of the event from the base position in arcsec.
 	 */
-	public double xOffset;
+	public double xOffset ;
 
 	/**
 	 * The Y offset of the event from the base position in arcsec.
 	 */
-	public double yOffset;
+	public double yOffset ;
 
 	/**
 	 * The X offset of the event from the base position in arcsec as a String.
 	 */
-	public String xOffsetStr;
+	public String xOffsetStr ;
 
 	/**
 	 * The Y offset of the event from the base position in arcsec as a String.
 	 */
-	public String yOffsetStr;
+	public String yOffsetStr ;
 
 	/**
 	 * Returns a human-readable string describing the contents of
@@ -62,6 +62,6 @@ public class FitsMouseEvent extends ViewportMouseEvent
 	 */
 	public String toString()
 	{
-		return "FitsMouseEvent[" + super.toString() + ", raStr=" + raStr + ", decStr=" + decStr + ", xOffsetStr=" + xOffsetStr + ", yOffsetStr=" + yOffsetStr + "]";
+		return "FitsMouseEvent[" + super.toString() + ", raStr=" + raStr + ", decStr=" + decStr + ", xOffsetStr=" + xOffsetStr + ", yOffsetStr=" + yOffsetStr + "]" ;
 	}
 }

@@ -4,9 +4,9 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
-import java.awt.event.KeyEvent;
+import java.awt.event.KeyEvent ;
 
 /**
  * An interface supported by clients interrested in KeyPressEvents.
@@ -16,5 +16,5 @@ public interface KeyPressWatcher
 	/**
 	 * A key was pressed.
 	 */
-	public void keyPressed( KeyEvent evt );
+	public void keyPressed( KeyEvent evt ) ;
 }

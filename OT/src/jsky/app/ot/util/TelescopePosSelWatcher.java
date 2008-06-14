@@ -5,7 +5,7 @@
 // $Id$
 //
 
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 /**
  * An interface supported by clients of TelescopePosList who want to
@@ -14,5 +14,5 @@ package jsky.app.ot.util;
 public interface TelescopePosSelWatcher
 {
 	/** A position has been selected.  */
-	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp );
+	public void telescopePosSelected( TelescopePosList tpl , TelescopePos tp ) ;
 }

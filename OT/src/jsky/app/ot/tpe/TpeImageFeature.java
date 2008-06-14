@@ -4,13 +4,13 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Font ;
+import java.awt.Graphics ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.util.BasicPropertyList;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.util.BasicPropertyList ;
 
 /**
  * TpeImageFeature is a class used by the Position Editor to manipulate the
@@ -27,40 +27,40 @@ public abstract class TpeImageFeature
 	 * Size of items that don't depend upon the scale of the image.
 	 * This is the size of the width and height, or radius, of the item.
 	 */
-	public static final int MARKER_SIZE = 4;
+	public static final int MARKER_SIZE = 4 ;
 
 	/** Font used to draw text items.  */
-	public static final Font FONT = new Font( "dialog" , Font.ITALIC , 10 );
+	public static final Font FONT = new Font( "dialog" , Font.ITALIC , 10 ) ;
 
 	/** The image widget in which to draw. */
-	protected TpeImageWidget _iw;
+	protected TpeImageWidget _iw ;
 
 	/** Whether the feature is being drawn. */
-	protected boolean _isVisible;
+	protected boolean _isVisible ;
 
 	/** The feature's name. */
-	protected String _name;
+	protected String _name ;
 
 	/** The feature's description. */
-	protected String _description;
+	protected String _description ;
 
 	/**
 	 * Instantiate a TpeImageFeature from a fully qualified class name.
 	 */
 	public static TpeImageFeature createFeature( String className )
 	{
-		TpeImageFeature tif = null;
+		TpeImageFeature tif = null ;
 		try
 		{
-			Class c = Class.forName( className );
-			tif = ( TpeImageFeature )c.newInstance();
+			Class c = Class.forName( className ) ;
+			tif = ( TpeImageFeature )c.newInstance() ;
 		}
 		catch( Exception ex )
 		{
-			System.out.println( "Could not create a TpeImageFeature from: " + className );
-			System.out.println( ex );
+			System.out.println( "Could not create a TpeImageFeature from: " + className ) ;
+			System.out.println( ex ) ;
 		}
-		return tif;
+		return tif ;
 	}
 
 	/**
@@ -68,8 +68,8 @@ public abstract class TpeImageFeature
 	 */
 	public TpeImageFeature( String name , String descr )
 	{
-		_name = name;
-		_description = descr;
+		_name = name ;
+		_description = descr ;
 	}
 
 	/**
@@ -77,8 +77,8 @@ public abstract class TpeImageFeature
 	 */
 	public void reinit( TpeImageWidget iw , FitsImageInfo fii )
 	{
-		_iw = iw;
-		_isVisible = true;
+		_iw = iw ;
+		_isVisible = true ;
 	}
 
 	/**
@@ -87,7 +87,7 @@ public abstract class TpeImageFeature
 	 */
 	public void posAngleUpdate( FitsImageInfo fii )
 	{
-		return;
+		return ;
 	}
 
 	/**
@@ -96,8 +96,8 @@ public abstract class TpeImageFeature
 	 */
 	public void unloaded()
 	{
-		_iw = null;
-		_isVisible = false;
+		_iw = null ;
+		_isVisible = false ;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class TpeImageFeature
 	 */
 	public boolean isVisible()
 	{
-		return _isVisible;
+		return _isVisible ;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public abstract class TpeImageFeature
 	 */
 	public String getName()
 	{
-		return _name;
+		return _name ;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public abstract class TpeImageFeature
 	 */
 	public void setName( String name )
 	{
-		_name = name;
+		_name = name ;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public abstract class TpeImageFeature
 	 */
 	public String getDescription()
 	{
-		return _description;
+		return _description ;
 	}
 
 	/**
@@ -145,11 +145,11 @@ public abstract class TpeImageFeature
 	 */
 	public BasicPropertyList getProperties()
 	{
-		return null;
+		return null ;
 	}
 
 	/**
 	 * Draw the feature.
 	 */
-	public abstract void draw( Graphics g , FitsImageInfo fii );
+	public abstract void draw( Graphics g , FitsImageInfo fii ) ;
 }

@@ -4,15 +4,15 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.util.Vector ;
 import javax.swing.ListSelectionModel ;
 import javax.swing.JScrollPane ;
 import javax.swing.JFrame ;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import jsky.util.gui.BasicWindowMonitor;
+import javax.swing.event.ListSelectionEvent ;
+import javax.swing.event.ListSelectionListener ;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * Was an extension of the Marimba TableWidget to support row selection
@@ -21,7 +21,7 @@ import jsky.util.gui.BasicWindowMonitor;
 public class TableWidgetExt extends RowManipulateTableWidget implements DescriptiveWidget
 {
 	// Observers
-	private Vector _watchers = new Vector();
+	private Vector _watchers = new Vector() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -30,7 +30,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default constructor */
 	public TableWidgetExt()
@@ -39,13 +39,13 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 		{
 			public void valueChanged( ListSelectionEvent e )
 			{
-				int i = getSelectionModel().getMinSelectionIndex();
+				int i = getSelectionModel().getMinSelectionIndex() ;
 				if( i >= 0 && !e.getValueIsAdjusting() )
-					_notifySelect( i );
+					_notifySelect( i ) ;
 			}
-		} );
-		setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		setShowHorizontalLines( false );
+		} ) ;
+		setSelectionMode( ListSelectionModel.SINGLE_SELECTION ) ;
+		setShowHorizontalLines( false ) ;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	public synchronized final void addWatcher( TableWidgetWatcher tww )
 	{
 		if( !_watchers.contains( tww ) )
-			_watchers.addElement( tww );
+			_watchers.addElement( tww ) ;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public synchronized final void deleteWatcher( TableWidgetWatcher tww )
 	{
-		_watchers.removeElement( tww );
+		_watchers.removeElement( tww ) ;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public synchronized final void deleteWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -96,9 +96,9 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public void selectRowAt( int rowIndex )
 	{
-		getSelectionModel().addSelectionInterval( rowIndex , rowIndex );
+		getSelectionModel().addSelectionInterval( rowIndex , rowIndex ) ;
 		// Notify watchers
-		_notifySelect( rowIndex );
+		_notifySelect( rowIndex ) ;
 	}
 
 	/**
@@ -106,17 +106,17 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	protected void _notifySelect( int rowIndex )
 	{
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i );
-			tww.tableRowSelected( this , rowIndex );
+			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i ) ;
+			tww.tableRowSelected( this , rowIndex ) ;
 		}
 	}
 
@@ -127,20 +127,20 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	{
 		// XXX allan: this method is not called, from anywhere now, but there are no watchers using it either...
 
-		System.out.println( "Action on table: col(" + colIndex + "), row(" + rowIndex + ")" );
+		System.out.println( "Action on table: col(" + colIndex + "), row(" + rowIndex + ")" ) ;
 
 		// Notify watchers
-		Vector v;
+		Vector v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone();
+			v = ( Vector )_watchers.clone() ;
 		}
 
-		int cnt = v.size();
+		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i );
-			tww.tableAction( this , colIndex , rowIndex );
+			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i ) ;
+			tww.tableAction( this , colIndex , rowIndex ) ;
 		}
 	}
 
@@ -149,35 +149,35 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "TableWidgetExt" );
+		JFrame frame = new JFrame( "TableWidgetExt" ) ;
 
-		TableWidgetExt table = new TableWidgetExt();
-		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" };
-		table.setColumnHeaders( headers );
-		Vector[] v = new Vector[ 5 ];
+		TableWidgetExt table = new TableWidgetExt() ;
+		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" } ;
+		table.setColumnHeaders( headers ) ;
+		Vector[] v = new Vector[ 5 ] ;
 		for( int i = 0 ; i < v.length ; i++ )
 		{
-			v[ i ] = new Vector( 4 );
+			v[ i ] = new Vector( 4 ) ;
 			for( int j = 0 ; j < headers.length ; j++ )
-				v[ i ].add( "cell " + i + ", " + j );
+				v[ i ].add( "cell " + i + ", " + j ) ;
 		}
-		table.setRows( v );
+		table.setRows( v ) ;
 		table.addWatcher( new TableWidgetWatcher()
 		{
 			public void tableRowSelected( TableWidgetExt twe , int rowIndex )
 			{
-				System.out.println( "tableRowSelected: " + rowIndex );
+				System.out.println( "tableRowSelected: " + rowIndex ) ;
 			}
 
 			public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex )
 			{
-				System.out.println( "tableAction: " + rowIndex );
+				System.out.println( "tableAction: " + rowIndex ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , new JScrollPane( table ) );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , new JScrollPane( table ) ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

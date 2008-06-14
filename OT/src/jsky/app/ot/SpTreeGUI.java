@@ -5,11 +5,11 @@
  * $Id$
  */
 
-package jsky.app.ot;
+package jsky.app.ot ;
 
 import java.awt.Component ;
 import java.awt.BorderLayout ;
-import java.awt.Dimension;
+import java.awt.Dimension ;
 import java.awt.event.ActionEvent ;
 import javax.swing.JPanel ;
 import javax.swing.JDesktopPane ;
@@ -18,9 +18,9 @@ import javax.swing.JFrame ;
 import javax.swing.JInternalFrame ;
 import javax.swing.JSplitPane ;
 import javax.swing.border.BevelBorder ;
-import jsky.util.gui.BasicWindowMonitor;
-import ot.util.DialogUtil;
-import jsky.util.gui.GenericToolBarTarget;
+import jsky.util.gui.BasicWindowMonitor ;
+import ot.util.DialogUtil ;
+import jsky.util.gui.GenericToolBarTarget ;
 
 /** 
  * Implements the GUI layout of the user interface for the main OT window
@@ -32,16 +32,16 @@ import jsky.util.gui.GenericToolBarTarget;
 public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 {
 	/** The top level parent frame (or internal frame). */
-	protected Component parent;
+	protected Component parent ;
 
 	/** Set this to the JDesktopPane, if using internal frames. */
-	protected JDesktopPane desktop = null;
+	protected JDesktopPane desktop = null ;
 
 	/** The tree widget used to display the science program. */
-	protected OtTreeWidget tree;
+	protected OtTreeWidget tree ;
 
 	/** Contains the editor panels. */
-	protected JPanel editorPane;
+	protected JPanel editorPane ;
 
 	/** Action to use for the "Open" menu and toolbar items */
 	protected AbstractAction openAction = new AbstractAction( "Open" )
@@ -50,14 +50,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				open( false );
+				open( false ) ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Back" menu and toolbar items */
 	protected AbstractAction backAction = new AbstractAction( "Back" )
@@ -66,14 +66,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				back();
+				back() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Forward" menu and toolbar items */
 	protected AbstractAction forwAction = new AbstractAction( "Forward" )
@@ -82,14 +82,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				forward();
+				forward() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Stop" menu and toolbar items */
 	protected AbstractAction stopAction = new AbstractAction( "Stop Loading" )
@@ -98,20 +98,20 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				interrupt();
+				interrupt() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
 
 		public void setEnabled( boolean enabled )
 		{
-			super.setEnabled( enabled );
-			setDownloadState( enabled );
+			super.setEnabled( enabled ) ;
+			setDownloadState( enabled ) ;
 		}
-	};
+	} ;
 
 	/** Action to use for the "Status" menu and toolbar items */
 	protected AbstractAction statusAction = new AbstractAction( "Status" )
@@ -120,7 +120,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 		// XXX to be done...
 		}
-	};
+	} ;
 
 	/** Action to use for the "Save" menu and toolbar items */
 	protected AbstractAction saveAction = new AbstractAction( "Save" )
@@ -129,14 +129,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				save();
+				save() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Cut" menu and toolbar items */
 	protected AbstractAction cutAction = new AbstractAction( "Cut" )
@@ -145,14 +145,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				cut();
+				cut() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Copy" menu and toolbar items */
 	protected AbstractAction copyAction = new AbstractAction( "Copy" )
@@ -161,14 +161,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				copy();
+				copy() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Paste" menu and toolbar items */
 	protected AbstractAction pasteAction = new AbstractAction( "Paste" )
@@ -177,14 +177,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				paste();
+				paste() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	// The following three actions were added for the OMP project.
 	// (MFO, 09 July 2001)
@@ -196,14 +196,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addMsbFolder();
+				addMsbFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "AndFolder" menu and toolbar items */
 	protected AbstractAction andFolderAction = new AbstractAction( "AndFolder" )
@@ -212,14 +212,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addAndFolder();
+				addAndFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "OrFolder" menu and toolbar items */
 	protected AbstractAction orFolderAction = new AbstractAction( "OrFolder" )
@@ -228,14 +228,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addOrFolder();
+				addOrFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "SurveyFolder" menu and toolbar items */
 	protected AbstractAction surveyFolderAction = new AbstractAction( "surveyFolder" )
@@ -244,14 +244,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addSurveyFolder();
+				addSurveyFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "ObsFolder" menu and toolbar items */
 	protected AbstractAction obsFolderAction = new AbstractAction( "Folder" )
@@ -260,14 +260,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addFolder();
+				addFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "ObsGroup" menu and toolbar items */
 	protected AbstractAction obsGroupAction = new AbstractAction( "Group" )
@@ -276,14 +276,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addGroup();
+				addGroup() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Observation" menu and toolbar items */
 	protected AbstractAction observationAction = new AbstractAction( "Observation" )
@@ -292,14 +292,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addObservation();
+				addObservation() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Note" menu and toolbar items */
 	protected AbstractAction noteAction = new AbstractAction( "Note" )
@@ -308,14 +308,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addNote();
+				addNote() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "LibFolder" menu and toolbar items */
 	protected AbstractAction libFolderAction = new AbstractAction( "LibFolder" )
@@ -324,14 +324,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				addLibFolder();
+				addLibFolder() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "PosEditor" menu and toolbar items */
 	protected AbstractAction posEditorAction = new AbstractAction( "PosEditor" )
@@ -340,14 +340,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				showPositionEditor();
+				showPositionEditor() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the Prioritize menu and toolbar items */
 	protected AbstractAction prioritizeAction = new AbstractAction( "Prioritize" )
@@ -356,14 +356,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				prioritize();
+				prioritize() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/** Action to use for the "Validation" menu and toolbar items */
 	protected AbstractAction validationAction = new AbstractAction( "Validation" )
@@ -372,14 +372,14 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		{
 			try
 			{
-				doValidation();
+				doValidation() ;
 			}
 			catch( Exception e )
 			{
-				DialogUtil.error( SpTreeGUI.this , e );
+				DialogUtil.error( SpTreeGUI.this , e ) ;
 			}
 		}
-	};
+	} ;
 
 	/**
 	 * Default constructor. If you use this version, you need to call
@@ -387,23 +387,23 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	 */
 	public SpTreeGUI()
 	{
-		setLayout( new BorderLayout() );
-		backAction.setEnabled( false );
-		forwAction.setEnabled( false );
-		stopAction.setEnabled( false );
-		libFolderAction.setEnabled( false );
+		setLayout( new BorderLayout() ) ;
+		backAction.setEnabled( false ) ;
+		forwAction.setEnabled( false ) ;
+		stopAction.setEnabled( false ) ;
+		libFolderAction.setEnabled( false ) ;
 
-		tree = new OtTreeWidget();
-		tree.setBorder( new BevelBorder( BevelBorder.LOWERED ) );
-		tree.setMinimumSize( new Dimension( 200 , 200 ) );
+		tree = new OtTreeWidget() ;
+		tree.setBorder( new BevelBorder( BevelBorder.LOWERED ) ) ;
+		tree.setMinimumSize( new Dimension( 200 , 200 ) ) ;
 
-		editorPane = new JPanel();
-		editorPane.setLayout( new BorderLayout() );
-		editorPane.setMinimumSize( new Dimension( 400 , 200 ) );
+		editorPane = new JPanel() ;
+		editorPane.setLayout( new BorderLayout() ) ;
+		editorPane.setMinimumSize( new Dimension( 400 , 200 ) ) ;
 
-		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT , tree , editorPane );
-		splitPane.setOneTouchExpandable( false );
-		add( "Center" , splitPane );
+		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT , tree , editorPane ) ;
+		splitPane.setOneTouchExpandable( false ) ;
+		add( "Center" , splitPane ) ;
 	}
 
 	/**
@@ -413,20 +413,20 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	 */
 	public SpTreeGUI( Component parent )
 	{
-		this();
-		this.parent = parent;
+		this() ;
+		this.parent = parent ;
 	}
 
 	/** Return the top level parent frame (or internal frame) used to close the window */
 	public Component getParentFrame()
 	{
-		return parent;
+		return parent ;
 	}
 
 	/** Set the top level parent frame (or internal frame) used to close the window */
 	public void setParentFrame( Component p )
 	{
-		parent = p;
+		parent = p ;
 	}
 
 	/** Set the frame's title. */
@@ -435,9 +435,9 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		if( parent != null )
 		{
 			if( parent instanceof JFrame )
-				( ( JFrame )parent ).setTitle( s );
+				( ( JFrame )parent ).setTitle( s ) ;
 			else
-				( ( JInternalFrame )parent ).setTitle( s );
+				( ( JInternalFrame )parent ).setTitle( s ) ;
 		}
 	}
 
@@ -447,23 +447,23 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 		if( parent != null )
 		{
 			if( parent instanceof JFrame )
-				return ( ( JFrame )parent ).getTitle();
+				return ( ( JFrame )parent ).getTitle() ;
 			else
-				return ( ( JInternalFrame )parent ).getTitle();
+				return ( ( JInternalFrame )parent ).getTitle() ;
 		}
-		return "";
+		return "" ;
 	}
 
 	/** Return the JDesktopPane, if using internal frames, otherwise null */
 	public JDesktopPane getDesktop()
 	{
-		return desktop;
+		return desktop ;
 	}
 
 	/** Set the JDesktopPane to use for top level windows, if using internal frames */
 	public void setDesktop( JDesktopPane desktop )
 	{
-		this.desktop = desktop;
+		this.desktop = desktop ;
 	}
 
 	// The following three methods were added for the OMP project.
@@ -554,116 +554,116 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	 */
 	public boolean doValidation()
 	{
-		return false;
+		return false ;
 	}
 
 	// These are for the GenericToolBarTarget interface
 	public AbstractAction getOpenAction()
 	{
-		return openAction;
+		return openAction ;
 	}
 
 	public AbstractAction getBackAction()
 	{
-		return backAction;
+		return backAction ;
 	}
 
 	public AbstractAction getForwAction()
 	{
-		return forwAction;
+		return forwAction ;
 	}
 
 	public AbstractAction getStopAction()
 	{
-		return stopAction;
+		return stopAction ;
 	}
 
 	public AbstractAction getStatusAction()
 	{
-		return statusAction;
+		return statusAction ;
 	}
 
 	// access other toolbar actions
 	public AbstractAction getSaveAction()
 	{
-		return saveAction;
+		return saveAction ;
 	}
 
 	public AbstractAction getCutAction()
 	{
-		return cutAction;
+		return cutAction ;
 	}
 
 	public AbstractAction getCopyAction()
 	{
-		return copyAction;
+		return copyAction ;
 	}
 
 	public AbstractAction getPasteAction()
 	{
-		return pasteAction;
+		return pasteAction ;
 	}
 
 	public AbstractAction getObsFolderAction()
 	{
-		return obsFolderAction;
+		return obsFolderAction ;
 	}
 
 	public AbstractAction getObsGroupAction()
 	{
-		return obsGroupAction;
+		return obsGroupAction ;
 	}
 
 	public AbstractAction getObservationAction()
 	{
-		return observationAction;
+		return observationAction ;
 	}
 
 	public AbstractAction getNoteAction()
 	{
-		return noteAction;
+		return noteAction ;
 	}
 
 	public AbstractAction getLibFolderAction()
 	{
-		return libFolderAction;
+		return libFolderAction ;
 	}
 
 	// The following three methods were added for the OMP project.
 	// (MFO, 09 July 2001)
 	public AbstractAction getMsbFolderAction()
 	{
-		return msbFolderAction;
+		return msbFolderAction ;
 	}
 
 	public AbstractAction getAndFolderAction()
 	{
-		return andFolderAction;
+		return andFolderAction ;
 	}
 
 	public AbstractAction getOrFolderAction()
 	{
-		return orFolderAction;
+		return orFolderAction ;
 	}
 
 	public AbstractAction getSurveyFolderAction()
 	{
-		return surveyFolderAction;
+		return surveyFolderAction ;
 	}
 
 	public AbstractAction getPosEditorAction()
 	{
-		return posEditorAction;
+		return posEditorAction ;
 	}
 
 	public AbstractAction getPrioritizeAction()
 	{
-		return prioritizeAction;
+		return prioritizeAction ;
 	}
 
 	public AbstractAction getValidationAction()
 	{
-		return validationAction;
+		return validationAction ;
 	}
 
 	/**
@@ -672,12 +672,12 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "SpTreeGUI" );
-		SpTreeGUI spTree = new SpTreeGUI();
-		spTree.setPreferredSize( new Dimension( 360 , 400 ) );
-		frame.add( "Center" , spTree );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		JFrame frame = new JFrame( "SpTreeGUI" ) ;
+		SpTreeGUI spTree = new SpTreeGUI() ;
+		spTree.setPreferredSize( new Dimension( 360 , 400 ) ) ;
+		frame.add( "Center" , spTree ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

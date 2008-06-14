@@ -12,14 +12,14 @@
  * @version     1.0, 8/8/97
  */
 
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 import java.util.Vector ;
 import javax.swing.JCheckBox ;
 import javax.swing.JFrame ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
-import jsky.util.gui.BasicWindowMonitor;
+import jsky.util.gui.BasicWindowMonitor ;
 
 /**
  * An CheckBoxWidget that permits clients to register as button press watchers.
@@ -27,7 +27,7 @@ import jsky.util.gui.BasicWindowMonitor;
 public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , ActionListener
 {
 	// Observers
-	private Vector _watchers = new Vector();
+	private Vector<CheckBoxWidgetWatcher> _watchers = new Vector<CheckBoxWidgetWatcher>() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -35,19 +35,19 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 * @see #getDescription
 	 * @see #setDescription
 	 */
-	public String description;
+	public String description ;
 
 	/** Default constructor */
 	public CheckBoxWidgetExt()
 	{
-		addActionListener( this );
+		addActionListener( this ) ;
 	}
 
 	/** Default constructor */
 	public CheckBoxWidgetExt( String text )
 	{
-		this();
-		setText( text );
+		this() ;
+		setText( text ) ;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 */
 	public void setDescription( String newDescription )
 	{
-		description = newDescription;
+		description = newDescription ;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 */
 	public String getDescription()
 	{
-		return description;
+		return description ;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	public synchronized final void addWatcher( CheckBoxWidgetWatcher cbw )
 	{
 		if( !_watchers.contains( cbw ) )
-			_watchers.addElement( cbw );
+			_watchers.addElement( cbw ) ;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 */
 	public synchronized final void deleteWatcher( CheckBoxWidgetWatcher cbw )
 	{
-		_watchers.removeElement( cbw );
+		_watchers.removeElement( cbw ) ;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 */
 	public synchronized final void deleteWidgetWatchers()
 	{
-		_watchers.removeAllElements();
+		_watchers.removeAllElements() ;
 	}
 
 	//
@@ -101,25 +101,25 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	{
 		for( int i = 0 ; i < _watchers.size() ; ++i )
 		{
-			CheckBoxWidgetWatcher cbw = ( CheckBoxWidgetWatcher )_watchers.elementAt( i );
-			cbw.checkBoxAction( this );
+			CheckBoxWidgetWatcher cbw = ( CheckBoxWidgetWatcher )_watchers.elementAt( i ) ;
+			cbw.checkBoxAction( this ) ;
 		}
 	}
 
 	/** Called when the button is pressed. */
 	public void actionPerformed( ActionEvent ae )
 	{
-		_notifyAction();
+		_notifyAction() ;
 	}
 
 	public void setValue( boolean value )
 	{
-		setSelected( value );
+		setSelected( value ) ;
 	}
 
 	public boolean getBooleanValue()
 	{
-		return isSelected();
+		return isSelected() ;
 	}
 
 	/**
@@ -127,20 +127,20 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	 */
 	public static void main( String[] args )
 	{
-		JFrame frame = new JFrame( "CheckBoxWidgetExt" );
+		JFrame frame = new JFrame( "CheckBoxWidgetExt" ) ;
 
-		CheckBoxWidgetExt button = new CheckBoxWidgetExt( "Push Me" );
+		CheckBoxWidgetExt button = new CheckBoxWidgetExt( "Push Me" ) ;
 		button.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt cbw )
 			{
-				System.out.println( "OK" );
+				System.out.println( "OK" ) ;
 			}
-		} );
+		} ) ;
 
-		frame.add( "Center" , button );
-		frame.pack();
-		frame.setVisible( true );
-		frame.addWindowListener( new BasicWindowMonitor() );
+		frame.add( "Center" , button ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
+		frame.addWindowListener( new BasicWindowMonitor() ) ;
 	}
 }

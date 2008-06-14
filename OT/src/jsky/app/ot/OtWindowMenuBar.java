@@ -5,7 +5,7 @@
  * $Id$
  */
 
-package jsky.app.ot;
+package jsky.app.ot ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
@@ -22,9 +22,9 @@ import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
 import javax.swing.event.MenuListener ;
 import javax.swing.event.MenuEvent ;
-import jsky.util.Preferences;
+import jsky.util.Preferences ;
 
-import orac.jcmt.util.JcmtUtil; // Temporary ACSIS translator
+import orac.jcmt.util.JcmtUtil ; // Temporary ACSIS translator
 
 /** 
  * Implements a menubar for an OtWindow window. 
@@ -35,36 +35,36 @@ import orac.jcmt.util.JcmtUtil; // Temporary ACSIS translator
 public class OtWindowMenuBar extends JMenuBar
 {
 	/** The target science program editor */
-	protected OtWindow editor;
+	protected OtWindow editor ;
 
 	/** Handle for the File menu */
-	protected JMenu fileMenu;
+	protected JMenu fileMenu ;
 
 	/** Handle for the Edit menu */
-	protected JMenu editMenu;
+	protected JMenu editMenu ;
 
 	/** Handle for the View menu */
-	protected JMenu viewMenu;
+	protected JMenu viewMenu ;
 
 	/** Handle for the Go menu */
-	protected JMenu goMenu;
+	protected JMenu goMenu ;
 
 	/** Handle for the Database menu */
-	protected JMenu databaseMenu;
+	protected JMenu databaseMenu ;
 
 	/** Handle for the Database menu */
-	protected JMenu helpMenu;
+	protected JMenu helpMenu ;
 
 	// menu items that can be enabled/disabled at runtime
-	protected JMenuItem fileRevertMenuItem;
-	protected JMenuItem filePhase1MenuItem;
-//	protected JMenuItem databaseModeItem;
+	protected JMenuItem fileRevertMenuItem ;
+	protected JMenuItem filePhase1MenuItem ;
+//	protected JMenuItem databaseModeItem ;
 
 	/** The main OT window toolbar */
-	protected OtWindowToolBar mainToolBar;
+	protected OtWindowToolBar mainToolBar ;
 
 	/** The OT toolbar with tree related items. */
-	protected OtTreeToolBar treeToolBar;
+	protected OtTreeToolBar treeToolBar ;
 
 	/**
 	 * Create the menubar for the given OtWindow.
@@ -75,39 +75,39 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	public OtWindowMenuBar( final OtWindow editor , OtWindowToolBar mainToolBar , OtTreeToolBar treeToolBar )
 	{
-		super();
+		super() ;
 
-		this.editor = editor;
-		this.mainToolBar = mainToolBar;
-		this.treeToolBar = treeToolBar;
+		this.editor = editor ;
+		this.mainToolBar = mainToolBar ;
+		this.treeToolBar = treeToolBar ;
 
-		add( fileMenu = createFileMenu() );
-		add( editMenu = createEditMenu() );
-		add( viewMenu = createViewMenu() );
-		add( goMenu = createGoMenu( null ) );
+		add( fileMenu = createFileMenu() ) ;
+		add( editMenu = createEditMenu() ) ;
+		add( viewMenu = createViewMenu() ) ;
+		add( goMenu = createGoMenu( null ) ) ;
 
 		// keep the Go history menu up to date
 		editor.addChangeListener( new ChangeListener()
 		{
 			public void stateChanged( ChangeEvent e )
 			{
-				goMenu.removeAll();
-				createGoMenu( goMenu );
+				goMenu.removeAll() ;
+				createGoMenu( goMenu ) ;
 			}
-		} );
+		} ) ;
 
-		add( databaseMenu = createDatabaseMenu() );
+		add( databaseMenu = createDatabaseMenu() ) ;
 
-		add( helpMenu = createHelpMenu() );
+		add( helpMenu = createHelpMenu() ) ;
 
 		// disabled the database menu if a library program is loaded
 		editor.addChangeListener( new ChangeListener()
 		{
 			public void stateChanged( ChangeEvent e )
 			{
-				databaseMenu.setEnabled( !( ( OtProgWindow )editor ).isLibrary() );
+				databaseMenu.setEnabled( !( ( OtProgWindow )editor ).isLibrary() ) ;
 			}
-		} );
+		} ) ;
 	}
 
 	/**
@@ -115,21 +115,21 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createFileMenu()
 	{
-		JMenu menu = new JMenu( "File" );
-		menu.add( createFileNewProgramMenuItem() );
-		menu.add( createFileOpenMenuItem() );
-		menu.add( createFileOpenNewWindowMenuItem() );
-		menu.addSeparator();
-		menu.add( editor.getSaveAction() );
-		menu.add( createFileSaveObsAsSequenceMenuItem() );
-		menu.add( createFileSaveAsMenuItem() );
-		menu.add( fileRevertMenuItem = createFileRevertToSavedMenuItem() );
-		menu.addSeparator();
+		JMenu menu = new JMenu( "File" ) ;
+		menu.add( createFileNewProgramMenuItem() ) ;
+		menu.add( createFileOpenMenuItem() ) ;
+		menu.add( createFileOpenNewWindowMenuItem() ) ;
+		menu.addSeparator() ;
+		menu.add( editor.getSaveAction() ) ;
+		menu.add( createFileSaveObsAsSequenceMenuItem() ) ;
+		menu.add( createFileSaveAsMenuItem() ) ;
+		menu.add( fileRevertMenuItem = createFileRevertToSavedMenuItem() ) ;
+		menu.addSeparator() ;
 
-		menu.add( filePhase1MenuItem = createFileShowPhase1InfoMenuItem() );
-		menu.addSeparator();
+		menu.add( filePhase1MenuItem = createFileShowPhase1InfoMenuItem() ) ;
+		menu.addSeparator() ;
 
-		menu.add( createFileCloseMenuItem() );
+		menu.add( createFileCloseMenuItem() ) ;
 
 		// disable/enable the "Save" and "Revert" choices depending
 		// upon whether the current program has been edited or saved
@@ -137,17 +137,17 @@ public class OtWindowMenuBar extends JMenuBar
 		{
 			public void menuSelected( MenuEvent e )
 			{
-				editor.getSaveAction().setEnabled( editor.isEdited() );
-				fileRevertMenuItem.setEnabled( editor.progHasBeenSaved() );
-				filePhase1MenuItem.setEnabled( editor.isPhase1InfoAvailable() );
+				editor.getSaveAction().setEnabled( editor.isEdited() ) ;
+				fileRevertMenuItem.setEnabled( editor.progHasBeenSaved() ) ;
+				filePhase1MenuItem.setEnabled( editor.isPhase1InfoAvailable() ) ;
 			}
 
 			public void menuDeselected( MenuEvent e ){}
 
 			public void menuCanceled( MenuEvent e ){}
-		} );
+		} ) ;
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -155,15 +155,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileNewProgramMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "New Program" );
+		JMenuItem menuItem = new JMenuItem( "New Program" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.newProgram();
+				editor.newProgram() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -171,15 +171,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileOpenMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Open..." );
+		JMenuItem menuItem = new JMenuItem( "Open..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.open( false );
+				editor.open( false ) ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -187,15 +187,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileOpenNewWindowMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Open in New Window..." );
+		JMenuItem menuItem = new JMenuItem( "Open in New Window..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.open( true );
+				editor.open( true ) ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -203,15 +203,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileSaveMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Save..." );
+		JMenuItem menuItem = new JMenuItem( "Save..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.save();
+				editor.save() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -223,22 +223,22 @@ public class OtWindowMenuBar extends JMenuBar
 
 		// Changes for temporary ACSIS translator.
 		// Can probably be removed once a proper ACSIS translator is provided.
-		String menuString = "Save Observation As Sequence";
+		String menuString = "Save Observation As Sequence" ;
 		if( OtCfg.telescopeUtil instanceof JcmtUtil )
-			menuString = "Save Observation As ACSIS/OCS XML";
+			menuString = "Save Observation As ACSIS/OCS XML" ;
 
-		JMenuItem menuItem = new JMenuItem( menuString );
+		JMenuItem menuItem = new JMenuItem( menuString ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
 				if( OtCfg.telescopeUtil instanceof JcmtUtil )
-					editor.doSaveAcsisOcsXml(); // Temporary ACSIS translator
+					editor.doSaveAcsisOcsXml() ; // Temporary ACSIS translator
 				else
-					editor.doSaveSequence();
+					editor.doSaveSequence() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -246,15 +246,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileSaveAsMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Save As..." );
+		JMenuItem menuItem = new JMenuItem( "Save As..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.saveAs();
+				editor.saveAs() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -262,15 +262,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileRevertToSavedMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Revert to Saved..." );
+		JMenuItem menuItem = new JMenuItem( "Revert to Saved..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.revertToSaved();
+				editor.revertToSaved() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -278,19 +278,19 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileShowPhase1InfoMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Show Phase1 Info" );
+		JMenuItem menuItem = new JMenuItem( "Show Phase1 Info" ) ;
 
 		// If this site supports Phase 1 Information, then enable the menu item for it
-		menuItem.setEnabled( OtCfg.phase1Available() );
+		menuItem.setEnabled( OtCfg.phase1Available() ) ;
 
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.showPhase1();
+				editor.showPhase1() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -298,15 +298,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileExitMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Exit" );
+		JMenuItem menuItem = new JMenuItem( "Exit" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.exit();
+				editor.exit() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -314,15 +314,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileCloseMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Close" );
+		JMenuItem menuItem = new JMenuItem( "Close" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.close();
+				editor.close() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -330,18 +330,18 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createViewMenu()
 	{
-		JMenu menu = new JMenu( "View" );
-		menu.add( createViewMainToolBarMenuItem() );
-		menu.add( createViewTreeToolBarMenuItem() );
-		menu.addSeparator();
-		menu.add( createViewShowMainToolBarAsMenu() );
-		menu.add( createViewShowTreeToolBarAsMenu() );
-		menu.addSeparator();
-		menu.add( makeMenuItem( editor.getPosEditorAction() , "Show the Position Editor" ) );
-		menu.addSeparator();
-		menu.add( editor.getStopAction() );
+		JMenu menu = new JMenu( "View" ) ;
+		menu.add( createViewMainToolBarMenuItem() ) ;
+		menu.add( createViewTreeToolBarMenuItem() ) ;
+		menu.addSeparator() ;
+		menu.add( createViewShowMainToolBarAsMenu() ) ;
+		menu.add( createViewShowTreeToolBarAsMenu() ) ;
+		menu.addSeparator() ;
+		menu.add( makeMenuItem( editor.getPosEditorAction() , "Show the Position Editor" ) ) ;
+		menu.addSeparator() ;
+		menu.add( editor.getStopAction() ) ;
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -349,32 +349,32 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JCheckBoxMenuItem createViewMainToolBarMenuItem()
 	{
-		JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem( "Main Toolbar" );
+		JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem( "Main Toolbar" ) ;
 
 		// name used to store setting in user preferences
-		final String prefName = getClass().getName() + ".ShowMainToolBar";
+		final String prefName = getClass().getName() + ".ShowMainToolBar" ;
 
 		menuItem.addItemListener( new ItemListener()
 		{
 			public void itemStateChanged( ItemEvent e )
 			{
-				JCheckBoxMenuItem rb = ( JCheckBoxMenuItem )e.getSource();
-				mainToolBar.setVisible( rb.getState() );
+				JCheckBoxMenuItem rb = ( JCheckBoxMenuItem )e.getSource() ;
+				mainToolBar.setVisible( rb.getState() ) ;
 				if( rb.getState() )
-					Preferences.set( prefName , "true" );
+					Preferences.set( prefName , "true" ) ;
 				else
-					Preferences.set( prefName , "false" );
+					Preferences.set( prefName , "false" ) ;
 			}
-		} );
+		} ) ;
 
 		// check for a previous preference setting
-		String pref = Preferences.get( prefName );
+		String pref = Preferences.get( prefName ) ;
 		if( pref != null )
-			menuItem.setState( pref.equals( "true" ) );
+			menuItem.setState( pref.equals( "true" ) ) ;
 		else
-			menuItem.setState( true );
+			menuItem.setState( true ) ;
 
-		return menuItem;
+		return menuItem ;
 	}
 
 	/**
@@ -382,32 +382,32 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JCheckBoxMenuItem createViewTreeToolBarMenuItem()
 	{
-		JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem( "Tree Toolbar" );
+		JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem( "Tree Toolbar" ) ;
 
 		// name used to store setting in user preferences
-		final String prefName = getClass().getName() + ".ShowTreeToolBar";
+		final String prefName = getClass().getName() + ".ShowTreeToolBar" ;
 
 		menuItem.addItemListener( new ItemListener()
 		{
 			public void itemStateChanged( ItemEvent e )
 			{
-				JCheckBoxMenuItem rb = ( JCheckBoxMenuItem )e.getSource();
-				treeToolBar.setVisible( rb.getState() );
+				JCheckBoxMenuItem rb = ( JCheckBoxMenuItem )e.getSource() ;
+				treeToolBar.setVisible( rb.getState() ) ;
 				if( rb.getState() )
-					Preferences.set( prefName , "true" );
+					Preferences.set( prefName , "true" ) ;
 				else
-					Preferences.set( prefName , "false" );
+					Preferences.set( prefName , "false" ) ;
 			}
-		} );
+		} ) ;
 
 		// check for a previous preference setting
-		String pref = Preferences.get( prefName );
+		String pref = Preferences.get( prefName ) ;
 		if( pref != null )
-			menuItem.setState( pref.equals( "true" ) );
+			menuItem.setState( pref.equals( "true" ) ) ;
 		else
-			menuItem.setState( true );
+			menuItem.setState( true ) ;
 
-		return menuItem;
+		return menuItem ;
 	}
 
 	/**
@@ -415,74 +415,74 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createViewShowMainToolBarAsMenu()
 	{
-		JMenu menu = new JMenu( "Show Main Toolbar As" );
+		JMenu menu = new JMenu( "Show Main Toolbar As" ) ;
 
-		JRadioButtonMenuItem b1 = new JRadioButtonMenuItem( "Pictures and Text" );
-		JRadioButtonMenuItem b2 = new JRadioButtonMenuItem( "Pictures Only" );
-		JRadioButtonMenuItem b3 = new JRadioButtonMenuItem( "Text Only" );
+		JRadioButtonMenuItem b1 = new JRadioButtonMenuItem( "Pictures and Text" ) ;
+		JRadioButtonMenuItem b2 = new JRadioButtonMenuItem( "Pictures Only" ) ;
+		JRadioButtonMenuItem b3 = new JRadioButtonMenuItem( "Text Only" ) ;
 
-		b3.setSelected( true );
-		mainToolBar.setShowPictures( false );
-		mainToolBar.setShowText( true );
+		b3.setSelected( true ) ;
+		mainToolBar.setShowPictures( false ) ;
+		mainToolBar.setShowText( true ) ;
 
-		menu.add( b1 );
-		menu.add( b2 );
-		menu.add( b3 );
+		menu.add( b1 ) ;
+		menu.add( b2 ) ;
+		menu.add( b3 ) ;
 
-		ButtonGroup group = new ButtonGroup();
-		group.add( b1 );
-		group.add( b2 );
-		group.add( b3 );
+		ButtonGroup group = new ButtonGroup() ;
+		group.add( b1 ) ;
+		group.add( b2 ) ;
+		group.add( b3 ) ;
 
 		// name used to store setting in user preferences
-		final String prefName = getClass().getName() + ".ShowMainToolBarAs";
+		final String prefName = getClass().getName() + ".ShowMainToolBarAs" ;
 
 		ItemListener itemListener = new ItemListener()
 		{
 			public void itemStateChanged( ItemEvent e )
 			{
-				JRadioButtonMenuItem rb = ( JRadioButtonMenuItem )e.getSource();
+				JRadioButtonMenuItem rb = ( JRadioButtonMenuItem )e.getSource() ;
 				if( rb.isSelected() )
 				{
 					if( rb.getText().equals( "Pictures and Text" ) )
 					{
-						mainToolBar.setShowPictures( true );
-						mainToolBar.setShowText( true );
-						Preferences.set( prefName , "1" );
+						mainToolBar.setShowPictures( true ) ;
+						mainToolBar.setShowText( true ) ;
+						Preferences.set( prefName , "1" ) ;
 					}
 					else if( rb.getText().equals( "Pictures Only" ) )
 					{
-						mainToolBar.setShowPictures( true );
-						mainToolBar.setShowText( false );
-						Preferences.set( prefName , "2" );
+						mainToolBar.setShowPictures( true ) ;
+						mainToolBar.setShowText( false ) ;
+						Preferences.set( prefName , "2" ) ;
 					}
 					else if( rb.getText().equals( "Text Only" ) )
 					{
-						mainToolBar.setShowPictures( false );
-						mainToolBar.setShowText( true );
-						Preferences.set( prefName , "3" );
+						mainToolBar.setShowPictures( false ) ;
+						mainToolBar.setShowText( true ) ;
+						Preferences.set( prefName , "3" ) ;
 					}
 				}
 			}
-		};
+		} ;
 
-		b1.addItemListener( itemListener );
-		b2.addItemListener( itemListener );
-		b3.addItemListener( itemListener );
+		b1.addItemListener( itemListener ) ;
+		b2.addItemListener( itemListener ) ;
+		b3.addItemListener( itemListener ) ;
 
 		// check for a previous preference setting
-		String pref = Preferences.get( prefName );
+		String pref = Preferences.get( prefName ) ;
 		if( pref != null )
 		{
-			JRadioButtonMenuItem[] ar = new JRadioButtonMenuItem[]{ null , b1 , b2 , b3 };
+			JRadioButtonMenuItem[] ar = new JRadioButtonMenuItem[]{ null , b1 , b2 , b3 } ;
 			try
 			{
-				ar[ Integer.parseInt( pref ) ].setSelected( true );
+				ar[ Integer.parseInt( pref ) ].setSelected( true ) ;
 			}
 			catch( Exception e ){}
 		}
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -490,74 +490,74 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createViewShowTreeToolBarAsMenu()
 	{
-		JMenu menu = new JMenu( "Show Tree Toolbar As" );
+		JMenu menu = new JMenu( "Show Tree Toolbar As" ) ;
 
-		JRadioButtonMenuItem b1 = new JRadioButtonMenuItem( "Pictures and Text" );
-		JRadioButtonMenuItem b2 = new JRadioButtonMenuItem( "Pictures Only" );
-		JRadioButtonMenuItem b3 = new JRadioButtonMenuItem( "Text Only" );
+		JRadioButtonMenuItem b1 = new JRadioButtonMenuItem( "Pictures and Text" ) ;
+		JRadioButtonMenuItem b2 = new JRadioButtonMenuItem( "Pictures Only" ) ;
+		JRadioButtonMenuItem b3 = new JRadioButtonMenuItem( "Text Only" ) ;
 
-		b1.setSelected( true );
-		treeToolBar.setShowPictures( true );
-		treeToolBar.setShowText( true );
+		b1.setSelected( true ) ;
+		treeToolBar.setShowPictures( true ) ;
+		treeToolBar.setShowText( true ) ;
 
-		menu.add( b1 );
-		menu.add( b2 );
-		menu.add( b3 );
+		menu.add( b1 ) ;
+		menu.add( b2 ) ;
+		menu.add( b3 ) ;
 
-		ButtonGroup group = new ButtonGroup();
-		group.add( b1 );
-		group.add( b2 );
-		group.add( b3 );
+		ButtonGroup group = new ButtonGroup() ;
+		group.add( b1 ) ;
+		group.add( b2 ) ;
+		group.add( b3 ) ;
 
 		// name used to store setting in user preferences
-		final String prefName = getClass().getName() + ".ShowTreeToolBarAs";
+		final String prefName = getClass().getName() + ".ShowTreeToolBarAs" ;
 
 		ItemListener itemListener = new ItemListener()
 		{
 			public void itemStateChanged( ItemEvent e )
 			{
-				JRadioButtonMenuItem rb = ( JRadioButtonMenuItem )e.getSource();
+				JRadioButtonMenuItem rb = ( JRadioButtonMenuItem )e.getSource() ;
 				if( rb.isSelected() )
 				{
 					if( rb.getText().equals( "Pictures and Text" ) )
 					{
-						treeToolBar.setShowPictures( true );
-						treeToolBar.setShowText( true );
-						Preferences.set( prefName , "1" );
+						treeToolBar.setShowPictures( true ) ;
+						treeToolBar.setShowText( true ) ;
+						Preferences.set( prefName , "1" ) ;
 					}
 					else if( rb.getText().equals( "Pictures Only" ) )
 					{
-						treeToolBar.setShowPictures( true );
-						treeToolBar.setShowText( false );
-						Preferences.set( prefName , "2" );
+						treeToolBar.setShowPictures( true ) ;
+						treeToolBar.setShowText( false ) ;
+						Preferences.set( prefName , "2" ) ;
 					}
 					else if( rb.getText().equals( "Text Only" ) )
 					{
-						treeToolBar.setShowPictures( false );
-						treeToolBar.setShowText( true );
-						Preferences.set( prefName , "3" );
+						treeToolBar.setShowPictures( false ) ;
+						treeToolBar.setShowText( true ) ;
+						Preferences.set( prefName , "3" ) ;
 					}
 				}
 			}
-		};
+		} ;
 
-		b1.addItemListener( itemListener );
-		b2.addItemListener( itemListener );
-		b3.addItemListener( itemListener );
+		b1.addItemListener( itemListener ) ;
+		b2.addItemListener( itemListener ) ;
+		b3.addItemListener( itemListener ) ;
 
 		// check for a previous preference setting
-		String pref = Preferences.get( prefName );
+		String pref = Preferences.get( prefName ) ;
 		if( pref != null )
 		{
-			JRadioButtonMenuItem[] ar = new JRadioButtonMenuItem[] { null , b1 , b2 , b3 };
+			JRadioButtonMenuItem[] ar = new JRadioButtonMenuItem[] { null , b1 , b2 , b3 } ;
 			try
 			{
-				ar[ Integer.parseInt( pref ) ].setSelected( true );
+				ar[ Integer.parseInt( pref ) ].setSelected( true ) ;
 			}
 			catch( Exception e ){}
 		}
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -566,14 +566,14 @@ public class OtWindowMenuBar extends JMenuBar
 	protected JMenu createGoMenu( JMenu menu )
 	{
 		if( menu == null )
-			menu = new JMenu( "Go" );
+			menu = new JMenu( "Go" ) ;
 
-		menu.add( editor.getBackAction() );
-		menu.add( editor.getForwAction() );
-		menu.addSeparator();
-		editor.addHistoryMenuItems( menu );
+		menu.add( editor.getBackAction() ) ;
+		menu.add( editor.getForwAction() ) ;
+		menu.addSeparator() ;
+		editor.addHistoryMenuItems( menu ) ;
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -581,8 +581,8 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createDatabaseMenu()
 	{
-		JMenu menu = new JMenu( "Database" );
-		menu.add( createDatabaseStoreMenuItem() );
+		JMenu menu = new JMenu( "Database" ) ;
+		menu.add( createDatabaseStoreMenuItem() ) ;
 
 		// Change the text of the online/offline mode item as needed
 		menu.addMenuListener( new MenuListener()
@@ -592,9 +592,9 @@ public class OtWindowMenuBar extends JMenuBar
 			public void menuDeselected( MenuEvent e ){}
 
 			public void menuCanceled( MenuEvent e ){}
-		} );
+		} ) ;
 
-		return menu;
+		return menu ;
 	}
 
 	/**
@@ -602,15 +602,15 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createDatabaseStoreMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Store to Online Database" );
+		JMenuItem menuItem = new JMenuItem( "Store to Online Database" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				( ( OtProgWindow )editor ).storeToOnlineDatabase();
+				( ( OtProgWindow )editor ).storeToOnlineDatabase() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -618,47 +618,47 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenu createEditMenu()
 	{
-		JMenu menu = new JMenu( "Edit" );
+		JMenu menu = new JMenu( "Edit" ) ;
 
 		// added by MFO (06 July 2001)
-		menu.add( makeMenuItem( editor.getMsbFolderAction() , "Create an MSB Folder" ) );
-		menu.add( makeMenuItem( editor.getAndFolderAction() , "Create an AND Folder" ) );
-		menu.add( makeMenuItem( editor.getOrFolderAction() , "Create an  OR Folder" ) );
-		menu.add( makeMenuItem( editor.getObservationAction() , "Create an Observation" ) );
-		menu.add( makeMenuItem( editor.getNoteAction() , "Create a Note" ) );
-		menu.add( makeMenuItem( editor.getLibFolderAction() , "Create a Library Folder" ) );
-		menu.add( new OtCompMenu( editor.getTreeWidget() ) );
-		menu.add( new OtIterCompMenu( editor.getTreeWidget() ) );
-		menu.add( new OtIterObsMenu( editor.getTreeWidget() ) );
-		menu.addSeparator();
-		menu.add( editor.getCutAction() );
-		menu.add( editor.getCopyAction() );
-		menu.add( editor.getPasteAction() );
-		menu.addSeparator();
-		menu.add( createEditItemTitleMenuItem() );
-		menu.add( createEditCollapseMSBsMenuItem() );
-		menu.add( createReplicationMenuItem() );
-		return menu;
+		menu.add( makeMenuItem( editor.getMsbFolderAction() , "Create an MSB Folder" ) ) ;
+		menu.add( makeMenuItem( editor.getAndFolderAction() , "Create an AND Folder" ) ) ;
+		menu.add( makeMenuItem( editor.getOrFolderAction() , "Create an  OR Folder" ) ) ;
+		menu.add( makeMenuItem( editor.getObservationAction() , "Create an Observation" ) ) ;
+		menu.add( makeMenuItem( editor.getNoteAction() , "Create a Note" ) ) ;
+		menu.add( makeMenuItem( editor.getLibFolderAction() , "Create a Library Folder" ) ) ;
+		menu.add( new OtCompMenu( editor.getTreeWidget() ) ) ;
+		menu.add( new OtIterCompMenu( editor.getTreeWidget() ) ) ;
+		menu.add( new OtIterObsMenu( editor.getTreeWidget() ) ) ;
+		menu.addSeparator() ;
+		menu.add( editor.getCutAction() ) ;
+		menu.add( editor.getCopyAction() ) ;
+		menu.add( editor.getPasteAction() ) ;
+		menu.addSeparator() ;
+		menu.add( createEditItemTitleMenuItem() ) ;
+		menu.add( createEditCollapseMSBsMenuItem() ) ;
+		menu.add( createReplicationMenuItem() ) ;
+		return menu ;
 	}
 
 	protected JMenu createHelpMenu()
 	{
-		JMenu menu = new JMenu( "Help" );
-		menu.add( createScienceProgramHelpMenuItem() );
-		return menu;
+		JMenu menu = new JMenu( "Help" ) ;
+		menu.add( createScienceProgramHelpMenuItem() ) ;
+		return menu ;
 	}
 
 	protected JMenuItem createScienceProgramHelpMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Science Program Help ..." );
+		JMenuItem menuItem = new JMenuItem( "Science Program Help ..." ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.launchHelp();
+				editor.launchHelp() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/**
@@ -666,9 +666,9 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem makeMenuItem( AbstractAction a , String text )
 	{
-		JMenuItem mi = new JMenuItem( a );
-		mi.setText( text );
-		return mi;
+		JMenuItem mi = new JMenuItem( a ) ;
+		mi.setText( text ) ;
+		return mi ;
 	}
 
 	/**
@@ -676,58 +676,58 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createEditItemTitleMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Edit Item Title" );
+		JMenuItem menuItem = new JMenuItem( "Edit Item Title" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.editItemTitle();
+				editor.editItemTitle() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	protected JMenuItem createEditCollapseMSBsMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Collapse all MSBs" );
+		JMenuItem menuItem = new JMenuItem( "Collapse all MSBs" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.collapseMSBs();
+				editor.collapseMSBs() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	protected JMenuItem createReplicationMenuItem()
 	{
-		JMenuItem menuItem = new JMenuItem( "Replicate from Catalog" );
+		JMenuItem menuItem = new JMenuItem( "Replicate from Catalog" ) ;
 		menuItem.addActionListener( new ActionListener()
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				editor.replicateSp();
+				editor.replicateSp() ;
 			}
-		} );
-		return menuItem;
+		} ) ;
+		return menuItem ;
 	}
 
 	/** Return the handle for the File menu */
 	public JMenu getFileMenu()
 	{
-		return fileMenu;
+		return fileMenu ;
 	}
 
 	/** Return the handle for the Edit menu */
 	public JMenu getEditMenu()
 	{
-		return editMenu;
+		return editMenu ;
 	}
 
 	/** Return the handle for the Database menu */
 	public JMenu getDatabaseMenu()
 	{
-		return databaseMenu;
+		return databaseMenu ;
 	}
 }

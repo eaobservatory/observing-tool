@@ -5,9 +5,9 @@
 // $Id$
 //
 
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
-import java.util.Vector;
+import java.util.Vector ;
 
 /**
  * Base class for telescope positions.
@@ -15,19 +15,19 @@ import java.util.Vector;
 public abstract class TelescopePos
 {
 	/** The position's <i>unique</i> string tag. */
-	protected String _tag;
+	protected String _tag ;
 
 	/** The position's xaxis (for example, its RA). */
-	protected double _xaxis;
+	protected double _xaxis ;
 
 	/** The position's yaxis (for example, its Dec). */
-	protected double _yaxis;
+	protected double _yaxis ;
 
 	/** The list that the position belongs to, if any. */
-	protected TelescopePosList _list;
+	protected TelescopePosList _list ;
 
 	// TelescopePos change watchers.
-	private Vector _watchers;
+	private Vector _watchers ;
 
 	/**
 	 * Default constructor, needed for Serialization.
@@ -35,7 +35,7 @@ public abstract class TelescopePos
 	 */
 	protected TelescopePos()
 	{
-		this( "Base" );
+		this( "Base" ) ;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public abstract class TelescopePos
 	 */
 	protected TelescopePos( String tag )
 	{
-		_tag = tag;
+		_tag = tag ;
 	}
 
 	/**
@@ -52,8 +52,8 @@ public abstract class TelescopePos
 	 */
 	protected TelescopePos( String tag , TelescopePosList list )
 	{
-		this( tag );
-		_list = list;
+		this( tag ) ;
+		_list = list ;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public abstract class TelescopePos
 	 */
 	public boolean isOffsetPosition()
 	{
-		return false;
+		return false ;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public abstract class TelescopePos
 	 */
 	public boolean isValid()
 	{
-		return true;
+		return true ;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public abstract class TelescopePos
 	 */
 	public final String getTag()
 	{
-		return _tag;
+		return _tag ;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public abstract class TelescopePos
 	 */
 	public final synchronized double getXaxis()
 	{
-		return _xaxis;
+		return _xaxis ;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public abstract class TelescopePos
 	 */
 	public final synchronized double getYaxis()
 	{
-		return _yaxis;
+		return _yaxis ;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public abstract class TelescopePos
 	 */
 	public synchronized String getXaxisAsString()
 	{
-		return String.valueOf( _xaxis );
+		return String.valueOf( _xaxis ) ;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public abstract class TelescopePos
 	 */
 	public synchronized String getYaxisAsString()
 	{
-		return String.valueOf( _yaxis );
+		return String.valueOf( _yaxis ) ;
 	}
 
 	/**
@@ -119,10 +119,10 @@ public abstract class TelescopePos
 	{
 		synchronized( this )
 		{
-			_xaxis = x;
-			_yaxis = y;
+			_xaxis = x ;
+			_yaxis = y ;
 		}
-		_notifyOfLocationUpdate();
+		_notifyOfLocationUpdate() ;
 	}
 
 	/**
@@ -131,10 +131,10 @@ public abstract class TelescopePos
 	public synchronized void addWatcher( TelescopePosWatcher tpw )
 	{
 		if( _watchers == null )
-			_watchers = new Vector();
+			_watchers = new Vector() ;
 
 		if( !_watchers.contains( tpw ) )
-			_watchers.addElement( tpw );
+			_watchers.addElement( tpw ) ;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public abstract class TelescopePos
 	public synchronized void deleteWatcher( TelescopePosWatcher tpw )
 	{
 		if( _watchers != null )
-			_watchers.removeElement( tpw );
+			_watchers.removeElement( tpw ) ;
 	}
 
 	/**
@@ -152,7 +152,7 @@ public abstract class TelescopePos
 	public synchronized void deleteWatchers()
 	{
 		if( _watchers != null )
-			_watchers.removeAllElements();
+			_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -161,9 +161,9 @@ public abstract class TelescopePos
 	protected final synchronized Vector _getWatchers()
 	{
 		if( _watchers == null )
-			return null;
+			return null ;
 
-		return ( Vector )_watchers.clone();
+		return ( Vector )_watchers.clone() ;
 	}
 
 	/**
@@ -171,14 +171,14 @@ public abstract class TelescopePos
 	 */
 	protected void _notifyOfLocationUpdate()
 	{
-		Vector v = _getWatchers();
+		Vector v = _getWatchers() ;
 		if( v == null )
-			return;
+			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TelescopePosWatcher tpw;
-			tpw = ( TelescopePosWatcher )v.elementAt( i );
-			tpw.telescopePosLocationUpdate( this );
+			TelescopePosWatcher tpw ;
+			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw.telescopePosLocationUpdate( this ) ;
 		}
 	}
 
@@ -187,14 +187,14 @@ public abstract class TelescopePos
 	 */
 	protected void _notifyOfGenericUpdate()
 	{
-		Vector v = _getWatchers();
+		Vector v = _getWatchers() ;
 		if( v == null )
-			return;
+			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TelescopePosWatcher tpw;
-			tpw = ( TelescopePosWatcher )v.elementAt( i );
-			tpw.telescopePosGenericUpdate( this );
+			TelescopePosWatcher tpw ;
+			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw.telescopePosGenericUpdate( this ) ;
 		}
 	}
 
@@ -204,7 +204,7 @@ public abstract class TelescopePos
 	public void select()
 	{
 		if( _list != null )
-			_list.setSelectedPos( this );
+			_list.setSelectedPos( this ) ;
 	}
 
 	/**
@@ -212,6 +212,6 @@ public abstract class TelescopePos
 	 */
 	public synchronized String toString()
 	{
-		return getClass().getName() + "[tag=" + getTag() + ", xaxis=" + HHMMSS.valStr( getXaxis() ) + ", yaxis=" + DDMMSS.valStr( getYaxis() ) + "]";
+		return getClass().getName() + "[tag=" + getTag() + ", xaxis=" + HHMMSS.valStr( getXaxis() ) + ", yaxis=" + DDMMSS.valStr( getYaxis() ) + "]" ;
 	}
 }

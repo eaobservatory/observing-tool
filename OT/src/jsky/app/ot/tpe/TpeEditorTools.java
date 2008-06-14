@@ -4,14 +4,14 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
 import java.awt.Cursor ;
 import java.util.Vector ;
 import java.util.Hashtable ;
 import java.util.Enumeration ;
-import jsky.app.ot.gui.ToggleButtonWidget;
-import jsky.app.ot.gui.ToggleButtonWidgetWatcher;
+import jsky.app.ot.gui.ToggleButtonWidget ;
+import jsky.app.ot.gui.ToggleButtonWidgetWatcher ;
 
 /**
  * A helper object to keep up with which tool has been selected and to
@@ -21,68 +21,68 @@ import jsky.app.ot.gui.ToggleButtonWidgetWatcher;
  */
 final class TpeEditorTools
 {
-	static final int MODE_BROWSE = 0;
-	static final int MODE_DRAG = 1;
-	static final int MODE_ERASE = 2;
-	static final int MODE_CREATE = 3;
-	private int _curMode = MODE_BROWSE;
-	private TpeImageFeature _curFeature = null;
-	private TelescopePosEditor _tpe;
-	private TelescopePosEditorToolBar _tpeToolBar;
-	private ToggleButtonWidget _browseButton;
-	private Hashtable _buttonMap = new Hashtable();
+	static final int MODE_BROWSE = 0 ;
+	static final int MODE_DRAG = 1 ;
+	static final int MODE_ERASE = 2 ;
+	static final int MODE_CREATE = 3 ;
+	private int _curMode = MODE_BROWSE ;
+	private TpeImageFeature _curFeature = null ;
+	private TelescopePosEditor _tpe ;
+	private TelescopePosEditorToolBar _tpeToolBar ;
+	private ToggleButtonWidget _browseButton ;
+	private Hashtable<String,ToggleButtonWidget> _buttonMap = new Hashtable<String,ToggleButtonWidget>() ;
 
 	/** Create with the Presentation that contains the tool buttons. */
 	TpeEditorTools( TelescopePosEditor tpe )
 	{
-		_tpe = tpe;
-		_tpeToolBar = _tpe.getTpeToolBar();
+		_tpe = tpe ;
+		_tpeToolBar = _tpe.getTpeToolBar() ;
 
-		ToggleButtonWidget tbw;
+		ToggleButtonWidget tbw ;
 
 		// Browse Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Browse" );
+		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Browse" ) ;
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
-				_tpe.setCurrentMouseCursor( java.awt.Cursor.getPredefinedCursor( java.awt.Cursor.DEFAULT_CURSOR ) );
-				_curMode = MODE_BROWSE;
-				_curFeature = null;
+				_tpe.setCurrentMouseCursor( java.awt.Cursor.getPredefinedCursor( java.awt.Cursor.DEFAULT_CURSOR ) ) ;
+				_curMode = MODE_BROWSE ;
+				_curFeature = null ;
 			}
-		} );
-		_browseButton = tbw;
+		} ) ;
+		_browseButton = tbw ;
 
 		// Drag Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Drag" );
+		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Drag" ) ;
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
-				_curMode = MODE_DRAG;
-				_curFeature = null;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) ) ;
+				_curMode = MODE_DRAG ;
+				_curFeature = null ;
 			}
-		} );
+		} ) ;
 
 		// Erase Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Erase" );
+		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Erase" ) ;
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) );
-				_curMode = MODE_ERASE;
-				_curFeature = null;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) ) ;
+				_curMode = MODE_ERASE ;
+				_curFeature = null ;
 			}
-		} );
+		} ) ;
 
 		// Hide all the create tools.
-		Enumeration e = _enumerateCreateTools();
+		Enumeration e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			tbw = ( ToggleButtonWidget )e.nextElement();
-			tbw.setVisible( false );
+			tbw = ( ToggleButtonWidget )e.nextElement() ;
+			tbw.setVisible( false ) ;
 		}
 	}
 
@@ -93,25 +93,25 @@ final class TpeEditorTools
 	{
 		return new Enumeration()
 		{ // XXX allan: should make 2 separate ToggleButtonPanels
-			private int i = 4; // skip first 3 buttons (Browse, Drag, Erase) and empty label
+			private int i = 4 ; // skip first 3 buttons (Browse, Drag, Erase) and empty label
 
 			public boolean hasMoreElements()
 			{
 				try
 				{
-					return( _tpeToolBar.getModeToggleButton( i ) != null );
+					return( _tpeToolBar.getModeToggleButton( i ) != null ) ;
 				}
 				catch( ArrayIndexOutOfBoundsException e )
 				{
-					return false;
+					return false ;
 				}
 			}
 
 			public Object nextElement()
 			{
-				return _tpeToolBar.getModeToggleButton( i++ );
+				return _tpeToolBar.getModeToggleButton( i++ ) ;
 			}
-		};
+		} ;
 	}
 
 	//
@@ -120,18 +120,18 @@ final class TpeEditorTools
 	private ToggleButtonWidget _allocateToolButton()
 	{
 		// Find an open tool button
-		ToggleButtonWidget tbw = null;
-		Enumeration e = _enumerateCreateTools();
+		ToggleButtonWidget tbw = null ;
+		Enumeration e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement();
+			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement() ;
 			if( !( tmp.isVisible() ) )
 			{
-				tbw = tmp; // This one was occupied
-				break;
+				tbw = tmp ; // This one was occupied
+				break ;
 			}
 		}
-		return tbw;
+		return tbw ;
 	}
 
 	//
@@ -139,8 +139,8 @@ final class TpeEditorTools
 	//
 	private void _freeToolButton( ToggleButtonWidget tbw )
 	{
-		tbw.setVisible( false );
-		tbw.deleteWatchers();
+		tbw.setVisible( false ) ;
+		tbw.deleteWatchers() ;
 	}
 
 	//
@@ -150,28 +150,28 @@ final class TpeEditorTools
 	{
 		// See if this tool is already present.
 		if( _buttonMap.get( label ) != null )
-			return true;
+			return true ;
 
-		ToggleButtonWidget tbw = _allocateToolButton();
+		ToggleButtonWidget tbw = _allocateToolButton() ;
 		if( tbw == null )
-			return false; // Never found a valid one
+			return false ; // Never found a valid one
 
-		_buttonMap.put( label , tbw );
+		_buttonMap.put( label , tbw ) ;
 
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
 			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) );
-				_curMode = MODE_CREATE;
-				_curFeature = tif;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) ) ;
+				_curMode = MODE_CREATE ;
+				_curFeature = tif ;
 			}
-		} );
+		} ) ;
 
-		tbw.setText( label );
-		tbw.setVisible( true );
-		tbw.setEnabled( true );
-		return true;
+		tbw.setText( label ) ;
+		tbw.setVisible( true ) ;
+		tbw.setEnabled( true ) ;
+		return true ;
 	}
 
 	/**
@@ -180,13 +180,13 @@ final class TpeEditorTools
 	public void addCreateTools( TpeImageFeature tif )
 	{
 		if( !( tif instanceof TpeCreateableFeature ) )
-			return; // nothing to add
+			return ; // nothing to add
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels();
+		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
 		for( int i = 0 ; i < labels.length ; ++i )
 		{
 			if( !_addCreateTool( labels[ i ] , tif ) )
-				throw new RuntimeException( "No more create tool buttons available!" );
+				throw new RuntimeException( "No more create tool buttons available!" ) ;
 		}
 	}
 
@@ -195,12 +195,12 @@ final class TpeEditorTools
 	//
 	private void _deleteCreateTool( String label )
 	{
-		ToggleButtonWidget tbw;
-		tbw = ( ToggleButtonWidget )_buttonMap.get( label );
+		ToggleButtonWidget tbw ;
+		tbw = _buttonMap.get( label ) ;
 		if( tbw != null )
 		{
-			_freeToolButton( tbw );
-			_buttonMap.remove( label );
+			_freeToolButton( tbw ) ;
+			_buttonMap.remove( label ) ;
 		}
 	}
 
@@ -210,11 +210,11 @@ final class TpeEditorTools
 	public void deleteCreateTools( TpeImageFeature tif )
 	{
 		if( !( tif instanceof TpeCreateableFeature ) )
-			return; // nothing to delete
+			return ; // nothing to delete
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels();
+		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
 		for( int i = 0 ; i < labels.length ; ++i )
-			_deleteCreateTool( labels[ i ] );
+			_deleteCreateTool( labels[ i ] ) ;
 	}
 
 	//
@@ -222,10 +222,10 @@ final class TpeEditorTools
 	//
 	private void _setDisabled( String label , boolean disabled )
 	{
-		ToggleButtonWidget tbw;
-		tbw = ( ToggleButtonWidget )_buttonMap.get( label );
+		ToggleButtonWidget tbw ;
+		tbw = _buttonMap.get( label ) ;
 		if( tbw != null )
-			tbw.setEnabled( !disabled );
+			tbw.setEnabled( !disabled ) ;
 	}
 
 	/**
@@ -235,11 +235,11 @@ final class TpeEditorTools
 	public void setCreateToolsDisabled( TpeImageFeature tif , boolean disabled )
 	{
 		if( !( tif instanceof TpeCreateableFeature ) )
-			return; // nothing to disable
+			return ; // nothing to disable
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels();
+		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
 		for( int i = 0 ; i < labels.length ; ++i )
-			_setDisabled( labels[ i ] , disabled );
+			_setDisabled( labels[ i ] , disabled ) ;
 	}
 
 	/**
@@ -250,8 +250,8 @@ final class TpeEditorTools
 	{
 		for( int i = 0 ; i < tifV.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i );
-			setCreateToolsDisabled( tif , disabled );
+			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i ) ;
+			setCreateToolsDisabled( tif , disabled ) ;
 		}
 	}
 
@@ -261,7 +261,7 @@ final class TpeEditorTools
 	 */
 	public int getMode()
 	{
-		return _curMode;
+		return _curMode ;
 	}
 
 	/**
@@ -271,7 +271,7 @@ final class TpeEditorTools
 	 */
 	public TpeImageFeature getImageFeature()
 	{
-		return _curFeature;
+		return _curFeature ;
 	}
 
 	/**
@@ -279,14 +279,14 @@ final class TpeEditorTools
 	 */
 	public String getCurrentButtonLabel()
 	{
-		Enumeration e = _enumerateCreateTools();
+		Enumeration e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement();
+			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement() ;
 			if( tbw.getBooleanValue() )
-				return tbw.getText();
+				return tbw.getText() ;
 		}
-		return null;
+		return null ;
 	}
 
 	/**
@@ -294,7 +294,7 @@ final class TpeEditorTools
 	 */
 	public void gotoBrowseMode()
 	{
-		_browseButton.press();
+		_browseButton.press() ;
 	}
 
 	/**
@@ -305,23 +305,23 @@ final class TpeEditorTools
 		switch( _curMode )
 		{
 			case MODE_BROWSE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
-				break;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) ) ;
+				break ;
 			case MODE_DRAG :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
-				break;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) ) ;
+				break ;
 			case MODE_ERASE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) );
-				break;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) ) ;
+				break ;
 			case MODE_CREATE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) );
-				break;
+				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) ) ;
+				break ;
 		}
 	}
 
 	/** Standard dubug string. */
 	public String toString()
 	{
-		return getClass().getName() + "[tool=" + getCurrentButtonLabel() + "]";
+		return getClass().getName() + "[tool=" + getCurrentButtonLabel() + "]" ;
 	}
 }

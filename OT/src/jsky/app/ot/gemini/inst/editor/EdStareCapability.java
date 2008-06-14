@@ -4,13 +4,13 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst.editor;
+package jsky.app.ot.gemini.inst.editor ;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import jsky.app.ot.editor.OtItemEditor;
+import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpStareCapability ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
+import jsky.app.ot.editor.OtItemEditor ;
 
 /**
  * Support for coadds.
@@ -22,9 +22,9 @@ public class EdStareCapability
 	 */
 	private SpStareCapability _getStareCap( OtItemEditor itemEditor )
 	{
-		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem();
-		String name = SpStareCapability.CAPABILITY_NAME;
-		return ( SpStareCapability )spInst.getCapability( name );
+		SpInstObsComp spInst = ( SpInstObsComp )itemEditor.getCurrentSpItem() ;
+		String name = SpStareCapability.CAPABILITY_NAME ;
+		return ( SpStareCapability )spInst.getCapability( name ) ;
 	}
 
 	/**
@@ -33,17 +33,17 @@ public class EdStareCapability
 	 */
 	protected void _init( final EdCompInstBase gw )
 	{
-		TextBoxWidgetExt tbwe;
-		tbwe = gw.getCoaddsTextBox();
+		TextBoxWidgetExt tbwe ;
+		tbwe = gw.getCoaddsTextBox() ;
 		tbwe.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
-				_getStareCap( gw ).setCoadds( tbwe.getText() );
+				_getStareCap( gw ).setCoadds( tbwe.getText() ) ;
 			}
 
 			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
-		} );
+		} ) ;
 	}
 
 	/**
@@ -51,8 +51,8 @@ public class EdStareCapability
 	 */
 	protected void _updateWidgets( EdCompInstBase gw , SpStareCapability stareCap )
 	{
-		TextBoxWidgetExt tbwe;
-		tbwe = gw.getCoaddsTextBox();
-		tbwe.setText( stareCap.getCoaddsAsString() );
+		TextBoxWidgetExt tbwe ;
+		tbwe = gw.getCoaddsTextBox() ;
+		tbwe.setText( stareCap.getCoaddsAsString() ) ;
 	}
 }

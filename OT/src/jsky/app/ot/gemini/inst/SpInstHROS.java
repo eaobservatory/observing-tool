@@ -4,29 +4,29 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * The HROS instrument.
  */
 public class SpInstHROS extends SpInstObsComp
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.HROS" , "HROS" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.HROS" , "HROS" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstHROS() );
+		SpFactory.registerPrototype( new SpInstHROS() ) ;
 	}
 
 	public SpInstHROS()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -34,6 +34,6 @@ public class SpInstHROS extends SpInstObsComp
 	 */
 	public double[] getScienceArea()
 	{
-		return new double[]{ 1. , 60. };
+		return new double[]{ 1. , 60. } ;
 	}
 }

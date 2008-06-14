@@ -5,13 +5,13 @@
  * $Id$
  */
 
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.navigator.NavigatorImageDisplayMenuBar;
-import jsky.image.gui.DivaMainImageDisplay;
-import jsky.navigator.NavigatorImageDisplay;
-import jsky.image.gui.ImageDisplayToolBar;
-import jsky.navigator.NavigatorImageDisplayToolBar;
+import jsky.navigator.NavigatorImageDisplayMenuBar ;
+import jsky.image.gui.DivaMainImageDisplay ;
+import jsky.navigator.NavigatorImageDisplay ;
+import jsky.image.gui.ImageDisplayToolBar ;
+import jsky.navigator.NavigatorImageDisplayToolBar ;
 
 /**
  * Extends the image display menubar by adding Gemini position editor features.
@@ -29,6 +29,6 @@ public class TpeImageDisplayMenuBar extends NavigatorImageDisplayMenuBar
 	 */
 	public TpeImageDisplayMenuBar( DivaMainImageDisplay imageDisplay , ImageDisplayToolBar toolBar )
 	{
-		super( ( NavigatorImageDisplay )imageDisplay , ( NavigatorImageDisplayToolBar )toolBar );
+		super( ( NavigatorImageDisplay )imageDisplay , ( NavigatorImageDisplayToolBar )toolBar ) ;
 	}
 }

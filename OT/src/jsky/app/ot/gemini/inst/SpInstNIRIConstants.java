@@ -4,21 +4,21 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.obsComp.SpInstConstants;
+import gemini.sp.obsComp.SpInstConstants ;
 
 public interface SpInstNIRIConstants extends SpInstConstants
 {
-	public static final String ATTR_CAMERA = "camera";
-	public static final String ATTR_MASK = "mask";
-	public static final String ATTR_DISPERSER = "disperser";
-	public static final String ATTR_FILTER = "filter";
-	public static final String ATTR_FILTER_TYPE = ".gui.filterType";
-	public static final int CAMERA_F6 = 0;
-	public static final int CAMERA_F14 = 1;
-	public static final int CAMERA_F32 = 2;
-	static String[] CAMERAS = { "f/6  (0.12 arcsec/pix)" , "f/14 (0.05 arcsec/pix)" , "f/32 (0.02 arcsec/pix)" };
+	public static final String ATTR_CAMERA = "camera" ;
+	public static final String ATTR_MASK = "mask" ;
+	public static final String ATTR_DISPERSER = "disperser" ;
+	public static final String ATTR_FILTER = "filter" ;
+	public static final String ATTR_FILTER_TYPE = ".gui.filterType" ;
+	public static final int CAMERA_F6 = 0 ;
+	public static final int CAMERA_F14 = 1 ;
+	public static final int CAMERA_F32 = 2 ;
+	static String[] CAMERAS = { "f/6  (0.12 arcsec/pix)" , "f/14 (0.05 arcsec/pix)" , "f/32 (0.02 arcsec/pix)" } ;
 	static String[] DISPERSERS = 
 	{ 
 		"none" , 
@@ -29,13 +29,13 @@ public interface SpInstNIRIConstants extends SpInstConstants
 		"R=2000 H-band" , 
 		"R=2000 K-band" , 
 		"R=1500 L-band" 
-	};
+	} ;
 
-	public static final String MASK_0_1 = "0.1 arcsec slit";
+	public static final String MASK_0_1 = "0.1 arcsec slit" ;
 
-	public static final String MASK_0_2 = "0.2 arcsec slit";
+	public static final String MASK_0_2 = "0.2 arcsec slit" ;
 
-	public static final String MASK_1_0 = "1.0 arcsec slit";
+	public static final String MASK_1_0 = "1.0 arcsec slit" ;
 
 	static String[] MASKS = 
 	{ 
@@ -46,9 +46,9 @@ public interface SpInstNIRIConstants extends SpInstConstants
 		"Wollaston mask" , 
 		"Coronograph mask 1" , 
 		"Coronograph mask 2" 
-	};
+	} ;
 
-	static String FILTER_NONE = "None";
+	static String FILTER_NONE = "None" ;
 
 	static String[][] BROAD_BAND_FILTERS = 
 	{ 
@@ -61,7 +61,7 @@ public interface SpInstNIRIConstants extends SpInstConstants
 		{ "K_l" , "2.240" } , 
 		{ "L'" , "3.770" } , 
 		{ "M'" , "4.680" } 
-	};
+	} ;
 
 	static String[][] NARROW_BAND_FILTERS = 
 	{ 
@@ -85,7 +85,7 @@ public interface SpInstNIRIConstants extends SpInstConstants
 		{ "hydrocarbon" , "3.295" } , 
 		{ "Br-alpha cont" , "3.990" } , 
 		{ "Br-alpha" , "4.052" } 
-	};
+	} ;
 
 	static String[][] SPECIAL_FILTERS = 
 	{ 
@@ -97,5 +97,5 @@ public interface SpInstNIRIConstants extends SpInstConstants
 		{ "User" , "x.xxx" } , 
 		{ "ND1" , "1-5" } , 
 		{ "ND2" , "1-5" } 
-	};
+	} ;
 }

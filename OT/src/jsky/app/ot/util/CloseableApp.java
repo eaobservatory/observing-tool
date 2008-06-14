@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.util;
+package jsky.app.ot.util ;
 
 /**
  * An interface supported by applications that are "closeable".
@@ -12,5 +12,5 @@ package jsky.app.ot.util;
 public interface CloseableApp
 {
 	/** Close the application, returning true if successful. */
-	public boolean closeApp();
+	public boolean closeApp() ;
 }

@@ -5,39 +5,39 @@
  * $Id$
  */
 
-//package AdvancedSwing.Chapter8;
-package jsky.app.ot.util;
+//package AdvancedSwing.Chapter8 ;
+package jsky.app.ot.util ;
 
 import java.awt.dnd.DnDConstants ;
 
 public class DnDUtils
 {
-	private static boolean debugEnabled = ( System.getProperty( "DnDExamples.debug" ) != null );
+	private static boolean debugEnabled = ( System.getProperty( "DnDExamples.debug" ) != null ) ;
 
 	public static String showActions( int action )
 	{
-		String actions = "";
+		String actions = "" ;
 		if( ( action & ( DnDConstants.ACTION_LINK | DnDConstants.ACTION_COPY_OR_MOVE ) ) == 0 )
-			return "None";
+			return "None" ;
 		
 		if( ( action & DnDConstants.ACTION_COPY ) != 0 )
-			actions += "Copy ";
+			actions += "Copy " ;
 		if( ( action & DnDConstants.ACTION_MOVE ) != 0 )
-			actions += "Move ";
+			actions += "Move " ;
 		if( ( action & DnDConstants.ACTION_LINK ) != 0 )
-			actions += "Link";
+			actions += "Link" ;
 
-		return actions;
+		return actions ;
 	}
 
 	public static boolean isDebugEnabled()
 	{
-		return debugEnabled;
+		return debugEnabled ;
 	}
 
 	public static void debugPrintln( String s )
 	{
 		if( debugEnabled )
-			System.out.println( s );
+			System.out.println( s ) ;
 	}
 }

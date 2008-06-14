@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot;
+package jsky.app.ot ;
 
 /**
  * This class stores "login" data associated with a program.  This includes
@@ -19,21 +19,21 @@ package jsky.app.ot;
  */
 public final class LoginInfo
 {
-	public String username;
-	public int database;
-	public String password;
+	public String username ;
+	public int database ;
+	public String password ;
 
 	public LoginInfo( String username , int database , String password )
 	{
-		this.username = username;
-		this.database = database;
-		this.password = password;
+		this.username = username ;
+		this.database = database ;
+		this.password = password ;
 	}
 
 	public LoginInfo( LoginInfo ll )
 	{
-		this.username = ll.username;
-		this.database = ll.database;
-		this.password = ll.password;
+		this.username = ll.username ;
+		this.database = ll.database ;
+		this.password = ll.password ;
 	}
 }

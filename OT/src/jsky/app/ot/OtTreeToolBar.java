@@ -5,11 +5,11 @@
  * $Id$
  */
 
-package jsky.app.ot;
+package jsky.app.ot ;
 
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import jsky.util.gui.GenericToolBar;
+import javax.swing.JButton ;
+import javax.swing.ImageIcon ;
+import jsky.util.gui.GenericToolBar ;
 
 /** 
  * A tool bar for the OT tree window.
@@ -17,36 +17,36 @@ import jsky.util.gui.GenericToolBar;
 public class OtTreeToolBar extends GenericToolBar
 {
 	/** The target science program editor */
-	protected OtWindow editor;
+	protected OtWindow editor ;
 
 	// toolbar buttons
-	protected JButton obsFolderButton;
-	protected JButton obsGroupButton;
-	protected JButton observationButton;
-	protected JButton componentMenuButton;
-	protected JButton noteButton;
-	protected JButton libFolderButton;
-	protected JButton iterCompMenuButton;
-	protected JButton iterObsMenuButton;
+	protected JButton obsFolderButton ;
+	protected JButton obsGroupButton ;
+	protected JButton observationButton ;
+	protected JButton componentMenuButton ;
+	protected JButton noteButton ;
+	protected JButton libFolderButton ;
+	protected JButton iterCompMenuButton ;
+	protected JButton iterObsMenuButton ;
 
 	// OMP buttons
 	// added by MFO (06 July 2001)
-	protected JButton msbFolderButton;
-	protected JButton andFolderButton;
-	protected JButton orFolderButton;
-	protected JButton surveyButton;
+	protected JButton msbFolderButton ;
+	protected JButton andFolderButton ;
+	protected JButton orFolderButton ;
+	protected JButton surveyButton ;
 
 	/**
 	 * Create a toolbar with tree related actions for the given OT window.
 	 */
 	public OtTreeToolBar( OtWindow editor )
 	{
-		super( editor , false , VERTICAL );
-		setFloatable( false );
-		this.editor = editor;
-		showPictures = true;
-		showText = true;
-		addToolBarItems();
+		super( editor , false , VERTICAL ) ;
+		setFloatable( false ) ;
+		this.editor = editor ;
+		showPictures = true ;
+		showText = true ;
+		addToolBarItems() ;
 	}
 
 	/** 
@@ -55,27 +55,27 @@ public class OtTreeToolBar extends GenericToolBar
 	protected void addToolBarItems()
 	{
 		// added by MFO (06 July 2001)
-		add( makeOrFolderButton() );
-		addSeparator();
-		add( makeAndFolderButton() );
-		addSeparator();
-		add( makeSurveyButton() );
-		addSeparator();
-		add( makeMsbFolderButton() );
+		add( makeOrFolderButton() ) ;
+		addSeparator() ;
+		add( makeAndFolderButton() ) ;
+		addSeparator() ;
+		add( makeSurveyButton() ) ;
+		addSeparator() ;
+		add( makeMsbFolderButton() ) ;
 
-		addSeparator();
-		add( makeObservationButton() );
-		addSeparator();
-		add( makeNoteButton() );
-		addSeparator();
-		add( makeLibFolderButton() );
-		addSeparator();
+		addSeparator() ;
+		add( makeObservationButton() ) ;
+		addSeparator() ;
+		add( makeNoteButton() ) ;
+		addSeparator() ;
+		add( makeLibFolderButton() ) ;
+		addSeparator() ;
 
-		add( makeComponentMenuButton() );
-		addSeparator();
-		add( makeIterCompMenuButton() );
-		addSeparator();
-		add( makeIterObsMenuButton() );
+		add( makeComponentMenuButton() ) ;
+		addSeparator() ;
+		add( makeIterCompMenuButton() ) ;
+		addSeparator() ;
+		add( makeIterObsMenuButton() ) ;
 	}
 
 	/**
@@ -87,10 +87,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObsFolderButton()
 	{
 		if( obsFolderButton == null )
-			obsFolderButton = makeButton( "Create an observation folder." , editor.getObsFolderAction() , false );
+			obsFolderButton = makeButton( "Create an observation folder." , editor.getObsFolderAction() , false ) ;
 
-		updateButton( obsFolderButton , "Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/obsFolder.gif" ) ) );
-		return obsFolderButton;
+		updateButton( obsFolderButton , "Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/obsFolder.gif" ) ) ) ;
+		return obsFolderButton ;
 	}
 
 	/**
@@ -102,10 +102,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObsGroupButton()
 	{
 		if( obsGroupButton == null )
-			obsGroupButton = makeButton( "Create an observation group." , editor.getObsGroupAction() , false );
+			obsGroupButton = makeButton( "Create an observation group." , editor.getObsGroupAction() , false ) ;
 
-		updateButton( obsGroupButton , "Group" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/obsGroup.gif" ) ) );
-		return obsGroupButton;
+		updateButton( obsGroupButton , "Group" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/obsGroup.gif" ) ) ) ;
+		return obsGroupButton ;
 	}
 
 	/**
@@ -117,10 +117,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObservationButton()
 	{
 		if( observationButton == null )
-			observationButton = makeButton( "Create an observation." , editor.getObservationAction() , false );
+			observationButton = makeButton( "Create an observation." , editor.getObservationAction() , false ) ;
 
-		updateButton( observationButton , "Observation" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/observation.gif" ) ) );
-		return observationButton;
+		updateButton( observationButton , "Observation" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/observation.gif" ) ) ) ;
+		return observationButton ;
 	}
 
 	/**
@@ -132,10 +132,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeComponentMenuButton()
 	{
 		if( componentMenuButton == null )
-			componentMenuButton = makeMenuButton( "Create an observation component." , new OtCompPopupMenu( editor.getTreeWidget() ) );
+			componentMenuButton = makeMenuButton( "Create an observation component." , new OtCompPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( componentMenuButton , "Component" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/component.gif" ) ) );
-		return componentMenuButton;
+		updateButton( componentMenuButton , "Component" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/component.gif" ) ) ) ;
+		return componentMenuButton ;
 	}
 
 	/**
@@ -147,10 +147,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeNoteButton()
 	{
 		if( noteButton == null )
-			noteButton = makeButton( "Create a note." , editor.getNoteAction() , false );
+			noteButton = makeButton( "Create a note." , editor.getNoteAction() , false ) ;
 
-		updateButton( noteButton , "Note" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/note-tiny.gif" ) ) );
-		return noteButton;
+		updateButton( noteButton , "Note" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/note-tiny.gif" ) ) ) ;
+		return noteButton ;
 	}
 
 	/**
@@ -162,10 +162,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeLibFolderButton()
 	{
 		if( libFolderButton == null )
-			libFolderButton = makeButton( "Create a library folder." , editor.getLibFolderAction() , false );
+			libFolderButton = makeButton( "Create a library folder." , editor.getLibFolderAction() , false ) ;
 
-		updateButton( libFolderButton , "Library" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/libFolder.gif" ) ) );
-		return libFolderButton;
+		updateButton( libFolderButton , "Library" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/libFolder.gif" ) ) ) ;
+		return libFolderButton ;
 	}
 
 	/**
@@ -177,10 +177,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeIterCompMenuButton()
 	{
 		if( iterCompMenuButton == null )
-			iterCompMenuButton = makeMenuButton( "Create an iterator component." , new OtIterCompPopupMenu( editor.getTreeWidget() ) );
+			iterCompMenuButton = makeMenuButton( "Create an iterator component." , new OtIterCompPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( iterCompMenuButton , "Iterator" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/iterComp.gif" ) ) );
-		return iterCompMenuButton;
+		updateButton( iterCompMenuButton , "Iterator" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/iterComp.gif" ) ) ) ;
+		return iterCompMenuButton ;
 	}
 
 	/**
@@ -192,10 +192,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeIterObsMenuButton()
 	{
 		if( iterObsMenuButton == null )
-			iterObsMenuButton = makeMenuButton( "Create an observation iterator." , new OtIterObsPopupMenu( editor.getTreeWidget() ) );
+			iterObsMenuButton = makeMenuButton( "Create an observation iterator." , new OtIterObsPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( iterObsMenuButton , "Observe" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/iterObs.gif" ) ) );
-		return iterObsMenuButton;
+		updateButton( iterObsMenuButton , "Observe" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/iterObs.gif" ) ) ) ;
+		return iterObsMenuButton ;
 	}
 
 	// The following three functions were added fir the OMP project.
@@ -211,10 +211,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeMsbFolderButton()
 	{
 		if( msbFolderButton == null )
-			msbFolderButton = makeButton( "Create an MSB folder." , editor.getMsbFolderAction() , false );
+			msbFolderButton = makeButton( "Create an MSB folder." , editor.getMsbFolderAction() , false ) ;
 
-		updateButton( msbFolderButton , "MSB Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/msbFolder.gif" ) ) );
-		return msbFolderButton;
+		updateButton( msbFolderButton , "MSB Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/msbFolder.gif" ) ) ) ;
+		return msbFolderButton ;
 	}
 
 	/**
@@ -227,10 +227,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeAndFolderButton()
 	{
 		if( andFolderButton == null )
-			andFolderButton = makeButton( "Create an AND folder." , editor.getAndFolderAction() , false );
+			andFolderButton = makeButton( "Create an AND folder." , editor.getAndFolderAction() , false ) ;
 
-		updateButton( andFolderButton , "AND Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/andFolder.gif" ) ) );
-		return andFolderButton;
+		updateButton( andFolderButton , "AND Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/andFolder.gif" ) ) ) ;
+		return andFolderButton ;
 	}
 
 	/**
@@ -243,10 +243,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeOrFolderButton()
 	{
 		if( orFolderButton == null )
-			orFolderButton = makeButton( "Create an OR folder." , editor.getOrFolderAction() , false );
+			orFolderButton = makeButton( "Create an OR folder." , editor.getOrFolderAction() , false ) ;
 
-		updateButton( orFolderButton , "OR Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/orFolder.gif" ) ) );
-		return orFolderButton;
+		updateButton( orFolderButton , "OR Folder" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/orFolder.gif" ) ) ) ;
+		return orFolderButton ;
 	}
 
 	/**
@@ -259,10 +259,10 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeSurveyButton()
 	{
 		if( surveyButton == null )
-			surveyButton = makeButton( "Create a Survey Container." , editor.getSurveyFolderAction() , false );
+			surveyButton = makeButton( "Create a Survey Container." , editor.getSurveyFolderAction() , false ) ;
 
-		updateButton( surveyButton , "Survey Container" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/surveyContainer.gif" ) ) );
-		return surveyButton;
+		updateButton( surveyButton , "Survey Container" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/surveyContainer.gif" ) ) ) ;
+		return surveyButton ;
 	}
 
 	/**
@@ -272,15 +272,15 @@ public class OtTreeToolBar extends GenericToolBar
 	public void update()
 	{
 		// added by MFO (06 July 2001)
-		makeMsbFolderButton();
-		makeAndFolderButton();
-		makeOrFolderButton();
+		makeMsbFolderButton() ;
+		makeAndFolderButton() ;
+		makeOrFolderButton() ;
 
-		makeObservationButton();
-		makeComponentMenuButton();
-		makeNoteButton();
-		makeLibFolderButton();
-		makeIterCompMenuButton();
-		makeIterObsMenuButton();
+		makeObservationButton() ;
+		makeComponentMenuButton() ;
+		makeNoteButton() ;
+		makeLibFolderButton() ;
+		makeIterCompMenuButton() ;
+		makeIterObsMenuButton() ;
 	}
 }

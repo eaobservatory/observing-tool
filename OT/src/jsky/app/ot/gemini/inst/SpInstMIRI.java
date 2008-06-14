@@ -4,29 +4,29 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.inst;
+package jsky.app.ot.gemini.inst ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
 
-import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp ;
 
 /**
  * The MIRI instrument.
  */
 public final class SpInstMIRI extends SpInstObsComp
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.MIRI" , "MIRI" );
+	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.MIRI" , "MIRI" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpInstMIRI() );
+		SpFactory.registerPrototype( new SpInstMIRI() ) ;
 	}
 
 	public SpInstMIRI()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -34,6 +34,6 @@ public final class SpInstMIRI extends SpInstObsComp
 	 */
 	public double[] getScienceArea()
 	{
-		return new double[] { 22. , 29. };
+		return new double[]{ 22. , 29. } ;
 	}
 }

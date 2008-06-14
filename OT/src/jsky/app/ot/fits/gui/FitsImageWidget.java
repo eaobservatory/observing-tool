@@ -4,44 +4,44 @@
 //
 // $Id$
 //
-package jsky.app.ot.fits.gui;
+package jsky.app.ot.fits.gui ;
 
-import diva.canvas.GraphicsPane;
-import diva.canvas.event.EventLayer;
+import diva.canvas.GraphicsPane ;
+import diva.canvas.event.EventLayer ;
 import java.awt.Component ;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
+import java.awt.event.MouseEvent ;
+import java.awt.geom.Point2D ;
 import java.util.Vector ;
-import jsky.app.ot.gui.image.ImageView;
-import jsky.app.ot.gui.image.ViewportImageWidget;
-import jsky.app.ot.gui.image.ViewportMouseEvent;
-import jsky.app.ot.util.Angle;
-import jsky.app.ot.util.PolygonD;
-import jsky.app.ot.util.ScreenMath;
-import gemini.util.TelescopePos;
-import jsky.catalog.gui.TablePlotter;
-import jsky.coords.WorldCoords;
-import jsky.coords.NamedCoordinates;
-import jsky.coords.CoordinateConverter;
-import jsky.navigator.Navigator;
+import jsky.app.ot.gui.image.ImageView ;
+import jsky.app.ot.gui.image.ViewportImageWidget ;
+import jsky.app.ot.gui.image.ViewportMouseEvent ;
+import jsky.app.ot.util.Angle ;
+import jsky.app.ot.util.PolygonD ;
+import jsky.app.ot.util.ScreenMath ;
+import gemini.util.TelescopePos ;
+import jsky.catalog.gui.TablePlotter ;
+import jsky.coords.WorldCoords ;
+import jsky.coords.NamedCoordinates ;
+import jsky.coords.CoordinateConverter ;
+import jsky.navigator.Navigator ;
 
 /**
  * A ViewportImageWidget that understands coordinate systems.
  */
 public class FitsImageWidget extends ViewportImageWidget
 {
-	protected FitsImageInfo _imgInfo = new FitsImageInfo();
-	protected boolean _imgInfoValid = false;
-	protected boolean _unsupportedProjection = false;
-	private Vector _infoObs = new Vector();
+	protected FitsImageInfo _imgInfo = new FitsImageInfo() ;
+	protected boolean _imgInfoValid = false ;
+	protected boolean _unsupportedProjection = false ;
+	private Vector<FitsImageInfoObserver> _infoObs = new Vector<FitsImageInfoObserver>() ;
 
 	public FitsImageWidget( Component parent )
 	{
-		super( parent );
+		super( parent ) ;
 
 		// We need to use the Diva classes to get the correct mouse events 
 		// (see ancestor class DivaGraphicsImageDisplay)
-		EventLayer layer = (( GraphicsPane )getCanvasPane()).getBackgroundEventLayer();
+		EventLayer layer = (( GraphicsPane )getCanvasPane()).getBackgroundEventLayer() ;
 	}
 
 	/** 
@@ -51,10 +51,10 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	protected NamedCoordinates getCatalogPosition( Point2D.Double p )
 	{
-		TablePlotter plotter = getNavigator().getPlotter();
+		TablePlotter plotter = getNavigator().getPlotter() ;
 		if( plotter == null )
-			return null;
-		return plotter.getCatalogPosition( p );
+			return null ;
+		return plotter.getCatalogPosition( p ) ;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	protected void makeNavigatorFrame()
 	{
-		super.makeNavigatorFrame();
+		super.makeNavigatorFrame() ;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public void setNavigator( Navigator navigator )
 	{
-		super.setNavigator( navigator );
+		super.setNavigator( navigator ) ;
 	}
 
 	/**
@@ -81,8 +81,8 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public void free()
 	{
-		_infoObs.removeAllElements();
-		super.free();
+		_infoObs.removeAllElements() ;
+		super.free() ;
 	}
 
 	/**
@@ -90,37 +90,37 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public boolean isInitialized()
 	{
-		return _imgInfoValid;
+		return _imgInfoValid ;
 	}
 
 	public synchronized void addInfoObserver( FitsImageInfoObserver obs )
 	{
 		if( !_infoObs.contains( obs ) )
-			_infoObs.addElement( obs );
+			_infoObs.addElement( obs ) ;
 	}
 
 	public synchronized void deleteInfoObserver( FitsImageInfoObserver obs )
 	{
-		_infoObs.removeElement( obs );
+		_infoObs.removeElement( obs ) ;
 	}
 
 	public synchronized void deleteInfoObservers()
 	{
-		_infoObs.removeAllElements();
+		_infoObs.removeAllElements() ;
 	}
 
 	private void _notifyInfoObs()
 	{
-		Vector v;
+		Vector v ;
 		synchronized( _infoObs )
 		{
-			v = ( Vector )_infoObs.clone();
+			v = ( Vector )_infoObs.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			FitsImageInfoObserver fiio = ( FitsImageInfoObserver )v.elementAt( i );
-			fiio.imageInfoUpdate( this , _imgInfo );
+			FitsImageInfoObserver fiio = ( FitsImageInfoObserver )v.elementAt( i ) ;
+			fiio.imageInfoUpdate( this , _imgInfo ) ;
 		}
 	}
 
@@ -131,54 +131,54 @@ public class FitsImageWidget extends ViewportImageWidget
 	{
 		if( !getCoordinateConverter().isWCS() )
 		{
-			_imgInfoValid = false;
-			return false;
+			_imgInfoValid = false ;
+			return false ;
 		}
 
 		try
 		{
 			// coords might be out of range
-			_imgInfo.baseScreenPos = raDecToImageWidget( ra , dec );
+			_imgInfo.baseScreenPos = raDecToImageWidget( ra , dec ) ;
 		}
 		catch( Exception e )
 		{
-			return false;
+			return false ;
 		}
 
-		_imgInfo.ra = ra;
-		_imgInfo.dec = dec;
+		_imgInfo.ra = ra ;
+		_imgInfo.dec = dec ;
 
 		// Get two points, one at the base and one an arcmin north of the base
-		Point2D.Double temp1 = raDecToImageView( ra , dec );
-		Point2D.Double temp2 = raDecToImageView( ra , dec + 0.01666667 );
+		Point2D.Double temp1 = raDecToImageView( ra , dec ) ;
+		Point2D.Double temp2 = raDecToImageView( ra , dec + 0.01666667 ) ;
 
 		// Get the difference in x,y and the distance between the two points
-		double xdprime = temp2.x - temp1.x;
-		double ydprime = temp2.y - temp1.y;
+		double xdprime = temp2.x - temp1.x ;
+		double ydprime = temp2.y - temp1.y ;
 
 		// Measure theta from the y axis:  ie. a cartisian coordinate system rotated by 90 degrees.
-		_imgInfo.theta = Angle.atanRadians( xdprime / ydprime );
+		_imgInfo.theta = Angle.atanRadians( xdprime / ydprime ) ;
 		if( ydprime > 0 )
-			_imgInfo.theta = Angle.normalizeRadians( _imgInfo.theta + Math.PI );
+			_imgInfo.theta = Angle.normalizeRadians( _imgInfo.theta + Math.PI ) ;
 
 		if( Angle.almostZeroRadians( _imgInfo.theta ) )
-			_imgInfo.theta = 0;
+			_imgInfo.theta = 0 ;
 
 		// Convert the two points to pixel coordinates on the screen
-		Point2D.Double temp3 = imageViewToImageWidget( temp1.x , temp1.y );
-		Point2D.Double temp4 = imageViewToImageWidget( temp2.x , temp2.y );
+		Point2D.Double temp3 = imageViewToImageWidget( temp1.x , temp1.y ) ;
+		Point2D.Double temp4 = imageViewToImageWidget( temp2.x , temp2.y ) ;
 
 		// Get the difference in x,y pixels between the two points
-		double xiprime = temp4.x - temp3.x;
-		double yiprime = temp4.y - temp3.y;
-		double r = Math.sqrt( xiprime * xiprime + yiprime * yiprime );
+		double xiprime = temp4.x - temp3.x ;
+		double yiprime = temp4.y - temp3.y ;
+		double r = Math.sqrt( xiprime * xiprime + yiprime * yiprime ) ;
 
 		// Divide the 1 min distance by 60 arcsec to get pixels/perArcsec
-		_imgInfo.pixelsPerArcsec = r / 60.0;
+		_imgInfo.pixelsPerArcsec = r / 60. ;
 
-		_imgInfoValid = true;
-		_notifyInfoObs();
-		return true;
+		_imgInfoValid = true ;
+		_notifyInfoObs() ;
+		return true ;
 	}
 
 	/**
@@ -188,13 +188,13 @@ public class FitsImageWidget extends ViewportImageWidget
 	{
 		if( !getCoordinateConverter().isWCS() )
 		{
-			_imgInfoValid = false;
-			return false;
+			_imgInfoValid = false ;
+			return false ;
 		}
-		_imgInfo.posAngleDegrees = posAngleDegrees;
+		_imgInfo.posAngleDegrees = posAngleDegrees ;
 
-		_notifyInfoObs();
-		return true;
+		_notifyInfoObs() ;
+		return true ;
 	}
 
 	/**
@@ -202,9 +202,9 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public double[] imageViewToRaDec( double x , double y )
 	{
-		Point2D.Double p = new Point2D.Double( x , y );
-		getCoordinateConverter().userToWorldCoords( p , false );
-		return new double[] { p.x , p.y };
+		Point2D.Double p = new Point2D.Double( x , y ) ;
+		getCoordinateConverter().userToWorldCoords( p , false ) ;
+		return new double[]{ p.x , p.y } ;
 	}
 
 	/**
@@ -212,9 +212,9 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	private Point2D.Double raDecToImageView( double ra , double dec )
 	{
-		Point2D.Double p = new Point2D.Double( ra , dec );
-		getCoordinateConverter().worldToUserCoords( p , false );
-		return p;
+		Point2D.Double p = new Point2D.Double( ra , dec ) ;
+		getCoordinateConverter().worldToUserCoords( p , false ) ;
+		return p ;
 	}
 
 	/**
@@ -222,9 +222,9 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public double[] imageWidgetToRaDec( int x , int y )
 	{
-		Point2D.Double p = new Point2D.Double( x , y );
-		getCoordinateConverter().screenToWorldCoords( p , false );
-		return new double[] { p.x , p.y };
+		Point2D.Double p = new Point2D.Double( x , y ) ;
+		getCoordinateConverter().screenToWorldCoords( p , false ) ;
+		return new double[]{ p.x , p.y } ;
 	}
 
 	/**
@@ -232,9 +232,9 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public Point2D.Double raDecToImageWidget( double ra , double dec )
 	{
-		Point2D.Double p = new Point2D.Double( ra , dec );
-		getCoordinateConverter().worldToScreenCoords( p , false );
-		return p;
+		Point2D.Double p = new Point2D.Double( ra , dec ) ;
+		getCoordinateConverter().worldToScreenCoords( p , false ) ;
+		return p ;
 	}
 
 	/**
@@ -243,16 +243,16 @@ public class FitsImageWidget extends ViewportImageWidget
 	public Point2D.Double offsetToImageWidget( double xOff , double yOff )
 	{
 		if( !_imgInfoValid )
-			return null;
+			return null ;
 
-		double ppa = _imgInfo.pixelsPerArcsec;
+		double ppa = _imgInfo.pixelsPerArcsec ;
 
-		double xPix = _imgInfo.baseScreenPos.x - ( xOff * ppa );
-		double yPix = _imgInfo.baseScreenPos.y - ( yOff * ppa );
+		double xPix = _imgInfo.baseScreenPos.x - ( xOff * ppa ) ;
+		double yPix = _imgInfo.baseScreenPos.y - ( yOff * ppa ) ;
 
-		Point2D.Double pd = skyRotate( xPix , yPix , 0.0 );
+		Point2D.Double pd = skyRotate( xPix , yPix , 0. ) ;
 
-		return pd;
+		return pd ;
 	}
 
 	/**
@@ -261,23 +261,23 @@ public class FitsImageWidget extends ViewportImageWidget
 	public double[] imageWidgetToOffset( double x , double y )
 	{
 		if( !_imgInfoValid )
-			return null;
+			return null ;
 
 		// unrotate - must correct for the fact that skyRotate will try to adjust
 		// for due north in the sky.  We ultimately want to rotate by
 		// -(posAngle + theta).  skyRotate will add theta to whatever is passed
 		// to it, so to unrotate we need -(posAngle + 2*theta)
-		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees );
-		double angle = -( posAngleRad + 2.0 * _imgInfo.theta );
-		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle );
+		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees ) ;
+		double angle = -( posAngleRad + 2.0 * _imgInfo.theta ) ;
+		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle ) ;
 
-		double ppa = _imgInfo.pixelsPerArcsec;
-		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa;
-		double yOff = ( _imgInfo.baseScreenPos.y - pd.y ) / ppa;
+		double ppa = _imgInfo.pixelsPerArcsec ;
+		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa ;
+		double yOff = ( _imgInfo.baseScreenPos.y - pd.y ) / ppa ;
 		xOff = Math.round( xOff * 1000. ) / 1000. ;
 		yOff = Math.round( yOff * 1000. ) / 1000. ;
-		double[] t = { xOff , yOff };
-		return t;
+		double[] t = { xOff , yOff } ;
+		return t ;
 	}
 
 	/**
@@ -286,15 +286,15 @@ public class FitsImageWidget extends ViewportImageWidget
 	public Point2D.Double telescopePosToImageWidget( TelescopePos tp )
 	{
 		if( !tp.isValid() )
-			return null;
+			return null ;
 
-		double x = tp.getXaxis();
-		double y = tp.getYaxis();
+		double x = tp.getXaxis() ;
+		double y = tp.getYaxis() ;
 
 		if( tp.isOffsetPosition() )
-			return offsetToImageWidget( x , y );
+			return offsetToImageWidget( x , y ) ;
 
-		return raDecToImageWidget( x , y );
+		return raDecToImageWidget( x , y ) ;
 	}
 
 	/**
@@ -304,13 +304,13 @@ public class FitsImageWidget extends ViewportImageWidget
 	public Point2D.Double skyRotate( double x , double y , double phi )
 	{
 		if( !_imgInfoValid )
-			return null;
+			return null ;
 
-		double angle = _imgInfo.theta + phi;
-		double xBase = ( double )_imgInfo.baseScreenPos.x;
-		double yBase = ( double )_imgInfo.baseScreenPos.y;
+		double angle = _imgInfo.theta + phi ;
+		double xBase = ( double )_imgInfo.baseScreenPos.x ;
+		double yBase = ( double )_imgInfo.baseScreenPos.y ;
 
-		return ScreenMath.rotateRadians( x , y , angle , xBase , yBase );
+		return ScreenMath.rotateRadians( x , y , angle , xBase , yBase ) ;
 	}
 
 	/**
@@ -320,65 +320,65 @@ public class FitsImageWidget extends ViewportImageWidget
 	public void skyRotate( PolygonD p , double phi )
 	{
 		if( !_imgInfoValid )
-			return;
+			return ;
 
-		double angle = _imgInfo.theta + phi;
-		double xBase = ( double )_imgInfo.baseScreenPos.x;
-		double yBase = ( double )_imgInfo.baseScreenPos.y;
+		double angle = _imgInfo.theta + phi ;
+		double xBase = ( double )_imgInfo.baseScreenPos.x ;
+		double yBase = ( double )_imgInfo.baseScreenPos.y ;
 
-		ScreenMath.rotateRadians( p , angle , xBase , yBase );
+		ScreenMath.rotateRadians( p , angle , xBase , yBase ) ;
 	}
 
 	protected void _notifyViewObs( ImageView iv )
 	{
-		setBasePos( _imgInfo.ra , _imgInfo.dec );
-		super._notifyViewObs( iv );
+		setBasePos( _imgInfo.ra , _imgInfo.dec ) ;
+		super._notifyViewObs( iv ) ;
 	}
 
 	protected ViewportMouseEvent _createMouseEvent()
 	{
-		return new FitsMouseEvent();
+		return new FitsMouseEvent() ;
 	}
 
 	protected boolean _initMouseEvent( MouseEvent evt , ViewportMouseEvent vme )
 	{
-		FitsMouseEvent fme = ( FitsMouseEvent )vme;
-		Point2D.Double mp = new Point2D.Double( evt.getX() , evt.getY() );
+		FitsMouseEvent fme = ( FitsMouseEvent )vme ;
+		Point2D.Double mp = new Point2D.Double( evt.getX() , evt.getY() ) ;
 
-		NamedCoordinates catalogPosition = null;
+		NamedCoordinates catalogPosition = null ;
 
 		// snap to catalog symbol position, if user clicked on one
 		if( evt.getID() == MouseEvent.MOUSE_CLICKED )
 		{
-			catalogPosition = getCatalogPosition( mp );
+			catalogPosition = getCatalogPosition( mp ) ;
 			if( catalogPosition != null )
 			{
-				fme.ra = catalogPosition.getCoordinates().getX();
-				fme.dec = catalogPosition.getCoordinates().getY();
+				fme.ra = catalogPosition.getCoordinates().getX() ;
+				fme.dec = catalogPosition.getCoordinates().getY() ;
 			}
 		}
 
-		Point2D.Double p = new Point2D.Double( mp.x , mp.y );
-		getCoordinateConverter().screenToUserCoords( p , false );
+		Point2D.Double p = new Point2D.Double( mp.x , mp.y ) ;
+		getCoordinateConverter().screenToUserCoords( p , false ) ;
 		if( catalogPosition == null )
 		{
-			WorldCoords worldCoords = userToWorldCoords( p.x , p.y );
-			fme.ra = worldCoords.getX();
-			fme.dec = worldCoords.getY();
+			WorldCoords worldCoords = userToWorldCoords( p.x , p.y ) ;
+			fme.ra = worldCoords.getX() ;
+			fme.dec = worldCoords.getY() ;
 		}
 
-		vme.id = evt.getID();
-		vme.source = this;
-		vme.xView = p.x;
-		vme.yView = p.y;
-		vme.xWidget = ( int )Math.round( mp.x );
-		vme.yWidget = ( int )Math.round( mp.y );
+		vme.id = evt.getID() ;
+		vme.source = this ;
+		vme.xView = p.x ;
+		vme.yView = p.y ;
+		vme.xWidget = ( int )Math.round( mp.x ) ;
+		vme.yWidget = ( int )Math.round( mp.y ) ;
 
-		double[] d = screenCoordsToOffset( mp.x , mp.y );
-		fme.xOffset = d[ 0 ];
-		fme.yOffset = d[ 1 ];
+		double[] d = screenCoordsToOffset( mp.x , mp.y ) ;
+		fme.xOffset = d[ 0 ] ;
+		fme.yOffset = d[ 1 ] ;
 
-		return true;
+		return true ;
 
 	}
 
@@ -390,17 +390,17 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	protected void newImage( boolean before )
 	{
-		super.newImage( before );
+		super.newImage( before ) ;
 		if( !before )
-			setBasePos( _imgInfo.ra , _imgInfo.dec );
+			setBasePos( _imgInfo.ra , _imgInfo.dec ) ;
 
-		updateImage();
+		updateImage() ;
 	}
 
 	/** Override base class version to create a blank image */
 	public void clear()
 	{
-		blankImage( _imgInfo.ra , _imgInfo.dec );
+		blankImage( _imgInfo.ra , _imgInfo.dec ) ;
 	}
 
 	/**
@@ -408,10 +408,10 @@ public class FitsImageWidget extends ViewportImageWidget
 	 */
 	public WorldCoords userToWorldCoords( double x , double y )
 	{
-		Point2D.Double p = new Point2D.Double( x , y );
-		CoordinateConverter converter = getCoordinateConverter();
-		converter.userToWorldCoords( p , false );
-		return new WorldCoords( p.x , p.y , converter.getEquinox() );
+		Point2D.Double p = new Point2D.Double( x , y ) ;
+		CoordinateConverter converter = getCoordinateConverter() ;
+		converter.userToWorldCoords( p , false ) ;
+		return new WorldCoords( p.x , p.y , converter.getEquinox() ) ;
 	}
 
 	/**
@@ -423,16 +423,16 @@ public class FitsImageWidget extends ViewportImageWidget
 		// for due north in the sky.  We ultimately want to rotate by
 		// -(posAngle + theta).  skyRotate will add theta to whatever is passed
 		// to it, so to unrotate we need -(posAngle + 2*theta)
-		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees );
-		double angle = -( posAngleRad + 2.0 * _imgInfo.theta );
-		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle );
+		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees ) ;
+		double angle = -( posAngleRad + 2.0 * _imgInfo.theta ) ;
+		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle ) ;
 
-		double ppa = _imgInfo.pixelsPerArcsec;
-		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa;
-		double yOff = ( _imgInfo.baseScreenPos.y - pd.y ) / ppa;
-		xOff = Math.round( xOff * 1000.0 ) / 1000.0;
-		yOff = Math.round( yOff * 1000.0 ) / 1000.0;
-		double[] t = { xOff , yOff };
-		return t;
+		double ppa = _imgInfo.pixelsPerArcsec ;
+		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa ;
+		double yOff = ( _imgInfo.baseScreenPos.y - pd.y ) / ppa ;
+		xOff = Math.round( xOff * 1000. ) / 1000. ;
+		yOff = Math.round( yOff * 1000. ) / 1000. ;
+		double[] t = { xOff , yOff } ;
+		return t ;
 	}
 }

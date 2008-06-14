@@ -4,39 +4,39 @@
 //
 // $Id$
 //
-package jsky.app.ot.editor;
+package jsky.app.ot.editor ;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener ;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel ;
+import javax.swing.JComboBox ;
 
-import gemini.sp.SpItem;
-import gemini.sp.iter.SpIterObserveBase;
+import gemini.sp.SpItem ;
+import gemini.sp.iter.SpIterObserveBase ;
 
 /**
  * This is the editor for Observe iterator component.
  */
 public final class EdIterObserve extends OtItemEditor implements ActionListener
 {
-	private IterObserveGUI _w; // the GUI layout panel
+	private IterObserveGUI _w ; // the GUI layout panel
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
 	public EdIterObserve()
 	{
-		_title = "Observe Iterator";
-		_presSource = _w = new IterObserveGUI();
-		_description = "Observe the specified number of times.";
+		_title = "Observe Iterator" ;
+		_presSource = _w = new IterObserveGUI() ;
+		_description = "Observe the specified number of times." ;
 
 		// Note: The original bongo code used a SpinBoxWidget, but since Swing doesn't have one, try using a JComboBox instead...
-		Object[] ar = new Object[ 99 ];
+		Object[] ar = new Object[ 99 ] ;
 		for( int i = 0 ; i < 99 ; i++ )
-			ar[ i ] = new Integer( i + 1 );
-		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) );
-		_w.repeatComboBox.addActionListener( this );
+			ar[ i ] = new Integer( i + 1 ) ;
+		_w.repeatComboBox.setModel( new DefaultComboBoxModel( ar ) ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
 	}
 
 	/**
@@ -44,9 +44,9 @@ public final class EdIterObserve extends OtItemEditor implements ActionListener
 	 */
 	public void setup( SpItem spItem )
 	{
-		super.setup( spItem );
-		setEditorWindowTitle( "Observe Iterator" );
-		setEditorWindowDescription( "Take the specified number of exposures." );
+		super.setup( spItem ) ;
+		setEditorWindowTitle( "Observe Iterator" ) ;
+		setEditorWindowDescription( "Take the specified number of exposures." ) ;
 	}
 
 	/**
@@ -55,15 +55,15 @@ public final class EdIterObserve extends OtItemEditor implements ActionListener
 	 */
 	protected void _updateWidgets()
 	{
-		JComboBox sbw;
+		JComboBox sbw ;
 
-		SpIterObserveBase iterObserve = ( SpIterObserveBase )_spItem;
+		SpIterObserveBase iterObserve = ( SpIterObserveBase )_spItem ;
 
 		// Repetitions
-		sbw = _w.repeatComboBox;
-		_w.repeatComboBox.removeActionListener( this );
-		sbw.setSelectedItem( new Integer( iterObserve.getCount() ) );
-		_w.repeatComboBox.addActionListener( this );
+		sbw = _w.repeatComboBox ;
+		_w.repeatComboBox.removeActionListener( this ) ;
+		sbw.setSelectedItem( new Integer( iterObserve.getCount() ) ) ;
+		_w.repeatComboBox.addActionListener( this ) ;
 	}
 
 	/**
@@ -71,11 +71,11 @@ public final class EdIterObserve extends OtItemEditor implements ActionListener
 	 */
 	public void actionPerformed( ActionEvent evt )
 	{
-		SpIterObserveBase iterObserve = ( SpIterObserveBase )_spItem;
+		SpIterObserveBase iterObserve = ( SpIterObserveBase )_spItem ;
 
-		JComboBox sbw = _w.repeatComboBox;
-		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue();
+		JComboBox sbw = _w.repeatComboBox ;
+		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
 
-		iterObserve.setCount( i );
+		iterObserve.setCount( i ) ;
 	}
 }

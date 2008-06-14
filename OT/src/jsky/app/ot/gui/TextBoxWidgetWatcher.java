@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package jsky.app.ot.gui;
+package jsky.app.ot.gui ;
 
 /**
  * A class implements this interface if it wants to register itself
@@ -18,10 +18,10 @@ public interface TextBoxWidgetWatcher
 	/**
 	 * A key was pressed in the given TextBoxWidgetExt.
 	 */
-	public void textBoxKeyPress( TextBoxWidgetExt tbwe );
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe ) ;
 
 	/**
 	 * A return key was pressed in the given TextBoxWidgetExt.
 	 */
-	public void textBoxAction( TextBoxWidgetExt tbwe );
+	public void textBoxAction( TextBoxWidgetExt tbwe ) ;
 }

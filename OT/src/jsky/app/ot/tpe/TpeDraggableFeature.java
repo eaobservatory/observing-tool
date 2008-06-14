@@ -4,10 +4,10 @@
 //
 // $Id$
 //
-package jsky.app.ot.tpe;
+package jsky.app.ot.tpe ;
 
-import jsky.app.ot.fits.gui.FitsImageInfo;
-import jsky.app.ot.fits.gui.FitsMouseEvent;
+import jsky.app.ot.fits.gui.FitsImageInfo ;
+import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
 /**
  * This interface should be supported by TpeImageFeatures that are
@@ -18,15 +18,15 @@ public interface TpeDraggableFeature
 	/**
 	 * Start dragging the object.
 	 */
-	public boolean dragStart( FitsMouseEvent evt , FitsImageInfo fii );
+	public boolean dragStart( FitsMouseEvent evt , FitsImageInfo fii ) ;
 
 	/**
 	 * Drag to a new location.
 	 */
-	public void drag( FitsMouseEvent evt );
+	public void drag( FitsMouseEvent evt ) ;
 
 	/**
 	 * Stop dragging.
 	 */
-	public void dragStop( FitsMouseEvent evt );
+	public void dragStop( FitsMouseEvent evt ) ;
 }

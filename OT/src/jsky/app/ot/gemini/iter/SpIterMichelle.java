@@ -4,26 +4,26 @@
 //
 // $Id$
 //
-package jsky.app.ot.gemini.iter;
+package jsky.app.ot.gemini.iter ;
 
-import jsky.app.ot.gemini.inst.SpInstMichelleConstants;
+import jsky.app.ot.gemini.inst.SpInstMichelleConstants ;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
-import gemini.sp.iter.IterConfigItem;
-import gemini.sp.iter.SpIterConfigObs;
+import gemini.sp.SpFactory ;
+import gemini.sp.SpType ;
+import gemini.sp.iter.IterConfigItem ;
+import gemini.sp.iter.SpIterConfigObs ;
 
 /**
  * The Michelle configuration iterator.
  */
 public class SpIterMichelle extends SpIterConfigObs
 {
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelle" , "Michelle" );
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelle" , "Michelle" ) ;
 
 	// Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterMichelle() );
+		SpFactory.registerPrototype( new SpIterMichelle() ) ;
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class SpIterMichelle extends SpIterConfigObs
 	 */
 	public SpIterMichelle()
 	{
-		super( SP_TYPE );
+		super( SP_TYPE ) ;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class SpIterMichelle extends SpIterConfigObs
 	 */
 	public String getItemName()
 	{
-		return "Michelle";
+		return "Michelle" ;
 	}
 
 	/**
@@ -48,21 +48,21 @@ public class SpIterMichelle extends SpIterConfigObs
 	 */
 	public IterConfigItem[] getAvailableItems()
 	{
-		IterConfigItem iciCamera = new IterConfigItem( "Camera" , SpInstMichelleConstants.ATTR_CAMERA + "Iter" , SpInstMichelleConstants.CAMERAS );
-		IterConfigItem iciDisperser = new IterConfigItem( "Disperser" , SpInstMichelleConstants.ATTR_DISPERSER + "Iter" , SpInstMichelleConstants.DISPERSERS );
-		IterConfigItem iciMask = new IterConfigItem( "Mask" , SpInstMichelleConstants.ATTR_MASK + "Iter" , SpInstMichelleConstants.MASKS );
-		IterConfigItem iciPosAngle = new IterConfigItem( "Pos. Angle" , SpInstMichelleConstants.ATTR_POS_ANGLE + "Iter" , null );
-		IterConfigItem iciCentWavelength = new IterConfigItem( "Central Wavelen." , SpInstMichelleConstants.ATTR_CENTRAL_WAVELENGTH + "Iter" , null );
+		IterConfigItem iciCamera = new IterConfigItem( "Camera" , SpInstMichelleConstants.ATTR_CAMERA + "Iter" , SpInstMichelleConstants.CAMERAS ) ;
+		IterConfigItem iciDisperser = new IterConfigItem( "Disperser" , SpInstMichelleConstants.ATTR_DISPERSER + "Iter" , SpInstMichelleConstants.DISPERSERS ) ;
+		IterConfigItem iciMask = new IterConfigItem( "Mask" , SpInstMichelleConstants.ATTR_MASK + "Iter" , SpInstMichelleConstants.MASKS ) ;
+		IterConfigItem iciPosAngle = new IterConfigItem( "Pos. Angle" , SpInstMichelleConstants.ATTR_POS_ANGLE + "Iter" , null ) ;
+		IterConfigItem iciCentWavelength = new IterConfigItem( "Central Wavelen." , SpInstMichelleConstants.ATTR_CENTRAL_WAVELENGTH + "Iter" , null ) ;
 
 		// Filters
-		int n = SpInstMichelleConstants.FILTERS.length;
-		String[] filters = new String[ n ];
+		int n = SpInstMichelleConstants.FILTERS.length ;
+		String[] filters = new String[ n ] ;
 		for( int i = 0 ; i < n ; ++i )
-			filters[ i ] = SpInstMichelleConstants.FILTERS[ i ][ 0 ];
+			filters[ i ] = SpInstMichelleConstants.FILTERS[ i ][ 0 ] ;
 
-		IterConfigItem iciFilter = new IterConfigItem( "Filter" , SpInstMichelleConstants.ATTR_FILTER + "Iter" , filters );
-		IterConfigItem[] iciA = { iciCamera , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciPosAngle , iciDisperser , iciMask , iciCentWavelength };
+		IterConfigItem iciFilter = new IterConfigItem( "Filter" , SpInstMichelleConstants.ATTR_FILTER + "Iter" , filters ) ;
+		IterConfigItem[] iciA = { iciCamera , iciFilter , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciPosAngle , iciDisperser , iciMask , iciCentWavelength } ;
 
-		return iciA;
+		return iciA ;
 	}
 }
