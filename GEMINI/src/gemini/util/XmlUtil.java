@@ -23,9 +23,9 @@ import java.util.StringTokenizer ;
  * Converts
  * 
  * <pre>
- * '&lt ;' to and from &quot ;&amp ;lt ;&quot ;    &lt ;!-- '&lt ;' to and from &quot ;&lt ;&quot ; --&gt ;
- * '&gt ;' to and from &quot ;&amp ;gt ;&quot ;    &lt ;!-- '&gt ;' to and from &quot ;&gt ;&quot ; --&gt ;
- * '&amp ;' to and from &quot ;&amp ;amp ;&quot ;  &lt ;!-- '&amp ;' to and from &quot ;&amp ;&quot ; --&gt ;
+ * '&lt;' to and from &quot;&amp;lt ;&quot;    &lt;!-- '&lt;' to and from &quot;&lt;&quot; --&gt;
+ * '&gt;' to and from &quot;&amp;gt ;&quot;    &lt;!-- '&gt;' to and from &quot;&gt;&quot; --&gt;
+ * '&amp;' to and from &quot;&amp;amp ;&quot;  &lt;!-- '&amp;' to and from &quot;&amp;&quot; --&gt;
  * </pre>
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
@@ -45,13 +45,13 @@ public class XmlUtil
 			switch( ascii.charAt( i ) )
 			{
 				case '<' :
-					result.append( "&lt ;" ) ;
+					result.append( "&lt;" ) ;
 					break ;
 				case '>' :
-					result.append( "&gt ;" ) ;
+					result.append( "&gt;" ) ;
 					break ;
 				case '&' :
-					result.append( "&amp ;" ) ;
+					result.append( "&amp;" ) ;
 					break ;
 				default :
 					result.append( ascii.charAt( i ) ) ;
@@ -74,17 +74,17 @@ public class XmlUtil
 		{
 			if( xml.charAt( i ) == '&' )
 			{
-				if( xml.substring( i ).startsWith( "&lt ;" ) )
+				if( xml.substring( i ).startsWith( "&lt;" ) )
 				{
 					result.append( "<" ) ;
 					i += 3 ;
 				}
-				else if( xml.substring( i ).startsWith( "&gt ;" ) )
+				else if( xml.substring( i ).startsWith( "&gt;" ) )
 				{
 					result.append( ">" ) ;
 					i += 3 ;
 				}
-				else if( xml.substring( i ).startsWith( "&amp ;" ) )
+				else if( xml.substring( i ).startsWith( "&amp;" ) )
 				{
 					result.append( "&" ) ;
 					i += 4 ;
@@ -131,8 +131,8 @@ public class XmlUtil
      * Note that this method does not perform any formal XML parsing at all. All
      * it does is extracting all the lines betwenn the occurrances of the start
      * and end tag of an element (including these lines themselves). Therefore
-     * the method can <b>not</b> extract empty elements such as &lt ;element
-     * attr="value"/&gt ;
+     * the method can <b>not</b> extract empty elements such as &lt;element
+     * attr="value"/&gt;
      * 
      * @param element
      *            Name of the XML element to be extracted.
