@@ -55,7 +55,7 @@ public class DrUtil
 	{
 		double airmass = 0. ;
 		if( el != 0. )
-			airmass = Math.abs( 1. / Math.sin( el ) ) ;
+			airmass = Math.abs( 1. / Math.cos( el ) ) ;
 		return airmass ;
 	}
 
