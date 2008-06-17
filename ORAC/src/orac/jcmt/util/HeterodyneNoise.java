@@ -437,6 +437,17 @@ public class HeterodyneNoise
 		rmsNoise *= multiscan ;
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
+	
+	public static double getHeterodyneNoise( SpIterJCMTObs obs , SpInstHeterodyne instrument , double tSys )
+	{
+		// Set up all the vectors required
+		if( !initialised )
+			init() ;
+
+		//Now calulate the noise based on this
+		double noise = getNoise( obs , instrument , tSys ) ;
+		return noise ;
+	}
 
 	public static double getHeterodyneNoise( SpIterJCMTObs obs , SpInstHeterodyne instrument , double noiseCalculationTau , double airmass )
 	{
@@ -448,8 +459,7 @@ public class HeterodyneNoise
 		double tSys = getTsys( instrument.getFrontEnd() , noiseCalculationTau , airmass , ( instrument.getRestFrequency( 0 ) ) / 1.0e9 , instrument.getMode().equalsIgnoreCase( "ssb" ) ) ;
 
 		//Now calulate the noise based on this
-		double noise = getNoise( obs , instrument , tSys ) ;
-		return noise ;
+		return getHeterodyneNoise( obs , instrument , tSys ) ;
 	}
 
 	public static void main( String[] args ){}

@@ -674,7 +674,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 ) ;
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tSys ) , 3 ) ;
 		else
 			return -999.9 ;
 	}

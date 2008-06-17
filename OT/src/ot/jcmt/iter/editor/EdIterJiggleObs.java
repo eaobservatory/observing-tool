@@ -278,7 +278,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 ) ;
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tSys ) , 3 ) ;
 		else
 			return -999.9 ;
 	}
