@@ -498,12 +498,12 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 								v.add( "-setHeader USTEP_I 1" ) ;
 								v.add( "-setHeader USTEP_X 0.0" ) ;
 								v.add( "-setHeader USTEP_Y 0.0" ) ;
-								double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
-								double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
-								String instruction = "offset " + xAxis + " " + yAxis ;
-								v.add( instruction ) ;
-								firstRun = false ;
 							}
+							double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
+							double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
+							String instruction = "offset " + xAxis + " " + yAxis ;
+							v.add( instruction ) ;
+							firstRun = false ;
 						}
 						if( !translatable.equals( previous ) )
 							translatable.translateProlog( v ) ;
