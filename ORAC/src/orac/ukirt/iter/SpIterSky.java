@@ -212,22 +212,31 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			v.add( "setHeader GRPMEM " + ( recipe.getSkyInGroup() ? "T" : "F" ) ) ;
 			v.add( "setHeader RECIPE " + recipe.getSkyRecipeName() ) ;
 		}
-		
-		int index = Integer.parseInt( getSky().substring( 3 ) ) ;
-		SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index ) ;
 
-		v.add( "slew MAIN " + getSky() ) ;
-		
-		if( thisGuide != null )
-			v.add( "slew GUIDE SKYGUIDE" + index ) ;
-		
-		v.add( "-WAIT ALL" ) ;
+		if( !"SKY".equals( getSky() ) )
+		{
+			int index = 0 ;
+			String skyIndex = getSky().substring( 3 ) ;
+			if( skyIndex.matches( "\\d+" ) )
+				index = Integer.parseInt( skyIndex ) ;
+			SpTelescopePos thisGuide = ( SpTelescopePos )SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index ) ;
+	
+			v.add( "slew MAIN " + getSky() ) ;
+			
+			if( thisGuide != null )
+				v.add( "slew GUIDE SKYGUIDE" + index ) ;
+			
+			v.add( "-WAIT ALL" ) ;
+		}
 	}
 	
 	public void translateEpilog( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		v.add( "do 1 _slew_all" ) ;
-		v.add( "-WAIT ALL" ) ;
+		if( !"SKY".equals( getSky() ) )
+		{
+			v.add( "do 1 _slew_all" ) ;
+			v.add( "-WAIT ALL" ) ;
+		}
 	}
 	
 	public void translate( Vector<String> v )
