@@ -461,7 +461,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				_w.noiseTextBox.setValue( calculateNoise() ) ;
 			updateSizeOfPixels() ;
 			resetTPE() ;
-
 		}
 		else if( tbwe == _w.posAngle )
 		{
@@ -506,7 +505,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		updateTimes() ;
 		updateThermometer() ;
-		super._updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
