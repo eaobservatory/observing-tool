@@ -52,10 +52,6 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 		_w.switchingMode.setVisible( false ) ;
 		_w.switchingModeLabel.setVisible( false ) ;
 		_w.frequencyPanel.setVisible( false ) ;
-
-		_w.stepsLabel.setVisible( false ) ;
-		_w.steps.setVisible( false ) ;
-		_w.mmLabel.setVisible( false ) ;
 	}
 
 	/**
@@ -70,8 +66,7 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 	protected void _updateWidgets()
 	{
 		_w.axis.setValue( _iterObs.getAxis() ) ;
-		if( !SCUBA2 )
-			_w.steps.setValue( _iterObs.getSteps() ) ;
+		_w.steps.setValue( _iterObs.getSteps() ) ;
 		_w.focusPoints.setValue( _iterObs.getFocusPoints() ) ;
 
 		super._updateWidgets() ;
@@ -80,7 +75,7 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 
-		if( tbwe == _w.steps && !SCUBA2 )
+		if( tbwe == _w.steps )
 			_iterObs.setSteps( _w.steps.getValue() ) ;
 		else if( tbwe == _w.focusPoints )
 			_iterObs.setFocusPoints( _w.focusPoints.getValue() ) ;
@@ -93,11 +88,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 		if( ddlbwe == _w.axis )
 		{
 			_iterObs.setAxis( SpIterFocusObs.AXES[ index ] ) ;
-			if( !SCUBA2 )
-			{
-				_iterObs.setSteps( SpIterFocusObs.getDefaultSteps( SpIterFocusObs.AXES[ index ] ) ) ;
-				_w.steps.setValue( _iterObs.getSteps() ) ;
-			}
+			_iterObs.setSteps( SpIterFocusObs.getDefaultSteps( SpIterFocusObs.AXES[ index ] ) ) ;
+			_w.steps.setValue( _iterObs.getSteps() ) ;
 		}
 		else
 		{
@@ -117,22 +109,12 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 				_w.switchingMode.setVisible( false ) ;
 				_w.switchingModeLabel.setVisible( false ) ;
 
-				_w.stepsLabel.setVisible( true ) ;
-				_w.steps.setVisible( true ) ;
-				_w.mmLabel.setVisible( true ) ;
-
 				SCUBA2 = false ;
 			}
 			else if( spInstObsComp instanceof SpInstSCUBA2 )
 			{
 				_w.acsisPanel.setVisible( false ) ;
 				_iterObs.rmSwitchingMode() ;
-
-				_w.stepsLabel.setVisible( false ) ;
-				_w.steps.setVisible( false ) ;
-				_w.mmLabel.setVisible( false ) ;
-
-				_avTab.noNotifyRm( SpJCMTConstants.ATTR_STEPS ) ;
 
 				SCUBA2 = true ;
 			}
