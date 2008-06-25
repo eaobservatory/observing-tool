@@ -23,6 +23,8 @@ import java.util.Enumeration ;
 import java.util.Hashtable ;
 import java.util.Vector ;
 
+import gemini.util.TranslationUtils ;
+
 /**
  * The observation item. In addition to other attributes, the SpObs class
  * contains two attributes that determine whether the observation is chained to
@@ -536,7 +538,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		try
 		{
 			Enumeration e = this.children() ;
-			gemini.util.TranslationUtils.recurse( e , v ) ;
+			TranslationUtils.recurse( e , v ) ;
 		}
 		catch( SpTranslationNotSupportedException e )
 		{

@@ -25,6 +25,8 @@ import java.util.Enumeration ;
 import java.util.Hashtable ;
 import java.util.Vector ;
 
+import gemini.util.TranslationUtils ;
+
 /**
  * The WFCAM configuration iterator.
  */
@@ -198,7 +200,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 
 			// translate all the children...
 			Enumeration e = this.children() ;
-			gemini.util.TranslationUtils.recurse( e , v ) ;
+			TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }

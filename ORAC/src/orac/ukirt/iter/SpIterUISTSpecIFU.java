@@ -25,6 +25,8 @@ import java.util.Enumeration ;
 import java.util.Hashtable ;
 import java.util.Vector ;
 
+import gemini.util.TranslationUtils ;
+
 /**
  * The UIST spectroscopy/IFU configuration iterator.
  */
@@ -207,7 +209,7 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 			v.add( "define_inst UIST" + xAper + yAper + zAper + lAper ) ;
 			Enumeration e = this.children() ;
-			gemini.util.TranslationUtils.recurse( e , v ) ;
+			TranslationUtils.recurse( e , v ) ;
 		}
 	}
 }
