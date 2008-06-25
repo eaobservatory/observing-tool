@@ -1043,7 +1043,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			{
 				String firstLetter = eye.substring( 0 , 1 ) ;
 				eye = firstLetter.toUpperCase() + eye.substring( 1 , eye.length() ) ;
-				DialogUtil.error( this , "Can not add a " + eye + " to an SCUBA-2 observation" ) ;
+				DialogUtil.error( this , "Can not add a " + eye + " to a SCUBA-2 observation" ) ;
 				canAdd = false ;
 			}
 		}
