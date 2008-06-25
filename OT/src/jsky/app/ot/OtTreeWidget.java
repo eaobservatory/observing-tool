@@ -1054,7 +1054,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
-		String[] eyes = { "dream" } ;
+		String[] eyes = { "dream" , "arrayTest" } ;
 		Class[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
