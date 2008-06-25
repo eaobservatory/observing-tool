@@ -457,10 +457,8 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 					if( !translatable.equals( previous ) )
 					{
 						if( previous != null )
-						{
 							previous.translateEpilog( v ) ;
-							previous = translatable ;
-						}
+						previous = translatable ;
 						translatable.translateProlog( v ) ;
 					}
 					translatable.translate( v ) ;
