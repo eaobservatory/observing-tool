@@ -471,7 +471,25 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		{
 			for( int i = 0 ; i < _posList.size() ; i++ )
 			{
-				boolean firstRun = true ;
+				if( "WFCAM".equalsIgnoreCase( SpTreeMan.findInstrument( this ).getTitle() ) )
+				{
+					// Add CASU pipeline headers
+					v.add( "title jitter " + ( i + 1 ) ) ;
+					v.add( "-setHeader NJITTER " + _posList.size() ) ;
+					v.add( "-setHeader JITTER_I " + ( i + 1 ) ) ;
+					v.add( "-setHeader JITTER_X " + _posList.getPositionAt( i ).getXaxis() ) ;
+					v.add( "-setHeader JITTER_Y " + _posList.getPositionAt( i ).getYaxis() ) ;
+					v.add( "-setHeader NUSTEP 1" ) ;
+					v.add( "-setHeader USTEP_I 1" ) ;
+					v.add( "-setHeader USTEP_X 0.0" ) ;
+					v.add( "-setHeader USTEP_Y 0.0" ) ;
+				}
+				
+				double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
+				double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
+				String instruction = "offset " + xAxis + " " + yAxis ;
+				v.add( instruction ) ;
+				
 				children = this.children() ;
 				while( children.hasMoreElements() )
 				{
@@ -479,34 +497,13 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 					if( child instanceof SpTranslatable )
 					{
 						translatable = ( SpTranslatable )child ;
-						if( !translatable.equals( previous ) && previous != null )
-						{
-							previous.translateEpilog( v ) ;
-							previous = translatable ;
-						}
-						if( firstRun )
-						{
-							if( "WFCAM".equalsIgnoreCase( SpTreeMan.findInstrument( this ).getTitle() ) )
-							{
-								// Add CASU pipeline headers
-								v.add( "title jitter " + ( i + 1 ) ) ;
-								v.add( "-setHeader NJITTER " + _posList.size() ) ;
-								v.add( "-setHeader JITTER_I " + ( i + 1 ) ) ;
-								v.add( "-setHeader JITTER_X " + _posList.getPositionAt( i ).getXaxis() ) ;
-								v.add( "-setHeader JITTER_Y " + _posList.getPositionAt( i ).getYaxis() ) ;
-								v.add( "-setHeader NUSTEP 1" ) ;
-								v.add( "-setHeader USTEP_I 1" ) ;
-								v.add( "-setHeader USTEP_X 0.0" ) ;
-								v.add( "-setHeader USTEP_Y 0.0" ) ;
-							}
-							double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
-							double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
-							String instruction = "offset " + xAxis + " " + yAxis ;
-							v.add( instruction ) ;
-							firstRun = false ;
-						}
 						if( !translatable.equals( previous ) )
+						{
+							if( previous != null )
+								previous.translateEpilog( v ) ;
+							previous = translatable ;
 							translatable.translateProlog( v ) ;
+						}
 						translatable.translate( v ) ;
 					}
 				}
