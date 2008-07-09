@@ -239,7 +239,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0 ;
+		double elapsedTime = 0. ;
 		Enumeration children = children() ;
 		SpItem spItem = null ;
 		boolean containsSurvey = false ;
@@ -281,7 +281,7 @@ public class SpMSB extends SpObsContextItem
 
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0 ;
+		double elapsedTime = 0. ;
 		Enumeration children = children() ;
 		SpItem spItem = null ;
 
@@ -295,10 +295,10 @@ public class SpMSB extends SpObsContextItem
 		{
 			spItem = ( SpItem )children.nextElement() ;
 
-			if( spItem instanceof SpObs && ( !( ( ( SpObs )spItem ).isOptional() ) || isUKIRT ) )
+			if( spItem instanceof SpObs && ( !( (( SpObs )spItem).isOptional() ) || isUKIRT ) )
 				elapsedTime += ( ( SpObs )spItem ).getElapsedTime() ;
 			else if( spItem instanceof SpSurveyContainer )
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
 		}
 
 		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this ) ;
