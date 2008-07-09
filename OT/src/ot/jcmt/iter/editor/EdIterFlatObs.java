@@ -9,7 +9,9 @@
 // $Id$
 package ot.jcmt.iter.editor ;
 
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import orac.jcmt.iter.SpIterFlatObs ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import gemini.sp.SpItem ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
@@ -21,6 +23,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 public final class EdIterFlatObs extends EdIterJCMTGeneric
 {
 	private IterFlatObsGUI _w ; // the GUI layout panel
+	private SpIterFlatObs _iterObs ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -34,7 +37,7 @@ public final class EdIterFlatObs extends EdIterJCMTGeneric
 		_description = "Flat Observation Mode" ;
 
 		_w.jPanel1.setVisible( false ) ;
-
+		_w.flatSourceComboBox.addWatcher( this ) ;
 	}
 
 	/**
@@ -43,11 +46,25 @@ public final class EdIterFlatObs extends EdIterJCMTGeneric
 	public void setup( SpItem spItem )
 	{
 		_iterObs = ( SpIterFlatObs )spItem ;
+		String[] choices = _iterObs.getFlatSources() ;
+		if( choices != null )
+			_w.flatSourceComboBox.setChoices( choices ) ;
 		super.setup( spItem ) ;
+	}
+	
+	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	{
+		if( ddlbwe == _w.flatSourceComboBox )
+			_iterObs.setFlatSource( ( String )_w.flatSourceComboBox.getSelectedItem() ) ;
+		else
+			super.dropDownListBoxAction( ddlbwe , index , val ) ;
 	}
 
 	protected void _updateWidgets()
 	{
+		String flatSource = _iterObs.getFlatSource() ;
+		if( flatSource != null )
+			_w.flatSourceComboBox.setSelectedItem( flatSource ) ;
 		super._updateWidgets() ;
 	}
 
@@ -55,5 +72,6 @@ public final class EdIterFlatObs extends EdIterJCMTGeneric
 	{
 		_w.jPanel1.setVisible( false ) ;
 		super.setInstrument( spInstObsComp ) ;
+		_w.setVisible( spInstObsComp != null && spInstObsComp instanceof SpInstSCUBA2 ) ;
 	}
 }

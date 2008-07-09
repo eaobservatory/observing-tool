@@ -226,6 +226,16 @@ public interface SpJCMTConstants
 	public static final String ATTR_UNITS = "units" ;
 
 	/**
+	 * Flat iterator 
+	 */
+	public static final String ATTR_FLAT_SOURCE = "flatSource" ;
+	
+	/**
+	 * Flat sources
+	 */
+	public static final String[] SCUBA2_FLAT_SOURCES = { "DARK" , "BLACKBODY" } ;
+	
+	/**
 	 * Constant value.
 	 * @see #ATTR_UNITS
 	 */
