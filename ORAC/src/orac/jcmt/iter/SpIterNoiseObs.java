@@ -58,7 +58,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 		{
 			for( int i = 0 ; i < NOISE_SOURCES.length ; i++ )
 			{
-				if( noiseSource.equals( NOISE_SOURCES[ i ] ) )
+				if( NOISE_SOURCES[ i ].equals( noiseSource ) )
 					_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] ) ;
 			}
 		}
@@ -83,17 +83,13 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	public void setupForHeterodyne()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
-		NOISE_SOURCES = HETERODYNE_NOISE_SOURCES ;
-		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
+		checkSources( HETERODYNE_NOISE_SOURCES ) ;
 	}
 
 	public void setupForSCUBA2()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
-		NOISE_SOURCES = SCUBA2_NOISE_SOURCES ;
-		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
+		checkSources( SCUBA2_NOISE_SOURCES ) ;
 	}
 	
 	public void setupForSCUBA()
@@ -101,5 +97,15 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
 		NOISE_SOURCES = null ;
+	}
+	
+	private void checkSources( String[] sources )
+	{
+		if( sources != null && NOISE_SOURCES != sources )
+		{
+			_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
+			NOISE_SOURCES = sources ;
+			_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
+		}
 	}
 }
