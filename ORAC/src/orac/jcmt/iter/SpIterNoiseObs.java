@@ -13,6 +13,7 @@ import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.inst.SpInstSCUBA ;
 
 /**
  * Noise Iterator for JCMT (SCUBA).
@@ -22,6 +23,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 public class SpIterNoiseObs extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "noiseObs" , "Noise" ) ;
+	private String[] NOISE_SOURCES = null ;
 
 	// Register the prototype.
 	static
@@ -35,7 +37,6 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	public SpIterNoiseObs()
 	{
 		super( SP_TYPE ) ;
-		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
 	}
 
 	/** Get the noise source. */
@@ -53,18 +54,27 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	 */
 	public void setNoiseSource( String noiseSource )
 	{
-		for( int i = 0 ; i < NOISE_SOURCES.length ; i++ )
+		if( NOISE_SOURCES != null )
 		{
-			if( noiseSource.equals( NOISE_SOURCES[ i ] ) )
-				_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] ) ;
+			for( int i = 0 ; i < NOISE_SOURCES.length ; i++ )
+			{
+				if( noiseSource.equals( NOISE_SOURCES[ i ] ) )
+					_avTable.set( ATTR_NOISE_SOURCE , NOISE_SOURCES[ i ] ) ;
+			}
 		}
+	}
+	
+	/** Get the selection of noise sources. */
+	public String[] getNoiseSources()
+	{
+		return NOISE_SOURCES ;
 	}
 
 	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		if( instrument instanceof SpInstSCUBA )
 			time = 1.1 + SCUBA_STARTUP_TIME ;
 
 		return time ;
@@ -73,10 +83,23 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	public void setupForHeterodyne()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
+		NOISE_SOURCES = HETERODYNE_NOISE_SOURCES ;
+		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
 	}
 
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
+		NOISE_SOURCES = SCUBA2_NOISE_SOURCES ;
+		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 ) ;
+	}
+	
 	public void setupForSCUBA()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
+		NOISE_SOURCES = null ;
 	}
 }

@@ -13,9 +13,9 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
 import gemini.sp.SpItem ;
 import gemini.sp.obsComp.SpInstObsComp ;
-import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.iter.SpIterNoiseObs ;
 import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 
 /**
  * This is the editor for Noise Observe Mode iterator component.
@@ -36,9 +36,7 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 
 		_title = "Noise" ;
 		_presSource = _w = ( IterNoiseObsGUI )super._w ;
-		_description = "Noise Observation Mode (SCUBA)" ;
-
-		_w.noiseSourceComboBox.setChoices( SpJCMTConstants.NOISE_SOURCES ) ;
+		_description = "Noise Observation Mode" ;
 
 		_w.noiseSourceComboBox.addWatcher( this ) ;
 	}
@@ -61,7 +59,7 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		if( ddlbwe == _w.noiseSourceComboBox )
-			_iterObs.setNoiseSource( SpJCMTConstants.NOISE_SOURCES[ index ] ) ;
+			_iterObs.setNoiseSource( ( String )_w.noiseSourceComboBox.getSelectedItem() ) ;
 		else
 			super.dropDownListBoxAction( ddlbwe , index , val ) ;
 	}
@@ -69,6 +67,10 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
 		super.setInstrument( spInstObsComp ) ;
-		_w.noiseSourceComboBox.setEnabled( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) ) ;
+		boolean heterodyne = spInstObsComp instanceof SpInstHeterodyne ;
+		boolean scuba2 = spInstObsComp instanceof SpInstSCUBA2 ;
+		_w.noiseSourceComboBox.setChoices( _iterObs.getNoiseSources() ) ;
+		_w.noiseSourceComboBox.setSelectedItem( _iterObs.getNoiseSource() ) ;
+		_w.noiseSourceComboBox.setEnabled( ( spInstObsComp != null ) && ( heterodyne || scuba2 ) ) ;
 	}
 }

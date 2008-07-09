@@ -221,7 +221,8 @@ public interface SpJCMTConstants
 	 *
 	 * Noise sources: REFLECTOR, SKY, ZENITH, ECCOSORB.
 	 */
-	public static final String[] NOISE_SOURCES = { "REFLECTOR" , "SKY" , "ZENITH" , "ECCOSORB" } ;
+	public static final String[] HETERODYNE_NOISE_SOURCES = { "REFLECTOR" , "SKY" , "ZENITH" , "ECCOSORB" } ;
+	public static final String[] SCUBA2_NOISE_SOURCES = { "DARK" , "SKY" , "ZENITH" , "BLACKBODY" } ;
 	public static final String ATTR_UNITS = "units" ;
 
 	/**
