@@ -49,6 +49,7 @@ import orac.jcmt.iter.SpIterPointingObs ;
 import orac.jcmt.iter.SpIterRasterObs ;
 import orac.jcmt.iter.SpIterSkydipObs ;
 import orac.jcmt.iter.SpIterStareObs ;
+import orac.jcmt.iter.SpIterFlatObs ;
 
 /**
  * A helper class used when an attempt to place an observation component in
@@ -340,6 +341,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterRasterObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterSkydipObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterStareObs.class.getName() ) ) ;
+			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterFlatObs.class.getName() ) ) ;
 			for( int i = 0 ; i < obsVector.size() ; i++ )
 			{
 				// Make sure that the observation is associated with the new item and not some other existing component
