@@ -1,7 +1,10 @@
 package omp ;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL ;
 import java.util.Vector ;
+import java.util.zip.GZIPInputStream;
+
 import javax.swing.JOptionPane ;
 
 import org.apache.log4j.Logger ;
@@ -13,6 +16,8 @@ import org.apache.soap.rpc.Call ;
 import org.apache.soap.rpc.Response ;
 import org.apache.soap.transport.http.SOAPHTTPConnection ;
 import org.apache.soap.SOAPException ;
+
+import java.io.IOException ;
 
 /**
  * SoapClient.java
@@ -40,6 +45,8 @@ public class SoapClient
 	private static Vector params = new Vector() ;
 
 	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser" ;
+	
+	private static Logger logger = Logger.getLogger( SoapClient.class ) ;
 
 	/**
      * <code>addParameter</code>. Add a Parameter to the next Call that is to
@@ -122,6 +129,7 @@ public class SoapClient
 				// Reset the params vector.
 				params.clear() ;
 
+				obj = gunzip( obj ) ;
 				// return result ;
 				return obj ;
 			}
@@ -131,12 +139,14 @@ public class SoapClient
 
 				// Handle special fault codes here.
 				String faultCode = fault.getFaultCode() ;
+				String faultString = fault.getFaultString() ;
 				if( faultCode.endsWith( SP_CHANGED_ON_DISK ) )
-					throw new SpChangedOnDiskException( fault.getFaultString() ) ;
+					throw new SpChangedOnDiskException( faultString ) ;
 				else if( faultCode.equals( FAULT_CODE_INVALID_USER ) )
-					throw new InvalidUserException( fault.getFaultString() ) ;
+					throw new InvalidUserException( faultString ) ;
 
-				JOptionPane.showMessageDialog( null , "Code:    " + fault.getFaultCode() + "\n" + "Problem: " + fault.getFaultString() , "Error Message" , JOptionPane.ERROR_MESSAGE ) ;
+				logger.error( faultString ) ;
+				JOptionPane.showMessageDialog( null , "Code:    " + faultCode + "\n" + "Problem: " + faultString , "Error Message" , JOptionPane.ERROR_MESSAGE ) ;
 			}
 		}
 		catch( SpChangedOnDiskException e )
@@ -146,7 +156,7 @@ public class SoapClient
 		}
 		catch( SOAPException se )
 		{
-			Logger.getLogger( SoapClient.class ).error( se.getMessage() ) ;
+			logger.error( se.getMessage() ) ;
 			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE ) ;
 		}
 		catch( Exception e )
@@ -154,5 +164,41 @@ public class SoapClient
 			e.printStackTrace() ;
 		}
 		return null ;
+	}
+	
+	public static Object gunzip( Object candidate )
+	{
+		if( candidate != null )
+		{
+			try
+			{
+				System.out.println( "Attempting to gunzip" ) ;
+				byte[] input = ( byte[] )candidate ;
+				if( ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' )
+				{
+					System.out.println( "Appears to be gzip'd" ) ;
+					ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
+					GZIPInputStream gis = new GZIPInputStream( bis ) ;
+					byte[] read = new byte[ 1024 ] ;
+					int len ;
+					StringBuffer sb = new StringBuffer() ;
+					while( ( len = gis.read( read ) ) > 0 )
+						sb.append( new String( read , 0 , len ) ) ;
+					gis.close() ;
+					bis.close() ;
+					candidate = sb.toString().getBytes() ;
+				}
+				System.out.println( "Does not appear to be gzip'd" ) ;
+			}
+			catch( IOException ioe )
+			{
+				ioe.printStackTrace() ;
+			}
+			catch( ClassCastException cce )
+			{
+				cce.printStackTrace() ;
+			}
+		}
+		return candidate ;
 	}
 }

@@ -8,7 +8,6 @@ import java.io.File ;
 import java.io.ByteArrayInputStream ;
 import java.io.ByteArrayOutputStream ;
 import java.net.URL ;
-import java.util.zip.GZIPInputStream ;
 import java.util.zip.GZIPOutputStream ;
 import javax.swing.JOptionPane ;
 import java.util.Properties ;
@@ -221,25 +220,7 @@ public class SpClient extends SoapClient
 		try
 		{
 			byte[] input = ( byte[] )doCall( getURL() , SOAP_ACTION , "fetchProgram" ) ;
-			if( ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' )
-			{
-				System.out.println( "Seems to be gzipped" ) ;
-				ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
-				GZIPInputStream gis = new GZIPInputStream( bis ) ;
-				byte[] read = new byte[ 1024 ] ;
-				int len ;
-				StringBuffer sb = new StringBuffer() ;
-				while( ( len = gis.read( read ) ) > 0 )
-					sb.append( new String( read , 0 , len ) ) ;
-				gis.close() ;
-				bis.close() ;
-				spXML = sb.toString() ;
-			}
-			else
-			{
-				System.out.println( "Seems not to be gzipped" ) ;
-				spXML = new String( input ) ;
-			}
+			spXML = new String( input ) ;
 		}
 		catch( NullPointerException npe )
 		{
@@ -304,11 +285,7 @@ public class SpClient extends SoapClient
 
 		String sp = spProg.toXML() ;
 
-		String forceString ;
-		if( force )
-			forceString = "1" ;
-		else
-			forceString = "0" ;
+		String forceString = force ? "1" : "0" ;
 
 		byte[] toSend ;
 
@@ -354,11 +331,7 @@ public class SpClient extends SoapClient
      */
 	public static SpStoreResult storeProgram( String sp , String pass , boolean force ) throws Exception
 	{
-		String forceString ;
-		if( force )
-			forceString = "1" ;
-		else
-			forceString = "0" ;
+		String forceString = force ? "1" : "0" ;
 
 		flushParameter() ;
 		addParameter( "sp" , String.class , sp ) ;
