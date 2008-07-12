@@ -273,6 +273,23 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
      * 
      * @return true if calibration is optional.
      */
+	protected static boolean isUKIRT = false ;
+
+	protected static boolean cachedTelescope = false ;
+	
+	public boolean isOptionalForEstimates()
+	{
+		boolean optional = false ;
+		if( !cachedTelescope )
+		{
+			isUKIRT = "UKIRT".equalsIgnoreCase( System.getProperty( "TELESCOPE" ) ) ;
+			cachedTelescope = true ;
+		}
+		if( !isUKIRT )
+			optional = isOptional() ;
+		return optional ;
+	}
+	
 	public boolean isOptional()
 	{
 		return _avTable.getBool( ATTR_OPTIONAL ) ;
@@ -294,13 +311,9 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		double acqTime = 0. ;
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( this ) ;
-		if( obsComp != null )
-		{
-			// Is this is a standard, we dont need to do anything
-			// If it is optional we dont need to do anything
-			if( !getIsStandard() && !isOptional() )
+		// Is this is null or a standard or optional, we dont need to do anything
+		if( obsComp != null && !getIsStandard() && !isOptionalForEstimates()  )
 				acqTime = obsComp.getAcqTime() ;
-		}
 
 		if( iterFolder != null )
 			return iterFolder.getElapsedTime() + acqTime ;

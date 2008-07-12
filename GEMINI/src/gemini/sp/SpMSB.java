@@ -274,28 +274,17 @@ public class SpMSB extends SpObsContextItem
      * return value is re-calculated whenever the method is called. This method
      * does not include times for calibration and optional observations
      */
-
-	protected static boolean isUKIRT = false ;
-
-	protected static boolean cachedTelescope = false ;
-
 	public double getElapsedTime()
 	{
 		double elapsedTime = 0. ;
 		Enumeration children = children() ;
 		SpItem spItem = null ;
 
-		if( !cachedTelescope )
-		{
-			isUKIRT = "UKIRT".equalsIgnoreCase( System.getProperty( "TELESCOPE" ) ) ;
-			cachedTelescope = true ;
-		}
-
 		while( children.hasMoreElements() )
 		{
 			spItem = ( SpItem )children.nextElement() ;
 
-			if( spItem instanceof SpObs && ( !( (( SpObs )spItem).isOptional() ) || isUKIRT ) )
+			if( spItem instanceof SpObs && !(( SpObs )spItem).isOptionalForEstimates() )
 				elapsedTime += ( ( SpObs )spItem ).getElapsedTime() ;
 			else if( spItem instanceof SpSurveyContainer )
 				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
