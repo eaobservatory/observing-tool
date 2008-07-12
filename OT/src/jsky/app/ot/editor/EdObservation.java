@@ -133,17 +133,19 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 
 		ignoreActions = true ; // MFO
 
+		SpObs obs = ( SpObs )_spItem ;
+		
 		// Set the priority
-		int pri = ( ( SpObs )_spItem ).getPriority() ;
+		int pri = obs.getPriority() ;
 		_w.jComboBox1.setSelectedIndex( pri - 1 ) ;
 
 		// Set whether or not this is a standard
-		_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() ) ;
+		_w.standard.setSelected( obs.getIsStandard() ) ;
 
 		// Added for OMP (MFO, 7 August 2001)
-		_w.optional.setValue( ( ( SpObs )_spItem ).isOptional() ) ;
+		_w.optional.setValue( obs.isOptional() ) ;
 
-		int numberRemaining = ( ( SpObs )_spItem ).getNumberRemaining() ;
+		int numberRemaining = obs.getNumberRemaining() ;
 
 		if( numberRemaining < 0 )
 			_w.remaining.setValue( SpObs.REMOVE_STRING ) ;
@@ -154,7 +156,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 
 		ignoreActions = false ;
 
-		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( ( ( SpObs )_spItem ).getElapsedTime() , 1 ) ) ;
+		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( obs.getElapsedTime() , 1 ) ) ;
 
 		_updateMsbDisplay() ;
 	}
@@ -169,14 +171,12 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	protected void _updateMsbDisplay()
 	{
 		ignoreActions = true ;
-		if( ( ( SpObs )_spItem ).isMSB() )
+		SpObs obs = ( SpObs )_spItem ;
+		if( obs.isMSB() )
 		{
 			_w.msbPanel.setVisible( true ) ;
 			_w.optional.setVisible( false ) ;
-			if( ( ( SpObs )_spItem ).isSuspended() )
-				_w.unSuspendCB.setVisible( true ) ;
-			else
-				_w.unSuspendCB.setVisible( false ) ;
+			_w.unSuspendCB.setVisible( obs.isSuspended() ) ;
 		}
 		else
 		{
@@ -213,7 +213,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		if( o instanceof SpAvEditState )
 		{
 			// Set whether or not this is a standard
-			_w.standard.setSelected( ( ( SpObs )_spItem ).getIsStandard() ) ;
+			_w.standard.setSelected( (( SpObs )_spItem).getIsStandard() ) ;
 	
 			_updateMsbDisplay() ; // MFO
 		}
@@ -281,7 +281,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 	{
 		if( checkBoxWidgetExt == _w.optional )
 		{
-			( ( SpObs )_spItem ).setOptional( _w.optional.isSelected() ) ;
+			(( SpObs )_spItem).setOptional( _w.optional.isSelected() ) ;
 		}
 		else if( checkBoxWidgetExt == _w.standard )
 		{
