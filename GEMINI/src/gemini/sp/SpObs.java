@@ -232,17 +232,16 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		int editState = getAvEditFSM().getState() ;
 
-		// Note that _avTable.set is used instead of _avTable.noNotifySet and
-        // that
-		// the SpAvEditState which is set to EDITED as a consequence is reset
-		// immediately (if it was UNEDITED before). The is done deliberately.
-		// If noNotifySet was used instead then the title would not always be
-        // displayed/updated
-		// correctly with respect to whether or not isMSB() is true or false.
-		// (Only isMSB() == true then getNumberRemaining() is displayed in the
-        // tree in brackets
-		// after the component title.)
-
+		/*
+		 * Note that _avTable.set is used instead of _avTable.noNotifySet and that
+		 * the SpAvEditState which is set to EDITED as a consequence is reset
+		 * immediately (if it was UNEDITED before). The is done deliberately.
+		 * If noNotifySet was used instead then the title would not always be displayed/updated
+		 * correctly with respect to whether or not isMSB() is true or false.
+		 * (Only isMSB() == true then getNumberRemaining() is displayed in the
+		 * tree in brackets after the component title.)
+		 */
+		
 		// If the parent component is an MSB then this SpObs is not.
 		if( parent() instanceof SpMSB || ( parent() instanceof SpSurveyContainer && parent().parent() instanceof SpMSB ) )
 		{
@@ -293,18 +292,14 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		SpIterFolder iterFolder = getIterFolder() ;
 
-		double acqTime = 0.0 ;
+		double acqTime = 0. ;
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( this ) ;
 		if( obsComp != null )
 		{
 			// Is this is a standard, we dont need to do anything
 			// If it is optional we dont need to do anything
-			if( getIsStandard() ){}
-			if( isOptional() ){}
-			else
-			{
+			if( !getIsStandard() && !isOptional() )
 				acqTime = obsComp.getAcqTime() ;
-			}
 		}
 
 		if( iterFolder != null )
@@ -391,8 +386,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		if( obsComp != null )
 		{
-			// Add break to sequence only if instrument is not WFCAM - RDK 25
-            // Aug 2005 //
+			// Add break to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
 			if( !"WFCAM".equalsIgnoreCase( instName ) )
 				v.add( breakString ) ;
 
@@ -455,8 +449,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		if( spAvTable.exists( "project" ) )
 			v.add( "setHeader PROJECT " + spAvTable.get( "project" ) ) ;
 
-		// Add schedulable info headers in case the pipeline wats to do QA
-        // (Frossie)
+		// Add schedulable info headers in case the pipeline wants to do QA (Frossie)
 
 		if( spAvTable.exists( "rq_minsb" ) )
 			v.add( "-setHeader RQ_MINSB " + spAvTable.get( "rq_minsb" ) ) ;
@@ -553,8 +546,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		v.add( "-ready" ) ;
 
-		// Add breaks to sequence only if instrument is not WFCAM - RDK 25 Aug
-        // 2005 //
+		// Add breaks to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
 		if( !"WFCAM".equalsIgnoreCase( instName ) )
 			addBreak( v ) ;
 
