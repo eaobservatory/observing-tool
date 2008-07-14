@@ -173,7 +173,13 @@ public class SoapClient
 			try
 			{
 				System.out.println( "Attempting to gunzip" ) ;
-				byte[] input = ( byte[] )candidate ;
+				byte[] input = null ;
+				if( candidate instanceof byte[] )
+					input = ( byte[] )candidate ;
+				else if( candidate instanceof String )
+					input = candidate.toString().getBytes() ;
+				else
+					throw new ClassCastException( "Expecting byte[] or String, not " + candidate.getClass().getName() ) ;
 				if( ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' )
 				{
 					System.out.println( "Appears to be gzip'd" ) ;
