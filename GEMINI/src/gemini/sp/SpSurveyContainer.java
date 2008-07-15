@@ -628,7 +628,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		while( children.hasMoreElements() )
 		{
 			child = ( SpItem )children.nextElement() ;
-			if( child instanceof SpObs && (( SpObs )child).isOptionalForEstimates() )
+			if( child instanceof SpObs && (( SpObs )child).isOptional() )
 					elapsedTime += ( ( SpObs )child ).getElapsedTime() ;
 			else if( child instanceof SpMSB )
 				elapsedTime += (( SpMSB )child).getElapsedTime() ;

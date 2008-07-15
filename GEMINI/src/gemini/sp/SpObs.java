@@ -312,7 +312,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		double acqTime = 0. ;
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( this ) ;
 		// Is this is null or a standard or optional, we dont need to do anything
-		if( obsComp != null && !getIsStandard() && !isOptionalForEstimates()  )
+		if( obsComp != null && !getIsStandard() && !isOptional() )
 				acqTime = obsComp.getAcqTime() ;
 
 		if( iterFolder != null )
