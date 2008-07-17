@@ -35,7 +35,7 @@ import org.apache.log4j.Logger ;
  */
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
-	static Logger logger = Logger.getLogger( SpObs.class ) ;
+	static Logger logger = Logger.getRootLogger() ;
 	/**
      * This attribute determines whether or not the observation is chained to
      * the next observation.
@@ -747,11 +747,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		if( offsetsInSequence > observableOffsets )
 		{
-			logger.warn( "More offsets than are observed, fix the DR NOFFSETS+1 hack." ) ;
+			logger.warn( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
+			logger.warn( "Please fix the DR's NOFFSETS+1 hack." ) ;
 			if( offsetsInSequence > observableOffsets + 1 )
 			{
-				logger.error( "More offsets than in the sequence than the DR expects." ) ;
-				logger.error( "Headers will most likely be incorrect." ) ;
+				logger.error( "More offsets in the sequence than the DR expects." ) ;
+				logger.error( "The NOFFSET header will most likely be incorrect." ) ;
 			}
 		}
 	}
