@@ -25,6 +25,8 @@ import java.util.Vector ;
 
 import gemini.util.TranslationUtils ;
 
+import org.apache.log4j.Logger ;
+
 /**
  * The observation item. In addition to other attributes, the SpObs class
  * contains two attributes that determine whether the observation is chained to
@@ -33,7 +35,7 @@ import gemini.util.TranslationUtils ;
  */
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
-
+	static Logger logger = Logger.getLogger( SpObs.class ) ;
 	/**
      * This attribute determines whether or not the observation is chained to
      * the next observation.
@@ -681,13 +683,23 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		int nOffsets = 0 ;
 		// Get all the child offsets
 		Vector offsets = SpTreeMan.findAllItems( this , SpIterOffset.class.getName() ) ;
-
+		int observableOffsets = 0 ;
+		
 		for( int i = 0 ; i < offsets.size() ; i++ )
 		{
 			SpIterOffset offset = ( SpIterOffset )offsets.get( i ) ;
 			int myNOffs = offset.getPosList().size() ;
+			
+			/*
+			 *  The following records the number of observable offsets
+			 *  Empty offset positions are used as hacks, but corrupt the headers
+			 */
+			int observableChildren = offset.getNumIterObserveChildren( offset ) ;
+			if( observableChildren > 0 )
+				observableOffsets += myNOffs ;
+			
 			if( offset.hasNamedSkyChild() )
-				myNOffs *= ( offset.getNumIterObserveChildren( offset ) ) ;
+				myNOffs *= observableChildren ;
 			Vector uSteps = SpTreeMan.findAllItems( offset , SpIterMicroStep.class.getName() ) ;
 			if( uSteps != null && uSteps.size() != 0 && inst instanceof SpMicroStepUser )
 			{
@@ -696,6 +708,8 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			}
 			nOffsets += myNOffs ;
 		}
+		
+		complainAboutHack( nOffsets , observableOffsets ) ;
 
 		/*
 		 * Now go through adding to nOffsets for eacg ADDOFFEST instruction.
@@ -725,6 +739,19 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			{
 				v.add( i + 1 , "-setHeader NOFFSETS " + nOffsets ) ;
 				break ;
+			}
+		}
+	}
+	
+	private void complainAboutHack( int offsetsInSequence , int observableOffsets )
+	{
+		if( offsetsInSequence > observableOffsets )
+		{
+			logger.warn( "More offsets than are observed, fix the DR NOFFSETS+1 hack." ) ;
+			if( offsetsInSequence > observableOffsets + 1 )
+			{
+				logger.error( "More offsets than in the sequence than the DR expects." ) ;
+				logger.error( "Headers will most likely be incorrect." ) ;
 			}
 		}
 	}
