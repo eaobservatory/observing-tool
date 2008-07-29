@@ -1,8 +1,10 @@
 package gemini.util ;
 
-import java.io.File ;
 import java.io.BufferedReader ;
-import java.io.FileReader ;
+
+import java.net.URL ;
+import java.io.InputStream ;
+import java.io.InputStreamReader ;
 
 public class Version
 {
@@ -33,8 +35,12 @@ public class Version
 	{
 		try
 		{
-			File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" ) ;
-			BufferedReader br = new BufferedReader( new FileReader( versionFile ) ) ;
+			String cfgFilename = System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" ;
+			if( !cfgFilename.matches( "^\\w+://.*" ) )
+				cfgFilename = "file://" + cfgFilename ;
+			URL url = new URL( cfgFilename ) ;
+			InputStream is = url.openStream() ;
+			BufferedReader br = new BufferedReader( new InputStreamReader( is ) ) ;
 			String fullVersion = br.readLine().trim() ;
 			String version = "unknown" ;
 			if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )

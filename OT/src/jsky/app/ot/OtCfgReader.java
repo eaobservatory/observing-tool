@@ -67,9 +67,11 @@ class OtCfgReader
 		URL url = classLoader.getResource( cfgFilename ) ;
 		if( url == null )
 		{
+			if( !cfgFilename.matches( "^\\w+://.*" ) )
+				cfgFilename = "file://" + cfgFilename ;
 			try
 			{
-				url = new URL( "file://" + cfgFilename ) ;
+				url = new URL( cfgFilename ) ;
 			}
 			catch( MalformedURLException mue ){}
 		}
