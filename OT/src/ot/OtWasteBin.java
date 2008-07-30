@@ -26,6 +26,8 @@ import jsky.app.ot.OtDragDropObject ;
 import jsky.app.ot.OtTreeWidget ;
 import ot.util.DialogUtil ;
 
+import jsky.app.ot.gui.DrawUtil ;
+
 /**
  * Waste bin drop target for deleting sp items / tree nodes.
  * 
@@ -33,8 +35,8 @@ import ot.util.DialogUtil ;
  */
 public class OtWasteBin extends JLabel implements DropTargetListener
 {
-	protected Icon wasteIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/waste.gif" ) ) ;
-	protected Icon wasteSelectedIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "ot/images/wasteSelected.gif" ) ) ;
+	protected Icon wasteIcon = new ImageIcon( DrawUtil.getResourceURL( "ot/images/waste.gif" ) ) ;
+	protected Icon wasteSelectedIcon = new ImageIcon( DrawUtil.getResourceURL( "ot/images/wasteSelected.gif" ) ) ;
 
 	public OtWasteBin()
 	{

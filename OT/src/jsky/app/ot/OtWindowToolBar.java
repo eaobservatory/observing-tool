@@ -11,6 +11,8 @@ import javax.swing.JButton ;
 import javax.swing.ImageIcon ;
 import jsky.util.gui.GenericToolBar ;
 
+import jsky.app.ot.gui.DrawUtil ;
+
 /** 
  * A tool bar for the main OT window.
  */
@@ -78,7 +80,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( saveButton == null )
 			saveButton = makeButton( "Save changes." , editor.getSaveAction() , false ) ;
 
-		updateButton( saveButton , "Save" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/disk.gif" ) ) ) ;
+		updateButton( saveButton , "Save" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/disk.gif" ) ) ) ;
 		return saveButton ;
 	}
 
@@ -93,7 +95,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( posEditorButton == null )
 			posEditorButton = makeButton( "Show position editor." , editor.getPosEditorAction() , false ) ;
 
-		updateButton( posEditorButton , "Image" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/tpeTiny.gif" ) ) ) ;
+		updateButton( posEditorButton , "Image" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/tpeTiny.gif" ) ) ) ;
 		return posEditorButton ;
 	}
 
@@ -108,7 +110,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( cutButton == null )
 			cutButton = makeButton( "Cut." , editor.getCutAction() , false ) ;
 
-		updateButton( cutButton , "Cut" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/cut.gif" ) ) ) ;
+		updateButton( cutButton , "Cut" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/cut.gif" ) ) ) ;
 		return cutButton ;
 	}
 
@@ -123,7 +125,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( copyButton == null )
 			copyButton = makeButton( "Copy." , editor.getCopyAction() , false ) ;
 
-		updateButton( copyButton , "Copy" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/copy.gif" ) ) ) ;
+		updateButton( copyButton , "Copy" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/copy.gif" ) ) ) ;
 		return copyButton ;
 	}
 
@@ -138,7 +140,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( pasteButton == null )
 			pasteButton = makeButton( "Paste." , editor.getPasteAction() , false ) ;
 
-		updateButton( pasteButton , "Paste" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/paste.gif" ) ) ) ;
+		updateButton( pasteButton , "Paste" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/paste.gif" ) ) ) ;
 		return pasteButton ;
 	}
 
@@ -153,7 +155,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( validationButton == null )
 			validationButton = makeButton( "Validate." , editor.getValidationAction() , false ) ;
 
-		updateButton( validationButton , "Validation" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/validation.gif" ) ) ) ;
+		updateButton( validationButton , "Validation" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/validation.gif" ) ) ) ;
 		return validationButton ;
 	}
 
@@ -168,7 +170,7 @@ public class OtWindowToolBar extends GenericToolBar
 		if( prioritizeButton == null )
 			prioritizeButton = makeButton( "Prioritize" , editor.getPrioritizeAction() , false ) ;
 
-		updateButton( prioritizeButton , "Prioritize" , new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/prioritise.gif" ) ) ) ;
+		updateButton( prioritizeButton , "Prioritize" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/prioritise.gif" ) ) ) ;
 		return prioritizeButton ;
 	}
 

@@ -32,6 +32,8 @@ import java.awt.event.KeyListener ;
 import java.awt.event.KeyEvent ;
 import javax.swing.ImageIcon ;
 
+import jsky.app.ot.gui.DrawUtil ;
+
 /**
  * Implements "Drop Inside" vs "Drop After".
  * 
@@ -98,9 +100,9 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	{
 		super( treeWidget ) ;
 
-		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_INSIDE_GIF ) ) ).getImage() ;
-		insertImage[ INSERT_AFTER ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_AFTER_GIF ) ) ).getImage() ;
-		insertImage[ INSERT_NO ] = ( new ImageIcon( ClassLoader.getSystemClassLoader().getResource( INSERT_NO_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( DrawUtil.getResourceURL( INSERT_INSIDE_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_AFTER ] = ( new ImageIcon( DrawUtil.getResourceURL( INSERT_AFTER_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_NO ] = ( new ImageIcon( DrawUtil.getResourceURL( INSERT_NO_GIF ) ) ).getImage() ;
 
 		dragSource = source ;
 

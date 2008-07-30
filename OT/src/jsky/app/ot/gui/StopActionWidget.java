@@ -74,13 +74,12 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createLed()
 	{
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		URL url = cl.getResource( "jsky/app/ot/images/red_led.gif" ) ;
+		URL url = DrawUtil.getResourceURL( "jsky/app/ot/images/red_led.gif" ) ;
 		led = new JButton( new ImageIcon( url ) ) ;
 		led.setFocusPainted( false ) ;
 		led.setBorderPainted( false ) ;
 
-		url = cl.getResource( "jsky/app/ot/images/red_led_disabled.gif" ) ;
+		url = DrawUtil.getResourceURL( "jsky/app/ot/images/red_led_disabled.gif" ) ;
 		led.setDisabledIcon( new ImageIcon( url ) ) ;
 		led.addActionListener( stopAction ) ;
 
@@ -92,13 +91,12 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createStopButton()
 	{
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		URL url = cl.getResource( "jsky/app/ot/images/stop-sign.gif" ) ;
+		URL url = DrawUtil.getResourceURL( "jsky/app/ot/images/stop-sign.gif" ) ;
 		stopButton = new JButton( new ImageIcon( url ) ) ;
 		stopButton.setFocusPainted( false ) ;
 		stopButton.setBorder( new BevelBorder( BevelBorder.RAISED ) ) ;
 
-		url = cl.getResource( "jsky/app/ot/images/stop-sign-disabled.gif" ) ;
+		url = DrawUtil.getResourceURL( "jsky/app/ot/images/stop-sign-disabled.gif" ) ;
 		stopButton.setDisabledIcon( new ImageIcon( url ) ) ;
 
 		stopAction.addPropertyChangeListener( new PropertyChangeListener()
@@ -248,7 +246,7 @@ public class StopActionWidget extends JPanel
 	{
 		return ( Vector )_watchers.clone() ;
 	}
-
+	
 	/**
 	 * test main: usage: java LabelEntry
 	 */

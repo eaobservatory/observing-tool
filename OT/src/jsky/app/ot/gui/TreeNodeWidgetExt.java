@@ -14,6 +14,8 @@ import javax.swing.tree.DefaultTreeModel ;
 import javax.swing.tree.TreePath ;
 import javax.swing.tree.DefaultMutableTreeNode ;
 
+import java.net.URL ;
+
 /**
  * A TreeNodeWidget extension.  It Supports a "watcher".  
  * A watcher is an object that supports the TreeNodeWidgetWatcher 
@@ -115,9 +117,10 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public void setSrc( String src )
 	{
 		this.src = src ;
+		URL url = DrawUtil.getResourceURL( "jsky/app/ot/" + src ) ;
 		try
 		{
-			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + src ) ) ;
+			icon = new ImageIcon( url ) ;
 		}
 		catch( NullPointerException e )
 		{
@@ -156,9 +159,10 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 
 		this.expandSrc = expandSrc ;
+		URL url = DrawUtil.getResourceURL( "jsky/app/ot/" + expandSrc ) ;
 		try
 		{
-			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/" + expandSrc ) ) ;
+			expandIcon = new ImageIcon( url ) ;
 		}
 		catch( NullPointerException e )
 		{
