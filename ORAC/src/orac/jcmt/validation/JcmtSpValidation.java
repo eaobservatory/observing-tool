@@ -70,12 +70,12 @@ public class JcmtSpValidation extends SpValidation
 				try
 				{
 					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
-					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[] {} ) ;
+					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[]{} ) ;
 					Object frequencyEditor = frequencyEditorClass.newInstance() ;
-					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[] {} ) ;
+					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[]{} ) ;
 					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" ) ;
 					Object receivers = receiverField.get( requencyEditorCfg ) ;
-					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[] { Object.class } ) ;
+					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[]{ Object.class } ) ;
 					Object receiver = get.invoke( receivers , new Object[] { spInstHeterodyne.getFrontEnd() } ) ;
 					Field loMinField = receiver.getClass().getDeclaredField( "loMin" ) ;
 					Field loMaxField = receiver.getClass().getDeclaredField( "loMax" ) ;
