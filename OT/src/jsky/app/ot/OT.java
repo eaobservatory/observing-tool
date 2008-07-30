@@ -43,6 +43,8 @@ import orac.helptool.JHLauncher ;
 import gemini.sp.SpTreeMan ;
 import orac.ukirt.iter.SpIterMichelleCalObs ;
 
+import jsky.app.ot.gui.DrawUtil ;
+
 public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */
@@ -227,7 +229,7 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 		if( _otWindowFrames != null )
 			_otWindowFrames.clear() ;
-		URL url = ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/cfg/library.xml" ) ;
+		URL url = DrawUtil.getResourceURL( "jsky/app/ot/cfg/library.xml" ) ;
 		Reader r = null ;
 		/** This probably isn't adequate -- just using fetchXMLSp.  Should
 		 * be changed when it becomes a problem.
@@ -271,13 +273,12 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 
 		SpRootItem spItem = null ;
-		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
-		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + library ) ;
+		URL url = DrawUtil.getResourceURL( library ) ;
 
 		// Check whether the alternative library could not be found either.
 		if( url == null )
 		{
-			JOptionPane.showMessageDialog( this , "Could not find standard library resource " + resourceCfgDir + "." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
+			JOptionPane.showMessageDialog( this , "Could not find standard library resource " + library + "." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
 			return ;
 		}
 
@@ -380,8 +381,7 @@ public class OT extends JFrame
 		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
 		 * the if condition would prevent _splash to be shown a second time.
 		 */
-		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
-		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + "welcome.txt" ) ;
+		URL url = DrawUtil.getResourceURL( "welcome.txt" ) ;
 		if( url == null )
 		{
 			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;

@@ -20,6 +20,8 @@ import javax.swing.ImageIcon ;
 import javax.swing.JButton ;
 import javax.swing.border.EtchedBorder ;
 import javax.swing.border.TitledBorder ;
+
+import jsky.app.ot.gui.DrawUtil;
 import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 
 import java.net.URL ;
@@ -54,8 +56,7 @@ public class SplashGUI extends JPanel
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Observing Tool Release Notes" ) ;
 
-		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
-		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + "images/splash.gif" ) ;
+		URL url = DrawUtil.getResourceURL( "images/splash.gif" ) ;
 		if( url != null )
 			splashImage.setIcon( new ImageIcon( url ) ) ;
 		else
