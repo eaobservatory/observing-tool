@@ -1147,8 +1147,12 @@ the end of the transition name - it makes the display nicer.
 	  <transition name="7 4 4  - 7 3 5 " frequency="357892.4420"/>
 	  <transition name="6 4 2  - 6 3 3 " frequency="357925.9600"/>
   </species>
-
   <species name = "OI">
           <transition name="3P1  - 3P2 " frequency="4744774.907"/>
+  </species>
+  <species name = "c-HCOOH">
+          <transition name="2_13  - 2_12 " frequency="336739.8500"/>
+          <transition name="1_14  - 1_13 " frequency="336773.8300"/>
+          <transition name="1_16  - 1_15 " frequency="337597.9400"/>
   </species>
 </LineCatalog>
