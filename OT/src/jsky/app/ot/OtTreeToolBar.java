@@ -11,8 +11,6 @@ import javax.swing.JButton ;
 import javax.swing.ImageIcon ;
 import jsky.util.gui.GenericToolBar ;
 
-import jsky.app.ot.gui.DrawUtil ;
-
 /** 
  * A tool bar for the OT tree window.
  */
@@ -37,6 +35,8 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton andFolderButton ;
 	protected JButton orFolderButton ;
 	protected JButton surveyButton ;
+
+	protected String imgpath = "jsky/app/ot/images/" ;
 
 	/**
 	 * Create a toolbar with tree related actions for the given OT window.
@@ -91,7 +91,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( obsFolderButton == null )
 			obsFolderButton = makeButton( "Create an observation folder." , editor.getObsFolderAction() , false ) ;
 
-		updateButton( obsFolderButton , "Folder" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/obsFolder.gif" ) ) ) ;
+		updateButton( obsFolderButton , "Folder" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "obsFolder.gif" ) ) ) ;
 		return obsFolderButton ;
 	}
 
@@ -106,7 +106,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( obsGroupButton == null )
 			obsGroupButton = makeButton( "Create an observation group." , editor.getObsGroupAction() , false ) ;
 
-		updateButton( obsGroupButton , "Group" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/obsGroup.gif" ) ) ) ;
+		updateButton( obsGroupButton , "Group" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "obsGroup.gif" ) ) ) ;
 		return obsGroupButton ;
 	}
 
@@ -121,7 +121,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( observationButton == null )
 			observationButton = makeButton( "Create an observation." , editor.getObservationAction() , false ) ;
 
-		updateButton( observationButton , "Observation" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/observation.gif" ) ) ) ;
+		updateButton( observationButton , "Observation" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "observation.gif" ) ) ) ;
 		return observationButton ;
 	}
 
@@ -136,7 +136,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( componentMenuButton == null )
 			componentMenuButton = makeMenuButton( "Create an observation component." , new OtCompPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( componentMenuButton , "Component" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/component.gif" ) ) ) ;
+		updateButton( componentMenuButton , "Component" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "component.gif" ) ) ) ;
 		return componentMenuButton ;
 	}
 
@@ -151,7 +151,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( noteButton == null )
 			noteButton = makeButton( "Create a note." , editor.getNoteAction() , false ) ;
 
-		updateButton( noteButton , "Note" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/note-tiny.gif" ) ) ) ;
+		updateButton( noteButton , "Note" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "note-tiny.gif" ) ) ) ;
 		return noteButton ;
 	}
 
@@ -166,7 +166,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( libFolderButton == null )
 			libFolderButton = makeButton( "Create a library folder." , editor.getLibFolderAction() , false ) ;
 
-		updateButton( libFolderButton , "Library" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/libFolder.gif" ) ) ) ;
+		updateButton( libFolderButton , "Library" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "libFolder.gif" ) ) ) ;
 		return libFolderButton ;
 	}
 
@@ -181,7 +181,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( iterCompMenuButton == null )
 			iterCompMenuButton = makeMenuButton( "Create an iterator component." , new OtIterCompPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( iterCompMenuButton , "Iterator" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/iterComp.gif" ) ) ) ;
+		updateButton( iterCompMenuButton , "Iterator" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "iterComp.gif" ) ) ) ;
 		return iterCompMenuButton ;
 	}
 
@@ -196,7 +196,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( iterObsMenuButton == null )
 			iterObsMenuButton = makeMenuButton( "Create an observation iterator." , new OtIterObsPopupMenu( editor.getTreeWidget() ) ) ;
 
-		updateButton( iterObsMenuButton , "Observe" , new ImageIcon( DrawUtil.getResourceURL( "jsky/app/ot/images/iterObs.gif" ) ) ) ;
+		updateButton( iterObsMenuButton , "Observe" , new ImageIcon( OtTreeToolBar.class.getResource( imgpath + "iterObs.gif" ) ) ) ;
 		return iterObsMenuButton ;
 	}
 
@@ -215,7 +215,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( msbFolderButton == null )
 			msbFolderButton = makeButton( "Create an MSB folder." , editor.getMsbFolderAction() , false ) ;
 
-		updateButton( msbFolderButton , "MSB Folder" , new ImageIcon( DrawUtil.getResourceURL( "ot/images/msbFolder.gif" ) ) ) ;
+		updateButton( msbFolderButton , "MSB Folder" , new ImageIcon( OtTreeToolBar.class.getResource( "ot/images/msbFolder.gif" ) ) ) ;
 		return msbFolderButton ;
 	}
 
@@ -231,7 +231,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( andFolderButton == null )
 			andFolderButton = makeButton( "Create an AND folder." , editor.getAndFolderAction() , false ) ;
 
-		updateButton( andFolderButton , "AND Folder" , new ImageIcon( DrawUtil.getResourceURL( "ot/images/andFolder.gif" ) ) ) ;
+		updateButton( andFolderButton , "AND Folder" , new ImageIcon( OtTreeToolBar.class.getResource( "ot/images/andFolder.gif" ) ) ) ;
 		return andFolderButton ;
 	}
 
@@ -247,7 +247,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( orFolderButton == null )
 			orFolderButton = makeButton( "Create an OR folder." , editor.getOrFolderAction() , false ) ;
 
-		updateButton( orFolderButton , "OR Folder" , new ImageIcon( DrawUtil.getResourceURL( "ot/images/orFolder.gif" ) ) ) ;
+		updateButton( orFolderButton , "OR Folder" , new ImageIcon( OtTreeToolBar.class.getResource( "ot/images/orFolder.gif" ) ) ) ;
 		return orFolderButton ;
 	}
 
@@ -263,7 +263,7 @@ public class OtTreeToolBar extends GenericToolBar
 		if( surveyButton == null )
 			surveyButton = makeButton( "Create a Survey Container." , editor.getSurveyFolderAction() , false ) ;
 
-		updateButton( surveyButton , "Survey Container" , new ImageIcon( DrawUtil.getResourceURL( "ot/images/surveyContainer.gif" ) ) ) ;
+		updateButton( surveyButton , "Survey Container" , new ImageIcon( OtTreeToolBar.class.getResource( "ot/images/surveyContainer.gif" ) ) ) ;
 		return surveyButton ;
 	}
 

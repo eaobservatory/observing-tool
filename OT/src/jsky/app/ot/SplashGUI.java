@@ -21,7 +21,6 @@ import javax.swing.JButton ;
 import javax.swing.border.EtchedBorder ;
 import javax.swing.border.TitledBorder ;
 
-import jsky.app.ot.gui.DrawUtil;
 import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 
 import java.net.URL ;
@@ -56,7 +55,7 @@ public class SplashGUI extends JPanel
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Observing Tool Release Notes" ) ;
 
-		URL url = DrawUtil.getResourceURL( "images/splash.gif" ) ;
+		URL url = this.getClass().getResource( "images/splash.gif" ) ;
 		if( url != null )
 			splashImage.setIcon( new ImageIcon( url ) ) ;
 		else

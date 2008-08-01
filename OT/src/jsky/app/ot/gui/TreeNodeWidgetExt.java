@@ -117,7 +117,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public void setSrc( String src )
 	{
 		this.src = src ;
-		URL url = DrawUtil.getResourceURL( "jsky/app/ot/" + src ) ;
+		URL url = TreeNodeWidgetExt.class.getResource( "jsky/app/ot/" + src ) ;
 		try
 		{
 			icon = new ImageIcon( url ) ;
@@ -125,7 +125,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( src ) ) ;
+			icon = new ImageIcon( TreeNodeWidgetExt.class.getResource( src ) ) ;
 		}
 	}
 
@@ -159,7 +159,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 
 		this.expandSrc = expandSrc ;
-		URL url = DrawUtil.getResourceURL( "jsky/app/ot/" + expandSrc ) ;
+		URL url = TreeNodeWidgetExt.class.getResource( "jsky/app/ot/" + expandSrc ) ;
 		try
 		{
 			expandIcon = new ImageIcon( url ) ;
@@ -167,7 +167,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			expandIcon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( expandSrc ) ) ;
+			expandIcon = new ImageIcon( TreeNodeWidgetExt.class.getResource( expandSrc ) ) ;
 		}
 	}
 

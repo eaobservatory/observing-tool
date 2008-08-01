@@ -9,7 +9,6 @@ package jsky.app.ot.gui ;
 import java.awt.Color ;
 import java.awt.FontMetrics ;
 import java.awt.Graphics ;
-import java.net.URL;
 
 /**
  * A utility class for drawing routines.
@@ -28,20 +27,5 @@ public final class DrawUtil
 		g.fillRect( x , y - h , w + 1 , h + 1 ) ; // String loc + padding
 		g.setColor( fg ) ;
 		g.drawString( str , x , y ) ;
-	}
-	
-	public static URL getResourceURL( String path )
-	{
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		URL url = cl.getResource( path ) ;
-		if( url == null )
-		{
-			try
-			{
-				url = new URL( System.getProperty( "ot.resource.cfgdir" ) + path ) ;
-			}
-			catch( java.net.MalformedURLException mue ){}
-		}
-		return url ;
 	}
 }

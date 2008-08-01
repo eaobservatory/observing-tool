@@ -43,8 +43,6 @@ import orac.helptool.JHLauncher ;
 import gemini.sp.SpTreeMan ;
 import orac.ukirt.iter.SpIterMichelleCalObs ;
 
-import jsky.app.ot.gui.DrawUtil ;
-
 public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */
@@ -72,7 +70,7 @@ public class OT extends JFrame
 	 * to which save by default or which is used as default directory for file
 	 * save/open dialogs.
 	 *
-	 * The actual key/name to be used to set the system property is <b>ot.userdir</b>.
+	 * The actual key/name to be used to set the system property is <b>user.dir</b>.
 	 *
 	 * ot.userdir can be used to specify the users working directory from which the a script
 	 * is called. If the script changes the directory before starting java the original
@@ -80,7 +78,7 @@ public class OT extends JFrame
 	 * user.dir would point to the directory from which java was started.
 	 *
 	 */
-	public static final String PROPERTY_OT_USERDIR = "ot.userdir" ;
+	public static final String PROPERTY_OT_USERDIR = "user.dir" ;
 
 	/**
 	 * @see #PROPERTY_OT_USERDIR
@@ -229,7 +227,7 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 		if( _otWindowFrames != null )
 			_otWindowFrames.clear() ;
-		URL url = DrawUtil.getResourceURL( "jsky/app/ot/cfg/library.xml" ) ;
+		URL url = OT.class.getResource( "jsky/app/ot/cfg/library.xml" ) ;
 		Reader r = null ;
 		/** This probably isn't adequate -- just using fetchXMLSp.  Should
 		 * be changed when it becomes a problem.
@@ -273,7 +271,7 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 
 		SpRootItem spItem = null ;
-		URL url = DrawUtil.getResourceURL( library ) ;
+		URL url = OT.class.getResource( library ) ;
 
 		// Check whether the alternative library could not be found either.
 		if( url == null )
@@ -381,7 +379,7 @@ public class OT extends JFrame
 		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
 		 * the if condition would prevent _splash to be shown a second time.
 		 */
-		URL url = DrawUtil.getResourceURL( "welcome.txt" ) ;
+		URL url = OT.class.getResource( "welcome.txt" ) ;
 		if( url == null )
 		{
 			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;
@@ -421,7 +419,7 @@ public class OT extends JFrame
 		}
 		else
 		{
-			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" ) ;
+			URL url = OT.class.getResource( "help/othelp.hs" ) ;
 			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}
@@ -461,7 +459,7 @@ public class OT extends JFrame
 
 		try
 		{
-			ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background.gif" ) ) ;
+			ImageIcon icon = new ImageIcon( OT.class.getResource( "images/background.gif" ) ) ;
 			JLabel label = new JLabel( icon ) ;
 			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
 			desktop.add( label , new Integer( Integer.MIN_VALUE ) ) ;
@@ -490,7 +488,7 @@ public class OT extends JFrame
 	/**
 	 * Get default user directory.
 	 *
-	 * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("ot.userdir")
+	 * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("user.dir")
 	 * if it is specified and exists or the users home directory otherwise.
 	 *
 	 * @see #PROPERTY_OT_USERDIR
@@ -626,7 +624,7 @@ public class OT extends JFrame
 
 			try
 			{
-				ImageIcon icon = new ImageIcon( ClassLoader.getSystemClassLoader().getResource( "images/background_small.gif" ) ) ;
+				ImageIcon icon = new ImageIcon( OT.class.getResource( "images/background_small.gif" ) ) ;
 				JLabel label = new JLabel( icon ) ;
 				label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
 				menuFrame.add( label ) ;
