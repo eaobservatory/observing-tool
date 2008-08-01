@@ -5,6 +5,7 @@ import java.io.BufferedReader ;
 import java.net.URL ;
 import java.io.InputStream ;
 import java.io.InputStreamReader ;
+import java.io.File ;
 
 public class Version
 {
@@ -36,9 +37,11 @@ public class Version
 		try
 		{
 			String cfgFilename = System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" ;
+			URL url = null ;
 			if( !cfgFilename.matches( "^\\w+://.*" ) )
-				cfgFilename = "file://" + cfgFilename ;
-			URL url = new URL( cfgFilename ) ;
+				url = new File( cfgFilename ).toURL()  ;
+			else
+				url = new URL( cfgFilename ) ;
 			InputStream is = url.openStream() ;
 			BufferedReader br = new BufferedReader( new InputStreamReader( is ) ) ;
 			String fullVersion = br.readLine().trim() ;
