@@ -54,10 +54,12 @@ public class InstCfgReader
 	{
 		try
 		{
+			URL url = null ;
 			if( !cfgFilename.matches( "^\\w+://.*" ) )
-				cfgFilename = "file://" + cfgFilename ;
-			URL url = new URL( cfgFilename ) ;
-			InputStream is = url.openStream() ;;
+				url = new File( cfgFilename ).toURL() ;
+			else
+				url = new URL( cfgFilename ) ;
+			InputStream is = url.openStream() ;
 			cfgFile = new BufferedReader( new InputStreamReader( is ) ) ;
 		}
 		catch( MalformedURLException ex )
