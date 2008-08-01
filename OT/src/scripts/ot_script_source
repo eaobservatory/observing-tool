@@ -1,3 +1,6 @@
+# Horrrible hack until I figure out how to properly kill it off
+set CFG_DIRS = `pwd`/$CFG_DIRS
+
 if( $CWD != "" ) then
 	set OT_USERDIR=$CWD
 else
