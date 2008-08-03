@@ -43,7 +43,7 @@ public class SpClient extends SoapClient
 	private static final String SP_SERVER_PROPERTY = "spServer" ;
 
 	/** Default URL. */
-	private static final String DEFAULT_SP_SERVER = "http://www.jach.hawaii.edu/JAClocal/cgi-bin/spsrv.pl" ;
+	private static final String DEFAULT_SP_SERVER = "http://omp.jach.hawaii.edu/cgi-bin/spsrv.pl" ;
 
 	/** SOAP action. */
 	private static final String SOAP_ACTION = "urn:OMP::SpServer" ;
