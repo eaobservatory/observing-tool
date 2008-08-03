@@ -62,7 +62,7 @@ public class SpClient extends SoapClient
 
 		try
 		{
-			_cfgProperties.load( ClassLoader.getSystemResourceAsStream( CFG_FILE ) ) ;
+			_cfgProperties.load( SpClient.class.getClassLoader().getSystemResourceAsStream( CFG_FILE ) ) ;
 
 			String spServerProperty = _cfgProperties.getProperty( SP_SERVER_PROPERTY ) ;
 
