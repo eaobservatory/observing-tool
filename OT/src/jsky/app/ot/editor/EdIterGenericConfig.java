@@ -27,6 +27,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 import gemini.sp.SpItem ;
 import gemini.sp.iter.IterConfigItem ;
 import gemini.sp.iter.SpIterConfigBase ;
+import gemini.util.ObservingToolUtilities;
 
 //
 // Helper class for EdIterGenericConfig.  It is the base class for editing
@@ -246,6 +247,8 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 
 	// The GUI layout
 	protected MiniConfigIterGUI _w ;
+	
+	protected static ClassLoader cl = EdIterGenericConfig.class.getClassLoader() ;
 
 	/** Default constructor */
 	public EdIterGenericConfig()
@@ -264,11 +267,10 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 		_w.bottom.addActionListener( this ) ;
 
 		// JBuilder has some problems with image buttons...
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		_w.top.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/top.gif" ) ) ) ;
-		_w.up.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/up.gif" ) ) ) ;
-		_w.bottom.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) ) ;
-		_w.down.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) ) ;
+		_w.top.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/top.gif" ) ) ) ;
+		_w.up.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/up.gif" ) ) ) ;
+		_w.bottom.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/bottom.gif" ) ) ) ;
+		_w.down.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/down.gif" ) ) ) ;
 
 		// --- XXX the code below was in _init() ---
 

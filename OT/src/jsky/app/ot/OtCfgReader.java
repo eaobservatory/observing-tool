@@ -6,6 +6,8 @@
 //
 package jsky.app.ot ;
 
+import gemini.util.ObservingToolUtilities;
+
 import java.io.File ;
 import java.io.BufferedReader ;
 import java.io.InputStream ;
@@ -13,7 +15,6 @@ import java.io.InputStreamReader ;
 import java.io.IOException ;
 
 import java.net.URL ;
-import java.net.MalformedURLException ;
 
 import java.util.StringTokenizer ;
 import java.util.Vector ;
@@ -63,34 +64,24 @@ class OtCfgReader
 	 */
 	public static OtCfg.Info load( String cfgFilename )
 	{
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader() ;
-		URL url = classLoader.getResource( cfgFilename ) ;
-		if( url == null )
+		OtCfg.Info info = null ;
+		URL url = ObservingToolUtilities.resourceURL( cfgFilename ) ;
+		if( url != null )
 		{
 			try
 			{
-				if( !cfgFilename.matches( "^\\w+://.*" ) )
-					url = new File( cfgFilename ).toURL() ;
-				else
-					url = new URL( cfgFilename ) ;
+				info = load( url.openStream() ) ;
 			}
-			catch( MalformedURLException mue ){}
+			catch( IOException ex )
+			{
+				DialogUtil.error( "Problem reading the config file: " + ex ) ;
+			}
 		}
-		if( url == null )
+		else
 		{
 			DialogUtil.error( "Problem constructing the config file URL: " + cfgFilename ) ;
-			return null ;
 		}
-
-		try
-		{
-			return load( url.openStream() ) ;
-		}
-		catch( IOException ex )
-		{
-			DialogUtil.error( "Problem reading the config file: " + ex ) ;
-			return null ;
-		}
+		return info ;
 	}
 
 	/**

@@ -22,6 +22,7 @@ import jsky.app.ot.gui.image.ViewportImageWidget ;
 import jsky.app.ot.gui.image.ViewportMouseEvent ;
 import jsky.app.ot.gui.image.ViewportMouseObserver ;
 import gemini.util.CoordSys ;
+import gemini.util.ObservingToolUtilities;
 import gemini.sp.SpHierarchyChangeObserver ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpObsContextItem ;
@@ -103,8 +104,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		registerFeature( "jsky.app.ot.tpe.feat.TpeCatalogFeature" ) ;
 
 		// Set the default catalog config file URL (override with -Djsky.catalog.skycat.config=...)
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader() ;
-		URL url = classLoader.getResource( "jsky/app/ot/cfg/skycat.cfg" ) ;
+		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/cfg/skycat.cfg" ) ;
 		SkycatConfigFile.setConfigFile( url ) ;
 	}
 

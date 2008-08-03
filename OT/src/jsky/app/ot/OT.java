@@ -17,7 +17,6 @@ import java.io.IOException ;
 import java.io.InputStreamReader ;
 import java.io.Reader ;
 import java.net.URL ;
-import java.net.MalformedURLException ;
 import java.util.Vector ;
 import javax.swing.JDesktopPane ;
 import javax.swing.JFrame ;
@@ -41,6 +40,7 @@ import ot.OtPreferencesDialog ;
 import ot.DatabaseDialog ;
 import orac.helptool.JHLauncher ;
 import gemini.sp.SpTreeMan ;
+import gemini.util.ObservingToolUtilities;
 import orac.ukirt.iter.SpIterMichelleCalObs ;
 
 public class OT extends JFrame
@@ -227,7 +227,7 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 		if( _otWindowFrames != null )
 			_otWindowFrames.clear() ;
-		URL url = OT.class.getResource( "jsky/app/ot/cfg/library.xml" ) ;
+		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/cfg/library.xml" ) ;
 		Reader r = null ;
 		/** This probably isn't adequate -- just using fetchXMLSp.  Should
 		 * be changed when it becomes a problem.
@@ -271,7 +271,7 @@ public class OT extends JFrame
 		OtProps.setSaveShouldPrompt( false ) ;
 
 		SpRootItem spItem = null ;
-		URL url = OT.class.getResource( library ) ;
+		URL url = ObservingToolUtilities.resourceURL( library , "ot.resource.cfgdir" ) ;
 
 		// Check whether the alternative library could not be found either.
 		if( url == null )
@@ -379,7 +379,7 @@ public class OT extends JFrame
 		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
 		 * the if condition would prevent _splash to be shown a second time.
 		 */
-		URL url = OT.class.getResource( "welcome.txt" ) ;
+		URL url = ObservingToolUtilities.resourceURL( "welcome.txt" , "ot.resource.cfgdir" ) ;
 		if( url == null )
 		{
 			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;
@@ -419,7 +419,7 @@ public class OT extends JFrame
 		}
 		else
 		{
-			URL url = OT.class.getResource( "help/othelp.hs" ) ;
+			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" ) ;
 			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}
@@ -429,17 +429,9 @@ public class OT extends JFrame
 	 */
 	public static void showNews()
 	{
-		URL url ;
-		try
-		{
-			url = new URL( "file" , "localhost" , System.getProperty( "ot.cfgdir" ) + "news.txt" ) ;
-		}
-		catch( MalformedURLException ex )
-		{
-			return ;
-		}
-
-		News.showNews( url ) ;
+		URL url = ObservingToolUtilities.resourceURL( "news.txt" , "ot.cfgdir" ) ;
+		if( url != null )
+			News.showNews( url ) ;
 	}
 
 	/**
@@ -457,20 +449,11 @@ public class OT extends JFrame
 		desktop.setBackground( new Color( 210 , 225 , 255 ) ) ;
 		// set desktop background
 
-		try
-		{
-			ImageIcon icon = new ImageIcon( OT.class.getResource( "images/background.gif" ) ) ;
-			JLabel label = new JLabel( icon ) ;
-			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
-			desktop.add( label , new Integer( Integer.MIN_VALUE ) ) ;
-		}
-		catch( Exception e )
-		{
-			/*
-			 * An exception is thrown if no background image is found in images/background.gif. 
-			 * Ignore.Background has been set to light blue anyway.
-			 */
-		}
+		URL url = ObservingToolUtilities.resourceURL( "images/background.gif" , "ot.resource.cfgdir" ) ;
+		ImageIcon icon = new ImageIcon( url ) ;
+		JLabel label = new JLabel( icon ) ;
+		label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
+		desktop.add( label , new Integer( Integer.MIN_VALUE ) ) ;
 	}
 
 	public static void addOtWindowFrame( OtWindowFrame frame )
@@ -621,21 +604,12 @@ public class OT extends JFrame
 			 */
 			JFrame menuFrame = new JFrame( "OT" ) ;
 			menuFrame.setJMenuBar( new OTMenuBar( new OT( false ) ) ) ;
-
-			try
-			{
-				ImageIcon icon = new ImageIcon( OT.class.getResource( "images/background_small.gif" ) ) ;
-				JLabel label = new JLabel( icon ) ;
-				label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
-				menuFrame.add( label ) ;
-			}
-			catch( Exception e )
-			{
-				/*
-				 * An exception is thrown if no background image is found in images/background.gif. 
-				 * Ignore. Background has been set to light blue anyway.
-				 */
-			}
+			
+			URL url = ObservingToolUtilities.resourceURL( "images/background_small.gif" , "ot.resource.cfgdir" ) ;
+			ImageIcon icon = new ImageIcon( url ) ;
+			JLabel label = new JLabel( icon ) ;
+			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
+			menuFrame.add( label ) ;
 
 			menuFrame.setDefaultCloseOperation( DO_NOTHING_ON_CLOSE ) ;
 			menuFrame.addWindowListener( new WindowAdapter()

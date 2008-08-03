@@ -8,6 +8,8 @@
  */
 package jsky.app.ot ;
 
+import gemini.util.ObservingToolUtilities;
+
 import java.awt.GridBagLayout ;
 import java.awt.GridBagConstraints ;
 import java.awt.Color ;
@@ -55,11 +57,11 @@ public class SplashGUI extends JPanel
 	{
 		titledBorder1 = new TitledBorder( new EtchedBorder( EtchedBorder.RAISED , Color.white , new Color( 142 , 142 , 142 ) ) , "Observing Tool Release Notes" ) ;
 
-		URL url = this.getClass().getResource( "images/splash.gif" ) ;
+		URL url = ObservingToolUtilities.resourceURL( "images/splash.gif" , "ot.resource.cfgdir" ) ;
 		if( url != null )
 			splashImage.setIcon( new ImageIcon( url ) ) ;
 		else
-			splashImage.setIcon( new ImageIcon( SplashGUI.class.getResource( "cfg/splash.gif" ) ) ) ;
+			splashImage.setIcon( new ImageIcon( SplashGUI.class.getClassLoader().getResource( "cfg/splash.gif" ) ) ) ;
 
 		this.setMinimumSize( new Dimension( 733 , 311 ) ) ;
 		this.setPreferredSize( new Dimension( 733 , 311 ) ) ;

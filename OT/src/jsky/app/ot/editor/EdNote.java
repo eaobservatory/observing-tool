@@ -28,6 +28,7 @@ import gemini.sp.SpItem ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpMSB ;
 import gemini.sp.SpObs ;
+import gemini.util.ObservingToolUtilities;
 
 /**
  * This is the editor for Note item.
@@ -46,7 +47,7 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 		_description = "Enter notes for the operator/astronomer here." ;
 		_resizable = true ;
 
-		URL url = ClassLoader.getSystemClassLoader().getResource( "jsky/app/ot/images/note.gif" ) ;
+		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/images/note.gif" ) ;
 		_w.imageLabel.setIcon( new ImageIcon( url ) ) ;
 
 		// The title

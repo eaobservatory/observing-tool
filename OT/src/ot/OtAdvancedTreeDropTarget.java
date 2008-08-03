@@ -19,6 +19,7 @@ import java.io.IOException ;
 import gemini.sp.SpInsertData ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpTreeMan ;
+import gemini.util.ObservingToolUtilities;
 import jsky.app.ot.util.DnDUtils ;
 import ot.util.DialogUtil ;
 
@@ -98,9 +99,9 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	{
 		super( treeWidget ) ;
 
-		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( OtAdvancedTreeDropTarget.class.getResource( INSERT_INSIDE_GIF ) ) ).getImage() ;
-		insertImage[ INSERT_AFTER ] = ( new ImageIcon( OtAdvancedTreeDropTarget.class.getResource( INSERT_AFTER_GIF ) ) ).getImage() ;
-		insertImage[ INSERT_NO ] = ( new ImageIcon( OtAdvancedTreeDropTarget.class.getResource( INSERT_NO_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_INSIDE ] = ( new ImageIcon( ObservingToolUtilities.resourceURL( INSERT_INSIDE_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_AFTER ] = ( new ImageIcon( ObservingToolUtilities.resourceURL( INSERT_AFTER_GIF ) ) ).getImage() ;
+		insertImage[ INSERT_NO ] = ( new ImageIcon( ObservingToolUtilities.resourceURL( INSERT_NO_GIF ) ) ).getImage() ;
 
 		dragSource = source ;
 

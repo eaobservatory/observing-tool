@@ -6,6 +6,8 @@
 //
 package jsky.app.ot.gui ;
 
+import gemini.util.ObservingToolUtilities;
+
 import java.awt.Font ;
 import java.util.Vector ;
 import java.util.Enumeration ;
@@ -117,7 +119,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public void setSrc( String src )
 	{
 		this.src = src ;
-		URL url = TreeNodeWidgetExt.class.getResource( "jsky/app/ot/" + src ) ;
+		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/" + src ) ;
 		try
 		{
 			icon = new ImageIcon( url ) ;
@@ -125,7 +127,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			icon = new ImageIcon( TreeNodeWidgetExt.class.getResource( src ) ) ;
+			icon = new ImageIcon( ObservingToolUtilities.resourceURL( src ) ) ;
 		}
 	}
 
@@ -159,7 +161,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 
 		this.expandSrc = expandSrc ;
-		URL url = TreeNodeWidgetExt.class.getResource( "jsky/app/ot/" + expandSrc ) ;
+		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/" + expandSrc ) ;
 		try
 		{
 			expandIcon = new ImageIcon( url ) ;
@@ -167,7 +169,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		catch( NullPointerException e )
 		{
 			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
-			expandIcon = new ImageIcon( TreeNodeWidgetExt.class.getResource( expandSrc ) ) ;
+			expandIcon = new ImageIcon( ObservingToolUtilities.resourceURL( expandSrc ) ) ;
 		}
 	}
 

@@ -34,6 +34,7 @@ import orac.ukirt.iter.SpIterSky ;
 import jsky.app.ot.tpe.TpeManager ;
 import jsky.app.ot.OtCfg ;
 
+import gemini.util.ObservingToolUtilities;
 import gemini.util.TelescopePos ;
 import gemini.util.TelescopePosWatcher ;
 import gemini.util.RADecMath ;
@@ -59,7 +60,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 	private IterOffsetGUI _w ; // the GUI layout panel
 	private String BUTTON_TEXT_ROTATION_FALSE = "Display Derotated Offsets" ;
 	private String BUTTON_TEXT_ROTATION_TRUE = "Offsets Derotated" ;
-
+	
 	/**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
@@ -70,12 +71,11 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 		_description = "Construct offset based patterns with this iterator." ;
 
 		// JBuilder has some problems with image buttons...
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		_w.topButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/top.gif" ) ) ) ;
-		_w.upButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/up.gif" ) ) ) ;
-		_w.bottomButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) ) ;
-		_w.downButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) ) ;
-		_w.pqItem.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/pq.gif" ) ) ) ;
+		_w.topButton.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/top.gif" ) ) ) ;
+		_w.upButton.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/up.gif" ) ) ) ;
+		_w.bottomButton.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/bottom.gif" ) ) ) ;
+		_w.downButton.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/down.gif" ) ) ) ;
+		_w.pqItem.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/pq.gif" ) ) ) ;
 
 		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_OFFSET_GRID_PA ) )
 		{

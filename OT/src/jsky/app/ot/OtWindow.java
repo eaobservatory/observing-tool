@@ -52,6 +52,7 @@ import gemini.sp.SpRootItem ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpType ;
 import gemini.util.ConfigWriter ;
+import gemini.util.ObservingToolUtilities;
 import orac.util.SpInputXML ;
 import ot.phase1.Phase1HTMLDocument ;
 import jsky.app.ot.tpe.TelescopePosEditor ;
@@ -300,7 +301,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 	/** XML file filter (*.xml). MFO 04 June 2001 */
 	protected FileFilterXML xmlFilter = new FileFilterXML() ;
-
+	
 	/**
 	 * Create an OtWindow of the appropriate type.
 	 */
@@ -1377,7 +1378,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		}
 		else
 		{
-			URL url = ClassLoader.getSystemClassLoader().getResource( "help/othelp.hs" ) ;
+			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" ) ;
 			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}

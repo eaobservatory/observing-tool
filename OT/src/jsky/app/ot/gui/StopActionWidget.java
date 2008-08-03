@@ -7,6 +7,8 @@
 
 package jsky.app.ot.gui ;
 
+import gemini.util.ObservingToolUtilities;
+
 import java.awt.FlowLayout ;
 import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
@@ -42,6 +44,7 @@ public class StopActionWidget extends JPanel
 	private Vector<StopActionWatcher> _watchers = new Vector<StopActionWatcher>() ;
 
 	protected String imgpath ="jsky/app/ot/images/" ;
+//	protected static ClassLoader cl = StopActionWidget.class.getClassLoader() ; 
 	
 	/** Action linked to the stop button and led */
 	protected AbstractAction stopAction = new AbstractAction( "Stop" )
@@ -76,12 +79,12 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createLed()
 	{
-		URL url = StopActionWidget.class.getResource( imgpath + "red_led.gif" ) ;
+		URL url = ObservingToolUtilities.resourceURL( imgpath + "red_led.gif" ) ;
 		led = new JButton( new ImageIcon( url ) ) ;
 		led.setFocusPainted( false ) ;
 		led.setBorderPainted( false ) ;
 
-		url = StopActionWidget.class.getResource( imgpath + "red_led_disabled.gif" ) ;
+		url = ObservingToolUtilities.resourceURL( imgpath + "red_led_disabled.gif" ) ;
 		led.setDisabledIcon( new ImageIcon( url ) ) ;
 		led.addActionListener( stopAction ) ;
 
@@ -93,12 +96,12 @@ public class StopActionWidget extends JPanel
 	 */
 	protected JButton createStopButton()
 	{
-		URL url = StopActionWidget.class.getResource( imgpath + "stop-sign.gif" ) ;
+		URL url = ObservingToolUtilities.resourceURL( imgpath + "stop-sign.gif" ) ;
 		stopButton = new JButton( new ImageIcon( url ) ) ;
 		stopButton.setFocusPainted( false ) ;
 		stopButton.setBorder( new BevelBorder( BevelBorder.RAISED ) ) ;
 
-		url = StopActionWidget.class.getResource( imgpath + "stop-sign-disabled.gif" ) ;
+		url = ObservingToolUtilities.resourceURL( imgpath + "stop-sign-disabled.gif" ) ;
 		stopButton.setDisabledIcon( new ImageIcon( url ) ) ;
 
 		stopAction.addPropertyChangeListener( new PropertyChangeListener()

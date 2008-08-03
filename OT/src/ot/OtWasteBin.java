@@ -9,6 +9,8 @@
 // $Id$
 package ot ;
 
+import gemini.util.ObservingToolUtilities;
+
 import javax.swing.JLabel ;
 import javax.swing.Icon ;
 import javax.swing.ImageIcon ;
@@ -34,8 +36,8 @@ import ot.util.DialogUtil ;
 public class OtWasteBin extends JLabel implements DropTargetListener
 {
 	protected String imgpath = "ot/images/" ;
-	protected Icon wasteIcon = new ImageIcon( OtWasteBin.class.getResource( imgpath + "waste.gif" ) ) ;
-	protected Icon wasteSelectedIcon = new ImageIcon( OtWasteBin.class.getResource( imgpath + "wasteSelected.gif" ) ) ;
+	protected Icon wasteIcon = new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "waste.gif" ) ) ;
+	protected Icon wasteSelectedIcon = new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "wasteSelected.gif" ) ) ;
 
 	public OtWasteBin()
 	{

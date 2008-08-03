@@ -30,6 +30,7 @@ import jsky.app.ot.tpe.TpeManager ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpAvEditState ;
 import gemini.sp.iter.SpIterChop ;
+import gemini.util.ObservingToolUtilities;
 
 import orac.util.TelescopeUtil ;
 
@@ -67,11 +68,10 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		_w.bottom.addActionListener( this ) ;
 
 		// JBuilder has some problems with image buttons...
-		ClassLoader cl = ClassLoader.getSystemClassLoader() ;
-		_w.top.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/top.gif" ) ) ) ;
-		_w.up.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/up.gif" ) ) ) ;
-		_w.bottom.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) ) ;
-		_w.down.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) ) ;
+		_w.top.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/top.gif" ) ) ) ;
+		_w.up.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/up.gif" ) ) ) ;
+		_w.bottom.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/bottom.gif" ) ) ) ;
+		_w.down.setIcon( new ImageIcon( ObservingToolUtilities.resourceURL( "jsky/app/ot/images/down.gif" ) ) ) ;
 
 		// MFO: This is probaly JCMT specific. Might need modification when the Chop iterator is used with UKIRT.
 		_w.coordFrameListBox.setChoices( OtCfg.telescopeUtil.getCoordSysFor( TelescopeUtil.CHOP ) ) ;
