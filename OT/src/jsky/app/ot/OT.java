@@ -70,7 +70,7 @@ public class OT extends JFrame
 	 * to which save by default or which is used as default directory for file
 	 * save/open dialogs.
 	 *
-	 * The actual key/name to be used to set the system property is <b>user.dir</b>.
+	 * The actual key/name to be used to set the system property is <b>ot.userdir</b>.
 	 *
 	 * ot.userdir can be used to specify the users working directory from which the a script
 	 * is called. If the script changes the directory before starting java the original
@@ -78,7 +78,7 @@ public class OT extends JFrame
 	 * user.dir would point to the directory from which java was started.
 	 *
 	 */
-	public static final String PROPERTY_OT_USERDIR = "user.dir" ;
+	public static final String PROPERTY_OT_USERDIR = "ot.userdir" ;
 
 	/**
 	 * @see #PROPERTY_OT_USERDIR
@@ -471,7 +471,7 @@ public class OT extends JFrame
 	/**
 	 * Get default user directory.
 	 *
-	 * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("user.dir")
+	 * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("otuserdir")
 	 * if it is specified and exists or the users home directory otherwise.
 	 *
 	 * @see #PROPERTY_OT_USERDIR
@@ -487,7 +487,7 @@ public class OT extends JFrame
 		{
 			File dir = new File( _otUserDir ) ;
 
-			if( !dir.isDirectory() )
+			if( !dir.exists() || !dir.isDirectory() || !dir.canWrite() )
 				_otUserDir = System.getProperty( "user.home" ) ;
 		}
 		else
