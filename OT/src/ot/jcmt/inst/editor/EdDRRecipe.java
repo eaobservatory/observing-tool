@@ -13,6 +13,7 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.SpItem ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import jsky.app.ot.gui.KeyPressWatcher ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
@@ -144,10 +145,13 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _showRecipeType( LookUpTable recipes )
 	{
-		Vector[] rowsV = new Vector[ recipes.getNumRows() ] ;
-		rowsV = recipes.getAsVectorArray() ;
-		TableWidgetExt tw = ( TableWidgetExt )getWidget( "recipeTable" ) ;
-		tw.setRows( rowsV ) ;
+		if( recipes != null )
+		{
+			Vector[] rowsV = new Vector[ recipes.getNumRows() ] ;
+			rowsV = recipes.getAsVectorArray() ;
+			TableWidgetExt tw = ( TableWidgetExt )getWidget( "recipeTable" ) ;
+			tw.setRows( rowsV ) ;
+		}
 	}
 
 	/**
@@ -194,11 +198,15 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 			rarray = SpDRRecipe.SCUBA2 ;
 		else if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
 			rarray = SpDRRecipe.HETERODYNE ;
-
+		else
+			rarray = new LookUpTable() ;
+			
 		// Show the correct recipes, and select the option widget for the type
 		_showRecipeType( rarray ) ;
 	}
 
+	private String cachedInst = "" ;
+	
 	/**
 	 * Override setup to store away a reference to the SpDRRecipe item. Also initialise the widgets Here.
 	 */
@@ -207,7 +215,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		_spDRRecipe = ( SpDRRecipe )spItem ;
 		
 		SpInstObsComp tmpInst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
-		if( _inst != null && !tmpInst.equals( _inst ) )
+		if( _inst != null && ( tmpInst == null || !tmpInst.equals( _inst ) ) )
 		{
 			_spDRRecipe.reset() ;
 			initd = false ;
@@ -216,13 +224,17 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		
 		if( _inst instanceof SpInstHeterodyne )
 			_instStr = INST_STR_HETERODYNE ;
-		else
+		else if( _inst instanceof SpInstSCUBA2 )
 			_instStr = INST_STR_SCUBA2 ;
+		else
+			_instStr = "" ;
 			
-		if( !initd )
+		if( !initd || cachedInst != _instStr )
 			_initInstWidgets() ;
 		else
 			_updateRecipeWidgets() ;
+		
+		cachedInst = _instStr ;
 		
 		super.setup( spItem ) ;
 	}

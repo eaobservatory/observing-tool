@@ -199,24 +199,27 @@ public final class SpDRRecipe extends SpDRObsComp
 	public String[] getAvailableTypes( String instrument )
 	{
 		String[] availableTypes = new String[ 0 ] ;
-		String fieldName = "availableTypes_" + instrument ;
-		try
+		if( instrument != null && !instrument.trim().equals( "" ) )
 		{
-			Field field =  whatami.getDeclaredField( fieldName ) ;
-			if( field != null )
+			String fieldName = "availableTypes_" + instrument ;
+			try
 			{
-				Class klass = field.getType() ;
-				if( klass == String[].class )
-					availableTypes = ( String[] )field.get( null ) ;
+				Field field =  whatami.getDeclaredField( fieldName ) ;
+				if( field != null )
+				{
+					Class klass = field.getType() ;
+					if( klass == String[].class )
+						availableTypes = ( String[] )field.get( null ) ;
+				}
 			}
-		}
-		catch( NoSuchFieldException nsfe )
-		{
-			System.out.println( fieldName + " does not appear to exist for " + whatami.getName() + ". " + nsfe ) ;
-		}
-		catch( IllegalAccessException iae )
-		{
-			System.out.println( "You do not appear to have access to " + fieldName + ". " + iae ) ;
+			catch( NoSuchFieldException nsfe )
+			{
+				System.out.println( fieldName + " does not appear to exist for " + whatami.getName() + ". " + nsfe ) ;
+			}
+			catch( IllegalAccessException iae )
+			{
+				System.out.println( "You do not appear to have access to " + fieldName + ". " + iae ) ;
+			}
 		}
 		
 		return availableTypes ;
