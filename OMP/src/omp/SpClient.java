@@ -16,6 +16,9 @@ import gemini.sp.SpProg ;
 import orac.util.SpInputXML ;
 import orac.util.SpItemUtilities ;
 
+import gemini.util.ObservingToolUtilities ;
+import java.io.InputStream ;
+
 /**
  * SpClient.java
  * 
@@ -62,7 +65,9 @@ public class SpClient extends SoapClient
 
 		try
 		{
-			_cfgProperties.load( SpClient.class.getClassLoader().getSystemResourceAsStream( CFG_FILE ) ) ;
+			url = ObservingToolUtilities.resourceURL( CFG_FILE , "ot.resource.cfgdir" ) ;
+			InputStream is = url.openStream() ;
+			_cfgProperties.load( is ) ;
 
 			String spServerProperty = _cfgProperties.getProperty( SP_SERVER_PROPERTY ) ;
 
