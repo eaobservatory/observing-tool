@@ -1,3 +1,5 @@
+// (c)2008 STFC
+
 package gemini.util ;
 
 import java.io.File;
