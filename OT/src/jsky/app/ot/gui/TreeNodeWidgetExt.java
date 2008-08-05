@@ -120,15 +120,9 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 		this.src = src ;
 		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/" + src ) ;
-		try
-		{
-			icon = new ImageIcon( url ) ;
-		}
-		catch( NullPointerException e )
-		{
-			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
+		icon = new ImageIcon( url ) ;
+		if( icon.getImageLoadStatus() == java.awt.MediaTracker.ERRORED )
 			icon = new ImageIcon( ObservingToolUtilities.resourceURL( src ) ) ;
-		}
 	}
 
 	/** 
@@ -159,18 +153,11 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	public void setExpandSrc( String expandSrc )
 	{
-
 		this.expandSrc = expandSrc ;
 		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/" + expandSrc ) ;
-		try
-		{
-			expandIcon = new ImageIcon( url ) ;
-		}
-		catch( NullPointerException e )
-		{
-			// In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
+		expandIcon = new ImageIcon( url ) ;
+		if( expandIcon.getImageLoadStatus() == java.awt.MediaTracker.ERRORED )
 			expandIcon = new ImageIcon( ObservingToolUtilities.resourceURL( expandSrc ) ) ;
-		}
 	}
 
 	/** 
