@@ -75,9 +75,9 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 		{
 			SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 			if( instrument instanceof SpInstSCUBA2 )
-				checkSources( SCUBA2_NOISE_SOURCES ) ;
+				NOISE_SOURCES = SCUBA2_NOISE_SOURCES ;
 			else if( instrument instanceof SpInstHeterodyne )
-				checkSources( HETERODYNE_NOISE_SOURCES ) ;
+				NOISE_SOURCES = HETERODYNE_NOISE_SOURCES ;
 		}
 		return NOISE_SOURCES ;
 	}

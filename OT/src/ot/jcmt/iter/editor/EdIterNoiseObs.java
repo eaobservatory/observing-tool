@@ -54,9 +54,9 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 
 	protected void _updateWidgets()
 	{
+		super._updateWidgets() ;
 		_w.noiseSourceComboBox.setValue( _iterObs.getNoiseSource() ) ;
 		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() ) ;
-		super._updateWidgets() ;
 	}
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
