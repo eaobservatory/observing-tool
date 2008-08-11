@@ -14,6 +14,8 @@ import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.inst.SpInstSCUBA ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
+import orac.jcmt.inst.SpInstHeterodyne ;
 
 /**
  * Noise Iterator for JCMT (SCUBA).
@@ -69,6 +71,14 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	/** Get the selection of noise sources. */
 	public String[] getNoiseSources()
 	{
+		if( NOISE_SOURCES == null )
+		{
+			SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
+			if( instrument instanceof SpInstSCUBA2 )
+				checkSources( SCUBA2_NOISE_SOURCES ) ;
+			else if( instrument instanceof SpInstHeterodyne )
+				checkSources( HETERODYNE_NOISE_SOURCES ) ;
+		}
 		return NOISE_SOURCES ;
 	}
 
