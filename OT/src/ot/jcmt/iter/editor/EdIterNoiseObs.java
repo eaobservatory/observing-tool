@@ -9,6 +9,7 @@
 // $Id$
 package ot.jcmt.iter.editor ;
 
+import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
 import gemini.sp.SpItem ;
@@ -39,6 +40,7 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 		_description = "Noise Observation Mode" ;
 
 		_w.noiseSourceComboBox.addWatcher( this ) ;
+		_w.currentAzimuth.addWatcher( this ) ;
 	}
 
 	/**
@@ -53,6 +55,7 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 	protected void _updateWidgets()
 	{
 		_w.noiseSourceComboBox.setValue( _iterObs.getNoiseSource() ) ;
+		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() ) ;
 		super._updateWidgets() ;
 	}
 
@@ -62,6 +65,12 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric
 			_iterObs.setNoiseSource( ( String )_w.noiseSourceComboBox.getSelectedItem() ) ;
 		else
 			super.dropDownListBoxAction( ddlbwe , index , val ) ;
+	}
+	
+	public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	{
+		if( cbwe == _w.currentAzimuth )
+			_iterObs.setDoAtCurrentAz( _w.currentAzimuth.getBooleanValue() ) ;
 	}
 
 	public void setInstrument( SpInstObsComp spInstObsComp )

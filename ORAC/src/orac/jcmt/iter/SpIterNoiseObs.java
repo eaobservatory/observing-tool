@@ -37,6 +37,8 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	public SpIterNoiseObs()
 	{
 		super( SP_TYPE ) ;
+		
+		_avTable.noNotifySet( ATTR_DO_AT_CURRENT_AZ , "true" , 0 ) ;
 	}
 
 	/** Get the noise source. */
