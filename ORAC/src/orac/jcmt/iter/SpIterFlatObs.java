@@ -9,8 +9,11 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstSCUBA2;
 import gemini.sp.SpFactory ;
+import gemini.sp.SpTreeMan;
 import gemini.sp.SpType ;
+import gemini.sp.obsComp.SpInstObsComp;
 
 /**
  * Focus Iterator for JCMT.
@@ -89,6 +92,12 @@ public class SpIterFlatObs extends SpIterJCMTObs
 	
 	public String[] getFlatSources()
 	{
+		if( FLAT_SOURCES == null )
+		{
+			SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
+			if( instrument instanceof SpInstSCUBA2 )
+				FLAT_SOURCES = SCUBA2_FLAT_SOURCES ;
+		}
 		return FLAT_SOURCES ;
 	}
 }
