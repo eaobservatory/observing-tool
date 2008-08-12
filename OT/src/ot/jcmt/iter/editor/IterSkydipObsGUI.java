@@ -10,7 +10,6 @@
 package ot.jcmt.iter.editor ;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
-import javax.swing.JPanel ;
 import java.awt.GridLayout ;
 
 /**
@@ -25,7 +24,6 @@ import java.awt.GridLayout ;
 public class IterSkydipObsGUI extends IterJCMTGenericGUI
 {
 	CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt() ;
-	JPanel display = new JPanel() ;
 	GridLayout layout = new GridLayout( 1 , 1 ) ;
 
 	public IterSkydipObsGUI()
