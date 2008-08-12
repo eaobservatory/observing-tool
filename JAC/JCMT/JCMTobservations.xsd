@@ -24,10 +24,15 @@
 
 <xsd:simpleType name="noiseSourceList">
   <xsd:restriction base="xsd:string">
+<!-- Heterodyne specific -->
     <xsd:enumeration value="REFLECTOR"/>
+    <xsd:enumeration value="ECCOSORB"/>
+<!-- Common -->
     <xsd:enumeration value="ZENITH"/>
     <xsd:enumeration value="SKY"/>
-    <xsd:enumeration value="ECCOSORB"/>
+<!-- SCUBA-2 specific -->
+    <xsd:enumeration value="DARK"/>
+    <xsd:enumeration value="BLACKBODY"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -147,6 +152,7 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="noiseSource"     type="toml:noiseSourceList"/>
+      <xsd:element name="useCurrentAz"    type="xsd:boolean" />
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="noiseObs"/>
