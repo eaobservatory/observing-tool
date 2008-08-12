@@ -276,6 +276,11 @@ public class SpMSB extends SpObsContextItem
      */
 	public double getElapsedTime()
 	{
+		return getElapsedTime( false ) ;
+	}
+	
+	public double getElapsedTime( boolean includeOptionals )
+	{
 		double elapsedTime = 0. ;
 		Enumeration children = children() ;
 		SpItem spItem = null ;
@@ -284,8 +289,18 @@ public class SpMSB extends SpObsContextItem
 		{
 			spItem = ( SpItem )children.nextElement() ;
 
-			if( spItem instanceof SpObs && !(( SpObs )spItem).isOptionalForEstimates() )
-				elapsedTime += ( ( SpObs )spItem ).getElapsedTime() ;
+			if( spItem instanceof SpObs )
+			{
+				boolean isOptional ;
+				SpObs obs = ( SpObs )spItem ;
+				if( includeOptionals )
+					isOptional = obs.isOptionalForEstimates() ;
+				else
+					isOptional = obs.isOptional() ;
+				
+				if( !isOptional )
+					elapsedTime += obs.getElapsedTime() ;
+			}
 			else if( spItem instanceof SpSurveyContainer )
 				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
 		}
@@ -326,7 +341,7 @@ public class SpMSB extends SpObsContextItem
      */
 	public void saveElapsedTime()
 	{
-		_avTable.set( ATTR_ELAPSED_TIME , getElapsedTime() ) ;
+		_avTable.set( ATTR_ELAPSED_TIME , getElapsedTime( true ) ) ;
 	}
 
 	protected void processAvAttribute( String avAttr , String indent , StringBuffer xmlBuffer )
@@ -334,7 +349,7 @@ public class SpMSB extends SpObsContextItem
 		if( avAttr.equals( ATTR_TOTAL_TIME ) )
 			xmlBuffer.append( "\n  " + indent + "<" + ATTR_TOTAL_TIME + " units=\"seconds\">" + getTotalTime() + "</" + ATTR_TOTAL_TIME + ">" ) ;
 		else if( avAttr.equals( ATTR_ELAPSED_TIME ) )
-			xmlBuffer.append( "\n  " + indent + "<" + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime() + "</" + ATTR_ELAPSED_TIME + ">" ) ;
+			xmlBuffer.append( "\n  " + indent + "<" + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime( true ) + "</" + ATTR_ELAPSED_TIME + ">" ) ;
 		else
 			super.processAvAttribute( avAttr , indent , xmlBuffer ) ;
 	}
