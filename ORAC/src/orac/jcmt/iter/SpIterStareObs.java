@@ -106,6 +106,9 @@ public class SpIterStareObs extends SpIterJCMTObs
 			if( isContinuum() )
 				totalIntegrationTime *= 1.2 ;
 		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstSCUBA2 )
+		{
+		}
 		return( overhead + totalIntegrationTime ) ;
 	}
 
@@ -173,8 +176,10 @@ public class SpIterStareObs extends SpIterJCMTObs
 		{ 
 				SWITCHING_MODE_BEAM , 
 				SWITCHING_MODE_POSITION ,
+/*
 				SWITCHING_MODE_FREQUENCY_S ,
 				SWITCHING_MODE_FREQUENCY_F ,
+*/
 				SWITCHING_MODE_NONE
 		} ;
 	}
