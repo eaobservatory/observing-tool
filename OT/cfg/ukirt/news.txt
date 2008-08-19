@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ August 2008
+
+  - Narrow band H filter replaces Bracket Gamma filter for WFCAM. See January 2008.
+
 +++ June 2008
 
   - Additional changes to the UIST configuration files for thermal imaging with the new controller
