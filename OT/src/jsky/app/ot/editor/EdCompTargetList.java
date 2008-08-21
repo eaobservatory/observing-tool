@@ -1071,15 +1071,34 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	 * @param conicSystemType
 	 *            Use SpTelescopePos.TYPE_MAJOR, SpTelescopePos.TYPE_MINOR, SpTelescopePos.TYPE_COMET
 	 */
+	private String previousSystem =  null ;
 	private void _setConicSystemType( int conicSystemType )
 	{
-		// Reset all non displayed elements to 0
+		String indexedValue = SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION[ conicSystemType ] ;
+
+		if( previousSystem == null )
+			previousSystem = indexedValue ;
+		
+		if( !indexedValue.equals( previousSystem ) )
+		{
+			// Reset all non displayed elements to 0
+			_curPos.setConicSystemEpoch( null ) ;
+			_curPos.setConicSystemEpochPerih( null ) ;
+			_curPos.setConicSystemInclination( null ) ;
+			_curPos.setConicSystemPerihelion( null ) ;
+			_curPos.setConicSystemE( null ) ;
+			_curPos.setConicSystemAnode( null ) ;
+			_curPos.setConicSystemAorQ( null ) ;
+			_curPos.setConicSystemLorM( null ) ;
+			_curPos.setConicSystemDailyMotion( null ) ;
+			_w.orbitalElementResolvedNameLabel.setText( "" ) ;
+		}
+			
 		switch( conicSystemType )
 		{
 			case SpTelescopePos.TYPE_MAJOR :
 				// Epoch of perihelion
 				_w.epochPerih.setVisible( false ) ;
-				// 	       _curPos.setConicSystemEpochPerih("0.0") ;
 				_w.epochPerihLabel.setVisible( false ) ;
 				_w.epochPerihUnitsLabel.setVisible( false ) ;
 
@@ -1108,7 +1127,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.epochPerih.setVisible( false ) ;
 				_w.epochPerihLabel.setVisible( false ) ;
 				_w.epochPerihUnitsLabel.setVisible( false ) ;
-				// 	       _curPos.setConicSystemEpochPerih("0.0") ;
 
 				// Mean distance
 				_w.aorqLabel.setText( "a" ) ;
@@ -1127,7 +1145,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.dm.setVisible( false ) ;
 				_w.dmLabel.setVisible( false ) ;
 				_w.dmUnitsLabel.setVisible( false ) ;
-				// 	       _curPos.setConicSystemDailyMotion("0.0") ;
 
 				break ;
 
@@ -1148,12 +1165,11 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.l_or_m.setVisible( false ) ;
 				_w.l_or_mLabel.setVisible( false ) ;
 				_w.l_or_mUnitsLabel.setVisible( false ) ;
-				// 	       _curPos.setConicSystemLorM("0.0") ;
 				_w.dm.setVisible( false ) ;
 				_w.dmLabel.setVisible( false ) ;
 				_w.dmUnitsLabel.setVisible( false ) ;
-				// 	       _curPos.setConicSystemDailyMotion("0.0") ;
 		}
+		previousSystem = indexedValue ;
 	}
 
 	/**
@@ -1165,6 +1181,8 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		switch( tp.getSystemType() )
 		{
 			case SpTelescopePos.SYSTEM_CONIC :
+				_w.conicSystemType.setValue( tp.getConicOrNamedTypeDescription() ) ;
+				_setConicSystemType( _w.conicSystemType.getIntegerValue() ) ;
 				_w.epoch.setValue( tp.getConicSystemEpochAsString() ) ;
 				_w.epoch.setCaretPosition( 0 ) ;
 				_w.epochPerih.setValue( tp.getConicSystemEpochPerihAsString() ) ;
@@ -1176,9 +1194,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.e.setValue( tp.getConicSystemE() ) ;
 				_w.l_or_m.setValue( tp.getConicSystemLorM() ) ;
 				_w.dm.setValue( tp.getConicSystemDailyMotion() ) ;
-				_w.conicSystemType.setValue( tp.getConicOrNamedTypeDescription() ) ;
-
-				_setConicSystemType( _w.conicSystemType.getIntegerValue() ) ;
 
 				break ;
 
@@ -1869,7 +1884,11 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 						_curPos.setConicSystemAnode( null ) ;
 					}
 		
-					tmp = treeMap.get( "QR" ) ;
+					int conicSystemType = _w.conicSystemType.getIntegerValue() ;
+					if( conicSystemType == SpTelescopePos.TYPE_MAJOR || conicSystemType == SpTelescopePos.TYPE_MINOR )
+						tmp = treeMap.get( "A" ) ;
+					else if( conicSystemType == SpTelescopePos.TYPE_COMET )
+						tmp = treeMap.get( "QR" ) ;
 					if( tmp != null && tmp instanceof Double )
 					{
 						value = tmp.toString() ;
@@ -1879,8 +1898,11 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 					{
 						_curPos.setConicSystemAorQ( null ) ;
 					}
-		
-					tmp = treeMap.get( "MA" ) ;
+
+					if( conicSystemType == SpTelescopePos.TYPE_MINOR )
+						tmp = treeMap.get( "MA" ) ;
+					else if( conicSystemType == SpTelescopePos.TYPE_MAJOR ||  conicSystemType == SpTelescopePos.TYPE_COMET )
+						tmp = treeMap.get( "L" ) ;
 					if( tmp != null && tmp instanceof Double )
 					{
 						value = tmp.toString() ;
