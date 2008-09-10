@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20080513</ot_version>
+  <ot_version>20080908</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -34,7 +34,7 @@ The recipe in these sequences (JITTER) assumes that you will have a seperate fla
       <totalDuration units="seconds">270.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">270.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -205,7 +205,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">486.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">486.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -391,7 +391,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">1350.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1350.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -734,7 +734,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">270.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -909,7 +909,7 @@ Note. If you want to survey a small area in several filters, create seperate MSB
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">108.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1061,7 +1061,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">270.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1229,7 +1229,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">486.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1413,7 +1413,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">1350.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1646,7 +1646,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">439.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1724,7 +1724,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">108.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - J</title>
           <SpNote type="no" subtype="none">
@@ -1848,7 +1848,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpSurveyContainer>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - H</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1926,7 +1926,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">108.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - H</title>
           <SpNote type="no" subtype="none">
@@ -2050,7 +2050,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpSurveyContainer>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2128,7 +2128,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">108.0</estimatedDuration>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - K</title>
           <SpNote type="no" subtype="none">
@@ -2265,7 +2265,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <totalDuration units="seconds">1566.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1566.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -2480,11 +2480,11 @@ The two MSBs called M83 show an example of a complete MSB with a target componen
     </SpNote>
     <SpMSB checksum="9324fb15af84b9b9e2291d90a3e621c1" remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">2983.5</estimatedDuration>
+      <estimatedDuration units="seconds">1951.5</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>WFCAM_FLIP_FAST</title>
-      <totalDuration units="seconds">2983.5</totalDuration>
+      <totalDuration units="seconds">1951.5</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This observation should flip a target between camera's 1 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 1, while the "Skies" should be with the target in camera 2.  
@@ -2509,7 +2509,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2567,7 +2567,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">804.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -2647,7 +2647,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <readMode>NDR_1.0</readMode>
         </SpInstWFCAM>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them. See WFCAM web pages for details.</note>
@@ -2657,16 +2657,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -2754,8 +2744,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -2793,8 +2783,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -2835,8 +2825,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -2874,8 +2864,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -2915,7 +2905,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2973,7 +2963,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">888.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -3061,18 +3051,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>2</repeatCount>
-            <title>Repeat 2X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -3160,8 +3140,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3199,8 +3179,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3241,8 +3221,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3280,8 +3260,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3321,7 +3301,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3379,7 +3359,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1176.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -3459,7 +3439,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <readMode>NDR_1.0</readMode>
         </SpInstWFCAM>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them. See WFCAM web pages for details.</note>
@@ -3467,20 +3447,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>2</repeatCount>
-            <title>Repeat 2X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -3519,7 +3489,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -3561,13 +3531,13 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3600,13 +3570,13 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3642,13 +3612,13 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3681,13 +3651,13 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -3758,7 +3728,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3816,7 +3786,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1340.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -3906,20 +3876,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -3930,23 +3886,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -3985,23 +3941,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -4038,7 +3994,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4096,7 +4052,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">740.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -4186,20 +4142,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -4210,23 +4152,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -4265,23 +4207,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -4318,7 +4260,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4376,7 +4318,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">980.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -4466,20 +4408,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -4490,23 +4418,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -4545,23 +4473,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -4599,23 +4527,14 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB checksum="9324fb15af84b9b9e2291d90a3e621c1" remaining="-1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">3787.5</estimatedDuration>
+      <estimatedDuration units="seconds">1951.5</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>WFCAM_FLIP_FAST - M83</title>
-      <totalDuration units="seconds">3787.5</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation should flip a target between camera's 1 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 1, while the "Skies" should be with the target in camera 2.  
-
-It executes a 2x2 microstep sequence AND a 5-point jitter pattern with the target in camera 1 before switching to camera 2 and repeating the 5x2x2=20 exposures.  It is therefore more efficient than FLIP_FAST though it switches between cameras (and therefore samples sky) less frequently.
-
-The target NGC4526 demonstrates what should happen - display this target in the position edotor, then edit the coords and put in your own target.</note>
-        <title>What this observation does</title>
-      </SpNote>
+      <title>WFCAM_FLIP_FAST - M83 DEMO</title>
+      <totalDuration units="seconds">1951.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4673,7 +4592,7 @@ The target NGC4526 demonstrates what should happen - display this target in the 
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1608.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -4791,20 +4710,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>2</repeatCount>
-            <title>Repeat 2X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -4843,7 +4752,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -4890,8 +4799,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -4929,8 +4838,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -4971,8 +4880,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5010,8 +4919,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5051,7 +4960,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5109,7 +5018,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">888.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpNote type="no" subtype="none">
@@ -5219,7 +5128,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <readMode>NDR_1.0</readMode>
         </SpInstWFCAM>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them. See WFCAM web pages for details.</note>
@@ -5227,20 +5136,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>2</repeatCount>
-            <title>Repeat 2X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -5279,7 +5178,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -5326,8 +5225,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5365,8 +5264,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5407,8 +5306,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5446,8 +5345,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5487,7 +5386,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5545,7 +5444,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1176.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpNote type="no" subtype="none">
@@ -5655,7 +5554,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <readMode>NDR_1.0</readMode>
         </SpInstWFCAM>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them. See WFCAM web pages for details.</note>
@@ -5663,20 +5562,10 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>2</repeatCount>
-            <title>Repeat 2X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This offset/microstep pattern below results in the microstep pattermn being done just once at each "observe" or "sky" position, i.e. one microstep sequence with the target in camera 1 or camera 3. A second or third offset could be added to each offset, though only use 3.2 or 6.4 arcsecs to be assured of fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to change the microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -5715,7 +5604,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </SpIterMicroStep>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -5762,8 +5651,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5801,8 +5690,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>9.6</DC1>
+                  <DC2>9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5843,8 +5732,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5882,8 +5771,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-9.6</DC1>
+                  <DC2>-9.6</DC2>
                 </OFFSET>
               </obsArea>
               <title>no jitter</title>
@@ -5927,20 +5816,11 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <estimatedDuration units="seconds">3175.5</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>1</priority>
-      <title>WFCAM_FLIP_SLOW - M83</title>
+      <title>WFCAM_FLIP_SLOW - M83 DEMO</title>
       <totalDuration units="seconds">3175.5</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation should flip a target between camera's 1 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 1, while the "Skies" should be with the target in camera 2.  
-
-It executes a 2x2 microstep sequence AND a 5-point jitter pattern with the target in camera 1 before switching to camera 2 and repeating the 5x2x2=20 exposures.  It is therefore more efficient than FLIP_FAST though it switches between cameras (and therefore samples sky) less frequently.
-
-The target NGC4526 demonstrates what should happen - display this target in the position edotor, then edit the coords and put in your own target.</note>
-        <title>What this observation does</title>
-      </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5998,7 +5878,7 @@ The target NGC4526 demonstrates what should happen - display this target in the 
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">1340.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -6118,49 +5998,13 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
+            <SpIterRepeat type="ic" subtype="repeat">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
-            <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-              </obsArea>
-              <title>jitter 5 3.2arcsec</title>
-              <SpIterMicroStep type="ic" subtype="microstep">
+              <repeatCount>1</repeatCount>
+              <title>Repeat 1X</title>
+              <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -6168,54 +6012,54 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>4.18</DC2>
+                    <DC1>6.4</DC1>
+                    <DC2>6.4</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>4.18</DC1>
-                    <DC2>4.18</DC2>
+                    <DC1>-6.4</DC1>
+                    <DC2>6.4</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>4.18</DC1>
-                    <DC2>0.0</DC2>
+                    <DC1>-6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-6.4</DC2>
                   </OFFSET>
                 </obsArea>
-                <pattern>2x2 medium</pattern>
-                <SpIterObserve type="ic" subtype="observe">
+                <title>jitter 5 6.4arcsec</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <repeatCount>1</repeatCount>
-                </SpIterObserve>
-              </SpIterMicroStep>
-            </SpIterOffset>
-            <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-              </obsArea>
-              <title>jitter 5 3.2arcsec</title>
-              <SpIterMicroStep type="ic" subtype="microstep">
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -6223,34 +6067,61 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>4.18</DC2>
+                    <DC1>6.4</DC1>
+                    <DC2>6.4</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>4.18</DC1>
-                    <DC2>4.18</DC2>
+                    <DC1>-6.4</DC1>
+                    <DC2>6.4</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>4.18</DC1>
-                    <DC2>0.0</DC2>
+                    <DC1>-6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-6.4</DC2>
                   </OFFSET>
                 </obsArea>
-                <pattern>2x2 medium</pattern>
-                <SpIterSky type="ic" subtype="sky">
+                <title>jitter 5 6.4arcsec</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <followOffset>false</followOffset>
-                  <repeatCount>1</repeatCount>
-                  <sky>SKY0</sky>
-                  <useRandom>false</useRandom>
-                </SpIterSky>
-              </SpIterMicroStep>
-            </SpIterOffset>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterSky type="ic" subtype="sky">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
+                    <repeatCount>1</repeatCount>
+                    <sky>SKY0</sky>
+                    <useRandom>false</useRandom>
+                  </SpIterSky>
+                </SpIterMicroStep>
+              </SpIterOffset>
+            </SpIterRepeat>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6308,7 +6179,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">740.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpNote type="no" subtype="none">
@@ -6428,20 +6299,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -6452,23 +6309,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -6507,23 +6364,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -6560,7 +6417,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">38.5</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6618,7 +6475,7 @@ This pattern should allways be able to use fast offsetting.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">980.0</estimatedDuration>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpNote type="no" subtype="none">
@@ -6738,20 +6595,6 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
-
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you wish to alter the microstepping pattern, go into the microstep iterator below and select the pattern you wish to use.  The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-              <title>MicroSteps</title>
-            </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
@@ -6762,23 +6605,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
@@ -6817,23 +6660,23 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-3.2</DC2>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 3.2arcsec</title>
+              <title>jitter 5 6.4arcsec</title>
               <SpIterMicroStep type="ic" subtype="microstep">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
