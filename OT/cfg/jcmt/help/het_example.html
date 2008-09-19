@@ -1839,9 +1839,10 @@ minimizes striping in the resultant map. One way to do this is to edit
 a science observation for a raster map, set the parameters as
 required, then copy the entire science observation and paste the copy
 below the original.  In the original raster "eye"-con, set the
-<em>SCAN PA</em> (lower left panel) to <em>user def</em>, and type in
-'0'.  Do the same in the copy raster "eye"-con, but set the <em>SCAN
-PA</em> to '90'.
+<em>SCAN PA</em> (lower left panel) to <em>user def</em>, and set the
+value to the same value as the <em>MAP PA</em>. Do the same in the
+copy raster "eye"-con, but set the <em>SCAN PA</em> to a value equal to 
+ <em>MAP PA+90</em>.
 
 <p>
 <em>Sample Time</em>: The <em>sample time</em> is the total
@@ -1852,7 +1853,7 @@ second with 2048 channels.  There is no physical limit for the maximum
 sample time. However, it should be noted that the telescope does not
 check the reference position until at least one row is completed.
 Thus one should make sure that the total time per row is less than
-about 60 seconds (or 120 seconds under stable weather condition), and
+about 60 seconds (or 120 seconds under stable weather conditions), and
 the total time for the MSB is no more than 1.5 to 2 hours at most.
 For large maps the integration time per pixel (<em>sample time</em>)
 should be set to a small value, e.g. 0.3 seconds per pixel, and then
