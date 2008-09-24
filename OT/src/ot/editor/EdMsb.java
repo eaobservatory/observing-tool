@@ -83,11 +83,9 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 	{
 		if( _spItem != null )
 		{
-			if( _spItem.parent() instanceof SpSurveyContainer )
-			{
-				_w.remaining.setEnabled( false ) ;
-				_w.jComboBox1.setEnabled( false ) ;
-			}
+			boolean enable = !( _spItem.parent() instanceof SpSurveyContainer ) ;
+			_w.remaining.setEnabled( enable ) ;
+			_w.jComboBox1.setEnabled( enable ) ;
 		}
 		// Show the title
 		TextBoxWidgetExt tbw = _w.nameBox ;
