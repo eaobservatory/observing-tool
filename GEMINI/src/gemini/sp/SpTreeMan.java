@@ -575,6 +575,7 @@ public final class SpTreeMan implements SpInsertConstants
 		_insertAfter.put( "no,ic" , ip ) ;
 		_insertAfter.put( "no,no" , ip ) ;
 		_insertAfter.put( "no,pr" , ip ) ; // SdW
+		_insertAfter.put( "no,sc" , ip ) ;
 
 		ip = new AfterPolicy_Component() ;
 
