@@ -7,86 +7,13 @@
 
 package jsky.app.ot ;
 
-import java.awt.Color ;
 import java.awt.Font ;
-import java.awt.FontMetrics ;
-import java.awt.Graphics ;
 import java.util.Observable ;
 import java.util.Observer ;
 import jsky.app.ot.gui.MultiSelTreeNodeWidget ;
 import gemini.sp.SpAvEditState ;
 import gemini.sp.SpItem ;
 import jsky.app.ot.util.Assert ;
-
-//
-// A helper class used to draw various things on top of tree node
-// widget images as the user drags items over them.
-//
-final class OtTnwDrawHelper
-{
-	// Draw a white X on a red field.
-	static void drawNo( Graphics g )
-	{
-		g.setColor( Color.red ) ;
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
-
-		g.setColor( Color.white ) ;
-		g.drawLine( 5 , 6 , 10 , 11 ) ;
-		g.drawLine( 5 , 5 , 11 , 11 ) ;
-		g.drawLine( 6 , 5 , 11 , 10 ) ;
-
-		g.drawLine( 10 , 5 , 5 , 10 ) ;
-		g.drawLine( 11 , 5 , 5 , 11 ) ;
-		g.drawLine( 11 , 6 , 6 , 11 ) ;
-	}
-
-	// Draw a white downward pointing arrow on a red field.
-	static void drawDownArrow( Graphics g )
-	{
-		g.setColor( Color.red ) ;
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
-
-		g.setColor( Color.white ) ;
-		g.drawLine( 8 , 4 , 8 , 10 ) ;
-		g.drawLine( 9 , 4 , 9 , 10 ) ;
-
-		int[] xPoints = { 5 , 8 , 12 , 5 } ;
-		int[] yPoints = { 9 , 12 , 9 , 9 } ;
-		g.fillPolygon( xPoints , yPoints , 4 ) ;
-	}
-
-	// Draw a white left-to-right downward pointing arrow on a red field.
-	static void drawLeftRightDownArrow( Graphics g )
-	{
-		g.setColor( Color.red ) ;
-		g.fillArc( 1 , 1 , 14 , 14 , 0 , 360 ) ;
-
-		g.setColor( Color.white ) ;
-		g.drawLine( 5 , 6 , 10 , 11 ) ;
-		g.drawLine( 5 , 5 , 11 , 11 ) ;
-		g.drawLine( 6 , 5 , 11 , 10 ) ;
-
-		int[] xPoints = { 7 , 11 , 11 , 7 } ;
-		int[] yPoints = { 11 , 11 , 7 , 11 } ;
-		g.drawPolygon( xPoints , yPoints , 4 ) ;
-	}
-
-	// Draw a black "!" on a yellow triangle.
-	static void drawExclamation( Graphics g )
-	{
-		g.setColor( Color.yellow ) ;
-		int[] xPoints = { 1 , 14 , 8 , 7 , 1 } ;
-		int[] yPoints = { 15 , 15 , 1 , 1 , 15 } ;
-		g.fillPolygon( xPoints , yPoints , 5 ) ;
-
-		g.setColor( Color.black ) ;
-		g.setFont( new Font( "Dialog" , Font.BOLD , 14 ) ) ;
-		FontMetrics fm = g.getFontMetrics() ;
-		int x = 8 - ( fm.stringWidth( "!" ) / 2 ) ;
-		int y = 8 + fm.getAscent() / 2 ;
-		g.drawString( "!" , x , y ) ;
-	}
-}
 
 /**
  * A MultiSelTreeNodeWidget that contains an SpItem.  OtTreeNodeWidget
