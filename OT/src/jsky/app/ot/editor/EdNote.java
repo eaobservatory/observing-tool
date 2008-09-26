@@ -128,6 +128,8 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 			rtbw.setText( "" ) ;
 		else
 			rtbw.setText( noteText ) ;
+		
+		rtbw.setCaretPosition( 0 ) ;
 
 		Component[] taggedComponents = _w.observerInputPanel.getComponents() ;
 

@@ -131,6 +131,8 @@ public class ReportBox extends JFrame
 		else
 			setBounds( 100 , 100 , 480 , 640 ) ;
 
+		_textPane.setCaretPosition( 0 ) ;
+		
 		setVisible( true ) ;
 	}
 
