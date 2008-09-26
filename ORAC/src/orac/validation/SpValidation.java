@@ -57,7 +57,7 @@ import java.util.Date ;
  */
 public class SpValidation
 {
-	protected String separator = "------------------------------------------------------\n" ;
+	protected static String separator = "------------------------------------------------------\n" ;
 	
 	public void checkSciProgram( SpProg spProg , Vector report )
 	{
