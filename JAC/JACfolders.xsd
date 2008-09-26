@@ -74,6 +74,11 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="Target" minOccurs="0" maxOccurs="1">
+        <xsd:complexType>
+          <xsd:attribute name="observed" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
       <xsd:element name="TargetList">
         <xsd:complexType>
           <xsd:sequence>
