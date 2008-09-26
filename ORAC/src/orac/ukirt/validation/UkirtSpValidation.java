@@ -259,7 +259,10 @@ public class UkirtSpValidation extends SpValidation
 	 */
 	public void checkObservation( SpObs spObs , Vector report )
 	{
-		report.add( "------------------------------------------------------\n" ) ;
+		if( report == null )
+			report = new Vector() ;
+		
+		report.add( separator ) ;
 
 		// Check whether the observation has an instrument (as its own child OR in its context).
 		if( SpTreeMan.findInstrument( spObs ) != null && !_isSpProgCheck )

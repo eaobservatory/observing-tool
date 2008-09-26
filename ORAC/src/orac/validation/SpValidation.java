@@ -57,6 +57,8 @@ import java.util.Date ;
  */
 public class SpValidation
 {
+	protected String separator = "------------------------------------------------------\n" ;
+	
 	public void checkSciProgram( SpProg spProg , Vector report )
 	{
 		if( report == null )
@@ -554,7 +556,7 @@ public class SpValidation
 		}
 
 		SAXParser parser = new SAXParser() ;
-		SchemaErrorHandler handler = new SchemaErrorHandler() ;
+		SchemaErrorHandler handler = new SchemaErrorHandler( xmlString ) ;
 		SchemaContentHandler contentHandler = new SchemaContentHandler() ;
 		parser.setErrorHandler( handler ) ;
 		parser.setContentHandler( contentHandler ) ;
@@ -586,18 +588,33 @@ public class SpValidation
 		Vector schemaErrors = handler.getErrors() ;
 		for( int i = 0 ; i < schemaErrors.size() ; i++ )
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "Schema validation error" , ( String )schemaErrors.get( i ) ) ) ;
-
-		return ;
 	}
 
 	public class SchemaErrorHandler implements ErrorHandler
 	{
-		public Vector errorMessages = new Vector() ;
+		public Vector<String> errorMessages = new Vector<String>() ;
+		
+		private String[] xml = null ;
 
+		public SchemaErrorHandler( String xmlString )
+		{
+			xml = xmlString.split( "\n" ) ;
+		}
+		
 		public void error( SAXParseException e )
 		{
-			String errorMessage = "Validation error in MSB<" + SchemaContentHandler.getCurrentMSB() + ">\n" ;
-			errorMessage += "XML line number : " + e.getLineNumber() + " column " + e.getColumnNumber() + "\n" ;
+			int lineNumber = e.getLineNumber() - 1 ;
+			
+			String errorMessage = separator ;
+			errorMessage += "Validation error in MSB<" + SchemaContentHandler.getCurrentMSB() + ">\n" ;
+			errorMessage += "XML line number : " + ( lineNumber + 1 ) + " column " + e.getColumnNumber() + "\n" ;
+			
+			errorMessage += "\n" ;
+			errorMessage += xml[ lineNumber - 1 ] + "\n" ;
+			errorMessage += "--> " + xml[ lineNumber ] + "  <--\n" ;
+			errorMessage += xml[ lineNumber + 1 ] + "\n" ;
+			errorMessage += "\n" ;
+			
 			errorMessage += "Obs:<" + SchemaContentHandler.getCurrentObs() + "> \n" ;
 			errorMessage += "component<" + SchemaContentHandler.getCurrentClass() + ">: \n" ;
 			errorMessage += "message:<" + e.getMessage() + ">\n" ;

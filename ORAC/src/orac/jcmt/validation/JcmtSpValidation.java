@@ -47,6 +47,8 @@ public class JcmtSpValidation extends SpValidation
 	{
 		if( report == null )
 			report = new Vector() ;
+		
+		report.add( separator ) ;
 
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( spObs ) ;
 		SpTelescopeObsComp target = SpTreeMan.findTargetList( spObs ) ;
