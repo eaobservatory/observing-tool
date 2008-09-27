@@ -96,7 +96,7 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 					{
 						public void keyReleased( KeyEvent evt )
 						{
-							( ( SpNote )_spItem ).setAVPair( ( ( JTextField )evt.getSource() ).getName() , ( ( JTextField )evt.getSource() ).getText() ) ;
+							(( SpNote )_spItem).setAVPair( (( JTextField )evt.getSource()).getName() , (( JTextField )evt.getSource()).getText() ) ;
 						}
 					} ) ;
 				}
@@ -122,7 +122,9 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 		RichTextBoxWidgetExt rtbw ;
 		rtbw = _w.note ;
 
-		String noteText = ( ( SpNote )_spItem ).getNote() ;
+		SpNote note = ( SpNote )_spItem ;
+		
+		String noteText = note.getNote() ;
 
 		if( noteText == null )
 			rtbw.setText( "" ) ;
@@ -152,14 +154,14 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 				}
 			}
 		}
-		_w.observeInstruction.setValue( ( ( SpNote )_spItem ).isObserveInstruction() ) ;
+		_w.observeInstruction.setValue( note.isObserveInstruction() ) ;
 		if( _w.observeInstruction.isSelected() )
 		{
 			_w.observerInputPanel.setVisible( true ) ;
 			for( int i = 0 ; i < taggedComponents.length ; i++ )
 			{
 				if( taggedComponents[ i ] instanceof JTextField )
-					( ( JTextField )taggedComponents[ i ] ).setText( ( ( SpNote )_spItem ).getValueFor( taggedComponents[ i ].getName() ) ) ;
+					( ( JTextField )taggedComponents[ i ] ).setText( note.getValueFor( taggedComponents[ i ].getName() ) ) ;
 			}
 		}
 		else
@@ -168,7 +170,7 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 			for( int i = 0 ; i < taggedComponents.length ; i++ )
 			{
 				if( taggedComponents[ i ] instanceof JTextField )
-					( ( SpNote )_spItem ).rmAVPair( taggedComponents[ i ].getName() ) ;
+					note.rmAVPair( taggedComponents[ i ].getName() ) ;
 			}
 		}
 	}
@@ -182,7 +184,7 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 		RichTextBoxWidgetExt rtbw ;
 		rtbw = _w.note ;
 
-		( ( SpNote )_spItem ).setNote( rtbw.getText() ) ;
+		(( SpNote )_spItem).setNote( rtbw.getText() ) ;
 	}
 
 	/**
@@ -202,7 +204,7 @@ public final class EdNote extends OtItemEditor implements KeyPressWatcher , Text
 
 	public void checkBoxAction( CheckBoxWidgetExt checkBoxWidgetExt )
 	{
-		( ( SpNote )_spItem ).setObserveInstruction( _w.observeInstruction.getBooleanValue() ) ;
+		(( SpNote )_spItem).setObserveInstruction( _w.observeInstruction.getBooleanValue() ) ;
 		_updateWidgets() ;
 	}
 }
