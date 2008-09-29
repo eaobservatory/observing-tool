@@ -435,7 +435,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			if( !( temp.equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() ) ;
 			updateSizeOfPixels() ;
-			updateScuba2Panel() ;
+			if( scuba2 )
+				updateScuba2Panel() ;
 		}
 		else if( tbwe == _w.dy )
 		{
@@ -575,7 +576,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				_iterObs.rmSampleTime() ;
 				_iterObs.setIntegrations( 1 ) ;
 			}
-			updateScuba2Panel() ;
+			// Should be SCUBA-2 anyway, but better safe ...
+			if( scuba2 )
+				updateScuba2Panel() ;
 		}
 		else
 		{
