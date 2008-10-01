@@ -678,6 +678,32 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 
 	/**
+     * Find the SpSurveyContainer assoicated with this context, if any. Only
+     * searches up the tree from the given item.
+     */
+	public static SpSurveyContainer findSurveyContainerInContext( SpItem spItem )
+	{
+		SpSurveyContainer container = null ;
+		
+		while( true )
+		{
+			if( spItem == null )
+			{
+				break ;
+			}
+			else if( spItem instanceof SpSurveyContainer )
+			{
+				container = ( SpSurveyContainer )spItem ;
+				break ;
+			}
+			
+			spItem = spItem.parent() ;
+		}
+		
+		return container ;
+	}
+	
+	/**
      * Find the SpSurveyObsComp assoicated with this context, if any. Only
      * searches the given scope. It does not navigate the tree hierarchy.
      */

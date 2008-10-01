@@ -23,6 +23,7 @@ import gemini.sp.SpItem ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpTelescopePos ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.SpSurveyContainer ;
 
 import orac.ukirt.iter.SpIterSky ;
 
@@ -38,6 +39,7 @@ import orac.ukirt.iter.SpIterSky ;
 public final class EdIterSky extends OtItemEditor implements ActionListener , ChangeListener , DocumentListener
 {
 	private IterSkyGUI _w ; // the GUI layout panel
+	private static String SKY = "SKY" ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -58,17 +60,7 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 
 		// Try to get all of the SKY's defined in the target component
 		_w.skySpinner.setModel( new SpinnerListModel() ) ;
-		if( _spItem != null )
-		{
-			SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem ) ;
-			if( obsComp != null )
-			{
-				Vector tags = obsComp.getPosList().getAllTags( "SKY" ) ;
-				if( tags.size() == 0 )
-					tags.add( "SKY" ) ;
-				( ( SpinnerListModel )_w.skySpinner.getModel() ).setList( tags ) ;
-			}
-		}
+		getSkyPositions( _spItem ) ;
 		_w.skySpinner.addChangeListener( this ) ;
 
 		// Add other action listeners
@@ -91,20 +83,11 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 		setEditorWindowTitle( "Sky Iterator" ) ;
 		setEditorWindowDescription( "Take the specified number of exposures." ) ;
 		_w.skySpinner.removeChangeListener( this ) ;
-		String defaultTag ;
-		if( _spItem != null )
-		{
-			SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem ) ;
-			if( obsComp != null )
-			{
-				Vector tags = obsComp.getPosList().getAllTags( "SKY" ) ;
-				if( tags.size() == 0 )
-					tags.add( "SKY" ) ;
-				defaultTag = ( String )tags.get( 0 ) ;
-				( ( SpinnerListModel )_w.skySpinner.getModel() ).setList( tags ) ;
-			}
-		}
-		if( iterSky.getSky() == null || iterSky.getSky().equals( "" ) || iterSky.getSky().equals( "SKY" ) )
+
+		getSkyPositions( spItem ) ;
+		
+		String currentSky = iterSky.getSky() ;
+		if( currentSky == null || currentSky.trim().equals( "" ) || currentSky.equals( SKY ) )
 			iterSky.setSky( ( String )(( SpinnerListModel )_w.skySpinner.getModel()).getList().get( 0 ) ) ;
 
 		try
@@ -174,7 +157,7 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 		if( e.getSource() == _w.repeatComboBox )
 			iterSky.setCount( ( ( Integer )_w.repeatComboBox.getSelectedItem() ).intValue() ) ;
 
-		String skyPattern = "SKY[0-9]+" ;
+		String skyPattern = SKY + "[0-9]+" ;
 		if( e.getSource() == _w.jrb1 )
 		{
 			iterSky.setFollowOffset( true ) ;
@@ -220,7 +203,7 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 		else if( e.getDocument() == _w.boxText.getDocument() )
 		{
 			iterSky.setBoxSize( _w.boxText.getText() ) ;
-			if( obsComp != null && iterSky.getSky().startsWith( "SKY" ) )
+			if( obsComp != null && iterSky.getSky().startsWith( SKY ) )
 				( ( SpTelescopePos )obsComp.getPosList().getPosition( iterSky.getSky() ) ).setBoxSize( iterSky.getBoxSize() ) ;
 		}
 	}
@@ -235,4 +218,52 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 	}
 
 	public void changedUpdate( DocumentEvent e ){}
+	
+	public void getSkyPositions( SpItem spItem )
+	{
+		if( spItem != null )
+		{
+			Vector<String> tags = null ;
+			SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( spItem ) ;
+			if( obsComp != null )
+			{
+				tags = obsComp.getPosList().getAllTags( SKY ) ;
+			}
+			else
+			{
+				SpSurveyContainer surveyContainer = SpTreeMan.findSurveyContainerInContext( spItem ) ;
+				tags = new Vector<String>() ;
+				Vector tmp = null ;
+				int size = surveyContainer.size() ;
+				Vector[] allTags = new Vector[ size ] ;
+				for( int i = 0 ; i < size ; i++ )
+				{
+					obsComp = surveyContainer.getSpTelescopeObsComp( i ) ;
+					tmp = obsComp.getPosList().getAllTags( SKY ) ;
+					allTags[ i ] = tmp ;
+				}
+				
+				tmp = allTags[ 0 ] ;
+				while( tmp.size() > 0 )
+				{
+					String tag = ( String )tmp.remove( 0 ) ;
+					boolean add = true ;
+					for( int k = 1 ; k < size ; k++ )
+					{
+						if( !allTags[ k ].contains( tag ) )
+						{
+							add = false ;
+							break ;
+						}
+					}
+					if( add && !tags.contains( tag ) )
+						tags.add( tag ) ;
+				}
+			}
+			if( tags.size() == 0 )
+				tags.add( SKY ) ;
+			SpinnerListModel model = ( SpinnerListModel )_w.skySpinner.getModel() ;
+			model.setList( tags ) ;
+		}
+	}
 }
