@@ -75,7 +75,7 @@ public class ConfigWriter
 
 	public void write( Hashtable table ) throws IOException
 	{
-
+		boolean oldController = System.getProperty( "cgs4" ) == null ;
 		synchronized( table )
 		{
 			// If the current table is the same as the last, don't bother writing a new one
@@ -93,15 +93,18 @@ public class ConfigWriter
 				confDir = System.getProperty( "user.home" ) ;
 
 			String fileName = confDir + File.separator + getCurrentName() + ".conf" ;
-			if( "CGS4".equals( _instName ) )
+
+			if( "CGS4".equals( _instName ) && oldController )
 			{
 				fileName = fileName.replaceAll( "CGS4" , "cgs4" ) ;
 				fileName = fileName.replaceAll( "\\.conf" , ".aim" ) ;
 			}
+
 			BufferedWriter writer = new BufferedWriter( new FileWriter( fileName ) ) ;
 
 			// Now delegate the writing according to the instrument
-			if( _instName.equalsIgnoreCase( "CGS4" ) )
+
+			if( _instName.equalsIgnoreCase( "CGS4" ) && oldController )
 				writeCGS4( writer , table ) ;
 			else
 				write( writer , table ) ;
