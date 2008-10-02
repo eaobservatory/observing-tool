@@ -1353,7 +1353,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	{
 		boolean oldController = System.getProperty( "cgs4" ) == null ;
 		
-		Hashtable t = new Hashtable() ;
+		Hashtable<String,String> t = new Hashtable<String,String>() ;
 
 		t.put( "instrument" , "CGS4" ) ;
 		t.put( "version" , "TBD" ) ;
@@ -1404,8 +1404,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "scans" , "1" ) ;
 			
 			String[] samplingValues = getSampling().split( "x" ) ;
-			int sampling = Integer.parseInt( samplingValues[ 0 ] ) * Integer.parseInt( samplingValues[ 1 ] ) ;
-			t.put( "sampling" , sampling ) ;
+			Integer sampling = Integer.parseInt( samplingValues[ 0 ] ) * Integer.parseInt( samplingValues[ 1 ] ) ;
+			t.put( "sampling" , sampling.toString() ) ;
 		}
 		
 		t.put( "filter" , getFilter() ) ;
