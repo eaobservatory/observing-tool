@@ -384,7 +384,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	 */
 	public double getExpTime()
 	{
-
 		double time = getExposureTime() ;
 		if( time == 0. )
 		{
@@ -1352,48 +1351,71 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 
 	public Hashtable getConfigItems()
 	{
+		boolean oldController = System.getProperty( "cgs4" ) == null ;
+		
 		Hashtable t = new Hashtable() ;
 
 		t.put( "instrument" , "CGS4" ) ;
 		t.put( "version" , "TBD" ) ;
 		t.put( "name" , "TBD" ) ;
 		t.put( "readMode" , getMode() ) ;
-		t.put( "expTime" , "" + getExpTime() ) ;
-		t.put( "objNumExp" , "" + getCoadds() ) ;
-		t.put( "savedInt" , "1" ) ;
+		
+		if( oldController )
+		{
+			t.put( "expTime" , "" + getExpTime() ) ;
+			t.put( "objNumExp" , "" + getCoadds() ) ;
+			t.put( "slitWidth" , "" + getMaskWidth() ) ;
+			t.put( "cvfWavelength" , "" + getCvfOffset() ) ;
+			t.put( "tunHalLevel" , "97" ) ;
+			t.put( "lampEffAp" , "10" ) ;
+			t.put( "flatSampling" , "1x1" ) ;
+			t.put( "flatCalLamp" , "1.3" ) ;
+			t.put( "flatFilter" , getFilter() ) ;
+			t.put( "flatExpTime" , "" + getExpTime() ) ;
+			t.put( "flatSavedInt" , "1" ) ;
+			t.put( "flatNumExp" , "" + getCoadds() ) ;
+			t.put( "darkNumExp" , "" + getCoadds() ) ;
+			t.put( "darkSavedInt" , "1" ) ;
+			t.put( "biasExpTime" , "" + getExpTime() ) ;
+			t.put( "biasNumExp" , "" + getCoadds() ) ;
+			t.put( "biasSavedInt" , "3" ) ;
+			t.put( "arcCalLamp" , "argon" ) ;
+			t.put( "arcFilter" , getFilter() ) ;
+			t.put( "arcExpTime" , "" + getExpTime() ) ;
+			t.put( "arcNumExp" , "" + getCoadds() ) ;
+			t.put( "arcSavedInt" , "1" ) ;
+			t.put( "savedInt" , "1" ) ;
+			t.put( "sampling" , getSampling() ) ;
+			t.put( "flatReadMode" , getMode() ) ;
+			t.put( "arcReadMode" , getMode() ) ;
+			t.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
+			t.put( "arcCvfWavelength" , "" + getCvfOffset() ) ;
+		}
+		else
+		{
+			t.put( "exposureTime" , "" + getExpTime() ) ;
+			t.put( "coadds" , "" + getCoadds() ) ;
+			t.put( "maskWidth" , "" + getMaskWidth() ) ;
+			t.put( "cvfOffset" , "" + getCvfOffset() ) ;
+			t.put( "TH-Level" , "97" ) ;
+			t.put( "lampAper" , "10" ) ;
+			t.put( "flatLamp" , "1.3" ) ;
+			t.put( "arcLamp" , "argon" ) ;
+			t.put( "scans" , "1" ) ;
+			
+			String[] samplingValues = getSampling().split( "x" ) ;
+			int sampling = Integer.parseInt( samplingValues[ 0 ] ) * Integer.parseInt( samplingValues[ 1 ] ) ;
+			t.put( "sampling" , sampling ) ;
+		}
+		
 		t.put( "filter" , getFilter() ) ;
 		t.put( "neutralDensity" , Boolean.toString( getNdFilter() ) ) ;
-		t.put( "sampling" , getSampling() ) ;
 		t.put( "posAngle" , getPosAngleDegreesStr() ) ;
-		t.put( "slitWidth" , "" + getMaskWidth() ) ;
 		t.put( "disperser" , getDisperser() ) ;
 		t.put( "polariser" , getPolariser() ) ;
 		t.put( "centralWavelength" , "" + getCentralWavelength() ) ;
-		t.put( "order" , "" + getOrder() ) ;
-		t.put( "cvfWavelength" , "" + getCvfOffset() ) ;
-		t.put( "calibLamp" , "off" ) ;
-		t.put( "tunHalLevel" , "97" ) ;
-		t.put( "lampEffAp" , "10" ) ;
-		t.put( "flatSampling" , "1x1" ) ;
-		t.put( "flatCalLamp" , "1.3" ) ;
-		t.put( "flatReadMode" , getMode() ) ;
-		t.put( "flatFilter" , getFilter() ) ;
-		t.put( "flatExpTime" , "" + getExpTime() ) ;
-		t.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
-		t.put( "flatSavedInt" , "1" ) ;
-		t.put( "flatNumExp" , "" + getCoadds() ) ;
-		t.put( "darkNumExp" , "" + getCoadds() ) ;
-		t.put( "darkSavedInt" , "1" ) ;
-		t.put( "biasExpTime" , "" + getExpTime() ) ;
-		t.put( "biasNumExp" , "" + getCoadds() ) ;
-		t.put( "biasSavedInt" , "3" ) ;
-		t.put( "arcCalLamp" , "argon" ) ;
-		t.put( "arcFilter" , getFilter() ) ;
-		t.put( "arcCvfWavelength" , "" + getCvfOffset() ) ;
-		t.put( "arcExpTime" , "" + getExpTime() ) ;
-		t.put( "arcNumExp" , "" + getCoadds() ) ;
-		t.put( "arcReadMode" , getMode() ) ;
-		t.put( "arcSavedInt" , "1" ) ;
+		t.put( "order" , "" + getOrder() ) ;		
+		t.put( "calibLamp" , "off" ) ;		
 		setInstAper() ;
 		t.put( "instAperX" , "" + getInstApX() ) ;
 		t.put( "instAperY" , "" + getInstApY() ) ;
