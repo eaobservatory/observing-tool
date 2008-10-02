@@ -9,15 +9,19 @@ package gemini.sp ;
 import java.util.ArrayList ;
 import java.util.Enumeration ;
 
+import java.net.URLEncoder ;
+import java.net.URLDecoder ;
+
+
+
 /**
  * The Note item. Notes are arbitrary text information that may be entered at
  * any level of the hierarchy.
  */
 public class SpNote extends SpItem
 {
-
 	public static final String ATTR_NOTE = "note" ;
-
+	
 	/**
      * This attribute records whether this note should be highlighted.
      * 
@@ -53,6 +57,11 @@ public class SpNote extends SpItem
      */
 	public void setNote( String text )
 	{
+		try
+		{
+			text = URLEncoder.encode( text , "UTF-8" ) ;
+		}
+		catch( java.io.UnsupportedEncodingException uee ){ System.out.println( uee ) ; }
 		_avTable.set( ATTR_NOTE , text ) ;
 	}
 
@@ -61,7 +70,17 @@ public class SpNote extends SpItem
      */
 	public String getNote()
 	{
-		return _avTable.get( ATTR_NOTE ) ;
+		String text = _avTable.get( ATTR_NOTE ) ;
+		// Nb. if the string does not contain spaces then it hasn't been encoded.
+		if( text.indexOf( ' ' ) == -1 )
+		{
+			try
+			{
+				text = URLDecoder.decode( text , "UTF-8" ) ;
+			}
+			catch( java.io.UnsupportedEncodingException uee ){ System.out.println( uee ) ; }
+		}
+		return text ;
 	}
 
 	/**
