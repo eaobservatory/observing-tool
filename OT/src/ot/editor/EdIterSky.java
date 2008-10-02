@@ -228,36 +228,40 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 			if( obsComp != null )
 			{
 				tags = obsComp.getPosList().getAllTags( SKY ) ;
+				if( tags == null )
+					tags = new Vector<String>() ;
 			}
 			else
 			{
-				SpSurveyContainer surveyContainer = SpTreeMan.findSurveyContainerInContext( spItem ) ;
 				tags = new Vector<String>() ;
-				Vector tmp = null ;
-				int size = surveyContainer.size() ;
-				Vector[] allTags = new Vector[ size ] ;
-				for( int i = 0 ; i < size ; i++ )
+				SpSurveyContainer surveyContainer = SpTreeMan.findSurveyContainerInContext( spItem ) ;
+				if( surveyContainer != null )
 				{
-					obsComp = surveyContainer.getSpTelescopeObsComp( i ) ;
-					tmp = obsComp.getPosList().getAllTags( SKY ) ;
-					allTags[ i ] = tmp ;
-				}
-				
-				tmp = allTags[ 0 ] ;
-				while( tmp.size() > 0 )
-				{
-					String tag = ( String )tmp.remove( 0 ) ;
-					boolean add = true ;
-					for( int k = 1 ; k < size ; k++ )
+					Vector tmp = null ;
+					int size = surveyContainer.size() ;
+					Vector[] allTags = new Vector[ size ] ;
+					for( int i = 0 ; i < size ; i++ )
 					{
-						if( !allTags[ k ].contains( tag ) )
-						{
-							add = false ;
-							break ;
-						}
+						obsComp = surveyContainer.getSpTelescopeObsComp( i ) ;
+						tmp = obsComp.getPosList().getAllTags( SKY ) ;
+						allTags[ i ] = tmp ;
 					}
-					if( add && !tags.contains( tag ) )
-						tags.add( tag ) ;
+					tmp = allTags[ 0 ] ;
+					while( tmp.size() > 0 )
+					{
+						String tag = ( String )tmp.remove( 0 ) ;
+						boolean add = true ;
+						for( int k = 1 ; k < size ; k++ )
+						{
+							if( !allTags[ k ].contains( tag ) )
+							{
+								add = false ;
+								break ;
+							}
+						}
+						if( add && !tags.contains( tag ) )
+							tags.add( tag ) ;
+					}
 				}
 			}
 			if( tags.size() == 0 )
