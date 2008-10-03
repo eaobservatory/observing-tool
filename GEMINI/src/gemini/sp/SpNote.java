@@ -57,11 +57,14 @@ public class SpNote extends SpItem
      */
 	public void setNote( String text )
 	{
-		try
+		if( text.contains( "http://" ) )
 		{
-			text = URLEncoder.encode( text , "UTF-8" ) ;
+			try
+			{
+				text = URLEncoder.encode( text , "UTF-8" ) ;
+			}
+			catch( java.io.UnsupportedEncodingException uee ){ System.out.println( uee ) ; }
 		}
-		catch( java.io.UnsupportedEncodingException uee ){ System.out.println( uee ) ; }
 		_avTable.set( ATTR_NOTE , text ) ;
 	}
 
@@ -72,7 +75,7 @@ public class SpNote extends SpItem
 	{
 		String text = _avTable.get( ATTR_NOTE ) ;
 		// Nb. if the string does not contain spaces then it hasn't been encoded.
-		if( text.indexOf( ' ' ) == -1 )
+		if( !text.trim().equals( "" ) && text.indexOf( ' ' ) == -1 )
 		{
 			try
 			{
