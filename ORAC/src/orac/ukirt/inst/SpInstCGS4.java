@@ -1358,10 +1358,10 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		t.put( "instrument" , "CGS4" ) ;
 		t.put( "version" , "TBD" ) ;
 		t.put( "name" , "TBD" ) ;
-		t.put( "readMode" , getMode() ) ;
 		
 		if( oldController )
 		{
+			t.put( "readMode" , getMode() ) ;
 			t.put( "expTime" , "" + getExpTime() ) ;
 			t.put( "objNumExp" , "" + getCoadds() ) ;
 			t.put( "slitWidth" , "" + getMaskWidth() ) ;
@@ -1393,6 +1393,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		}
 		else
 		{
+			t.put( "DAConf" , getMode() ) ;
 			t.put( "type" , "object" ) ;
 			t.put( "exposureTime" , "" + getExpTime() ) ;
 			t.put( "coadds" , "" + getCoadds() ) ;
