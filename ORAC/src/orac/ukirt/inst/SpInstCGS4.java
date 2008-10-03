@@ -1393,6 +1393,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		}
 		else
 		{
+			t.put( "type" , "object" ) ;
 			t.put( "exposureTime" , "" + getExpTime() ) ;
 			t.put( "coadds" , "" + getCoadds() ) ;
 			t.put( "maskWidth" , "" + getMaskWidth() ) ;
