@@ -394,15 +394,13 @@ public class ConfigWriter
 		return line.toString() ;
 	}
 
-	private String formatIntLegacyConfig( Object o , String comment ) throws NumberFormatException
+	private String formatIntLegacyConfig( String value , String comment ) throws NumberFormatException
 	{
-
 		String blanks ; // Blanks to initialise StringBuffer
 		DecimalFormat df ; // Decimal format
 		int i ; // Loop counter
 		StringBuffer line ; // Buffer for config line
 		int number ; // Integer value
-		String value = o.toString() ;
 
 		// Convert the value to an integer. If it fails, print a contextual
 		// error message but rethrow the exception for higher methods to catch.
