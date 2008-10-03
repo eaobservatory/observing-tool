@@ -669,7 +669,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 			}
 		}
 
-		Hashtable configTable = inst.getConfigItems() ;
+		Hashtable<String,String> configTable = inst.getConfigItems() ;
 		if( isFlat )
 		{
 			configTable.put( "flatSource" , getFlatSource() ) ;

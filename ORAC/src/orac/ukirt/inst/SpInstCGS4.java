@@ -1349,7 +1349,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		super.processXmlElementContent( name , value ) ;
 	}
 
-	public Hashtable getConfigItems()
+	public Hashtable<String,String> getConfigItems()
 	{
 		boolean oldController = System.getProperty( "cgs4" ) == null ;
 		

@@ -31,7 +31,7 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instCGS4" , "CGS4" ) ;
 	private IterConfigItem iciInstAperL ;
-	private Hashtable _myTable = null ;
+	private Hashtable<String,String> _myTable = null ;
 
 	// Register the prototype.
 	static
@@ -169,11 +169,11 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 	/**
 	 * Gets the hashtable created by this iterator
 	 */
-	public Hashtable getIterTable()
+	public Hashtable<String,String> getIterTable()
 	{
-		Hashtable clone = null ;
+		Hashtable<String,String> clone = null ;
 		if( _myTable != null )
-			clone = new Hashtable( _myTable ) ;
+			clone = new Hashtable<String,String>( _myTable ) ;
 
 		return clone ;
 	}

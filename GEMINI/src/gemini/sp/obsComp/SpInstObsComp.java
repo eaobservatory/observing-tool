@@ -381,9 +381,9 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		return 0. ;
 	}
 
-	public Hashtable getConfigItems()
+	public Hashtable<String,String> getConfigItems()
 	{
-		return new Hashtable() ;
+		return new Hashtable<String,String>() ;
 	}
 
 	/**

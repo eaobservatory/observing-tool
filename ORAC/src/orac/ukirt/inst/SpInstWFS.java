@@ -145,9 +145,9 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 	}
 
-	public Hashtable getConfigItems()
+	public Hashtable<String,String> getConfigItems()
 	{
-		Hashtable list = new Hashtable() ;
+		Hashtable<String,String> list = new Hashtable<String,String>() ;
 		list.put( "instrument" , "WFS" ) ;
 		list.put( "version" , "1.0" ) ;
 		list.put( "expTime" , "" + getExposureTime() ) ;

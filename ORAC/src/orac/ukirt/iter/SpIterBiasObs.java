@@ -186,9 +186,9 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" ) ;
 
 		// Now get the config items and update them for this bias observation
-		Hashtable t = inst.getConfigItems() ;
+		Hashtable<String,String> t = inst.getConfigItems() ;
 
-		if( "CGS4".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
+		if( "CGS4".equalsIgnoreCase( t.get( "instrument" ) ) )
 		{
 			// If we are inside a CGS4 iterator, we need to pick up it's hashtable
 			SpItem parent = parent() ;
@@ -218,7 +218,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			t.put( "coadds" , "" + getCoadds() ) ;
 
 		// Delete redundant entries
-		if( "WFCAM".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
+		if( "WFCAM".equalsIgnoreCase( t.get( "instrument" ) ) )
 		{
 			t.remove( "filter" ) ;
 			t.remove( "instPort" ) ;
@@ -226,7 +226,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			t.remove( "exposureTime" ) ;
 			t.remove( "coadds" ) ;
 		}
-		else if( "UIST".equalsIgnoreCase( ( String )t.get( "instrument" ) ) )
+		else if( "UIST".equalsIgnoreCase( t.get( "instrument" ) ) )
 		{
 			t.remove( "instPort" ) ;
 			t.remove( "camera" ) ;

@@ -158,6 +158,11 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 
 		return inst ;
 	}
+	
+	private boolean isImaging()
+	{
+		 return (( SpInstUIST )getInstrumentItem()).isImaging() ;
+	}
 
 	/**
 	 * Get the exposure time
@@ -166,20 +171,23 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 	{
 		String exposureTimeString = _avTable.get( SpInstConstants.ATTR_EXPOSURE_TIME ) ;
 		double exposureTime = 0. ;
-		if( exposureTimeString == null )
+		if( !isImaging() )
 		{
-			String mag = getSourceMag() ;
-
-			String disperser = getDisperser() ;
-			int row = SpInstUIST.SPECMAGS.indexInColumn( disperser , 0 ) ;
-			int column = SpInstUIST.SPECMAGS.indexInRow( mag , 0 ) ;
-			exposureTime = Double.valueOf( ( String )SpInstUIST.SPECMAGS.elementAt( row , column ) ).doubleValue() ;
-
-			setExposureTime( exposureTime ) ;
-		}
-		else
-		{
-			exposureTime = Double.valueOf( exposureTimeString ).doubleValue() ;
+			if( exposureTimeString == null )
+			{
+				String mag = getSourceMag() ;
+	
+				String disperser = getDisperser() ;
+				int row = SpInstUIST.SPECMAGS.indexInColumn( disperser , 0 ) ;
+				int column = SpInstUIST.SPECMAGS.indexInRow( mag , 0 ) ;
+				exposureTime = Double.valueOf( ( String )SpInstUIST.SPECMAGS.elementAt( row , column ) ).doubleValue() ;
+	
+				setExposureTime( exposureTime ) ;
+			}
+			else
+			{
+				exposureTime = Double.valueOf( exposureTimeString ).doubleValue() ;
+			}
 		}
 
 		return Double.toString( exposureTime ) ;
@@ -192,7 +200,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 	public String getFilter()
 	{
 		String filter = _avTable.get( SpUISTTargetAcqConstants.ATTR_FILTER ) ;
-		if( filter == null )
+		if( !isImaging() && filter == null )
 		{
 			int di = getDisperserIndex() ;
 			String OTFilter = ( String )SpInstUIST.DISPERSERS.elementAt( di , 2 ) ;
@@ -200,6 +208,10 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			filter = ( String )SpInstUIST.SPECTFILTERS.elementAt( findex , 1 ) ;
 
 			setFilter( filter ) ;
+		}
+		else
+		{
+			filter = (( SpInstUIST )getInstrumentItem()).getFilter() ;
 		}
 		return filter ;
 	}
@@ -218,7 +230,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 	public String getDisperser()
 	{
 		String targetAcqDisperser = _avTable.get( SpUISTTargetAcqConstants.ATTR_DISPERSER ) ;
-		if( targetAcqDisperser == null )
+		if( !isImaging() && targetAcqDisperser == null )
 		{
 			SpInstUIST inst = ( SpInstUIST )getInstrumentItem() ;
 			String disperser = inst.getDisperser() ;
@@ -253,6 +265,10 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 				}
 			}
 		}
+		else
+		{
+			targetAcqDisperser = "open" ;
+		}
 
 		setDisperser( targetAcqDisperser ) ;
 		return targetAcqDisperser ;
@@ -273,13 +289,16 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 	public double getDispersion()
 	{
 		double dispersion = 0. ;
-		String ds = _avTable.get( SpUISTTargetAcqConstants.ATTR_DISPERSION ) ;
-		if( ds == null )
+		if( !isImaging() )
 		{
-			int di = getDisperserIndex() ;
-			dispersion = Double.valueOf( ( String )SpInstUIST.DISPERSERS.elementAt( di , 1 ) ).doubleValue() ;
-
-			setDispersion( dispersion ) ;
+			String ds = _avTable.get( SpUISTTargetAcqConstants.ATTR_DISPERSION ) ;
+			if( ds == null )
+			{
+				int di = getDisperserIndex() ;
+				dispersion = Double.valueOf( ( String )SpInstUIST.DISPERSERS.elementAt( di , 1 ) ).doubleValue() ;
+	
+				setDispersion( dispersion ) ;
+			}
 		}
 		return dispersion ;
 	}
@@ -570,7 +589,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			throw new SpTranslationNotSupportedException( "No UIST instrument in scope of UIST Target Acq." ) ;
 		}
 
-		Hashtable items = inst.getConfigItems() ;
+		Hashtable<String,String> items = inst.getConfigItems() ;
 		items.put( "exposureTime" , getExposureTimeString() ) ;
 		items.put( "filter" , getFilter() ) ;
 		items.put( "disperser" , getDisperser() ) ;

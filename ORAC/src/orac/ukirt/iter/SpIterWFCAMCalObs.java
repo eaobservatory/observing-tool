@@ -418,7 +418,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			throw new SpTranslationNotSupportedException( "No WFCAM instrument in scope" ) ;
 		}
 
-		Hashtable configTable = inst.getConfigItems() ;
+		Hashtable<String,String> configTable = inst.getConfigItems() ;
 
 		// Set the DRRecipe Headers
 		SpItem parent = parent() ;

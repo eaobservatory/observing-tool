@@ -3835,13 +3835,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return rtn ;
 	}
 
-	public Hashtable getConfigItems()
+	public Hashtable<String,String> getConfigItems()
 	{
 		double et = getExpTimeOT() ;
 		et = limitExpTimeOT( et ) ;
 		String daconf = getDAConf( et ) ;
 
-		Hashtable t = new Hashtable() ;
+		Hashtable<String,String> t = new Hashtable<String,String>() ;
 		t.put( "instrument" , "UIST" ) ;
 		t.put( "version" , "3" ) ;
 		t.put( "configType" , CONFIG_TYPE ) ;

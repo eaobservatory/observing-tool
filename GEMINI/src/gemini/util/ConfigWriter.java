@@ -73,7 +73,7 @@ public class ConfigWriter
 		}
 	}
 
-	public void write( Hashtable table ) throws IOException
+	public void write( Hashtable<String,String> table ) throws IOException
 	{
 		boolean oldController = System.getProperty( "cgs4" ) == null ;
 		synchronized( table )
@@ -85,7 +85,7 @@ public class ConfigWriter
 			_lastConfig = table ;
 
 			// First get the instrument from the hashtable
-			_instName = ( String )table.get( "instrument" ) ;
+			_instName = table.get( "instrument" ) ;
 			_counter++ ;
 
 			String confDir = System.getProperty( "CONF_PATH" ) ;
@@ -113,28 +113,28 @@ public class ConfigWriter
 		}
 	}
 
-	private void write( BufferedWriter w , Hashtable t ) throws IOException
+	private void write( BufferedWriter w , Hashtable<String,String> t ) throws IOException
 	{
-		Enumeration e = t.keys() ;
+		Enumeration<String> e = t.keys() ;
 		while( e.hasMoreElements() )
 		{
-			String key = ( String )e.nextElement() ;
+			String key = e.nextElement() ;
 			if( !( key.startsWith( "instAper" ) ) )
 			{
-				w.write( key + " = " + ( String )t.get( key ) ) ;
+				w.write( key + " = " + t.get( key ) ) ;
 				w.newLine() ;
 			}
 		}
 	}
 
-	private void writeCGS4( BufferedWriter w , Hashtable t ) throws IOException
+	private void writeCGS4( BufferedWriter w , Hashtable<String,String> t ) throws IOException
 	{
 		w.write( formatLegacyConfigTitle( "ASTRONOMICAL" , getCurrentName() ) ) ;
 		w.newLine() ;
 		w.write( " Basic (object) configuration: " ) ;
 		w.newLine() ;
 
-		String readMode = ( String )t.get( "readMode" ) ;
+		String readMode = t.get( "readMode" ) ;
 		if( readMode.equals( "NDSTARE" ) )
 			readMode = "ND_STARE" ;
 
@@ -148,7 +148,7 @@ public class ConfigWriter
 		w.write( formatIntLegacyConfig( t.get( "savedInt" ) , "scans" ) ) ;
 		w.newLine() ;
 
-		String[] samplingValues = ( ( String )t.get( "sampling" ) ).split( "x" ) ;
+		String[] samplingValues = t.get( "sampling" ).split( "x" ) ;
 		int sampling = Integer.parseInt( samplingValues[ 0 ] ) * Integer.parseInt( samplingValues[ 1 ] ) ;
 		w.write( formatIntLegacyConfig( "" + sampling , "sampling" ) ) ;
 		w.newLine() ;
@@ -163,9 +163,9 @@ public class ConfigWriter
 		w.write( formatFloatLegacyConfig( t.get( "posAngle" ) , "position angle" ) ) ;
 		w.newLine() ;
 
-		String filter = ( ( String )t.get( "filter" ) ).trim() ;
-		boolean nd = Boolean.getBoolean( ( String )t.get( "neutralDensity" ) ) ;
-		String pol = ( String )t.get( "polariser" ) ;
+		String filter = t.get( "filter" ).trim() ;
+		boolean nd = Boolean.getBoolean( t.get( "neutralDensity" ) ) ;
+		String pol = t.get( "polariser" ) ;
 		if( nd )
 			filter = filter + "+ND" ;
 		else if( pol.equalsIgnoreCase( "none" ) )
@@ -175,16 +175,16 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( filter , "filter" ) ) ;
 		w.newLine() ;
 
-		StringBuffer slitWidth = new StringBuffer( ( String )t.get( "slitWidth" ) ) ;
+		StringBuffer slitWidth = new StringBuffer( t.get( "slitWidth" ) ) ;
 		slitWidth = slitWidth.delete( 1 , slitWidth.length() ) ;
 		slitWidth = slitWidth.append( "_pixel" ) ;
 		if( slitWidth.charAt( 0 ) != '1' )
 			slitWidth = slitWidth.append( "s" ) ;
 
-		w.write( formatLegacyConfig( slitWidth , "slit width" ) ) ;
+		w.write( formatLegacyConfig( slitWidth.toString() , "slit width" ) ) ;
 		w.newLine() ;
 
-		String disperser = ( String )t.get( "disperser" ) ;
+		String disperser = t.get( "disperser" ) ;
 		if( disperser.startsWith( "echelle" ) )
 			disperser = "echelle" ;
 		else
@@ -198,10 +198,10 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( t.get( "order" ) , "order" ) ) ;
 		w.newLine() ;
 
-		Double centalWavelength = new Double( ( String )t.get( "centralWavelength" ) ) ;
-		Double cvfWavelength = new Double( ( String )t.get( "cvfWavelength" ) ) ;
+		Double centalWavelength = new Double( t.get( "centralWavelength" ) ) ;
+		Double cvfWavelength = new Double( t.get( "cvfWavelength" ) ) ;
 		Double offset = new Double( cvfWavelength.doubleValue() - centalWavelength.doubleValue() ) ;
-		offset = new Double( Math.rint( offset.doubleValue() * 1000.0 ) / 1000.0 ) ;
+		offset = new Double( Math.rint( offset.doubleValue() * 1000. ) / 1000. ) ;
 		w.write( formatLegacyConfig( offset.toString() , "cvf offset" ) ) ;
 		w.newLine() ;
 
@@ -217,7 +217,7 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( t.get( "flatSampling" ) , "Flat sampling" ) ) ;
 		w.newLine() ;
 
-		String calLamp = ( String )t.get( "flatCalLamp" ) ;
+		String calLamp = t.get( "flatCalLamp" ) ;
 		if( calLamp.startsWith( "Black" ) )
 			calLamp = calLamp.substring( 12 , 15 ) ;
 		else if( calLamp.startsWith( "Tungsten-Halogen" ) )
@@ -226,8 +226,8 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( calLamp , "calibration lamp" ) ) ;
 		w.newLine() ;
 
-		filter = ( String )t.get( "flatFilter" ) ;
-		nd = Boolean.valueOf( ( String )t.get( "flatNeutralDensity" ) ).booleanValue() ;
+		filter = t.get( "flatFilter" ) ;
+		nd = Boolean.valueOf( t.get( "flatNeutralDensity" ) ).booleanValue() ;
 		if( nd )
 			filter = filter + "+ND" ;
 		else if( !( pol.equalsIgnoreCase( "none" ) ) )
@@ -236,7 +236,7 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( filter , "filter" ) ) ;
 		w.newLine() ;
 
-		readMode = ( String )t.get( "flatReadMode" ) ;
+		readMode = t.get( "flatReadMode" ) ;
 		if( readMode.equals( "NDSTARE" ) )
 			readMode = "ND_STARE" ;
 
@@ -271,7 +271,7 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( t.get( "arcCalLamp" ) , "calibration lamp" ) ) ;
 		w.newLine() ;
 
-		filter = ( String )t.get( "arcFilter" ) ;
+		filter = t.get( "arcFilter" ) ;
 		if( filter.equalsIgnoreCase( "blank" ) )
 			filter = "Blanks" ;
 
@@ -283,7 +283,7 @@ public class ConfigWriter
 		w.write( formatLegacyConfig( t.get( "arcCvfWavelength" ) , "cvf wavelength" ) ) ;
 		w.newLine() ;
 
-		readMode = ( String )t.get( "arcReadMode" ) ;
+		readMode = t.get( "arcReadMode" ) ;
 		if( readMode.equals( "NDSTARE" ) )
 			readMode = "ND_STARE" ;
 
@@ -297,7 +297,7 @@ public class ConfigWriter
 		w.newLine() ;
 	}
 
-	private String formatLegacyConfig( Object value , String comment )
+	private String formatLegacyConfig( String value , String comment )
 	{
 
 		String blanks ; // Blanks to initialise StringBuffer

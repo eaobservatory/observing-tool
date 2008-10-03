@@ -154,7 +154,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable configTable = inst.getConfigItems() ;
+			Hashtable<String,String> configTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "filterIter" ) )

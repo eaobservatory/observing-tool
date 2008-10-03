@@ -794,7 +794,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" ) ;
 
 		// Get the current config items and then update it depending on the type
-		Hashtable configTable = inst.getConfigItems() ;
+		Hashtable<String,String> configTable = inst.getConfigItems() ;
 		switch( getCalType() )
 		{
 			case FLAT :

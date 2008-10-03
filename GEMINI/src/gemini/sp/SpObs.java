@@ -350,8 +350,8 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
 			throw new RuntimeException( "No instrument selected" ) ;
-		Hashtable defaultsTable = inst.getConfigItems() ;
-		String instName = ( String )defaultsTable.get( "instrument" ) ;
+		Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
+		String instName = defaultsTable.get( "instrument" ) ;
 
 		SpTelescopeObsComp obsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( this ) ;
 		SpTelescopePos basePos = null ;
@@ -378,7 +378,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 
 		// Set up the initials headings
-		v.add( "define_inst " + instName + " " + ( String )defaultsTable.get( "instAperX" ) + " " + ( String )defaultsTable.get( "instAperY" ) + " " + ( String )defaultsTable.get( "instAperZ" ) + " " + ( String )defaultsTable.get( "instAperL" ) ) ;
+		v.add( "define_inst " + instName + " " + defaultsTable.get( "instAperX" ) + " " + defaultsTable.get( "instAperY" ) + " " + defaultsTable.get( "instAperZ" ) + " " + defaultsTable.get( "instAperL" ) ) ;
 		v.add( "-set_inst " + instName ) ;
 		v.add( "setHeader STANDARD " + ( getIsStandard() ? "T" : "F" ) ) ;
 
@@ -553,7 +553,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			e.printStackTrace() ;
 		}
 
-		if( instName.equals( "UFTI" ) || ( instName.equals( "UIST" ) && "imaging".equals( ( String )defaultsTable.get( "camera" ) ) ) )
+		if( instName.equals( "UFTI" ) || ( instName.equals( "UIST" ) && "imaging".equals( defaultsTable.get( "camera" ) ) ) )
 		{
 			v.add( "breakPoint" ) ;
 			v.add( darkString ) ;

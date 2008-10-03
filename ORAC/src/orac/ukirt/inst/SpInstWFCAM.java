@@ -449,9 +449,9 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		setInstApL( INSTRUMENT_APER[ LAP_INDEX ] ) ;
 	}
 
-	public Hashtable getConfigItems()
+	public Hashtable<String,String> getConfigItems()
 	{
-		Hashtable t = new Hashtable() ;
+		Hashtable<String,String> t = new Hashtable<String,String>() ;
 
 		t.put( "instrument" , "WFCAM" ) ;
 		t.put( "version" , "1" ) ;

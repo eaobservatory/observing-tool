@@ -121,11 +121,11 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable defaultsTable = inst.getConfigItems() ;
-			String xAper = " " + ( String )defaultsTable.get( "instAperX" ) ;
-			String yAper = " " + ( String )defaultsTable.get( "instAperY" ) ;
-			String zAper = " " + ( String )defaultsTable.get( "instAperZ" ) ;
-			String lAper = " " + ( String )defaultsTable.get( "instAperL" ) ;
+			Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
+			String xAper = " " + defaultsTable.get( "instAperX" ) ;
+			String yAper = " " + defaultsTable.get( "instAperY" ) ;
+			String zAper = " " + defaultsTable.get( "instAperZ" ) ;
+			String lAper = " " + defaultsTable.get( "instAperL" ) ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "filterIter" ) )

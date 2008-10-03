@@ -647,7 +647,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 
 	public Hashtable getConfigItems()
 	{
-		Hashtable list = new Hashtable() ;
+		Hashtable<String,String> list = new Hashtable<String,String>() ;
 		list.put( "instrument" , "UFTI" ) ;
 		list.put( "version" , "1" ) ;
 		list.put( "readMode" , getAcqMode() ) ;

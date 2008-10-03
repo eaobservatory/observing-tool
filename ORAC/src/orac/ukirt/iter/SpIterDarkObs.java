@@ -127,7 +127,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		if( inst == null )
 			throw new SpTranslationNotSupportedException( "No instrument in scope" ) ;
 
-		Hashtable defaultsTable = inst.getConfigItems() ;
+		Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
 
 		if( "CGS4".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
 		{
@@ -137,7 +137,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 			{
 				if( parent instanceof SpIterCGS4 )
 				{
-					defaultsTable = ( ( SpIterCGS4 )parent ).getIterTable() ;
+					defaultsTable = (( SpIterCGS4 )parent).getIterTable() ;
 					break ;
 				}
 				parent = parent.parent() ;
