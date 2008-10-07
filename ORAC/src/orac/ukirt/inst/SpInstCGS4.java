@@ -1406,8 +1406,15 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "scans" , "1" ) ;
 			
 			String[] samplingValues = getSampling().split( "x" ) ;
-			Integer sampling = Integer.parseInt( samplingValues[ 0 ] ) * Integer.parseInt( samplingValues[ 1 ] ) ;
+			Integer range = Integer.parseInt( samplingValues[ 1 ] ) ;
+			Integer sampling = Integer.parseInt( samplingValues[ 0 ] ) * range ;
 			t.put( "sampling" , sampling.toString() ) ;
+			
+			String pixelRange = samplingValues[ 1 ] + "_pixel" ;
+			if( range > 1 )
+				pixelRange += "s" ;
+
+			t.put( "sampleRange" , pixelRange ) ;
 		}
 		
 		t.put( "filter" , getFilter() ) ;
