@@ -35,6 +35,9 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 {
 	private SchedConstraintsGUI _w ; // the GUI layout panel
 	private SpSchedConstObsComp _schedConstObsComp ;
+	private static final String MAX = "Max" ;
+	private static final String MIN = "Min" ;
+	private static final double PiDividedBy180 = Math.PI / 180. ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -106,74 +109,32 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		_w.earliest.setValue( _schedConstObsComp.getEarliest() ) ;
 		_w.latest.setValue( _schedConstObsComp.getLatest() ) ;
 
-		if( _schedConstObsComp.getDisplayAirmass() )
+		boolean displayAirmass = _schedConstObsComp.getDisplayAirmass() ;
+		if( displayAirmass )
 		{
-			_w.airmassCB.removeActionListener( this ) ;
-			_w.airmassCB.setSelected( true ) ;
-			_w.airmassCB.addActionListener( this ) ;
-			_w.jLabel6.setVisible( false ) ;
-			_w.jLabel9.setText( "Max" ) ;
-			_w.jLabel10.setText( "Min" ) ;
-
+			_w.jLabel9.setText( MAX ) ;
+			_w.jLabel10.setText( MIN ) ;
 		}
 		else
 		{
-			_w.jLabel6.setVisible( true ) ;
-			_w.jLabel9.setText( "Min" ) ;
-			_w.jLabel10.setText( "Max" ) ;
+			_w.jLabel9.setText( MIN ) ;
+			_w.jLabel10.setText( MAX ) ;
 		}
+		
+		_w.airmassCB.removeActionListener( this ) ;
+		_w.airmassCB.setSelected( displayAirmass ) ;
+		_w.airmassCB.addActionListener( this ) ;
+		_w.jLabel6.setVisible( !displayAirmass ) ;
 
-		if( _schedConstObsComp.getMinElevation() != null && !_schedConstObsComp.getMinElevation().equals( "" ) )
-		{
-			// Get the value as a double
-			double elevation = Double.valueOf( _schedConstObsComp.getMinElevation() ).doubleValue() ;
-			// See if we should display this as an airmass
-			if( _w.airmassCB.isSelected() )
-			{
-				// Convert the elevation to an airmass
-				double airmass = _elevationToAirmass( elevation ) ;
-				// Display airmass to 3 diecimal places
-				NumberFormat nf = NumberFormat.getInstance() ;
-				nf.setMaximumFractionDigits( 3 ) ;
-				nf.setGroupingUsed( false ) ;
-				_w.minElevation.setValue( nf.format( airmass ) ) ;
-			}
-			else
-			{
-				// Just show the elevation
-				_w.minElevation.setValue( _schedConstObsComp.getMinElevation() ) ;
-			}
-		}
-		else
-		{
-			_w.minElevation.setValue( _schedConstObsComp.getMinElevation() ) ;
-		}
+		String minElevation = _schedConstObsComp.getMinElevation() ;		
+		if( minElevation != null && !minElevation.trim().equals( "" ) )
+			minElevation = getElevation( minElevation , displayAirmass ) ;
+		_w.minElevation.setValue( minElevation ) ;
 
-		if( _schedConstObsComp.getMaxElevation() != null && !_schedConstObsComp.getMaxElevation().equals( "" ) )
-		{
-			// Get the value as a double
-			double elevation = Double.valueOf( _schedConstObsComp.getMaxElevation() ).doubleValue() ;
-			// See if we should display this as an airmass
-			if( _w.airmassCB.isSelected() )
-			{
-				// Convert the elevation to an airmass
-				double airmass = _elevationToAirmass( elevation ) ;
-				// Display airmass to 3 diecimal places
-				NumberFormat nf = NumberFormat.getInstance() ;
-				nf.setMaximumFractionDigits( 3 ) ;
-				nf.setGroupingUsed( false ) ;
-				_w.maxElevation.setValue( nf.format( airmass ) ) ;
-			}
-			else
-			{
-				// Just show the elevation
-				_w.maxElevation.setValue( _schedConstObsComp.getMaxElevation() ) ;
-			}
-		}
-		else
-		{
-			_w.maxElevation.setValue( _schedConstObsComp.getMaxElevation() ) ;
-		}
+		String maxElevation = _schedConstObsComp.getMaxElevation() ;
+		if( maxElevation != null && !maxElevation.equals( "" ) )
+			maxElevation = getElevation( maxElevation , displayAirmass ) ;
+		_w.maxElevation.setValue( maxElevation ) ;
 
 		_w.period.setValue( _schedConstObsComp.getPeriod() ) ;
 
@@ -197,7 +158,6 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 	{
 		// By converting the string to Date and back to a an ISO8601 format string
 		// it gets tidied up in case the user made minor mistakes regarding the format.
-
 		try
 		{
 			if( tbw == _w.earliest )
@@ -226,41 +186,15 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 			}
 			else if( tbw == _w.minElevation )
 			{
-				// If we aren't using airmass, just store the elevation
-				if( !_w.airmassCB.isSelected() || "".equals( _w.minElevation.getValue() ) )
-				{
-					_schedConstObsComp.setMinElevation( _w.minElevation.getValue() ) ;
-				}
-				else
-				{
-					// User is inputing airmass, so convert it to degrees elevation
-					double airmass = Double.valueOf( _w.minElevation.getValue() ).doubleValue() ;
-					double elevation = _airmassToElevation( airmass ) ;
-					// Just store the converted value to 3 decimal places
-					NumberFormat nf = NumberFormat.getInstance() ;
-					nf.setMaximumFractionDigits( 3 ) ;
-					nf.setGroupingUsed( false ) ;
-					_schedConstObsComp.setMinElevation( nf.format( elevation ) ) ;
-				}
+				String minElevation = _w.minElevation.getValue() ;
+				minElevation = setElevation( minElevation ) ;
+				_schedConstObsComp.setMinElevation( minElevation ) ;
 			}
 			else if( tbw == _w.maxElevation )
 			{
-				// If we aren't using airmass, just store the elevation
-				if( !_w.airmassCB.isSelected() || _w.maxElevation.getValue().length() == 0 )
-				{
-					_schedConstObsComp.setMaxElevation( _w.maxElevation.getValue() ) ;
-				}
-				else
-				{
-					// User is inputing airmass, so convert it to degrees elevation
-					double airmass = Double.valueOf( _w.maxElevation.getValue() ).doubleValue() ;
-					double elevation = _airmassToElevation( airmass ) ;
-					// Just store the converted value to 3 decimal places
-					NumberFormat nf = NumberFormat.getInstance() ;
-					nf.setMaximumFractionDigits( 3 ) ;
-					nf.setGroupingUsed( false ) ;
-					_schedConstObsComp.setMaxElevation( nf.format( elevation ) ) ;
-				}
+				String maxElevation = _w.maxElevation.getValue() ;
+				maxElevation = setElevation( maxElevation ) ;
+				_schedConstObsComp.setMaxElevation( maxElevation ) ;
 			}
 			else if( tbw == _w.period )
 			{
@@ -319,7 +253,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		else
 		{
 			// Convert elevation to radians
-			elevation *= ( Math.PI / 180. ) ;
+			elevation *= PiDividedBy180 ;
 			airmass = 1. / Math.sin( elevation ) ;
 		}
 		return airmass ;
@@ -333,5 +267,38 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		// Convert to degrees
 		elevation = 180. * elevation / Math.PI ;
 		return elevation ;
+	}
+	
+	private String getElevation( String input , boolean displayAirmass )
+	{
+		double elevationOrAirmass = 0. ; 
+		if( input != null && input.trim().length() != 0 )
+		{
+    		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
+    		if( displayAirmass )
+    			elevationOrAirmass = _elevationToAirmass( elevationOrAirmass ) ;
+		}
+		return format( elevationOrAirmass ) ;
+	}
+	
+	private String setElevation( String input )
+	{
+		double elevationOrAirmass = 0. ;
+		if( input != null && input.trim().length() != 0 )
+		{
+    		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
+    		if( _schedConstObsComp.getDisplayAirmass() )
+    			elevationOrAirmass = _airmassToElevation( elevationOrAirmass ) ;
+		}
+		return format( elevationOrAirmass ) ;
+	}
+	
+	private String format( double elevationOrAirmass )
+	{
+		// Convert value to 3 decimal places
+		NumberFormat nf = NumberFormat.getInstance() ;
+		nf.setMaximumFractionDigits( 3 ) ;
+		nf.setGroupingUsed( false ) ;
+		return nf.format( elevationOrAirmass ) ;
 	}
 }
