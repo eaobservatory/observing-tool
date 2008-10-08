@@ -9,8 +9,9 @@
 
 package ot.ukirt.inst.editor ;
 
-import gemini.sp.* ;
-import gemini.sp.obsComp.* ;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpItem ;
+import gemini.sp.obsComp.SpInstObsComp ;
 import jsky.app.ot.gui.KeyPressWatcher ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
