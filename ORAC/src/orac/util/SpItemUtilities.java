@@ -212,13 +212,13 @@ public class SpItemUtilities
 	 *                  same kind of inheritance that applies to SpObsComp items
 	 *                  such as instrument components, site quality components etc.
 	 */
-	protected static void _insertReferenceIDsFor( Vector spObsCompVector , SpItem spItem )
+	protected static void _insertReferenceIDsFor( Vector<SpItem> spObsCompVector , SpItem spItem )
 	{
 		if( spObsCompVector == null )
 			return ;
 
 		for( int i = 0 ; i < spObsCompVector.size() ; i++ )
-			_insertReferenceIDsFor( ( SpItem )spObsCompVector.get( i ) , spItem ) ;
+			_insertReferenceIDsFor( spObsCompVector.get( i ) , spItem ) ;
 	}
 
 	/**
@@ -477,7 +477,7 @@ public class SpItemUtilities
 		return note ;
 	}
 
-	public static Vector findProgramNotes( SpItem spItem , Vector<SpItem> notes )
+	public static Vector<SpItem> findProgramNotes( SpItem spItem , Vector<SpItem> notes )
 	{
 		// Now get all the children
 		Enumeration e = spItem.children() ;
@@ -493,7 +493,7 @@ public class SpItemUtilities
 		return notes ;
 	}
 
-	public static Vector findParentNotes( SpItem spItem , Vector<SpItem> notes )
+	public static Vector<SpItem> findParentNotes( SpItem spItem , Vector<SpItem> notes )
 	{
 		SpItem parent = spItem.parent() ;
 		while( !( parent instanceof SpRootItem ) )

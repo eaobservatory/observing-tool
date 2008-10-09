@@ -27,7 +27,6 @@ import gemini.sp.SpType ;
  */
 public final class SpInstSCUBA extends SpJCMTInstObsComp
 {
-
 	/**
 	 * Radius of circular SCUBA science area.
 	 *
@@ -69,9 +68,9 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 	 */
 	private static double _defaultScanDy = 60. ;
 	private static String[][] _filters = null ;
-	private static Hashtable _filterTable = new Hashtable() ;
+	private static Hashtable<String,String[]> _filterTable = new Hashtable<String,String[]>() ;
 	private static String[][] _jigglePatterns = null ;
-	private static Hashtable _jigglePatternTable = new Hashtable() ;
+	private static Hashtable<String,String[]> _jigglePatternTable = new Hashtable<String,String[]>() ;
 	private static String[] _defaultJigglePattern = { "DEFAULT" } ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA" , "SCUBA" ) ;
@@ -173,7 +172,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 		}
 	}
 
-	public static Enumeration filters()
+	public static Enumeration< String > filters()
 	{
 		return _filterTable.keys() ;
 	}
@@ -187,7 +186,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 	 */
 	public static String[] getBolometersFor( String filter )
 	{
-		return ( String[] )_filterTable.get( filter.toUpperCase() ) ;
+		return _filterTable.get( filter.toUpperCase() ) ;
 	}
 
 	/**
@@ -197,7 +196,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 	 */
 	public static String[] getJigglePatternsForSubInstrument( String subInstrument )
 	{
-		return ( String[] )_jigglePatternTable.get( subInstrument.toUpperCase() ) ;
+		return _jigglePatternTable.get( subInstrument.toUpperCase() ) ;
 	}
 
 	/**
@@ -210,14 +209,14 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 		String[] result = _defaultJigglePattern ;
 
 		if( getPrimaryBolometer() != null )
-			result = ( String[] )_jigglePatternTable.get( getPrimaryBolometer().toUpperCase() ) ;
+			result = _jigglePatternTable.get( getPrimaryBolometer().toUpperCase() ) ;
 
 		// If the result is null i.e. the primary bolometer is not in the table then it is a
 		// single pixel from one of the arrays. The jiggle pattern of one of the photometry
 		// pixels should be used in this case rather then "DEFAULT".
 		// Note that result will be null if getPrimaryBolometer() == null.
 		if( result == null )
-			return ( String[] )_jigglePatternTable.get( "P2000" ) ;
+			return _jigglePatternTable.get( "P2000" ) ;
 		else
 			return result ;
 	}

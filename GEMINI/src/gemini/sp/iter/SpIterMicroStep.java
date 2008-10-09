@@ -151,8 +151,8 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst instanceof SpMicroStepUser )
 		{
-			Hashtable microStepTable = ( ( SpMicroStepUser )inst ).getMicroStepPatterns() ;
-			double[][] microSteps = ( double[][] )microStepTable.get( getPattern() ) ;
+			Hashtable<String,double[][]> microStepTable = ( ( SpMicroStepUser )inst ).getMicroStepPatterns() ;
+			double[][] microSteps = microStepTable.get( getPattern() ) ;
 			if( microSteps != null )
 				nOffs = microSteps.length ;
 		}
@@ -169,8 +169,8 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 		if( !( inst instanceof SpMicroStepUser ) )
 			throw new SpTranslationNotSupportedException( "Current instrument can not be used with microsteps" ) ;
 		
-		Hashtable microStepTable = ( ( SpMicroStepUser )inst ).getMicroStepPatterns() ;
-		double[][] microSteps = ( double[][] )microStepTable.get( getPattern() ) ;
+		Hashtable<String,double[][]> microStepTable = ( ( SpMicroStepUser )inst ).getMicroStepPatterns() ;
+		double[][] microSteps = microStepTable.get( getPattern() ) ;
 		if( microSteps == null )
 			return ;
 		// Find out whether we are inside an offset pattern

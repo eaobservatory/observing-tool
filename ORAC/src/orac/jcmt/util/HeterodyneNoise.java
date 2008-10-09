@@ -25,11 +25,11 @@ import gemini.util.MathUtil ;
  */
 public class HeterodyneNoise
 {
-	static Vector feNames = new Vector() ;
-	static Vector trxValues = new Vector() ;
-	static Vector nu_tel = new Vector() ;
+	static Vector<String> feNames = new Vector<String>() ;
+	static Vector<TreeMap<Integer,Integer>> trxValues = new Vector<TreeMap<Integer,Integer>>() ;
+	static Vector<Double> nu_tel = new Vector<Double>() ;
 	static HashMap dasModes = new HashMap() ;
-	static TreeMap _availableBands = new TreeMap() ;
+	static TreeMap<Double,String> _availableBands = new TreeMap<Double,String>() ;
 	static final double kappa = 1.15 ;
 	static final String cfgDir = System.getProperty( "ot.cfgdir" ) ;
 	private static final String receiverFile = "receiver.info" ;
@@ -64,14 +64,14 @@ public class HeterodyneNoise
 				if( ( index = feNames.indexOf( inputLine ) ) != -1 )
 				{
 					// Start reading the data
-					TreeMap currentMap = new TreeMap() ;
-					int nLines = Integer.valueOf( in.readLine() ).intValue() ;
+					TreeMap<Integer,Integer> currentMap = new TreeMap<Integer,Integer>() ;
+					int nLines = Integer.valueOf( in.readLine() ) ;
 					for( int i = 0 ; i < nLines ; i++ )
 					{
 						String values = in.readLine() ;
 						StringTokenizer st = new StringTokenizer( values ) ;
 						Double ftmp = new Double( st.nextToken() ) ;
-						int ftmpi = ( int )ftmp.doubleValue() ;
+						int ftmpi = ftmp.intValue()  ;
 						Integer frequency = new Integer( ftmpi ) ;
 						Integer trx = new Integer( st.nextToken() ) ;
 						currentMap.put( frequency , trx ) ;
@@ -128,19 +128,19 @@ public class HeterodyneNoise
 		if( ( index = feNames.indexOf( fe ) ) >= 0 )
 		{
 			// There is a match, now extract the appropriate tree map
-			TreeMap thisMap = ( TreeMap )trxValues.elementAt( index ) ;
+			TreeMap thisMap = trxValues.elementAt( index ) ;
 			if( thisMap.size() > 1 )
 			{
 				// first make sure it is within range or short cicuit now
 				Integer nextTrxInteger = ( Integer )thisMap.firstKey() ;
 				double nextTrxFrequency = nextTrxInteger.doubleValue() ;
 				if( freq < nextTrxFrequency )
-					trx = ( ( Integer )thisMap.get( nextTrxInteger ) ).doubleValue() ;
+					trx = (( Integer )thisMap.get( nextTrxInteger )).doubleValue() ;
 
 				Integer lastTrxInteger = ( Integer )thisMap.lastKey() ;
-				double lastTrxFrequency = lastTrxInteger.doubleValue() ;
+				double lastTrxFrequency = lastTrxInteger ;
 				if( freq > lastTrxFrequency )
-					trx = ( ( Integer )thisMap.get( lastTrxInteger ) ).doubleValue() ;
+					trx = (( Integer )thisMap.get( lastTrxInteger )).doubleValue() ;
 
 				if( trx == 0 )
 				{
@@ -180,7 +180,7 @@ public class HeterodyneNoise
 			}
 			else
 			{
-				trx = ( ( Integer )thisMap.get( thisMap.firstKey() ) ).intValue() ;
+				trx = (( Integer )thisMap.get( thisMap.firstKey() )).intValue() ;
 			}
 		}
 		return trx ;
@@ -205,34 +205,34 @@ public class HeterodyneNoise
 		// Find which tau range contains the required tau, and the next tau range nearest
 		String tauFile0 ;
 		String tauFile1 ;
-		Iterator iter = _availableBands.keySet().iterator() ;
+		Iterator<Double> iter = _availableBands.keySet().iterator() ;
 		double current = 0 , next = 0 ;
 		boolean firstLoop = true ;
 		while( iter.hasNext() )
 		{
 			if( firstLoop )
 			{
-				current = ( ( Double )iter.next() ).doubleValue() ;
-				next = ( ( Double )iter.next() ).doubleValue() ;
+				current = iter.next() ;
+				next = iter.next() ;
 				if( tau <= current )
 					break ;
 				firstLoop = false ;
 				continue ;
 			}
 			current = next ;
-			next = ( ( Double )iter.next() ).doubleValue() ;
+			next = iter.next().doubleValue() ;
 			if( tau >= current && tau < next )
 				break ;
 		}
-		tauFile0 = ( String )_availableBands.get( new Double( current ) ) ;
-		tauFile1 = ( String )_availableBands.get( new Double( next ) ) ;
+		tauFile0 = _availableBands.get( new Double( current ) ) ;
+		tauFile1 = _availableBands.get( new Double( next ) ) ;
 
 		double tranmission0 = getTransmission( tauFile0 , freq ) ;
 		double tranmission1 = getTransmission( tauFile1 , freq ) ;
 		double t = linterp( current , tranmission0 , next , tranmission1 , tau ) ;
 
 		if( ( index = feNames.indexOf( fe ) ) != -1 )
-			nuTel = ( ( Double )nu_tel.elementAt( index ) ).doubleValue() ;
+			nuTel = nu_tel.elementAt( index ) ;
 
 		// Nowe find Tsys
 		double nuSky = Math.exp( -t * airmass ) ;
@@ -254,10 +254,10 @@ public class HeterodyneNoise
 		return tSys ;
 	}
 
-	private static TreeMap getAtmosphereData( double tau )
+	private static TreeMap<Double,Double> getAtmosphereData( double tau )
 	{
 		double[] availableBands = { 0.03 , 0.05 , 0.065 , 0.1 , 0.16 , 0.2 } ;
-		TreeMap tauMap = new TreeMap() ;
+		TreeMap<Double,Double> tauMap = new TreeMap<Double,Double>() ;
 		int index = 0 ;
 
 		// Find the tau band we are in

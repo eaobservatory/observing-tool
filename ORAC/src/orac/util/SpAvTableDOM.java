@@ -108,7 +108,7 @@ public class SpAvTableDOM
 		// Construct AvToDom classes using a sorted attribute array.
 
 		Enumeration e = _avTab.attributes() ;
-		Vector attributeVector = new Vector() ;
+		Vector<String> attributeVector = new Vector<String>() ;
 
 		while( e.hasMoreElements() )
 			attributeVector.add( ( String )e.nextElement() ) ;

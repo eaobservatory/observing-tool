@@ -89,7 +89,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 		return 180. ;
 	}
 
-	public Hashtable getMicroStepPatterns()
+	public Hashtable<String,double[][]> getMicroStepPatterns()
 	{
 		Hashtable<String,double[][]> result = new Hashtable<String,double[][]>() ;
 

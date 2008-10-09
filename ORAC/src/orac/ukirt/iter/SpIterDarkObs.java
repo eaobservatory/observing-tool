@@ -129,7 +129,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 
 		Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
 
-		if( "CGS4".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
+		if( "CGS4".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
 		{
 			// If we are inside a CGS4 iterator, we need to pick up it's hashtable
 			SpItem parent = parent() ;
@@ -156,12 +156,12 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 			defaultsTable.put( "chopDelay" , "0.0" ) ;
 		if( defaultsTable.containsKey( "type" ) )
 		{
-			if( "WFCAM".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
+			if( "WFCAM".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
 				defaultsTable.put( "type" , "dark" ) ;
 		}
 
 		// Delete things we dont't need
-		if( "WFCAM".equalsIgnoreCase( ( String )defaultsTable.get( "instrument" ) ) )
+		if( "WFCAM".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
 		{
 			defaultsTable.remove( "filter" ) ;
 			defaultsTable.remove( "instPort" ) ;

@@ -108,7 +108,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	public static String CUBE_LIST_FILE ;
 
 	/** Entity file path. Not written by OT. Path set in acsisTranslator.cfg file. */
-	public static Hashtable DR_RECIPE_FILES = new Hashtable() ;
+	public static Hashtable< String , String > DR_RECIPE_FILES = new Hashtable< String , String >() ;
 
 	/** Entity file path. Not written by OT. Path set in acsisTranslator.cfg file. */
 	public static String HEADER_CONFIG_FILE ;
@@ -135,7 +135,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	public static String SIMULATION_FILE ;
 
 	/** Table of instrument entity file paths. (Currenlty) not written by OT. Paths set in acsisTranslator.cfg file. */
-	public static Hashtable INSTRUMENT_FILES = new Hashtable() ;
+	public static Hashtable< String , String > INSTRUMENT_FILES = new Hashtable< String , String >() ;
 
 	/** XML version. */
 	public static String XML_VERSION = "1.0" ;
@@ -431,12 +431,12 @@ public class AcsisTranslator extends SpInstHeterodyne
 		result.append( "HEADER_CONFIG_FILE   = " + HEADER_CONFIG_FILE + "\n" ) ;
 		result.append( "TCS_CONFIG_FILE      = " + TCS_CONFIG_FILE + "\n" ) ;
 
-		Enumeration keys = INSTRUMENT_FILES.keys() ;
+		Enumeration<String> keys = INSTRUMENT_FILES.keys() ;
 		String inst ;
 		result.append( "INSTRUMENT_FILES:\n" ) ;
 		while( keys.hasMoreElements() )
 		{
-			inst = ( String )keys.nextElement() ;
+			inst = keys.nextElement() ;
 			result.append( "  " + inst + " = " + INSTRUMENT_FILES.get( inst ) + "\n" ) ;
 		}
 
@@ -454,7 +454,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 		result.append( "DR_RECIPE_FILES:\n" ) ;
 		while( keys.hasMoreElements() )
 		{
-			drRecipe = ( String )keys.nextElement() ;
+			drRecipe = keys.nextElement() ;
 			result.append( "  " + drRecipe + " = " + DR_RECIPE_FILES.get( drRecipe ) + "\n" ) ;
 		}
 
@@ -1227,9 +1227,9 @@ public class AcsisTranslator extends SpInstHeterodyne
 	 *
 	 * @see gemini.sp.SpTreeMan.findAllItems(SpItem,String)
 	 */
-	public static Vector findAllItems( SpItem rootItem , Class type )
+	public static Vector findAllItems( SpItem rootItem , Class<SpIterObserveBase> type )
 	{
-		Vector result = new Vector() ;
+		Vector<SpIterObserveBase> result = new Vector<SpIterObserveBase>() ;
 		findAllItems( rootItem , type , result ) ;
 		return result ;
 	}
@@ -1242,7 +1242,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	 * The result Vector does <b>not</b> include <tt>rootItem</tt> itself even
 	 * if it is of type <tt>type</tt>.
 	 */
-	public static void findAllItems( SpItem rootItem , Class type , Vector result )
+	public static void findAllItems( SpItem rootItem , Class<SpIterObserveBase> type , Vector<SpIterObserveBase> result )
 	{
 		Enumeration children = rootItem.children() ;
 		Object next ;
@@ -1252,7 +1252,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 			next = children.nextElement() ;
 
 			if( type.isInstance( next ) )
-				result.add( next ) ;
+				result.add( ( SpIterObserveBase )next ) ;
 		}
 
 		children = rootItem.children() ;

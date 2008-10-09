@@ -392,10 +392,10 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 
 		// Loop through all the elements.  Here we assume that the values are
 		// scalar unless the instrument apertures.
-		for( Enumeration e = this.keys() ; e.hasMoreElements() ; )
+		for( Enumeration<String> e = this.keys() ; e.hasMoreElements() ; )
 		{
-			key = ( String )e.nextElement() ;
-			value = ( String )this.get( key ) ;
+			key = e.nextElement() ;
+			value = this.get( key ) ;
 			ht.put( key , value ) ;
 		}
 

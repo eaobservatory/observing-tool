@@ -46,9 +46,9 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 	 * Override "getConfigAttribs" to fix up old programs with the wrong
 	 * attribute names.
 	 */
-	public Vector getConfigAttribs()
+	public Vector<String> getConfigAttribs()
 	{
-		Vector v = super.getConfigAttribs() ;
+		Vector<String> v = super.getConfigAttribs() ;
 
 		if( v == null )
 			return null ;
@@ -56,7 +56,7 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 		// Change the old attributes to the new ones.
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String attr = ( String )v.elementAt( i ) ;
+			String attr = v.elementAt( i ) ;
 			boolean change = false ;
 
 			String newAttr = null ;

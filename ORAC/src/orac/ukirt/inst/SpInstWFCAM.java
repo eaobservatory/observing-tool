@@ -377,9 +377,9 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		return 1. ;
 	}
 
-	public Hashtable getMicroStepPatterns()
+	public Hashtable<String,double[][]> getMicroStepPatterns()
 	{
-		Hashtable result = new Hashtable() ;
+		Hashtable<String,double[][]> result = new Hashtable<String,double[][]>() ;
 
 		double[][] offsets ;
 

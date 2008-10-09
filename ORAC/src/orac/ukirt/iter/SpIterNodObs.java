@@ -90,7 +90,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	/**
 	 * Get the nod pattern as Vector.
 	 */
-	public Vector getNodPatternVector()
+	public Vector<String> getNodPatternVector()
 	{
 		return _avTable.getAll( ATTR_NOD_PATTERN ) ;
 	}
@@ -98,7 +98,7 @@ public class SpIterNodObs extends SpIterObserveBase
 	/**
 	 * Set the nod pattern from a Vector.
 	 */
-	public void setNodPattern( Vector nodPattern )
+	public void setNodPattern( Vector<String> nodPattern )
 	{
 		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern ) ;
 	}
@@ -116,14 +116,14 @@ public class SpIterNodObs extends SpIterObserveBase
 	 *
 	 * Convenience method. Useful for JComboBox in GUI.
 	 */
-	public static Enumeration patterns()
+	public static Enumeration<Vector<String>> patterns()
 	{
-		Vector allPatterns = new Vector() ;
-		Vector onePattern ;
+		Vector<Vector<String>> allPatterns = new Vector<Vector<String>>() ;
+		Vector<String> onePattern ;
 
 		for( int i = 0 ; i < NOD_PATTERNS.length ; i++ )
 		{
-			onePattern = new Vector() ;
+			onePattern = new Vector<String>() ;
 			for( int j = 0 ; j < NOD_PATTERNS[ i ].length ; j++ )
 				onePattern.addElement( NOD_PATTERNS[ i ][ j ] ) ;
 			allPatterns.addElement( onePattern ) ;
@@ -132,9 +132,9 @@ public class SpIterNodObs extends SpIterObserveBase
 		return allPatterns.elements() ;
 	}
 
-	public static Vector stringArrayToVector( String[] stringArray )
+	public static Vector<String> stringArrayToVector( String[] stringArray )
 	{
-		Vector result = new Vector() ;
+		Vector<String> result = new Vector<String>() ;
 
 		for( int i = 0 ; i < stringArray.length ; i++ )
 			result.addElement( stringArray[ i ] ) ;

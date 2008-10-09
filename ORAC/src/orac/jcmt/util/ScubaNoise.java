@@ -23,7 +23,7 @@ import orac.util.DrUtil ;
 public class ScubaNoise
 {
 	/** Table which stores constant NEFD values for different filters. */
-	public static final Hashtable nefd_table = new Hashtable() ;
+	public static final Hashtable<String,Double> nefd_table = new Hashtable<String,Double>() ;
 
 	static
 	{
@@ -50,7 +50,7 @@ public class ScubaNoise
 	{
 
 		// Some of the fits use a 10th order polynomial and some use a simple power law.
-		Hashtable POWERLAW = new Hashtable() ;
+		Hashtable< String , double[] > POWERLAW = new Hashtable< String , double[] >() ;
 
 		// Store these as parameters of a simple power law  NEFD = a x^b
 		POWERLAW.put( "850" , new double[] { 62.13036 , -1.19450 } ) ; // wideband
@@ -100,7 +100,7 @@ public class ScubaNoise
 
 		// Handle constant NEFD cases
 		if( nefd_table.containsKey( "" + wavelengthInt ) )
-			return ( ( Double )nefd_table.get( "" + wavelengthInt ) ).doubleValue() ;
+			return nefd_table.get( "" + wavelengthInt ).doubleValue() ;
 
 		// See if transmission is reasonable (i.e. between 0 and 1)
 		if( trans < 0. )
@@ -119,7 +119,7 @@ public class ScubaNoise
 					thisarray = COEFF450_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
+					thisarray = POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .042 || trans > .641 )
@@ -136,7 +136,7 @@ public class ScubaNoise
 					thisarray = COEFF850_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
+					thisarray = POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .937 )
@@ -153,7 +153,7 @@ public class ScubaNoise
 					thisarray = COEFF350_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
+					thisarray = POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .437 )
@@ -170,7 +170,7 @@ public class ScubaNoise
 					thisarray = COEFF750_2 ;
 
 				if( POWERLAW.containsKey( "" + wavelengthInt ) )
-					thisarray = ( double[] )POWERLAW.get( "" + wavelengthInt ) ;
+					thisarray = POWERLAW.get( "" + wavelengthInt ) ;
 
 				// See if transmission on interval of fit
 				if( trans < .038 || trans > .875 )
@@ -621,7 +621,7 @@ public class ScubaNoise
 		// the relation y = a(x + b), and each element of the hash is an array
 		// containing a and b.
 		// The reverse relationships are calculated immediately afterwards
-		Hashtable tauRelation = new Hashtable() ;
+		Hashtable< String , double[] > tauRelation = new Hashtable< String , double[] >() ;
 		tauRelation.put( "450" , new double[] { 26.2 , -0.014 } ) ; // wideband filters
 		tauRelation.put( "850" , new double[] { 4.02 , -0.001 } ) ; // wideband filter
 		tauRelation.put( "350" , new double[] { 28 , -0.012 } ) ;
@@ -640,7 +640,7 @@ public class ScubaNoise
 		{
 			status[ 0 ] = DrUtil.STATUS_SUCCESSFUL ;
 
-			double[] coefficients = ( double[] )tauRelation.get( "" + ( ( int )wavelength ) ) ;
+			double[] coefficients = tauRelation.get( "" + ( ( int )wavelength ) ) ;
 
 			return coefficients[ 0 ] * ( csoTau + coefficients[ 1 ] ) ;
 		}

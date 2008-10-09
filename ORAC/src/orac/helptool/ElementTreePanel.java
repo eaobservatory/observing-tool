@@ -201,7 +201,7 @@ final public class ElementTreePanel extends JPanel implements CaretListener , Do
 		{
 			int selBegin = Math.min( e.getDot() , e.getMark() ) ;
 			int end = Math.max( e.getDot() , e.getMark() ) ;
-			Vector paths = new Vector() ;
+			Vector<TreePath> paths = new Vector<TreePath>() ;
 			TreeModel model = getTreeModel() ;
 			Object root = model.getRoot() ;
 			int rootCount = model.getChildCount( root ) ;

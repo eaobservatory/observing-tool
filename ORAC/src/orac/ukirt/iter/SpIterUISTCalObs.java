@@ -708,7 +708,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		}
 		
 		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
-		v.add( "setrotator " + ( String )configTable.get( "posAngle" ) ) ;
+		v.add( "setrotator " + configTable.get( "posAngle" ) ) ;
 		v.add( "set " + getCalTypeString().toUpperCase() ) ;
 		v.add( "do " + getCount() + " _observe" ) ;
 

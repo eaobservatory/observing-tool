@@ -56,9 +56,9 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 	 * Override "getConfigAttribs" to fix up old programs with the wrong
 	 * attribute names.
 	 */
-	public Vector getConfigAttribs()
+	public Vector<String> getConfigAttribs()
 	{
-		Vector v = super.getConfigAttribs() ;
+		Vector<String> v = super.getConfigAttribs() ;
 
 		if( v == null )
 			return null ;
@@ -66,7 +66,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		// Change the old attributes to the new ones.
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String attr = ( String )v.elementAt( i ) ;
+			String attr = v.elementAt( i ) ;
 			boolean change = false ;
 
 			String newAttr = null ;
@@ -286,15 +286,15 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 			throw new SpTranslationNotSupportedException( "No UFTI instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable defaultsTable = inst.getConfigItems() ;
-			String xAper = " " + ( String )defaultsTable.get( "instAperX" ) ;
-			String yAper = " " + ( String )defaultsTable.get( "instAperY" ) ;
-			String zAper = " " + ( String )defaultsTable.get( "instAperZ" ) ;
-			String lAper = " " + ( String )defaultsTable.get( "instAperL" ) ;
+			Hashtable< String , String > defaultsTable = inst.getConfigItems() ;
+			String xAper = " " + defaultsTable.get( "instAperX" ) ;
+			String yAper = " " + defaultsTable.get( "instAperY" ) ;
+			String zAper = " " + defaultsTable.get( "instAperZ" ) ;
+			String lAper = " " + defaultsTable.get( "instAperL" ) ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				// Loop over each of there writing a new config file

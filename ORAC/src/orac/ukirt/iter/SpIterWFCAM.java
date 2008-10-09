@@ -182,10 +182,10 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 					configTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
 			}
 
-			String xAper = " " + ( String )configTable.get( "instAperX" ) ;
-			String yAper = " " + ( String )configTable.get( "instAperY" ) ;
-			String zAper = " " + ( String )configTable.get( "instAperZ" ) ;
-			String lAper = " " + ( String )configTable.get( "instAperL" ) ;
+			String xAper = " " + configTable.get( "instAperX" ) ;
+			String yAper = " " + configTable.get( "instAperY" ) ;
+			String zAper = " " + configTable.get( "instAperZ" ) ;
+			String lAper = " " + configTable.get( "instAperL" ) ;
 
 			try
 			{

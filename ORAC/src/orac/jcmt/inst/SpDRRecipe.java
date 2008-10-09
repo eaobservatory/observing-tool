@@ -106,7 +106,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "DRRecipe" , "DRRecipe" ) ;
 	private int _nRegions = 0 ;
 	private boolean _readingRegion = false ;
-	private final Class whatami = this.getClass() ;
+	private final Class< ? extends SpDRRecipe > whatami = this.getClass() ;
 
 	// Register the prototype.
 	static

@@ -335,7 +335,7 @@ public abstract class TcsPreTranslator implements PreTranslator
 
 			// Add telescope target tag elements.
 			for( int i = 0 ; i < targetElementVector.size() ; i++ )
-				element.appendChild( ( ElementImpl )targetElementVector.get( i ) ) ;
+				element.appendChild( targetElementVector.get( i ) ) ;
 
 			// Deal with chop parameters
 			ElementImpl chopElement ;
@@ -500,7 +500,7 @@ public abstract class TcsPreTranslator implements PreTranslator
 			Arrays.sort( sp_OffsetN_nameArray ) ;
 
 			for( int i = 0 ; i < sp_OffsetN_nameArray.length ; i++ )
-				tcs_obsArea.appendChild( ( ElementImpl )tcs_offset_table.get( sp_OffsetN_nameArray[ i ] ) ) ;
+				tcs_obsArea.appendChild( tcs_offset_table.get( sp_OffsetN_nameArray[ i ] ) ) ;
 
 			// Remove sp_offsetPositions <offsetPositions>.
 			element.removeChild( sp_offsetPositions ) ;

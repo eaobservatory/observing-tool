@@ -242,8 +242,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public double W_dutyCycle ;
 	public double W_obsTime ;
 	public double W_actExpTime ;
-	public TreeSet VALID_IJJH_MASKS ;
-	public TreeSet NON_IJJH_MASKS ;
+	public TreeSet<String> VALID_IJJH_MASKS ;
+	public TreeSet<String> NON_IJJH_MASKS ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UIST" , "UIST" ) ;
 
@@ -875,14 +875,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "non_ijjh_masks" ) )
 				{
-					NON_IJJH_MASKS = new TreeSet() ;
+					NON_IJJH_MASKS = new TreeSet<String>() ;
 					String[] temp = instInfo.getValueAsArray() ;
 					for( int index = 0 ; index < temp.length ; index++ )
 						NON_IJJH_MASKS.add( temp[ index ] ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "valid_ijjh_masks" ) )
 				{
-					VALID_IJJH_MASKS = new TreeSet() ;
+					VALID_IJJH_MASKS = new TreeSet<String>() ;
 					String[] temp = instInfo.getValueAsArray() ;
 					for( int index = 0 ; index < temp.length ; index++ )
 						VALID_IJJH_MASKS.add( temp[ index ] ) ;
@@ -2916,7 +2916,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		R = getReadoutLUT( et ) ;
 		// Declare and fill the readModeChoices string
 		int RRows = R.getNumRows() ;
-		Vector v = new Vector() ;
+		Vector<String> v = new Vector<String>() ;
 		for( int i = 0 ; i < RRows ; i++ )
 		{
 			String DAConf = ( String )R.elementAt( i , 2 ) ;
@@ -2961,15 +2961,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		return readAreaChoices ;
 	}
 
-	public static void VectorToStringArray( Vector v , String s[] )
+	public static void VectorToStringArray( Vector<String> v , String s[] )
 	{
-
-		Enumeration e = v.elements() ;
+		Enumeration<String> e = v.elements() ;
 		int i = 0 ;
-
+		
 		while( e.hasMoreElements() )
 		{
-			s[ i ] = ( String )e.nextElement() ;
+			s[ i ] = e.nextElement() ;
 			i++ ;
 		}
 	}

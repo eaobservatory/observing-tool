@@ -57,7 +57,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 	/**
 	 * Get all the possible lens positions.
 	 */
-	public List getAvailableLensPositions()
+	public List<String> getAvailableLensPositions()
 	{
 		return Arrays.asList( LENS_POS ) ;
 	}

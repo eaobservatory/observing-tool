@@ -633,7 +633,7 @@ final public class JHLauncher implements java.io.Serializable
 	// It doesn't really parse the URLs it just creates a URL from a string and then puts it into a URL array
 	private static URL[] parseURLs( String spec )
 	{
-		Vector v = new Vector() ;
+		Vector<URL> v = new Vector<URL>() ;
 		try
 		{
 			URL url = new URL( spec ) ;

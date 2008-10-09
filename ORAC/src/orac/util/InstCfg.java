@@ -126,7 +126,7 @@ public class InstCfg
 	/**
 	 * Return this block's value as a Vector 
 	 */
-	public Vector getValueAsVector()
+	public Vector<String> getValueAsVector()
 	{
 		String[] split = value.split( "," ) ;
 		Vector<String> result = new Vector<String>() ;
@@ -161,7 +161,7 @@ public class InstCfg
 		for( int i = 0 ; i < numRows ; i++ )
 		{
 			Vector<String> row = new Vector<String>() ;
-			String rowString = ( String )rows.elementAt( i ) ;
+			String rowString = rows.elementAt( i ) ;
 			String[] split = rowString.split( "," ) ;
 			for( String element : split )
 				row.addElement( _clean( element ) ) ;

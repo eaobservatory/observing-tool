@@ -23,6 +23,7 @@ import org.apache.xml.serialize.XMLSerializer ;
 import org.apache.xml.serialize.OutputFormat ;
 import org.apache.xerces.parsers.DOMParser ;
 import org.xml.sax.InputSource ;
+import org.w3c.dom.Node ;
 import org.w3c.dom.NodeList ;
 import org.w3c.dom.NamedNodeMap ;
 import java.util.Vector ;
@@ -174,7 +175,7 @@ public class SpItemDOM
 		// Check whether there are siblings with the same node name (tag name) and set user data to string "#" + number
 		setNumbers( nodeList ) ;
 
-		Vector valueVector = new Vector() ;
+		Vector<String> valueVector = new Vector<String>() ;
 		for( int i = 0 ; i < nodeList.getLength() ; i++ )
 		{
 			if( nodeList.item( i ) instanceof ElementImpl )
@@ -253,7 +254,7 @@ public class SpItemDOM
 		NodeList nodeList = element.getChildNodes() ;
 		setNumbers( nodeList ) ;
 		ElementImpl childElement = null ;
-		Vector childV = new Vector() ;
+		Vector<SpItem> childV = new Vector<SpItem>() ;
 
 		for( int i = 0 ; i < nodeList.getLength() ; i++ )
 		{
@@ -279,7 +280,7 @@ public class SpItemDOM
 
 			// Convert the vector into an array.
 			for( int i = 0 ; i < spItemA.length ; ++i )
-				spItemA[ i ] = ( SpItem )childV.elementAt( i ) ;
+				spItemA[ i ] = childV.elementAt( i ) ;
 
 			SpInsertData spID = SpTreeMan.evalInsertInside( spItemA , spItem ) ;
 			if( spID != null )
@@ -314,7 +315,7 @@ public class SpItemDOM
 		Enumeration e = props.propertyNames() ;
 		String key = null ;
 		String property = null ;
-		Vector vector = null ;
+		Vector<String> vector = null ;
 		SpAvTable table = new SpAvTable() ;
 		while( e.hasMoreElements() )
 		{
@@ -323,7 +324,7 @@ public class SpItemDOM
 
 			if( property.startsWith( "{" ) && property.endsWith( "}" ) )
 			{
-				vector = new Vector() ;
+				vector = new Vector<String>() ;
 				StringTokenizer stringTokenizer = new StringTokenizer( property , " ;,{} " ) ;
 
 				while( stringTokenizer.hasMoreTokens() )
@@ -347,21 +348,21 @@ public class SpItemDOM
 		if( siblings == null )
 			return ;
 
-		Hashtable elementTable = new Hashtable() ;
+		Hashtable<String,Vector<Node>> elementTable = new Hashtable<String,Vector<Node>>() ;
 
 		for( int i = 0 ; i < siblings.getLength() ; i++ )
 		{
 			if( elementTable.get( siblings.item( i ).getNodeName() ) == null )
-				elementTable.put( siblings.item( i ).getNodeName() , new Vector() ) ;
+				elementTable.put( siblings.item( i ).getNodeName() , new Vector<Node>() ) ;
 
-			( ( Vector )( elementTable.get( siblings.item( i ).getNodeName() ) ) ).add( siblings.item( i ) ) ;
+			( elementTable.get( siblings.item( i ).getNodeName() ) ).add( siblings.item( i ) ) ;
 		}
 
-		Enumeration tableEntries = elementTable.elements() ;
-		Vector elementVector ;
+		Enumeration<Vector<Node>> tableEntries = elementTable.elements() ;
+		Vector<Node> elementVector ;
 		while( tableEntries.hasMoreElements() )
 		{
-			elementVector = ( Vector )tableEntries.nextElement() ;
+			elementVector = tableEntries.nextElement() ;
 
 			if( elementVector.size() > 1 )
 			{

@@ -63,10 +63,10 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 		if( instrum.equalsIgnoreCase( "UFTI" ) || instrum.equalsIgnoreCase( "IRCAM3" ) || instrum.equalsIgnoreCase( "CGS4" ) || instrum.equalsIgnoreCase( "Michelle" ) || instrum.equalsIgnoreCase( "UIST" ) || instrum.equalsIgnoreCase( "WFCAM" ) )
 		{
 			// Get the individual values
-			xAperture = ( String )this.get( "instAperX" ) ;
-			yAperture = ( String )this.get( "instAperY" ) ;
-			zAperture = ( String )this.get( "instAperZ" ) ;
-			lAperture = ( String )this.get( "instAperL" ) ;
+			xAperture = this.get( "instAperX" ) ;
+			yAperture = this.get( "instAperY" ) ;
+			zAperture = this.get( "instAperZ" ) ;
+			lAperture = this.get( "instAperL" ) ;
 
 			// Concatenate aperture values stored in the InstApertures Hashtable.
 			concat = xAperture + " " + yAperture + " " + zAperture + " " + lAperture ;
@@ -143,10 +143,10 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 
 		// Loop through all the elements.  Here we assume that the values are
 		// scalar unless the instrument apertures.
-		for( Enumeration e = this.keys() ; e.hasMoreElements() ; )
+		for( Enumeration<String> e = this.keys() ; e.hasMoreElements() ; )
 		{
-			key = ( String )e.nextElement() ;
-			value = ( String )this.get( key ) ;
+			key = e.nextElement() ;
+			value = this.get( key ) ;
 			ia.put( key , value ) ;
 		}
 

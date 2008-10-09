@@ -125,7 +125,7 @@ public class SpIterNod extends SpIterComp
 	/**
 	 * Set the nod pattern from a Vector.
 	 */
-	public void setNodPattern( Vector nodPattern )
+	public void setNodPattern( Vector<String> nodPattern )
 	{
 		_avTable.setAll( ATTR_NOD_PATTERN , nodPattern ) ;
 	}
@@ -159,9 +159,9 @@ public class SpIterNod extends SpIterComp
 		return allPatterns.elements() ;
 	}
 
-	public static Vector stringArrayToVector( String[] stringArray )
+	public static Vector<String> stringArrayToVector( String[] stringArray )
 	{
-		Vector result = new Vector() ;
+		Vector<String> result = new Vector<String>() ;
 
 		for( int i = 0 ; i < stringArray.length ; i++ )
 			result.addElement( stringArray[ i ] ) ;
