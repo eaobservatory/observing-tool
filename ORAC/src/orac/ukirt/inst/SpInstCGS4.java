@@ -1398,7 +1398,11 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "exposureTime" , "" + getExpTime() ) ;
 			t.put( "coadds" , "" + getCoadds() ) ;
 			t.put( "maskWidth" , "" + getMaskWidth() ) ;
-			t.put( "cvfOffset" , "" + getCvfOffset() ) ;
+			
+			Double offset = getCentralWavelength() - getCvfOffset() ;
+			offset = Math.rint( offset.doubleValue() * 1000. ) / 1000. ;
+			t.put( "cvfOffset" , offset.toString() ) ;
+			
 			t.put( "TH-Level" , "97" ) ;
 			t.put( "lampAper" , "10" ) ;
 			t.put( "flatLamp" , "1.3" ) ;
