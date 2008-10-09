@@ -28,9 +28,9 @@ public class EventSupport
 
 	private Class _eventClass ;
 
-	private Vector _listeners ;
+	private Vector<EventListener> _listeners ;
 
-	private Hashtable _methodTable ; // Caches Methods by name so reflection
+	private Hashtable<String,Method> _methodTable ; // Caches Methods by name so reflection
 
 	// is not required each time.
 
@@ -43,8 +43,8 @@ public class EventSupport
 		_listenerClass = listenerClass ;
 		_eventClass = eventClass ;
 
-		_listeners = new Vector() ;
-		_methodTable = new Hashtable() ;
+		_listeners = new Vector<EventListener>() ;
+		_methodTable = new Hashtable<String,Method>() ;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class EventSupport
 	protected Method getMethod( String methodName )
 	{
 		// See if there is a cached value.
-		Method meth = ( Method )_methodTable.get( methodName ) ;
+		Method meth = _methodTable.get( methodName ) ;
 		if( meth != null )
 			return meth ;
 
@@ -123,10 +123,10 @@ public class EventSupport
 			return ;
 
 		// Make a copy of the listeners so that the event can be fired without holding a lock.
-		Vector v ;
+		Vector<EventListener> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_listeners.clone() ;
+			v = ( Vector<EventListener> )_listeners.clone() ;
 		}
 
 		Object[] params = new Object[] { eo } ;
@@ -135,7 +135,7 @@ public class EventSupport
 		int sz = v.size() ;
 		for( int i = 0 ; i < sz ; ++i )
 		{
-			Object target = ( Object )_listeners.elementAt( i ) ;
+			Object target = _listeners.elementAt( i ) ;
 			try
 			{
 				meth.invoke( target , params ) ;

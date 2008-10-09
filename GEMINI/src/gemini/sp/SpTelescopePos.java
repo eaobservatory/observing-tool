@@ -134,7 +134,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public static String[] GUIDE_TAGS = { "PWFS1" , "PWFS2" , "OIWFS" } ;
 
-	public static ArrayList SKY_TAGS = new ArrayList() ;
+	public static ArrayList<String> SKY_TAGS = new ArrayList<String>() ;
 
 	// Indices of the the fields of a position
 	/** Index for SpAvTable value (position in value Vector). */
@@ -309,7 +309,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public static String[] getSkyTags()
 	{
-		return ( String[] )SKY_TAGS.toArray( new String[ SKY_TAGS.size() ] ) ;
+		return SKY_TAGS.toArray( new String[ SKY_TAGS.size() ] ) ;
 	}
 
 	/**

@@ -34,10 +34,10 @@ public class SkycatCfgReader
 	public static final String SKYCAT_CFG_FILE = "skycat.cfg" ;
 
 	// A vector of SkycatServer objects for the catalog servers.
-	private static Vector _catalog ;
+	private static Vector<SkycatServer> _catalog ;
 
 	// A vector of SkycatServer objects for the image servers.
-	private static Vector _imagesrv ;
+	private static Vector<SkycatServer> _imagesrv ;
 
 	/**
      * Load the config file called "skycat.cfg" from the user's home directory
@@ -142,8 +142,8 @@ public class SkycatCfgReader
      */
 	public static boolean load( InputStream is ) throws IOException
 	{
-		_catalog = new Vector() ;
-		_imagesrv = new Vector() ;
+		_catalog = new Vector<SkycatServer>() ;
+		_imagesrv = new Vector<SkycatServer>() ;
 
 		BufferedReader br = null ;
 		try
@@ -172,7 +172,7 @@ public class SkycatCfgReader
 
 		SkycatServer[] a = new SkycatServer[ size ] ;
 		for( int i = 0 ; i < size ; ++i )
-			a[ i ] = ( SkycatServer )_catalog.elementAt( i ) ;
+			a[ i ] = _catalog.elementAt( i ) ;
 
 		return a ;
 	}
@@ -190,7 +190,7 @@ public class SkycatCfgReader
 
 		SkycatServer[] a = new SkycatServer[ size ] ;
 		for( int i = 0 ; i < size ; ++i )
-			a[ i ] = ( SkycatServer )_imagesrv.elementAt( i ) ;
+			a[ i ] = _imagesrv.elementAt( i ) ;
 
 		return a ;
 	}

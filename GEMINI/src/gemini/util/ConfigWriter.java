@@ -18,7 +18,7 @@ public class ConfigWriter
 	private int _counter ;
 	private static ConfigWriter _writer ;
 	private String _instName = "none" ;
-	private Hashtable _lastConfig = null ;
+	private Hashtable<String,String> _lastConfig = null ;
 
 	private ConfigWriter()
 	{

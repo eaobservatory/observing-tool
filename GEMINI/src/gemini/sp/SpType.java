@@ -37,7 +37,7 @@ public class SpType implements java.io.Serializable
 	public static final String ITERATOR_COMPONENT_TYPE = "ic" ;
 
 	// A hashtable to store the valid types.
-	private static final Hashtable _types = new Hashtable() ;
+	private static final Hashtable<String,SpType> _types = new Hashtable<String,SpType>() ;
 
 	// Most Basic Types
 
@@ -249,13 +249,13 @@ public class SpType implements java.io.Serializable
      */
 	public static SpType get( String typeStr , String subtypeStr )
 	{
-		return ( SpType )_types.get( _getKey( typeStr , subtypeStr ) ) ;
+		return _types.get( _getKey( typeStr , subtypeStr ) ) ;
 	}
 
 	/**
      * Enumerate all the SpTypes.
      */
-	public static Enumeration getSpTypes()
+	public static Enumeration<SpType> getSpTypes()
 	{
 		return _types.elements() ;
 	}
@@ -270,7 +270,7 @@ public class SpType implements java.io.Serializable
 
 			private SpType _nextSpType ;
 
-			private Enumeration _enum = _types.elements() ;
+			private Enumeration<SpType> _enum = _types.elements() ;
 
 			public boolean hasMoreElements()
 			{
@@ -281,7 +281,7 @@ public class SpType implements java.io.Serializable
 				{
 					if( !( _enum.hasMoreElements() ) )
 						return false ;
-					spType = ( SpType )_enum.nextElement() ;
+					spType = _enum.nextElement() ;
 				}
 				while( !( spType.getType().equals( typeStr ) ) ) ;
 				_nextSpType = spType ;

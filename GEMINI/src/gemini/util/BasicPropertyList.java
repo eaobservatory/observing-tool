@@ -22,10 +22,10 @@ public class BasicPropertyList
 	}
 
 	// Stores the properties
-	private Vector _props = new Vector() ;
+	private Vector<PropertyListEntry> _props = new Vector<PropertyListEntry>() ;
 
 	// Store a set of change watchers.
-	private Vector _watchers = new Vector() ;
+	private Vector<PropertyWatcher> _watchers = new Vector<PropertyWatcher>() ;
 
 	//
 	// Lookup an entry, returning null if not found.
@@ -35,7 +35,7 @@ public class BasicPropertyList
 		int sz = _props.size() ;
 		for( int i = 0 ; i < sz ; ++i )
 		{
-			PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i ) ;
+			PropertyListEntry ple = _props.elementAt( i ) ;
 			if( ple.name.equals( name ) )
 				return ple ;
 		}
@@ -88,9 +88,9 @@ public class BasicPropertyList
 	/**
      * Get a copy of the _watchers Vector.
      */
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<PropertyWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<PropertyWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -98,11 +98,11 @@ public class BasicPropertyList
      */
 	private void _notifyChange( String propertyName )
 	{
-		Vector v = _getWatchers() ;
+		Vector<PropertyWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			PropertyWatcher pw = ( PropertyWatcher )v.elementAt( i ) ;
+			PropertyWatcher pw = v.elementAt( i ) ;
 			pw.propertyChange( propertyName ) ;
 		}
 	}
@@ -124,14 +124,14 @@ public class BasicPropertyList
      */
 	public String[] getPropertyNames()
 	{
-		Vector propNames = new Vector() ;
+		Vector<String> propNames = new Vector<String>() ;
 
 		synchronized( this )
 		{
 			int sz = _props.size() ;
 			for( int i = 0 ; i < sz ; ++i )
 			{
-				PropertyListEntry ple = ( PropertyListEntry )_props.elementAt( i ) ;
+				PropertyListEntry ple = _props.elementAt( i ) ;
 				propNames.addElement( ple.name ) ;
 			}
 		}

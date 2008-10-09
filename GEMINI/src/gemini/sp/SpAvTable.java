@@ -20,7 +20,7 @@ import java.util.Vector ;
 final class SpAttr implements java.io.Serializable
 {
 	private String _description ;
-	private Vector _values ;
+	private Vector<Object> _values ;
 
 	public SpAttr( String descr , Vector values )
 	{
@@ -38,7 +38,7 @@ final class SpAttr implements java.io.Serializable
 		_description = descr ;
 	}
 
-	public Vector getValues()
+	public Vector<Object> getValues()
 	{
 		return _values ;
 	}
@@ -59,7 +59,7 @@ final class SpAttr implements java.io.Serializable
 public final class SpAvTable implements java.io.Serializable
 {
 	// The table of attributes and values.
-	private TreeMap _avTable ;
+	private TreeMap<String,SpAttr> _avTable ;
 
 	// The state machine that tracks this table's edits for its SpItem.
 	private SpAvEditState _editFSM ;
@@ -69,13 +69,13 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public SpAvTable()
 	{
-		_avTable = new TreeMap() ;
+		_avTable = new TreeMap<String,SpAttr>() ;
 	}
 
 	//
 	// Construct with an existing hashtable.
 	//
-	SpAvTable( TreeMap avTable )
+	SpAvTable( TreeMap<String,SpAttr> avTable )
 	{
 		_avTable = avTable ;
 	}
@@ -96,10 +96,10 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private SpAttr _getSpAttr( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 		{
-			a = new SpAttr( "No Description" , new Vector() ) ;
+			a = new SpAttr( "No Description" , new Vector<Object>() ) ;
 			_avTable.put( name , a ) ;
 		}
 		return a ;
@@ -140,7 +140,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public String getDescription( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return null ;
 		return a.getDescription() ;
@@ -156,7 +156,7 @@ public final class SpAvTable implements java.io.Serializable
 	public void noNotifySet( String name , String value , int pos )
 	{
 		SpAttr a = _getSpAttr( name ) ;
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 
 		v.ensureCapacity( pos + 1 ) ;
 		int size = v.size() ;
@@ -223,7 +223,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void noNotifySetAll( String name , Vector v )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 		{
 			a = new SpAttr( "No Description" , v ) ;
@@ -329,11 +329,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public String get( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return null ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( v == null ) || ( v.size() <= pos ) )
 			return null ;
 
@@ -345,7 +345,7 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public Vector getAll( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return null ;
 
@@ -364,7 +364,7 @@ public final class SpAvTable implements java.io.Serializable
 		else
 		{
 
-			Vector v = getAll( name ) ;
+			Vector<Object> v = getAll( name ) ;
 			if( v == null )
 			{
 				System.out.println( name + ": DOES NOT EXIST IN TABLE" ) ;
@@ -482,11 +482,11 @@ public final class SpAvTable implements java.io.Serializable
 
 	private void _rmValue( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		v.removeElementAt( pos ) ;
 	}
 
@@ -530,10 +530,10 @@ public final class SpAvTable implements java.io.Serializable
 	public void noNotifyRmAll()
 	{
 		// Clear all of the SpAttr vectors...
-		Iterator e = _avTable.keySet().iterator() ;
+		Iterator<String> e = _avTable.keySet().iterator() ;
 		while( e.hasNext() )
 		{
-			SpAttr a = ( SpAttr )_avTable.get( ( String )e.next() ) ;
+			SpAttr a = _avTable.get( e.next() ) ;
 			if( a != null && a.getValues() != null )
 				a.getValues().clear() ;
 		}
@@ -561,11 +561,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public int size( String name )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return 0 ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( v == null )
 			return 0 ;
 		return v.size() ;
@@ -589,7 +589,7 @@ public final class SpAvTable implements java.io.Serializable
 	/**
      * Get an iterator over the attributes
      */
-	public Iterator getAttrIterator()
+	public Iterator<String> getAttrIterator()
 	{
 		return _avTable.keySet().iterator() ;
 	}
@@ -597,22 +597,22 @@ public final class SpAvTable implements java.io.Serializable
 	/**
      * Get an enumeration of the attributes.
      */
-	public Enumeration attributes()
+	public Enumeration<String> attributes()
 	{
-		return new Enumeration()
+		return new Enumeration<String>()
 		{
-			private Iterator _keys = _avTable.keySet().iterator() ;
+			private Iterator<String> _keys = _avTable.keySet().iterator() ;
 			private String _nextKey = null ;
 
 			public synchronized boolean hasMoreElements()
 			{
 				_nextKey = null ;
 				if( _keys.hasNext() )
-					_nextKey = ( String )_keys.next() ;
+					_nextKey = _keys.next() ;
 				return( _nextKey != null ) ;
 			}
 
-			public synchronized Object nextElement()
+			public synchronized String nextElement()
 			{
 				return _nextKey ;
 			}
@@ -622,11 +622,11 @@ public final class SpAvTable implements java.io.Serializable
 	/**
      * Get an enumeration of the attributes that start with the given prefix.
      */
-	public Enumeration attributes( final String prefix )
+	public Enumeration<String> attributes( final String prefix )
 	{
-		return new Enumeration()
+		return new Enumeration<String>()
 		{
-			private Iterator _keys = _avTable.keySet().iterator() ;
+			private Iterator<String> _keys = _avTable.keySet().iterator() ;
 			private String _nextKey = null ;
 
 			public boolean hasMoreElements()
@@ -634,7 +634,7 @@ public final class SpAvTable implements java.io.Serializable
 				_nextKey = null ;
 				while( _keys.hasNext() )
 				{
-					String key = ( String )_keys.next() ;
+					String key = _keys.next() ;
 					if( key.startsWith( prefix ) )
 					{
 						_nextKey = key ;
@@ -644,7 +644,7 @@ public final class SpAvTable implements java.io.Serializable
 				return( _nextKey != null ) ;
 			}
 
-			public Object nextElement()
+			public String nextElement()
 			{
 				return _nextKey ;
 			}
@@ -657,14 +657,14 @@ public final class SpAvTable implements java.io.Serializable
 	public SpAvTable copy()
 	{
 		// Shallow copy the table structure.
-		TreeMap htCopy = ( TreeMap )_avTable.clone() ;
+		TreeMap<String,SpAttr> htCopy = ( TreeMap<String,SpAttr> )_avTable.clone() ;
 
 		// Make a copy of the values.
-		Iterator keys = _avTable.keySet().iterator() ;
+		Iterator<String> keys = _avTable.keySet().iterator() ;
 		while( keys.hasNext() )
 		{
-			String key = ( String )keys.next() ;
-			SpAttr a = ( SpAttr )_avTable.get( key ) ;
+			String key = keys.next() ;
+			SpAttr a = _avTable.get( key ) ;
 			Vector v = new Vector() ;
 			if( a != null )
 				v = a.getValues() ;
@@ -683,11 +683,11 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	private void _setSize( String name , int newSize )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 
 		if( newSize < v.size() )
 		{
@@ -743,7 +743,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public insertAt method.
 	//
-	private void _insertAt( String value , Vector v , int pos )
+	private void _insertAt( String value , Vector<Object> v , int pos )
 	{
 		if( pos >= v.size() )
 			v.addElement( value ) ;
@@ -756,11 +756,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void insertAt( String name , String value , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( pos < 0 ) || ( pos > v.size() ) )
 			return ;
 
@@ -792,11 +792,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void indexToFirst( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
 			return ;
 
@@ -815,7 +815,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public decrementIndex method.
 	//
-	private void _decrementIndex( Vector v , int pos )
+	private void _decrementIndex( Vector<Object> v , int pos )
 	{
 		Object o = v.elementAt( pos ) ;
 		v.removeElementAt( pos ) ;
@@ -828,11 +828,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void decrementIndex( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
 			return ;
 
@@ -867,11 +867,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void incrementIndex( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
 			return ;
 
@@ -903,11 +903,11 @@ public final class SpAvTable implements java.io.Serializable
      */
 	public void indexToLast( String name , int pos )
 	{
-		SpAttr a = ( SpAttr )_avTable.get( name ) ;
+		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 			return ;
 
-		Vector v = a.getValues() ;
+		Vector<Object> v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
 			return ;
 

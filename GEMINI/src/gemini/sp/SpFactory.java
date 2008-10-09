@@ -25,7 +25,7 @@ public final class SpFactory
 {
 
 	// Holds the prototype SpItems
-	private static final Hashtable _prototypes = new Hashtable() ;
+	private static final Hashtable<SpType,SpItem> _prototypes = new Hashtable<SpType,SpItem>() ;
 	public static final SpItem SCIENCE_PROGRAM = new SpProg() ;
 	public static final SpItem SCIENCE_PLAN = new SpPlan() ;
 	public static final SpItem PHASE_1 = new SpPhase1() ;
@@ -124,7 +124,7 @@ public final class SpFactory
      */
 	public static SpItem getPrototype( SpType spType )
 	{
-		return ( SpItem )_prototypes.get( spType ) ;
+		return _prototypes.get( spType ) ;
 	}
 
 	/**

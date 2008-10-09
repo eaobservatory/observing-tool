@@ -36,7 +36,6 @@ import java.io.FileReader ;
  */
 public class SpSurveyObsComp extends SpObsComp
 {
-
 	public static final String ATTR_REMAINING = "remaining" ;
 
 	public static final String ATTR_PRIORITY = "priority" ;
@@ -45,10 +44,10 @@ public class SpSurveyObsComp extends SpObsComp
 
 	public static final String ATTR_SURVEY_ID = "surveyID" ;
 
-	private Vector _telescopeObsCompVector = new Vector() ;
+	private Vector<SpTelescopeObsComp> _telescopeObsCompVector = new Vector<SpTelescopeObsComp>() ;
 
 	/** Used in {@link #processAvAttribute(String,String,StringBuffer)}. */
-	private Vector _tagVector = null ;
+	private Vector<String> _tagVector = null ;
 
 	private String _telObsCompXmlElementName = ( new SpTelescopeObsComp() ).getXmlElementName() ;
 
@@ -68,18 +67,18 @@ public class SpSurveyObsComp extends SpObsComp
 	{
 		super( SP_TYPE ) ;
 
-		_tagVector = new Vector( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
+		_tagVector = new Vector<String>( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
 		_tagVector.add( SpTelescopePos.getBaseTag() ) ;
 	}
 
 	public void initTelescopeObsCompVector()
 	{
-		_telescopeObsCompVector = new Vector() ;
+		_telescopeObsCompVector = new Vector<SpTelescopeObsComp>() ;
 	}
 
-	public void initTelescopeObsCompVector( Vector telescopeObsCompVector )
+	public void initTelescopeObsCompVector( Vector<SpTelescopeObsComp> telescopeObsCompVector )
 	{
-		_telescopeObsCompVector = new Vector( telescopeObsCompVector ) ;
+		_telescopeObsCompVector = new Vector<SpTelescopeObsComp>( telescopeObsCompVector ) ;
 	}
 
 	/**
@@ -159,7 +158,7 @@ public class SpSurveyObsComp extends SpObsComp
 
 	public SpTelescopeObsComp getSpTelescopeObsComp( int index )
 	{
-		return ( SpTelescopeObsComp )_telescopeObsCompVector.get( index ) ;
+		return _telescopeObsCompVector.get( index ) ;
 	}
 
 	public int size()
@@ -206,7 +205,7 @@ public class SpSurveyObsComp extends SpObsComp
 		if( size() < 1 )
 			addSpTelescopeObsComp() ;
 		else
-			( ( SpTelescopeObsComp )_telescopeObsCompVector.get( 0 ) ).getTable().edit() ;
+			_telescopeObsCompVector.get( 0 ).getTable().edit() ;
 	}
 
 	public void removeSpTelescopeObsComp( int index )
@@ -217,7 +216,7 @@ public class SpSurveyObsComp extends SpObsComp
 		if( size() < 1 )
 			addSpTelescopeObsComp() ;
 		else
-			( ( SpTelescopeObsComp )_telescopeObsCompVector.get( 0 ) ).getTable().edit() ;
+			_telescopeObsCompVector.get( 0 ).getTable().edit() ;
 	}
 
 	public void removeAllSpTelescopeObsComponents()
@@ -515,7 +514,7 @@ public class SpSurveyObsComp extends SpObsComp
 
 		for( int i = 0 ; i < _telescopeObsCompVector.size() ; i++ )
 		{
-			telescopeObsCompXML = ( ( SpTelescopeObsComp )_telescopeObsCompVector.get( i ) ).getXML( "  " + indent ) ;
+			telescopeObsCompXML = _telescopeObsCompVector.get( i ).getXML( "  " + indent ) ;
 
 			// Get rid of enclosing tags.
 			telescopeObsCompXML = telescopeObsCompXML.substring( telescopeObsCompXML.indexOf( "\n" , telescopeObsCompXML.indexOf( "\n" ) + 1 ) , telescopeObsCompXML.lastIndexOf( "\n" ) ) ;

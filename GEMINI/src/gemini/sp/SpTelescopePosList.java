@@ -33,7 +33,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	private static String[] _tagOrder ;
 	private SpItem _spItem ;
 	private SpAvTable _avTab ; // The table that holds the positions
-	private Vector _posList ; // A vector of SpTelescopePos objects
+	private Vector<SpTelescopePos> _posList ; // A vector of SpTelescopePos objects
 
 	/**
      * Create with a an attribute/value table (from a telescope target list
@@ -50,7 +50,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		else
 		{
 			_avTab = new SpAvTable() ;
-			_posList = new Vector() ;
+			_posList = new Vector< SpTelescopePos >() ;
 			SpTelescopePos tp = createPosition( SpTelescopePos.BASE_TAG , 0.0 , 0.0 ) ;
 		}
 	}
@@ -72,7 +72,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 			{
 				for( int i = 0 ; i < _posList.size() ; ++i )
 				{
-					SpTelescopePos tp = ( SpTelescopePos )_posList.elementAt( i ) ;
+					SpTelescopePos tp = _posList.elementAt( i ) ;
 					tp.deleteWatchers() ;
 				}
 			}
@@ -102,9 +102,9 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	//
 	// Return all the positions from the table.
 	//
-	static Vector getAllPositions( SpItem spItem , SpAvTable avTab , SpTelescopePosList list )
+	static Vector< SpTelescopePos > getAllPositions( SpItem spItem , SpAvTable avTab , SpTelescopePosList list )
 	{
-		Vector v = new Vector() ;
+		Vector< SpTelescopePos > v = new Vector< SpTelescopePos >() ;
 
 		SpTelescopePos tp ;
 
@@ -201,7 +201,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		if( ( index < 0 ) || ( index > _posList.size() ) )
 			return null ;
 
-		return ( TelescopePos )_posList.elementAt( index ) ;
+		return _posList.elementAt( index ) ;
 	}
 
 	// End of TelescopePosList interface implementation
@@ -218,24 +218,24 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	/**
      * Retrieve all the user positions from the position list.
      */
-	public synchronized Vector getAllUserPositions()
+	public synchronized Vector< SpTelescopePos > getAllUserPositions()
 	{
-		Vector v = new Vector() ;
+		Vector< SpTelescopePos > v = new Vector< SpTelescopePos >() ;
 		for( int i = 0 ; i < _posList.size() ; ++i )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )_posList.elementAt( i ) ;
+			SpTelescopePos tp = _posList.elementAt( i ) ;
 			if( tp.isUserPosition() )
 				v.addElement( tp ) ;
 		}
 		return v ;
 	}
 
-	public synchronized Vector getAllTags( String tagType )
+	public synchronized Vector< String > getAllTags( String tagType )
 	{
-		Vector v = new Vector() ;
+		Vector< String > v = new Vector< String >() ;
 		for( int i = 0 ; i < _posList.size() ; i++ )
 		{
-			String tag = ( ( SpTelescopePos )_posList.elementAt( i ) ).getTag() ;
+			String tag = _posList.elementAt( i ).getTag() ;
 			if( tag.matches( tagType + "[0-9]+" ) )
 				v.add( tag ) ;
 		}
@@ -289,7 +289,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		for( int i = 0 ; i < tagOrder.length ; ++i )
 		{
 			// See what is next in the current position list.
-			SpTelescopePos nextTP = ( SpTelescopePos )_posList.elementAt( pos ) ;
+			SpTelescopePos nextTP = _posList.elementAt( pos ) ;
 
 			// If its a user position, insert the new tp before it
 			if( nextTP.getTag().startsWith( SpTelescopePos.USER_TAG ) )
@@ -429,7 +429,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	{
 		for( int i = 0 ; i < _posList.size() ; ++i )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )_posList.elementAt( i ) ;
+			SpTelescopePos tp = _posList.elementAt( i ) ;
 			if( tp.getTag().equals( tag ) )
 			{
 				_posList.removeElementAt( i ) ;
@@ -555,9 +555,9 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		String out = getClass().getName() + "[" ;
 
 		if( _posList.size() >= 1 )
-			out += ( ( SpTelescopePos )_posList.elementAt( 0 ) ).toString() ;
+			out += _posList.elementAt( 0 ).toString() ;
 		for( int i = 1 ; i < _posList.size() ; ++i )
-			out += "," + ( ( SpTelescopePos )_posList.elementAt( i ) ).toString() ;
+			out += "," + _posList.elementAt( i ).toString() ;
 
 		return out + "]" ;
 	}

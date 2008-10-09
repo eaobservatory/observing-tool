@@ -242,12 +242,12 @@ public class SpIterChop extends SpIterComp
 		_selectedIndex = selectedIndex ;
 	}
 
-	public Vector getStep( int i )
+	public Vector<String> getStep( int i )
 	{
 		if( getThrowAsString( i ) == null )
 			return null ;
 
-		Vector result = new Vector() ;
+		Vector<String> result = new Vector<String>() ;
 
 		result.add( getThrowAsString( i ) ) ;
 		result.add( getAngleAsString( i ) ) ;

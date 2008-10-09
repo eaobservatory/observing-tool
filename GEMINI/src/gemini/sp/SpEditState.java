@@ -50,12 +50,12 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Observers of structure changes.
 	//
-	private Vector _hierObservers = new Vector() ;
+	private Vector<SpHierarchyChangeObserver> _hierObservers = new Vector<SpHierarchyChangeObserver>() ;
 
 	//
 	// Observers of edit state changes.
 	//
-	private Vector _editObservers = new Vector() ;
+	private Vector<SpEditChangeObserver> _editObservers = new Vector<SpEditChangeObserver>() ;
 
 	//
 	// Construct with an SpItem. This constructor is not public and so cannot
@@ -119,16 +119,16 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
 	{
-		Vector v ;
+		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone() ;
+			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			SpHierarchyChangeObserver hco ;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco = v.elementAt( i ) ;
 			hco.spItemsAdded( parent , newChildren , afterChild ) ;
 		}
 		setEdited() ;
@@ -139,16 +139,16 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	void notifyRemoved( SpItem parent , SpItem[] children )
 	{
-		Vector v ;
+		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone() ;
+			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			SpHierarchyChangeObserver hco ;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco = v.elementAt( i ) ;
 			hco.spItemsRemoved( parent , children ) ;
 		}
 		setEdited() ;
@@ -157,16 +157,16 @@ public final class SpEditState implements Observer , java.io.Serializable
 	// Not yet used.
 	void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		Vector v ;
+		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_hierObservers.clone() ;
+			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			SpHierarchyChangeObserver hco ;
-			hco = ( SpHierarchyChangeObserver )v.elementAt( i ) ;
+			hco = v.elementAt( i ) ;
 			hco.spItemsMoved( oldParent , children , newParent , afterChild ) ;
 		}
 		setEdited() ;
@@ -206,16 +206,16 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	private void _notifyEditChange()
 	{
-		Vector v ;
+		Vector<SpEditChangeObserver> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_editObservers.clone() ;
+			v = ( Vector<SpEditChangeObserver> )_editObservers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			SpEditChangeObserver eco ;
-			eco = ( SpEditChangeObserver )v.elementAt( i ) ;
+			eco = v.elementAt( i ) ;
 			eco.spEditStateChange( _spItem ) ;
 		}
 	}

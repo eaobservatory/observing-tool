@@ -36,7 +36,7 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	public static final int MARKER_SIZE = 4 ; // FIX THIS ...
 	protected FitsImageWidget _iw ;
 	protected TelescopePosList _tpl ;
-	protected Hashtable _posTable = new Hashtable() ;
+	protected Hashtable<String,FitsPosMapEntry> _posTable = new Hashtable<String,FitsPosMapEntry>() ;
 	protected boolean _valid = false ;
 
 	/** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
@@ -78,7 +78,7 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 			_tpl.deleteWatcher( this ) ;
 
 			TelescopePos[] tpA = _tpl.getAllPositions() ;
-			for( int i = 0 ; i < tpA.length ; ++i )
+			for( int i = 0 ; i <tpA.length ; ++i )
 			{
 				TelescopePos tp = tpA[ i ] ;
 				tp.deleteWatcher( this ) ;
@@ -109,7 +109,7 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	/**
 	 * Get the position table, initializing if necessary.
 	 */
-	public Hashtable getPosTable()
+	public Hashtable<String,FitsPosMapEntry> getPosTable()
 	{
 		if( _valid )
 			return _posTable ;
@@ -180,14 +180,14 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public FitsPosMapEntry locate( int x , int y )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return null ;
 
-		Enumeration enumeration = posTable.elements() ;
+		Enumeration<FitsPosMapEntry> enumeration = posTable.elements() ;
 		while( enumeration.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement() ;
+			FitsPosMapEntry pme = enumeration.nextElement() ;
 			Point2D.Double p = pme.screenPos ;
 			if( p == null )
 				continue ;
@@ -212,21 +212,21 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public FitsPosMapEntry getPositionMapEntry( String tag )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return null ;
 
-		return ( FitsPosMapEntry )posTable.get( tag ) ;
+		return posTable.get( tag ) ;
 	}
 
 	/**
 	 * Get an Enumeration of all the PositionMapEntries.
 	 */
-	public final Enumeration getAllPositionMapEntries()
+	public final Enumeration<FitsPosMapEntry> getAllPositionMapEntries()
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
-			return ( new Hashtable() ).elements() ;
+			return ( new Hashtable<String,FitsPosMapEntry>() ).elements() ;
 
 		return posTable.elements() ;
 	}
@@ -248,12 +248,12 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public Point2D.Double getLocationFromTag( String tag )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return null ;
 
 		// Get the base position
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tag ) ;
+		FitsPosMapEntry pme = posTable.get( tag ) ;
 		if( pme == null )
 			return null ;
 
@@ -274,15 +274,16 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 		_tpl.addWatcher( this ) ; // We are a TelescopePosListWatcher
 
 		//TelescopePos[] tpA = _tpl.getAllPositions() ;
-		ArrayList tpA = new ArrayList( Arrays.asList( _tpl.getAllPositions() ) ) ;
+		ArrayList<TelescopePos> tpA = new ArrayList<TelescopePos>( Arrays.asList( _tpl.getAllPositions() ) ) ;
 		if( _tpl instanceof SpOffsetPosList )
 		{
-			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getSkyOffsets() ) ;
-			tpA.addAll( ( ( SpOffsetPosList )_tpl ).getGuideOffsets() ) ;
+			SpOffsetPosList __tpl = ( SpOffsetPosList )_tpl ;
+			tpA.addAll( __tpl.getSkyOffsets() ) ;
+			tpA.addAll( __tpl.getGuideOffsets() ) ;
 		}
-		for( int i = 0 ; i < tpA.size() ; ++i )
+		for( int i = 0 ; i <tpA.size() ; ++i )
 		{
-			TelescopePos tp = ( TelescopePos )tpA.get( i ) ;
+			TelescopePos tp = tpA.get( i ) ;
 			tp.addWatcher( this ) ;
 
 			Point2D.Double p = telescopePosToImageWidget( tp ) ;
@@ -305,15 +306,15 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	protected void _updateScreenLocations()
 	{
-		Enumeration e = _posTable.elements() ;
+		Enumeration<FitsPosMapEntry> e = _posTable.elements() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			FitsPosMapEntry pme = e.nextElement() ;
 			TelescopePos tp = pme.telescopePos ;
 			pme.screenPos = telescopePosToImageWidget( tp ) ;
 			if( tp.getTag().equalsIgnoreCase( "base" ) && tp.isOffsetPosition() )
 			{
-				FitsPosMapEntry pmeShadow = ( FitsPosMapEntry )_posTable.get( "SHADOW" ) ;
+				FitsPosMapEntry pmeShadow = _posTable.get( "SHADOW" ) ;
 				pmeShadow.screenPos = realTelescopePosToImageWidget( tp ) ;
 			}
 		}
@@ -345,7 +346,7 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	{
 		if( tpl != _tpl )
 			return ;
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return ;
 
@@ -364,7 +365,7 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	{
 		if( tpl != _tpl )
 			return ;
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return ;
 
@@ -385,13 +386,13 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 			return ;
 
 		// First remove anything from the table that doesn't exist anymore
-		Enumeration keys = posTable.keys() ;
+		Enumeration<String> keys = posTable.keys() ;
 		while( keys.hasMoreElements() )
 		{
-			String tag = ( String )keys.nextElement() ;
+			String tag = keys.nextElement() ;
 			if( !_tpl.exists( tag ) )
 			{
-				FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.remove( tag ) ;
+				FitsPosMapEntry pme = posTable.remove( tag ) ;
 				if( pme != null )
 					pme.telescopePos.deleteWatcher( this ) ;
 			}
@@ -399,10 +400,10 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 
 		// Now add anything from the list that isn't in the table, and make
 		// sure that the PositionMaps that are there are still valid.
-		for( int i = 0 ; i < tpA.length ; ++i )
+		for( int i = 0 ; i <tpA.length ; ++i )
 		{
 			TelescopePos tp = tpA[ i ] ;
-			FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
+			FitsPosMapEntry pme = posTable.get( tp.getTag() ) ;
 
 			if( ( pme == null ) || ( pme.telescopePos != tp ) )
 			{
@@ -419,11 +420,11 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public void telescopePosLocationUpdate( TelescopePos tp )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return ;
 
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
+		FitsPosMapEntry pme = posTable.get( tp.getTag() ) ;
 
 		// Really should be an error not to find tp.tag in the posTable ...
 		if( pme != null )
@@ -448,10 +449,10 @@ public class FitsPosMap implements ViewportViewObserver , TelescopePosListWatche
 	 */
 	public void telescopePosGenericUpdate( TelescopePos tp )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String , FitsPosMapEntry > posTable = getPosTable() ;
 		if( posTable == null )
 			return ;
-		FitsPosMapEntry pme = ( FitsPosMapEntry )posTable.get( tp.getTag() ) ;
+		FitsPosMapEntry pme = posTable.get( tp.getTag() ) ;
 
 		// Just repaint to be safe
 		if( pme != null )

@@ -31,7 +31,7 @@ public abstract class TelescopePos implements java.io.Serializable
 	protected TelescopePosList _list ;
 
 	// TelescopePos change watchers.
-	private Vector _watchers ;
+	private Vector<TelescopePosWatcher> _watchers ;
 
 	/**
      * Construct with a <i>unique</i> tag.
@@ -192,7 +192,7 @@ public abstract class TelescopePos implements java.io.Serializable
 	public synchronized void addWatcher( TelescopePosWatcher tpw )
 	{
 		if( _watchers == null )
-			_watchers = new Vector() ;
+			_watchers = new Vector<TelescopePosWatcher>() ;
 		else if( _watchers.contains( tpw ) )
 			return ;
 
@@ -224,12 +224,12 @@ public abstract class TelescopePos implements java.io.Serializable
 	/**
      * Copy the watchers list.
      */
-	protected final synchronized Vector _getWatchers()
+	protected final synchronized Vector<TelescopePosWatcher> _getWatchers()
 	{
 		if( _watchers == null )
 			return null ;
 
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<TelescopePosWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -237,14 +237,14 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected void _notifyOfLocationUpdate()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosWatcher tpw ;
-			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw = v.elementAt( i ) ;
 			tpw.telescopePosLocationUpdate( this ) ;
 		}
 	}
@@ -254,14 +254,14 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected void _notifyOfGenericUpdate()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosWatcher tpw ;
-			tpw = ( TelescopePosWatcher )v.elementAt( i ) ;
+			tpw = v.elementAt( i ) ;
 			tpw.telescopePosGenericUpdate( this ) ;
 		}
 	}

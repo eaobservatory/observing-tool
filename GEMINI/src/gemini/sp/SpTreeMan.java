@@ -914,7 +914,7 @@ public final class SpTreeMan implements SpInsertConstants
      * given fully-qualified className that are in the scope of the given
      * SpItem.
      */
-	public static Vector findAllItems( SpItem rootItem , String className )
+	public static Vector<SpItem> findAllItems( SpItem rootItem , String className )
 	{
 		Vector<SpItem> v = new Vector<SpItem>() ;
 		// Get the class from the className
@@ -942,10 +942,10 @@ public final class SpTreeMan implements SpInsertConstants
      * scope of the given SpItem. This can be used to find instances of
      * superclasses
      */
-	public static Vector findAllInstances( SpItem rootItem , String name )
+	public static Vector<SpItem> findAllInstances( SpItem rootItem , String name )
 	{
 		Vector<SpItem> v = new Vector<SpItem>() ;
-		if( name != null || name.length() > 0 )
+		if( name != null && name.length() > 0 )
 		{
 			Class c = classForName( name ) ;
 			if( c != null )
@@ -1019,7 +1019,7 @@ public final class SpTreeMan implements SpInsertConstants
 
 		// Is there a definition for this combination?
 		String key = newItem.typeStr() + "," + parent.typeStr() ;
-		InsertPolicy ip = ( InsertPolicy )_insertInside.get( key ) ;
+		InsertPolicy ip = _insertInside.get( key ) ;
 		if( ip == null )
 			return null ;
 
@@ -1084,7 +1084,7 @@ public final class SpTreeMan implements SpInsertConstants
 	{
 		// Is there a definition for this combination?
 		String key = newItem.typeStr() + "," + sibling.typeStr() ;
-		InsertPolicy ip = ( InsertPolicy )_insertAfter.get( key ) ;
+		InsertPolicy ip = _insertAfter.get( key ) ;
 		if( ip == null )
 			return null ;
 
@@ -1213,7 +1213,7 @@ public final class SpTreeMan implements SpInsertConstants
 			repA = new SpItem[ repV.size() ] ;
 			for( int i = 0 ; i < repA.length ; ++i )
 			{
-				repA[ i ] = ( SpItem )repV.elementAt( i ) ;
+				repA[ i ] = repV.elementAt( i ) ;
 			}
 
 			// Now we have to worry that the extracted items array contains

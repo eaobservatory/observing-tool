@@ -42,8 +42,8 @@ public class SpObsData implements java.io.Serializable
 	private double _y = 0. ;
 	private double _posAngle = 0. ;
 	private int _coordSys = CoordSys.FK5 ;
-	private Vector _basePosObservers ;
-	private Vector _posAngleObservers ;
+	private Vector<SpBasePosObserver> _basePosObservers ;
+	private Vector<SpPosAngleObserver> _posAngleObservers ;
 
 	/**
      * Add a base position observer.
@@ -52,7 +52,7 @@ public class SpObsData implements java.io.Serializable
 	{
 		if( _basePosObservers == null )
 		{
-			_basePosObservers = new Vector() ;
+			_basePosObservers = new Vector<SpBasePosObserver>() ;
 			_basePosObservers.addElement( bpo ) ;
 		}
 		else if( !_basePosObservers.contains( bpo ) )
@@ -102,7 +102,7 @@ public class SpObsData implements java.io.Serializable
 		for( int i = 0 ; i < _basePosObservers.size() ; ++i )
 		{
 			SpBasePosObserver bpo ;
-			bpo = ( SpBasePosObserver )_basePosObservers.elementAt( i ) ;
+			bpo = _basePosObservers.elementAt( i ) ;
 			bpo.basePosUpdate( x , y , xoff , yoff , coordSys ) ;
 		}
 	}
@@ -138,7 +138,7 @@ public class SpObsData implements java.io.Serializable
 	{
 		if( _posAngleObservers == null )
 		{
-			_posAngleObservers = new Vector() ;
+			_posAngleObservers = new Vector<SpPosAngleObserver>() ;
 			_posAngleObservers.addElement( pao ) ;
 		}
 		else if( !_posAngleObservers.contains( pao ) )

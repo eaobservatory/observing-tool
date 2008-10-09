@@ -154,7 +154,7 @@ public class XmlUtil
 		String line = null ;
 		boolean processingElement = false ;
 		StringBuffer elementBuffer = new StringBuffer() ;
-		Vector elementVector = new Vector() ;
+		Vector<String> elementVector = new Vector<String>() ;
 		int offset = 0 ;
 
 		do
@@ -194,7 +194,7 @@ public class XmlUtil
 		String[] result = new String[ elementVector.size() ] ;
 
 		for( int i = 0 ; i < elementVector.size() ; i++ )
-			result[ i ] = ( String )elementVector.get( i ) ;
+			result[ i ] = elementVector.get( i ) ;
 
 		return result ;
 	}

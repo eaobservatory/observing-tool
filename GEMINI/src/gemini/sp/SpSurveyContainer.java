@@ -44,7 +44,7 @@ public class SpSurveyContainer extends SpObsContextItem
 	private Vector _telescopeObsCompVector = new Vector() ;
 
 	/** Used in {@link #processAvAttribute(String,String,StringBuffer)}. */
-	private Vector _tagVector = null ;
+	private Vector<String> _tagVector = null ;
 	private String _telObsCompXmlElementName = ( new SpTelescopeObsComp() ).getXmlElementName() ;
 	private SpTelescopeObsComp _processingTelObsComp = null ;
 
@@ -52,7 +52,7 @@ public class SpSurveyContainer extends SpObsContextItem
 	{
 		super( SpType.SURVEY_CONTAINER ) ;
 
-		_tagVector = new Vector( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
+		_tagVector = new Vector<String>( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
 		_tagVector.add( SpTelescopePos.getBaseTag() ) ;
 	}
 
