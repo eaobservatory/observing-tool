@@ -44,7 +44,7 @@ all: classes cfg script
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
 
-cfg: $(LOCAL_INSTALL_ROOT)/cfg $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(GIF_IMAGES) $(CFG_FILES)
+cfg: $(LOCAL_INSTALL_ROOT)/cfg  $(GIF_IMAGES) $(CFG_FILES)
 
 script: $(BIN_DIR)/ot $(BIN_DIR)/ot.bat $(BIN_DIR)/ompvalidate
 
