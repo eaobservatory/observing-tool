@@ -55,7 +55,7 @@ public class UFTIValidation implements InstrumentValidation
 	 */
 	static double[] minExpTimes = { 4 , 20 , 2 , 1 , 5 , 1.3 , 0.3 , 1.3 , 0.15 } ;
 
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report )
+	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
 		SpInstUFTI spInstUFTI = ( SpInstUFTI )instObsComp ;
 		String readoutArea = spInstUFTI.getReadoutArea() ;
@@ -63,7 +63,7 @@ public class UFTIValidation implements InstrumentValidation
 		double expTime = spInstUFTI.getExpTime() ;
 
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		double[] expLimits = spInstUFTI.getExpTimeLimits() ;
 		if( expTime < expLimits[ 0 ] || expTime > expLimits[ 1 ] )

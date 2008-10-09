@@ -19,11 +19,11 @@ public class CGS4Validation implements InstrumentValidation
 	final double ORDER_FOR_ECHELLE_GRATING_MIN = 10 ;
 	final double EXPOSURE_TIME_RECOMMENDED_MIN = 0.12 ;
 	final double EXPOSURE_TIME_MIN = 0.012 ;
-	private static Vector _masks = new Vector() ;
-	private static Vector _samplings = new Vector() ;
-	private static Vector _posAngles = new Vector() ;
+	private static Vector<String> _masks = new Vector<String>() ;
+	private static Vector<String> _samplings = new Vector<String>() ;
+	private static Vector<String> _posAngles = new Vector<String>() ;
 
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report )
+	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
 		SpInstCGS4 spInstCGS4 = ( SpInstCGS4 )instObsComp ;
 		double centralWavelength = spInstCGS4.getCentralWavelength() ;
@@ -33,7 +33,7 @@ public class CGS4Validation implements InstrumentValidation
 		boolean ndFilter = spInstCGS4.getNdFilter() ;
 
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		// Checking central wavelength.
 		if( ( centralWavelength < CENTRAL_WAVELENGTH_MIN ) || ( centralWavelength > CENTRAL_WAVELENGTH_MAX ) )
@@ -62,22 +62,22 @@ public class CGS4Validation implements InstrumentValidation
 
 	public static void reset()
 	{
-		_masks = new Vector() ;
-		_samplings = new Vector() ;
-		_posAngles = new Vector() ;
+		_masks = new Vector<String>() ;
+		_samplings = new Vector<String>() ;
+		_posAngles = new Vector<String>() ;
 	}
 
-	public static Vector getMasks()
+	public static Vector<String> getMasks()
 	{
 		return _masks ;
 	}
 
-	public static Vector getSamplings()
+	public static Vector<String> getSamplings()
 	{
 		return _samplings ;
 	}
 
-	public static Vector getPosAngles()
+	public static Vector<String> getPosAngles()
 	{
 		return _posAngles ;
 	}

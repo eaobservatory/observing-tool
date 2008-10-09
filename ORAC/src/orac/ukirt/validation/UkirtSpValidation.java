@@ -173,10 +173,10 @@ public class UkirtSpValidation extends SpValidation
 	 * This method should not be called recursively.
 	 * It should be called from with in another method that checks all SpItem recursively.
 	 */
-	public void checkInstrumentComponents( SpInstObsComp spInstObsComp , Vector report )
+	public void checkInstrumentComponents( SpInstObsComp spInstObsComp , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		if( spInstObsComp instanceof orac.ukirt.inst.SpInstMichelle )
 			( new MichelleValidation() ).checkInstrument( spInstObsComp , report ) ;
@@ -197,7 +197,7 @@ public class UkirtSpValidation extends SpValidation
 	/**
 	 *
 	 */
-	public void checkInstrumentIterators( Vector iterators , Vector report )
+	public void checkInstrumentIterators( Vector< SpItem > iterators , Vector<ErrorMessage> report )
 	{
 		if( iterators == null )
 			return ;
@@ -213,7 +213,7 @@ public class UkirtSpValidation extends SpValidation
 		// iteratorInstrument is not an instrument iterator but the name of the instrument of an instrument iterator.
 		String iteratorInstrument = null ;
 
-		for( Enumeration e = iterators.elements() ; e.hasMoreElements() ; )
+		for( Enumeration<SpItem> e = iterators.elements() ; e.hasMoreElements() ; )
 		{
 			currentIterator = ( SpIterConfigObs )e.nextElement() ;
 			currentInstObsComp = SpTreeMan.findInstrument( currentIterator ) ;
@@ -243,7 +243,7 @@ public class UkirtSpValidation extends SpValidation
 				// Check to mke sure IRPOLs do not contain other IRPOLs
 				if( currentIterator instanceof SpIterIRPOL )
 				{
-					Vector irPolChildren = findInstances( ( SpIterIRPOL )currentIterator , SpIterIRPOL.class ) ;
+					Vector<SpItem> irPolChildren = findInstances( ( SpIterIRPOL )currentIterator , SpIterIRPOL.class ) ;
 					// There should be only 1 element in the array ; the current iterator
 					if( irPolChildren != null && irPolChildren.size() > 1 )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , "IRPOL iterator" , "An IRPOL iterator should not contain another IRPOL iterator" ) ) ;
@@ -257,12 +257,12 @@ public class UkirtSpValidation extends SpValidation
 	 *
 	 * This is not called recursively anymore.
 	 */
-	public void checkObservation( SpObs spObs , Vector report )
+	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 		
-		report.add( separator ) ;
+		report.add( new ErrorMessage( ErrorMessage.INFO , separator , "" ) ) ;
 
 		// Check whether the observation has an instrument (as its own child OR in its context).
 		if( SpTreeMan.findInstrument( spObs ) != null && !_isSpProgCheck )
@@ -301,8 +301,8 @@ public class UkirtSpValidation extends SpValidation
 			checkDRRecipe( recipe , report ) ;
 
 		// Find iterators
-		Vector observeIterators ;
-		Vector instrumentIterators ;
+		Vector<SpItem> observeIterators ;
+		Vector<SpItem> instrumentIterators ;
 
 		// First find observe iterators.
 		observeIterators = findInstances( spObs , "gemini.sp.iter.SpIterObserveBase" ) ;
@@ -342,7 +342,7 @@ public class UkirtSpValidation extends SpValidation
 			if( instObsComp != null )
 				instExpTime = instObsComp.getExposureTime() ;
 
-			for( Enumeration e1 = observeIterators.elements() ; e1.hasMoreElements() ; )
+			for( Enumeration<SpItem> e1 = observeIterators.elements() ; e1.hasMoreElements() ; )
 			{
 				darkExpTime = ( ( SpIterObserveBase )e1.nextElement() ).getExposureTime() ;
 
@@ -351,7 +351,7 @@ public class UkirtSpValidation extends SpValidation
 
 				if( instrumentIterators != null )
 				{
-					for( Enumeration e2 = instrumentIterators.elements() ; e2.hasMoreElements() ; )
+					for( Enumeration<SpItem> e2 = instrumentIterators.elements() ; e2.hasMoreElements() ; )
 					{
 						tmpInstIter = ( SpIterConfigObs )e2.nextElement() ;
 						if( tmpInstIter != null && tmpInstIter.getExposureTimes() != null )
@@ -385,10 +385,10 @@ public class UkirtSpValidation extends SpValidation
 		SpIterFolder iterFolder = null ;
 		boolean spIterObserveFound = false ;
 		boolean dark = false ;
-		Vector iterFolderVector = findInstances( spObs , "gemini.sp.iter.SpIterFolder" ) ;
+		Vector<SpItem> iterFolderVector = findInstances( spObs , "gemini.sp.iter.SpIterFolder" ) ;
 		if( iterFolderVector != null )
 		{
-			for( Enumeration e1 = iterFolderVector.elements() ; e1.hasMoreElements() ; )
+			for( Enumeration<SpItem> e1 = iterFolderVector.elements() ; e1.hasMoreElements() ; )
 			{
 				iterFolder = ( SpIterFolder )e1.nextElement() ;
 				for( Enumeration e2 = iterFolder.children() ; e2.hasMoreElements() ; )
@@ -429,7 +429,7 @@ public class UkirtSpValidation extends SpValidation
 
 		if( observeIterators != null )
 		{
-			for( Enumeration e = observeIterators.elements() ; e.hasMoreElements() ; )
+			for( Enumeration<SpItem> e = observeIterators.elements() ; e.hasMoreElements() ; )
 			{
 				iterObserve = ( SpIterObserve )e.nextElement() ;
 
@@ -461,7 +461,7 @@ public class UkirtSpValidation extends SpValidation
 	 * @param telescopeObsComp    Target list to be checked.
 	 * @param report              error messages and warnings are appended to report.
 	 */
-	public void checkTargetList( SpTelescopeObsComp telescopeObsComp , Vector report )
+	public void checkTargetList( SpTelescopeObsComp telescopeObsComp , Vector<ErrorMessage> report )
 	{
 		SpTelescopePosList list = telescopeObsComp.getPosList() ;
 		TelescopePos[] position = list.getAllPositions() ;
@@ -594,7 +594,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 	}
 
-	public void checkDRRecipe( SpDRRecipe recipe , Vector report )
+	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report )
 	{
 		if( !( recipe.getArcInGroup() || recipe.getBiasInGroup() || recipe.getDarkInGroup() || recipe.getFlatInGroup() || recipe.getObjectInGroup() || recipe.getSkyInGroup() ) )
 			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "No part included in group." ) ) ;
@@ -726,7 +726,7 @@ public class UkirtSpValidation extends SpValidation
 	 * @param spProg    Science program item to be checked.
 	 * @param report    Error messages and warnings are appended to report.
 	 */
-	public void checkSciProgram( SpProg spProg , Vector report )
+	public void checkSciProgram( SpProg spProg , Vector<ErrorMessage> report )
 	{
 		_isSpProgCheck = true ;
 
@@ -744,10 +744,10 @@ public class UkirtSpValidation extends SpValidation
 
 		// Checking for standard observation.
 		boolean standardObsFound = false ;
-		Vector instances = findInstances( spProg , "gemini.sp.SpObs" ) ;
+		Vector<SpItem> instances = findInstances( spProg , "gemini.sp.SpObs" ) ;
 		if( instances != null )
 		{
-			for( Enumeration e = instances.elements() ; e.hasMoreElements() && !standardObsFound ; )
+			for( Enumeration<SpItem> e = instances.elements() ; e.hasMoreElements() && !standardObsFound ; )
 			{
 				if( ( ( SpObs )e.nextElement() ).getIsStandard() )
 					standardObsFound = true ;
@@ -838,10 +838,10 @@ public class UkirtSpValidation extends SpValidation
 	 *
 	 * @see gemini.sp.SpTreeMan#findAllItems
 	 */
-	public static void findInstances( SpItem spItem , Class c , Vector result )
+	public static void findInstances( SpItem spItem , Class c , Vector<SpItem> result )
 	{
 		if( result == null )
-			result = new Vector() ;
+			result = new Vector<SpItem>() ;
 
 		if( c.isInstance( spItem ) )
 			result.add( spItem ) ;
@@ -859,7 +859,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 	}
 
-	public static void findInstances( SpItem spItem , String className , Vector result )
+	public static void findInstances( SpItem spItem , String className , Vector<SpItem> result )
 	{
 		try
 		{
@@ -874,9 +874,9 @@ public class UkirtSpValidation extends SpValidation
 	/**
 	 * @see #findInstances(gemini.sp.SpItem, java.lang.Class, java.util.Vector)
 	 */
-	public static Vector findInstances( SpItem spItem , Class c )
+	public static Vector<SpItem> findInstances( SpItem spItem , Class c )
 	{
-		Vector result = new Vector() ;
+		Vector<SpItem> result = new Vector<SpItem>() ;
 		findInstances( spItem , c , result ) ;
 
 		if( result.size() > 0 )
@@ -886,9 +886,9 @@ public class UkirtSpValidation extends SpValidation
 			return null ;
 	}
 
-	public static Vector findInstances( SpItem spItem , String className )
+	public static Vector<SpItem> findInstances( SpItem spItem , String className )
 	{
-		Vector result = null ;
+		Vector<SpItem> result = null ;
 
 		try
 		{
@@ -910,12 +910,12 @@ public class UkirtSpValidation extends SpValidation
 	 *
 	 * @return array test observations
 	 */
-	public static Vector findArrayTests( SpProg spProg )
+	public static Vector<SpObs> findArrayTests( SpProg spProg )
 	{
-		Vector result = new Vector() ;
-		Vector observations = null ;
-		Vector observeIterators = null ;
-		Vector darkIterators = null ;
+		Vector<SpObs> result = new Vector<SpObs>() ;
+		Vector<SpItem> observations = null ;
+		Vector<SpItem> observeIterators = null ;
+		Vector<SpItem> darkIterators = null ;
 		SpObs spObs = null ;
 
 		observations = findInstances( spProg , "gemini.sp.SpObs" ) ;
@@ -923,7 +923,7 @@ public class UkirtSpValidation extends SpValidation
 		if( observations != null )
 		{
 			// Go through observations.
-			for( Enumeration e = observations.elements() ; e.hasMoreElements() ; )
+			for( Enumeration<SpItem> e = observations.elements() ; e.hasMoreElements() ; )
 			{
 				spObs = ( SpObs )e.nextElement() ;
 				observeIterators = findInstances( spObs , "gemini.sp.iter.SpIterObserveBase" ) ;
@@ -951,11 +951,11 @@ public class UkirtSpValidation extends SpValidation
 	 *
 	 * @return matching observations.
 	 */
-	public static Vector findCGS4CalObservation( SpProg spProg )
+	public static Vector<SpObs> findCGS4CalObservation( SpProg spProg )
 	{
-		Vector result = new Vector() ;
-		Vector cgs4CalObsIterators = null ;
-		Vector observations = null ;
+		Vector<SpObs> result = new Vector<SpObs>() ;
+		Vector<SpItem> cgs4CalObsIterators = null ;
+		Vector<SpItem> observations = null ;
 		boolean arc = false ;
 		boolean flat = false ;
 		SpObs spObs = null ;
@@ -965,7 +965,7 @@ public class UkirtSpValidation extends SpValidation
 		if( observations != null )
 		{
 			// Go through observations.
-			for( Enumeration e = observations.elements() ; e.hasMoreElements() ; )
+			for( Enumeration<SpItem> e = observations.elements() ; e.hasMoreElements() ; )
 			{
 				spObs = ( SpObs )e.nextElement() ;
 				cgs4CalObsIterators = findInstances( spObs , "orac.ukirt.iter.SpIterCGS4CalObs" ) ;
@@ -975,7 +975,7 @@ public class UkirtSpValidation extends SpValidation
 
 				if( cgs4CalObsIterators != null )
 				{
-					for( Enumeration e2 = cgs4CalObsIterators.elements() ; e2.hasMoreElements() ; )
+					for( Enumeration<SpItem> e2 = cgs4CalObsIterators.elements() ; e2.hasMoreElements() ; )
 					{
 						if( ( ( SpIterCGS4CalObs )e2.nextElement() ).getCalType() == SpIterCGS4CalObs.ARC )
 							arc = true ;
@@ -1008,7 +1008,7 @@ public class UkirtSpValidation extends SpValidation
 		indentStr = indentStr + "   " ;
 
 		// Print the attributes
-		Enumeration keys = spItem.getTable().attributes() ;
+		Enumeration<String> keys = spItem.getTable().attributes() ;
 		while( keys.hasMoreElements() )
 		{
 			String key = ( String )keys.nextElement() ;
@@ -1033,7 +1033,7 @@ public class UkirtSpValidation extends SpValidation
 	 * this UKIRT specific checkMSB method obsolete.
 	 * The checkMSB method of the parent class could then be used.
 	 */
-	public void checkMSB( SpMSB spMSB , Vector report )
+	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		if( spMSB instanceof SpObs )
 		{

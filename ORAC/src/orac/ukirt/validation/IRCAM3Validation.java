@@ -55,7 +55,7 @@ public class IRCAM3Validation implements InstrumentValidation
 	 */
 	static double[] minExpTimes = { 4 , 20 , 2 , 1 , 5 , 1.3 , 0.3 , 1.3 , 0.15 } ;
 
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report )
+	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
 		SpInstIRCAM3 spInstIRCAM3 = ( SpInstIRCAM3 )instObsComp ;
 		String readoutArea = spInstIRCAM3.getReadoutArea() ;
@@ -63,7 +63,7 @@ public class IRCAM3Validation implements InstrumentValidation
 		double expTime = spInstIRCAM3.getExpTime() ;
 
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		if( readoutArea.equals( "256x256" ) )
 		{

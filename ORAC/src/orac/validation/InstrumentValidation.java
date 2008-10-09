@@ -10,5 +10,5 @@ import java.util.Vector ;
  */
 public interface InstrumentValidation
 {
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report ) ;
+	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report ) ;
 }

@@ -43,12 +43,12 @@ import java.lang.reflect.Field ;
 public class JcmtSpValidation extends SpValidation
 {
 
-	public void checkObservation( SpObs spObs , Vector report )
+	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 		
-		report.add( separator ) ;
+		report.add( new ErrorMessage( ErrorMessage.INFO , separator , "" ) ) ;
 
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( spObs ) ;
 		SpTelescopeObsComp target = SpTreeMan.findTargetList( spObs ) ;
@@ -178,7 +178,7 @@ public class JcmtSpValidation extends SpValidation
 		super.checkObservation( spObs , report ) ;
 	}
 
-	public void checkDRRecipe( SpDRRecipe recipe , Vector report , String obsTitle , SpIterJCMTObs thisObs )
+	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report , String obsTitle , SpIterJCMTObs thisObs )
 	{
 		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
 		String instrument = null ;
@@ -205,7 +205,7 @@ public class JcmtSpValidation extends SpValidation
 		}
 	}
 	
-	public void checkMSB( SpMSB spMSB , Vector report )
+	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		if( spMSB instanceof SpObs )
 		{
@@ -253,12 +253,12 @@ public class JcmtSpValidation extends SpValidation
 	 * exists here only to differentiate between 
 	 * super.checkMSBgeneric and this.checkMSBgeneric
 	 */
-	protected void checkMSBgeneric( SpMSB spMSB , Vector report )
+	protected void checkMSBgeneric( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		throw new RuntimeException( "Should not have ended up in JcmtSpValidation.checkMSBgeneric" ) ;
 	}
 	
-	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
+	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector<ErrorMessage> report )
 	{
 		if( obsComp != null )
 		{
@@ -307,7 +307,6 @@ public class JcmtSpValidation extends SpValidation
 	 */
 	public static SpDRRecipe findRecipe( SpItem spItem )
 	{
-
 		SpItem child ; // Child of spItem
 		Enumeration children ; // Children of the sequence
 		SpItem parent ; // Parent of spItem

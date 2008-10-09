@@ -14,8 +14,9 @@ public class ErrorMessage
 {
 	public final static int ERROR = 0 ;
 	public final static int WARNING = 1 ;
-	private static int[] _errorWarningCount = { 0 , 0 } ;
-	private static String[] _messageString = { "ERROR: " , "WARNING: " } ;
+	public final static int INFO = 2 ;
+	private static int[] _errorWarningCount = { 0 , 0 , 0 } ;
+	private static String[] _messageString = { "ERROR: " , "WARNING: " , "" } ;
 
 	/**
 	 * type is either ERROR or WARNING.
@@ -241,7 +242,7 @@ public class ErrorMessage
 		buffer.append( "If an error has been identified in an Observation you will be unable to take data with it.\n\n" ) ;
 		buffer.append( "If a warning is listed your observation or programme is probably non-standard, or is missing information which is not essential. You should check it carefully to make sure it is what you need.\n\n" ) ;
 
-		buffer.append( _errorWarningCount[ ERROR ] + " errors, " + _errorWarningCount[ WARNING ] + " warnings.\n\n" ) ;
+		buffer.append( getErrorCount() + " errors, " + getWarningCount() + " warnings.\n\n" ) ;
 
 		Object obj ;
 		while( messages.hasMoreElements() )

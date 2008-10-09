@@ -1,6 +1,7 @@
 package orac.ukirt.validation ;
 
 import gemini.sp.obsComp.SpInstObsComp ;
+import orac.validation.ErrorMessage;
 import orac.validation.InstrumentValidation ;
 import java.util.Vector ;
 
@@ -11,9 +12,9 @@ import java.util.Vector ;
  */
 public class WFCAMValidation implements InstrumentValidation
 {
-	public void checkInstrument( SpInstObsComp instObsComp , Vector report )
+	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 	}
 }

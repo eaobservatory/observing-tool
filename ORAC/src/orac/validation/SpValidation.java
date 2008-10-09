@@ -59,10 +59,10 @@ public class SpValidation
 {
 	protected static String separator = "------------------------------------------------------\n" ;
 	
-	public void checkSciProgram( SpProg spProg , Vector report )
+	public void checkSciProgram( SpProg spProg , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		// Change the SpProg to a document, since this is more easily checked
 		String xmlStr = spProg.toXML() ;
@@ -115,8 +115,8 @@ public class SpValidation
 			// SpOR must contain and SpObs, SpMSB or SpOR
 			// SpMSB must contain an SpObs
 			// SpObs must contain only 1 sequence
-			Vector mandatoryChildren = new Vector() ;
-			Vector excludedChildren = new Vector() ;
+			Vector<String> mandatoryChildren = new Vector<String>() ;
+			Vector<String> excludedChildren = new Vector<String>() ;
 			mandatoryChildren.add( "SpObs" ) ;
 			mandatoryChildren.add( "SpMSB" ) ;
 			excludedChildren.add( "SpOR" ) ;
@@ -129,7 +129,7 @@ public class SpValidation
 		}
 	}
 
-	protected void checkSciProgramRecursively( SpItem spItem , Vector report )
+	protected void checkSciProgramRecursively( SpItem spItem , Vector<ErrorMessage> report )
 	{
 		Enumeration children = spItem.children() ;
 		SpItem child ;
@@ -147,16 +147,16 @@ public class SpValidation
 		}
 	}
 
-	public void checkMSB( SpMSB spMSB , Vector report )
+	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		checkMSBgeneric( spMSB , report ) ;
 	}
 
-	protected void checkMSBgeneric( SpMSB spMSB , Vector report )
+	protected void checkMSBgeneric( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		/*MFO DEBUG*/
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		if( SpItemUtilities.findSiteQuality( spMSB ) == null )
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB \"" + spMSB.getTitle() + "\"" , "Site quality component list is missing." ) ) ;
@@ -237,10 +237,10 @@ public class SpValidation
 		}
 	}
 
-	public void checkObservation( SpObs spObs , Vector report )
+	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
 	{
 		if( report == null )
-			report = new Vector() ;
+			report = new Vector<ErrorMessage>() ;
 
 		Enumeration children ;
 		SpItem child ;
@@ -267,7 +267,7 @@ public class SpValidation
 		}
 	}
 
-	private void checkInheritedComponents( Document doc , String folderName , String componentName , String description , Vector report )
+	private void checkInheritedComponents( Document doc , String folderName , String componentName , String description , Vector<ErrorMessage> report )
 	{
 		String title = null ;
 		// Check all the children of the top level element
@@ -350,7 +350,7 @@ public class SpValidation
 		}
 	}
 
-	private void checkIterator( Document doc , String iteratorType , String description , Vector report )
+	private void checkIterator( Document doc , String iteratorType , String description , Vector<ErrorMessage> report )
 	{
 		boolean found = false ;
 		// Get the root element
@@ -387,9 +387,9 @@ public class SpValidation
 	( 
 			Document doc , 
 			String component , // Tag name of child to check
-			Vector mandatory , // The tag must have at least one of these types
-			Vector excluded , // List of children that are prohibited from appearing in the tag
-			Vector report // Errors returned through this
+			Vector<String> mandatory , // The tag must have at least one of these types
+			Vector<String> excluded , // List of children that are prohibited from appearing in the tag
+			Vector<ErrorMessage> report // Errors returned through this
 	)
 	{
 		boolean mandatoryElementFound = false ;
@@ -459,7 +459,7 @@ public class SpValidation
 		}
 	}
 
-	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
+	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector<ErrorMessage> report )
 	{
 		if( obsComp != null )
 		{
@@ -479,7 +479,7 @@ public class SpValidation
 		}
 	}
 
-	private void checkSurveyContainer( SpProg prog , Vector report )
+	private void checkSurveyContainer( SpProg prog , Vector<ErrorMessage> report )
 	{
 		Vector containers = SpTreeMan.findAllInstances( prog , SpSurveyContainer.class.getName() ) ;
 		for( int count = 0 ; count < containers.size() ; count++ )
@@ -499,7 +499,7 @@ public class SpValidation
 	 * @param schema     Fully qualified file name for the schema.
 	 * @return           A vector of strings containing the validation errors
 	 */
-	public void schemaValidate( String xmlString , String schemaURL , String schema , Vector report )
+	public void schemaValidate( String xmlString , String schemaURL , String schema , Vector<ErrorMessage> report )
 	{
 		// Make sure the schema exists
 		if( schema == null )
@@ -585,9 +585,9 @@ public class SpValidation
 			System.out.println( "Unable to create document: " + e.getMessage() ) ;
 		}
 
-		Vector schemaErrors = handler.getErrors() ;
+		Vector<String> schemaErrors = handler.getErrors() ;
 		for( int i = 0 ; i < schemaErrors.size() ; i++ )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "Schema validation error" , ( String )schemaErrors.get( i ) ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Schema validation error" , schemaErrors.get( i ) ) ) ;
 	}
 
 	public class SchemaErrorHandler implements ErrorHandler
@@ -633,7 +633,7 @@ public class SpValidation
 			errorMessages.add( errorMessage ) ;
 		}
 
-		public Vector getErrors()
+		public Vector<String> getErrors()
 		{
 			return errorMessages ;
 		}
@@ -643,7 +643,7 @@ public class SpValidation
 	{
 		public static String currentClass ;
 		public ClassLoader loader = new ComponentLoader() ;
-		private HashMap classPathMap = new HashMap() ;
+		private HashMap<String,String> classPathMap = new HashMap<String,String>() ;
 		public static StringBuffer currentMSB = null ;
 		public static StringBuffer currentObs = null ;
 		boolean readingMSB = false ;
@@ -708,9 +708,9 @@ public class SpValidation
 					String readableName = myClass.type().getReadable() ;
 					currentClass = readableName ;
 				}
-				catch( java.lang.ClassNotFoundException e ){}
-				catch( java.lang.InstantiationException e ){}
-				catch( java.lang.IllegalAccessException e ){}
+				catch( ClassNotFoundException e ){}
+				catch( InstantiationException e ){}
+				catch( IllegalAccessException e ){}
 			}
 			else if( localName.equals( "title" ) && ( readingMSB || readingObs ) )
 			{
@@ -791,7 +791,7 @@ public class SpValidation
 
 	public static class ComponentLoader extends ClassLoader{}
 
-	public void checkStartEndTimes( SpSchedConstObsComp schedule , Vector report )
+	public void checkStartEndTimes( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
 	{
 		String earliest = schedule.getEarliest() ;
 		String latest = schedule.getLatest() ;

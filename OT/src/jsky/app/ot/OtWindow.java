@@ -282,16 +282,16 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	protected ObsFolderButtonManager _obsFolderButtonMan ;
 
 	/** Used to go back to a previous science program */
-	protected Stack backStack = new Stack() ;
+	protected Stack<OtHistoryItem> backStack = new Stack<OtHistoryItem>() ;
 
 	/** Used to go forward to the next science program */
-	protected Stack forwStack = new Stack() ;
+	protected Stack<OtHistoryItem> forwStack = new Stack<OtHistoryItem>() ;
 
 	/** Set when the back or forward actions are active to avoid the normal history handling */
 	protected boolean noStack = false ;
 
 	/** List of OtHistoryItem, for previously viewed science programs. */
-	protected LinkedList historyList = new LinkedList() ;
+	protected LinkedList<OtHistoryItem> historyList = new LinkedList<OtHistoryItem>() ;
 
 	/** list of listeners for change events */
 	protected EventListenerList listenerList = new EventListenerList() ;
@@ -1122,7 +1122,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			forwAction.setEnabled( true ) ;
 		}
 
-		OtHistoryItem item = ( OtHistoryItem )backStack.pop() ;
+		OtHistoryItem item = backStack.pop() ;
 		if( backStack.size() == 0 )
 			backAction.setEnabled( false ) ;
 		
@@ -1156,7 +1156,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			backAction.setEnabled( true ) ;
 		}
 
-		OtHistoryItem item = ( OtHistoryItem )forwStack.pop() ;
+		OtHistoryItem item = forwStack.pop() ;
 		if( forwStack.size() == 0 )
 			forwAction.setEnabled( false ) ;
 		
@@ -1195,10 +1195,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			}
 
 			// add to the history list and remove duplicates
-			ListIterator it = ( ( LinkedList )historyList.clone() ).listIterator( 0 ) ;
+			ListIterator<OtHistoryItem> it = ( ( LinkedList<OtHistoryItem> )historyList.clone() ).listIterator( 0 ) ;
 			for( int i = 0 ; it.hasNext() ; i++ )
 			{
-				OtHistoryItem hi = ( OtHistoryItem )it.next() ;
+				OtHistoryItem hi = it.next() ;
 				if( hi.title.equals( title ) )
 					historyList.remove( i ) ;
 			}
@@ -1212,16 +1212,16 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	/** Add history items (for previously displayed science programs) to the given menu */
 	public void addHistoryMenuItems( JMenu menu )
 	{
-		ListIterator it = historyList.listIterator( 0 ) ;
+		ListIterator<OtHistoryItem> it = historyList.listIterator( 0 ) ;
 		while( it.hasNext() )
-			menu.add( ( OtHistoryItem )it.next() ) ;
+			menu.add( it.next() ) ;
 	}
 
 	/** 
 	 * This method may be redefined in subclasses to do cleanup work before components are 
 	 * removed from the given history stack (backStack or forwStack).
 	 */
-	protected void cleanupHistoryStack( Stack stack ){}
+	protected void cleanupHistoryStack( Stack<OtHistoryItem> stack ){}
 
 	/** 
 	 * Display the position editor.
@@ -1277,7 +1277,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			return false ;
 		}
 
-		Vector report = new Vector() ;
+		Vector<ErrorMessage> report = new Vector<ErrorMessage>() ;
 
 		ErrorMessage.reset() ;
 
@@ -1313,14 +1313,14 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 *         false if the component has been checked and found invalid
 	 *               OR if the component has not been checked because it is neither an observation nor a science program.
 	 */
-	public static Vector doValidation( SpItem spItem )
+	public static Vector<ErrorMessage> doValidation( SpItem spItem )
 	{
-		Vector<String> report = new Vector<String>() ;
+		Vector<ErrorMessage> report = new Vector<ErrorMessage>() ;
 
 		if( OtCfg.telescopeUtil == null )
 		{
 			String message = "No Validation performed - Error getting TelescopeUtil" ;
-			report.add( message ) ;
+			report.add( new ErrorMessage( ErrorMessage.INFO , "" , message ) ) ;
 			return report ;
 		}
 
@@ -1329,7 +1329,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		if( spValidation == null )
 		{
 			String message = "No validation performed - Could not find validation tool." ;
-			report.add( message ) ;
+			report.add( new ErrorMessage( ErrorMessage.INFO , "" , message ) ) ;
 			return report ;
 		}
 
@@ -1537,7 +1537,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			OtCfg.init() ;
 			FileReader rdr = new FileReader( args[ 0 ] ) ;
 			SpItem item = ( new SpInputXML() ).xmlToSpItem( rdr ) ;
-			Vector report = OtWindow.doValidation( item ) ;
+			Vector<ErrorMessage> report = OtWindow.doValidation( item ) ;
 			System.out.println( report ) ;
 		}
 		catch( Exception e )
