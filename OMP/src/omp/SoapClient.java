@@ -42,7 +42,7 @@ public class SoapClient
 
 	private static Header header = null ;
 
-	private static Vector params = new Vector() ;
+	private static Vector<Parameter> params = new Vector<Parameter>() ;
 
 	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser" ;
 	
