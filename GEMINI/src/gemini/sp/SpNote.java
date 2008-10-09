@@ -105,7 +105,7 @@ public class SpNote extends SpItem
      */
 	public String[] getInstructions()
 	{
-		ArrayList rtnArray = new ArrayList() ;
+		ArrayList<String> rtnArray = new ArrayList<String>() ;
 		Enumeration e = _avTable.attributes() ;
 		if( e != null )
 		{
@@ -118,7 +118,7 @@ public class SpNote extends SpItem
 				rtnArray.add( key + " = " + value ) ;
 			}
 		}
-		return( ( String[] )rtnArray.toArray( new String[ 0 ] ) ) ;
+		return( rtnArray.toArray( new String[ 0 ] ) ) ;
 	}
 
 	/**
