@@ -50,7 +50,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		else
 		{
 			_avTab = new SpAvTable() ;
-			_posList = new Vector< SpTelescopePos >() ;
+			_posList = new Vector<SpTelescopePos>() ;
 			SpTelescopePos tp = createPosition( SpTelescopePos.BASE_TAG , 0.0 , 0.0 ) ;
 		}
 	}
@@ -102,9 +102,9 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	//
 	// Return all the positions from the table.
 	//
-	static Vector< SpTelescopePos > getAllPositions( SpItem spItem , SpAvTable avTab , SpTelescopePosList list )
+	static Vector<SpTelescopePos> getAllPositions( SpItem spItem , SpAvTable avTab , SpTelescopePosList list )
 	{
-		Vector< SpTelescopePos > v = new Vector< SpTelescopePos >() ;
+		Vector<SpTelescopePos> v = new Vector<SpTelescopePos>() ;
 
 		SpTelescopePos tp ;
 
@@ -218,9 +218,9 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 	/**
      * Retrieve all the user positions from the position list.
      */
-	public synchronized Vector< SpTelescopePos > getAllUserPositions()
+	public synchronized Vector<SpTelescopePos> getAllUserPositions()
 	{
-		Vector< SpTelescopePos > v = new Vector< SpTelescopePos >() ;
+		Vector<SpTelescopePos> v = new Vector<SpTelescopePos>() ;
 		for( int i = 0 ; i < _posList.size() ; ++i )
 		{
 			SpTelescopePos tp = _posList.elementAt( i ) ;
@@ -230,9 +230,9 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		return v ;
 	}
 
-	public synchronized Vector< String > getAllTags( String tagType )
+	public synchronized Vector<String> getAllTags( String tagType )
 	{
-		Vector< String > v = new Vector< String >() ;
+		Vector<String> v = new Vector<String>() ;
 		for( int i = 0 ; i < _posList.size() ; i++ )
 		{
 			String tag = _posList.elementAt( i ).getTag() ;
