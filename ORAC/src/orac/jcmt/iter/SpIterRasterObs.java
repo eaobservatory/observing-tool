@@ -477,11 +477,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		// else if USER DEF and abs( scan angle - map angle ) is < 45
 		// else if USER DEF and abs( scan angle - map angle ) is > 135
 		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
+		double normalisedAngle = Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) ;
 		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
 			swap = columnGreaterThanRow ;
-		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) < 45. )
-			swap = true ;
-		else if( Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) > 135. )
+		else if( normalisedAngle < 45. || normalisedAngle > 135. )
 			swap = true ;
 
 		if( swap )
