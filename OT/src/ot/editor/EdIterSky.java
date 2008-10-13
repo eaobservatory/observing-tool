@@ -237,9 +237,9 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 				SpSurveyContainer surveyContainer = SpTreeMan.findSurveyContainerInContext( spItem ) ;
 				if( surveyContainer != null )
 				{
-					Vector tmp = null ;
+					Vector<String> tmp = null ;
 					int size = surveyContainer.size() ;
-					Vector[] allTags = new Vector[ size ] ;
+					Vector<String>[] allTags = new Vector[ size ] ;
 					for( int i = 0 ; i < size ; i++ )
 					{
 						obsComp = surveyContainer.getSpTelescopeObsComp( i ) ;
