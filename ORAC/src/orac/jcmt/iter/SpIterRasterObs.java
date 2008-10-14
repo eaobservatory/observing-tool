@@ -474,8 +474,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		boolean swap = false ;
 		
 		// if AUTOMATIC and height > width
-		// else if USER DEF and abs( scan angle - map angle ) is < 45
-		// else if USER DEF and abs( scan angle - map angle ) is > 135
+		// else if USER DEF and abs( scan angle - map angle ) is < 45 or > 135
 		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
 		double normalisedAngle = Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) ;
 		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
@@ -496,6 +495,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( ( ( ( int )samplesPerRow ) & 1 ) == 0 )
 			samplesPerRow++ ;
 
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
+		if( instrument != null && instrument instanceof SpInstHeterodyne )
+		{
+			String frontend = (( SpInstHeterodyne )instrument).getFrontEnd() ;
+			if( "HARP".equals( frontend ) )
+				samplesPerRow += 16 ;
+		}
+		
 		if( row )
 			return samplesPerRow ;
 		else
