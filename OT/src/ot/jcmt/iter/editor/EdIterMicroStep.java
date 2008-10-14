@@ -35,7 +35,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 	private boolean ignoreActions = false ;
 
 	/** For internal use only. */
-	private Vector _patternVector = new Vector() ;
+	private Vector<String> _patternVector = new Vector<String>() ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.

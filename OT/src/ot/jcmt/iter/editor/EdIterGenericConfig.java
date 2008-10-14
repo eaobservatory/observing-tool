@@ -8,7 +8,6 @@ package ot.jcmt.iter.editor ;
 
 import gemini.util.ObservingToolUtilities;
 
-import java.net.URL;
 import java.util.Hashtable ;
 
 import javax.swing.ImageIcon ;
