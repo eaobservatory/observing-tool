@@ -61,7 +61,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      * Every DoubleSideBandRangeBar that is in _lineRegionBars is also in
      * {@link #_allRegionBars}.
      */
-	private Vector _lineRegionBars = new Vector();
+	private Vector< DoubleSideBandRangeBar > _lineRegionBars = new Vector< DoubleSideBandRangeBar >();
 
 	/**
      * Contains the Baseline Fit Region DoubleSideBandRangeBar bars.
@@ -69,7 +69,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      * Every DoubleSideBandRangeBar that is in _fitRegionBars is also in
      * {@link #_allRegionBars}.
      */
-	private Vector _fitRegionBars = new Vector();
+	private Vector< DoubleSideBandRangeBar > _fitRegionBars = new Vector< DoubleSideBandRangeBar >();
 
 	/**
      * Contains the combined Baseline Fit Region, Line Region, Baseline Fit
@@ -81,7 +81,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      * Every DoubleSideBandRangeBar that is in _combinedRegionBars is also in
      * {@link #_allRegionBars}.
      */
-	private Vector _combinedRegionBars = new Vector();
+	private Vector< DoubleSideBandRangeBar > _combinedRegionBars = new Vector< DoubleSideBandRangeBar >();
 
 	/**
      * Contains all DoubleSideBandRangeBar bars.
@@ -92,7 +92,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      * 
      * _allRegionBars is mainly used to maintain the GUI.
      */
-	private Vector _allRegionBars = new Vector();
+	private Vector< DoubleSideBandRangeBar > _allRegionBars = new Vector< DoubleSideBandRangeBar >();
 	private static final Point _lsbViewPosition = new Point( 0 , 0 );
 	private Point _usbViewPosition = new Point( 0 , 0 );
 	private Window _parent = null;
@@ -104,8 +104,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 	private int _feBandWidthPixels;
 	private double _feBandWidth;
 	private double _feIF;
-	private Vector _beBandWidth = new Vector( 4 );
-	private Vector _beIF = new Vector( 4 );
+	private Vector< Double > _beBandWidth = new Vector< Double >( 4 );
+	private Vector< Double > _beIF = new Vector< Double >( 4 );
 	private double _mainLine;
 
 	/**
@@ -136,7 +136,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      */
 	private boolean _baselinesChanged = false;
 
-	private HashMap _inputValues = new HashMap();
+	private HashMap< Integer , Object[] > _inputValues = new HashMap< Integer , Object[] >();
 
 	public SpectralRegionEditor( Window parent )
 	{
@@ -378,8 +378,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = ( ( Double )_beIF.get( i ) ).doubleValue();
-			double beBandWidth = ( ( Double )_beBandWidth.get( i ) ).doubleValue();
+			double beIF = _beIF.get( i ).doubleValue();
+			double beBandWidth = _beBandWidth.get( i ).doubleValue();
 			if( _fitRegionInside )
 			{
 				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9;
@@ -508,14 +508,14 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _lineRegionBars.size() ; i++ )
 		{
-			lineRegionBar = ( DoubleSideBandRangeBar )_lineRegionBars.get( i );
+			lineRegionBar = _lineRegionBars.get( i );
 
 			upperFitRegionBar = null;
 			lowerFitRegionBar = null;
 
 			for( int j = 0 ; j < _fitRegionBars.size() ; j++ )
 			{
-				fitRegionBar = ( DoubleSideBandRangeBar )_fitRegionBars.get( j );
+				fitRegionBar = _fitRegionBars.get( j );
 
 				if( lineRegionBar.getUpperBarX() + lineRegionBar.getBarWidth() == fitRegionBar.getUpperBarX() )
 					upperFitRegionBar = fitRegionBar;
@@ -624,8 +624,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 		int[] result = new int[ _beIF.size() * 2 ];
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = ( ( Double )_beIF.get( i ) ).doubleValue();
-			double beBandWidth = ( ( Double )_beBandWidth.get( i ) ).doubleValue();
+			double beIF = _beIF.get( i ).doubleValue();
+			double beBandWidth = _beBandWidth.get( i ).doubleValue();
 			// Min, max frequencies in range of upper backend sideband.
 			double beMinUSB = _lineDisplay.getLO1() + ( beIF - ( 0.5 * beBandWidth ) );
 			double beMaxUSB = _lineDisplay.getLO1() + ( beIF + ( 0.5 * beBandWidth ) );
@@ -666,8 +666,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _allRegionBars.size() ; i++ )
 		{
-			_rangeBarPanel.add( ( DoubleSideBandRangeBar )_allRegionBars.get( i ) );
-			( ( DoubleSideBandRangeBar )_allRegionBars.get( i ) ).setId( i );
+			_rangeBarPanel.add( _allRegionBars.get( i ) );
+			_allRegionBars.get( i ).setId( i );
 		}
 
 		_scrollPane.setPreferredSize( new Dimension( 820 , _rangeBarLineDisplayPanel.getPreferredSize().height + 20 ) );
@@ -687,16 +687,16 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 		int k = 0;
 		for( int i = 0 ; i < _combinedRegionBars.size() ; i++ )
 		{
-			barX = ( ( DoubleSideBandRangeBar )_combinedRegionBars.get( i ) ).getUpperBarX();
-			barWidth = ( ( DoubleSideBandRangeBar )_combinedRegionBars.get( i ) ).getBarWidth();
+			barX = _combinedRegionBars.get( i ).getUpperBarX();
+			barWidth = _combinedRegionBars.get( i ).getBarWidth();
 
 			result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _lineDisplay.getLO1() );
 		}
 
 		for( int i = 0 ; i < _lineRegionBars.size() ; i++ )
 		{
-			barX = ( ( DoubleSideBandRangeBar )_lineRegionBars.get( i ) ).getUpperBarX();
-			barWidth = ( ( DoubleSideBandRangeBar )_lineRegionBars.get( i ) ).getBarWidth();
+			barX = _lineRegionBars.get( i ).getUpperBarX();
+			barWidth = _lineRegionBars.get( i ).getBarWidth();
 
 			result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _lineDisplay.getLO1() );
 		}
@@ -708,7 +708,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 	{
 		int numRegions = 0;
 		for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
-			numRegions += ( ( DoubleSideBandRangeBar )_fitRegionBars.get( i ) ).getNumRanges();
+			numRegions += _fitRegionBars.get( i ).getNumRanges();
 		double[][] result = new double[ ( 2 * _combinedRegionBars.size() ) + numRegions ][];
 
 		int barX;
@@ -720,11 +720,11 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 		for( int i = 0 ; i < _combinedRegionBars.size() ; i++ )
 		{
 			barX = 0;
-			barWidth = ( ( DoubleSideBandRangeBar )_combinedRegionBars.get( i ) ).getUpperBarX();
+			barWidth = _combinedRegionBars.get( i ).getUpperBarX();
 
 			result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _lineDisplay.getLO1() );
 
-			barX = ( ( DoubleSideBandRangeBar )_combinedRegionBars.get( i ) ).getUpperBarX() + ( ( DoubleSideBandRangeBar )_combinedRegionBars.get( i ) ).getBarWidth();
+			barX = _combinedRegionBars.get( i ).getUpperBarX() + _combinedRegionBars.get( i ).getBarWidth();
 			barWidth = _feBandWidthPixels - barX;
 
 			result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _lineDisplay.getLO1() );
@@ -732,17 +732,17 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
 		{
-			for( int n = 0 ; n < ( ( DoubleSideBandRangeBar )_fitRegionBars.get( i ) ).getNumBars() ; n++ )
+			for( int n = 0 ; n < _fitRegionBars.get( i ).getNumBars() ; n++ )
 			{
-				barX = ( ( DoubleSideBandRangeBar )_fitRegionBars.get( i ) ).getUpperBarX( n );
-				barWidth = ( ( DoubleSideBandRangeBar )_fitRegionBars.get( i ) ).getBarWidth( n );
-				if( ( ( DoubleSideBandRangeBar )_fitRegionBars.get( i ) ).hasBaselineChanged() || _baselinesChanged )
+				barX = _fitRegionBars.get( i ).getUpperBarX( n );
+				barWidth = _fitRegionBars.get( i ).getBarWidth( n );
+				if( _fitRegionBars.get( i ).hasBaselineChanged() || _baselinesChanged )
 				{
 					result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _lineDisplay.getLO1() );
 				}
 				else
 				{
-					Object[] o = ( ( Object[] )_inputValues.get( new Integer( i ) ) );
+					Object[] o = _inputValues.get( new Integer( i ) );
 					double[] d1 = ( double[] )o[ 0 ];
 					double[] d2 = ( double[] )o[ 1 ];
 					for( int l = 0 ; l < d1.length ; l++ )
@@ -804,7 +804,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 			_feBandWidthPixels = ( int )( ( _feBandWidth / 1.0E9 ) * _lineDisplay.getPixelsPerValue() );
 
 			for( int i = 0 ; i < _allRegionBars.size() ; i++ )
-				( ( DoubleSideBandRangeBar )_allRegionBars.get( i ) ).resetRangeBars( zoom );
+				_allRegionBars.get( i ).resetRangeBars( zoom );
 
 			_usbViewPosition.move( _lineDisplay.getDisplayWidth() - 800 , 0 );
 
@@ -842,7 +842,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 		{
 			for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
 			{
-				DoubleSideBandRangeBar bar = ( DoubleSideBandRangeBar )_fitRegionBars.get( i );
+				DoubleSideBandRangeBar bar = _fitRegionBars.get( i );
 				if( bar.hasBaselineChanged() )
 				{
 					flag = true;

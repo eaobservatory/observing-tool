@@ -18,9 +18,9 @@ import java.util.Hashtable ;
 public class ReceiverList
 {
 
-	public static Hashtable getReceiverTable()
+	public static Hashtable<String,Receiver> getReceiverTable()
 	{
-		Hashtable receivers = new Hashtable();
+		Hashtable<String,Receiver> receivers = new Hashtable<String,Receiver>();
 
 		Receiver r;
 

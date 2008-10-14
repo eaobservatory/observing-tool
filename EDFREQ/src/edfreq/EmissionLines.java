@@ -37,8 +37,8 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 	int xSize;
 	int ySize;
 	JPopupMenu popup = null;
-	private Hashtable popupLineTable = new Hashtable();
-	private Hashtable popupLinePosTable = new Hashtable();
+	private Hashtable<JMenuItem,LineDetails> popupLineTable = new Hashtable<JMenuItem,LineDetails>();
+	private Hashtable<JMenuItem,int[]> popupLinePosTable = new Hashtable<JMenuItem,int[]>();
 	private JMenuItem[] samplerMenus;
 	JMenuItem item;
 	private double lowLimit;
@@ -305,11 +305,11 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		if( e.getSource() instanceof JMenuItem )
 		{
 			// update popupLinePos
-			popupLinePos = ( ( int[] )popupLinePosTable.get( e.getSource() ) )[ 0 ];
+			popupLinePos = popupLinePosTable.get( e.getSource() )[ 0 ];
 
 			repaint();
 
-			selectedLine = ( ( LineDetails )popupLineTable.get( e.getSource() ) );
+			selectedLine = popupLineTable.get( e.getSource() );
 			popupLineFreq = selectedLine.frequency * 1.0E6;
 
 			return;

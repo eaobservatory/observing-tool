@@ -64,11 +64,11 @@ public class FrequencyEditorCfg
      */
 	public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 	public String[] frontEnds;
-	public Hashtable frontEndTable = new Hashtable();
-	public Hashtable frontEndMixers = new Hashtable();
+	public Hashtable<String,String[]> frontEndTable = new Hashtable<String,String[]>();
+	public Hashtable<String,String[]> frontEndMixers = new Hashtable<String,String[]>();
 	public String[] velocityFrames = { "LSRK" , "Geocentric" , "Heliocentric" };
 	public boolean centreFrequenciesAdjustable;
-	public Hashtable receivers;
+	public Hashtable<String,Receiver> receivers;
 	private static FrequencyEditorCfg _frequencyEditorCfg = null;
 
 	/**
@@ -114,7 +114,7 @@ public class FrequencyEditorCfg
 		String block = null;
 
 		String[] myFrontEnds = null;
-		Hashtable myReceivers = null;
+		Hashtable<String,Receiver> myReceivers = null;
 
 		if( _frequencyEditorCfg == null )
 			_frequencyEditorCfg = new FrequencyEditorCfg();
@@ -128,7 +128,7 @@ public class FrequencyEditorCfg
 				{
 					String[][] recList = instInfo.getValueAs2DArray();
 					myFrontEnds = new String[ recList.length ];
-					myReceivers = new Hashtable( recList.length );
+					myReceivers = new Hashtable<String,Receiver>( recList.length );
 					try
 					{
 						for( int i = 0 ; i < recList.length ; i++ )
@@ -151,7 +151,7 @@ public class FrequencyEditorCfg
 				else if( InstCfg.matchAttr( instInfo , "modes" ) )
 				{
 					String[][] modes = instInfo.getValueAs2DArray();
-					Hashtable myFrontEndTable = new Hashtable( modes.length );
+					Hashtable<String,String[]> myFrontEndTable = new Hashtable<String,String[]>( modes.length );
 					for( int i = 0 ; i < modes.length ; i++ )
 						myFrontEndTable.put( myFrontEnds[ i ] , modes[ i ] );
 					_frequencyEditorCfg.frontEndTable = myFrontEndTable;
@@ -159,7 +159,7 @@ public class FrequencyEditorCfg
 				else if( InstCfg.matchAttr( instInfo , "mixers" ) )
 				{
 					String[][] mixers = instInfo.getValueAs2DArray();
-					Hashtable myFrontEndMixers = new Hashtable( mixers.length );
+					Hashtable<String,String[]> myFrontEndMixers = new Hashtable<String,String[]>( mixers.length );
 					for( int i = 0 ; i < mixers.length ; i++ )
 						myFrontEndMixers.put( myFrontEnds[ i ] , mixers[ i ] );
 					_frequencyEditorCfg.frontEndMixers = myFrontEndMixers;
@@ -185,12 +185,12 @@ public class FrequencyEditorCfg
 	private static void _decodeBandSpecs( InstCfg instInfo , String[][] specs )
 	{
 		String name = "";
-		Vector bsVector = new Vector();
+		Vector<BandSpec> bsVector = new Vector<BandSpec>();
 
-		ArrayList bandwidths = new ArrayList();
-		ArrayList overlaps = new ArrayList();
-		ArrayList channels = new ArrayList();
-		ArrayList hybSubbands = new ArrayList();
+		ArrayList<String> bandwidths = new ArrayList<String>();
+		ArrayList<String> overlaps = new ArrayList<String>();
+		ArrayList<String> channels = new ArrayList<String>();
+		ArrayList<String> hybSubbands = new ArrayList<String>();
 		for( int i = 0 ; i < specs.length ; i++ )
 		{
 			// See if we are dealing with the same name of bandspec
@@ -223,10 +223,10 @@ public class FrequencyEditorCfg
 					// For simplicity, assume they are all the same size
 					for( int j = 0 ; j < bwArray.length ; j++ )
 					{
-						bwArray[ j ] = Double.parseDouble( ( String )bandwidths.get( j ) );
-						olArray[ j ] = Double.parseDouble( ( String )overlaps.get( j ) );
-						chArray[ j ] = Integer.parseInt( ( String )channels.get( j ) );
-						hyArray[ j ] = Integer.parseInt( ( String )hybSubbands.get( j ) );
+						bwArray[ j ] = Double.parseDouble( bandwidths.get( j ) );
+						olArray[ j ] = Double.parseDouble( overlaps.get( j ) );
+						chArray[ j ] = Integer.parseInt( channels.get( j ) );
+						hyArray[ j ] = Integer.parseInt( hybSubbands.get( j ) );
 					}
 					// Create a new BandSpec and add it to the vector for the
                     // current receiver
@@ -255,10 +255,10 @@ public class FrequencyEditorCfg
 		int[] hyArray = new int[ hybSubbands.size() ];
 		for( int j = 0 ; j < bwArray.length ; j++ )
 		{
-			bwArray[ j ] = Double.parseDouble( ( String )bandwidths.get( j ) );
-			olArray[ j ] = Double.parseDouble( ( String )overlaps.get( j ) );
-			chArray[ j ] = Integer.parseInt( ( String )channels.get( j ) );
-			hyArray[ j ] = Integer.parseInt( ( String )hybSubbands.get( j ) );
+			bwArray[ j ] = Double.parseDouble( bandwidths.get( j ) );
+			olArray[ j ] = Double.parseDouble( overlaps.get( j ) );
+			chArray[ j ] = Integer.parseInt( channels.get( j ) );
+			hyArray[ j ] = Integer.parseInt( hybSubbands.get( j ) );
 		}
 		// Create a new BandSpec and add it to the vector for the current
         // receiver
@@ -272,7 +272,7 @@ public class FrequencyEditorCfg
 			if( InstCfg.likeAttr( instInfo , _frequencyEditorCfg.frontEnds[ i ].replaceAll( "[^a-zA-Z0-9]" , "" ) ) )
 			{
 				foundReceiver = true;
-				( ( Receiver )_frequencyEditorCfg.receivers.get( _frequencyEditorCfg.frontEnds[ i ] ) ).setBandSpecs( bsVector );
+				_frequencyEditorCfg.receivers.get( _frequencyEditorCfg.frontEnds[ i ] ).setBandSpecs( bsVector );
 				break;
 			}
 		}

@@ -51,8 +51,8 @@ public class FrequencyTable extends JPanel implements ActionListener
 	private HeterodyneEditor hetEditor;
 	private EmissionLines emissionLines;
 	double gigToPix;
-	Vector lowBars = new Vector();
-	Vector highBars = new Vector();
+	Vector<SideBandScrollBar> lowBars = new Vector<SideBandScrollBar>();
+	Vector<SideBandScrollBar> highBars = new Vector<SideBandScrollBar>();
 
 	/**
      * Constructor to create frequency table for the Frequency Editor.
@@ -428,45 +428,45 @@ public class FrequencyTable extends JPanel implements ActionListener
 	{
 		if( band.equals( "best" ) || band.equals( "usb" ) )
 		{
-			SideBandScrollBar bar = ( SideBandScrollBar )highBars.elementAt( subsystem );
-			AdjustmentListener[] listeners = ( AdjustmentListener[] )( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).getListeners( AdjustmentListener.class );
+			SideBandScrollBar bar = highBars.elementAt( subsystem );
+			AdjustmentListener[] listeners = ( AdjustmentListener[] )highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			// Disable the event liteners and move the USB sliders
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).removeAdjustmentListener( listeners[ i ] );
+				highBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			int newValue = ( int )( ( double )bar.getDefaultValue() - newPos * gigToPix );
-			( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).setValue( newValue );
+			highBars.elementAt( subsystem ).setValue( newValue );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).addAdjustmentListener( listeners[ i ] );
+				highBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 			// Now move the LSB scroller in the complimentary direction
-			listeners = ( AdjustmentListener[] )( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).getListeners( AdjustmentListener.class );
-			bar = ( SideBandScrollBar )lowBars.elementAt( subsystem );
+			listeners = ( AdjustmentListener[] )lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
+			bar = lowBars.elementAt( subsystem );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).removeAdjustmentListener( listeners[ i ] );
+				lowBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			newValue = ( int )( ( double )bar.getDefaultValue() + newPos * gigToPix );
-			( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).setValue( newValue );
+			lowBars.elementAt( subsystem ).setValue( newValue );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).addAdjustmentListener( listeners[ i ] );
+				lowBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 		}
 		else
 		{
-			SideBandScrollBar bar = ( SideBandScrollBar )lowBars.elementAt( subsystem );
+			SideBandScrollBar bar = lowBars.elementAt( subsystem );
 			// Disable the event liteners and move the LSB sliders
-			AdjustmentListener[] listeners = ( AdjustmentListener[] )( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).getListeners( AdjustmentListener.class );
+			AdjustmentListener[] listeners = ( AdjustmentListener[] )lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).removeAdjustmentListener( listeners[ i ] );
+				lowBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			int newValue = ( int )( ( double )bar.getDefaultValue() - newPos * gigToPix );
-			( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).setValue( newValue );
+			lowBars.elementAt( subsystem ).setValue( newValue );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )lowBars.elementAt( subsystem ) ).addAdjustmentListener( listeners[ i ] );
+				lowBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 			// Now move the LSB scroller in the complimentary direction
-			bar = ( SideBandScrollBar )highBars.elementAt( subsystem );
-			listeners = ( AdjustmentListener[] )( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).getListeners( AdjustmentListener.class );
+			bar = highBars.elementAt( subsystem );
+			listeners = ( AdjustmentListener[] )highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).removeAdjustmentListener( listeners[ i ] );
+				highBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			newValue = ( int )( ( double )bar.getDefaultValue() + newPos * gigToPix );
-			( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).setValue( newValue );
+			highBars.elementAt( subsystem ).setValue( newValue );
 			for( int i = 0 ; i < listeners.length ; i++ )
-				( ( SideBandScrollBar )highBars.elementAt( subsystem ) ).addAdjustmentListener( listeners[ i ] );
+				highBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 		}
 	}
 

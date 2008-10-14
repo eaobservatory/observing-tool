@@ -138,7 +138,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 		/* Create labels for slider at 10GHz intervals */
 
-		Hashtable labels = new Hashtable();
+		Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>();
 		for( j = lslide ; j <= uslide ; j += ( int )Math.rint( 10.0E9 / EdFreq.SLIDERSCALE ) )
 			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int )Math.rint( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) );
 

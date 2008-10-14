@@ -41,11 +41,11 @@ public class SkyTransmission extends JPanel implements ChangeListener
 	private double[][] skyTrans;
 	private SkyData skyData;
 	private int[][] skyPlot;
-	private TreeMap rxTemp = null;
+	private TreeMap<Double,Double> rxTemp = null;
 	private int[][] rxPlot = null;
 	private Image buffer = null;
 	private Graphics ig;
-	private TreeMap untunableBands;
+	private TreeMap< Double , Vector<Double>> untunableBands;
 	private int[][] untunablePlot = null;
 	private double lowF = 0;
 	private double highF = 0;
@@ -107,18 +107,18 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			int tMax = 0;
 			int tMin = 0;
 			boolean first = true;
-			Iterator iter = rxTemp.values().iterator();
+			Iterator<Double> iter = rxTemp.values().iterator();
 			while( iter.hasNext() )
 			{
 				if( first )
 				{
-					tMax = ( int )Math.rint( ( ( Double )iter.next() ).doubleValue() );
+					tMax = ( int )Math.rint( iter.next().doubleValue() );
 					tMin = tMax;
 					first = false;
 				}
 				else
 				{
-					int currentValue = ( int )Math.rint( ( ( Double )iter.next() ).doubleValue() );
+					int currentValue = ( int )Math.rint( iter.next().doubleValue() );
 					if( currentValue > tMax )
 						tMax = currentValue;
 					if( currentValue < tMin )
@@ -131,9 +131,9 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			int index = 1;
 			while( iter.hasNext() )
 			{
-				Double currentKey = ( Double )iter.next();
+				Double currentKey = iter.next();
 				rxPlot[ index ][ 0 ] = ( int )( ( double )xSize * ( currentKey.doubleValue() - lowF ) / ( highF - lowF ) );
-				int currValue = ( int )Math.rint( ( ( Double )rxTemp.get( currentKey ) ).doubleValue() );
+				int currValue = ( int )Math.rint( rxTemp.get( currentKey ).doubleValue() );
 				int scaledValue = ( int )( ( double )ySize - ( double )ySize * ( currValue - tMin ) / ( tMax - tMin ) );
 				rxPlot[ index ][ 1 ] = scaledValue;
 				index++ ;
@@ -220,18 +220,18 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			int tMax = 0;
 			int tMin = 0;
 			boolean first = true;
-			Iterator iter = rxTemp.values().iterator();
+			Iterator<Double> iter = rxTemp.values().iterator();
 			while( iter.hasNext() )
 			{
 				if( first )
 				{
-					tMax = ( int )Math.rint( ( ( Double )iter.next() ).doubleValue() );
+					tMax = ( int )Math.rint( iter.next().doubleValue() );
 					tMin = tMax;
 					first = false;
 				}
 				else
 				{
-					int currentValue = ( int )Math.rint( ( ( Double )iter.next() ).doubleValue() );
+					int currentValue = ( int )Math.rint( iter.next().doubleValue() );
 					if( currentValue > tMax )
 						tMax = currentValue;
 					if( currentValue < tMin )
@@ -244,7 +244,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			Double key = null;
 			while( iter.hasNext() )
 			{
-				key = ( Double )iter.next();
+				key = iter.next();
 				if( key.doubleValue() > lowLimit )
 					break;
 			}
@@ -255,19 +255,19 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			else
 			{
 				int xValue = ( int )( ( double )xSize * ( key.doubleValue() - lowLimit ) / ( highLimit - lowLimit ) );
-				int yValue = ( int )Math.rint( ( ( Double )rxTemp.get( key ) ).doubleValue() );
+				int yValue = ( int )Math.rint( rxTemp.get( key ).doubleValue() );
 				yValue = ( int )( ( double )ySize - ( double )ySize * ( yValue - tMin ) / ( tMax - tMin ) );
-				Vector keys = new Vector();
-				Vector values = new Vector();
+				Vector<Integer> keys = new Vector<Integer>();
+				Vector<Integer> values = new Vector<Integer>();
 				keys.add( new Integer( xValue ) );
 				values.add( new Integer( yValue ) );
 				while( iter.hasNext() )
 				{
-					key = ( Double )iter.next();
+					key = iter.next();
 					if( key.doubleValue() > highLimit )
 						break;
 					xValue = ( int )( ( double )xSize * ( key.doubleValue() - lowLimit ) / ( highLimit - lowLimit ) );
-					yValue = ( int )Math.rint( ( ( Double )rxTemp.get( key ) ).doubleValue() );
+					yValue = ( int )Math.rint( rxTemp.get( key ).doubleValue() );
 					yValue = ( int )( ( double )ySize - ( double )ySize * ( yValue - tMin ) / ( tMax - tMin ) );
 					keys.add( new Integer( xValue ) );
 					values.add( new Integer( yValue ) );
@@ -276,8 +276,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				rxPlot = new int[ keys.size() ][ 2 ];
 				for( int i = 0 ; i < rxPlot.length ; i++ )
 				{
-					rxPlot[ i ][ 0 ] = ( ( Integer )keys.elementAt( i ) ).intValue();
-					rxPlot[ i ][ 1 ] = ( ( Integer )values.elementAt( i ) ).intValue();
+					rxPlot[ i ][ 0 ] = keys.elementAt( i ).intValue();
+					rxPlot[ i ][ 1 ] = values.elementAt( i ).intValue();
 				}
 			}
 		}
@@ -288,12 +288,12 @@ public class SkyTransmission extends JPanel implements ChangeListener
 
 		if( untunableBands != null )
 		{
-			Iterator i = untunableBands.keySet().iterator();
+			Iterator<Double> i = untunableBands.keySet().iterator();
 			// Find out how many bands we need to plot...
 			int nElements = 0;
 			while( i.hasNext() )
 			{
-				Double f = ( Double )i.next();
+				Double f = i.next();
 				if( f.doubleValue() < lowLimit )
 					continue;
 				else if( f.doubleValue() > highLimit )
@@ -307,7 +307,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			int index = 0;
 			while( i.hasNext() )
 			{
-				Double f = ( Double )i.next();
+				Double f = i.next();
 				if( f.doubleValue() < lowLimit )
 				{
 					continue;
@@ -318,7 +318,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				}
 				else
 				{
-					Vector v = ( Vector )untunableBands.get( f );
+					Vector<Double> v = untunableBands.get( f );
 					int x = 0 , y = 0 , height = 0 , width = 0;
 					switch( v.size() )
 					{
@@ -355,9 +355,9 @@ public class SkyTransmission extends JPanel implements ChangeListener
      * front end. The return is a TreeMap with frequency as the key and TRx as
      * the value.
      */
-	public TreeMap getTRx( String feName )
+	public TreeMap<Double,Double> getTRx( String feName )
 	{
-		TreeMap tRx = null;
+		TreeMap<Double,Double> tRx = null;
 
 		// Get the receiver temperature and open it
 		File rxFile = new File( System.getProperty( "ot.cfgdir" ) + "receiver.info" );
@@ -393,7 +393,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 					{
 						// We can start reading in the data
 						int nLines = Integer.valueOf( in.readLine() ).intValue();
-						tRx = new TreeMap();
+						tRx = new TreeMap<Double,Double>();
 						for( int i = 0 ; i < nLines ; i++ )
 						{
 							String values = in.readLine();
@@ -423,9 +423,9 @@ public class SkyTransmission extends JPanel implements ChangeListener
 		return tRx;
 	}
 
-	private TreeMap readUntunable()
+	private TreeMap<Double,Vector<Double>> readUntunable()
 	{
-		TreeMap rtn = null;
+		TreeMap<Double,Vector<Double>> rtn = null;
 		// Get the file
 		File f = new File( System.getProperty( "ot.cfgdir" ) + "untunable.dat" );
 		if( !( f.exists() ) )
@@ -436,7 +436,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 
 		// If we get here, we have the file so create a new TreeMap and
 		// start reading the file
-		rtn = new TreeMap();
+		rtn = new TreeMap<Double,Vector<Double>>();
 		try
 		{
 			BufferedReader in = new BufferedReader( new FileReader( f ) );
@@ -446,7 +446,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				if( inputLine.startsWith( "#" ) || inputLine.equals( "" ) )
 					continue;
 				StringTokenizer st = new StringTokenizer( inputLine );
-				Vector values = new Vector();
+				Vector<Double> values = new Vector<Double>();
 				if( st.countTokens() == 1 )
 				{
 					values.add( new Double( Double.parseDouble( st.nextToken() ) * 1.0e9 ) );
@@ -460,7 +460,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				{
 					continue;
 				}
-				rtn.put( ( Double )values.firstElement() , values );
+				rtn.put( values.firstElement() , values );
 			}
 		}
 		catch( Exception e )

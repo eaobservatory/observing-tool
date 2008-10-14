@@ -52,9 +52,9 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 	private int _barH;
 	private int _minX;
 	private int _maxX;
-	private Vector _xRanges = new Vector( 2 );
-	private Vector _barXs = new Vector();
-	private Vector _barWs = new Vector();
+	private Vector<Integer> _xRanges = new Vector<Integer>( 2 );
+	private Vector<Integer> _barXs = new Vector<Integer>();
+	private Vector<Integer> _barWs = new Vector<Integer>();
 	private int _editingRegion = -1;
 	private boolean _barChanged = false;
 
@@ -176,14 +176,14 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 		{
 			for( int j = 0 ; j < _barXs.size() ; j++ )
 			{
-				int myBarX = ( ( Integer )_barXs.get( j ) ).intValue();
-				int myBarW = ( ( Integer )_barWs.get( j ) ).intValue();
-				if( myBarX < ( ( Integer )_xRanges.get( i ) ).intValue() )
+				int myBarX = _barXs.get( j ).intValue();
+				int myBarW = _barWs.get( j ).intValue();
+				if( myBarX < _xRanges.get( i ).intValue() )
 					_barXs.setElementAt( _xRanges.get( j ) , j );
 
-				if( ( myBarX + myBarW ) > ( ( Integer )_xRanges.get( i + 1 ) ).intValue() )
+				if( ( myBarX + myBarW ) > _xRanges.get( i + 1 ).intValue() )
 				{
-					int newW = ( ( Integer )_xRanges.get( i + 1 ) ).intValue() - myBarX;
+					int newW = _xRanges.get( i + 1 ).intValue() - myBarX;
 					_barWs.setElementAt( new Integer( newW ) , j );
 				}
 			}
@@ -225,7 +225,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 
 	public int getBarX( int bar )
 	{
-		return ( ( Integer )_barXs.get( bar ) ).intValue();
+		return _barXs.get( bar ).intValue();
 	}
 
 	public int getBarWidth()
@@ -235,7 +235,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 
 	public int getBarWidth( int bar )
 	{
-		return ( ( Integer )_barWs.get( bar ) ).intValue();
+		return _barWs.get( bar ).intValue();
 	}
 
 	public int getNumBars()
@@ -250,7 +250,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 
 	public int getMinX( int range )
 	{
-		return ( ( Integer )_xRanges.get( 2 * range ) ).intValue();
+		return _xRanges.get( 2 * range ).intValue();
 	}
 
 	public int getMaxX()
@@ -260,7 +260,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 
 	public int getMaxX( int range )
 	{
-		return ( ( Integer )_xRanges.get( 2 * range + 1 ) ).intValue();
+		return _xRanges.get( 2 * range + 1 ).intValue();
 	}
 
 	public int getNumRanges()
@@ -298,16 +298,16 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 		g.setColor( _rangeColor );
 		for( int i = 0 ; i < _xRanges.size() ; i += 2 )
 		{
-			int minX = ( ( Integer )_xRanges.get( i ) ).intValue();
-			int maxX = ( ( Integer )_xRanges.get( i + 1 ) ).intValue();
+			int minX = _xRanges.get( i ).intValue();
+			int maxX = _xRanges.get( i + 1 ).intValue();
 			g.fillRect( minX , _barY , ( maxX - minX ) , _barH );
 		}
 
 		g.setColor( _barColor );
 		for( int i = 0 ; i < _barXs.size() ; i++ )
 		{
-			int barX = ( ( Integer )_barXs.get( i ) ).intValue();
-			int barW = ( ( Integer )_barWs.get( i ) ).intValue();
+			int barX = _barXs.get( i ).intValue();
+			int barW = _barWs.get( i ).intValue();
 			g.fillRect( barX , _barY , barW , _barH );
 		}
 	}
@@ -353,8 +353,8 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 			return;
 
 		_barChanged = true;
-		int barX = ( ( Integer )_barXs.get( _editingRegion ) ).intValue();
-		int barW = ( ( Integer )_barWs.get( _editingRegion ) ).intValue();
+		int barX = _barXs.get( _editingRegion ).intValue();
+		int barW = _barWs.get( _editingRegion ).intValue();
 
 		if( getCursor().getType() == Cursor.W_RESIZE_CURSOR )
 		{
@@ -371,7 +371,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 			else
 			{
 				// West edge of bar reaches _minX.
-				int minX = ( ( Integer )_xRanges.get( 2 * _editingRegion ) ).intValue();
+				int minX = _xRanges.get( 2 * _editingRegion ).intValue();
 				if( e.getX() <= minX )
 				{
 					barW = ( barX + barW ) - minX;
@@ -413,7 +413,7 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 			else
 			{
 				// East edge of bar reaches east edge of bounds
-				int maxX = ( ( Integer )_xRanges.get( 2 * _editingRegion + 1 ) ).intValue();
+				int maxX = _xRanges.get( 2 * _editingRegion + 1 ).intValue();
 				if( e.getX() >= maxX )
 				{
 					barW = maxX - barX;
@@ -443,8 +443,8 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 
 		for( int i = 0 ; i < _barXs.size() ; i++ )
 		{
-			int barX = ( ( Integer )_barXs.get( i ) ).intValue();
-			int barW = ( ( Integer )_barWs.get( i ) ).intValue();
+			int barX = _barXs.get( i ).intValue();
+			int barW = _barWs.get( i ).intValue();
 			if( Math.abs( e.getX() - barX ) < 4 )
 			{
 				setCursor( Cursor.getPredefinedCursor( Cursor.W_RESIZE_CURSOR ) );
@@ -489,10 +489,10 @@ public class RangeBar extends JPanel implements MouseMotionListener , MouseListe
 		buf.append( ", minX=" + _minX );
 		buf.append( ", maxX=" + _maxX + "\n" );
 		for( int i = 0 ; i < _xRanges.size() ; i += 2 )
-			buf.append( ", xrange[" + i + "]=(" + ( Integer )_xRanges.get( i ) + ", " + ( Integer )_xRanges.get( i + 1 ) + ")\n" );
+			buf.append( ", xrange[" + i + "]=(" + _xRanges.get( i ) + ", " + _xRanges.get( i + 1 ) + ")\n" );
 
 		for( int i = 0 ; i < _barXs.size() ; i++ )
-			buf.append( "bar[" + i + "] = (" + ( Integer )_barXs.get( i ) + ", " + ( Integer )_barWs.get( i ) + ")\n" );
+			buf.append( "bar[" + i + "] = (" + _barXs.get( i ) + ", " + _barWs.get( i ) + ")\n" );
 
 		return buf.toString();
 	}

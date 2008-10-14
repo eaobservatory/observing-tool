@@ -39,7 +39,7 @@ public class LineCatalog
 {
 
 	public static final String lineCatalogFile = "lineCatalog.xml";
-	TreeMap catalog;
+	TreeMap<String,TreeMap<Double,String>> catalog;
 	private static LineCatalog lineCatalog = null;
 
 	protected LineCatalog() throws Exception
@@ -88,19 +88,19 @@ public class LineCatalog
 		maxFreq = maxFreq * 1.0E-6;
 		invRange = 1.0 / ( maxFreq - minFreq );
 
-		Iterator molecules = catalog.keySet().iterator();
+		Iterator<String> molecules = catalog.keySet().iterator();
 		while( molecules.hasNext() )
 		{
-			String molName = ( String )molecules.next();
-			TreeMap currentMap = ( TreeMap )catalog.get( molName );
+			String molName = molecules.next();
+			TreeMap<Double,String> currentMap = catalog.get( molName );
 
 			// Get a submap of the keys between min and max frequecny
-			TreeMap submap = new TreeMap( currentMap.subMap( new Double( minFreq ) , new Double( maxFreq ) ) );
+			TreeMap<Double,String> submap = new TreeMap<Double,String>( currentMap.subMap( new Double( minFreq ) , new Double( maxFreq ) ) );
 			// Now fill the values based on this submap
-			Iterator iter = submap.keySet().iterator();
+			Iterator<Double> iter = submap.keySet().iterator();
 			while( iter.hasNext() )
 			{
-				Double currentFreq = ( Double )iter.next();
+				Double currentFreq = iter.next();
 				String currentName = ( String )submap.get( currentFreq );
 				pix = ( int )( ( ( double )listSize ) * ( currentFreq.doubleValue() - minFreq ) * invRange );
 				lineRef[ pix ] = new LineDetails( molName , currentName , currentFreq.doubleValue() );
@@ -108,9 +108,9 @@ public class LineCatalog
 		}
 	}
 
-	public Vector returnSpecies( double minFreq , double maxFreq )
+	public Vector<SelectionList> returnSpecies( double minFreq , double maxFreq )
 	{
-		Vector v = new Vector();
+		Vector<SelectionList> v = new Vector<SelectionList>();
 		SelectionList species;
 
 		/*
@@ -121,17 +121,17 @@ public class LineCatalog
 		minFreq = minFreq * 1.0E-6;
 		maxFreq = maxFreq * 1.0E-6;
 
-		Iterator mol = catalog.keySet().iterator();
+		Iterator<String> mol = catalog.keySet().iterator();
 		while( mol.hasNext() )
 		{
 			species = null;
-			String currentSpecies = ( String )mol.next();
-			TreeMap specMap = ( TreeMap )catalog.get( currentSpecies );
-			TreeMap submap = new TreeMap( specMap.subMap( new Double( minFreq ) , new Double( maxFreq ) ) );
+			String currentSpecies = mol.next();
+			TreeMap<Double,String> specMap = catalog.get( currentSpecies );
+			TreeMap<Double,String> submap = new TreeMap<Double,String>( specMap.subMap( new Double( minFreq ) , new Double( maxFreq ) ) );
 			// Iterate over the frequencies
 			if( submap.size() > 0 )
 			{
-				Iterator iter = submap.keySet().iterator();
+				Iterator<Double> iter = submap.keySet().iterator();
 				while( iter.hasNext() )
 				{
 					if( species == null )
@@ -139,8 +139,8 @@ public class LineCatalog
 						species = new SelectionList( currentSpecies );
 						v.add( species );
 					}
-					Double key = ( Double )iter.next();
-					species.objectList.add( new Transition( ( String )submap.get( key ) , 1.0e6 * key.doubleValue() ) );
+					Double key = iter.next();
+					species.objectList.add( new Transition( submap.get( key ) , 1.0e6 * key.doubleValue() ) );
 				}
 			}
 		}
@@ -168,16 +168,16 @@ public class LineCatalog
 	{
 		String currentSpecies = null;
 
-		TreeMap speciesTable = new TreeMap();
+		TreeMap<String,TreeMap<Double,String>> speciesTable = new TreeMap<String,TreeMap<Double,String>>();
 
-		TreeMap freqTransMap;
+		TreeMap< Double , String > freqTransMap;
 
 		public void startElement( String namespace , String localName , String qName , Attributes attr )
 		{
 			if( qName.equals( "species" ) )
 			{
 				currentSpecies = attr.getValue( attr.getIndex( "name" ) );
-				freqTransMap = new TreeMap();
+				freqTransMap = new TreeMap< Double , String >();
 			}
 			if( qName.equals( "transition" ) )
 			{
@@ -212,7 +212,7 @@ public class LineCatalog
 
 		public void endDocument(){};
 
-		public TreeMap getCatalog()
+		public TreeMap< String , TreeMap< Double , String >> getCatalog()
 		{
 			return speciesTable;
 		}

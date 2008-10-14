@@ -57,7 +57,7 @@ public class Sampler implements ItemListener
      */
 	int[] channelsArray;
 	int row;
-	Vector swArray = new Vector();
+	Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>();
 	JComboBox bandWidthChoice;
 
 	public Sampler( double centreFrequency , double feBandWidth , double[] bandWidthsArray , int[] channelsArray , JComboBox bandWidthChoice )
@@ -106,7 +106,7 @@ public class Sampler implements ItemListener
 		if( !swArray.isEmpty() )
 		{
 			for( j = 0 ; j < swArray.size() ; j++ )
-				( ( SamplerWatcher )swArray.elementAt( j ) ).updateSamplerValues( this.centreFrequency , bandWidth , channels );
+				swArray.elementAt( j ).updateSamplerValues( this.centreFrequency , bandWidth , channels );
 		}
 	}
 

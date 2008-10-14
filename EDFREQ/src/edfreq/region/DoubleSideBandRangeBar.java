@@ -53,7 +53,7 @@ public class DoubleSideBandRangeBar extends JPanel implements Observer
 
 	/** Upper limit of backend sideband in pixels. */
 	private int _beBandMax;
-	Vector _xRanges = new Vector();
+	Vector<Integer> _xRanges = new Vector<Integer>();
 
 	public DoubleSideBandRangeBar( int currentZoom )
 	{
@@ -147,7 +147,7 @@ public class DoubleSideBandRangeBar extends JPanel implements Observer
 
 		for( int i = 0 ; i < _xRanges.size() ; i++ )
 		{
-			int value = ( int )( ( ( Integer )_xRanges.elementAt( i ) ).intValue() * zoomChange );
+			int value = ( int )( _xRanges.elementAt( i ).intValue() * zoomChange );
 			_xRanges.setElementAt( new Integer( value ) , i );
 		}
 
@@ -171,8 +171,8 @@ public class DoubleSideBandRangeBar extends JPanel implements Observer
 		// The RangeBar range refers to the backend bandwidth.
 		for( int i = 0 ; i < _xRanges.size() ; i += 2 )
 		{
-			_lowerRangeBar.setRange( _feBandWidth - ( ( Integer )_xRanges.get( i + 1 ) ).intValue() , _feBandWidth - ( ( Integer )_xRanges.get( i ) ).intValue() , i / 2 );
-			_upperRangeBar.setRange( ( ( Integer )_xRanges.get( i ) ).intValue() , ( ( Integer )_xRanges.get( i + 1 ) ).intValue() , i / 2 );
+			_lowerRangeBar.setRange( _feBandWidth - _xRanges.get( i + 1 ).intValue() , _feBandWidth - _xRanges.get( i ).intValue() , i / 2 );
+			_upperRangeBar.setRange( _xRanges.get( i ).intValue() , _xRanges.get( i + 1 ).intValue() , i / 2 );
 		}
 	}
 

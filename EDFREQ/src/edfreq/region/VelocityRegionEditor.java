@@ -6,31 +6,31 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq.region;
+package edfreq.region ;
 
-import javax.swing.JButton;
-import javax.swing.JPopupMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Dialog;
-import java.awt.Frame;
-import java.awt.Window;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Vector;
-import java.util.HashMap;
+import javax.swing.JButton ;
+import javax.swing.JPopupMenu ;
+import javax.swing.JMenuItem ;
+import javax.swing.JPanel ;
+import javax.swing.JLabel ;
+import javax.swing.JScrollPane ;
+import javax.swing.border.TitledBorder ;
+import javax.swing.border.EtchedBorder ;
+import java.awt.Dialog ;
+import java.awt.Frame ;
+import java.awt.Window ;
+import java.awt.BorderLayout ;
+import java.awt.Color ;
+import java.awt.Dimension ;
+import java.awt.GridLayout ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import java.awt.event.MouseAdapter ;
+import java.awt.event.MouseEvent ;
+import java.util.Vector ;
+import java.util.HashMap ;
 
-import edfreq.EdFreq;
+import edfreq.EdFreq ;
 
 /**
  * Tool for selecting baseline fit regions and line regions in a spectrum.
@@ -44,8 +44,8 @@ import edfreq.EdFreq;
 public class VelocityRegionEditor extends JPanel implements ActionListener
 {
 
-	private Color FIT_REGION_BAR_COLOR = Color.blue;
-	private JButton _addFitRegionButton = new JButton( "Add" );
+	private Color FIT_REGION_BAR_COLOR = Color.blue ;
+	private JButton _addFitRegionButton = new JButton( "Add" ) ;
 
 	/**
      * Contains the Baseline Fit Region SingleSidebandRangeBar bars.
@@ -53,19 +53,19 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      * Every SingleSidebandRangeBar that is in _fitRegionBars is also in
      * {@link #_allRegionBars}.
      */
-	private Vector _fitRegionBars = new Vector();
-	private Window _parent = null;
-	private JPanel _rangeBarPanel = new JPanel();
-	private JPanel _rangeBarLineDisplayPanel = new JPanel( new BorderLayout() );
-	private JScrollPane _scrollPane;
-	private JPanel _allButtonPanels = new JPanel( new GridLayout( 3 , 1 ) );
-	private VelocityDisplay _vDisp = new VelocityDisplay();
-	private int _feBandWidthPixels;
-	private double _feBandWidth;
-	private double _feIF;
-	private Vector _beBandWidth = new Vector( 4 );
-	private Vector _beIF = new Vector( 4 );
-	private double _mainLine;
+	private Vector<SingleSidebandRangeBar> _fitRegionBars = new Vector<SingleSidebandRangeBar>() ;
+	private Window _parent = null ;
+	private JPanel _rangeBarPanel = new JPanel() ;
+	private JPanel _rangeBarLineDisplayPanel = new JPanel( new BorderLayout() ) ;
+	private JScrollPane _scrollPane ;
+	private JPanel _allButtonPanels = new JPanel( new GridLayout( 3 , 1 ) ) ;
+	private VelocityDisplay _vDisp = new VelocityDisplay() ;
+	private int _feBandWidthPixels ;
+	private double _feBandWidth ;
+	private double _feIF ;
+	private Vector<Double> _beBandWidth = new Vector<Double>( 4 ) ;
+	private Vector<Double> _beIF = new Vector<Double>( 4 ) ;
+	private double _mainLine ;
 
 	/**
      * Indicates the sideband in which the main (first, uppermost) transition
@@ -74,10 +74,10 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      * The meaning of _sideBand differs from that of
      * {@link edfreq.region.RangeBar._associatedSideBand}.
      */
-	private int _sideBand;
+	private int _sideBand ;
 
 	/** Double sideband versus single sideband. */
-	private boolean _dsb;
+	private boolean _dsb ;
 
 	/**
      * Used to create alternating baseline fit regions below and above the line
@@ -86,64 +86,64 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      * "Inside" means the baseline fit regions is between the LO1 and the center
      * of the sideband.
      */
-	private boolean _fitRegionInside = false;
+	private boolean _fitRegionInside = false ;
 
 	/**
      * Used to indicate that the baseline regions have been moved. This is to
      * help stop rounding errors when swapping from frequency to pixels and
      * back.
      */
-	private boolean _baselinesChanged = false;
-	private HashMap _inputValues = new HashMap();
+	private boolean _baselinesChanged = false ;
+	private HashMap _inputValues = new HashMap() ;
 
 	public VelocityRegionEditor( Window parent )
 	{
-		setLayout( new BorderLayout() );
+		setLayout( new BorderLayout() ) ;
 
-		JPanel legendPanel = new JPanel( new GridLayout( 4 , 0 ) );
-		JLabel redLabel = new JLabel( "Main Line Frequency" );
-		redLabel.setForeground( Color.red );
-		JLabel blueLabel = new JLabel( "Lines in alternate sideband" );
-		blueLabel.setForeground( Color.blue );
-		JLabel normLabel = new JLabel( "Lines in primary sideband" );
-		legendPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.RAISED ) , "Legend" ) );
-		legendPanel.add( redLabel );
-		legendPanel.add( blueLabel );
-		legendPanel.add( normLabel );
+		JPanel legendPanel = new JPanel( new GridLayout( 4 , 0 ) ) ;
+		JLabel redLabel = new JLabel( "Main Line Frequency" ) ;
+		redLabel.setForeground( Color.red ) ;
+		JLabel blueLabel = new JLabel( "Lines in alternate sideband" ) ;
+		blueLabel.setForeground( Color.blue ) ;
+		JLabel normLabel = new JLabel( "Lines in primary sideband" ) ;
+		legendPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.RAISED ) , "Legend" ) ) ;
+		legendPanel.add( redLabel ) ;
+		legendPanel.add( blueLabel ) ;
+		legendPanel.add( normLabel ) ;
 
-		JPanel buttonPanel = new JPanel();
-		JLabel label = new JLabel( "Baseline Fit Region: " );
-		label.setForeground( FIT_REGION_BAR_COLOR );
-		label.setPreferredSize( new Dimension( 160 , label.getPreferredSize().height ) );
-		buttonPanel.add( label );
-		buttonPanel.add( _addFitRegionButton );
-		_allButtonPanels.add( buttonPanel );
-		_rangeBarLineDisplayPanel.add( _rangeBarPanel , BorderLayout.CENTER );
-		_rangeBarLineDisplayPanel.add( _vDisp , BorderLayout.SOUTH );
+		JPanel buttonPanel = new JPanel() ;
+		JLabel label = new JLabel( "Baseline Fit Region: " ) ;
+		label.setForeground( FIT_REGION_BAR_COLOR ) ;
+		label.setPreferredSize( new Dimension( 160 , label.getPreferredSize().height ) ) ;
+		buttonPanel.add( label ) ;
+		buttonPanel.add( _addFitRegionButton ) ;
+		_allButtonPanels.add( buttonPanel ) ;
+		_rangeBarLineDisplayPanel.add( _rangeBarPanel , BorderLayout.CENTER ) ;
+		_rangeBarLineDisplayPanel.add( _vDisp , BorderLayout.SOUTH ) ;
 
-		_scrollPane = new JScrollPane( _rangeBarLineDisplayPanel );
-		_scrollPane.setPreferredSize( new Dimension( 820 , 100 + 20 ) );
+		_scrollPane = new JScrollPane( _rangeBarLineDisplayPanel ) ;
+		_scrollPane.setPreferredSize( new Dimension( 820 , 100 + 20 ) ) ;
 
-		JPanel bottomPanel = new JPanel( new BorderLayout() );
-		bottomPanel.add( _allButtonPanels , BorderLayout.CENTER );
-		bottomPanel.add( legendPanel , BorderLayout.WEST );
+		JPanel bottomPanel = new JPanel( new BorderLayout() ) ;
+		bottomPanel.add( _allButtonPanels , BorderLayout.CENTER ) ;
+		bottomPanel.add( legendPanel , BorderLayout.WEST ) ;
 
-		add( _scrollPane , BorderLayout.CENTER );
-		add( bottomPanel , BorderLayout.SOUTH );
+		add( _scrollPane , BorderLayout.CENTER ) ;
+		add( bottomPanel , BorderLayout.SOUTH ) ;
 
-		_addFitRegionButton.addActionListener( this );
+		_addFitRegionButton.addActionListener( this ) ;
 
-		_parent = parent;
+		_parent = parent ;
 
 		if( _parent instanceof Dialog )
-			( ( Dialog )_parent ).setResizable( false );
+			(( Dialog )_parent).setResizable( false ) ;
 		else if( _parent instanceof Frame )
-			( ( Frame )_parent ).setResizable( false );
+			(( Frame )_parent).setResizable( false ) ;
 	}
 
 	public void setSideBand( int sideBand )
 	{
-		_sideBand = sideBand;
+		_sideBand = sideBand ;
 	}
 
 	/**
@@ -162,52 +162,52 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 		_dsb = !modeStr.equalsIgnoreCase( "ssb" ) ;
 
 		if( bandStr.equalsIgnoreCase( "lsb" ) )
-			_sideBand = EdFreq.SIDE_BAND_LSB;
+			_sideBand = EdFreq.SIDE_BAND_LSB ;
 		else
-			_sideBand = EdFreq.SIDE_BAND_USB;
+			_sideBand = EdFreq.SIDE_BAND_USB ;
 	}
 
 	public void addBaselineFitRegions( double[] xMin , double[] xMax , double lo1 , boolean resetLayout )
 	{
-		_inputValues.clear();
-		SingleSidebandRangeBar temp = new SingleSidebandRangeBar( _sideBand );
-		int[] beUsbPixels = getBeUpperSideBandPixels();
-		temp.resetRangeBar( _feBandWidthPixels , _vDisp.getDisplayWidth() , beUsbPixels , _sideBand , _dsb );
+		_inputValues.clear() ;
+		SingleSidebandRangeBar temp = new SingleSidebandRangeBar( _sideBand ) ;
+		int[] beUsbPixels = getBeUpperSideBandPixels() ;
+		temp.resetRangeBar( _feBandWidthPixels , _vDisp.getDisplayWidth() , beUsbPixels , _sideBand , _dsb ) ;
 
 		// Find out how many ranges we are expecting
-		int nRanges = temp.getNumRanges();
+		int nRanges = temp.getNumRanges() ;
 		// We can now delete temp
-		temp = null;
+		temp = null ;
 
 		// Call addBaselineFitRegion based on the input
-		double[] minArray = new double[ nRanges ];
-		double[] maxArray = new double[ nRanges ];
+		double[] minArray = new double[ nRanges ] ;
+		double[] maxArray = new double[ nRanges ] ;
 		for( int i = 0 ; i < ( xMin.length / nRanges ) ; i++ )
 		{
 			for( int j = 0 ; j < nRanges ; j++ )
 			{
-				minArray[ j ] = xMin[ i * nRanges + j ];
-				maxArray[ j ] = xMax[ i * nRanges + j ];
+				minArray[ j ] = xMin[ i * nRanges + j ] ;
+				maxArray[ j ] = xMax[ i * nRanges + j ] ;
 			}
-			double[] minCopy = new double[ minArray.length ];
-			double[] maxCopy = new double[ maxArray.length ];
+			double[] minCopy = new double[ minArray.length ] ;
+			double[] maxCopy = new double[ maxArray.length ] ;
 			try
 			{
-				System.arraycopy( minArray , 0 , minCopy , 0 , minCopy.length );
-				System.arraycopy( maxArray , 0 , maxCopy , 0 , maxCopy.length );
+				System.arraycopy( minArray , 0 , minCopy , 0 , minCopy.length ) ;
+				System.arraycopy( maxArray , 0 , maxCopy , 0 , maxCopy.length ) ;
 			}
 			catch( Exception e )
 			{
-				System.out.println( "Error copying arrays" );
-				e.printStackTrace();
+				System.out.println( "Error copying arrays" ) ;
+				e.printStackTrace() ;
 			}
-			Object[] vals = { minCopy , maxCopy };
-			_inputValues.put( new Integer( i ) , vals );
-			addBaselineFitRegion( minArray , maxArray , lo1 , resetLayout );
+			Object[] vals = { minCopy , maxCopy } ;
+			_inputValues.put( new Integer( i ) , vals ) ;
+			addBaselineFitRegion( minArray , maxArray , lo1 , resetLayout ) ;
 		}
 
 		// Set the changed flag to false since we read in some existing values
-		_baselinesChanged = false;
+		_baselinesChanged = false ;
 
 	}
 
@@ -231,57 +231,57 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      */
 	public void addBaselineFitRegion( double[] xMin , double[] xMax , double lo1 , boolean resetLayout )
 	{
-		int barWidth;
-		int barX;
+		int barWidth ;
+		int barX ;
 
-		final SingleSidebandRangeBar fitRegionBar = new SingleSidebandRangeBar( _sideBand );
+		final SingleSidebandRangeBar fitRegionBar = new SingleSidebandRangeBar( _sideBand ) ;
 
-		int[] beUsbPixels = getBeUpperSideBandPixels();
+		int[] beUsbPixels = getBeUpperSideBandPixels() ;
 
-		fitRegionBar.resetRangeBar( _feBandWidthPixels , _vDisp.getDisplayWidth() , beUsbPixels , _sideBand , _dsb );
+		fitRegionBar.resetRangeBar( _feBandWidthPixels , _vDisp.getDisplayWidth() , beUsbPixels , _sideBand , _dsb ) ;
 
-		double pixelsPerValue = _vDisp.getPixelsPerValue();
+		double pixelsPerValue = _vDisp.getPixelsPerValue() ;
 
 		for( int i = 0 ; i < fitRegionBar.getNumRanges() ; i++ )
 		{
 			if( xMin != null && xMax != null )
 			{
-				barWidth = ( int )Math.round( ( xMax[ i ] - xMin[ i ] ) * pixelsPerValue );
+				barWidth = ( int )Math.round( ( xMax[ i ] - xMin[ i ] ) * pixelsPerValue ) ;
 				if( xMin[ i ] > lo1 )
 				{
-					System.out.println( "xMin[i] > lo1" );
-					barX = ( ( int )Math.round( ( xMin[ i ] - ( _mainLine / 1.0E9 - _feBandWidth * 1.0E-9 / 2 ) ) * pixelsPerValue ) );
+					System.out.println( "xMin[i] > lo1" ) ;
+					barX = ( ( int )Math.round( ( xMin[ i ] - ( _mainLine / 1.0E9 - _feBandWidth * 1.0E-9 / 2 ) ) * pixelsPerValue ) ) ;
 				}
 				else
 				{
-					System.out.println( "xMin[i] <= lo1" );
-					barX = ( _vDisp.getDisplayWidth() / 2 ) - ( ( int )Math.round( ( lo1 - xMin[ i ] ) * pixelsPerValue ) );
+					System.out.println( "xMin[i] <= lo1" ) ;
+					barX = ( _vDisp.getDisplayWidth() / 2 ) - ( ( int )Math.round( ( lo1 - xMin[ i ] ) * pixelsPerValue ) ) ;
 				}
 			}
 			else
 			{
-				barWidth = ( fitRegionBar.getMaxX( i ) - fitRegionBar.getMinX( i ) ) / 3;
+				barWidth = ( fitRegionBar.getMaxX( i ) - fitRegionBar.getMinX( i ) ) / 3 ;
 				if( _fitRegionInside )
-					barX = fitRegionBar.getMinX( i );
+					barX = fitRegionBar.getMinX( i ) ;
 				else
-					barX = fitRegionBar.getMaxX( i ) - barWidth;
+					barX = fitRegionBar.getMaxX( i ) - barWidth ;
 			}
-			fitRegionBar.setBars( barX , barWidth , i );
+			fitRegionBar.setBars( barX , barWidth , i ) ;
 		}
 
 		// Add a popup menu to allow removal
-		final JPopupMenu menu = new JPopupMenu();
-		JMenuItem remove = new JMenuItem( "Remove" );
+		final JPopupMenu menu = new JPopupMenu() ;
+		JMenuItem remove = new JMenuItem( "Remove" ) ;
 		remove.addActionListener( new ActionListener()
 		{
 
 			public void actionPerformed( ActionEvent e )
 			{
-				_fitRegionBars.remove( fitRegionBar );
-				resetLayout();
+				_fitRegionBars.remove( fitRegionBar ) ;
+				resetLayout() ;
 			}
-		} );
-		menu.add( remove );
+		} ) ;
+		menu.add( remove ) ;
 
 		fitRegionBar.addMouseListener( new MouseAdapter()
 		{
@@ -289,14 +289,14 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 			public void mousePressed( MouseEvent e )
 			{
 				if( e.getButton() == MouseEvent.BUTTON3 )
-					menu.show( e.getComponent() , e.getX() , e.getY() );
+					menu.show( e.getComponent() , e.getX() , e.getY() ) ;
 			}
-		} );
+		} ) ;
 
-		_fitRegionBars.add( fitRegionBar );
+		_fitRegionBars.add( fitRegionBar ) ;
 
 		if( resetLayout )
-			resetLayout();
+			resetLayout() ;
 	}
 
 	/**
@@ -311,7 +311,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 		// Since this is only called when no baselines already exist, we can set
         // the
 		// chnaged flah to true
-		_baselinesChanged = true;
+		_baselinesChanged = true ;
 
 		// Assume xMin and xMax to be in the upper sideband. In this context it
         // does not matter
@@ -322,29 +322,29 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 		// the method addLineRegion() accepts xMin and xMax values in both
         // sidebands and
 		// sets both RangeBars appropriatedly.
-		double[] xMinHz = new double[ _beIF.size() ];
-		double[] xMaxHz = new double[ _beIF.size() ];
+		double[] xMinHz = new double[ _beIF.size() ] ;
+		double[] xMaxHz = new double[ _beIF.size() ] ;
 
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = ( ( Double )_beIF.get( i ) ).doubleValue();
-			double beBandWidth = ( ( Double )_beBandWidth.get( i ) ).doubleValue();
+			double beIF = _beIF.get( i ).doubleValue() ;
+			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
 			if( _fitRegionInside )
 			{
-				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9;
-				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 6.0 ) ) ) / 1.0E9;
+				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
+				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 6.0 ) ) ) / 1.0E9 ;
 			}
 			else
 			{
-				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF + ( beBandWidth / 6.0 ) ) ) / 1.0E9;
-				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF + ( beBandWidth / 2.0 ) ) ) / 1.0E9;
+				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF + ( beBandWidth / 6.0 ) ) ) / 1.0E9 ;
+				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF + ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
 			}
 
-			_fitRegionInside = !_fitRegionInside;
+			_fitRegionInside = !_fitRegionInside ;
 
 		}
-		_fitRegionInside = ( ( double )_fitRegionBars.size() % 2.0 == 0 );
-		addBaselineFitRegion( null , null , _vDisp.getLO1() / 1.0E9 , reset );
+		_fitRegionInside = ( ( double )_fitRegionBars.size() % 2.0 == 0 ) ;
+		addBaselineFitRegion( null , null , _vDisp.getLO1() / 1.0E9 , reset ) ;
 	}
 
 	/**
@@ -360,30 +360,30 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      */
 	public void removeAllRegions( boolean resetLayout )
 	{
-		_fitRegionBars.clear();
+		_fitRegionBars.clear() ;
 
 		if( resetLayout )
-			resetLayout();
+			resetLayout() ;
 	}
 
 	public void updateDisplay( double mainLineFreq , double feIF , double feBandWidth , double redshift )
 	{
-		_mainLine = mainLineFreq;
-		_feBandWidth = feBandWidth;
-		_feIF = feIF;
+		_mainLine = mainLineFreq ;
+		_feBandWidth = feBandWidth ;
+		_feIF = feIF ;
 
-		_vDisp.updateDisplay( _mainLine , feIF , feBandWidth , _sideBand , _dsb , redshift );
+		_vDisp.updateDisplay( _mainLine , feIF , feBandWidth , _sideBand , _dsb , redshift ) ;
 
 		// Make sure _vDisp.getPixelsPerValue() is called after
-        // _vDisp.updateDisplay();
-		_feBandWidthPixels = ( int )( ( feBandWidth / 1.0E9 ) * _vDisp.getPixelsPerValue() );
+        // _vDisp.updateDisplay() ;
+		_feBandWidthPixels = ( int )( ( feBandWidth / 1.0E9 ) * _vDisp.getPixelsPerValue() ) ;
 
-		_parent.pack();
+		_parent.pack() ;
 	}
 
 	public void updateBackendValues( double beIF , double beBandWidth )
 	{
-		updateBackendValues( beIF , beBandWidth , 0 );
+		updateBackendValues( beIF , beBandWidth , 0 ) ;
 	}
 
 	public void updateBackendValues( double beIF , double beBandWidth , int region )
@@ -391,24 +391,24 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 		// Reset everything if the region is 0
 		if( region == 0 )
 		{
-			_beIF.clear();
-			_beBandWidth.clear();
+			_beIF.clear() ;
+			_beBandWidth.clear() ;
 		}
 
 		try
 		{
-			_beIF.setElementAt( new Double( beIF ) , region );
-			_beBandWidth.setElementAt( new Double( beBandWidth ) , region );
+			_beIF.setElementAt( new Double( beIF ) , region ) ;
+			_beBandWidth.setElementAt( new Double( beBandWidth ) , region ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
 			// Just add the elements
-			_beIF.add( region , new Double( beIF ) );
-			_beBandWidth.add( region , new Double( beBandWidth ) );
+			_beIF.add( region , new Double( beIF ) ) ;
+			_beBandWidth.add( region , new Double( beBandWidth ) ) ;
 		}
-		System.out.println( "In VelocityRegionEditor::updateBackendValues - updated to:" );
-		System.out.println( "\tbeIF = " + _beIF );
-		System.out.println( "\tbeBW = " + _beBandWidth );
+		System.out.println( "In VelocityRegionEditor::updateBackendValues - updated to:" ) ;
+		System.out.println( "\tbeIF = " + _beIF ) ;
+		System.out.println( "\tbeBW = " + _beBandWidth ) ;
 	}
 
 	/**
@@ -431,32 +431,32 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 	public int[] getBeUpperSideBandPixels()
 	{
 
-		int[] result = new int[ _beIF.size() * 2 ];
+		int[] result = new int[ _beIF.size() * 2 ] ;
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = ( ( Double )_beIF.get( i ) ).doubleValue();
-			double beBandWidth = ( ( Double )_beBandWidth.get( i ) ).doubleValue();
+			double beIF = _beIF.get( i ).doubleValue() ;
+			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
 			// Min, max frequencies in range of upper backend sideband.
-			double beMinUSB = _vDisp.getLO1() + ( beIF - ( 0.5 * beBandWidth ) );
-			double beMaxUSB = _vDisp.getLO1() + ( beIF + ( 0.5 * beBandWidth ) );
+			double beMinUSB = _vDisp.getLO1() + ( beIF - ( 0.5 * beBandWidth ) ) ;
+			double beMaxUSB = _vDisp.getLO1() + ( beIF + ( 0.5 * beBandWidth ) ) ;
 
 			// Min frequency in range of upper frontend sideband.
-			double feMinUSB = _vDisp.getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) );
+			double feMinUSB = _vDisp.getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) ) ;
 
-			double pixelsPerValue = _vDisp.getPixelsPerValue();
+			double pixelsPerValue = _vDisp.getPixelsPerValue() ;
 
-			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue );
-			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue );
+			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
+			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	public void setMainLine( double mainLine )
 	{
-		_mainLine = mainLine;
+		_mainLine = mainLine ;
 
-		resetMainLine();
+		resetMainLine() ;
 	}
 
 	/**
@@ -464,129 +464,129 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      */
 	public void resetMainLine()
 	{
-		_vDisp.setMainLine( _mainLine );
+		_vDisp.setMainLine( _mainLine ) ;
 	}
 
 	public double getMainLine()
 	{
-		return _mainLine;
+		return _mainLine ;
 	}
 
 	public void resetLayout()
 	{
-		_rangeBarPanel.removeAll();
+		_rangeBarPanel.removeAll() ;
 
-		_rangeBarPanel.removeAll();
-		_rangeBarPanel.setLayout( new GridLayout( _fitRegionBars.size() , 1 ) );
+		_rangeBarPanel.removeAll() ;
+		_rangeBarPanel.setLayout( new GridLayout( _fitRegionBars.size() , 1 ) ) ;
 
 		for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
-			_rangeBarPanel.add( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) );
+			_rangeBarPanel.add( _fitRegionBars.get( i ) ) ;
 
-		_scrollPane.setPreferredSize( new Dimension( 820 , _rangeBarLineDisplayPanel.getPreferredSize().height + 20 ) );
+		_scrollPane.setPreferredSize( new Dimension( 820 , _rangeBarLineDisplayPanel.getPreferredSize().height + 20 ) ) ;
 
-		_parent.pack();
+		_parent.pack() ;
 	}
 
 	public double[][] getBaselineFitRegions()
 	{
-		int numRegions = 0;
+		int numRegions = 0 ;
 		for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
-			numRegions += ( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) ).getNumRanges();
-		double[][] result = new double[ numRegions ][];
+			numRegions += _fitRegionBars.get( i ).getNumRanges() ;
+		double[][] result = new double[ numRegions ][] ;
 
-		int barX;
-		int barWidth;
+		int barX ;
+		int barWidth ;
 
-		double pixelsPerValue = _vDisp.getPixelsPerValue();
+		double pixelsPerValue = _vDisp.getPixelsPerValue() ;
 
-		int k = 0;
+		int k = 0 ;
 		for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
 		{
-			for( int n = 0 ; n < ( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) ).getNumBars() ; n++ )
+			for( int n = 0 ; n < _fitRegionBars.get( i ).getNumBars() ; n++ )
 			{
-				barX = ( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) ).getBarX( n );
-				barWidth = ( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) ).getBarWidth( n );
-				if( ( ( SingleSidebandRangeBar )_fitRegionBars.get( i ) ).hasBaselineChanged() || _baselinesChanged )
+				barX = _fitRegionBars.get( i ).getBarX( n ) ;
+				barWidth = _fitRegionBars.get( i ).getBarWidth( n ) ;
+				if( _fitRegionBars.get( i ).hasBaselineChanged() || _baselinesChanged )
 				{
-					result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _vDisp.getLO1() );
+					result[ k++ ] = getRegion( barX , barWidth , pixelsPerValue , _vDisp.getLO1() ) ;
 				}
 				else
 				{
-					Object[] o = ( ( Object[] )_inputValues.get( new Integer( i ) ) );
-					double[] d1 = ( double[] )o[ 0 ];
-					double[] d2 = ( double[] )o[ 1 ];
+					Object[] o = ( Object[] )_inputValues.get( new Integer( i ) ) ;
+					double[] d1 = ( double[] )o[ 0 ] ;
+					double[] d2 = ( double[] )o[ 1 ] ;
 					for( int l = 0 ; l < d1.length ; l++ )
 					{
-						double[] d = { d1[ l ] * 1.0E9 , d2[ l ] * 1.0E9 };
-						result[ k++ ] = d;
+						double[] d = { d1[ l ] * 1.0E9 , d2[ l ] * 1.0E9 } ;
+						result[ k++ ] = d ;
 					}
 				}
 			}
 		}
-		_baselinesChanged = false;
+		_baselinesChanged = false ;
 
-		return result;
+		return result ;
 	}
 
 	public double[] getRegion( int barX , int barWidth , double pixelsPerValue , double lo1 )
 	{
-		double[] result = new double[ 2 ];
+		double[] result = new double[ 2 ] ;
 
-		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.0E9 ) + ( _feIF - ( 0.5 * _feBandWidth ) ) + lo1;
-		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.0E9 );
+		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.0E9 ) + ( _feIF - ( 0.5 * _feBandWidth ) ) + lo1 ;
+		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.0E9 ) ;
 
 		// If the region should appear in the lower sideband than reflect the
         // values on LO1.
 		if( _sideBand == EdFreq.SIDE_BAND_LSB )
 		{
-			result[ 0 ] -= 2.0 * ( result[ 0 ] - lo1 );
-			result[ 1 ] -= 2.0 * ( result[ 1 ] - lo1 );
+			result[ 0 ] -= 2.0 * ( result[ 0 ] - lo1 ) ;
+			result[ 1 ] -= 2.0 * ( result[ 1 ] - lo1 ) ;
 
 			// Now swap the values
-			double result0 = result[ 0 ];
-			result[ 0 ] = result[ 1 ];
-			result[ 1 ] = result0;
+			double result0 = result[ 0 ] ;
+			result[ 0 ] = result[ 1 ] ;
+			result[ 1 ] = result0 ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
-		Object source = e.getSource();
+		Object source = e.getSource() ;
 
 		if( source == _addFitRegionButton )
-			addBaselineFitRegion( false );
+			addBaselineFitRegion( false ) ;
 
-		resetLayout();
+		resetLayout() ;
 	}
 
 	public int getNumRegions()
 	{
-		int numRegions = 0;
+		int numRegions = 0 ;
 		if( _fitRegionBars != null )
-			numRegions = _fitRegionBars.size();
-		return numRegions;
+			numRegions = _fitRegionBars.size() ;
+		return numRegions ;
 	}
 
 	public boolean changedBaseline()
 	{
-		boolean flag = false;
+		boolean flag = false ;
 		if( _baselinesChanged )
-			flag = true;
+			flag = true ;
 		if( !flag )
 		{
 			for( int i = 0 ; i < _fitRegionBars.size() ; i++ )
 			{
-				SingleSidebandRangeBar bar = ( SingleSidebandRangeBar )_fitRegionBars.get( i );
+				SingleSidebandRangeBar bar = _fitRegionBars.get( i ) ;
 				if( bar.hasBaselineChanged() )
 				{
-					flag = true;
-					break;
+					flag = true ;
+					break ;
 				}
 			}
 		}
 
-		return flag;
+		return flag ;
 	}
 }
