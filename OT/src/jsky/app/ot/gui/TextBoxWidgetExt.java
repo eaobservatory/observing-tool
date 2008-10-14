@@ -23,7 +23,7 @@ import jsky.util.gui.BasicWindowMonitor ;
 public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , DocumentListener , ActionListener
 {
 	// Observers
-	private Vector _watchers = new Vector() ;
+	private Vector<TextBoxWidgetWatcher> _watchers = new Vector<TextBoxWidgetWatcher>() ;
 
 	// if true, ignore changes in the text box content
 	private boolean _ignoreChanges = false ;
@@ -125,9 +125,9 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<TextBoxWidgetWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<TextBoxWidgetWatcher> )_watchers.clone() ;
 	}
 
 	//
@@ -135,11 +135,11 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	// 
 	private void _notifyKeyPress()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TextBoxWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i ) ;
+			TextBoxWidgetWatcher watcher = v.elementAt( i ) ;
 			try
 			{
 				watcher.textBoxKeyPress( this ) ;
@@ -153,11 +153,11 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	//
 	private void _notifyAction()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TextBoxWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TextBoxWidgetWatcher watcher = ( TextBoxWidgetWatcher )v.elementAt( i ) ;
+			TextBoxWidgetWatcher watcher = v.elementAt( i ) ;
 			watcher.textBoxAction( this ) ;
 		}
 	}

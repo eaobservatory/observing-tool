@@ -27,7 +27,7 @@ import gemini.util.TelescopePosWatcher ;
  */
 public class TelescopePosTableWidget extends TableWidgetExt implements TelescopePosWatcher , TelescopePosListWatcher , TelescopePosSelWatcher
 {
-	private Hashtable _posTable ;
+	private Hashtable<String,TelescopePos> _posTable ;
 	private SpTelescopePosList _tpl ;
 	private boolean _coordSysInTable = false ; // MFO (April 12, 2002)
 
@@ -36,7 +36,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	public TelescopePosTableWidget()
 	{
-		_posTable = new Hashtable() ;
+		_posTable = new Hashtable<String,TelescopePos>() ;
 
 		// If there are more then 2 systems (FK5/FK4) then display the system of a target in a separate column in the target list table.
 		if( ( OtCfg.telescopeUtil.getCoordSys() != null ) && ( OtCfg.telescopeUtil.getCoordSys().length > 2 ) )
@@ -80,7 +80,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 			_tpl.deleteWatcher( this ) ;
 			_tpl.deleteSelWatcher( this ) ;
 
-			Enumeration e = _posTable.elements() ;
+			Enumeration<TelescopePos> e = _posTable.elements() ;
 			while( e.hasMoreElements() )
 			{
 				SpTelescopePos tp = ( SpTelescopePos )e.nextElement() ;
@@ -123,7 +123,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 			return ;
 
 		// Quit watching the old positions
-		Enumeration e = _posTable.elements() ;
+		Enumeration<TelescopePos> e = _posTable.elements() ;
 		while( e.hasMoreElements() )
 		{
 			SpTelescopePos tp = ( SpTelescopePos )e.nextElement() ;
@@ -158,7 +158,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 
 		// Add the row to the table
 		int i = tpl.getPositionIndex( tp ) ;
-		Vector v = _createPosRow( ( SpTelescopePos )tp ) ;
+		Vector<String> v = _createPosRow( ( SpTelescopePos )tp ) ;
 		absInsertRowAt( v , i ) ;
 
 		// Add the position to the posTable and observe it.
@@ -224,9 +224,9 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 
 	/**
 	 */
-	private Vector _createPosRow( SpTelescopePos tp )
+	private Vector<String> _createPosRow( SpTelescopePos tp )
 	{
-		Vector v = new Vector() ;
+		Vector<String> v = new Vector<String>() ;
 		v.addElement( tp.getTag() ) ;
 		v.addElement( tp.getName() ) ;
 
@@ -275,7 +275,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	private void _insertPos( SpTelescopePos tp , int rowIndex )
 	{
-		Vector v = _createPosRow( tp ) ;
+		Vector<String> v = _createPosRow( tp ) ;
 		absInsertRowAt( v , rowIndex ) ;
 		_posTable.put( tp.getTag() , tp ) ;
 	}
@@ -305,15 +305,15 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 		if( index == -1 )
 			return ;
 
-		Vector v = _createPosRow( tp ) ;
+		Vector<String> v = _createPosRow( tp ) ;
 
-		setCell( ( String )v.elementAt( 0 ) , 0 , index ) ;
-		setCell( ( String )v.elementAt( 1 ) , 1 , index ) ;
-		setCell( ( String )v.elementAt( 2 ) , 2 , index ) ;
-		setCell( ( String )v.elementAt( 3 ) , 3 , index ) ;
+		setCell( v.elementAt( 0 ) , 0 , index ) ;
+		setCell( v.elementAt( 1 ) , 1 , index ) ;
+		setCell( v.elementAt( 2 ) , 2 , index ) ;
+		setCell( v.elementAt( 3 ) , 3 , index ) ;
 
 		if( _coordSysInTable )
-			setCell( ( String )v.elementAt( 4 ) , 4 , index ) ;
+			setCell( v.elementAt( 4 ) , 4 , index ) ;
 	}
 
 	/**

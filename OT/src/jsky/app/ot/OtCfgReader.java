@@ -18,6 +18,9 @@ import java.net.URL ;
 
 import java.util.StringTokenizer ;
 import java.util.Vector ;
+
+import jsky.app.ot.OtCfg.SpItemCfg;
+import jsky.app.ot.OtCfg.TpeFeatureCfg;
 import jsky.util.gui.DialogUtil ;
 
 //
@@ -94,8 +97,8 @@ class OtCfgReader
 	{
 		OtCfg.Info info = new OtCfg.Info() ;
 
-		Vector tpeFeatureV = new Vector() ; // For add-on TpeImageFeatures
-		Vector spItemV = new Vector() ; // For add-on SpItems
+		Vector<TpeFeatureCfg> tpeFeatureV = new Vector<TpeFeatureCfg>() ; // For add-on TpeImageFeatures
+		Vector<SpItemCfg> spItemV = new Vector<SpItemCfg>() ; // For add-on SpItems
 
 		BufferedReader br = null ;
 		try

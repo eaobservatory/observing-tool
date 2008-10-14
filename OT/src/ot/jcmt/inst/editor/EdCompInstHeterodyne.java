@@ -119,13 +119,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private Document doc = null ;
 
 	// Arrays of component names
-	HashMap feWidgetNames = new HashMap() ;
-	HashMap modeWidgetNames = new HashMap() ;
-	HashMap regionWidgetNames = new HashMap() ;
-	HashMap mixerWidgetNames = new HashMap() ;
-	HashMap sidebandWidgetNames = new HashMap() ;
-	HashMap freqPanelWidgetNames = new HashMap() ;
-	HashMap vPanelWidgetNames = new HashMap() ;
+	HashMap<String,Integer> feWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> modeWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> regionWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> mixerWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> sidebandWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> freqPanelWidgetNames = new HashMap<String,Integer>() ;
+	HashMap<String,Integer> vPanelWidgetNames = new HashMap<String,Integer>() ;
 
 	// Current receiver
 	Receiver _receiver ;
@@ -228,7 +228,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						sbSelectAction( e ) ;
 					}
 				} ) ;
-				sidebandWidgetNames.put( ( Object )_w.sbSelector.getComponent( i ).getName() , new Integer( i ) ) ;
+				sidebandWidgetNames.put( _w.sbSelector.getComponent( i ).getName() , new Integer( i ) ) ;
 			}
 		}
 
@@ -479,15 +479,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		defaultToRadialVelocity = !_inst.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) ;
 		_w.defaultToRadial.setValue( defaultToRadialVelocity ) ;
 
-		int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue() ;
+		int compNum = freqPanelWidgetNames.get( "frequency" ).intValue() ;
 		JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum ) ;
 		currentFrequency = tf.getText() ;
 
 		_receiver = ( Receiver )_cfg.receivers.get( _inst.getFrontEnd() ) ;
 
 		// Update the front end panel
-		(( AbstractButton )_w.feSelector.getComponent( (( Integer )feWidgetNames.get( _inst.getFrontEnd() )).intValue() )).setSelected( true ) ;
-		(( AbstractButton )_w.modeSelector.getComponent( (( Integer )modeWidgetNames.get( _inst.getMode() )).intValue() )).setSelected( true ) ;
+		(( AbstractButton )_w.feSelector.getComponent( feWidgetNames.get( _inst.getFrontEnd() ).intValue() )).setSelected( true ) ;
+		(( AbstractButton )_w.modeSelector.getComponent( modeWidgetNames.get( _inst.getMode() ).intValue() )).setSelected( true ) ;
 		int integer = 0 ;
 		String band = _inst.getBandMode() ;
 		if( band != null && !band.equals( "" ) )
@@ -498,7 +498,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 		(( AbstractButton )_w.regionSelector.getComponent( integer )).setSelected( true ) ;
 
-		(( AbstractButton )_w.sbSelector.getComponent( (( Integer )sidebandWidgetNames.get( _inst.getBand() )).intValue() )).setSelected( true ) ;
+		(( AbstractButton )_w.sbSelector.getComponent( sidebandWidgetNames.get( _inst.getBand() ).intValue() )).setSelected( true ) ;
 
 		// Update the bandwidth
 		_updateBandwidths() ;
@@ -602,10 +602,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			// The veolcity is invalid, so set the text appropriately
 			Component vWidget ;
-			Iterator iter = vPanelWidgetNames.keySet().iterator() ;
+			Iterator<String> iter = vPanelWidgetNames.keySet().iterator() ;
 			while( iter.hasNext() )
 			{
-				vWidget = _w.vPanel.getComponent( ( ( Integer )vPanelWidgetNames.get( iter.next() ) ).intValue() ) ;
+				vWidget = _w.vPanel.getComponent( vPanelWidgetNames.get( iter.next() ).intValue() ) ;
 				if( vWidget instanceof JTextField )
 					(( JTextField )vWidget).setText( "Invalid" ) ;
 				else if( vWidget instanceof JLabel )
@@ -695,9 +695,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				{
 					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
 					{
-						String species = ( String )ci.$species.get( index ) ;
+						String species = ci.$species.get( index ) ;
 						_inst.setMolecule( species , index ) ;
-						String speciesTransition = ( String )ci.$transition.get( index ) ;
+						String speciesTransition = ci.$transition.get( index ) ;
 						_inst.setTransition( speciesTransition , index ) ;
 						_updateTransitionChoice() ;
 
@@ -734,13 +734,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				else
 				{
 					// Set the rest frequency text...
-					int freqCompNum = (( Integer )freqPanelWidgetNames.get( "frequency" )).intValue() ;
+					int freqCompNum = freqPanelWidgetNames.get( "frequency" ).intValue() ;
 					JTextField tf = ( JTextField )_w.fPanel.getComponent( freqCompNum ) ;
 					tf.setText( ci.$freq.toString() ) ;
 
 					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
 					{
-						double frequency = (( Double )ci.$freq.elementAt( index )).doubleValue() ;
+						double frequency = ci.$freq.elementAt( index ).doubleValue() ;
 						_inst.setRestFrequency( frequency * 1.0E9 , index ) ;
 						_inst.setMolecule( NO_LINE , index ) ;
 						_inst.setTransition( NO_LINE , index ) ;
@@ -813,7 +813,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				// Set the current Rest Frequency
 				// Get the text field widget
-				int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue() ;
+				int compNum = freqPanelWidgetNames.get( "frequency" ).intValue() ;
 				JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum ) ;
 				String frequency = tf.getText() ;
 				boolean changed = !currentFrequency.equals( frequency ) ;
@@ -932,11 +932,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 	}
 
-	private void _updateCentralFrequenciesFromShifts( Vector shifts )
+	private void _updateCentralFrequenciesFromShifts( Vector<Double> shifts )
 	{
 		for( int index = 0 ; index < shifts.size() ; index++ )
 		{
-			double frequency = ( ( Double )shifts.elementAt( index ) ).doubleValue() ;
+			double frequency = shifts.elementAt( index ).doubleValue() ;
 			if( frequency != 0. )
 				_inst.setCentreFrequency( "" + frequency , index ) ;
 		}
@@ -1043,7 +1043,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		// Called when user changes the frequency manually
 		toggleEnabled( _w.fPanel , "Accept" , true ) ;
-		int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue() ;
+		int compNum = freqPanelWidgetNames.get( "frequency" ).intValue() ;
 		JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum ) ;
 		tf.setForeground( Color.RED ) ;
 	}
@@ -1410,14 +1410,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private void _updateFrequencyText( double f )
 	{
 		JTextField freq = null ;
-		Iterator iter = freqPanelWidgetNames.keySet().iterator() ;
+		Iterator<String> iter = freqPanelWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
 		{
-			String name = ( String )iter.next() ;
+			String name = iter.next() ;
 			if( "frequency".equals( name ) )
 			{
 				// This is the component we want
-				freq = ( JTextField )_w.fPanel.getComponent( ( ( Integer )freqPanelWidgetNames.get( name ) ).intValue() ) ;
+				freq = ( JTextField )_w.fPanel.getComponent( freqPanelWidgetNames.get( name ).intValue() ) ;
 				break ;
 			}
 		}
@@ -1459,7 +1459,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		double velocity = 0. ;
 
-		Component component = _w.vPanel.getComponent( ( ( Integer )vPanelWidgetNames.get( "velocity" ) ).intValue() ) ;
+		Component component = _w.vPanel.getComponent( vPanelWidgetNames.get( "velocity" ).intValue() ) ;
 		// Get the velocity information
 		String vText = "0.0" ;
 		if( component instanceof JTextField )
@@ -1475,7 +1475,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		double c = SpInstHeterodyne.LIGHTSPEED ;
 
-		component = _w.vPanel.getComponent( ( ( Integer )vPanelWidgetNames.get( "definition" ) ).intValue() ) ;
+		component = _w.vPanel.getComponent( vPanelWidgetNames.get( "definition" ).intValue() ) ;
 		String vDefn = "" ;
 		if( component instanceof DropDownListBoxWidgetExt )
 			vDefn = ( ( DropDownListBoxWidgetExt )component ).getStringValue() ;
@@ -1625,16 +1625,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void setAvailableModes()
 	{
-		List availableModes = Arrays.asList( ( String[] )_cfg.frontEndTable.get( _inst.getFrontEnd() ) ) ;
+		List<String> availableModes = Arrays.asList( ( String[] )_cfg.frontEndTable.get( _inst.getFrontEnd() ) ) ;
 		String currentMode = _inst.getMode() ;
 		boolean changeMode = false ;
 
 		// We need to see compare the available modes with the list of
 		// total modes, and disable any that are not currently available
-		Iterator iter = modeWidgetNames.keySet().iterator() ;
+		Iterator<String> iter = modeWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
 		{
-			String str = ( String )iter.next() ;
+			String str = iter.next() ;
 			if( availableModes.contains( str ) )
 			{
 				// Make sure the widget is enabled
@@ -1650,13 +1650,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 		}
 		if( changeMode )
-			_inst.setMode( ( String )availableModes.get( 0 ) ) ;
+			_inst.setMode( availableModes.get( 0 ) ) ;
 	}
 
 	private void setAvailableRegions()
 	{
 		Vector bandspecs = _receiver.bandspecs ;
-		Vector available = new Vector() ;
+		Vector<String> available = new Vector<String>() ;
 		for( int i = 0 ; i < bandspecs.size() ; i++ )
 			available.add( ( ( BandSpec )bandspecs.get( i ) ).toString() ) ;
 		/*
@@ -1683,11 +1683,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 		}
 		boolean change = false ;
-		Iterator iter = regionWidgetNames.keySet().iterator() ;
+		Iterator<String> iter = regionWidgetNames.keySet().iterator() ;
 
 		while( iter.hasNext() )
 		{
-			String str = ( String )iter.next() ;
+			String str = iter.next() ;
 			if( available.contains( str ) )
 			{
 				// Make sure the widget is enabled
@@ -1703,7 +1703,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 		if( change )
 		{
-			String defaultRegion = ( String )available.get( 0 ) ;
+			String defaultRegion = available.get( 0 ) ;
 			_inst.setBandMode( defaultRegion ) ;
 			clickButton( _w.regionSelector , defaultRegion ) ;
 		}
@@ -1765,7 +1765,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			tbm.setColumnIdentifiers( _w.COLUMN_NAMES ) ;
 			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
 			{
-				Vector row = new Vector( _regionInfo[ i ] ) ;
+				Vector<Integer> row = new Vector<Integer>( _regionInfo[ i ] ) ;
 				row.add( 0 , new Integer( i ) ) ;
 				tbm.addRow( row ) ;
 			}
@@ -1934,10 +1934,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void configureFrequencyEditor()
 	{
-		configureFrequencyEditor( new Vector() ) ;
+		configureFrequencyEditor( new Vector<Double>() ) ;
 	}
 
-	private void configureFrequencyEditor( Vector shifts )
+	private void configureFrequencyEditor( Vector<Double> shifts )
 	{
 		// First get the current bandspec from the mode selection
 		Vector bandSpecs = _receiver.bandspecs ;
@@ -2010,26 +2010,26 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private void enableNamedWidgets( boolean enabled )
 	{
 		// Disable all named widgets except the hide button on the bPanel
-		Iterator iter ;
+		Iterator<String> iter ;
 
 		iter = feWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
-			toggleEnabled( _w.feSelector , ( String )iter.next() , enabled ) ;
+			toggleEnabled( _w.feSelector , iter.next() , enabled ) ;
 		iter = modeWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
-			toggleEnabled( _w.modeSelector , ( String )iter.next() , enabled ) ;
+			toggleEnabled( _w.modeSelector , iter.next() , enabled ) ;
 		iter = regionWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
-			toggleEnabled( _w.regionSelector , ( String )iter.next() , enabled ) ;
+			toggleEnabled( _w.regionSelector , iter.next() , enabled ) ;
 		iter = sidebandWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
-			toggleEnabled( _w.sbSelector , ( String )iter.next() , enabled ) ;
+			toggleEnabled( _w.sbSelector , iter.next() , enabled ) ;
 
 		iter = freqPanelWidgetNames.keySet().iterator() ;
 		while( iter.hasNext() )
 		{
 			// Keep the Accept button disabled...
-			String widget = ( String )iter.next() ;
+			String widget = iter.next() ;
 			if( widget.equalsIgnoreCase( "accept" ) && enabled )
 				 ; // Do nothing since we don't want to enable it
 			else
@@ -2113,15 +2113,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		public String $name ;
 		public String $feName ;
-		public Vector $freq = new Vector() ;
+		public Vector<Double> $freq = new Vector<Double>() ;
 		public String $sideBand ;
 		public String $mode ;
 		public Integer $mixers ;
 		public Integer $subSystems ;
-		public Vector $species = new Vector() ;
-		public Vector $transition = new Vector() ;
-		public Vector $bandWidths = new Vector() ;
-		public Vector $shifts = new Vector() ;
+		public Vector<String> $species = new Vector<String>() ;
+		public Vector<String> $transition = new Vector<String>() ;
+		public Vector<String> $bandWidths = new Vector<String>() ;
+		public Vector<Double> $shifts = new Vector<Double>() ;
 		
 		public void print()
 		{

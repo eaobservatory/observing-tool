@@ -27,7 +27,7 @@ import jsky.app.ot.gui.TableWidgetExt ;
 
 public class DRRecipeGUI extends JPanel
 {
-	Class whatami = this.getClass() ;
+	Class<? extends DRRecipeGUI> whatami = this.getClass() ;
 	
 	JLabel recipeNameLabel = new JLabel() ;
 	JLabel obeservationTypeLabel = new JLabel() ;

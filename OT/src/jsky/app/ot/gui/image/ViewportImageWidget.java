@@ -104,7 +104,7 @@ public class ViewportImageWidget extends NavigatorImageDisplay implements MouseI
 		_initMouseEvent( e , vme ) ;
 		for( int i = 0 ; i < _mouseObs.size() ; ++i )
 		{
-			ViewportMouseObserver vmo = ( ViewportMouseObserver )_mouseObs.elementAt( i ) ;
+			ViewportMouseObserver vmo = _mouseObs.elementAt( i ) ;
 			vmo.viewportMouseEvent( this , vme ) ;
 		}
 	}
@@ -116,7 +116,7 @@ public class ViewportImageWidget extends NavigatorImageDisplay implements MouseI
 	{
 		for( int i = 0 ; i < _mouseObs.size() ; ++i )
 		{
-			ViewportMouseObserver vmo = ( ViewportMouseObserver )_mouseObs.elementAt( i ) ;
+			ViewportMouseObserver vmo = _mouseObs.elementAt( i ) ;
 			vmo.viewportMouseEvent( this , vme ) ;
 		}
 	}
@@ -143,7 +143,7 @@ public class ViewportImageWidget extends NavigatorImageDisplay implements MouseI
 	{
 		for( int i = 0 ; i < _viewObs.size() ; ++i )
 		{
-			ViewportViewObserver vvo = ( ViewportViewObserver )_viewObs.elementAt( i ) ;
+			ViewportViewObserver vvo = _viewObs.elementAt( i ) ;
 			vvo.viewportViewChange( this , iv ) ;
 		}
 	}

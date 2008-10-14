@@ -86,7 +86,7 @@ public class ScubaArrays extends JPanel implements ActionListener , MouseListene
 
 	private void _readPixelFile( String file ) throws IOException
 	{
-		Vector bolometerVector = new Vector() ;
+		Vector<Bolometer> bolometerVector = new Vector<Bolometer>() ;
 		LineNumberReader lineNumberReader = new LineNumberReader( new FileReader( file ) ) ;
 		String line ;
 		StringTokenizer stringTokenizer ;
@@ -198,7 +198,7 @@ public class ScubaArrays extends JPanel implements ActionListener , MouseListene
 		return null ;
 	}
 
-	public Vector getBolometers()
+	public Vector<String> getBolometers()
 	{
 		Vector<String> result = new Vector<String>() ;
 

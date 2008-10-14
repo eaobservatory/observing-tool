@@ -33,8 +33,8 @@ import javax.swing.JPanel ;
 public class ClickableCircle extends Arc2D.Double implements MouseListener
 {
 	protected String _label = "" ;
-	Vector _mouseListeners = new Vector() ;
-	Vector _actionListeners = new Vector() ;
+	Vector<MouseListener> _mouseListeners = new Vector<MouseListener>() ;
+	Vector<ActionListener> _actionListeners = new Vector<ActionListener>() ;
 
 	/**
 	 * @param x x coordinate of centre.
@@ -102,10 +102,10 @@ public class ClickableCircle extends Arc2D.Double implements MouseListener
 		if( contains( e.getPoint() ) )
 		{
 			for( int i = 0 ; i < _mouseListeners.size() ; i++ )
-				( ( MouseListener )_mouseListeners.get( i ) ).mouseClicked( e ) ;
+				_mouseListeners.get( i ).mouseClicked( e ) ;
 	
 			for( int i = 0 ; i < _actionListeners.size() ; i++ )
-				( ( ActionListener )_actionListeners.get( i ) ).actionPerformed( new ActionEvent( this , -1 , "Pixel \"" + getLabel() + "\" clicked." ) ) ;
+				_actionListeners.get( i ).actionPerformed( new ActionEvent( this , -1 , "Pixel \"" + getLabel() + "\" clicked." ) ) ;
 		}
 	}
 
@@ -114,7 +114,7 @@ public class ClickableCircle extends Arc2D.Double implements MouseListener
 		if( contains( e.getPoint() ) )
 		{
 			for( int i = 0 ; i < _mouseListeners.size() ; i++ )
-				( ( MouseListener )_mouseListeners.get( i ) ).mouseEntered( e ) ;
+				_mouseListeners.get( i ).mouseEntered( e ) ;
 		}
 	}
 
@@ -123,7 +123,7 @@ public class ClickableCircle extends Arc2D.Double implements MouseListener
 		if( contains( e.getPoint() ) )
 		{
 			for( int i = 0 ; i < _mouseListeners.size() ; i++ )
-				( ( MouseListener )_mouseListeners.get( i ) ).mouseExited( e ) ;
+				_mouseListeners.get( i ).mouseExited( e ) ;
 		}
 	}
 
@@ -132,7 +132,7 @@ public class ClickableCircle extends Arc2D.Double implements MouseListener
 		if( contains( e.getPoint() ) )
 		{
 			for( int i = 0 ; i < _mouseListeners.size() ; i++ )
-				( ( MouseListener )_mouseListeners.get( i ) ).mousePressed( e ) ;
+				_mouseListeners.get( i ).mousePressed( e ) ;
 		}
 	}
 
@@ -141,7 +141,7 @@ public class ClickableCircle extends Arc2D.Double implements MouseListener
 		if( contains( e.getPoint() ) )
 		{
 			for( int i = 0 ; i < _mouseListeners.size() ; i++ )
-				( ( MouseListener )_mouseListeners.get( i ) ).mouseReleased( e ) ;
+				_mouseListeners.get( i ).mouseReleased( e ) ;
 		}
 	}
 }

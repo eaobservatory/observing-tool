@@ -21,7 +21,7 @@ import jsky.util.gui.BasicWindowMonitor ;
 public class TableWidgetExt extends RowManipulateTableWidget implements DescriptiveWidget
 {
 	// Observers
-	private Vector _watchers = new Vector() ;
+	private Vector<TableWidgetWatcher> _watchers = new Vector<TableWidgetWatcher>() ;
 
 	/**
 	 * Like the "tip" but not shown automatically when the mouse rests on
@@ -106,16 +106,16 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	 */
 	protected void _notifySelect( int rowIndex )
 	{
-		Vector v ;
+		Vector<TableWidgetWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<TableWidgetWatcher> )_watchers.clone() ;
 		}
 
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i ) ;
+			TableWidgetWatcher tww = v.elementAt( i ) ;
 			tww.tableRowSelected( this , rowIndex ) ;
 		}
 	}
@@ -130,16 +130,16 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 		System.out.println( "Action on table: col(" + colIndex + "), row(" + rowIndex + ")" ) ;
 
 		// Notify watchers
-		Vector v ;
+		Vector<TableWidgetWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<TableWidgetWatcher> )_watchers.clone() ;
 		}
 
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TableWidgetWatcher tww = ( TableWidgetWatcher )v.elementAt( i ) ;
+			TableWidgetWatcher tww = v.elementAt( i ) ;
 			tww.tableAction( this , colIndex , rowIndex ) ;
 		}
 	}

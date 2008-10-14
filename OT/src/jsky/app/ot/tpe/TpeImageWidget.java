@@ -34,7 +34,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 {
 	private SpItem _baseItem ;
 	private SpObsData _obsData ;
-	private Vector _featureList = new Vector() ;
+	private Vector<TpeImageFeature> _featureList = new Vector<TpeImageFeature>() ;
 	private TpeDraggableFeature _dragObject ;
 	private double _ra = 0. ; // RA of base position
 	private double _dec = 0. ; // Dec of base position
@@ -85,7 +85,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 
 		for( int i = _featureList.size() - 1 ; i >= 0 ; --i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			TpeImageFeature tif = _featureList.elementAt( i ) ;
 			_featureList.removeElement( tif ) ;
 			tif.unloaded() ;
 		}
@@ -206,7 +206,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 		{
 			for( int i = 0 ; i < _featureList.size() ; ++i )
 			{
-				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+				TpeImageFeature tif = _featureList.elementAt( i ) ;
 				if( tif instanceof TpeDraggableFeature )
 				{
 					TpeDraggableFeature tdf = ( TpeDraggableFeature )tif ;
@@ -266,7 +266,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			TpeImageFeature tif = _featureList.elementAt( i ) ;
 			if( tif instanceof TpeEraseableFeature )
 			{
 				TpeEraseableFeature tef = ( TpeEraseableFeature )tif ;
@@ -286,7 +286,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			TpeImageFeature tif = _featureList.elementAt( i ) ;
 			if( tif instanceof TpeSelectableFeature )
 			{
 				TpeSelectableFeature tsf = ( TpeSelectableFeature )tif ;
@@ -331,7 +331,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 		{
 			for( int i = 0 ; i < _featureList.size() ; ++i )
 			{
-				TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+				TpeImageFeature tif = _featureList.elementAt( i ) ;
 				tif.posAngleUpdate( _imgInfo ) ;
 			}
 			return true ;
@@ -380,7 +380,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			TpeImageFeature tif = _featureList.elementAt( i ) ;
 			tif.reinit( this , _imgInfo ) ;
 		}
 
@@ -425,7 +425,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 
 		for( int i = 0 ; i < _featureList.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )_featureList.elementAt( i ) ;
+			TpeImageFeature tif = _featureList.elementAt( i ) ;
 			tif.draw( g , _imgInfo ) ;
 		}
 

@@ -157,9 +157,9 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<CommandButtonWidgetWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<CommandButtonWidgetWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -167,12 +167,12 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	 */
 	public void action()
 	{
-		Vector v = _getWatchers() ;
+		Vector<CommandButtonWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
 			CommandButtonWidgetWatcher watcher ;
-			watcher = ( CommandButtonWidgetWatcher )v.elementAt( i ) ;
+			watcher = v.elementAt( i ) ;
 			watcher.commandButtonAction( this ) ;
 		}
 	}

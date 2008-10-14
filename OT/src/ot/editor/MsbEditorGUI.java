@@ -42,7 +42,7 @@ public class MsbEditorGUI extends JPanel
 
 	JComboBox jComboBox1 ;
 
-	Vector priorities = new Vector() ;
+	Vector<Integer> priorities = new Vector<Integer>() ;
 
 	final int nPriorities = 99 ;
 

@@ -46,7 +46,7 @@ import orac.ukirt.iter.SpIterMichelleCalObs ;
 public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */
-	private static Vector _otWindowFrames = new Vector() ;
+	private static Vector<OtWindowFrame> _otWindowFrames = new Vector<OtWindowFrame>() ;
 
 	/** Main window, when using internal frames */
 	private static JDesktopPane desktop ;

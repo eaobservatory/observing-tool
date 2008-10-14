@@ -41,7 +41,7 @@ public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidg
 	public String description ;
 
 	// The list of watchers.
-	private Vector _watchers = new Vector() ;
+	private Vector<ToggleButtonWidgetWatcher> _watchers = new Vector<ToggleButtonWidgetWatcher>() ;
 
 	/** If true, multiple buttons may be selected, otherwise only one */
 	private boolean enableMultipleSelection ;
@@ -154,9 +154,9 @@ public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidg
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<ToggleButtonWidgetWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<ToggleButtonWidgetWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -164,12 +164,12 @@ public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidg
 	 */
 	public void action()
 	{
-		Vector v = _getWatchers() ;
+		Vector<ToggleButtonWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
 			ToggleButtonWidgetWatcher watcher ;
-			watcher = ( ToggleButtonWidgetWatcher )v.elementAt( i ) ;
+			watcher = v.elementAt( i ) ;
 			watcher.toggleButtonAction( this ) ;
 		}
 	}

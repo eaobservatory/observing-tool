@@ -111,15 +111,15 @@ public class FitsImageWidget extends ViewportImageWidget
 
 	private void _notifyInfoObs()
 	{
-		Vector v ;
+		Vector<FitsImageInfoObserver> v ;
 		synchronized( _infoObs )
 		{
-			v = ( Vector )_infoObs.clone() ;
+			v = ( Vector<FitsImageInfoObserver> )_infoObs.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			FitsImageInfoObserver fiio = ( FitsImageInfoObserver )v.elementAt( i ) ;
+			FitsImageInfoObserver fiio = v.elementAt( i ) ;
 			fiio.imageInfoUpdate( this , _imgInfo ) ;
 		}
 	}

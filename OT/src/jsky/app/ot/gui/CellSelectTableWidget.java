@@ -211,17 +211,17 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 		if( ( rowIndex < 0 ) || ( rowIndex >= getModel().getRowCount() ) )
 			return ;
 
-		Vector v ;
+		Vector<CellSelectTableWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<CellSelectTableWatcher> )_watchers.clone() ;
 		}
 
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
 			CellSelectTableWatcher cstw ;
-			cstw = ( CellSelectTableWatcher )v.elementAt( i ) ;
+			cstw = v.elementAt( i ) ;
 			cstw.cellSelected( this , colIndex , rowIndex ) ;
 		}
 	}

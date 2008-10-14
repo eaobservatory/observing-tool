@@ -104,9 +104,9 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<ListBoxWidgetWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<ListBoxWidgetWatcher> )_watchers.clone() ;
 	}
 
 	//
@@ -114,11 +114,11 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	private void _notifySelect( int index )
 	{
-		Vector v = _getWatchers() ;
+		Vector<ListBoxWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i ) ;
+			ListBoxWidgetWatcher watcher = v.elementAt( i ) ;
 			watcher.listBoxSelect( this , index , getStringValue() ) ;
 		}
 	}
@@ -128,11 +128,11 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	private void _notifyAction( int index )
 	{
-		Vector v = _getWatchers() ;
+		Vector<ListBoxWidgetWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			ListBoxWidgetWatcher watcher = ( ListBoxWidgetWatcher )v.elementAt( i ) ;
+			ListBoxWidgetWatcher watcher = v.elementAt( i ) ;
 			watcher.listBoxAction( this , index , getStringValue() ) ;
 		}
 	}

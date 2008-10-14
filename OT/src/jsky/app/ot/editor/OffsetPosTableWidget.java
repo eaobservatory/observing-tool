@@ -191,7 +191,7 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 
 	/**
 	 */
-	private Vector _createPosRow( SpOffsetPos op , int index )
+	private Vector<String> _createPosRow( SpOffsetPos op , int index )
 	{
 		Vector<String> v = new Vector<String>( 4 ) ;
 		v.addElement( String.valueOf( index ) ) ;
@@ -222,11 +222,11 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 		int index = _opl.getPositionIndex( op ) ;
 		if( index != -1 )
 		{
-			Vector v = _createPosRow( op , index ) ;
+			Vector<String> v = _createPosRow( op , index ) ;
 	
-			setCell( ( String )v.elementAt( 0 ) , 0 , index ) ;
-			setCell( ( String )v.elementAt( 1 ) , 1 , index ) ;
-			setCell( ( String )v.elementAt( 2 ) , 2 , index ) ;
+			setCell( v.elementAt( 0 ) , 0 , index ) ;
+			setCell( v.elementAt( 1 ) , 1 , index ) ;
+			setCell( v.elementAt( 2 ) , 2 , index ) ;
 		}
 	}
 

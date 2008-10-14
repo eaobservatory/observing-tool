@@ -96,15 +96,15 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	//
 	private void _notifyKeyPress( KeyEvent evt )
 	{
-		Vector v ;
+		Vector<KeyPressWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<KeyPressWatcher> )_watchers.clone() ;
 		}
 
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			KeyPressWatcher kpw = ( KeyPressWatcher )v.elementAt( i ) ;
+			KeyPressWatcher kpw = v.elementAt( i ) ;
 			kpw.keyPressed( evt ) ;
 		}
 	}

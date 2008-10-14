@@ -64,8 +64,8 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public static final String FILE_IMAGE = "file" ;
 	private TpeImageFeature BASE_FEATURE ;
 	private TpeImageFeature CATALOG_FEATURE ;
-	private Vector _targetListFeatures = new Vector() ;
-	private Vector _instrumentFeatures = new Vector() ;
+	private Vector<TpeImageFeature> _targetListFeatures = new Vector<TpeImageFeature>() ;
+	private Vector<TpeImageFeature> _instrumentFeatures = new Vector<TpeImageFeature>() ;
 	private SpTelescopePosList _posList ;
 	private SpItem _spItem ;
 	private SpObsContextItem _spContext ;
@@ -148,23 +148,23 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		// Target list features
 		_targetListFeatures = _createFeatures( _targetListFeatureClasses ) ;
 		for( int i = 0 ; i < _targetListFeatures.size() ; ++i )
-			_addFeature( ( TpeImageFeature )_targetListFeatures.elementAt( i ) ) ;
+			_addFeature( _targetListFeatures.elementAt( i ) ) ;
 
 		if( _targetListFeatures.firstElement() != null )
-			BASE_FEATURE = ( TpeImageFeature )_targetListFeatures.firstElement() ;
+			BASE_FEATURE = _targetListFeatures.firstElement() ;
 		else
 			DialogUtil.error( "No base/science feature found." ) ;
 
 		// Instrument features
 		_instrumentFeatures = _createFeatures( _instrumentFeatureClasses ) ;
 		for( int i = 0 ; i < _instrumentFeatures.size() ; ++i )
-			_addFeature( ( TpeImageFeature )_instrumentFeatures.elementAt( i ) ) ;
+			_addFeature( _instrumentFeatures.elementAt( i ) ) ;
 
 		// Other features
-		Vector v = _createFeatures( _otherFeatureClasses ) ;
+		Vector<TpeImageFeature> v = _createFeatures( _otherFeatureClasses ) ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )v.elementAt( i ) ;
+			TpeImageFeature tif = v.elementAt( i ) ;
 			_addFeature( tif ) ;
 			if( tif instanceof TpeCatalogFeature )
 				CATALOG_FEATURE = tif ;
@@ -239,7 +239,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		if( _posList != null )
 		{
 			// Make the "Base" position feature (which should be the first target list dependent feature) visible.
-			TpeImageFeature tif = ( TpeImageFeature )_targetListFeatures.firstElement() ;
+			TpeImageFeature tif = _targetListFeatures.firstElement() ;
 			_featureMan.setVisible( tif , true ) ;
 		}
 	}
@@ -349,12 +349,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	// Instantiate all the TpeImageFeatures indicated in the given Vector.
 	//
-	private static Vector _createFeatures( Vector classNames )
+	private static Vector<TpeImageFeature> _createFeatures( Vector<String> classNames )
 	{
 		Vector<TpeImageFeature> v = new Vector<TpeImageFeature>() ;
 		for( int i = 0 ; i < classNames.size() ; ++i )
 		{
-			String className = ( String )classNames.elementAt( i ) ;
+			String className = classNames.elementAt( i ) ;
 			v.addElement( TpeImageFeature.createFeature( className ) ) ;
 		}
 		return v ;
@@ -368,7 +368,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public void addFeature( TpeImageFeature tif )
 	{
 		// See whether the feature was visible when last removed.
-		Boolean b = ( Boolean )_featureVisibleState.get( tif.getClass().getName() ) ;
+		Boolean b = _featureVisibleState.get( tif.getClass().getName() ) ;
 		if( b == null )
 		{
 			b = Boolean.TRUE ;
@@ -443,12 +443,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	/**
 	 * Copy the watchers list.
 	 */
-	private final synchronized Vector _getWatchers()
+	private final synchronized Vector<TpeWatcher> _getWatchers()
 	{
 		if( _watchers == null )
 			return null ;
 
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<TpeWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -456,12 +456,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	private void _notifyOfClose()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TpeWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			TpeWatcher tw = ( TpeWatcher )v.elementAt( i ) ;
+			TpeWatcher tw = v.elementAt( i ) ;
 			tw.tpeClosed( this ) ;
 		}
 		deleteWatchers() ;

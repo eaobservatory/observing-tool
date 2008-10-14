@@ -482,7 +482,7 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 	//
 	protected IterConfigItem _getConfigItem( int colIndex )
 	{
-		return ( IterConfigItem )_iterItems.get( _iterTab.getColumnName( colIndex ) ) ;
+		return _iterItems.get( _iterTab.getColumnName( colIndex ) ) ;
 	}
 
 	//
@@ -788,7 +788,7 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 	public void cellSelected( CellSelectTableWidget w , int colIndex , int rowIndex )
 	{
 		String cellValue = ( String )w.getCell( colIndex , rowIndex ) ;
-		IterConfigItem ici = ( IterConfigItem )_iterItems.get( _iterTab.getColumnName( colIndex ) ) ;
+		IterConfigItem ici = _iterItems.get( _iterTab.getColumnName( colIndex ) ) ;
 
 		if( ici.choices == null )
 			_setEditor( _textBoxVE ) ;

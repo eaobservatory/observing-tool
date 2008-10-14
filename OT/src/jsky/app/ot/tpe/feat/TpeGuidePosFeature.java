@@ -282,11 +282,11 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 		int size = ( int )( 10 * fii.pixelsPerArcsec ) ;
 
 		Point2D.Double p ;
-		ArrayList tags = new ArrayList( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
+		ArrayList<String> tags = new ArrayList<String>( Arrays.asList( SpTelescopePos.getGuideStarTags() ) ) ;
 		tags.addAll( Arrays.asList( SpTelescopePos.getSkyTags() ) ) ;
 		for( int i = 0 ; i < tags.size() ; ++i )
 		{
-			String currentTag = ( String )tags.get( i ) ;
+			String currentTag = tags.get( i ) ;
 			p = pm.getLocationFromTag( currentTag ) ;
 			if( p != null )
 			{

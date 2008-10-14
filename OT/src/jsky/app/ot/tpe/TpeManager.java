@@ -44,7 +44,7 @@ public final class TpeManager implements TpeWatcher
 	 * These are watchers interested in knowing when a TPE has been
 	 * opened for a given program, plan, or library.
 	 */
-	private static Hashtable _openWatchers = new Hashtable() ;
+	private static Hashtable<SpItem,Vector<TpeManagerWatcher>> _openWatchers = new Hashtable<SpItem,Vector<TpeManagerWatcher>>() ;
 
 	TpeManager( SpItem spItem , TelescopePosEditor tpe )
 	{
@@ -104,7 +104,7 @@ public final class TpeManager implements TpeWatcher
 		{
 			SpItem root = findRootItem( spItem ) ;
 
-			TpeManager man = ( TpeManager )_map.get( root ) ;
+			TpeManager man = _map.get( root ) ;
 
 			if( man == null )
 			{
@@ -155,7 +155,7 @@ public final class TpeManager implements TpeWatcher
 	// Remap the tpe open watchers.
 	private synchronized static void _remapOpenWatchers( SpItem oldRoot , SpItem newRoot )
 	{
-		Vector v = ( Vector )_openWatchers.remove( oldRoot ) ;
+		Vector<TpeManagerWatcher> v = _openWatchers.remove( oldRoot ) ;
 		if( v != null )
 			_openWatchers.put( newRoot , v ) ;
 	}
@@ -179,10 +179,10 @@ public final class TpeManager implements TpeWatcher
 	public synchronized static void addWatcher( TpeManagerWatcher watcher , SpItem spItem )
 	{
 		SpItem spRoot = findRootItem( spItem ) ;
-		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
+		Vector<TpeManagerWatcher> v = _openWatchers.get( spRoot ) ;
 		if( v == null )
 		{
-			v = new Vector() ;
+			v = new Vector<TpeManagerWatcher>() ;
 			_openWatchers.put( spRoot , v ) ;
 		}
 
@@ -198,7 +198,7 @@ public final class TpeManager implements TpeWatcher
 	public synchronized static void deleteWatcher( TpeManagerWatcher watcher , SpItem spItem )
 	{
 		SpItem spRoot = findRootItem( spItem ) ;
-		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
+		Vector<TpeManagerWatcher> v = _openWatchers.get( spRoot ) ;
 		if( v == null )
 			return ;
 
@@ -218,14 +218,14 @@ public final class TpeManager implements TpeWatcher
 	/**
 	 * Get a copy of the _openWatchers Vector.
 	 */
-	private synchronized static Vector _getWatchers( SpItem spItem )
+	private synchronized static Vector<TpeManagerWatcher> _getWatchers( SpItem spItem )
 	{
 		SpItem spRoot = findRootItem( spItem ) ;
-		Vector v = ( Vector )_openWatchers.get( spRoot ) ;
+		Vector<TpeManagerWatcher> v = _openWatchers.get( spRoot ) ;
 		if( v == null )
 			return null ;
 
-		return ( Vector )v.clone() ;
+		return ( Vector<TpeManagerWatcher> )v.clone() ;
 	}
 
 	/**
@@ -233,7 +233,7 @@ public final class TpeManager implements TpeWatcher
 	 */
 	private static void _notifyOpen( SpItem spItem , TelescopePosEditor tpe )
 	{
-		Vector v = _getWatchers( spItem ) ;
+		Vector<TpeManagerWatcher> v = _getWatchers( spItem ) ;
 		if( v == null )
 			return ;
 

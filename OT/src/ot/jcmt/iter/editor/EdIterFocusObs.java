@@ -17,7 +17,6 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.iter.SpIterFocusObs ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
-import orac.jcmt.SpJCMTConstants ;
 
 /**
  * This is the editor for Focus Observe Mode iterator component.

@@ -71,7 +71,7 @@ public class OtWindowFrame extends JFrame implements WindowListener
 		return editor ;
 	}
 
-	public static ArrayList getWindowFrames()
+	public static ArrayList<JFrame> getWindowFrames()
 	{
 		return openFrames ;
 	}

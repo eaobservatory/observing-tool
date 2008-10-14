@@ -24,7 +24,7 @@ import java.util.Hashtable ;
  */
 public final class OtItemEditorFactory
 {
-	private static Hashtable<String,Hashtable> _editorMap = new Hashtable<String,Hashtable>() ;
+	private static Hashtable<String,Hashtable<SpItem,OtItemEditor>> _editorMap = new Hashtable<String,Hashtable<SpItem,OtItemEditor>>() ;
 
 	/**
 	 * Get an item editor given an associated SpItem from the program and
@@ -32,14 +32,14 @@ public final class OtItemEditorFactory
 	 */
 	public static OtItemEditor getEditor( String editorClassName , SpItem spItem )
 	{
-		Hashtable ht = _editorMap.get( editorClassName ) ;
+		Hashtable<SpItem,OtItemEditor> ht = _editorMap.get( editorClassName ) ;
 		if( ht == null )
 		{
-			ht = new Hashtable() ;
+			ht = new Hashtable<SpItem,OtItemEditor>() ;
 			_editorMap.put( editorClassName , ht ) ;
 		}
 
-		OtItemEditor ed = ( OtItemEditor )ht.get( spItem.getRootItem() ) ;
+		OtItemEditor ed = ht.get( spItem.getRootItem() ) ;
 		if( ed == null )
 		{
 			try

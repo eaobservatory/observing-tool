@@ -29,8 +29,8 @@ public class OtProps
 	public static final String WINDOW_LOCATION = "window.location" ;
 	public static final String WINDOW_SIZE = "window.size" ;
 	private static Properties _props ;
-	private static Vector _watchers = new Vector() ;
-	private static Hashtable _singlePropWatchers = new Hashtable() ;
+	private static Vector<AppPropertyWatcher> _watchers = new Vector<AppPropertyWatcher>() ;
+	private static Hashtable<String,Vector<AppPropertyWatcher>> _singlePropWatchers = new Hashtable<String,Vector<AppPropertyWatcher>>() ;
 
 	/** Add a general property watcher. */
 	public synchronized static void addWatcher( AppPropertyWatcher apw )
@@ -55,10 +55,10 @@ public class OtProps
 	/** Add a specific property watcher. */
 	public synchronized static void addWatcher( String property , AppPropertyWatcher apw )
 	{
-		Vector v = ( Vector )_singlePropWatchers.get( property ) ;
+		Vector<AppPropertyWatcher> v = _singlePropWatchers.get( property ) ;
 		if( v == null )
 		{
-			v = new Vector() ;
+			v = new Vector<AppPropertyWatcher>() ;
 			_singlePropWatchers.put( property , v ) ;
 		}
 		if( v.contains( apw ) )
@@ -69,7 +69,7 @@ public class OtProps
 	/** Delete a specific property watcher. */
 	public synchronized static void deleteWatcher( String property , AppPropertyWatcher apw )
 	{
-		Vector v = ( Vector )_singlePropWatchers.get( property ) ;
+		Vector<AppPropertyWatcher> v = _singlePropWatchers.get( property ) ;
 		if( v == null )
 			return ;
 
@@ -87,18 +87,18 @@ public class OtProps
 	//
 	private static void _notifyPropertyChange( String property , String value )
 	{
-		Vector vGen = null ;
-		Vector vSingle = null ;
+		Vector<AppPropertyWatcher> vGen = null ;
+		Vector<AppPropertyWatcher> vSingle = null ;
 		try
 		{
 			synchronized( Class.forName( "ot.OtProps" ) )
 			{
 				if( _watchers.size() != 0 )
-					vGen = ( Vector )_watchers.clone() ;
+					vGen = ( Vector<AppPropertyWatcher> )_watchers.clone() ;
 
-				vSingle = ( Vector )_singlePropWatchers.get( property ) ;
+				vSingle = _singlePropWatchers.get( property ) ;
 				if( vSingle != null )
-					vSingle = ( Vector )vSingle.clone() ;
+					vSingle = ( Vector<AppPropertyWatcher> )vSingle.clone() ;
 			}
 		}
 		catch( ClassNotFoundException ex )
@@ -111,7 +111,7 @@ public class OtProps
 		{
 			for( int i = 0 ; i < vGen.size() ; ++i )
 			{
-				AppPropertyWatcher apw = ( AppPropertyWatcher )vGen.elementAt( i ) ;
+				AppPropertyWatcher apw = vGen.elementAt( i ) ;
 				apw.propertyChange( property , value ) ;
 			}
 		}

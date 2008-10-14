@@ -93,9 +93,9 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<DropDownListBoxWidgetWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<DropDownListBoxWidgetWatcher> )_watchers.clone() ;
 	}
 
 	//
@@ -105,11 +105,11 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 	{
 		if( actionsEnabled )
 		{
-			Vector v = _getWatchers() ;
+			Vector<DropDownListBoxWidgetWatcher> v = _getWatchers() ;
 			int cnt = v.size() ;
 			for( int i = 0 ; i < cnt ; ++i )
 			{
-				DropDownListBoxWidgetWatcher watcher = ( DropDownListBoxWidgetWatcher )v.elementAt( i ) ;
+				DropDownListBoxWidgetWatcher watcher = v.elementAt( i ) ;
 				watcher.dropDownListBoxAction( this , index , getStringValue() ) ;
 			}
 		}

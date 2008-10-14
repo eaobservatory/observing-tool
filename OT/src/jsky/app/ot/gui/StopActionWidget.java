@@ -209,12 +209,12 @@ public class StopActionWidget extends JPanel
 	//
 	private void _stopAction()
 	{
-		Vector v = _getWatchers() ;
+		Vector<StopActionWatcher> v = _getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
 			StopActionWatcher watcher ;
-			watcher = ( StopActionWatcher )v.elementAt( i ) ;
+			watcher = v.elementAt( i ) ;
 			watcher.stopAction( this ) ;
 		}
 	}
@@ -247,9 +247,9 @@ public class StopActionWidget extends JPanel
 	/**
 	 * Get a copy of the _watchers Vector.
 	 */
-	private synchronized final Vector _getWatchers()
+	private synchronized final Vector<StopActionWatcher> _getWatchers()
 	{
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<StopActionWatcher> )_watchers.clone() ;
 	}
 	
 	/**

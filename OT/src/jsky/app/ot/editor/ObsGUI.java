@@ -33,7 +33,7 @@ public class ObsGUI extends JPanel
 	TextBoxWidgetExt obsTitle = new TextBoxWidgetExt() ;
 	JLabel jLabel4 = new JLabel() ;
 	JComboBox jComboBox1 ;
-	Vector priorities = new Vector() ;
+	Vector<Integer> priorities = new Vector<Integer>() ;
 	final int nPriorities = 99 ;
 	JPanel msbPanel = new JPanel() ;
 	JLabel obsStateLabel = new JLabel() ;

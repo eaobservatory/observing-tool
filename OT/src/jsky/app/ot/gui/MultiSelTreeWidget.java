@@ -222,7 +222,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 		result = new TreePath[ resultVector.size() ] ;
 
 		for( int i = 0 ; i < result.length ; i++ )
-			result[ i ] = ( TreePath )resultVector.get( i ) ;
+			result[ i ] = resultVector.get( i ) ;
 
 		return result ;
 	}

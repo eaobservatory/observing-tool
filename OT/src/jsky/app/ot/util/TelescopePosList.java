@@ -211,21 +211,21 @@ public abstract class TelescopePosList
 	/**
 	 * Copy the watchers list.
 	 */
-	protected final synchronized Vector _getWatchers()
+	protected final synchronized Vector<TelescopePosListWatcher> _getWatchers()
 	{
 		if( _watchers == null )
 			return null ;
-		return ( Vector )_watchers.clone() ;
+		return ( Vector<TelescopePosListWatcher> )_watchers.clone() ;
 	}
 
 	/**
 	 * Copy the selection watchers list.
 	 */
-	protected final synchronized Vector _getSelWatchers()
+	protected final synchronized Vector<TelescopePosSelWatcher> _getSelWatchers()
 	{
 		if( _selWatchers == null )
 			return null ;
-		return ( Vector )_selWatchers.clone() ;
+		return ( Vector<TelescopePosSelWatcher> )_selWatchers.clone() ;
 	}
 
 	/**
@@ -233,13 +233,13 @@ public abstract class TelescopePosList
 	 */
 	protected void _notifyOfReset()
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosListWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosListWatcher tplw ;
-			tplw = ( TelescopePosListWatcher )v.elementAt( i ) ;
+			tplw = v.elementAt( i ) ;
 			tplw.posListReset( this , getAllPositions() ) ;
 		}
 	}
@@ -249,13 +249,13 @@ public abstract class TelescopePosList
 	 */
 	protected void _notifyOfReorder( TelescopePos tp )
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosListWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosListWatcher tplw ;
-			tplw = ( TelescopePosListWatcher )v.elementAt( i ) ;
+			tplw = v.elementAt( i ) ;
 			tplw.posListReordered( this , getAllPositions() , tp ) ;
 		}
 	}
@@ -265,13 +265,13 @@ public abstract class TelescopePosList
 	 */
 	protected void _notifyOfAdd( TelescopePos tp )
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosListWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosListWatcher tplw ;
-			tplw = ( TelescopePosListWatcher )v.elementAt( i ) ;
+			tplw = v.elementAt( i ) ;
 			tplw.posListAddedPosition( this , tp ) ;
 		}
 	}
@@ -281,13 +281,13 @@ public abstract class TelescopePosList
 	 */
 	protected void _notifyOfRemove( TelescopePos tp )
 	{
-		Vector v = _getWatchers() ;
+		Vector<TelescopePosListWatcher> v = _getWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosListWatcher tplw ;
-			tplw = ( TelescopePosListWatcher )v.elementAt( i ) ;
+			tplw = v.elementAt( i ) ;
 			tplw.posListRemovedPosition( this , tp ) ;
 		}
 	}
@@ -297,13 +297,13 @@ public abstract class TelescopePosList
 	 */
 	protected void _notifyOfSelect( TelescopePos tp )
 	{
-		Vector v = _getSelWatchers() ;
+		Vector<TelescopePosSelWatcher> v = _getSelWatchers() ;
 		if( v == null )
 			return ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			TelescopePosSelWatcher tpsw ;
-			tpsw = ( TelescopePosSelWatcher )v.elementAt( i ) ;
+			tpsw = v.elementAt( i ) ;
 			tpsw.telescopePosSelected( this , tp ) ;
 		}
 	}

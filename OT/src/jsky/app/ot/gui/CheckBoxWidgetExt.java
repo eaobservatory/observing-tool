@@ -101,7 +101,7 @@ public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , 
 	{
 		for( int i = 0 ; i < _watchers.size() ; ++i )
 		{
-			CheckBoxWidgetWatcher cbw = ( CheckBoxWidgetWatcher )_watchers.elementAt( i ) ;
+			CheckBoxWidgetWatcher cbw = _watchers.elementAt( i ) ;
 			cbw.checkBoxAction( this ) ;
 		}
 	}

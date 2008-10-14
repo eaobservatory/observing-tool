@@ -249,7 +249,7 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 					tmp = allTags[ 0 ] ;
 					while( tmp.size() > 0 )
 					{
-						String tag = ( String )tmp.remove( 0 ) ;
+						String tag = tmp.remove( 0 ) ;
 						boolean add = true ;
 						for( int k = 1 ; k < size ; k++ )
 						{

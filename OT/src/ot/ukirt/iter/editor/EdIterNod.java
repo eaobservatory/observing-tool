@@ -83,7 +83,7 @@ public final class EdIterNod extends OtItemEditor implements ActionListener
 			SpIterNod nodIter = ( SpIterNod )_spItem ;
 	
 			if( w == _w.nodPattern )
-				nodIter.setNodPattern( ( Vector )_w.nodPattern.getSelectedItem() ) ;
+				nodIter.setNodPattern( ( Vector<String> )_w.nodPattern.getSelectedItem() ) ;
 		}
 	}
 }

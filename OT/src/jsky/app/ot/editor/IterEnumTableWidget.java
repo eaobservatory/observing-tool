@@ -85,8 +85,8 @@ public class IterEnumTableWidget extends TableWidgetExt
 		v.addElement( siv.attribute + " = " + siv.values[ 0 ] ) ;
 	}
 
-	public void addRow( Vector v )
+	public void addRow( Vector<String> v )
 	{
-		( ( DefaultTableModel )getModel() ).addRow( v ) ;
+		(( DefaultTableModel )getModel()).addRow( v ) ;
 	}
 }

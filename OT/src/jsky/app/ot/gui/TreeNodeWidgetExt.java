@@ -13,6 +13,7 @@ import java.util.Vector ;
 import java.util.Enumeration ;
 import javax.swing.ImageIcon ;
 import javax.swing.tree.DefaultTreeModel ;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath ;
 import javax.swing.tree.DefaultMutableTreeNode ;
 
@@ -310,16 +311,16 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 		if( _watchers == null )
 			return ;
-		Vector v ;
+		Vector<TreeNodeWidgetWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
 		}
 
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i ) ;
+			TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
 			tnww.nodeSelected( this ) ;
 		}
 		tree.notifySelect( this ) ;
@@ -342,19 +343,19 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	 */
 	void notifyAction()
 	{
-		Vector v ;
+		Vector<TreeNodeWidgetWatcher> v ;
 		synchronized( this )
 		{
 			if( _watchers == null )
 				return ;
 
-			v = ( Vector )_watchers.clone() ;
+			v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
 		}
 
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeNodeWidgetWatcher tnww = ( TreeNodeWidgetWatcher )v.elementAt( i ) ;
+			TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
 			tnww.nodeAction( this ) ;
 		}
 		tree.notifyAction( this ) ;
@@ -409,10 +410,10 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	/**
 	 * Return a vector containing the child nodes of this node.
 	 */
-	public Vector getChildren()
+	public Vector<TreeNode> getChildren()
 	{
 		int n = getChildCount() ;
-		Vector v = new Vector( n ) ;
+		Vector<TreeNode> v = new Vector<TreeNode>( n ) ;
 		for( int i = 0 ; i < n ; i++ )
 			v.add( getChildAt( i ) ) ;
 		return v ;

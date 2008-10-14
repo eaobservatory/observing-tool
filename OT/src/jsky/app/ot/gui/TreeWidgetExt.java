@@ -217,24 +217,24 @@ public class TreeWidgetExt extends JPanel
 	}
 
 	/** Get a copy of the current list of watchers */
-	public Vector getWatchers()
+	public Vector<TreeWidgetWatcher> getWatchers()
 	{
 		synchronized( this )
 		{
 			if( watchers == null )
 				watchers = new Vector<TreeWidgetWatcher>() ;
-			return ( Vector )watchers.clone() ;
+			return ( Vector<TreeWidgetWatcher> )watchers.clone() ;
 		}
 	}
 
 	/** Notify that a node was selected. */
 	void notifySelect( TreeNodeWidgetExt tnw )
 	{
-		Vector v = getWatchers() ;
+		Vector<TreeWidgetWatcher> v = getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeWidgetWatcher tww = ( TreeWidgetWatcher )v.elementAt( i ) ;
+			TreeWidgetWatcher tww = v.elementAt( i ) ;
 			tww.nodeSelected( this , tnw ) ;
 		}
 		tnw.notifySelect() ;
@@ -243,11 +243,11 @@ public class TreeWidgetExt extends JPanel
 	/** Notify that a node was double-clicked. */
 	void notifyAction( TreeNodeWidgetExt tnw )
 	{
-		Vector v = getWatchers() ;
+		Vector<TreeWidgetWatcher> v = getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TreeWidgetWatcher tww = ( TreeWidgetWatcher )v.elementAt( i ) ;
+			TreeWidgetWatcher tww = v.elementAt( i ) ;
 			tww.nodeAction( this , tnw ) ;
 		}
 		tnw.notifyAction() ;

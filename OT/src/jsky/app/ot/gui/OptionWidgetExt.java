@@ -91,7 +91,7 @@ public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget ,
 	{
 		for( int i = 0 ; i < _watchers.size() ; ++i )
 		{
-			OptionWidgetWatcher ow = ( OptionWidgetWatcher )_watchers.elementAt( i ) ;
+			OptionWidgetWatcher ow = _watchers.elementAt( i ) ;
 			ow.optionAction( this ) ;
 		}
 	}
