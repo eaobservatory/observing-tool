@@ -7,24 +7,24 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 public class Transition
 {
-	public String name;
-	public double frequency;
+	public String name ;
+	public double frequency ;
 
 	public Transition( String name , double frequency )
 	{
-		this.name = name;
-		this.frequency = frequency;
+		this.name = name ;
+		this.frequency = frequency ;
 	}
 
 	public String toString()
 	{
-		return name;
+		return name ;
 	}
 }

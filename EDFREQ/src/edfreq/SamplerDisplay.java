@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 import javax.swing.JLabel ;
 
@@ -16,14 +16,13 @@ import javax.swing.JLabel ;
  */
 public class SamplerDisplay extends JLabel implements SamplerWatcher
 {
-
 	public SamplerDisplay( String text )
 	{
-		super( text );
+		super( text ) ;
 	}
 
 	public void updateSamplerValues( double centre , double width , int channels )
 	{
-		setText( String.valueOf( centre ) );
+		setText( String.valueOf( centre ) ) ;
 	}
 }

@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 import java.util.Vector ;
 import java.awt.event.ItemListener ;
@@ -21,17 +21,17 @@ import javax.swing.JComboBox ;
 public class Sampler implements ItemListener
 {
 
-	double centreFrequency;
-	double bandWidth;
+	double centreFrequency ;
+	double bandWidth ;
 
 	/** Front end IF. */
-	double feIF;
+	double feIF ;
 
 	/** Instantaneous bandwidth of frontend. */
-	double feBandWidth;
+	double feBandWidth ;
 
 	/** Number of mixers selected on heterodyne panel */
-	int nMixers = 1;
+	int nMixers = 1 ;
 
 	/**
      * Bandwidth options for this sampler.
@@ -42,8 +42,8 @@ public class Sampler implements ItemListener
      * channels in {@link #channelsArray} is reduced by the same factor in order
      * to get valid values for the resolution.
      */
-	double[] bandWidthsArray;
-	int channels = 0;
+	double[] bandWidthsArray ;
+	int channels = 0 ;
 
 	/**
      * Channel options for this sampler.
@@ -55,28 +55,28 @@ public class Sampler implements ItemListener
      * {@link #bandWidthsArray} have been reduced in order to get valid values
      * for the resolution.
      */
-	int[] channelsArray;
-	int row;
-	Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>();
-	JComboBox bandWidthChoice;
+	int[] channelsArray ;
+	int row ;
+	Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>() ;
+	JComboBox bandWidthChoice ;
 
 	public Sampler( double centreFrequency , double feBandWidth , double[] bandWidthsArray , int[] channelsArray , JComboBox bandWidthChoice )
 	{
-		this.centreFrequency = centreFrequency;
-		this.feIF = centreFrequency;
-		this.feBandWidth = feBandWidth;
-		this.bandWidth = bandWidthsArray[ 0 ];
-		this.bandWidthsArray = bandWidthsArray;
-		this.channels = channelsArray[ 0 ];
-		this.channelsArray = channelsArray;
-		this.bandWidthChoice = bandWidthChoice;
+		this.centreFrequency = centreFrequency ;
+		this.feIF = centreFrequency ;
+		this.feBandWidth = feBandWidth ;
+		this.bandWidth = bandWidthsArray[ 0 ] ;
+		this.bandWidthsArray = bandWidthsArray ;
+		this.channels = channelsArray[ 0 ] ;
+		this.channelsArray = channelsArray ;
+		this.bandWidthChoice = bandWidthChoice ;
 
-		bandWidthChoice.addItemListener( this );
+		bandWidthChoice.addItemListener( this ) ;
 	}
 
 	public void addSamplerWatcher( SamplerWatcher sw )
 	{
-		swArray.addElement( sw );
+		swArray.addElement( sw ) ;
 	}
 
 	/**
@@ -87,9 +87,9 @@ public class Sampler implements ItemListener
      */
 	public void setCentreFrequency( double centreFrequency )
 	{
-		int j;
+		int j ;
 
-		this.centreFrequency = centreFrequency;
+		this.centreFrequency = centreFrequency ;
 
 		if( FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable )
 		{
@@ -98,21 +98,21 @@ public class Sampler implements ItemListener
              * make the new bandWidth fit into the frontend bandwidth.
              */
 			if( centreFrequency > ( feIF + ( 0.5 * ( feBandWidth - bandWidth ) ) ) )
-				this.centreFrequency = ( feIF + ( 0.5 * ( feBandWidth - bandWidth ) ) );
+				this.centreFrequency = ( feIF + ( 0.5 * ( feBandWidth - bandWidth ) ) ) ;
 			else if( centreFrequency < ( feIF - ( 0.5 * ( feBandWidth - bandWidth ) ) ) )
-				this.centreFrequency = ( feIF - ( 0.5 * ( feBandWidth - bandWidth ) ) );
+				this.centreFrequency = ( feIF - ( 0.5 * ( feBandWidth - bandWidth ) ) ) ;
 		}
 
 		if( !swArray.isEmpty() )
 		{
 			for( j = 0 ; j < swArray.size() ; j++ )
-				swArray.elementAt( j ).updateSamplerValues( this.centreFrequency , bandWidth , channels );
+				swArray.elementAt( j ).updateSamplerValues( this.centreFrequency , bandWidth , channels ) ;
 		}
 	}
 
 	public double getCentreFrequency()
 	{
-		return centreFrequency;
+		return centreFrequency ;
 	}
 
 	/**
@@ -121,22 +121,22 @@ public class Sampler implements ItemListener
      */
 	public void setBandWidth( double value )
 	{
-		bandWidth = value;
+		bandWidth = value ;
 
 		// Find index of new bandwidth and set channels from channels array.
 		for( int i = 0 ; i < bandWidthsArray.length ; i++ )
 		{
 			if( bandWidthsArray[ i ] == value )
-				channels = channelsArray[ i ];
+				channels = channelsArray[ i ] ;
 		}
 
 		// Adjust centre frequency if necessary so that the sideband fits into
         // the frontend bandwidth.
-		setCentreFrequency( getCentreFrequency() );
+		setCentreFrequency( getCentreFrequency() ) ;
 
-		bandWidthChoice.removeItemListener( this );
-		bandWidthChoice.setSelectedItem( "" + ( Math.rint( value * 1.0E-6 ) ) );
-		bandWidthChoice.addItemListener( this );
+		bandWidthChoice.removeItemListener( this ) ;
+		bandWidthChoice.setSelectedItem( "" + ( Math.rint( value * 1.0E-6 ) ) ) ;
+		bandWidthChoice.addItemListener( this ) ;
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Sampler implements ItemListener
      */
 	public double getBandWidth()
 	{
-		return bandWidth;
+		return bandWidth ;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class Sampler implements ItemListener
      */
 	public int getChannels()
 	{
-		return channels;
+		return channels ;
 	}
 
 	/**
@@ -161,21 +161,21 @@ public class Sampler implements ItemListener
      */
 	public double[] getBandWidthOptions()
 	{
-		return bandWidthsArray;
+		return bandWidthsArray ;
 	}
 
 	public int getResolution()
 	{
-		return nMixers * ( ( int )( 1.0E-3 * bandWidth / ( double )channels ) );
+		return nMixers * ( ( int )( 1.0E-3 * bandWidth / ( double )channels ) ) ;
 	}
 
 	public void setNumberOfMixers( int nMixers )
 	{
-		this.nMixers = nMixers;
+		this.nMixers = nMixers ;
 	}
 
 	public void itemStateChanged( ItemEvent ev )
 	{
-		setBandWidth( Double.parseDouble( ( String )bandWidthChoice.getSelectedItem() ) * 1.0E6 );
+		setBandWidth( Double.parseDouble( ( String )bandWidthChoice.getSelectedItem() ) * 1.0E6 ) ;
 	}
 }

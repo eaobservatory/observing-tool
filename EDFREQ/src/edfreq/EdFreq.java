@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * Utility class for frequency editor.
@@ -17,12 +17,11 @@ package edfreq;
  */
 public class EdFreq
 {
-
-	public static double SLIDERSCALE = 1.0E7;
-	public static double LIGHTSPEED = 2.99792458E5;
-	public final static int SIDE_BAND_USB = 0;
-	public final static int SIDE_BAND_LSB = 1;
-	public static final int DISPLAY_WIDTH = 800;
+	public static double SLIDERSCALE = 1.0E7 ;
+	public static double LIGHTSPEED = 2.99792458E5 ;
+	public final static int SIDE_BAND_USB = 0 ;
+	public final static int SIDE_BAND_LSB = 1 ;
+	public static final int DISPLAY_WIDTH = 800 ;
 
 	/**
      * Calculates the rest frequency based on observe frequency and redshift.
@@ -36,7 +35,7 @@ public class EdFreq
      */
 	public static double getObsFrequency( double restFrequency , double redshift )
 	{
-		return restFrequency / ( 1.0 + redshift );
+		return restFrequency / ( 1. + redshift ) ;
 	}
 
 	/**
@@ -52,7 +51,7 @@ public class EdFreq
      */
 	public static double getRestFrequency( double obsFrequency , double redshift )
 	{
-		return obsFrequency * ( 1.0 + redshift );
+		return obsFrequency * ( 1. + redshift ) ;
 	}
 
 	/**
@@ -70,9 +69,9 @@ public class EdFreq
 	public static double getObsFrequency( double lo1 , double intermFreq , String band )
 	{
 		if( band.equals( "usb" ) || band.equals( "best" ) )
-			return lo1 + intermFreq;
+			return lo1 + intermFreq ;
 		else
-			return lo1 - intermFreq;
+			return lo1 - intermFreq ;
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class EdFreq
      */
 	public static double getRestFrequency( double lo1 , double intermFreq , double redshift , String band )
 	{
-		return getRestFrequency( getObsFrequency( lo1 , intermFreq , band ) , redshift );
+		return getRestFrequency( getObsFrequency( lo1 , intermFreq , band ) , redshift ) ;
 	}
 
 	/**
@@ -108,8 +107,8 @@ public class EdFreq
 	public static double getLO1( double obsFrequency , double intermFreq , String band )
 	{
 		if( band.equals( "usb" ) || band.equals( "best" ) )
-			return obsFrequency - intermFreq;
+			return obsFrequency - intermFreq ;
 		else
-			return obsFrequency + intermFreq;
+			return obsFrequency + intermFreq ;
 	}
 }

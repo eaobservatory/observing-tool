@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * Heterodyne editor interface.
@@ -26,22 +26,22 @@ public interface HeterodyneEditor
 {
 
 	/** No identifiable speactral line indicator */
-	public static final String NO_LINE = "No Line";
+	public static final String NO_LINE = "No Line" ;
 
 	/** Get the front end instrument name */
-	public String getFeBand();
+	public String getFeBand() ;
 
 	/**
      * Get mode: single side band (ssb), double side band (dsb).
      */
-	public String getMode();
+	public String getMode() ;
 
 	/**
      * Get the current redshift of the source being observed.
      * 
      * @return Z
      */
-	public double getRedshift();
+	public double getRedshift() ;
 
 	/**
      * Calculates the rest frequency corresponding to the current IF of a
@@ -57,7 +57,7 @@ public interface HeterodyneEditor
      * 
      * @return rest frequency in GHz
      */
-	public double getRestFrequency( int subsystem );
+	public double getRestFrequency( int subsystem ) ;
 
 	/**
      * Calculates the observe frequency corresponding to the centre of the
@@ -68,7 +68,7 @@ public interface HeterodyneEditor
      * 
      * @return observe frequency in GHz
      */
-	public double getObsFrequency( int subsystem );
+	public double getObsFrequency( int subsystem ) ;
 
 	/**
      * Gets the bandwidth of the specified subsystem
@@ -77,7 +77,7 @@ public interface HeterodyneEditor
      *            The subsystem number (starting at 0)
      * @return The bandwidth in Hz
      */
-	public double getCurrentBandwidth( int subsystem );
+	public double getCurrentBandwidth( int subsystem ) ;
 
 	/**
      * Update the central frequency of a subsystem
@@ -87,7 +87,7 @@ public interface HeterodyneEditor
      * @param subsystem
      *            The subsystem number (starting at 0)
      */
-	public void updateCentreFrequency( double centre , int subsystem );
+	public void updateCentreFrequency( double centre , int subsystem ) ;
 
 	/**
      * Update the bandwidth of a subsystem
@@ -97,7 +97,7 @@ public interface HeterodyneEditor
      * @param subsystem
      *            The subsystem number (starting at 0)
      */
-	public void updateBandWidth( double width , int subsystem );
+	public void updateBandWidth( double width , int subsystem ) ;
 
 	/**
      * Update the channels of a subsystem
@@ -107,7 +107,7 @@ public interface HeterodyneEditor
      * @param subsystem
      *            The subsystem number (starting at 0)
      */
-	public void updateChannels( int channels , int subsystem );
+	public void updateChannels( int channels , int subsystem ) ;
 
 	/**
      * Update the line details associated with a channel
@@ -118,7 +118,7 @@ public interface HeterodyneEditor
      * @param subsystem
      *            The subsystem number (starting at 0)
      */
-	public void updateLineDetails( LineDetails lineDetails , int subsystem );
+	public void updateLineDetails( LineDetails lineDetails , int subsystem ) ;
 
 	/**
      * Update the local oscillator frequency
@@ -126,5 +126,5 @@ public interface HeterodyneEditor
      * @param lo1
      *            The local oscillator frequency in Hz
      */
-	public void updateLO1( double lo1 );
+	public void updateLO1( double lo1 ) ;
 }

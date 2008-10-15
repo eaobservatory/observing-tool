@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq.region;
+package edfreq.region ;
 
 import java.awt.GridLayout ;
 import java.awt.event.MouseEvent ;
@@ -17,9 +17,9 @@ import javax.swing.JFrame ;
 import java.util.Observer ;
 import java.util.Observable ;
 
-import edfreq.EdFreq;
-import edfreq.EmissionLines;
-import edfreq.GraphScale;
+import edfreq.EdFreq ;
+import edfreq.EmissionLines ;
+import edfreq.GraphScale ;
 
 /**
  * Like SideBandDisplay but without the sidebands themselves.
@@ -32,72 +32,71 @@ import edfreq.GraphScale;
  */
 public class LineDisplay extends JPanel implements Observer
 {
-
-	private EmissionLines el;
-	private GraphScale localScale;
-	private GraphScale targetScale;
-	private double _redshift;
-	private double _lRangeLimit;
-	private double _uRangeLimit;
-	private double _feIF;
-	private double _feBandWidth;
-	private int _displayWidth = EdFreq.DISPLAY_WIDTH;
+	private EmissionLines el ;
+	private GraphScale localScale ;
+	private GraphScale targetScale ;
+	private double _redshift ;
+	private double _lRangeLimit ;
+	private double _uRangeLimit ;
+	private double _feIF ;
+	private double _feBandWidth ;
+	private int _displayWidth = EdFreq.DISPLAY_WIDTH ;
 
 	public void updateDisplay( double lRangeLimit , double uRangeLimit , double feIF , double feBandWidth , double redshift )
 	{
-		_redshift = redshift;
-		_uRangeLimit = uRangeLimit;
-		_lRangeLimit = lRangeLimit;
-		_feIF = feIF;
-		_feBandWidth = feBandWidth;
+		_redshift = redshift ;
+		_uRangeLimit = uRangeLimit ;
+		_lRangeLimit = lRangeLimit ;
+		_feIF = feIF ;
+		_feBandWidth = feBandWidth ;
 
-		updateDisplay();
+		updateDisplay() ;
 	}
 
 	public void updateDisplay()
 	{
-		removeAll();
+		removeAll() ;
 
 		// This number is probably arbitrary. The EmissionLines constructor
 		// will probably not not need to know about the samplerCount.
-		int samplerCount = 1;
+		int samplerCount = 1 ;
 
-		double mid = 0.5 * ( _lRangeLimit + _uRangeLimit );
-		double lowIF = mid - _feIF - ( _feBandWidth * 0.5 );
-		double highIF = mid + _feIF + ( _feBandWidth * 0.5 );
+		double mid = 0.5 * ( _lRangeLimit + _uRangeLimit ) ;
+		double lowIF = mid - _feIF - ( _feBandWidth * 0.5 ) ;
+		double highIF = mid + _feIF + ( _feBandWidth * 0.5 ) ;
 
-		el = new EmissionLines( lowIF , highIF , _redshift , _displayWidth , 20 , samplerCount );
+		el = new EmissionLines( lowIF , highIF , _redshift , _displayWidth , 20 , samplerCount ) ;
 
-		targetScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , _redshift , 9 , _displayWidth , JSlider.HORIZONTAL );
-		localScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , 0.0 , 9 , _displayWidth , JSlider.HORIZONTAL );
+		targetScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , _redshift , 9 , _displayWidth , JSlider.HORIZONTAL ) ;
+		localScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , 0.0 , 9 , _displayWidth , JSlider.HORIZONTAL ) ;
 
-		setLayout( new GridLayout( 3 , 1 ) );
-		add( el );
-		add( targetScale );
-		add( localScale );
+		setLayout( new GridLayout( 3 , 1 ) ) ;
+		add( el ) ;
+		add( targetScale ) ;
+		add( localScale ) ;
 	}
 
 	public void setMainLine( double frequency )
 	{
 		if( el != null )
-			el.setMainLine( frequency );
+			el.setMainLine( frequency ) ;
 	}
 
 	public void setSideLine( double frequency )
 	{
 		if( el != null )
-			el.setSideLine( frequency );
+			el.setSideLine( frequency ) ;
 	}
 
 	public void setRedshift( double redshift )
 	{
-		_redshift = redshift;
+		_redshift = redshift ;
 
 		if( el != null )
-			el.setRedshift( redshift );
+			el.setRedshift( redshift ) ;
 
 		if( targetScale != null )
-			targetScale.setRedshift( redshift );
+			targetScale.setRedshift( redshift ) ;
 	}
 
 	/**
@@ -105,17 +104,17 @@ public class LineDisplay extends JPanel implements Observer
      */
 	public double getPixelsPerValue()
 	{
-		return 1.0E9 * ( ( double )_displayWidth ) / ( _uRangeLimit - _lRangeLimit );
+		return 1.0E9 * ( ( double )_displayWidth ) / ( _uRangeLimit - _lRangeLimit ) ;
 	}
 
 	public double getLowerRangeLimit()
 	{
-		return _lRangeLimit;
+		return _lRangeLimit ;
 	}
 
 	public double getUpperRangeLimit()
 	{
-		return _lRangeLimit;
+		return _lRangeLimit ;
 	}
 
 	public double getLO1()
@@ -125,58 +124,58 @@ public class LineDisplay extends JPanel implements Observer
 
 	public int getDisplayWidth()
 	{
-		return _displayWidth;
+		return _displayWidth ;
 	}
 
 	public void setDisplayWidth( int displayWidth )
 	{
-		_displayWidth = displayWidth;
+		_displayWidth = displayWidth ;
 
-		updateDisplay();
+		updateDisplay() ;
 	}
 
 	public void update( Observable o , Object arg )
 	{
 		if( arg == null )
 		{
-			setSideLine( -1 );
+			setSideLine( -1 ) ;
 
-			return;
+			return ;
 		}
 
-		int mouseX = ( ( MouseEvent )arg ).getX();
+		int mouseX = ( ( MouseEvent )arg ).getX() ;
 
 		// Calculate for upper side band
-		double mouseDragLine = getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) ) + ( ( mouseX / getPixelsPerValue() ) * 1.0E9 );
+		double mouseDragLine = getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) ) + ( ( mouseX / getPixelsPerValue() ) * 1.0E9 ) ;
 
 		// If the line is supposed to be in the lower sideband then shift it there.
 		if( ( ( RangeBar )( ( MouseEvent )arg ).getSource() ).getAssociatedSideBand() == EdFreq.SIDE_BAND_LSB )
 		{
-			mouseDragLine -= 2.0 * _feIF;
+			mouseDragLine -= 2.0 * _feIF ;
 		}
 
 		// Convert to rest frequency space
-		mouseDragLine *= ( 1.0 + _redshift );
+		mouseDragLine *= ( 1.0 + _redshift ) ;
 
-		setSideLine( mouseDragLine );
+		setSideLine( mouseDragLine ) ;
 	}
 
 	public static void main( String args[] )
 	{
 
-		JFrame frame = new JFrame( "Line Display" );
-		frame.setResizable( false );
-		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		JFrame frame = new JFrame( "Line Display" ) ;
+		frame.setResizable( false ) ;
+		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ) ;
 
 		// Create LineDisplay with anonymous HeterodyneEditor implementation that does not do anything.
-		LineDisplay lineDisplay = new LineDisplay();
+		LineDisplay lineDisplay = new LineDisplay() ;
 
-		lineDisplay.updateDisplay( 365.0E+9 , 375.0E+9 , 4.0E9 , 1.8E9 , 0.0 );
-		lineDisplay.setMainLine( 369.907439E+9 );
+		lineDisplay.updateDisplay( 365.0E+9 , 375.0E+9 , 4.0E9 , 1.8E9 , 0.0 ) ;
+		lineDisplay.setMainLine( 369.907439E+9 ) ;
 
-		frame.add( lineDisplay );
-		frame.setLocation( 100 , 100 );
-		frame.pack();
-		frame.setVisible( true );
+		frame.add( lineDisplay ) ;
+		frame.setLocation( 100 , 100 ) ;
+		frame.pack() ;
+		frame.setVisible( true ) ;
 	}
 }

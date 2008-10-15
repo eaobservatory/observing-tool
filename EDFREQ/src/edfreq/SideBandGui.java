@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 import javax.swing.JScrollBar ;
 
@@ -17,34 +17,34 @@ import javax.swing.JScrollBar ;
 public class SideBandGui extends JScrollBar
 {
 
-	private int lowLimit;
-	private int highLimit;
-	private int bandWidth;
-	private SideBand sideBand;
+	private int lowLimit ;
+	private int highLimit ;
+	private int bandWidth ;
+	private SideBand sideBand ;
 
 	public SideBandGui( SideBand sideBand , int lowLimit , int highLimit , int bandWidth )
 	{
-		super( JScrollBar.HORIZONTAL , ( lowLimit + highLimit ) / 2 , bandWidth , lowLimit , highLimit );
-		this.lowLimit = lowLimit;
-		this.highLimit = lowLimit;
-		this.bandWidth = bandWidth;
-		this.sideBand = sideBand;
+		super( JScrollBar.HORIZONTAL , ( lowLimit + highLimit ) / 2 , bandWidth , lowLimit , highLimit ) ;
+		this.lowLimit = lowLimit ;
+		this.highLimit = lowLimit ;
+		this.bandWidth = bandWidth ;
+		this.sideBand = sideBand ;
 	}
 
 	public void setSideBand( SideBand value )
 	{
-		this.sideBand = value;
+		this.sideBand = value ;
 	}
 
 	public void updateValue()
 	{
-		setValue( sideBand.getScaledCentre() );
-		setVisibleAmount( sideBand.getScaledWidth() );
+		setValue( sideBand.getScaledCentre() ) ;
+		setVisibleAmount( sideBand.getScaledWidth() ) ;
 	}
 
 	public void updateSideBand()
 	{
-		sideBand.setScaledCentre( getValue() );
+		sideBand.setScaledCentre( getValue() ) ;
 	}
 
 }

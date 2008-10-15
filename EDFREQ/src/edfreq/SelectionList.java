@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 import java.util.Vector ;
 
@@ -16,20 +16,18 @@ import java.util.Vector ;
  */
 public class SelectionList
 {
+	public Vector<Transition> objectList ;
 
-	public Vector objectList;
-
-	public String name;
+	public String name ;
 
 	public SelectionList( String name )
 	{
-		this.name = name;
-		objectList = new Vector();
+		this.name = name ;
+		objectList = new Vector<Transition>() ;
 	}
 
 	public String toString()
 	{
-		return name;
+		return name ;
 	}
-
 }

@@ -7,13 +7,12 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 interface SamplerWatcher
 {
-
-	public void updateSamplerValues( double centre , double width , int channels );
+	public void updateSamplerValues( double centre , double width , int channels ) ;
 }

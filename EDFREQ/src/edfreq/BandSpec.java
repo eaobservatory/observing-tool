@@ -7,7 +7,7 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * Contains information to the various band specifications for each heterodyne
@@ -18,12 +18,11 @@ package edfreq;
  */
 public class BandSpec
 {
-
 	/** Name of the current band specification */
-	public String name;
+	public String name ;
 
 	/** Number if bands in this band specification */
-	public int numBands;
+	public int numBands ;
 
 	/**
      * Array of bandwidths.
@@ -53,56 +52,56 @@ public class BandSpec
      * are used to calculate combined bandwidths (i.e. sums one or more
      * individual hybrid subbands) with overlaps.
      */
-	public double[] bandWidths;
+	public double[] bandWidths ;
 
 	/** Default overlaps asscoiated with each bandwidth. */
-	public double[] defaultOverlaps;
+	public double[] defaultOverlaps ;
 
 	/** Number of channels asscoiated with each bandwidth. */
-	public int[] channels;
+	public int[] channels ;
 
 	/** Number of hybrid subbands asscoiated with each bandwidth. */
-	public int[] numHybridSubBands;
+	public int[] numHybridSubBands ;
 
 	// Added by MFO (September 5, 2002)
 	private void initBandSpec( String name , int numBands , double[] bandWidths , int[] channels )
 	{
-		this.name = name;
-		this.numBands = numBands;
-		this.bandWidths = bandWidths;
-		this.channels = channels;
+		this.name = name ;
+		this.numBands = numBands ;
+		this.bandWidths = bandWidths ;
+		this.channels = channels ;
 	}
 
 	public BandSpec( String name , int numBands , double[] bandWidths , int[] channels )
 	{
-		initBandSpec( name , numBands , bandWidths , channels );
+		initBandSpec( name , numBands , bandWidths , channels ) ;
 
-		defaultOverlaps = new double[ bandWidths.length ];
-		numHybridSubBands = new int[ bandWidths.length ];
+		defaultOverlaps = new double[ bandWidths.length ] ;
+		numHybridSubBands = new int[ bandWidths.length ] ;
 
 		for( int i = 0 ; i < numHybridSubBands.length ; i++ )
 		{
-			defaultOverlaps[ i ] = 0.0;
-			numHybridSubBands[ i ] = 1;
+			defaultOverlaps[ i ] = 0. ;
+			numHybridSubBands[ i ] = 1 ;
 		}
 	}
 
 	// Added by MFO (September 5, 2002)
 	/**
      * @param numHybridSubBands
-     *            1 for non-hybrid, &gt;1 for hybrid.
+     *            1 for non-hybrid, &gt ;1 for hybrid.
      */
 	public BandSpec( String name , int numBands , double[] bandWidths , double[] defaultOverlaps , int[] channels , int[] numHybridSubBands )
 	{
-		initBandSpec( name , numBands , bandWidths , channels );
+		initBandSpec( name , numBands , bandWidths , channels ) ;
 
-		this.defaultOverlaps = defaultOverlaps;
-		this.numHybridSubBands = numHybridSubBands;
+		this.defaultOverlaps = defaultOverlaps ;
+		this.numHybridSubBands = numHybridSubBands ;
 	}
 
 	public String toString()
 	{
-		return name;
+		return name ;
 	}
 
 	// Added by MFO (September 4, 2002)
@@ -142,16 +141,16 @@ public class BandSpec
      */
 	public double[] getBandWidths( double overlap )
 	{
-		double[] result = new double[ bandWidths.length ];
+		double[] result = new double[ bandWidths.length ] ;
 
 		for( int i = 0 ; i < bandWidths.length ; i++ )
 		{
-			result[ i ] = bandWidths[ i ] - ( numHybridSubBands[ i ] * overlap );
+			result[ i ] = bandWidths[ i ] - ( numHybridSubBands[ i ] * overlap ) ;
 
-			result[ i ] = Math.rint( result[ i ] / 1.0E3 ) * 1.0E3;
+			result[ i ] = Math.rint( result[ i ] / 1.0E3 ) * 1.0E3 ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -166,16 +165,16 @@ public class BandSpec
      */
 	public double[] getDefaultOverlapBandWidths()
 	{
-		double[] result = new double[ bandWidths.length ];
+		double[] result = new double[ bandWidths.length ] ;
 
 		for( int i = 0 ; i < bandWidths.length ; i++ )
 		{
-			result[ i ] = bandWidths[ i ] - ( numHybridSubBands[ i ] * defaultOverlaps[ i ] );
+			result[ i ] = bandWidths[ i ] - ( numHybridSubBands[ i ] * defaultOverlaps[ i ] ) ;
 
-			result[ i ] = Math.rint( result[ i ] / 1.0E3 ) * 1.0E3;
+			result[ i ] = Math.rint( result[ i ] / 1.0E3 ) * 1.0E3 ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -186,16 +185,16 @@ public class BandSpec
      */
 	public int[] getDefaultOverlapChannels()
 	{
-		int[] result = new int[ channels.length ];
-		double channelOverlap;
+		int[] result = new int[ channels.length ] ;
+		double channelOverlap ;
 
 		for( int i = 0 ; i < channels.length ; i++ )
 		{
-			channelOverlap = channels[ i ] * ( defaultOverlaps[ i ] / bandWidths[ i ] );
-			result[ i ] = ( int )( channels[ i ] - ( numHybridSubBands[ i ] * channelOverlap ) );
+			channelOverlap = channels[ i ] * ( defaultOverlaps[ i ] / bandWidths[ i ] ) ;
+			result[ i ] = ( int )( channels[ i ] - ( numHybridSubBands[ i ] * channelOverlap ) ) ;
 		}
 
-		return result;
+		return result ;
 	}
 
 	/**
@@ -208,7 +207,7 @@ public class BandSpec
      */
 	public int getNumHybridSubBands( int bandWidthIndex )
 	{
-		return numHybridSubBands[ bandWidthIndex ];
+		return numHybridSubBands[ bandWidthIndex ] ;
 	}
 
 	/**
@@ -221,15 +220,15 @@ public class BandSpec
      */
 	public int getDefaultOverlapBandWidthIndex( double defaultOverlapBandWidth )
 	{
-		double[] allDefaultOverlapBandWidths = getDefaultOverlapBandWidths();
+		double[] allDefaultOverlapBandWidths = getDefaultOverlapBandWidths() ;
 
 		for( int i = 0 ; i < allDefaultOverlapBandWidths.length ; i++ )
 		{
 			if( allDefaultOverlapBandWidths[ i ] == defaultOverlapBandWidth )
-				return i;
+				return i ;
 		}
 
-		throw new IllegalStateException( "Could not find subsystem with default overlap bandwith " + defaultOverlapBandWidth );
+		throw new IllegalStateException( "Could not find subsystem with default overlap bandwith " + defaultOverlapBandWidth ) ;
 	}
 
 	/**
@@ -243,14 +242,14 @@ public class BandSpec
      */
 	public int getDefaultOverlapChannelsIndex( int defaultOverlapChannels )
 	{
-		int[] allDefaultOverlapChannels = getDefaultOverlapChannels();
+		int[] allDefaultOverlapChannels = getDefaultOverlapChannels() ;
 
 		for( int i = 0 ; i < allDefaultOverlapChannels.length ; i++ )
 		{
 			if( allDefaultOverlapChannels[ i ] == defaultOverlapChannels )
-				return i;
+				return i ;
 		}
 
-		throw new IllegalStateException( "Could not find subsystem with default overlap number of channels " + defaultOverlapChannels );
+		throw new IllegalStateException( "Could not find subsystem with default overlap number of channels " + defaultOverlapChannels ) ;
 	}
 }

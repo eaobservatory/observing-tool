@@ -7,14 +7,13 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 public class SkyData
 {
-
 	double [][] atmosphere = 
 	{
 		 { 200.000,   0.9179 }, 
@@ -568,38 +567,38 @@ public class SkyData
 		 { 748.000,   0.0000 }, 
 		 { 749.000,   0.0000 }, 
 		 { 750.000,   0.0000 } 
-	};
+	} ;
 	   
 	public double[][] getTransmission( double minFreq , double maxFreq )
 	{
-		int start;
-		int endj;
-		int j;
-		double[][] extract = null;
+		int start ;
+		int endj ;
+		int j ;
+		double[][] extract = null ;
 
-		minFreq = minFreq * 1.0E-9;
-		maxFreq = maxFreq * 1.0E-9;
-		start = 0;
+		minFreq = minFreq * 1.0E-9 ;
+		maxFreq = maxFreq * 1.0E-9 ;
+		start = 0 ;
 
 		for( j = 0 ; j < atmosphere.length ; j++ )
 		{
 			if( atmosphere[ j ][ 0 ] > maxFreq )
-				break;
+				break ;
 			if( ( atmosphere[ j ][ 0 ] >= minFreq ) && ( start == 0 ) )
-				start = j;
+				start = j ;
 		}
-		endj = j;
+		endj = j ;
 
 		if( endj >= start )
 		{
-			extract = new double[ endj - start + 1 ][ 2 ];
+			extract = new double[ endj - start + 1 ][ 2 ] ;
 			for( j = start ; j <= endj ; j++ )
 			{
-				extract[ j - start ][ 0 ] = atmosphere[ j ][ 0 ] * 1.0E9;
-				extract[ j - start ][ 1 ] = atmosphere[ j ][ 1 ];
+				extract[ j - start ][ 0 ] = atmosphere[ j ][ 0 ] * 1.0E9 ;
+				extract[ j - start ][ 1 ] = atmosphere[ j ][ 1 ] ;
 			}
 		}
 
-		return extract;
+		return extract ;
 	}
 }

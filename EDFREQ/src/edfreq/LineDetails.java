@@ -7,22 +7,21 @@
 /*                                                              */
 /* ============================================================== */
 // $Id$
-package edfreq;
+package edfreq ;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 public class LineDetails
 {
-
-	public String name;
-	public String transition;
-	public double frequency;
+	public String name ;
+	public String transition ;
+	public double frequency ;
 
 	public LineDetails( String name , String transition , double frequency )
 	{
-		this.name = name;
-		this.transition = transition;
-		this.frequency = frequency;
+		this.name = name ;
+		this.transition = transition ;
+		this.frequency = frequency ;
 	}
 }
