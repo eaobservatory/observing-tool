@@ -243,7 +243,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		{
 			double dx = 0. ;
 			if( inst instanceof SpInstSCUBA )
-				dx = getScanVelocity() / ( ( SpInstSCUBA )inst ).getChopFrequency() ;
+				dx = getScanVelocity() / (( SpInstSCUBA )inst).getChopFrequency() ;
 			else if( inst instanceof SpInstHeterodyne )
 				dx = getScanVelocity() * getSampleTime() ;
 			else if( inst instanceof SpInstSCUBA2 )
@@ -267,7 +267,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( inst == null )
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." ) ;
 		else if( inst instanceof SpInstSCUBA )
-			valid = setScanVelocity( ( ( SpInstSCUBA )inst ).getChopFrequency() * dx ) ;
+			valid = setScanVelocity( (( SpInstSCUBA )inst).getChopFrequency() * dx ) ;
 		else if( inst instanceof SpInstSCUBA2 )
 			valid = setScanVelocity( dx * 200. ) ;
 		else
@@ -442,8 +442,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 * Convenience method.
 	 * Gives the number of samples per row, which means the longest edge.
 	 * @return
+	 * @throws java.lang.UnsupportedOperationException No instrument in scope
 	 */
-	public double numberOfSamplesPerRow()
+	public double numberOfSamplesPerRow() throws UnsupportedOperationException
 	{
 		return numberOfSamplesOnSide( true ) ;
 	}
@@ -452,8 +453,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 * Convenience method.
 	 * Gives the number of samples per column, which means the shortest edge.
 	 * @return
+	 * @throws java.lang.UnsupportedOperationException No instrument in scope
 	 */
-	public double numberOfSamplesPerColumn()
+	public double numberOfSamplesPerColumn() throws UnsupportedOperationException
 	{
 		return numberOfSamplesOnSide( false ) ;
 	}
@@ -464,9 +466,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 * 	true = number of samples per row,
 	 *  false = number of samples per column
 	 * @return
-	 * 
+	 * @throws java.lang.UnsupportedOperationException No instrument in scope
 	 */
-	protected double numberOfSamplesOnSide( boolean row )
+	protected double numberOfSamplesOnSide( boolean row ) throws UnsupportedOperationException
 	{
 		double samplesPerRow = getWidth() ;
 		double samplesPerColumn = getHeight() ;
@@ -496,7 +498,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			samplesPerRow++ ;
 
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
-		if( instrument != null && instrument instanceof SpInstHeterodyne )
+		if( instrument == null )
+		{
+			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" ) ;
+		}
+		else if( instrument instanceof SpInstHeterodyne )
 		{
 			String frontend = (( SpInstHeterodyne )instrument).getFrontEnd() ;
 			if( "HARP".equals( frontend ) )
