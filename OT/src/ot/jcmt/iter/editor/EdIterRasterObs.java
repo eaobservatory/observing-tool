@@ -16,7 +16,6 @@ import java.awt.event.KeyEvent ;
 import java.text.DecimalFormat ;
 import java.util.Observer ;
 import java.util.Observable ;
-import java.util.TreeMap ;
 
 import javax.swing.JTextField ;
 
@@ -66,11 +65,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private final Color warnColor = Color.yellow.darker() ;
 	private final Color errColor = Color.red.darker() ;
 
-	// Global flag indicating whether we are using acsis or das
+	// Global flag indicating whether we are using acsis
 	private boolean _isAcsis = true ;
 	private boolean harp = false ;
 	private boolean scuba2 = false ;
-	TreeMap harpMap = new TreeMap() ;
 	
 	private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" } ;
 	private static final double[] HARP_RASTER_STEPS = { 1. , .5 , .25 , .125 , 0.0625 , 0.75 } ;
@@ -482,6 +480,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			catch( Exception e ){}
 			_iterObs.setSampleTime( sampleTime ) ;
 			_w.noiseTextBox.setValue( calculateNoise() ) ;
+			updateAreaPanel() ;
+			updateSizeOfPixels() ;
 		}
 		else if( tbwe == _w.numberOfMapCycles )
 		{
