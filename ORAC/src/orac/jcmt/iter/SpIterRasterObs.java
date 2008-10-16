@@ -279,24 +279,13 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		boolean valid = false ;
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
-		{
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." ) ;
-		}
 		else if( inst instanceof SpInstSCUBA )
-		{
 			valid = setScanVelocity( (( SpInstSCUBA )inst).getChopFrequency() * dx ) ;
-		}
 		else if( inst instanceof SpInstSCUBA2 )
-		{
 			valid = setScanVelocity( dx * 200. ) ;
-		}
 		else if( inst instanceof SpInstHeterodyne )
-		{
-			BigDecimal deeEx = new BigDecimal( dx ) ;
-			BigDecimal sampleTime = new BigDecimal( getSampleTime() ) ;
-			BigDecimal velocity = deeEx.divide( sampleTime , context ) ;
-			valid = setScanVelocity( velocity.doubleValue() ) ;
-		}
+			valid = setScanVelocity( dx / getSampleTime() ) ;
 		return valid ;
 	}
 
