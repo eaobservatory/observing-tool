@@ -29,6 +29,9 @@ import orac.jcmt.util.ComputePong ;
 import java.util.Vector ;
 import java.util.StringTokenizer ;
 
+import java.math.MathContext ;
+import java.math.BigDecimal ;
+
 /**
  * Raster Iterator for ACSIS/JCMT.
  *
@@ -62,6 +65,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	
 	public static final double HARP_SAMPLE = 7.2761 ;
 	public static final double HARP_FULL_ARRAY = 116.4171 ;
+	
+	private static final MathContext context = new MathContext( 13 ) ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" ) ;
 
@@ -243,12 +248,21 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		{
 			double dx = 0. ;
 			if( inst instanceof SpInstSCUBA )
+			{
 				dx = getScanVelocity() / (( SpInstSCUBA )inst).getChopFrequency() ;
+			}
 			else if( inst instanceof SpInstHeterodyne )
-				dx = getScanVelocity() * getSampleTime() ;
+			{
+				BigDecimal velocity = new BigDecimal( getScanVelocity() ) ;
+				BigDecimal sampleTime = new BigDecimal( getSampleTime() ) ;
+				BigDecimal deeEx = velocity.multiply( sampleTime , context ) ;
+				dx = deeEx.doubleValue() ;
+			}
 			else if( inst instanceof SpInstSCUBA2 )
+			{
 				dx = getScanVelocity() / 200. ;
-
+			}
+			
 			return dx ;
 		}
 	}
@@ -265,13 +279,24 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		boolean valid = false ;
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
+		{
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." ) ;
+		}
 		else if( inst instanceof SpInstSCUBA )
+		{
 			valid = setScanVelocity( (( SpInstSCUBA )inst).getChopFrequency() * dx ) ;
+		}
 		else if( inst instanceof SpInstSCUBA2 )
+		{
 			valid = setScanVelocity( dx * 200. ) ;
-		else
-			valid = setScanVelocity( dx / getSampleTime() ) ;
+		}
+		else if( inst instanceof SpInstHeterodyne )
+		{
+			BigDecimal deeEx = new BigDecimal( dx ) ;
+			BigDecimal sampleTime = new BigDecimal( getSampleTime() ) ;
+			BigDecimal velocity = deeEx.divide( sampleTime , context ) ;
+			valid = setScanVelocity( velocity.doubleValue() ) ;
+		}
 		return valid ;
 	}
 
