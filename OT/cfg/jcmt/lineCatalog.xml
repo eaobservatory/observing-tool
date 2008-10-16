@@ -645,6 +645,7 @@ the end of the transition name - it makes the display nicer.
     <transition name="6 5  - 5 4 " frequency="251825.77"/>
     <transition name="9 8  - 8 8 " frequency="254573.5004"/>
     <transition name="6 6  - 5 5 " frequency="258255.813"/>
+    <transition name="6 7  - 5 6 " frequency="261843.7120"/>
     <transition name="4 3  - 3 4 " frequency="267197.8968"/>
     <transition name="1 1  - 0 1 " frequency="286340.207"/>
     <transition name="5 4  - 4 5 " frequency="294768.5694"/>
@@ -1140,6 +1141,8 @@ the end of the transition name - it makes the display nicer.
     <transition name="3  - 2 " frequency="231321.6650"/>
   </species>
   <species name = "SO2">
+	  <transition name="18 117  - 18 018 " frequency="240942.7918"/>
+	  <transition name="4 4 0  - 5 3 3 " frequency="262333.9658"/>
 	  <transition name="15 4 12  - 15 3 13 " frequency="357241.1900"/>
 	  <transition name="11 4 8  - 11 3 9 " frequency="357387.5700"/>
 	  <transition name="8 4 4  - 8 3 5 " frequency="357581.4483"/>
