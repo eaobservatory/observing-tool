@@ -66,7 +66,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public static final double HARP_SAMPLE = 7.2761 ;
 	public static final double HARP_FULL_ARRAY = 116.4171 ;
 	
-	private static final MathContext context = new MathContext( 13 ) ;
+	public static final MathContext context = new MathContext( 13 ) ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" ) ;
 

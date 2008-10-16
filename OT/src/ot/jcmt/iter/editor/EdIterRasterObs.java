@@ -41,6 +41,9 @@ import orac.jcmt.inst.SpInstSCUBA2 ;
 
 import orac.util.CoordConvert ;
 
+import java.math.BigDecimal ;
+import java.math.MathContext ;
+
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
  *
@@ -378,8 +381,16 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		boolean displayWarning = false ;
 		if( !scuba2 )
 		{
-			double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
-			double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
+			BigDecimal width = new BigDecimal( _iterObs.getWidth() ) ;
+			BigDecimal deeEx = new BigDecimal( _iterObs.getScanDx() ) ;
+			BigDecimal bigSizeOfXPixel = width.divide( deeEx , SpIterRasterObs.context ) ;
+			double sizeOfXPixel = bigSizeOfXPixel.doubleValue() ;
+			
+			BigDecimal height = new BigDecimal( _iterObs.getHeight() ) ;
+			BigDecimal deeWy = new BigDecimal( _iterObs.getScanDy() ) ;
+			BigDecimal bigSizeOfYPixel = height.divide( deeWy , SpIterRasterObs.context ) ;
+			double sizeOfYPixel = bigSizeOfYPixel.doubleValue() ;
+			
 			int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 ) ;
 			int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 ) ;
 
