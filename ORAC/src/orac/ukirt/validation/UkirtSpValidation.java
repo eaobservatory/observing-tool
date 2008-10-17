@@ -264,6 +264,8 @@ public class UkirtSpValidation extends SpValidation
 		
 		report.add( new ErrorMessage( ErrorMessage.INFO , separator , "" ) ) ;
 
+		String titleString = titleString( spObs ) ;
+		
 		// Check whether the observation has an instrument (as its own child OR in its context).
 		if( SpTreeMan.findInstrument( spObs ) != null && !_isSpProgCheck )
 			checkInstrumentComponents( SpTreeMan.findInstrument( spObs ) , report ) ;
@@ -285,7 +287,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 		if( SpTreeMan.findTargetList( spObs ) == null && !hasSurveyParent )
 		{
-			report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No target list." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No target list." ) ) ;
 		}
 		else
 		{
@@ -296,7 +298,7 @@ public class UkirtSpValidation extends SpValidation
 		// Check whether the observation a DR recipe (as its own child OR in its context).
 		SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs ) ;
 		if( recipe == null )
-			report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No Dr-recipe component." ) ) ;
 		else if( !_isSpProgCheck )
 			checkDRRecipe( recipe , report ) ;
 
@@ -308,7 +310,7 @@ public class UkirtSpValidation extends SpValidation
 		observeIterators = findInstances( spObs , "gemini.sp.iter.SpIterObserveBase" ) ;
 
 		if( observeIterators == null )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "No observe iterator." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "No observe iterator." ) ) ;
 
 		// check for DARK observe iterators.
 		observeIterators = findInstances( spObs , "orac.ukirt.iter.SpIterDarkObs" ) ;
@@ -319,7 +321,7 @@ public class UkirtSpValidation extends SpValidation
 		if( instrumentIterators == null )
 		{
 			if( SpTreeMan.findInstrument( spObs ) == null )
-				report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Neither instrument iterator nor instrument component found." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Neither instrument iterator nor instrument component found." ) ) ;
 		}
 		else
 		{
@@ -347,7 +349,7 @@ public class UkirtSpValidation extends SpValidation
 				darkExpTime = ( ( SpIterObserveBase )e1.nextElement() ).getExposureTime() ;
 
 				if( darkExpTime != instExpTime )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "DARK doesn't have same exposure time as instrument component." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "DARK doesn't have same exposure time as instrument component." ) ) ;
 
 				if( instrumentIterators != null )
 				{
@@ -368,7 +370,7 @@ public class UkirtSpValidation extends SpValidation
 								}
 
 								if( darkExpTime != instIterExpTime )
-									report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "DARK doesn't have same exposure time as instrument iterator." ) ) ;
+									report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "DARK doesn't have same exposure time as instrument iterator." ) ) ;
 							}
 						}
 					}
@@ -397,13 +399,13 @@ public class UkirtSpValidation extends SpValidation
 					currentItem = e2.nextElement() ;
 
 					if( ( previousItem instanceof SpIterOffset ) && ( currentItem instanceof SpIterConfigObs ) )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , "Iterator Folder in " + spObs.getTitle() , "There is an offset iterator followed by an instrument iterator." ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , "Iterator Folder in " + titleString , "There is an offset iterator followed by an instrument iterator." ) ) ;
 
 					if( currentItem instanceof SpIterObserve )
 						spIterObserveFound = true ;
 
 					if( spIterObserveFound && ( currentItem instanceof SpIterConfigObs ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , "Iterator Folder in " + spObs.getTitle() , "Instrument iterators are not allowed after the observe." ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , "Iterator Folder in " + titleString , "Instrument iterators are not allowed after the observe." ) ) ;
 
 					if( currentItem instanceof SpIterDarkObs )
 						dark = true ;
@@ -413,7 +415,7 @@ public class UkirtSpValidation extends SpValidation
 				if( ( instObsComp instanceof SpInstUFTI ) || ( instObsComp instanceof SpInstIRCAM3 ) )
 				{
 					if( !dark )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "UFTI and IRCAM3 require DARK in sequence." ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "UFTI and IRCAM3 require DARK in sequence." ) ) ;
 				}
 			}
 		}
@@ -450,7 +452,7 @@ public class UkirtSpValidation extends SpValidation
 				}
 
 				if( wrongIteratorsOnObserveLevel )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "The position iterator or instrument iterator and the \"observe\" are on the same level of iteration." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "The position iterator or instrument iterator and the \"observe\" are on the same level of iteration." ) ) ;
 			}
 		}
 	}
@@ -463,6 +465,7 @@ public class UkirtSpValidation extends SpValidation
 	 */
 	public void checkTargetList( SpTelescopeObsComp telescopeObsComp , Vector<ErrorMessage> report )
 	{
+		String titleString = titleString( telescopeObsComp ) ;
 		SpTelescopePosList list = telescopeObsComp.getPosList() ;
 		TelescopePos[] position = list.getAllPositions() ;
 
@@ -499,14 +502,14 @@ public class UkirtSpValidation extends SpValidation
 			 */
 
 			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
-				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + " in " + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
 
 			if( !DDMMSS.validate( pos.getYaxisAsString() ) )
-				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + " in " + titleString , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
 
 			// checking whether both RA and Dec are 0:00:00
 			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() , "Both Dec and RA are 0:00:00" ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + " in " + titleString , "Both Dec and RA are 0:00:00" ) ) ;
 
 			/*
 			 * Check whether the target list has a target coordinate for which the epoch is B1950, 
@@ -537,7 +540,7 @@ public class UkirtSpValidation extends SpValidation
 						boolean systemsDiffer = trackingSystem != trackingSystem2 ;
 
 						if( trackingGood && guidesGood && systemsDiffer )
-							report.add( new ErrorMessage( ErrorMessage.ERROR , telescopeObsComp.getTitle() , "Target and guide star with differing coordinate systems have identical values for Ra and Dec." ) ) ;
+							report.add( new ErrorMessage( ErrorMessage.ERROR , telescopeObsComp.getTitle() + " in " + titleString , "Target and guide star with differing coordinate systems have identical values for Ra and Dec." ) ) ;
 					}
 				}
 			}
@@ -582,7 +585,7 @@ public class UkirtSpValidation extends SpValidation
 				{
 					if( Math.abs( offsets[ i ] ) > 210 )
 					{
-						report.add( new ErrorMessage( ErrorMessage.ERROR , basePos.getName() , "Guide star is more than 210 arcsecs from the base" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , basePos.getName() + " in " + titleString , "Guide star is more than 210 arcsecs from the base" ) ) ;
 						break ;
 					}
 				}
@@ -590,20 +593,21 @@ public class UkirtSpValidation extends SpValidation
 		}
 		else
 		{
-			report.add( new ErrorMessage( ErrorMessage.WARNING , telescopeObsComp.getTitle() , "No guide star specified." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , telescopeObsComp.getTitle() + " in " + titleString , "No guide star specified." ) ) ;
 		}
 	}
 
 	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report )
 	{
+		String titleString = titleString( recipe ) ;
 		if( !( recipe.getArcInGroup() || recipe.getBiasInGroup() || recipe.getDarkInGroup() || recipe.getFlatInGroup() || recipe.getObjectInGroup() || recipe.getSkyInGroup() ) )
-			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "No part included in group." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + titleString , "No part included in group." ) ) ;
 
 		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( recipe ) ) ;
 
 		if( inst == null )
 		{
-			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "Can't find instrument in scope." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + titleString , "Can't find instrument in scope." ) ) ;
 		}
 		else
 		{
@@ -697,23 +701,23 @@ public class UkirtSpValidation extends SpValidation
 			if( darkSkyAndObject )
 			{
 				if( !recipes.contains( recipe.getDarkRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Dark) for " + inst.subtypeStr() , recipe.getDarkRecipeName() + " not in the OT list." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Dark) for " + inst.subtypeStr() + " in " + titleString , recipe.getDarkRecipeName() + " not in the OT list." ) ) ;
 
 				if( !recipes.contains( recipe.getSkyRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Sky) for " + inst.subtypeStr() , recipe.getSkyRecipeName() + " not in the OT list." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Sky) for " + inst.subtypeStr() + " in " + titleString , recipe.getSkyRecipeName() + " not in the OT list." ) ) ;
 
 				if( !recipes.contains( recipe.getObjectRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Object) for " + inst.subtypeStr() , recipe.getObjectRecipeName() + " not in the OT list." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Object) for " + inst.subtypeStr() + " in " + titleString , recipe.getObjectRecipeName() + " not in the OT list." ) ) ;
 			}
 
 			if( flat && !recipes.contains( recipe.getFlatRecipeName() ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Flat) for " + inst.subtypeStr() , recipe.getFlatRecipeName() + " not in the OT list." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Flat) for " + inst.subtypeStr() + " in " + titleString , recipe.getFlatRecipeName() + " not in the OT list." ) ) ;
 			if( arc && !recipes.contains( recipe.getArcRecipeName() ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Arc) for " + inst.subtypeStr() , recipe.getArcRecipeName() + " not in the OT list." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Arc) for " + inst.subtypeStr() + " in " + titleString , recipe.getArcRecipeName() + " not in the OT list." ) ) ;
 			if( bias && !recipes.contains( recipe.getBiasRecipeName() ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Bias) for " + inst.subtypeStr() , recipe.getBiasRecipeName() + " not in the OT list." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Bias) for " + inst.subtypeStr() + " in " + titleString , recipe.getBiasRecipeName() + " not in the OT list." ) ) ;
 			if( focus && !recipes.contains( recipe.getFocusRecipeName() ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Focus) for " + inst.subtypeStr() , recipe.getFocusRecipeName() + " not in the OT list." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Focus) for " + inst.subtypeStr() + " in " + titleString , recipe.getFocusRecipeName() + " not in the OT list." ) ) ;
 		}
 	}
 
@@ -874,7 +878,7 @@ public class UkirtSpValidation extends SpValidation
 	/**
 	 * @see #findInstances(gemini.sp.SpItem, java.lang.Class, java.util.Vector)
 	 */
-	public static Vector<SpItem> findInstances( SpItem spItem , Class c )
+	public static Vector<SpItem> findInstances( SpItem spItem , Class<?> c )
 	{
 		Vector<SpItem> result = new Vector<SpItem>() ;
 		findInstances( spItem , c , result ) ;
@@ -1130,7 +1134,7 @@ public class UkirtSpValidation extends SpValidation
 						break ;
 
 					case 'c' :
-						Vector report = new Vector() ;
+						Vector<ErrorMessage> report = new Vector<ErrorMessage>() ;
 						c.checkSciProgram( root , report ) ;
 						ErrorMessage.printMessages( report.elements() , System.out ) ;
 						correct_input = true ;

@@ -49,6 +49,8 @@ public class JcmtSpValidation extends SpValidation
 			report = new Vector<ErrorMessage>() ;
 		
 		report.add( new ErrorMessage( ErrorMessage.INFO , separator , "" ) ) ;
+		
+		String titleString = titleString( spObs ) ;
 
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( spObs ) ;
 		SpTelescopeObsComp target = SpTreeMan.findTargetList( spObs ) ;
@@ -115,9 +117,9 @@ public class JcmtSpValidation extends SpValidation
 
 				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
 				if( loMin != 0. && ( loMin - spInstHeterodyne.getFeIF() ) > skyFrequency )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) ) ;
 				if( loMax != 0. && ( loMax + spInstHeterodyne.getFeIF() ) < skyFrequency )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) ) ;
 
 				int available = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
 				String sideBand = spInstHeterodyne.getBand() ;
@@ -126,9 +128,9 @@ public class JcmtSpValidation extends SpValidation
 					double centre = spInstHeterodyne.getCentreFrequency( index ) ;
 					double rest = spInstHeterodyne.getRestFrequency( index ) ;
 					if( "lsb".equals( sideBand ) && ( rest + centre ) > loMax )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use upper or best sideband to reach the line " + rest ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Need to use upper or best sideband to reach the line " + rest ) ) ;
 					else if( !"lsb".equals( sideBand ) && ( rest - centre ) < loMin )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Need to use lower sideband to reach the line " + rest ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Need to use lower sideband to reach the line " + rest ) ) ;
 					
 				}
 
@@ -138,11 +140,11 @@ public class JcmtSpValidation extends SpValidation
 					String frontEnd = spInstHeterodyne.getFrontEnd() ;
 					String jigglePattern = spIterJiggleObs.getJigglePattern() ;
 					if( frontEnd == null )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Front end is null" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Front end is null" ) ) ;
 					else if( jigglePattern == null )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Jiggle pattern not initialised" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Jiggle pattern not initialised" ) ) ;
 					else if( jigglePattern.startsWith( "HARP" ) && !frontEnd.startsWith( "HARP" ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) ) ;
 				}
 				if( thisObs instanceof SpIterNoiseObs )
 					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) ) ;
@@ -155,25 +157,25 @@ public class JcmtSpValidation extends SpValidation
 				{
 					Vector chops = SpTreeMan.findAllInstances( spObs , SpIterChop.class.getName() ) ;
 					if( chops == null || chops.size() == 0 )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Chop iterator required for beam switch mode" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Chop iterator required for beam switch mode" ) ) ;
 				}
 				else if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) )
 				{
 					if( target != null && !( target.getPosList().exists( "REFERENCE" ) ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Position switched observation requires a REFERENCE target" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Position switched observation requires a REFERENCE target" ) ) ;
 				}
 			}
 			else if( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) )
 			{
-				report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "No switching mode set" ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "No switching mode set" ) ) ;
 			}
 			
 			// Check whether the observation a DR recipe (as its own child OR in its context).
 			SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs ) ;
 			if( recipe == null )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No Dr-recipe component." ) ) ;
 			else
-				checkDRRecipe( recipe , report , spObs.getTitle() , thisObs ) ;
+				checkDRRecipe( recipe , report , titleString , thisObs ) ;
 		}
 		super.checkObservation( spObs , report ) ;
 	}

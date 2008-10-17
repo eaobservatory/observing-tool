@@ -237,20 +237,24 @@ public class SpValidation
 		}
 	}
 
-	private String parentMsb( SpItem spObs )
+	protected String titleString( SpItem spItem )
 	{
-		String parentMsb = " " ;
-		SpItem parent = spObs ;
+		String returnString = "" ;
+		SpItem parent = spItem ;
 		while( parent != null )
 		{
-			parent = parent.parent() ;
-			if( parent instanceof SpMSB )
+			if( parent instanceof SpObs )
 			{
-				parentMsb = " in MSB \'" + (( SpMSB )parent).getTitle() + "\'->" ;
+				returnString += "\"" + (( SpObs )parent).getTitle() + "\"" ;
+			}
+			else if( parent instanceof SpMSB )
+			{
+				returnString += " in MSB \'" + (( SpMSB )parent).getTitleAttr() + "\'" ;
 				break ;
 			}
+			parent = parent.parent() ;
 		}
-		return parentMsb ;
+		return returnString ;
 	}
 	
 	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
@@ -258,13 +262,13 @@ public class SpValidation
 		if( report == null )
 			report = new Vector<ErrorMessage>() ;
 		
-		String parentMsb = parentMsb( spObs ) ;
+		String titleString = titleString( spObs ) ;
 
 		Enumeration<SpItem> children ;
 		SpItem child ;
 
 		if( SpTreeMan.findInstrument( spObs ) == null )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation" + parentMsb + "\"" + spObs.getTitle() + "\"" , "Instrument component is missing." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + titleString  , "Instrument component is missing." ) ) ;
 
 		if( !spObs.isOptional() )
 			checkTargetList( SpTreeMan.findTargetList( spObs ) , report ) ;
@@ -277,10 +281,10 @@ public class SpValidation
 			{
 				child = children.nextElement() ;
 				if( child instanceof SpSiteQualityObsComp )
-					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + parentMsb + "\"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the site quality component of the parent MSB." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + titleString , "Observations inside MSBs must use the site quality component of the parent MSB." ) ) ;
 
 				if( child instanceof SpSchedConstObsComp )
-					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + parentMsb + "\"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the scheduling constraints component of the parent MSB." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + titleString , "Observations inside MSBs must use the scheduling constraints component of the parent MSB." ) ) ;
 			}
 		}
 	}
@@ -359,7 +363,7 @@ public class SpValidation
 			else
 			{
 				if( title != null )
-					report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB or Observation" , "MSB/Observation " + title + " does not contain or inherit a " + description ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB or Observation" , "MSB/Observation \"" + title + "\" does not contain or inherit a " + description ) ) ;
 				else
 					report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB or Observation" , "Unnamed MSB/Observation does not contain or inherit a " + description ) ) ;
 
@@ -481,6 +485,7 @@ public class SpValidation
 	{
 		if( obsComp != null )
 		{
+			String titleString = titleString( obsComp ) ;
 			SpTelescopePosList list = obsComp.getPosList() ;
 			TelescopePos[] position = list.getAllPositions() ;
 
@@ -488,7 +493,7 @@ public class SpValidation
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
 				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && ( pos.getXaxis() == 0 ) && ( pos.getYaxis() == 0 ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() , "Both Dec and RA are 0:00:00" ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + " in " + titleString , "Both Dec and RA are 0:00:00" ) ) ;
 			}
 		}
 		else
