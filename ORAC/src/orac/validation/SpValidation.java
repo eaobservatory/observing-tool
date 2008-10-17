@@ -224,12 +224,12 @@ public class SpValidation
 		}
 		else
 		{
-			Enumeration children = spMSB.children() ;
+			Enumeration<SpItem> children = spMSB.children() ;
 			SpItem child ;
 
 			while( children.hasMoreElements() )
 			{
-				child = ( SpItem )children.nextElement() ;
+				child = children.nextElement() ;
 
 				if( child instanceof SpObs )
 					checkObservation( ( SpObs )child , report ) ;
@@ -237,16 +237,34 @@ public class SpValidation
 		}
 	}
 
+	private String parentMsb( SpItem spObs )
+	{
+		String parentMsb = " " ;
+		SpItem parent = spObs ;
+		while( parent != null )
+		{
+			parent = parent.parent() ;
+			if( parent instanceof SpMSB )
+			{
+				parentMsb = " in MSB \'" + (( SpMSB )parent).getTitle() + "\'->" ;
+				break ;
+			}
+		}
+		return parentMsb ;
+	}
+	
 	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
 	{
 		if( report == null )
 			report = new Vector<ErrorMessage>() ;
+		
+		String parentMsb = parentMsb( spObs ) ;
 
 		Enumeration<SpItem> children ;
 		SpItem child ;
 
 		if( SpTreeMan.findInstrument( spObs ) == null )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation \"" + spObs.getTitle() + "\"" , "Instrument component is missing." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation" + parentMsb + "\"" + spObs.getTitle() + "\"" , "Instrument component is missing." ) ) ;
 
 		if( !spObs.isOptional() )
 			checkTargetList( SpTreeMan.findTargetList( spObs ) , report ) ;
@@ -259,10 +277,10 @@ public class SpValidation
 			{
 				child = children.nextElement() ;
 				if( child instanceof SpSiteQualityObsComp )
-					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation \"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the site quality component of the parent MSB." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + parentMsb + "\"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the site quality component of the parent MSB." ) ) ;
 
 				if( child instanceof SpSchedConstObsComp )
-					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation \"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the scheduling constraints component of the parent MSB." ) ) ;
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + parentMsb + "\"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the scheduling constraints component of the parent MSB." ) ) ;
 			}
 		}
 	}
