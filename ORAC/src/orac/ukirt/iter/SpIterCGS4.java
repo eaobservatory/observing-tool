@@ -15,6 +15,7 @@ import java.util.Enumeration ;
 import orac.ukirt.inst.SpInstCGS4 ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpType ;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
@@ -174,7 +175,7 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 				v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 
 				// translate all the cildren...
-				Enumeration e = this.children() ;
+				Enumeration<SpItem> e = this.children() ;
 				TranslationUtils.recurse( e , v ) ;
 			}
 		}

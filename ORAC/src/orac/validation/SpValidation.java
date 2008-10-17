@@ -131,12 +131,12 @@ public class SpValidation
 
 	protected void checkSciProgramRecursively( SpItem spItem , Vector<ErrorMessage> report )
 	{
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		SpItem child ;
 
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 
 			if( child instanceof SpMSB )
 				checkMSB( ( SpMSB )child , report ) ;
@@ -206,10 +206,10 @@ public class SpValidation
 		// the MSB has a TargetComponent as a child, this is an error
 		if( spMSB.parent() instanceof SpSurveyContainer && !( spMSB instanceof SpObs ) )
 		{
-			Enumeration children = spMSB.children() ;
+			Enumeration<SpItem> children = spMSB.children() ;
 			while( children.hasMoreElements() )
 			{
-				SpItem child = ( SpItem )children.nextElement() ;
+				SpItem child = children.nextElement() ;
 				if( child instanceof SpTelescopeObsComp )
 				{
 					report.add( new ErrorMessage( ErrorMessage.ERROR , "An MSB within a Survey Container may not contain a Target Component" , "SC/MSB/Target not allowed" ) ) ;
@@ -242,7 +242,7 @@ public class SpValidation
 		if( report == null )
 			report = new Vector<ErrorMessage>() ;
 
-		Enumeration children ;
+		Enumeration<SpItem> children ;
 		SpItem child ;
 
 		if( SpTreeMan.findInstrument( spObs ) == null )
@@ -257,7 +257,7 @@ public class SpValidation
 
 			while( children.hasMoreElements() )
 			{
-				child = ( SpItem )children.nextElement() ;
+				child = children.nextElement() ;
 				if( child instanceof SpSiteQualityObsComp )
 					report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation \"" + spObs.getTitle() + "\"" , "Observations inside MSBs must use the site quality component of the parent MSB." ) ) ;
 
@@ -481,7 +481,7 @@ public class SpValidation
 
 	private void checkSurveyContainer( SpProg prog , Vector<ErrorMessage> report )
 	{
-		Vector containers = SpTreeMan.findAllInstances( prog , SpSurveyContainer.class.getName() ) ;
+		Vector<SpItem> containers = SpTreeMan.findAllInstances( prog , SpSurveyContainer.class.getName() ) ;
 		for( int count = 0 ; count < containers.size() ; count++ )
 		{
 			SpSurveyContainer container = ( SpSurveyContainer )containers.get( count ) ;

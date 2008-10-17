@@ -37,11 +37,11 @@ public class SpPhase1 extends SpRootItem
 			spProg.setTitleAttr( title ) ;
 
 		// Copy all of the child SpItems to the new program.
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		SpItem afterChild = null ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			SpItem copy = child.deepCopy() ;
 
 			spProg.doInsert( copy , afterChild ) ;

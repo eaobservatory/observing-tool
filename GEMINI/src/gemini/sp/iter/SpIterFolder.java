@@ -57,10 +57,10 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 	{
 		Vector code = new Vector() ;
 
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( !( child instanceof SpIterComp ) )
 				continue ;
 
@@ -78,7 +78,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
      */
 	public void printSummary()
 	{
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
 		{
 			SpIterComp sic = ( SpIterComp )e.nextElement() ;
@@ -288,7 +288,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		Enumeration e = this.children() ;
+		Enumeration<SpItem> e = this.children() ;
 		TranslationUtils.recurse( e , v ) ;
 	}
 }

@@ -147,38 +147,39 @@ public class SpProg extends SpRootItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0 ;
-		Enumeration children = children() ;
+		double elapsedTime = 0. ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+				SpMSB msb = ( SpMSB )spItem ;
+				if( msb.getNumberRemaining() >= 0 )
+					elapsedTime += msb.getTotalTime() * msb.getNumberRemaining() ;
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
+				elapsedTime += (( SpAND )spItem).getTotalTime() ;
 			}
 			else if( spItem instanceof SpOR )
 			{
 				try
 				{
-					elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
+					elapsedTime += (( SpAND )spItem).getTotalTime() ;
 				}
 				catch( Exception e )
 				{
 					// Ignore
 				}
-				elapsedTime += ( ( SpOR )spItem ).getTotalTime() ;
+				elapsedTime += (( SpOR )spItem).getTotalTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getTotalTime() ;
 			}
 		}
 		return elapsedTime ;
@@ -189,30 +190,31 @@ public class SpProg extends SpRootItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0 ;
-		Enumeration children = children() ;
+		double elapsedTime = 0. ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() >= 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+				SpMSB msb = ( SpMSB )spItem ;
+				if( msb.getNumberRemaining() >= 0 )
+					elapsedTime += msb.getElapsedTime() * msb.getNumberRemaining() ;
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpAND )spItem).getElapsedTime() ;
 			}
 			else if( spItem instanceof SpOR )
 			{
-				elapsedTime += ( ( SpOR )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpOR )spItem).getElapsedTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
 			}
 		}
 

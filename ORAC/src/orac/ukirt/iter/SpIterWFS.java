@@ -1,6 +1,7 @@
 package orac.ukirt.iter ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpTreeMan ;
@@ -90,7 +91,7 @@ public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslata
 			}
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 
-			Enumeration e = this.children() ;
+			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}
 	}

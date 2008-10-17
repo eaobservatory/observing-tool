@@ -420,7 +420,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	{
 		//Hacky attempt to fix up offsets for UKIRT
 		SpItem parent = parent() ;
-		Vector offsets ;
+		Vector<SpItem> offsets ;
 		while( parent != null )
 		{
 			boolean msbOrProg = ( parent instanceof SpMSB || parent instanceof SpProg ) ;

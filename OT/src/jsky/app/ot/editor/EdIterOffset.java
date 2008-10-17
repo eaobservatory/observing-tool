@@ -253,10 +253,10 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 	 */
 	private void getOffsetSkyChildren( SpItem parent , Vector<SpIterSky> offsetSkys )
 	{
-		Enumeration children = parent.children() ;
+		Enumeration<SpItem> children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			if( child instanceof SpIterSky && ( ( SpIterSky )child ).getFollowOffset() )
 				offsetSkys.add( ( SpIterSky )child ) ;
 			else
@@ -629,13 +629,13 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 	 */
 	private static SpIterRasterObs getRasterObsIterator( SpItem spItem )
 	{
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		SpItem child = null ;
 		SpIterRasterObs result = null ;
 
 		while( children.hasMoreElements() && ( result == null ) )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 
 			if( child instanceof SpIterRasterObs )
 				result = ( SpIterRasterObs )child ;

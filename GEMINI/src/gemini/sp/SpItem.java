@@ -15,7 +15,7 @@ import java.util.Observable ;
 // Implements Enumeration. Can be used to iterate over the SpItem's
 // children.
 //
-final class SpChildren implements Enumeration , java.io.Serializable
+final class SpChildren implements Enumeration<SpItem> , java.io.Serializable
 {
 
 	private SpItem _curChild ;
@@ -39,7 +39,7 @@ final class SpChildren implements Enumeration , java.io.Serializable
 	//
 	// Get the next child.
 	//
-	public Object nextElement()
+	public SpItem nextElement()
 	{
 		SpItem item = _curChild ;
 		_curChild = _curChild.next() ;
@@ -364,7 +364,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	/**
      * Get an Enumeration of the item's children.
      */
-	public final Enumeration children()
+	public final Enumeration<SpItem> children()
 	{
 		return new SpChildren( this ) ;
 	}
@@ -791,7 +791,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		indentStr = indentStr + "   " ;
 
 		// Print the attributes
-		Enumeration keys = _avTable.attributes() ;
+		Enumeration<String> keys = _avTable.attributes() ;
 		while( keys.hasMoreElements() )
 		{
 			String key = ( String )keys.nextElement() ;
@@ -844,7 +844,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	protected void toXML( String indent , StringBuffer xmlBuffer )
 	{
-		Enumeration avAttributes ;
+		Enumeration<String> avAttributes ;
 		String avAttr ;
 		SpItem child ;
 

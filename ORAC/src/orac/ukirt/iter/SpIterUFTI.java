@@ -16,6 +16,7 @@ import gemini.util.ConfigWriter ;
 import gemini.util.TranslationUtils ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpTreeMan ;
@@ -342,7 +343,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper ) ;
 
-			Enumeration e = this.children() ;
+			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}
 	}

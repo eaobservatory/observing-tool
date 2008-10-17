@@ -115,7 +115,7 @@ public class UkirtSpValidation extends SpValidation
 	public void findSpItemByClassName( SpItem spItem , String type , String tree_path )
 	{
 		SpItem child = null ;
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		String result = null ;
 
 		if( spItem.getClass().toString().substring( 6 ).equals( type ) )
@@ -125,7 +125,7 @@ public class UkirtSpValidation extends SpValidation
 
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			findSpItemByClassName( child , type , result ) ;
 		}
 	}
@@ -154,12 +154,12 @@ public class UkirtSpValidation extends SpValidation
 		}
 
 		SpItem child = null ;
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		boolean result = false ;
 
 		while( children.hasMoreElements() && !result )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			result = findSpItem( child , type , subtype ) ;
 		}
 
@@ -391,10 +391,10 @@ public class UkirtSpValidation extends SpValidation
 			for( Enumeration<SpItem> e1 = iterFolderVector.elements() ; e1.hasMoreElements() ; )
 			{
 				iterFolder = ( SpIterFolder )e1.nextElement() ;
-				for( Enumeration e2 = iterFolder.children() ; e2.hasMoreElements() ; )
+				for( Enumeration<SpItem> e2 = iterFolder.children() ; e2.hasMoreElements() ; )
 				{
 					previousItem = currentItem ;
-					currentItem = ( SpItem )e2.nextElement() ;
+					currentItem = e2.nextElement() ;
 
 					if( ( previousItem instanceof SpIterOffset ) && ( currentItem instanceof SpIterConfigObs ) )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , "Iterator Folder in " + spObs.getTitle() , "There is an offset iterator followed by an instrument iterator." ) ) ;
@@ -795,17 +795,17 @@ public class UkirtSpValidation extends SpValidation
 	 * In the case of SpProg check is called from within checkSciProgram which contains adtional checks.
 	 * The method is NOT called recursively!!!
 	 */
-	public void checkContextItem( SpObsContextItem contextItem , Vector report )
+	public void checkContextItem( SpObsContextItem contextItem , Vector<ErrorMessage> report )
 	{
 
 		// check whether spItem is an observation.
 		if( contextItem instanceof SpObs )
 			checkObservation( ( SpObs )contextItem , report ) ;
 
-		Enumeration children = contextItem.children() ;
+		Enumeration<SpItem> children = contextItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem spItem = ( SpItem )children.nextElement() ;
+			SpItem spItem = children.nextElement() ;
 
 			/*
 			 * This assumes that the instrument component appears above the instrument iterator in the tree.
@@ -838,7 +838,7 @@ public class UkirtSpValidation extends SpValidation
 	 *
 	 * @see gemini.sp.SpTreeMan#findAllItems
 	 */
-	public static void findInstances( SpItem spItem , Class c , Vector<SpItem> result )
+	public static void findInstances( SpItem spItem , Class<?> c , Vector<SpItem> result )
 	{
 		if( result == null )
 			result = new Vector<SpItem>() ;
@@ -847,13 +847,13 @@ public class UkirtSpValidation extends SpValidation
 			result.add( spItem ) ;
 
 		SpItem child = null ;
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 
 		if( children.hasMoreElements() )
 		{
 			while( children.hasMoreElements() )
 			{
-				child = ( SpItem )children.nextElement() ;
+				child = children.nextElement() ;
 				findInstances( child , c , result ) ;
 			}
 		}
@@ -1041,12 +1041,12 @@ public class UkirtSpValidation extends SpValidation
 		}
 		else
 		{
-			Enumeration children = spMSB.children() ;
+			Enumeration<SpItem> children = spMSB.children() ;
 			SpItem child ;
 
 			while( children.hasMoreElements() )
 			{
-				child = ( SpItem )children.nextElement() ;
+				child = children.nextElement() ;
 
 				if( child instanceof SpObs )
 					checkObservation( ( SpObs )child , report ) ;
@@ -1156,9 +1156,8 @@ public class UkirtSpValidation extends SpValidation
 	 */
 	public static SpDRRecipe findRecipe( SpItem spItem )
 	{
-
 		SpItem child ; // Child of spItem
-		Enumeration children ; // Children of the sequence
+		Enumeration<SpItem> children ; // Children of the sequence
 		SpItem parent ; // Parent of spItem
 		SpItem searchItem ; // The sequence item to search
 
@@ -1184,7 +1183,7 @@ public class UkirtSpValidation extends SpValidation
 		children = searchItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			if( child instanceof SpDRRecipe )
 				return ( SpDRRecipe )child ;
 		}

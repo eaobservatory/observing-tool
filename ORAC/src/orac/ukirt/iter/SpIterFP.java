@@ -10,6 +10,7 @@
 package orac.ukirt.iter ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpType ;
@@ -90,7 +91,7 @@ public class SpIterFP extends SpIterConfigObsUKIRT implements SpTranslatable
 				for( int j = 0 ; j < l.size() ; j++ )
 					v.add( ( String )l.get( j ) + " " + ( String )getConfigSteps( ( String )l.get( j ) ).get( i ) ) ;
 				// Now loop through all the child elements
-				Enumeration e = this.children() ;
+				Enumeration<SpItem> e = this.children() ;
 				TranslationUtils.recurse( e , v ) ;
 			}
 		}

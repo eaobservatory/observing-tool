@@ -44,10 +44,10 @@ final class InsidePolicy_AfterComponents extends InsertPolicy
 	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
 	{
 		SpItem lastComp = null ;
-		Enumeration children = parent.children() ;
+		Enumeration<SpItem> children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			if( ( child instanceof SpObsComp ) || ( child instanceof SpNote ) )
 				lastComp = child ;
 			else
@@ -83,10 +83,10 @@ final class InsidePolicy_IteratorFolder extends InsertPolicy
 		// insertion.
 
 		SpItem lastComp = null ;
-		Enumeration children = parent.children() ;
+		Enumeration<SpItem> children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			if( child instanceof SpObsComp )
 				lastComp = child ;
 			else if( child instanceof SpIterFolder ) // ILLEGAL, there's already an IF in this scope.
@@ -638,10 +638,10 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpObsComp findObsCompSubtype( SpItem parent , SpType type )
 	{
-		Enumeration children = parent.children() ;
+		Enumeration<SpItem> children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 
 			if( child instanceof SpObsComp )
 			{
@@ -664,10 +664,10 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpTelescopeObsComp findTargetListInContext( SpItem spItem )
 	{
 		SpTelescopeObsComp toc = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpTelescopeObsComp )
 			{
 				toc = ( SpTelescopeObsComp )child ;
@@ -710,10 +710,10 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpSurveyObsComp findSurveyCompInContext( SpItem spItem )
 	{
 		SpSurveyObsComp soc = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpSurveyObsComp )
 			{
 				soc = ( SpSurveyObsComp )child ;
@@ -730,10 +730,10 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpInstObsComp findInstrumentInContext( SpItem spItem )
 	{
 		SpInstObsComp ioc = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpInstObsComp )
 			{
 				ioc = ( SpInstObsComp )child ;
@@ -746,10 +746,10 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpNote findObserverNoteInContext( SpItem spItem )
 	{
 		SpNote note = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpNote )
 			{
 				SpNote tmp = ( SpNote )child ;
@@ -870,10 +870,10 @@ public final class SpTreeMan implements SpInsertConstants
 			searchItem = spItem ;
 		}
 
-		Enumeration children = searchItem.children() ;
+		Enumeration<SpItem> children = searchItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			if( child instanceof SpInstObsComp )
 				return ( SpInstObsComp )child ;
 		}
@@ -918,7 +918,7 @@ public final class SpTreeMan implements SpInsertConstants
 	{
 		Vector<SpItem> v = new Vector<SpItem>() ;
 		// Get the class from the className
-		Class c = classForName( className ) ;
+		Class<?> c = classForName( className ) ;
 
 		if( c != null )
 		{
@@ -947,7 +947,7 @@ public final class SpTreeMan implements SpInsertConstants
 		Vector<SpItem> v = new Vector<SpItem>() ;
 		if( name != null && name.length() > 0 )
 		{
-			Class c = classForName( name ) ;
+			Class<?> c = classForName( name ) ;
 			if( c != null )
 			{
 				if( rootItem instanceof SpObsContextItem )
@@ -971,7 +971,7 @@ public final class SpTreeMan implements SpInsertConstants
 	// Find all of the items of the given Class in the scope of the given
     // SpItem.
 	//
-	private static void _findAllInstances( SpItem rootItem , Class c , Vector<SpItem> v )
+	private static void _findAllInstances( SpItem rootItem , Class<?> c , Vector<SpItem> v )
 	{
 		SpItem child = rootItem.child() ;
 		while( child != null )
@@ -991,7 +991,7 @@ public final class SpTreeMan implements SpInsertConstants
 	// Find all of the items of the given Class in the scope of the given
     // SpItem.
 	//
-	private static void _findAllItems( SpItem rootItem , Class c , Vector<SpItem> v )
+	private static void _findAllItems( SpItem rootItem , Class<?> c , Vector<SpItem> v )
 	{
 		SpItem child = rootItem.child() ;
 		while( child != null )

@@ -290,9 +290,9 @@ public final class SpEditState implements Observer , java.io.Serializable
 	private void _resetAvEditState( SpItem spItem )
 	{
 		spItem.getAvEditFSM().save() ;
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		while( children.hasMoreElements() )
-			_resetAvEditState( ( SpItem )children.nextElement() ) ;
+			_resetAvEditState( children.nextElement() ) ;
 	}
 
 	/**

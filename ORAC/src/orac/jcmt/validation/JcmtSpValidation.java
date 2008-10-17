@@ -52,7 +52,7 @@ public class JcmtSpValidation extends SpValidation
 
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( spObs ) ;
 		SpTelescopeObsComp target = SpTreeMan.findTargetList( spObs ) ;
-		Vector observes = SpTreeMan.findAllInstances( spObs , SpIterJCMTObs.class.getName() ) ;
+		Vector<SpItem> observes = SpTreeMan.findAllInstances( spObs , SpIterJCMTObs.class.getName() ) ;
 		for( int count = 0 ; count < observes.size() ; count++ )
 		{
 			SpIterJCMTObs thisObs = ( SpIterJCMTObs )observes.elementAt( count ) ;
@@ -217,7 +217,7 @@ public class JcmtSpValidation extends SpValidation
 			SpInstObsComp obsComp = SpTreeMan.findInstrument( spMSB ) ;
 			if( obsComp instanceof SpInstSCUBA )
 			{
-				Vector chopComponents = SpTreeMan.findAllInstances( spMSB , SpIterChop.class.getName() ) ;
+				Vector<SpItem> chopComponents = SpTreeMan.findAllInstances( spMSB , SpIterChop.class.getName() ) ;
 				if( chopComponents != null && chopComponents.size() > 1 )
 				{
 					boolean multipleIterator = false ;
@@ -308,7 +308,7 @@ public class JcmtSpValidation extends SpValidation
 	public static SpDRRecipe findRecipe( SpItem spItem )
 	{
 		SpItem child ; // Child of spItem
-		Enumeration children ; // Children of the sequence
+		Enumeration<SpItem> children ; // Children of the sequence
 		SpItem parent ; // Parent of spItem
 		SpItem searchItem ; // The sequence item to search
 
@@ -334,7 +334,7 @@ public class JcmtSpValidation extends SpValidation
 		children = searchItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			if( child instanceof SpDRRecipe )
 				return ( SpDRRecipe )child ;
 		}

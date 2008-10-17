@@ -10,6 +10,7 @@
 package orac.ukirt.iter ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpType ;
@@ -102,7 +103,7 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
 			v.add( "polAngle " + ( String )getConfigSteps( "IRPOLIter" ).get( i ) ) ;
-			Enumeration e = this.children() ;
+			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}
 	}

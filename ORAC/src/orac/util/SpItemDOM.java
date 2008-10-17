@@ -64,9 +64,9 @@ public class SpItemDOM
 		( new SpAvTableDOM( spItem.getTable() , _element ) ).parseAvTable() ;
 
 		// Append children
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		while( children.hasMoreElements() )
-			_element.appendChild( ( new SpItemDOM( ( SpItem )children.nextElement() , ownerDoc ) ).getElement() ) ;
+			_element.appendChild( ( new SpItemDOM( children.nextElement() , ownerDoc ) ).getElement() ) ;
 
 		// Create item data node
 		ElementImpl itemData = ( ElementImpl )ownerDoc.createElement( SP_ITEM_DATA_TAG ) ;

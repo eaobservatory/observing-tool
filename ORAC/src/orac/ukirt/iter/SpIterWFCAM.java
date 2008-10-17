@@ -14,6 +14,7 @@ import orac.ukirt.inst.SpInstWFCAM ;
 import gemini.util.ConfigWriter ;
 
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpTreeMan ;
@@ -199,7 +200,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper ) ;
 
 			// translate all the children...
-			Enumeration e = this.children() ;
+			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}
 	}

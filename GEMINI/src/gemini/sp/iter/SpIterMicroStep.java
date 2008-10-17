@@ -194,17 +194,17 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 			// parent is the SpIterOffset object at this point, although we probably don't need it
 			for( int i = 0 ; i < ( ( SpIterOffset )parent ).getPosList().size() ; i++ )
 			{
-				double xOff = ( ( SpIterOffset )parent ).getPosList().getPositionAt( i ).getXaxis() ;
-				double yOff = ( ( SpIterOffset )parent ).getPosList().getPositionAt( i ).getYaxis() ;
+				double xOff = (( SpIterOffset )parent).getPosList().getPositionAt( i ).getXaxis() ;
+				double yOff = (( SpIterOffset )parent).getPosList().getPositionAt( i ).getYaxis() ;
 				
 				for( int j = 0 ; j < microSteps.length ; j++ )
 				{
 					boolean firstRun = true ;
-					Enumeration e = this.children() ;
+					Enumeration<SpItem> e = this.children() ;
 					
 					while( e.hasMoreElements() )
 					{
-						SpItem child = ( SpItem )e.nextElement() ;
+						SpItem child = e.nextElement() ;
 						if( child instanceof SpTranslatable )
 						{
 							translatable = ( SpTranslatable )child ;

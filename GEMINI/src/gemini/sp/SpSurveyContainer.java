@@ -622,12 +622,12 @@ public class SpSurveyContainer extends SpObsContextItem
 	public double getElapsedTime()
 	{
 		double elapsedTime = 0. ;
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem child = null ;
 
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			if( child instanceof SpObs && (( SpObs )child).isOptional() )
 					elapsedTime += ( ( SpObs )child ).getElapsedTime() ;
 			else if( child instanceof SpMSB )
@@ -650,21 +650,21 @@ public class SpSurveyContainer extends SpObsContextItem
 	public double getTotalTime()
 	{
 		double elapsedTime = 0. ;
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem child = null ;
 		boolean hasObsChild = false ;
 
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 			if( child instanceof SpObs )
 			{
 				hasObsChild = true ;
-				elapsedTime += ( ( SpObs )child ).getElapsedTime() ;
+				elapsedTime += (( SpObs )child).getElapsedTime() ;
 			}
 			else if( child instanceof SpMSB )
 			{
-				elapsedTime += ( ( SpMSB )child ).getTotalTime() ;
+				elapsedTime += (( SpMSB )child).getTotalTime() ;
 			}
 		}
 

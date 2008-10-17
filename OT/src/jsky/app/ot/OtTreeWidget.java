@@ -131,10 +131,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		SpItem spItem = rootTNW.getItem() ;
 
 		int index = 0 ;
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( child ) ;
 			if( tnw != null )
 			{
@@ -194,9 +194,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 
 	private void reapChildren( SpItem item )
 	{
-		Enumeration e = item.children() ;
+		Enumeration<SpItem> e = item.children() ;
 		while( e.hasMoreElements() )
-			reapChildren( ( SpItem )e.nextElement() ) ;
+			reapChildren( e.nextElement() ) ;
 
 		if( item.getTable() != null )
 			item.getTable().noNotifyRmAll() ;
@@ -464,11 +464,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 						if( newItems[ i ] instanceof SpObs && ( destItem instanceof SpMSB || ( destItem instanceof SpObs && !( ( SpObs )destItem ).isMSB() ) ) )
 							continue ;
 
-						Enumeration children = sc.children() ;
+						Enumeration<SpItem> children = sc.children() ;
 						while( children.hasMoreElements() )
 						{
-							SpItem child = ( SpItem )children.nextElement() ;
-							if( child instanceof SpObs && ( ( SpObs )child ).isMSB() )
+							SpItem child = children.nextElement() ;
+							if( child instanceof SpObs && (( SpObs )child).isMSB() )
 							{
 								DialogUtil.error( this , "A Survey folder can contain at most 1 MSB and the current Obs is an MSB" ) ;
 								return null ;
@@ -968,11 +968,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		int nLow = 0 ;
 
 		// Find all of the children of the program
-		Enumeration children = _spProg.children() ;
+		Enumeration<SpItem> children = _spProg.children() ;
 		// For now just count the MSBs and Obs that are MSBs
 		while( children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )children.nextElement() ;
+			SpItem child = children.nextElement() ;
 			if( ( child instanceof SpMSB ) || ( child instanceof SpObs && ( ( SpObs )child ).isMSB() ) )
 				numberMSBs++ ;
 		}

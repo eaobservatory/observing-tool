@@ -163,11 +163,11 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 		_posAngleObsData.setPosAngle( pa ) ;
 
 		// SdW - Look for children which implement implement SpPosAngleObserver
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
-			Class[] interfaces = child.getClass().getInterfaces() ;
+			SpItem child = e.nextElement() ;
+			Class<?>[] interfaces = child.getClass().getInterfaces() ;
 			for( int i = 0 ; i < interfaces.length ; i++ )
 			{
 				if( interfaces[ i ].getName().indexOf( "SpPosAngleObserver" ) != -1 )
@@ -261,7 +261,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public boolean containsNestedOffsets()
 	{
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
 		{
 			if( e.nextElement() instanceof SpIterOffset )
@@ -279,7 +279,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
      */
 	public boolean containsMicroSteps()
 	{
-		Enumeration e = children() ;
+		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
 		{
 			if( e.nextElement() instanceof SpIterMicroStep )
@@ -412,10 +412,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	{
 		int n = 0 ;
 
-		Enumeration e = item.children() ;
+		Enumeration<SpItem> e = item.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpIterFolder )
 				n += getNumIterObserveChildren( child ) ;
 			else if( child instanceof SpIterObserveBase )
@@ -432,7 +432,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		// If this has a microstep iterator child, we will delegate to it and not put offsets here
-		Enumeration children = this.children() ;
+		Enumeration<SpItem> children = this.children() ;
 		boolean hasMicrostepChild = false ;
 		while( children.hasMoreElements() )
 		{
@@ -450,7 +450,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 			children = this.children() ;
 			while( children.hasMoreElements() )
 			{
-				SpItem child = ( SpItem )children.nextElement() ;
+				SpItem child = children.nextElement() ;
 				if( child instanceof SpTranslatable )
 				{
 					translatable = ( SpTranslatable )child ;
@@ -491,7 +491,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable
 				children = this.children() ;
 				while( children.hasMoreElements() )
 				{
-					SpItem child = ( SpItem )children.nextElement() ;
+					SpItem child = children.nextElement() ;
 					if( child instanceof SpTranslatable )
 					{
 						translatable = ( SpTranslatable )child ;

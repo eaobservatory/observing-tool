@@ -1244,7 +1244,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	 */
 	public static void findAllItems( SpItem rootItem , Class<SpIterObserveBase> type , Vector<SpIterObserveBase> result )
 	{
-		Enumeration children = rootItem.children() ;
+		Enumeration<SpItem> children = rootItem.children() ;
 		Object next ;
 
 		while( children.hasMoreElements() )
@@ -1261,7 +1261,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 			return ;
 
 		while( children.hasMoreElements() )
-			findAllItems( ( SpItem )children.nextElement() , type , result ) ;
+			findAllItems( children.nextElement() , type , result ) ;
 	}
 
 	/**

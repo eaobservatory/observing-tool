@@ -8,7 +8,7 @@ import gemini.sp.SpItem ;
 
 public class TranslationUtils
 {
-	public static void recurse( Enumeration e , Vector<String> v ) throws SpTranslationNotSupportedException
+	public static void recurse( Enumeration<SpItem> e , Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 			if( e == null )
 				throw new SpTranslationNotSupportedException() ;
@@ -19,7 +19,7 @@ public class TranslationUtils
 			SpTranslatable previous = null ;
 			while( e.hasMoreElements() )
 			{
-				SpItem child = ( SpItem )e.nextElement() ;
+				SpItem child = e.nextElement() ;
 				if( child instanceof SpTranslatable )
 				{
 					translatable = ( SpTranslatable )child ;

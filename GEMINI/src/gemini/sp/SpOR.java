@@ -61,35 +61,36 @@ public class SpOR extends SpObsContextItem
      */
 	public double getTotalTime()
 	{
-		double elapsedTime = 0.0 ;
+		double elapsedTime = 0. ;
 
 		// Records the number of children that have a duration, i.e. SpAND and
 		// SpMSB (and its subclass SpObs).
 		int n = 0 ;
 
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0 )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+				SpMSB msb = ( SpMSB )spItem ;
+				if( msb.getNumberRemaining() > 0 )
+					elapsedTime += msb.getTotalTime() * msb.getNumberRemaining() ;
 				n++ ;
 			}
 
 			if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getTotalTime() ;
+				elapsedTime += (( SpAND )spItem).getTotalTime() ;
 				n++ ;
 			}
 
 			if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getTotalTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getTotalTime() ;
 				n++ ;
 			}
 		}
@@ -113,29 +114,30 @@ public class SpOR extends SpObsContextItem
 		// SpMSB (and its subclass SpObs).
 		int n = 0 ;
 
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
 				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0 )
 				{
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+					SpMSB msb = ( SpMSB )spItem ;
+					elapsedTime += ( msb.getElapsedTime() * msb.getNumberRemaining() ) ;
 					n++ ;
 				}
 			}
 			else if( spItem instanceof SpAND )
 			{
-				elapsedTime += ( ( SpAND )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpAND )spItem).getElapsedTime() ;
 				n++ ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
 				n++ ;
 			}
 		}

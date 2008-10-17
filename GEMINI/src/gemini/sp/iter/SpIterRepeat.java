@@ -109,13 +109,13 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , 
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		Enumeration e = this.children() ;
+		Enumeration<SpItem> e = this.children() ;
 		Vector<String> childVector = new Vector<String>() ;
 		SpTranslatable translatable = null ;
 		SpTranslatable previous = null ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpTranslatable )
 			{
 				translatable = ( SpTranslatable )child ;

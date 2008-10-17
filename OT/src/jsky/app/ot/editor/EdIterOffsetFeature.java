@@ -393,12 +393,12 @@ public class EdIterOffsetFeature extends TpeImageFeature implements TpeDraggable
 	 */
 	private static void findMapItems( SpItem spItem , Vector<SpMapItem> mapItemVector )
 	{
-		Enumeration children = spItem.children() ;
+		Enumeration<SpItem> children = spItem.children() ;
 		SpItem child = null ;
 
 		while( children.hasMoreElements() )
 		{
-			child = ( SpItem )children.nextElement() ;
+			child = children.nextElement() ;
 
 			if( child instanceof SpMapItem )
 				mapItemVector.add( ( SpMapItem )child ) ;

@@ -32,17 +32,18 @@ public class SpAND extends SpObsContextItem
 	public double getTotalTime()
 	{
 		double elapsedTime = 0. ;
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0. )
-					elapsedTime += ( ( ( SpMSB )spItem ).getTotalTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+				SpMSB msb = ( SpMSB )spItem ;
+				if( msb.getNumberRemaining() > 0. )
+					elapsedTime += msb.getTotalTime() * msb.getNumberRemaining() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
@@ -59,21 +60,22 @@ public class SpAND extends SpObsContextItem
 	public double getElapsedTime()
 	{
 		double elapsedTime = 0. ;
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpMSB )
 			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0. )
-					elapsedTime += ( ( ( SpMSB )spItem ).getElapsedTime() * ( ( SpMSB )spItem ).getNumberRemaining() ) ;
+				SpMSB msb = ( SpMSB )spItem ;
+				if( msb.getNumberRemaining() > 0. )
+					elapsedTime += ( msb.getElapsedTime() * msb.getNumberRemaining() ) ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
 			{
-				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime() ;
+				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
 			}
 		}
 		return elapsedTime ;

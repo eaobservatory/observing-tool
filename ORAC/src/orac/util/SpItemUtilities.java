@@ -262,10 +262,10 @@ public class SpItemUtilities
 	public static SpSiteQualityObsComp findSiteQualityInContext( SpItem spItem )
 	{
 		SpSiteQualityObsComp sqc = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpSiteQualityObsComp )
 			{
 				sqc = ( SpSiteQualityObsComp )child ;
@@ -282,10 +282,10 @@ public class SpItemUtilities
 	public static SpSchedConstObsComp findSchedConstraintInContext( SpItem spItem )
 	{
 		SpSchedConstObsComp scc = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpSchedConstObsComp )
 			{
 				scc = ( SpSchedConstObsComp )child ;
@@ -302,10 +302,10 @@ public class SpItemUtilities
 	public static SpDRObsComp findDRRecipeInContext( SpItem spItem )
 	{
 		SpDRObsComp drr = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpDRObsComp )
 			{
 				drr = ( SpDRObsComp )child ;
@@ -322,10 +322,10 @@ public class SpItemUtilities
 	public static SpNote findNoteInContext( SpItem spItem )
 	{
 		SpNote note = null ;
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof SpNote )
 			{
 				note = ( SpNote )child ;
@@ -480,10 +480,10 @@ public class SpItemUtilities
 	public static Vector<SpItem> findProgramNotes( SpItem spItem , Vector<SpItem> notes )
 	{
 		// Now get all the children
-		Enumeration e = spItem.children() ;
+		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )e.nextElement() ;
+			SpItem child = e.nextElement() ;
 			if( child instanceof gemini.sp.SpNote )
 			{
 				if( ( ( SpNote )child ).isObserveInstruction() )
@@ -500,10 +500,10 @@ public class SpItemUtilities
 		{
 			if( parent instanceof SpAND || parent instanceof SpOR )
 			{
-				Enumeration e = parent.children() ;
+				Enumeration<SpItem> e = parent.children() ;
 				while( e.hasMoreElements() )
 				{
-					SpItem child = ( SpItem )e.nextElement() ;
+					SpItem child = e.nextElement() ;
 					if( child instanceof SpNote && ( ( SpNote )child ).isObserveInstruction() )
 						notes.add( child ) ;
 				}

@@ -325,12 +325,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 	public SpIterFolder getIterFolder()
 	{
-		Enumeration children = children() ;
+		Enumeration<SpItem> children = children() ;
 		SpItem spItem = null ;
 
 		while( children.hasMoreElements() )
 		{
-			spItem = ( SpItem )children.nextElement() ;
+			spItem = children.nextElement() ;
 
 			if( spItem instanceof SpIterFolder )
 				return ( SpIterFolder )spItem ;
@@ -545,7 +545,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 
 		try
 		{
-			Enumeration e = this.children() ;
+			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}
 		catch( SpTranslationNotSupportedException e )
