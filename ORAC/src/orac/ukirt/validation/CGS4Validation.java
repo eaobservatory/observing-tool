@@ -6,6 +6,8 @@ import orac.validation.InstrumentValidation ;
 import orac.validation.ErrorMessage ;
 import java.util.Vector ;
 
+import orac.validation.SpValidation ;
+
 /**
  * Implements validation of CGS4.
  * 
@@ -13,18 +15,24 @@ import java.util.Vector ;
  */
 public class CGS4Validation implements InstrumentValidation
 {
-	final double CENTRAL_WAVELENGTH_MIN = 0.88 ;
+	final double CENTRAL_WAVELENGTH_MIN = .88 ;
 	final double CENTRAL_WAVELENGTH_MAX = 5.2 ;
 	final double ORDER_FOR_40_OR_150_GRATING_MAX = 5 ;
 	final double ORDER_FOR_ECHELLE_GRATING_MIN = 10 ;
-	final double EXPOSURE_TIME_RECOMMENDED_MIN = 0.12 ;
-	final double EXPOSURE_TIME_MIN = 0.012 ;
+	final double EXPOSURE_TIME_RECOMMENDED_MIN = .12 ;
+	final double EXPOSURE_TIME_MIN = .012 ;
 	private static Vector<String> _masks = new Vector<String>() ;
 	private static Vector<String> _samplings = new Vector<String>() ;
 	private static Vector<String> _posAngles = new Vector<String>() ;
 
 	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
+		String titleString = SpValidation.titleString( instObsComp ) ;
+		if( "".equals( titleString ) )
+			titleString = "CGS4" ;
+		else
+			titleString = "CGS4 in " + titleString ;
+		
 		SpInstCGS4 spInstCGS4 = ( SpInstCGS4 )instObsComp ;
 		double centralWavelength = spInstCGS4.getCentralWavelength() ;
 		String grating = spInstCGS4.getDisperser() ;
@@ -37,23 +45,23 @@ public class CGS4Validation implements InstrumentValidation
 
 		// Checking central wavelength.
 		if( ( centralWavelength < CENTRAL_WAVELENGTH_MIN ) || ( centralWavelength > CENTRAL_WAVELENGTH_MAX ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "central wavelength" , CENTRAL_WAVELENGTH_MIN + ".." + CENTRAL_WAVELENGTH_MAX , "" + centralWavelength ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "central wavelength" , CENTRAL_WAVELENGTH_MIN + ".." + CENTRAL_WAVELENGTH_MAX , "" + centralWavelength ) ) ;
 
 		// Checking grating.
 		if( ( grating.equals( "40lpmm" ) || grating.equals( "150lpmm" ) ) && ( order > ORDER_FOR_40_OR_150_GRATING_MAX ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , "<= " + ORDER_FOR_40_OR_150_GRATING_MAX , "" + order ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "order (with " + grating + " grating)" , "<= " + ORDER_FOR_40_OR_150_GRATING_MAX , "" + order ) ) ;
 		else if( ( grating.equals( "echelle" ) ) && ( order < ORDER_FOR_ECHELLE_GRATING_MIN ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "order (with " + grating + " grating)" , ">= " + ORDER_FOR_ECHELLE_GRATING_MIN , "" + order ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "order (with " + grating + " grating)" , ">= " + ORDER_FOR_ECHELLE_GRATING_MIN , "" + order ) ) ;
 
-		// Checking eposure time.
+		// Checking exposure time.
 		if( expTime < EXPOSURE_TIME_MIN )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "exposure time" , ">= " + EXPOSURE_TIME_MIN , "" + expTime ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "exposure time" , ">= " + EXPOSURE_TIME_MIN , "" + expTime ) ) ;
 		else if( expTime < 0.12 )
-			report.add( new ErrorMessage( ErrorMessage.WARNING , "CGS4" , "found exposure time " + expTime + ", subarray needs to be set by TSS." ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "found exposure time " + expTime + ", subarray needs to be set by TSS." ) ) ;
 
 		// Checking for invalid ND filter/grating combination.
 		if( ndFilter && grating.equals( "echelle" ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "CGS4" , "ND filter cannot be selected in combination with grating \"echelle\"" ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "ND filter cannot be selected in combination with grating \"echelle\"" ) ) ;
 
 		addMask( spInstCGS4.getMask() ) ;
 		addSampling( spInstCGS4.getSampling() ) ;

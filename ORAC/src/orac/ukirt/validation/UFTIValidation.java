@@ -4,6 +4,8 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.ukirt.inst.SpInstUFTI ;
 import orac.validation.InstrumentValidation ;
 import orac.validation.ErrorMessage ;
+import orac.validation.SpValidation;
+
 import java.util.Vector ;
 
 /**
@@ -57,6 +59,12 @@ public class UFTIValidation implements InstrumentValidation
 
 	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report )
 	{
+		String titleString = SpValidation.titleString( instObsComp ) ;
+		if( "".equals( titleString ) )
+			titleString = "UFTI" ;
+		else
+			titleString = "UFTI in " + titleString ;
+		
 		SpInstUFTI spInstUFTI = ( SpInstUFTI )instObsComp ;
 		String readoutArea = spInstUFTI.getReadoutArea() ;
 		String acqMode = spInstUFTI.getAcqMode() ;
@@ -69,7 +77,7 @@ public class UFTIValidation implements InstrumentValidation
 		if( expTime < expLimits[ 0 ] || expTime > expLimits[ 1 ] )
 		{
 			String message = "Exposure time of (" + expTime + ") out of limits for current combination " + "of readout area (" + readoutArea + ") and mode (" + acqMode + ").  Valid limits are " + "(" + expLimits[ 0 ] + ", " + expLimits[ 1 ] + ")." ;
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "UFTI" , message ) ) ;
+			report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , message ) ) ;
 		}
 	}
 }

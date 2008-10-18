@@ -237,7 +237,7 @@ public class SpValidation
 		}
 	}
 
-	protected String titleString( SpItem spItem )
+	public static String titleString( SpItem spItem )
 	{
 		String returnString = "" ;
 		SpItem parent = spItem ;

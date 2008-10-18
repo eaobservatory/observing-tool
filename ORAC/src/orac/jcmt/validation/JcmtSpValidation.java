@@ -264,6 +264,10 @@ public class JcmtSpValidation extends SpValidation
 	{
 		if( obsComp != null )
 		{
+			String titleString = titleString( obsComp ) ;
+			if( !"".equals( titleString ) )
+				titleString = " in " + titleString ;
+			
 			SpTelescopePosList list = obsComp.getPosList() ;
 			TelescopePos[] position = list.getAllPositions() ;
 			SpInstObsComp instrument = SpTreeMan.findInstrument( obsComp ) ;
@@ -283,7 +287,7 @@ public class JcmtSpValidation extends SpValidation
 						{
 							if( !hetVelocityFrame.equals( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) )
 							{
-								report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , errorText ) ) ;
+								report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , errorText ) ) ;
 								break ;
 							}
 						}
@@ -291,7 +295,7 @@ public class JcmtSpValidation extends SpValidation
 						{
 							String posVelocityFrame = pos.getTrackingRadialVelocityFrame() ;
 							if( !SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME.equals( posVelocityFrame ) )
-							report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , errorText ) ) ;
+							report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , errorText ) ) ;
 							break ;
 						}
 					}
