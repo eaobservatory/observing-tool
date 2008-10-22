@@ -1372,18 +1372,14 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "flatCalLamp" , "1.3" ) ;
 			t.put( "flatFilter" , getFilter() ) ;
 			t.put( "flatExpTime" , "" + getExpTime() ) ;
-			t.put( "flatSavedInt" , "1" ) ;
 			t.put( "flatNumExp" , "" + getCoadds() ) ;
 			t.put( "darkNumExp" , "" + getCoadds() ) ;
-			t.put( "darkSavedInt" , "1" ) ;
 			t.put( "biasExpTime" , "" + getExpTime() ) ;
 			t.put( "biasNumExp" , "" + getCoadds() ) ;
-			t.put( "biasSavedInt" , "3" ) ;
 			t.put( "arcCalLamp" , "argon" ) ;
 			t.put( "arcFilter" , getFilter() ) ;
 			t.put( "arcExpTime" , "" + getExpTime() ) ;
 			t.put( "arcNumExp" , "" + getCoadds() ) ;
-			t.put( "arcSavedInt" , "1" ) ;
 			t.put( "savedInt" , "1" ) ;
 			t.put( "sampling" , getSampling() ) ;
 			t.put( "flatReadMode" , getMode() ) ;
@@ -1434,6 +1430,11 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		t.put( "instAperY" , "" + getInstApY() ) ;
 		t.put( "instAperZ" , "" + getInstApZ() ) ;
 		t.put( "instAperL" , "" + getInstApL() ) ;
+		t.put( "flatSavedInt" , "1" ) ;
+		t.put( "darkSavedInt" , "1" ) ;
+		t.put( "biasSavedInt" , "3" ) ;
+		t.put( "arcSavedInt" , "1" ) ;
+		
 
 		return t ;
 	}
