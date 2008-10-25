@@ -176,8 +176,11 @@ public class SoapClient
 				byte[] input = null ;
 				if( candidate instanceof byte[] )
 				{
-					input = ( byte[] )candidate ;	
-					if( ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' )
+					input = ( byte[] )candidate ;
+					int head = ( ( int )input[0] & 0xff ) | ( ( input[1] << 8 ) & 0xff00 ) ;
+					boolean heads =  GZIPInputStream.GZIP_MAGIC == head ;
+					boolean tails = ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' ;
+					if( heads && tails )
 					{
 						System.out.println( "Appears to be gzip'd" ) ;
 						ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
