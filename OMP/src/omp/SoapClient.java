@@ -129,7 +129,8 @@ public class SoapClient
 				// Reset the params vector.
 				params.clear() ;
 
-				obj = gunzip( obj ) ;
+				if( obj instanceof byte[] )
+					obj = gunzip( obj ) ;
 				// return result ;
 				return obj ;
 			}
@@ -174,35 +175,29 @@ public class SoapClient
 			{
 				System.out.println( "Attempting to gunzip" ) ;
 				byte[] input = null ;
-				if( candidate instanceof byte[] )
+				input = ( byte[] )candidate ;
+				int head = ( ( int )input[0] & 0xff ) | ( ( input[1] << 8 ) & 0xff00 ) ;
+				boolean heads =  GZIPInputStream.GZIP_MAGIC == head ;
+				boolean tails = ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' ;
+				if( heads && tails )
 				{
-					input = ( byte[] )candidate ;
-					int head = ( ( int )input[0] & 0xff ) | ( ( input[1] << 8 ) & 0xff00 ) ;
-					boolean heads =  GZIPInputStream.GZIP_MAGIC == head ;
-					boolean tails = ( char )input[ 0 ] != '<' && ( char )input[ 1 ] != '?' ;
-					if( heads && tails )
-					{
-						System.out.println( "Appears to be gzip'd" ) ;
-						ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
-						GZIPInputStream gis = new GZIPInputStream( bis ) ;
-						byte[] read = new byte[ 1024 ] ;
-						int len ;
-						StringBuffer sb = new StringBuffer() ;
-						while( ( len = gis.read( read ) ) > 0 )
-							sb.append( new String( read , 0 , len ) ) ;
-						gis.close() ;
-						bis.close() ;
-						candidate = sb.toString().getBytes() ;
-					}
-					else
-					{
-						System.out.println( "Does not appear to be gzip'd" ) ;
-					}
+					System.out.println( "Appears to be gzip'd" ) ;
+					ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
+					GZIPInputStream gis = new GZIPInputStream( bis ) ;
+					byte[] read = new byte[ 1024 ] ;
+					int len ;
+					StringBuffer sb = new StringBuffer() ;
+					while( ( len = gis.read( read ) ) > 0 )
+						sb.append( new String( read , 0 , len ) ) ;
+					gis.close() ;
+					bis.close() ;
+					candidate = sb.toString().getBytes() ;
 				}
 				else
 				{
-					System.out.println( "Not a byte[], probably not gzip'd" ) ;
+					System.out.println( "Does not appear to be gzip'd" ) ;
 				}
+
 			}
 			catch( IOException ioe )
 			{
