@@ -64,7 +64,7 @@ public class SoapClient
      *            an <code>Object</code> value. The object to register this
      *            Parameter with.
      */
-	protected static void addParameter( String name , Class type , Object val )
+	protected static void addParameter( String name , Class<?> type , Object val )
 	{
 		params.add( new Parameter( name , type , val , null ) ) ;
 	}
