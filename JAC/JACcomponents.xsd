@@ -33,8 +33,7 @@
 <xsd:element name="SpAND">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
       <xsd:element ref="toml:title"              minOccurs="0"/>
       <xsd:group ref="toml:andContent" minOccurs="1" maxOccurs="unbounded"/>
     </xsd:sequence>
