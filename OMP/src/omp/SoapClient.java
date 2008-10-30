@@ -1,9 +1,9 @@
 package omp ;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayInputStream ;
 import java.net.URL ;
 import java.util.Vector ;
-import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPInputStream ;
 
 import javax.swing.JOptionPane ;
 
