@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20080908</ot_version>
+  <ot_version>20081022</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6711,6 +6711,1095 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
+    </SpMSB>
+    <SpNote type="no" subtype="none">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <note>Please contact your support scientist well in advance if you are planning on using any of these MSBs!!!
+
+The idea below is to observe blank sky in conjunction with a large target (the Andromeda galaxy, say).  Most targets DO NOT need this complex mode.  
+
+There are two flavours of "target with sky" observations, named FAST and SLOW.
+In the FAST flavour, the telescope is nodded between target and blank sky multiple times at each jitter position in the tile.  Graphically:
+- jitter 0
+    - microstep on target
+    - microstep on sky
+- jitter 1
+    - microstep on target
+    - microstep on sky
+and so on...
+
+In the SLOW flavour, a full jitter + microstep sequence is performed at each popsition int he tile before moving to sky.
+- jitter 0
+    - microstep on target
+- jitter 1
+    - microstep on target
+... etc.
+- jitter 0
+    - microstep on sky
+- jitter 1
+    - microstep on sky
+... etc.
+
+Please note that a guide star should be specified for the target AND for the sky position (otherwise the telescope will pause at every jitter offset on sky).
+
+The MSBs below use Andromeda as an example; please replace these coordinates with your target!
+
+The "Change filter and flush" observation is optional.
+
+You MUST use the recipe JITTER_SKY in this mode.</note>
+      <title>Observing large targets with blank sky</title>
+    </SpNote>
+    <SpMSB checksum="a4c76ea68825ecad96213d3528c5379aA" observed="1" remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <estimatedDuration units="seconds">1334.5</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>WFCAM_SKY_FAST</title>
+      <totalDuration units="seconds">1334.5</totalDuration>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <standard>false</standard>
+        <title>Change Filter and Flush - H</title>
+        <SpDRRecipe type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>QUICK_LOOK</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>QUICK_LOOK</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>false</SkyInGroup>
+          <SkyRecipe>QUICK_LOOK</SkyRecipe>
+          <title>QUICK_LOOK</title>
+        </SpDRRecipe>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note></note>
+          <title>WFCAM should be set for a few short exposures in the required filter.</title>
+        </SpNote>
+        <SpInstWFCAM type="oc" subtype="inst.WFCAM">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>1</meta_version>
+          <coadds>3</coadds>
+          <configType>Normal</configType>
+          <exposureTime>1.0</exposureTime>
+          <filter>H</filter>
+          <instAper>
+            <value>0.0</value>
+            <value>0.0</value>
+            <value>0.0</value>
+            <value>1.6</value>
+          </instAper>
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <instPort>Centre</instPort>
+          <readMode>CDS</readMode>
+        </SpInstWFCAM>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>After setting the WFCAM component, just click on "set default" in the skyflat eye below.</note>
+          </SpNote>
+          <SpIterWFCAMCalObs type="ic" subtype="WFCAMCalObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <calType>skyFlat</calType>
+            <coadds>3</coadds>
+            <exposureTime>1</exposureTime>
+            <filter>K</filter>
+            <readMode>CDS</readMode>
+            <repeatCount>1</repeatCount>
+          </SpIterWFCAMCalObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>The survey container below should contain four targets.  In each target component you must enter target and sky coordinates, with corresponding guide stars.
+
+NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply use a dummy MSB - open the template library and work in there: enter the coordinates of the SKY in the dummy MSB and use the position editor to pick a guide star.  Then simply use the coordinates to specify the SKYGUIDE position in the real MSB.</note>
+        <title>What to put in the Survey container</title>
+      </SpNote>
+      <SpSurveyContainer type="sc" subtype="survey">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selectedTelObsComp>0</meta_gui_selectedTelObsComp>
+            <TargetList>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 1</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:21.666</c1>
+                                              <c2>41:21:53.24</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 1 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.405</c1>
+                                              <c2>38:22:44.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.85</c1>
+                                              <c2>38:21:15.0</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 2</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.082</c1>
+                                              <c2>41:23:31.12</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 2 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.215</c1>
+                                              <c2>38:22:44.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:13.0</c1>
+                                              <c2>38:23:34.2</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 3</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:11.789</c1>
+                                              <c2>41:08:17.59</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 3 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.333</c1>
+                                              <c2>38:09:34.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:17.7</c1>
+                                              <c2>38:09:19</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 4</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:20.138</c1>
+                                              <c2>41:07:25.86</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 4 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.287</c1>
+                                              <c2>38:09:34.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:15.02</c1>
+                                              <c2>38:09:25.6</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+            </TargetList>
+        <title>M31 tile</title>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <standard>false</standard>
+          <title>H</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This MUST be JITTER_SKY for this mode</note>
+            <title>DR recipe</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>JITTER_SKY</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>JITTER_SKY</SkyRecipe>
+            <title>JITTER_SKY</title>
+          </SpDRRecipe>
+          <SpInstWFCAM type="oc" subtype="inst.WFCAM">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <meta_version>1</meta_version>
+            <coadds>1</coadds>
+            <configType>Normal</configType>
+            <exposureTime>10.0</exposureTime>
+            <filter>H</filter>
+            <instAper>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>1.6</value>
+            </instAper>
+            <instPntgOffset>
+              <value>0.0</value>
+              <value>0.0</value>
+            </instPntgOffset>
+            <instPort>Centre</instPort>
+            <readMode>CDS</readMode>
+          </SpInstWFCAM>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
+              <title>Repeat 1X</title>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 0</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 0</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterSky type="ic" subtype="sky">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
+                    <repeatCount>1</repeatCount>
+                    <sky>SKY0</sky>
+                    <useRandom>false</useRandom>
+                  </SpIterSky>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>16.0</DC1>
+                    <DC2>16.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 1</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>16.0</DC1>
+                    <DC2>16.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 1</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterSky type="ic" subtype="sky">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
+                    <repeatCount>1</repeatCount>
+                    <sky>SKY0</sky>
+                    <useRandom>false</useRandom>
+                  </SpIterSky>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>-16.0</DC1>
+                    <DC2>-16.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 2</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>-16.0</DC1>
+                    <DC2>-16.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 2</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterSky type="ic" subtype="sky">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
+                    <repeatCount>1</repeatCount>
+                    <sky>SKY0</sky>
+                    <useRandom>false</useRandom>
+                  </SpIterSky>
+                </SpIterMicroStep>
+              </SpIterOffset>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpSurveyContainer>
+    </SpMSB>
+    <SpMSB checksum="31e5463c6b17dad83b87bb3f2c618284A" observed="1" remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <estimatedDuration units="seconds">2198.5</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>WFCAM_SKY_SLOW</title>
+      <totalDuration units="seconds">2198.5</totalDuration>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <standard>false</standard>
+        <title>Change Filter and Flush - H</title>
+        <SpDRRecipe type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>QUICK_LOOK</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>QUICK_LOOK</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>false</SkyInGroup>
+          <SkyRecipe>QUICK_LOOK</SkyRecipe>
+          <title>QUICK_LOOK</title>
+        </SpDRRecipe>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note></note>
+          <title>WFCAM should be set for a few short exposures in the required filter.</title>
+        </SpNote>
+        <SpInstWFCAM type="oc" subtype="inst.WFCAM">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>1</meta_version>
+          <coadds>3</coadds>
+          <configType>Normal</configType>
+          <exposureTime>1.0</exposureTime>
+          <filter>H</filter>
+          <instAper>
+            <value>0.0</value>
+            <value>0.0</value>
+            <value>0.0</value>
+            <value>1.6</value>
+          </instAper>
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <instPort>Centre</instPort>
+          <readMode>CDS</readMode>
+        </SpInstWFCAM>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>After setting the WFCAM component, just click on "set default" in the skyflat eye below.</note>
+          </SpNote>
+          <SpIterWFCAMCalObs type="ic" subtype="WFCAMCalObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <calType>skyFlat</calType>
+            <coadds>3</coadds>
+            <exposureTime>1</exposureTime>
+            <filter>H</filter>
+            <readMode>CDS</readMode>
+            <repeatCount>1</repeatCount>
+          </SpIterWFCAMCalObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>The survey container below should contain four targets.  In each target component you must enter target and sky coordinates, with corresponding guide stars.
+
+NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply use a dummy MSB - open the template library and work in there: enter the coordinates of the SKY in the dummy MSB and use the position editor to pick a guide star.  Then simply use the coordinates to specify the SKYGUIDE position in the real MSB.</note>
+        <title>What to put in the Survey container</title>
+      </SpNote>
+      <SpSurveyContainer type="sc" subtype="survey">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selectedTelObsComp>0</meta_gui_selectedTelObsComp>
+            <TargetList>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 1</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:21.666</c1>
+                                              <c2>41:21:53.24</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 1 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.405</c1>
+                                              <c2>38:22:44.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.85</c1>
+                                              <c2>38:21:15.0</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 2</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.082</c1>
+                                              <c2>41:23:31.12</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 2 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.215</c1>
+                                              <c2>38:22:44.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:13.03</c1>
+                                              <c2>38:23:34.2</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 3</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:11.789</c1>
+                                              <c2>41:08:17.59</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 3 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:09.333</c1>
+                                              <c2>38:09:34.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:42:17.77</c1>
+                                              <c2>38:09:19.3</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName>M31 - 4</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>00:42:44.31</c1>
+                                              <c2>+41:16:09.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                        <BASE TYPE="GUIDE">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:20.138</c1>
+                                              <c2>41:07:25.86</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKY0">
+                                          <target>
+                                            <targetName>M31 - 4 sky</targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:19.287</c1>
+                                              <c2>38:09:34.4</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                        <BASE TYPE="SKYGUIDE0">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:43:15.02</c1>
+                                              <c2>38:09:25.6</c2>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+            </TargetList>
+        <title>M31 tile</title>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <standard>false</standard>
+          <title>H</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This MUST be JITTER_SKY for this mode</note>
+            <title>DR recipe</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>JITTER_SKY</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>JITTER_SKY</SkyRecipe>
+            <title>JITTER_SKY</title>
+          </SpDRRecipe>
+          <SpInstWFCAM type="oc" subtype="inst.WFCAM">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <meta_version>1</meta_version>
+            <coadds>1</coadds>
+            <configType>Normal</configType>
+            <exposureTime>10.0</exposureTime>
+            <filter>H</filter>
+            <instAper>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>1.6</value>
+            </instAper>
+            <instPntgOffset>
+              <value>0.0</value>
+              <value>0.0</value>
+            </instPntgOffset>
+            <instPort>Centre</instPort>
+            <readMode>CDS</readMode>
+          </SpInstWFCAM>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
+              <title>Repeat 1X</title>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 5 6.4arcsec</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 5 6.4arcsec</title>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>4.18</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>4.18</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 medium</pattern>
+                  <SpIterSky type="ic" subtype="sky">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
+                    <repeatCount>1</repeatCount>
+                    <sky>SKY0</sky>
+                    <useRandom>false</useRandom>
+                  </SpIterSky>
+                </SpIterMicroStep>
+              </SpIterOffset>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpSurveyContainer>
     </SpMSB>
   </SpLibraryFolder>
 </SpLibrary>
