@@ -157,6 +157,7 @@
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:group   ref="toml:instrumentGroup"/>
     <xsd:element ref="toml:SpDRRecipe"/>
+    <xsd:element ref="toml:SpSurveyContainer"/>
   </xsd:choice>
 </xsd:group>
 
@@ -171,6 +172,7 @@
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:group   ref="toml:instrumentGroup"/>
     <xsd:element ref="toml:SpDRRecipe"/>
+    <xsd:element ref="toml:SpSurveyContainer"/>
   </xsd:choice>
 </xsd:group>
 
