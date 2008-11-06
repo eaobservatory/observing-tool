@@ -110,7 +110,7 @@ public class SpUserFile
 		String RA ; // R.A. sexagesimal value
 		int start ; // Index of start of substring
 		SpTelescopeObsComp stl ; // A target list
-		Vector targetLists ; // List of the target components
+		Vector<SpItem> targetLists ; // List of the target components
 		String targetName ; // Name of the target
 		SpAvTable tavl ; // Target attribute value table
 		long timeTag ; // Time tag used to make filenames

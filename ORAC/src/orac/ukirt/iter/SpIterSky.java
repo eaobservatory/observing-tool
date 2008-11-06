@@ -193,7 +193,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 	public void translateProlog( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

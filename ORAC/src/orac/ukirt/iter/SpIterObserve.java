@@ -103,7 +103,7 @@ public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 	{
 		// Get the DR recipe component so we can add the header information
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

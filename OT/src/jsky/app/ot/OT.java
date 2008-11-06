@@ -27,6 +27,7 @@ import javax.swing.JOptionPane ;
 import javax.swing.JLabel ;
 import javax.swing.ImageIcon ;
 import gemini.sp.SpFactory ;
+import gemini.sp.SpItem;
 import gemini.sp.SpLibrary ;
 import gemini.sp.SpPlan ;
 import gemini.sp.SpRootItem ;
@@ -302,10 +303,10 @@ public class OT extends JFrame
 
 		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) )
 		{
-			Vector mco = SpTreeMan.findAllItems( spItem , SpIterMichelleCalObs.class.getName() ) ;
-			for( int i = 0 ; i < mco.size() ; i++ )
+			Vector<SpItem> mco = SpTreeMan.findAllItems( spItem , SpIterMichelleCalObs.class.getName() ) ;
+			for( SpItem item : mco )
 			{
-				SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )mco.elementAt( i ) ;
+				SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )item ;
 				obs.useDefaults() ;
 				obs.updateDAConf() ;
 			}

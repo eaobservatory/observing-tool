@@ -260,7 +260,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 
 		// Now see if we have a DRRecipe component and write out it's headers if we do.
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

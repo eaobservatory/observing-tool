@@ -73,7 +73,7 @@ public class JcmtSpValidation extends SpValidation
 				 */
 				try
 				{
-					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
+					Class<?> frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
 					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[]{} ) ;
 					Object frequencyEditor = frequencyEditorClass.newInstance() ;
 					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[]{} ) ;
@@ -155,7 +155,7 @@ public class JcmtSpValidation extends SpValidation
 			{
 				if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_BEAM ) )
 				{
-					Vector chops = SpTreeMan.findAllInstances( spObs , SpIterChop.class.getName() ) ;
+					Vector<SpItem> chops = SpTreeMan.findAllInstances( spObs , SpIterChop.class.getName() ) ;
 					if( chops == null || chops.size() == 0 )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Chop iterator required for beam switch mode" ) ) ;
 				}

@@ -422,7 +422,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 		// Set the DRRecipe Headers
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

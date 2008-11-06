@@ -334,7 +334,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		{
 			SpItem newItemsRoot = SpTreeMan.findRootItem( newItem ) ;
 			// Get all of the SpIterObs components below this
-			Vector obsVector = SpTreeMan.findAllItems( newItemsRoot , SpIterFocusObs.class.getName() ) ;
+			Vector<SpItem> obsVector = SpTreeMan.findAllItems( newItemsRoot , SpIterFocusObs.class.getName() ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterJiggleObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterNoiseObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterPointingObs.class.getName() ) ) ;
@@ -342,10 +342,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterSkydipObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterStareObs.class.getName() ) ) ;
 			obsVector.addAll( SpTreeMan.findAllItems( newItemsRoot , SpIterFlatObs.class.getName() ) ) ;
-			for( int i = 0 ; i < obsVector.size() ; i++ )
+			for( SpItem item : obsVector )
 			{
 				// Make sure that the observation is associated with the new item and not some other existing component
-				SpItem obsContext = SpTreeMan.findObsContext( ( ( SpIterJCMTObs )obsVector.get( i ) ) ) ;
+				SpIterJCMTObs jcmtObs = ( SpIterJCMTObs )item ;
+				SpItem obsContext = SpTreeMan.findObsContext( jcmtObs ) ;
 				SpInstObsComp obsComp = SpTreeMan.findInstrumentInContext( obsContext ) ;
 				while( obsComp == null )
 				{
@@ -357,11 +358,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 				if( obsComp != null && obsComp.equals( newItem ) )
 				{					
 					if( newItem instanceof SpInstHeterodyne )
-						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForHeterodyne() ;
+						jcmtObs.setupForHeterodyne() ;
 					else if( newItem instanceof SpInstSCUBA2 )
-						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForSCUBA2() ;
+						jcmtObs.setupForSCUBA2() ;
 					else if( newItem instanceof SpInstSCUBA )
-						( ( SpIterJCMTObs )obsVector.get( i ) ).setupForSCUBA() ;
+						jcmtObs.setupForSCUBA() ;
 				}
 			}
 		}

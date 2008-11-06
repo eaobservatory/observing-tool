@@ -848,7 +848,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 
 		// Now get hold of any DRRecipe component
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

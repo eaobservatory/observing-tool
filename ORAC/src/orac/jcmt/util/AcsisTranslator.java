@@ -198,7 +198,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 		if( iterFolder == null )
 			throw new IllegalStateException( "Cannot translate Observation without Sequence." ) ;
 
-		Vector translatableItems = findAllItems( iterFolder , SpIterObserveBase.class ) ;
+		Vector<SpIterObserveBase> translatableItems = findAllItems( iterFolder , SpIterObserveBase.class ) ;
 
 		if( translatableItems.size() < 1 )
 			throw new IllegalStateException( "There are no observe iterators (\"eyes\").\n" + "Each such iterator will be translated to a complete set of configuration XML files." ) ;
@@ -1073,7 +1073,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	{
 		// Ceck for multiple bandwidths.
 		// The Hashtable class is only used as a convenient way of listing all bandwidths and deleting any duplications from the list.
-		Hashtable table = new Hashtable() ;
+		Hashtable<String,String> table = new Hashtable<String,String>() ;
 		for( int i = 0 ; i < getNumSubSystems() ; i++ )
 			table.put( "" + getBandWidth( i ) , "" ) ;
 
@@ -1227,7 +1227,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	 *
 	 * @see gemini.sp.SpTreeMan.findAllItems(SpItem,String)
 	 */
-	public static Vector findAllItems( SpItem rootItem , Class<SpIterObserveBase> type )
+	public static Vector<SpIterObserveBase> findAllItems( SpItem rootItem , Class<SpIterObserveBase> type )
 	{
 		Vector<SpIterObserveBase> result = new Vector<SpIterObserveBase>() ;
 		findAllItems( rootItem , type , result ) ;
@@ -1268,7 +1268,7 @@ public class AcsisTranslator extends SpInstHeterodyne
 	 * Returns the most direct ancester item of iterComp of the given type in the sequence folder (SpIterFolder)
 	 * or null if no such ancester item exists.
 	 */
-	public static SpIterComp getAncesterInSequence( SpIterComp iterComp , Class type )
+	public static SpIterComp getAncesterInSequence( SpIterComp iterComp , Class<?> type )
 	{
 		SpItem parent = iterComp.parent() ;
 

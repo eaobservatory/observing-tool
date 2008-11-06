@@ -162,7 +162,7 @@ public class SpValidation
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB \"" + spMSB.getTitle() + "\"" , "Site quality component list is missing." ) ) ;
 
 		// Check whether there are more than one observe instruction notes.
-		Vector notes = SpTreeMan.findAllItems( spMSB , SpNote.class.getName() ) ;
+		Vector<SpItem> notes = SpTreeMan.findAllItems( spMSB , SpNote.class.getName() ) ;
 
 		boolean observeNoteFound = false ;
 		int numberOfObserveInstructions = 0 ;

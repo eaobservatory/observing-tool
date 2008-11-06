@@ -682,12 +682,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		int nOffsets = 0 ;
 		// Get all the child offsets
-		Vector offsets = SpTreeMan.findAllItems( this , SpIterOffset.class.getName() ) ;
+		Vector<SpItem> offsets = SpTreeMan.findAllItems( this , SpIterOffset.class.getName() ) ;
 		int observableOffsets = 0 ;
 		
-		for( int i = 0 ; i < offsets.size() ; i++ )
+		for( SpItem offsetItem : offsets )
 		{
-			SpIterOffset offset = ( SpIterOffset )offsets.get( i ) ;
+			SpIterOffset offset = ( SpIterOffset )offsetItem ;
 			int myNOffs = offset.getPosList().size() ;
 			
 			/*
@@ -700,7 +700,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			
 			if( offset.hasNamedSkyChild() )
 				myNOffs *= observableChildren ;
-			Vector uSteps = SpTreeMan.findAllItems( offset , SpIterMicroStep.class.getName() ) ;
+			Vector<SpItem> uSteps = SpTreeMan.findAllItems( offset , SpIterMicroStep.class.getName() ) ;
 			if( uSteps != null && uSteps.size() != 0 && inst instanceof SpMicroStepUser )
 			{
 				SpIterMicroStep us = ( SpIterMicroStep )uSteps.get( 0 ) ;
