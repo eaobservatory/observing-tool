@@ -235,7 +235,7 @@ public class ErrorMessage
 		return _errorWarningCount[ WARNING ] ;
 	}
 
-	public static String messagesToString( Enumeration messages )
+	public static String messagesToString( Enumeration<ErrorMessage> messages )
 	{
 		StringBuffer buffer = new StringBuffer() ;
 
@@ -257,7 +257,7 @@ public class ErrorMessage
 		return buffer.toString() ;
 	}
 
-	public static void printMessages( Enumeration messages , PrintStream out )
+	public static void printMessages( Enumeration<ErrorMessage> messages , PrintStream out )
 	{
 		out.print( messagesToString( messages ) ) ;
 	}

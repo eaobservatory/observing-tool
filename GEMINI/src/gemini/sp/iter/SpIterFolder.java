@@ -53,9 +53,9 @@ public class SpIterFolder extends SpItem implements SpTranslatable
      * @see SpIterEnumeration
      * @see SpIterStep
      */
-	public Vector compile()
+	public Vector<Vector<SpIterStep>> compile()
 	{
-		Vector code = new Vector() ;
+		Vector<Vector<SpIterStep>> code = new Vector<Vector<SpIterStep>>() ;
 
 		Enumeration<SpItem> e = children() ;
 		while( e.hasMoreElements() )
@@ -88,11 +88,11 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			while( sie.hasMoreElements() )
 			{
 				System.out.println( "----------" ) ;
-				Vector v = ( Vector )sie.nextElement() ;
+				Vector<SpIterStep> v = sie.nextElement() ;
 
 				for( int i = 0 ; i < v.size() ; ++i )
 				{
-					SpIterStep sis = ( SpIterStep )v.elementAt( i ) ;
+					SpIterStep sis = v.elementAt( i ) ;
 					System.out.print( sis.title ) ;
 					try
 					{
@@ -111,14 +111,6 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				}
 			}
 
-			if( sie.hasCleanup() )
-			{
-				System.out.println( "----------" ) ;
-				SpIterValue siv = ( SpIterValue )sie.cleanup() ;
-				System.out.println( siv.attribute ) ;
-				for( int j = 0 ; j < siv.values.length ; ++j )
-					System.out.println( '\t' + siv.values[ j ] ) ;
-			}
 			System.out.println( "^^^^^^^^^" ) ;
 		}
 	}
@@ -131,7 +123,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			return 0. ;
 
 		Vector iterStepVector = compile() ;
-		Vector iterStepSubVector = null ;
+		Vector<SpIterStep> iterStepSubVector = null ;
 		SpIterStep spIterStep = null ;
 		IterationTracker iterationTracker = instrument.createIterationTracker() ;
 		double elapsedTime = 0. ;
@@ -155,7 +147,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 			for( int j = 0 ; j < iterStepSubVectorSize ; j++ )
 			{
-				spIterStep = ( SpIterStep )iterStepSubVector.get( j ) ;
+				spIterStep = iterStepSubVector.get( j ) ;
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
 					nPol++ ;
 				
@@ -192,7 +184,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			double totalIntegrationTime = 0. ;
 			try
 			{
-				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
+				Class<?> spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
 				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[] {} ) ;
 				Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[] {} ) ;
 				Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[] {} ) ;

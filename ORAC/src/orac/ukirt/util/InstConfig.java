@@ -646,7 +646,7 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 
 	boolean isSame( String instrum , InstConfig config )
 	{
-		Enumeration ekey ; // Enumeration of the `this' config
+		Enumeration<String> ekey ; // Enumeration of the `this' config
 		String key ; // A key in the hashTable
 		boolean same ; // Configs are the same?
 
@@ -657,7 +657,7 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 		ekey = keys() ;
 		while( ekey.hasMoreElements() )
 		{
-			key = ( String )ekey.nextElement() ;
+			key = ekey.nextElement() ;
 
 			// Check that the key is present in the second config.
 			if( !config.containsKey( key ) )

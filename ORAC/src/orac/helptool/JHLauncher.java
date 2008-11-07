@@ -69,8 +69,8 @@ import java.io.File ;
 import java.security.AccessControlException ;
 import java.awt.Font ;
 import java.awt.GraphicsEnvironment ;
+import java.util.jar.JarEntry ;
 import java.util.jar.JarFile ;
-import java.util.zip.ZipEntry ;
 
 /**
  * This class displays JavaHelp HelpSets.
@@ -194,7 +194,7 @@ final public class JHLauncher implements java.io.Serializable
 				} ) ;
 
 			}
-			opDialog.show() ;
+			opDialog.setVisible( true ) ;
 		}
 
 		private void initOpenPageComponents()
@@ -296,7 +296,7 @@ final public class JHLauncher implements java.io.Serializable
 			}
 			font = jh.getFont() ;
 			preview.setFont( font ) ;
-			sfDialog.show() ;
+			sfDialog.setVisible( true ) ;
 		}
 
 		private void initSetFontComponents()
@@ -512,7 +512,7 @@ final public class JHLauncher implements java.io.Serializable
 				elementTreeFrame.add( new ElementTreePanel( getEditor() ) ) ;
 				elementTreeFrame.pack() ;
 			}
-			elementTreeFrame.show() ;
+			elementTreeFrame.setVisible( true ) ;
 		}
 	}
 
@@ -824,7 +824,7 @@ final public class JHLauncher implements java.io.Serializable
 		if( selectionDialog != null )
 		{
 			selectionDialog.pack() ;
-			selectionDialog.show() ;
+			selectionDialog.setVisible( true ) ;
 		}
 	}
 
@@ -922,10 +922,10 @@ final public class JHLauncher implements java.io.Serializable
 			try
 			{
 				JarFile jar = new JarFile( hsFile ) ;
-				Enumeration entries = jar.entries() ;
+				Enumeration<JarEntry> entries = jar.entries() ;
 				while( entries.hasMoreElements() )
 				{
-					ZipEntry entry = ( ZipEntry )entries.nextElement() ;
+					JarEntry entry = entries.nextElement() ;
 					String entryName = entry.getName() ;
 					if( entryName.endsWith( ".hs" ) )
 					{
@@ -1013,7 +1013,7 @@ final public class JHLauncher implements java.io.Serializable
 			}
 			createFrame( hs.getTitle() , null ) ;
 			launch() ;
-			selectionDialog.hide() ;
+			selectionDialog.setVisible( false ) ;
 		}
 	}
 

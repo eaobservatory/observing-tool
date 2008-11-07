@@ -143,9 +143,9 @@ public class SpIterNod extends SpIterComp
 	 *
 	 * Convenience method. Useful for JComboBox in GUI.
 	 */
-	public static Enumeration patterns()
+	public static Enumeration<Vector<String>> patterns()
 	{
-		Vector<Vector> allPatterns = new Vector<Vector>() ;
+		Vector<Vector<String>> allPatterns = new Vector<Vector<String>>() ;
 		Vector<String> onePattern ;
 
 		for( int i = 0 ; i < NOD_PATTERNS.length ; i++ )

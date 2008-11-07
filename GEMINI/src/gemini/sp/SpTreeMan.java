@@ -894,9 +894,9 @@ public final class SpTreeMan implements SpInsertConstants
 		return ( SpObsContextItem )spItem ;
 	}
 
-	private static Class classForName( String name )
+	private static Class<?> classForName( String name )
 	{
-		Class c = null ;
+		Class<?> c = null ;
 		try
 		{
 			c = Class.forName( name ) ;

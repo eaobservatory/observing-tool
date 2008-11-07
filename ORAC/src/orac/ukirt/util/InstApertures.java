@@ -15,7 +15,6 @@ import java.util.Vector ;
 public class InstApertures extends Hashtable<String,String> implements Cloneable
 {
 	// Declare variables.
-	private Hashtable instAperTable ;
 	private String key ; // Hashtable key
 	private String value ; // Value corresponding to the above
 
@@ -35,13 +34,13 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 	 *  Assigns the instrument apertures using a Vector.  The values
 	 *  in the Vector should be in the order X, Y, Z, lambda.
 	 */
-	public void arrayPut( Vector apers )
+	public void arrayPut( Vector<String> apers )
 	{
 		// Initialise the UFTI instrument apertures.
-		put( "instAperX" , ( String )apers.elementAt( 0 ) ) ; // X aperture
-		put( "instAperY" , ( String )apers.elementAt( 1 ) ) ; // Y aperture
-		put( "instAperZ" , ( String )apers.elementAt( 2 ) ) ; // Z aperture
-		put( "instAperL" , ( String )apers.elementAt( 3 ) ) ; // Lambda aperture
+		put( "instAperX" , apers.elementAt( 0 ) ) ; // X aperture
+		put( "instAperY" , apers.elementAt( 1 ) ) ; // Y aperture
+		put( "instAperZ" , apers.elementAt( 2 ) ) ; // Z aperture
+		put( "instAperL" , apers.elementAt( 3 ) ) ; // Lambda aperture
 	}
 
 	/**
@@ -123,14 +122,6 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 		}
 	}
 
-	/** 
-	 *  Accessor method to return the hash table.
-	 */
-	public Hashtable instAper()
-	{
-		return instAperTable ;
-	}
-
 	/**
 	 *  Deep-clone method required to copy the key-value configuration pairs.
 	 */
@@ -163,7 +154,7 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 
 	boolean isSame( String instrum , InstApertures instAper )
 	{
-		Enumeration ekey ; // Enumeration of the `this' config
+		Enumeration<String> ekey ; // Enumeration of the `this' config
 		String key ; // A key in the hashTable
 		boolean same ; // Configs are the same?
 
@@ -176,7 +167,7 @@ public class InstApertures extends Hashtable<String,String> implements Cloneable
 			ekey = keys() ;
 			while( ekey.hasMoreElements() )
 			{
-				key = ( String )ekey.nextElement() ;
+				key = ekey.nextElement() ;
 
 				// Check that the key is present in the second config.
 				if( !instAper.containsKey( key ) )

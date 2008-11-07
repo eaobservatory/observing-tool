@@ -123,7 +123,7 @@ public class SpIterStareObs extends SpIterJCMTObs
 		return ( returned != null && (( SpIterPOL )returned).getTable().exists( "continuousSpin" ) ) ;
 	}
 	
-	private Object insideComponent( Class component )
+	private Object insideComponent( Class<?> component )
 	{
 		boolean inside = false ;
 		SpItem parent = this.parent() ;

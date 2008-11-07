@@ -30,20 +30,20 @@ public class IterEnumTableWidget extends TableWidgetExt
 
 	/**
 	 */
-	public void addSteps( Vector steps )
+	public void addSteps( Vector<SpIterStep> steps )
 	{
 		int n = steps.size() ;
 		for( int i = 0 ; i < n ; ++i )
-			addStep( ( SpIterStep )steps.elementAt( i ) ) ;
+			addStep( steps.elementAt( i ) ) ;
 	}
 
 	/**
 	 */
-	public void addSteps( List steps )
+	public void addSteps( List<SpIterStep> steps )
 	{
 		int n = steps.size() ;
 		for( int i = 0 ; i < n ; ++i )
-			addStep( ( SpIterStep )steps.get( i ) ) ;
+			addStep( steps.get( i ) ) ;
 	}
 
 	/**

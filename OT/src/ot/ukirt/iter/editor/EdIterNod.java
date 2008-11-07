@@ -41,9 +41,9 @@ public final class EdIterNod extends OtItemEditor implements ActionListener
 
 		// If the choices can change depending on other settings then the adding of
 		// choice items will have to be done in _init or _updateWidgets (see other editor components)
-		Enumeration nodPatterns = SpIterNod.patterns() ;
+		Enumeration<Vector<String>> nodPatterns = SpIterNod.patterns() ;
 		while( nodPatterns.hasMoreElements() )
-			_w.nodPattern.addItem( ( Vector )nodPatterns.nextElement() ) ;
+			_w.nodPattern.addItem( nodPatterns.nextElement() ) ;
 
 		_w.nodPattern.addActionListener( this ) ;
 	}

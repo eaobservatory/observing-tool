@@ -17,14 +17,14 @@ import java.util.Enumeration ;
 // each child of the parent. Each SpIterEnumeration is used to get all
 // the iteration steps from the children of the parent.
 //
-class SpIterChildEnumeration implements Enumeration , java.io.Serializable
+class SpIterChildEnumeration implements Enumeration<SpIterEnumeration> , java.io.Serializable
 {
 
 	private SpIterComp _iterParent ;
 
 	private SpIterComp _curChild ;
 
-	private Enumeration _children ;
+	private Enumeration<SpItem> _children ;
 
 	//
 	// Construct with the parent class whose children's SpIterEnumerations
@@ -85,7 +85,7 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
 	// to refer to the next child of the parent, if any). The SpIterEnumeration
 	// is used to get all the steps from the children of the parent.
 	//
-	public Object nextElement()
+	public SpIterEnumeration nextElement()
 	{
 		SpIterEnumeration sie = _curChild.elements() ;
 		_curChild = _getNextChild() ;
@@ -171,7 +171,7 @@ class SpIterChildEnumeration implements Enumeration , java.io.Serializable
  * position. So long as there are offset positions available,
  * _thisHasMoreElements() should return true.
  */
-public abstract class SpIterEnumeration implements Enumeration , java.io.Serializable
+public abstract class SpIterEnumeration implements Enumeration<Vector<SpIterStep>> , java.io.Serializable
 {
 
 	protected SpIterComp _iterComp ;
@@ -270,9 +270,9 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
      * prescribed by this iterator and any iterators nested inside of it. Please
      * see the discussion of this class for more information.
      */
-	public Object nextElement()
+	public Vector<SpIterStep> nextElement()
 	{
-		Vector v ;
+		Vector<SpIterStep> v ;
 
 		if( _firstTime )
 		{
@@ -285,7 +285,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
 		{
 			if( _curElement == null )
 				_curElement = _thisNextElement() ;
-			v = new Vector() ;
+			v = new Vector<SpIterStep>() ;
 			v.insertElementAt( _curElement , 0 ) ;
 			_curElement = null ;
 
@@ -296,7 +296,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
 
 		if( _childEnum.hasMoreElements() )
 		{
-			v = ( Vector )_childEnum.nextElement() ;
+			v = _childEnum.nextElement() ;
 
 			if( _curElement != null )
 			{
@@ -314,7 +314,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
 		}
 		else if( _childEnum.hasCleanup() )
 		{
-			v = new Vector() ;
+			v = new Vector<SpIterStep>() ;
 			v.addElement( _childEnum.cleanup() ) ;
 			return v ;
 		}
@@ -330,7 +330,7 @@ public abstract class SpIterEnumeration implements Enumeration , java.io.Seriali
 	/**
      * This method is not currently used.
      */
-	public Object cleanup()
+	public SpIterStep cleanup()
 	{
 		return _thisCleanup() ;
 	}

@@ -172,7 +172,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp
 		}
 	}
 
-	public static Enumeration< String > filters()
+	public static Enumeration<String> filters()
 	{
 		return _filterTable.keys() ;
 	}

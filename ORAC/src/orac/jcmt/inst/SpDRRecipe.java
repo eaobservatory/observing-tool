@@ -207,7 +207,7 @@ public final class SpDRRecipe extends SpDRObsComp
 				Field field =  whatami.getDeclaredField( fieldName ) ;
 				if( field != null )
 				{
-					Class klass = field.getType() ;
+					Class<?> klass = field.getType() ;
 					if( klass == String[].class )
 						availableTypes = ( String[] )field.get( null ) ;
 				}

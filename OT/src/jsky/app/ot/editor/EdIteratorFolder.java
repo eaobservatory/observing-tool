@@ -10,8 +10,10 @@ import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
 
 import java.util.List ;
+import java.util.Vector;
 
 import gemini.sp.iter.SpIterFolder ;
+import gemini.sp.iter.SpIterStep;
 
 /**
  * This is the editor for the "iterator folder" or "Sequence" item.
@@ -55,16 +57,13 @@ public final class EdIteratorFolder extends OtItemEditor implements ActionListen
 	private void _updateFolder()
 	{
 		SpIterFolder iterFolder = ( SpIterFolder )_spItem ;
-		List code = iterFolder.compile() ;
+		List<Vector<SpIterStep>> code = iterFolder.compile() ;
 
 		_table.removeAllRows() ;
 		for( int i = 0 ; i < code.size() ; ++i )
 		{
-			Object o = code.get( i ) ;
-			if( o instanceof List )
-				_table.addSteps( ( List )o ) ;
-			else
-				System.out.println( "UNKNOWN iter element: " + o ) ;
+			Vector<SpIterStep> o = code.get( i ) ;
+			_table.addSteps( o ) ;
 		}
 	}
 

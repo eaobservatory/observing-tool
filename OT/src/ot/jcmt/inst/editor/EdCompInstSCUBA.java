@@ -45,8 +45,8 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListBoxWidget
 		_presSource = _w = new ScubaGUI() ;
 		_description = "The SCUBA instrument is configured with this component." ;
 
-		Enumeration filters = SpInstSCUBA.filters() ;
-		Vector filterVector = new Vector() ;
+		Enumeration<String> filters = SpInstSCUBA.filters() ;
+		Vector<String> filterVector = new Vector<String>() ;
 
 		while( filters.hasMoreElements() )
 			filterVector.add( filters.nextElement() ) ;

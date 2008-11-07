@@ -245,10 +245,10 @@ public class EdIterOffsetFeature extends TpeImageFeature implements TpeDraggable
 		if( getSciAreaMode() != SCI_AREA_NONE )
 			tsa = _iw.getSciArea() ;
 
-		Enumeration e = _opm.getAllPositionMapEntries() ;
+		Enumeration<FitsPosMapEntry> e = _opm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			FitsPosMapEntry pme = e.nextElement() ;
 			if( pme.telescopePos.getTag().startsWith( SpOffsetPos.GUIDE_TAG ) )
 				g.setColor( Color.blue ) ;
 			else
