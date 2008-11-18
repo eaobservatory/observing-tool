@@ -94,9 +94,10 @@ public final class EdProgram extends OtItemEditor implements TextBoxWidgetWatche
 
 		_showPropKind( _avTab.get( KIND ) ) ;
 
-		double time = ( ( SpProg )_spItem ).getElapsedTime() ;
+		double time = (( SpProg )_spItem).getElapsedTime() ;
 		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( time , 1 ) ) ;
-		_w.totalTime.setText( OracUtilities.secsToHHMMSS( ( ( SpProg )_spItem ).getTotalTime() , 1 ) ) ;
+		time = (( SpProg )_spItem).getTotalTime() ;
+		_w.totalTime.setText( OracUtilities.secsToHHMMSS( time , 1 ) ) ;
 	}
 
 	/**
