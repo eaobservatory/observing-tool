@@ -307,6 +307,14 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		_avTable.set( ATTR_OPTIONAL , optional ) ;
 	}
 
+	/**
+	 * dummy method for inheritance reasons
+	 */
+	public double getElapsedTime( boolean dummy )
+	{
+		return getElapsedTime() ;
+	}
+	
 	public double getElapsedTime()
 	{
 		SpIterFolder iterFolder = getIterFolder() ;
