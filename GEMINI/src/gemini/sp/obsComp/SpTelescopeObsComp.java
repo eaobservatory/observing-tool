@@ -123,7 +123,7 @@ public class SpTelescopeObsComp extends SpObsComp
 	/**
      * Override clone to make sure the position list is correctly initialized.
      */
-	public Object clone()
+	public SpTelescopeObsComp clone()
 	{
 		SpTelescopeObsComp toc = ( SpTelescopeObsComp )super.clone() ;
 		toc._posList = null ;

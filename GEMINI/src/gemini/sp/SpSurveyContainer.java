@@ -35,13 +35,12 @@ import java.io.FileReader ;
  */
 public class SpSurveyContainer extends SpObsContextItem
 {
-
 	public static final String ATTR_REMAINING = "remaining" ;
 	public static final String ATTR_PRIORITY = "priority" ;
 	public static final String ATTR_CHOICE = "choose" ;
 	public static final String ATTR_SELECTED_TEL_OBS_COMP = ".gui.selectedTelObsComp" ;
 	public static final String ATTR_SURVEY_ID = "surveyID" ;
-	private Vector _telescopeObsCompVector = new Vector() ;
+	private Vector<SpTelescopeObsComp> _telescopeObsCompVector = new Vector<SpTelescopeObsComp>() ;
 
 	/** Used in {@link #processAvAttribute(String,String,StringBuffer)}. */
 	private Vector<String> _tagVector = null ;
@@ -58,26 +57,18 @@ public class SpSurveyContainer extends SpObsContextItem
 
 	public void initTelescopeObsCompVector()
 	{
-		_telescopeObsCompVector = new Vector() ;
+		_telescopeObsCompVector = new Vector<SpTelescopeObsComp>() ;
 	}
 
-	public void initTelescopeObsCompVector( Vector telescopeObsCompVector )
+	public void initTelescopeObsCompVector( Vector<SpTelescopeObsComp> telescopeObsCompVector )
 	{
-		Vector _telescopeObsCompVectorClone = new Vector() ;
+		Vector<SpTelescopeObsComp> _telescopeObsCompVectorClone = new Vector<SpTelescopeObsComp>() ;
 		for( int index = 0 ; index < telescopeObsCompVector.size() ; index++ )
 		{
-			Object obj = telescopeObsCompVector.get( index ) ;
-			if( obj instanceof SpTelescopeObsComp )
-			{
-				SpTelescopeObsComp temp = ( SpTelescopeObsComp )obj ;
-				SpTelescopeObsComp clone = ( SpTelescopeObsComp )temp.clone() ;
-				clone.setSurveyComponent( this ) ;
-				_telescopeObsCompVectorClone.insertElementAt( clone , index ) ;
-			}
-			else
-			{
-				_telescopeObsCompVectorClone.insertElementAt( obj , index ) ;
-			}
+			SpTelescopeObsComp temp = telescopeObsCompVector.get( index ) ;
+			SpTelescopeObsComp clone = temp.clone() ;
+			clone.setSurveyComponent( this ) ;
+			_telescopeObsCompVectorClone.insertElementAt( clone , index ) ;
 		}
 		_telescopeObsCompVector = _telescopeObsCompVectorClone ;
 	}
@@ -205,7 +196,7 @@ public class SpSurveyContainer extends SpObsContextItem
 
 	public SpTelescopeObsComp getSpTelescopeObsComp( int index )
 	{
-		return ( SpTelescopeObsComp )_telescopeObsCompVector.get( index ) ;
+		return _telescopeObsCompVector.get( index ) ;
 	}
 
 	public int size()
@@ -270,7 +261,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		if( size() < 1 )
 			addSpTelescopeObsComp() ;
 		else
-			( ( SpTelescopeObsComp )_telescopeObsCompVector.get( 0 ) ).getTable().edit() ;
+			_telescopeObsCompVector.get( 0 ).getTable().edit() ;
 	}
 
 	public void removeSpTelescopeObsComp( int index )
@@ -284,7 +275,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		if( size() < 1 )
 			addSpTelescopeObsComp() ;
 		else
-			( ( SpTelescopeObsComp )_telescopeObsCompVector.get( 0 ) ).getTable().edit() ;
+			_telescopeObsCompVector.get( 0 ).getTable().edit() ;
 	}
 
 	public void removeAllSpTelescopeObsComponents()
@@ -438,14 +429,14 @@ public class SpSurveyContainer extends SpObsContextItem
 	public SpItem deepCopy()
 	{
 		SpItem copy = super.deepCopy() ;
-		( ( SpSurveyContainer )copy ).initTelescopeObsCompVector( _telescopeObsCompVector ) ;
+		(( SpSurveyContainer )copy).initTelescopeObsCompVector( _telescopeObsCompVector ) ;
 		return copy ;
 	}
 
 	public SpItem shallowCopy()
 	{
 		SpItem copy = super.shallowCopy() ;
-		( ( SpSurveyContainer )copy ).initTelescopeObsCompVector( _telescopeObsCompVector ) ;
+		(( SpSurveyContainer )copy).initTelescopeObsCompVector( _telescopeObsCompVector ) ;
 		return copy ;
 	}
 
@@ -605,7 +596,7 @@ public class SpSurveyContainer extends SpObsContextItem
 			String tgtElement = "<Target " + ATTR_PRIORITY + "=\"" + getPriority( i ) + "\" " + ATTR_REMAINING + "=\"" + getRemaining( i ) + "\">" ;
 			xmlBuffer.append( "\n" + indent + indent + tgtElement ) ;
 
-			telescopeObsCompXML = ( ( SpTelescopeObsComp )_telescopeObsCompVector.get( i ) ).getXML( "  " + indent + indent + indent ) ;
+			telescopeObsCompXML = _telescopeObsCompVector.get( i ).getXML( "  " + indent + indent + indent ) ;
 			xmlBuffer.append( telescopeObsCompXML ) ;
 
 			xmlBuffer.append( "\n" + indent + indent + "</Target>" ) ;
@@ -613,10 +604,10 @@ public class SpSurveyContainer extends SpObsContextItem
 
 		xmlBuffer.append( "\n" + indent + "</TargetList>" ) ;
 	}
-
+	
 	/**
      * Calculate the total time for the survey component. This is simply the MSB
-     * etimated time or the sum of all the obs times which are not optional,
+     * estimated time or the sum of all the obs times which are not optional,
      * multiplied by the number entries in the survey component
      */
 	public double getElapsedTime()
@@ -696,7 +687,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		StringBuffer sb = new StringBuffer() ;
 		for( int i = 0 ; i < _telescopeObsCompVector.size() ; i++ )
 		{
-			SpTelescopeObsComp obsComp = ( SpTelescopeObsComp )_telescopeObsCompVector.get( i ) ;
+			SpTelescopeObsComp obsComp = _telescopeObsCompVector.get( i ) ;
 			sb.append( obsComp.getTitle() + " " + getRemaining( i ) + " " + getPriority( i ) + "\n" ) ;
 		}
 		return sb.toString() ;
