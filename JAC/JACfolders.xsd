@@ -71,36 +71,72 @@
 
 <!-- SURVEY CONTAINER -->
 <xsd:element name="SpSurveyContainer">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="Target" minOccurs="0" maxOccurs="1">
-        <xsd:complexType>
-          <xsd:attribute name="observed" type="xsd:integer"/>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="TargetList">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="Target" minOccurs="1" maxOccurs="unbounded">
-              <xsd:complexType>
-                <xsd:sequence>
-                  <xsd:element ref="toml:SpTelescopeObsComp" minOccurs="1" maxOccurs="unbounded"/>
-                </xsd:sequence>
-                <xsd:attribute name="priority"  type="toml:priorityType"/>
-                <xsd:attribute name="remaining" type="xsd:integer"/>
-              </xsd:complexType>
-            </xsd:element> <!-- End of Target element -->
-          </xsd:sequence>
-       </xsd:complexType>
-      </xsd:element> <!-- End of element TargetList -->
-      <xsd:element name="surveyID"  type="xsd:string"  minOccurs="0"/>
-      <xsd:element name="title"  type="xsd:string"  minOccurs="0"/>
-      <xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
-    <xsd:attribute name="subtype" type="xsd:string"  fixed="survey"/>
-  </xsd:complexType>
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:group ref="toml:jac_meta_group"/>
+			<xsd:element name="Target" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:attribute name="observed" type="xsd:integer"/>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element ref="toml:TargetList" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="surveyID"  type="xsd:string"  minOccurs="0"/>
+			<xsd:element name="title"  type="xsd:string"  minOccurs="0"/>
+			<xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
+		<xsd:attribute name="subtype" type="xsd:string"  fixed="survey"/>
+	</xsd:complexType>
 </xsd:element>
+
+<xsd:element name="TargetList">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="toml:Target" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:element>
+
+<xsd:element name="Target">
+      <xsd:complexType>
+	      <xsd:sequence>
+		      <xsd:element ref="toml:SpTelescopeObsComp" minOccurs="1" maxOccurs="unbounded"/>
+	      </xsd:sequence>
+	      <xsd:attribute name="priority"  type="toml:priorityType"/>
+	      <xsd:attribute name="remaining" type="xsd:integer"/>
+      </xsd:complexType>
+</xsd:element>
+
+<!-- End of SURVEY CONTAINER -->
+
+<xsd:element name="SpIterMicroStep">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:group ref="toml:jac_meta_group"/>
+			<xsd:element ref="toml:obsArea"/>
+			<xsd:choice>
+				<xsd:element name="pattern" type="toml:UStepPatternType"/>
+			</xsd:choice>
+			<xsd:group ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+		<xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
+	</xsd:complexType>
+</xsd:element>
+
+<xsd:simpleType name="UStepPatternType">
+	<xsd:restriction base="xsd:string">
+		<xsd:enumeration value="NONE"/>
+		<xsd:enumeration value="2x2 small 1"/>
+		<xsd:enumeration value="2x2 small 2"/>
+		<xsd:enumeration value="2x2 small 3"/>
+		<xsd:enumeration value="2x2 medium"/>
+		<xsd:enumeration value="2x2 large"/>
+		<xsd:enumeration value="3x3 tiny"/>
+		<xsd:enumeration value="3x3 small"/>
+		<xsd:enumeration value="3x3 med"/>
+		<xsd:enumeration value="3x3 large"/>
+	</xsd:restriction>
+</xsd:simpleType>
 
 </xsd:schema>
