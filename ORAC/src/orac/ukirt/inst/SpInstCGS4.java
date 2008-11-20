@@ -1420,7 +1420,14 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		t.put( "filter" , getFilter() ) ;
 		t.put( "neutralDensity" , Boolean.toString( getNdFilter() ) ) ;
 		t.put( "posAngle" , getPosAngleDegreesStr() ) ;
-		t.put( "disperser" , getDisperser() ) ;
+		
+		// HACK
+		String disperser = getDisperser() ;
+		if( disperser.indexOf( "lpmm" ) != -1 )
+			disperser = disperser.substring( 0 , disperser.indexOf( "lpmm" ) ) + "_lpmm" ;
+		
+		t.put( "disperser" , disperser ) ;
+		
 		t.put( "polariser" , getPolariser() ) ;
 		t.put( "centralWavelength" , "" + getCentralWavelength() ) ;
 		t.put( "order" , "" + getOrder() ) ;		
