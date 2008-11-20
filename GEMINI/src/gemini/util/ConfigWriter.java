@@ -187,7 +187,7 @@ public class ConfigWriter
 		String disperser = t.get( "disperser" ) ;
 		if( disperser.startsWith( "echelle" ) )
 			disperser = "echelle" ;
-		else
+		else if( disperser.indexOf( "lpmm" ) != -1 && disperser.indexOf( "_lpmm" ) == -1 )
 			disperser = disperser.substring( 0 , disperser.indexOf( "lpmm" ) ) + "_lpmm" ;
 
 		w.write( formatLegacyConfig( disperser , "grating" ) ) ;
