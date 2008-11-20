@@ -31,19 +31,12 @@
   </xsd:restriction>
 </xsd:simpleType>
 
-<xsd:simpleType name="UStepPatternType">
-	<xsd:restriction base="xsd:string">
-		<xsd:enumeration value="NONE"/>
-	</xsd:restriction>
-</xsd:simpleType>
-
 <!-- Complex types -->
 <xsd:complexType name="jcmtPolType" mixed="true">
     <xsd:complexContent>
       <xsd:restriction base="xsd:anyType">
         <xsd:choice>
-          <xsd:element name='value'  type="toml:jcmtPolList"
-		       minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element name='value'  type="toml:jcmtPolList" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
       </xsd:restriction>
     </xsd:complexContent>
@@ -61,19 +54,6 @@
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="instPOL"/>
   </xsd:complexType>
-</xsd:element>
-
-<xsd:element name="SpIterMicroStep">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element ref="toml:obsArea"/>
-			<xsd:element name="pattern" type="toml:UStepPatternType"/>
-			<xsd:group ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
-	</xsd:complexType>
 </xsd:element>
 
 </xsd:schema>
