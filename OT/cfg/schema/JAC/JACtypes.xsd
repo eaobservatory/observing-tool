@@ -132,23 +132,26 @@
 </xsd:group>
 
 <xsd:group name="MSBContents">
-    <xsd:choice>
-      <xsd:element ref="toml:SpNote"/>
-      <xsd:element ref="toml:SpObs"/>
-      <xsd:element ref="toml:SpTelescopeObsComp"/>
-      <xsd:element ref="toml:SpSiteQualityObsComp"/>
-      <xsd:element ref="toml:SpSchedConstObsComp"/>
-      <xsd:element ref="toml:SpSurveyContainer"/>
-    </xsd:choice>
+	<xsd:choice>
+		<xsd:element ref="toml:SpNote"/>
+		<xsd:element ref="toml:SpObs"/>
+		<xsd:element ref="toml:SpTelescopeObsComp"/>
+		<xsd:element ref="toml:SpSiteQualityObsComp"/>
+		<xsd:element ref="toml:SpSchedConstObsComp"/>
+		<xsd:element ref="toml:SpSurveyContainer"/>
+		<xsd:group ref="toml:instrumentGroup"/>
+		<xsd:element ref="toml:SpDRRecipe"/>
+	</xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpTelescopeObsComp"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-  </xsd:choice>
+	<xsd:choice>
+		<xsd:element ref="toml:SpNote"/>
+		<xsd:element ref="toml:SpDRRecipe"/>
+		<xsd:element ref="toml:SpTelescopeObsComp"/>
+		<xsd:element ref="toml:SpSiteQualityObsComp"/>
+		<xsd:group   ref="toml:instrumentGroup"/>
+	</xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
