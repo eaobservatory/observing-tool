@@ -1425,6 +1425,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		String disperser = getDisperser() ;
 		if( disperser.indexOf( "lpmm" ) != -1 )
 			disperser = disperser.substring( 0 , disperser.indexOf( "lpmm" ) ) + "_lpmm" ;
+		else if( disperser.startsWith( "echelle" ) )
+			disperser = "echelle" ;
 		
 		t.put( "disperser" , disperser ) ;
 		
