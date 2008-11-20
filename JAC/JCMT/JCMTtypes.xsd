@@ -6,14 +6,6 @@
 
 <xsd:redefine schemaLocation="../JACtypes.xsd">
 
-<xsd:group name="MSBContents">
-  <xsd:choice>
-    <xsd:group ref="toml:MSBContents"/>
-    <xsd:group ref="toml:instrumentGroup"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-  </xsd:choice>
-</xsd:group>
-
 <xsd:group name="sequenceContent">
   <xsd:choice>
     <xsd:group   ref="toml:sequenceContent"/>
@@ -28,13 +20,6 @@
     <xsd:element ref="toml:SpIterMicroStep"/>
     <xsd:element ref="toml:SpIterDREAMObs"/> 
     <xsd:element ref="toml:SpIterFlatObs"/>
-  </xsd:choice>
-</xsd:group>
-
-<xsd:group name="obsContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:obsContent"/>
-    <xsd:group   ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
