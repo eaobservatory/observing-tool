@@ -17,14 +17,14 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 {
 	// Declare variables.
 	// ==================
-	private Hashtable instTable ;
+	private Hashtable<String,String> instTable ;
 	private String key ; // Hashtable key
 	private String value ; // Value corresponding to the above
 
 	// Hashtable key
 
 	/**
-	 *  Constructor.  Couldhave another with instrum defaulted and invoking
+	 *  Constructor.  Could have another with instrum defaulted and invoking
 	 *  this constructor.
 	 */
 	public InstConfig()
@@ -375,7 +375,7 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 	/** 
 	 *  Accessor method to return the hash table.
 	 */
-	public Hashtable config()
+	public Hashtable<String,String> config()
 	{
 		return instTable ;
 	}
@@ -383,10 +383,8 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 	/**
 	 *  Deep-clone method required to copy the key-value configuration pairs.
 	 */
-	public Object clone()
+	public InstConfig clone()
 	{
-		Object obj ; // Object cloned
-
 		// Make a new Hashtable.
 		InstConfig ht = new InstConfig() ;
 
@@ -399,10 +397,8 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 			ht.put( key , value ) ;
 		}
 
-		obj = ( Object )ht ;
-
 		// Return the cloned hashtable.
-		return obj ;
+		return ht ;
 	}
 
 	/**
@@ -681,7 +677,7 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 	 * nominated attributes are not identical in both.
 	 */
 
-	boolean changedAttribute( InstConfig config , Vector attributes )
+	boolean changedAttribute( InstConfig config , Vector<String> attributes )
 	{
 		boolean change ; // Any selected config attribute has changed?
 		int i ; // Loop counter
@@ -693,7 +689,7 @@ public class InstConfig extends Hashtable<String,String> implements Cloneable
 		// Loop through all the attributes to be tested.
 		for( i = 0 ; i < attributes.size() ; i++ )
 		{
-			key = ( String )attributes.elementAt( i ) ;
+			key = attributes.elementAt( i ) ;
 
 			// Check that the key is present.  Just ignore missing keys.
 			if( containsKey( key ) && config.containsKey( key ) )
