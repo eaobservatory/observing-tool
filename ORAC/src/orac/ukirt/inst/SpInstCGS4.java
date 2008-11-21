@@ -1389,7 +1389,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		}
 		else
 		{
-			t.put( "DAConf" , getMode() ) ;
+			// HACK
+			String mode = getMode() ;
+			if( mode.equals( "NDSTARE" ) )
+				mode = "ND_STARE" ;
+			
+			t.put( "DAConf" , mode ) ;
 			t.put( "type" , "object" ) ;
 			t.put( "exposureTime" , "" + getExpTime() ) ;
 			t.put( "coadds" , "" + getCoadds() ) ;
@@ -1417,7 +1422,20 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "sampleRange" , pixelRange ) ;
 		}
 		
-		t.put( "filter" , getFilter() ) ;
+		// HACK
+		String filter = getFilter().trim() ;
+		if( filter.equals( "blank" ) )
+			filter = "Blanks" ;
+		
+		// HACK
+		String polariser = getPolariser() ;
+		if( getNdFilter() )
+			filter += "+ND" ;
+		else if( !polariser.equals( "none" ) )
+			filter += "+" + polariser ;
+		
+		t.put( "filter" , filter ) ;
+		t.put( "polariser" , polariser ) ;
 		t.put( "neutralDensity" , Boolean.toString( getNdFilter() ) ) ;
 		t.put( "posAngle" , getPosAngleDegreesStr() ) ;
 		
@@ -1430,7 +1448,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		
 		t.put( "disperser" , disperser ) ;
 		
-		t.put( "polariser" , getPolariser() ) ;
 		t.put( "centralWavelength" , "" + getCentralWavelength() ) ;
 		t.put( "order" , "" + getOrder() ) ;		
 		t.put( "calibLamp" , "off" ) ;		

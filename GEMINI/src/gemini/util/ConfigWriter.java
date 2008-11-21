@@ -166,12 +166,13 @@ public class ConfigWriter
 		String filter = t.get( "filter" ).trim() ;
 		boolean nd = Boolean.getBoolean( t.get( "neutralDensity" ) ) ;
 		String pol = t.get( "polariser" ) ;
-		if( nd )
-			filter = filter + "+ND" ;
-		else if( pol.equalsIgnoreCase( "none" ) )
-			;
-		else
-			filter = filter + "+" + pol ;
+		if( filter.indexOf( '+' ) == -1 )
+		{
+    		if( nd )
+    			filter = filter + "+ND" ;
+    		else if( !pol.equalsIgnoreCase( "none" ) )
+    			filter = filter + "+" + pol ;
+		}
 		w.write( formatLegacyConfig( filter , "filter" ) ) ;
 		w.newLine() ;
 
