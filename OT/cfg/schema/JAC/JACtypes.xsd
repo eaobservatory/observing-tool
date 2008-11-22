@@ -42,21 +42,7 @@
   </xsd:restriction>
 </xsd:simpleType>
 
-<xsd:simpleType name="cloudLimits">
-	<xsd:restriction base="xsd:double">
-		<xsd:minInclusive value="0.0"/>
-		<xsd:maxInclusive value="100.0"/>
-	</xsd:restriction>
-</xsd:simpleType>
-
 <!-- Complex types used locally at the JAC -->
-
-<xsd:complexType name="cloudType">
-	<xsd:sequence>
-		<xsd:element name="min" type="toml:cloudLimits" minOccurs="0"/>
-		<xsd:element name="max" type="toml:cloudLimits" minOccurs="0"/>
-	</xsd:sequence>
-</xsd:complexType>
 
 <xsd:complexType name="offsetDefinition">
   <xsd:sequence>
@@ -94,6 +80,7 @@
     <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
+    <xsd:element ref="toml:meta_gui_filename_"            minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_hasBeenSaved"         minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>
@@ -132,26 +119,23 @@
 </xsd:group>
 
 <xsd:group name="MSBContents">
-	<xsd:choice>
-		<xsd:element ref="toml:SpNote"/>
-		<xsd:element ref="toml:SpObs"/>
-		<xsd:element ref="toml:SpTelescopeObsComp"/>
-		<xsd:element ref="toml:SpSiteQualityObsComp"/>
-		<xsd:element ref="toml:SpSchedConstObsComp"/>
-		<xsd:element ref="toml:SpSurveyContainer"/>
-		<xsd:group ref="toml:instrumentGroup"/>
-		<xsd:element ref="toml:SpDRRecipe"/>
-	</xsd:choice>
+    <xsd:choice>
+      <xsd:element ref="toml:SpNote"/>
+      <xsd:element ref="toml:SpObs"/>
+      <xsd:element ref="toml:SpTelescopeObsComp"/>
+      <xsd:element ref="toml:SpSiteQualityObsComp"/>
+      <xsd:element ref="toml:SpSchedConstObsComp"/>
+      <xsd:element ref="toml:SpSurveyContainer"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
-	<xsd:choice>
-		<xsd:element ref="toml:SpNote"/>
-		<xsd:element ref="toml:SpDRRecipe"/>
-		<xsd:element ref="toml:SpTelescopeObsComp"/>
-		<xsd:element ref="toml:SpSiteQualityObsComp"/>
-		<xsd:group   ref="toml:instrumentGroup"/>
-	</xsd:choice>
+  <xsd:choice>
+    <xsd:element ref="toml:SpNote"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
+    <xsd:element ref="toml:SpTelescopeObsComp"/>
+    <xsd:element ref="toml:SpSiteQualityObsComp"/>
+  </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
@@ -174,7 +158,6 @@
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:group   ref="toml:instrumentGroup"/>
     <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpSurveyContainer"/>
   </xsd:choice>
 </xsd:group>
 
@@ -189,7 +172,6 @@
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:group   ref="toml:instrumentGroup"/>
     <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpSurveyContainer"/>
   </xsd:choice>
 </xsd:group>
 

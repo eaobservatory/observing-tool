@@ -33,7 +33,8 @@
 <xsd:element name="SpAND">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
       <xsd:element ref="toml:title"              minOccurs="0"/>
       <xsd:group ref="toml:andContent" minOccurs="1" maxOccurs="unbounded"/>
     </xsd:sequence>
@@ -128,58 +129,6 @@
     <xsd:attribute name="subtype" type="xsd:string" fixed="DRRecipe"/>
     <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
   </xsd:complexType>
-</xsd:element>
-
-<xsd:element name="SpNote">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:choice>
-				<!-- JCMT -->
-				<xsd:sequence>
-					<xsd:element name="binning"		type="xsd:anyType" minOccurs="0"/>
-					<xsd:element name="completionParameter"	type="xsd:anyType" minOccurs="0"/>
-				</xsd:sequence>
-				<!-- UKIRT -->
-				<xsd:sequence>
-					<xsd:element name="brightness"	type="xsd:anyType" minOccurs="0"/>
-					<xsd:element name="coordDesc"	type="xsd:anyType" minOccurs="0"/>
-					<xsd:element name="snr"		type="xsd:anyType" minOccurs="0"/>
-					<xsd:element name="sourceDesc"	type="xsd:string"  minOccurs="0"/>
-				</xsd:sequence>
-			</xsd:choice>
-			<xsd:group	ref="toml:noteGroup"/>
-			<xsd:element	ref="toml:title"	minOccurs="0"/>
-		</xsd:sequence>
-		<xsd:attribute name="id"	type="xsd:nonNegativeInteger" use="optional"/>
-		<xsd:attribute name="type"	type="toml:SpType" fixed="no"/>
-		<xsd:attribute name="subtype"	type="xsd:string" fixed="none"/>
-		<xsd:attribute name="observeInstruction" type="xsd:boolean" use="optional" default="false"/>
-	</xsd:complexType>
-</xsd:element>
-
-<xsd:element name="SpSiteQualityObsComp">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group   ref="toml:jac_meta_group"/>
-			<xsd:choice>
-				<!-- JCMT -->
-				<xsd:sequence>
-					<xsd:element name="min"			type="xsd:anyType"  minOccurs="0"/>
-					<xsd:element name="noiseCalculationTau"	type="toml:tauLimit"/>
-				</xsd:sequence>
-				<!-- UKIRT -->
-				<xsd:sequence>
-					<xsd:element name="cloud"	type="toml:cloudType" minOccurs="0"/>
-					<xsd:element name="moon"	type="toml:cloudType" minOccurs="0"/>
-				</xsd:sequence>
-			</xsd:choice>
-			<xsd:group   ref="toml:siteQualityGroup"/>
-		</xsd:sequence>
-		<xsd:attribute name="id"	type="xsd:nonNegativeInteger"	use="optional"/>
-		<xsd:attribute name="type"	type="toml:SpType"		fixed="oc"/>
-		<xsd:attribute name="subtype"	type="xsd:string"		fixed="schedInfo"/>
-	</xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

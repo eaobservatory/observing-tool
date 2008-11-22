@@ -211,7 +211,7 @@
       <xsd:element name="polariser"      type="toml:cgs4polList"/>
       <xsd:element name="posAngle"       type="toml:cgs4PALimit" minOccurs="0"/>
       <xsd:element name="sampling"       type="toml:cgs4samplingList"/>
-      <xsd:element name="sourceMag"	 type="xsd:string"/>
+      <xsd:element name="sourceMag"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
