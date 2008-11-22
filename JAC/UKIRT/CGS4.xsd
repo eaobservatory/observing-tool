@@ -7,9 +7,15 @@
 
 <xsd:simpleType name="cgs4AcqModList">
   <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="NDSTARE"/>
-    <xsd:enumeration value="STARE"/>
-    <xsd:enumeration value="CHOP"/>
+    <xsd:enumeration value="NDR180"/>
+    <xsd:enumeration value="NDR180N4"/>
+    <xsd:enumeration value="NDR180N8"/>
+    <xsd:enumeration value="CDS256"/>
+    <xsd:enumeration value="CDS180"/>
+    <xsd:enumeration value="CDS180N4"/>
+    <xsd:enumeration value="CDS180N8"/>
+    <xsd:enumeration value="STARE256"/>
+    <xsd:enumeration value="STARE180"/>
   </xsd:restriction>
 </xsd:simpleType>
 
