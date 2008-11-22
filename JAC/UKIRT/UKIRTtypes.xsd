@@ -6,6 +6,14 @@
 
 <xsd:redefine schemaLocation="../JACtypes.xsd">
 
+<xsd:group name="MSBContents">
+  <xsd:choice>
+    <xsd:group ref="toml:MSBContents"/>
+    <xsd:group ref="toml:instrumentGroup"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
+  </xsd:choice>
+</xsd:group>
+
 <xsd:group name="sequenceContent">
   <xsd:choice>
     <xsd:group   ref="toml:sequenceContent"/>
@@ -28,6 +36,17 @@
     <xsd:element ref="toml:SpIterFP"/>
     <xsd:element ref="toml:SpIterObserve"/>
     <xsd:element ref="toml:SpIterSky"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="obsContent">
+  <xsd:choice>
+    <xsd:group   ref="toml:obsContent"/>
+    <xsd:element ref="toml:SpInstCGS4"/>
+    <xsd:element ref="toml:SpInstUFTI"/>
+    <xsd:element ref="toml:SpInstUIST"/>
+    <xsd:element ref="toml:SpInstMichelle"/>
+    <xsd:element ref="toml:SpInstWFCAM"/>
   </xsd:choice>
 </xsd:group>
 
@@ -60,5 +79,19 @@
     <xsd:element ref="toml:SpIterFP"/>
   </xsd:choice>
 </xsd:group>
+
+<xsd:simpleType name="cloudLimits">
+  <xsd:restriction base="xsd:double">
+    <xsd:minInclusive value="0.0"/>
+    <xsd:maxInclusive value="100.0"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:complexType name="cloudType">
+  <xsd:sequence>
+    <xsd:element name="min" type="toml:cloudLimits" minOccurs="0"/>
+    <xsd:element name="max" type="toml:cloudLimits" minOccurs="0"/>
+  </xsd:sequence>
+</xsd:complexType>
 
 </xsd:schema>
