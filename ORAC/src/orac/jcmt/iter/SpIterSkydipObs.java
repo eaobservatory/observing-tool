@@ -76,6 +76,8 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 		double time = 0. ;
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
 			time = 227. + SCUBA_STARTUP_TIME ;
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+			time = 295. ;
 
 		return time ;
 	}
