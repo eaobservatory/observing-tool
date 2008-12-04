@@ -32,7 +32,7 @@ import orac.jcmt.util.ScubaNoise ;
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher
+public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher , SpJCMTConstants
 {
 	private IterJiggleObsGUI _w ; // the GUI layout panel
 	private SpIterJiggleObs _iterObs ;
@@ -101,8 +101,20 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 			if( instObsComp instanceof SpInstHeterodyne )
 			{
-				if( _iterObs.getSwitchingMode() == null )
-					_iterObs.setSwitchingMode( SpJCMTConstants.SWITCHING_MODE_NONE ) ;
+				String switchingMode = _iterObs.getSwitchingMode() ;
+				if( switchingMode == null )
+					_iterObs.setSwitchingMode( SWITCHING_MODE_NONE ) ;
+
+				boolean freqSwitching = switchingMode.startsWith( "Frequency" ) ;
+				super._w.separateOffs.setEnabled( !freqSwitching ) ;
+				if( freqSwitching )
+				{
+					super._w.separateOffs.setSelected( true ) ;
+					_iterObs.setSeparateOffs( true ) ;
+					_iterObs.setContinuumMode( false ) ;
+					_w.contModeCB.setSelected( false ) ;
+				}
+
 				_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
 				_w.scaleFactor.setValue( _iterObs.getScaleFactor() ) ;
 			}
