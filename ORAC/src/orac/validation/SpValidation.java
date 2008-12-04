@@ -635,7 +635,8 @@ public class SpValidation
 			errorMessage += "\n" ;
 			errorMessage += xml[ lineNumber - 1 ] + "\n" ;
 			errorMessage += "--> " + xml[ lineNumber ] + "  <--\n" ;
-			errorMessage += xml[ lineNumber + 1 ] + "\n" ;
+			if( lineNumber + 1 < xml.length )
+				errorMessage += xml[ lineNumber + 1 ] + "\n" ;
 			errorMessage += "\n" ;
 			
 			errorMessage += "Obs:<" + SchemaContentHandler.getCurrentObs() + "> \n" ;
