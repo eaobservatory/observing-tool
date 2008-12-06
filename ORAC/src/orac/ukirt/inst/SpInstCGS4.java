@@ -1400,7 +1400,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "coadds" , "" + getCoadds() ) ;
 			t.put( "maskWidth" , "" + getMaskWidth() ) ;
 			
-			Double offset = getCentralWavelength() - getCvfOffset() ;
+			Double offset = getCvfOffset() - getCentralWavelength() ;
 			offset = Math.rint( offset * 1000. ) / 1000. ;
 			t.put( "cvfOffset" , offset.toString() ) ;
 			
