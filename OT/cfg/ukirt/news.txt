@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ December 2008
+
+  - Numerous CGS4 updates to support new controller.
+
 +++ August 2008
 
   - Narrow band H filter replaces Bracket Gamma filter for WFCAM. See January 2008.
