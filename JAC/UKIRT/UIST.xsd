@@ -223,7 +223,6 @@
     <xsd:enumeration value="undefined"/>
     <xsd:enumeration value="argon"/>
     <xsd:enumeration value="krypton"/>
-    <xsd:enumeration value="krypton+argon"/>
   </xsd:restriction>
 </xsd:simpleType>
 
