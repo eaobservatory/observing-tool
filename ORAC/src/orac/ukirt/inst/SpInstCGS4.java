@@ -1372,9 +1372,10 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		
 		BigDecimal centralWavelength = new BigDecimal( getCentralWavelength() ) ;
 		BigDecimal cvfOffset = new BigDecimal( getCvfOffset() ) ;
-		cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 8 ) ) ;
+		cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 6 ) ) ;
+		Double doubleOffset = cvfOffset.doubleValue() ;
 		
-		t.put( "cvfOffset" , cvfOffset.toString() ) ;
+		t.put( "cvfOffset" , doubleOffset.toString() ) ;
 		
 		t.put( "TH-Level" , "97" ) ;
 		t.put( "lampAper" , "10" ) ;
