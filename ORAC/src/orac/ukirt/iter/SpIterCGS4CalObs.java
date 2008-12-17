@@ -792,58 +792,28 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null || !( inst instanceof SpInstCGS4 ) )
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" ) ;
-
-		boolean oldController = System.getProperty( "cgs4" ) == null ;
 		
 		// Get the current config items and then update it depending on the type
 		Hashtable<String,String> configTable = inst.getConfigItems() ;
-		
-		if( oldController )
+
+		configTable.put( "type" , getCalTypeString().toLowerCase() ) ;
+		configTable.put( "DAConf" , getMode() ) ;
+		configTable.put( "filter" , getFilter() ) ;
+		configTable.put( "exposureTime" , "" + getExposureTime() ) ;
+		configTable.put( "coadds" , "" + getCoadds() ) ;
+		switch( getCalType() )
 		{
-			switch( getCalType() )
-			{
-				case FLAT :
-					configTable.put( "flatSampling" , getFlatSampling() ) ;
-					configTable.put( "flatCalLamp" , getLamp() ) ;
-					configTable.put( "flatReadMode" , getMode() ) ;
-					configTable.put( "flatFilter" , getFilter() ) ;
-					configTable.put( "flatExpTime" , "" + getExposureTime() ) ;
-					configTable.put( "flatNumExp" , "" + getCoadds() ) ;
-					configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
-					break ;
-				case ARC :
-					configTable.put( "arcCalLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() ) ;
-					configTable.put( "arcFilter" , getFilter() ) ;
-					configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() ) ;
-					configTable.put( "arcExpTime" , "" + getExposureTime() ) ;
-					configTable.put( "arcNumExp" , "" + getCoadds() ) ;
-					configTable.put( "arcReadMode" , getMode() ) ;
-					break ;
-				default :
-					throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" ) ;
-			}
-		}
-		else
-		{
-			configTable.put( "type" , getCalTypeString().toLowerCase() ) ;
-			configTable.put( "DAConf" , getMode() ) ;
-			configTable.put( "filter" , getFilter() ) ;
-			configTable.put( "exposureTime" , "" + getExposureTime() ) ;
-			configTable.put( "coadds" , "" + getCoadds() ) ;
-			switch( getCalType() )
-			{
-				case FLAT :
-					configTable.put( "sampling" , getFlatSampling() ) ;
-					configTable.put( "flatLamp" , getLamp() ) ;
-					configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
-					break ;
-				case ARC :
-					configTable.put( "arcLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() ) ;
-					configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() ) ;
-					break ;
-				default :
-					throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" ) ;
-			}
+			case FLAT :
+				configTable.put( "sampling" , getFlatSampling() ) ;
+				configTable.put( "flatLamp" , getLamp() ) ;
+				configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
+				break ;
+			case ARC :
+				configTable.put( "arcLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() ) ;
+				configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() ) ;
+				break ;
+			default :
+				throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" ) ;
 		}
 
 		// Now get hold of any DRRecipe component

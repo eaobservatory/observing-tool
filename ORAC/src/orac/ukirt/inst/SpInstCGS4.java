@@ -1352,80 +1352,46 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	}
 
 	public Hashtable<String,String> getConfigItems()
-	{
-		boolean oldController = System.getProperty( "cgs4" ) == null ;
-		
+	{	
 		Hashtable<String,String> t = new Hashtable<String,String>() ;
 
 		t.put( "instrument" , "CGS4" ) ;
 		t.put( "version" , "TBD" ) ;
 		t.put( "name" , "TBD" ) ;
 		
-		if( oldController )
-		{
-			t.put( "readMode" , getMode() ) ;
-			t.put( "expTime" , "" + getExpTime() ) ;
-			t.put( "objNumExp" , "" + getCoadds() ) ;
-			t.put( "slitWidth" , "" + getMaskWidth() ) ;
-			t.put( "cvfWavelength" , "" + getCvfOffset() ) ;
-			t.put( "tunHalLevel" , "97" ) ;
-			t.put( "lampEffAp" , "10" ) ;
-			t.put( "flatSampling" , "1x1" ) ;
-			t.put( "flatCalLamp" , "1.3" ) ;
-			t.put( "flatFilter" , getFilter() ) ;
-			t.put( "flatExpTime" , "" + getExpTime() ) ;
-			t.put( "flatNumExp" , "" + getCoadds() ) ;
-			t.put( "darkNumExp" , "" + getCoadds() ) ;
-			t.put( "biasExpTime" , "" + getExpTime() ) ;
-			t.put( "biasNumExp" , "" + getCoadds() ) ;
-			t.put( "arcCalLamp" , "argon" ) ;
-			t.put( "arcFilter" , getFilter() ) ;
-			t.put( "arcExpTime" , "" + getExpTime() ) ;
-			t.put( "arcNumExp" , "" + getCoadds() ) ;
-			t.put( "savedInt" , "1" ) ;
-			t.put( "sampling" , getSampling() ) ;
-			t.put( "flatReadMode" , getMode() ) ;
-			t.put( "arcReadMode" , getMode() ) ;
-			t.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) ) ;
-			t.put( "arcCvfWavelength" , "" + getCvfOffset() ) ;
-		}
-		else
-		{
-			// HACK
-			String mode = getMode() ;
-			if( mode.equals( "NDSTARE" ) )
-				mode = "ND_STARE" ;
-			
-			t.put( "DAConf" , mode ) ;
-			t.put( "type" , "object" ) ;
-			t.put( "exposureTime" , "" + getExpTime() ) ;
-			t.put( "coadds" , "" + getCoadds() ) ;
-			t.put( "maskWidth" , "" + getMaskWidth() ) ;
-			
-			// Equivalent to : Double offset = getCvfOffset() - getCentralWavelength() ;
-			BigDecimal centralWavelength = new BigDecimal( getCentralWavelength() ) ;
-			BigDecimal cvfOffset = new BigDecimal( getCvfOffset() ) ;
-			cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 8 ) ) ;
-			
-			t.put( "cvfOffset" , cvfOffset.toString() ) ;
-			
-			t.put( "TH-Level" , "97" ) ;
-			t.put( "lampAper" , "10" ) ;
-			t.put( "flatLamp" , "1.3" ) ;
-			t.put( "arcLamp" , "argon" ) ;
-			t.put( "scans" , "1" ) ;
-			
-			String[] samplingValues = getSampling().split( "x" ) ;
-			Integer range = Integer.parseInt( samplingValues[ 1 ] ) ;
-			Integer sampling = Integer.parseInt( samplingValues[ 0 ] ) * range ;
-			t.put( "sampling" , sampling.toString() ) ;
-			
-			String pixelRange = samplingValues[ 1 ] + "_pixel" ;
-			if( range > 1 )
-				pixelRange += "s" ;
+		// HACK
+		String mode = getMode() ;
+		if( mode.equals( "NDSTARE" ) )
+			mode = "ND_STARE" ;
+		
+		t.put( "DAConf" , mode ) ;
+		t.put( "type" , "object" ) ;
+		t.put( "exposureTime" , "" + getExpTime() ) ;
+		t.put( "coadds" , "" + getCoadds() ) ;
+		t.put( "maskWidth" , "" + getMaskWidth() ) ;
+		
+		BigDecimal centralWavelength = new BigDecimal( getCentralWavelength() ) ;
+		BigDecimal cvfOffset = new BigDecimal( getCvfOffset() ) ;
+		cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 8 ) ) ;
+		
+		t.put( "cvfOffset" , cvfOffset.toString() ) ;
+		
+		t.put( "TH-Level" , "97" ) ;
+		t.put( "lampAper" , "10" ) ;
+		t.put( "flatLamp" , "1.3" ) ;
+		t.put( "arcLamp" , "argon" ) ;
+		t.put( "scans" , "1" ) ;
+		
+		String[] samplingValues = getSampling().split( "x" ) ;
+		Integer range = Integer.parseInt( samplingValues[ 1 ] ) ;
+		Integer sampling = Integer.parseInt( samplingValues[ 0 ] ) * range ;
+		t.put( "sampling" , sampling.toString() ) ;
+		
+		String pixelRange = samplingValues[ 1 ] + "_pixel" ;
+		if( range > 1 )
+			pixelRange += "s" ;
 
-			t.put( "sampleRange" , pixelRange ) ;
-		}
+		t.put( "sampleRange" , pixelRange ) ;
 		
 		// HACK
 		String filter = getFilter().trim() ;

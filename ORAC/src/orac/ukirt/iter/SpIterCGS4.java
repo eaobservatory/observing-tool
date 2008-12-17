@@ -123,8 +123,6 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 		{
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument in scope" ) ;
 		}
-		
-		boolean oldController = System.getProperty( "cgs4" ) == null ;
 
 		List iterList = getConfigAttribs() ;
 		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
@@ -133,24 +131,12 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 			_myTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
-				if( oldController )
-				{
-    				if( iterList.contains( "exposureTimeIter" ) )
-    					_myTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
-    				if( iterList.contains( "coaddsIter" ) )
-    					_myTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
-    				if( iterList.contains( "acqModeIter" ) )
-    					_myTable.put( "readMode" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;
-				}
-				else
-				{
-    				if( iterList.contains( "exposureTimeIter" ) )
-    					_myTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
-    				if( iterList.contains( "coaddsIter" ) )
-    					_myTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
-    				if( iterList.contains( "acqModeIter" ) )
-    					_myTable.put( "DAConf" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;					
-				}
+				if( iterList.contains( "exposureTimeIter" ) )
+					_myTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+				if( iterList.contains( "coaddsIter" ) )
+					_myTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+				if( iterList.contains( "acqModeIter" ) )
+					_myTable.put( "DAConf" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;					
 				if( iterList.contains( "instAperXIter" ) )
 					_myTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperYIter" ) )
