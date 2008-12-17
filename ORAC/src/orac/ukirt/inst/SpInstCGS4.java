@@ -10,6 +10,8 @@
 package orac.ukirt.inst ;
 
 import java.io.IOException ;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.NoSuchElementException ;
 import java.util.Vector ;
 import java.util.Hashtable ;
@@ -1400,8 +1402,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			t.put( "coadds" , "" + getCoadds() ) ;
 			t.put( "maskWidth" , "" + getMaskWidth() ) ;
 			
-			Double offset = getCvfOffset() - getCentralWavelength() ;
-			t.put( "cvfOffset" , offset.toString() ) ;
+			// Equivalent to : Double offset = getCvfOffset() - getCentralWavelength() ;
+			BigDecimal centralWavelength = new BigDecimal( getCentralWavelength() ) ;
+			BigDecimal cvfOffset = new BigDecimal( getCvfOffset() ) ;
+			cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 8 ) ) ;
+			
+			t.put( "cvfOffset" , cvfOffset.toString() ) ;
 			
 			t.put( "TH-Level" , "97" ) ;
 			t.put( "lampAper" , "10" ) ;
