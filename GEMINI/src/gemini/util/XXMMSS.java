@@ -4,11 +4,18 @@ package gemini.util ;
 
 public class XXMMSS
 {
-	protected static final String rapattern =  "\\d{1,2}([ ]{1,2}\\d{1,2}([ ]{1,2}\\d{1,2}(\\.\\d*)?)?)?" ;
-	protected static final String decpattern = "^(\\+|-)?" + rapattern ;
+	protected static final String arcseconds = "[0-5]?[0-9]{1}" ;
+	protected static final String degrees = "([0-3][0-5][0-9]|[0-2]?[0-9]?[0-9]{1})" ;
+	protected static final String hours = "([0-2][0-3]|[0-1]?[0-9]{1})" ;
+	protected static final String miliarcseconds = "\\.[0-9]?[0-9]?[0-9]{1}" ;
+	
+	protected static final String spacePattern = "([ ]{1,2}" + arcseconds + "([ ]{1,2}" + arcseconds + "(" + miliarcseconds + ")?)?)?" ;
+	protected static final String rapattern =  hours + spacePattern ;
+	protected static final String decpattern = "^(\\+|-)?" + degrees + spacePattern ;
 
-	protected static final String rapatterncolon =  "\\d{1,2}(:\\d{1,2}(:\\d{1,2}(\\.\\d*)?)?)?" ;
-	protected static final String decpatterncolon = "^(\\+|-)?" + rapatterncolon ;
+	protected static final String colonPattern = "(:" + arcseconds + "(:" + arcseconds + "(" + miliarcseconds + ")?)?)?" ;
+	protected static final String rapatterncolon =  hours + colonPattern ;
+	protected static final String decpatterncolon = "^(\\+|-)?" + degrees + colonPattern ;
 	
 	public static double[] stringTodoubleTriplet( String hhmmss )
 	{
