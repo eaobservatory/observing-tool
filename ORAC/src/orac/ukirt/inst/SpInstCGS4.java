@@ -1374,8 +1374,13 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		BigDecimal cvfOffset = new BigDecimal( getCvfOffset() ) ;
 		cvfOffset = cvfOffset.subtract( centralWavelength , new MathContext( 6 ) ) ;
 		Double doubleOffset = cvfOffset.doubleValue() ;
+		String offset = doubleOffset.toString() ;
 		
-		t.put( "cvfOffset" , doubleOffset.toString() ) ;
+		// Do we have IEEE rounding issues ?
+		if( offset.length() > 14 )
+			offset = offset.substring( 0 , 14 ) ;
+		
+		t.put( "cvfOffset" , offset ) ;
 		
 		t.put( "TH-Level" , "97" ) ;
 		t.put( "lampAper" , "10" ) ;
