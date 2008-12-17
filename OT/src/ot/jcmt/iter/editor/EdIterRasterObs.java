@@ -42,7 +42,6 @@ import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.util.CoordConvert ;
 
 import java.math.BigDecimal ;
-import java.math.MathContext ;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
