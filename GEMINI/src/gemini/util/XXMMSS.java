@@ -5,7 +5,7 @@ package gemini.util ;
 public class XXMMSS
 {
 	protected static final String arcseconds = "[0-5]?[0-9]{1}" ;
-	protected static final String degrees = "([0-3][0-5][0-9]|[0-2]?[0-9]?[0-9]{1})" ;
+	protected static final String degrees = "([0-1][0-7][0-9]|[0]?[0-9]?[0-9]{1})" ;
 	protected static final String hours = "([0-2][0-3]|[0-1]?[0-9]{1})" ;
 	protected static final String miliarcseconds = "\\.[0-9]?[0-9]?[0-9]{1}" ;
 	
