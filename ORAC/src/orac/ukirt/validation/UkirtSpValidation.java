@@ -504,16 +504,19 @@ public class UkirtSpValidation extends SpValidation
 			 * original string.
 			 */
 
-			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
-				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
-
-			if( !DDMMSS.validate( pos.getYaxisAsString() ) )
-				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
-
-			// checking whether both RA and Dec are 0:00:00
-			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + titleString , "Both Dec and RA are 0:00:00" ) ) ;
-
+			if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) )
+			{
+    			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
+    
+    			if( !DDMMSS.validate( pos.getYaxisAsString() , -40 , 60 ) )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
+    
+    			// checking whether both RA and Dec are 0:00:00
+    			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
+    				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + titleString , "Both Dec and RA are 0:00:00" ) ) ;
+			}
+			
 			/*
 			 * Check whether the target list has a target coordinate for which the epoch is B1950, 
 			 * and a guide star coordinate for which the Ra and Dec values are identical 

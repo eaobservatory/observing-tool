@@ -20,6 +20,8 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.obsComp.SpSiteQualityObsComp ;
 import gemini.sp.obsComp.SpSchedConstObsComp ;
+import gemini.util.DDMMSS ;
+import gemini.util.HHMMSS ;
 import gemini.util.TelescopePos ;
 
 import orac.util.SpItemUtilities ;
@@ -492,8 +494,17 @@ public class SpValidation
 			for( int i = 0 ; i < position.length ; i++ )
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
-				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && ( pos.getXaxis() == 0 ) && ( pos.getYaxis() == 0 ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + " in " + titleString , "Both Dec and RA are 0:00:00" ) ) ;
+				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) )
+				{
+					String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
+					
+					if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
+						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "Both Dec and RA are 0:00:00" ) ) ;
+					if( !HHMMSS.validate( pos.getXaxisAsString() ) )
+						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "RA not valid" ) ) ;
+					if( !DDMMSS.validate( pos.getYaxisAsString() ) )
+						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "Dec not valid" ) ) ;
+				}
 			}
 		}
 		else

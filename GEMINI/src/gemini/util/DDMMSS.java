@@ -129,6 +129,18 @@ public class DDMMSS extends XXMMSS
 	 */
 	public static boolean validate( String ddmmss )
 	{
+		return validate( ddmmss , -180 , 180 ) ;
+	}
+	
+	/**
+	 * Check wether a string is in the correct DD:MM:SS format and within range
+	 * @param ddmmss
+	 * @param min
+	 * @param max
+	 * @return boolean indicating validity
+	 */
+	public static boolean validate( String ddmmss , int min , int max )
+	{
 		boolean valid = true ;
 
 		if( valid = validFormat( ddmmss ) )
@@ -139,7 +151,7 @@ public class DDMMSS extends XXMMSS
 			double minutes = values[ 1 ] ;
 			double seconds = values[ 2 ] ;
 	
-			if( degrees < -40 || degrees > 60 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
+			if( degrees < min || degrees > max || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
 				valid = false ;
 		}
 
