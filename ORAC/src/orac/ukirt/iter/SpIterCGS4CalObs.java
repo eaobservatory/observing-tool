@@ -641,7 +641,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		String mode ;
 		mode = DEFAULT_MODE ;
 		SpInstCGS4 inst = ( SpInstCGS4 )getInstrumentItem() ;
-		if( inst != null )
+		if( mode == null && inst != null )
 		{
 			String instmode = inst.getMode() ;
 			for( int i = 0 ; i < MODES.length ; i++ )
