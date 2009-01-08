@@ -45,8 +45,9 @@
 
 
 <!-- IRSA Image Servers -->
-  <catalog name="2MASS Quick-Look Image Retrieval Service" type="imagesvr" path="2MASSImg.xml"/>
-
+  <catalog name="2MASS Quick-Look Image Retrieval Service - J-Band" type="imagesvr" path="2MASSImg-j.xml"/>
+  <catalog name="2MASS Quick-Look Image Retrieval Service - H-band" type="imagesvr" path="2MASSImg-h.xml"/>
+  <catalog name="2MASS Quick-Look Image Retrieval Service - K-band" type="imagesvr" path="2MASSImg-k.xml"/>
 <!-- 
   Catalog Subdirectories 
   
