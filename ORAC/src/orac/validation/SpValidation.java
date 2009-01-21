@@ -494,7 +494,7 @@ public class SpValidation
 			for( int i = 0 ; i < position.length ; i++ )
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
-				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) )
+				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() )
 				{
 					String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
 					
