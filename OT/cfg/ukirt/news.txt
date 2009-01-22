@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ January 2009
+
+  - 2MASS Quick look support for J, H and K band.
+
 +++ December 2008
 
   - Numerous CGS4 updates to support new controller.
