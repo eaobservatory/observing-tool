@@ -300,7 +300,9 @@ public class JcmtSpValidation extends SpValidation
 							report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , errorText ) ) ;
 							break ;
 						}
-						
+					}
+					else
+					{						
 		    			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
 		    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
 		    
@@ -310,7 +312,6 @@ public class JcmtSpValidation extends SpValidation
 		    			// checking whether both RA and Dec are 0:00:00
 		    			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
 		    				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + titleString , "Both Dec and RA are 0:00:00" ) ) ;
-
 					}
 				}
 			}
