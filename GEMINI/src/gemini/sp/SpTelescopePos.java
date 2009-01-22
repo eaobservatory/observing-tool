@@ -1051,7 +1051,12 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	{
 		String res = _avTab.get( _tag , TRACKING_RV_FRAME ) ;
 		if( res == null || res.equals( "" ) )
-			res = "LSRK" ;
+		{
+			if( getSystemType() == SYSTEM_SPHERICAL )
+				res = "LSRK" ;
+			else
+				res = "TOPOCENTRIC" ;
+		}
 		return res ;
 	}
 
