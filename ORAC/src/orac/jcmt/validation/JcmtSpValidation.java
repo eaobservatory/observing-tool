@@ -17,13 +17,14 @@ import orac.jcmt.iter.SpIterJCMTObs ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.iter.SpIterChop ;
-import gemini.util.DDMMSS;
-import gemini.util.HHMMSS;
-import gemini.util.RADec;
+import gemini.util.CoordSys ;
+import gemini.util.DDMMSS ;
+import gemini.util.HHMMSS ;
+import gemini.util.RADec ;
 import gemini.util.TelescopePos ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.inst.SpDRRecipe ;
-import orac.util.CoordConvert;
+import orac.util.CoordConvert ;
 import orac.validation.SpValidation ;
 import orac.validation.ErrorMessage ;
 
@@ -33,8 +34,6 @@ import orac.jcmt.iter.SpIterNoiseObs ;
 import java.lang.reflect.Method ;
 import java.lang.reflect.InvocationTargetException ;
 import java.lang.reflect.Field ;
-
-import jsky.app.ot.util.CoordSys ;
 
 /**
  * Validation Tool for JCMT.

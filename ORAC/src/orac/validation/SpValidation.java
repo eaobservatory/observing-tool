@@ -20,9 +20,10 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.obsComp.SpSiteQualityObsComp ;
 import gemini.sp.obsComp.SpSchedConstObsComp ;
+import gemini.util.CoordSys ;
 import gemini.util.DDMMSS ;
 import gemini.util.HHMMSS ;
-import gemini.util.RADec;
+import gemini.util.RADec ;
 import gemini.util.TelescopePos ;
 
 import orac.util.CoordConvert;
@@ -46,8 +47,6 @@ import org.xml.sax.Locator ;
 
 import orac.util.OracUtilities ;
 import java.util.Date ;
-
-import jsky.app.ot.util.CoordSys ;
 
 /**
  * Validation Tool.
