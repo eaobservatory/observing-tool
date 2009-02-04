@@ -504,7 +504,7 @@ public class UkirtSpValidation extends SpValidation
 			 * original string.
 			 */
 
-			if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) )
+			if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() && ( pos.getCoordSys() == CoordSys.FK5 || pos.getCoordSys() == CoordSys.FK4 ) )
 			{
     			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
     				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;

@@ -45,6 +45,8 @@ import org.xml.sax.Locator ;
 import orac.util.OracUtilities ;
 import java.util.Date ;
 
+import jsky.app.ot.util.CoordSys ;
+
 /**
  * Validation Tool.
  * 
@@ -494,7 +496,7 @@ public class SpValidation
 			for( int i = 0 ; i < position.length ; i++ )
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
-				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() )
+				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() && ( pos.getCoordSys() == CoordSys.FK5 || pos.getCoordSys() == CoordSys.FK4 ) )
 				{
 					String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
 					

@@ -32,6 +32,8 @@ import java.lang.reflect.Method ;
 import java.lang.reflect.InvocationTargetException ;
 import java.lang.reflect.Field ;
 
+import jsky.app.ot.util.CoordSys ;
+
 /**
  * Validation Tool for JCMT.
  * 
@@ -303,7 +305,7 @@ public class JcmtSpValidation extends SpValidation
 					}
 					else
 					{	
-						if( pos.isBasePosition() )
+						if( pos.isBasePosition() && ( pos.getCoordSys() == CoordSys.FK5 || pos.getCoordSys() == CoordSys.FK4 ) )
 						{
     		    			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
     		    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
