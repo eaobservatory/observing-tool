@@ -504,17 +504,43 @@ public class UkirtSpValidation extends SpValidation
 			 * original string.
 			 */
 
-			if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() && ( pos.getCoordSys() == CoordSys.FK5 || pos.getCoordSys() == CoordSys.FK4 ) )
+			if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() )
 			{
-    			if( !HHMMSS.validate( pos.getXaxisAsString() ) )
-    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
-    
-    			if( !DDMMSS.validate( pos.getYaxisAsString() , -40 , 60 ) )
-    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
-    
+				double Xaxis = pos.getXaxis() ;
+				double Yaxis = pos.getYaxis() ;
+
     			// checking whether both RA and Dec are 0:00:00
-    			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
+    			if( Xaxis == 0 && Yaxis == 0 )
     				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() + titleString , "Both Dec and RA are 0:00:00" ) ) ;
+					
+					int coordSystem = pos.getCoordSys() ;
+					
+					String converted = "" ;
+					
+					if( coordSystem == CoordSys.FK4 )
+					{
+						RADec raDec = CoordConvert.Fk45z( Xaxis , Yaxis ) ;
+						Xaxis = raDec.ra ;
+						Yaxis = raDec.dec ;
+						converted = " converted from FK4 " ;
+					}
+					else if( coordSystem == CoordSys.GAL )
+					{
+						RADec raDec = CoordConvert.gal2fk5( Xaxis , Yaxis ) ;
+						Xaxis = raDec.ra ;
+						Yaxis = raDec.dec ;
+						converted = " converted from Galactic " ;
+					}
+					
+					String hhmmss = HHMMSS.valStr( Xaxis ) ;
+					String ddmmss = DDMMSS.valStr( Yaxis ) ;
+					
+				
+    			if( !HHMMSS.validate( hhmmss ) )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "RA" + converted , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) ) ;
+    
+    			if( !DDMMSS.validate( ddmmss , -40 , 60 ) )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() + titleString , "Dec" + converted , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) ) ;
 			}
 			
 			/*

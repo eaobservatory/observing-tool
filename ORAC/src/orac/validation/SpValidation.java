@@ -22,8 +22,10 @@ import gemini.sp.obsComp.SpSiteQualityObsComp ;
 import gemini.sp.obsComp.SpSchedConstObsComp ;
 import gemini.util.DDMMSS ;
 import gemini.util.HHMMSS ;
+import gemini.util.RADec;
 import gemini.util.TelescopePos ;
 
+import orac.util.CoordConvert;
 import orac.util.SpItemUtilities ;
 
 import org.apache.xerces.parsers.SAXParser ;
@@ -496,15 +498,37 @@ public class SpValidation
 			for( int i = 0 ; i < position.length ; i++ )
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
-				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() && ( pos.getCoordSys() == CoordSys.FK5 || pos.getCoordSys() == CoordSys.FK4 ) )
+				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() )
 				{
 					String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
 					
-					if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
+					double Xaxis = pos.getXaxis() ;
+					double Yaxis = pos.getYaxis() ;
+					
+					if( Xaxis == 0 && Yaxis == 0 )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "Both Dec and RA are 0:00:00" ) ) ;
-					if( !HHMMSS.validate( pos.getXaxisAsString() ) )
+					
+					int coordSystem = pos.getCoordSys() ;
+					
+					if( coordSystem == CoordSys.FK4 )
+					{
+						RADec raDec = CoordConvert.Fk45z( Xaxis , Yaxis ) ;
+						Xaxis = raDec.ra ;
+						Yaxis = raDec.dec ;
+					}
+					else if( coordSystem == CoordSys.GAL )
+					{
+						RADec raDec = CoordConvert.gal2fk5( Xaxis , Yaxis ) ;
+						Xaxis = raDec.ra ;
+						Yaxis = raDec.dec ;
+					}
+					
+					String hhmmss = HHMMSS.valStr( Xaxis ) ;
+					String ddmmss = DDMMSS.valStr( Yaxis ) ;	
+					
+					if( !HHMMSS.validate( hhmmss ) )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "RA not valid" ) ) ;
-					if( !DDMMSS.validate( pos.getYaxisAsString() ) )
+					if( !DDMMSS.validate( ddmmss ) )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "Dec not valid" ) ) ;
 				}
 			}
