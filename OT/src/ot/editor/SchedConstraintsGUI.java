@@ -103,7 +103,7 @@ public class SchedConstraintsGUI extends JPanel
 		jLabel5.setText( "Elevation Constraints" ) ;
 		jLabel6.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		jLabel6.setForeground( Color.black ) ;
-		jLabel6.setText( "(degrees)" ) ;
+		jLabel6.setText( "(degrees above horizon)" ) ;
 		jLabel7.setForeground( Color.black ) ;
 		jLabel7.setText( "Reschedule every" ) ;
 		jLabel7.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
