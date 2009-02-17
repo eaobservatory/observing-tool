@@ -146,7 +146,7 @@ public class SpValidation
 			if( child instanceof SpMSB )
 				checkMSB( ( SpMSB )child , report ) ;
 			else if( child instanceof SpSchedConstObsComp )
-				checkStartEndTimes( ( SpSchedConstObsComp )child , report ) ;
+				checkSchedComp( ( SpSchedConstObsComp )child , report ) ;
 			else
 				checkSciProgramRecursively( child , report ) ;
 		}
@@ -851,6 +851,29 @@ public class SpValidation
 
 	public static class ComponentLoader extends ClassLoader{}
 
+	public void checkSchedComp( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
+	{
+		checkStartEndTimes( schedule , report ) ;
+		maxGreaterThanMin( schedule , report ) ;
+	}
+	
+	public void maxGreaterThanMin( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
+	{
+		String min = schedule.getMinElevation() ;
+		String max = schedule.getMaxElevation() ;
+		try
+		{
+			double minEl = new Double( min ) ;
+			double maxEl = new Double( max ) ;
+			if( minEl > maxEl )
+				report.add( new ErrorMessage( ErrorMessage.ERROR , "Min elevation in schedule constraint is greater than max elevation" , "" ) ) ;
+		}
+		catch( NumberFormatException nfe )
+		{
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Values for elevation in schedule constraint not numeric." , "" ) ) ;
+		}
+	}
+	
 	public void checkStartEndTimes( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
 	{
 		String earliest = schedule.getEarliest() ;
