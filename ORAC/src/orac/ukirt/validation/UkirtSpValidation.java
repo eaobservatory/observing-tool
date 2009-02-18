@@ -31,6 +31,7 @@ import orac.ukirt.iter.SpIterCGS4CalObs ;
 import orac.ukirt.iter.SpIterBiasObs ;
 import orac.ukirt.iter.SpIterNod ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.iter.SpIterConfigObs ;
 import gemini.sp.iter.SpIterObserveBase ;
@@ -49,6 +50,7 @@ import orac.ukirt.iter.SpIterSky ;
 import orac.validation.SpValidation ;
 import orac.validation.ErrorMessage ;
 import orac.util.SpInputXML ;
+import orac.util.AirmassUtilities ;
 
 import gemini.util.CoordSys ;
 import orac.util.CoordConvert ;
@@ -1233,4 +1235,42 @@ public class UkirtSpValidation extends SpValidation
 		return null ;
 	}
 	
+	public void checkSchedComp( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
+	{
+		checkSchedElevationRange( schedule , report ) ;
+		super.checkSchedComp( schedule , report ) ;
+	}
+	
+	public void checkSchedElevationRange( SpSchedConstObsComp schedule , Vector<ErrorMessage> report )
+	{
+		String min = schedule.getMinElevation() ;
+		String max = schedule.getMaxElevation() ;
+		try
+		{
+			double minEl = new Double( min ) ;
+			double maxEl = new Double( max ) ;
+			
+			if( schedule.getDisplayAirmass() )
+			{
+				minEl = AirmassUtilities.elevationToAirmass( minEl ) ;
+				maxEl = AirmassUtilities.elevationToAirmass( maxEl ) ;
+				if( minEl > 2. )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Max elevation as airmass in schedule constraint is greater than 2." , "" ) ) ;
+    			if( maxEl < 1. )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Min elevation as airmass in schedule constraint is less than 1." , "" ) ) ;
+
+			}
+			else
+			{			
+    			if( minEl < 30. )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Min elevation in schedule constraint is less than 30." , "" ) ) ;
+    			if( maxEl > 90. )
+    				report.add( new ErrorMessage( ErrorMessage.ERROR , "Max elevation in schedule constraint is greater than 90." , "" ) ) ;
+			}
+		}
+		catch( NumberFormatException nfe )
+		{
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Values for elevation in schedule constraint not numeric." , "" ) ) ;
+		}
+	}
 }

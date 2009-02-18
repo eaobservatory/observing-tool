@@ -12,6 +12,7 @@ package ot.editor ;
 import gemini.sp.SpItem ;
 import gemini.sp.obsComp.SpSchedConstObsComp ;
 import orac.util.OracUtilities ;
+import orac.util.AirmassUtilities ;
 import ot.util.DialogUtil ;
 
 import jsky.app.ot.gui.TextBoxWidgetExt ;
@@ -37,7 +38,6 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 	private SpSchedConstObsComp _schedConstObsComp ;
 	private static final String MAX = "Max" ;
 	private static final String MIN = "Min" ;
-	private static final double PiDividedBy180 = Math.PI / 180. ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -241,33 +241,6 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 			_updateWidgets() ;
 		}
 	}
-
-	private double _elevationToAirmass( double elevation )
-	{
-		// If the elevation is < 5 degrees set the airmass to 12
-		double airmass ;
-		if( elevation < 5. )
-		{
-			airmass = 12. ;
-		}
-		else
-		{
-			// Convert elevation to radians
-			elevation *= PiDividedBy180 ;
-			airmass = 1. / Math.sin( elevation ) ;
-		}
-		return airmass ;
-	}
-
-	private double _airmassToElevation( double airmass )
-	{
-		if( Math.abs( airmass ) < 1. )
-			airmass = 1. ;
-		double elevation = Math.asin( 1. / airmass ) ;
-		// Convert to degrees
-		elevation = 180. * elevation / Math.PI ;
-		return elevation ;
-	}
 	
 	private String getElevation( String input , boolean displayAirmass )
 	{
@@ -276,7 +249,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		{
     		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
     		if( displayAirmass )
-    			elevationOrAirmass = _elevationToAirmass( elevationOrAirmass ) ;
+    			elevationOrAirmass = AirmassUtilities.elevationToAirmass( elevationOrAirmass ) ;
 		}
 		return format( elevationOrAirmass ) ;
 	}
@@ -288,7 +261,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		{
     		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
     		if( _schedConstObsComp.getDisplayAirmass() )
-    			elevationOrAirmass = _airmassToElevation( elevationOrAirmass ) ;
+    			elevationOrAirmass = AirmassUtilities.airmassToElevation( elevationOrAirmass ) ;
 		}
 		return format( elevationOrAirmass ) ;
 	}
