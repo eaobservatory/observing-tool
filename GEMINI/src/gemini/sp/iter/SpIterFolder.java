@@ -121,7 +121,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 		if( instrument == null )
 			return 0. ;
-
+		
 		Vector iterStepVector = compile() ;
 		Vector<SpIterStep> iterStepSubVector = null ;
 		SpIterStep spIterStep = null ;
@@ -136,6 +136,8 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 		Object spIterStareObs = null ;
 		int offsets = 0 ;
+		int iterOffsets = 0 ;
+		int iterRepeat = 0 ;
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
@@ -163,9 +165,14 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				if( spIterStep.item instanceof SpIterObserveBase )
 					elapsedTime += iterationTracker.getObserveStepTime() ;
 
-				if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
+				if( spIterStep.item instanceof SpIterRepeat )
+					iterRepeat++ ;
+				
+				if( spIterStep.item instanceof SpIterOffset )
 				{
-					if( spIterStep.item instanceof SpIterOffset )
+					iterOffsets++ ;
+					
+					if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
 					{
 						if( ( OFFSET_TIME - instrument.getExposureOverhead() ) > 0. )
 						{
@@ -178,6 +185,9 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			}
 		}
 
+		if( iterRepeat == 0 )
+			iterRepeat++ ;
+		
 		// http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
 		if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1 )
 		{
@@ -221,12 +231,12 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
 							boolean sharedOff = !( ( Boolean )separateOff ).booleanValue() ;
-							if( offsets == 1 )
-								totalIntegrationTime = 2.45 * integrationTimePerPoint + 80. ;
-							else if( sharedOff || integrationTimePerPoint >= 15 )
-								totalIntegrationTime = 2.65 * offsets * integrationTimePerPoint + 80. ;
+							if( iterOffsets == 0 ) // stare
+								totalIntegrationTime = iterRepeat * ( 2.45 * integrationTimePerPoint + 80. ) ;
+							else if( sharedOff || integrationTimePerPoint >= 15 ) // grid
+								totalIntegrationTime = iterRepeat * ( 2.65 * iterOffsets * integrationTimePerPoint + 80. ) ;
 							else
-								totalIntegrationTime = 2. * offsets * integrationTimePerPoint + 190. ;
+								totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 190. ) ;
 						}
 					}
 
@@ -237,7 +247,6 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					if( addContinuum )
 						totalIntegrationTime *= 1.2 ;
 				}
-				totalIntegrationTime -= offsets * OFFSET_TIME ;
 			}
 			catch( ClassNotFoundException cnfe )
 			{
