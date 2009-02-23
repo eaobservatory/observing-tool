@@ -122,7 +122,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		if( instrument == null )
 			return 0. ;
 		
-		Vector iterStepVector = compile() ;
+		Vector<Vector<SpIterStep>> iterStepVector = compile() ;
 		Vector<SpIterStep> iterStepSubVector = null ;
 		SpIterStep spIterStep = null ;
 		IterationTracker iterationTracker = instrument.createIterationTracker() ;
@@ -141,7 +141,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
-			iterStepSubVector = ( Vector )iterStepVector.get( i ) ;
+			iterStepSubVector = ( Vector<SpIterStep> )iterStepVector.get( i ) ;
 
 			int iterStepSubVectorSize = 0 ;
 			if( iterStepSubVector != null )
@@ -223,7 +223,9 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 					if( isBeamSwitch )
 					{
-						totalIntegrationTime = 2.3 * offsets * integrationTimePerPoint + 100. ;
+						if( iterOffsets == 0 )
+							iterOffsets++ ;
+						totalIntegrationTime = iterRepeat * ( 2.3 * iterOffsets * integrationTimePerPoint + 100. ) ;
 					}
 					else if( isPositionSwitch )
 					{
