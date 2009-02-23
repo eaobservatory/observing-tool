@@ -154,7 +154,7 @@ public class JcmtSpValidation extends SpValidation
 				if( thisObs instanceof SpIterNoiseObs )
 					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) ) ;
 			}
-			// Also check the switching mode.  If we are in beam switch, we need a chop iterator, in position we need a reference in the target
+			// Also check the switching mode.  If we are in beam switch, we need a chop iterator, in position or freq we need a reference in the target
 			String switchingMode = thisObs.getSwitchingMode() ;
 			if( switchingMode != null )
 			{
@@ -164,10 +164,10 @@ public class JcmtSpValidation extends SpValidation
 					if( chops == null || chops.size() == 0 )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Chop iterator required for beam switch mode" ) ) ;
 				}
-				else if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) )
+				else if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) || switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) || switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
 				{
 					if( target != null && !( target.getPosList().exists( "REFERENCE" ) ) )
-						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Position switched observation requires a REFERENCE target" ) ) ;
+						report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Position or Frequency switched observation requires a REFERENCE target" ) ) ;
 				}
 			}
 			else if( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) )
