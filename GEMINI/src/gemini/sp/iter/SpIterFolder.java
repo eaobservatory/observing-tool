@@ -166,11 +166,17 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					elapsedTime += iterationTracker.getObserveStepTime() ;
 
 				if( spIterStep.item instanceof SpIterRepeat )
-					iterRepeat++ ;
+				{
+					int count = (( SpIterRepeat )spIterStep.item).getCount() ;
+					if( count > 1 )
+						iterRepeat++ ;
+				}
 				
 				if( spIterStep.item instanceof SpIterOffset )
 				{
-					iterOffsets++ ;
+					int count = (( SpIterOffset )spIterStep.item).getPosList().size() ;
+					if( count > 1 )
+						iterOffsets++ ;
 					
 					if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
 					{
