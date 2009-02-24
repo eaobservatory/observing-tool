@@ -232,7 +232,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} ) ;
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
-							boolean sharedOff = !( ( Boolean )separateOff ).booleanValue() ;
+							boolean sharedOff = !(( Boolean )separateOff).booleanValue() ;
 							if( iterOffsets == 0 ) // stare
 								totalIntegrationTime = iterRepeat * ( 2.45 * integrationTimePerPoint + 80. ) ;
 							else if( sharedOff || integrationTimePerPoint >= 15 ) // grid
