@@ -13,49 +13,6 @@
 
 </xsd:redefine>
 
-<xsd:redefine schemaLocation="../JACtypes.xsd">
-
-<xsd:group name="MSBContents">
-  <xsd:choice>
-    <xsd:group ref="toml:MSBContents"/>
-    <xsd:group ref="toml:instrumentGroup"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-  </xsd:choice>
-</xsd:group>
-
-<xsd:group name="sequenceContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:sequenceContent"/>
-    <xsd:element ref="toml:SpIterCGS4CalObs"/>
-    <xsd:element ref="toml:SpIterCGS4"/>
-    <xsd:element ref="toml:SpIterUFTI"/>
-    <xsd:element ref="toml:SpIterUISTImaging"/>
-    <xsd:element ref="toml:SpIterUISTCalObs"/>
-    <xsd:element ref="toml:SpIterUISTTargetAcq"/>
-    <xsd:element ref="toml:SpIterUISTSpecIFU"/>
-    <xsd:element ref="toml:SpIterMichelleCalObs"/>
-    <xsd:element ref="toml:SpIterMichelleTargetAcq"/>
-    <xsd:element ref="toml:SpIterIRPOL"/>
-    <xsd:element ref="toml:SpIterBiasObs"/>
-    <xsd:element ref="toml:SpIterDarkObs"/>
-    <xsd:element ref="toml:SpIterObserve"/>
-    <xsd:element ref="toml:SpIterSky"/>
-  </xsd:choice>
-</xsd:group>
-
-<xsd:group name="obsContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:obsContent"/>
-    <xsd:element ref="toml:SpInstCGS4"/>
-    <xsd:element ref="toml:SpInstUFTI"/>
-    <xsd:element ref="toml:SpInstUIST"/>
-    <xsd:element ref="toml:SpInstMichelle"/>
-    <xsd:element ref="toml:SpInstWFCAM"/>
-  </xsd:choice>
-</xsd:group>
-
-</xsd:redefine>
-
 <xsd:redefine schemaLocation="../../TOMLelements.xsd">
 
 <xsd:group name="ProgInfoGroup">
