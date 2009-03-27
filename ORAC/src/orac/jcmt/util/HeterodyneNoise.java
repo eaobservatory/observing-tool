@@ -25,7 +25,7 @@ import gemini.util.MathUtil ;
 public class HeterodyneNoise
 {
 	static Vector<String> feNames = new Vector<String>() ;
-	static Vector<TreeMap<Integer,Integer>> trxValues = new Vector<TreeMap<Integer,Integer>>() ;
+	static Vector<TreeMap<Double,Double>> trxValues = new Vector<TreeMap<Double,Double>>() ;
 	static Vector<Double> nu_tel = new Vector<Double>() ;
 	static TreeMap<Double,String> _availableBands = new TreeMap<Double,String>() ;
 	static final double kappa = 1.15 ;
@@ -62,16 +62,14 @@ public class HeterodyneNoise
 				if( ( index = feNames.indexOf( inputLine ) ) != -1 )
 				{
 					// Start reading the data
-					TreeMap<Integer,Integer> currentMap = new TreeMap<Integer,Integer>() ;
+					TreeMap<Double,Double> currentMap = new TreeMap<Double,Double>() ;
 					int nLines = Integer.valueOf( in.readLine() ) ;
 					for( int i = 0 ; i < nLines ; i++ )
 					{
 						String values = in.readLine() ;
 						StringTokenizer st = new StringTokenizer( values ) ;
-						Double ftmp = new Double( st.nextToken() ) ;
-						int ftmpi = ftmp.intValue()  ;
-						Integer frequency = new Integer( ftmpi ) ;
-						Integer trx = new Integer( st.nextToken() ) ;
+						Double frequency = new Double( st.nextToken() ) ;
+						Double trx = new Double( st.nextToken() ) ;
 						currentMap.put( frequency , trx ) ;
 					}
 					trxValues.add( index , currentMap ) ;
@@ -126,19 +124,17 @@ public class HeterodyneNoise
 		if( ( index = feNames.indexOf( fe ) ) >= 0 )
 		{
 			// There is a match, now extract the appropriate tree map
-			TreeMap thisMap = trxValues.elementAt( index ) ;
+			TreeMap<Double,Double> thisMap = trxValues.elementAt( index ) ;
 			if( thisMap.size() > 1 )
 			{
-				// first make sure it is within range or short cicuit now
-				Integer nextTrxInteger = ( Integer )thisMap.firstKey() ;
-				double nextTrxFrequency = nextTrxInteger.doubleValue() ;
+				// first make sure it is within range or short circuit now
+				Double nextTrxFrequency = ( Double )thisMap.firstKey() ;
 				if( freq < nextTrxFrequency )
-					trx = (( Integer )thisMap.get( nextTrxInteger )).doubleValue() ;
+					trx = nextTrxFrequency ;
 
-				Integer lastTrxInteger = ( Integer )thisMap.lastKey() ;
-				double lastTrxFrequency = lastTrxInteger ;
+				Double lastTrxFrequency = ( Double )thisMap.lastKey() ;
 				if( freq > lastTrxFrequency )
-					trx = (( Integer )thisMap.get( lastTrxInteger )).doubleValue() ;
+					trx = lastTrxFrequency ;
 
 				if( trx == 0 )
 				{
@@ -147,15 +143,13 @@ public class HeterodyneNoise
 					 * surrounding frequency values, so we need to find the
 					 * values at the appropriate keys
 					 */
-					Set set = thisMap.keySet() ;
-					Iterator iter = set.iterator() ;
+					Set<Double> set = thisMap.keySet() ;
+					Iterator<Double> iter = set.iterator() ;
 					while( iter.hasNext() )
 					{
 
-						lastTrxInteger = nextTrxInteger ;
-						nextTrxInteger = ( Integer )iter.next() ;
-						nextTrxFrequency = nextTrxInteger.doubleValue() ;
-						lastTrxFrequency = lastTrxInteger.doubleValue() ;
+						lastTrxFrequency = nextTrxFrequency ;
+						nextTrxFrequency = ( Double )iter.next() ;
 						if( freq < nextTrxFrequency && freq >= lastTrxFrequency )
 							break ; // We have the info we need
 					}
@@ -163,10 +157,8 @@ public class HeterodyneNoise
 					try
 					{
 						// Now get the corresponding Trx values
-						lastTrxInteger = ( Integer )thisMap.get( lastTrxInteger ) ;
-						double lastTrxValue = lastTrxInteger.doubleValue() ;
-						nextTrxInteger = ( Integer )thisMap.get( nextTrxInteger ) ;
-						double nextTrxValue = nextTrxInteger.doubleValue() ;
+						Double lastTrxValue = thisMap.get( lastTrxFrequency ) ;
+						Double nextTrxValue = thisMap.get( nextTrxFrequency ) ;
 						// Now interpolate...
 						trx = linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq ) ;
 					}
@@ -178,7 +170,7 @@ public class HeterodyneNoise
 			}
 			else
 			{
-				trx = (( Integer )thisMap.get( thisMap.firstKey() )).intValue() ;
+				trx = thisMap.get( thisMap.firstKey() ) ;
 			}
 		}
 		return trx ;

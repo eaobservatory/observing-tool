@@ -398,8 +398,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 						{
 							String values = in.readLine() ;
 							StringTokenizer st = new StringTokenizer( values ) ;
-							Double frequency = new Double( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ;
-							Double trx = new Double( ( double )Integer.parseInt( st.nextToken() ) ) ;
+							Double frequency = Double.parseDouble( st.nextToken() ) * 1.0e9 ;
+							Double trx = Double.parseDouble( st.nextToken() ) ;
 							tRx.put( frequency , trx ) ;
 						}
 						break ;
