@@ -19,7 +19,7 @@ import orac.jcmt.iter.SpIterStareObs ;
 import gemini.util.MathUtil ;
 
 /**
- * Class for caalculation of the system noise of the heterodyne recievers.
+ * Class for calculation of the system noise of the heterodyne receivers.
  * This class is based on the perl model JCMT::HITEC which is comprised of
  * code used to create the integration time calculator 
  */
@@ -28,7 +28,6 @@ public class HeterodyneNoise
 	static Vector<String> feNames = new Vector<String>() ;
 	static Vector<TreeMap<Integer,Integer>> trxValues = new Vector<TreeMap<Integer,Integer>>() ;
 	static Vector<Double> nu_tel = new Vector<Double>() ;
-	static HashMap dasModes = new HashMap() ;
 	static TreeMap<Double,String> _availableBands = new TreeMap<Double,String>() ;
 	static final double kappa = 1.15 ;
 	static final String cfgDir = System.getProperty( "ot.cfgdir" ) ;
