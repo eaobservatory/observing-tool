@@ -629,7 +629,7 @@ public final class SpTreeMan implements SpInsertConstants
 
 	/**
      * Find an observation component of a given subtype in the given scope. Only
-     * searches the given scope. It does not navigate the tree hieararchy.
+     * searches the given scope. It does not navigate the tree hierarchy.
      * 
      * @param parent
      *            the SpItem defining the scope to search
@@ -658,7 +658,7 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 
 	/**
-     * Find the SpTelescopeObsComp assoicated with this context, if any. Only
+     * Find the SpTelescopeObsComp associated with this context, if any. Only
      * searches the given scope. It does not navigate the tree hierarchy.
      */
 	public static SpTelescopeObsComp findTargetListInContext( SpItem spItem )
@@ -678,7 +678,7 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 
 	/**
-     * Find the SpSurveyContainer assoicated with this context, if any. Only
+     * Find the SpSurveyContainer associated with this context, if any. Only
      * searches up the tree from the given item.
      */
 	public static SpSurveyContainer findSurveyContainerInContext( SpItem spItem )
@@ -704,7 +704,7 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 	
 	/**
-     * Find the SpSurveyObsComp assoicated with this context, if any. Only
+     * Find the SpSurveyObsComp associated with this context, if any. Only
      * searches the given scope. It does not navigate the tree hierarchy.
      */
 	public static SpSurveyObsComp findSurveyCompInContext( SpItem spItem )
@@ -724,7 +724,7 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 
 	/**
-     * Find the SpInstObsComp assoicated with this context, if any. Only
+     * Find the SpInstObsComp associated with this context, if any. Only
      * searches the given scope. It does not navigate the tree hierarchy.
      */
 	public static SpInstObsComp findInstrumentInContext( SpItem spItem )
