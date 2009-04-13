@@ -79,6 +79,7 @@
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>
+    <xsd:attribute name="observed" type="xsd:integer" use="optional"/>
     <xsd:attribute name="type" type="toml:SpType" fixed="ob"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
     <xsd:attribute name="obsnum" type="xsd:nonNegativeInteger" use="optional"/>
