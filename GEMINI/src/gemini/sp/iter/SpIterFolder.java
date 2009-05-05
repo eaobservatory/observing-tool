@@ -138,6 +138,8 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		int offsets = 0 ;
 		int iterOffsets = 0 ;
 		int iterRepeat = 0 ;
+		
+		Vector<SpIterOffset> oldIterOffsets = new Vector<SpIterOffset>() ;
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
@@ -174,10 +176,15 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				
 				if( spIterStep.item instanceof SpIterOffset )
 				{
-					int count = (( SpIterOffset )spIterStep.item).getPosList().size() ;
-					if( count > 1 )
-						iterOffsets++ ;
-					
+					SpIterOffset spIterOffset = ( SpIterOffset )spIterStep.item ;
+					if( !oldIterOffsets.contains( spIterOffset ) )
+					{
+    					int count = spIterOffset.getPosList().size() ;
+    					if( count > 1 )
+    						iterOffsets += count ;
+    					oldIterOffsets.add( spIterOffset ) ;
+					}
+										
 					if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
 					{
 						if( ( OFFSET_TIME - instrument.getExposureOverhead() ) > 0. )
@@ -223,7 +230,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
 					int integrationTimePerPoint = 0 ;
 					if( secsPerCycle != null && secsPerCycle instanceof Integer )
-						integrationTimePerPoint = ( ( Integer )secsPerCycle ).intValue() ;
+						integrationTimePerPoint = (( Integer )secsPerCycle).intValue() ;
 
 					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
 
