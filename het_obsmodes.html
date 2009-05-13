@@ -40,6 +40,12 @@
    <li><a href="het_obsmodes.html#gpsw_duration">Duration</a></li>
    <li><a href="het_obsmodes.html#gpsw_rms">Noise</a></li>
    </ul>
+<li><a href="het_obsmodes.html#FSW">Frequency-Switch</a></li>
+   <ul>
+   <li><a href="het_obsmodes.html#fsw_baseline">Baselines</a></li>
+   <li><a href="het_obsmodes.html#fsw_switch">Frequency switch amount</a></li>
+   <li><a href="het_obsmodes.html#gpsw_shared">Noise performance and map size</a></li>
+   </ul>
 <li>Raster maps (not included yet)</li>
 <li><a href="het_obsmodes.html#comparing">Comparing observing modes</a></li>
 </ul>
@@ -523,6 +529,7 @@ equation above indicated by the black crosses.
 <p>
 &nbsp;
 <p>
+
 <a name="GridPSSW"><h2>Grid Position-Switch</h2></a>
  
 <a name="gpsw_general">
@@ -694,9 +701,77 @@ in excess of 15s are excuted the same as observations with
 <img src="het_images/gpsw_rms.gif"></a>
 </div>
 
+<a name="FSW"><h2>Frequency-Switch</h2></a>
+ 
+<a name="fsw_general">
+<h3>General description:</h3>
+
+<p>
+Frequency switching mode is suitable for sources with narrow lines (~<
+10 MHz) and low line density. In such sources it has superior noise
+performance for single point observations or small maps. Frequency
+switching also has advantages in large maps when there is no nearby
+line free region to use as a reference position.
+
+<a name="fsw_baseline">
+<h3>Baselines:</h3>
+<p>
+Baselines are common with frequency switching. There are several
+reasons for this.  The frequency change and the associated variation
+in LO power changes the mixer impedance, coupling and conversion
+efficiency creating baselines. For small frequency switches the
+baselines are well behaved and can be removed by baselining. Another
+cause is standing waves in the optics in front of the mixer. These
+will move in the band pass when the frequency shifts and are not
+cancelled. The standing wave between the cabin and secondary has a
+frequency of ~ 16.2 MHz at the JCMT. Frequency switching by 16.2 or
+32.4 MHz reduces such standing waves. Thus frequency switching is most
+suitable for observations of narrow lines not affected by
+baselines. It should definitely not be used for continuum
+observations. The JCMT uses an elaborate calibration scheme to reduce
+the baselines which doubles the time integrating on calibration loads.
+
+<a name="fsw_switch">
+<h3>Frequency switch amount:</h3>
+<p>
+The baselines and the performance of the LO system limits
+the amount of the frequency shift. Currently switches up to 32.4 MHz
+have been tested with good results for both RxA and HARP. Since the
+line is present in both the signal and reference observation it will
+occur twice in the raw spectrum. After processing to average the two
+independent lines in the spectra there will be three features. This is
+not a problem for an isolated line but care has to be taken if there
+is more than one line in the band pass. Users should also be aware
+that lines from the earth’s atmosphere not are
+canceled. Terrestrial Ozone lines are routinely observed using
+frequency switching. Thus CO and Ozone can generate additional
+features in the spectra. The user needs to select center frequency (or
+velocity) and switch amount to avoid line blends.
+
+<a name="fsw_noise">
+<h3>Noise performance and map size:</h3>
+<p>
+Due to the fact the same line is observed both in the source and
+reference spectra the noise is improved by sqrt(2) after
+processing. However, observing modes that uses one reference
+observations (offs) for several on sources positions as jiggles and
+grids (with shared offs) and raster pssw becomes more efficient when
+the number of on source positions are large.  Neglecting overheads
+these methods are more efficient than frequency switching if more than
+5 on source points share the same off. The actual trade of point
+depends on overheads. Thus, in cases where there not is a good
+reference position in the vicinity of the source, frequency switch can
+maintain the advantages for larger maps. However, it is still
+recommended that the calibration is performed on a line free reference
+position. This requires that a reference position is defined in the OT
+target component. In cases with weak lines (line << Tsys) and no
+continuum it is possible to calibrate on source.
+
+
 <p>
 &nbsp;
 <p>
+
 <a name="comparing"><h2>Comparing Observing modes</h2></a>
 
 The figure below shows the duration all observing modes discussed above and
@@ -755,6 +830,9 @@ MHz). Note that <i>shared/separate offs</i> are only relevant within a
 single observation, which typically takes 10-20 minutes: the noise in
 coadds of successive observations will scale as usual with the sqrt(nr
 of observations).
+
+
+
 
 <p>
 <div align=center>
