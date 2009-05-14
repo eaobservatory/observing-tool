@@ -830,6 +830,8 @@ the end of the transition name - it makes the display nicer.
     <transition name="18 2 16  - 18 2 17 " frequency="250443.3962"/>
     <transition name="13 2 12  - 13 0 13 " frequency="250642.5"/>
     <transition name="11 2 10  - 10 2 9 " frequency="254981.494"/>
+    <transition name="11 8 3  - 10 8 2 " frequency="258064.9815"/>
+    <transition name="11 6 5  - 10 6 4 " frequency="259433.3090"/>
     <transition name="12 0 12  - 11 0 11 " frequency="261990.745"/>
     <transition name="14 2 13  - 14 0 14 " frequency="268401.09"/>
     <transition name="11 2 9  - 10 2 8 " frequency="272787.814"/>
