@@ -118,7 +118,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		
 		// initial setup of the main raster panel
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED ) ;
-		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Raster setup" ) ;
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Scan setup" ) ;
 		rasterPanel.setBorder( titleBorder ) ;
 		rasterPanel.setLayout( new GridLayout( 1 , 2 ) ) ;
 		
