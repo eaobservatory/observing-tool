@@ -4,6 +4,9 @@
 #
 # "gmake" makes GEMINI, ORAC, OMP, EDFREQ and OT recursively.
 
+DATE = `date '+%Y%m%d'`
+VERSION = `git log | head -n 1 | cut -f2 -d ' '`
+
 CONF_HOME           = conf
 include $(CONF_HOME)/make.conf
 
@@ -34,8 +37,8 @@ PACKAGES = $(shell echo \
 
 all:
 	$(shell find . -name versionFile -exec rm {} \;)
-	$(shell echo `date '+%Y%m%d'` [`svnversion`] > OT/cfg/jcmt/versionFile)
-	$(shell echo `date '+%Y%m%d'` [`svnversion`] > OT/cfg/ukirt/versionFile)
+	$(shell echo $(DATE) [$(VERSION)] > OT/cfg/jcmt/versionFile)
+	$(shell echo $(DATE) [$(VERSION)] > OT/cfg/ukirt/versionFile)
 	(cd GEMINI/src; gmake)
 	(cd ORAC/src;   gmake)
 	(cd OMP/src;    gmake)
