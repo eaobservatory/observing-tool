@@ -92,9 +92,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	{
 		super( new IterRasterObsGUI() ) ;
 
-		_title = "Scan/Raster" ;
+		_title = "Scan" ;
 		_presSource = _w = ( IterRasterObsGUI )super._w ;
-		_description = "Scan/Raster Map" ;
+		_description = "Scan Map" ;
 
 		setDefaults() ;
 		addWatchers() ;

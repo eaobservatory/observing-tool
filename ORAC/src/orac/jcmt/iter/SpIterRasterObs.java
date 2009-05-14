@@ -68,7 +68,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	
 	public static final MathContext context = new MathContext( 13 ) ;
 
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan/Raster" ) ;
+	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan" ) ;
 
 	// Register the prototype.
 	static
