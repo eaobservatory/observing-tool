@@ -68,6 +68,9 @@ the end of the transition name - it makes the display nicer.
     <transition name="3-1  - 2 1 " frequency="265852.7565"/>
     <transition name="3 1  - 2-1 " frequency="267199.3288"/>
   </species>
+  <species name = "HCN-15">
+    <transition name="3  - 2 " frequency="258157.1000"/>
+  </species>
   <species name = "H-13-CN">
     <transition name="3  - 2 " frequency="259011.8211"/>
     <transition name="4  - 3 " frequency="345339.7599"/>
@@ -1114,6 +1117,9 @@ the end of the transition name - it makes the display nicer.
     <transition name="22 -1 23  - 21 1 22 " frequency="908643.8758"/>
     <transition name="23 1 22  - 22 -1 21 " frequency="914353.6219"/>
   </species>
+  <species name = "Si-29-S">
+    <transition name="15   -  14 " frequency="267240.8201"/>
+  </species>
   <species name = "DCN">
     <transition name="3  - 2 " frequency="217238.6307"/>
     <transition name="5  - 4 " frequency="362046.4842"/>
@@ -1121,7 +1127,7 @@ the end of the transition name - it makes the display nicer.
   <species name = "H2D+">
     <transition name="1 1 0 0   -  1 1 1 0 " frequency="372421.34"/>
   </species>
-    <species name = "CO+">
+  <species name = "CO+">
     <transition name="2 2  - 1 2 " frequency="235380.0460"/>
     <transition name="2 2  - 1 1 " frequency="235789.6410"/>
     <transition name="2 3  - 1 2 " frequency="236062.5530"/>
