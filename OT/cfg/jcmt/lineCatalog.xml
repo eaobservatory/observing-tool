@@ -64,6 +64,10 @@ the end of the transition name - it makes the display nicer.
     <transition name="9  - 8 " frequency="797433.6638"/>
     <transition name="10  - 9 " frequency="885971.4087"/>
   </species>
+  <species name = "HCN-v2">
+    <transition name="3-1  - 2 1 " frequency="265852.7565"/>
+    <transition name="3 1  - 2-1 " frequency="267199.3288"/>
+  </species>
   <species name = "H-13-CN">
     <transition name="3  - 2 " frequency="259011.8211"/>
     <transition name="4  - 3 " frequency="345339.7599"/>
