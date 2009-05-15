@@ -517,47 +517,48 @@ the end of the transition name - it makes the display nicer.
     <transition name="13 1 13  - 12 1 12 " frequency="909531.6354"/>
   </species>
   <species name = "CH3CN v8=0,1">
-    <transition name="10 9 0 10  - 9 9 0 9 " frequency="183675.962"/>
-    <transition name="11 10 0 11  - 10 10 0 10 " frequency="201966.6057"/>
-    <transition name="12 11 0 12  - 11 11 0 11 " frequency="220234.5936"/>
-    <transition name="13 12 0 13  - 12 12 0 12 " frequency="238477.8151"/>
-    <transition name="14 12 0 14  - 13 12 0 13 " frequency="256816.8411"/>
-    <transition name="15 13 0 15  - 14 13 0 14 " frequency="275023.2536"/>
-    <transition name="16 14 0 16  - 15 14 0 15 " frequency="293199.9963"/>
-    <transition name="17 15 0 17  - 16 15 0 16 " frequency="311345.0332"/>
-    <transition name="18 15 0 18  - 17 15 0 17 " frequency="329650.4836"/>
-    <transition name="19 15 0 19  - 18 15 0 18 " frequency="347954.3768"/>
-    <transition name="20 15 0 20  - 19 15 0 19 " frequency="366256.6289"/>
-    <transition name="21 15 0 21  - 20 15 0 20 " frequency="384557.1552"/>
-    <transition name="22 15 0 22  - 21 15 0 21 " frequency="402856.002"/>
-    <transition name="23 16 0 23  - 22 16 0 22 " frequency="420905.2391"/>
-    <transition name="24 16 0 24  - 23 16 0 23 " frequency="439189.4583"/>
-    <transition name="25 16 0 25  - 24 16 0 24 " frequency="457471.6272"/>
-    <transition name="26 16 0 26  - 25 16 0 25 " frequency="475751.6605"/>
-    <transition name="27 16 0 27  - 26 16 0 26 " frequency="494029.473"/>
-    <transition name="28 16 0 28  - 27 16 0 27 " frequency="512304.9792"/>
-    <transition name="29 16 0 29  - 28 16 0 28 " frequency="530578.0935"/>
-    <transition name="30 16 0 30  - 29 16 0 29 " frequency="548848.7304"/>
-    <transition name="31 16 0 31  - 30 16 0 30 " frequency="567116.8042"/>
-    <transition name="32 16 0 32  - 31 16 0 31 " frequency="585382.2291"/>
-    <transition name="33 16 0 33  - 32 16 0 32 " frequency="603644.9192"/>
-    <transition name="34 16 0 34  - 33 16 0 33 " frequency="621904.7888"/>
-    <transition name="35 16 0 35  - 34 16 0 34 " frequency="640161.7518"/>
-    <transition name="36 16 0 36  - 35 16 0 35 " frequency="658415.7221"/>
-    <transition name="37 16 0 37  - 36 16 0 36 " frequency="676666.6138"/>
-    <transition name="38 16 0 38  - 37 16 0 37 " frequency="694914.3407"/>
-    <transition name="39 16 0 39  - 38 16 0 38 " frequency="713158.8165"/>
-    <transition name="40 16 0 40  - 39 16 0 39 " frequency="731399.9551"/>
-    <transition name="41 16 0 41  - 40 16 0 40 " frequency="749637.67"/>
-    <transition name="42 16 0 42  - 41 16 0 41 " frequency="767871.8748"/>
-    <transition name="43 16 0 43  - 42 16 0 42 " frequency="786102.4832"/>
-    <transition name="44 16 0 44  - 43 16 0 43 " frequency="804329.4086"/>
-    <transition name="45 16 0 45  - 44 16 0 44 " frequency="822552.5643"/>
-    <transition name="46 16 0 46  - 45 16 0 45 " frequency="840771.8638"/>
-    <transition name="47 16 0 47  - 46 16 0 46 " frequency="858987.2202"/>
-    <transition name="48 16 0 48  - 47 16 0 47 " frequency="877198.5469"/>
-    <transition name="49 16 0 49  - 48 16 0 48 " frequency="895405.7568"/>
-    <transition name="50 16 0 50  - 49 16 0 49 " frequency="913608.7632"/>
+    <transition name="12 2 012  - 11 2 012 " frequency="220728.8454"/>
+    <transition name="41 2 013  - 11 2 012 " frequency="220730.2700"/>
+    <transition name="12 2 011  - 11 2 012 " frequency="220730.3459"/>
+    <transition name="12 2 011  - 11 2 011 " frequency="220731.7541"/>
+    <transition name="12 1 012  - 11 1 012 " frequency="220741.5022"/>
+    <transition name="41 1 013  - 11 1 012 " frequency="220742.9900"/>
+    <transition name="12 1 011  - 11 1 012 " frequency="220743.0973"/>
+    <transition name="12 1 011  - 11 1 011 " frequency="220744.6100"/>
+    <transition name="12 0 012  - 11 0 012 " frequency="220745.7217"/>
+    <transition name="41 0 013  - 11 0 012 " frequency="220747.2400"/>
+    <transition name="12 0 011  - 11 0 012 " frequency="220747.3484"/>
+    <transition name="12 0 011  - 11 0 011 " frequency="220748.8959"/>
+    <transition name="13 2 013  - 12 2 013 " frequency="239118.0650"/>
+    <transition name="13 2 013  - 12 2 012 " frequency="239119.5011"/>
+    <transition name="13 2 012  - 12 2 011 " frequency="239119.5118"/>
+    <transition name="13 2 014  - 12 2 013 " frequency="239119.5239"/>
+    <transition name="13 2 012  - 12 2 013 " frequency="239119.5762"/>
+    <transition name="13 2 012  - 12 2 012 " frequency="239121.0123"/>
+    <transition name="13 1 013  - 12 1 013 " frequency="239131.7936"/>
+    <transition name="13 1 012  - 12 1 011 " frequency="239133.3154"/>
+    <transition name="13 1 013  - 12 1 012 " frequency="239133.3185"/>
+    <transition name="13 1 014  - 12 1 013 " frequency="239133.3289"/>
+    <transition name="13 1 012  - 12 1 013 " frequency="239133.3857"/>
+    <transition name="13 1 012  - 12 1 012 " frequency="239134.9106"/>
+    <transition name="13 0 013  - 12 0 013 " frequency="239136.3705"/>
+    <transition name="13 0 012  - 12 0 011 " frequency="239137.9173"/>
+    <transition name="13 0 013  - 12 0 012 " frequency="239137.9250"/>
+    <transition name="13 0 014  - 12 0 013 " frequency="239137.9312"/>
+    <transition name="13 0 012  - 12 0 013 " frequency="239137.9895"/>
+    <transition name="13 0 012  - 12 0 012 " frequency="239139.5439"/>
+    <transition name="14 1 014  - 13 1 014 " frequency="257520.8989"/>
+    <transition name="14 1 013  - 13 1 012 " frequency="257522.4310"/>
+    <transition name="14 1 014  - 13 1 013 " frequency="257522.4342"/>
+    <transition name="14 1 015  - 13 1 014 " frequency="257522.4433"/>
+    <transition name="14 1 013  - 13 1 014 " frequency="257522.4877"/>
+    <transition name="14 1 013  - 13 1 013 " frequency="257524.0230"/>
+    <transition name="14 0 014  - 13 0 014 " frequency="257525.8319"/>
+    <transition name="14 0 013  - 13 0 012 " frequency="257527.3857"/>
+    <transition name="14 0 014  - 13 0 013 " frequency="257527.3927"/>
+    <transition name="14 0 015  - 13 0 014 " frequency="257527.3984"/>
+    <transition name="14 0 013  - 13 0 014 " frequency="257527.4440"/>
+    <transition name="14 0 013  - 13 0 013 " frequency="257529.0047"/>
   </species>
   <species name = "H2O">
     <transition name="3 1 3  - 2 2 0 " frequency="183310.091"/>
