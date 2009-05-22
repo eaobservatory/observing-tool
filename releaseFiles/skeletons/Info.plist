@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<string>true</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>JavaApplicationStub</string>
+	<key>CFBundleGetInfoString</key>
+	<string><!-- telescope_long --> Telescope Observing Tool</string>
+	<key>CFBundleIconFile</key>
+	<string><!-- lc_telescope -->_icon.icns</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string><!-- uc_telescope -->-OT</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string><!-- date --></string>
+	<key>Java</key>
+	<dict>
+		<key>ClassPath</key>
+		<array>
+			<!-- classpath -->
+		</array>
+		<key>JVMArchs</key>
+		<array>
+			<string>x86_64</string>
+			<string>x86</string>
+			<string>ppc_64</string>
+			<string>ppc</string>
+		</array>
+		<key>JVMVersion</key>
+		<string>1.5*</string>
+		<key>MainClass</key>
+		<string>jsky.app.ot.OT</string>
+		<key>Properties</key>
+		<dict>
+			<key>apple.laf.useScreenMenuBar</key>
+			<string>true</string>
+		</dict>
+		<key>VMOptions</key>
+		<string>-Xms8m -Xmx512m -DTELESCOPE=<!-- lc_telescope --> -Djsky.catalog.skycat.config=<!-- uc_telescope -->-OT.app/Contents/Resources/Java/<!-- lc_telescope -->/skycat.cfg -Dot.cfgdir=<!-- uc_telescope -->-OT.app/Contents/Resources/Java/<!-- lc_telescope -->/ -Dot.resource.cfgdir=./ -Dotuserdir=$HOME/ -DOT_CATALOG_FILE</string>
+	</dict>
+</dict>
+</plist>
