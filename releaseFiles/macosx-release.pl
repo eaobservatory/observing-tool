@@ -96,7 +96,7 @@ sub write_file
 			my $tmp = '' ;
 			foreach $entry ( @classpath )
 			{
-				$tmp .= ' ' x $length . $entry . "\n" ;
+				$tmp .= "\t" x $length . $entry . "\n" ;
 			}
 			$line = $tmp ;
 		}
