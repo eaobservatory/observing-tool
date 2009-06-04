@@ -120,6 +120,7 @@ $(LOCAL_INSTALL_ROOT)/bin/freqEditor.bat: Makefile
 clean:
 	rm -rf $(LOCAL_INSTALL_ROOT)/classes $(JAR_DIR) $(DOC_DIR)
 	rm -f  $(LOCAL_INSTALL_ROOT)/bin/freqEditor $(LOCAL_INSTALL_ROOT)/bin/freqEditor.bat
+	rm -rf $(LOCAL_INSTALL_ROOT)
 
 
 ###################################################################

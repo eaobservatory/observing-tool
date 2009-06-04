@@ -104,6 +104,8 @@ clean:
 	(cd EDFREQ/src; gmake clean)
 	(cd OT/src;     gmake clean)
 	rm -rf $(INSTALL_ROOT)
+	rm -f OT/cfg/jcmt/versionFile
+	rm -f OT/cfg/ukirt/versionFile
 
 _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)
