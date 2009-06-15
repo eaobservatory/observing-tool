@@ -25,7 +25,7 @@ import java.util.Vector ;
 
 import gemini.util.TranslationUtils ;
 
-import org.apache.log4j.Logger ;
+import java.util.logging.Logger ;
 
 /**
  * The observation item. In addition to other attributes, the SpObs class
@@ -35,7 +35,7 @@ import org.apache.log4j.Logger ;
  */
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
-	static Logger logger = Logger.getRootLogger() ;
+	static Logger logger = Logger.getLogger( SpObs.class.getName() ) ;
 	/**
      * This attribute determines whether or not the observation is chained to
      * the next observation.
@@ -755,12 +755,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		if( offsetsInSequence > observableOffsets )
 		{
-			logger.warn( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
-			logger.warn( "Please fix the DR's NOFFSETS+1 hack." ) ;
+			logger.warning( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
+			logger.warning( "Please fix the DR's NOFFSETS+1 hack." ) ;
 			if( offsetsInSequence > observableOffsets + 1 )
 			{
-				logger.error( "More offsets in the sequence than the DR expects." ) ;
-				logger.error( "The NOFFSET header will most likely be incorrect." ) ;
+				logger.severe( "More offsets in the sequence than the DR expects." ) ;
+				logger.severe( "The NOFFSET header will most likely be incorrect." ) ;
 			}
 		}
 	}
