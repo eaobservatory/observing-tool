@@ -48,7 +48,10 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 		super( SP_TYPE ) ;
 		addCapability( new SpStareCapability() ) ;
 
-		String cfgFile = System.getProperty( "ot.cfgdir" ) + File.separator + "wfs.cfg" ;
+		String cfgFile = System.getProperty( "ot.cfgdir" ) ;
+		if( !cfgFile.endsWith( File.separator ) )
+			cfgFile += File.separator ;
+		cfgFile += "wfs.cfg" ;
 		_readCfgFile( cfgFile ) ;
 
 		_avTable.noNotifySet( ATTR_LENS_POS , DEFAULT_LENS_POS , 0 ) ;
