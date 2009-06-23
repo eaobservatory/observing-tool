@@ -16,6 +16,7 @@ import java.io.InputStreamReader ;
 import java.io.IOException ;
 import java.net.URL ;
 import java.net.MalformedURLException ;
+import gemini.util.ObservingToolUtilities ;
 
 /**
  * This implements the reading of instrument config files.
@@ -54,11 +55,7 @@ public class InstCfgReader
 	{
 		try
 		{
-			URL url = null ;
-			if( !cfgFilename.matches( "^\\w+://.*" ) )
-				url = new File( cfgFilename ).toURL() ;
-			else
-				url = new URL( cfgFilename ) ;
+			URL url = ObservingToolUtilities.resourceURL( cfgFilename ) ;
 			InputStream is = url.openStream() ;
 			cfgFile = new BufferedReader( new InputStreamReader( is ) ) ;
 		}
