@@ -28,13 +28,6 @@
 		<array>
 			<!-- classpath -->
 		</array>
-		<key>JVMArchs</key>
-		<array>
-			<string>x86_64</string>
-			<string>x86</string>
-			<string>ppc_64</string>
-			<string>ppc</string>
-		</array>
 		<key>JVMVersion</key>
 		<string>1.5*</string>
 		<key>MainClass</key>
