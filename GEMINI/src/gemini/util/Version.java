@@ -33,22 +33,23 @@ public class Version
 
 	private void setVersion()
 	{
+		URL url = ObservingToolUtilities.resourceURL( "versionFile" , "ot.cfgdir" ) ;
+		String version = "unknown" ;
+		String fullVersion = version ;
 		try
 		{
-			URL url = ObservingToolUtilities.resourceURL( "versionFile" , "ot.cfgdir" ) ;
 			InputStream is = url.openStream() ;
 			BufferedReader br = new BufferedReader( new InputStreamReader( is ) ) ;
-			String fullVersion = br.readLine().trim() ;
-			String version = "unknown" ;
-			if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
-				version = fullVersion.substring( 0 , 8 ) ;
-			System.setProperty( "ot.version" , version ) ;
-			System.setProperty( "ot.fullversion" , fullVersion ) ;
+			fullVersion = br.readLine().trim() ;
 			br.close() ;
 		}
 		catch( Exception e )
 		{
 			e.printStackTrace() ;
 		}
+		if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
+			version = fullVersion.substring( 0 , 8 ) ;
+		System.setProperty( "ot.version" , version ) ;
+		System.setProperty( "ot.fullversion" , fullVersion ) ;
 	}
 }
