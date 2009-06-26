@@ -2,15 +2,23 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20081022</ot_version>
+  <ot_version>20090625</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>WFCAM</title>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>WFCAM observing protocol calls for an hourly standard star MSB to be carried out. In general, this should be your source of all calibrations. Notably, photometry and astrometry but also if you stick to "standard" exposure times you should also use the darks from these.
-If you vary the exposure time, then you will need to insert your own darks.</note>
+      <note>Standard Stars
+------------
+The reduced data that you obtain will be calibrated; CASU carries out the photometric and astrometric calibrations by comparing with the 2MASS data. So, standard stars are not regularly observed as a part of the nightly observations.  If, for any reason,  you need standard star observations specifically for yor project, please include them in your MSBs.
+
+Darks
+-----
+For darks, it is important to use the same number of coadds as for your science observations.
+We observe certain darks at the start of every night so that each project would not need to take separate darks.  These [darks (sec) x coadds] that we regularly observe are listed below.  If you need  a different combination of darks and coadds, please inform your Support Astronomer well in advance.
+CDS:     1sX1,  2sX2, 5sX1, 5sX2, 5sX3, 5sX4, 10sX1, 10sX2, 20sX1
+NDR_1: 5sX1, 10sX1, 20sX1, 30sX1, 40sX1</note>
       <title>Calibrations</title>
     </SpNote>
     <SpNote type="no" subtype="none">
@@ -34,7 +42,7 @@ The recipe in these sequences (JITTER) assumes that you will have a seperate fla
       <totalDuration units="seconds">270.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">270.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -42,7 +50,11 @@ The recipe in these sequences (JITTER) assumes that you will have a seperate fla
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. 
+
+Camera 2 is recomended as being cosmetically clean; setting xOff= -795 and yOff= 795 will place your specified RA/Dec position close to the centre of camera 2.  Please see the WFCAM FAQ page 
+www.jach.hawaii.edu/UKIRT/instruments/wfcam/user_guide/faq.html 
+for updates on this.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -205,7 +217,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">486.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">486.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -213,7 +225,11 @@ This pattern should allways be able to use fast offsetting.</note>
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. 
+
+Camera 2 is recomended as being cosmetically clean; setting xOff= -795 and yOff= 795 will place your specified RA/Dec position close to the centre of camera 2.  Please see the WFCAM FAQ page 
+www.jach.hawaii.edu/UKIRT/instruments/wfcam/user_guide/faq.html 
+for updates on this.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -391,7 +407,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">1350.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">1350.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -399,7 +415,11 @@ This pattern should allways be able to use fast offsetting.</note>
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. 
+
+Camera 2 is recomended as being cosmetically clean; setting xOff= -795 and yOff= 795 will place your specified RA/Dec position close to the centre of camera 2.  Please see the WFCAM FAQ page 
+www.jach.hawaii.edu/UKIRT/instruments/wfcam/user_guide/faq.html 
+for updates on this.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -734,7 +754,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">270.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -909,7 +929,7 @@ Note. If you want to survey a small area in several filters, create seperate MSB
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1061,7 +1081,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">270.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1229,7 +1249,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">486.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1413,7 +1433,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">1350.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation</title>
           <SpNote type="no" subtype="none">
@@ -1646,7 +1666,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <totalDuration units="seconds">439.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1724,7 +1744,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - J</title>
           <SpNote type="no" subtype="none">
@@ -1848,7 +1868,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpSurveyContainer>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - H</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1926,7 +1946,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - H</title>
           <SpNote type="no" subtype="none">
@@ -2050,7 +2070,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpSurveyContainer>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2128,7 +2148,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.0</estimatedDuration>
           <standard>false</standard>
           <title>Observation - K</title>
           <SpNote type="no" subtype="none">
@@ -2265,7 +2285,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <totalDuration units="seconds">1566.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">1566.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
         <SpNote type="no" subtype="none">
@@ -2509,7 +2529,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2567,7 +2587,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">804.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -2905,7 +2925,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2963,7 +2983,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">444.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -3301,7 +3321,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3359,7 +3379,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">588.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -3728,7 +3748,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3786,7 +3806,7 @@ The coordinates are already correct, but you will have to change the size of the
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">1340.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -3994,7 +4014,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4052,7 +4072,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">740.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -4260,7 +4280,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4318,7 +4338,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">980.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -4534,7 +4554,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <totalDuration units="seconds">1951.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -4592,7 +4612,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">804.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -4960,7 +4980,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5018,7 +5038,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">444.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpNote type="no" subtype="none">
@@ -5386,7 +5406,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5444,7 +5464,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">588.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpNote type="no" subtype="none">
@@ -5820,7 +5840,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <totalDuration units="seconds">3175.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - Z</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5878,7 +5898,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">1340.0</estimatedDuration>
         <standard>false</standard>
         <title>Z</title>
         <SpNote type="no" subtype="none">
@@ -6121,7 +6141,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - J</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6179,7 +6199,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">740.0</estimatedDuration>
         <standard>false</standard>
         <title>J</title>
         <SpNote type="no" subtype="none">
@@ -6417,7 +6437,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - K</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6475,7 +6495,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">980.0</estimatedDuration>
         <standard>false</standard>
         <title>K</title>
         <SpNote type="no" subtype="none">
@@ -6758,7 +6778,7 @@ You MUST use the recipe JITTER_SKY in this mode.</note>
       <totalDuration units="seconds">1334.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - H</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -7038,7 +7058,7 @@ NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply us
         <title>M31 tile</title>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">324.0</estimatedDuration>
           <standard>false</standard>
           <title>H</title>
           <SpNote type="no" subtype="none">
@@ -7349,7 +7369,7 @@ NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply us
       <totalDuration units="seconds">2198.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - H</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -7629,7 +7649,7 @@ NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply us
         <title>M31 tile</title>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">540.0</estimatedDuration>
           <standard>false</standard>
           <title>H</title>
           <SpNote type="no" subtype="none">
