@@ -106,7 +106,7 @@ public final class OtCfg
 		// Read the configuration information from the "ot.cfg" file.
 		buffer.delete( 0 , buffer.length() ) ;
 		buffer.append( baseDir ) ;
-		if( !baseDir.endsWith( File.separator ) )
+		if( !baseDir.endsWith( "/" ) && !baseDir.endsWith( "\\" ) )
 			buffer.append( File.separator ) ;
 		// if there is an alternative configuration file use that otherwise use the default
 		buffer.append( System.getProperty( "ot.cfg.file" , "ot.cfg" ) ) ;

@@ -92,7 +92,7 @@ public class OT extends JFrame
 	 */
 	public OT()
 	{
-		this( true ) ;
+		this( false ) ;
 	}
 
 	public OT( boolean internalFrames )
@@ -513,7 +513,7 @@ public class OT extends JFrame
 	 */
 	public static void main( String args[] )
 	{
-		boolean internalFrames = ( File.separatorChar == '\\' ) ;
+		boolean internalFrames = false ;
 		boolean ok = true ;
 		Vector<String> filenames = null ;
 
