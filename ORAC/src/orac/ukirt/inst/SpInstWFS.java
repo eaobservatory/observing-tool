@@ -49,7 +49,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 		addCapability( new SpStareCapability() ) ;
 
 		String cfgFile = System.getProperty( "ot.cfgdir" ) ;
-		if( cfgFile.endsWith( "/" ) )
+		if( !cfgFile.endsWith( "/" ) )
 			cfgFile += '/' ;
 		cfgFile += "wfs.cfg" ;
 		_readCfgFile( cfgFile ) ;
