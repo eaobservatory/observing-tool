@@ -263,7 +263,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
 		// Read in the instrument config file
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
-		if( baseDir.endsWith( "/" ) )
+		if( !baseDir.endsWith( "/" ) )
 			baseDir += '/' ;
 		String cfgFile = baseDir + "uist.cfg" ;
 		_readCfgFile( cfgFile ) ;
