@@ -68,6 +68,8 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 
 		// Read in the instrument config file.
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		if( !baseDir.endsWith( "/" ) )
+			baseDir += '/' ;
 		String cfgFile = baseDir + "ircam3.cfg" ;
 		_readCfgFile( cfgFile ) ;
 

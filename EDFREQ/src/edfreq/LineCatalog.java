@@ -18,9 +18,11 @@
 
 package edfreq ;
 
-import java.io.File ;
-import java.io.FileReader ;
+import gemini.util.ObservingToolUtilities ;
+
 import java.io.IOException ;
+import java.io.InputStream ;
+import java.net.URL ;
 import java.util.TreeMap ;
 import java.util.Iterator ;
 import java.util.Vector ;
@@ -44,14 +46,15 @@ public class LineCatalog
 
 	protected LineCatalog() throws Exception
 	{
-		// make sure we can get to the line catalog file
-		String catalogFile = System.getProperty( "ot.cfgdir" ) + lineCatalogFile ;
-		File file = new File( catalogFile ) ;
-		if( !file.exists() )
-		{
-			Exception e = new Exception( "Can not open line catalog file " + catalogFile ) ;
-			throw e ;
-		}
+		// make sure we can get to the line catalogue file
+		String catalogFile = System.getProperty( "ot.cfgdir" ) ;
+		if( !catalogFile.endsWith( "/" ) )
+			catalogFile += "/" ;
+		catalogFile += lineCatalogFile ;
+		URL url = ObservingToolUtilities.resourceURL( catalogFile ) ;
+		if( url == null )
+			new Exception( "Can not open line catalog file " + catalogFile ) ;
+		InputStream is = url.openStream() ;
 
 		// If we get here, construct a SAXParser to read the file
 		LocalContentHandler handler = new LocalContentHandler() ;
@@ -59,7 +62,8 @@ public class LineCatalog
 		{
 			SAXParser parser = new SAXParser() ;
 			parser.setContentHandler( handler ) ;
-			parser.parse( new InputSource( new FileReader( file ) ) ) ;
+			parser.parse( new InputSource( is ) ) ;
+			is.close() ;
 		}
 		catch( IOException e )
 		{
@@ -70,7 +74,6 @@ public class LineCatalog
 			System.out.println( "Unable to create document: " + e.getMessage() ) ;
 		}
 		catalog = handler.getCatalog() ;
-
 	}
 
 	public void returnLines( double minFreq , double maxFreq , int listSize , LineDetails lineRef[] )

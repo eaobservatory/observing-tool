@@ -39,6 +39,7 @@ all:
 	$(shell find . -name versionFile -exec rm {} \;)
 	$(shell echo $(DATE) [$(VERSION)] > OT/cfg/jcmt/versionFile)
 	$(shell echo $(DATE) [$(VERSION)] > OT/cfg/ukirt/versionFile)
+	(cd OT/cfg/jcmt; ls tau*.dat > tau.list)
 	(cd GEMINI/src; gmake)
 	(cd ORAC/src;   gmake)
 	(cd OMP/src;    gmake)
@@ -106,6 +107,7 @@ clean:
 	rm -rf $(INSTALL_ROOT)
 	rm -f OT/cfg/jcmt/versionFile
 	rm -f OT/cfg/ukirt/versionFile
+	rm -f OT/cfg/jcmt/tau.list
 
 _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)

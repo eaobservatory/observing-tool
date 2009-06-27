@@ -93,21 +93,21 @@ public final class OtCfg
 		// Get cfg directory relative to classpath / code base.
 		StringBuffer buffer = new StringBuffer() ;
 		buffer.append( "jsky" ) ;
-		buffer.append( File.separator ) ;
+		buffer.append( '/' ) ;
 		buffer.append( "app" ) ;
-		buffer.append( File.separator ) ;
+		buffer.append( '/' ) ;
 		buffer.append( "ot" ) ;
-		buffer.append( File.separator ) ;
+		buffer.append( '/' ) ;
 		buffer.append( "cfg" ) ;
-		buffer.append( File.separator ) ;
+		buffer.append( '/' ) ;
 		String alternativePath = buffer.toString() ;
 		String baseDir = System.getProperty( "ot.resource.cfgdir" , alternativePath ) ;
 
 		// Read the configuration information from the "ot.cfg" file.
 		buffer.delete( 0 , buffer.length() ) ;
 		buffer.append( baseDir ) ;
-		if( !baseDir.endsWith( "/" ) && !baseDir.endsWith( "\\" ) )
-			buffer.append( File.separator ) ;
+		if( !baseDir.endsWith( "/" ) )
+			buffer.append( "/" ) ;
 		// if there is an alternative configuration file use that otherwise use the default
 		buffer.append( System.getProperty( "ot.cfg.file" , "ot.cfg" ) ) ;
 		String configurationFile = buffer.toString() ;
@@ -184,7 +184,7 @@ public final class OtCfg
 		 */
 		StringBuffer buffer = new StringBuffer() ;
 		buffer.append( _otCfgInfo.schemaLocation ) ;
-		buffer.append( File.separator ) ;
+		buffer.append( '/' ) ;
 		buffer.append( _otCfgInfo.schemaBase ) ;
 		String schema = buffer.toString() ;
 		try
@@ -198,7 +198,8 @@ public final class OtCfg
 			System.out.println( "Trying local version..." ) ;
 			buffer.delete( 0 , buffer.length() ) ;
 			buffer.append( System.getProperty( "ot.cfgdir" ) ) ;
-			buffer.append( File.separator ) ;
+			if( !System.getProperty( "ot.cfgdir" ).endsWith( "/" ) )
+				buffer.append( File.separator ) ;
 			buffer.append( ".." ) ;
 			buffer.append( File.separator ) ;
 			buffer.append( "schema" ) ;

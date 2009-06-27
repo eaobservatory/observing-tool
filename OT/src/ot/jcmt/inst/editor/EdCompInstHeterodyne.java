@@ -35,10 +35,11 @@ import java.util.Vector ;
 import java.util.Iterator ;
 import java.util.List ;
 import java.util.Arrays ;
-import java.io.File ;
-import java.io.FileReader ;
+import java.io.InputStreamReader ;
+import java.io.InputStream ;
 import java.io.StringReader ;
 import java.io.IOException ;
+import java.net.URL ;
 
 import gemini.sp.SpItem ;
 import gemini.sp.SpTreeMan ;
@@ -74,6 +75,7 @@ import org.w3c.dom.Node ;
 import org.w3c.dom.NodeList ;
 
 import gemini.sp.SpAvEditState ;
+import gemini.util.ObservingToolUtilities ;
 
 //------- NOTES -------------
 //
@@ -1501,13 +1503,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		model.addElement( "None" ) ;
 
 		// Try to open the special configs file
-		final String fileName = File.separator + "ACSISModes.xml" ;
-		File modesFile = new File( System.getProperty( "ot.cfgdir" ) + fileName ) ;
-		if( modesFile.exists() )
+		String fileName = System.getProperty( "ot.cfgdir" ) ;
+		if( !fileName.endsWith( "/" ) )
+			fileName += '/' ;
+		fileName += "ACSISModes.xml" ;
+		URL url = ObservingToolUtilities.resourceURL( fileName ) ;
+		if( url != null )
 		{
 			try
 			{
-				FileReader reader = new FileReader( modesFile ) ;
+				InputStream is = url.openStream() ;
+				InputStreamReader reader = new InputStreamReader( is ) ;
 				int readLength = 0 ;
 				char[] chars = new char[ 1024 ] ;
 				StringBuffer buffer = new StringBuffer() ;
@@ -1516,6 +1522,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				while( ( readLength = reader.read( chars ) ) != -1 )
 					buffer.append( chars , 0 , readLength ) ;
 				reader.close() ;
+				is.close() ;
 				String buffer_z = buffer.toString() ;
 				DOMParser parser = new DOMParser() ;
 				parser.setFeature( "http://xml.org/sax/features/validation" , false ) ;

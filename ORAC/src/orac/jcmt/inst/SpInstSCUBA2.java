@@ -14,7 +14,6 @@ import gemini.sp.obsComp.SpMicroStepUser ;
 
 public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 {
-
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" ) ;
 
 	//	Register the prototype.
@@ -36,6 +35,8 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 
 		// Read in the instrument config file
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		if( !baseDir.endsWith( "/" ) )
+			baseDir += '/' ;
 		String cfgFile = baseDir + "scuba2.cfg" ;
 		_readCfgFile( cfgFile ) ;
 	}

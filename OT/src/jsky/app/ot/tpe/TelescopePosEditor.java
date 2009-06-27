@@ -53,7 +53,6 @@ import jsky.coords.wcscon ;
  */
 public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver , SpHierarchyChangeObserver
 {
-
 	// Lists of fully qualified image feature class names.  
 	// These are instantiated when a new TelescopePosEditor is created.
 	private static Vector<String> _targetListFeatureClasses = new Vector<String>() ;

@@ -9,14 +9,17 @@
 // $Id$
 package edfreq ;
 
+import gemini.util.ObservingToolUtilities ;
+
 import javax.swing.JPanel ;
 import javax.swing.JSlider ;
 import javax.swing.event.ChangeEvent ;
 import javax.swing.event.ChangeListener ;
 import java.io.BufferedReader ;
-import java.io.FileReader ;
-import java.io.File ;
+import java.io.InputStream ;
+import java.io.InputStreamReader ;
 import java.io.IOException ;
+import java.net.URL ;
 import java.util.TreeMap ;
 import java.util.Iterator ;
 import java.util.StringTokenizer ;
@@ -360,15 +363,19 @@ public class SkyTransmission extends JPanel implements ChangeListener
 		TreeMap<Double,Double> tRx = null ;
 
 		// Get the receiver temperature and open it
-		File rxFile = new File( System.getProperty( "ot.cfgdir" ) + "receiver.info" ) ;
-
+		String cfgFilename = System.getProperty( "ot.cfgdir" ) ;
+		if( !cfgFilename.endsWith( "/" ) )
+			cfgFilename += '/' ;
+		cfgFilename += "receiver.info" ;
+		URL url = ObservingToolUtilities.resourceURL( cfgFilename ) ;
 		// Read in the data for the current front-end
-		if( rxFile.exists() )
+		if( url != null )
 		{
 			try
 			{
 				String inputLine ;
-				BufferedReader in = new BufferedReader( new FileReader( rxFile ) ) ;
+				InputStream is = url.openStream() ;
+				BufferedReader in = new BufferedReader( new InputStreamReader( is ) ) ;
 				// Skip over the header
 				while( true )
 				{
@@ -410,6 +417,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 						continue ;
 					}
 				}
+				in.close() ;
+				is.close() ;
 			}
 			catch( IOException ex )
 			{
@@ -427,10 +436,14 @@ public class SkyTransmission extends JPanel implements ChangeListener
 	{
 		TreeMap<Double,Vector<Double>> rtn = null ;
 		// Get the file
-		File f = new File( System.getProperty( "ot.cfgdir" ) + "untunable.dat" ) ;
-		if( !( f.exists() ) )
+		String cfgFilename = System.getProperty( "ot.cfgdir" ) ;
+		if( !cfgFilename.endsWith( "/" ) )
+			cfgFilename += '/' ;
+		cfgFilename += "untunable.dat" ;
+		URL url = ObservingToolUtilities.resourceURL( cfgFilename ) ;
+		if( url == null )
 		{
-			System.out.println( "Unable to find file " + f.getName() ) ;
+			System.out.println( "Unable to find file " + cfgFilename ) ;
 			return rtn ;
 		}
 
@@ -439,7 +452,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 		rtn = new TreeMap<Double,Vector<Double>>() ;
 		try
 		{
-			BufferedReader in = new BufferedReader( new FileReader( f ) ) ;
+			InputStream is = url.openStream() ;
+			BufferedReader in = new BufferedReader( new InputStreamReader( is ) ) ;
 			String inputLine ;
 			while( ( inputLine = in.readLine() ) != null )
 			{
@@ -462,6 +476,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				}
 				rtn.put( values.firstElement() , values ) ;
 			}
+			in.close() ;
+			is.close() ;
 		}
 		catch( Exception e )
 		{

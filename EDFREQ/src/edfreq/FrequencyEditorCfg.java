@@ -4,7 +4,6 @@ import java.util.ArrayList ;
 import java.util.Hashtable ;
 import java.util.Vector ;
 
-import java.io.File ;
 import java.io.IOException ;
 
 import orac.util.InstCfg ;
@@ -101,7 +100,10 @@ public class FrequencyEditorCfg
 	{
 		if( _frequencyEditorCfg == null )
 		{
-			String acsisCfgFile = System.getProperty( "ot.cfgdir" ) + File.separator + "acsis.cfg" ;
+			String acsisCfgFile = System.getProperty( "ot.cfgdir" ) ;
+			if( !acsisCfgFile.endsWith( "/" ) )
+				acsisCfgFile += '/' ;
+			acsisCfgFile += "acsis.cfg" ;
 			_frequencyEditorCfg = getConfiguration( acsisCfgFile ) ;
 		}
 		return _frequencyEditorCfg ;

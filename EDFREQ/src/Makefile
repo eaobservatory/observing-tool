@@ -38,7 +38,7 @@ $(LOCAL_INSTALL_ROOT)/bin:
 
 # default rule 
 $(LOCAL_INSTALL_ROOT)/classes/%.class: %.java
-	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR):../../ORAC/install/classes $<
+	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR):../../ORAC/install/classes:../../GEMINI/install/classes $<
 
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)

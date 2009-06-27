@@ -10,8 +10,7 @@
 package orac.util ;
 
 import java.io.BufferedReader ;
-import java.io.File;
-import java.io.InputStream;
+import java.io.InputStream ;
 import java.io.InputStreamReader ;
 import java.io.IOException ;
 import java.net.URL ;
@@ -83,7 +82,6 @@ public class InstCfgReader
 		// while there are more lines
 		while( ( line = cfgFile.readLine() ) != null )
 		{
-
 			// ignore blanks
 			if( line.length() == 0 )
 				continue ;

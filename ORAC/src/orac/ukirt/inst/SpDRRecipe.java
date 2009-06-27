@@ -149,6 +149,8 @@ public final class SpDRRecipe extends SpDRObsComp
 
 		// Read in the config file
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		if( !baseDir.endsWith( "/" ) )
+			baseDir += '/' ;
 		String cfgFile = baseDir + "drrecipe.cfg" ;
 		_readCfgFile( cfgFile ) ;
 
