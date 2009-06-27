@@ -232,6 +232,8 @@ class OtCfgReader
 		{
 			if( br != null )
 				br.close() ;
+			if( is != null )
+				is.close() ;
 		}
 
 		// SdW - Add a check to see if a personal nameresolver exists.

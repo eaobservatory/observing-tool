@@ -1,8 +1,9 @@
 package orac.jcmt.util ;
 
 import java.io.BufferedReader ;
-import java.io.File ;
-import java.io.FileReader ;
+import java.io.InputStreamReader ;
+import java.io.InputStream ;
+import java.net.URL ;
 import java.util.Iterator ;
 import java.util.Set ;
 import java.util.StringTokenizer ;
@@ -16,6 +17,7 @@ import orac.jcmt.iter.SpIterJiggleObs ;
 import orac.jcmt.iter.SpIterStareObs ;
 
 import gemini.util.MathUtil ;
+import gemini.util.ObservingToolUtilities ;
 
 /**
  * Class for calculation of the system noise of the heterodyne receivers.
@@ -29,7 +31,7 @@ public class HeterodyneNoise
 	static Vector<Double> nu_tel = new Vector<Double>() ;
 	static TreeMap<Double,String> _availableBands = new TreeMap<Double,String>() ;
 	static final double kappa = 1.15 ;
-	static final String cfgDir = System.getProperty( "ot.cfgdir" ) ;
+	static String cfgDir = System.getProperty( "ot.cfgdir" ) ;
 	private static final String receiverFile = "receiver.info" ;
 	private static boolean initialised = false ;
 	private static int SUBSYSTEM = 0 ;
@@ -42,12 +44,15 @@ public class HeterodyneNoise
 			return ;
 
 		// Read the reciever file - first get its directory and add the file name
-		String fileName = cfgDir + File.separator + receiverFile ;
+		if( !cfgDir.endsWith( "/" ) )
+			cfgDir += '/' ;
+		String fileName = cfgDir + receiverFile ;
 		// Open the file ready for reading
-		File rvrFile = new File( fileName ) ;
+		URL url = ObservingToolUtilities.resourceURL( fileName ) ;
 		try
 		{
-			BufferedReader in = new BufferedReader( new FileReader( rvrFile ) ) ;
+			InputStream is = url.openStream() ;
+			BufferedReader in = new BufferedReader( new InputStreamReader( is ) ) ;
 			// Read the front end names
 			while( ( inputLine = in.readLine() ) != null )
 			{
@@ -77,6 +82,8 @@ public class HeterodyneNoise
 					nu_tel.add( index , nu ) ;
 				}
 			}
+			in.close() ;
+			is.close() ;
 		}
 		catch( Exception e )
 		{
@@ -91,10 +98,27 @@ public class HeterodyneNoise
 
 	private static void getAvailableTau()
 	{
-		File dir = new File( cfgDir ) ;
-		if( dir.isDirectory() )
+		String tauList = cfgDir + "tau.list" ;
+		URL url = ObservingToolUtilities.resourceURL( tauList ) ;
+		Vector<String> filesVector = new Vector<String>() ;
+		if( url != null )
 		{
-			String[] files = dir.list() ;
+			try
+			{
+				InputStream is = url.openStream() ;
+				BufferedReader in = new BufferedReader( new InputStreamReader( is ) ) ;
+				String inputLine = "" ;
+				while( ( inputLine = in.readLine() ) != null )
+					filesVector.add( inputLine ) ;
+				in.close() ;
+				is.close() ;
+			}
+			catch( Exception e )
+			{
+				System.out.println( "Problems reading file " + tauList + " : " + e ) ;
+			}
+			String[] files = new String[ filesVector.size() ] ;
+			filesVector.toArray( files ) ;
 			if( files != null )
 			{
 				for( int i = 0 ; i < files.length ; i++ )
@@ -270,16 +294,20 @@ public class HeterodyneNoise
 		}
 
 		// We now have the index so open the file
-		String fileName = cfgDir + "/tau" ;
+		String fileName = cfgDir ;
+		if( !fileName.endsWith( "/" ) )
+			fileName += '/' ;
+		fileName += "tau" ;
 		String tmp = Double.toString( availableBands[ index ] ) ;
 		StringTokenizer st = new StringTokenizer( tmp , "." ) ;
 		st.nextToken() ;
 		tmp = st.nextToken() + ".dat" ;
 		fileName = fileName + tmp ;
-		File tauFile = new File( fileName ) ;
+		URL url = ObservingToolUtilities.resourceURL( fileName ) ;
 		try
 		{
-			BufferedReader fileReader = new BufferedReader( new FileReader( tauFile ) ) ;
+			InputStream is = url.openStream();
+			BufferedReader fileReader = new BufferedReader( new InputStreamReader( is ) ) ;
 			String inputLine ;
 			while( ( inputLine = fileReader.readLine() ) != null )
 			{
@@ -288,6 +316,8 @@ public class HeterodyneNoise
 				Double depth = new Double( st.nextToken() ) ;
 				tauMap.put( frequency , depth ) ;
 			}
+			fileReader.close() ;
+			is.close() ;
 		}
 		catch( Exception e )
 		{
@@ -298,12 +328,17 @@ public class HeterodyneNoise
 
 	private static double getTransmission( String filename , double freq )
 	{
-		String path = cfgDir + filename ;
+		String path = cfgDir ;
+		if( !path.endsWith( "/" ) )
+			path += '/' ;
+		path += filename ;
 		double rtn = 0. ;
 		BufferedReader rdr = null ;
+		URL url = ObservingToolUtilities.resourceURL( path ) ;
 		try
 		{
-			rdr = new BufferedReader( new FileReader( path ) ) ;
+			InputStream is = url.openStream() ;
+			rdr = new BufferedReader( new InputStreamReader( is ) ) ;
 			// Read the first line of the file
 			String line = rdr.readLine() ;
 			double freq1 = 0. , tran1 = 0. ;
@@ -333,6 +368,8 @@ public class HeterodyneNoise
 
 			// Once we get here, we should be able to interpolate
 			rtn = linterp( freq1 , tran1 , freq2 , tran2 , freq ) ;
+			rdr.close() ;
+			is.close() ;
 		}
 		catch( java.io.FileNotFoundException fnf )
 		{

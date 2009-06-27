@@ -90,6 +90,8 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 
 		// Read in the instrument config file
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		if( !baseDir.endsWith( "/" ) )
+			baseDir += '/' ;
 		String cfgFile = baseDir + "wfcam.cfg" ;
 		_readCfgFile( cfgFile ) ;
 

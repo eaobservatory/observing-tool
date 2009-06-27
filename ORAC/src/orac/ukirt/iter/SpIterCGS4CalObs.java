@@ -125,6 +125,8 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 
 		// Read in the instrument config file
 		String baseDir = System.getProperty( "ot.cfgdir" ) ;
+		if( !baseDir.endsWith( "/" ) )
+			baseDir += '/' ;
 		String cfgFile = baseDir + "cgs4calunit.cfg" ;
 		_readCfgFile( cfgFile ) ;
 

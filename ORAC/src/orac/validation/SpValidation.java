@@ -1,6 +1,5 @@
 package orac.validation ;
 
-import java.io.File ;
 import java.io.IOException ;
 import java.io.StringReader ;
 
@@ -579,33 +578,27 @@ public class SpValidation
 			// First make sure the last character is a path separator, then
 			// We need to go up one level and then enter the schema directory
 			char lastChar = cfgDir.charAt( cfgDir.length() - 1 ) ;
-			if( !( lastChar == File.separatorChar ) )
-				cfgDir.append( File.separatorChar ) ;
+			if( !( lastChar == '/' ) )
+				cfgDir.append( '/' ) ;
 
-			cfgDir.append( ".." + File.separatorChar + "schema" + File.separatorChar + "JAC" + File.separatorChar ) ;
+			cfgDir.append( ".." + '/' + "schema" + '/' + "JAC" + '/' ) ;
 			// Now work out which telescope we are using
 			if( cfgDir.indexOf( "ukirt" ) != -1 )
 			{
 				// We are using ukirt
-				cfgDir.append( "UKIRT" + File.separatorChar ) ;
+				cfgDir.append( "UKIRT" + '/' ) ;
 				cfgDir.append( "UKIRT.xsd" ) ;
 			}
 			else if( cfgDir.indexOf( "jcmt" ) != -1 )
 			{
 				// we are using jcmt
-				cfgDir.append( "JCMT" + File.separatorChar ) ;
+				cfgDir.append( "JCMT" + '/' ) ;
 				cfgDir.append( "JCMT.xsd" ) ;
 			}
 			else
 			{
 				// no idea - just return
 				report.add( new ErrorMessage( ErrorMessage.WARNING , "Schema Validation not performed" , "Unable to work out which telescope is being used" ) ) ;
-				return ;
-			}
-			// Make sure the first is there
-			if( !( new File( cfgDir.toString() ).exists() ) )
-			{
-				report.add( new ErrorMessage( ErrorMessage.WARNING , "Schema Validation not performed" , "Local File " + cfgDir.toString() + " does not exist" ) ) ;
 				return ;
 			}
 			// Convert to file URL
