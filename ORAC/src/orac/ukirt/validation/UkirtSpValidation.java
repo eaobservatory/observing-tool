@@ -1272,5 +1272,9 @@ public class UkirtSpValidation extends SpValidation
 		{
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "Values for elevation in schedule constraint not numeric." , "" ) ) ;
 		}
+		catch( NullPointerException npe )
+		{
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "No value set for elevation in schedule constraint." , "" ) ) ;
+		}
 	}
 }
