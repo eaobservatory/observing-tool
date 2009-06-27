@@ -25,7 +25,7 @@ public class AppProperties
 	/**
 	 * This is the name of the directory that will be used by default
 	 * to store the application property files in.  This directory, and
-	 * any directory explicity specified in one of these method calls
+	 * any directory explicitly specified in one of these method calls
 	 * is relative to the user's home directory.
 	 */
 	public static final String DEFAULT_DIRECTORY = ".gemini" ;
