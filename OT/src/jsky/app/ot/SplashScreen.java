@@ -47,8 +47,6 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		// Get the updated version date...
 		BufferedReader br = null ;
 		String fullVersion = Version.getInstance().getFullVersion() ;
-
-		br = null ;
 		try
 		{
 			br = new BufferedReader( new InputStreamReader( url.openStream() ) ) ;
