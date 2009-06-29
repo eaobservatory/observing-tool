@@ -92,7 +92,7 @@ public class OT extends JFrame
 	 */
 	public OT()
 	{
-		this( false ) ;
+		this( true ) ;
 	}
 
 	public OT( boolean internalFrames )
@@ -507,7 +507,7 @@ public class OT extends JFrame
 	 * <p>
 	 * If -internalframes is specified, internal frames are used. 
 	 * The -nointernalframes option has the opposite effect.
-	 * (The default is to use internal frames under Windows only).
+	 * (The default is not to use internal frames).
 	 * <p>
 	 * If a program filename is specified, it is loaded on startup.
 	 */
