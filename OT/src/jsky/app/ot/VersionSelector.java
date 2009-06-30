@@ -15,9 +15,9 @@ import javax.swing.JFrame ;
 import javax.swing.ButtonGroup ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
-import java.awt.Dimension;
+import java.awt.Dimension ;
 import java.awt.GridLayout ;
-import java.awt.Toolkit;
+import java.awt.Toolkit ;
 
 public class VersionSelector extends JPanel implements ActionListener
 {
@@ -131,7 +131,7 @@ public class VersionSelector extends JPanel implements ActionListener
 		Collection<TelescopeConfig> values = configs.values() ;
 		if( values.size() > 0 )
 		{
-    		setLayout( new GridLayout( values.size() , 1 ) ) ;
+		setLayout( new GridLayout( values.size() , 3 ) ) ;
     		for( TelescopeConfig config : values )
     		{
     			JRadioButton rb = new JRadioButton( config.name ) ;
@@ -143,8 +143,8 @@ public class VersionSelector extends JPanel implements ActionListener
     		
     		frame.setContentPane( selector ) ;
     		Dimension dim = getPreferredSize() ;
-    		dim.width = dim.width * 4 ;
-    		dim.height = dim.height * 4 ;
+		dim.width = dim.width * 2 ;
+		dim.height = dim.height * 2 ;
     		frame.setPreferredSize( dim ) ;
     		frame.pack() ;
     		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
