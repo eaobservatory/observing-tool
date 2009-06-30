@@ -581,6 +581,8 @@ public class OT extends JFrame
 			System.exit( 1 ) ;
 		}
 
+		VersionSelector.checkVersions() ;
+
 		try
 		{
 			OtCfg.init() ;
