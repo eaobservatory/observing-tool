@@ -131,7 +131,7 @@ public class VersionSelector extends JPanel implements ActionListener
 		Collection<TelescopeConfig> values = configs.values() ;
 		if( values.size() > 0 )
 		{
-		setLayout( new GridLayout( values.size() , 3 ) ) ;
+		setLayout( new GridLayout( values.size() , 1 ) ) ;
     		for( TelescopeConfig config : values )
     		{
     			JRadioButton rb = new JRadioButton( config.name ) ;
