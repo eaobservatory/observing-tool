@@ -71,6 +71,7 @@ install: all install_dir
 
 	rm -rf $(INSTALL_ROOT)/cfg/ot
 	cp -r  OT/install/cfg $(INSTALL_ROOT)/cfg/ot
+	(cd $(INSTALL_ROOT)/cfg ; jar cf ../lib/cfg.jar *)
 
 # Copy the frequency editor cfg directory edfreq into the installed cfg ot subdirectory.
 	cp -r EDFREQ/install/cfg/edfreq $(INSTALL_ROOT)/cfg/ot/jcmt
