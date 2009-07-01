@@ -22,6 +22,7 @@ import orac.jcmt.iter.SpIterStareObs ;
 import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.HeterodyneNoise ;
 import orac.jcmt.SpJCMTConstants ;
+import ot.util.DialogUtil ;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
@@ -144,6 +145,19 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			{
 				if( !_iterStareObs.separateOffsExist() )
 					_iterStareObs.setSeparateOffs( true ) ;
+			}
+		}
+		else if( SWITCHING_MODE_FREQUENCY_F.equals( _iterStareObs.getSwitchingMode() ) )
+		{
+			SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
+			if( instrument instanceof SpInstHeterodyne )
+			{
+				SpInstHeterodyne heterodyne = ( SpInstHeterodyne )instrument ;
+				if( heterodyne.getFrontEnd().startsWith( "W" ) )
+				{
+					DialogUtil.error( null , "Fast frequency switching not currently available for RxW" ) ;
+					_iterStareObs.setSwitchingMode( SWITCHING_MODE_POSITION ) ;
+				}
 			}
 		}
 		else
