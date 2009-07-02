@@ -218,6 +218,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				{
 					boolean isBeamSwitch = false ;
 					boolean isPositionSwitch = false ;
+					boolean isFastFrequencySwitch = false ;
 
 					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
 					Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
@@ -226,6 +227,10 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					Field positionSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_POSITION" ) ;
 					Object positionSwitch = positionSwitchField.get( spIterStareObs ) ;
 					isPositionSwitch = switchingMode.equals( positionSwitch ) ;
+					
+					Field fastFrequencySwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_FREQUENCY_F" ) ;
+					Object fastFrequencySwitch = fastFrequencySwitchField.get( spIterStareObs ) ;
+					isFastFrequencySwitch = fastFrequencySwitch.equals( fastFrequencySwitch ) ;
 
 					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
 					int integrationTimePerPoint = 0 ;
@@ -253,6 +258,12 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 							else
 								totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 190. ) ;
 						}
+					}
+					else if( isFastFrequencySwitch )
+					{
+						if( iterOffsets == 0 )
+							iterOffsets++ ;
+						totalIntegrationTime = iterRepeat * ( iterOffsets * integrationTimePerPoint ) ;
 					}
 
 					boolean addContinuum = false ;
