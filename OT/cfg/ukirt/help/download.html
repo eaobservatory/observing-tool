@@ -1,163 +1,90 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <title>Downloading the UKIRT Observing Tool</title>
+<title>Joint Astronomy Centre Observing Tools.</title>
 </head>
-<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
- alink="#ff0000" link="#003300" vlink="#005500">
-<h1>Downloading the UKIRT Observing Tool</h1>
-<em>Existing users note: The current version is 20090122.<br>
-</em><span style="color: rgb(255, 0, 0); font-weight: bold;"><br>
-SURVEY DEFINITION TOOL DOCUMENTATION AND DOWNLOAD LINK AVAILABLE
-<a href="../ukirtsdt/index.html">HERE</a><br>
-</span><br>
-<p> </p>
-<p> The UKIRT Observing tool is a Java application and has been tested
-on Linux, Solaris, Windows 2000 and Mac OS X to various degrees - our
-lead platform is Linux. <br>
+<body>
+<p>
+<br/>
+<font color="red"><b>SURVEY DEFINITION TOOL DOCUMENTATION AND DOWNLOAD LINK AVAILABLE
+<a href="../ukirtsdt/index.html">HERE</a></b></font>
 </p>
-<p> </p>
-<p> Go to the section describing your operating system.
+<p>
+<h2>Introduction.</h2>
 </p>
-<ul>
-  <li><a href="#unix">Linux or Solaris</a> </li>
-  <li><a href="#windows">Windows 2000</a> </li>
-  <li><a href="#macos">Mac OS X</a> </li>
-</ul>
-<h2><a name="unix">Linux or Solaris users</a></h2>
-You need three things to run the UKIRT-OT:
-<ol>
-  <li> The Java Runtime environment (JRE) version 1.5 or newer </li>
-  <li> The Java Advanced Imaging extension (JAI) version 1.1.2 or newer
-  </li>
-  <li> The UKIRT-OT itself </li>
-</ol>
-<h3>JRE</h3>
-To check which version you have installed on your unix machine, type
-<pre> % java -version<br></pre>
-<p>If the answer is 1.5 or later you know you are ok as far
-as JRE is
-concerned. If you
-have a suitable version, skip to the next step (JAI). If you get an
-older version or "command not found" you need to install
-JRE and JAI. To simplify the hassle of installing both the JRE and JAI
-we distribute tar files containing the combined JRE and JAI
-packages. Versions are available for both <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk-1_5_0_11-linux-i586.bin.gz">Linux</a>
-and <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk-1_5_0_11-solaris-sparcv9.sh.gz">Solaris</a>
-from the <a href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot">OT FTP
-area</a>. If you wish to use a proper FTP client (rather than going
-through
-a web browser) you can download the OT from the FTP area at
-ftp.jach.hawaii.edu/pub/ukirt/ukirtot.</p>
-<p>This distribution can be installed simply by gunzipping and
-untarring it. On Solaris:</p>
-<pre>% gunzip -c jdk-1_5_0_11-solaris-sparcv9.sh.gz <br>% chmod +x jdk-1_5_0_11-solaris-sparcv9.sh<br>% ./jdk-1_5_0_11-solaris-sparcv9.sh<br></pre>
-<p>or on Linux:</p>
-<pre>% gunzip jdk-1_5_0_11-linux-i586.bin.gz<br>% chmod +x jdk-1_5_0_11-linux-i586.bin<br>% ./jdk-1_5_0_11-linux-i586.bin<br></pre>
-<p>This will will run an install script that will create a directory jdk-1_5_0_11 in the current directory.
-This is all that is required to install it. You can now skip to step 3
-(UKIRT-OT)</p>
-<p> </p>
-<h3>JAI</h3>
-If you have determined you have java 1.5 installed and want to check
-if you have JAI, you have to look for a file called <tt>jai_core.jar</tt>.
-This
-file will be in the java installation directory under the subdirectory
-<tt>lib/ext</tt>
-Here's an example of how to do it:
-<pre> % which java<br> /star/java/jre-1.5.0_06/bin/java<br></pre>
-This tells us that the java installation directory is
-<tt>/star/java/jre-1.5.0_06/</tt>. So we would expect JAI to be in:
-<pre> % ls /star/java/jre-1.5.0_06/lib/ext/jai_core.jar<br> /star/java/jre-1.5.0_06/lib/ext/jai_core.jar<br></pre>
-which it is in this example..
-<p>If it is not, you can get it directly from <a
- href="http://java.sun.com/products/java-media/jai/index.jsp">Sun's JAI
-site</a>. Some compatibility problems exist between the position editor
-and the
-latest JAI release. We recommend using JAI 1.1.2.
+<p>
+The Observing Tool is a <a href="http://java.sun.com/">Java</a> based application for creating Science Programs in preparation for observing at <a href="http://www.jach.hawaii.edu/JCMT/">JCMT</a> or <a href="http://www.jach.hawaii.edu/UKIRT/">UKIRT</a>. While <a href="http://www.kernel.org/">Linux</a> based operating systems are our lead platform, testing has been performed to varying degrees on <a href="http://opensolaris.org/">Solaris</a>, <a href="http://www.microsoft.com/WINDOWS/">Windows</a> and <a href="http://www.apple.com/macosx/">Mac OS X</a>.<br/><br/>
+As of July 2009 the Observing Tool for both telescopes is now distributed via <a href="http://java.sun.com/products/javawebstart/">Java Web Start</a>.<br/>
 </p>
-<h3>UKIRT-OT</h3>
-<p>The most recent version of the OT is always available from the
-UKIRT-OT FTP area as <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">ot_latest.tar.gz</a>.
-The first step is simply to download it and untar the distribution [it
-will take up ~35MB of disk space, but this distribution also includes
-the UKIRT-OT]. It can be untarred using:</p>
-<pre> % gunzip -c ot_latest.tar.gz | tar xvf -<br></pre>
-<p>This will create a directory called <tt>ompot</tt>. The
-installation is almost complete. If you have a java executable in your
-path you should now be able to run up the OT:
+<p>
+<h2>Requirements.</h2>
 </p>
-<pre> % ompot/bin/ukirtot<br></pre>
-<p>or add the directory <tt>ompot/bin</tt> to your PATH environment
-variable and then type:</p>
-<pre> % ukirtot<br></pre>
-<p> If the location of your Java executable is not present in the path
-then you will need to edit the startup script so that it knows which
-Java runtime environment to use (this is also useful if you want to
-force a site wide version). You do this by editing the file <tt>ompot/bin/ot</tt>
-and changing the line that says:</p>
-<pre>set JAVA = `which java`<br></pre>
-<p>to (for example)</p>
-<pre>set JAVA = /star/java/jre/bin/java<br></pre>
-<p>if you are going to use the Starlink JRE. Note that the value used
-includes the full path to the Java executable, not a directory
-specification.</p>
-<p>The OT should now be runnable as described above.</p>
-<h2><a name="windows">Windows 2000 users</a></h2>
-You need three things to run the UKIRT-OT:
-<ol>
-  <li> The Java Runtime environment (JRE) version 1.5 or newer </li>
-  <li> The Java Advanced Imaging extension (JAI) version 1.1.2 or newer </li>
-  <li> The UKIRT-OT itself </li>
-</ol>
-<h3>JRE</h3>
-If you have Java installed already you can check the version number by
-doing <tt>Start-&gt;Run-&gt;Command</tt> and then typing <tt>java
--version</tt> at the MS-DOS prompt. If it is 1.5 or newer you are
-done. If not you can get an appropriate version from our FTP site by
-retrieving <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk-1_5_0_11-windows-i586-p.exe">jdk-1_5_0_11-windows-i586-p.exe
-</a>.
-<h3>JAI</h3>
-If you have not installed the UKIRT-OT before chances are you won't
-have JAI. You can get an appropriate version from our FTP site by
-retrieving <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jai-1_1_2_01-lib-windows-i586-jre.exe">jai-1_1_2_01-lib-windows-i586-jre.exe</a>
-.
-<h3>UKIRT-OT</h3>
-<p>If you are running the OT on windows the distribution is available
-in both <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.zip">.zip</a>
-and <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">.tar.gz</a>
-format, you can just uncompress it using, for example, <a
- href="http://www.winzip.com">Winzip</a>. Once it has been uncompressed
-go into the directory <tt>ompot\bin\</tt> and click on the </p>
-<pre>ot.bat</pre>
-batch icon. If you have a correctly installed JRE the OT will run
-without any further ado.
-<p>You can get a desktop shortcut as follows: go into the directory <tt>ompot\bin\</tt>,
-right click on the <tt>ot.bat</tt> batch icon, and select "copy" from
-the resulting menu; then right-click on the desktop and select "paste
-shortcut". optionally rename the shortcut by right-clicking on it and
-selecting "rename".
+<p>
+To acquire and run the Observing Tool requires having a version of the <a href="http://www.java.com/getjava/">Java Runtime Environment</a> greater or equal to 1.5. If you are unsure wether or not you have Java installed and in your path, or which version of Java you have, open a console ( Windows users can run a console by going to <code>'Start -> Programs -> Accessories -> Command Prompt'</code>, Mac OS X users can run a console by going to <code>'/Applications/Utilities/Terminal.app'</code>, <a href="http://www.gnome.org/">Gnome</a> users <code>'Applications -> Accessories -> Terminal'<code>, <a href="http://www.kde.org/">KDE</a> users </code>'K Menu -> System Tools -> Terminal'</code> ) and type the following :<br/>
 </p>
-<h2><a name="macos">Mac OS X</a></h2>
-<p>The most recent version of the OT is always available from the
-UKIRT-OT FTP area as <a
- href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/UKIRT-OT.dmg">UKIRT-OT.dmg</a>.
-Clicking the link will download a disk image containing two files:
-the UKIRT-OT and a README. To run the OT you can double-click the
-UKIRT-OT
-icon.
-You may copy this application to any location you desire, and it is
-not necessary to download and install the JAI for users of MacOSX 10.4 ( Tiger ) and later, as these libraries are included with the OS.
-<p><b>Due to the upgrade to Java 1.5, users of MacOS X prior to 10.4 will be unable to run the UKIRT-OT</b>.<p>
+<p>
+<code>
+$ java -version
+</code>
 </p>
-<p> </p>
-<hr><!-- hhmts end -->
+<p>
+Responses such as <code>"command not found"</code> indicate that either Java has not been installed or is not in your path.<br/>
+</p>
+<p>
+Java Runtime Environments for Java 1.5 are available here for <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-windows-i586-p.exe">Windows</a>, <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-linux-i586.bin.gz">Linux x86</a> and <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-solaris-sparcv9.sh.gz">Solaris SPARC</a>, however it is recommended that you obtain the latest Java Runtime Environment from <a href="http://java.sun.com/javase/downloads">Sun</a> or your operating system vendor.
+</p>
+<p>
+<h2>Installation.</h2>
+</p>
+<p>
+Installation via Java Web Start is relatively easy, first if your web browser supports Java Web Start 
+<script>
+<!--
+if( navigator.mimeTypes[ 'application/x-java-jnlp-file' ] ){ document.write( " ( it does ) " ) ; }
+else{ document.write( " ( it doesn't ) " ) ; }
+-->
+</script>
+and the correct content handler is assigned, you can click on the following link : <br/>
+</p>
+<p>
+<a href="http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp">JAC Observing Tool</a>
+</p>
+<p>
+If that fails to run Java Web Start, and the browser requests to download the file, or should you prefer to run it from the console you can type :<br/>
+</p>
+<p>
+<code>
+$ javaws http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp
+</code>
+</p>
+<p>
+Installation may create a shortcut icon on your desktop, or an entry in your start menu, so that the Observing Tool can be run again in the future. While an active internet connection is required for initial installation, it is not required for running the Observing Tool on a day-to-day basis, and thus can be used in the absense of an internet connection. If a desktop icon is not created, you can check the status of, and run the Observing Tool, from Java Web Start by opening a console and typing :<br/>
+</p>
+<p>
+<code>
+$ javaws -viewer
+</code>
+</p>
+<p>
+In order for the Observing Tool to run a certificate must be accepted, you will be presented with this when the application is run, it should be signed by the current maintainer at the <a href="http://www.jach.hawaii.edu/">Joint Astronomy Centre</a>. The certificate is not signed by a recognised certificate authority, and you should be warned of this when running the software, if in doubt contact us.
+</p>
+<p>
+<h2>Upgrades.</h2>
+</p>
+<p>
+Due to the nature of Java Web Start, upgrades of the Observing Tool happen automatically whenever the code is updated providing you have an active internet connection, so there is no worry about running the correct version. Should for any reason an upgrade fails due to a cached item, or if you wish to remove the Observing Tool, it can be uninstalled by opening a console and typing the following :<br/>
+</p>
+<p>
+<code>
+$ javaws -uninstall
+</code>
+</p>
+<p>
+<h2>Additional.</h2>
+</p>
+<p>
+Questions, bug reports or praise ( or indeed very very carefully worded criticism ;) should be emailed to the appropraite address :<br/>
+<a href="mailto:jcmtot@remove.jach.hawaii.edu">jcmtot@remove.jach.hawaii.edu</a> or <a href="mailto:ukirtot@remove.jach.hawaii.edu">ukirtot@remove.jach.hawaii.edu</a> removing the 'remove.' from the email address first.<br/><br/>
+Please note the operating system release and the Java version in your email as you will be asked.
+</p>
 </body>
 </html>
