@@ -52,7 +52,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 {
 	private IterRasterObsGUI _w ; // the GUI layout panel
 	private SpIterRasterObs _iterObs ;
-	private final String[] SCAN_PA_CHOICES = { "automatic" , "user def" } ;
+	private static final String AUTOMATIC = "automatic" ;
+	private static final String USER_DEF = "user def" ;
+	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , USER_DEF } ;
 	private final String[] SAMPLE_TIME_CHOICES = { "4.0" , "5.0" , "6.0" , "7.0" } ;
 
 	// The following defines the maximum file size we are currently allowing for raster.
@@ -301,7 +303,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( ( _iterObs.getScanAngles() == null ) || ( _iterObs.getScanAngles().size() == 0 ) )
 		{
 			_w.scanAngle.setEditable( false ) ;
-			_w.scanAngle.setValue( SCAN_PA_CHOICES[ 0 ] ) ;
+			_w.scanAngle.setValue( AUTOMATIC ) ;
 		}
 		else
 		{
@@ -541,12 +543,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else if( ddlbwe == _w.scanAngle )
 		{
 			Object value = _w.scanAngle.getValue() ;
-			if( value.equals( SCAN_PA_CHOICES[ 0 ] ) )
+			if( value.equals( AUTOMATIC ) )
 			{
 				_w.scanAngle.setEditable( false ) ;
 				_iterObs.setScanAngles( null ) ;
 			}
-			else if( value.equals( SCAN_PA_CHOICES[ 1 ] ) )
+			else if( value.equals( USER_DEF ) )
 			{
 				_w.scanAngle.setEditable( true ) ;
 				_w.scanAngle.setValue( "" ) ;
