@@ -263,7 +263,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					{
 						if( iterOffsets == 0 )
 							iterOffsets++ ;
-						totalIntegrationTime = iterRepeat * ( iterOffsets * integrationTimePerPoint ) ;
+						totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 120. ) ;
 					}
 
 					boolean addContinuum = false ;
