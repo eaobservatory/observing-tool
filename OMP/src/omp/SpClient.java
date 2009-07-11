@@ -167,8 +167,10 @@ public class SpClient extends SoapClient
 
 			// get the current science program and convert it to a string
 			String currentSp = currentItem.toXML() ;
-			addParameter( "TemplateSp" , String.class , currentSp ) ;
+			byte[] toSend = compressString( currentSp ) ;
+			addParameter( "TemplateSp" , byte[].class , toSend ) ;
 			addParameter( "Catalog" , String.class , buffer.toString() ) ;
+			addParameter( "compress" , String.class , "auto" ) ;
 			Object o = doCall( getURL() , SOAP_ACTION , "SpInsertCat" ) ;
 			rtn = ( String[] )o ;
 			if( rtn != null )
@@ -177,7 +179,7 @@ public class SpClient extends SoapClient
 				if( spXML != null && !spXML.equals( "" ) )
 				{
 					System.out.println( "Building replicated Science Program" ) ;
-					spItem = ( new SpInputXML() ).xmlToSpItem( spXML ) ;
+					spItem = new SpInputXML().xmlToSpItem( spXML ) ;
 				}
 				JOptionPane.showMessageDialog( null , new String( rtn[ 1 ] ) , "Replication returned the following information" , JOptionPane.INFORMATION_MESSAGE ) ;
 			}
@@ -292,16 +294,28 @@ public class SpClient extends SoapClient
 
 		String forceString = force ? "1" : "0" ;
 
+		byte[] toSend = compressString( sp ) ;
+
+		flushParameter() ;
+		addParameter( "sp" , byte[].class , toSend ) ;
+		addParameter( "password" , byte[].class , pass.getBytes() ) ;
+		addParameter( "force" , byte[].class , forceString.getBytes() ) ;
+
+		return new SpStoreResult( doCall( getURL() , SOAP_ACTION , "storeProgram" ) ) ;
+	}
+
+	private static byte[] compressString( String input )
+	{
 		byte[] toSend ;
 
 		try
 		{
 			ByteArrayOutputStream bos = new ByteArrayOutputStream() ;
 			GZIPOutputStream gos = new GZIPOutputStream( bos ) ;
-			byte[] input = sp.getBytes() ;
+			byte[] bytes = input.getBytes() ;
 			byte[] buff = new byte[ 1024 ] ;
 			int len ;
-			ByteArrayInputStream bis = new ByteArrayInputStream( input ) ;
+			ByteArrayInputStream bis = new ByteArrayInputStream( bytes ) ;
 			while( ( len = bis.read( buff ) ) > 0 )
 				gos.write( buff , 0 , len ) ;
 			gos.close() ;
@@ -312,15 +326,9 @@ public class SpClient extends SoapClient
 		catch( Exception e )
 		{
 			e.printStackTrace() ;
-			toSend = sp.getBytes() ;
+			toSend = input.getBytes() ;
 		}
-
-		flushParameter() ;
-		addParameter( "sp" , byte[].class , toSend ) ;
-		addParameter( "password" , byte[].class , pass.getBytes() ) ;
-		addParameter( "force" , byte[].class , forceString.getBytes() ) ;
-
-		return new SpStoreResult( doCall( getURL() , SOAP_ACTION , "storeProgram" ) ) ;
+		return toSend ;
 	}
 
 	/**
