@@ -54,6 +54,9 @@ public class SpClient extends SoapClient
 	/** Used to read in properties from file. */
 	private static Properties _cfgProperties = new Properties() ;
 
+	/** Can the OMP handle XML namespaces ? */
+	private static final boolean ompFixed = false ;
+
 	/**
      * Gets Sp Server URL from cfg file.
      * 
@@ -167,10 +170,20 @@ public class SpClient extends SoapClient
 
 			// get the current science program and convert it to a string
 			String currentSp = currentItem.toXML() ;
-			byte[] toSend = compressString( currentSp ) ;
-			addParameter( "TemplateSp" , byte[].class , toSend ) ;
+			Object toSend = null ;
+			Class<?> klass = null ;
+			if( ompFixed )
+			{
+				toSend = compressString( currentSp ) ;
+				klass = byte[].class ;
+			}
+			else
+			{
+				toSend = trimNamespace( currentSp ) ;
+				klass = String.class ;
+			}
+			addParameter( "TemplateSp" , klass , toSend ) ;
 			addParameter( "Catalog" , String.class , buffer.toString() ) ;
-			addParameter( "compress" , String.class , "auto" ) ;
 			Object o = doCall( getURL() , SOAP_ACTION , "SpInsertCat" ) ;
 			rtn = ( String[] )o ;
 			if( rtn != null )
@@ -202,6 +215,22 @@ public class SpClient extends SoapClient
 		}
 
 		return ( SpItem )spItem ;
+	}
+
+	/**
+	 * The OMP cannot handle XML namespaces, so trim them out.
+	 * @param input SpProg with XML namespace
+	 * @return SpProg without XML namespace
+	 */
+	private static String trimNamespace( String input )
+	{
+		int start = input.indexOf( "xmlns" ) ;
+		int end = input.indexOf( ">" , start ) ;
+
+		String pre = input.substring( 0 , start ).trim() ;
+		String post = input.substring( end ).trim() ;
+
+		return pre + post ;
 	}
 
 	/**
