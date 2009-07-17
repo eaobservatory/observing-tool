@@ -420,7 +420,7 @@ public class OT extends JFrame
 		}
 		else
 		{
-			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" ) ;
+			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" , "ot.cfgdir" ) ;
 			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}

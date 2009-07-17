@@ -1378,7 +1378,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		}
 		else
 		{
-			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" ) ;
+			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" , "ot.cfgdir" ) ;
 			OT.setHelpLauncher( new JHLauncher( url ) ) ;
 		}
 	}
