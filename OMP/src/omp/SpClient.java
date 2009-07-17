@@ -54,9 +54,6 @@ public class SpClient extends SoapClient
 	/** Used to read in properties from file. */
 	private static Properties _cfgProperties = new Properties() ;
 
-	/** Can the OMP handle XML namespaces ? */
-	private static final boolean ompFixed = false ;
-
 	/**
      * Gets Sp Server URL from cfg file.
      * 
@@ -157,7 +154,6 @@ public class SpClient extends SoapClient
 		flushParameter() ;
 		try
 		{
-			String[] rtn ;
 			char[] contents = new char[ 1024 ] ;
 			FileReader fr = new FileReader( catalog ) ;
 			int readLength = 0 ;
@@ -172,30 +168,31 @@ public class SpClient extends SoapClient
 			String currentSp = currentItem.toXML() ;
 			Object toSend = null ;
 			Class<?> klass = null ;
-			if( ompFixed )
-			{
-				toSend = compressString( currentSp ) ;
-				klass = byte[].class ;
-			}
-			else
-			{
-				toSend = trimNamespace( currentSp ) ;
-				klass = String.class ;
-			}
+
+			toSend = compressString( currentSp ) ;
+			klass = byte[].class ;
+
 			addParameter( "TemplateSp" , klass , toSend ) ;
 			addParameter( "Catalog" , String.class , buffer.toString() ) ;
+			addParameter( "compress" , String.class , "auto" ) ;
 			Object o = doCall( getURL() , SOAP_ACTION , "SpInsertCat" ) ;
-			rtn = ( String[] )o ;
-			if( rtn != null )
+			Object[] tmp = ( Object[] )o ;
+			
+			Object sp = tmp[ 0 ] ;
+			String spXML = null ;
+			if( sp instanceof byte[] )
+				spXML = new String( ( byte[] )gunzip( sp ) ) ;
+			else if( sp instanceof String )
+				spXML = ( String )sp ;
+				
+			String info = ( String )tmp[ 1 ] ;
+
+			if( spXML != null && !spXML.equals( "" ) )
 			{
-				String spXML = new String( rtn[ 0 ] ) ;
-				if( spXML != null && !spXML.equals( "" ) )
-				{
-					System.out.println( "Building replicated Science Program" ) ;
-					spItem = new SpInputXML().xmlToSpItem( spXML ) ;
-				}
-				JOptionPane.showMessageDialog( null , new String( rtn[ 1 ] ) , "Replication returned the following information" , JOptionPane.INFORMATION_MESSAGE ) ;
+				System.out.println( "Building replicated Science Program" ) ;
+				spItem = new SpInputXML().xmlToSpItem( spXML ) ;
 			}
+			JOptionPane.showMessageDialog( null , info , "Replication returned the following information" , JOptionPane.INFORMATION_MESSAGE ) ;
 		}
 		catch( java.io.FileNotFoundException e )
 		{
@@ -215,22 +212,6 @@ public class SpClient extends SoapClient
 		}
 
 		return ( SpItem )spItem ;
-	}
-
-	/**
-	 * The OMP cannot handle XML namespaces, so trim them out.
-	 * @param input SpProg with XML namespace
-	 * @return SpProg without XML namespace
-	 */
-	private static String trimNamespace( String input )
-	{
-		int start = input.indexOf( "xmlns" ) ;
-		int end = input.indexOf( ">" , start ) ;
-
-		String pre = input.substring( 0 , start ).trim() ;
-		String post = input.substring( end ).trim() ;
-
-		return pre + post ;
 	}
 
 	/**
