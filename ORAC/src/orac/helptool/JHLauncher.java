@@ -117,20 +117,19 @@ final public class JHLauncher implements java.io.Serializable
 
 	protected void initialize( URL url , ClassLoader loader )
 	{
+		/* The JavaHelp can't be added to a BorderLayout because it
+		 * isnt' a component. For this demo we'll use the embeded method
+		 * since we don't want a Frame to be created.
+		 */
 		try
 		{
 			hs = new HelpSet( loader , url ) ;
+			jh = new JHelp( hs ) ;
 		}
 		catch( Exception ee )
 		{
 			JOptionPane.showMessageDialog( null , "HelpSet not found" , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-			return ;
 		}
-		// The JavaHelp can't be added to a BorderLayout because it
-		// isnt' a component. For this demo we'll use the embeded method
-		// since we don't want a Frame to be created.
-
-		jh = new JHelp( hs ) ;
 	}
 
 	private class OpenPageListener implements ActionListener
@@ -301,7 +300,6 @@ final public class JHLauncher implements java.io.Serializable
 
 		private void initSetFontComponents()
 		{
-
 			Border border ;
 			DefaultMutableTreeNode topNode = new DefaultMutableTreeNode() ;
 			Font[] fonts ;
@@ -422,20 +420,20 @@ final public class JHLauncher implements java.io.Serializable
 
 			TreePath path = fontTree.getSelectionPath() ;
 			// If the path is null then the selection has been removed.
-			if( path == null )
-				return ;
-
-			DefaultMutableTreeNode node = ( DefaultMutableTreeNode )path.getLastPathComponent() ;
-
-			// only get set the font "Font" objects
-			Object obj = node.getUserObject() ;
-			if( obj instanceof MyFont )
+			if( path != null )
 			{
-				MyFont myf = ( MyFont )obj ;
-				String size = ( String )cb.getSelectedItem() ;
-				font = myf.getFont().deriveFont( Integer.valueOf( size ).floatValue() ) ;
+				DefaultMutableTreeNode node = ( DefaultMutableTreeNode )path.getLastPathComponent() ;
 
-				preview.setFont( font ) ;
+				// only get set the font "Font" objects
+				Object obj = node.getUserObject() ;
+				if( obj instanceof MyFont )
+				{
+					MyFont myf = ( MyFont )obj ;
+					String size = ( String )cb.getSelectedItem() ;
+					font = myf.getFont().deriveFont( Integer.valueOf( size ).floatValue() ) ;
+
+					preview.setFont( font ) ;
+				}
 			}
 		}
 
@@ -483,35 +481,31 @@ final public class JHLauncher implements java.io.Serializable
 	 */
 	class ShowElementTreeListener implements ActionListener
 	{
-
 		public void actionPerformed( ActionEvent e )
 		{
 			elementTreeFrame = null ;
-			if( elementTreeFrame == null )
+			// Create a frame containing an instance of ElementTreePanel.
+			try
 			{
-				// Create a frame containing an instance of ElementTreePanel.
-				try
-				{
-					String title = "Element Tree For Current Document" ;
-					elementTreeFrame = new JFrame( title ) ;
-				}
-				catch( MissingResourceException mre )
-				{
-					elementTreeFrame = new JFrame() ;
-				}
-
-				elementTreeFrame.addWindowListener( new WindowAdapter()
-				{
-					public void windowClosing( WindowEvent weeee )
-					{
-						elementTreeFrame.setVisible( false ) ;
-					}
-				} ) ;
-
-				elementTreeFrame.setLayout( new BorderLayout() ) ;
-				elementTreeFrame.add( new ElementTreePanel( getEditor() ) ) ;
-				elementTreeFrame.pack() ;
+				String title = "Element Tree For Current Document" ;
+				elementTreeFrame = new JFrame( title ) ;
 			}
+			catch( MissingResourceException mre )
+			{
+				elementTreeFrame = new JFrame() ;
+			}
+
+			elementTreeFrame.addWindowListener( new WindowAdapter()
+			{
+				public void windowClosing( WindowEvent weeee )
+				{
+					elementTreeFrame.setVisible( false ) ;
+				}
+			} ) ;
+
+			elementTreeFrame.setLayout( new BorderLayout() ) ;
+			elementTreeFrame.add( new ElementTreePanel( getEditor() ) ) ;
+			elementTreeFrame.pack() ;
 			elementTreeFrame.setVisible( true ) ;
 		}
 	}
@@ -796,20 +790,22 @@ final public class JHLauncher implements java.io.Serializable
 	// Added by MFO (April 25, 2002)
 	public void setup( URL hsURL )
 	{
-		if( hsURL == null )
-			return ;
-
-		initialize( hsURL , getClass().getClassLoader() ) ;
-
-		if( hs == null )
+		if( hsURL != null )
 		{
-			setHS = true ;
-			initializeSDGUI() ;
-			showSD() ;
-			return ;
+			initialize( hsURL , getClass().getClassLoader() ) ;
+
+			if( hs == null )
+			{
+				setHS = true ;
+				initializeSDGUI() ;
+				showSD() ;
+			}
+			else
+			{
+				createFrame( null , null ) ; // defaults
+				launch() ;
+			}
 		}
-		createFrame( null , null ) ; // defaults
-		launch() ;
 	}
 
 	// selection dialog code
