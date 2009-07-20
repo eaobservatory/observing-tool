@@ -118,6 +118,11 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		return "SKY" ;
 	}
 
+	public void rmSky()
+	{
+		_avTable.rm( ATTR_SKY_NAME ) ;
+	}
+
 	public void setFollowOffset( boolean flag )
 	{
 		if( flag == false && _avTable.exists( ATTR_SCALE_FACTOR ) )
