@@ -24,6 +24,7 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.SpTelescopePos ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.SpSurveyContainer ;
+import gemini.sp.SpTelescopePosList ;
 
 import orac.ukirt.iter.SpIterSky ;
 
@@ -158,28 +159,39 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 			iterSky.setCount( ( ( Integer )_w.repeatComboBox.getSelectedItem() ).intValue() ) ;
 
 		String skyPattern = SKY + "[0-9]+" ;
+		double boxSize = 0 ;
+		boolean setBox = false ;
 		if( e.getSource() == _w.jrb1 )
 		{
 			iterSky.setFollowOffset( true ) ;
 			iterSky.setRandomPattern( false ) ;
 			iterSky.setScaleFactor( _w.scaleText.getText() ) ;
-			if( obsComp != null && iterSky.getSky().matches( skyPattern ) )
-				( ( SpTelescopePos )obsComp.getPosList().getPosition( iterSky.getSky() ) ).setBoxSize( 0 ) ;
+			setBox = true ;
 		}
 		else if( e.getSource() == _w.jrb2 )
 		{
 			iterSky.setFollowOffset( false ) ;
 			iterSky.setRandomPattern( true ) ;
 			iterSky.setBoxSize( _w.boxText.getText() ) ;
-			if( obsComp != null && iterSky.getSky().matches( skyPattern ) )
-				( ( SpTelescopePos )obsComp.getPosList().getPosition( iterSky.getSky() ) ).setBoxSize( iterSky.getBoxSize() ) ;
+			boxSize = iterSky.getBoxSize() ;
+			setBox = true ;
 		}
 		else if( e.getSource() == _w.jrb3 )
 		{
 			iterSky.setFollowOffset( false ) ;
 			iterSky.setRandomPattern( false ) ;
-			if( obsComp != null && iterSky.getSky().matches( skyPattern ) )
-				( ( SpTelescopePos )obsComp.getPosList().getPosition( iterSky.getSky() ) ).setBoxSize( 0 ) ;
+			setBox = true ;
+		}
+
+		if( setBox && obsComp != null && iterSky.getSky().matches( skyPattern ) )
+		{
+			String sky = iterSky.getSky() ;
+			SpTelescopePosList telescopePosList = obsComp.getPosList() ;
+			SpTelescopePos telescopePos = ( SpTelescopePos )telescopePosList.getPosition( sky ) ;
+			if( telescopePos != null )
+				telescopePos.setBoxSize( boxSize ) ;
+			else
+				iterSky.rmSky() ;
 		}
 
 		_updateWidgets() ;
