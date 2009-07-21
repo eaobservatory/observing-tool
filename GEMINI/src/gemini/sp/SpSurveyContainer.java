@@ -297,13 +297,8 @@ public class SpSurveyContainer extends SpObsContextItem
 		String line = null ;
 		StringTokenizer stringTokenizer = null ;
 
-		String tag = null ;
-		String name = "" ;
-		String x = "0:00:00" ;
-		String y = "0:00:00" ;
-		String coordSystem = "" ;
-		String tileString = null ;
 		int coordSystemIndex = CoordSys.FK5 ;
+		String surveyID = null ;
 
 		SpTelescopeObsComp spTelescopeObsComp = null ;
 
@@ -316,22 +311,24 @@ public class SpSurveyContainer extends SpObsContextItem
 				if( line.toUpperCase().startsWith( "SURVEY_ID" ) || line.toUpperCase().startsWith( "SURVEYID" ) )
 				{
 					if( ( line.indexOf( ':' ) == -1 ) && ( line.indexOf( '=' ) != -1 ) )
-					{
-						setSurveyID( line.substring( line.indexOf( '=' ) + 1 ).trim() ) ;
-						continue ;
-					}
+						surveyID = line.substring( line.indexOf( '=' ) + 1 ).trim() ;
+					else if( ( line.indexOf( '=' ) == -1 ) && ( line.indexOf( ':' ) != -1 ) )
+						surveyID = line.substring( line.indexOf( ':' ) + 1 ).trim() ;
+					else
+						System.out.println( "Could not parse survey ID: \"" + line + "\". Format should be: SURVEY_ID = <survey id string>." ) ;
 
-					if( ( line.indexOf( '=' ) == -1 ) && ( line.indexOf( ':' ) != -1 ) )
-					{
-						setSurveyID( line.substring( line.indexOf( ':' ) + 1 ).trim() ) ;
-						continue ;
-					}
-
-					System.out.println( "Could not parse survey ID: \"" + line + "\". Format should be: SURVEY_ID = <survey id string>." ) ;
+					setSurveyID( surveyID ) ;
 					continue ;
 				}
 
 				stringTokenizer = new StringTokenizer( line , ", ;" ) ;
+
+				String tag = null ;
+				String name = "" ;
+				String x = "0:00:00" ;
+				String y = "0:00:00" ;
+				String coordSystem = "" ;
+				String tileString = null ;
 
 				if( stringTokenizer.hasMoreTokens() )
 					tag = stringTokenizer.nextToken().trim() ;
@@ -346,14 +343,14 @@ public class SpSurveyContainer extends SpObsContextItem
 					y = stringTokenizer.nextToken().trim() ;
 
 				if( stringTokenizer.hasMoreTokens() )
-					coordSystem = stringTokenizer.nextToken().trim() ;
+					coordSystem = stringTokenizer.nextToken().trim().toUpperCase() ;
 
 				// Modify coordinate system if required
-				if( ( coordSystem.toUpperCase().indexOf( "FK5" ) > -1 ) || ( coordSystem.toUpperCase().indexOf( "J2000" ) > -1 ) )
+				if( ( coordSystem.indexOf( "FK5" ) > -1 ) || ( coordSystem.indexOf( "J2000" ) > -1 ) )
 					coordSystemIndex = CoordSys.FK5 ;
-				else if( ( coordSystem.toUpperCase().indexOf( "FK4" ) > -1 ) || ( coordSystem.toUpperCase().indexOf( "B1950" ) > -1 ) )
+				else if( ( coordSystem.indexOf( "FK4" ) > -1 ) || ( coordSystem.indexOf( "B1950" ) > -1 ) )
 					coordSystemIndex = CoordSys.FK4 ;
-				else if( ( coordSystem.toUpperCase().indexOf( "GAL" ) > -1 ) )
+				else if( ( coordSystem.indexOf( "GAL" ) > -1 ) )
 					coordSystemIndex = CoordSys.GAL ;
 
 				if( stringTokenizer.hasMoreTokens() )
@@ -367,10 +364,12 @@ public class SpSurveyContainer extends SpObsContextItem
 					spTelescopeObsComp = new SpTelescopeObsComp() ;
 					spTelescopeObsComp.setSurveyComponent( this ) ;
 
-					spTelescopeObsComp.getPosList().getBasePosition().setName( getSurveyID() + ":" + name ) ;
-					spTelescopeObsComp.getPosList().getBasePosition().setXYFromString( x , y ) ;
+					String targetName = surveyID == null ? name : surveyID + ":" + name ;
+					SpTelescopePos basePos = spTelescopeObsComp.getPosList().getBasePosition() ;
+					basePos.setName( targetName ) ;
+					basePos.setXYFromString( x , y ) ;
 					// Use the standardized CoordSys.getCoordSys(coordSystemIndex) instead of coordSystem.
-					spTelescopeObsComp.getPosList().getBasePosition().setCoordSys( CoordSys.getSystem( coordSystemIndex ) ) ;
+					basePos.setCoordSys( CoordSys.getSystem( coordSystemIndex ) ) ;
 
 					if( tileString != null )
 					{
