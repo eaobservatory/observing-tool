@@ -55,7 +55,7 @@ notes within the OT's own help
 system,
 please be aware that the web version may be more up to date, and that
 external links will not be accessible. Also, the native java browser
-is not as user-friendly as FireFox, Mozilla, Safari, Chrome or Internet Explorer. <br>
+is not as user-friendly as Netscape, Mozilla or Internet Explorer. <br>
 <br>
 Finally - please be sure to read the list of known issues with the
 current
@@ -105,6 +105,11 @@ for Proper Motion</a><br>
   </i> </div>
   <a href="#Tour:_Using_the_Position_Editor">Use of the Position Editor
   <font color="#ff0000">[tour]</font></a><br>
+  <a href="#Large_Programmes">Large Programmes</a><br>
+  <div style="margin-left: 40px;"><a
+ href="#Generating_a_Program_from_a_Catalogue_on">Cloning an MSB</a><br>
+  <a href="#Survey_Containers">Survey Containers</a><br>
+  </div>
   <blockquote> </blockquote>
   <br>
   <a href="#IMPORTANT_-_Program_Documentation">IMPORTANT -
@@ -127,8 +132,6 @@ and
 Usage Notes</a></b></font><br>
 <blockquote><a href="#AND_and_OR_logic">AND and OR Logic</a><br>
   <a href="#Drag_and_drop">Drag and Drop</a><br>
-  <a href="#Generating_a_Program_from_a_Catalogue_on">Generating a
-program from a single MSB and a catalogue on file</a><br>
   <a href="#Usage_through_a_firewall">Usage
 through a firewall</a><br>
   <a href="#Aside:_Specifying_Spectroscopic_Standard">Specifying
@@ -244,7 +247,9 @@ Tool</font></h1>
 </div>
 <h2 align="left"><a name="Startup_screens"></a>Startup screens</h2>
 <div align="left">
-<div align="left">When you run the OT you will see a splash screen which gives authorship etc.;
+<div align="left">When you run the OT (under UNIX, type <font
+ color="#ff0000"><b>ukirtot</b></font>
+in an xterm) you will see a splash screen which gives authorship etc.;
 dismiss this and you will be left with the <b>OT main window</b>:<br>
 </div>
 <br>
@@ -899,7 +904,7 @@ possible that elements may end up in the wrong field or omitted
 completely. <br>
       <br>
       <span
- style="font-weight: bold; font-style: italic; text-decoration: underline;"><blink>Always</blink>
+ style="font-weight: bold; font-style: italic; text-decoration: underline;">Always
 double check the returned values.</span><br>
       <br>
       <br>
@@ -1007,8 +1012,132 @@ to sort by magnitude.<br>
 </table>
 <br>
 <br>
-<hr style="width: 100%; height: 2px;"><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Large_Programmes"></a>Large Programmes</h2>
+If your observing programme involves observations of a large number of
+targets, you have two options. Either (i) clone a template MSB using a
+text-file target list, or (ii) use survey containers to hold multiple
+pointings in a single MSB or MSBs. Each of these options is described
+below. For large surveys of contiguous areas of sky, you should use the
+Survey definition tool (SDT) which is linked to at the top of this
+document. <br>
 <br>
+<h3><a name="Generating_a_Program_from_a_Catalogue_on"></a>Cloning a
+Program
+from a Single MSB and a Catalogue in a Text File</h3>
+If you have many sources which you wish to observe in a similar way and
+do not wish to go through the rigmarole of creating a target component
+for each one, there is a way to generate a science program from a
+template MSB and a text (ASCII) catalog file. This uses a web service
+at
+the JAC
+site - so you need an internet connection to do this.
+<p> Start with a science program which contains a template MSB with a
+blank
+target component (for example, a template MSB you have retrieved from
+the UFTI library). Your catalog file should be of the format: </p>
+<blockquote>
+  <pre>PKS0106         01 08 38.771 + 01 35 00.32 RJ<br>3C84            03 19 48.160 + 41 30 42.10 RJ<br>3C120           04 33 11.096 + 05 21 15.62 RJ<br>PKS0438         04 40 17.180 - 43 33 08.60 RJ</pre>
+</blockquote>
+The catalog format is not blank space sensitive - if you have existing
+catalogues compatible with the JCMT's sourceplot package, they&nbsp;
+will
+work as is, provided they do not contain planets or objects with
+orbital elements.
+<p> Under the edit menu (in the Science Program window), there is an
+option
+called "Replicate from catalog". Choose this action and you will be
+asked for the location of the catalog file. Once you have done this,
+the OT will contact our site and after a short delay will pop up a new
+science program window containing multiple MSBs. So if you had an MSB
+with
+one blank target component and a catalog file with 12 sources, you will
+get back a science program with 12 MSBs, whose target components have
+been filled in using the information from your catalog.</p>
+<p> Of course you should tweak the MSBs further, such as giving them
+more
+informative titles, adding guide stars and tweaking the observation
+parameters on each
+source.<br>
+<br>
+</p>
+<h3><a name="Survey_Containers"></a>Survey Containers</h3>
+Survey Containers allow you to include multiple pointings at the top
+level of an MSB, such that the Observation within the container will be
+done at each pointing in the container. These are generally recommended
+for doing a group of pointings which lie in the same part of the sky -
+e.g. four pointings to generate a complete WFCAM "tile". The containers
+are present in the WFCAM template library "Survey" templates:<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 346px; height: 132px;" alt=""
+ src="survey_container_1.png"><br>
+<br>
+<div style="text-align: left;"><br>
+When an MSB like the above is fetched from the database at the summit,
+it is expanded into N Observations, where N is the number of targets in
+the Container. However the meaning of MSB remains the same: the whole
+of the MSB must be doable for it to come up in the queue. Corollary: it
+is a Bad Idea to include targets over a wide range of RA in one survey
+container.<br>
+<br>
+Here is what you see when you click on the Container itself:<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 569px; height: 548px;" alt=""
+ src="survey_container_2.png"><br>
+</div>
+<br>
+To manually add and remove positions, use "Add" and "Remove" buttons at
+the bottom of the panel. Here is a completed container:<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 548px; height: 587px;" alt=""
+ src="survey_container_4.png"><br>
+</div>
+<br>
+Note the "Target Information" Tab. Each target has its own target info,
+in a format identical to the familiar Target Component:<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 568px; height: 546px;" alt=""
+ src="survey_container_3.png"><br>
+</div>
+<br>
+On the <span style="font-weight: bold;">Survey Targets</span> tab,
+there is a "load" button. This allows you, if you're not using the SDT
+to populate your Container, to upload a set of targets from a text file
+in the following format (slightly different from the format for MSB
+cloning):<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>SURVEYID = Test<br>BASE BGPS3097&nbsp; 18:34:12.03&nbsp; -08:22:57.3 FK5<br>GUIDE GD2&nbsp; 18:31:12.06&nbsp; -07:59:05.2 FK5<br>BASE BGPS3100&nbsp; 18:34:19.16&nbsp; -08:23:27.9 FK5<br>GUIDE GD2&nbsp; 18:31:12.06&nbsp; -07:59:05.2 FK5</pre>
+<pre>:</pre>
+<pre>etc.</pre>
+</div>
+<pre>&nbsp;<br></pre>
+The first line is the Survey ID, which will become the title of the
+survey container. This is prefixed to every supplied target name as
+follows:<br>
+<br>
+<div style="text-align: center;"><img
+ style="width: 593px; height: 88px;" alt="" src="survey_container_5.png"><br>
+</div>
+<br>
+(so it is best to keep it short!).<br>
+<br>
+Finally, note that there is a template MSB in the WFCAM template
+library which uses a Survey Container to carry out a complete "tile"
+(four WFCAM pointings). In this case, the diffferent pointings are
+generated by using the "Offset" fields in the individual target tabs;
+so the same base position should be entered into each tab if you use
+this MSB.<br>
+<br>
+<br>
+<br>
+</div>
+</div>
+<hr style="width: 100%; height: 2px;"><br>
 </div>
 <h2><a name="IMPORTANT_-_Program_Documentation"></a>IMPORTANT - Program
 Documentation</h2>
@@ -1897,44 +2026,6 @@ Folder (1X)".<br>
 <hr style="width: 100%; height: 2px;"><br>
 </div>
 <br>
-<h2><a name="Generating_a_Program_from_a_Catalogue_on"></a>Generating a
-Program
-from a Single MSB and a Catalogue on File</h2>
-If you have many sources which you wish to observe in a similar way and
-do not wish to go through the rigmarole of editing a target component
-for each one, there is a way to generate a science program from a
-template MSB and a text (ASCII) catalog file. This uses a web service
-at
-the JAC
-site - so you need an internet connection to do this.
-<p> Start with a science program which contains a template MSB with a
-blank
-target component (for example, a template MSB you have retrieved from
-the UFTI library). Your catalog file should be of the format: </p>
-<blockquote>
-  <pre>PKS0106         01 08 38.771 + 01 35 00.32 RJ<br>3C84            03 19 48.160 + 41 30 42.10 RJ<br>3C120           04 33 11.096 + 05 21 15.62 RJ<br>PKS0438         04 40 17.180 - 43 33 08.60 RJ</pre>
-</blockquote>
-The catalog format is not blank space sensitive - if you have existing
-catalogues compatible with the JCMT sourceplot package, they&nbsp; will
-work as is, provided they do not contain planets or objects with
-orbital elements.
-<p> Under the edit menu (in the Science Program window), there is an
-option
-called "Replicate from catalog". Choose this action and you will be
-asked for the location of the catalog file. Once you have done this,
-the OT will contact our site and after a short delay will pop up a new
-science program window containing multiple MSBs. So if you had an MSB
-with
-one blank target component and a catalog file with 12 sources, you will
-get back a science program with 12 MSBs, whose target components have
-been filled in using the information from your catalog.</p>
-<p> Of course you should tweak the MSBs further, such as giving them
-more
-informative titles and tweaking the number of integrations on each
-source.<br>
-<br>
-</p>
-<hr style="width: 100%; height: 2px;"><br>
 <h2><a name="Usage_through_a_firewall"></a>Usage through a firewall</h2>
 If your Institution connects to the internet via a firewall, you may
 find
@@ -2452,6 +2543,30 @@ to<br>
       <br>
 (note that this assumes you have <span style="font-weight: bold;">tcsh</span>
 installed).<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="background-color: rgb(255, 0, 0); vertical-align: middle; text-align: center;"><span
+ style="font-weight: bold;">TOML messages in validation</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
+June 2008</span><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span>
+      <br>
+      <br>
+Additional schema validation errors (roughly 11 lines long when
+validating an entire programme; these errors are not present when
+validating MSB by MSB. <br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Workaround:</span><br>
+      <br>
+These errors can generally be ignored. To be sure, try validating
+individual MSBs.<br>
       <br>
       </td>
     </tr>
