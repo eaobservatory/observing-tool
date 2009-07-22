@@ -253,11 +253,32 @@ the end of the transition name - it makes the display nicer.
     <transition name="7 1 1  - 6 1 1 " frequency="335582.005"/>
     <transition name="12 1 2  - 12 0 1 " frequency="336874.3522"/>
     <transition name="3 3 3  - 4 2 3 " frequency="337135.9128"/>
-    <transition name="7 0 3  - 6 0 3 " frequency="338124.502"/>
-    <transition name="7 1 4  - 6 1 4 " frequency="338344.628"/>
-    <transition name="7 0 1  - 6 0 1 " frequency="338408.681"/>
-    <transition name="7 1 3  - 6 1 3 " frequency="338614.999"/>
+    <transition name="7 1 6 -1  - 6 1 5 -1 " frequency="337969.4140"/>
+    <transition name="7 +0 7 0  - 6 +0 6 0 " frequency="338124.5020"/>
+    <transition name="7 -1 7 0  - 6 -1 6 0 " frequency="338344.6280"/>
+    <transition name="7 +6 2 0  - 6 +6 1 0 " frequency="338404.5800"/>
+    <transition name="7 0 7 +0  - 6 0 6 +0 " frequency="338408.6810"/>
+    <transition name="7 -6 1 0  - 6 -6 0 0 " frequency="338430.9330"/>
+    <transition name="7 6 1 +0  - 6 6 0 +0 " frequency="338442.3440"/>
+    <transition name="7 6 2 -0  - 6 6 1 -0 " frequency="338442.3440"/>
+    <transition name="7 -5 2 0  - 6 -5 1 0 " frequency="338456.4990"/>
+    <transition name="7 +5 3 0  - 6 +5 2 0 " frequency="338475.2900"/>
+    <transition name="7 5 3 +0  - 6 5 2 +0 " frequency="338486.3370"/>
+    <transition name="7 5 2 -0  - 6 5 1 -0 " frequency="338486.3370"/>
+    <transition name="7 -4 4 0  - 6 -4 3 0 " frequency="338504.0990"/>
+    <transition name="7 4 4 -0  - 6 4 3 -0 " frequency="338512.6270"/>
+    <transition name="7 4 3 +0  - 6 4 2 +0 " frequency="338512.6390"/>
+    <transition name="7 2 6 -0  - 6 2 5 -0 " frequency="338512.8560"/>
+    <transition name="7 +4 3 0  - 6 +4 2 0 " frequency="338530.2490"/>
+    <transition name="7 3 5 +0  - 6 3 4 +0 " frequency="338540.7950"/>
+    <transition name="7 3 4 -0  - 6 3 3 -0 " frequency="338543.2040"/>
+    <transition name="7 -3 5 0  - 6 -3 4 0 " frequency="338559.9280"/>
+    <transition name="7 +3 4 0  - 6 +3 3 0 " frequency="338583.1950"/>
+    <transition name="7 +1 6 0  - 6 +1 5 0 " frequency="338614.9990"/>
+    <transition name="7 2 5 +0  - 6 2 4 +0 " frequency="338639.9390"/>
+    <transition name="7 +2 5 0  - 6 +2 4 0 " frequency="338721.6300"/>
     <transition name="7 2 3  - 6 2 3 " frequency="338722.220"/>
+    <transition name="7 -2 6 0  - 6 -2 5 0 " frequency="338722.9400"/>
     <transition name="2 2 1  - 3 1 1 " frequency="340141.1577"/>
     <transition name="7 1 2  - 6 1 2 " frequency="341415.5"/>
     <transition name="4 0 3  - 3 1 4 " frequency="350687.6685"/>
