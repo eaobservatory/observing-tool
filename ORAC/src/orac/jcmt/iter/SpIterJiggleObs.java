@@ -76,7 +76,11 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 
 			switch( steps )
 			{
-				// 3X3 jigle map
+				// 2X1 jiggle map
+				case 2 :
+					numberOfPoints = 2 ;
+					break ;
+				// 3X3 jiggle map
 				case 3 :
 					numberOfPoints = 9 ;
 					break ;
