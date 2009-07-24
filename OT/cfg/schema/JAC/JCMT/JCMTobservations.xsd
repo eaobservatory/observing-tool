@@ -39,6 +39,7 @@
 <xsd:simpleType name="jigglePatternList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="DEFAULT"/>
+    <xsd:enumeration value="2x1"/>
     <xsd:enumeration value="3x3"/>
     <xsd:enumeration value="4x4"/>
     <xsd:enumeration value="5x5"/>
