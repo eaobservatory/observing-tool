@@ -185,5 +185,24 @@
 	<shift>  5.6325501E9        </shift>
 </configuration>
 
+<configuration>
+	<name>      HARP_C170_C34S_250x2</name>
+	<frontEnd>  HARP            </frontEnd>
+	<frequency> 0.              </frequency>
+	<frequency> 0.              </frequency>
+	<sideband>  BEST            </sideband>
+	<mixers>    1               </mixers>
+	<mode>      SSB             </mode>
+	<systems>   2               </systems>
+	<species>   C-17-O          </species>
+	<species>   C-34-S          </species>
+	<transition>3  - 2          </transition>
+	<transition>7  - 6           </transition>
+	<bandwidth> 250.0           </bandwidth>
+	<bandwidth> 250.0           </bandwidth>
+	<shift>  5.0E9              </shift>
+	<shift>  5.3355603E9        </shift>
+</configuration>
+
 </specialConfigs>
 
