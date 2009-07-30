@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SpLibrary type="lb" subtype="none">
+  <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_filename>JCMTOT_SCUBA2</meta_gui_filename>
+  <ot_version>20090724</ot_version>
+  <telescope>jcmt</telescope>
+  <title>SCUBA-2 library</title>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <SpMSB checksum="536be0fc46ef21c50233556b4d19a495A" remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <SpInstSCUBA2Ref idref="1"/>
+      <SpSiteQualityObsCompRef idref="2"/>
+      <SpTelescopeObsCompRef idref="0"/>
+      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Pointing</title>
+      <totalDuration units="seconds">0.0</totalDuration>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>Pointing observation. Will normally be inserted as needed by TSS.</note>
+      </SpNote>
+      <SpInstSCUBA2 id="1" type="oc" subtype="inst.SCUBA2">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+      </SpInstSCUBA2>
+      <SpSiteQualityObsComp id="2" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        <meta_unique>true</meta_unique>
+        <BASE TYPE="SCIENCE">
+          <target>
+            <targetName></targetName>
+            <spherSystem SYSTEM="J2000">
+              <c1>00:00:00</c1>
+              <c2>00:00:00</c2>
+              <rv defn="radio" frame="LSRK">0.0</rv>
+            </spherSystem>
+          </target>
+        </BASE>
+      </SpTelescopeObsComp>
+      <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <standard>true</standard>
+        <title>Observation</title>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+            </SpIterPointingObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB checksum="f9007b4c11f5e44cdf5d15adfee76371A" remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <SpInstSCUBA2Ref idref="4"/>
+      <SpSiteQualityObsCompRef idref="5"/>
+      <SpTelescopeObsCompRef idref="3"/>
+      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Focus</title>
+      <totalDuration units="seconds">0.0</totalDuration>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>X, Y, or Z focus observation. Will normally be inserted when needed by TSS.</note>
+      </SpNote>
+      <SpInstSCUBA2 id="4" type="oc" subtype="inst.SCUBA2">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+      </SpInstSCUBA2>
+      <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpTelescopeObsComp id="3" type="oc" subtype="targetList">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        <meta_unique>true</meta_unique>
+        <BASE TYPE="SCIENCE">
+          <target>
+            <targetName></targetName>
+            <spherSystem SYSTEM="J2000">
+              <c1>18:53:18.569</c1>
+              <c2>+01:14:58.26</c2>
+              <rv defn="radio" frame="LSRK">0.0</rv>
+            </spherSystem>
+          </target>
+        </BASE>
+      </SpTelescopeObsComp>
+      <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <standard>true</standard>
+        <title>Observation</title>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <axis>z</axis>
+              <focusPoints>7</focusPoints>
+              <steps>0.3</steps>
+            </SpIterFocusObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <SpDRRecipeRef idref="9"/>
+      <SpInstSCUBA2Ref idref="7"/>
+      <SpSiteQualityObsCompRef idref="8"/>
+      <SpTelescopeObsCompRef idref="6"/>
+      <estimatedDuration units="seconds">120.82</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Scanmap</title>
+      <totalDuration units="seconds">120.82</totalDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note about notes
+----------------
+
+ This is a note outlining good practice in note writing for SCUBA-2 MSBs. 
+ PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. (Check "show to the Observer").
+
+2) Details of calibration observations.
+   Spell out any specific calibrations you require in the note which is selected 
+   as "show-to-observer". Example  instructions might include:
+
+   "Short sample on a nearby 850um standard or planet".
+
+   "Short sample on a point-like planet (e.g. Uranus)".
+
+   and/or
+
+   "Please do a skydip at least once every hour".
+
+   In short, you'll at least want something to check SCUBA-2's FCF, the
+   conversion of instrument units to mJy/beam. Planets are our primary 
+   calibrators and a library of secondary calibrators will become available over 
+   time. Second you may want to monitor the sky using skydips: while water 
+   vapor measurements and CSO tipper opacity measurements can be used to
+   monitor trends, less frequent, but regular skydips can provide the absolute
+   level as seen by the instrument. Note that the effective bandwidth of 
+   SCUBA-2s filters will be opacity dependend, especially at 450um.
+   
+3) If you want more specific standard or calibration measurement you should
+   make a separate MSBs with these measurements or include them as extra
+   observation in your MSBs. Calibration observations should be flagged as
+   'calibration' on their title page to prevent unnecessary repeats.</note>
+        <title>Please read</title>
+      </SpNote>
+      <SpSiteQualityObsComp id="8" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpDRRecipe id="9" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+      </SpDRRecipe>
+      <SpInstSCUBA2 id="7" type="oc" subtype="inst.SCUBA2">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+      </SpInstSCUBA2>
+      <SpTelescopeObsComp id="6" type="oc" subtype="targetList">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        <meta_unique>true</meta_unique>
+        <BASE TYPE="SCIENCE">
+          <target>
+            <targetName></targetName>
+            <spherSystem SYSTEM="J2000">
+              <c1>0:00:00</c1>
+              <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSRK">0.0</rv>
+            </spherSystem>
+          </target>
+        </BASE>
+      </SpTelescopeObsComp>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <estimatedDuration units="seconds">120.82</estimatedDuration>
+        <standard>false</standard>
+        <title>Science Observation</title>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <SpIterRasterObs type="ic" subtype="rasterObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <SCAN_AREA>
+                  <AREA HEIGHT="300.0" WIDTH="300.0"/>
+                  <SCAN DY="10.0" VELOCITY="600.0" SYSTEM="FPLANE">
+                  </SCAN>
+                </SCAN_AREA>
+              </obsArea>
+              <integrations>1</integrations>
+              <scanPattern>Pong</scanPattern>
+            </SpIterRasterObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+  </SpLibraryFolder>
+</SpLibrary>
