@@ -436,26 +436,23 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 		if( recipes != null && recipes.size() != 0 )
 		{
-			if( recipes != null && recipes.size() != 0 )
+			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
+			switch( getCalType() )
 			{
-				SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
-				switch( getCalType() )
-				{
-					case SKYFLAT :
-					case DOMEFLAT :
-						v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) ) ;
-						v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
-						break ;
-					case FOCUS :
-						v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) ) ;
-						v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() ) ;
-						break ;
-					case DARK :
-						v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
-						v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
-					default :
-						// We should not get here...
-				}
+				case SKYFLAT :
+				case DOMEFLAT :
+					v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) ) ;
+					v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
+					break ;
+				case FOCUS :
+					v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) ) ;
+					v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() ) ;
+					break ;
+				case DARK :
+					v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
+					v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
+				default :
+					// We should not get here...
 			}
 		}
 		
