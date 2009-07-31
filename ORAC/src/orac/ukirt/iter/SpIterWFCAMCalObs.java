@@ -170,8 +170,6 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			type = DOMEFLAT ;
 		else if( DARK_STRING.equalsIgnoreCase( calType ) )
 			type = DARK ;
-		else
-			logger.warning( "No caltype found." ) ;
 
 		return type ;
 	}
@@ -459,6 +457,10 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				default :
 					logger.severe( "No recipe header written, this shouldn't happen." ) ;
 			}
+		}
+		else
+		{
+				logger.severe( "No recipe header written, no recipes found." ) ;
 		}
 		
 		if( getCalType() == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )
