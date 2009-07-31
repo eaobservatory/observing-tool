@@ -586,9 +586,8 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		try
 		{
 			FileWriter fw = new FileWriter( confWriter.getExecName() ) ;
-			for( int i = 0 ; i < v.size() ; i++ )
-				fw.write( v.get( i ) + "\n" ) ;
-
+			for( String txt : v )
+				fw.write( txt + "\n" ) ;
 			fw.close() ;
 		}
 		catch( IOException ioe )
@@ -599,7 +598,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		{
 			e.printStackTrace() ;
 		}
-
 	}
 
 	private void correctOrder( Vector<String> v )
@@ -753,7 +751,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	
 	private void complainAboutHack( int offsetsInSequence , int observableOffsets )
 	{
-		if( offsetsInSequence > observableOffsets )
+		if( observableOffsets != 0 && offsetsInSequence > observableOffsets )
 		{
 			logger.warning( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
 			logger.warning( "Please fix the DR's NOFFSETS+1 hack." ) ;
@@ -770,8 +768,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		// Remove redundant loadConfigs, offsets, set commands or any case where two sequential lines are identical
 		String lastLoadConfig = "" ;
 		String lastOffset = "" ;
-		String lastGRPMEM = "" ;
-		String lastDRRECIPE = "" ;
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
 			if( v.get( i ).equals( v.get( i - 1 ) ) )
@@ -819,6 +815,19 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			}
 		}
 
+		removeExcessGRPMEM( v ) ;
+
+		removeExcessSets( v ) ;
+	}
+
+	private void removeExcessGRPMEM( Vector<String> v )
+	{
+		String lastGRPMEM = "" ;
+		String lastDRRECIPE = "" ;
+
+		int found = 0 ;
+		int removed = 0 ;
+
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
 			if( v.get( i ).startsWith( "setHeader GRPMEM " ) )
@@ -831,16 +840,21 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 					v.remove( i + 1 ) ;
 					v.remove( i ) ;
 					i-- ;
+					removed++ ;
 				}
 				else
 				{
 					lastGRPMEM = nextGrpMem ;
 					lastDRRECIPE = nextRecipe ;
+					found++ ;
 				}
 			}
 		}
 
-		removeExcessSets( v ) ;
+		if( found == 0 )
+			logger.warning( "No recipes found." ) ;
+		else if( removed >= found )
+			logger.severe( "Removed " + removed + " of " + found + " recipes." ) ;
 	}
 	
 	/**
