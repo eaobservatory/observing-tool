@@ -68,6 +68,9 @@ public class JcmtSpValidation extends SpValidation
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
 				double loMin = 0. ;
 				double loMax = 0. ;
+				double[] defaultOverlaps = null ;
+				double[] bandwidths = null ;
+				int systems = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
 
 				/*
 				 * We cannot use anything in edfreq here as it causes a build problem
@@ -85,7 +88,7 @@ public class JcmtSpValidation extends SpValidation
 					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" ) ;
 					Object receivers = receiverField.get( requencyEditorCfg ) ;
 					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[]{ Object.class } ) ;
-					Object receiver = get.invoke( receivers , new Object[] { spInstHeterodyne.getFrontEnd() } ) ;
+					Object receiver = get.invoke( receivers , new Object[]{ spInstHeterodyne.getFrontEnd() } ) ;
 					Field loMinField = receiver.getClass().getDeclaredField( "loMin" ) ;
 					Field loMaxField = receiver.getClass().getDeclaredField( "loMax" ) ;
 					Object loMinObject = loMinField.get( receiver ) ;
@@ -94,6 +97,23 @@ public class JcmtSpValidation extends SpValidation
 						loMin = ( ( Double )loMinObject ).doubleValue() ;
 					if( loMaxObject instanceof Double )
 						loMax = ( ( Double )loMaxObject ).doubleValue() ;
+
+					Field bandSpecs = receiver.getClass().getDeclaredField( "bandspecs" ) ;
+					Object bandSpecVector = bandSpecs.get( receiver ) ;
+					if( bandSpecVector instanceof Vector )
+					{
+						Vector receiverBandSpecs = ( Vector )bandSpecVector ;
+						Object bandSpec = receiverBandSpecs.get( systems ) ;
+						Field overlapField = bandSpec.getClass().getField( "defaultOverlaps" ) ;
+						Object overlapObject = overlapField.get( bandSpec ) ;
+						if( overlapObject instanceof double[] )
+							defaultOverlaps = ( double[] )overlapObject ;
+
+						Method getBandwidths = bandSpec.getClass().getDeclaredMethod( "getDefaultOverlapBandWidths" , new Class[]{} ) ;
+						Object bandwidthsObject = getBandwidths.invoke( bandSpec , new Object[]{} ) ;
+						if( bandwidthsObject instanceof double[] )
+							bandwidths = ( double[] )bandwidthsObject ;
+					}
 				}
 				catch( ClassNotFoundException cnfe )
 				{
@@ -135,8 +155,26 @@ public class JcmtSpValidation extends SpValidation
 					if( "lsb".equals( sideBand ) && ( rest + centre ) > loMax )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Need to use upper or best sideband to reach the line " + rest ) ) ;
 					else if( !"lsb".equals( sideBand ) && ( rest - centre ) < loMin )
-						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Need to use lower sideband to reach the line " + rest ) ) ;
-					
+						report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Need to use lower sideband to reach the line " + rest ) ) ;					
+				}
+
+				if( defaultOverlaps != null && bandwidths != null )
+				{
+					for( int system = 0 ; system < systems ; system++ )
+					{
+						double overLap = spInstHeterodyne.getOverlap( system ) ;
+						double bandwidth = spInstHeterodyne.getBandWidth( system ) ;
+						for( int index = 0 ; index < bandwidths.length ; index++ )
+						{
+							if( bandwidth == bandwidths[ index ] )
+							{
+								double defaultOverlap = defaultOverlaps[ index ] ;
+								if( overLap != defaultOverlap )
+									report.add( new ErrorMessage( ErrorMessage.ERROR , titleString , "Overlap invalid for system " + ( system + 1 ) + ", should be " + defaultOverlap + " and not " + overLap + "." ) ) ;
+								break ;
+							}
+						}
+					}
 				}
 
 				if( thisObs instanceof SpIterJiggleObs )
