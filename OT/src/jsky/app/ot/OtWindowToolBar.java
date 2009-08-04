@@ -81,7 +81,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makeSaveButton()
 	{
 		if( saveButton == null )
-			saveButton = makeButton( "Save changes." , editor.getSaveAction() , false ) ;
+			saveButton = makeButton( editor.getSaveAction() ) ;
 
 		updateButton( saveButton , "Save" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "disk.gif" ) ) ) ;
 		return saveButton ;
@@ -96,7 +96,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makePosEditorButton()
 	{
 		if( posEditorButton == null )
-			posEditorButton = makeButton( "Show position editor." , editor.getPosEditorAction() , false ) ;
+			posEditorButton = makeButton( editor.getPosEditorAction() ) ;
 
 		updateButton( posEditorButton , "Image" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "tpeTiny.gif" ) ) ) ;
 		return posEditorButton ;
@@ -111,7 +111,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makeCutButton()
 	{
 		if( cutButton == null )
-			cutButton = makeButton( "Cut." , editor.getCutAction() , false ) ;
+			cutButton = makeButton( editor.getCutAction() ) ;
 
 		updateButton( cutButton , "Cut" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "cut.gif" ) ) ) ;
 		return cutButton ;
@@ -126,7 +126,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makeCopyButton()
 	{
 		if( copyButton == null )
-			copyButton = makeButton( "Copy." , editor.getCopyAction() , false ) ;
+			copyButton = makeButton( editor.getCopyAction() ) ;
 
 		updateButton( copyButton , "Copy" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "copy.gif" ) ) ) ;
 		return copyButton ;
@@ -141,7 +141,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makePasteButton()
 	{
 		if( pasteButton == null )
-			pasteButton = makeButton( "Paste." , editor.getPasteAction() , false ) ;
+			pasteButton = makeButton( editor.getPasteAction() ) ;
 
 		updateButton( pasteButton , "Paste" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "paste.gif" ) ) ) ;
 		return pasteButton ;
@@ -156,7 +156,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makeValidationButton()
 	{
 		if( validationButton == null )
-			validationButton = makeButton( "Validate." , editor.getValidationAction() , false ) ;
+			validationButton = makeButton( editor.getValidationAction() ) ;
 
 		updateButton( validationButton , "Validation" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "validation.gif" ) ) ) ;
 		return validationButton ;
@@ -171,7 +171,7 @@ public class OtWindowToolBar extends GenericToolBar
 	protected JButton makePrioritizeButton()
 	{
 		if( prioritizeButton == null )
-			prioritizeButton = makeButton( "Prioritize" , editor.getPrioritizeAction() , false ) ;
+			prioritizeButton = makeButton( editor.getPrioritizeAction() ) ;
 
 		updateButton( prioritizeButton , "Prioritize" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "prioritise.gif" ) ) ) ;
 		return prioritizeButton ;

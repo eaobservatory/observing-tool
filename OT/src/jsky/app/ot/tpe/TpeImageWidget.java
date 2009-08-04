@@ -12,8 +12,6 @@ import java.awt.Color ;
 import java.awt.geom.Point2D ;
 import java.awt.geom.Rectangle2D ;
 import java.util.Vector ;
-import javax.swing.JDesktopPane ;
-import jsky.app.jskycat.JSkyCat ;
 import jsky.app.ot.fits.gui.FitsImageWidget ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
 import jsky.app.ot.gui.DrawUtil ;
@@ -56,7 +54,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 * Note: derived classes should redefine this to return an instance of the
 	 * correct class, which should be derived JFrame or JInternalFrame.
 	 */
-	public Component newWindow()
+	public TpeImageDisplayFrame newWindow()
 	{
 		return new TpeImageDisplayFrame() ;
 	}
@@ -393,12 +391,6 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 				_baseOutOfView = true ;
 		}
 		return true ;
-	}
-
-	/** Return the JDesktopPane, if using internal frames, otherwise null */
-	public JDesktopPane getDesktop()
-	{
-		return JSkyCat.getDesktop() ;
 	}
 
 	/** Return true if this is the main application window (enables exit menu item) */

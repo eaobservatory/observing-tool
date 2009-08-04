@@ -31,7 +31,6 @@ import gemini.sp.SpItem;
 import gemini.sp.SpLibrary ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpType ;
-import jsky.app.ot.tpe.TpeManager ;
 import jsky.app.ot.util.CloseableApp ;
 import ot.util.DialogUtil ;
 
@@ -142,8 +141,6 @@ public class OT extends JFrame
 
 		//Make dragging faster:
 		desktop.putClientProperty( "JDesktopPane.dragMode" , "outline" ) ;
-
-		TpeManager.setDesktop( desktop ) ;
 
 		// fill the whole screen
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;

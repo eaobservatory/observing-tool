@@ -92,7 +92,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObsFolderButton()
 	{
 		if( obsFolderButton == null )
-			obsFolderButton = makeButton( "Create an observation folder." , editor.getObsFolderAction() , false ) ;
+			obsFolderButton = makeButton( editor.getObsFolderAction() ) ;
 
 		updateButton( obsFolderButton , "Folder" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "obsFolder.gif" ) ) ) ;
 		return obsFolderButton ;
@@ -107,7 +107,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObsGroupButton()
 	{
 		if( obsGroupButton == null )
-			obsGroupButton = makeButton( "Create an observation group." , editor.getObsGroupAction() , false ) ;
+			obsGroupButton = makeButton( editor.getObsGroupAction() ) ;
 
 		updateButton( obsGroupButton , "Group" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "obsGroup.gif" ) ) ) ;
 		return obsGroupButton ;
@@ -122,7 +122,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeObservationButton()
 	{
 		if( observationButton == null )
-			observationButton = makeButton( "Create an observation." , editor.getObservationAction() , false ) ;
+			observationButton = makeButton( editor.getObservationAction() ) ;
 
 		updateButton( observationButton , "Observation" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "observation.gif" ) ) ) ;
 		return observationButton ;
@@ -152,7 +152,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeNoteButton()
 	{
 		if( noteButton == null )
-			noteButton = makeButton( "Create a note." , editor.getNoteAction() , false ) ;
+			noteButton = makeButton( editor.getNoteAction() ) ;
 
 		updateButton( noteButton , "Note" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "note-tiny.gif" ) ) ) ;
 		return noteButton ;
@@ -167,7 +167,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeLibFolderButton()
 	{
 		if( libFolderButton == null )
-			libFolderButton = makeButton( "Create a library folder." , editor.getLibFolderAction() , false ) ;
+			libFolderButton = makeButton( editor.getLibFolderAction() ) ;
 
 		updateButton( libFolderButton , "Library" , new ImageIcon( ObservingToolUtilities.resourceURL( imgpath + "libFolder.gif" ) ) ) ;
 		return libFolderButton ;
@@ -216,7 +216,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeMsbFolderButton()
 	{
 		if( msbFolderButton == null )
-			msbFolderButton = makeButton( "Create an MSB folder." , editor.getMsbFolderAction() , false ) ;
+			msbFolderButton = makeButton( editor.getMsbFolderAction() ) ;
 
 		updateButton( msbFolderButton , "MSB Folder" , new ImageIcon( ObservingToolUtilities.resourceURL( "ot/images/msbFolder.gif" ) ) ) ;
 		return msbFolderButton ;
@@ -232,7 +232,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeAndFolderButton()
 	{
 		if( andFolderButton == null )
-			andFolderButton = makeButton( "Create an AND folder." , editor.getAndFolderAction() , false ) ;
+			andFolderButton = makeButton( editor.getAndFolderAction() ) ;
 
 		updateButton( andFolderButton , "AND Folder" , new ImageIcon( ObservingToolUtilities.resourceURL( "ot/images/andFolder.gif" ) ) ) ;
 		return andFolderButton ;
@@ -248,7 +248,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeOrFolderButton()
 	{
 		if( orFolderButton == null )
-			orFolderButton = makeButton( "Create an OR folder." , editor.getOrFolderAction() , false ) ;
+			orFolderButton = makeButton( editor.getOrFolderAction() ) ;
 
 		updateButton( orFolderButton , "OR Folder" , new ImageIcon( ObservingToolUtilities.resourceURL( "ot/images/orFolder.gif" ) ) ) ;
 		return orFolderButton ;
@@ -264,7 +264,7 @@ public class OtTreeToolBar extends GenericToolBar
 	protected JButton makeSurveyButton()
 	{
 		if( surveyButton == null )
-			surveyButton = makeButton( "Create a Survey Container." , editor.getSurveyFolderAction() , false ) ;
+			surveyButton = makeButton( editor.getSurveyFolderAction() ) ;
 
 		updateButton( surveyButton , "Survey Container" , new ImageIcon( ObservingToolUtilities.resourceURL( "ot/images/surveyContainer.gif" ) ) ) ;
 		return surveyButton ;

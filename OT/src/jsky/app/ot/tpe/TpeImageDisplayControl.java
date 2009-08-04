@@ -22,6 +22,7 @@ import jsky.image.gui.DivaMainImageDisplay ;
 @SuppressWarnings( "serial" )
 public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 {
+	private Component parent ;
 	/**
 	 * Construct a TpeImageDisplayControl widget.
 	 *
@@ -30,7 +31,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , int size )
 	{
-		super( parent , size ) ;
+		super( size ) ;
+		this.parent = parent ;
 	}
 
 	/** 
@@ -40,7 +42,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent )
 	{
-		super( parent ) ;
+		super() ;
+		this.parent = parent ;
 	}
 
 	/** 
@@ -52,7 +55,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , URL url )
 	{
-		super( parent , url ) ;
+		super( url ) ;
+		this.parent = parent ;
 	}
 
 	/** 
@@ -64,7 +68,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 	 */
 	public TpeImageDisplayControl( Component parent , String filename )
 	{
-		super( parent , filename ) ;
+		super( filename ) ;
+		this.parent = parent ;
 	}
 
 	/** Make and return the image display window */

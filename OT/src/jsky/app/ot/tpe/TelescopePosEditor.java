@@ -13,9 +13,6 @@ import java.awt.geom.Point2D ;
 import java.net.URL ;
 import java.util.Vector ;
 import java.util.Hashtable ;
-import javax.swing.JDesktopPane ;
-import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
 import jsky.app.jskycat.JSkyCat ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
 import jsky.app.ot.gui.image.ViewportImageWidget ;
@@ -34,7 +31,6 @@ import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.obsComp.SpSurveyObsComp ;
 import jsky.catalog.skycat.SkycatConfigFile ;
 import jsky.navigator.NavigatorImageDisplayFrame ;
-import jsky.navigator.NavigatorImageDisplayInternalFrame ;
 import jsky.util.Preferences ;
 import jsky.util.TclUtil ;
 import jsky.util.gui.DialogUtil ;
@@ -111,7 +107,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public TelescopePosEditor( String imageFileOrUrl , boolean internalFrames , boolean showNavigator )
 	{
-		super( imageFileOrUrl , internalFrames , showNavigator ) ;
+		super( imageFileOrUrl , showNavigator ) ;
 
 		// get the TPE toolbar handle
 		Component parent = _iw.getParentFrame() ;
@@ -119,11 +115,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		{
 			_tpeToolBar = ( ( TpeImageDisplayFrame )parent ).getTpeToolBar() ;
 			(( TpeImageDisplayFrame )parent).getJMenuBar() ;
-		}
-		else if( parent instanceof TpeImageDisplayInternalFrame )
-		{
-			_tpeToolBar = ( ( TpeImageDisplayInternalFrame )parent ).getTpeToolBar() ;
-			( ( TpeImageDisplayInternalFrame )parent ).getJMenuBar() ;
 		}
 		else
 		{
@@ -234,19 +225,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	}
 
 	/** 
-	 * Make and return an internal frame for displaying the given image (may be null). 
-	 *
-	 * @param desktop used to display the internal frame
-	 * @param imageFileOrUrl specifies the iamge file or URL to display
-	 */
-	protected NavigatorImageDisplayInternalFrame makeNavigatorImageDisplayInternalFrame( JDesktopPane desktop , String imageFileOrUrl )
-	{
-		TpeImageDisplayInternalFrame frame = new TpeImageDisplayInternalFrame( desktop , imageFileOrUrl ) ;
-		_iw = ( TpeImageWidget )frame.getImageDisplayControl().getImageDisplay() ;
-		return frame ;
-	}
-
-	/** 
 	 * Make and return a frame for displaying the given image (may be null). 
 	 *
 	 * @param imageFileOrUrl specifies the iamge file or URL to display
@@ -267,7 +245,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	/** Set the current cursor (was a Bongo Widget method) */
 	public void setCurrentMouseCursor( java.awt.Cursor currentMouseCursor )
 	{
-		setCursor( currentMouseCursor ) ;
 		_iw.setCursor( currentMouseCursor ) ;
 	}
 
@@ -496,7 +473,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void loadFileImage()
 	{
-		open() ;
+		System.out.println( "loadFileImage() in " + this.getClass().getName() + " no longer active." ) ;
 	}
 
 	/**
@@ -592,11 +569,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 
 		_spItem = null ;
 		_spContext = null ;
-
-		if( imageFrame instanceof JFrame )
-			( ( JFrame )imageFrame ).dispose() ;
-		else if( imageFrame instanceof JInternalFrame )
-			( ( JInternalFrame )imageFrame ).dispose() ;
 
 		_notifyOfClose() ;
 	}
@@ -984,18 +956,18 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 */
 	public void repaint()
 	{
-		super.repaint() ;
 		_iw.updateImage() ;
 	}
 
 	public void open( String fileOrUrl )
 	{
-		super.open( fileOrUrl ) ;
+		System.out.println( "open( String ) in " + this.getClass().getName() + " no longer active." ) ;
 		_iw.updateImage() ;
 	}
 
 	public boolean isVisible()
 	{
-		return imageFrame.isVisible() ;
+		System.out.println( "isVisible() in " + this.getClass().getName() + " no longer active." ) ;
+		return false ;
 	}
 }

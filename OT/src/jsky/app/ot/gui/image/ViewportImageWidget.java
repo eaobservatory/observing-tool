@@ -32,7 +32,7 @@ public class ViewportImageWidget extends NavigatorImageDisplay implements MouseI
 
 	public ViewportImageWidget( Component parent )
 	{
-		super( parent ) ;
+		super() ;
 		addMouseListener( this ) ;
 		addMouseMotionListener( this ) ;
 	}
