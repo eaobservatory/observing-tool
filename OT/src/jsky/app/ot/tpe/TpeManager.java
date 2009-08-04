@@ -8,12 +8,10 @@ package jsky.app.ot.tpe ;
 
 import java.util.Hashtable ;
 import java.util.Vector ;
-import javax.swing.JDesktopPane ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import jsky.util.gui.DialogUtil ;
-import jsky.app.jskycat.JSkyCat ;
 
 /**
  * This class manages TelescopePosEditors on behalf of clients.
@@ -31,9 +29,6 @@ public final class TpeManager implements TpeWatcher
 	 * The root SpItem associated with the position editor.
 	 */
 	SpItem _spItem ;
-
-	/** Main window, when using internal frames */
-	static JDesktopPane desktop ;
 
 	/**
 	 * Contains a mapping of Science Program/Plan items to Position Editors.
@@ -64,19 +59,6 @@ public final class TpeManager implements TpeWatcher
 		_tpe.deleteWatcher( this ) ;
 		_tpe = null ;
 		_spItem = null ;
-	}
-
-	/** Return the JDesktopPane, if using internal frames, otherwise null */
-	public static JDesktopPane getDesktop()
-	{
-		return desktop ;
-	}
-
-	/** Set the JDesktopPane to use for top level windows, if using internal frames */
-	public static void setDesktop( JDesktopPane dt )
-	{
-		JSkyCat.setDesktop( dt ) ; // base class of the TelescopePosEditor
-		desktop = dt ;
 	}
 
 	/**

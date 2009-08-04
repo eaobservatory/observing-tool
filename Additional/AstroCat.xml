@@ -1,59 +1,62 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE catalogs PUBLIC "-//JSky//DTD for Catalog Access//EN" "AstroCat.dtd">
-<!--
 
-  This document describes the top level catalog directory and lists
-  the names and types of the catalogs that will appear in the user
-  interface menus. The path attribute of a catalog element points to a
-  file containing a detailed description. Catalogs with no path
-  attribute refer to catalogs that are defined elsewhere, such as in
-  one of the catalog subdirectories (see "Skycat Catalogs" below).
+<catalogs version="1.0">
+    <catalog name="Splatalogue Simple Line Access Service" type="catalog"/>
+    <catalog name="2MASS All-Sky Atlas Image Service" type="archive"/>
+    <catalog name="2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)" type="catalog"/>
+    <catalog name="2MASS All-Sky Extended Source Catalog" type="catalog"/>
+    <catalog name="2MASS All-Sky Point Source Catalog" type="catalog"/>
+    <catalog name="2MASS All-Sky Quicklook Image Service" type="archive"/>
+    <catalog name="2MASS Catalog at CDS" type="catalog"/>
+    <catalog name="2MASS Large Galaxy Atlas" type="archive"/>
+    <catalog name="The 2MASS All-Sky Catalog" type="catalog"/>
+    <catalog name="2MASS Catalog at UKIRT" type="catalog"/>
+    <catalog name="ABELL at CADC" type="catalog"/>
+    <catalog name="Data release 6 of Sloan Digital Sky Survey catalogs" type="catalog"/>
+    <catalog name="Digitized Sky (Version II infrared) at ESO" type="imagesvr"/>
+    <catalog name="Digitized Sky (Version II) at ESO" type="imagesvr"/>
+    <catalog name="Digitized Sky at CADC (2nd Generation)" type="imagesvr"/>
+    <catalog name="Digitized Sky at CADC" type="imagesvr"/>
+    <catalog name="Digitized Sky at ESO" type="imagesvr"/>
+    <catalog name="Digitized Sky at JAC(WFCAM size)" type="imagesvr"/>
+    <catalog name="Digitized Sky at JAC" type="imagesvr"/>
+    <catalog name="GSC-2 at ESO" type="catalog"/>
+    <catalog name="Guide Star Catalog at CADC" type="catalog"/>
+    <catalog name="Guide Star Catalog at ESO" type="catalog"/>
+    <catalog name="IRAS at CADC" type="catalog"/>
+    <catalog name="NED at ESO" type="catalog"/>
+    <catalog name="PPM at ESO" type="catalog"/>
+    <catalog name="QSO at CADC" type="catalog"/>
+    <catalog name="RC3 at CADC" type="catalog"/>
+    <catalog name="SAO at CADC" type="catalog"/>
+    <catalog name="SIMBAD via ESO" type="catalog"/>
+    <catalog name="Sloan Digital Sky Survey (DR3)" type="catalog"/>
+    <catalog name="Sloan Digital Sky Survey (DR5)" type="catalog"/>
+    <catalog name="Sloan Digital Sky Survey DR1" type="archive"/>
+    <catalog name="Sloan Digital Sky Survey DR2" type="archive"/>
+    <catalog name="Sloan Digital Sky Survey DR3" type="archive"/>
+    <catalog name="Sloan Digital Sky Survey DR4 - Images" type="archive"/>
+    <catalog name="Sloan Digital Sky Survey DR4" type="archive"/>
+    <catalog name="Sloan Digital Sky Survey DR5 - Images" type="archive"/>
+    <catalog name="Sloan Digitized Sky Survey(DR1)" type="catalog"/>
+    <catalog name="Sloan Digitized Sky Survey(DR2)" type="catalog"/>
+    <catalog name="Sloan Digitized Sky Survey(DR4)" type="catalog"/>
+    <catalog name="UCAC2 Catalog at CDS" type="catalog"/>
+    <catalog name="USNO at CADC" type="catalog"/>
+    <catalog name="USNO at ESO" type="catalog"/>
+    <catalog name="ZCAT at CADC" type="catalog"/>
 
--->
+    <!-- IRSA Image Servers -->
+    <catalog name="2MASS Quick-Look Image Retrieval Service - J-Band" type="imagesvr" path="2MASSImg-j.xml"/>
+    <catalog name="2MASS Quick-Look Image Retrieval Service - H-band" type="imagesvr" path="2MASSImg-h.xml"/>
+    <catalog name="2MASS Quick-Look Image Retrieval Service - K-band" type="imagesvr" path="2MASSImg-k.xml"/>
 
-<catalogs version="0.1">
+    <catalog name="AstroGrid Registry" type="directory" class="jsky.catalog.vo.VoCatalogDirectory" protocol="http"
+             host="registry.astrogrid.org" port="-1" path="/astrogrid-registry/services/RegistryQueryv1_0"/>
 
-<!-- Include references to some of the Skycat catalogs (Should be defined in the skycat.cfg file) -->
+    <catalog name="SLAP Services" type="directory" path="Slap.xml"/>
 
-  <catalog name="2MASS Catalog at UKIRT"/>
-  <catalog name="2MASS Catalog at CDS"/>
-  <catalog name="ABELL at CADC"/>
-  <catalog name="Guide Star Catalog at CADC"/>
-  <catalog name="Guide Star Catalog at ESO"/>
-  <catalog name="GSC-2 at ESO"/>
-  <catalog name="USNO at CADC"/>
-  <catalog name="USNO at ESO"/>
-  <catalog name="QSO at CADC"/>
-  <catalog name="RC3 at CADC"/>
-  <catalog name="SAO at CADC"/>
-  <catalog name="IRAS at CADC"/>
-  <catalog name="PPM at ESO"/>
-  <catalog name="ZCAT at CADC"/>
-
-<!-- Skycat Archives (should be defined in the skycat.cfg file) -->
-
-  <catalog name="CFHT Archive at CADC"/>
-  <catalog name="HST Archive at CADC"/>
-  <catalog name="NTT Archive at ESO"/>
-
-<!-- Skycat Image Servers (should be defined in the skycat.cfg file) -->
-  <catalog name="Digitized Sky at CADC (2nd Generation)"/>
-  <catalog name="Digitized Sky at CADC"/>
-  <catalog name="Digitized Sky at ESO"/>
-  <catalog name="Digitized Sky at JAC(WFCAM size)"/>
-  <catalog name="Digitized Sky at JAC"/>
-
-
-<!-- IRSA Image Servers -->
-  <catalog name="2MASS Quick-Look Image Retrieval Service - J-Band" type="imagesvr" path="2MASSImg-j.xml"/>
-  <catalog name="2MASS Quick-Look Image Retrieval Service - H-band" type="imagesvr" path="2MASSImg-h.xml"/>
-  <catalog name="2MASS Quick-Look Image Retrieval Service - K-band" type="imagesvr" path="2MASSImg-k.xml"/>
-<!-- 
-  Catalog Subdirectories 
-  
-  The next two lines describe the Skycat and IRSA catalog directories, and the classes
-  that implement them. 
--->
-  <catalog name="Skycat Catalogs" type="directory" class="jsky.catalog.skycat.SkycatConfigFile"/>
+    <catalog name="Skycat Catalogs" type="directory" class="jsky.catalog.skycat.SkycatConfigFile"/>
 
 </catalogs>
