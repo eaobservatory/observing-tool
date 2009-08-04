@@ -399,10 +399,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_receiver = ( Receiver )_cfg.receivers.get( frontEndName ) ;
 		BandSpec bandSpec = ( BandSpec )_receiver.bandspecs.get( 0 ) ;
 
-		// Get hold of the lines in the upper sideband that. Make sure it is not to close to
-		// the edge of the range so that the IF can default to the frontend IF.
+		// Get hold of the lines in the upper side-band that. Make sure it is not to close to
+		// the edge of the range so that the IF can default to the front-end IF.
 		// One of the lines should be a CO transition. Find it it use it as default line.
-		Vector moleculeVector = _lineCatalog.returnSpecies( _receiver.loMin + _receiver.feIF + _receiver.bandWidth , _receiver.loMax - _receiver.bandWidth ) ;
+		Vector<SelectionList> moleculeVector = _lineCatalog.returnSpecies( _receiver.loMin + _receiver.feIF + _receiver.bandWidth , _receiver.loMax - _receiver.bandWidth ) ;
 		String molecule = "CO" ;
 		String transitionName = "" ;
 		String frequency = "" ;
@@ -418,7 +418,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		if( transition != null )
 		{
 			/*
-			 * Whenever a trinsition is taken from the LineCatalog and consequently saved to
+			 * Whenever a transition is taken from the LineCatalog and consequently saved to
 			 * it has to be trimmed in order to remove the trailing white space that each transition
 			 * in the LineCatalog has.
 			 */
@@ -1088,7 +1088,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		 *  We need to get the current bandspec
 		 *  from the region selector
 		 */
-		Vector bandSpecs = _receiver.bandspecs ;
+		Vector<BandSpec> bandSpecs = _receiver.bandspecs ;
 		BandSpec currentBandSpec = null ;
 		BandSpec activeBandSpec = null ;
 		String bandMode = _inst.getBandMode() ;
