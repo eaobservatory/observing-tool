@@ -103,7 +103,7 @@ public class JcmtSpValidation extends SpValidation
 					if( bandSpecVector instanceof Vector )
 					{
 						Vector receiverBandSpecs = ( Vector )bandSpecVector ;
-						Object bandSpec = receiverBandSpecs.get( systems ) ;
+						Object bandSpec = receiverBandSpecs.get( systems - 1 ) ;
 						Field overlapField = bandSpec.getClass().getField( "defaultOverlaps" ) ;
 						Object overlapObject = overlapField.get( bandSpec ) ;
 						if( overlapObject instanceof double[] )
