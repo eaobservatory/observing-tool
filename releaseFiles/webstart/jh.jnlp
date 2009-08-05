@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="jh.jnlp">
+	<information>
+		<title>Java Help test</title>
+		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
+		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+	</information>
+	<resources>
+		<jar href="tools/jhbasic.jar"/>
+	</resources>
+	<component-desc/>
+</jnlp>
