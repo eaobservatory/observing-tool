@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="jsky.jnlp">
+	<information>
+		<title>JSky3</title>
+		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
+		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+	</information>
+	<resources>
+		<jar href="tools/jsky3/axis-1.4.jar"/>
+		<jar href="tools/jsky3/axis-jaxrpc-1.4.jar"/>
+		<jar href="tools/jsky3/axis-saaj-1.4.jar"/>
+		<jar href="tools/jsky3/axis-wsdl4j-1.5.1.jar"/>
+		<jar href="tools/jsky3/bzip2-1.0.jar"/>
+		<jar href="tools/jsky3/commons-codec-1.3.jar"/>
+		<jar href="tools/jsky3/commons-discovery-0.2.jar"/>
+		<jar href="tools/jsky3/commons-httpclient-2.0.2.jar"/>
+		<jar href="tools/jsky3/commons-logging-1.0.4.jar"/>
+		<jar href="tools/jsky3/diva-ptII7.0.1.jar"/>
+		<jar href="tools/jsky3/dom4j-1.6.1.jar"/>
+		<jar href="tools/jsky3/forms-1.2.1.jar"/>
+		<jar href="tools/jsky3/hcompress-0.52.jar"/>
+		<jar href="tools/jsky3/jai-codec-1.1.2.jar"/>
+		<jar href="tools/jsky3/jai-core-1.1.2.jar"/>
+		<jar href="tools/jsky3/javax.servlet-5.1.12.jar"/>
+		<jar href="tools/jsky3/jcommon-1.0.15.jar"/>
+		<jar href="tools/jsky3/jel_g-2.0.1.jar"/>
+		<jar href="tools/jsky3/jfreechart-1.0.12.jar"/>
+		<jar href="tools/jsky3/jsky-catalog-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-catalog-gui-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-coords-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-image-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-image-gui-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-science-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-util-3.0.jar"/>
+		<jar href="tools/jsky3/jsky-util-gui-3.0.jar"/>
+		<jar href="tools/jsky3/jskycat-3.0.jar"/>
+		<jar href="tools/jsky3/looks-2.2.1.jar"/>
+		<jar href="tools/jsky3/mlibwrapper_jai-1.1.2.jar"/>
+		<jar href="tools/jsky3/registry-1.0.jar"/>
+		<jar href="tools/jsky3/rmi-lite-1.0.jar"/>
+		<jar href="tools/jsky3/servlet-api-2.2.jar"/>
+		<jar href="tools/jsky3/tamfits-1.0.jar"/>
+		<jar href="tools/jsky3/xml-apis-1.0.b2.jar"/>
+		<jar href="tools/jsky3/xmlrpc-2.0.1.jar"/>
+		<!-- STARLINK FOR JSKY3 -->
+		<extension name="astrogrid" href="http://www.starlink.ac.uk/starjava/lib/astrogrid.jnlp"/>
+		<extension name="connect" href="http://www.starlink.ac.uk/starjava/lib/connect.jnlp"/>
+		<extension name="fits" href="http://www.starlink.ac.uk/starjava/lib/fits.jnlp"/>
+		<extension name="jsamp" href="http://www.starlink.ac.uk/starjava/lib/jsamp.jnlp"/>
+		<extension name="plastic" href="http://www.starlink.ac.uk/starjava/lib/plastic.jnlp"/>
+		<extension name="soapserver" href="http://www.starlink.ac.uk/starjava/lib/soapserver.jnlp"/>
+		<extension name="table" href="http://www.starlink.ac.uk/starjava/lib/table.jnlp"/>
+		<extension name="task" href="http://www.starlink.ac.uk/starjava/lib/task.jnlp"/>
+		<extension name="ttools" href="http://www.starlink.ac.uk/starjava/lib/ttools.jnlp"/>
+		<extension name="util" href="http://www.starlink.ac.uk/starjava/lib/util.jnlp"/>
+		<extension name="vo" href="http://www.starlink.ac.uk/starjava/lib/vo.jnlp"/>
+		<extension name="votable" href="http://www.starlink.ac.uk/starjava/lib/votable.jnlp"/>
+	</resources>
+	<component-desc/>
+</jnlp>
