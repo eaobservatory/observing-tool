@@ -6,15 +6,23 @@ print "Enter password for keystore : " ;
 $pass = <STDIN> ;
 chomp( $pass ) ;
 
+@paths = split( '/' , $0 ) ;
+pop( @paths ) ;
+$self = join( '/' , @paths ) ;
+if( $self ne "" ){ $self .= '/' ; }
+
+$keystore = $self . "jac.keys" ;
+$saveddir = $self . "saved" ;
+
 chomp( $cwd = `pwd` ) ;
-unless( -e "$cwd/work/jac.keys" ){ &genkey( $pass ) ; }
-if( -e "$cwd/work/saved" ){ print `rm -f $cwd/work/saved/*` ; }
-else{ print `mkdir $cwd/work/saved` ; }
+unless( -e $keystore ){ &genkey( $pass ) ; }
+if( -e $saveddir ){ print `rm -f $saveddir/*` ; }
+else{ print `mkdir $saveddir` ; }
 
 @dirs = ( 'lib' , 'tools' ) ;
 foreach $dir ( @dirs )
 {
-	chdir( $dir ) ;
+	chdir( $dir ) or next ;
 	@files = `find . -name "*.jar"` ;
 	foreach $file ( @files )
 	{
@@ -26,18 +34,25 @@ foreach $dir ( @dirs )
 		if( $output =~ "missing" )
 		{
 			print "Signing $file ... \n" ;
-			system( 'mv' , ( $file , "$cwd/work/saved/$file" ) ) ;
-			system( 'jarsigner' , 
-				( 
-					'-keystore' , "$cwd/work/jac.keys" 
+			system( 'mv' , ( $file , $file . "-unsigned" ) ) ;
+			system( 'jarsigner' ,
+				(
+					'-keystore' , $keystore
 					, '-storepass' , $pass  
 					, '-signedjar' , "$cwd/$dir/$file" 
-					, "$cwd/work/saved/$file" , 'OT'
+					, "$cwd/$dir/" . $file . "-unsigned" , 'OT'
 				) 
 				) ;
 		}
 	}
 	chdir( $cwd ) ;
+}
+
+@unsigned = `find . -name "*-unsigned"` ;
+foreach $unsignedjar ( @unsigned )
+{
+	chomp( $unsignedjar ) ;
+	system( 'mv' , ( $unsignedjar , $saveddir ) ) ;
 }
 
 sub genkey
@@ -47,7 +62,7 @@ sub genkey
 	( 'keytool' ,
 		(
 			'-genkey' ,
-			'-keystore' , "$cwd/work/jac.keys" ,
+			'-keystore' , $keystore ,
 			'-alias' , 'OT' ,
 			'-storepass' , $password
 		)
@@ -59,7 +74,7 @@ sub genkey
 			'-import' ,
 			'-alias' , 'JAC' ,
 			'-file' , '/ftp/pub/JAC_CA.crt' ,
-			'-keystore' , "$cwd/work/jac.keys" ,
+			'-keystore' , $keystore ,
 			'-storepass' , $password
 		)
 	) ;
