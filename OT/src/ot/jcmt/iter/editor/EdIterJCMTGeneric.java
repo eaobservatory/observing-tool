@@ -104,6 +104,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			{
 				_w.frequencyPanel.setVisible( true ) ;
 				_w.frequencyOffset_rate.setEnabled( false ) ;
+				_w.switchRateVisible( true ) ;
 				if( _iterObs.getSecsPerCycle() != 0 )
 				{
 					NumberFormat nf = NumberFormat.getInstance() ;
@@ -121,14 +122,10 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 			{
 				_w.frequencyPanel.setVisible( true ) ;
 				_w.frequencyOffset_rate.setEnabled( false ) ;
-				_w.frequencyOffset_rate.setValue( 0.5 ) ;
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() ) ;
-				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() ) ;
-			}
-			else
-			{
+				_w.switchRateVisible( false ) ;
 				_w.frequencyPanel.setVisible( false ) ;
-				_iterObs.rmFrequencyOffsetValues() ;
+				_iterObs.rmFrequencyOffsetRate() ;
+				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() ) ;
 			}
 			_iterObs.setSwitchingMode( val ) ;
 			_updateWidgets() ;
@@ -139,7 +136,6 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-
 		if( tbwe == _w.frequencyOffset_throw )
 		{
 			_iterObs.setFrequencyOffsetThrow( tbwe.getValue() ) ;
@@ -151,7 +147,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		else if( tbwe == _w.secsPerCycle )
 		{
 			_iterObs.setSecsPerCycle( _w.secsPerCycle.getValue() ) ;
-			if( !_w.frequencyOffset_rate.isEnabled() )
+			if( !_w.frequencyOffset_rate.isEnabled() && _w.frequencyOffset_rate.isVisible() )
 			{
 				NumberFormat nf = NumberFormat.getInstance() ;
 				nf.setMaximumFractionDigits( 5 ) ;
@@ -197,6 +193,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		{
 			_w.frequencyPanel.setVisible( true ) ;
 			_w.frequencyOffset_rate.setEnabled( false ) ;
+			_w.switchRateVisible( !SWITCHING_MODE_FREQUENCY_F.equals( switchingMode ) ) ;
 		}
 		else
 		{
