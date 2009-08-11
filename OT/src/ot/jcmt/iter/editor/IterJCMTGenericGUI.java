@@ -47,10 +47,10 @@ public class IterJCMTGenericGUI extends JPanel
 	TextBoxWidgetExt frequencyOffset_throw = new TextBoxWidgetExt() ;
 	JPanel frequencyPanel = new JPanel() ;
 	GridBagLayout gridBagLayout3 = new GridBagLayout() ;
-	JLabel jLabel11 = new JLabel() ;
+	JLabel hertzLabel = new JLabel() ;
 	JLabel jLabel10 = new JLabel() ;
 	TextBoxWidgetExt frequencyOffset_rate = new TextBoxWidgetExt() ;
-	JLabel jLabel9 = new JLabel() ;
+	JLabel rateLabel = new JLabel() ;
 	JLabel jLabel8 = new JLabel() ;
 	JLabel noiseLabel = new JLabel() ;
 	TextBoxWidgetExt noiseTextBox = new TextBoxWidgetExt() ;
@@ -93,16 +93,16 @@ public class IterJCMTGenericGUI extends JPanel
 		frequencyPanel.setLayout( gridBagLayout3 ) ;
 		frequencyPanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Frequency Offset" ) ) ;
 		frequencyPanel.setVisible( false ) ;
-		jLabel11.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		jLabel11.setForeground( Color.black ) ;
-		jLabel11.setText( "(Hz)" ) ;
+		hertzLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		hertzLabel.setForeground( Color.black ) ;
+		hertzLabel.setText( "(Hz)" ) ;
 		jLabel10.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		jLabel10.setForeground( Color.black ) ;
 		jLabel10.setText( "(MHz)" ) ;
 		frequencyOffset_rate.setColumns( 10 ) ;
-		jLabel9.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		jLabel9.setForeground( Color.black ) ;
-		jLabel9.setText( "Rate" ) ;
+		rateLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		rateLabel.setForeground( Color.black ) ;
+		rateLabel.setText( "Rate" ) ;
 		jLabel8.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		jLabel8.setForeground( Color.black ) ;
 		jLabel8.setText( "Throw" ) ;
@@ -150,9 +150,16 @@ public class IterJCMTGenericGUI extends JPanel
 
 		frequencyPanel.add( jLabel8 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		frequencyPanel.add( frequencyOffset_throw , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
-		frequencyPanel.add( jLabel9 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		frequencyPanel.add( rateLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		frequencyPanel.add( frequencyOffset_rate , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
 		frequencyPanel.add( jLabel10 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		frequencyPanel.add( jLabel11 , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		frequencyPanel.add( hertzLabel , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+	}
+
+	public void switchRateVisible( boolean visible )
+	{
+		rateLabel.setVisible( visible ) ;
+		frequencyOffset_rate.setVisible( visible ) ;
+		hertzLabel.setVisible( visible ) ;
 	}
 }
