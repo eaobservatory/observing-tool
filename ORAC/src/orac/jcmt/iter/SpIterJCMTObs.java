@@ -237,10 +237,20 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 		_avTable.set( ATTR_FREQUENCY_OFFSET_RATE , Format.toDouble( value ) ) ;
 	}
 
+	public void rmFrequencyOffsetRate()
+	{
+		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE ) ;
+	}
+
+	public void rmFrequencyOffsetThrow()
+	{
+		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE ) ;
+	}
+
 	public void rmFrequencyOffsetValues()
 	{
-		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_THROW ) ;
-		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE ) ;
+		rmFrequencyOffsetRate() ;
+		rmFrequencyOffsetThrow() ;
 	}
 
 	public int getSecsPerCycle()
