@@ -60,6 +60,8 @@
     <xsd:enumeration value="Position"/>
     <xsd:enumeration value="Frequency-Fast"/>
     <xsd:enumeration value="Frequency-Slow"/>
+    <xsd:enumeration value="Chop"/>
+    <xsd:enumeration value="None"/>
   </xsd:restriction>
 </xsd:simpleType>
 
