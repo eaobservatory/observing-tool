@@ -29,6 +29,7 @@ import jsky.util.gui.GenericToolBarTarget ;
  * @version $Revision$
  * @author Allan Brighton (ported to Swing/JSky)
  */
+@SuppressWarnings({ "serial" })
 public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 {
 	/** The top level parent frame (or internal frame). */
@@ -123,7 +124,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "Save" menu and toolbar items */
-	protected AbstractAction saveAction = new AbstractAction( "Save" )
+	protected AbstractAction saveAction = new AbstractAction( "Save changes" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -190,7 +191,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	// (MFO, 09 July 2001)
 
 	/** Action to use for the "MsbFolder" menu and toolbar items */
-	protected AbstractAction msbFolderAction = new AbstractAction( "MsbFolder" )
+	protected AbstractAction msbFolderAction = new AbstractAction( "Create an MSB folder" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -206,7 +207,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "AndFolder" menu and toolbar items */
-	protected AbstractAction andFolderAction = new AbstractAction( "AndFolder" )
+	protected AbstractAction andFolderAction = new AbstractAction( "Create an AND folder" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -222,7 +223,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "OrFolder" menu and toolbar items */
-	protected AbstractAction orFolderAction = new AbstractAction( "OrFolder" )
+	protected AbstractAction orFolderAction = new AbstractAction( "Create an OR folder" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -238,7 +239,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "SurveyFolder" menu and toolbar items */
-	protected AbstractAction surveyFolderAction = new AbstractAction( "surveyFolder" )
+	protected AbstractAction surveyFolderAction = new AbstractAction( "Create a Survey Container" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -254,7 +255,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "ObsFolder" menu and toolbar items */
-	protected AbstractAction obsFolderAction = new AbstractAction( "Folder" )
+	protected AbstractAction obsFolderAction = new AbstractAction( "Create an observation folder" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -270,7 +271,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "ObsGroup" menu and toolbar items */
-	protected AbstractAction obsGroupAction = new AbstractAction( "Group" )
+	protected AbstractAction obsGroupAction = new AbstractAction( "Create an observation group" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -286,7 +287,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "Observation" menu and toolbar items */
-	protected AbstractAction observationAction = new AbstractAction( "Observation" )
+	protected AbstractAction observationAction = new AbstractAction( "Create an observation" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -302,7 +303,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "Note" menu and toolbar items */
-	protected AbstractAction noteAction = new AbstractAction( "Note" )
+	protected AbstractAction noteAction = new AbstractAction( "Create a note" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -318,7 +319,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "LibFolder" menu and toolbar items */
-	protected AbstractAction libFolderAction = new AbstractAction( "LibFolder" )
+	protected AbstractAction libFolderAction = new AbstractAction( "Create a library" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -334,7 +335,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "PosEditor" menu and toolbar items */
-	protected AbstractAction posEditorAction = new AbstractAction( "PosEditor" )
+	protected AbstractAction posEditorAction = new AbstractAction( "Show position editor" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{
@@ -366,7 +367,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	} ;
 
 	/** Action to use for the "Validation" menu and toolbar items */
-	protected AbstractAction validationAction = new AbstractAction( "Validation" )
+	protected AbstractAction validationAction = new AbstractAction( "Validate" )
 	{
 		public void actionPerformed( ActionEvent evt )
 		{

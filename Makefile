@@ -66,6 +66,7 @@ install: all install_dir
 
 	mkdir -p $(INSTALL_ROOT)/tools
 	cp OT/tools/*.jar ORAC/tools/*.jar OMP/tools/*.jar $(INSTALL_ROOT)/tools
+	cp -r OT/tools/jsky3 $(INSTALL_ROOT)/tools
 
 	mkdir -p $(INSTALL_ROOT)/cfg
 

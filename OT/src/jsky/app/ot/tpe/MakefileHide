@@ -18,7 +18,6 @@ SOURCES = \
 	TpeFeatureManager.java \
 	TpeImageDisplayControl.java \
 	TpeImageDisplayFrame.java \
-	TpeImageDisplayInternalFrame.java \
 	TpeImageDisplayMenuBar.java \
 	TpeImageFeature.java \
 	TpeImageWidget.java \
