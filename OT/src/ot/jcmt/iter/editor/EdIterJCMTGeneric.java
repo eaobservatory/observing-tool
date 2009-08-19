@@ -26,6 +26,7 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.util.DDMMSS ;
 import gemini.util.CoordSys ;
+import gemini.util.RADec ;
 import gemini.sp.SpTelescopePos ;
 
 import orac.jcmt.inst.SpJCMTInstObsComp ;
@@ -35,8 +36,10 @@ import orac.jcmt.iter.SpIterJCMTObs ;
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
 import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.SpJCMTConstants ;
+import orac.util.CoordConvert ;
 import orac.util.DrUtil ;
 import orac.util.SpItemUtilities ;
+import ot.util.DialogUtil ;
 
 /**
  * This is the generic editor for JCMT iterator components.
@@ -266,9 +269,18 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		
 		SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
 		if( base.getCoordSys() == CoordSys.FK5 )
+		{
 			airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+		}
 		else if( base.getCoordSys() == CoordSys.AZ_EL )
+		{
 			airmass = DrUtil.airmass( base.getYaxis() ) ;
+		}
+		else
+		{
+			double yAxis = convertPosition( base.getCoordSys() , base.getXaxis() , base.getYaxis() ) ;
+			airmass = DrUtil.airmass( yAxis , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+		}
 		
 		double csoTau = siteQualityObsComp.getNoiseCalculationTau() ;
 
@@ -356,5 +368,40 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
 	{
 		return 0. ;
+	}
+
+	/**
+	 * If coordinate system is FK4 or Galactic, convert to y axis to FK5 otherwise return 0.
+	 * Method is safe to pass FK5 or AzEl to, it simply returns the yAxis
+	 * @param coordSys integer from a CoordSys object
+	 * @param xAxis from a base position
+	 * @param yAxis from a base position
+	 * @return y axis converted to FK5 or 0.
+	 */
+	protected double convertPosition( int coordSys , double xAxis , double yAxis )
+	{
+		RADec raDec = null ;
+
+		double dec = 0. ;
+
+		if( coordSys == CoordSys.FK4 )
+		{
+			raDec = CoordConvert.Fk45z( xAxis , yAxis ) ;
+			dec = raDec.dec ;
+		}
+		else if( coordSys == CoordSys.GAL )
+		{
+			raDec = CoordConvert.gal2fk5( xAxis , yAxis ) ;
+			dec = raDec.dec ;
+		}
+		else if( coordSys == CoordSys.FK5 || coordSys == CoordSys.AZ_EL )
+		{
+			dec = yAxis ;
+		}
+		else
+		{
+			DialogUtil.error( _w , "Coordinate system " + CoordSys.getSystem( coordSys ) + " not properly supported in noise calculation." ) ;
+		}
+		return dec ;
 	}
 }

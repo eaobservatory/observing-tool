@@ -72,6 +72,9 @@ the end of the transition name - it makes the display nicer.
   <species name = "HCN-15">
     <transition name="3  - 2 " frequency="258157.1000"/>
   </species>
+  <species name = "HCNH+">
+    <transition name="3  - 2 " frequency="222329.401"/>
+  </species>
   <species name = "H-13-CN">
     <transition name="3  - 2 " frequency="259011.8211"/>
     <transition name="4  - 3 " frequency="345339.7599"/>
@@ -122,6 +125,12 @@ the end of the transition name - it makes the display nicer.
   <species name="H2CS">
     <transition name="010  - 9 0 9 " frequency="342946.4239"/>
     <transition name="2 9  - 9 2 8 " frequency="343319.6445"/>
+  </species>
+  <species name="HD2+">
+    <transition name="1 1 0 0  - 1 0 1 0" frequency="691660.4830"/>
+  </species>
+  <species name="H3O+">
+    <transition name="3 2 1  - 2 2 0" frequency="364797.427"/>
   </species>
   <species name = "CS">
     <transition name="4  - 3 " frequency="195954.226"/>
