@@ -12,6 +12,7 @@ package ot.editor ;
 import gemini.sp.SpItem ;
 import gemini.sp.obsComp.SpSchedConstObsComp ;
 import orac.util.OracUtilities ;
+import orac.util.TimeUtils ;
 import orac.util.AirmassUtilities ;
 import ot.util.DialogUtil ;
 
@@ -20,7 +21,6 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 import jsky.app.ot.editor.OtItemEditor ;
 
 import java.util.Calendar ;
-import java.util.Date ;
 
 import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
@@ -38,6 +38,8 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 	private SpSchedConstObsComp _schedConstObsComp ;
 	private static final String MAX = "Max" ;
 	private static final String MIN = "Min" ;
+	private static Calendar latestCalendar ;
+	private static Calendar earliestCalendar ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -71,7 +73,9 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 
 		if( _schedConstObsComp.getEarliest().equals( SpSchedConstObsComp.NO_VALUE ) )
 		{
-			_schedConstObsComp.initEarliest( OracUtilities.toISO8601( new Date() ) ) ;
+			earliestCalendar = Calendar.getInstance() ;
+			earliestCalendar.setTime( TimeUtils.getCurrentUTCDate() ) ;
+			_schedConstObsComp.initEarliest( OracUtilities.toISO8601( earliestCalendar.getTime() ) ) ;
 			_updateWidgets() ;
 		}
 
@@ -88,14 +92,14 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 			 * Tim on-the-other-hand uses 2035-01-01T01:00 as his "infinite date", so that is what we use here.
 			 */
 			
-			Calendar calendar = Calendar.getInstance() ;
-			calendar.set( Calendar.YEAR , 2035 ) ;
-			calendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
-			calendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
-			calendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
-			calendar.set( Calendar.MINUTE , 0 ) ;
-			calendar.set( Calendar.SECOND , 0 ) ;
-			_schedConstObsComp.initLatest( OracUtilities.toISO8601( calendar.getTime() ) ) ;
+			latestCalendar = Calendar.getInstance() ;
+			latestCalendar.set( Calendar.YEAR , 2035 ) ;
+			latestCalendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
+			latestCalendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
+			latestCalendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
+			latestCalendar.set( Calendar.MINUTE , 0 ) ;
+			latestCalendar.set( Calendar.SECOND , 0 ) ;
+			_schedConstObsComp.initLatest( OracUtilities.toISO8601( latestCalendar.getTime() ) ) ;
 			_updateWidgets() ;
 		}
 	}
@@ -180,8 +184,11 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 				}
 				else
 				{
-					String latest = OracUtilities.toISO8601( OracUtilities.parseISO8601( _w.latest.getText() ) ) ;
+					Calendar newDate = Calendar.getInstance() ;
+					newDate.setTime( OracUtilities.parseISO8601( _w.latest.getText() ) ) ;
+					String latest = OracUtilities.toISO8601( newDate.getTime() ) ;
 					_schedConstObsComp.setLatest( latest ) ;
+
 				}
 			}
 			else if( tbw == _w.minElevation )
