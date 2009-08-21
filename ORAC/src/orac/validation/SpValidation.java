@@ -3,6 +3,7 @@ package orac.validation ;
 import java.io.IOException ;
 import java.io.StringReader ;
 
+import java.util.Calendar ;
 import java.util.Enumeration ;
 import java.util.HashMap ;
 import java.util.Vector ;
@@ -45,6 +46,7 @@ import org.xml.sax.Attributes ;
 import org.xml.sax.Locator ;
 
 import orac.util.OracUtilities ;
+import orac.util.TimeUtils ;
 import java.util.Date ;
 
 /**
@@ -879,5 +881,19 @@ public class SpValidation
 		Date after = OracUtilities.parseISO8601( latest ) ;
 		if( before.after( after ) )
 			report.add( new ErrorMessage( ErrorMessage.WARNING , "The earliest scheduled start time is after the latest scheduled end time" , "" ) ) ;
+
+		Calendar latestCalendar = Calendar.getInstance() ;
+		latestCalendar.set( Calendar.YEAR , 2035 ) ;
+		latestCalendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
+		latestCalendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
+		latestCalendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
+		latestCalendar.set( Calendar.MINUTE , 0 ) ;
+		latestCalendar.set( Calendar.SECOND , 0 ) ;
+
+		if( before.before( TimeUtils.getCurrentUTCDate() ) )
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "The earliest scheduled start time is before the current UTC date" , "" ) ) ;
+
+		if( after.after( latestCalendar.getTime() ) )
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "The latest scheduled end time is after the latest schedulable end time" , "" ) ) ;
 	}
 }
