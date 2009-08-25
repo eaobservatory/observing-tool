@@ -25,10 +25,9 @@ foreach $entry ( @unsigned )
 }
 print "-" x 20 . "\n" ;
 print "Signed jars\n" ;
+%signers = () ;
 foreach $entry ( @signed )
 {
-	print "-" x 20 . "\n" ;
-        print $entry . "\n" ;
 	@verified = `jarsigner -verify -verbose -certs $entry` ;
 	foreach $line ( @verified )
 	{
@@ -36,6 +35,32 @@ foreach $entry ( @signed )
 		$line =~ /\s+X.509, CN=(.+),/ ;
 		if( defined $1 ){ $signer = $1 ; }
 	}
-	print $signer . "\n" ;
+	my $entries_ref = $signers{ $signer } ;
+	if( defined $entries_ref )
+	{
+		my @entries = @$entries_ref ;
+		push( @entries , $entry ) ;
+		$signers{ $signer } = \@entries ;
+	}
+	else
+	{
+		my @entries = ( $entry ) ;
+		$signers{ $signer } = \@entries ;
+	}
 }
+
+@keys = keys %signers ;
+
+foreach $key ( @keys )
+{
+	print "-" x 20 . "\n" ;
+	print $key . "\n" ;
+	my $array_ref = $signers{ $key } ;
+	my @entries = @$array_ref ;
+	foreach $entry ( @entries )
+	{
+		print $entry . "\n" ;
+	}
+}
+
 print "-" x 20 . "\n" ;
