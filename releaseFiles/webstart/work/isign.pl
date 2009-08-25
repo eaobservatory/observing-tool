@@ -11,10 +11,11 @@ pop( @paths ) ;
 $self = join( '/' , @paths ) ;
 if( $self ne "" ){ $self .= '/' ; }
 
-$keystore = $self . "jac.keys" ;
-$saveddir = $self . "saved" ;
-
 chomp( $cwd = `pwd` ) ;
+
+$keystore = $cwd . "/" . $self . "jac.keys" ;
+$saveddir = $cwd . "/" . $self . "saved" ;
+
 unless( -e $keystore ){ &genkey( $pass ) ; }
 if( -e $saveddir ){ print `rm -f $saveddir/*` ; }
 else{ print `mkdir $saveddir` ; }
@@ -43,16 +44,10 @@ foreach $dir ( @dirs )
 					, "$cwd/$dir/" . $file . "-unsigned" , 'OT'
 				) 
 				) ;
+			system( 'mv' , ( "$cwd/$dir/" . $file . "-unsigned" , $saveddir ) ) ;
 		}
 	}
 	chdir( $cwd ) ;
-}
-
-@unsigned = `find . -name "*-unsigned"` ;
-foreach $unsignedjar ( @unsigned )
-{
-	chomp( $unsignedjar ) ;
-	system( 'mv' , ( $unsignedjar , $saveddir ) ) ;
 }
 
 sub genkey
