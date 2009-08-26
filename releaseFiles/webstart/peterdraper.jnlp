@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.5+" codebase="http://www.jach.hawaii.edu/~shart/webstart" href="pal.jnlp">
+<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="pal.jnlp">
 	<information>
 		<title>peterdraper</title>
 		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
