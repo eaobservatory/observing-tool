@@ -215,7 +215,22 @@ the end of the transition name - it makes the display nicer.
     <transition name="10 2 9 -0  - 9 3 6 -0 " frequency="231286.3622"/>
     <transition name="4 2 3 -0  - 5 1 4 -0 " frequency="234683.2014"/>
     <transition name="5 -4 2 0  - 6 -3 4 0 " frequency="234698.4394"/>
+    <transition name="5 +0 5 0  - 4 +0 4 0 " frequency="241700.2190"/>
+    <transition name="5 -1 5 0  - 4 -1 4 0 " frequency="241767.2240"/>
     <transition name="5 0 5 +0  - 4 0 4 +0 " frequency="241791.431"/>
+    <transition name="5 4 1 +0  - 4 4 0 +0 " frequency="241806.5080"/>
+    <transition name="5 -4 2 0  - 4 -4 1 0 " frequency="241813.2570"/>
+    <transition name="5 +4 1 0  - 4 +4 0 0 " frequency="241829.6460"/>
+    <transition name="5 3 3 +0  - 4 3 2 +0 " frequency="241832.9100"/>
+    <transition name="5 3 3 -0  - 4 3 2 -0 " frequency="241832.9100"/>
+    <transition name="5 2 4 -0  - 4 2 3 -0 " frequency="241842.3240"/>
+    <transition name="5 +3 2 0  - 4 +3 1 0 " frequency="241843.6460"/>
+    <transition name="5 -3 3 0  - 4 -3 2 0 " frequency="241852.3520"/>
+    <transition name="5 +1 4 0  - 4 +1 3 0 " frequency="241879.0730"/>
+    <transition name="5 2 3 +0  - 4 2 2 +0 " frequency="241887.7040"/>
+    <transition name="5 -2 4 0  - 4 -2 3 0 " frequency="241904.1520"/>
+    <transition name="5 +2 3 0  - 4 +2 2 0 " frequency="241904.6450"/>
+    <transition name="9 +0 9 0  - 8 +2 6 0 " frequency="242108.9930"/>
     <transition name="4 2 2 +0  - 5 1 5 +0 " frequency="247228.693"/>
     <transition name="7 4 4 -0  - 8 3 5 -0 " frequency="249443.402"/>
     <transition name="11 0 11 +0  - 10 1 10 +0 " frequency="250509.492"/>
