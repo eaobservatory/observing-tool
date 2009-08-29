@@ -226,8 +226,10 @@ the end of the transition name - it makes the display nicer.
     <transition name="13 +6 7 1  - 13 +7 6 1 " frequency="233096.9650"/>
     <transition name="4 2 3 -0  - 5 1 4 -0 " frequency="234683.2014"/>
     <transition name="5 -4 2 0  - 6 -3 4 0 " frequency="234698.4394"/>
+    <transition name="5 +3 2 0  - 6 +2 4 0 " frequency="240241.5020"/>
     <transition name="26 3 23 -0  - 26 2 24 +0 " frequency="240740.6210"/>
     <transition name="22 -6 16 0  - 23 -5 18 0 " frequency="241042.6830"/>
+    <transition name="9 +3 6 0  - 10 +0 10 0 " frequency="241057.1280"/>
     <transition name="5 +0 5 0  - 4 +0 4 0 " frequency="241700.2190"/>
     <transition name="5 -1 5 0  - 4 -1 4 0 " frequency="241767.2240"/>
     <transition name="5 0 5 +0  - 4 0 4 +0 " frequency="241791.431"/>
@@ -262,6 +264,7 @@ the end of the transition name - it makes the display nicer.
     <transition name="6 3 4 +0  - 6 2 5 -0 " frequency="251895.728"/>
     <transition name="4 3 2 +0  - 4 2 3 -0 " frequency="251900.495"/>
     <transition name="3 3 0 -0  - 3 2 1 +0 " frequency="251905.812"/>
+    <transition name="3 3 1 +0  - 3 2 2 -0 " frequency="251917.0420"/>
     <transition name="7 3 5 +0  - 7 2 6 -0 " frequency="251923.631"/>
     <transition name="8 3 6 +0  - 8 2 7 -0 " frequency="251984.702"/>
     <transition name="9 3 7 +0  - 9 2 8 -0 " frequency="252090.4"/>
@@ -527,9 +530,11 @@ the end of the transition name - it makes the display nicer.
   </species>
   <species name = "C-13-H3OH">
     <transition name="17 -3 15 0  - 18 0 18 0 " frequency="220362.7740"/>
+    <transition name="6 1 5 -1  - 7 2 6 -1 " frequency="223332.0400"/>
     <transition name="14 -1 14 0  - 13 -2 12 0 " frequency="225566.9940"/>
     <transition name="19 2 17 0  - 19 0 19 0 " frequency="239169.5440"/>
     <transition name="22 0 22 0  - 21 3 18 0 " frequency="241035.6290"/>
+    <transition name="2 2 0 +0  - 3 1 3 +0 " frequency="345083.7930"/>
     <transition name="11 0 11 0  - 10 1 9 0 " frequency="348100.1940"/>
   </species>
   <species name = "H2CO">
