@@ -693,6 +693,7 @@ the end of the transition name - it makes the display nicer.
     <transition name="14 0 015  - 13 0 014 " frequency="257527.3984"/>
     <transition name="14 0 013  - 13 0 014 " frequency="257527.4440"/>
     <transition name="14 0 013  - 13 0 013 " frequency="257529.0047"/>
+    <transition name="1911 020  - 1811 019 " frequency="348644.7561"/>
   </species>
   <species name = "CH3OCHO">
     <transition name="17 611 2  - 16 610 2 " frequency="211537.3360"/>
@@ -718,6 +719,21 @@ the end of the transition name - it makes the display nicer.
     <transition name="21 121 0  - 20 120 0 " frequency="227561.9906"/>
     <transition name="21 021 0  - 20 020 0 " frequency="227562.7870"/>
     <transition name="18 414 2  - 17 413 2 " frequency="233753.9600"/>
+    <transition name="1916 4 0  - 1816 3 0 " frequency="233246.7850"/>
+    <transition name="1916 3 2  - 1816 2 2 " frequency="233256.0100"/>
+    <transition name="1916 4 1  - 1816 3 1 " frequency="233268.5900"/>
+    <transition name="1915 4 0  - 1815 3 0 " frequency="233310.1160"/>
+    <transition name="1915 5 0  - 1815 4 0 " frequency="233310.1160"/>
+    <transition name="1915 4 2  - 1815 3 2 " frequency="233315.7800"/>
+    <transition name="1915 5 1  - 1815 4 1 " frequency="233331.2100"/>
+    <transition name="1914 6 0  - 1814 5 0 " frequency="233394.6550"/>
+    <transition name="1914 6 1  - 1814 5 1 " frequency="233414.4300"/>
+    <transition name="1913 6 2  - 1813 5 2 " frequency="233504.9800"/>
+    <transition name="1913 7 1  - 1813 6 1 " frequency="233524.6300"/>
+    <transition name="1912 7 2  - 1812 6 2 " frequency="233649.8800"/>
+    <transition name="1912 7 0  - 1812 6 0 " frequency="233655.3420"/>
+    <transition name="1912 8 0  - 1812 7 0 " frequency="233655.3420"/>
+    <transition name="1912 8 1  - 1812 7 1 " frequency="233670.9800"/>
     <transition name="19 911 0  - 18 910 0 " frequency="234502.2407"/>
     <transition name="19 910 0  - 18 9 9 0 " frequency="234502.4315"/>
     <transition name="19 316 2  - 18 315 2 " frequency="240021.1400"/>
@@ -734,10 +750,13 @@ the end of the transition name - it makes the display nicer.
     <transition name="20 516 0  - 19 515 0 " frequency="249047.4280"/>
     <transition name="27 819 0  - 26 818 0 " frequency="338355.7920"/>
     <transition name="27 721 1  - 26 720 1 " frequency="338396.3180"/>
+    <transition name="1813 6 0  - 1812 7 0 " frequency="345281.3200"/>
     <transition name="28 623 1  - 27 622 1 " frequency="348049.8860"/>
     <transition name="28 623 0  - 27 622 0 " frequency="348065.9670"/>
     <transition name="28 920 1  - 27 919 1 " frequency="348909.4800"/>
     <transition name="28 920 0  - 27 919 0 " frequency="348915.0087"/>
+    <transition name="2921 9 0  - 2821 8 0 " frequency="356214.7660"/>
+    <transition name="2920 9 0  - 2820 8 0 " frequency="356297.1326"/>
   </species>
   <species name = "CH3OCHO">
     <transition name="21 220 3  - 21 121 3 " frequency="222028.8340"/>
