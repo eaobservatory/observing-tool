@@ -152,13 +152,13 @@ public class HeterodyneNoise
 			if( thisMap.size() > 1 )
 			{
 				// first make sure it is within range or short circuit now
-				Double nextTrxFrequency = ( Double )thisMap.firstKey() ;
+				Double nextTrxFrequency = thisMap.firstKey() ;
 				if( freq < nextTrxFrequency )
-					trx = nextTrxFrequency ;
+					trx = thisMap.get( nextTrxFrequency ) ;
 
-				Double lastTrxFrequency = ( Double )thisMap.lastKey() ;
+				Double lastTrxFrequency = thisMap.lastKey() ;
 				if( freq > lastTrxFrequency )
-					trx = lastTrxFrequency ;
+					trx = thisMap.get( lastTrxFrequency ) ;
 
 				if( trx == 0 )
 				{
@@ -173,7 +173,7 @@ public class HeterodyneNoise
 					{
 
 						lastTrxFrequency = nextTrxFrequency ;
-						nextTrxFrequency = ( Double )iter.next() ;
+						nextTrxFrequency = iter.next() ;
 						if( freq < nextTrxFrequency && freq >= lastTrxFrequency )
 							break ; // We have the info we need
 					}
