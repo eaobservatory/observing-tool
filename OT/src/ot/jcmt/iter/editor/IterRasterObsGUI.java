@@ -57,7 +57,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	
 	// heterodyne
 	public JPanel heterodynePanel = new JPanel() ;
-	public DropDownListBoxWidgetExt sampleTime = new DropDownListBoxWidgetExt() ;
 	public TextBoxWidgetExt acsisSampleTime = new TextBoxWidgetExt() ;
 	public CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt() ;
 	public TextBoxWidgetExt secsPerRow = new TextBoxWidgetExt() ;
@@ -176,7 +175,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		heterodynePanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Heterodyne Details" ) ) ;
 		heterodynePanel.setLayout( new GridBagLayout() ) ;
 		heterodynePanel.add( createLabel( "Sample Time" ) , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
-		heterodynePanel.add( sampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 5 ) , 0 , 0 ) ) ;
 		heterodynePanel.add( acsisSampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 5 ) , 0 , 0 ) ) ;
 		heterodynePanel.add( createLabel( "(sec)" ) , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBNONE , insetsR( 5 ) , 0 , 0 ) ) ;
 		defaultButton.setText( "Default" ) ;
