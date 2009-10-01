@@ -55,7 +55,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private static final String AUTOMATIC = "automatic" ;
 	private static final String USER_DEF = "user def" ;
 	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , USER_DEF } ;
-	private final String[] SAMPLE_TIME_CHOICES = { "4.0" , "5.0" , "6.0" , "7.0" } ;
 
 	// The following defines the maximum file size we are currently allowing for raster.
 	// Since this is for use with the thermometer, which only accepts integers, we will specify the maxium size in MBytes
@@ -108,7 +107,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	{
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES ) ;
 		_w.scanSystem.setChoices( SCAN_SYSTEMS ) ;
-		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES ) ;
 		_w.thermometer.setMaximum( _maxFileSize ) ;
 
 		_w.scanningStrategies.setChoices( SCAN_STRATEGIES ) ;
@@ -120,7 +118,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private void addWatchers()
 	{
 		_w.acsisSampleTime.addWatcher( this ) ;
-		_w.sampleTime.addWatcher( this ) ;
 		
 		_w.dx.addWatcher( this ) ;
 		_w.dy.addWatcher( this ) ;
@@ -146,7 +143,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private void deleteWatchers()
 	{
 		_w.acsisSampleTime.deleteWatcher( this ) ;
-		_w.sampleTime.deleteWatcher( this ) ;
 		
 		_w.dx.deleteWatcher( this ) ;
 		_w.dy.deleteWatcher( this ) ;
@@ -198,8 +194,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		_w.subAreaPanel.setVisible( true  ) ;
 
-		_w.sampleTime.setVisible( false ) ;
-		_w.sampleTime.setEnabled( false ) ;
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
 	}
@@ -240,9 +234,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.addHarpPanel() ;
 		
 		_w.subAreaPanel.setVisible( true  ) ;
-		
-		_w.sampleTime.setVisible( false ) ;
-		_w.sampleTime.setEnabled( false ) ;
+
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
 	}
@@ -264,8 +256,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.scanAngle.setEnabled( allowScan ) ;
 		_w.scanSystem.setEnabled( allowScan ) ;
 		
-		_w.sampleTime.setVisible( false ) ;
-		_w.sampleTime.setEnabled( false ) ;
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
 	}
@@ -363,11 +353,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( scuba2 )
 			updateScuba2Panel() ;
 		
-		// sample times
-		if( !_isAcsis )
-			_w.sampleTime.setValue( ( int )_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length ) ;
-		else
-			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() ) ;
+		_w.acsisSampleTime.setValue( _iterObs.getSampleTime() ) ;
 
 		updateTimes() ;
 		updateThermometer() ;
@@ -555,11 +541,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 				_iterObs.setScanSystem( _w.scanSystem.getStringValue() ) ;
 			}
-		}
-		else if( ddlbwe == _w.sampleTime )
-		{
-			_iterObs.setSampleTime( _w.sampleTime.getStringValue() ) ;
-			_w.noiseTextBox.setValue( calculateNoise() ) ;
 		}
 		else if( ddlbwe == _w.scanSystem )
 		{
