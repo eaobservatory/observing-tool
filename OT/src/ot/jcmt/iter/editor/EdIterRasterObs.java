@@ -69,7 +69,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private final static Color errColor = Color.red.darker() ;
 
 	// Global flag indicating whether we are using acsis
-	private boolean _isAcsis = true ;
 	private boolean harp = false ;
 	private boolean scuba2 = false ;
 	
@@ -629,7 +628,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		deleteWatchers() ;
 		if( spInstObsComp instanceof SpInstHeterodyne )
 		{
-			_isAcsis = true ;
 			scuba2 = false ;
 			SpInstHeterodyne heterodyne = ( SpInstHeterodyne )spInstObsComp ;
 			harp = heterodyne.getFrontEnd().equals( "HARP" ) ;
@@ -641,7 +639,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( spInstObsComp instanceof SpInstSCUBA2 )
 		{
-			_isAcsis = false ;
 			harp = false ;
 			scuba2 = true ;
 			scuba2Setup() ;
