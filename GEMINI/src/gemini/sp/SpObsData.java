@@ -96,14 +96,10 @@ public class SpObsData implements java.io.Serializable
 		_y = absoluteXY[ 1 ] ;
 		_coordSys = coordSys ;
 
-		if( _basePosObservers == null )
-			return ;
-
-		for( int i = 0 ; i < _basePosObservers.size() ; ++i )
+		if( _basePosObservers != null )
 		{
-			SpBasePosObserver bpo ;
-			bpo = _basePosObservers.elementAt( i ) ;
-			bpo.basePosUpdate( x , y , xoff , yoff , coordSys ) ;
+			for( SpBasePosObserver bpo : _basePosObservers )
+				bpo.basePosUpdate( x , y , xoff , yoff , coordSys ) ;
 		}
 	}
 
