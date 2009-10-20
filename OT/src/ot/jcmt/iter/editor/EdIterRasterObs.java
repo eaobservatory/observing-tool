@@ -54,7 +54,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private SpIterRasterObs _iterObs ;
 	private static final String AUTOMATIC = "automatic" ;
 	private static final String USER_DEF = "user def" ;
-	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , USER_DEF } ;
+	private static final String ALONG_HEIGHT = "Along Height" ;
+	private static final String ALONG_WIDTH = "Along Width" ;
+	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , ALONG_HEIGHT , ALONG_WIDTH , USER_DEF } ;
 
 	// The following defines the maximum file size we are currently allowing for raster.
 	// Since this is for use with the thermometer, which only accepts integers, we will specify the maxium size in MBytes
@@ -294,6 +296,16 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.scanAngle.setEditable( false ) ;
 			_w.scanAngle.setValue( AUTOMATIC ) ;
 		}
+		else if( _iterObs.getScanAngle( 0 ) == _iterObs.getPosAngle() + 90. )
+		{
+			_w.scanAngle.setEditable( false ) ;
+			_w.scanAngle.setValue( ALONG_WIDTH ) ;
+		}
+		else if( _iterObs.getScanAngle( 0 ) == 0. )
+		{
+			_w.scanAngle.setEditable( false ) ;
+			_w.scanAngle.setValue( ALONG_HEIGHT ) ;
+		}
 		else
 		{
 			String scanAngleString = "" ;
@@ -461,6 +473,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else if( tbwe == _w.posAngle )
 		{
 			_iterObs.setPosAngle( _w.posAngle.getValue() ) ;
+
+			Object value = _w.scanAngle.getValue() ;
+			if( value.equals( ALONG_WIDTH ) )
+			{
+				double pa = _iterObs.getPosAngle() + 90. ;
+				_iterObs.setScanAngle( pa , 0 ) ;
+			}
+
 			resetTPE() ;
 		}
 		else if( tbwe == _w.acsisSampleTime )
@@ -532,6 +552,19 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			{
 				_w.scanAngle.setEditable( false ) ;
 				_iterObs.setScanAngles( null ) ;
+			}
+			else if( value.equals( ALONG_HEIGHT ) )
+			{
+				_w.scanAngle.setEditable( false ) ;
+				_iterObs.setScanAngles( null ) ;
+				_iterObs.setScanAngle( 0. , 0 ) ;
+			}
+			else if( value.equals( ALONG_WIDTH ) )
+			{
+				_w.scanAngle.setEditable( false ) ;
+				_iterObs.setScanAngles( null ) ;
+				double pa = _iterObs.getPosAngle() + 90. ;
+				_iterObs.setScanAngle( pa , 0 ) ;
 			}
 			else if( value.equals( USER_DEF ) )
 			{
