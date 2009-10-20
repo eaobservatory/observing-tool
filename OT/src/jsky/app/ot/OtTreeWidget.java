@@ -1037,7 +1037,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	private boolean canAddEyeToSCUBA2( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
-		String[] eyes = { "jiggle" } ;
+		String[] eyes = { "jiggle" , "stare" } ;
 		Class[] tabooClass = new Class[]{ SpInstSCUBA2.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
