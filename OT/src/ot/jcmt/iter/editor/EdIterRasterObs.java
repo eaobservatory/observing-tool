@@ -301,7 +301,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.scanAngle.setEditable( false ) ;
 			_w.scanAngle.setValue( ALONG_WIDTH ) ;
 		}
-		else if( _iterObs.getScanAngle( 0 ) == 0. )
+		else if( _iterObs.getScanAngle( 0 ) == _iterObs.getPosAngle() )
 		{
 			_w.scanAngle.setEditable( false ) ;
 			_w.scanAngle.setValue( ALONG_HEIGHT ) ;
@@ -480,6 +480,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 				double pa = _iterObs.getPosAngle() + 90. ;
 				_iterObs.setScanAngle( pa , 0 ) ;
 			}
+			else if( value.equals( ALONG_HEIGHT ) )
+			{
+				double pa = _iterObs.getPosAngle() ;
+				_iterObs.setScanAngle( pa , 0 ) ;
+			}
 
 			resetTPE() ;
 		}
@@ -557,7 +562,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			{
 				_w.scanAngle.setEditable( false ) ;
 				_iterObs.setScanAngles( null ) ;
-				_iterObs.setScanAngle( 0. , 0 ) ;
+				double pa = _iterObs.getPosAngle() ;
+				_iterObs.setScanAngle( pa , 0 ) ;
 			}
 			else if( value.equals( ALONG_WIDTH ) )
 			{
