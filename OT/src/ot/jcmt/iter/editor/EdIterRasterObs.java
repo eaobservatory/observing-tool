@@ -296,7 +296,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.scanAngle.setEditable( false ) ;
 			_w.scanAngle.setValue( AUTOMATIC ) ;
 		}
-		else if( _iterObs.getScanAngle( 0 ) == _iterObs.getPosAngle() + 90. )
+		else if( _iterObs.getScanAngle( 0 ) == ( _iterObs.getPosAngle() + 90. ) % 180. )
 		{
 			_w.scanAngle.setEditable( false ) ;
 			_w.scanAngle.setValue( ALONG_WIDTH ) ;
