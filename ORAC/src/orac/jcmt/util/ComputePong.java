@@ -41,7 +41,7 @@ public class ComputePong
 		}
 		else
 		{
-			System.out.println( "Arguments are : height, width, spacing, velocity, type[CURVY|ROUNDED|SQUARE]" ) ;			
+			System.out.println( "Arguments are : height width spacing velocity type[CURVY|ROUNDED|SQUARE|STRAIGHT]" ) ;
 			System.exit( -1 ) ;
 		}
 
