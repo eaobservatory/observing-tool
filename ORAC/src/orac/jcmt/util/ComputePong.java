@@ -13,17 +13,49 @@ public class ComputePong
 	
 	public static void main( String[] args )
 	{
-		ComputePong computePong = new ComputePong() ;
-
 		String type = ComputePong.PongScan.CURVY ;
-		double height = 320 ;
-		double width = 400 ;
-		double spacing = 50 ;
-		double velocity = 100 ;
+		double height = 320. ;
+		double width = 400. ;
+		double spacing = 50. ;
+		double velocity = 100. ;
 
+		if( args.length == 1 && "-test".equals( args[ 0 ] ) )
+		{
+			System.out.println( "Testing." ) ;
+		}
+		else if( args.length == 5 )
+		{
+			try
+			{
+				height = new Double( args[ 0 ] ) ;
+				width = new Double( args[ 1 ] ) ;
+				spacing = new Double( args[ 2 ] ) ;
+				velocity = new Double( args[ 3 ] ) ;
+				type = args[ 4 ] ;
+			}
+			catch( Exception e )
+			{
+				System.out.println( "Error detected in arguments : " + e ) ;
+				System.exit( -1 ) ;
+			}
+		}
+		else
+		{
+			System.out.println( "Arguments are : height, width, spacing, velocity, type[CURVY|ROUNDED|SQUARE]" ) ;			
+			System.exit( -1 ) ;
+		}
+
+		System.out.println( "Parameters are :" ) ;
+		System.out.println( "Height : " + height ) ;
+		System.out.println( "Width : " + width ) ;
+		System.out.println( "Spacing : " + spacing ) ;
+		System.out.println( "Velocity : " + velocity ) ;
+		System.out.println( "Type : " + type ) ;
+
+		ComputePong computePong = new ComputePong() ;
 		double period = computePong.getPeriodForPong( height , width , spacing , velocity , type ) ;
 		
-		System.out.println( period ) ;
+		System.out.println( "Period : " + period ) ;
 	}
 
 	/**
@@ -518,11 +550,11 @@ public class ComputePong
 
 	public class PongScan
 	{
-		public static final String CURVY = "CURVY" ;
-		public static final String ROUNDED = "ROUNDED" ;
-		public static final String SQUARE = "SQUARE" ;
-		public static final String STRAIGHT = "STRAIGHT" ;
-		private final String[] types = { CURVY , ROUNDED , SQUARE , STRAIGHT } ;
+		public final static String CURVY = "CURVY" ;
+		public final static String ROUNDED = "ROUNDED" ;
+		public final static String SQUARE = "SQUARE" ;
+		public final static String STRAIGHT = "STRAIGHT" ;
+		public final String[] types = { CURVY , ROUNDED , SQUARE , STRAIGHT } ;
 		
 		private double height ;
 		private double width ;
