@@ -138,6 +138,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setPosAngle( double theta )
 	{
+		theta %= 180. ;
 		_avTable.set( ATTR_SCANAREA_PA , theta ) ;
 
 		if( _parent instanceof SpIterOffset )
@@ -173,6 +174,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 */
 	public void setScanAngle( double theta , int n )
 	{
+		theta %= 180. ;
 		_avTable.set( ATTR_SCANAREA_SCAN_PA , theta , n ) ;
 	}
 
