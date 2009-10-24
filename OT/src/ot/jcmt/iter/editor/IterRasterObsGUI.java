@@ -76,7 +76,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	
 	// scuba2
 	private JPanel scuba2Panel = new JPanel() ;
-	public DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt() ;
 	public JPanel mapCyclesPanel = new JPanel() ;
 	public TextBoxWidgetExt numberOfMapCycles = new TextBoxWidgetExt() ;
 	public JPanel pointSourcePanel = new JPanel() ;
@@ -84,6 +83,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	private JPanel scanSpeedPanel = new JPanel() ;
 	public TextBoxWidgetExt scanSpeed = new TextBoxWidgetExt() ;
 	
+	// harp and scuba2
+	private JLabel scanStrategyLabel = createLabel( "Scan Strategy" ) ;
+	public DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt() ;
+
 	// misc
 	public JThermometer thermometer = new JThermometer() ; // ?
 	public CheckBoxWidgetExt rowReversal = new CheckBoxWidgetExt() ; // ?
@@ -209,8 +212,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		// scuba2
 		scuba2Panel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "SCUBA-2 Details" ) ) ;
 		scuba2Panel.setLayout( new GridLayout( 10 , 1 ) ) ;
-		scuba2Panel.add( GuiUtil.createLabel( "Scan Strategy" ) ) ;
-		scuba2Panel.add( scanningStrategies ) ;
 		
 		mapCyclesPanel.setLayout( new GridLayout( 1 , 2 ) ) ;
 		mapCyclesPanel.add( GuiUtil.createLabel( "Times round map" ) ) ;
@@ -248,6 +249,12 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	{
 		areaPanel.remove( nonHarpPanel ) ;
 		areaPanel.add( harpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0. , 0. , GBCENTER , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+
+		heterodynePanel.add( scanStrategyLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( scanningStrategies , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		scanStrategyLabel.setVisible( true ) ;
+		scanningStrategies.setVisible( true ) ;
+
 		harped = true ;
 	}
 
@@ -255,6 +262,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	{
 		areaPanel.remove( harpPanel ) ;
 		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0. , 0. , GBCENTER , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+
+		//scanStrategyLabel.setVisible( false ) ;
+		//scanningStrategies.setVisible( false ) ;
+
 		harped = false ;
 	}
 
@@ -268,6 +279,12 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public void addScuba2Panel()
 	{
 		rasterPanel.remove( heterodynePanel ) ;
+
+		scuba2Panel.add( scanStrategyLabel ) ;
+		scuba2Panel.add( scanningStrategies ) ;
+		scanStrategyLabel.setVisible( true ) ;
+		scanningStrategies.setVisible( true ) ;
+
 		rasterPanel.add( scuba2Panel ) ;
 		scuba2d = true ;
 	}
@@ -275,6 +292,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public void addNonScuba2Panel()
 	{
 		rasterPanel.remove( scuba2Panel ) ;
+
 		rasterPanel.add( heterodynePanel ) ;
 		scuba2d = false ;
 	}

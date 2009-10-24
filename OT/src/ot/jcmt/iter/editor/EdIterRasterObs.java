@@ -78,6 +78,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private static final double[] HARP_RASTER_STEPS = { 1. , .5 , .25 , .125 , 0.0625 , 0.75 } ;
 	private static double[] HARP_RASTER_VALUES = new double[ HARP_RASTER_STEPS.length ] ;
 	
+	private String[] SCAN_STRATEGIES = new String[ 0 ] ;
+
 	static
 	{
 		for( int index = 0 ; index < HARP_RASTER_STEPS.length ; index++ )
@@ -197,6 +199,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
+
+		_w.scanningStrategies.setChoices( SCAN_STRATEGIES_ACSIS ) ;
 	}
 
 	private void _harpSetup()
@@ -238,6 +242,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
+
+		_w.scanningStrategies.setChoices( SCAN_STRATEGIES_HARP ) ;
 	}
 
 	private void scuba2Setup()
@@ -261,6 +267,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		_w.acsisSampleTime.setVisible( true ) ;
 		_w.acsisSampleTime.setEnabled( true ) ;
+
+		_w.scanningStrategies.setChoices( SCAN_STRATEGIES_SCUBA2 ) ;
 	}
 	
 	private void resetScanPanel()
@@ -323,6 +331,22 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	
 	private void updateScuba2Panel()
 	{
+		_w.dy.setEnabled( false ) ;
+	}
+
+	protected void _updateWidgets()
+	{
+		deleteWatchers() ;
+		// super
+		super._updateWidgets() ;
+		_w.switchingMode.setValue( _iterObs.getSwitchingMode() ) ;
+		_w.rowReversal.setValue( _iterObs.getRowReversal() ) ;
+
+		updateAreaPanel() ;
+		updateScanPanel() ;
+		if( scuba2 )
+			updateScuba2Panel() ;
+
 		String strategy = _iterObs.getScanStrategy() ;
 		
 		_w.scanningStrategies.setValue( strategy ) ;
@@ -345,25 +369,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		_w.mapCyclesPanel.setVisible( !pointSource ) ;
 		_w.pointSourcePanel.setVisible( pointSource ) ;
-
-		_w.dy.setEnabled( false ) ;
+		
+		_w.dx.setEnabled( !pointSource ) ;
 		_w.height.setEnabled( !pointSource ) ;
 		_w.width.setEnabled( !pointSource ) ;
 		_w.posAngle.setEnabled( !pointSource ) ;
-	}
-	
-	protected void _updateWidgets()
-	{
-		deleteWatchers() ;
-		// super
-		super._updateWidgets() ;
-		_w.switchingMode.setValue( _iterObs.getSwitchingMode() ) ;
-		_w.rowReversal.setValue( _iterObs.getRowReversal() ) ;
-		
-		updateAreaPanel() ;
-		updateScanPanel() ;
-		if( scuba2 )
-			updateScuba2Panel() ;
 		
 		_w.acsisSampleTime.setValue( _iterObs.getSampleTime() ) ;
 
@@ -594,7 +604,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else if( ddlbwe == _w.scanningStrategies )
 		{
-			String value = SCAN_STRATEGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
+			String value = ( String )_w.scanningStrategies.getSelectedItem() ;
 			
 			_iterObs.setScanStrategy( value ) ;
 			

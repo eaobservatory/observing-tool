@@ -108,11 +108,26 @@ public interface SpJCMTConstants
 	public static final String SCAN_PATTERN_PONG = "Pong" ;
 	public static final String SCAN_PATTERN_LISSAJOUS = "Lissajous" ;
 	public static final String SCAN_PATTERN_POINT = "Point Source" ;
-	public static final String[] SCAN_STRATEGIES = 
-	{ 
+	public static final String[] SCAN_STRATEGIES_SCUBA2 =
+	{
 		SCAN_PATTERN_PONG ,
-		SCAN_PATTERN_POINT 
+		SCAN_PATTERN_LISSAJOUS ,
+		SCAN_PATTERN_BOUS ,
+		SCAN_PATTERN_POINT
 	} ;
+
+	public static final String[] SCAN_STRATEGIES_HARP =
+	{
+		SCAN_PATTERN_BOUS ,
+		SCAN_PATTERN_POINT
+	} ;
+
+	public static final String[] SCAN_STRATEGIES_ACSIS =
+	{
+		SCAN_PATTERN_BOUS
+	} ;
+	public static final String[] SCAN_STRATEGIES = SCAN_STRATEGIES_ACSIS ;
+
 	public static final String ATTR_SCAN_INTEGRATIONS = "integrations" ;
 
 	/**
