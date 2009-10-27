@@ -134,7 +134,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	}
 
 	/**
-	 * Set area postition angle (map postition angle).
+	 * Set area position angle (map position angle).
 	 */
 	public void setPosAngle( double theta )
 	{
