@@ -35,7 +35,7 @@ import java.math.BigDecimal ;
 /**
  * Raster Iterator for ACSIS/JCMT.
  *
- * The Raster iterator (ACSIS) and the Scan iterator share a lot of fuctionality
+ * The Raster iterator (ACSIS) and the Scan iterator share a lot of functionality
  * and should in future be either made the same class or share code by other
  * means such as inheritance.
  *
@@ -830,7 +830,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 ) ;
 
-		String strategy = SCAN_STRATEGIES[ 0 ] ;
+		String strategy = SCAN_STRATEGIES_SCUBA2[ 0 ] ;
 		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
 		

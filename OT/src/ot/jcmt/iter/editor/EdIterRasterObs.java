@@ -59,7 +59,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , ALONG_HEIGHT , ALONG_WIDTH , USER_DEF } ;
 
 	// The following defines the maximum file size we are currently allowing for raster.
-	// Since this is for use with the thermometer, which only accepts integers, we will specify the maxium size in MBytes
+	// Since this is for use with the thermometer, which only accepts integers, we will specify the maximum size in MBytes
 	private int _maxFileSize = 2048 ;
 
 	// Some default values for the non-editable text fields
@@ -77,8 +77,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private final static String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" } ;
 	private static final double[] HARP_RASTER_STEPS = { 1. , .5 , .25 , .125 , 0.0625 , 0.75 } ;
 	private static double[] HARP_RASTER_VALUES = new double[ HARP_RASTER_STEPS.length ] ;
-	
-	private String[] SCAN_STRATEGIES = new String[ 0 ] ;
 
 	static
 	{
@@ -111,8 +109,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES ) ;
 		_w.scanSystem.setChoices( SCAN_SYSTEMS ) ;
 		_w.thermometer.setMaximum( _maxFileSize ) ;
-
-		_w.scanningStrategies.setChoices( SCAN_STRATEGIES ) ;
 		
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
 			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + CoordConvert.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" ) ;
