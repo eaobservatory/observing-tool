@@ -234,8 +234,15 @@ public interface SpJCMTConstants
 	 *
 	 * Noise sources: REFLECTOR, SKY, ZENITH, ECCOSORB.
 	 */
-	public static final String[] HETERODYNE_NOISE_SOURCES = { "REFLECTOR" , "SKY" , "ZENITH" , "ECCOSORB" } ;
-	public static final String[] SCUBA2_NOISE_SOURCES = { "DARK" , "SKY" , "ZENITH" , "BLACKBODY" } ;
+	public static final String DARK = "DARK" ;
+	public static final String SKY = "SKY" ;
+	public static final String ZENITH = "ZENITH" ;
+	public static final String BLACKBODY = "BLACKBODY" ;
+	public static final String ECCOSORB = "ECCOSORB" ;
+	public static final String REFLECTOR = "REFLECTOR" ;
+
+	public static final String[] HETERODYNE_NOISE_SOURCES = { REFLECTOR , SKY , ZENITH , ECCOSORB } ;
+	public static final String[] SCUBA2_NOISE_SOURCES = { DARK , SKY , ZENITH , BLACKBODY } ;
 	public static final String ATTR_UNITS = "units" ;
 
 	/**
@@ -246,7 +253,7 @@ public interface SpJCMTConstants
 	/**
 	 * Flat sources
 	 */
-	public static final String[] SCUBA2_FLAT_SOURCES = { "DARK" , "BLACKBODY" } ;
+	public static final String[] SCUBA2_FLAT_SOURCES = { DARK , BLACKBODY } ;
 	
 	/**
 	 * Constant value.
