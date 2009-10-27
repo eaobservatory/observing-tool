@@ -1,108 +1,136 @@
 package orac.jcmt.util ;
 
 import orac.jcmt.iter.* ;
+import orac.jcmt.SpJCMTConstants ;
 
-public class Scuba2Time
+public class Scuba2Time implements SpJCMTConstants
 {
-/*
-	public Scuba2Time( SpIterJCMTObs obs )
+	double josStepTime = 0.005 ; // 200Hz // 0.01
+	double stepsBetweenDarks = 18000 ;
+
+	public Scuba2Time( SpIterJCMTObs obs ){}
+
+	public int totalIntegrationTime( SpIterJCMTObs obs )
 	{
-		double josStepTime = 0.005 ; // 200Hz
-		int numberOfDarks = 0 ;
-		int numberOfSequences = 0 ;
-		double timePerSequence = 0 ;
-		
-		int stepsBetweenDarks = 0 ;
-		
+		int integrationTime = 0 ;
+
 		if( obs instanceof SpIterRasterObs )
-			stepsBetweenDarks = 5 * 60 ;
-		else if( obs instanceof SpIterStareObs || obs instanceof SpIterDREAMObs )
-			stepsBetweenDarks = 10 ;
-
-		if( obs instanceof SpIterSkydipObs )
-		{		
-			if( obs instanceof SpIterRasterObs )
-			{
-				SpIterRasterObs raster = ( SpIterRasterObs )obs ;
-				numberOfSequences = 1 ;
-				numberOfDarks = 1 ;
-				double El = getElevation() ; // El - telecsope El
-				double Vel = raster.getScanVelocity() / 3600 ; // skydip velocity in Tim's code
-				timePerSequence = El / Vel ;
-				timePerSequence /= josStepTime ;
-			}
-			else if( obs instanceof SpIterStareObs )
-			{
-				timePerSequence = JOS.min() ;
-				numberOfSequences = ? ; // number of elements in skydip array
-				numberOfDarks = numberOfSequences ;
-			}
-		}
-		else if( obs instanceof SpIterNoiseObs )
-		{
-		}
-		else if( obs instanceof SpIterStareObs || obs instanceof SpIterDREAMObs )
-		{
-			int numberOfOffsets = numberOfOffsets == 0 ? numberOfOffsets : 1 ;
-			int numberOfMUSteps = numberOfMUSteps == 0 ? numberOfMUSteps : 1 ;
-			numberOfSequences = numberOfOffsets * numberOfOffsets * JOS.numberOfCycles() ;
-			int numberOfSequencesPerDark = Math.max( 1 , ( int )Math.floor( stepsBetweenDarks / timePerSequence ) ) ;
-			numberOfDarks = ( int )Math.ceil( numberOfSequences / numberOfSequencesPerDark ) ;
-		}
-		else if( obs instanceof SpIterRasterObs )
-		{
-			SpIterRasterObs raster = ( SpIterRasterObs )obs ;
-			String pattern = raster.getScanStrategy() ;
-			double stepsPerMap = 0. ;
-			if( JOS.min() > 1 )
-			{
-				stepsPerMap = JOS.min() ;
-			}
-			else if( SpIterJCMTObs.SCAN_PATTERN_BOUS.equals( pattern ) )
-			{
-				double radius = 240. ; /// radius in arcseconds // instrument.radius() ;
-				double minWidth = raster.numberOfSamplesPerColumn() ;
-				double maxWidth = raster.numberOfSamplesPerRow() ;
-				maxWidth += ( 2. * radius + 60. ) ;
-				double mapArea = minWidth * maxWidth ;
-				double sampleArea = raster.getScanDy() * ( raster.getScanVelocity() * josStepTime ) ;
-				stepsPerMap = mapArea / sampleArea ;
-			}
-			else if( SpIterJCMTObs.SCAN_PATTERN_LISSAJOUS.equals( pattern ) || SpIterJCMTObs.SCAN_PATTERN_PONG.equals( pattern ) )
-			{
-				ComputePong computePong = new ComputePong() ;
-				double height = raster.getHeight() ;
-				double width = raster.getWidth() ;
-				double dx = raster.getScanDx() ;
-				double velocity = raster.getScanVelocity() ;
-				String type = ComputePong.PongScan.CURVY ;
-				double timePerMap = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
-				stepsPerMap = timePerMap / josStepTime ;
-			}
-
-			String tmp = raster.getIntegrations() ;
-			int mapCycles = new Integer( tmp ) ;
-			int numberOfMaps = mapCycles ; // .numberOfCycles() ;
-			int numberOfMapsPerDark = Math.max( 1 , ( int )Math.floor( stepsBetweenDarks / stepsPerMap ) ) ;
-			numberOfDarks = ( int )Math.ceil( numberOfMaps / numberOfMapsPerDark ) ;
-			numberOfSequences = numberOfDarks ;
-			timePerSequence = numberOfMaps * stepsPerMap / numberOfSequences ;
-		}
+			integrationTime = scan( ( SpIterRasterObs )obs ) ;
+		else if( obs instanceof SpIterPointingObs )
+			integrationTime = pointing( ( SpIterPointingObs )obs ) ;
 		else if( obs instanceof SpIterFocusObs )
+			integrationTime = focus( ( SpIterFocusObs )obs ) ;
+		else if( obs instanceof SpIterFlatObs )
+			integrationTime = flat( ( SpIterFlatObs )obs ) ;
+		else if( obs instanceof SpIterNoiseObs )
+			integrationTime = noise( ( SpIterNoiseObs )obs ) ;
+		else if( obs instanceof SpIterSkydipObs )
+			integrationTime = skydip( ( SpIterSkydipObs )obs ) ;
+		else if( obs instanceof SpIterStareObs )
+			integrationTime = stare( ( SpIterStareObs )obs ) ;
+		else if( obs instanceof SpIterDREAMObs )
+			integrationTime = dream( ( SpIterDREAMObs )obs ) ;
+
+		return integrationTime ;
+	}
+
+	private int scan( SpIterRasterObs raster )
+	{
+		int integrationTime = 0 ;
+		double durationPerArea ;
+		
+		double height = raster.getHeight() ;
+		double width = raster.getWidth() ;
+		double dx = raster.getScanDx() ;
+		double dy = raster.getScanDy() ;
+		double velocity = raster.getScanVelocity() ;
+		
+		String pattern = raster.getScanStrategy() ;
+		if( SCAN_PATTERN_LISSAJOUS.equals( pattern ) || SCAN_PATTERN_PONG.equals( pattern ) )
 		{
-			numberOfSequences = ( int )(( SpIterFocusObs )obs).getSteps() ;
+			ComputePong computePong = new ComputePong() ;
+			String type = ComputePong.PongScan.CURVY ;
+			durationPerArea = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
+		}
+		else if( SCAN_PATTERN_BOUS.equals( pattern ) )
+		{
+			double pixArea = dy * velocity ;
+			double mapArea = width * height ;
+			durationPerArea = ( mapArea / pixArea ) * josStepTime ;
+		}
+		else
+		{
+			throw new RuntimeException( "Unrecognised scan pattern : " + pattern ) ;
 		}
 
-		System.out.println( "NDARKS = " + numberOfDarks ) ;
-		System.out.println( "NSEQ = " + numberOfSequences ) ;
-		System.out.println( "TIME/SEQ = " + ( josStepTime * timePerSequence ) ) ;
+		System.out.println( "Estimated time to cover the map area once: " + durationPerArea + " sec" ) ;
 
-		double startupOverhead = 20. ;
-		double startupOverheadPerSequence = 2. ;
-		double darkLength = JOS.numberOfCalSamples() * josStepTime ;
-		timePerSequence *= josStepTime ;
+		double nSteps ;
+		double sampleTime = raster.getSampleTime() ;
+		if( sampleTime != 0 )
+		{
+			nSteps = sampleTime / josStepTime ;
+			System.out.println( "Scan map executing for a specific time. Not map coverage" ) ;
+			System.out.println( "Total duration requested for scan map: " + sampleTime + " secs." ) ;
+		}
+		else
+		{
+			int nRepeats = new Integer( raster.getIntegrations() ) ;
+			System.out.println( "Number of repeats of map area requested: " + nRepeats ) ;
+			nSteps = ( nRepeats * durationPerArea ) / josStepTime ;
+		}
 
-		double duration = startupOverhead + ( ( numberOfDarks + numberOfSequences ) * startupOverheadPerSequence ) + ( timePerSequence * numberOfSequences ) + ( numberOfDarks * darkLength ) ;
+		double stepsPerPass = durationPerArea / josStepTime ;
+		stepsBetweenDarks = Math.max( stepsBetweenDarks , stepsPerPass ) ;
+
+		double nCycles = Math.ceil( nSteps / stepsBetweenDarks ) ;
+		double josMin = Math.rint( nSteps / nCycles ) ;
+
+		double totalTime = nCycles * josMin * josStepTime ;
+
+		System.out.println( "Number of steps in scan map sequence: " + josMin ) ;
+		System.out.println( "Number of repeats: " + nCycles ) ;
+		System.out.println( "Time spent mapping: " + totalTime + "sec" ) ;		
+
+		return integrationTime ;
 	}
-*/
+
+	private int pointing( SpIterPointingObs pointing )
+	{
+		return 60 ;
+	}
+
+	private int focus( SpIterFocusObs focus )
+	{
+		return focus.getFocusPoints() * 60 ;
+	}
+
+	private int flat( SpIterFlatObs flat )
+	{
+		return 5 * 60 ;
+	}
+
+	private int noise( SpIterNoiseObs noise )
+	{
+		/*
+		 *  complete guess as scuba2_index only says
+		 *  when it was performed not how long it took.
+		 */
+		return 3 * 60 ;
+	}
+
+	private int skydip( SpIterSkydipObs skydip )
+	{
+		return -1 ;
+	}
+
+	private int stare( SpIterStareObs stare )
+	{
+		return -1 ;
+	}
+
+	private int dream( SpIterDREAMObs dream )
+	{
+		return -1 ;
+	}
 }
