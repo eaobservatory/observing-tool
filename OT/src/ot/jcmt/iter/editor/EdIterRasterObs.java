@@ -225,9 +225,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		_w.dx.setEnabled( false ) ;
 		_w.dy.setEnabled( false ) ;
-		_w.height.setEnabled( true ) ;
-		_w.width.setEnabled( true ) ;
-		_w.posAngle.setEnabled( true ) ;
+
 		_w.scanAngle.setEnabled( true ) ;
 		_w.scanSystem.setEnabled( true ) ;
 		
@@ -244,13 +242,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	private void scuba2Setup()
 	{
+		_w.addNonHarpPanel() ;
+		_w.nonHarpPanel.setVisible( false ) ;
+
 		_w.addScuba2Panel() ;
 
 		_w.subAreaPanel.setVisible( false ) ;
 
-		_w.addNonHarpPanel() ;
-		_w.nonHarpPanel.setVisible( false ) ;
-		
 		boolean allowScan = SCAN_PATTERN_BOUS.equals( _iterObs.getScanStrategy() ) ;
 		
 		if( !allowScan )
@@ -369,6 +367,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.width.setEnabled( !pointSource ) ;
 		_w.posAngle.setEnabled( !pointSource ) ;
 		
+		_w.harpRasters.setEnabled( !pointSource ) ;
+
 		_w.acsisSampleTime.setValue( _iterObs.getSampleTime() ) ;
 
 		updateTimes() ;
@@ -615,6 +615,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			// Should be SCUBA-2 anyway, but better safe ...
 			if( scuba2 )
 				updateScuba2Panel() ;
+
+			_updateWidgets() ;
 		}
 		else
 		{
