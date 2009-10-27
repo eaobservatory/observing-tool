@@ -263,8 +263,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.remove( harpPanel ) ;
 		areaPanel.add( nonHarpPanel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0. , 0. , GBCENTER , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 
-		//scanStrategyLabel.setVisible( false ) ;
-		//scanningStrategies.setVisible( false ) ;
+		scanStrategyLabel.setVisible( false ) ;
+		scanningStrategies.setVisible( false ) ;
 
 		harped = false ;
 	}
