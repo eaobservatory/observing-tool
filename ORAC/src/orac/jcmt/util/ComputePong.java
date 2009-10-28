@@ -10,6 +10,8 @@ package orac.jcmt.util ;
 public class ComputePong
 {
 	private static final double sqrt2 = Math.sqrt( 2. ) ;
+	private static final int MOST = 0 ;
+	private static final int LEAST = 1 ;
 	
 	public static void main( String[] args )
 	{
@@ -70,7 +72,7 @@ public class ComputePong
 	
 		// Find out how far apart the vertices are along the axes
 		double vertSpacing = ( 2. * pongScan.spacing() ) / sqrt2 ;
-	
+
 		/*
 		* Determine how many vertices (minimum) there must be
 		* along each axis to cover the required area
@@ -82,8 +84,10 @@ public class ComputePong
 		* Determine which is lower and check to make sure that 
 		* one is even while the other is odd
 		*/
-		setMostLeast( most , least , xNumVert , yNumVert ) ;
-	
+		int[] result = setMostLeast( xNumVert , yNumVert ) ;
+		most = result[ MOST ] ;
+		least = result[ LEAST ] ;
+
 		/*
 		* If both are odd or both are even,
 		* increment the lesser of the two, and update which is least
@@ -91,7 +95,9 @@ public class ComputePong
 		if( ( xNumVert & 1 ) == ( yNumVert & 1 ) )
 		{
 			least++ ;
-			setMostLeast( most , least , xNumVert , yNumVert ) ;
+			result = setMostLeast( xNumVert , yNumVert ) ;
+			most = result[ MOST ] ;
+			least = result[ LEAST ] ;
 		}
 
 		/*
@@ -595,15 +601,16 @@ public class ComputePong
 		public void setPathData( PongSegment[] value ){ pathData = value ; }
 	}
 	
-	public void setMostLeast( int most , int least , int a , int b )
+	public int[] setMostLeast( int a , int b )
 	{
-		most = b ;
-		least = a ;
+		int most = b ;
+		int least = a ;
 		if( a >= b )
 		{
 			most = a ;
 			least = b ;
 		}
+		return new int[]{ most , least } ;
 	}
 	
 	// P R I V A T E   C L A S S E S
