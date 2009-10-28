@@ -124,10 +124,10 @@ public class ComputePong
 		* If both are odd or both are even,
 		* increment the lesser of the two, and update which is least
 		*/
-		if( ( xNumVert & 1 ) == ( yNumVert & 1 ) )
+		if( ( xNumVert % 2 ) == ( yNumVert % 2 ) )
 		{
 			least++ ;
-			result = setMostLeast( xNumVert , yNumVert ) ;
+			result = setMostLeast( most , least ) ;
 			most = result[ MOST ] ;
 			least = result[ LEAST ] ;
 		}
@@ -152,6 +152,9 @@ public class ComputePong
 		 * and y_numvert, of which one is even and one is odd, and which
 		 * share no common factors.
 		 */
+
+		xNumVert = most ;
+		yNumVert = least ;
 
 		/*
 		 * The entire pattern is defined on a grid with points spaced half
@@ -232,12 +235,12 @@ public class ComputePong
 			 * If it is odd, the offset is in the negative direction
 			 * from the end of the lookup table
 			 */
-			if( ( xRefl & 1 ) == 0 )
+			if( ( xRefl % 2 ) == 0 )
 				xVertex[ i ] = xGrid[ xOff ] ; // even reflections
 			else
 				xVertex[ i ] = xGrid[ xNGridSeg - xOff ] ; // odd reflections
 
-			if( ( yRefl & 1 ) == 0 )
+			if( ( yRefl % 2 ) == 0 )
 				yVertex[ i ] = yGrid[ yOff ] ; // even reflections
 			else
 				yVertex[ i ] = yGrid[ yNGridSeg - yOff ] ; // odd reflections
