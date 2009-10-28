@@ -347,6 +347,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		String strategy = _iterObs.getScanStrategy() ;
 		
+		if( strategy == null || "".equals( strategy ) )
+		{
+			strategy = SCAN_PATTERN_BOUS ;
+			_iterObs.setScanStrategy( strategy ) ;
+		}
+
 		_w.scanningStrategies.setValue( strategy ) ;
 		
 		boolean pointSource = SCAN_PATTERN_POINT.equals( strategy ) ;
