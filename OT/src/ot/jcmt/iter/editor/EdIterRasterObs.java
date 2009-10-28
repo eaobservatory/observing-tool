@@ -368,9 +368,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.scanAngle.setEnabled( allowScan ) ;
 		_w.scanSystem.setEnabled( allowScan ) ;
 		
-		if( !allowScan )
-			resetScanPanel() ;
-		
 		_w.mapCyclesPanel.setVisible( !pointSource ) ;
 		_w.pointSourcePanel.setVisible( pointSource ) ;
 		
