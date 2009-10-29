@@ -356,7 +356,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.scanningStrategies.setValue( strategy ) ;
 		
 		boolean pointSource = SCAN_PATTERN_POINT.equals( strategy ) ;
-		boolean allowScan = SCAN_PATTERN_BOUS.equals( strategy ) ;
 		
 		if( pointSource )
 			_w.pointSourceTime.setValue( _iterObs.getSampleTime() ) ;
@@ -364,9 +363,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.numberOfMapCycles.setValue( _iterObs.getIntegrations() ) ;
 		
 		_w.scanSpeed.setValue( _iterObs.getScanVelocity() ) ;
-		
-		_w.scanAngle.setEnabled( allowScan ) ;
-		_w.scanSystem.setEnabled( allowScan ) ;
 		
 		_w.mapCyclesPanel.setVisible( !pointSource ) ;
 		_w.pointSourcePanel.setVisible( pointSource ) ;
