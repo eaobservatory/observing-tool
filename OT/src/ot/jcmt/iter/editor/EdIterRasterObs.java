@@ -349,7 +349,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		if( strategy == null || "".equals( strategy ) )
 		{
-			strategy = SCAN_PATTERN_BOUS ;
+			if( scuba2 )
+				strategy = SCAN_PATTERN_PONG ;
+			else
+				strategy = SCAN_PATTERN_BOUS ;
 			_iterObs.setScanStrategy( strategy ) ;
 		}
 
