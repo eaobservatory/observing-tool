@@ -12,7 +12,6 @@ package orac.ukirt.iter ;
 
 import java.util.Vector ;
 import java.util.Hashtable ;
-import java.util.logging.Logger ;
 import java.io.IOException ;
 
 import orac.ukirt.inst.SpDRRecipe ;
@@ -77,8 +76,6 @@ class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
  */
 public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatable
 {
-	private Logger logger = Logger.getLogger( SpIterWFCAMCalObs.class.getName() ) ;
-
 	/** Identifier for a SKYFLAT calibration. */
 	public static final int SKYFLAT = 0 ;
 	public static final String SKYFLAT_STRING = "skyFlat" ;
