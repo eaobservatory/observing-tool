@@ -278,6 +278,10 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			v.add( "setHeader GRPMEM " + ( recipe.getBiasInGroup() ? "T" : "F" ) ) ;
 			v.add( "setHeader RECIPE " + recipe.getBiasRecipeName() ) ;
 		}
+		else
+		{
+			logger.severe( "No DRRecipe Component found" ) ;
+		}
 
 		try
 		{

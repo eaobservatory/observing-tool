@@ -121,6 +121,10 @@ public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 			v.add( "setHeader GRPMEM " + ( recipe.getObjectInGroup() ? "T" : "F" ) ) ;
 			v.add( "setHeader RECIPE " + recipe.getObjectRecipeName() ) ;
 		}
+		else
+		{
+			logger.severe( "No DRRecipe Component found" ) ;
+		}
 
 		// If we are not inside an offset, we need to tell the system there is an offset here
 		parent = parent() ;

@@ -217,6 +217,10 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 			v.add( "setHeader GRPMEM " + ( recipe.getSkyInGroup() ? "T" : "F" ) ) ;
 			v.add( "setHeader RECIPE " + recipe.getSkyRecipeName() ) ;
 		}
+		else
+		{
+			logger.severe( "No DRRecipe Component found" ) ;
+		}
 
 		if( !"SKY".equals( getSky() ) )
 		{

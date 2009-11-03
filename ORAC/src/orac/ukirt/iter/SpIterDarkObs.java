@@ -201,7 +201,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		}
 		else
 		{
-			System.out.println( "No DRRecipe Component found" ) ;
+			logger.severe( "No DRRecipe Component found" ) ;
 		}
 
 		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
