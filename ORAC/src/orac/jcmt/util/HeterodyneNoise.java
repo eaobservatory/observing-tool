@@ -184,7 +184,7 @@ public class HeterodyneNoise
 						Double lastTrxValue = thisMap.get( lastTrxFrequency ) ;
 						Double nextTrxValue = thisMap.get( nextTrxFrequency ) ;
 						// Now interpolate...
-						trx = linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq ) ;
+						trx = MathUtil.linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq ) ;
 					}
 					catch( NullPointerException npe )
 					{
@@ -243,7 +243,7 @@ public class HeterodyneNoise
 
 		double tranmission0 = getTransmission( tauFile0 , freq ) ;
 		double tranmission1 = getTransmission( tauFile1 , freq ) ;
-		double t = linterp( current , tranmission0 , next , tranmission1 , tau ) ;
+		double t = MathUtil.linterp( current , tranmission0 , next , tranmission1 , tau ) ;
 
 		if( ( index = feNames.indexOf( fe ) ) != -1 )
 			nuTel = nu_tel.elementAt( index ) ;
@@ -367,7 +367,7 @@ public class HeterodyneNoise
 			}
 
 			// Once we get here, we should be able to interpolate
-			rtn = linterp( freq1 , tran1 , freq2 , tran2 , freq ) ;
+			rtn = MathUtil.linterp( freq1 , tran1 , freq2 , tran2 , freq ) ;
 			rdr.close() ;
 			is.close() ;
 		}
@@ -393,13 +393,6 @@ public class HeterodyneNoise
 
 		return rtn ;
 
-	}
-
-	public static double linterp( double x1 , double y1 , double x2 , double y2 , double x )
-	{
-		double slope = ( y2 - y1 ) / ( x2 - x1 ) ;
-		double value = slope * x + y1 - slope * x1 ;
-		return value ;
 	}
 
 	private static double getNoise( SpIterJCMTObs obs , SpInstHeterodyne inst , double tSys )

@@ -52,4 +52,20 @@ public class MathUtil
 	{
 		return doubleToString( d , 10 ) ;
 	}
+
+	/**
+	 * Linear interpolation
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param x
+	 * @return
+	 */
+	public static double linterp( double x1 , double y1 , double x2 , double y2 , double x )
+	{
+		double slope = ( y2 - y1 ) / ( x2 - x1 ) ;
+		double value = slope * x + y1 - slope * x1 ;
+		return value ;
+	}
 }
