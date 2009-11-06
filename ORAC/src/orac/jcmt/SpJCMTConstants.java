@@ -113,8 +113,6 @@ public interface SpJCMTConstants
 	public static final String[] SCAN_STRATEGIES = 
 	{ 
 		SCAN_PATTERN_PONG ,
-		SCAN_PATTERN_LISSAJOUS ,
-		SCAN_PATTERN_BOUS ,
 		SCAN_PATTERN_POINT 
 	} ;
 	public static final String ATTR_SCAN_INTEGRATIONS = "integrations" ;
