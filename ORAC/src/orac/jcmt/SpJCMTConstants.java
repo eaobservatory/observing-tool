@@ -253,7 +253,7 @@ public interface SpJCMTConstants
 	/**
 	 * Flat sources
 	 */
-	public static final String[] SCUBA2_FLAT_SOURCES = { DARK , BLACKBODY } ;
+	public static final String[] SCUBA2_FLAT_SOURCES = { DARK , SKY , ZENITH , BLACKBODY } ;
 	
 	/**
 	 * Constant value.
