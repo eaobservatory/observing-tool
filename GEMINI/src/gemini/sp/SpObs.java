@@ -852,9 +852,9 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 
 		if( found == 0 )
-			logger.warning( "No recipes found." ) ;
+			logger.severe( "No recipes found." ) ;
 		else if( removed >= found )
-			logger.severe( "Removed " + removed + " of " + found + " recipes." ) ;
+			logger.info( "Removed " + removed + " of " + found + " recipes." ) ;
 	}
 	
 	/**
