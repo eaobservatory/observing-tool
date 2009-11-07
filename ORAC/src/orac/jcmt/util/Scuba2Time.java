@@ -5,7 +5,7 @@ import orac.jcmt.SpJCMTConstants ;
 
 public class Scuba2Time implements SpJCMTConstants
 {
-	double josStepTime = 0.005 ; // 200Hz // 0.01
+	double josStepTime = 0.01 ;
 	double stepsBetweenDarks = 18000 ;
 
 	public Scuba2Time( SpIterJCMTObs obs ){}
