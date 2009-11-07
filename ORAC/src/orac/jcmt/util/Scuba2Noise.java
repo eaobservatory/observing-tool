@@ -32,21 +32,43 @@ public class Scuba2Noise
 		return self ;
 	}
 
-	public double calculateNoise450( int timeSeconds , double tau )
+	/**
+	 * Calculate the noise equivalent flux density in milijanskys at 450 microns.
+	 * @param timeSeconds
+	 * @param tau
+	 * @param airmass
+	 * @return noise equivalent flux density in milijanskys
+	 */
+	public double calculateNEFD450( int timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
-		mJy = calculateNoise( timeSeconds , tau , fourFifty ) ;
+		mJy = calculateNEFD( timeSeconds , tau , airmass , fourFifty ) ;
 		return mJy ;
 	}
 	
-	public double calculateNoise850( int timeSeconds , double tau )
+	/**
+	 * Calculate the noise equivalent flux density in milijanskys at 850 microns.
+	 * @param timeSeconds
+	 * @param tau
+	 * @param airmass
+	 * @return noise equivalent flux density in milijanskys
+	 */
+	public double calculateNEFD850( int timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
-		mJy = calculateNoise( timeSeconds , tau , eightFifty ) ;
+		mJy = calculateNEFD( timeSeconds , tau , airmass , eightFifty ) ;
 		return mJy ;
 	}
 
-	public double calculateNoise( Integer timeSeconds , Double tau , OrderedMap<Double,Double> wavelength )
+	/**
+	 * Generic method to calculate the noise equivalent flux density in milijanskys for 450 and 850 microns.
+	 * @param timeSeconds
+	 * @param tau
+	 * @param airmass
+	 * @param wavelength
+	 * @return noise equivalent flux density in milijanskys
+	 */
+	private double calculateNEFD( Integer timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
 	{
 		double mJy = -1. ;
 
@@ -86,6 +108,7 @@ public class Scuba2Noise
 		Scuba2Noise s2n = getInstance() ;
 		int timeSeconds = 1 ;
 		double tau = .040 ;
-		System.out.println( s2n.calculateNoise450( timeSeconds , tau ) ) ;
+		double airmass = 0. ;
+		System.out.println( s2n.calculateNEFD450( timeSeconds , tau , airmass ) ) ;
 	}
 }
