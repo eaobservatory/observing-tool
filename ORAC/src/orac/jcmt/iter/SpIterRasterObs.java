@@ -24,7 +24,7 @@ import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.util.SpMapItem ;
 
 import orac.jcmt.SpJCMTConstants ;
-import orac.jcmt.util.ComputePong ;
+import orac.jcmt.util.Scuba2Time ;
 
 import java.util.Vector ;
 import java.util.StringTokenizer ;
@@ -66,6 +66,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public static final double HARP_SAMPLE = 7.2761 ;
 	public static final double HARP_FULL_ARRAY = 116.4171 ;
 	
+	private Scuba2Time s2time ;
+
 	public static final MathContext context = new MathContext( 13 ) ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "rasterObs" , "Scan" ) ;
@@ -597,21 +599,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		else if( instrument instanceof SpInstSCUBA2 )
 		{
 			double time = SCUBA2_STARTUP_TIME ;
-			String strategy = getScanStrategy() ;
-			if( SCAN_PATTERN_PONG.equals( strategy ) || SCAN_PATTERN_LISSAJOUS.equals( strategy ) )
-			{
-				ComputePong computePong = new ComputePong() ;
-				double height = getHeight() ;
-				double width = getWidth() ;
-				double dx = getScanDx() ;
-				double velocity = getScanVelocity() ;
-				String type = ComputePong.PongScan.CURVY ;
-				double period = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
-				String tmp = getIntegrations() ;
-				int mapCycles = new Integer( tmp ) ;
-				period *= mapCycles ;
-				time += period ;
-			}
+
+			if( s2time == null )
+				s2time = new Scuba2Time() ;
+
+			time = s2time.totalIntegrationTime( this ) ;
+
 			return time ;
 		}
 		return 0. ;

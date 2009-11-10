@@ -4,19 +4,27 @@
 
 package orac.jcmt.util ;
 
-import orac.jcmt.iter.* ;
+import orac.jcmt.iter.SpIterJCMTObs ;
+import orac.jcmt.iter.SpIterRasterObs ;
+import orac.jcmt.iter.SpIterPointingObs ;
+import orac.jcmt.iter.SpIterFocusObs ;
+import orac.jcmt.iter.SpIterFlatObs ;
+import orac.jcmt.iter.SpIterNoiseObs ;
+import orac.jcmt.iter.SpIterSkydipObs  ;
+import orac.jcmt.iter.SpIterStareObs ;
+import orac.jcmt.iter.SpIterDREAMObs ;
 import orac.jcmt.SpJCMTConstants ;
 
 public class Scuba2Time implements SpJCMTConstants
 {
-	double josStepTime = 0.01 ;
-	double stepsBetweenDarks = 18000 ;
+	double josStepTime = 0.005 ;
+	double stepsBetweenDarks = 1440000. ;
 
-	public Scuba2Time( SpIterJCMTObs obs ){}
+	public Scuba2Time(){}
 
-	public int totalIntegrationTime( SpIterJCMTObs obs )
+	public double totalIntegrationTime( SpIterJCMTObs obs )
 	{
-		int integrationTime = 0 ;
+		double integrationTime = 0 ;
 
 		if( obs instanceof SpIterRasterObs )
 			integrationTime = scan( ( SpIterRasterObs )obs ) ;
@@ -38,23 +46,23 @@ public class Scuba2Time implements SpJCMTConstants
 		return integrationTime ;
 	}
 
-	private int scan( SpIterRasterObs raster )
+	private double scan( SpIterRasterObs raster )
 	{
-		int integrationTime = 0 ;
+		double integrationTime = 0 ;
 		double durationPerArea ;
 		
 		double height = raster.getHeight() ;
 		double width = raster.getWidth() ;
 		double dx = raster.getScanDx() ;
-		double dy = raster.getScanDy() ;
-		double velocity = raster.getScanVelocity() ;
+		double dy = 30. ; // raster.getScanDy() ;
+		double velocity = 60. ; //raster.getScanVelocity() ;
 		
 		String pattern = raster.getScanStrategy() ;
 		if( SCAN_PATTERN_LISSAJOUS.equals( pattern ) || SCAN_PATTERN_PONG.equals( pattern ) )
 		{
 			ComputePong computePong = new ComputePong() ;
 			String type = ComputePong.PongScan.CURVY ;
-			durationPerArea = computePong.getPeriodForPong( height , width , dx , velocity , type ) ;
+			durationPerArea = computePong.getPeriodForPong( height , width , dy , velocity , type ) ;
 		}
 		else if( SCAN_PATTERN_BOUS.equals( pattern ) )
 		{
@@ -71,7 +79,7 @@ public class Scuba2Time implements SpJCMTConstants
 
 		double nSteps ;
 		double sampleTime = raster.getSampleTime() ;
-		if( sampleTime != 0 )
+		if( sampleTime == 0 )
 		{
 			nSteps = sampleTime / josStepTime ;
 			System.out.println( "Scan map executing for a specific time. Not map coverage" ) ;
@@ -94,47 +102,49 @@ public class Scuba2Time implements SpJCMTConstants
 
 		System.out.println( "Number of steps in scan map sequence: " + josMin ) ;
 		System.out.println( "Number of repeats: " + nCycles ) ;
-		System.out.println( "Time spent mapping: " + totalTime + "sec" ) ;		
+		System.out.println( "Time spent mapping: " + totalTime + "sec" ) ;
+
+		integrationTime = totalTime ;
 
 		return integrationTime ;
 	}
 
-	private int pointing( SpIterPointingObs pointing )
+	private double pointing( SpIterPointingObs pointing )
 	{
-		return 60 ;
+		return 60. ;
 	}
 
-	private int focus( SpIterFocusObs focus )
+	private double focus( SpIterFocusObs focus )
 	{
-		return focus.getFocusPoints() * 60 ;
+		return focus.getFocusPoints() * 60. ;
 	}
 
-	private int flat( SpIterFlatObs flat )
+	private double flat( SpIterFlatObs flat )
 	{
-		return 5 * 60 ;
+		return 5. * 60. ;
 	}
 
-	private int noise( SpIterNoiseObs noise )
+	private double noise( SpIterNoiseObs noise )
 	{
 		/*
 		 *  complete guess as scuba2_index only says
 		 *  when it was performed not how long it took.
 		 */
-		return 3 * 60 ;
+		return 3. * 60. ;
 	}
 
-	private int skydip( SpIterSkydipObs skydip )
+	private double skydip( SpIterSkydipObs skydip )
 	{
-		return -1 ;
+		return -1. ;
 	}
 
-	private int stare( SpIterStareObs stare )
+	private double stare( SpIterStareObs stare )
 	{
-		return -1 ;
+		return -1. ;
 	}
 
-	private int dream( SpIterDREAMObs dream )
+	private double dream( SpIterDREAMObs dream )
 	{
-		return -1 ;
+		return -1. ;
 	}
 }
