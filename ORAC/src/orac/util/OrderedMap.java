@@ -1,3 +1,7 @@
+/*
+ * ( C )2009 STFC
+ */
+
 package orac.util ;
 
 import java.util.TreeMap ;

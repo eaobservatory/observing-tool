@@ -1,3 +1,7 @@
+/*
+ * ( C )2009 STFC
+ */
+
 package orac.jcmt.util ;
 
 import orac.jcmt.iter.* ;
