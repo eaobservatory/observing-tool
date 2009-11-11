@@ -48,8 +48,8 @@ public class Scuba2Time implements SpJCMTConstants
 
 	private double scan( SpIterRasterObs raster )
 	{
-		double integrationTime = 0 ;
-		double durationPerArea ;
+		double integrationTime = 0. ;
+		double durationPerArea = 0. ;
 		
 		double height = raster.getHeight() ;
 		double width = raster.getWidth() ;
@@ -70,6 +70,10 @@ public class Scuba2Time implements SpJCMTConstants
 			double mapArea = width * height ;
 			durationPerArea = ( mapArea / pixArea ) * josStepTime ;
 		}
+		else if( SCAN_PATTERN_POINT.equals( pattern ) )
+		{
+			durationPerArea = raster.getSampleTime() ;
+		}
 		else
 		{
 			throw new RuntimeException( "Unrecognised scan pattern : " + pattern ) ;
@@ -87,7 +91,10 @@ public class Scuba2Time implements SpJCMTConstants
 		}
 		else
 		{
-			int nRepeats = new Integer( raster.getIntegrations() ) ;
+			int nRepeats = 1 ;
+			String integrations = raster.getIntegrations() ;
+			if( integrations != null )
+				nRepeats = new Integer( integrations ) ;
 			System.out.println( "Number of repeats of map area requested: " + nRepeats ) ;
 			nSteps = ( nRepeats * durationPerArea ) / josStepTime ;
 		}
@@ -102,7 +109,7 @@ public class Scuba2Time implements SpJCMTConstants
 
 		System.out.println( "Number of steps in scan map sequence: " + josMin ) ;
 		System.out.println( "Number of repeats: " + nCycles ) ;
-		System.out.println( "Time spent mapping: " + totalTime + "sec" ) ;
+		System.out.println( "Time spent mapping: " + totalTime + " sec" ) ;
 
 		integrationTime = totalTime ;
 
