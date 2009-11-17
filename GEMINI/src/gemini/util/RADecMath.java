@@ -123,7 +123,7 @@ public final class RADecMath
      * Get the absolute position in degrees given a base position in degrees and
      * an offset in arcsec.
      */
-	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff , double posAngle )
+	public static RADec getAbsolute( double ra , double dec , double xOff , double yOff , double posAngle )
 	{
 		// Rotate the offset back through the position angle
 		double[] off = { xOff , yOff } ;
@@ -146,7 +146,7 @@ public final class RADecMath
 			newDec = -180.0 - newDec ;
 		}
 
-		double[] t = { newRA , newDec } ;
+		RADec t = new RADec( CoordSys.FK5 , newRA , newDec  ) ;
 		return t ;
 	}
 
@@ -156,7 +156,8 @@ public final class RADecMath
      */
 	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff )
 	{
-		return getAbsolute( ra , dec , xOff , yOff , 0.0 ) ;
+		RADec result = getAbsolute( ra , dec , xOff , yOff , 0.0 ) ;
+		return new double[]{ result.ra , result.dec } ;
 	}
 
 	/**
