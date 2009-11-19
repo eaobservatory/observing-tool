@@ -491,18 +491,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		double samplesPerRow = getWidth() ;
 		double samplesPerColumn = getHeight() ;
 
-		boolean swap = false ;
-		
-		// if AUTOMATIC and height > width
-		// else if USER DEF and abs( scan angle - map angle ) is < 45 or > 135
-		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
-		double normalisedAngle = Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) ;
-		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
-			swap = columnGreaterThanRow ;
-		else if( normalisedAngle < 45. || normalisedAngle > 135. )
-			swap = true ;
-
-		if( swap )
+		if( swap() )
 		{
 			double temp = samplesPerRow ;
 			samplesPerRow = samplesPerColumn ;
@@ -531,6 +520,25 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			return samplesPerRow ;
 		else
 			return samplesPerColumn ;
+	}
+
+	public boolean swap()
+	{
+		boolean swap = false ;
+
+		double samplesPerRow = getWidth() ;
+		double samplesPerColumn = getHeight() ;
+
+		// if AUTOMATIC and height > width
+		// else if USER DEF and abs( scan angle - map angle ) is < 45 or > 135
+		boolean columnGreaterThanRow = samplesPerColumn > samplesPerRow ;
+		double normalisedAngle = Math.abs( ( normalise( getScanAngle( 0 ) ) ) - ( normalise( getPosAngle() ) ) ) ;
+		if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
+			swap = columnGreaterThanRow ;
+		else if( normalisedAngle < 45. || normalisedAngle > 135. )
+			swap = true ;
+
+		return swap ;
 	}
 
 	private double normalise( double angle )
