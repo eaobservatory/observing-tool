@@ -1349,15 +1349,21 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		}
 		else if( w == _w.plotButton )
 		{
-			try
+			if( _curPos.getCoordSys() == CoordSys.GAL )
 			{
-				TpeManager.open( _spItem ) ;
+				DialogUtil.message( null , "The JSky position editor does not support glactic coordinates correctly at this time." ) ;
 			}
-			catch( Exception e )
+			else
 			{
-				DialogUtil.error( e ) ;
+				try
+				{
+					TpeManager.open( _spItem ) ;
+				}
+				catch( Exception e )
+				{
+					DialogUtil.error( e ) ;
+				}
 			}
-
 			return ;
 		}
 		else if( w == _w.setBaseButton )
