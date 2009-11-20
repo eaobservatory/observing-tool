@@ -13,6 +13,8 @@ public class Scuba2Noise
 	private static Scuba2Noise self ;
 	private OrderedMap<Double,Double> fourFifty ;
 	private OrderedMap<Double,Double> eightFifty ;
+	public static final String four50 = "450" ;
+	public static final String eight50 = "850" ;
 
 	private Scuba2Noise()
 	{
@@ -37,42 +39,61 @@ public class Scuba2Noise
 	}
 
 	/**
-	 * Calculate the noise equivalent flux density in milijanskys at 450 microns.
+	 * Calculate the noise equivalent flux density in milijanskys at 450 microns with relation to time.
 	 * @param timeSeconds
 	 * @param tau
 	 * @param airmass
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	public double calculateNEFD450( double timeSeconds , double tau , double airmass )
+	public double calculateNEFD450ForTime( double timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
-		mJy = calculateNEFD( timeSeconds , tau , airmass , fourFifty ) ;
-		return mJy ;
-	}
-	
-	/**
-	 * Calculate the noise equivalent flux density in milijanskys at 850 microns.
-	 * @param timeSeconds
-	 * @param tau
-	 * @param airmass
-	 * @return noise equivalent flux density in milijanskys
-	 */
-	public double calculateNEFD850( double timeSeconds , double tau , double airmass )
-	{
-		double mJy = -1. ;
-		mJy = calculateNEFD( timeSeconds , tau , airmass , eightFifty ) ;
+		mJy = calculateNEFDForTime( timeSeconds , tau , airmass , fourFifty ) ;
 		return mJy ;
 	}
 
 	/**
-	 * Generic method to calculate the noise equivalent flux density in milijanskys for 450 and 850 microns.
+	 * Calculate the noise equivalent flux density in milijanskys at 850 microns with relation to time.
+	 * @param timeSeconds
+	 * @param tau
+	 * @param airmass
+	 * @return noise equivalent flux density in milijanskys
+	 */
+	public double calculateNEFD850ForTime( double timeSeconds , double tau , double airmass )
+	{
+		double mJy = -1. ;
+		mJy = calculateNEFDForTime( timeSeconds , tau , airmass , eightFifty ) ;
+		return mJy ;
+	}
+
+	/**
+	 * Generic method to calculate the noise equivalent flux density in milijanskys for 450 and 850 microns with relation to time.
 	 * @param timeSeconds
 	 * @param tau
 	 * @param airmass
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFD( Double timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
+	private double calculateNEFDForTime( Double timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
+	{
+		double mJy = -1. ;
+
+		calculateNEFD( tau , airmass , wavelength ) ;
+
+		if( mJy != -1. )
+			mJy /= Math.sqrt( timeSeconds ) ;
+
+		return mJy ;
+	}
+
+	/**
+	 * Generic method to calculate the noise equivalent flux density in milijanskys for 450 and 850 microns
+	 * @param tau
+	 * @param airmass
+	 * @param wavelength
+	 * @return noise equivalent flux density in milijanskys
+	 */
+	private double calculateNEFD( Double tau , double airmass , OrderedMap<Double,Double> wavelength )
 	{
 		double mJy = -1. ;
 
@@ -101,19 +122,86 @@ public class Scuba2Noise
 			double afterNoise = wavelength.find( after ) ;
 			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , tau ) ;
 		}
-
-		if( mJy != -1. )
-			mJy /= Math.sqrt( timeSeconds ) ;
-
 		return mJy ;
 	}
 
+	/**
+	 * Get integration time per bolometer at a certain wave length for a desired noise level in milijanskys.
+	 * @param waveLength
+	 * @param csoTau
+	 * @param airmass
+	 * @param desiredNoiseMJanskys
+	 * @return integration time per bolometer in seconds.
+	 */
+	private double timePerBolometer( String waveLength , double csoTau , double airmass , double desiredNoiseMJanskys )
+	{
+		double time = 0. ;
+		double mJy = -1 ;
+
+		if( four50.equals( waveLength ) )
+			mJy = calculateNEFD( csoTau , airmass , fourFifty ) ;
+		else if( eight50.equals( waveLength ) )
+			mJy = calculateNEFD( csoTau , airmass , eightFifty ) ;
+		else
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+
+		time = mJy / desiredNoiseMJanskys ;
+
+		time *= time ;
+
+		return time ;
+	}
+
+	/**
+	 * Calculate the total integration time for the entire map in seconds.
+	 * @param waveLength
+	 * @param csoTau
+	 * @param airmass
+	 * @param desiredNoiseMJanskys
+	 * @param widthArcSeconds
+	 * @param heightArcSeconds
+	 * @return total integration time for the entire map in seconds.
+	 */
+	public double totalIntegrationTimeForMap( String waveLength , double csoTau , double airmass , double desiredNoiseMJanskys , double widthArcSeconds , double heightArcSeconds )
+	{
+		double time = 0. ;
+		double omegaPerBolometerSquare = 0. ;
+		double numberOfBolometers = 0. ;
+
+		if( four50.equals( waveLength ) )
+		{
+			omegaPerBolometerSquare = 32. ;
+			numberOfBolometers = 700. ;
+		}
+		else if( eight50.equals( waveLength ) )
+		{
+			omegaPerBolometerSquare = 120 ;
+			numberOfBolometers = 400 ;
+		}
+		else
+		{
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+		}
+
+		double timePerBolometer = timePerBolometer( waveLength , csoTau , airmass , desiredNoiseMJanskys ) ;
+
+		double area = widthArcSeconds * heightArcSeconds ;
+
+		time = 2 * area / numberOfBolometers * omegaPerBolometerSquare * timePerBolometer ;
+
+		return time ;
+	}
+
+	/**
+	 * Method for testing.
+	 * @param args
+	 */
 	public static void main( String[] args )
 	{
 		Scuba2Noise s2n = getInstance() ;
 		double timeSeconds = 1. ;
 		double tau = .040 ;
 		double airmass = 0. ;
-		System.out.println( s2n.calculateNEFD450( timeSeconds , tau , airmass ) ) ;
+		System.out.println( s2n.calculateNEFD450ForTime( timeSeconds , tau , airmass ) ) ;
 	}
 }
