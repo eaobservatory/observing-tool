@@ -35,6 +35,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.iter.SpIterRasterObs ;
+import orac.jcmt.util.Scuba2Noise ;
 import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.HeterodyneNoise ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
@@ -254,6 +255,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( !allowScan )
 			resetScanPanel() ;
 		
+		_w.dx.setEnabled( false ) ;
+
 		_w.scanAngle.setEnabled( allowScan ) ;
 		_w.scanSystem.setEnabled( allowScan ) ;
 		
@@ -364,7 +367,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.mapCyclesPanel.setVisible( !pointSource ) ;
 		_w.pointSourcePanel.setVisible( pointSource ) ;
 		
-		_w.dx.setEnabled( !pointSource ) ;
+		if( harp )
+			_w.dx.setEnabled( !pointSource ) ;
 		_w.height.setEnabled( !pointSource ) ;
 		_w.width.setEnabled( !pointSource ) ;
 		_w.posAngle.setEnabled( !pointSource ) ;
@@ -716,6 +720,16 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tSys ) , 3 ) ;
 		else
 			return -999.9 ;
+	}
+
+	protected double calculateNoise( SpInstSCUBA2 inst , double airmass , double tau )
+	{
+		Scuba2Noise s2n = Scuba2Noise.getInstance() ;
+		double fourFifty = CoordConvert.round( s2n.calculateNEFD450( _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
+		double eightFifty = CoordConvert.round( s2n.calculateNEFD850( _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
+
+		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", 450 = " + fourFifty + ", 850 = " + eightFifty ;
+		return fourFifty ;
 	}
 
 	/**
