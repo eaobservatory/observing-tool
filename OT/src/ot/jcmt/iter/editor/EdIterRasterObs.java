@@ -59,7 +59,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , ALONG_HEIGHT , ALONG_WIDTH , USER_DEF } ;
 
 	// The following defines the maximum file size we are currently allowing for raster.
-	// Since this is for use with the thermometer, which only accepts integers, we will specify the maxium size in MBytes
+	// Since this is for use with the thermometer, which only accepts integers, we will specify the maximum size in MBytes
 	private int _maxFileSize = 2048 ;
 
 	// Some default values for the non-editable text fields
@@ -254,6 +254,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( !allowScan )
 			resetScanPanel() ;
 		
+		_w.dx.setEnabled( false ) ;
+
 		_w.scanAngle.setEnabled( allowScan ) ;
 		_w.scanSystem.setEnabled( allowScan ) ;
 		
@@ -343,8 +345,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		
 		_w.mapCyclesPanel.setVisible( !pointSource ) ;
 		_w.pointSourcePanel.setVisible( pointSource ) ;
-		
-		_w.dx.setEnabled( !pointSource ) ;
+
 		_w.dy.setEnabled( false ) ;
 		_w.height.setEnabled( !pointSource ) ;
 		_w.width.setEnabled( !pointSource ) ;
@@ -610,6 +611,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			// Should be SCUBA-2 anyway, but better safe ...
 			if( scuba2 )
 				updateScuba2Panel() ;
+
+			_updateWidgets() ;
 		}
 		else
 		{
