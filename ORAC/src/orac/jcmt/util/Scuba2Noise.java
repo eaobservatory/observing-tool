@@ -43,7 +43,7 @@ public class Scuba2Noise
 	 * @param airmass
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	public double calculateNEFD450( int timeSeconds , double tau , double airmass )
+	public double calculateNEFD450( double timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
 		mJy = calculateNEFD( timeSeconds , tau , airmass , fourFifty ) ;
@@ -57,7 +57,7 @@ public class Scuba2Noise
 	 * @param airmass
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	public double calculateNEFD850( int timeSeconds , double tau , double airmass )
+	public double calculateNEFD850( double timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
 		mJy = calculateNEFD( timeSeconds , tau , airmass , eightFifty ) ;
@@ -72,17 +72,17 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFD( Integer timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
+	private double calculateNEFD( Double timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
 	{
 		double mJy = -1. ;
 
-		if( wavelength.containsKey( tau ) )
+		Vector<Double> taus = wavelength.keys() ;
+		if( taus.contains( tau ) )
 		{
 			mJy = wavelength.find( tau ) ;
 		}
-		else
+		else if( tau > taus.firstElement() && tau < taus.lastElement() )
 		{
-			Vector<Double> taus = wavelength.keys() ;
 			double before = 0. ;
 			double after = 0. ;
 			for( int index = 0 ; index < taus.size() ; index++ )
@@ -96,13 +96,14 @@ public class Scuba2Noise
 					break ;
 				}
 			}
-			
+
 			double beforeNoise = wavelength.find( before ) ;
 			double afterNoise = wavelength.find( after ) ;
 			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , tau ) ;
 		}
-		
-		mJy /= Math.sqrt( timeSeconds.doubleValue() ) ;
+
+		if( mJy != -1. )
+			mJy /= Math.sqrt( timeSeconds ) ;
 
 		return mJy ;
 	}
@@ -110,7 +111,7 @@ public class Scuba2Noise
 	public static void main( String[] args )
 	{
 		Scuba2Noise s2n = getInstance() ;
-		int timeSeconds = 1 ;
+		double timeSeconds = 1. ;
 		double tau = .040 ;
 		double airmass = 0. ;
 		System.out.println( s2n.calculateNEFD450( timeSeconds , tau , airmass ) ) ;
