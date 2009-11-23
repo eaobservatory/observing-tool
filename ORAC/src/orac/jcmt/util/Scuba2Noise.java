@@ -16,6 +16,9 @@ public class Scuba2Noise
 	public static final String four50 = "450" ;
 	public static final String eight50 = "850" ;
 
+	/**
+	 * Singleton constructor, private for obvious reasons.
+	 */
 	private Scuba2Noise()
 	{
 		fourFifty = new OrderedMap<Double,Double>() ;
@@ -31,6 +34,10 @@ public class Scuba2Noise
 		eightFifty.add( .150 , 90. ) ;
 	}
 
+	/**
+	 * Get singleton instance
+	 * @return the singleton instance of Scuba2Noise
+	 */
 	public static synchronized Scuba2Noise getInstance()
 	{
 		if( self == null )
