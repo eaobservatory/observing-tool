@@ -29,6 +29,7 @@ import gemini.util.CoordSys ;
 import gemini.util.RADec ;
 import gemini.sp.SpTelescopePos ;
 
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpJCMTInstObsComp ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA ;
@@ -226,13 +227,13 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		{
 			_w.switchingMode.setVisible( true ) ;
 			_w.switchingModeLabel.setVisible( true ) ;
-			_w.jLabel2.setText( "K" ) ;
+			_w.noiseUnitLabel.setText( "K" ) ;
 
 			_w.frequencyPanel.setVisible( _w.switchingMode.getValue() != null && ( _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_S ) || _w.switchingMode.getValue().equals( SWITCHING_MODE_FREQUENCY_F ) ) ) ;
 		}
 		else
 		{
-			_w.jLabel2.setText( "mJy" ) ;
+			_w.noiseUnitLabel.setText( "mJy" ) ;
 			_w.switchingMode.setVisible( false ) ;
 			_w.switchingModeLabel.setVisible( false ) ;
 			_w.frequencyPanel.setVisible( false ) ;
@@ -349,6 +350,10 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		{
 			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau ) ;
 		}
+		else if( instObsComp instanceof SpInstSCUBA2 )
+		{
+			return "" + calculateNoise( ( SpInstSCUBA2 )instObsComp , airmass , csoTau ) ;
+		}
 
 		_noiseToolTip = "Not available" ;
 		return "Not available" ;
@@ -366,6 +371,11 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	}
 
 	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		return 0. ;
+	}
+
+	protected double calculateNoise( SpInstSCUBA2 inst , double airmass , double tau )
 	{
 		return 0. ;
 	}
