@@ -16,6 +16,9 @@ public class Scuba2Noise
 	public static final String four50 = "450" ;
 	public static final String eight50 = "850" ;
 
+	private static final double fourFiftyTauMultiplicand = 20. ;
+	private static final double eightFiftyTauMultiplicand = 4.02 ;
+
 	/**
 	 * Singleton constructor, private for obvious reasons.
 	 */
@@ -55,7 +58,7 @@ public class Scuba2Noise
 	public double calculateNEFD450ForTime( double timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
-		mJy = calculateNEFDForTime( timeSeconds , tau , airmass , fourFifty ) ;
+		mJy = calculateNEFDForTime( four50 , timeSeconds , tau , airmass ) ;
 		return mJy ;
 	}
 
@@ -69,7 +72,7 @@ public class Scuba2Noise
 	public double calculateNEFD850ForTime( double timeSeconds , double tau , double airmass )
 	{
 		double mJy = -1. ;
-		mJy = calculateNEFDForTime( timeSeconds , tau , airmass , eightFifty ) ;
+		mJy = calculateNEFDForTime( eight50 , timeSeconds , tau , airmass ) ;
 		return mJy ;
 	}
 
@@ -81,11 +84,11 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFDForTime( Double timeSeconds , Double tau , double airmass , OrderedMap<Double,Double> wavelength )
+	private double calculateNEFDForTime( String wavelength , Double timeSeconds , Double tau , double airmass )
 	{
 		double mJy = -1. ;
 
-		calculateNEFD( tau , airmass , wavelength ) ;
+		mJy = calculateNEFD( wavelength , tau , airmass ) ;
 
 		if( mJy != -1. )
 			mJy /= Math.sqrt( timeSeconds ) ;
@@ -100,35 +103,74 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFD( Double tau , double airmass , OrderedMap<Double,Double> wavelength )
+	private double calculateNEFD( String waveLength , Double csoTau , double airmass )
 	{
 		double mJy = -1. ;
 
-		Vector<Double> taus = wavelength.keys() ;
-		if( taus.contains( tau ) )
+		OrderedMap<Double,Double> wavelengthLookup = null ;
+
+		if( four50.equals( waveLength ) )
+			wavelengthLookup = fourFifty ;
+		else if( eight50.equals( waveLength ) )
+			wavelengthLookup = eightFifty ;
+		else
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+
+		Vector<Double> csoTaus = wavelengthLookup.keys() ;
+		if( csoTaus.contains( csoTau ) )
 		{
-			mJy = wavelength.find( tau ) ;
+			mJy = wavelengthLookup.find( csoTau ) ;
 		}
-		else if( tau > taus.firstElement() && tau < taus.lastElement() )
+		else if( csoTau > csoTaus.firstElement() && csoTau < csoTaus.lastElement() )
 		{
 			double before = 0. ;
 			double after = 0. ;
-			for( int index = 0 ; index < taus.size() ; index++ )
+			for( int index = 0 ; index < csoTaus.size() ; index++ )
 			{
-				double current = taus.elementAt( index ) ;
-				if( current > tau )
+				double current = csoTaus.elementAt( index ) ;
+				if( current > csoTau )
 				{
 					after = current ;
 					if( index > 0 )
-						before = taus.elementAt( index - 1 ) ;
+						before = csoTaus.elementAt( index - 1 ) ;
 					break ;
 				}
 			}
 
-			double beforeNoise = wavelength.find( before ) ;
-			double afterNoise = wavelength.find( after ) ;
-			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , tau ) ;
+			double beforeNoise = wavelengthLookup.find( before ) ;
+			double afterNoise = wavelengthLookup.find( after ) ;
+			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , csoTau ) ;
 		}
+		System.out.println( "Noise ( mJy ) from NEFD lookup at " + waveLength + " = " + mJy ) ;
+		mJy = correctForAirmass( waveLength , mJy , csoTau , airmass ) ;
+		return mJy ;
+	}
+
+	/**
+	 * Correct input value in milijanskys based on given CSO Tau and airmass for a given wavelength.
+	 * @param waveLength
+	 * @param mJy
+	 * @param csoTau
+	 * @param airmass
+	 * @return corrected input value in milijanskys.
+	 */
+	private double correctForAirmass( String waveLength , double mJy , double csoTau , double airmass )
+	{
+		double tauMultiplicand = 0. ;
+
+		if( four50.equals( waveLength ) )
+			tauMultiplicand = fourFiftyTauMultiplicand ;
+		else if( eight50.equals( waveLength ) )
+			tauMultiplicand = eightFiftyTauMultiplicand ;
+		else
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+
+		double tau = tauMultiplicand * csoTau ;
+		double transmission = Math.exp( tau * airmass ) ;
+		mJy *= transmission ;
+
+		System.out.println( "Noise ( mJy ) from NEFD lookup corrected for airmass = " + mJy ) ;
+
 		return mJy ;
 	}
 
@@ -145,12 +187,7 @@ public class Scuba2Noise
 		double time = 0. ;
 		double mJy = -1 ;
 
-		if( four50.equals( waveLength ) )
-			mJy = calculateNEFD( csoTau , airmass , fourFifty ) ;
-		else if( eight50.equals( waveLength ) )
-			mJy = calculateNEFD( csoTau , airmass , eightFifty ) ;
-		else
-			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+		mJy = calculateNEFD( waveLength , csoTau , airmass ) ;
 
 		time = mJy / desiredNoiseMJanskys ;
 
@@ -209,6 +246,10 @@ public class Scuba2Noise
 		double timeSeconds = 1. ;
 		double tau = .040 ;
 		double airmass = 0. ;
-		System.out.println( s2n.calculateNEFD450ForTime( timeSeconds , tau , airmass ) ) ;
+		System.out.println( "Time in seconds = " + timeSeconds ) ;
+		System.out.println( "CSO Tau = " + tau ) ;
+		System.out.println( "Airmass = " + airmass ) ;
+		System.out.println( "Noise ( mJy ) at 450 = " + s2n.calculateNEFD450ForTime( timeSeconds , tau , airmass ) ) ;
+		System.out.println( "Noise ( mJy ) at 850 = "+ s2n.calculateNEFD850ForTime( timeSeconds , tau , airmass ) ) ;
 	}
 }
