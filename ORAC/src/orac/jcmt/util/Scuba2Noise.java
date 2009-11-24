@@ -244,12 +244,86 @@ public class Scuba2Noise
 	{
 		Scuba2Noise s2n = getInstance() ;
 		double timeSeconds = 1. ;
-		double tau = .040 ;
+		double csoTau = .040 ;
 		double airmass = 0. ;
-		System.out.println( "Time in seconds = " + timeSeconds ) ;
-		System.out.println( "CSO Tau = " + tau ) ;
-		System.out.println( "Airmass = " + airmass ) ;
-		System.out.println( "Noise ( mJy ) at 450 = " + s2n.calculateNEFD450ForTime( timeSeconds , tau , airmass ) ) ;
-		System.out.println( "Noise ( mJy ) at 850 = "+ s2n.calculateNEFD850ForTime( timeSeconds , tau , airmass ) ) ;
+		String waveLength = null ;
+		Integer programType = null ;
+		double result = -1. ;
+		double desiredNoiseMJanskys = -1. ;
+
+		if( args.length == 0 )
+		{
+			System.out.println( "I have no argument with that." ) ;
+			System.exit( -1 ) ;
+		}
+
+		if( args.length > 0 )
+			programType = new Integer( args[ 0 ] ) ;
+		if( args.length > 1 )
+			waveLength = args[ 1 ] ;
+
+		if( !four50.equals( waveLength ) && !eight50.equals( waveLength ) )
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+
+		System.out.println( "Desired wave length = " + waveLength ) ;
+
+		try
+		{
+			switch( programType )
+			{
+				case 0 :
+					System.out.println( "Calculating NEFD. Requires arguments for CSO Tau and airmass." ) ;
+					csoTau = new Double( args[ 2 ] ) ;
+					airmass = new Double( args[ 3 ] ) ;
+					result = s2n.calculateNEFD( waveLength , csoTau , airmass ) ;
+					System.out.println( "NEFD using CSO Tau " + csoTau + ", airmass " + airmass + " = " + result + " mJy." ) ;
+					break ;
+				case 1 :
+					System.out.println( "Calculating NEFD for time. Requires arguments for time, CSO Tau and airmass." ) ;
+					timeSeconds = new Double( args[ 2 ] ) ;
+					csoTau = new Double( args[ 3 ] ) ;
+					airmass = new Double( args[ 4 ] ) ;
+					result = s2n.calculateNEFDForTime( waveLength , timeSeconds , csoTau , airmass ) ;
+					System.out.println( "NEFD using time " + timeSeconds + " seconds, CSO Tau " + csoTau + ", airmass " + airmass + " = " + result + " mJy." ) ;
+					break ;
+				case 2 :
+					System.out.println( "Calculating time per bolometer. Requires arguments for CSO Tau, airmass and desired noise level." ) ;
+					csoTau = new Double( args[ 2 ] ) ;
+					airmass = new Double( args[ 3 ] ) ;
+					desiredNoiseMJanskys = new Double( args[ 4 ] ) ;
+					result = s2n.timePerBolometer( waveLength , csoTau , airmass , desiredNoiseMJanskys ) ;
+					System.out.println( "Time per bolometer using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + " = " + result + " seconds." ) ;
+					break ;
+				case 3 :
+					System.out.println( "Calculating integration time for map. Requires arguments for CSO Tau, airmass, desired noise level, width and height." ) ;
+					csoTau = new Double( args[ 2 ] ) ;
+					airmass = new Double( args[ 3 ] ) ;
+					desiredNoiseMJanskys = new Double( args[ 4 ] ) ;
+					double widthArcSeconds = new Double( args[ 5 ] ) ;
+					double heightArcSeconds = new Double( args[ 6 ] ) ;
+					result = s2n.totalIntegrationTimeForMap( waveLength , csoTau , airmass , desiredNoiseMJanskys , widthArcSeconds , heightArcSeconds ) ;
+					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + ", width " + widthArcSeconds + ", height " + heightArcSeconds + " = " + result + " seconds." ) ;
+					break ;
+				default :
+					System.out.println( "Unknown program type." ) ;
+					System.out.println( "\t0 : Calculate NEFD." ) ;
+					System.out.println( "\t1 : Calculate NEFD for time." ) ;
+					System.out.println( "\t2 : Calculate Time per bolometer." ) ;
+					System.out.println( "\t3 : Calculate Total integration time for map." ) ;
+					break ;
+			}
+		}
+		catch( IndexOutOfBoundsException ioobe )
+		{
+			System.out.println( "Not enough arguments for program type." ) ;
+		}
+		catch( NumberFormatException nfe )
+		{
+			System.out.println( "Argument should be a double." ) ;
+		}
+		catch( Exception e )
+		{
+			System.out.println( "Unhandled exception " + e ) ;
+		}
 	}
 }
