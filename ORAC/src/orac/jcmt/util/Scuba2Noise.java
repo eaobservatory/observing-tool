@@ -121,7 +121,7 @@ public class Scuba2Noise
 		{
 			mJy = wavelengthLookup.find( csoTau ) ;
 		}
-		else if( csoTau > csoTaus.firstElement() && csoTau < csoTaus.lastElement() )
+		else if( csoTau > 0 && csoTau < csoTaus.lastElement() )
 		{
 			double before = 0. ;
 			double after = 0. ;
@@ -137,7 +137,8 @@ public class Scuba2Noise
 				}
 			}
 
-			double beforeNoise = wavelengthLookup.find( before ) ;
+			double beforeNoise = 0. ;
+			if( before > 0. ){ beforeNoise = wavelengthLookup.find( before ) ; }
 			double afterNoise = wavelengthLookup.find( after ) ;
 			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , csoTau ) ;
 		}
