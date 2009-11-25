@@ -18,6 +18,8 @@ public class Scuba2Noise
 
 	private static final double fourFiftyTauMultiplicand = 20. ;
 	private static final double eightFiftyTauMultiplicand = 4.02 ;
+	private static final double fourFiftyTauCorrection = .01 ;
+	private static final double eightFiftyTauCorrection = .001 ;
 
 	/**
 	 * Singleton constructor, private for obvious reasons.
@@ -158,16 +160,25 @@ public class Scuba2Noise
 	private double correctForAirmass( String waveLength , double mJy , double csoTau , double airmass )
 	{
 		double tauMultiplicand = 0. ;
+		double tauCorrection = 0. ;
 
 		if( four50.equals( waveLength ) )
+		{
 			tauMultiplicand = fourFiftyTauMultiplicand ;
+			tauCorrection = fourFiftyTauCorrection ;
+		}
 		else if( eight50.equals( waveLength ) )
+		{
 			tauMultiplicand = eightFiftyTauMultiplicand ;
+			tauCorrection = eightFiftyTauCorrection ;
+		}
 		else
+		{
 			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+		}
 
-		double tau = tauMultiplicand * csoTau ;
-		double transmission = Math.exp( tau * airmass ) ;
+		double ts2 = tauMultiplicand * ( csoTau - tauCorrection ) ;
+		double transmission = Math.exp( ( airmass - 1 ) * ts2 ) ;
 		mJy *= transmission ;
 
 		System.out.println( "Noise ( mJy ) from NEFD lookup corrected for airmass = " + mJy ) ;
