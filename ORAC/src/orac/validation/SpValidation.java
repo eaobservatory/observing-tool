@@ -276,7 +276,7 @@ public class SpValidation
 		if( SpTreeMan.findInstrument( spObs ) == null )
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation " + titleString  , "Instrument component is missing." ) ) ;
 
-		if( !spObs.isOptional() )
+		if( !spObs.isOptional() && SpTreeMan.findSurveyContainerInContext( spObs ) == null )
 			checkTargetList( SpTreeMan.findTargetList( spObs ) , report ) ;
 
 		if( !spObs.isMSB() )
