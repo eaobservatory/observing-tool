@@ -86,7 +86,7 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFDForTime( String wavelength , Double timeSeconds , Double tau , double airmass )
+	public double calculateNEFDForTime( String wavelength , Double timeSeconds , Double tau , double airmass )
 	{
 		double mJy = -1. ;
 
@@ -105,7 +105,7 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	private double calculateNEFD( String waveLength , Double csoTau , double airmass )
+	public double calculateNEFD( String waveLength , Double csoTau , double airmass )
 	{
 		double mJy = -1. ;
 
@@ -144,7 +144,6 @@ public class Scuba2Noise
 			double afterNoise = wavelengthLookup.find( after ) ;
 			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , csoTau ) ;
 		}
-		System.out.println( "Noise ( mJy ) from NEFD lookup at " + waveLength + " = " + mJy ) ;
 		mJy = correctForAirmass( waveLength , mJy , csoTau , airmass ) ;
 		return mJy ;
 	}
@@ -180,8 +179,6 @@ public class Scuba2Noise
 		double ts2 = tauMultiplicand * ( csoTau - tauCorrection ) ;
 		double transmission = Math.exp( ( airmass - 1 ) * ts2 ) ;
 		mJy *= transmission ;
-
-		System.out.println( "Noise ( mJy ) from NEFD lookup corrected for airmass = " + mJy ) ;
 
 		return mJy ;
 	}

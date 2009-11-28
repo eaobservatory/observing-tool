@@ -35,6 +35,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.iter.SpIterRasterObs ;
+import orac.jcmt.util.Scuba2Noise ;
 import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.HeterodyneNoise ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
@@ -710,6 +711,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			return CoordConvert.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tSys ) , 3 ) ;
 		else
 			return -999.9 ;
+	}
+
+	protected double calculateNoise( SpInstSCUBA2 inst , String wavelength , double airmass , double tau )
+	{
+		Scuba2Noise s2n = Scuba2Noise.getInstance() ;
+		double nefd = CoordConvert.round( s2n.calculateNEFDForTime( wavelength , _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
+		return nefd ;
 	}
 
 	/**

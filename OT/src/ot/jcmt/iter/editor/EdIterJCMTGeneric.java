@@ -36,6 +36,7 @@ import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
 import orac.jcmt.util.ScubaNoise ;
+import orac.jcmt.util.Scuba2Noise ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.util.CoordConvert ;
 import orac.util.DrUtil ;
@@ -352,7 +353,10 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		}
 		else if( instObsComp instanceof SpInstSCUBA2 )
 		{
-			return "" + calculateNoise( ( SpInstSCUBA2 )instObsComp , airmass , csoTau ) ;
+			double fourFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.four50 , airmass , csoTau ) ;
+			double eightFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.eight50 , airmass , csoTau ) ;
+			_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ",  (450) = " + fourFifty + ",  (850) = " + eightFifty ;
+			return "" + fourFifty + "@450," + eightFifty + "@850" ;
 		}
 
 		_noiseToolTip = "Not available" ;
@@ -375,7 +379,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		return 0. ;
 	}
 
-	protected double calculateNoise( SpInstSCUBA2 inst , double airmass , double tau )
+	protected double calculateNoise( SpInstSCUBA2 inst , String wavelength , double airmass , double tau )
 	{
 		return 0. ;
 	}
