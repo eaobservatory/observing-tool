@@ -722,14 +722,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			return -999.9 ;
 	}
 
-	protected double calculateNoise( SpInstSCUBA2 inst , double airmass , double tau )
+	protected double calculateNoise( SpInstSCUBA2 inst , String wavelength , double airmass , double tau )
 	{
 		Scuba2Noise s2n = Scuba2Noise.getInstance() ;
-		double fourFifty = CoordConvert.round( s2n.calculateNEFD450ForTime( _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
-		double eightFifty = CoordConvert.round( s2n.calculateNEFD850ForTime( _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
-
-		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", 450 = " + fourFifty + ", 850 = " + eightFifty ;
-		return fourFifty ;
+		double nefd = CoordConvert.round( s2n.calculateNEFDForTime( wavelength , _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
+		return nefd ;
 	}
 
 	/**

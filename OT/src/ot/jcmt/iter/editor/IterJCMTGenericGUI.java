@@ -111,7 +111,7 @@ public class IterJCMTGenericGUI extends JPanel
 		noiseLabel.setForeground( Color.black ) ;
 		noiseLabel.setText( "Noise" ) ;
 		noiseTextBox.setEditable( false ) ;
-		noiseTextBox.setColumns( 15 ) ;
+		noiseTextBox.setColumns( 20 ) ;
 
 		arrayCentredLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		arrayCentredLabel.setForeground( Color.black ) ;
