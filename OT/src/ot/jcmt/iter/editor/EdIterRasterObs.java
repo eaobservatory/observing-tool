@@ -527,6 +527,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			catch( NumberFormatException nfe ){}
 			catch( Exception e ){}
 			_iterObs.setIntegrations( cycles ) ;
+			_w.noiseTextBox.setValue( calculateNoise() ) ;
 		}
 		else if( tbwe == _w.pointSourceTime )
 		{
