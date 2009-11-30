@@ -86,8 +86,10 @@ public class Scuba2Time implements SpJCMTConstants
 		if( sampleTime == 0 )
 		{
 			nSteps = sampleTime / josStepTime ;
+/*
 			System.out.println( "Scan map executing for a specific time. Not map coverage" ) ;
 			System.out.println( "Total duration requested for scan map: " + sampleTime + " secs." ) ;
+*/
 		}
 		else
 		{
@@ -95,7 +97,7 @@ public class Scuba2Time implements SpJCMTConstants
 			String integrations = raster.getIntegrations() ;
 			if( integrations != null )
 				nRepeats = new Integer( integrations ) ;
-			System.out.println( "Number of repeats of map area requested: " + nRepeats ) ;
+//			System.out.println( "Number of repeats of map area requested: " + nRepeats ) ;
 			nSteps = ( nRepeats * durationPerArea ) / josStepTime ;
 		}
 
@@ -106,11 +108,11 @@ public class Scuba2Time implements SpJCMTConstants
 		double josMin = Math.rint( nSteps / nCycles ) ;
 
 		double totalTime = nCycles * josMin * josStepTime ;
-
+/*
 		System.out.println( "Number of steps in scan map sequence: " + josMin ) ;
 		System.out.println( "Number of repeats: " + nCycles ) ;
 		System.out.println( "Time spent mapping: " + totalTime + " sec" ) ;
-
+*/
 		integrationTime = totalTime ;
 
 		return integrationTime ;
