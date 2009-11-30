@@ -79,7 +79,7 @@ public class Scuba2Time implements SpJCMTConstants
 			throw new RuntimeException( "Unrecognised scan pattern : " + pattern ) ;
 		}
 
-		System.out.println( "Estimated time to cover the map area once: " + durationPerArea + " sec" ) ;
+//		System.out.println( "Estimated time to cover the map area once: " + durationPerArea + " sec" ) ;
 
 		double nSteps ;
 		double sampleTime = raster.getSampleTime() ;
