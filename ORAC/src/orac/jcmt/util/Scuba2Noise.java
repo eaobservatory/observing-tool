@@ -20,6 +20,10 @@ public class Scuba2Noise
 	private static final double eightFiftyTauMultiplicand = 4.02 ;
 	private static final double fourFiftyTauCorrection = .01 ;
 	private static final double eightFiftyTauCorrection = .001 ;
+	private static final double fourFiftyOmegaPerBolometerSquare = 32. ;
+	private static final double eightFiftyOmegaPerBolometerSquare = 120. ;
+	private static final double fourFiftyNumberOfBolometers = 700. ;
+	private static final double eightFiftyNumberOfBolometers = 400. ;
 
 	/**
 	 * Singleton constructor, private for obvious reasons.
@@ -198,9 +202,7 @@ public class Scuba2Noise
 
 		mJy = calculateNEFD( waveLength , csoTau , airmass ) ;
 
-		time = mJy / desiredNoiseMJanskys ;
-
-		time *= time ;
+		time = mJy * mJy / desiredNoiseMJanskys * desiredNoiseMJanskys ;
 
 		return time ;
 	}
@@ -211,8 +213,8 @@ public class Scuba2Noise
 	 * @param csoTau
 	 * @param airmass
 	 * @param desiredNoiseMJanskys
-	 * @param widthArcSeconds
-	 * @param heightArcSeconds
+	 * @param widthArcMinutes
+	 * @param heightArcMinutes
 	 * @return total integration time for the entire map in seconds.
 	 */
 	public double totalIntegrationTimeForMap( String waveLength , double csoTau , double airmass , double desiredNoiseMJanskys , double widthArcSeconds , double heightArcSeconds )
@@ -223,24 +225,25 @@ public class Scuba2Noise
 
 		if( four50.equals( waveLength ) )
 		{
-			omegaPerBolometerSquare = 32. ;
-			numberOfBolometers = 700. ;
+			omegaPerBolometerSquare = fourFiftyOmegaPerBolometerSquare ;
+			numberOfBolometers = fourFiftyNumberOfBolometers ;
 		}
 		else if( eight50.equals( waveLength ) )
 		{
-			omegaPerBolometerSquare = 120 ;
-			numberOfBolometers = 400 ;
+			omegaPerBolometerSquare = eightFiftyOmegaPerBolometerSquare ;
+			numberOfBolometers = eightFiftyNumberOfBolometers ;
 		}
 		else
 		{
 			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
 		}
 
-		double timePerBolometer = timePerBolometer( waveLength , csoTau , airmass , desiredNoiseMJanskys ) ;
-
 		double area = widthArcSeconds * heightArcSeconds ;
 
-		time = 2 * area / numberOfBolometers * omegaPerBolometerSquare * timePerBolometer ;
+		double nefd = calculateNEFD( waveLength , csoTau , airmass ) ;
+		double dividend = 2. * area * nefd * nefd ;
+		double divisor = numberOfBolometers * omegaPerBolometerSquare * desiredNoiseMJanskys * desiredNoiseMJanskys  ;
+		time = dividend / divisor  ;
 
 		return time ;
 	}
@@ -304,14 +307,14 @@ public class Scuba2Noise
 					System.out.println( "Time per bolometer using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + " = " + result + " seconds." ) ;
 					break ;
 				case 3 :
-					System.out.println( "Calculating integration time for map. Requires arguments for CSO Tau, airmass, desired noise level, width and height." ) ;
+					System.out.println( "Calculating integration time for map. Requires arguments for CSO Tau, airmass, desired noise level, width and height ( arcminutes. )" ) ;
 					csoTau = new Double( args[ 2 ] ) ;
 					airmass = new Double( args[ 3 ] ) ;
 					desiredNoiseMJanskys = new Double( args[ 4 ] ) ;
-					double widthArcSeconds = new Double( args[ 5 ] ) ;
-					double heightArcSeconds = new Double( args[ 6 ] ) ;
-					result = s2n.totalIntegrationTimeForMap( waveLength , csoTau , airmass , desiredNoiseMJanskys , widthArcSeconds , heightArcSeconds ) ;
-					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + ", width " + widthArcSeconds + ", height " + heightArcSeconds + " = " + result + " seconds." ) ;
+					double widthArcMinutes = new Double( args[ 5 ] ) ;
+					double heightArcMinutes = new Double( args[ 6 ] ) ;
+					result = s2n.totalIntegrationTimeForMap( waveLength , csoTau , airmass , desiredNoiseMJanskys , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) ;
+					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + ", width " + widthArcMinutes + ", height " + heightArcMinutes + " = " + result + " seconds." ) ;
 					break ;
 				default :
 					System.out.println( "Unknown program type." ) ;
