@@ -97,7 +97,7 @@ public class Scuba2Noise
 		mJy = calculateNEFD( wavelength , tau , airmass ) ;
 
 		if( mJy != -1. )
-			mJy /= Math.sqrt( timeSeconds ) ;
+			mJy /= StrictMath.sqrt( timeSeconds ) ;
 
 		return mJy ;
 	}
@@ -181,7 +181,7 @@ public class Scuba2Noise
 		}
 
 		double ts2 = tauMultiplicand * ( csoTau - tauCorrection ) ;
-		double transmission = Math.exp( ( airmass - 1 ) * ts2 ) ;
+		double transmission = StrictMath.exp( ( airmass - 1 ) * ts2 ) ;
 		mJy *= transmission ;
 
 		return mJy ;
@@ -202,7 +202,8 @@ public class Scuba2Noise
 
 		mJy = calculateNEFD( waveLength , csoTau , airmass ) ;
 
-		time = mJy * mJy / desiredNoiseMJanskys * desiredNoiseMJanskys ;
+		time = mJy / desiredNoiseMJanskys ;
+		time *= time ;
 
 		return time ;
 	}
@@ -240,10 +241,10 @@ public class Scuba2Noise
 
 		double area = widthArcSeconds * heightArcSeconds ;
 
-		double nefd = calculateNEFD( waveLength , csoTau , airmass ) ;
-		double dividend = 2. * area * nefd * nefd ;
-		double divisor = numberOfBolometers * omegaPerBolometerSquare * desiredNoiseMJanskys * desiredNoiseMJanskys  ;
+		double dividend = 2. * area ;
+		double divisor = numberOfBolometers * omegaPerBolometerSquare  ;
 		time = dividend / divisor  ;
+		time *= timePerBolometer( waveLength , csoTau , airmass , 1. ) ;
 
 		return time ;
 	}
@@ -255,6 +256,7 @@ public class Scuba2Noise
 	public static void main( String[] args )
 	{
 		Scuba2Noise s2n = getInstance() ;
+
 		double timeSeconds = 1. ;
 		double csoTau = .040 ;
 		double airmass = 0. ;
