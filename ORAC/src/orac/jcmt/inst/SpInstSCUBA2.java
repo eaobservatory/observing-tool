@@ -79,7 +79,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public double getDefaultScanVelocity()
 	{
-		return 3. * 200. ;
+		return 120. ;
 	}
 
 	/**
