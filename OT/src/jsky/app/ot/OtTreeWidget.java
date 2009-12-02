@@ -1071,7 +1071,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 				canAdd = canAddInstrument( child , eyes ) ;
 				for( String eye : eyes )
 				{
-					System.out.println( child.subtypeStr() ) ;
 					if( child.subtypeStr().equals( eye + "Obs" ) )
 					{
 						canAdd = false ;
