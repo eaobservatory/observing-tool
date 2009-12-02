@@ -9,6 +9,8 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstSCUBA2 ;
+import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
@@ -24,9 +26,8 @@ import gemini.util.Format ;
  */
 public class SpIterSkydipObs extends SpIterJCMTObs
 {
-
 	public static String[] START_POSITIONS = { "Zenith" , "Horizon" , "Automatic" } ;
-
+	private Scuba2Time s2time = null ;
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "skydipObs" , "Skydip" ) ;
 
 	// Register the prototype.
@@ -75,9 +76,24 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
 			time = 227. + SCUBA_STARTUP_TIME ;
+		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		{
 			time = 295. ;
+		}
+		else if( instrument instanceof SpInstSCUBA2 )
+		{
+			time = SCUBA2_STARTUP_TIME ;
+
+			if( s2time == null )
+				s2time = new Scuba2Time() ;
+
+			time = s2time.totalIntegrationTime( this ) ;
+
+			return time ;
+		}
 
 		return time ;
 	}

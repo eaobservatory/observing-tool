@@ -9,6 +9,7 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
@@ -25,6 +26,8 @@ import gemini.util.Format ;
 public class SpIterFocusObs extends SpIterJCMTObs
 {
 	public static String[] AXES = { "x" , "y" , "z" } ;
+
+	private Scuba2Time s2time = null ;
 
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "focusObs" , "Focus" ) ;
 
@@ -100,9 +103,22 @@ public class SpIterFocusObs extends SpIterJCMTObs
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
 		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
 			time = 22.4 * getFocusPoints() + SCUBA_STARTUP_TIME ;
+		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		{
 			time = 150. ;
+		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstSCUBA2 )
+		{
+			time = SCUBA2_STARTUP_TIME ;
+
+			if( s2time == null )
+				s2time = new Scuba2Time() ;
+
+			time = s2time.totalIntegrationTime( this ) ;
+		}
 		return time ;
 	}
 

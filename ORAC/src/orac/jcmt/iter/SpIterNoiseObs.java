@@ -16,6 +16,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.util.Scuba2Time ;
 
 /**
  * Noise Iterator for JCMT (SCUBA).
@@ -26,6 +27,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "noiseObs" , "Noise" ) ;
 	private String[] NOISE_SOURCES = null ;
+	private Scuba2Time s2time = null ;
 
 	// Register the prototype.
 	static
@@ -87,7 +89,20 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
 		if( instrument instanceof SpInstSCUBA )
+		{
 			time = 1.1 + SCUBA_STARTUP_TIME ;
+		}
+		else if( instrument instanceof SpInstSCUBA2 )
+		{
+			time = SCUBA2_STARTUP_TIME ;
+
+			if( s2time == null )
+				s2time = new Scuba2Time() ;
+
+			time = s2time.totalIntegrationTime( this ) ;
+
+			return time ;
+		}
 
 		return time ;
 	}
