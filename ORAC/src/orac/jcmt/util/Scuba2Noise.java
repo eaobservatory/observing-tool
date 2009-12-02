@@ -209,6 +209,65 @@ public class Scuba2Noise
 	}
 
 	/**
+	 * Inverse of timePerBolometer.
+	 * @param waveLength
+	 * @param time
+	 * @param csoTau
+	 * @param airmass
+	 * @return desired noise in milijanskys.
+	 */
+	private double noisePerBolometerForTime( String waveLength , double time , double csoTau , double airmass )
+	{
+		time = StrictMath.sqrt( time ) ;
+		double mJy = calculateNEFD( waveLength , csoTau , airmass ) ;
+		double desiredNoise = mJy / time ;
+		return desiredNoise ;
+	}
+
+	/**
+	 * Inverse of totalIntegrationTimeForMap
+	 * @param waveLength
+	 * @param time
+	 * @param csoTau
+	 * @param airmass
+	 * @param widthArcSeconds
+	 * @param heightArcSeconds
+	 * @return desired noise in milijanskys
+	 */
+	public double noiseForMapTotalIntegrationTime( String waveLength , double time , double csoTau , double airmass , double widthArcSeconds , double heightArcSeconds )
+	{
+		double mJy = -1 ;
+
+		double omegaPerBolometerSquare = 0. ;
+		double numberOfBolometers = 0. ;
+
+		if( four50.equals( waveLength ) )
+		{
+			omegaPerBolometerSquare = fourFiftyOmegaPerBolometerSquare ;
+			numberOfBolometers = fourFiftyNumberOfBolometers ;
+		}
+		else if( eight50.equals( waveLength ) )
+		{
+			omegaPerBolometerSquare = eightFiftyOmegaPerBolometerSquare ;
+			numberOfBolometers = eightFiftyNumberOfBolometers ;
+		}
+		else
+		{
+			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+		}
+
+		double area = widthArcSeconds * heightArcSeconds ;
+
+		double dividend = 2. * area ;
+		double divisor = numberOfBolometers * omegaPerBolometerSquare  ;
+		double scale = dividend / divisor  ;
+		time /= scale ;
+		mJy = noisePerBolometerForTime( waveLength , time , csoTau , airmass ) ;
+
+		return mJy ;
+	}
+
+	/**
 	 * Calculate the total integration time for the entire map in seconds.
 	 * @param waveLength
 	 * @param csoTau
@@ -244,7 +303,7 @@ public class Scuba2Noise
 		double dividend = 2. * area ;
 		double divisor = numberOfBolometers * omegaPerBolometerSquare  ;
 		time = dividend / divisor  ;
-		time *= timePerBolometer( waveLength , csoTau , airmass , 1. ) ;
+		time *= timePerBolometer( waveLength , csoTau , airmass , desiredNoiseMJanskys ) ;
 
 		return time ;
 	}
@@ -317,6 +376,7 @@ public class Scuba2Noise
 					double heightArcMinutes = new Double( args[ 6 ] ) ;
 					result = s2n.totalIntegrationTimeForMap( waveLength , csoTau , airmass , desiredNoiseMJanskys , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) ;
 					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + ", width " + widthArcMinutes + ", height " + heightArcMinutes + " = " + result + " seconds." ) ;
+					System.out.println( "Desired noise was " + s2n.noiseForMapTotalIntegrationTime( waveLength , result , csoTau , airmass , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) + " ?" ) ;
 					break ;
 				default :
 					System.out.println( "Unknown program type." ) ;

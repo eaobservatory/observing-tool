@@ -714,11 +714,15 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			return -999.9 ;
 	}
 
+	private static orac.jcmt.util.Scuba2Time s2t = null ;
 	protected double calculateNoise( SpInstSCUBA2 inst , String wavelength , double airmass , double tau )
 	{
 		Scuba2Noise s2n = Scuba2Noise.getInstance() ;
-		double nefd = CoordConvert.round( s2n.calculateNEFDForTime( wavelength , _iterObs.getElapsedTime() , tau , airmass ) , 3 ) ;
-		return nefd ;
+		if( s2t == null )
+			s2t = new orac.jcmt.util.Scuba2Time() ;
+		double noise = s2n.noiseForMapTotalIntegrationTime( wavelength , s2t.scan( _iterObs ) , tau , airmass , _iterObs.getWidth() , _iterObs.getHeight() ) ;
+		noise = CoordConvert.round( noise , 3 ) ;
+		return noise ;
 	}
 
 	/**
