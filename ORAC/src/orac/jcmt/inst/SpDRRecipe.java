@@ -64,7 +64,6 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static final String[] availableTypes_scuba2 = 
 	{ 
 		ATTR_RASTER_TYPE , 
-		ATTR_STARE_TYPE
 	} ;
 	
 	TreeMap<String,TreeMap<String,String>> defaults = new TreeMap<String,TreeMap<String,String>>() ;
