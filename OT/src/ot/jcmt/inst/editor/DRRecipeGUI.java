@@ -114,7 +114,7 @@ public class DRRecipeGUI extends JPanel
 		
 		rasterLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
 		rasterLabel.setForeground( Color.black ) ;
-		rasterLabel.setText( "Raster" ) ;
+		rasterLabel.setText( "Scan" ) ;
 		rasterRecipeSet.setText( "Set" ) ;
 		
 		jiggleLabel.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
