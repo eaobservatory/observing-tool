@@ -30,6 +30,7 @@ import gemini.sp.SpSurveyContainer ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.iter.SpIterObserveBase ;
 import orac.util.SpItemUtilities ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
@@ -491,12 +492,18 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			}
 		}
 
-		if( !canAddEyeToNonACSIS( destItem , newItems ) || !canAddEyeToSCUBA2( destItem , newItems ) )
-				return null ;
-
-		if( !canAddSCUBA2( destItem , newItems ) || !canAddHeterodyne( destItem , newItems ) )
+		// Make special cases for a ACSIS heterodyne observations
+		if( destItem instanceof SpIterObserveBase && !canAddEyeToNonACSIS( destItem , newItems ) )
 			return null ;
-		
+
+		// Can add to SCUBA-2 ?
+		if( destItem instanceof SpIterObserveBase && !canAddEyeToSCUBA2( destItem , newItems ) )
+			return null ;
+
+		// Can add SCUBA-2
+		if( !canAddSCUBA2( destItem , newItems ) )
+			return null ;
+
 		// First see if we can insert the items inside the selected node
 		SpInsertData spID ;
 		spID = SpTreeMan.evalInsertInside( newItems , destItem ) ;
@@ -1265,10 +1272,54 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		return canAdd ;
 	}
 
+	private boolean canAddSCUBA2( SpItem target , SpItem[] items )
+	{
+		boolean canAdd = true ;
+		String[] eyes = { "jiggle" } ;
+		Class<?> tabooClass = SpInstSCUBA2.class ;
+		for( SpItem item : items )
+		{
+			if( tabooClass.isInstance( item ) )
+			{
+				canAdd = canAddInstrument( target , eyes ) ;
+				break ;
+			}
+		}
+		if( !canAdd )
+			DialogUtil.error( this , "Can not add SCUBA-2 due to conflicting eye in observation." ) ;
+		return canAdd ;
+	}
+
+	private boolean canAddInstrument( SpItem target , String[] eyes )
+	{
+		boolean canAdd = true ;
+		if( target.childCount() > 0 )
+		{
+			Enumeration<SpItem> children = target.children() ;
+			while( children.hasMoreElements() && canAdd )
+			{
+				SpItem child = children.nextElement() ;
+				if( child instanceof SpInstObsComp )
+					break ;
+				canAdd = canAddInstrument( child , eyes ) ;
+				for( String eye : eyes )
+				{
+					System.out.println( child.subtypeStr() ) ;
+					if( child.subtypeStr().equals( eye + "Obs" ) )
+					{
+						canAdd = false ;
+						break ;
+					}
+				}
+			}
+		}
+		return canAdd ;
+	}
+
 	private boolean canAddEyeToSCUBA2( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
-		String[] eyes = { "jiggle" , "stare" } ;
+		String[] eyes = { "jiggle" } ;
 		Class<?>[] tabooClass = new Class[]{ SpInstSCUBA2.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
@@ -1288,7 +1339,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
-		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" , "FTS2" } ;
+		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" } ;
 		Class<?>[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
