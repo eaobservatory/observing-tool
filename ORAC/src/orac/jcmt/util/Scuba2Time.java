@@ -4,6 +4,7 @@
 
 package orac.jcmt.util ;
 
+import jsky.app.ot.OtCfg ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import orac.jcmt.iter.SpIterRasterObs ;
 import orac.jcmt.iter.SpIterPointingObs ;
@@ -14,6 +15,16 @@ import orac.jcmt.iter.SpIterSkydipObs  ;
 import orac.jcmt.iter.SpIterStareObs ;
 import orac.jcmt.iter.SpIterDREAMObs ;
 import orac.jcmt.SpJCMTConstants ;
+
+import orac.jcmt.obsComp.SpSiteQualityObsComp ;
+import orac.util.DrUtil ;
+import gemini.sp.obsComp.SpSchedConstObsComp ;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.sp.SpItem ;
+import gemini.sp.SpTelescopePos ;
+import gemini.sp.SpTreeMan ;
+import gemini.util.CoordSys ;
+import gemini.util.DDMMSS ;
 
 public class Scuba2Time implements SpJCMTConstants
 {
@@ -27,7 +38,7 @@ public class Scuba2Time implements SpJCMTConstants
 		double integrationTime = 0 ;
 
 		if( obs instanceof SpIterRasterObs )
-			integrationTime = scan( ( SpIterRasterObs )obs ) ;
+			integrationTime = scanFromCall( ( SpIterRasterObs )obs ) ;
 		else if( obs instanceof SpIterPointingObs )
 			integrationTime = pointing( ( SpIterPointingObs )obs ) ;
 		else if( obs instanceof SpIterFocusObs )
@@ -46,7 +57,7 @@ public class Scuba2Time implements SpJCMTConstants
 		return integrationTime ;
 	}
 
-	private double scan( SpIterRasterObs raster )
+	public double scan( SpIterRasterObs raster )
 	{
 		double integrationTime = 0. ;
 		double durationPerArea = 0. ;
@@ -116,6 +127,99 @@ public class Scuba2Time implements SpJCMTConstants
 		integrationTime = totalTime ;
 
 		return integrationTime ;
+	}
+
+	public double scanFromCall( SpIterRasterObs raster )
+	{
+		double integrationTime = scan( raster ) ;
+		double height = raster.getHeight() ;
+		double width = raster.getWidth() ;
+
+		double airmass = getAirmass( raster ) ;
+		if( airmass > -1. )
+		{
+			SpSiteQualityObsComp siteQuality = findSiteQuality( raster ) ;
+
+			if( siteQuality != null )
+			{
+				double csoTau = siteQuality.getNoiseCalculationTau() ;
+
+				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
+				double desiredNoiseMJanskys = s2n.noiseForMapTotalIntegrationTime( Scuba2Noise.eight50 , integrationTime , csoTau , airmass , width , height  ) ;
+				integrationTime = s2n.totalIntegrationTimeForMap( Scuba2Noise.eight50 , csoTau , airmass , desiredNoiseMJanskys , width , height ) ;
+			}
+		}
+
+		return integrationTime ;
+	}
+
+	private double getAirmass( SpItem root )
+	{
+		double airmass = -1. ;
+
+		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( root ) ;
+		if( telescopeObsComp != null )
+		{
+			SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
+			if( base.getCoordSys() == CoordSys.FK5 )
+				airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+			else if( base.getCoordSys() == CoordSys.AZ_EL )
+				airmass = DrUtil.airmass( base.getYaxis() ) ;
+			else
+				airmass = 0. ;
+		}
+
+		return airmass ;
+	}
+
+	private SpSchedConstObsComp findSchedConstraints( SpItem root )
+	{
+		SpSchedConstObsComp schedConstraints = null ;
+		Object tmp = findObjectInContext( root , SpSchedConstObsComp.class ) ;
+		if( tmp != null )
+			schedConstraints = ( SpSchedConstObsComp )tmp ;
+		return schedConstraints ;
+	}
+
+	private SpSiteQualityObsComp findSiteQuality( SpItem root )
+	{
+		SpSiteQualityObsComp siteQuality = null ;
+		Object tmp = findObjectInContext( root , SpSiteQualityObsComp.class ) ;
+		if( tmp != null )
+			siteQuality = ( SpSiteQualityObsComp )tmp ;
+		return siteQuality ;
+	}
+
+	private Object findObjectInContext( SpItem parent , Class<?> klass )
+	{
+		Object found = null ;
+		while( parent != null )
+		{
+			parent = parent.parent() ;
+			if( parent != null )
+			{
+				if( klass.isInstance( parent ) )
+				{
+					found = parent ;
+					break ;
+				}
+				else
+				{
+					java.util.Enumeration<SpItem> children = parent.children() ;
+					while( children != null && children.hasMoreElements() )
+					{
+						gemini.sp.SpItem child = children.nextElement() ;
+						if( klass.isInstance( child ) )
+						{
+							found = child ;
+							parent = null ;
+							break ;
+						}
+					}
+				}
+			}
+		}
+		return found ;
 	}
 
 	private double pointing( SpIterPointingObs pointing )
