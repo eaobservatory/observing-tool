@@ -4,7 +4,6 @@
 
 package orac.jcmt.util ;
 
-import jsky.app.ot.OtCfg ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import orac.jcmt.iter.SpIterRasterObs ;
 import orac.jcmt.iter.SpIterPointingObs ;
@@ -162,7 +161,7 @@ public class Scuba2Time implements SpJCMTConstants
 		{
 			SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
 			if( base.getCoordSys() == CoordSys.FK5 )
-				airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+				airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( "19:49:20.75" ) ) ;
 			else if( base.getCoordSys() == CoordSys.AZ_EL )
 				airmass = DrUtil.airmass( base.getYaxis() ) ;
 			else
