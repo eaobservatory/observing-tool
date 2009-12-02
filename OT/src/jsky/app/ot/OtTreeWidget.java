@@ -29,6 +29,7 @@ import gemini.sp.SpSurveyContainer ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.iter.SpIterObserveBase ;
 import orac.util.SpItemUtilities ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA ;
@@ -494,11 +495,15 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		}
 
 		// Make special cases for a ACSIS heterodyne observations
-		if( !canAddEyeToNonACSIS( destItem , newItems ) )
+		if( destItem instanceof SpIterObserveBase && !canAddEyeToNonACSIS( destItem , newItems ) )
 			return null ;
 
 		// Can add to SCUBA-2 ?
-		if( !canAddEyeToSCUBA2( destItem , newItems ) )
+		if( destItem instanceof SpIterObserveBase && !canAddEyeToSCUBA2( destItem , newItems ) )
+			return null ;
+
+		// Can add SCUBA-2
+		if( !canAddSCUBA2( destItem , newItems ) )
 			return null ;
 		
 		// First see if we can insert the items inside the selected node
@@ -1034,11 +1039,55 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		}
 	}
 
+	private boolean canAddSCUBA2( SpItem target , SpItem[] items )
+	{
+		boolean canAdd = true ;
+		String[] eyes = { "jiggle" , "stare" } ;
+		Class<?> tabooClass = SpInstSCUBA2.class ;
+		for( SpItem item : items )
+		{
+			if( tabooClass.isInstance( item ) )
+			{
+				canAdd = canAddInstrument( target , eyes ) ;
+				break ;
+			}
+		}
+		if( !canAdd )
+			DialogUtil.error( this , "Can not add SCUBA-2 due to conflicting eye in observation." ) ;
+		return canAdd ;
+	}
+
+	private boolean canAddInstrument( SpItem target , String[] eyes )
+	{
+		boolean canAdd = true ;
+		if( target.childCount() > 0 )
+		{
+			Enumeration<SpItem> children = target.children() ;
+			while( children.hasMoreElements() && canAdd )
+			{
+				SpItem child = children.nextElement() ;
+				if( child instanceof SpInstObsComp )
+					break ;
+				canAdd = canAddInstrument( child , eyes ) ;
+				for( String eye : eyes )
+				{
+					System.out.println( child.subtypeStr() ) ;
+					if( child.subtypeStr().equals( eye + "Obs" ) )
+					{
+						canAdd = false ;
+						break ;
+					}
+				}
+			}
+		}
+		return canAdd ;
+	}
+
 	private boolean canAddEyeToSCUBA2( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
 		String[] eyes = { "jiggle" , "stare" } ;
-		Class[] tabooClass = new Class[]{ SpInstSCUBA2.class } ;
+		Class<?>[] tabooClass = new Class[]{ SpInstSCUBA2.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
 			String eye = eyes[ index ] ;
@@ -1058,7 +1107,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	{
 		boolean canAdd = true ;
 		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" } ;
-		Class[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
+		Class<?>[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
 			String eye = eyes[ index ] ;
@@ -1073,20 +1122,23 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		return canAdd ;
 	}
 
-	private boolean canAddEye( SpItem target , SpItem[] items , String eye , Class[] tabooClasses )
+	private boolean canAddEye( SpItem target , SpItem[] items , String eye , Class<?>[] tabooClasses )
 	{
 		boolean canAdd = true ;
 		SpInstObsComp inst = SpTreeMan.findInstrument( target ) ;
-		for( int j = 0 ; j < tabooClasses.length && canAdd ; j++ )
+		if( inst != null )
 		{
-			Class tabooClass = tabooClasses[ j ] ;
-			if( tabooClass.isInstance( inst ) )
+			for( int j = 0 ; j < tabooClasses.length && canAdd ; j++ )
 			{
-				for( int i = 0 ; i < items.length && canAdd ; i++ )
+				Class<?> tabooClass = tabooClasses[ j ] ;
+				if( tabooClass.isInstance( inst ) )
 				{
-					String subType = items[ i ].subtypeStr() ;
-					if( subType.equals( eye ) )
-						canAdd = false ;
+					for( int i = 0 ; i < items.length && canAdd ; i++ )
+					{
+						String subType = items[ i ].subtypeStr() ;
+						if( subType.equals( eye ) )
+							canAdd = false ;
+					}
 				}
 			}
 		}
