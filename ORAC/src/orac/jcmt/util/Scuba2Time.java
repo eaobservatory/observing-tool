@@ -144,7 +144,7 @@ public class Scuba2Time implements SpJCMTConstants
 				double csoTau = siteQuality.getNoiseCalculationTau() ;
 
 				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
-				double desiredNoiseMJanskys = s2n.noiseForMapTotalIntegrationTime( Scuba2Noise.eight50 , integrationTime , csoTau , airmass , width , height  ) ;
+				double desiredNoiseMJanskys = s2n.noiseForMapTotalIntegrationTime( Scuba2Noise.eight50 , integrationTime , csoTau , airmass , width , height , false ) ;
 				integrationTime = s2n.totalIntegrationTimeForMap( Scuba2Noise.eight50 , csoTau , airmass , desiredNoiseMJanskys , width , height ) ;
 			}
 		}
