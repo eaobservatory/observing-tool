@@ -234,7 +234,7 @@ public class Scuba2Noise
 	 * @param heightArcSeconds
 	 * @return desired noise in milijanskys
 	 */
-	public double noiseForMapTotalIntegrationTime( String waveLength , double time , double csoTau , double airmass , double widthArcSeconds , double heightArcSeconds )
+	public double noiseForMapTotalIntegrationTime( String waveLength , double time , double csoTau , double airmass , double widthArcSeconds , double heightArcSeconds , boolean overhead )
 	{
 		double mJy = -1 ;
 
@@ -258,7 +258,9 @@ public class Scuba2Noise
 
 		double area = widthArcSeconds * heightArcSeconds ;
 
-		double dividend = 2. * area ;
+		double dividend = area ;
+		if( overhead )
+			dividend *= 2. ;
 		double divisor = numberOfBolometers * omegaPerBolometerSquare  ;
 		double scale = dividend / divisor  ;
 		time /= scale ;
@@ -376,7 +378,7 @@ public class Scuba2Noise
 					double heightArcMinutes = new Double( args[ 6 ] ) ;
 					result = s2n.totalIntegrationTimeForMap( waveLength , csoTau , airmass , desiredNoiseMJanskys , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) ;
 					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", desired noise " + desiredNoiseMJanskys + ", width " + widthArcMinutes + ", height " + heightArcMinutes + " = " + result + " seconds." ) ;
-					System.out.println( "Desired noise was " + s2n.noiseForMapTotalIntegrationTime( waveLength , result , csoTau , airmass , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) + " ?" ) ;
+					System.out.println( "Desired noise was " + s2n.noiseForMapTotalIntegrationTime( waveLength , result , csoTau , airmass , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) , true ) + " ?" ) ;
 					break ;
 				default :
 					System.out.println( "Unknown program type." ) ;
