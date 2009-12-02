@@ -9,7 +9,7 @@
 // $Id$
 package orac.jcmt.iter ;
 
-import orac.jcmt.inst.SpInstSCUBA2;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType ;

@@ -9,6 +9,8 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstSCUBA2 ;
+import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
@@ -31,6 +33,7 @@ public class SpIterPointingObs extends SpIterJCMTObs
 	public static String[] POINTING_PIXEL_MANUAL_CHOICES = { "1" , "..." } ;
 	public static String[] POINTING_METHODS = { "9 Position" , "16 Position" , "25 Position" } ;
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "pointingObs" , "Pointing" ) ;
+	private Scuba2Time s2time = null ;
 
 	// Register the prototype.
 	static
@@ -81,6 +84,15 @@ public class SpIterPointingObs extends SpIterJCMTObs
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
 			totalIntegrationTime = 120. ;
+		}
+		else if( instrument instanceof SpInstSCUBA2 )
+		{
+			totalIntegrationTime = SCUBA2_STARTUP_TIME ;
+
+			if( s2time == null )
+				s2time = new Scuba2Time() ;
+
+			totalIntegrationTime = s2time.totalIntegrationTime( this ) ;
 		}
 		return( overhead + totalIntegrationTime ) ;
 	}
