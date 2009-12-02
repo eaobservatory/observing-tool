@@ -215,9 +215,9 @@ public class JcmtSpValidation extends SpValidation
 			
 			// Check whether the observation a DR recipe (as its own child OR in its context).
 			SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs ) ;
-			if( recipe == null )
+			if( recipe == null && ( ( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) ) ) )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No Dr-recipe component." ) ) ;
-			else
+			else if( recipe != null )
 				checkDRRecipe( recipe , report , titleString , thisObs ) ;
 		}
 		super.checkObservation( spObs , report ) ;
@@ -245,7 +245,7 @@ public class JcmtSpValidation extends SpValidation
 			if( thisObs.getClass().getName().toLowerCase().indexOf( shortType ) == -1 )
 				continue ;
 			String recipeForType = recipe.getRecipeForType( type ) ;
-			if( recipeForType == null )
+			if( recipeForType == null && !"scuba2".equals( instrument ) )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + shortType ) ) ;
 		}
 	}
