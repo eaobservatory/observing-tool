@@ -20,11 +20,13 @@ import javax.swing.JInternalFrame ;
 import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 import gemini.util.Version ;
 
+import jsky.util.Preferences ;
+
 public final class SplashScreen extends SplashGUI implements ActionListener
 {
-
 	/** The top level parent frame (or internal frame) used to close the window */
 	protected Component parent ;
+	private String OT_VERSION = "ot_version" ;
 
 	public SplashScreen( URL welcomeTxtURL )
 	{
@@ -33,6 +35,14 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		openButton.addActionListener( this ) ;
 		newButton.addActionListener( this ) ;
 		fetchButton.addActionListener( this ) ;
+
+		String version = gemini.util.Version.getInstance().getVersion() ;
+		String pref = Preferences.get( OT_VERSION ) ;
+		if( pref == null || !version.equals( pref ) )
+		{
+			Preferences.set( OT_VERSION , version ) ;
+			OT.showNews() ;
+		}
 	}
 
 	//
