@@ -58,7 +58,6 @@ public class OtWindowMenuBar extends JMenuBar
 	// menu items that can be enabled/disabled at runtime
 	protected JMenuItem fileRevertMenuItem ;
 	protected JMenuItem filePhase1MenuItem ;
-//	protected JMenuItem databaseModeItem ;
 
 	/** The main OT window toolbar */
 	protected OtWindowToolBar mainToolBar ;
@@ -220,11 +219,11 @@ public class OtWindowMenuBar extends JMenuBar
 	 */
 	protected JMenuItem createFileSaveObsAsSequenceMenuItem()
 	{
-
+		boolean jcmt = OtCfg.telescopeUtil instanceof JcmtUtil ;
 		// Changes for temporary ACSIS translator.
 		// Can probably be removed once a proper ACSIS translator is provided.
 		String menuString = "Save Observation As Sequence" ;
-		if( OtCfg.telescopeUtil instanceof JcmtUtil )
+		if( jcmt )
 			menuString = "Save Observation As ACSIS/OCS XML" ;
 
 		JMenuItem menuItem = new JMenuItem( menuString ) ;
@@ -238,6 +237,10 @@ public class OtWindowMenuBar extends JMenuBar
 					editor.doSaveSequence() ;
 			}
 		} ) ;
+
+		if( jcmt )
+			menuItem.setEnabled( false ) ;
+
 		return menuItem ;
 	}
 
