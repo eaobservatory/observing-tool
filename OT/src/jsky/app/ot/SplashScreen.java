@@ -36,7 +36,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		newButton.addActionListener( this ) ;
 		fetchButton.addActionListener( this ) ;
 
-		String version = gemini.util.Version.getInstance().getVersion() ;
+		String version = gemini.util.Version.getInstance().getFullVersion() ;
 		String pref = Preferences.get( OT_VERSION ) ;
 		if( pref == null || !version.equals( pref ) )
 			Preferences.set( OT_VERSION , version ) ;
