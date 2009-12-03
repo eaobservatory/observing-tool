@@ -19,6 +19,14 @@ All Rights Reserved.
 Copyright 2007-2009 Science and Technology Facilities Council.
 All Rights Reserved.
 
++++ December 2009 release
+
+  - SCUBA-2 Shared Risk Observing release.
+
+  - Airmass calculation now works correctly with FK4, FK5 and Az/El.
+
+  - Position editor has been disabled for Galactic coordinates due to
+    poor support in JSky.
 
 +++ July 2009
 

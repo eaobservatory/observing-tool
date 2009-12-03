@@ -17,6 +17,31 @@ All Rights Reserved.
 Copyright 2007-2009 Science and Technology Facilities Council.
 All Rights Reserved.
 
++++ December 2009 release
+
+  - SCUBA-2 Shared Risk Observing release.
+
+  - SCUBA-2 available for the first time.
+
+  - Time estimates and noise calculation for Scans matches call.
+    Requested time calculates noise without overheads.
+    Elapsed time shows time estimate at same noise level with overheads.
+
+  - New options for Heterodyne Scan map position angles, along height 
+    and along width. Along width is scan angle + 90 degrees, along width
+    matches the scan angle.
+
+  - Airmass calculation now works correctly with FK4, FK5 and Az/El.
+
+  - Huge number of additions to the line catalogue.
+
+  - Position editor has been disabled for Galactic coordinates due to
+    poor support in JSky.
+
+  - SCUBA-2 library available.
+
+  - SCUBA-2 contains one Data Reduction recipe REDUCE_SCAN, lack of
+    specified Data Reduction recipe validates correctly.
 
 +++ July 2009 release
 
