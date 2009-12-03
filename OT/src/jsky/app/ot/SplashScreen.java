@@ -27,6 +27,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 	/** The top level parent frame (or internal frame) used to close the window */
 	protected Component parent ;
 	private String OT_VERSION = "ot_version" ;
+	private static String fullVersion = Version.getInstance().getFullVersion() ;
 
 	public SplashScreen( URL welcomeTxtURL )
 	{
@@ -36,11 +37,10 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		newButton.addActionListener( this ) ;
 		fetchButton.addActionListener( this ) ;
 
-		String version = gemini.util.Version.getInstance().getVersion() ;
 		String pref = Preferences.get( OT_VERSION ) ;
-		if( pref == null || !version.equals( pref ) )
+		if( pref == null || !fullVersion.equals( pref ) )
 		{
-			Preferences.set( OT_VERSION , version ) ;
+			Preferences.set( OT_VERSION , fullVersion ) ;
 			OT.showNews() ;
 		}
 	}
@@ -56,7 +56,6 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 
 		// Get the updated version date...
 		BufferedReader br = null ;
-		String fullVersion = Version.getInstance().getFullVersion() ;
 		try
 		{
 			br = new BufferedReader( new InputStreamReader( url.openStream() ) ) ;
