@@ -37,7 +37,6 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		newButton.addActionListener( this ) ;
 		fetchButton.addActionListener( this ) ;
 
-		String fullVersion = Version.getInstance().getFullVersion() ;
 		String pref = Preferences.get( OT_VERSION ) ;
 		if( pref == null || !fullVersion.equals( pref ) )
 			Preferences.set( OT_VERSION , fullVersion ) ;
