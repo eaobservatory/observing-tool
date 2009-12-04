@@ -87,7 +87,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	 */
 	public double getDefaultScanDy()
 	{
-		return 180. ;
+		return 30. ;
 	}
 
 	public Hashtable<String,double[][]> getMicroStepPatterns()
