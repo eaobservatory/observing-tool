@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-abstract class MenuHandler implements MenuListener , MouseListener
+public abstract class MenuHandler implements MenuListener , MouseListener
 {
 	protected Vector<String> menuStack = new Vector<String>() ;
 	protected Vector<String> selectionStack = new Vector<String>() ;
