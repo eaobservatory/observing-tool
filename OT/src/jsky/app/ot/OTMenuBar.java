@@ -6,8 +6,6 @@
 //
 package jsky.app.ot ;
 
-import java.awt.event.ActionListener ;
-import java.awt.event.ActionEvent ;
 import javax.swing.JMenuBar ;
 import javax.swing.JMenu ;
 import javax.swing.JMenuItem ;
@@ -16,7 +14,7 @@ import javax.swing.JComponent ;
 /** 
  * Implements the menubar for the OT application class. 
  */
-public class OTMenuBar extends JMenuBar implements ActionListener
+public class OTMenuBar extends JMenuBar
 {
 	/** Target class */
 	protected OT ot ;
@@ -31,7 +29,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenu helpMenu ;
 
 	private static final String NEW_PROGRAM = "New Program" ;
-	private static final String NEW_PLAN = "New Plan" ;
 	private static final String NEW_LIBRARY = "New Library" ;
 	private static final String OPEN = "Open " ;
 	private static final String LIBRARY = " library" ;
@@ -42,6 +39,8 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	private static final String ABOUT = "About ..." ;
 	private static final String OT_HELP = "OT Help ..." ;
 
+	private static MenuHandler menuHandler = null ;
+
 	/**
 	 * Create the menubar for the given JSkyCat instance
 	 */
@@ -49,6 +48,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	{
 		super() ;
 		this.ot = ot ;
+		menuHandler = new OTMenuBarHandler() ;
 		add( createFileMenu() ) ;
 		add( createObservingDatabaseMenu() ) ;
 		add( createHelpMenu() ) ;
@@ -61,7 +61,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	{
 		fileMenu = new JMenu( "File" ) ;
 		fileMenu.add( createFileNewProgramMenuItem() ) ;
-		fileMenu.add( createFileNewPlanMenuItem() ) ;
 		fileMenu.add( createFileNewLibraryMenuItem() ) ;
 		fileMenu.add( createFileOpenMenuItem() ) ;
 
@@ -79,6 +78,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 		fileMenu.add( createFilePreferencesMenuItem() ) ;
 		fileMenu.addSeparator() ;
 		fileMenu.add( createFileExitMenuItem() ) ;
+		fileMenu.addMenuListener( menuHandler ) ;
 		return fileMenu ;
 	}
 
@@ -89,6 +89,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	{
 		observingDatabaseMenu = new JMenu( "Observing Database" ) ;
 		observingDatabaseMenu.add( createObservingDatabaseFetchProgramMenuItem() ) ;
+		observingDatabaseMenu.addMenuListener( menuHandler ) ;
 		return observingDatabaseMenu ;
 	}
 
@@ -98,7 +99,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 		helpMenu.add( createHelpNewsMenuItem() ) ;
 		helpMenu.add( createHelpAboutMenuItem() ) ;
 		helpMenu.add( createHelpOtHelpMenuItem() ) ;
-
+		helpMenu.addMenuListener( menuHandler ) ;
 		helpMenu.setAlignmentX( JComponent.RIGHT_ALIGNMENT ) ;
 
 		return helpMenu ;
@@ -110,21 +111,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createFileNewProgramMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( NEW_PROGRAM ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "New Plan" menu item
-	 */
-	protected JMenuItem createFileNewPlanMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( NEW_PLAN ) ;
-		menuItem.addActionListener( this ) ;
-
-		// MFO 23 May 2001: "New Plan" menu item disabled.
-		menuItem.setEnabled( false ) ;
-
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -134,7 +121,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createFileNewLibraryMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( NEW_LIBRARY ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -144,7 +131,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createFileOpenMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( OPEN ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -168,7 +155,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 				continue ;
 			}
 			menuItems[ i ] = new JMenuItem( OPEN + libs[ i ] + LIBRARY ) ;
-			menuItems[ i ].addActionListener( this ) ;
+			menuItems[ i ].addMouseListener( menuHandler ) ;
 		}
 
 		return menuItems ;
@@ -180,7 +167,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createFilePreferencesMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( PREFERENCES ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -190,7 +177,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createFileExitMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( EXIT ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -200,7 +187,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createObservingDatabaseFetchProgramMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( FETCH_PROGRAM ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -210,7 +197,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createHelpNewsMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( NEWS ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -220,7 +207,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createHelpAboutMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( ABOUT ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
@@ -230,34 +217,35 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenuItem createHelpOtHelpMenuItem()
 	{
 		JMenuItem menuItem = new JMenuItem( OT_HELP ) ;
-		menuItem.addActionListener( this ) ;
+		menuItem.addMouseListener( menuHandler ) ;
 		return menuItem ;
 	}
 
-	public void actionPerformed( ActionEvent ae )
+	class OTMenuBarHandler extends MenuHandler
 	{
-		String actionCommand = ae.getActionCommand() ;
-		if( OT_HELP.equals( actionCommand ) )
-			OT.launchHelp() ;
-		else if( ABOUT.equals( actionCommand ) )
-			OT.showSplashScreen() ;
-		else if( NEWS.equals( actionCommand ) )
-			OT.showNews() ;
-		else if( FETCH_PROGRAM.equals( actionCommand ) )
-			OT.fetchProgram() ;
-		else if( EXIT.equals( actionCommand ) )
-			OT.exit() ;
-		else if( PREFERENCES.equals( actionCommand ) )
-			OT.preferences() ;
-		else if( actionCommand.startsWith( OPEN ) && actionCommand.endsWith( LIBRARY ) )
-			ot.openLibrary( actionCommand.substring( OPEN.length() , actionCommand.length() - LIBRARY.length() ) + ".xml" ) ;
-		else if( actionCommand.startsWith( OPEN ) && !actionCommand.endsWith( LIBRARY ) )
-			OT.open() ;
-		else if( NEW_LIBRARY.equals( actionCommand ) )
-			OT.newLibrary() ;
-		else if( NEW_PLAN.equals( actionCommand ) )
-			ot.newPlan() ;
-		else if( NEW_PROGRAM.endsWith( actionCommand ) )
-			OT.newProgram() ;
+		public void actionToPerform()
+		{
+			String actionCommand = selectionStack.remove( 0 ) ;
+			if( OTMenuBar.OT_HELP.equals( actionCommand ) )
+				OT.launchHelp() ;
+			else if( OTMenuBar.ABOUT.equals( actionCommand ) )
+				OT.showSplashScreen() ;
+			else if( OTMenuBar.NEWS.equals( actionCommand ) )
+				OT.showNews() ;
+			else if( OTMenuBar.FETCH_PROGRAM.equals( actionCommand ) )
+				OT.fetchProgram() ;
+			else if( OTMenuBar.EXIT.equals( actionCommand ) )
+				OT.exit() ;
+			else if( OTMenuBar.PREFERENCES.equals( actionCommand ) )
+				OT.preferences() ;
+			else if( actionCommand.startsWith( OTMenuBar.OPEN ) && actionCommand.endsWith( OTMenuBar.LIBRARY ) )
+				ot.openLibrary( actionCommand.substring( OTMenuBar.OPEN.length() , actionCommand.length() - OTMenuBar.LIBRARY.length() ) + ".xml" ) ;
+			else if( actionCommand.startsWith( OTMenuBar.OPEN ) && !actionCommand.endsWith( OTMenuBar.LIBRARY ) )
+				OT.open() ;
+			else if( OTMenuBar.NEW_LIBRARY.equals( actionCommand ) )
+				OT.newLibrary() ;
+			else if( OTMenuBar.NEW_PROGRAM.endsWith( actionCommand ) )
+				OT.newProgram() ;
+		}
 	}
 }
