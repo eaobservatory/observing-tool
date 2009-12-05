@@ -22,7 +22,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 	 */
 	public void actionToPerform(){}
 
-	@Override
     public void menuCanceled( MenuEvent e )
     {
 		Object source = e.getSource() ;
@@ -44,7 +43,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 		}
     }
 
-	@Override
     public void menuDeselected( MenuEvent e )
     {
 		Object source = e.getSource() ;
@@ -66,7 +64,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 			
 			if( selectionStack.size() == 1 )
 			{
-				String item = selectionStack.elementAt( 0 ) ;
 				actionToPerform() ;
 			}
 			else if( selectionStack.size() > 1 )
@@ -78,7 +75,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 		} 	        
     }
 
-	@Override
     public void menuSelected( MenuEvent e )
     {
 		Object source = e.getSource() ;
@@ -93,7 +89,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 		}   
     }
 
-	@Override
     public void mouseClicked( MouseEvent e )
     {
 		Object source = e.getSource() ;
@@ -101,7 +96,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 			actionToPerform() ;			
     }
 
-	@Override
     public void mouseEntered( MouseEvent e )
     {
 		Object source = e.getSource() ;
@@ -116,7 +110,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 		} 	        
     }
 
-	@Override
     public void mouseExited( MouseEvent e )
     {
 		Object source = e.getSource() ;
@@ -138,7 +131,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 		} 	        
     }
 
-	@Override
     public void mousePressed( MouseEvent e )
     {
 		Object source = e.getSource() ;
@@ -146,7 +138,6 @@ abstract class MenuHandler implements MenuListener , MouseListener
 			actionToPerform() ; 	        
     }
 
-	@Override
     public void mouseReleased( MouseEvent e )
     {
 		Object source = e.getSource() ;
