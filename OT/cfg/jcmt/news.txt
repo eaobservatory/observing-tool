@@ -1,11 +1,14 @@
+Nb. THIS IS A PRE-RELEASE OF THE SCUBA-2 OBSERVING TOOL AND DOES NOT 
+CONSTITUTE AN ANNOUNCEMENT THAT SCUBA-2 SHARED RISK OBSERVING HAS BEGUN.
+
 +++ December 2009 release
 
-  - SCUBA-2 Shared Risk Observing release.
+  - For use with SCUBA-2 Shared Risk Observing.	
 
   - SCUBA-2 available for the first time.
 
-  - Time estimates and noise calculation for Scans matches call.
-    Requested time calculates noise without overheads.
+  - Time estimates and noise calculation for Scans matches call for 
+    proposals. Requested time calculates noise without overheads.
     Elapsed time shows time estimate at same noise level with overheads.
 
   - New options for Heterodyne Scan map position angles, along height 
@@ -19,10 +22,10 @@
   - Position editor has been disabled for Galactic coordinates due to
     poor support in JSky.
 
-  - SCUBA-2 library available.
+  - SCUBA-2 library available and should be used for S2SRO programs.
 
   - SCUBA-2 contains one Data Reduction recipe REDUCE_SCAN, lack of
-    specified Data Reduction recipe validates correctly.
+    specified Data Reduction recipe is valid.
 
 +++ July 2009 release
 
