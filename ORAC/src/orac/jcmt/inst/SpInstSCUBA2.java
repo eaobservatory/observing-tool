@@ -60,7 +60,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 		}
 		catch( IOException e )
 		{
-			System.out.println( "Error reading SUCBA2 inst. cfg file" ) ;
+			System.out.println( "Error reading SCUBA2 inst. cfg file" ) ;
 		}
 	}
 
