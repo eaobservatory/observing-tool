@@ -35,7 +35,7 @@ import java.math.BigDecimal ;
 /**
  * Raster Iterator for ACSIS/JCMT.
  *
- * The Raster iterator (ACSIS) and the Scan iterator share a lot of fuctionality
+ * The Raster iterator (ACSIS) and the Scan iterator share a lot of functionality
  * and should in future be either made the same class or share code by other
  * means such as inheritance.
  *
@@ -826,23 +826,27 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL ) ;
 		_avTable.noNotifyRm( ATTR_ROWS_PER_REF ) ;
-		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
 		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
 		_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 ) ;
 
-		String strategy = SCAN_STRATEGIES[ 0 ] ;
-		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
-		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
+		String strategy = _avTable.get( ATTR_SCAN_STRATEGY ) ;
+		if( strategy == null || strategy.equals( "" ) )
+		{
+			strategy = SCAN_STRATEGIES_SCUBA2[ 0 ] ;
+			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_STRATEGIES_SCUBA2[ 0 ] , 0 ) ;
+		}
 		
 		if( strategy.equals( SCAN_PATTERN_POINT ) )
 		{
 			_avTable.noNotifyRm( ATTR_SCAN_INTEGRATIONS ) ;
-			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4." , 0 ) ;
+			if( _avTable.get( ATTR_SAMPLE_TIME ) == null || _avTable.get( ATTR_SAMPLE_TIME ).equals( "" ) )
+				_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4." , 0 ) ;
 		}
 		else
 		{
 			_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
-			_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
+			if( _avTable.get( ATTR_SCAN_INTEGRATIONS ) == null || _avTable.get( ATTR_SCAN_INTEGRATIONS ).equals( "" ) )
+				_avTable.noNotifySet( ATTR_SCAN_INTEGRATIONS , "1" , 0 ) ;
 		}
 		
 		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
