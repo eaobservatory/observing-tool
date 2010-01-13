@@ -37,7 +37,7 @@ public class Scuba2Time implements SpJCMTConstants
 		double integrationTime = 0 ;
 
 		if( obs instanceof SpIterRasterObs )
-			integrationTime = scanFromCall( ( SpIterRasterObs )obs ) ;
+			integrationTime = scan( ( SpIterRasterObs )obs ) ;
 		else if( obs instanceof SpIterPointingObs )
 			integrationTime = pointing( ( SpIterPointingObs )obs ) ;
 		else if( obs instanceof SpIterFocusObs )
