@@ -494,16 +494,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			}
 		}
 
-		// Make special cases for a ACSIS heterodyne observations
-		if( destItem instanceof SpIterObserveBase && !canAddEyeToNonACSIS( destItem , newItems ) )
-			return null ;
+		if( !canAddEyeToNonACSIS( destItem , newItems ) || !canAddEyeToSCUBA2( destItem , newItems ) )
+				return null ;
 
-		// Can add to SCUBA-2 ?
-		if( destItem instanceof SpIterObserveBase && !canAddEyeToSCUBA2( destItem , newItems ) )
-			return null ;
-
-		// Can add SCUBA-2
-		if( !canAddSCUBA2( destItem , newItems ) )
+		if( !canAddSCUBA2( destItem , newItems ) || !canAddHeterodyne( destItem , newItems ) )
 			return null ;
 		
 		// First see if we can insert the items inside the selected node
@@ -1057,6 +1051,24 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		return canAdd ;
 	}
 
+	private boolean canAddHeterodyne( SpItem target , SpItem[] items )
+	{
+		boolean canAdd = true ;
+		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" , "FTS2" } ;
+		Class<?> tabooClass = SpInstHeterodyne.class ;
+		for( SpItem item : items )
+		{
+			if( tabooClass.isInstance( item ) )
+			{
+				canAdd = canAddInstrument( target , eyes ) ;
+				break ;
+			}
+		}
+		if( !canAdd )
+			DialogUtil.error( this , "Can not add Heterodyne due to conflicting eye in observation." ) ;
+		return canAdd ;
+	}
+
 	private boolean canAddInstrument( SpItem target , String[] eyes )
 	{
 		boolean canAdd = true ;
@@ -1105,7 +1117,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
 	{
 		boolean canAdd = true ;
-		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" } ;
+		String[] eyes = { "dream" , "arrayTest" , "noise", "flat" , "FTS2" } ;
 		Class<?>[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
 		for( int index = 0 ; index < eyes.length && canAdd ; index++ )
 		{
