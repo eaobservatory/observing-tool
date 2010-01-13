@@ -83,11 +83,11 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	}
 
 	/**
-	 * Returns instrument specific default value for scan dx.
+	 * Returns instrument specific default value for scan dy.
 	 */
 	public double getDefaultScanDy()
 	{
-		return 30. ;
+		return 60. ;
 	}
 
 	public Hashtable<String,double[][]> getMicroStepPatterns()

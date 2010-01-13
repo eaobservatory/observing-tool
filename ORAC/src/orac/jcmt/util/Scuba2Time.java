@@ -64,8 +64,8 @@ public class Scuba2Time implements SpJCMTConstants
 		double height = raster.getHeight() ;
 		double width = raster.getWidth() ;
 		double dx = raster.getScanDx() ;
-		double dy = 30. ; // raster.getScanDy() ;
-		double velocity = 60. ; //raster.getScanVelocity() ;
+		double dy = raster.getScanDy() ;
+		double velocity = raster.getScanVelocity() ;
 		
 		String pattern = raster.getScanStrategy() ;
 		if( SCAN_PATTERN_LISSAJOUS.equals( pattern ) || SCAN_PATTERN_PONG.equals( pattern ) )
