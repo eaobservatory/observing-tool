@@ -386,7 +386,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	private void updateSizeOfPixels()
 	{
-
 		boolean displayWarning = false ;
 		if( !scuba2 )
 		{
@@ -696,7 +695,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			scuba2 = true ;
 			scuba2Setup() ;
 		}
-		else{}
 		
 		super.setInstrument( spInstObsComp ) ;
 		addWatchers() ;
