@@ -22,7 +22,15 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	{
 		super( SP_TYPE ) ;
 	}
-    
+
+	public String getTitle()
+	{
+		if( getTitleAttr() != null )
+			return super.getTitle() ;
+
+		return getSpecialMode() + " (" + getCount() + "X)" ;
+	}
+
     public String getSpecialMode()
     {
     	if( !_avTable.exists( SPECIAL_MODE ) )
