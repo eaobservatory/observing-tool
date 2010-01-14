@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>SCUBA-2.lib</meta_gui_filename>
-  <ot_version>20091202</ot_version>
+  <meta_gui_filename>SCUBA2.xml</meta_gui_filename>
+  <ot_version>20100112</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14,11 +14,11 @@
         <SpInstSCUBA2Ref idref="1"/>
         <SpSiteQualityObsCompRef idref="2"/>
         <SpTelescopeObsCompRef idref="0"/>
-        <estimatedDuration units="seconds">780.0</estimatedDuration>
+        <estimatedDuration units="seconds">480.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Pointsource</title>
-        <totalDuration units="seconds">900.0</totalDuration>
+        <totalDuration units="seconds">600.0</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -94,7 +94,7 @@ Things to include in your notes
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">120.00000000000003</estimatedDuration>
+          <estimatedDuration units="seconds">120.0</estimatedDuration>
           <standard>true</standard>
           <title>Calibration</title>
           <SpIterFolder type="if" subtype="none">
@@ -105,7 +105,7 @@ Things to include in your notes
                 <PA>0.0</PA>
                 <SCAN_AREA>
                   <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="180.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                  <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
@@ -116,7 +116,7 @@ Things to include in your notes
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">780.0</estimatedDuration>
+          <estimatedDuration units="seconds">480.0</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -134,7 +134,7 @@ Things to include in your notes
                   <PA>0.0</PA>
                   <SCAN_AREA>
                     <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                    <SCAN DY="10.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                    <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
                     </SCAN>
                   </SCAN_AREA>
                 </obsArea>
@@ -150,11 +150,11 @@ Things to include in your notes
         <SpInstSCUBA2Ref idref="4"/>
         <SpSiteQualityObsCompRef idref="5"/>
         <SpTelescopeObsCompRef idref="3"/>
-        <estimatedDuration units="seconds">1025.0</estimatedDuration>
+        <estimatedDuration units="seconds">269.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Scan map with offset(s)</title>
-        <totalDuration units="seconds">1145.0</totalDuration>
+        <totalDuration units="seconds">389.0</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -230,7 +230,7 @@ Things to include in your notes
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">120.00000000000003</estimatedDuration>
+          <estimatedDuration units="seconds">120.0</estimatedDuration>
           <standard>true</standard>
           <title>Calibration</title>
           <SpIterFolder type="if" subtype="none">
@@ -241,7 +241,7 @@ Things to include in your notes
                 <PA>0.0</PA>
                 <SCAN_AREA>
                   <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="180.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                  <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
@@ -252,7 +252,7 @@ Things to include in your notes
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">1025.0</estimatedDuration>
+          <estimatedDuration units="seconds">269.0</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -280,7 +280,7 @@ Things to include in your notes
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="600.0" WIDTH="600.0"/>
-                      <SCAN DY="10.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                      <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
                       </SCAN>
                     </SCAN_AREA>
                   </obsArea>
@@ -305,7 +305,7 @@ Things to include in your notes
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Pointing</title>
-        <totalDuration units="seconds">60.0</totalDuration>
+        <totalDuration units="seconds">120.0</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Pointing observation. Will normally be inserted as needed by TSS.</note>
@@ -336,7 +336,7 @@ Things to include in your notes
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">60.0</estimatedDuration>
+          <estimatedDuration units="seconds">120.0</estimatedDuration>
           <standard>true</standard>
           <title>Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -362,7 +362,7 @@ Things to include in your notes
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>z-Focus</title>
-        <totalDuration units="seconds">420.0</totalDuration>
+        <totalDuration units="seconds">480.0</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>X, Y, or Z focus observation. Will normally be inserted when needed by TSS.</note>
@@ -393,7 +393,7 @@ Things to include in your notes
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">420.0</estimatedDuration>
+          <estimatedDuration units="seconds">480.0</estimatedDuration>
           <standard>true</standard>
           <title>Observation</title>
           <SpIterFolder type="if" subtype="none">
