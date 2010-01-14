@@ -306,6 +306,10 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			}
 		}
 
+		// Overhead requested by Tim 1/13/10
+		if( instrument.getClass().getName().endsWith( "SpInstSCUBA2" ) )
+			elapsedTime += 60. ;
+
 		return elapsedTime ;
 	}
 
