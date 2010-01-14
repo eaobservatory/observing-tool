@@ -309,14 +309,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getScanDy()
 	{
 		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
-		if( _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 0. ) == 0. )
+		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
+		if( ( inst != null && inst instanceof SpInstSCUBA2 ) || _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 0. ) == 0. )
 		{
-			SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
-			if( inst != null )
-			{
-				double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy() ;
-				_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + scanDy , 0 ) ;
-			}
+			double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy() ;
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + scanDy , 0 ) ;
 		}
 		return _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 10. ) ;
 	}
