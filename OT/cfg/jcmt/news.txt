@@ -1,10 +1,7 @@
-Nb. THIS IS A PRE-RELEASE OF THE SCUBA-2 OBSERVING TOOL AND DOES NOT 
-CONSTITUTE AN ANNOUNCEMENT THAT SCUBA-2 SHARED RISK OBSERVING HAS BEGUN.
-
 +++ January 2010 release
 
-  - Time estimates should now be closer to reality, please check your 
-    programs prior to submission.
+  - Time estimates for S2SRO should now be closer to reality.
+    Please check your programs prior to submission.
 
 +++ December 2009 release
 
