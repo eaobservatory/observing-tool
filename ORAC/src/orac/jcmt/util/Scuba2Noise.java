@@ -148,7 +148,8 @@ public class Scuba2Noise
 			double afterNoise = wavelengthLookup.find( after ) ;
 			mJy = MathUtil.linterp( before , beforeNoise , after , afterNoise , csoTau ) ;
 		}
-		mJy = correctForAirmass( waveLength , mJy , csoTau , airmass ) ;
+		if( mJy != -1 )
+			mJy = correctForAirmass( waveLength , mJy , csoTau , airmass ) ;
 		return mJy ;
 	}
 
@@ -218,9 +219,11 @@ public class Scuba2Noise
 	 */
 	private double noisePerBolometerForTime( String waveLength , double time , double csoTau , double airmass )
 	{
+		double desiredNoise = -1 ;
 		time = StrictMath.sqrt( time ) ;
 		double mJy = calculateNEFD( waveLength , csoTau , airmass ) ;
-		double desiredNoise = mJy / time ;
+		if( mJy != -1 )
+			desiredNoise = mJy / time ;
 		return desiredNoise ;
 	}
 
