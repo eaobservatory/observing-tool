@@ -10,16 +10,16 @@ import orac.jcmt.iter.SpIterFTS2 ;
 import jsky.app.ot.editor.OtItemEditor ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
-public final class EdCompIterFTS2 extends OtItemEditor implements ActionListener
+public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener
 {
 	private SpIterFTS2 _inst ;
 
-	private FTS2GUI _w ;
+	private IterFTS2ObsGUI _w ;
 
-	public EdCompIterFTS2()
+	public EdIterFTS2Obs()
 	{
 		_title = "JCMT FTS-2" ;
-		_presSource = _w = new FTS2GUI() ;
+		_presSource = _w = new IterFTS2ObsGUI() ;
 		_description = "FTS-2" ;
 		_w.specialModes.setChoices( SpIterFTS2.SPECIAL_MODES ) ;
 		

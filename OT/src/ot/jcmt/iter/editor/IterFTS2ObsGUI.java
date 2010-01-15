@@ -16,7 +16,7 @@ import javax.swing.border.Border ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
-public class FTS2GUI extends JPanel
+public class IterFTS2ObsGUI extends JPanel
 {
 	JPanel portSetupPanel = new JPanel() ;
 	JRadioButton dual = new JRadioButton() ;
@@ -35,7 +35,7 @@ public class FTS2GUI extends JPanel
 	JPanel leftPanel = new JPanel() ;
 	JPanel rightPanel = new JPanel() ;
 	
-	public FTS2GUI()
+	public IterFTS2ObsGUI()
 	{
 		try
 		{
