@@ -3,6 +3,8 @@
   - Time estimates for S2SRO should now be closer to reality.
     Please check your programs prior to submission.
 
+  - Tau values for SCUBA-2 outside the known range return -1 mJy.
+
 +++ December 2009 release
 
   - For use with SCUBA-2 Shared Risk Observing.	
