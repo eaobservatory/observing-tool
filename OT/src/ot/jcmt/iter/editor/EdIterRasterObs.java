@@ -617,7 +617,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			{
 				_iterObs.rmSampleTime() ;
 				String integrations = _iterObs.getIntegrations() ;
-				if( integrations == null || "".equals( integrations ) || Integer.parseInt( integrations ) < 1 )
+				if( integrations == null || integrations.trim().equals( "" ) || Integer.parseInt( integrations ) < 1 )
 					_iterObs.setIntegrations( 1 ) ;
 			}
 			// Should be SCUBA-2 anyway, but better safe ...
