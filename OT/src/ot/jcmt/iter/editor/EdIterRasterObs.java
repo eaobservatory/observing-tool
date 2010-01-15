@@ -604,7 +604,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else if( ddlbwe == _w.scanningStrategies )
 		{
 			String value = ( String )_w.scanningStrategies.getSelectedItem() ;
-			
+
 			_iterObs.setScanStrategy( value ) ;
 			
 			if( SCAN_PATTERN_POINT.equals( value ) )
@@ -616,7 +616,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			else
 			{
 				_iterObs.rmSampleTime() ;
-				_iterObs.setIntegrations( 1 ) ;
+				String integrations = _iterObs.getIntegrations() ;
+				if( integrations == null || "".equals( integrations ) || Integer.parseInt( integrations ) < 1 )
+					_iterObs.setIntegrations( 1 ) ;
 			}
 			// Should be SCUBA-2 anyway, but better safe ...
 			if( scuba2 )
