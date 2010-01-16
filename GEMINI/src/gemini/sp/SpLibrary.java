@@ -32,9 +32,6 @@ public class SpLibrary extends SpRootItem
 
 	public void processXmlElementContent( String element , String value )
 	{
-		if( element.equals( ATTR_OT_VERSION ) )
-			setOTVersion() ;
-		else
-			super.processXmlElementContent( element , value ) ;
+		super.processXmlElementContent( element , value ) ;
 	}
 }
