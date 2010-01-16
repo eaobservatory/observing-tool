@@ -300,6 +300,9 @@ public class SpClient extends SoapClient
 		// SpObs components that are MSBs.
 		SpItemUtilities.saveElapsedTimes( spProg ) ;
 
+		spProg.setOTVersion() ;
+		spProg.setTelescope() ;
+
 		String sp = spProg.toXML() ;
 
 		String forceString = force ? "1" : "0" ;

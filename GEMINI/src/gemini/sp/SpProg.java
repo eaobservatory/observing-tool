@@ -13,7 +13,6 @@ import java.util.Enumeration ;
  */
 public class SpProg extends SpRootItem
 {
-
 	/** The PI (principal investigator) attribute. */
 	public static final String ATTR_PI = "pi" ;
 
@@ -223,9 +222,6 @@ public class SpProg extends SpRootItem
 
 	public void processXmlElementContent( String element , String value )
 	{
-		if( element.equals( ATTR_OT_VERSION ) )
-			setOTVersion() ;
-		else
-			super.processXmlElementContent( element , value ) ;
+		super.processXmlElementContent( element , value ) ;
 	}
 }
