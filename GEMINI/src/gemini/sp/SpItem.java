@@ -6,7 +6,6 @@
 package gemini.sp ;
 
 import gemini.util.Assert ;
-import gemini.util.XmlUtil ;
 
 import java.util.Enumeration ;
 import java.util.Observable ;
@@ -1242,11 +1241,40 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 			if( avAttr.startsWith( "." ) )
 				return "<" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" + value + "</" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" ;
 			else
-				return "<" + avAttr + ">" + XmlUtil.asciiToXml( value ) + "</" + avAttr + ">" ;
+				return "<" + avAttr + ">" + asciiToXml( value ) + "</" + avAttr + ">" ;
 		}
 		else
 		{
 			return "<" + avAttr.substring( 0 , avAttr.indexOf( ':' ) ) + " " + avAttr.substring( avAttr.indexOf( ':' ) + 1 ) + "=\"" + value + "\"/>" ;
 		}
+	}
+	
+	// copied from gemini.util.XmlUtil
+	public String asciiToXml( String ascii )
+	{
+		if( ascii == null )
+			return "" ;
+
+		StringBuffer result = new StringBuffer() ;
+
+		for( int i = 0 ; i < ascii.length() ; i++ )
+		{
+			switch( ascii.charAt( i ) )
+			{
+				case '<' :
+					result.append( "&lt;" ) ;
+					break ;
+				case '>' :
+					result.append( "&gt;" ) ;
+					break ;
+				case '&' :
+					result.append( "&amp;" ) ;
+					break ;
+				default :
+					result.append( ascii.charAt( i ) ) ;
+			}
+		}
+
+		return result.toString() ;
 	}
 }
