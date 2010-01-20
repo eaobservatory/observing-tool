@@ -68,15 +68,9 @@ import orac.validation.SpValidation ;
 import orac.validation.ErrorMessage ;
 import ot.ReportBox ;
 
-import gemini.sp.obsComp.SpInstObsComp ;
-
 import orac.util.FileFilterXML ;
 
 import omp.SpClient ;
-
-import orac.jcmt.inst.SpInstHeterodyne ; // Temporary ACSIS translator
-import orac.jcmt.util.AcsisTranslator ; // Temporary ACSIS translator
-import java.io.IOException ; // Temporary ACSIS translator
 
 /**
  * Button manager base class.  Helper classes derived from this
