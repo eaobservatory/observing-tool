@@ -30,7 +30,6 @@ SOURCES = \
 	ChoiceProperty.java \
 	SkycatCfgEntry.java \
 	SimpleHTMLWriter.java \
-	HTMLAnchor.java \
 	MathUtil.java \
 	ClipboardHelper.java \
 	DnDUtils.java
