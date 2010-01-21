@@ -46,7 +46,6 @@ import gemini.sp.SpMSB ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpObsFolder ;
 import gemini.sp.SpObsGroup ;
-import gemini.sp.SpPhase1 ;
 import gemini.sp.SpProg ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpTreeMan ;
@@ -675,27 +674,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		}
 
 		return true ;
-	}
-
-	/**
-	 * Is Phase 1 proposal information available for the current program?
-	 */
-	public boolean isPhase1InfoAvailable()
-	{
-		// First, does this site support a way to create phase 1 html documents for the Phase 1 Browser?
-		if( !OtCfg.phase1Available() )
-			return false ;
-
-		SpItem spRoot = _tw.getProg() ;
-
-		// Is the document a Science Program.  If not, it doesn't have phase 1 info.
-		if( !( spRoot instanceof SpProg ) )
-			return false ;
-
-		// Does the Science Program have phase 1 info.  If created from scratch
-		// (not from a Phase 1 tool like the Gemini Phase1Gui) it will not.
-		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item() ;
-		return( p1 != null ) ;
 	}
 
 	/**
