@@ -29,7 +29,6 @@ SOURCES = \
 	PropertyWatcher.java \
 	ChoiceProperty.java \
 	SkycatCfgEntry.java \
-	SimpleHTMLWriter.java \
 	MathUtil.java \
 	ClipboardHelper.java \
 	DnDUtils.java
