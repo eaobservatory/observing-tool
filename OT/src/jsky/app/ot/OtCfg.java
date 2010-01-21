@@ -370,12 +370,6 @@ public final class OtCfg
 		clientData = new OtClientData( tnw , "jsky.app.ot.editor.EdProgram" ) ;
 		SpFactory.SCIENCE_PROGRAM.setClientData( clientData ) ;
 
-		// Science Plan
-		tnw = new OtObsContainerTreeNodeWidget() ;
-		tnw.setBothImageSrc( "images/archiv_small.gif" ) ;
-		clientData = new OtClientData( tnw , "jsky.app.ot.editor.EdProgram" ) ;
-		SpFactory.SCIENCE_PLAN.setClientData( clientData ) ;
-
 		// Library
 		tnw = new OtObsContainerTreeNodeWidget() ;
 		tnw.setBothImageSrc( "images/library.gif" ) ;
