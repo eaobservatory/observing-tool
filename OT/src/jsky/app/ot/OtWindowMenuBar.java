@@ -126,9 +126,6 @@ public class OtWindowMenuBar extends JMenuBar
 		menu.add( fileRevertMenuItem = createFileRevertToSavedMenuItem() ) ;
 		menu.addSeparator() ;
 
-		menu.add( filePhase1MenuItem = createFileShowPhase1InfoMenuItem() ) ;
-		menu.addSeparator() ;
-
 		menu.add( createFileCloseMenuItem() ) ;
 
 		// disable/enable the "Save" and "Revert" choices depending
@@ -261,26 +258,6 @@ public class OtWindowMenuBar extends JMenuBar
 			public void actionPerformed( ActionEvent ae )
 			{
 				editor.revertToSaved() ;
-			}
-		} ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "Show Phase1 Info" menu item
-	 */
-	protected JMenuItem createFileShowPhase1InfoMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( "Show Phase1 Info" ) ;
-
-		// If this site supports Phase 1 Information, then enable the menu item for it
-		menuItem.setEnabled( OtCfg.phase1Available() ) ;
-
-		menuItem.addActionListener( new ActionListener()
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				editor.showPhase1() ;
 			}
 		} ) ;
 		return menuItem ;

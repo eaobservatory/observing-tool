@@ -6,8 +6,6 @@
 //
 package jsky.app.ot ;
 
-import ot.phase1.Phase1HTMLDocument ;
-
 import gemini.sp.SpFactory ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpType ;
@@ -254,26 +252,6 @@ public final class OtCfg
 	public static synchronized boolean phase1Available()
 	{
 		return ( ( _otCfgInfo != null ) && ( _otCfgInfo.phase1Class != null ) ) ;
-	}
-
-	public static synchronized Phase1HTMLDocument createHTMLDocument()
-	{
-		if( !phase1Available() )
-			return null ;
-
-		String className = _otCfgInfo.phase1Class ;
-		Phase1HTMLDocument doc = null ;
-		try
-		{
-			Class c = Class.forName( className ) ;
-			doc = ( Phase1HTMLDocument )c.newInstance() ;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "Problem initializing class: " + className ) ;
-			ex.printStackTrace() ;
-		}
-		return doc ;
 	}
 
 	//

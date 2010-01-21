@@ -54,7 +54,6 @@ import gemini.sp.SpType ;
 import gemini.util.ConfigWriter ;
 import gemini.util.ObservingToolUtilities;
 import orac.util.SpInputXML ;
-import ot.phase1.Phase1HTMLDocument ;
 import jsky.app.ot.tpe.TelescopePosEditor ;
 import jsky.app.ot.tpe.TpeManager ;
 import jsky.app.ot.tpe.TpeManagerWatcher ;
@@ -697,47 +696,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		// (not from a Phase 1 tool like the Gemini Phase1Gui) it will not.
 		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item() ;
 		return( p1 != null ) ;
-	}
-
-	/**
-	 * Show the Phase1 information associated with this program.
-	 */
-	public void showPhase1()
-	{
-		SpItem spRoot = _tw.getProg() ;
-
-		if( !( spRoot instanceof SpProg ) )
-		{
-			DialogUtil.message( this , "Phase 1 information is only available for Science Programs." ) ;
-			return ;
-		}
-
-		SpPhase1 p1 = ( ( SpProg )spRoot ).getPhase1Item() ;
-		if( p1 == null )
-		{
-			DialogUtil.message( this , "There is no Phase 1 Information for this Science Program." ) ;
-			return ;
-		}
-
-		Phase1HTMLDocument doc = OtCfg.createHTMLDocument() ;
-
-		if( doc == null )
-		{
-			String msg = "This installation does not support Phase 1 Info browsing." ;
-			DialogUtil.message( this , msg ) ;
-			return ;
-		}
-
-		try
-		{
-			doc.generate( p1 ) ;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "Couldn't generate Phase1 information: " + ex ) ;
-			ex.printStackTrace() ;
-			return ;
-		}
 	}
 
 	/**
