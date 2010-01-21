@@ -28,7 +28,6 @@ public final class SpFactory
 	private static final Hashtable<SpType,SpItem> _prototypes = new Hashtable<SpType,SpItem>() ;
 	public static final SpItem SCIENCE_PROGRAM = new SpProg() ;
 	public static final SpItem SCIENCE_PLAN = new SpPlan() ;
-	public static final SpItem PHASE_1 = new SpPhase1() ;
 	public static final SpItem LIBRARY_FOLDER = new SpLibraryFolder() ;
 	public static final SpItem LIBRARY = new SpLibrary( ( SpLibraryFolder )LIBRARY_FOLDER ) ;
 	public static final SpItem SEQUENCE = new SpIterFolder() ;
@@ -82,7 +81,6 @@ public final class SpFactory
 	{
 		registerPrototype( SCIENCE_PROGRAM ) ;
 		registerPrototype( SCIENCE_PLAN ) ;
-		registerPrototype( PHASE_1 ) ;
 		registerPrototype( LIBRARY ) ;
 		registerPrototype( LIBRARY_FOLDER ) ;
 		registerPrototype( OBSERVATION ) ;

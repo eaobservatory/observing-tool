@@ -25,10 +25,6 @@ public class SpProg extends SpRootItem
 	/** The timestamp. */
 	public static final String ATTR_TIMESTAMP = ":timestamp" ;
 
-	// The Phase 1 proposal item. It stores all the information entered
-	// during the Phase 1 proposal definition.
-	private SpPhase1 _phase1Item ;
-
 	/**
      * Default constructor.
      */
@@ -37,23 +33,6 @@ public class SpProg extends SpRootItem
 		super( SpType.SCIENCE_PROGRAM ) ;
 		setTelescope() ;
 		setOTVersion() ;
-	}
-
-	//
-	// Set the Phase 1 item to associate with this program.
-	//
-	void setPhase1Item( SpPhase1 p1 )
-	{
-		_phase1Item = p1 ;
-	}
-
-	/**
-     * Get the Phase 1 item associated with this program (if any). If there is
-     * no Phase 1 item for this program, this method will return null.
-     */
-	public SpPhase1 getPhase1Item()
-	{
-		return _phase1Item ;
 	}
 
 	/**

@@ -57,7 +57,6 @@ public class OtWindowMenuBar extends JMenuBar
 
 	// menu items that can be enabled/disabled at runtime
 	protected JMenuItem fileRevertMenuItem ;
-	protected JMenuItem filePhase1MenuItem ;
 
 	/** The main OT window toolbar */
 	protected OtWindowToolBar mainToolBar ;
@@ -136,7 +135,6 @@ public class OtWindowMenuBar extends JMenuBar
 			{
 				editor.getSaveAction().setEnabled( editor.isEdited() ) ;
 				fileRevertMenuItem.setEnabled( editor.progHasBeenSaved() ) ;
-				filePhase1MenuItem.setEnabled( editor.isPhase1InfoAvailable() ) ;
 			}
 
 			public void menuDeselected( MenuEvent e ){}
