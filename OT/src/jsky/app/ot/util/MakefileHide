@@ -28,7 +28,6 @@ SOURCES = \
 	BasicPropertyList.java \
 	PropertyWatcher.java \
 	ChoiceProperty.java \
-	SkycatCfgEntry.java \
 	MathUtil.java \
 	ClipboardHelper.java \
 	DnDUtils.java
