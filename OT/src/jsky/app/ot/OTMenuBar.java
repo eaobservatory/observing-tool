@@ -31,7 +31,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenu helpMenu ;
 
 	private static final String NEW_PROGRAM = "New Program" ;
-	private static final String NEW_PLAN = "New Plan" ;
 	private static final String NEW_LIBRARY = "New Library" ;
 	private static final String OPEN = "Open " ;
 	private static final String LIBRARY = " library" ;
@@ -61,7 +60,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	{
 		fileMenu = new JMenu( "File" ) ;
 		fileMenu.add( createFileNewProgramMenuItem() ) ;
-		fileMenu.add( createFileNewPlanMenuItem() ) ;
 		fileMenu.add( createFileNewLibraryMenuItem() ) ;
 		fileMenu.add( createFileOpenMenuItem() ) ;
 
@@ -111,20 +109,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	{
 		JMenuItem menuItem = new JMenuItem( NEW_PROGRAM ) ;
 		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "New Plan" menu item
-	 */
-	protected JMenuItem createFileNewPlanMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( NEW_PLAN ) ;
-		menuItem.addActionListener( this ) ;
-
-		// MFO 23 May 2001: "New Plan" menu item disabled.
-		menuItem.setEnabled( false ) ;
-
 		return menuItem ;
 	}
 
@@ -255,8 +239,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 			OT.open() ;
 		else if( NEW_LIBRARY.equals( actionCommand ) )
 			OT.newLibrary() ;
-		else if( NEW_PLAN.equals( actionCommand ) )
-			ot.newPlan() ;
 		else if( NEW_PROGRAM.endsWith( actionCommand ) )
 			OT.newProgram() ;
 	}

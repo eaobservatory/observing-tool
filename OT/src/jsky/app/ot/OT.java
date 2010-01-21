@@ -29,7 +29,6 @@ import javax.swing.ImageIcon ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpItem;
 import gemini.sp.SpLibrary ;
-import gemini.sp.SpPlan ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpType ;
 import jsky.app.ot.util.CloseableApp ;
@@ -185,17 +184,6 @@ public class OT extends JFrame
 			desktop.moveToFront( c ) ;
 		}
 
-	}
-
-	/** 
-	 * Make a new plan
-	 */
-	public void newPlan()
-	{
-		OtProps.setSaveShouldPrompt( true ) ;
-		Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpPlan )SpFactory.create( SpType.SCIENCE_PLAN ) ) ) ;
-		desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
-		desktop.moveToFront( c ) ;
 	}
 
 	/** 
