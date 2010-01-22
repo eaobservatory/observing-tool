@@ -8,6 +8,8 @@
 package jsky.app.ot.util ;
 
 import java.util.Vector ;
+import gemini.util.HHMMSS ;
+import gemini.util.DDMMSS ;
 
 /**
  * Base class for telescope positions.
