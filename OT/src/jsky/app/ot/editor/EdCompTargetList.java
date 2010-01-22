@@ -27,7 +27,7 @@ import gemini.sp.SpTelescopePosList ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import jsky.app.ot.tpe.TelescopePosEditor ;
 import jsky.app.ot.tpe.TpeManager ;
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 import gemini.util.CoordSys ;
 import gemini.util.TelescopePos ;
 import gemini.util.TelescopePosWatcher ;
