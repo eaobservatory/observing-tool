@@ -16,13 +16,12 @@ import jsky.app.ot.tpe.TpePositionMap ;
 
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 
-import jsky.app.ot.util.PolygonD ;
-
 import orac.ukirt.inst.SpUKIRTInstObsComp ;
 
 import jsky.app.ot.gui.DrawUtil ;
 
 import gemini.util.Angle ;
+import gemini.util.PolygonD ;
 
 /**
  * Draws the location of the dichroic on UKIRT.

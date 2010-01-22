@@ -15,7 +15,6 @@ import java.util.Vector ;
 import jsky.app.ot.gui.image.ImageView ;
 import jsky.app.ot.gui.image.ViewportImageWidget ;
 import jsky.app.ot.gui.image.ViewportMouseEvent ;
-import jsky.app.ot.util.PolygonD ;
 import jsky.app.ot.util.ScreenMath ;
 import gemini.util.TelescopePos ;
 import jsky.catalog.gui.TablePlotter ;
@@ -24,6 +23,7 @@ import jsky.coords.NamedCoordinates ;
 import jsky.coords.CoordinateConverter ;
 import jsky.navigator.Navigator ;
 import gemini.util.Angle ;
+import gemini.util.PolygonD ;
 
 /**
  * A ViewportImageWidget that understands coordinate systems.

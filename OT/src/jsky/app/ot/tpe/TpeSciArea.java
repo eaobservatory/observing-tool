@@ -9,10 +9,11 @@ package jsky.app.ot.tpe ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
-import jsky.app.ot.util.PolygonD ;
 import jsky.app.ot.util.ScreenMath ;
 
 import java.awt.Polygon ;
+
+import gemini.util.PolygonD ;
 
 /**
  * Describes the science area and facilitates drawing, rotating it.
