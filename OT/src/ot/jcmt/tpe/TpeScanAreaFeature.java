@@ -25,8 +25,6 @@ import orac.jcmt.iter.SpIterRasterObs ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
-import jsky.app.ot.util.PolygonD ;
-
 import jsky.app.ot.tpe.TpeImageFeature ;
 import jsky.app.ot.tpe.TpeDraggableFeature ;
 import jsky.app.ot.tpe.TpeImageWidget ;
@@ -38,6 +36,7 @@ import gemini.sp.SpTreeMan ;
 import java.util.Vector ;
 
 import gemini.util.Angle ;
+import gemini.util.PolygonD ;
 
 /**
  * An implementation class used to simplify the job of rotating scan

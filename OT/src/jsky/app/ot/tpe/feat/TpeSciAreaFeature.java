@@ -17,8 +17,6 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
-import jsky.app.ot.util.PolygonD ;
-
 import jsky.app.ot.tpe.TpeImageFeature ;
 import jsky.app.ot.tpe.TpeDraggableFeature ;
 import jsky.app.ot.tpe.TpeImageWidget ;
@@ -26,6 +24,7 @@ import jsky.app.ot.tpe.TpeSciArea ;
 import java.awt.geom.Point2D ;
 
 import gemini.util.Angle ;
+import gemini.util.PolygonD ;
 
 /**
  * An implementation class used to simplify the job of rotating science

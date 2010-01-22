@@ -9,7 +9,7 @@ import jsky.app.ot.tpe.TpeImageWidget ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 
 import gemini.util.Angle ;
-import jsky.app.ot.util.PolygonD ;
+import gemini.util.PolygonD ;
 
 /**
  * Draws the WFCAM autoguider CCD footprint.
