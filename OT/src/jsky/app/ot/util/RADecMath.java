@@ -8,8 +8,6 @@
 package jsky.app.ot.util ;
 
 import gemini.util.CoordSys ;
-import jsky.app.ot.util.Angle ;
-import jsky.app.ot.util.Assert ;
 
 /**
  * Simple RA/Dec math routines.  See also HHMMSS and DDMMSS.
