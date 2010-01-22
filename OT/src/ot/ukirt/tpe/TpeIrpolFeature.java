@@ -13,7 +13,6 @@ import jsky.app.ot.tpe.TpeImageWidget ;
 
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 
-import jsky.app.ot.util.Angle ;
 import jsky.app.ot.util.PolygonD ;
 
 import gemini.sp.obsComp.SpInstObsComp ;
@@ -22,6 +21,8 @@ import orac.ukirt.inst.SpInstUFTI ;
 import orac.ukirt.inst.SpInstCGS4 ;
 import orac.ukirt.inst.SpInstMichelle ;
 import orac.ukirt.inst.SpInstWFCAM ;
+
+import gemini.util.Angle ;
 
 /**
  * Draws the location of the Irpol arm on UKIRT.

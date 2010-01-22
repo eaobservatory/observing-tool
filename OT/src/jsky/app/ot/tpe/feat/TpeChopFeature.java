@@ -15,11 +15,11 @@ import gemini.sp.iter.SpIterChop ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
 
-import jsky.app.ot.util.Angle ;
-
 import jsky.app.ot.tpe.TpeImageFeature ;
 import jsky.app.ot.tpe.TpeDraggableFeature ;
 import jsky.app.ot.tpe.TpeImageWidget ;
+
+import gemini.util.Angle ;
 
 /**
  * An implementation class used to simplify the job of rotating.
