@@ -22,7 +22,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 import gemini.sp.SpItem ;
-import jsky.app.ot.util.MathUtil ;
+import gemini.util.MathUtil ;
 
 import java.util.Vector ;
 
