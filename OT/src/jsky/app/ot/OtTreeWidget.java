@@ -30,7 +30,6 @@ import gemini.sp.SpSurveyContainer ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
-import gemini.sp.iter.SpIterObserveBase ;
 import orac.util.SpItemUtilities ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
