@@ -15,8 +15,9 @@ import jsky.app.ot.tpe.TpeImageWidget ;
 import orac.ukirt.inst.SpUKIRTInstObsComp ;
 
 import jsky.app.ot.fits.gui.FitsImageInfo ;
-import jsky.app.ot.util.Angle ;
 import jsky.app.ot.util.PolygonD ;
+
+import gemini.util.Angle ;
 
 /**
  * Draws the range of the Xhead on UKIRT.

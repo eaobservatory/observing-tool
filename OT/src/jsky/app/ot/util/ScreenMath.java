@@ -7,6 +7,7 @@
 package jsky.app.ot.util ;
 
 import java.awt.geom.Point2D ;
+import gemini.util.Angle ;
 
 /**
  * Routines for dealing with screen coordinates.
