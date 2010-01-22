@@ -35,7 +35,7 @@ import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterJCMTObs ;
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 import jsky.app.ot.util.ClipboardHelper ;
 import ot.util.DialogUtil ;
 import ot.OtAdvancedTreeDropTarget ;

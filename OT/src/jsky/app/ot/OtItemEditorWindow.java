@@ -21,7 +21,7 @@ import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
 import gemini.sp.SpAvEditState ;
 import gemini.sp.SpItem ;
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 
 /**
  * This class presents the window in which specific item editors are
