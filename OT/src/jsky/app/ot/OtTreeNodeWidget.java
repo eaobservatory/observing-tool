@@ -13,7 +13,7 @@ import java.util.Observer ;
 import jsky.app.ot.gui.MultiSelTreeNodeWidget ;
 import gemini.sp.SpAvEditState ;
 import gemini.sp.SpItem ;
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 
 /**
  * A MultiSelTreeNodeWidget that contains an SpItem.  OtTreeNodeWidget

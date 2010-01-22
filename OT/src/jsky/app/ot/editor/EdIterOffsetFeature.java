@@ -31,7 +31,7 @@ import jsky.app.ot.tpe.TpeImageWidget ;
 import jsky.app.ot.tpe.TpeSciArea ;
 import jsky.app.ot.tpe.TpeSelectableFeature ;
 
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 import jsky.app.ot.util.BasicPropertyList ;
 import jsky.app.ot.util.PropertyWatcher ;
 import gemini.util.TelescopePos ;
