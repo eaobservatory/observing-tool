@@ -12,7 +12,7 @@ import jsky.app.ot.OtItemEditorWindow ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import gemini.sp.SpAvTable ;
 import gemini.sp.SpItem ;
-import jsky.app.ot.util.Assert ;
+import gemini.util.Assert ;
 
 /**
  * This is the base class for all SpItem editors.  It uses a

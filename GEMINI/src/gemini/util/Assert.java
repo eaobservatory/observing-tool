@@ -21,4 +21,10 @@ public class Assert
 		if( b == false )
 			throw new IllegalArgumentException( "boolean expression false" ) ;
 	}
+
+	static public void notNull( Object obj ) throws IllegalArgumentException
+	{
+		if( obj == null )
+			throw new IllegalArgumentException( "null argument" ) ;
+	}
 }
