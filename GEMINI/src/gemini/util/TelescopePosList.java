@@ -17,7 +17,6 @@ import java.util.Vector ;
  */
 public abstract class TelescopePosList implements java.io.Serializable
 {
-
 	// Position List content/ordering watchers
 	private Vector<TelescopePosListWatcher> _watchers ;
 
@@ -141,11 +140,12 @@ public abstract class TelescopePosList implements java.io.Serializable
 	{
 		synchronized( this )
 		{
-			if( !exists( tp.getTag() ) )
-				return ;
-			_selPos = tp ;
+			if( exists( tp.getTag() ) )
+			{
+				_selPos = tp ;
+				_notifyOfSelect( tp ) ;
+			}
 		}
-		_notifyOfSelect( tp ) ;
 	}
 
 	/**
@@ -155,10 +155,8 @@ public abstract class TelescopePosList implements java.io.Serializable
 	{
 		if( _watchers == null )
 			_watchers = new Vector<TelescopePosListWatcher>() ;
-		else if( _watchers.contains( tplw ) )
-			return ;
-
-		_watchers.addElement( tplw ) ;
+		else if( !_watchers.contains( tplw ) )
+			_watchers.addElement( tplw ) ;
 	}
 
 	/**
@@ -166,9 +164,8 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	public synchronized void deleteWatcher( TelescopePosListWatcher tplw )
 	{
-		if( _watchers == null )
-			return ;
-		_watchers.removeElement( tplw ) ;
+		if( _watchers != null )
+			_watchers.removeElement( tplw ) ;
 	}
 
 	/**
@@ -176,9 +173,8 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	public synchronized void deleteWatchers()
 	{
-		if( _watchers == null )
-			return ;
-		_watchers.removeAllElements() ;
+		if( _watchers != null )
+			_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -188,10 +184,8 @@ public abstract class TelescopePosList implements java.io.Serializable
 	{
 		if( _selWatchers == null )
 			_selWatchers = new Vector<TelescopePosSelWatcher>() ;
-		else if( _selWatchers.contains( tpsw ) )
-			return ;
-
-		_selWatchers.addElement( tpsw ) ;
+		else if( !_selWatchers.contains( tpsw ) )
+			_selWatchers.addElement( tpsw ) ;
 	}
 
 	/**
@@ -199,9 +193,8 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	public synchronized void deleteSelWatcher( TelescopePosSelWatcher tpsw )
 	{
-		if( _selWatchers == null )
-			return ;
-		_selWatchers.removeElement( tpsw ) ;
+		if( _selWatchers != null )
+			_selWatchers.removeElement( tpsw ) ;
 	}
 
 	/**
@@ -209,9 +202,8 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	public synchronized void deleteSelWatchers()
 	{
-		if( _selWatchers == null )
-			return ;
-		_selWatchers.removeAllElements() ;
+		if( _selWatchers != null )
+			_selWatchers.removeAllElements() ;
 	}
 
 	/**
@@ -219,9 +211,10 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	protected final synchronized Vector<TelescopePosListWatcher> _getWatchers()
 	{
-		if( _watchers == null )
+		if( _watchers != null )
+			return ( Vector<TelescopePosListWatcher> )_watchers.clone() ;
+		else
 			return null ;
-		return ( Vector<TelescopePosListWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -229,9 +222,10 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	protected final synchronized Vector<TelescopePosSelWatcher> _getSelWatchers()
 	{
-		if( _selWatchers == null )
+		if( _selWatchers != null )
+			return ( Vector<TelescopePosSelWatcher> )_selWatchers.clone() ;
+		else
 			return null ;
-		return ( Vector<TelescopePosSelWatcher> )_selWatchers.clone() ;
 	}
 
 	/**
@@ -240,13 +234,14 @@ public abstract class TelescopePosList implements java.io.Serializable
 	protected void _notifyOfReset()
 	{
 		Vector<TelescopePosListWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosListWatcher tplw ;
-			tplw = v.elementAt( i ) ;
-			tplw.posListReset( this , getAllPositions() ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosListWatcher tplw ;
+				tplw = v.elementAt( i ) ;
+				tplw.posListReset( this , getAllPositions() ) ;
+			}
 		}
 	}
 
@@ -256,13 +251,14 @@ public abstract class TelescopePosList implements java.io.Serializable
 	protected void _notifyOfReorder( TelescopePos tp )
 	{
 		Vector<TelescopePosListWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosListWatcher tplw ;
-			tplw = v.elementAt( i ) ;
-			tplw.posListReordered( this , getAllPositions() , tp ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosListWatcher tplw ;
+				tplw = v.elementAt( i ) ;
+				tplw.posListReordered( this , getAllPositions() , tp ) ;
+			}
 		}
 	}
 
@@ -272,13 +268,14 @@ public abstract class TelescopePosList implements java.io.Serializable
 	protected void _notifyOfAdd( TelescopePos tp )
 	{
 		Vector<TelescopePosListWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosListWatcher tplw ;
-			tplw = v.elementAt( i ) ;
-			tplw.posListAddedPosition( this , tp ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosListWatcher tplw ;
+				tplw = v.elementAt( i ) ;
+				tplw.posListAddedPosition( this , tp ) ;
+			}
 		}
 	}
 
@@ -288,13 +285,14 @@ public abstract class TelescopePosList implements java.io.Serializable
 	protected void _notifyOfRemove( TelescopePos tp )
 	{
 		Vector<TelescopePosListWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosListWatcher tplw ;
-			tplw = v.elementAt( i ) ;
-			tplw.posListRemovedPosition( this , tp ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosListWatcher tplw ;
+				tplw = v.elementAt( i ) ;
+				tplw.posListRemovedPosition( this , tp ) ;
+			}
 		}
 	}
 
@@ -304,13 +302,14 @@ public abstract class TelescopePosList implements java.io.Serializable
 	protected void _notifyOfSelect( TelescopePos tp )
 	{
 		Vector<TelescopePosSelWatcher> v = _getSelWatchers() ;
-		if( v == null )
-			return ;
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosSelWatcher tpsw ;
-			tpsw = v.elementAt( i ) ;
-			tpsw.telescopePosSelected( this , tp ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosSelWatcher tpsw ;
+				tpsw = v.elementAt( i ) ;
+				tpsw.telescopePosSelected( this , tp ) ;
+			}
 		}
 	}
 }
