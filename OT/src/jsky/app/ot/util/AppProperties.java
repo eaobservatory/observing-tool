@@ -37,13 +37,15 @@ public class AppProperties
 	 */
 	public static File getAppPropertyFile( String dir , String file )
 	{
+		File returnable = null ;
 		String homedir = System.getProperty( "user.home" ) ;
-		if( homedir == null )
-			return null ;
+		if( homedir != null )
+		{
+			String absdir = homedir + File.separatorChar + dir ;
+			returnable = new File( absdir , file ) ;
+		}
 
-		String absdir = homedir + File.separatorChar + dir ;
-
-		return new File( absdir , file ) ;
+		return returnable ;
 	}
 
 	/**
@@ -63,29 +65,32 @@ public class AppProperties
 	 */
 	public static Properties load( String dir , String file )
 	{
+		Properties p = null ;
 		File f = getAppPropertyFile( dir , file ) ;
-		if( f == null )
-			return null ;
+		if( f != null )
+		{
+			FileInputStream fis = null ;
+			try
+			{
+				fis = new FileInputStream( f ) ;
+			}
+			catch( FileNotFoundException ex )
+			{
+				System.out.println( "File not found: " + f.getAbsolutePath() ) ;
+			}
 
-		FileInputStream fis ;
-		try
-		{
-			fis = new FileInputStream( f ) ;
-		}
-		catch( FileNotFoundException ex )
-		{
-			return null ;
-		}
-
-		Properties p = new Properties() ;
-		try
-		{
-			p.load( fis ) ;
-		}
-		catch( IOException ex )
-		{
-			System.out.println( "Error reading: " + f.getAbsolutePath() ) ;
-			return null ;
+			if( fis != null )
+			{
+				try
+				{
+					p = new Properties() ;
+					p.load( fis ) ;
+				}
+				catch( IOException ex )
+				{
+					System.out.println( "Error reading: " + f.getAbsolutePath() ) ;
+				}
+			}
 		}
 
 		return p ;
@@ -108,50 +113,38 @@ public class AppProperties
 	 */
 	public static boolean save( String dir , String file , String comment , Properties p )
 	{
+		boolean success = false ;
 		File f = getAppPropertyFile( dir , file ) ;
-		if( f == null )
-			return false ;
-
-		FileOutputStream fos ;
-		try
+		if( f != null )
 		{
-			fos = new FileOutputStream( f ) ;
-		}
-		catch( IOException ex )
-		{
-			// See if the .gemini directory exists
-			String path = f.getParent() ;
-			File fdir = new File( path ) ;
 			try
 			{
-				if( fdir.exists() )
-				{
-					System.out.println( "Error writing: " + f.getAbsolutePath() ) ;
-					return false ; // The directory is there so give up
-				}
-
-				// Make the .gemini directory.
-				fdir.mkdir() ;
+				FileOutputStream fos = new FileOutputStream( f ) ;
+				p.store( fos , comment ) ;
+				success = true ;
 			}
-			catch( Exception ex2 )
+			catch( IOException ex )
 			{
-				// Trouble checking or creating the directory, give up.
-				System.out.println( "Error writing: " + f.getAbsolutePath() ) ;
-				return false ;
+				// See if the .gemini directory exists
+				String path = f.getParent() ;
+				File fdir = new File( path ) ;
+				try
+				{
+					if( !fdir.exists() )
+					{
+						// Make the .gemini directory.
+						fdir.mkdir() ;
+						// Try again now that the directory exists
+						return save( dir , file , comment , p ) ;
+					}
+				}
+				catch( Exception ex2 )
+				{
+					// Trouble checking or creating the directory, give up.
+					System.out.println( "Error writing: " + f.getAbsolutePath() + " " + ex2 ) ;
+				}
 			}
-
-			// Try again now that the directory exists
-			return save( dir , file , comment , p ) ;
 		}
-
-		try
-		{
-			p.store( fos , comment ) ;
-		}
-		catch( IOException e )
-		{
-			return false ;
-		}
-		return true ;
+		return success ;
 	}
 }
