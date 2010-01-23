@@ -8,22 +8,9 @@
 
 # Source files to compile
 SOURCES = \
-	Angle.java \
-	Assert.java \
-	DDMMSS.java \
-	HHMMSS.java \
-	RADec.java \
-	RADecMath.java \
-	CoordSys.java \
-	TelescopePos.java \
-	TelescopePosList.java \
-	TelescopePosListWatcher.java \
-	TelescopePosSelWatcher.java \
-	TelescopePosWatcher.java \
 	LinkedList.java \
 	AppProperties.java \
 	AppPropertyWatcher.java \
-	PolygonD.java \
 	ScreenMath.java \
 	BasicPropertyList.java \
 	PropertyWatcher.java \
