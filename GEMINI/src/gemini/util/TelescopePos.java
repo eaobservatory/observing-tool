@@ -204,10 +204,8 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized void deleteWatcher( TelescopePosWatcher tpw )
 	{
-		if( _watchers == null )
-			return ;
-
-		_watchers.removeElement( tpw ) ;
+		if( _watchers != null )
+			_watchers.removeElement( tpw ) ;
 	}
 
 	/**
@@ -215,10 +213,8 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	public synchronized void deleteWatchers()
 	{
-		if( _watchers == null )
-			return ;
-
-		_watchers.removeAllElements() ;
+		if( _watchers != null )
+			_watchers.removeAllElements() ;
 	}
 
 	/**
@@ -226,10 +222,10 @@ public abstract class TelescopePos implements java.io.Serializable
      */
 	protected final synchronized Vector<TelescopePosWatcher> _getWatchers()
 	{
-		if( _watchers == null )
+		if( _watchers != null )
+			return ( Vector<TelescopePosWatcher> )_watchers.clone() ;
+		else
 			return null ;
-
-		return ( Vector<TelescopePosWatcher> )_watchers.clone() ;
 	}
 
 	/**
@@ -238,14 +234,14 @@ public abstract class TelescopePos implements java.io.Serializable
 	protected void _notifyOfLocationUpdate()
 	{
 		Vector<TelescopePosWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosWatcher tpw ;
-			tpw = v.elementAt( i ) ;
-			tpw.telescopePosLocationUpdate( this ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosWatcher tpw ;
+				tpw = v.elementAt( i ) ;
+				tpw.telescopePosLocationUpdate( this ) ;
+			}
 		}
 	}
 
@@ -255,14 +251,14 @@ public abstract class TelescopePos implements java.io.Serializable
 	protected void _notifyOfGenericUpdate()
 	{
 		Vector<TelescopePosWatcher> v = _getWatchers() ;
-		if( v == null )
-			return ;
-		
-		for( int i = 0 ; i < v.size() ; ++i )
+		if( v != null )
 		{
-			TelescopePosWatcher tpw ;
-			tpw = v.elementAt( i ) ;
-			tpw.telescopePosGenericUpdate( this ) ;
+			for( int i = 0 ; i < v.size() ; ++i )
+			{
+				TelescopePosWatcher tpw ;
+				tpw = v.elementAt( i ) ;
+				tpw.telescopePosGenericUpdate( this ) ;
+			}
 		}
 	}
 
