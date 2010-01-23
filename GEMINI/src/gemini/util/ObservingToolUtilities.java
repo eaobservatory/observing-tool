@@ -35,7 +35,7 @@ public class ObservingToolUtilities
 				try
 				{
 					if( !path.matches( "^\\w+://.*" ) )
-						url = new File( path ).toURL() ;
+						url = new File( path ).toURI().toURL() ;
 					else
 						url = new URL( path ) ;
 				}
