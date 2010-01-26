@@ -24,8 +24,7 @@ import java.util.Hashtable ;
 import java.util.Vector ;
 
 import gemini.util.TranslationUtils ;
-
-import java.util.logging.Logger ;
+import gemini.util.JACLogger ;
 
 /**
  * The observation item. In addition to other attributes, the SpObs class
@@ -35,7 +34,7 @@ import java.util.logging.Logger ;
  */
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
-	static Logger logger = Logger.getLogger( SpObs.class.getName() ) ;
+	static JACLogger logger = JACLogger.getLogger( SpObs.class ) ;
 	/**
      * This attribute determines whether or not the observation is chained to
      * the next observation.
@@ -583,6 +582,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			correctOrder( v ) ;
 		}
 
+		if( !testForRecipes( v ) )
+		{
+			logger.error( "Recipes have gone missing for this observation." ) ;
+			javax.swing.JOptionPane.showMessageDialog( null , "Recipes have gone missing for this observation." , "Translation Error" , javax.swing.JOptionPane.ERROR_MESSAGE) ;		
+		}
+
 		try
 		{
 			FileWriter fw = new FileWriter( confWriter.getExecName() ) ;
@@ -598,6 +603,20 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		{
 			e.printStackTrace() ;
 		}
+	}
+
+	private boolean testForRecipes( Vector<String> v )
+	{
+		boolean found = false ;
+		for( int i = 1 ; i < v.size() ; i++ )
+		{
+			if( v.get( i ).startsWith( "setHeader GRPMEM " ) && ( i + 1 != v.size() && v.get( i + 1 ).startsWith( "setHeader RECIPE " ) ) )
+			{
+				found = true ;
+				break ;
+			}
+		}
+		return found ;
 	}
 
 	private void correctOrder( Vector<String> v )
@@ -753,12 +772,12 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	{
 		if( observableOffsets != 0 && offsetsInSequence > observableOffsets )
 		{
-			logger.warning( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
-			logger.warning( "Please fix the DR's NOFFSETS+1 hack." ) ;
+			logger.warn( "Only " + observableOffsets + " of the " + offsetsInSequence + " offsets are observed." ) ;
+			logger.warn( "Please fix the DR's NOFFSETS+1 hack." ) ;
 			if( offsetsInSequence > observableOffsets + 1 )
 			{
-				logger.severe( "More offsets in the sequence than the DR expects." ) ;
-				logger.severe( "The NOFFSET header will most likely be incorrect." ) ;
+				logger.error( "More offsets in the sequence than the DR expects." ) ;
+				logger.error( "The NOFFSET header will most likely be incorrect." ) ;
 			}
 		}
 	}
@@ -852,7 +871,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		}
 
 		if( found == 0 )
-			logger.severe( "No recipes found." ) ;
+			logger.error( "No recipes found." ) ;
 		else if( removed >= found )
 			logger.info( "Removed " + removed + " of " + found + " recipes." ) ;
 	}

@@ -280,7 +280,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 		}
 		else
 		{
-			logger.severe( "No DRRecipe Component found" ) ;
+			logger.error( "No DRRecipe Component found in bias obs." ) ;
 		}
 
 		try

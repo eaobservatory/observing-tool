@@ -219,7 +219,7 @@ public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 		}
 		else
 		{
-			logger.severe( "No DRRecipe Component found" ) ;
+			logger.error( "No DRRecipe Component found in sky obs" ) ;
 		}
 
 		if( !"SKY".equals( getSky() ) )
