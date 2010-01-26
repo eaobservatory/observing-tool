@@ -123,7 +123,7 @@ public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 		}
 		else
 		{
-			logger.severe( "No DRRecipe Component found" ) ;
+			logger.error( "No DRRecipe Component found in observe" ) ;
 		}
 
 		// If we are not inside an offset, we need to tell the system there is an offset here

@@ -452,12 +452,12 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 					v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
 					v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
 				default :
-					logger.severe( "No recipe header written, this shouldn't happen." ) ;
+					logger.error( "No recipe header written, this shouldn't happen." ) ;
 			}
 		}
 		else
 		{
-				logger.severe( "No recipe header written, no recipes found." ) ;
+				logger.error( "No recipe header written, no recipes found." ) ;
 		}
 		
 		if( getCalType() == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )

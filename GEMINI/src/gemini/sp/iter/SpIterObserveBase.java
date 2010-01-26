@@ -13,7 +13,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.sp.obsComp.SpStareCapability ;
 
 import java.util.Vector ;
-import java.util.logging.Logger ;
+import gemini.util.JACLogger ;
 
 /**
  * The base class for Cal Unit observes (FLATS and ARCS) and for BIAS and DARK
@@ -29,7 +29,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 	public static final String ATTR_COADDS = "coadds" ;
 	public static final int COUNT_DEF = 1 ;
 
-	protected Logger logger = Logger.getLogger( SpIterObserveBase.class.getName() ) ;
+	protected JACLogger logger = JACLogger.getLogger( SpIterObserveBase.class ) ;
 
 	/**
      * Default constructor.

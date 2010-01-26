@@ -7,7 +7,7 @@ import java.util.zip.GZIPInputStream ;
 
 import javax.swing.JOptionPane ;
 
-import java.util.logging.Logger ;
+import gemini.util.JACLogger ;
 import org.apache.soap.Header ;
 import org.apache.soap.Constants ;
 import org.apache.soap.Fault ;
@@ -46,7 +46,7 @@ public class SoapClient
 
 	public static final String FAULT_CODE_INVALID_USER = "SOAP-ENV:Client.InvalidUser" ;
 	
-	private static Logger logger = Logger.getLogger( SoapClient.class.getName() ) ;
+	private static JACLogger logger = JACLogger.getLogger( SoapClient.class ) ;
 
 	/**
      * <code>addParameter</code>. Add a Parameter to the next Call that is to
@@ -146,7 +146,7 @@ public class SoapClient
 				else if( faultCode.equals( FAULT_CODE_INVALID_USER ) )
 					throw new InvalidUserException( faultString ) ;
 
-				logger.severe( faultString ) ;
+				logger.error( faultString ) ;
 				JOptionPane.showMessageDialog( null , "Code:    " + faultCode + "\n" + "Problem: " + faultString , "Error Message" , JOptionPane.ERROR_MESSAGE ) ;
 			}
 		}
@@ -157,7 +157,7 @@ public class SoapClient
 		}
 		catch( SOAPException se )
 		{
-			logger.severe( se.getMessage() ) ;
+			logger.error( se.getMessage() ) ;
 			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE ) ;
 		}
 		catch( Exception e )
