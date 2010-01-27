@@ -74,10 +74,7 @@ public class AppProperties
 			{
 				fis = new FileInputStream( f ) ;
 			}
-			catch( FileNotFoundException ex )
-			{
-				System.out.println( "File not found: " + f.getAbsolutePath() ) ;
-			}
+			catch( FileNotFoundException ex ){}
 
 			if( fis != null )
 			{
