@@ -6,7 +6,7 @@
 //
 package jsky.app.ot.gui ;
 
-import gemini.util.ObservingToolUtilities;
+import gemini.util.ObservingToolUtilities ;
 
 import java.awt.Font ;
 import java.util.Vector ;
