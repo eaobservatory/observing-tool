@@ -163,50 +163,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	}
 
 	/**
-     * Get the "chained to next" state of the observation. When consecutive
-     * observations are chained they must be executed in the same order as they
-     * occur in the Science Program. The "chained to next" attribute determines
-     * whether the next consecutive observation is chained to this one.
-     * 
-     * @see #chainToNext
-     */
-	public boolean getChainedToNext()
-	{
-		return false ;
-	}
-
-	//
-	// Set the "chained to next" state of the observation.
-	//
-	// @see #getChainedToNext
-	//
-	void setChainedToNext( boolean chained ){}
-
-	/**
-     * Chain this observation to the next one. This has no effect if the next
-     * SpItem isn't an observation.
-     */
-	public void chainToNext( boolean chain ){}
-
-	/**
-     * Get the "chained to prev" state of the observation. When consecutive
-     * observations are chained they must be executed in the same order as they
-     * occur in the Science Program. The "chained to prev" attribute determines
-     * whether the previous observation is chained to this one.
-     */
-	public boolean getChainedToPrev()
-	{
-		return false ;
-	}
-
-	//
-	// Set the "chained to prev" state of the observation.
-	//
-	// @see #getChainedToPrev
-	//
-	void setChainedToPrev( boolean chained ){}
-
-	/**
      * Override setTable to make sure that the chained states are valid.
      */
 	protected void setTable( SpAvTable avTable )
