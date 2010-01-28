@@ -18,10 +18,6 @@
 <xsd:element name="meta_gui_selectedTelObsComp"  type="xsd:string"/>
 <xsd:element name="meta_version"		type="xsd:string"/>
 
-<xsd:element name="chainedToNext" type="xsd:boolean"/>
-<xsd:element name="chainedToPrev" type="xsd:boolean"/>
-
-
 <!-- Substituted JAC elements -->
 <xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="toml:version"/>
 <xsd:element name="library_version" type="xsd:string"   substitutionGroup="toml:version"/>
