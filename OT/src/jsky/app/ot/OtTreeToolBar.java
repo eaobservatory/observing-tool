@@ -7,7 +7,7 @@
 
 package jsky.app.ot ;
 
-import gemini.util.ObservingToolUtilities;
+import gemini.util.ObservingToolUtilities ;
 
 import javax.swing.JButton ;
 import javax.swing.ImageIcon ;
