@@ -277,7 +277,6 @@ public class OtTreeDropTarget implements DropTargetListener , PropertyChangeList
 			return false ;
 
 		OtTreeWidget ownerTW = ddo.getOwner() ;
-		SpItem spItem = ddo.getSpItem() ;
 		SpItem[] newItems = spID.items ;
 		try
 		{
