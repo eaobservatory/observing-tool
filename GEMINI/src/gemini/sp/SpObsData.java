@@ -66,10 +66,8 @@ public class SpObsData implements java.io.Serializable
      */
 	public void deleteBasePosObserver( SpBasePosObserver bpo )
 	{
-		if( _basePosObservers == null )
-			return ;
-
-		_basePosObservers.removeElement( bpo ) ; // If not in vector, who cares?
+		if( _basePosObservers != null )
+			_basePosObservers.removeElement( bpo ) ; // If not in vector, who cares?
 	}
 
 	/**
@@ -148,10 +146,8 @@ public class SpObsData implements java.io.Serializable
      */
 	public void deletePosAngleObserver( SpPosAngleObserver pao )
 	{
-		if( _posAngleObservers == null )
-			return ;
-
-		_posAngleObservers.removeElement( pao ) ; // If not in vector, who cares?
+		if( _posAngleObservers != null )
+			_posAngleObservers.removeElement( pao ) ; // If not in vector, who cares?
 	}
 
 	/**
@@ -160,9 +156,6 @@ public class SpObsData implements java.io.Serializable
 	public void setPosAngle( double posAngle )
 	{
 		_posAngle = posAngle ;
-
-		if( _posAngleObservers == null )
-			return ;
 	}
 
 	/**
