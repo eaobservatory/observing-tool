@@ -87,15 +87,16 @@ public class TreeWidgetExt extends JPanel
 		{
 			public void valueChanged( TreeSelectionEvent e )
 			{
-				if( ignoreSelection )
-					return ;
-				try
+				if( !ignoreSelection )
 				{
-					nodeSelected() ;
-				}
-				catch( Exception ex )
-				{
-					DialogUtil.error( TreeWidgetExt.this , ex ) ;
+					try
+					{
+						nodeSelected() ;
+					}
+					catch( Exception ex )
+					{
+						DialogUtil.error( TreeWidgetExt.this , ex ) ;
+					}
 				}
 			}
 		} ) ;
@@ -121,10 +122,8 @@ public class TreeWidgetExt extends JPanel
 	protected void nodeSelected()
 	{
 		TreeNodeWidgetExt selectedNode = getSelectedNode() ;
-		if( selectedNode == null )
-			return ;
-
-		notifySelect( selectedNode ) ;
+		if( selectedNode != null )
+			notifySelect( selectedNode ) ;
 	}
 
 	/**
@@ -133,10 +132,8 @@ public class TreeWidgetExt extends JPanel
 	protected void nodeDoubleClicked()
 	{
 		TreeNodeWidgetExt selectedNode = getSelectedNode() ;
-		if( selectedNode == null )
-			return ;
-
-		notifyAction( selectedNode ) ;
+		if( selectedNode != null )
+			notifyAction( selectedNode ) ;
 	}
 
 	/** Return the currently selected tree node */
