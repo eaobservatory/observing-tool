@@ -229,7 +229,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
 			node.addWatcher( watcher ) ;
 		}
 	}
@@ -252,7 +252,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
 			node.deleteWatcher( watcher ) ;
 		}
 	}
@@ -275,7 +275,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		Enumeration e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )( e.nextElement() ) ;
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
 			node.deleteWatchers() ;
 		}
 	}
@@ -309,21 +309,22 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	//
 	void notifySelect()
 	{
-		if( _watchers == null )
-			return ;
-		Vector<TreeNodeWidgetWatcher> v ;
-		synchronized( this )
+		if( _watchers != null )
 		{
-			v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
-		}
+			Vector<TreeNodeWidgetWatcher> v ;
+			synchronized( this )
+			{
+				v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
+			}
 
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
-		{
-			TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
-			tnww.nodeSelected( this ) ;
+			int cnt = v.size() ;
+			for( int i = 0 ; i < cnt ; ++i )
+			{
+				TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
+				tnww.nodeSelected( this ) ;
+			}
+			tree.notifySelect( this ) ;
 		}
-		tree.notifySelect( this ) ;
 	}
 
 	/**
@@ -332,10 +333,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public void setSelected( boolean selected )
 	{
 		if( tree.getSelectedNode() != this )
-		{
 			tree.selectNode( this ) ;
-			notifySelect() ; // XXX will this be called twice?
-		}
 	}
 
 	/**
