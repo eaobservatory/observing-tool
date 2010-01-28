@@ -41,6 +41,7 @@ import ot.OtAdvancedTreeDropTarget ;
 import ot.OtAdvancedTreeDragSource ;
 import javax.swing.event.TreeExpansionListener ;
 import javax.swing.event.TreeExpansionEvent ;
+import javax.swing.tree.TreeNode ;
 
 import orac.jcmt.iter.SpIterFocusObs ;
 import orac.jcmt.iter.SpIterJiggleObs ;
@@ -848,7 +849,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			// the group, then try the previous node before the group, then failing those, just select the parent.
 
 			OtTreeNodeWidget parentTNW = ( OtTreeNodeWidget )selectedTNW.getParent() ;
-			Vector v = parentTNW.getChildren() ;
+			Vector<TreeNode> v = parentTNW.getChildren() ;
 
 			SpItem spItem = children[ children.length - 1 ] ;
 			OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( spItem ) ;
