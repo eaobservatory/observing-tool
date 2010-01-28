@@ -24,12 +24,6 @@ import gemini.sp.obsComp.SpInstObsComp ;
  * contexts, if the given context is missing a target list or instrument
  * component.
  * 
- * <h3>Observation Chain State</h3>
- * Observation contexts can contain observations (see <code>SpObs</code>).
- * Observations may be chained together to constrain the ordering of their
- * ultimate execution. It is the responsibility of the observation context keep
- * the "chain state" up-to-date as observations are inserted and removed.
- * 
  * @see SpObsData
  * @see gemini.sp.obsComp.SpTelescopeObsComp
  * @see gemini.sp.obsComp.SpInstObsComp
@@ -120,8 +114,7 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	}
 
 	/**
-     * Override insert to fix up the observation chain state, and to check for
-     * the insertion of an item that would effect the SpObsData.
+     * Override insert to check for the insertion of an item that would effect the SpObsData.
      */
 	protected void doInsert( SpItem newChild , SpItem afterChild )
 	{
@@ -136,55 +129,5 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	{
 		_fixObsDataBeforeExtract( child ) ;
 		super.doExtract( child ) ;
-	}
-
-	//
-	// Overriden methods and helpers to keep chain state up-to-date
-	//
-
-	//
-	// Fix up the Observation Chain state before its extraction.
-	//
-	void _fixChainStateBeforeExtract( SpItem firstChild , SpItem lastChild ){}
-
-	//
-	// Fix the chained states of Observation after the insertion of a new
-	// item after an observation.
-	//
-	void _fixChainStateBeforeInsert( SpItem[] newChildren , SpItem afterChild ){}
-
-	/**
-     * Override <code>insert()</code> to fix the chain state of any
-     * observations contained in this context.
-     */
-	protected void insert( SpItem[] newChildren , SpItem afterChild )
-	{
-		_fixChainStateBeforeInsert( newChildren , afterChild ) ;
-		super.insert( newChildren , afterChild ) ;
-	}
-
-	/**
-     * Override <code>extract()</code> to fix the chain state of any
-     * observations contained in this context.
-     */
-	protected void extract( SpItem[] children )
-	{
-		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] ) ;
-		super.extract( children ) ;
-	}
-
-	/**
-     * Override <code>move()</code> to fix the chain state of any observations
-     * contained in this context.
-     */
-	protected void move( SpItem[] children , SpItem newParent , SpItem afterChild )
-	{
-		_fixChainStateBeforeExtract( children[ 0 ] , children[ children.length - 1 ] ) ;
-		if( newParent instanceof SpObsContextItem )
-		{
-			SpObsContextItem newCtx = ( SpObsContextItem )newParent ;
-			newCtx._fixChainStateBeforeInsert( children , afterChild ) ;
-		}
-		super.move( children , newParent , afterChild ) ;
 	}
 }
