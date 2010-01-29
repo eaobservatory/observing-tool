@@ -84,18 +84,18 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
 		Vector<SpOffsetPos> v = new Vector<SpOffsetPos>() ;
 
 		Vector<String> opv = avTab.getAll( OFFSET_POS_LIST ) ;
-		if( opv == null )
-			return v ;
-
-		SpOffsetPos op ;
-
-		Enumeration<String> e = opv.elements() ;
-		while( e.hasMoreElements() )
+		if( opv != null )
 		{
-			String tag = e.nextElement() ;
-			op = SpOffsetPosList.extractPosition( avTab , tag , list ) ;
-			if( op != null )
-				v.addElement( op ) ;
+			SpOffsetPos op ;
+
+			Enumeration<String> e = opv.elements() ;
+			while( e.hasMoreElements() )
+			{
+				String tag = e.nextElement() ;
+				op = SpOffsetPosList.extractPosition( avTab , tag , list ) ;
+				if( op != null )
+					v.addElement( op ) ;
+			}
 		}
 		return v ;
 	}
@@ -124,7 +124,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public double getPosAngle()
 	{
-		return _avTab.getDouble( ATTR_POS_ANGLE , 0.0 ) ;
+		return _avTab.getDouble( ATTR_POS_ANGLE , 0. ) ;
 	}
 
 	/**
@@ -319,7 +319,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition()
 	{
-		return createPosition( -1 , 0.0 , 0.0 ) ;
+		return createPosition( -1 , 0. , 0. ) ;
 	}
 
 	/**
@@ -339,7 +339,7 @@ public final class SpOffsetPosList extends TelescopePosList implements java.io.S
      */
 	public SpOffsetPos createPosition( int index )
 	{
-		return createPosition( index , 0.0 , 0.0 ) ;
+		return createPosition( index , 0. , 0. ) ;
 	}
 
 	/**
