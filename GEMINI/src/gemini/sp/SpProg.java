@@ -145,14 +145,6 @@ public class SpProg extends SpRootItem
 			}
 			else if( spItem instanceof SpOR )
 			{
-				try
-				{
-					elapsedTime += (( SpAND )spItem).getTotalTime() ;
-				}
-				catch( Exception e )
-				{
-					// Ignore
-				}
 				elapsedTime += (( SpOR )spItem).getTotalTime() ;
 			}
 			else if( spItem instanceof SpSurveyContainer )
