@@ -81,21 +81,21 @@ public class SpOR extends SpObsContextItem
 					elapsedTime += msb.getTotalTime() * msb.getNumberRemaining() ;
 				n++ ;
 			}
-
-			if( spItem instanceof SpAND )
+			else if( spItem instanceof SpAND )
 			{
 				elapsedTime += (( SpAND )spItem).getTotalTime() ;
 				n++ ;
 			}
-
-			if( spItem instanceof SpSurveyContainer )
+			else if( spItem instanceof SpSurveyContainer )
 			{
 				elapsedTime += (( SpSurveyContainer )spItem).getTotalTime() ;
 				n++ ;
 			}
 		}
 
-		return ( elapsedTime / n ) * getNumberOfItems() ;
+		if( elapsedTime != 0. )
+			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
+		return elapsedTime ;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class SpOR extends SpObsContextItem
      */
 	public double getElapsedTime()
 	{
-		double elapsedTime = 0.0 ;
+		double elapsedTime = 0. ;
 
 		// Records the number of children that have a duration, i.e. SpAND and
 		// SpMSB (and its subclass SpObs).
