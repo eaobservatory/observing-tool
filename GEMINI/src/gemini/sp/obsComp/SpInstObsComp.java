@@ -134,7 +134,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public final void setExposureTime( String seconds )
 	{
-		if( seconds.matches( "\\d*\\.?\\d*" ) && !seconds.equals( "" ) )
+		if( seconds != null && !seconds.trim().equals( "" ) && seconds.matches( "\\d*\\.?\\d*" ) )
 			_avTable.set( ATTR_EXPOSURE_TIME , new Double( seconds ).toString() ) ;
 	}
 
@@ -160,7 +160,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		if( time == null )
 			time = "0" ;
 
-		double res = 0.0 ;
+		double res = 0. ;
 		try
 		{
 			res = Double.valueOf( time ).doubleValue() ;
@@ -231,7 +231,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	public void setPosAngleDegreesStr( String posAngleStr )
 	{
-		double posAngle = 0.0 ;
+		double posAngle = 0. ;
 		try
 		{
 			posAngle = Double.valueOf( posAngleStr ).doubleValue() ;
@@ -275,7 +275,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 			_avTable.rm( "rotAngle" ) ;
 		}
 
-		return _avTable.getDouble( ATTR_POS_ANGLE , 0.0 ) ;
+		return _avTable.getDouble( ATTR_POS_ANGLE , 0. ) ;
 	}
 
 	/**
