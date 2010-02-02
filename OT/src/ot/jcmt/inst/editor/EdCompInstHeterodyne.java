@@ -142,6 +142,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	static String USB = "usb" ;
 	static String BEST = "best" ;
 
+	private static final Color myRed = new Color( 255 , 209 , 186 ) ;
+	private static final Color myYellow = new Color( 255 , 249 , 182 ) ;
+	private static final Color myBlue = new Color( 200 , 217 , 255 ) ;
+	private static final Color myGreen = new Color( 200 , 255 , 200 ) ;
+
 	public EdCompInstHeterodyne()
 	{
 		_title = "JCMT Heterodyne" ;
@@ -2158,19 +2163,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				case 0 :
 				default :
-					Color myRed = new Color( 255 , 209 , 186 ) ;
 					setBackground( myRed ) ;
 					break ;
 				case 1 :
-					Color myYellow = new Color( 255 , 249 , 182 ) ;
 					setBackground( myYellow ) ;
 					break ;
 				case 2 :
-					Color myBlue = new Color( 200 , 217 , 255 ) ;
 					setBackground( myBlue ) ;
 					break ;
 				case 3 :
-					Color myGreen = new Color( 200 , 255 , 200 ) ;
 					setBackground( myGreen ) ;
 					break ;
 			}
