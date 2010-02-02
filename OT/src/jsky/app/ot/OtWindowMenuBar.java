@@ -94,7 +94,8 @@ public class OtWindowMenuBar extends JMenuBar
 			}
 		} ) ;
 
-		add( databaseMenu = createDatabaseMenu() ) ;
+		if( !editor.getItemType().equals( "Library" ) )
+			add( databaseMenu = createDatabaseMenu() ) ;
 
 		add( helpMenu = createHelpMenu() ) ;
 
