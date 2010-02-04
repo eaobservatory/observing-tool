@@ -3,20 +3,16 @@
 	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
-<xsd:include schemaLocation="SCUBA.xsd"/>
 <xsd:include schemaLocation="Heterodyne.xsd"/>
 <xsd:include schemaLocation="SCUBA2.xsd"/>
 
 <xsd:group name="instrumentGroup">
   <xsd:choice>
     <xsd:element ref="toml:SpInstHeterodyne"/>
-    <xsd:element ref="toml:SpInstSCUBA"/>
     <xsd:element ref="toml:SpInstSCUBA2"/>
   </xsd:choice>
 </xsd:group>
 
-<xsd:element name="SpInstSCUBARef"      type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstHeterodyneRef" type="toml:compRefType"
 	     substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstSCUBA2Ref"     type="toml:compRefType"
