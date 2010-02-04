@@ -398,11 +398,6 @@
     <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
   </xsd:complexType>
 </xsd:element>
-<xsd:element name="SpInstSCUBARef">
-  <xsd:complexType>
-    <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
-  </xsd:complexType>
-</xsd:element>
 <xsd:element name="SpInstHeterodyneRef">
   <xsd:complexType>
     <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
@@ -1207,22 +1202,6 @@
     <xsd:attribute name="type" type="SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="targetList"/>
     <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-  </xsd:complexType>
-</xsd:element>
-
-<!-- SCUBA instrument component -->
-<xsd:element name='SpInstSCUBA'>
-  <xsd:complexType>
-    <xsd:all>
-      <xsd:element name="primaryBolometer" type="bolometerList"/>
-      <xsd:element ref='bolometers'/>
-      <xsd:element name="filter" type="filterList"/>
-      <xsd:element ref="meta_unique" minOccurs="0"/>
-      <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
-    </xsd:all>
-    <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='optional'/>
-    <xsd:attribute name='type' type='xsd:string' use='required'/>
-    <xsd:attribute name='subtype' type='xsd:string' use='required'/>
   </xsd:complexType>
 </xsd:element>
 

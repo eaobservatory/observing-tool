@@ -31,7 +31,6 @@ import gemini.sp.obsComp.SpObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import orac.util.SpItemUtilities ;
 import orac.jcmt.inst.SpInstHeterodyne ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import gemini.util.Assert ;
@@ -331,7 +330,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		/*
 		 * If we are adding a JCMT instrument, we need to check all of the observations in scope and update then correctly for the type of instrument.
 		 */
-		if( newItem instanceof SpInstSCUBA2 || newItem instanceof SpInstHeterodyne || newItem instanceof SpInstSCUBA )
+		if( newItem instanceof SpInstSCUBA2 || newItem instanceof SpInstHeterodyne )
 		{
 			SpItem newItemsRoot = SpTreeMan.findRootItem( newItem ) ;
 			// Get all of the SpIterObs components below this
@@ -362,8 +361,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 						jcmtObs.setupForHeterodyne() ;
 					else if( newItem instanceof SpInstSCUBA2 )
 						jcmtObs.setupForSCUBA2() ;
-					else if( newItem instanceof SpInstSCUBA )
-						jcmtObs.setupForSCUBA() ;
 				}
 			}
 		}
@@ -390,8 +387,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 					( ( SpIterJCMTObs )newItem ).setupForHeterodyne() ;
 				else if( obsComp instanceof SpInstSCUBA2 )
 					( ( SpIterJCMTObs )newItem ).setupForSCUBA2() ;
-				else if( obsComp instanceof SpInstSCUBA )
-					( ( SpIterJCMTObs )newItem ).setupForSCUBA() ;
 			}
 		}
 		OtTreeNodeWidget tnw = getTreeNodeWidgetForSpItem( newItem ) ;

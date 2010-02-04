@@ -82,8 +82,6 @@ public interface SpJCMTConstants
 	 *
 	 * "TRACKING", "AZEL", "MOUNT", "FPLANE".
 	 *
-	 * Default (for SCUBA) is SCAN_SYSTEMS[3] = "FPLANE".
-	 *
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
@@ -279,25 +277,6 @@ public interface SpJCMTConstants
 	 */
 	public static final String VALUE_ARC_MINUTES = "arcminutes" ;
 
-	// SCUBA constants
-
-	/** Filter */
-	public static final String ATTR_FILTER = "filter" ;
-
-	/** Primary Bolometer */
-	public static final String ATTR_PRIMARY_BOLOMETER = "primaryBolometer" ;
-
-	/** Vector with all bolometers */
-	public static final String ATTR_BOLOMETERS = "bolometers" ;
-
-	/** SCUBA start up time. SCUBA constants for time estimation. */
-	public static final double SCUBA_STARTUP_TIME = 40 ;
-
-	/** Scuba scan map chop frequency in Hz. */
-	public static final double SCAN_MAP_CHOP_FREQUENCY = 8 ;
-
-	/** Scuba array diameter in arcseconds. */
-	public static final double SCUBA_ARRAY_DIAMETER = 138 ;
 	public static final String SWITCHING_MODE_CHOP = "Chop" ;
 	public static final String SWITCHING_MODE_NOD = "Nod" ;
 	public static final String SWITCHING_MODE_BEAM = "Beam" ;

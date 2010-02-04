@@ -9,6 +9,7 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
@@ -75,11 +76,7 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-		{
-			time = 227. + SCUBA_STARTUP_TIME ;
-		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			time = 295. ;
 		}
@@ -99,13 +96,6 @@ public class SpIterSkydipObs extends SpIterJCMTObs
 	}
 
 	public void setupForHeterodyne()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_POSITIONS ) ;
-		_avTable.noNotifyRm( ATTR_START_POSITION ) ;
-	}
-
-	public void setupForSCUBA()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 		_avTable.noNotifyRm( ATTR_POSITIONS ) ;

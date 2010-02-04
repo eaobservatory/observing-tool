@@ -9,7 +9,6 @@
 // $Id$
 package orac.jcmt.iter ;
 
-import gemini.sp.SpItem ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
@@ -18,7 +17,6 @@ import gemini.sp.iter.SpIterOffset ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.util.Format ;
 import orac.jcmt.inst.SpJCMTInstObsComp ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.util.SpMapItem ;
@@ -248,11 +246,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		else
 		{
 			double dx = 0. ;
-			if( inst instanceof SpInstSCUBA )
-			{
-				dx = getScanVelocity() / (( SpInstSCUBA )inst).getChopFrequency() ;
-			}
-			else if( inst instanceof SpInstHeterodyne )
+			if( inst instanceof SpInstHeterodyne )
 			{
 				BigDecimal velocity = new BigDecimal( getScanVelocity() ) ;
 				BigDecimal sampleTime = new BigDecimal( getSampleTime() ) ;
@@ -281,8 +275,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
 		if( inst == null )
 			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of scan velocity." ) ;
-		else if( inst instanceof SpInstSCUBA )
-			valid = setScanVelocity( (( SpInstSCUBA )inst).getChopFrequency() * dx ) ;
 		else if( inst instanceof SpInstSCUBA2 )
 			valid = setScanVelocity( dx * 200. ) ;
 		else if( inst instanceof SpInstHeterodyne )
@@ -431,14 +423,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getSecsPerRow()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
-		if( instrument instanceof SpInstSCUBA )
-		{
-			double mapWidth = getWidth() ;
-			double sampleDX = getScanDx() ;
-			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY ;
-			return mapWidth / scanRate ;
-		}
-		else if( instrument instanceof SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			double rowOverhead = 17.14 ;
 			double samplesPerRow = numberOfSamplesPerRow() ;
@@ -550,41 +535,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getElapsedTime()
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
-		if( instrument instanceof SpInstSCUBA )
-		{
-			int nWaveplates = 0 ;
-			double factor = 1. ;
-
-			// Get information specified by user in the OT.
-			double mapWidth = getWidth() ;
-			double mapHeight = getHeight() ;
-			double sampleDX = getScanDx() ;
-			double sampleDY = getScanDy() ;
-
-			// Calculate seconds per integration.
-			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY ;
-			double noOfRows = Math.ceil( ( mapHeight + 120 ) / sampleDY ) ;
-			double lengthOfRow = mapWidth ;
-			double secsPerRow = lengthOfRow / scanRate ;
-			double secsPerIntegration = noOfRows * secsPerRow ;
-			double calculatedOverhead = 515 * Math.pow( ( mapWidth * mapHeight ) , -0.1523 ) / 100 ;
-
-			// Go through the parents and see if any of them are SpIterPOLS
-			SpItem parent = parent() ;
-			while( parent != null )
-			{
-				if( parent instanceof SpIterPOL )
-					nWaveplates += ( ( SpIterPOL )parent ).getConfigSteps( "POLIter" ).size() ;
-		
-				parent = parent.parent() ;
-			}
-			if( nWaveplates > 1 )
-				factor = 1. + ( ( double )nWaveplates - 1 ) / ( nWaveplates ) ;
-
-			// Overhead is 50 percent for scan map.
-			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration ) ;
-		}
-		else if( instrument instanceof SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			/*
 			 * Based on real timing data 
@@ -799,20 +750,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 		_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_PATTERN_BOUS , 0 ) ;
-	}
-
-	public void setupForSCUBA()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL ) ;
-		_avTable.noNotifyRm( ATTR_ROWS_PER_REF ) ;
-		_avTable.noNotifyRm( ATTR_SAMPLE_TIME ) ;
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
-		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 ) ;
-		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 ) ;
-		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
 	}
 
 	public void setupForSCUBA2()

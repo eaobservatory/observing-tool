@@ -390,8 +390,6 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 ) ;
 	}
 
-	public void setupForSCUBA(){}
-
 	public void setupForSCUBA2()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;

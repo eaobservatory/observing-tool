@@ -19,7 +19,6 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterStareObs ;
-import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.HeterodyneNoise ;
 import orac.jcmt.SpJCMTConstants ;
 
@@ -188,11 +187,6 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_w.mapPanel.setVisible( true ) ;
 		}
 		super.setInstrument( spInstObsComp ) ;
-	}
-
-	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
-	{
-		return ScubaNoise.noise_level( integrations , wavelength , "PHOT" , nefd , status ) ;
 	}
 
 	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )

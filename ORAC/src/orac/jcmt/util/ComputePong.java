@@ -16,10 +16,10 @@ public class ComputePong
 	public static void main( String[] args )
 	{
 		String type = ComputePong.PongScan.CURVY ;
-		double height = 320. ;
-		double width = 400. ;
-		double spacing = 50. ;
-		double velocity = 100. ;
+		double height = 180. ;
+		double width = 180. ;
+		double spacing = 30. ;
+		double velocity = 120. ;
 
 		if( args.length == 1 && "-test".equals( args[ 0 ] ) )
 		{

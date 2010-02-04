@@ -9,6 +9,7 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
@@ -76,12 +77,7 @@ public class SpIterPointingObs extends SpIterJCMTObs
 		double overhead = 0. ;
 		double totalIntegrationTime = 0. ;
 
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-		{
-			overhead = SCUBA_STARTUP_TIME + 9. ;
-			totalIntegrationTime = 16. * 2. ;
-		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			totalIntegrationTime = 120. ;
 		}
@@ -95,14 +91,6 @@ public class SpIterPointingObs extends SpIterJCMTObs
 			totalIntegrationTime = s2time.totalIntegrationTime( this ) ;
 		}
 		return( overhead + totalIntegrationTime ) ;
-	}
-
-	public void setupForSCUBA()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_POINTING_METHOD ) ;
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
-		_avTable.noNotifyRm( ATTR_SPECTRAL_MODE ) ;
 	}
 
 	public void setupForSCUBA2()

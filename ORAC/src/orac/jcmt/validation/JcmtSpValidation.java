@@ -11,7 +11,6 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
 import orac.jcmt.inst.SpInstHeterodyne ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import gemini.sp.obsComp.SpInstObsComp ;
@@ -253,43 +252,7 @@ public class JcmtSpValidation extends SpValidation
 	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
 		if( spMSB instanceof SpObs )
-		{
 			checkObservation( ( SpObs )spMSB , report ) ;
-		}
-		else
-		{
-			// Check that the chop throws are the same in all cases - but only when there is only one value in the chop iterator
-			SpInstObsComp obsComp = SpTreeMan.findInstrument( spMSB ) ;
-			if( obsComp instanceof SpInstSCUBA )
-			{
-				Vector<SpItem> chopComponents = SpTreeMan.findAllInstances( spMSB , SpIterChop.class.getName() ) ;
-				if( chopComponents != null && chopComponents.size() > 1 )
-				{
-					boolean multipleIterator = false ;
-					for( int i = 0 ; i < chopComponents.size() ; i++ )
-					{
-						if( ( ( SpIterChop )chopComponents.get( i ) ).getStepCount() > 1 )
-						{
-							multipleIterator = true ;
-							break ;
-						}
-					}
-					if( !multipleIterator )
-					{
-						double baseThrow = ( ( SpIterChop )chopComponents.get( 0 ) ).getThrow( 0 ) ;
-						for( int i = 1 ; i < chopComponents.size() ; i++ )
-						{
-							double currThrow = ( ( SpIterChop )chopComponents.get( i ) ).getThrow( 0 ) ;
-							if( currThrow != baseThrow )
-							{
-								report.add( new ErrorMessage( ErrorMessage.WARNING , spMSB.getTitle() , "MSB contains different chop throws for each component" ) ) ;
-								break ;
-							}
-						}
-					}
-				}
-			}
-		}
 		super.checkMSBgeneric( spMSB , report ) ;
 	}
 

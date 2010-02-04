@@ -22,10 +22,8 @@ import gemini.util.MathUtil ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.inst.SpJCMTInstObsComp ;
 import orac.jcmt.inst.SpInstHeterodyne ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.iter.SpIterJiggleObs ;
 import orac.jcmt.util.HeterodyneNoise ;
-import orac.jcmt.util.ScubaNoise ;
 
 /**
  * This is the editor for Jiggle Observe Mode iterator component.
@@ -272,16 +270,6 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		{
 			_w.acsisPanel.setVisible( false ) ;
 		}
-	}
-
-	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
-	{
-		String mode = "JIG16" ;
-
-		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs ) ;
-		if( ( instObsComp != null ) && ( SpIterJiggleObs.isJIG64( ( SpInstSCUBA )instObsComp ) ) )
-			mode = "JIG64" ;
-		return ScubaNoise.noise_level( integrations , wavelength , mode , nefd , status ) ;
 	}
 
 	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )

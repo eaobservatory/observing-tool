@@ -36,7 +36,6 @@ import orac.jcmt.SpJCMTConstants ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.iter.SpIterRasterObs ;
 import orac.jcmt.util.Scuba2Noise ;
-import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.HeterodyneNoise ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 
@@ -705,11 +704,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	public void update( Observable o , Object arg )
 	{
 		_updateWidgets() ;
-	}
-
-	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
-	{
-		return ScubaNoise.noise_level( integrations , wavelength , "SCAN" , nefd , status , _iterObs.getHeight() , _iterObs.getWidth() ) ;
 	}
 
 	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )

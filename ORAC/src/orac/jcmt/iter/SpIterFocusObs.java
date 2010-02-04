@@ -9,6 +9,8 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
@@ -102,15 +104,11 @@ public class SpIterFocusObs extends SpIterJCMTObs
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-		{
-			time = 22.4 * getFocusPoints() + SCUBA_STARTUP_TIME ;
-		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			time = 150. ;
 		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstSCUBA2 )
+		else if( instrument instanceof SpInstSCUBA2 )
 		{
 			time = SCUBA2_STARTUP_TIME ;
 
