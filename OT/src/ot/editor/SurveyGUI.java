@@ -31,7 +31,7 @@ import jsky.app.ot.editor.TelescopeGUI ;
  */
 public class SurveyGUI extends JPanel
 {
-	private TelescopeGUI _telescopeGUI = null ; //new TelescopeGUI() ;
+	private TelescopeGUI _telescopeGUI = null ;
 	JComboBox remaining = new JComboBox() ;
 	JComboBox priority = new JComboBox() ;
 	JButton addButton = new JButton( "Add" ) ;
@@ -44,6 +44,7 @@ public class SurveyGUI extends JPanel
 	JTextField selectField = new JTextField() ;
 	JLabel titleLabel = new JLabel( "Title:" ) ;
 	JTextField titleField = new JTextField() ;
+	JButton plotButton = new JButton( "Plot" ) ;
 
 	/**
 	 * List of fiels.
@@ -71,6 +72,7 @@ public class SurveyGUI extends JPanel
 		setLayout( new BorderLayout() ) ;
 
 		JPanel buttonPanel = new JPanel() ;
+		buttonPanel.add( plotButton ) ;
 		buttonPanel.add( addButton ) ;
 		buttonPanel.add( removeButton ) ;
 		buttonPanel.add( removeAllButton ) ;

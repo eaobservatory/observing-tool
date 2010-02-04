@@ -714,7 +714,6 @@ public class SpValidation
 		{
 			classPathMap.put( "SpProg" , "gemin.sp." ) ;
 
-			classPathMap.put( "SpInstSCUBA" , "orac.jcmt.inst." ) ;
 			classPathMap.put( "SpTelescopeObsComp" , "gemini.sp.obsComp." ) ;
 			classPathMap.put( "SpSchedConstObsComp" , "gemini.sp.obsComp." ) ;
 			classPathMap.put( "SpSiteQualityObsComp" , "gemini.sp.obsComp." ) ;

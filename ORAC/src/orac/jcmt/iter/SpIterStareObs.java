@@ -15,6 +15,8 @@ import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
 
 import gemini.sp.obsComp.SpInstObsComp ;
+import orac.jcmt.inst.SpInstHeterodyne ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 
 import gemini.sp.iter.SpIterChop ;
 import gemini.util.Format ;
@@ -58,36 +60,7 @@ public class SpIterStareObs extends SpIterJCMTObs
 		double overhead = 0. ;
 		double totalIntegrationTime = 0. ;
 
-		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
-		{
-			// Go through all of this items parents to see if any are SpIterPOLs
-			boolean polPhot = false ;
-			SpItem parent = parent() ;
-			while( parent != null )
-			{
-				if( parent instanceof SpIterPOL )
-				{
-					polPhot = true ;
-					break ;
-				}
-				parent = parent.parent() ;
-			}
-			overhead = SCUBA_STARTUP_TIME + 8 ;
-			if( polPhot )
-			{
-				// 8 seconds per integration
-				totalIntegrationTime = 8 ;
-			}
-			else
-			{
-				// 18 seconds per integration
-				if( getWidePhotom() )
-					totalIntegrationTime = 24 ;
-				else
-					totalIntegrationTime = 18 ;
-			}
-		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		if( instrument instanceof SpInstHeterodyne )
 		{
 			/*
 			 * Based on real timing data 
@@ -106,7 +79,7 @@ public class SpIterStareObs extends SpIterJCMTObs
 			if( isContinuum() )
 				totalIntegrationTime *= 1.2 ;
 		}
-		else if( instrument instanceof orac.jcmt.inst.SpInstSCUBA2 )
+		else if( instrument instanceof SpInstSCUBA2 )
 		{
 		}
 		return( overhead + totalIntegrationTime ) ;
@@ -151,13 +124,6 @@ public class SpIterStareObs extends SpIterJCMTObs
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 ) ;
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "60" , 0 ) ;
-	}
-
-	public void setupForSCUBA()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
-		_avTable.noNotifyRm( ATTR_CONT_CAL ) ;
 	}
 
 	public void setupForSCUBA2()

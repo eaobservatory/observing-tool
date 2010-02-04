@@ -13,7 +13,6 @@ import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.util.Scuba2Time ;
@@ -88,11 +87,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this ) ;
 		double time = 0. ;
-		if( instrument instanceof SpInstSCUBA )
-		{
-			time = 1.1 + SCUBA_STARTUP_TIME ;
-		}
-		else if( instrument instanceof SpInstSCUBA2 )
+		if( instrument instanceof SpInstSCUBA2 )
 		{
 			time = SCUBA2_STARTUP_TIME ;
 
@@ -117,13 +112,6 @@ public class SpIterNoiseObs extends SpIterJCMTObs
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 		checkSources( SCUBA2_NOISE_SOURCES ) ;
-	}
-	
-	public void setupForSCUBA()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-		_avTable.noNotifyRm( ATTR_NOISE_SOURCE ) ;
-		NOISE_SOURCES = null ;
 	}
 	
 	private void checkSources( String[] sources )

@@ -32,10 +32,8 @@ import gemini.sp.SpTelescopePos ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpJCMTInstObsComp ;
 import orac.jcmt.inst.SpInstHeterodyne ;
-import orac.jcmt.inst.SpInstSCUBA ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
-import orac.jcmt.util.ScubaNoise ;
 import orac.jcmt.util.Scuba2Noise ;
 import orac.jcmt.SpJCMTConstants ;
 import orac.util.CoordConvert ;
@@ -286,68 +284,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		
 		double csoTau = siteQualityObsComp.getNoiseCalculationTau() ;
 
-		if( instObsComp instanceof SpInstSCUBA )
-		{
-			int[] status = { 0 } ;
-			double noise = 0. ;
-			double wavelength ;
-			double nefd ;
-
-			if( ( (( SpInstSCUBA )instObsComp).getFilter() != null ) && (( SpInstSCUBA )instObsComp).getFilter().toUpperCase().endsWith( "PHOT" ) )
-			{
-
-				if( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer() == null )
-				{
-					_noiseToolTip = "No wavelength" ;
-					return "No wavelength" ;
-				}
-
-				wavelength = Double.parseDouble( ( ( SpInstSCUBA )instObsComp ).getPrimaryBolometer().substring( 1 ) ) ;
-				nefd = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
-				noise = calculateNoise( wavelength , nefd , status ) ;
-
-				if( status[ 0 ] == 0 )
-				{
-					_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd = " + ( Math.rint( nefd * 10 ) / 10 ) + ", noise = " + ( Math.rint( noise * 10 ) / 10 ) ;
-					return "" + ( Math.rint( noise * 10 ) / 10 ) ;
-				}
-			}
-			else
-			{
-				String noise450Str ;
-
-				wavelength = 450. ;
-				double nefd450 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
-				double noise450 = calculateNoise( wavelength , nefd450 , status ) ;
-
-				if( status[ 0 ] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED )
-				{
-					_noiseToolTip = "Not implemented" ;
-					return "Not implemented." ;
-				}
-
-				if( status[ 0 ] == 0 )
-					noise450Str = "" + ( Math.rint( noise450 * 10 ) / 10 ) ;
-				else
-					noise450Str = "error " + status[ 0 ] ;
-
-				String noise850Str ;
-
-				wavelength = 850. ;
-				double nefd850 = ScubaNoise.scunefd( wavelength , airmass , csoTau , status ) ;
-				double noise850 = calculateNoise( wavelength , nefd850 , status ) ;
-
-				if( status[ 0 ] == 0 )
-					noise850Str = "" + ( Math.rint( noise850 * 10 ) / 10 ) ;
-				else
-					noise850Str = "error " + status[ 0 ] ;
-
-				_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", nefd(450) = " + ( Math.rint( nefd450 * 10 ) / 10 ) + ", noise(450) = " + ( Math.rint( noise450 * 10 ) / 10 ) + ", nefd(850) = " + ( Math.rint( nefd850 * 10 ) / 10 ) + ", noise(850) = " + ( Math.rint( noise850 * 10 ) / 10 ) ;
-
-				return "" + noise450Str + " (450), " + noise850Str + " (850)" ;
-			}
-		}
-		else if( instObsComp instanceof SpInstHeterodyne )
+		if( instObsComp instanceof SpInstHeterodyne )
 		{
 			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau ) ;
 		}

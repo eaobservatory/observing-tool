@@ -16,7 +16,6 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
 import gemini.util.Format ;
-import orac.jcmt.inst.SpInstSCUBA ;
 
 /**
  * Jiggle Iterator for JCMT.
@@ -201,11 +200,6 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 		_avTable.set( ATTR_JIGGLE_SYSTEM , coordSys ) ;
 	}
 
-	public static boolean isJIG64( SpInstSCUBA instSCUBA )
-	{
-		return instSCUBA.getBolometers() != null && instSCUBA.getBolometers().contains( "LONG" ) && instSCUBA.getBolometers().contains( "SHORT" ) ;
-	}
-
 	public void setScaleFactor( double value )
 	{
 		_avTable.set( ATTR_SCALE_FACTOR , value ) ;
@@ -275,16 +269,6 @@ public class SpIterJiggleObs extends SpIterJCMTObs
 			_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 ) ;
 
 		super.setupForHeterodyne() ;
-	}
-
-	public void setupForSCUBA()
-	{
-		_avTable.noNotifyRm( ATTR_SCALE_FACTOR ) ;
-		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE ) ;
-		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE ) ;
-		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
-		_avTable.noNotifyRm( ATTR_JIGGLE_PA ) ;
-		super.setupForSCUBA() ;
 	}
 
 	public void setupForSCUBA2()

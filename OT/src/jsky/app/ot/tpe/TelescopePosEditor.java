@@ -647,12 +647,29 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	//
 	private SpTelescopePosList _getPosList( SpItem spItem )
 	{
-		// Get the telescope target list associated with the item
-		SpTelescopeObsComp targetComp = SpTreeMan.findTargetList( spItem ) ;
-		if( targetComp == null )
-			return null ;
+		SpTelescopePosList positionList = null ;
+		if( spItem instanceof gemini.sp.SpSurveyContainer )
+		{
+			gemini.sp.SpSurveyContainer surveyContainer = ( gemini.sp.SpSurveyContainer )spItem ;
+			positionList = new SpTelescopePosList( spItem ) ;
+			for( int index = 0 ; index < surveyContainer.size() ; index++ )
+			{
+				SpTelescopeObsComp obsComp = surveyContainer.getSpTelescopeObsComp( index ) ;
+				SpTelescopePosList posList = obsComp.getPosList() ;
+				gemini.util.TelescopePos[] posarray = posList.getAllPositions() ;
+				for( gemini.util.TelescopePos pos : posarray )
+					positionList.setSelectedPos( pos ) ;
+			}
+		}
+		else
+		{
+			// Get the telescope target list associated with the item
+			SpTelescopeObsComp targetComp = SpTreeMan.findTargetList( spItem ) ;
+			if( targetComp != null )
+				positionList = targetComp.getPosList() ;
+		}
 
-		return targetComp.getPosList() ;
+		return positionList ;
 	}
 
 	//

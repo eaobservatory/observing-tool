@@ -297,15 +297,6 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			elapsedTime += totalIntegrationTime ;
 		}
 
-		if( nPol > 1 )
-		{
-			if( instrument.getClass().getName().endsWith( "SCUBA" ) )
-			{
-				// Take off some of the extra overhead
-				elapsedTime -= ( nPol - 1 ) * 40. ;
-			}
-		}
-
 		// Overhead requested by Tim 1/13/10
 		if( instrument.getClass().getName().endsWith( "SpInstSCUBA2" ) )
 			elapsedTime += 60. ;
