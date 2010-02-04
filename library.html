@@ -15,42 +15,27 @@ select the one you need. There are currently two librararies available:</p>
 
 <p>
 <ul>
-<li>SCUBA</li>
-<li>Heterodyne</li>
+<li>SCUBA-2</li>
+<li>ACSIS</li>
 </ul>
 
-<p>The SCUBA library contains pre-defined observations that will be useful
-when building SCUBA-based science programs. It is split into three parts:</p>
+<p>The SCUBA-2 library contains pre-defined observations that will be useful
+when building SCUBA-2 based science programs. It is split into three parts:</p>
 
     <dl>
-      <dt><B>General MSBs</b></dt> 
+      <dt><B>Scans</b></dt>
 
       <dd>These MSBs will form the bulk of a science program. Pre-defined
-      observations are provided for photometry, jiggle and scan-map
-      observations for all filter combinations. Each MSB consists of a science
+      observations are provided for scan-map. Each MSB consists of a science
       observation and corresponding calibration. All you need to do is copy
       the MSB into your science program and edit the target information and
       the number of integrations.</dd>
-
-      <dt><B>Miscellaneous observations</b></dt>
-
-
-      <dd>These are observations that are not normally part of a science
-      program. They include observations to determine the flat field and also
-      to determine the instrumental polarization.</dd>
-
-      <dt><B>Polarimetry MSBs</b></dt>
-
-      <dd>Polarimetry MSBs are kept separate because they are slightly more
-      complicated. MSBs are provided for all observing modes but only for
-      limited filter combinations (the IP values are not at all certain at 450
-      microns at the time of writing). Flux calibrations are included.</dd>
 
     </dl>
 
 <p>
 
-<p>The Heterodyne library contains pre-defined observations that will be useful
+<p>The ACSIS library contains pre-defined observations that will be useful
 when building Heterodyne-based science programs. It is split into three parts:</p>
 
     <dl>
@@ -72,13 +57,6 @@ when building Heterodyne-based science programs. It is split into three parts:</
 
 If you have any questions on these libraries do not hesitate to contact your
       support scientist for help.</p>
-
-
-    <hr>
-    <address><a href="mailto:t.jenness@jach.hawaii.edu">Tim Jenness</a></address<!-- Created: Mon Jul  8 12:00:36 HST 2002 -->
-<!-- hhmts start -->
-Last modified: Wed Jul  2 14:03:15 HST 2003
-<!-- hhmts end -->
 
  </body>
 
