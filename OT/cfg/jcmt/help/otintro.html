@@ -11,20 +11,11 @@ ff0000">
         <h1>The JCMT OT primer</h1>
 
 <font color=firebrick>
-<b>Update 20080830:</b>12 of the 16 HARP pixels are presently operational. 
+<b>Update 20080830:</b><br>12 of the 16 HARP pixels are presently operational.
 Please see the <a href="/JCMT/instruments">Instrument Status</a> page for 
 the latest information and instructions on how adapt
-your Jiggle and Raster MSBs to ensure fully sampled maps.
+your Jiggle and Scan MSBs to ensure fully sampled maps.
 </font>
-
-<p>
-<b>
-NOTE: A new version of the JCMTOT was released during semester
-08B. Users of the JCMTOT software must update to this version before
-submitting MSBs.
-
-For a more detailed and technical discussion read
-<a href="het_obsmodes.html">'Heterodyne Obsmodes'</a>.</b>
 
 <p> 
 This document is a primer on how to use the JCMT Observing Tool (JCMT
@@ -57,10 +48,11 @@ href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 <h2> General Information: </h2> 
 
 <p> This version of the <em><b>JCMT OT</b></em> enables users to build
-their science program for heterodyne observations only. A <a
-href="het_example.html#het_msblib"> templates library</a> is provided
-that covers the observing modes being offered: <em>Samples, Grids,
-Jiggles,</em> and <em>Rasters</em>. Investigators are urged to
+their science program for heterodyne and SCUBA-2 observations. <a
+href="het_example.html#het_msblib">Template libraries</a> are provided
+that cover the observing modes being offered: <em>Samples, Grids,
+Jiggles,</em> for heterodyne observing and <em>Scans</em> for heterodyne
+and SCUBA-2 observing. Investigators are urged to
 carefully inspect the example for a beam-switched observation below
 and to read the more extensive explanation and instructions presented
 for each observing mode. While the components will look familiar to
@@ -97,7 +89,7 @@ There are several options for calibrations and ways to customize them:
 <li>No special calibration MSBs are provided in the Science Program:
 the calibrations will be carried out on a suitable calibration source
 selected by the TSS at a 'standard' frequency, possibly different from
-MSB tuning or redshift. For many applications, this is the most 
+MSB tuning or redshift. For many applications, this is the most
 appropriate option.</li>
 
 <p> 
@@ -113,12 +105,12 @@ instruction in the science program.
 
 <ul><li> 
 The ACSIS library has a set of special template MSBs for a
-position-switch, beam-switch, or raster calibration. The MSBs start
+position-switch, beam-switch, or scan calibration. The MSBs start
 with a series of (optional) pointing and focus observations. The
 calibration itself is a regular observation that has been marked as a
 calibration.  Configure the <i>Het setup</i> and <i>Target
 Component</i> to customize the calibration for your project. Typically
-choose either a position-switch, beam-switch, or raster calibration,
+choose either a position-switch, beam-switch, or scan calibration,
 depending on the selected calibration target (many of which require a
 position-switch).  Observational details for the calibrators can be
 found at this location:
@@ -126,7 +118,7 @@ found at this location:
 JCMT Heterodyne Standards</a>.  The calibration MSBs should be added
 to the science program with a high priority (low number) and high
 repeat counter to ensure that they will come up prominently and
-repeatedly in the JCMT Query Tool. 
+repeatedly in the JCMT Query Tool.
 </li></ul>
 </li>
 
@@ -238,8 +230,7 @@ Project</a> if you need help.
 <b><font color=firebrick><h3><i><li>Detailed description of Observing Modes</i></h3></font></b>
 
 <p> A detailed description of the various observing modes, rms noise,
-and durations is available as a <font
-color=red><b>new</b></font> document <a
+and durations is available as a document <a
 href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.  <i>Even
 though the information is not required in order to set up a science
 program, experienced as well as novice JCMT observers are encouraged
@@ -272,7 +263,7 @@ to read the document as a general background.</i>
     <li><a href="./het_sp_config.html">ACSIS Special
 		Configurations</a>
 </ul>
- <li><a href="het_example.html#het_rcpe">DRRecipe Component</a> <font color=red><blink><i>New!</i></blink></font>
+ <li><a href="het_example.html#het_rcpe">DRRecipe Component</a>
  <li><a href="het_example.html#het_tsc">Site Quality</a>
  <li><a href="het_example.html#het_tsched">Scheduling Constraints</a>
  <li><a href="het_example.html#het_tfoc">The Observation component</a>
@@ -291,11 +282,11 @@ to read the document as a general background.</i>
  <li><a href="het_example.html#het_sam_folder">Samples</a>
  <li><a href="het_example.html#het_grid_folder">Grid Maps</a>
  <li><a href="het_example.html#het_jig_folder">Jiggle Maps</a>
- <li><a href="het_example.html#het_rast_folder">Raster Maps</a>
+ <li><a href="het_example.html#het_rast_folder">Scan Maps</a>
   <ul>
-    <li><a href="het_example.html#rxa_rast_example">Making a Raster
+    <li><a href="het_example.html#rxa_rast_example">Making a Scan
 		      Map With a Non-Array Receiver (RxA/RxW)</a>
-    <li><a href="het_example.html#harp_rast_example">Making a Raster
+    <li><a href="het_example.html#harp_rast_example">Making a Scan
 		      Map With an Array Receiver (HARP)</a>
 </ul>
  </ul>
@@ -369,7 +360,7 @@ to read the document as a general background.</i>
     information as necessary.<p>
 
 
-      Ok, let's do this. Type <tt>jcmtot</tt> on your unix terminal.<p>
+      Ok, let's do this. Start the JCMT Observing Tool.<p>
 
 
     You will see two windows pop up. One has a colour picture of the

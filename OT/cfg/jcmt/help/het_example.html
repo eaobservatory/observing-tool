@@ -55,7 +55,7 @@ general</a>
  <li><a href="#het_sam_folder">Samples</a>
  <li><a href="#het_grid_folder">Grid Maps</a>
  <li><a href="#het_jig_folder">Jiggle Maps</a>
- <li><a href="#het_rast_folder">Raster Maps</a>
+ <li><a href="#het_rast_folder">Scan Maps</a>
  </ul>
 
 
@@ -550,7 +550,7 @@ label, the line identification is important for archival purpose.
 
 <p>The following standard reduction recipes are currently being
 	  developed for use with the ORACDR pipeline, with an emphasis
-	  on raster-map data. An outline is provided below, but expect
+	  on scan-map data. An outline is provided below, but expect
 	  changed and redesigns as we gain experience. The main
 	  purpose of the routines is to 
 <ul><li>a) fit a baseline to the spectra and 
@@ -705,7 +705,7 @@ href="./advanced.html">advanced topics</a>.
 Following the Target component in the example is a sequence iterator
 which contains a repeat iterator, then (depending upon the observation
 type) perhaps a chop iterator or an offset iterator - a
-position-switched raster centred on the Target, as in this example,
+position-switched scan centred on the Target, as in this example,
 needs neither - and then, finally, a single (action) "eye".  The
 sequence iterator doesn't do anything <i>per se</i>, but it is
 important to note that it represents the sequence of events at the
@@ -917,7 +917,7 @@ science co-ordinates if you wish.
 Click on the chop iterator:
 
 <p>
-img src="het_images/het_chop.gif" alt="The Chop Iterator" >
+<img src="het_images/het_chop.gif" alt="The Chop Iterator" >
 
 <p>
 The chop iterator has a list of chop configurations (in this example
@@ -1032,7 +1032,7 @@ penalty for using continuum mode is an increase of the observing time
 by a factor of 1.7.
 
 <p>
-<img src="het_images/het_eye.gif" alt="The stare eye" ><p>
+<img src="het_images/het_eye.png" alt="The stare eye" ><p>
 
 <!-- 
 ############################################################################ 
@@ -1277,7 +1277,7 @@ MSB. The remainder of this primer covers the Heterodyne MSB library.
 
 The heterodyne library groups the MSB templates according to whether
 the observation is to be a Sample, a Grid, a Jiggle-Chop, or a
-Raster-Pssw:
+Scan-Pssw:
 
 <p>
 <ul>
@@ -1338,7 +1338,7 @@ designed for HARP although useful for single receptor receivers as
 well.</li>
 
 <p>
-<li><a href="#het_rast_folder">Raster-PSSW:</a> This mode is useful
+<li><a href="#het_rast_folder">Scan-PSSW:</a> This mode is useful
 for making large maps rapidly. The telescope continuously takes data
 while scanning across the source in e.g. a back-and-forth pattern. It
 will typically go to the reference between rows and an interpolation
@@ -1350,8 +1350,7 @@ regions than Grid maps.</li>
 
 <p>
 A detailed description of the various observing modes, rms noise, and
-durations is available as a <font
-color=red><blink><b>new</b></blink></font> document <a
+durations is available as a document <a
 href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.<font
 color=red><i> Even though the information is not required in order to
 set up a science program, experienced as well as novice JCMT observers
@@ -1457,16 +1456,16 @@ patterns can be found
 <h3>Shared or Separate offs</h3>
 
 The concept of <i>shared</i> or <i>separate offs</i> almost
-exclusively applies to jiggle and raster maps.  Offs will also be
+exclusively applies to jiggle and scan maps.  Offs will also be
 shared for position-switched grids with very short integration times
 (&le; 15s), but that choice is not user configurable. <i>Shared
-offs</i> are also required for raster-maps. However, Jiggles can be
+offs</i> are also required for scan-maps. However, Jiggles can be
 configured either with <i>shared</i> or <i>separate offs</i>.
 
 <p>
 <i>Shared offs</i> means that the observations at a number of
 positions in the map, i.e. <i>on</i>s, share the sky reference, the
-<i>off</i>. This concept originates from traditional raster-map
+<i>off</i>. This concept originates from traditional scan-map
 observations where the telescope scans across an extended source
 before going to a sky reference. By necessity all positions observed
 along the scan will share the same sky reference or <i>off</i>.
@@ -1477,7 +1476,7 @@ is sufficiently increased to drop its noise significantly below the
 noise of the <i>on</i> measurements. Calculations show that the
 integration time in the <i>off</i> needs to be multiplied with
 <i>sqrt(np)</i>, where <i>np</i> is the number of <i>on</i> positions
-in the row. Of course, there is nothing special about raster-maps: the
+in the row. Of course, there is nothing special about scan-maps: the
 same applies for any observations where a number of points share the
 sky reference, as is the case for HARP jiggle-maps where the full 4x4
 or 5x5 jiggle pattern is observed before going to the <i>off</i>.
@@ -1485,8 +1484,8 @@ or 5x5 jiggle pattern is observed before going to the <i>off</i>.
 <p>
 Observations benefit from <i>shared offs</i> in two ways and the more
 so the more points between the <i>offs</i> (the larger the
-raster-map). To illustrate, consider 1s observations of 16 positions
-(which would be a very small raster map). <i>Separate offs</i> would
+scan-map). To illustrate, consider 1s observations of 16 positions
+(which would be a very small scan map). <i>Separate offs</i> would
 require <b>32s</b> on the sky equally split between <i>ons</i> and
 <i>offs</i>. Using <i>shared offs</i> the observation needs only
 16+4=<b>20s</b>. But also <b>for each point individually the noise is
@@ -1735,28 +1734,28 @@ that position will be used when doing a three-load calibration
 
 <p>
 <a name="het_rast_folder"></a>
-<h3>Rasters</h3>
+<h3>Scans</h3>
 
-The format of the position switched raster MSB is similar to the
+The format of the position switched scan MSB is similar to the
 sample MSB, except that the "stare" eye is replaced by the
-"scan/raster" eye. The fields in the "Area" panel allow you control
-the size and sampling of the raster map. The resulting Nr. of
+"scan" eye. The fields in the "Area" panel allow you control
+the size and sampling of the scan map. The resulting Nr. of
 samples/pixels and Nr. of scans/pixels in each dimension is shown. The
 total required on-source integration time per sample point can be specified in
 the "Sample time" box.  The system will automatically break up the
 observations into multiple passes over the map.
 
 <p>
-Setting up raster maps is significantly different when using a <a
+Setting up scan maps is significantly different when using a <a
 href="#rxa_rast_example">non-array receiver</a> (i.e. RxA or RxW), or
 an <a href="#harp_rast_example">array receiver</a> (i.e. HARP).  Read
 the example below for setting up MSBs for an <a
-href="#rxa_rast_example">RxA/RxW Raster Map</a>, and for a <a
-href="#harp_rast_example">HARP Raster Map</a>.
+href="#rxa_rast_example">RxA/RxW Scan Map</a>, and for a <a
+href="#harp_rast_example">HARP Scan Map</a>.
 
 <p>
 <a name="rxa_rast_example"></a>
-<h4>Making a Raster Map With a Non-Array Receiver (RxA/RxW)</h4>
+<h4>Making a Scan Map With a Non-Array Receiver (RxA/RxW)</h4>
 
 <p>
 When using a single-pixel receiver such as RxA or RxW, the "sample
@@ -1776,7 +1775,7 @@ scan-direction to counter-act smearing, although this often requires a
 regridding of the final map to recover the intended rms/pixel.
 
 <p>
-<img src="het_images/het_raster.gif" alt="Rasters" >
+<img src="het_images/het_scan.png" alt="Scans" >
 
 <p>
 The sample time box allows the user to set the amount of time data is
@@ -1791,11 +1790,11 @@ this should be left to the default values.
 
 <p>
 <a name="harp_rast_example"></a>
-<h4>Making a Raster Map With an Array Receiver (i.e. HARP).</h4>
+<h4>Making a Scan map With an Array Receiver (i.e. HARP).</h4>
 
 <p>
 HARP is a 4x4 square array of receptors, which are separated by 30".
-To make a raster map, the telescope scans continuously along (by
+To make a scan map, the telescope scans continuously along (by
 default) the longest axis of the map (defined by the <em>width</em>
 and <em>height</em> of the map).  The array is rotated by 14.04&ordm;
 to the direction of the scan.  This results in a fully sampled map,
@@ -1808,7 +1807,7 @@ of pixels during subsequent scans), by 3/4 array, 1/2 array, 1/4
 array, 1/8 array or by a single pixel (i.e. a shift of 7.28").
 
 <p>
-<img src="het_images/harp_raster.gif" alt="HARP Raster" >
+<img src="het_images/harp_scan.png" alt="HARP Scan" >
 
 <p>
 Effectively the largest single map one can make is one square degree.
@@ -1818,13 +1817,13 @@ Note that mosaicing such large maps will likely tax most computing
 systems beyond their capacities.
 
 <p>
-In the lower left panel of the <em>SCAN/RASTER</em> window, one can
+In the lower left panel of the <em>SCAN</em> window, one can
 specify the direction and orientation of the scan, using two pull-down
 menues, <em>PA</em> and <em>System</em>.  For all but very special
 applications, the <em>System</em> should be left in its default,
 <em>TRACKING</em> coordinates (e.g. R.A./Dec.).  If <em>PA</em> is
 left in its default state (<em>automatic</em>), then the telescope
-will scan along the longest axis of the raster box defined by
+will scan along the longest axis of the scan box defined by
 <em>width</em>, <em>height</em>, and <em>PA</em> specified in the
 <em>Area</em> panel.  One can, however, set the scan direction to any
 arbitrary value, by selecting <em>user def</em> from the <em>PA</em>
@@ -1832,17 +1831,15 @@ pull-down menu, and typing in the required scan direction in degrees,
 where PA=0 is north and PA=90 is east.
 
 <p>
-If the raster map is to be repeated, a useful technique is to "basket
-weave" the rasters, i.e. make a raster by scanning along one axis of
+If the scan map is to be repeated, a useful technique is to "basket
+weave" the scans, i.e. make a scan map by scanning along one axis of
 the map, and then repeat by scanning along the other axis.  This
 minimizes striping in the resultant map. One way to do this is to edit
-a science observation for a raster map, set the parameters as
+a science observation for a scan map, set the parameters as
 required, then copy the entire science observation and paste the copy
-below the original.  In the original raster "eye"-con, set the
-<em>SCAN PA</em> (lower left panel) to <em>user def</em>, and set the
-value to the same value as the <em>MAP PA</em>. Do the same in the
-copy raster "eye"-con, but set the <em>SCAN PA</em> to a value equal to 
- <em>MAP PA+90</em>.
+below the original.  In the original scan "eye"-con, set the
+<em>SCAN PA</em> (lower left panel) to <em>Along Width</em>. Do the same in the
+copy scan "eye"-con, but set the <em>SCAN PA</em> to <em>Along Height</em>.
 
 <p>
 <em>Sample Time</em>: The <em>sample time</em> is the total

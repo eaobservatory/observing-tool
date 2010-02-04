@@ -288,8 +288,56 @@ single observation for a target list with 100 sources will have 1 MSB
 in the OT, but 100 MSBs in the database after uploading your science
 program.
 
-<p><i>{This section will be updated at a later stage when the input
-file format for ACSIS has been finalized.}</i><p>
+However the meaning of MSB remains the same: the whole
+of the MSB must be doable for it to come up in the queue. Corollary: it
+is a Bad Idea to include targets over a wide range of RA in one survey
+container.<br>
+<br>
+Here is what you see when you click on the Container itself:<br>
+<br>
+<div style="text-align: center;"><img style="width: 569px; height: 548px;" alt="" src="images/survey_container_2.png"><br>
+</div>
+<br>
+To manually add and remove positions, use "Add" and "Remove" buttons at
+the bottom of the panel. Here is a completed container:<br>
+<br>
+<div style="text-align: center;"><img style="width: 548px; height: 587px;" alt="" src="images/survey_container_4.png"><br>
+</div>
+
+<br>
+Note the "Target Information" Tab. Each target has its own target info,
+in a format identical to the familiar Target Component:<br>
+<br>
+<div style="text-align: center;"><img style="width: 568px; height: 546px;" alt="" src="images/survey_container_3.png"><br>
+</div>
+<br>
+On the <span style="font-weight: bold;">Survey Targets</span> tab,
+there is a "load" button. This allows you, if you're not using the SDT
+to populate your Container, to upload a set of targets from a text file
+in the following format (slightly different from the format for MSB
+cloning):<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>SURVEYID = Test
+SCIENCE BGPS3097&nbsp; 18:34:12.03&nbsp; -08:22:57.3 FK5
+REFERENCE GD2&nbsp; 18:31:12.06&nbsp; -07:59:05.2 FK5
+SCIENCE BGPS3100&nbsp; 18:34:19.16&nbsp; -08:23:27.9 FK5
+REFERENCE GD2&nbsp; 18:31:12.06&nbsp; -07:59:05.2 FK5
+</pre>
+
+<pre>:</pre>
+<pre>etc.</pre>
+</div>
+<pre>&nbsp;<br></pre>
+The first line is the Survey ID, which will become the title of the
+survey container. This is prefixed to every supplied target name as
+follows:<br>
+<br>
+<div style="text-align: center;"><img style="width: 593px; height: 88px;" alt="" src="images/survey_container_5.png"><br>
+</div>
+<br>
+(so it is best to keep it short!).<br>
+<br>
 
 <h3><a name="proxy">To those behind a firewall: Setting your proxy server</a></h3>
 
