@@ -46,7 +46,7 @@
    <li><a href="het_obsmodes.html#fsw_switch">Frequency switch amount</a></li>
    <li><a href="het_obsmodes.html#gpsw_shared">Noise performance and map size</a></li>
    </ul>
-<li>Raster maps (not included yet)</li>
+<li>Scan maps (not included yet)</li>
 <li><a href="het_obsmodes.html#comparing">Comparing observing modes</a></li>
 </ul>
 
@@ -250,7 +250,7 @@ assigned support scientist.
 
 An important concept for JCHOP observations is one generally referred
 to as <i>shared offs</i> (meaning <i>shared sky references</i>). This
-concept originates from traditional raster-map observations where the
+concept originates from traditional scan-map observations where the
 telescope scans across an extended source before going to a sky
 reference. By necessity all positions observed along the scan will
 share the same sky reference (<i>off</i>). Since 50% of the noise
@@ -261,7 +261,7 @@ increased to drop its noise significantly below the noise of the
 <i>on</i> measurements. Calculations show that the integration time in
 the <i>off</i> needs to be multiplied with <i>sqrt(np)</i>, where
 <i>np</i> is the number of <i>on</i> positions in the row. Of course,
-there is nothing special about raster-maps: the same applies for any
+there is nothing special about scan-maps: the same applies for any
 observations where a number of points share the sky reference, as is
 the case for HARP jiggle-maps where the full 4x4 or 5x5 jiggle pattern
 is observed before going to the <i>off</i>.
@@ -269,8 +269,8 @@ is observed before going to the <i>off</i>.
 <p>
 Observations benefit from <i>shared offs</i> in two ways and the more
 so the more points between the <i>offs</i> (the larger the
-raster-map). To illustrate, consider 1s observations of 16 positions
-(which would be a very small raster map). <i>Separate offs</i> would
+scan-map). To illustrate, consider 1s observations of 16 positions
+(which would be a very small scan map). <i>Separate offs</i> would
 require <b>32s</b> on the sky equally split between <i>ons</i> and
 <i>offs</i>. Using <i>shared offs</i> the observation needs only
 16+4=<b>20s</b>. But also <b>for each point individually the noise is
@@ -758,7 +758,7 @@ Due to the fact the same line is observed both in the source and
 reference spectra the noise is improved by sqrt(2) after
 processing. However, observing modes that uses one reference
 observations (offs) for several on sources positions as jiggles and
-grids (with shared offs) and raster pssw becomes more efficient when
+grids (with shared offs) and scan pssw becomes more efficient when
 the number of on source positions are large.  Neglecting overheads
 these methods are more efficient than frequency switching if more than
 5 on source points share the same off. The actual trade of point
