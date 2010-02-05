@@ -1,0 +1,37 @@
+JAC Observing Tool via Java WebStart destructions.
+--------------------------------------------------
+
+If you are reading this you already have the code.
+
+For the sake of completeness here are the full instructions.
+
+1a. if in Hilo ...
+git clone /jac_sw/gitroot/ot.git ot
+
+1b. if remote to the JAC ...
+git clone ssh://ssh.jach.hawaii.edu/jac_sw/gitroot/ot.git ot
+
+2. change to the code directory ...
+cd ot
+
+3. the OT is built using gmake, build the OT ...
+gmake install
+
+4. copy the compiled code to the webstart directory ...
+cp -r install/lib releaseFiles/webstart
+cp -r install/tools releaseFiles/webstart
+
+5. copy the webstart directory contents to the webserver ...
+cp -r releaseFiles/webstart/* /ftp/pub/ot
+
+6. change to the webserver directory ...
+cd /ftp/pub/ot
+
+7. run the signing script ...
+perl work/isign.pl
+
+8. test it works ...
+javaws http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp
+
+For future installs, step 3 is repeated, step 4 also but the files are 
+copied to the webserver directory. Steps 6, 7 and 8 are then repeated.
