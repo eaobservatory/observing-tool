@@ -35,17 +35,6 @@ import gemini.util.JACLogger ;
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
 	static JACLogger logger = JACLogger.getLogger( SpObs.class ) ;
-	/**
-     * This attribute determines whether or not the observation is chained to
-     * the next observation.
-     */
-	public static final String ATTR_CHAINED_NEXT = "chainedToNext" ;
-
-	/**
-     * This attribute determines whether or not the observation is chained to
-     * the prev observation.
-     */
-	public static final String ATTR_CHAINED_PREV = "chainedToPrev" ;
 
 	/**
      * This attribute records if the observation is to be treated as a
