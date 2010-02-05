@@ -1153,31 +1153,28 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      */
 	public void processXmlElementContent( String name , String value , int pos )
 	{
-		if( ( name == null ) || ( name.length() < 1 ) )
-			return ;
-
-		// Ignore chaining - no longer needed...
-		if( name.equals( SpObs.ATTR_CHAINED_NEXT ) || name.equals( SpObs.ATTR_CHAINED_PREV ) )
-			return ;
-		// Hacky fix for chnage in priority - try to work out a better fix later
-		if( name.equals( "priority" ) )
+		if( ( name != null ) && ( name.length() > 0 ) )
 		{
-			if( value.equals( "High" ) )
-				value = "1" ;
-			else if( value.equals( "Medium" ) )
-				value = "49" ;
-			if( value.equals( "Low" ) )
-				value = "99" ;
+			// Hacky fix for chnage in priority - try to work out a better fix later
+			if( name.equals( "priority" ) )
+			{
+				if( value.equals( "High" ) )
+					value = "1" ;
+				else if( value.equals( "Medium" ) )
+					value = "49" ;
+				if( value.equals( "Low" ) )
+					value = "99" ;
+			}
+			else if( name.equals( "velocityFrame" ) && value.equals( "LSR" ) )
+			{
+				value = "LSRK" ;
+			}
+
+			if( name.startsWith( XML_META_PREFIX ) )
+				_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos ) ;
+			else
+				_avTable.noNotifySet( name , value , pos ) ;
 		}
-
-		// also horrid
-		if( name.equals( "velocityFrame" ) && value.equals( "LSR" ) )
-			value = "LSRK" ;
-
-		if( name.startsWith( XML_META_PREFIX ) )
-			_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos ) ;
-		else
-			_avTable.noNotifySet( name , value , pos ) ;
 	}
 
 	/**
