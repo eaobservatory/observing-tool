@@ -36,8 +36,6 @@ import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
 import javax.swing.event.ListSelectionListener ;
 import javax.swing.event.ListSelectionEvent ;
-
-import ot.util.DialogUtil;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
@@ -130,7 +128,6 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		_surveyGUI.remaining.addActionListener( this ) ;
 		_surveyGUI.priority.addActionListener( this ) ;
 		_surveyGUI.chooseButton.addActionListener( this ) ;
-		_surveyGUI.plotButton.addActionListener( this ) ;
 
 		_surveyGUI.selectField.addKeyListener( this ) ;
 		_surveyGUI.titleField.addKeyListener( this ) ;
@@ -647,18 +644,6 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		else if( e.getSource() == _surveyGUI.loadButton )
 		{
 			_loadFields() ;
-			return ;
-		}
-		else if( e.getSource() == _surveyGUI.plotButton )
-		{
-			try
-			{
-				TpeManager.open( _surveyObsComp ) ;
-			}
-			catch( Exception ex )
-			{
-				DialogUtil.error( ex ) ;
-			}
 			return ;
 		}
 		else if( source == _surveyGUI.remaining )
