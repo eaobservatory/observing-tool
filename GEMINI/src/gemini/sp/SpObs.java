@@ -530,10 +530,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		if( !testForRecipes( v ) )
 		{
 			logger.error( "DR Recipes are missing from this observation." ) ;
-			String[] options = { "Continue translating" , "Abort translation" } ;
-			int choice = javax.swing.JOptionPane.showOptionDialog( null , "No DR Recipes have been found for this observation. This is probably an error, the software should be restarted and a fault filed." , "Translation Error" , javax.swing.JOptionPane.ERROR_MESSAGE , javax.swing.JOptionPane.YES_NO_OPTION , null , options , options[ 0 ] ) ;		
-			if( choice == 1 )
-				return ;
+			throw new RuntimeException( "No DR Recipes have been found for this observation. This is probably an error, the software should be restarted and a fault filed." ) ;		
 		}
 
 		try
