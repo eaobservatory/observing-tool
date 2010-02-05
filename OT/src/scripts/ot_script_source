@@ -20,7 +20,6 @@ set DISALLOW_MULTI_BW_PROP = ""
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
 set XMLFILES = ""
 set OT_CFG_FILE = ""
-set CGS4 = ""
  
 ############################## 
 #                            # 
@@ -35,8 +34,6 @@ while ("$1" != "")
     set INTERNAL_FRAMES = -internalframes 
   else if("$1" == "-nointernalframes") then 
     set INTERNAL_FRAMES = -nointernalframes 
-  else if("$1" == "-cgs4") then
-	set CGS4 = "-Dcgs4"
   else if( `echo $1 | grep -i ".xml"` != "" ) then
     set XMLFILES = "$XMLFILES $1"
   else if(-d ${CFG_DIRS}/"$1") then 
@@ -79,6 +76,5 @@ else
 endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
- 
-${JAVA} -Xms5m -Xmx500m -oss5m  -DTELESCOPE=${TELESCOPE} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} ${CGS4} jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
 
+${JAVA} -Xms5m -Xmx500m -oss5m  -DTELESCOPE=${TELESCOPE} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
