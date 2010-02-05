@@ -11,8 +11,6 @@ import javax.swing.ImageIcon ;
 import javax.swing.JFrame ;
 import jsky.app.ot.gui.StopActionWatcher ;
 import jsky.app.ot.gui.StopActionWidget ;
-import jsky.app.ot.job.Job ;
-import jsky.app.ot.job.JobWatcher ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpType ;
@@ -23,7 +21,7 @@ import gemini.sp.SpType ;
  * features implemented in this subclass have to do with the Observing
  * Database (ODB).  
  */
-public final class OtProgWindow extends OtWindow implements JobWatcher , StopActionWatcher
+public final class OtProgWindow extends OtWindow implements StopActionWatcher
 {
 	/**
 	 * Default constructor.  Creates a new empty science program.
@@ -119,22 +117,6 @@ public final class OtProgWindow extends OtWindow implements JobWatcher , StopAct
 	 * Implementation of the StopActionWatcher interface.
 	 */
 	public synchronized void stopAction( StopActionWidget saw ){}
-
-	/**
-	 * Called by worker thread when a job is started.
-	 */
-	public void jobStarted( Job job )
-	{
-		System.out.println( "JOB STARTED" ) ;
-	}
-
-	/**
-	 * Called by worker thread when a job is finished.
-	 */
-	public void jobFinished( Job job )
-	{
-		System.out.println( "JOB FINISHED" ) ;
-	}
 
 	/** 
 	 * Fetch a science program from an online database.
