@@ -901,7 +901,11 @@ the end of the transition name - it makes the display nicer.
     <transition name="9  - 8 " frequency="838307.9748"/>
   </species>
   <species name = "SiO">
-    <transition name="5  - 4 " frequency="217104.98"/>
+    <transition name="5 2  - 4 2 " frequency="214088.54"/>
+    <transition name="5 1  - 4 1 " frequency="215595.95"/>
+    <transition name="5 0  - 4 0 " frequency="217104.98"/>
+    <transition name="6 2  - 5 2 " frequency="256898.3892"/>
+    <transition name="6 1  - 5 1 " frequency="258707.3900"/>
     <transition name="6  - 5 " frequency="260518.02"/>
     <transition name="7  - 6 " frequency="303926.96"/>
     <transition name="8  - 7 " frequency="347330.631"/>

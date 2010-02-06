@@ -78,7 +78,7 @@
   <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
-  <mode>      SSB             </mode>
+  <mode>      DSB             </mode>
   <systems>   2               </systems>
   <species>   SiO             </species>
   <species>   SO              </species>
@@ -88,6 +88,25 @@
   <bandwidth> 250.0           </bandwidth>
   <shift> 3.2916253101736975E9</shift>
   <shift> 3.3882514898273315E9</shift>
+</configuration>
+
+<configuration>
+  <name>      RxA_SiO54_v12_250X2 </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <species>   SiO             </species>
+  <species>   SiO             </species>
+  <transition>5 2  - 4 2      </transition>
+  <transition>5 1  - 4 1      </transition>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift> 4.73825E9</shift>
+  <shift> 3.23084E9</shift>
 </configuration>
 
 <configuration>
