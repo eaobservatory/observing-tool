@@ -261,16 +261,9 @@ public class SpItemUtilities
 	public static SpSiteQualityObsComp findSiteQualityInContext( SpItem spItem )
 	{
 		SpSiteQualityObsComp sqc = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpSiteQualityObsComp )
-			{
-				sqc = ( SpSiteQualityObsComp )child ;
-				break ;
-			}
-		}
+		SpItem returned = SpTreeMan.findSpItemInContext( spItem , SpSiteQualityObsComp.class ) ;
+		if( returned != null )
+			sqc = ( SpSiteQualityObsComp )returned ;
 		return sqc ;
 	}
 
@@ -281,16 +274,9 @@ public class SpItemUtilities
 	public static SpSchedConstObsComp findSchedConstraintInContext( SpItem spItem )
 	{
 		SpSchedConstObsComp scc = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpSchedConstObsComp )
-			{
-				scc = ( SpSchedConstObsComp )child ;
-				break ;
-			}
-		}
+		SpItem returned = SpTreeMan.findSpItemInContext( spItem , SpSchedConstObsComp.class ) ;
+		if( returned != null )
+			scc = ( SpSchedConstObsComp )returned ;
 		return scc ;
 	}
 

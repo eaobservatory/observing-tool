@@ -665,16 +665,9 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpTelescopeObsComp findTargetListInContext( SpItem spItem )
 	{
 		SpTelescopeObsComp toc = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpTelescopeObsComp )
-			{
-				toc = ( SpTelescopeObsComp )child ;
-				break ;
-			}
-		}
+		SpItem returned = findSpItemInContext( spItem , SpTelescopeObsComp.class ) ;
+		if( returned != null )
+			toc = ( SpTelescopeObsComp )returned ;
 		return toc ;
 	}
 
@@ -711,16 +704,9 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpSurveyObsComp findSurveyCompInContext( SpItem spItem )
 	{
 		SpSurveyObsComp soc = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpSurveyObsComp )
-			{
-				soc = ( SpSurveyObsComp )child ;
-				break ;
-			}
-		}
+		SpItem returned = findSpItemInContext( spItem , SpSurveyObsComp.class ) ;
+		if( returned != null )
+			soc = ( SpSurveyObsComp )returned ;
 		return soc ;
 	}
 
@@ -731,16 +717,9 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpInstObsComp findInstrumentInContext( SpItem spItem )
 	{
 		SpInstObsComp ioc = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpInstObsComp )
-			{
-				ioc = ( SpInstObsComp )child ;
-				break ;
-			}
-		}
+		SpItem returned = findSpItemInContext( spItem , SpInstObsComp.class ) ;
+		if( returned != null )
+			ioc = ( SpInstObsComp )returned ;
 		return ioc ;
 	}
 
@@ -1051,17 +1030,32 @@ public final class SpTreeMan implements SpInsertConstants
 	public static SpDRObsComp findDRRecipeInContext( SpItem spItem )
 	{
 		SpDRObsComp drr = null ;
+		SpItem returned = findSpItemInContext( spItem , SpDRObsComp.class ) ;
+		if( returned != null )
+			drr = ( SpDRObsComp )returned ;
+		return drr ;
+	}
+
+	/**
+	 * Generic method for finding a single item in context.
+	 * @param spItem Root item
+	 * @param c Class of type
+	 * @return first instance of Class c or null.
+	 */
+	public static SpItem findSpItemInContext( SpItem spItem , Class<?> c )
+	{
+		SpItem returnableItem = null ;
 		Enumeration<SpItem> e = spItem.children() ;
 		while( e.hasMoreElements() )
 		{
 			SpItem child = e.nextElement() ;
-			if( child instanceof SpDRObsComp )
+			if( c.isInstance( child ) )
 			{
-				drr = ( SpDRObsComp )child ;
+				returnableItem = child ;
 				break ;
 			}
 		}
-		return drr ;
+		return returnableItem ;
 	}
 
 	// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
