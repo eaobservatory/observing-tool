@@ -176,7 +176,11 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 
 		if( w instanceof JComboBox )
 		{
-			spMSB.setPriority( ( ( Integer )_w.jComboBox1.getSelectedItem() ).intValue() ) ;
+			Object value = _w.jComboBox1.getSelectedItem() ;
+			if( value != null && value instanceof Integer )
+				spMSB.setPriority( (( Integer )value).intValue() ) ;
+			else
+				spMSB.setPriority( SpMSB.PRIORITY_LOW ) ;
 		}
 
 		if( w == _w.unSuspendCB )
