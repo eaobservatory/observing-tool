@@ -149,7 +149,7 @@ public class SpItemUtilities
 	{
 		spItem.getTable().noNotifyRm( ATTR_ID ) ;
 
-		Iterator attributes = spItem.getTable().getAttrIterator() ;
+		Iterator<String> attributes = spItem.getTable().getAttrIterator() ;
 		String idrefAttribute = null ;
 
 		while( attributes.hasNext() )
