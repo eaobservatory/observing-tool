@@ -21,7 +21,6 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpNote ;
 import gemini.sp.SpHierarchyChangeObserver ;
-import gemini.sp.obsComp.SpDRObsComp ;
 import java.util.Vector ;
 import java.util.Enumeration ;
 import java.util.Iterator ;
@@ -186,7 +185,7 @@ public class SpItemUtilities
 				_insertReferenceIDsFor( SpTreeMan.findInstrument( spItem ) , spItem ) ;
 				_insertReferenceIDsFor( findSiteQuality( spItem ) , spItem ) ;
 				_insertReferenceIDsFor( findSchedConstraint( spItem ) , spItem ) ;
-				_insertReferenceIDsFor( findDRRecipe( spItem ) , spItem ) ;
+				_insertReferenceIDsFor( SpTreeMan.findDRRecipe( spItem ) , spItem ) ;
 				_insertReferenceIDsFor( findProgramNotes( spItem.getRootItem() , new Vector<SpItem>() ) , spItem ) ;
 				_insertReferenceIDsFor( findParentNotes( spItem , new Vector<SpItem>() ) , spItem ) ;
 			}
@@ -296,26 +295,6 @@ public class SpItemUtilities
 	}
 
 	/**
-	 * Find the SpDRObsComp assoicated with this context, if any.  Only
-	 * searches the given scope.  It does not navigate the tree hierarchy.
-	 */
-	public static SpDRObsComp findDRRecipeInContext( SpItem spItem )
-	{
-		SpDRObsComp drr = null ;
-		Enumeration<SpItem> e = spItem.children() ;
-		while( e.hasMoreElements() )
-		{
-			SpItem child = e.nextElement() ;
-			if( child instanceof SpDRObsComp )
-			{
-				drr = ( SpDRObsComp )child ;
-				break ;
-			}
-		}
-		return drr ;
-	}
-
-	/**
 	 * Find the SpNote assoicated with this context, if any.  Only
 	 * searches the given scope.  It does not navigate the tree hierarchy.
 	 */
@@ -405,38 +384,6 @@ public class SpItemUtilities
 			return findSchedConstraint( parent ) ;
 
 		return scc ;
-	}
-
-	/**
-	 * Find the DR recipe component associated with the given scope
-	 * scope of the given item.
-	 *
-	 * @param spItem the SpItem defining the scope to search
-	 */
-	public static SpDRObsComp findDRRecipe( SpItem spItem )
-	{
-		if( spItem instanceof SpDRObsComp )
-			return ( SpDRObsComp )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpDRObsComp drr ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			drr = findDRRecipeInContext( parent ) ;
-		}
-		else
-		{
-			drr = findDRRecipeInContext( spItem ) ;
-		}
-
-		if( ( drr == null ) && ( parent != null ) )
-			return findDRRecipe( parent ) ;
-
-		return drr ;
 	}
 
 	/**
