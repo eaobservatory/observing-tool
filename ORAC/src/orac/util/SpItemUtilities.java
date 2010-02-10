@@ -77,8 +77,9 @@ public class SpItemUtilities
 	{
 		if( spItem instanceof SpMSB )
 		{
-			( ( SpMSB )spItem ).saveElapsedTime() ;
-			( ( SpMSB )spItem ).saveTotalTime() ;
+			SpMSB spMSB = ( SpMSB )spItem ;
+			spMSB.saveElapsedTime() ;
+			spMSB.saveTotalTime() ;
 		}
 
 		if( spItem instanceof SpObsContextItem )
