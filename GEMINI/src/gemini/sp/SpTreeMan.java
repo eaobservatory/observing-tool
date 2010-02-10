@@ -5,6 +5,7 @@
 //
 package gemini.sp ;
 
+import gemini.sp.obsComp.SpDRObsComp ;
 import gemini.sp.obsComp.SpObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
@@ -1005,6 +1006,62 @@ public final class SpTreeMan implements SpInsertConstants
 
 			child = child.next() ;
 		}
+	}
+
+	/**
+	 * Find the DR recipe component associated with the given scope
+	 * scope of the given item.
+	 *
+	 * @param spItem the SpItem defining the scope to search
+	 *
+	 * copied from orac.util.SpItemUtilities
+	 */
+	public static SpDRObsComp findDRRecipe( SpItem spItem )
+	{
+		if( spItem instanceof SpDRObsComp )
+			return ( SpDRObsComp )spItem ;
+
+		SpItem parent = spItem.parent() ;
+
+		SpDRObsComp drr ;
+		if( !( spItem instanceof SpObsContextItem ) )
+		{
+			if( parent == null )
+				return null ;
+
+			drr = findDRRecipeInContext( parent ) ;
+		}
+		else
+		{
+			drr = findDRRecipeInContext( spItem ) ;
+		}
+
+		if( ( drr == null ) && ( parent != null ) )
+			return findDRRecipe( parent ) ;
+
+		return drr ;
+	}
+
+	/**
+	 * Find the SpDRObsComp associated with this context, if any.  Only
+	 * searches the given scope.  It does not navigate the tree hierarchy.
+	 *
+	 * copied from orac.util.SpItemUtilities
+	 */
+	public static SpDRObsComp findDRRecipeInContext( SpItem spItem )
+	{
+		SpDRObsComp drr = null ;
+		Enumeration<SpItem> e = spItem.children() ;
+		while( e.hasMoreElements() )
+		{
+			SpItem child = e.nextElement() ;
+			if( child instanceof SpDRObsComp )
+			{
+				drr = ( SpDRObsComp )child ;
+				break ;
+			}
+		}
+		return drr ;
 	}
 
 	// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
