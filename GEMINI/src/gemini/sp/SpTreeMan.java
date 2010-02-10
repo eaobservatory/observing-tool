@@ -679,13 +679,9 @@ public final class SpTreeMan implements SpInsertConstants
 	{
 		SpSurveyContainer container = null ;
 		
-		while( true )
+		while( spItem != null )
 		{
-			if( spItem == null )
-			{
-				break ;
-			}
-			else if( spItem instanceof SpSurveyContainer )
+			if( spItem instanceof SpSurveyContainer )
 			{
 				container = ( SpSurveyContainer )spItem ;
 				break ;
