@@ -1,5 +1,7 @@
 +++ January 2010 release
 
+  - Added some SiO lines and a special config upon request.
+
   - Time estimates for S2SRO should now be closer to reality.
     Please check your programs prior to submission.
 
