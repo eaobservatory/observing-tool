@@ -317,28 +317,11 @@ public class SpItemUtilities
 	 */
 	public static SpSiteQualityObsComp findSiteQuality( SpItem spItem )
 	{
-		if( spItem instanceof SpSiteQualityObsComp )
-			return ( SpSiteQualityObsComp )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpSiteQualityObsComp sqc ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			sqc = findSiteQualityInContext( parent ) ;
-		}
-		else
-		{
-			sqc = findSiteQualityInContext( spItem ) ;
-		}
-
-		if( ( sqc == null ) && ( parent != null ) )
-			return findSiteQuality( parent ) ;
-
-		return sqc ;
+		SpSiteQualityObsComp siteQuality = null ;
+		SpItem returned = SpTreeMan.findSpItemOfType( spItem , SpSiteQualityObsComp.class ) ;
+		if( returned != null )
+			siteQuality = ( SpSiteQualityObsComp )returned ;
+		return siteQuality ;
 	}
 
 	/**
@@ -349,28 +332,11 @@ public class SpItemUtilities
 	 */
 	public static SpSchedConstObsComp findSchedConstraint( SpItem spItem )
 	{
-		if( spItem instanceof SpSchedConstObsComp )
-			return ( SpSchedConstObsComp )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpSchedConstObsComp scc ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			scc = findSchedConstraintInContext( parent ) ;
-		}
-		else
-		{
-			scc = findSchedConstraintInContext( spItem ) ;
-		}
-
-		if( ( scc == null ) && ( parent != null ) )
-			return findSchedConstraint( parent ) ;
-
-		return scc ;
+		SpSchedConstObsComp schedConst = null ;
+		SpItem returned = SpTreeMan.findSpItemOfType( spItem , SpSchedConstObsComp.class ) ;
+		if( returned != null )
+			schedConst = ( SpSchedConstObsComp )returned ;
+		return schedConst ;
 	}
 
 	/**
@@ -387,27 +353,10 @@ public class SpItemUtilities
 	 */
 	public static SpNote findNote( SpItem spItem )
 	{
-		if( spItem instanceof SpNote )
-			return ( SpNote )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpNote note ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			note = findNoteInContext( parent ) ;
-		}
-		else
-		{
-			note = findNoteInContext( spItem ) ;
-		}
-
-		if( ( note == null ) && ( parent != null ) )
-			return findNote( parent ) ;
-
+		SpNote note = null ;
+		SpItem returned = SpTreeMan.findSpItemOfType( spItem , SpNote.class ) ;
+		if( returned != null )
+			note = ( SpNote )returned ;
 		return note ;
 	}
 
