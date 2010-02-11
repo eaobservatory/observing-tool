@@ -765,8 +765,6 @@ public final class SpTreeMan implements SpInsertConstants
 		SpItem foundItem = null ;
 		if( spItem instanceof SpObsContextItem )
 			foundItem = findSpItemInContext( spItem , c ) ;
-		else if( parent != null )
-			foundItem = findSpItemInContext( parent , c ) ;
 
 		if( foundItem == null && parent != null )
 			foundItem = findSpItemOfType( parent , c ) ;
