@@ -650,10 +650,6 @@ public final class SpTreeMan implements SpInsertConstants
 				if( oc.type().equals( type ) )
 					return oc ;
 			}
-			else
-			{
-				continue ;
-			}
 		}
 		return null ;
 	}
