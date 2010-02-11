@@ -750,36 +750,47 @@ public final class SpTreeMan implements SpInsertConstants
 	}
 
 	/**
+	 * Generic method for finding an SpItem.
+	 * @param spItem Root item for search
+	 * @param c Class of type to match
+	 * @return SpItem of Class type c.
+	 */
+	public static SpItem findSpItemOfType( SpItem spItem , Class<?> c )
+	{
+		if( c.isInstance( spItem ) )
+			return spItem ;
+
+		SpItem parent = spItem.parent() ;
+
+		SpItem foundItem = null ;
+		if( spItem instanceof SpObsContextItem )
+		{
+			foundItem = findSpItemInContext( spItem , c ) ;
+		}
+		else if( parent != null )
+		{
+			foundItem = findSpItemInContext( parent , c ) ;
+			if( foundItem == null )
+				foundItem = findSpItemOfType( parent , c ) ;
+		}
+
+		return foundItem ;
+	}
+
+	/**
      * Find the target list component associated with the given scope scope of
      * the given item.
-     * 
+     *
      * @param spItem
      *            the SpItem defining the scope to search
      */
 	public static SpTelescopeObsComp findTargetList( SpItem spItem )
 	{
-		if( spItem instanceof SpTelescopeObsComp )
-			return ( SpTelescopeObsComp )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpTelescopeObsComp toc ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-				
-			toc = findTargetListInContext( parent ) ;
-		}
-		else
-		{
-			toc = findTargetListInContext( spItem ) ;
-		}
-
-		if( ( toc == null ) && ( parent != null ) )
-			return findTargetList( parent ) ;
-
-		return toc ;
+		SpTelescopeObsComp telescopeObsComp = null ;
+		SpItem returned = findSpItemOfType( spItem , SpTelescopeObsComp.class ) ;
+		if( returned != null )
+			telescopeObsComp = ( SpTelescopeObsComp )returned ;
+		return telescopeObsComp ;
 	}
 
 	/**
@@ -791,29 +802,11 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpSurveyObsComp findSurveyComp( SpItem spItem )
 	{
-		if( spItem instanceof SpSurveyObsComp )
-			return ( SpSurveyObsComp )spItem ;
-
-
-		SpItem parent = spItem.parent() ;
-
-		SpSurveyObsComp soc ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			soc = findSurveyCompInContext( parent ) ;
-		}
-		else
-		{
-			soc = findSurveyCompInContext( spItem ) ;
-		}
-
-		if( ( soc == null ) && ( parent != null ) )
-			return findSurveyComp( parent ) ;
-
-		return soc ;
+		SpSurveyObsComp surveyObsComp = null ;
+		SpItem returned = findSpItemOfType( spItem , SpSurveyObsComp.class ) ;
+		if( returned != null )
+			surveyObsComp = ( SpSurveyObsComp )returned ;
+		return surveyObsComp ;
 	}
 
 	/**
@@ -989,28 +982,11 @@ public final class SpTreeMan implements SpInsertConstants
 	 */
 	public static SpDRObsComp findDRRecipe( SpItem spItem )
 	{
-		if( spItem instanceof SpDRObsComp )
-			return ( SpDRObsComp )spItem ;
-
-		SpItem parent = spItem.parent() ;
-
-		SpDRObsComp drr ;
-		if( !( spItem instanceof SpObsContextItem ) )
-		{
-			if( parent == null )
-				return null ;
-
-			drr = findDRRecipeInContext( parent ) ;
-		}
-		else
-		{
-			drr = findDRRecipeInContext( spItem ) ;
-		}
-
-		if( ( drr == null ) && ( parent != null ) )
-			return findDRRecipe( parent ) ;
-
-		return drr ;
+		SpDRObsComp drObsComp = null ;
+		SpItem returned = findSpItemOfType( spItem , SpDRObsComp.class ) ;
+		if( returned != null )
+			drObsComp = ( SpDRObsComp )returned ;
+		return drObsComp ;
 	}
 
 	/**
