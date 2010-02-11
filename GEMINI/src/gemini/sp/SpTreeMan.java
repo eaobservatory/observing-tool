@@ -639,19 +639,19 @@ public final class SpTreeMan implements SpInsertConstants
      */
 	public static SpObsComp findObsCompSubtype( SpItem parent , SpType type )
 	{
+		SpObsComp oc = null ;
 		Enumeration<SpItem> children = parent.children() ;
 		while( children.hasMoreElements() )
 		{
 			SpItem child = children.nextElement() ;
 
-			if( child instanceof SpObsComp )
+			if( child instanceof SpObsComp && child.type().equals( type ) )
 			{
-				SpObsComp oc = ( SpObsComp )child ;
-				if( oc.type().equals( type ) )
-					return oc ;
+				oc = ( SpObsComp )child ;
+				break ;
 			}
 		}
-		return null ;
+		return oc ;
 	}
 
 	/**
