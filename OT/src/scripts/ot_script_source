@@ -77,4 +77,4 @@ endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
 
-${JAVA} -Xms5m -Xmx500m -oss5m  -DTELESCOPE=${TELESCOPE} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
+${JAVA} -Xms10m -Xmx500m -DTELESCOPE=${TELESCOPE} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
