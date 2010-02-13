@@ -210,6 +210,7 @@ sub install
 	&copy_jars ;
 	&copy_cfgs ;
 	&cfg_jar ;
+	&shell_scripts ;
 }
 
 sub cfg_jar
@@ -278,4 +279,39 @@ sub copy_jars
 			}
 		}
 	}
+}
+
+sub shell_scripts
+{
+	if( system( 'mkdir' , ( "$install_dir/bin" ) ) )
+        {
+                die "Unable to create $install_dir/bin \n" ;
+        }
+
+	open( HANDLE , '<' , "$cwd/OT/src/scripts/ot_script_source" ) ;
+	@lines = <HANDLE> ;
+	close HANDLE ;
+
+	$runtime_classpath = '' ;
+
+	chdir "$install_dir/bin" or die "Could not cd to $install_dir/bin \n" ;
+	@files = `find ../ -name "*.jar"` ;
+	@jars = () ;
+	foreach $file ( @files )
+	{
+		chomp( $file ) ;
+		push( @jars , $file ) ;
+	}
+	$runtime_classpath = join( ':' , @jars ) ;
+
+	open( HANDLE , '>' , "$install_dir/bin/ot" ) ;
+	print HANDLE "#!/bin/csh -f\n\n" ;
+	print HANDLE "cd `dirname \$0`\n\n" ;
+	print HANDLE "set CLASSPATH = $runtime_classpath\n\n" ;
+
+	foreach $line ( @lines ){ print HANDLE $line ; }
+
+	close HANDLE ;
+
+	`chmod +x $install_dir/bin/ot` ;
 }

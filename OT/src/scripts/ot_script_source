@@ -1,11 +1,6 @@
-# Horrrible hack until I figure out how to properly kill it off
-set CFG_DIRS = `pwd`/$CFG_DIRS
+set CFG_DIRS = `pwd`/../cfg/ot/
 
-if( $CWD != "" ) then
-	set OT_USERDIR=$CWD
-else
-        set OT_USERDIR=`pwd`
-endif
+set OT_USERDIR=`pwd`
 
 set JAVA = `which java`
  
