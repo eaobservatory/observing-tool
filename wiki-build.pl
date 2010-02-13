@@ -209,6 +209,14 @@ sub install
 	&make_tau_file ;
 	&copy_jars ;
 	&copy_cfgs ;
+	&cfg_jar ;
+}
+
+sub cfg_jar
+{
+	chdir "$install_dir/cfg" or die "Could not cd to $install_dir/cfg \n" ;
+	`$jar cf $install_dir/lib/cfg.jar .` ;
+	chdir $cwd or die "Could not cd to $cwd \n" ;
 }
 
 sub copy_cfgs
