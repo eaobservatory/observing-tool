@@ -288,6 +288,7 @@ sub shell_scripts
                 die "Unable to create $install_dir/bin \n" ;
         }
 
+	# *NIX C SHELL SCRIPT
 	open( HANDLE , '<' , "$cwd/OT/src/scripts/ot_script_source" ) ;
 	@lines = <HANDLE> ;
 	close HANDLE ;
@@ -314,4 +315,26 @@ sub shell_scripts
 	close HANDLE ;
 
 	`chmod +x $install_dir/bin/ot` ;
+
+	# WINDOWS BATCH FILE
+	open( HANDLE , '<' , "$cwd/OT/src/scripts/ot_bat_install_all_source" ) ;
+	@lines = <HANDLE> ;
+	close HANDLE ;
+
+	$runtime_classpath =~ s/\//\\/g ;
+	$runtime_classpath =~ s/:/;/g ;
+
+	open( HANDLE , '>' , "$install_dir/bin/ot.bat" ) ;
+	foreach $line ( @lines )
+	{
+		if( $line =~ /set CLASSPATH/ )
+		{
+			print HANDLE "set CLASSPATH=$runtime_classpath \n" ;
+		}
+		else
+		{
+			print HANDLE $line ;
+		}
+	}
+	close HANDLE ;
 }
