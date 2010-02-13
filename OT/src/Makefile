@@ -131,17 +131,8 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\nset CWD = \`pwd\`\
-	\n\
 	\ncd \`dirname $$""0\`\
 	\n" > $@
-
-
-ifeq ($(CFG_DIRS),)
-	@printf "\nset CFG_DIRS     = ../cfg" >> $@
-else
-	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
-endif
 
 	@printf \
 	"\n\
