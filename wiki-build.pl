@@ -1,94 +1,116 @@
 $cwd = `pwd` ;
 chomp( $cwd ) ;
 
+@build_order = ( 'GEMINI' , 'ORAC' , 'OMP' , 'EDFREQ' , 'OT' ) ;
+%tools = () ;
+$tools{ 'ORAC' } = [ "$cwd/ORAC/tools" ] ;
+$tools{ 'OMP' } = [ "$cwd/OMP/tools" ] ;
+$tools{ 'EDFREQ' } = [ "$cwd/ORAC/tools" ] ;
+$tools{ 'OT' } = [ "$cwd/OT/tools" , "$cwd/ORAC/tools" , "$cwd/OMP/tools" ] ;
+
 $local_install_dir = '../install' ;
 $local_install_path = "$local_install_dir/classes" ;
 $local_jar_dir = "$local_install_dir/lib" ;
 @local_tools_dir = () ;
 $jar_file = '' ;
 $classpath = $local_install_path ;
+$install_dir = "$cwd/install" ;
+
+$javac = `which javac` ;
+chomp( $javac ) ;
+$jar = `which jar` ;
+chomp( $jar ) ;
+
 
 &main ;
 
 sub main
 {
-	$gmake = `which gmake` ;
-	chomp( $gmake ) ;
-	if( system( "$gmake" , ( 'clean' ) ) )
+	&clean ;
+
+	foreach $package ( @build_order )
 	{
-		die "Problem running gmake clean \n" ; 
+		$to_lower_case = lc( $package ) ;
+		$jar_file = "$to_lower_case.jar" ;
+		$array_reference = $tools{ $package } ;
+		if( defined $array_reference )
+		{
+			@local_tools_dir = @{ $array_reference } ;
+		}
+		else
+		{
+			@local_tools_dir = () ;
+		}
+		&build( $package ) ;
+		$classpath .= ":$cwd/$package/install/lib/$jar_file" ;
 	}
 
-	$jar_file = 'gemini.jar' ;
-	&build( 'GEMINI' ) ;
-	$classpath .= ":$cwd/GEMINI/install/lib/gemini.jar" ;
-	
-	$jar_file = 'orac.jar' ;
-	@local_tools_dir = ( '../tools' ) ;
-	&build( 'ORAC' ) ;
-	$classpath .= ":$cwd/ORAC/install/lib/orac.jar" ;
-	
-	$jar_file = 'omp.jar' ;
-	&build( 'OMP' ) ;
-	$classpath .= ":$cwd/OMP/install/lib/omp.jar" ;
-	
-	$jar_file = 'edfreq.jar' ;
-	@local_tools_dir = ( '../../ORAC/tools' ) ;
-	&build( 'EDFREQ' ) ;
-	$classpath .= ":$cwd/EDFREQ/install/lib/edfreq.jar" ;
-	
-	$jar_file = 'ot.jar' ;
-	@local_tools_dir = ( '../tools' , '../../ORAC/tools' , '../../OMP/tools' ) ;
-	&build( 'OT' ) ;
-
-	print "Running make ...\n" ;
-	if( system( "$gmake" , ( 'install' ) ) )
-	{
-		die "Problems running gmake install \n" ;
-	}
+	&install ;
 }
 
 sub build
 {
 	$package = shift or die "No argument\n" ;
+	print "-" x 20 . "\n" . "Building $package \n" ;
 	if( -e "$package/src" )
 	{
 		chdir "$package/src" or die "Could not cd to $package/src \n" ;
-
 		&all ;
-
 		chdir $cwd or die "Could not cd to $cwd \n" ;
 	}
 }
 
 sub all
 {
-	&clean ;
-	&mkdir ;
+	&local_mkdir ;
 	&javac ;
 	&jar ;
 }
 
 sub clean
 {
-	if( -e $local_install_path ){ `rm -rf $local_install_path` ; }
-	if( -e $local_jar_dir ){ `rm -rf $local_jar_dir` ; }
-	if( -e $local_install_dir ){ `rm -rf $local_install_dir` ; }
+	foreach $src_dir ( @build_order )
+	{
+		chdir "$cwd/$src_dir/src"
+		or die "Could not cd to $src_dir/src \n" ;
+		&local_clean ;
+		chdir $cwd or die "Could not cd to $cwd \n" ;
+	}
+	if( -e $install_dir ){ `rm -rf $install_dir` ; }
+	if( -e "$cwd/OT/cfg/jcmt/versionFile" )
+	{ `rm -f $cwd/OT/cfg/jcmt/versionFile` ; }
+	if( -e "$cwd/OT/cfg/ukirt/versionFile" )
+	{ `rm -f $cwd/OT/cfg/ukirt/versionFile` ; }
+	if( -e "$cwd/OT/cfg/jcmt/tau.list" )
+	{ `rm -f $cwd/OT/cfg/jcmt/tau.list` ; }
 	print "Cleaned\n" ;
 }
 
-sub mkdir
+sub local_clean
 {
-	unless( -e $local_install_dir ){ `mkdir -p $local_install_dir` ; }
-	unless( -e $local_install_path ){ `mkdir -p $local_install_path` ; }
-	unless( -e $local_jar_dir ){ `mkdir -p $local_jar_dir` ; }
-	print "Directories created\n" ;
+	if( -e $local_install_path )
+	{ `rm -rf $local_install_path` ; }
+	if( -e $local_jar_dir )
+	{ `rm -rf $local_jar_dir` ; }
+	if( -e $local_install_dir )
+	{ `rm -rf $local_install_dir` ; }
+	print "Cleaned " . `pwd` ;
+}
+
+sub local_mkdir
+{
+	unless( -e $local_install_dir )
+	{ `mkdir -p $local_install_dir` ; }
+	unless( -e $local_install_path )
+	{ `mkdir -p $local_install_path` ; }
+	unless( -e $local_jar_dir )
+	{ `mkdir -p $local_jar_dir` ; }
+	print "Directories created for " . `pwd` ;
 }
 
 sub javac
 {
-	$javac = `which javac` ;
-	chomp( $javac ) ;
+	print "Compiling " . `pwd` ;
 
 	@source_files = () ;
 	@files = `find . -name "*.java"` ;
@@ -103,7 +125,11 @@ sub javac
 	foreach $dir ( @local_tools_dir )
 	{
 		@tools = `find $dir -name "*.jar"` ;
-		foreach $tool ( @tools ){ chomp( $tool ) ; $local_classpath .= ":$tool" ; }
+		foreach $tool ( @tools )
+		{
+			chomp( $tool ) ;
+			$local_classpath .= ":$tool" ;
+		}
 	}
 
 	@compile_args = () ;
@@ -126,8 +152,7 @@ sub javac
 	foreach $image_folder ( @images )
 	{
 		chomp( $image_folder ) ;
-		$image_folder = substr $image_folder , 2 ;
-		$image_dir = $image_folder ;
+		$image_dir = substr $image_folder , 2 ;
 		$image_dir =~ s/images// ;
 		$image_dir = "$local_install_path/$image_dir" ;
 		if( system( 'cp' , ( '-r' , $image_folder , $image_dir ) ) )
@@ -139,9 +164,6 @@ sub javac
 
 sub jar
 {
-	$jar = `which jar` ;
-	chomp( $jar ) ;
-
 	@jar_args = () ;
 	push( @jar_args , 'cf' , "$local_jar_dir/$jar_file" ) ;
 	push( @jar_args , '-C' , $local_install_path ) ;
@@ -153,5 +175,99 @@ sub jar
 	else
 	{
 		die "Problems Jar'ing" ;
+	}
+}
+
+sub make_tau_file
+{
+	chdir "$cwd/OT/cfg/jcmt"
+	or die "Could not cd to $cwd/OT/cfg/jcmt \n" ;
+	`ls tau*.dat > tau.list` ;
+	chdir "$cwd" or die "Could not cd to $cwd \n" ;
+}
+
+sub make_versionFiles
+{
+	$date = `date '+%Y%m%d'` ;
+	chomp( $date ) ;
+	$version = `git log | head -n 1 | cut -f2 -d ' '` ;
+	chomp( $version ) ;
+	`echo $date [$version] > $cwd/OT/cfg/jcmt/versionFile` ;
+	`echo $date [$version] > $cwd/OT/cfg/ukirt/versionFile` ;
+}
+
+sub install
+{
+	print "Installing ... \n" ;
+	if( -e $install_dir ){ die "$install_dir already exists \n" ; }
+	if( system( 'mkdir' , ( $install_dir ) ) )
+	{
+		die "Unable to create $install_dir \n" ;
+	}
+
+	&make_versionFiles ;
+	&make_tau_file ;
+	&copy_jars ;
+	&copy_cfgs ;
+}
+
+sub copy_cfgs
+{
+	if( system( 'mkdir' , ( '-p' , "$install_dir/cfg/ot" ) ) )
+	{
+		die "Unable to create $install_dir/cfg/ot \n" ;
+	}
+	@files = `ls $cwd/OT/cfg` ;
+	foreach $file ( @files )
+	{
+		chomp( $file ) ;
+		`cp -r $cwd/OT/cfg/$file $install_dir/cfg/ot` ;
+	}
+	`cp -r $cwd/EDFREQ/cfg/edfreq $install_dir/cfg/ot/jcmt` ;
+}
+
+sub copy_jars
+{
+	if( system( 'mkdir' , ( "$install_dir/lib" ) ) )
+        {
+                die "Unable to create $install_dir/lib \n" ;
+        }
+	if( system( 'mkdir' , ( "$install_dir/tools" ) ) )
+	{
+		die "Unable to create $install_dir/tools \n" ;
+	}
+
+	foreach $package ( @build_order )
+	{
+		$to_lowercase = lc( $package ) ;
+		@cp_args = () ;
+		push( @cp_args , "$cwd/$package/install/lib/$to_lowercase.jar" ) ;
+		push( @cp_args , "$install_dir/lib" ) ;
+		if( -e $cp_args[ 0 ] )
+		{
+			if( system( 'cp' , @cp_args ) )
+			{
+				die "Could not copy $cp_args[ 0 ] \n" ;
+			}
+		}
+
+		$array_reference = $tools{ $package } ;
+		if( defined $array_reference )
+		{
+			@local_tools_dir = @{ $array_reference } ;
+		}
+		else
+		{
+			@local_tools_dir = () ;
+		}
+		foreach $dir ( @local_tools_dir )
+		{
+			@tools = `ls $dir` ;
+			foreach $tool ( @tools )
+			{
+				chomp( $tool ) ;
+				`cp -r $dir/$tool $install_dir/tools` ;
+			}
+		}
 	}
 }
