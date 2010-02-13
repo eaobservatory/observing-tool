@@ -133,7 +133,7 @@ sub javac
 	}
 
 	@compile_args = () ;
-	push( @compile_args , '-target' , '1.6' ) ;
+	push( @compile_args , '-target' , '1.5' ) ;
 	push( @compile_args , '-d' , $local_install_path ) ;
 	push( @compile_args , '-classpath' , $local_classpath ) ;
 	push( @compile_args , '-sourcepath' , '.' ) ;
