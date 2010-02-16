@@ -211,6 +211,7 @@ sub install
 	&copy_cfgs ;
 	&cfg_jar ;
 	&shell_scripts ;
+	&additional ;
 }
 
 sub cfg_jar
@@ -337,4 +338,9 @@ sub shell_scripts
 		}
 	}
 	close HANDLE ;
+}
+
+sub additional
+{
+	`chmod -R g+w $install_dir/cfg/*` ;
 }
