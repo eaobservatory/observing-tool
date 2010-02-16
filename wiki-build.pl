@@ -15,6 +15,7 @@ $local_jar_dir = "$local_install_dir/lib" ;
 $jar_file = '' ;
 $classpath = $local_install_path ;
 $install_dir = "$cwd/install" ;
+$doc_dir = "$install_dir/docs/api/html/" ;
 
 $javac = `which javac` ;
 chomp( $javac ) ;
@@ -100,11 +101,11 @@ sub local_clean
 sub local_mkdir
 {
 	unless( -e $local_install_dir )
-	{ `mkdir -p $local_install_dir` ; }
+	{ make_dir( $local_install_dir ) ; }
 	unless( -e $local_install_path )
-	{ `mkdir -p $local_install_path` ; }
+	{ make_dir( $local_install_path ) ; }
 	unless( -e $local_jar_dir )
-	{ `mkdir -p $local_jar_dir` ; }
+	{ make_dir( $local_jar_dir ) ; }
 	print "Directories created for " . `pwd` ;
 }
 
@@ -199,11 +200,7 @@ sub make_versionFiles
 sub install
 {
 	print "Installing ... \n" ;
-	if( -e $install_dir ){ die "$install_dir already exists \n" ; }
-	if( system( 'mkdir' , ( $install_dir ) ) )
-	{
-		die "Unable to create $install_dir \n" ;
-	}
+	make_dir( $install_dir ) ;
 
 	&make_versionFiles ;
 	&make_tau_file ;
@@ -212,6 +209,7 @@ sub install
 	&cfg_jar ;
 	&shell_scripts ;
 	&additional ;
+#	&docs ;
 }
 
 sub cfg_jar
@@ -223,10 +221,7 @@ sub cfg_jar
 
 sub copy_cfgs
 {
-	if( system( 'mkdir' , ( '-p' , "$install_dir/cfg/ot" ) ) )
-	{
-		die "Unable to create $install_dir/cfg/ot \n" ;
-	}
+	make_dir( "$install_dir/cfg/ot" ) ;
 	@files = `ls $cwd/OT/cfg` ;
 	foreach $file ( @files )
 	{
@@ -238,14 +233,8 @@ sub copy_cfgs
 
 sub copy_jars
 {
-	if( system( 'mkdir' , ( "$install_dir/lib" ) ) )
-        {
-                die "Unable to create $install_dir/lib \n" ;
-        }
-	if( system( 'mkdir' , ( "$install_dir/tools" ) ) )
-	{
-		die "Unable to create $install_dir/tools \n" ;
-	}
+	make_dir( "$install_dir/lib" ) ;
+	make_dir( "$install_dir/tools" ) ;
 
 	foreach $package ( @build_order )
 	{
@@ -284,10 +273,7 @@ sub copy_jars
 
 sub shell_scripts
 {
-	if( system( 'mkdir' , ( "$install_dir/bin" ) ) )
-        {
-                die "Unable to create $install_dir/bin \n" ;
-        }
+	make_dir( "$install_dir/bin" ) ;
 
 	# *NIX C SHELL SCRIPT
 	open( HANDLE , '<' , "$cwd/OT/src/scripts/ot_script_source" ) ;
@@ -338,9 +324,48 @@ sub shell_scripts
 		}
 	}
 	close HANDLE ;
+	print "Shell scripts created \n" ;
 }
 
 sub additional
 {
 	`chmod -R g+w $install_dir/cfg/*` ;
+	print "$install_dir/cfg group writable \n" ;
+}
+
+sub docs
+{
+	chdir $cwd or die "Could not cd to $cwd \n" ;
+	$javadoc = `which javadoc` ;
+	chomp( $javadoc ) ;
+	if( -e $doc_dir ){ die "$doc_dir already exists \n" ; }
+	make_dir( $doc_dir ) ;
+	@source_files = () ;
+	foreach $package ( @build_order )
+	{
+		@files = `find $package/src -name "*.java"` ;
+		foreach $file ( @files )
+		{
+			chomp( $file ) ;
+			push( @source_files , $file ) ;
+		}
+	}
+        if( system( $javadoc , ( '-d' , $doc_dir , @source_files ) ) )
+	{
+		die "Problems creating documentation \n" ;
+	}
+	print "Documentation created in $doc_dir \n" ;
+}
+
+sub make_dir
+{
+	$dir_to_create = shift or die "No argument \n" ;
+	if( -e $dir_to_create )
+	{
+		die "$dir_to_create already exists \n" ;
+	}
+	if( system( 'mkdir' , ( '-p' , $dir_to_create ) ) )
+	{
+		die "Unable to create directory $dir_to_create \n" ;
+	}
 }
