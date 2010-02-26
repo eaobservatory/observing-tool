@@ -84,7 +84,7 @@
 		<javac srcdir="${gemini.dir}/src"
 		       destdir="${gemini.install.path}"
 		       debug="on"
-		       target="1.6">
+		       target="1.5">
 		</javac>
 		<jar jarfile="${gemini.jar}"
 		     basedir="${gemini.install.path}">
@@ -95,7 +95,7 @@
 		<javac srcdir="${orac.dir}/src"
 		       destdir="${orac.install.path}"
 		       debug="on"
-		       target="1.6">
+		       target="1.5">
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
@@ -112,7 +112,7 @@
 		<javac srcdir="${omp.dir}/src"
 		       destdir="${omp.install.path}"
 		       debug="on"
-		       target="1.6">
+		       target="1.5">
 			<classpath>
 				<fileset dir="${omp.dir}/tools">
 					<include name="*.jar"/>
@@ -130,7 +130,7 @@
 		<javac srcdir="${edfreq.dir}/src"
 		       destdir="${edfreq.install.path}"
 		       debug="on"
-		       target="1.6">
+		       target="1.5">
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
@@ -149,7 +149,7 @@
 		<javac srcdir="${ot.dir}/src"
 		       destdir="${ot.install.path}"
 		       debug="on"
-		       target="1.6">
+		       target="1.5">
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
@@ -158,9 +158,6 @@
 					<include name="*.jar"/>
 				</fileset>
 				<fileset dir="${ot.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<fileset dir="${ot.dir}/tools/jsky3">
 					<include name="*.jar"/>
 				</fileset>
 				<pathelement location="${gemini.jar}" />
@@ -197,10 +194,6 @@
 			<fileset dir="${ot.dir}/tools"/>
 		</copy>
 
-		<copy todir="${install.dir.tools.jsky}">
-			<fileset dir="${ot.dir}/tools/jsky3"/>
-		</copy>
-
 		<copy todir="${install.dir.cfg}">
 			<fileset dir="${ot.dir}/cfg"/>
 		</copy>
@@ -221,9 +214,6 @@
 				<include name="*.jar"/>
 			</fileset>
 			<fileset dir="${install.dir.tools}">
-				<include name="*.jar"/>
-			</fileset>
-			<fileset dir="${install.dir.tools}/jsky3">
 				<include name="*.jar"/>
 			</fileset>
 		</path>
