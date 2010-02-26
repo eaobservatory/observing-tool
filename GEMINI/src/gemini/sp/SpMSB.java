@@ -69,15 +69,6 @@ public class SpMSB extends SpObsContextItem
 	public static final String ATTR_SUSPEND = ":suspend" ;
 
 	/**
-     * The databases uses this number to indecate that an MSB has been removed.
-     * 
-     * Usage: {@link #setNumberRemaining(int) (REMOVED_CODE)}
-     * 
-     * @deprecated Removed MSB's and now indicated using -remaing
-     */
-	public static final int REMOVED_CODE = -999 ;
-
-	/**
      * Default constructor.
      */
 	protected SpMSB()

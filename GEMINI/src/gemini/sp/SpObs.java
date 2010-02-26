@@ -99,16 +99,9 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			title = type().getReadable() ;
 
 		if( isMSB() )
-		{
-			if( getNumberRemaining() == REMOVED_CODE )
-				return title + " (" + REMOVED_STRING + ")" ;
-			else
 				return title + " (" + getNumberRemaining() + "X)" ;
-		}
 		else
-		{
 			return title ;
-		}
 	}
 
 	/**
@@ -305,7 +298,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
 		String instName = defaultsTable.get( "instrument" ) ;
 
-		SpTelescopeObsComp obsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( this ) ;
+		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( this ) ;
 		SpTelescopePos basePos = null ;
 		int spherSys = 0 ;
 		int coordSys = 0 ;

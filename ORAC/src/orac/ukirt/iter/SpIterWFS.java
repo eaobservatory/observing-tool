@@ -64,21 +64,21 @@ public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslata
 			throw new SpTranslationNotSupportedException( "No WFS instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
 			Hashtable<String,String> configTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "exposureTimeIter" ) )
-					configTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+					configTable.put( "expTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					configTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+					configTable.put( "objNumExp" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
 
 				if( iterList.contains( "lensPosIter" ) )
-					configTable.put( "lensPos" , ( String )getConfigSteps( "lensPosIter" ).get( i ) ) ;
+					configTable.put( "lensPos" , getConfigSteps( "lensPosIter" ).get( i ) ) ;
 			}
 
 			try

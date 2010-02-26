@@ -104,7 +104,7 @@ public class LineCatalog
 			while( iter.hasNext() )
 			{
 				Double currentFreq = iter.next() ;
-				String currentName = ( String )submap.get( currentFreq ) ;
+				String currentName = submap.get( currentFreq ) ;
 				pix = ( int )( ( ( double )listSize ) * ( currentFreq.doubleValue() - minFreq ) * invRange ) ;
 				lineRef[ pix ] = new LineDetails( molName , currentName , currentFreq.doubleValue() ) ;
 			}

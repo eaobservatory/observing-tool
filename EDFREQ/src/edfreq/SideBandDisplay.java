@@ -81,7 +81,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 				int option = JOptionPane.showConfirmDialog( null , "This will delete your changes." + "\nTo save, use the 'hide' button on the heterodyne editor." + "\nDo you want to save your changes?" , "Changes will be deleted" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE ) ;
 
 				if( option == JOptionPane.NO_OPTION )
-					hide() ;
+					setVisible( true ) ;
 			}
 		} ) ;
 
@@ -285,9 +285,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	public double getTopSubSystemCentreFrequency()
 	{
 		if( jt == null )
-			return 0.0 ;
+			return 0. ;
 		else
-			return ( ( Sampler )jt.getSamplers()[ 0 ] ).getCentreFrequency() ;
+			return jt.getSamplers()[ 0 ].getCentreFrequency() ;
 	}
 
 	public int getResolution( int subsystem )
@@ -295,7 +295,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		if( jt == null )
 			return 0 ;
 		else
-			return ( ( Sampler )jt.getSamplers()[ subsystem ] ).getResolution() ;
+			return jt.getSamplers()[ subsystem ].getResolution() ;
 	}
 
 	public int getNumSubSystems()
@@ -350,7 +350,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
      * returned for each susbsystem. This method replaces other calls for
      * setting things in the heterodyne editor.
      */
-	public Vector[] getCurrentConfiguration()
+	public Vector<Object>[] getCurrentConfiguration()
 	{
 		// Create the array
 		Vector[] results = new Vector[ jt.getSamplers().length ] ;

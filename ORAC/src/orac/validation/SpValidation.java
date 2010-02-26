@@ -437,7 +437,7 @@ public class SpValidation
 				{
 					for( int tag = 0 ; tag < mandatory.size() ; tag++ )
 					{
-						if( children.item( j ).getNodeName().equals( ( String )mandatory.elementAt( tag ) ) )
+						if( children.item( j ).getNodeName().equals( mandatory.elementAt( tag ) ) )
 						{
 							mandatoryElementFound = true ;
 							break ;
@@ -448,7 +448,7 @@ public class SpValidation
 				{
 					for( int tag = 0 ; tag < excluded.size() ; tag++ )
 					{
-						if( children.item( j ).getNodeName().equals( ( String )excluded.elementAt( tag ) ) )
+						if( children.item( j ).getNodeName().equals( excluded.elementAt( tag ) ) )
 							excludedElementFound = true ;
 					}
 				}
@@ -467,7 +467,7 @@ public class SpValidation
 				{
 					String message = component.substring( 2 ) + " does not contain at least one of { " ;
 					for( int tag = 0 ; tag < mandatory.size() ; tag++ )
-						message = message + ( ( String )mandatory.elementAt( tag ) ).substring( 2 ) + " " ;
+						message = message + mandatory.elementAt( tag ).substring( 2 ) + " " ;
 
 					message = message + "}" ;
 					report.add( new ErrorMessage( ErrorMessage.ERROR , component , message ) ) ;
@@ -477,7 +477,7 @@ public class SpValidation
 				{
 					String message = component.substring( 2 ) + " contains one of { " ;
 					for( int tag = 0 ; tag < excluded.size() ; tag++ )
-						message = message + ( ( String )excluded.elementAt( tag ) ).substring( 2 ) + " " ;
+						message = message + excluded.elementAt( tag ).substring( 2 ) + " " ;
 
 					message = message + "} which is not allowed" ;
 					report.add( new ErrorMessage( ErrorMessage.ERROR , component , message ) ) ;
@@ -758,7 +758,7 @@ public class SpValidation
 				currentClass = localName ;
 				try
 				{
-					SpItem myClass = ( SpItem )loader.loadClass( ( String )classPathMap.get( localName ) + localName ).newInstance() ;
+					SpItem myClass = ( SpItem )loader.loadClass( classPathMap.get( localName ) + localName ).newInstance() ;
 					String readableName = myClass.type().getReadable() ;
 					currentClass = readableName ;
 				}

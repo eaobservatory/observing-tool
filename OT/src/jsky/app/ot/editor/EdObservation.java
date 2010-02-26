@@ -235,11 +235,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		{
 			if( _w.remaining.getSelectedItem().equals( SpObs.REMOVE_STRING ) )
 			{
-				if( spObs.getNumberRemaining() == SpObs.REMOVED_CODE )
-					spObs.setNumberRemaining( 1 ) ;
-				else
-					spObs.setNumberRemaining( -1 * spObs.getNumberRemaining() ) ;
-
+				spObs.setNumberRemaining( -1 * spObs.getNumberRemaining() ) ;
 				_updateWidgets() ;
 			}
 			else

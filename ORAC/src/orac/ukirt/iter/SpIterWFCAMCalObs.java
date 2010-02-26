@@ -451,6 +451,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				case DARK :
 					v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) ) ;
 					v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() ) ;
+					break ;
 				default :
 					logger.error( "No recipe header written, this shouldn't happen." ) ;
 			}

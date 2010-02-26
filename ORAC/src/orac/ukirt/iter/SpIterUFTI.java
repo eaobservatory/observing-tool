@@ -71,7 +71,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 			boolean change = false ;
 
 			String newAttr = null ;
-			Vector values = null ;
+			Vector<String> values = null ;
 			if( attr.equals( "integrationTimeIter" ) )
 			{
 				change = true ;
@@ -234,7 +234,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		// Readout area.  This is now a lookup table, so extract the first column, and put the areas into an array.
 		Vector vRA = SpInstUFTI.READAREAS.getColumn( 0 ) ;
 
-		String[] readoutAreas = new String[ ( int )vRA.size() ] ;
+		String[] readoutAreas = new String[ vRA.size() ] ;
 		for( int i = 0 ; i < vRA.size() ; ++i )
 			readoutAreas[ i ] = ( String )vRA.elementAt( i ) ;
 
@@ -291,7 +291,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			Hashtable< String , String > defaultsTable = inst.getConfigItems() ;
+			Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
 			String xAper = " " + defaultsTable.get( "instAperX" ) ;
 			String yAper = " " + defaultsTable.get( "instAperY" ) ;
 			String zAper = " " + defaultsTable.get( "instAperZ" ) ;
@@ -301,35 +301,35 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 				// Loop over each of there writing a new config file
 				if( iterList.contains( "filterIter" ) )
 				{
-					String filter = ( String )getConfigSteps( "filterIter" ).get( i ) ;
+					String filter = getConfigSteps( "filterIter" ).get( i ) ;
 					if( isPol )
 						filter = filter + "+pol" ;
 					defaultsTable.put( "filter" , filter ) ;
 				}
 				
 				if( iterList.contains( "acqModeIter" ) )
-					defaultsTable.put( "readMode" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;
+					defaultsTable.put( "readMode" , getConfigSteps( "acqModeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "readoutAreaIter" ) )
-					defaultsTable.put( "readArea" , ( String )getConfigSteps( "readoutAreaIter" ).get( i ) ) ;
+					defaultsTable.put( "readArea" , getConfigSteps( "readoutAreaIter" ).get( i ) ) ;
 
 				if( iterList.contains( "exposureTimeIter" ) )
-					defaultsTable.put( "expTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+					defaultsTable.put( "expTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					defaultsTable.put( "objNumExp" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+					defaultsTable.put( "objNumExp" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperXIter" ) )
-					xAper = " " + ( String )getConfigSteps( "instAperXIter" ).get( i ) ;
+					xAper = " " + getConfigSteps( "instAperXIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperYIter" ) )
-					yAper = " " + ( String )getConfigSteps( "instAperYIter" ).get( i ) ;
+					yAper = " " + getConfigSteps( "instAperYIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperZIter" ) )
-					zAper = " " + ( String )getConfigSteps( "instAperZIter" ).get( i ) ;
+					zAper = " " + getConfigSteps( "instAperZIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperLIter" ) )
-					lAper = " " + ( String )getConfigSteps( "instAperLIter" ).get( i ) ;
+					lAper = " " + getConfigSteps( "instAperLIter" ).get( i ) ;
 			}
 			try
 			{

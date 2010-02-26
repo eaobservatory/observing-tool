@@ -20,9 +20,9 @@ import java.util.Vector ;
 final class SpAttr implements java.io.Serializable
 {
 	private String _description ;
-	private Vector<Object> _values ;
+	private Vector<String> _values ;
 
-	public SpAttr( String descr , Vector values )
+	public SpAttr( String descr , Vector<String> values )
 	{
 		_description = descr ;
 		_values = values ;
@@ -38,12 +38,12 @@ final class SpAttr implements java.io.Serializable
 		_description = descr ;
 	}
 
-	public Vector<Object> getValues()
+	public Vector<String> getValues()
 	{
 		return _values ;
 	}
 
-	public void setValues( Vector values )
+	public void setValues( Vector<String> values )
 	{
 		_values = values ;
 	}
@@ -99,7 +99,7 @@ public final class SpAvTable implements java.io.Serializable
 		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
 		{
-			a = new SpAttr( "No Description" , new Vector<Object>() ) ;
+			a = new SpAttr( "No Description" , new Vector<String>() ) ;
 			_avTable.put( name , a ) ;
 		}
 		return a ;
@@ -156,7 +156,7 @@ public final class SpAvTable implements java.io.Serializable
 	public void noNotifySet( String name , String value , int pos )
 	{
 		SpAttr a = _getSpAttr( name ) ;
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 
 		v.ensureCapacity( pos + 1 ) ;
 		int size = v.size() ;
@@ -221,7 +221,7 @@ public final class SpAvTable implements java.io.Serializable
      * 
      * @see #setAll
      */
-	public void noNotifySetAll( String name , Vector v )
+	public void noNotifySetAll( String name , Vector<String> v )
 	{
 		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
@@ -240,7 +240,7 @@ public final class SpAvTable implements java.io.Serializable
      * Vector isn't copied, just assigned. In otherwords, this is just a pointer
      * assignment.
      */
-	public void setAll( String name , Vector v )
+	public void setAll( String name , Vector<String> v )
 	{
 		if( _isHiddenAttr( name ) )
 		{
@@ -333,17 +333,17 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return null ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( v == null ) || ( v.size() <= pos ) )
 			return null ;
 
-		return ( String )v.elementAt( pos ) ;
+		return v.elementAt( pos ) ;
 	}
 
 	/**
      * Get all the values of a particular attribute as a vector.
      */
-	public Vector getAll( String name )
+	public Vector<String> getAll( String name )
 	{
 		SpAttr a = _avTable.get( name ) ;
 		if( a == null )
@@ -364,7 +364,7 @@ public final class SpAvTable implements java.io.Serializable
 		else
 		{
 
-			Vector<Object> v = getAll( name ) ;
+			Vector<String> v = getAll( name ) ;
 			if( v == null )
 			{
 				System.out.println( name + ": DOES NOT EXIST IN TABLE" ) ;
@@ -373,7 +373,7 @@ public final class SpAvTable implements java.io.Serializable
 
 			System.out.println( name + " contains:" ) ;
 			for( int i = 0 ; i < v.size() ; ++i )
-				System.out.println( '\t' + ( String )v.elementAt( i ) ) ;
+				System.out.println( '\t' + v.elementAt( i ) ) ;
 			System.out.println( "-- EOD --" ) ;
 		}
 	}
@@ -486,7 +486,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		v.removeElementAt( pos ) ;
 	}
 
@@ -565,7 +565,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return 0 ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( v == null )
 			return 0 ;
 		return v.size() ;
@@ -665,13 +665,13 @@ public final class SpAvTable implements java.io.Serializable
 		{
 			String key = keys.next() ;
 			SpAttr a = _avTable.get( key ) ;
-			Vector v = new Vector() ;
+			Vector<String> v = new Vector<String>() ;
 			if( a != null )
 				v = a.getValues() ;
 			if( v != null )
-				v = ( Vector )v.clone() ;
+				v = ( Vector<String> )v.clone() ;
 			else
-				v = new Vector() ;
+				v = new Vector<String>() ;
 			htCopy.put( key , new SpAttr( a.getDescription() , v ) ) ;
 		}
 
@@ -687,7 +687,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 
 		if( newSize < v.size() )
 		{
@@ -743,7 +743,7 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public insertAt method.
 	//
-	private void _insertAt( String value , Vector<Object> v , int pos )
+	private void _insertAt( String value , Vector<String> v , int pos )
 	{
 		if( pos >= v.size() )
 			v.addElement( value ) ;
@@ -760,7 +760,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( pos < 0 ) || ( pos > v.size() ) )
 			return ;
 
@@ -779,9 +779,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public indexToFirst method.
 	//
-	private void _indexToFirst( Vector v , int pos )
+	private void _indexToFirst( Vector<String> v , int pos )
 	{
-		Object o = v.elementAt( pos ) ;
+		String o = v.elementAt( pos ) ;
 		v.removeElementAt( pos ) ;
 		v.insertElementAt( o , 0 ) ;
 	}
@@ -796,7 +796,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
 			return ;
 
@@ -815,9 +815,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public decrementIndex method.
 	//
-	private void _decrementIndex( Vector<Object> v , int pos )
+	private void _decrementIndex( Vector<String> v , int pos )
 	{
-		Object o = v.elementAt( pos ) ;
+		String o = v.elementAt( pos ) ;
 		v.removeElementAt( pos ) ;
 		v.insertElementAt( o , pos - 1 ) ;
 	}
@@ -832,7 +832,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( pos <= 0 ) || ( v.size() <= pos ) )
 			return ;
 
@@ -851,9 +851,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public incrementIndex method.
 	//
-	private void _incrementIndex( Vector v , int pos )
+	private void _incrementIndex( Vector<String> v , int pos )
 	{
-		Object o = v.elementAt( pos ) ;
+		String o = v.elementAt( pos ) ;
 		v.removeElementAt( pos ) ;
 		if( ( pos + 1 ) >= v.size() )
 			v.addElement( o ) ;
@@ -871,7 +871,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
 			return ;
 
@@ -890,9 +890,9 @@ public final class SpAvTable implements java.io.Serializable
 	//
 	// Does the work for the public indexToLast method.
 	//
-	private void _indexToLast( Vector v , int pos )
+	private void _indexToLast( Vector<String> v , int pos )
 	{
-		Object o = v.elementAt( pos ) ;
+		String o = v.elementAt( pos ) ;
 		v.removeElementAt( pos ) ;
 		v.addElement( o ) ;
 	}
@@ -907,7 +907,7 @@ public final class SpAvTable implements java.io.Serializable
 		if( a == null )
 			return ;
 
-		Vector<Object> v = a.getValues() ;
+		Vector<String> v = a.getValues() ;
 		if( ( pos < 0 ) || ( ( v.size() - 1 ) <= pos ) )
 			return ;
 

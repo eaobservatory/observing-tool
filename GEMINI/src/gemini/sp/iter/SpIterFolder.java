@@ -105,7 +105,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					}
 					for( int j = 0 ; j < sis.values.length ; ++j )
 					{
-						SpIterValue siv = ( SpIterValue )sis.values[ j ] ;
+						SpIterValue siv = sis.values[ j ] ;
 						System.out.println( '\t' + siv.attribute + " = " + siv.values[ 0 ] ) ;
 					}
 				}
@@ -143,7 +143,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
-			iterStepSubVector = ( Vector<SpIterStep> )iterStepVector.get( i ) ;
+			iterStepSubVector = iterStepVector.get( i ) ;
 
 			int iterStepSubVectorSize = 0 ;
 			if( iterStepSubVector != null )

@@ -94,7 +94,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
      * back.
      */
 	private boolean _baselinesChanged = false ;
-	private HashMap _inputValues = new HashMap() ;
+	private HashMap<Integer,Object[]> _inputValues = new HashMap<Integer,Object[]>() ;
 
 	public VelocityRegionEditor( Window parent )
 	{
@@ -512,7 +512,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 				}
 				else
 				{
-					Object[] o = ( Object[] )_inputValues.get( new Integer( i ) ) ;
+					Object[] o = _inputValues.get( new Integer( i ) ) ;
 					double[] d1 = ( double[] )o[ 0 ] ;
 					double[] d2 = ( double[] )o[ 1 ] ;
 					for( int l = 0 ; l < d1.length ; l++ )

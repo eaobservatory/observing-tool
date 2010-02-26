@@ -521,16 +521,16 @@ final public class JHLauncher implements java.io.Serializable
 		JMenuItem mi ;
 
 		// File Menu
-		JMenu file = ( JMenu )menuBar.add( new JMenu( "File" ) ) ;
+		JMenu file = menuBar.add( new JMenu( "File" ) ) ;
 		file.setMnemonic( 'F' ) ;
 
-		mi = ( JMenuItem )file.add( new JMenuItem( "Open page" ) ) ;
+		mi = file.add( new JMenuItem( "Open page" ) ) ;
 		ActionListener openPageListener = new OpenPageListener() ;
 		mi.addActionListener( openPageListener ) ;
 
 		if( setHS )
 		{
-			mi = ( JMenuItem )file.add( new JMenuItem( "Set HelpSet" ) ) ;
+			mi = file.add( new JMenuItem( "Set HelpSet" ) ) ;
 			mi.setMnemonic( 's' ) ;
 			mi.addActionListener( new ActionListener()
 			{
@@ -544,7 +544,7 @@ final public class JHLauncher implements java.io.Serializable
 			} ) ;
 		}
 
-		mi = ( JMenuItem )file.add( new JMenuItem( "Exit" ) ) ;
+		mi = file.add( new JMenuItem( "Exit" ) ) ;
 		mi.setMnemonic( 'x' ) ;
 		mi.addActionListener( new ActionListener()
 		{
@@ -559,16 +559,16 @@ final public class JHLauncher implements java.io.Serializable
 		} ) ;
 
 		// Option Menu
-		JMenu options = ( JMenu )menuBar.add( new JMenu( "Options" ) ) ;
+		JMenu options = menuBar.add( new JMenu( "Options" ) ) ;
 		options.setMnemonic( 'O' ) ;
 
-		mi = ( JMenuItem )options.add( new JMenuItem( "Set Font..." ) ) ;
+		mi = options.add( new JMenuItem( "Set Font..." ) ) ;
 		ActionListener setFontListener = new SetFontListener() ;
 		mi.addActionListener( setFontListener ) ;
 
 		if( debug )
 		{
-			mi = ( JMenuItem )options.add( new JMenuItem( "Show Element Tree" ) ) ;
+			mi = options.add( new JMenuItem( "Show Element Tree" ) ) ;
 			ActionListener elementTreeListener = new ShowElementTreeListener() ;
 			mi.addActionListener( elementTreeListener ) ;
 		}
@@ -973,7 +973,7 @@ final public class JHLauncher implements java.io.Serializable
 			ClassLoader cl ;
 			HelpSet hs = null ;
 			String path = helpSetURL.getText() ;
-			String name = ( String )helpSetName.getText() ;
+			String name = helpSetName.getText() ;
 			if( on12 )
 			{
 				URL x[] = parseURLs( path ) ;

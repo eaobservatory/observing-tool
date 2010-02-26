@@ -392,7 +392,7 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 				_addConfigItem( ici ) ;
 
 				// Make sure there are enough rows to hold the item's values.
-				List vals = icb.getConfigSteps( attrib ) ;
+				List<String> vals = icb.getConfigSteps( attrib ) ;
 				for( int j = _iterTab.getRowCount() ; j < vals.size() ; ++j )
 					_iterTab.addRow() ;
 

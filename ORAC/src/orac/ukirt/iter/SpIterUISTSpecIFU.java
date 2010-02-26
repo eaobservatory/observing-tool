@@ -182,8 +182,8 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 			throw new SpTranslationNotSupportedException( "No UIST instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
 			Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
@@ -194,10 +194,10 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "exposureTimeIter" ) )
-					defaultsTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+					defaultsTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					defaultsTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+					defaultsTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
 			}
 			try
 			{

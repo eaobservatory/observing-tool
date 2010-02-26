@@ -342,7 +342,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp
 		{
 			System.out.println( "Error calculating default no. coadds" ) ;
 		}
-		return ( int )coadds ;
+		return coadds ;
 	}
 
 	/**

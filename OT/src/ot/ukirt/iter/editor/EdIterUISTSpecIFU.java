@@ -36,14 +36,14 @@ public class EdIterUISTSpecIFU extends EdIterUKIRTGeneric
 
 		// Update the entire row
 		SpIterConfigBase icb = ( SpIterConfigBase )_spItem ;
-		List l = icb.getConfigAttribs() ;
+		List<String> l = icb.getConfigAttribs() ;
 		int index = 0 ;
 		for( int i = 0 ; i < l.size() ; ++i )
 		{
 			String attrib = ( String )l.get( i ) ;
 			if( isUserEditable( attrib ) )
 			{
-				List vals = icb.getConfigSteps( attrib ) ;
+				List<String> vals = icb.getConfigSteps( attrib ) ;
 				_iterTab.setCell( vals.get( rowIndex ) , index , rowIndex ) ;
 				++index ;
 			}
