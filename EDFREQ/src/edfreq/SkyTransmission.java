@@ -326,14 +326,14 @@ public class SkyTransmission extends JPanel implements ChangeListener
 					switch( v.size() )
 					{
 						case 1 :
-							x = ( int )( ( double )xSize * ( ( ( Double )v.firstElement() ).doubleValue() - lowLimit ) / ( highLimit - lowLimit ) ) ;
+							x = ( int )( xSize * ( v.firstElement() - lowLimit ) / ( highLimit - lowLimit ) ) ;
 							y = 0 ;
 							width = 1 ;
 							height = ySize ;
 							break ;
 						case 2 :
-							double x1 = ( ( double )xSize * ( ( ( Double )v.firstElement() ).doubleValue() - lowLimit ) / ( highLimit - lowLimit ) ) ;
-							double x2 = ( ( double )xSize * ( ( ( Double )v.lastElement() ).doubleValue() - lowLimit ) / ( highLimit - lowLimit ) ) ;
+							double x1 = ( xSize * ( v.firstElement() - lowLimit ) / ( highLimit - lowLimit ) ) ;
+							double x2 = ( xSize * ( v.lastElement() - lowLimit ) / ( highLimit - lowLimit ) ) ;
 							x = ( int )Math.rint( x1 ) ;
 							y = 0 ;
 							width = ( int )Math.rint( x2 - x1 ) ;

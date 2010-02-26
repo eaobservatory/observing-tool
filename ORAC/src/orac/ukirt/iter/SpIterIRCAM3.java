@@ -60,7 +60,7 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 			boolean change = false ;
 
 			String newAttr = null ;
-			Vector values = null ;
+			Vector<String> values = null ;
 			if( attr.equals( "integrationTimeIter" ) )
 			{
 				change = true ;
@@ -215,7 +215,7 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 		// Readout area.  This is now a lookup table, so extract the first column, and put the areas into an array.
 		Vector vRA = SpInstIRCAM3.READAREAS.getColumn( 0 ) ;
 
-		String[] readoutAreas = new String[ ( int )vRA.size() ] ;
+		String[] readoutAreas = new String[ vRA.size() ] ;
 		for( int i = 0 ; i < vRA.size() ; ++i )
 			readoutAreas[ i ] = ( String )vRA.elementAt( i ) ;
 

@@ -161,11 +161,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 		{
 			if( _w.remaining.getSelectedItem().equals( SpMSB.REMOVE_STRING ) )
 			{
-				if( spMSB.getNumberRemaining() == SpObs.REMOVED_CODE )
-					spMSB.setNumberRemaining( 1 ) ;
-				else
-					spMSB.setNumberRemaining( -1 * spMSB.getNumberRemaining() ) ;
-
+				spMSB.setNumberRemaining( -1 * spMSB.getNumberRemaining() ) ;
 				_updateWidgets() ;
 			}
 			else

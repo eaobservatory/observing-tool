@@ -149,7 +149,7 @@ public class OracUtilities
 			for( int i = 0 ; i < dateIntegers.length ; i++ )
 			{
 				if( stringTokenizer.hasMoreTokens() )
-					dateIntegers[ i ] = Integer.parseInt( ( String )stringTokenizer.nextToken() ) ;
+					dateIntegers[ i ] = Integer.parseInt( stringTokenizer.nextToken() ) ;
 				else
 					break ;
 			}

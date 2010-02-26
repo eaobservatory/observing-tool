@@ -190,7 +190,7 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 	public SpInstObsComp getInstrumentItem()
 	{
 		SpItem _baseItem = parent() ;
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
+		return SpTreeMan.findInstrument( _baseItem ) ;
 	}
 
 	/**

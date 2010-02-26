@@ -44,7 +44,7 @@ class SpIterChildEnumeration implements Enumeration<SpIterEnumeration> , java.io
 		SpIterComp icChild = null ;
 		while( _children.hasMoreElements() )
 		{
-			SpItem child = ( SpItem )_children.nextElement() ;
+			SpItem child = _children.nextElement() ;
 			if( child instanceof SpIterComp )
 			{
 				icChild = ( SpIterComp )child ;
@@ -241,7 +241,7 @@ public abstract class SpIterEnumeration implements Enumeration<Vector<SpIterStep
 			}
 			else if( _children.hasMoreElements() )
 			{
-				_childEnum = ( SpIterEnumeration )_children.nextElement() ;
+				_childEnum = _children.nextElement() ;
 				return hasMoreElements() ;
 			}
 		}
@@ -249,7 +249,7 @@ public abstract class SpIterEnumeration implements Enumeration<Vector<SpIterStep
 		{
 			if( _children.hasMoreElements() )
 			{
-				_childEnum = ( SpIterEnumeration )_children.nextElement() ;
+				_childEnum = _children.nextElement() ;
 				return hasMoreElements() ;
 			}
 		}
@@ -321,7 +321,7 @@ public abstract class SpIterEnumeration implements Enumeration<Vector<SpIterStep
 
 		// Reached the end of the child's values, move to the next element
 		_children.reinit() ;
-		_childEnum = ( SpIterEnumeration )_children.nextElement() ;
+		_childEnum = _children.nextElement() ;
 
 		_curElement = _thisNextElement() ;
 		return nextElement() ;

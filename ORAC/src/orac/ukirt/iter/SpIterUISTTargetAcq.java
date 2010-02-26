@@ -428,6 +428,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			{
 				case 1 :
 					mask = SpInstUIST.DEFAULT_MASK1 ;
+					break ;
 				case 2 :
 					mask = SpInstUIST.DEFAULT_MASK2 ;
 					break ;
@@ -570,7 +571,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			throw new SpTranslationNotSupportedException( "No UIST instrument in scope of UIST Target Acq." ) ;
 		}
 
-		Hashtable items = inst.getConfigItems() ;
+		Hashtable<String,String> items = inst.getConfigItems() ;
 		items.put( "exposureTime" , getExposureTimeString() ) ;
 		items.put( "filter" , getFilter() ) ;
 		items.put( "disperser" , getDisperser() ) ;

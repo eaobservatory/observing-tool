@@ -92,8 +92,8 @@ public class PolygonD implements Cloneable
 		{
 			return null ;
 		}
-		pd.xpoints = ( double[] )xpoints.clone() ;
-		pd.ypoints = ( double[] )ypoints.clone() ;
+		pd.xpoints = xpoints.clone() ;
+		pd.ypoints = ypoints.clone() ;
 		return pd ;
 	}
 }

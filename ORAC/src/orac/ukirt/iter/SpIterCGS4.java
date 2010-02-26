@@ -124,29 +124,29 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 			throw new SpTranslationNotSupportedException( "No CGS4 instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
 			_myTable = inst.getConfigItems() ;
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "exposureTimeIter" ) )
-					_myTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+					_myTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 				if( iterList.contains( "coaddsIter" ) )
-					_myTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+					_myTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
 				if( iterList.contains( "acqModeIter" ) )
-					_myTable.put( "DAConf" , ( String )getConfigSteps( "acqModeIter" ).get( i ) ) ;					
+					_myTable.put( "DAConf" , getConfigSteps( "acqModeIter" ).get( i ) ) ;					
 				if( iterList.contains( "instAperXIter" ) )
-					_myTable.put( "instAperX" , ( String )getConfigSteps( "instAperXIter" ).get( i ) ) ;
+					_myTable.put( "instAperX" , getConfigSteps( "instAperXIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperYIter" ) )
-					_myTable.put( "instAperY" , ( String )getConfigSteps( "instAperYIter" ).get( i ) ) ;
+					_myTable.put( "instAperY" , getConfigSteps( "instAperYIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperZIter" ) )
-					_myTable.put( "instAperZ" , ( String )getConfigSteps( "instAperZIter" ).get( i ) ) ;
+					_myTable.put( "instAperZ" , getConfigSteps( "instAperZIter" ).get( i ) ) ;
 				if( iterList.contains( "instAperLIter" ) )
 				{
-					_myTable.put( "instAperL" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
-					_myTable.put( "centralWavelength" , ( String )getConfigSteps( "instAperLIter" ).get( i ) ) ;
+					_myTable.put( "instAperL" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
+					_myTable.put( "centralWavelength" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
 				}
 
 				try

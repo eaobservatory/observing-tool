@@ -403,7 +403,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		if( filt.startsWith( "L" ) || filt.startsWith( "M" ) )
 			coadds = 10 * ( ( coadds / 10 ) + 1 ) ;
 
-		return ( int )coadds ;
+		return coadds ;
 	}
 
 	/**

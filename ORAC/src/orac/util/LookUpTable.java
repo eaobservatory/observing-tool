@@ -153,7 +153,7 @@ public class LookUpTable extends Vector
 		if( row < 0 || row > numRows )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		vRow = ( Vector )lut.elementAt( row ) ;
+		vRow = lut.elementAt( row ) ;
 		return vRow ;
 	}
 

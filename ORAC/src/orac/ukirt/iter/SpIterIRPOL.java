@@ -98,11 +98,11 @@ public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
-			v.add( "polAngle " + ( String )getConfigSteps( "IRPOLIter" ).get( i ) ) ;
+			v.add( "polAngle " + getConfigSteps( "IRPOLIter" ).get( i ) ) ;
 			Enumeration<SpItem> e = this.children() ;
 			TranslationUtils.recurse( e , v ) ;
 		}

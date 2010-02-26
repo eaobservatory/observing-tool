@@ -154,7 +154,7 @@ public class SpItemUtilities
 
 		while( attributes.hasNext() )
 		{
-			idrefAttribute = ( String )attributes.next() ;
+			idrefAttribute = attributes.next() ;
 			if( idrefAttribute.endsWith( ID_REF_SUFFIX ) )
 				attributes.remove() ;
 		}

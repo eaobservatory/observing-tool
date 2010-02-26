@@ -156,7 +156,7 @@ public class Scuba2Time implements SpJCMTConstants
 	{
 		double airmass = -1. ;
 
-		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( root ) ;
+		SpTelescopeObsComp telescopeObsComp = SpTreeMan.findTargetList( root ) ;
 		if( telescopeObsComp != null )
 		{
 			SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;

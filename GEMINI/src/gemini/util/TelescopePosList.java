@@ -117,7 +117,7 @@ public abstract class TelescopePosList implements java.io.Serializable
      */
 	public TelescopePos removePosition( String tag )
 	{
-		TelescopePos tp = ( TelescopePos )getPosition( tag ) ;
+		TelescopePos tp = getPosition( tag ) ;
 		if( tp == null )
 			return null ;
 

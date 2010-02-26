@@ -85,9 +85,9 @@ public class MsbClient extends SoapClient
 			if( spXML != null )
 			{
 				StringReader r = new StringReader( spXML ) ;
-				spItem = ( SpItem )( new SpInputXML() ).xmlToSpItem( r ) ;
+				spItem = new SpInputXML().xmlToSpItem( r ) ;
 
-				fw.write( ( String )spXML ) ;
+				fw.write( spXML ) ;
 				fw.close() ;
 			}
 			else

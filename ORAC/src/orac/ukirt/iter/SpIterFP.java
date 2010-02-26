@@ -82,14 +82,14 @@ public class SpIterFP extends SpIterConfigObsUKIRT implements SpTranslatable
 	
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
-		List l = getConfigAttribs() ;
+		List<String> l = getConfigAttribs() ;
 		if( l != null && l.size() != 0 )
 		{
-			List vals = getConfigSteps( ( String )l.get( 0 ) ) ;
+			List<String> vals = getConfigSteps( l.get( 0 ) ) ;
 			for( int i = 0 ; i < vals.size() ; i++ )
 			{
 				for( int j = 0 ; j < l.size() ; j++ )
-					v.add( ( String )l.get( j ) + " " + ( String )getConfigSteps( ( String )l.get( j ) ).get( i ) ) ;
+					v.add( l.get( j ) + " " + getConfigSteps( l.get( j ) ).get( i ) ) ;
 				// Now loop through all the child elements
 				Enumeration<SpItem> e = this.children() ;
 				TranslationUtils.recurse( e , v ) ;

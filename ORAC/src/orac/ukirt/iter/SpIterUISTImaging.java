@@ -118,8 +118,8 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 			throw new SpTranslationNotSupportedException( "No UIST instrument in scope" ) ;
 		}
 
-		List iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( ( String )iterList.get( 0 ) ).size() ;
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
 		for( int i = 0 ; i < nConfigs ; i++ )
 		{
 			Hashtable<String,String> defaultsTable = inst.getConfigItems() ;
@@ -130,25 +130,25 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 			for( int j = 0 ; j < iterList.size() ; j++ )
 			{
 				if( iterList.contains( "filterIter" ) )
-					defaultsTable.put( "filter" , ( String )getConfigSteps( "filterIter" ).get( i ) ) ;
+					defaultsTable.put( "filter" , getConfigSteps( "filterIter" ).get( i ) ) ;
 
 				if( iterList.contains( "exposureTimeIter" ) )
-					defaultsTable.put( "exposureTime" , ( String )getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+					defaultsTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
 
 				if( iterList.contains( "coaddsIter" ) )
-					defaultsTable.put( "coadds" , ( String )getConfigSteps( "coaddsIter" ).get( i ) ) ;
+					defaultsTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
 
 				if( iterList.contains( "instAperXIter" ) )
-					xAper = " " + ( String )getConfigSteps( "instAperXIter" ).get( i ) ;
+					xAper = " " + getConfigSteps( "instAperXIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperYIter" ) )
-					yAper = " " + ( String )getConfigSteps( "instAperYIter" ).get( i ) ;
+					yAper = " " + getConfigSteps( "instAperYIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperZIter" ) )
-					zAper = " " + ( String )getConfigSteps( "instAperZIter" ).get( i ) ;
+					zAper = " " + getConfigSteps( "instAperZIter" ).get( i ) ;
 
 				if( iterList.contains( "instAperLIter" ) )
-					lAper = " " + ( String )getConfigSteps( "instAperLIter" ).get( i ) ;
+					lAper = " " + getConfigSteps( "instAperLIter" ).get( i ) ;
 			}
 			try
 			{

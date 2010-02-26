@@ -211,7 +211,7 @@ public class SpClient extends SoapClient
 			throw e ;
 		}
 
-		return ( SpItem )spItem ;
+		return spItem ;
 	}
 
 	/**

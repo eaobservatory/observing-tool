@@ -42,7 +42,7 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 		if( _baseItem == null )
 			return null ;
 		else
-			return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
+			return SpTreeMan.findInstrument( _baseItem ) ;
 		//End of Added by RDK
 	}
 
@@ -52,10 +52,10 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 	public void insertConfigStep( int index )
 	{
 		super.insertConfigStep( index ) ;
-		Vector v = getConfigAttribs() ;
+		Vector<String> v = getConfigAttribs() ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
-			String a = ( String )v.elementAt( i ) ;
+			String a = v.elementAt( i ) ;
 			String defval = "" ;
 			if( index > 0 )
 				defval = getConfigStep( a , index - 1 ) ;

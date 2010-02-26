@@ -217,7 +217,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 			samplerDisplay = new SamplerDisplay( String.valueOf( feIF ) );
 			resolutionDisplay = new ResolutionDisplay( channels[ 0 ] , bandWidths[ 0 ] , nMixers );
 
-			Vector bandWidthItems = new Vector();
+			Vector<String> bandWidthItems = new Vector<String>();
 			for( int k = 0 ; k < bandWidths.length ; k++ )
 				bandWidthItems.add( "" + ( Math.rint( bandWidths[ k ] * 1.0E-6 ) ) );
 			widthChoice = new JComboBox( bandWidthItems );
@@ -237,14 +237,14 @@ public class FrequencyTable extends JPanel implements ActionListener
 
 			widthChoice.addItemListener( new NumberedBandWidthListener( j ) );
 
-			data[ j ][ 0 ] = new SideBand( lLowLimit , lHighLimit , bandWidths[ 0 ] , -feIF , ( Sampler )samplers[ j ] , lowBar , gigToPix , emissionLines );
+			data[ j ][ 0 ] = new SideBand( lLowLimit , lHighLimit , bandWidths[ 0 ] , -feIF , samplers[ j ] , lowBar , gigToPix , emissionLines );
 			data[ j ][ 1 ] = samplers[ j ];
-			data[ j ][ 2 ] = new SideBand( uLowLimit , uHighLimit , bandWidths[ 0 ] , feIF , ( Sampler )samplers[ j ] , highBar , gigToPix , emissionLines );
-			( ( Sampler )samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher )data[ j ][ 0 ] );
+			data[ j ][ 2 ] = new SideBand( uLowLimit , uHighLimit , bandWidths[ 0 ] , feIF , samplers[ j ] , highBar , gigToPix , emissionLines );
+			samplers[ j ].addSamplerWatcher( ( SamplerWatcher )data[ j ][ 0 ] );
 
-			( ( Sampler )samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher )samplerDisplay );
-			( ( Sampler )samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher )resolutionDisplay );
-			( ( Sampler )samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher )data[ j ][ 2 ] );
+			samplers[ j ].addSamplerWatcher( ( SamplerWatcher )samplerDisplay );
+			samplers[ j ].addSamplerWatcher( ( SamplerWatcher )resolutionDisplay );
+			samplers[ j ].addSamplerWatcher( ( SamplerWatcher )data[ j ][ 2 ] );
 
 			NumberedSideBandListener numberedSideBandListener = new NumberedSideBandListener( j );
 			lowBar.addMouseListener( numberedSideBandListener );
@@ -429,7 +429,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 		if( band.equals( "best" ) || band.equals( "usb" ) )
 		{
 			SideBandScrollBar bar = highBars.elementAt( subsystem );
-			AdjustmentListener[] listeners = ( AdjustmentListener[] )highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
+			AdjustmentListener[] listeners = highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			// Disable the event liteners and move the USB sliders
 			for( int i = 0 ; i < listeners.length ; i++ )
 				highBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
@@ -438,7 +438,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 			for( int i = 0 ; i < listeners.length ; i++ )
 				highBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 			// Now move the LSB scroller in the complimentary direction
-			listeners = ( AdjustmentListener[] )lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
+			listeners = lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			bar = lowBars.elementAt( subsystem );
 			for( int i = 0 ; i < listeners.length ; i++ )
 				lowBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
@@ -451,7 +451,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 		{
 			SideBandScrollBar bar = lowBars.elementAt( subsystem );
 			// Disable the event liteners and move the LSB sliders
-			AdjustmentListener[] listeners = ( AdjustmentListener[] )lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
+			AdjustmentListener[] listeners = lowBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			for( int i = 0 ; i < listeners.length ; i++ )
 				lowBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			int newValue = ( int )( ( double )bar.getDefaultValue() - newPos * gigToPix );
@@ -460,7 +460,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 				lowBars.elementAt( subsystem ).addAdjustmentListener( listeners[ i ] );
 			// Now move the LSB scroller in the complimentary direction
 			bar = highBars.elementAt( subsystem );
-			listeners = ( AdjustmentListener[] )highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
+			listeners = highBars.elementAt( subsystem ).getListeners( AdjustmentListener.class );
 			for( int i = 0 ; i < listeners.length ; i++ )
 				highBars.elementAt( subsystem ).removeAdjustmentListener( listeners[ i ] );
 			newValue = ( int )( ( double )bar.getDefaultValue() + newPos * gigToPix );

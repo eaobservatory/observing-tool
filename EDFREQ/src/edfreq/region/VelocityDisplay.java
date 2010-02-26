@@ -118,6 +118,6 @@ public class VelocityDisplay extends JPanel
 		frame.add( vd ) ;
 		frame.setLocation( 100 , 100 ) ;
 		frame.pack() ;
-		frame.show() ;
+		frame.setVisible( true ) ;
 	}
 }

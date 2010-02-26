@@ -298,7 +298,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 
 		// Check whether the observation a DR recipe (as its own child OR in its context).
-		SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs ) ;
+		SpDRRecipe recipe = findRecipe( spObs ) ;
 		if( recipe == null )
 			report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No Dr-recipe component." ) ) ;
 		else if( !_isSpProgCheck )
@@ -488,7 +488,7 @@ public class UkirtSpValidation extends SpValidation
 
 			try
 			{
-				trackingSystem = ( String )telescopeObsComp.getTable().getAll( pos.getTag() ).get( 4 ) ;
+				trackingSystem = telescopeObsComp.getTable().getAll( pos.getTag() ).get( 4 ) ;
 			}
 			catch( Exception e )
 			{
@@ -561,7 +561,7 @@ public class UkirtSpValidation extends SpValidation
 					{
 						try
 						{
-							trackingSystem2 = ( String )telescopeObsComp.getTable().getAll( pos2.getTag() ).get( 4 ) ;
+							trackingSystem2 = telescopeObsComp.getTable().getAll( pos2.getTag() ).get( 4 ) ;
 						}
 						catch( Exception e )
 						{
@@ -640,7 +640,7 @@ public class UkirtSpValidation extends SpValidation
 		if( !( recipe.getArcInGroup() || recipe.getBiasInGroup() || recipe.getDarkInGroup() || recipe.getFlatInGroup() || recipe.getObjectInGroup() || recipe.getSkyInGroup() ) )
 			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe" + titleString , "No part included in group." ) ) ;
 
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( recipe ) ) ;
+		SpInstObsComp inst = SpTreeMan.findInstrument( recipe ) ;
 
 		if( inst == null )
 		{
@@ -1052,7 +1052,7 @@ public class UkirtSpValidation extends SpValidation
 		Enumeration<String> keys = spItem.getTable().attributes() ;
 		while( keys.hasMoreElements() )
 		{
-			String key = ( String )keys.nextElement() ;
+			String key = keys.nextElement() ;
 			System.out.println( indentStr + key + " (" + spItem.getTable().getDescription( key ) + ")" ) ;
 			System.out.println( indentStr + "--> " + spItem.getTable().getAll( key ).toString() ) ;
 		}

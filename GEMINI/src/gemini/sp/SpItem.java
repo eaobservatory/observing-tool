@@ -550,7 +550,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		SpItem lastChild = null ;
 		for( SpItem child = _firstChild ; child != null ; child = child.next() )
 		{
-			SpItem spChildCopy = ( SpItem )child.deepCopy() ;
+			SpItem spChildCopy = child.deepCopy() ;
 			spCopy.doInsert( spChildCopy , lastChild ) ;
 			lastChild = spChildCopy ;
 		}
@@ -793,7 +793,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		Enumeration<String> keys = _avTable.attributes() ;
 		while( keys.hasMoreElements() )
 		{
-			String key = ( String )keys.nextElement() ;
+			String key = keys.nextElement() ;
 			System.out.println( indentStr + key + " (" + _avTable.getDescription( key ) + ")" ) ;
 			System.out.println( indentStr + "--> " + _avTable.getAll( key ).toString() ) ;
 		}
@@ -857,7 +857,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		// Write the XML attributes
 		while( avAttributes.hasMoreElements() )
 		{
-			avAttr = ( String )avAttributes.nextElement() ;
+			avAttr = avAttributes.nextElement() ;
 			if( avAttr.indexOf( "xmlns" ) != -1 || avAttr.indexOf( "schemaLocation" ) != -1 )
 				continue ;
 			xmlBuffer.append( " " + avAttr.substring( 1 ) + "=\"" + _avTable.get( avAttr ) + "\"" ) ;
@@ -881,7 +881,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		avAttributes = _avTable.attributes() ;
 
 		while( avAttributes.hasMoreElements() )
-			processAvAttribute( ( String )avAttributes.nextElement() , indent , xmlBuffer ) ;
+			processAvAttribute( avAttributes.nextElement() , indent , xmlBuffer ) ;
 
 		// Deal with the child items.
 		child = child() ;

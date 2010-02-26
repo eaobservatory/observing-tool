@@ -110,7 +110,7 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 	public SpInstObsComp getInstrumentItem()
 	{
 		SpItem _baseItem = parent() ;
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
+		return SpTreeMan.findInstrument( _baseItem ) ;
 	}
 
 	/**

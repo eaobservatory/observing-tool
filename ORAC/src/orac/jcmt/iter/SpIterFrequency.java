@@ -45,9 +45,9 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT
 	 * Override "getConfigAttribs" to fix up old programs with the wrong
 	 * attribute names.
 	 */
-	public Vector getConfigAttribs()
+	public Vector<String> getConfigAttribs()
 	{
-		return new Vector() ;
+		return new Vector<String>() ;
 	}
 
 	/**

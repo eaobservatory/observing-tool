@@ -396,7 +396,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
 			}
 
-			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets ) ;
+			result.put( MICROSTEP_PATTERNS[ i ][ 0 ] , offsets ) ;
 		}
 
 		return result ;
