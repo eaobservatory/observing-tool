@@ -226,26 +226,34 @@ public class JcmtSpValidation extends SpValidation
 	{
 		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
 		String instrument = null ;
+		Vector recipeList = null ;
 		if( _inst instanceof SpInstHeterodyne )
-			instrument = "heterodyne" ;
-		else if( _inst instanceof SpInstSCUBA2 )
-			instrument = "scuba2" ;
-		
-		String[] types = recipe.getAvailableTypes( instrument ) ;
-		int size = 0 ;
-		if( types != null )
-			size = types.length ;
-		for( int index = 0 ; index < size ; index++ )
 		{
-			String type = types[ index ] ;
-			String shortType = "" ;
-			if( type.toLowerCase().endsWith( "recipe" ) )
-				shortType = type.substring( 0 , type.length() - "recipe".length() ) ;
-			if( thisObs.getClass().getName().toLowerCase().indexOf( shortType ) == -1 )
-				continue ;
-			String recipeForType = recipe.getRecipeForType( type ) ;
-			if( recipeForType == null && !"scuba2".equals( instrument ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + shortType ) ) ;
+			instrument = "heterodyne" ;
+			recipeList = SpDRRecipe.HETERODYNE.getColumn( 0 ) ;
+		}
+		else if( _inst instanceof SpInstSCUBA2 )
+		{
+			instrument = "scuba2" ;
+			recipeList = SpDRRecipe.SCUBA2.getColumn( 0 ) ;
+		}
+
+		String[] types = recipe.getAvailableTypes( instrument ) ;
+		if( types != null )
+		{
+			for( String type : types )
+			{
+				String shortType = "" ;
+				if( type.toLowerCase().endsWith( "recipe" ) )
+					shortType = type.substring( 0 , type.length() - "recipe".length() ) ;
+				if( thisObs.getClass().getName().toLowerCase().indexOf( shortType ) == -1 )
+					continue ;
+				String recipeForType = recipe.getRecipeForType( type ) ;
+				if( recipeForType == null && !"scuba2".equals( instrument ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , obsTitle , "No data reduction recipe set for " + instrument + " " + shortType ) ) ;
+				else if( recipeForType != null && !recipeList.contains( recipeForType ) )
+					report.add( new ErrorMessage( ErrorMessage.ERROR , obsTitle , recipeForType + " does not appear to be a valid recipe for " + instrument + " " + shortType ) ) ;
+			}
 		}
 	}
 	
