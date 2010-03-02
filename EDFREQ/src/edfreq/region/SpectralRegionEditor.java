@@ -136,7 +136,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
      */
 	private boolean _baselinesChanged = false ;
 
-	private HashMap< Integer , Object[] > _inputValues = new HashMap< Integer , Object[] >() ;
+	private HashMap<Integer,Object[]> _inputValues = new HashMap<Integer,Object[]>() ;
 
 	public SpectralRegionEditor( Window parent )
 	{
@@ -378,8 +378,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = _beIF.get( i ).doubleValue() ;
-			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
+			double beIF = _beIF.get( i ) ;
+			double beBandWidth = _beBandWidth.get( i ) ;
 			if( _fitRegionInside )
 			{
 				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
@@ -624,8 +624,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 		int[] result = new int[ _beIF.size() * 2 ] ;
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = _beIF.get( i ).doubleValue() ;
-			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
+			double beIF = _beIF.get( i ) ;
+			double beBandWidth = _beBandWidth.get( i ) ;
 			// Min, max frequencies in range of upper backend sideband.
 			double beMinUSB = _lineDisplay.getLO1() + ( beIF - ( 0.5 * beBandWidth ) ) ;
 			double beMaxUSB = _lineDisplay.getLO1() + ( beIF + ( 0.5 * beBandWidth ) ) ;

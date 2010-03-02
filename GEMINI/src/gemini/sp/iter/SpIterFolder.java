@@ -235,7 +235,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
 					int integrationTimePerPoint = 0 ;
 					if( secsPerCycle != null && secsPerCycle instanceof Integer )
-						integrationTimePerPoint = (( Integer )secsPerCycle).intValue() ;
+						integrationTimePerPoint = ( Integer )secsPerCycle ;
 
 					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
 
@@ -250,7 +250,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} ) ;
 						if( separateOff != null && separateOff instanceof Boolean )
 						{
-							boolean sharedOff = !(( Boolean )separateOff).booleanValue() ;
+							boolean sharedOff = !( Boolean )separateOff ;
 							if( iterOffsets == 0 ) // stare
 								totalIntegrationTime = iterRepeat * ( 2.45 * integrationTimePerPoint + 80. ) ;
 							else if( sharedOff || integrationTimePerPoint >= 15 ) // grid
@@ -269,7 +269,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 					boolean addContinuum = false ;
 					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
 					if( continuum != null && continuum instanceof Boolean )
-						addContinuum = ( ( Boolean )continuum ).booleanValue() ;
+						addContinuum = ( Boolean )continuum ;
 					if( addContinuum )
 						totalIntegrationTime *= 1.2 ;
 				}

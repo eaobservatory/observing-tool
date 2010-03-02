@@ -148,7 +148,7 @@ public class BasicPropertyList
 	{
 		PropertyListEntry ple = _lookupEntry( name ) ;
 		if( ( ple != null ) && ( ple.value instanceof Boolean ) )
-			return ( ( Boolean )ple.value ).booleanValue() ;
+			return ( Boolean )ple.value ;
 
 		return def ;
 	}

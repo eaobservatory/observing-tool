@@ -7,8 +7,6 @@ import gemini.sp.obsComp.SpStareCapability ;
 import orac.util.InstCfg ;
 import orac.util.InstCfgReader ;
 
-import java.io.File ;
-
 import java.util.Arrays ;
 import java.util.Hashtable ;
 import java.util.List ;
@@ -116,8 +114,7 @@ public final class SpInstWFS extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( coadds ) ;
 		}
 		catch( Exception ex )
 		{

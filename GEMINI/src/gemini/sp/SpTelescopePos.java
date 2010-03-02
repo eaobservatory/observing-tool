@@ -582,13 +582,13 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 				if( HHMMSS.validFormat( xaxisStr ) )
 					_xaxis = HHMMSS.valueOf( xaxisStr ) ;
 				else if( xaxisStr.matches( numberRegex ) )
-					_xaxis = new Double( xaxisStr ).doubleValue() ;
+					_xaxis = new Double( xaxisStr ) ;
 				else
 					_xaxis = 0. ;
 				if( DDMMSS.validFormat( yaxisStr ) )
 					_yaxis = DDMMSS.valueOf( yaxisStr ) ;
 				else if( yaxisStr.matches( numberRegex ) )
-					_yaxis = new Double( yaxisStr ).doubleValue() ;
+					_yaxis = new Double( yaxisStr ) ;
 				else
 					_yaxis = 0. ;
 			}

@@ -55,7 +55,7 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
 					value = spIterStep.values[ i ].values[ 0 ] ;
 
 					if( attribute.equals( ATTR_ELAPSED_TIME ) )
-						currentElapsedTime = Double.valueOf( value ).doubleValue() ;
+						currentElapsedTime = Double.valueOf( value ) ;
 				}
 			}
 			catch( Exception e )

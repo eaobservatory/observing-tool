@@ -105,8 +105,8 @@ public class LineCatalog
 			{
 				Double currentFreq = iter.next() ;
 				String currentName = submap.get( currentFreq ) ;
-				pix = ( int )( ( ( double )listSize ) * ( currentFreq.doubleValue() - minFreq ) * invRange ) ;
-				lineRef[ pix ] = new LineDetails( molName , currentName , currentFreq.doubleValue() ) ;
+				pix = ( int )( ( ( double )listSize ) * ( currentFreq - minFreq ) * invRange ) ;
+				lineRef[ pix ] = new LineDetails( molName , currentName , currentFreq ) ;
 			}
 		}
 	}
@@ -143,7 +143,7 @@ public class LineCatalog
 						v.add( species ) ;
 					}
 					Double key = iter.next() ;
-					species.objectList.add( new Transition( submap.get( key ) , 1.0e6 * key.doubleValue() ) ) ;
+					species.objectList.add( new Transition( submap.get( key ) , 1.0e6 * key ) ) ;
 				}
 			}
 		}

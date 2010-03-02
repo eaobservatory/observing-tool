@@ -190,7 +190,7 @@ public final class EdIterCalObs extends OtItemEditor implements TextBoxWidgetWat
 			else if( w == _w.repeatComboBox )
 			{
 				JComboBox sbw = _w.repeatComboBox ;
-				int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
+				int i = ( Integer )sbw.getSelectedItem() ;
 				ico.setCount( i ) ;
 			}
 		}

@@ -139,9 +139,9 @@ public class SingleSidebandRangeBar extends JPanel implements Observer
 		for( int i = 0 ; i < _xRanges.size() ; i += 2 )
 		{
 			if( _sideband == EdFreq.SIDE_BAND_LSB )
-				_bar.setRange( _feBandWidth - _xRanges.get( i + 1 ).intValue() , _feBandWidth - _xRanges.get( i ).intValue() , i / 2 ) ;
+				_bar.setRange( _feBandWidth - _xRanges.get( i + 1 ) , _feBandWidth - _xRanges.get( i ) , i / 2 ) ;
 			else
-				_bar.setRange( _xRanges.get( i ).intValue() , _xRanges.get( i + 1 ).intValue() , i / 2 ) ;
+				_bar.setRange( _xRanges.get( i ) , _xRanges.get( i + 1 ) , i / 2 ) ;
 		}
 	}
 

@@ -163,7 +163,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		double res = 0. ;
 		try
 		{
-			res = Double.valueOf( time ).doubleValue() ;
+			res = Double.valueOf( time ) ;
 		}
 		catch( Exception ex ){}
 		return res ;
@@ -199,7 +199,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		{
 			try
 			{
-				res = Integer.valueOf( coadds ).intValue() ;
+				res = Integer.valueOf( coadds ) ;
 			}
 			catch( Exception x ){}
 		}
@@ -234,7 +234,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		double posAngle = 0. ;
 		try
 		{
-			posAngle = Double.valueOf( posAngleStr ).doubleValue() ;
+			posAngle = Double.valueOf( posAngleStr ) ;
 		}
 		catch( Exception ex ){}
 

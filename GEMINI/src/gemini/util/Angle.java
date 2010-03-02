@@ -158,7 +158,7 @@ public final class Angle
 		double val = 0 ;
 		try
 		{
-			val = Double.valueOf( angle ).doubleValue() ;
+			val = Double.valueOf( angle ) ;
 		}
 		catch( NumberFormatException ex ){}
 		return val ;

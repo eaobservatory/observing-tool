@@ -115,13 +115,13 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			{
 				if( first )
 				{
-					tMax = ( int )Math.rint( iter.next().doubleValue() ) ;
+					tMax = ( int )Math.rint( iter.next() ) ;
 					tMin = tMax ;
 					first = false ;
 				}
 				else
 				{
-					int currentValue = ( int )Math.rint( iter.next().doubleValue() ) ;
+					int currentValue = ( int )Math.rint( iter.next() ) ;
 					if( currentValue > tMax )
 						tMax = currentValue ;
 					if( currentValue < tMin )
@@ -135,8 +135,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			while( iter.hasNext() )
 			{
 				Double currentKey = iter.next() ;
-				rxPlot[ index ][ 0 ] = ( int )( ( double )xSize * ( currentKey.doubleValue() - lowF ) / ( highF - lowF ) ) ;
-				int currValue = ( int )Math.rint( rxTemp.get( currentKey ).doubleValue() ) ;
+				rxPlot[ index ][ 0 ] = ( int )( ( double )xSize * ( currentKey - lowF ) / ( highF - lowF ) ) ;
+				int currValue = ( int )Math.rint( rxTemp.get( currentKey ) ) ;
 				int scaledValue = ( int )( ( double )ySize - ( double )ySize * ( currValue - tMin ) / ( tMax - tMin ) ) ;
 				rxPlot[ index ][ 1 ] = scaledValue ;
 				index++ ;
@@ -228,13 +228,13 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			{
 				if( first )
 				{
-					tMax = ( int )Math.rint( iter.next().doubleValue() ) ;
+					tMax = ( int )Math.rint( iter.next() ) ;
 					tMin = tMax ;
 					first = false ;
 				}
 				else
 				{
-					int currentValue = ( int )Math.rint( iter.next().doubleValue() ) ;
+					int currentValue = ( int )Math.rint( iter.next() ) ;
 					if( currentValue > tMax )
 						tMax = currentValue ;
 					if( currentValue < tMin )
@@ -248,7 +248,7 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			while( iter.hasNext() )
 			{
 				key = iter.next() ;
-				if( key.doubleValue() > lowLimit )
+				if( key > lowLimit )
 					break ;
 			}
 			if( key == null )
@@ -257,8 +257,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			}
 			else
 			{
-				int xValue = ( int )( ( double )xSize * ( key.doubleValue() - lowLimit ) / ( highLimit - lowLimit ) ) ;
-				int yValue = ( int )Math.rint( rxTemp.get( key ).doubleValue() ) ;
+				int xValue = ( int )( ( double )xSize * ( key - lowLimit ) / ( highLimit - lowLimit ) ) ;
+				int yValue = ( int )Math.rint( rxTemp.get( key ) ) ;
 				yValue = ( int )( ( double )ySize - ( double )ySize * ( yValue - tMin ) / ( tMax - tMin ) ) ;
 				Vector<Integer> keys = new Vector<Integer>() ;
 				Vector<Integer> values = new Vector<Integer>() ;
@@ -267,10 +267,10 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				while( iter.hasNext() )
 				{
 					key = iter.next() ;
-					if( key.doubleValue() > highLimit )
+					if( key > highLimit )
 						break ;
-					xValue = ( int )( ( double )xSize * ( key.doubleValue() - lowLimit ) / ( highLimit - lowLimit ) ) ;
-					yValue = ( int )Math.rint( rxTemp.get( key ).doubleValue() ) ;
+					xValue = ( int )( ( double )xSize * ( key - lowLimit ) / ( highLimit - lowLimit ) ) ;
+					yValue = ( int )Math.rint( rxTemp.get( key ) ) ;
 					yValue = ( int )( ( double )ySize - ( double )ySize * ( yValue - tMin ) / ( tMax - tMin ) ) ;
 					keys.add( new Integer( xValue ) ) ;
 					values.add( new Integer( yValue ) ) ;
@@ -279,8 +279,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				rxPlot = new int[ keys.size() ][ 2 ] ;
 				for( int i = 0 ; i < rxPlot.length ; i++ )
 				{
-					rxPlot[ i ][ 0 ] = keys.elementAt( i ).intValue() ;
-					rxPlot[ i ][ 1 ] = values.elementAt( i ).intValue() ;
+					rxPlot[ i ][ 0 ] = keys.elementAt( i ) ;
+					rxPlot[ i ][ 1 ] = values.elementAt( i ) ;
 				}
 			}
 		}
@@ -297,9 +297,9 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			while( i.hasNext() )
 			{
 				Double f = i.next() ;
-				if( f.doubleValue() < lowLimit )
+				if( f < lowLimit )
 					continue ;
-				else if( f.doubleValue() > highLimit )
+				else if( f > highLimit )
 					break ;
 				else
 					nElements++ ;
@@ -311,11 +311,11 @@ public class SkyTransmission extends JPanel implements ChangeListener
 			while( i.hasNext() )
 			{
 				Double f = i.next() ;
-				if( f.doubleValue() < lowLimit )
+				if( f < lowLimit )
 				{
 					continue ;
 				}
-				else if( f.doubleValue() > highLimit )
+				else if( f > highLimit )
 				{
 					break ;
 				}
@@ -387,19 +387,19 @@ public class SkyTransmission extends JPanel implements ChangeListener
 					if( inputLine == null )
 						break ;
 					// Now keep reading the file until we find the feName
-					lowF = Double.valueOf( new String( in.readLine() ) ).doubleValue() ; // Low
-                                                                                        // frequency
-                                                                                        // limit
+					lowF = Double.valueOf( new String( in.readLine() ) ) ; // Low
+                                                                           // frequency
+                                                                           // limit
 					lowF = lowF * 1.0e9 ;
-					highF = Double.valueOf( new String( in.readLine() ) ).doubleValue() ; // High
-                                                                                            // frequency
-                                                                                            // limit
+					highF = Double.valueOf( new String( in.readLine() ) ) ; // High
+                                                                            // frequency
+                                                                            // limit
 					highF = highF * 1.0e9 ;
 					in.readLine() ; // Number of sidebands
 					if( in.readLine().equalsIgnoreCase( feName ) )
 					{
 						// We can start reading in the data
-						int nLines = Integer.valueOf( in.readLine() ).intValue() ;
+						int nLines = Integer.valueOf( in.readLine() ) ;
 						tRx = new TreeMap<Double,Double>() ;
 						for( int i = 0 ; i < nLines ; i++ )
 						{
@@ -463,12 +463,12 @@ public class SkyTransmission extends JPanel implements ChangeListener
 				Vector<Double> values = new Vector<Double>() ;
 				if( st.countTokens() == 1 )
 				{
-					values.add( new Double( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ) ;
+					values.add( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ;
 				}
 				else if( st.countTokens() == 2 )
 				{
-					values.add( new Double( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ) ;
-					values.add( new Double( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ) ;
+					values.add( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ;
+					values.add( Double.parseDouble( st.nextToken() ) * 1.0e9 ) ;
 				}
 				else
 				{

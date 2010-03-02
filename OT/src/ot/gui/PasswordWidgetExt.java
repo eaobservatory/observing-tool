@@ -86,7 +86,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	{
 		try
 		{
-			return ( Double.valueOf( ( String )getValue() ) ).doubleValue() ;
+			return ( Double.valueOf( getValue() ) ) ;
 		}
 		catch( Exception ex ){}
 		return def ;
@@ -107,7 +107,7 @@ public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidg
 	{
 		try
 		{
-			return Integer.parseInt( ( String )getValue() ) ;
+			return Integer.parseInt( getValue() ) ;
 		}
 		catch( Exception ex ){}
 

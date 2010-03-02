@@ -374,7 +374,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 			_featureVisibleState.put( tif.getClass().getName() , b ) ;
 		}
 
-		addFeature( tif , b.booleanValue() ) ;
+		addFeature( tif , b ) ;
 	}
 
 	/**

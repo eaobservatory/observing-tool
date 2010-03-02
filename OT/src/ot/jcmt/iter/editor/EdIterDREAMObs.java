@@ -51,7 +51,7 @@ public final class EdIterDREAMObs extends EdIterJCMTGeneric implements Observer 
 			String input = _w.secsPerObservation.getText() ;
 			if( input.matches( "[0-9]*[.]?[0-9]*" ) )
 			{
-				double value = new Double( input ).doubleValue() ;
+				double value = new Double( input ) ;
 				if( value != 0. )
 					_iterObs.setSampleTime( input ) ;
 			}

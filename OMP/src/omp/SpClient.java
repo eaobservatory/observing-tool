@@ -415,7 +415,7 @@ public class SpClient extends SoapClient
 			{
 				try
 				{
-					timestamp = ( ( Integer )resultArray[ 1 ] ).intValue() ;
+					timestamp = ( Integer )resultArray[ 1 ] ;
 				}
 				catch( Exception e )
 				{
