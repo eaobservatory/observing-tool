@@ -537,7 +537,7 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 	 */
 	public String getObservationTimeString()
 	{
-		double ot = Double.valueOf( _avTable.get( SpUISTCalConstants.ATTR_OBSERVATION_TIME ) ).doubleValue() ;
+		double ot = Double.valueOf( _avTable.get( SpUISTCalConstants.ATTR_OBSERVATION_TIME ) ) ;
 		String observationTime = Double.toString( MathUtil.round( ot , 3 ) ) ;
 		return observationTime ;
 	}
@@ -574,14 +574,14 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatabl
 		{
 			inst.setFlatExpTime( getExpTimeOT() ) ;
 			String coaddsString = getCoaddsString() ;
-			inst.setFlatCoadds( Integer.valueOf( coaddsString ).intValue() ) ;
+			inst.setFlatCoadds( Integer.valueOf( coaddsString ) ) ;
 			// End of added by RDK
 			inst.updateDAFlatConf() ;
 		}
 		else if( getCalType() == ARC )
 		{
 			inst.setArcExpTime( getExpTimeOT() ) ;
-			inst.setArcCoadds( Integer.valueOf( getCoaddsString() ).intValue() ) ;
+			inst.setArcCoadds( Integer.valueOf( getCoaddsString() ) ) ;
 			// End of added by RDK
 			inst.updateDAArcConf() ;
 		}

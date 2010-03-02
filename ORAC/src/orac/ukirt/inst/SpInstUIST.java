@@ -302,7 +302,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		attr = ATTR_MASK ;
 		int mi = IMAGERS.indexInColumn( DEFAULT_IMAGER , 0 ) ;
 		// Added by RDK
-		String mask = ( String )IMAGERS.elementAt( mi , 3 ) ;
+		String mask = IMAGERS.elementAt( mi , 3 ) ;
 		// End of added by RDK
 		_avTable.noNotifySet( attr , mask , 0 ) ;
 		setInstAper() ;
@@ -348,16 +348,16 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		int fi = FILTERS.indexInColumn( DEFAULT_FILTERS1 , 0 ) ;
-		String cwl = ( String )FILTERS.elementAt( fi , 1 ) ;
+		String cwl = FILTERS.elementAt( fi , 1 ) ;
 		attr = ATTR_CENTRAL_WAVELENGTH ;
 		_avTable.noNotifySet( attr , cwl , 0 ) ;
-		String sc = ( String )FILTERS.elementAt( fi , 2 ) ;
+		String sc = FILTERS.elementAt( fi , 2 ) ;
 		attr = ATTR_SPECTRAL_COVERAGE ;
 		_avTable.noNotifySet( attr , sc , 0 ) ;
 
 		attr = ATTR_FOCUS ;
 		fi = FILTERS1.indexInColumn( DEFAULT_FILTERS1 , 0 ) ;
-		String focus = ( String )FILTERS1.elementAt( fi , 1 ) ;
+		String focus = FILTERS1.elementAt( fi , 1 ) ;
 		_avTable.noNotifySet( attr , focus , 0 ) ;
 
 		attr = ATTR_SCIENCE_AREA ;
@@ -453,11 +453,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "detangle" ) )
 				{
-					DETANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DETANGLE = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "pixpitch" ) )
 				{
-					PIXPITCH = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					PIXPITCH = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "cameras" ) )
 				{
@@ -519,11 +519,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_imaging_pos_angle" ) )
 				{
-					DEFAULT_IMAGING_POS_ANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_IMAGING_POS_ANGLE = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_spect_pos_angle" ) )
 				{
-					DEFAULT_SPECT_POS_ANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_SPECT_POS_ANGLE = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "filters1" ) )
 				{
@@ -631,7 +631,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "spect_focal_length" ) )
 				{
-					SPECT_FOCAL_LENGTH = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					SPECT_FOCAL_LENGTH = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "flat_sources" ) )
 				{
@@ -801,23 +801,23 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptime_min" ) )
 				{
-					EXPTIME_MIN = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					EXPTIME_MIN = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptime_min_im" ) )
 				{
-					EXPTIME_MIN_IM = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					EXPTIME_MIN_IM = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptime_min_spec" ) )
 				{
-					EXPTIME_MIN_SPEC = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					EXPTIME_MIN_SPEC = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptime_min_ifu" ) )
 				{
-					EXPTIME_MIN_IFU = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					EXPTIME_MIN_IFU = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "exptime_nd" ) )
 				{
-					EXPTIME_ND = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					EXPTIME_ND = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_mode" ) )
 				{
@@ -825,7 +825,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_exptime" ) )
 				{
-					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ) ;
 					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_area" ) )
@@ -834,36 +834,36 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_coadds" ) )
 				{
-					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "flat_coadds_imaging" ) )
 				{
-					FLAT_COADDS_IMAGING = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					FLAT_COADDS_IMAGING = Integer.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "flat_coadds_spect" ) )
 				{
-					FLAT_COADDS_SPECT = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					FLAT_COADDS_SPECT = Integer.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "arc_coadds" ) )
 				{
-					ARC_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					ARC_COADDS = Integer.valueOf( instInfo.getValue() ) ;
 					// End of added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "arc_exptime" ) )
 				{
-					ARC_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					ARC_EXPTIME = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "texpmax" ) )
 				{
-					TEXPMAX = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					TEXPMAX = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "default_tobs" ) )
 				{
-					DEFAULT_TOBS = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_TOBS = Double.valueOf( instInfo.getValue() ) ;
 				}
 				else if( InstCfg.matchAttr( instInfo , "read_interval" ) )
 				{
-					READ_INTERVAL = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					READ_INTERVAL = Double.valueOf( instInfo.getValue() ) ;
 					// Added by RDK
 				}
 				else if( InstCfg.matchAttr( instInfo , "modes_ot" ) )
@@ -999,7 +999,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			int nmags = SPECMAGS.getNumColumns() - 1 ;
 			String specMags[] = new String[ nmags ] ;
 			for( int i = 0 ; i < nmags ; i++ )
-				specMags[ i ] = ( String )SPECMAGS.elementAt( 0 , i + 1 ) ;
+				specMags[ i ] = SPECMAGS.elementAt( 0 , i + 1 ) ;
 
 			return specMags ;
 		}
@@ -1242,7 +1242,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		else
 		{
 			int imindex = IMAGERS.indexInColumn( getImager() , 0 ) ;
-			ps = Double.valueOf( ( String )IMAGERS.elementAt( imindex , 0 ) ).doubleValue() ;
+			ps = Double.valueOf( IMAGERS.elementAt( imindex , 0 ) ) ;
 			setPixelScale( ps ) ;
 		}
 		// End of changed by RDK
@@ -1270,14 +1270,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			String filter = getFilter() ;
 			int fi = filterLUT.indexInColumn( filter , 0 ) ;
 			if( isPolarimetry() )
-				focus = ( String )filterLUT.elementAt( fi , 2 ) ;
+				focus = filterLUT.elementAt( fi , 2 ) ;
 			else
-				focus = ( String )filterLUT.elementAt( fi , 1 ) ;
+				focus = filterLUT.elementAt( fi , 1 ) ;
 		}
 		else
 		{
 			int fi = getFilterIndex() ;
-			focus = ( String )SPECTFILTERS.elementAt( fi , 5 ) ;
+			focus = SPECTFILTERS.elementAt( fi , 5 ) ;
 		}
 		return focus ;
 	}
@@ -1319,7 +1319,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		{
 			String imagerList[] = new String[ IMAGERS.getNumRows() ] ;
 			for( int i = 0 ; i < IMAGERS.getNumRows() ; i++ )
-				imagerList[ i ] = ( String )IMAGERS.elementAt( i , 0 ) ;
+				imagerList[ i ] = IMAGERS.elementAt( i , 0 ) ;
 
 			return imagerList ;
 		}
@@ -1489,9 +1489,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	{
 		int fi = getFilterIndex() ;
 		if( isImaging() )
-			return new Double( ( String )FILTERS.elementAt( fi , 1 ) ).doubleValue() ;
+			return new Double( FILTERS.elementAt( fi , 1 ) ) ;
 		else
-			return new Double( ( String )SPECTFILTERS.elementAt( fi , 3 ) ).doubleValue() ;
+			return new Double( SPECTFILTERS.elementAt( fi , 3 ) ) ;
 	}
 
 	/**
@@ -1508,8 +1508,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 		else
 		{
-			Double cwld = Double.valueOf( cwls ) ;
-			cwl = cwld.doubleValue() ;
+			cwl = Double.valueOf( cwls ) ;
 		}
 		return cwl ;
 	}
@@ -1540,7 +1539,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int maskSet ;
 		try
 		{
-			maskSet = Integer.valueOf( ( String )DISPERSERS.elementAt( getDisperserIndex() , 4 ) ).intValue() ;
+			maskSet = Integer.valueOf( DISPERSERS.elementAt( getDisperserIndex() , 4 ) ) ;
 		}
 		catch( Exception ex )
 		{
@@ -1653,7 +1652,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 					if( isPupilImaging() )
 						mask = PUPIL[ 3 ] ;
 					else
-						mask = ( String )IMAGERS.elementAt( getImagerIndex() , 3 ) ;
+						mask = IMAGERS.elementAt( getImagerIndex() , 3 ) ;
 					// End of added by RDK
 				}
 			}
@@ -1719,7 +1718,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		try
 		{
 			int maskIndex = MASKS.indexInColumn( getMask() , 0 ) ;
-			maskWidth = new Double( ( String )MASKS.elementAt( maskIndex , 1 ) ).doubleValue() ;
+			maskWidth = new Double( MASKS.elementAt( maskIndex , 1 ) ) ;
 		}
 		catch( IndexOutOfBoundsException e ){}
 		catch( NumberFormatException e ){}
@@ -1744,7 +1743,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		try
 		{
 			int maskIndex = MASKS.indexInColumn( getMask() , 0 ) ;
-			maskHeight = new Double( ( String )MASKS.elementAt( maskIndex , 2 ) ).doubleValue() ;
+			maskHeight = new Double( MASKS.elementAt( maskIndex , 2 ) ) ;
 		}
 		catch( IndexOutOfBoundsException e ){}
 		catch( NumberFormatException e ){}
@@ -1757,19 +1756,15 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	 */
 	public double getMaskHeightPixels()
 	{
+		double maskHeightPixels = 0. ;
 		try
 		{
 			int maskIndex = MASKS.indexInColumn( getMask() , 0 ) ;
-			return new Double( ( String )MASKS.elementAt( maskIndex , 2 ) ).doubleValue() ;
+			maskHeightPixels = new Double( MASKS.elementAt( maskIndex , 2 ) ) ;
 		}
-		catch( IndexOutOfBoundsException e )
-		{
-			return 0. ;
-		}
-		catch( NumberFormatException e )
-		{
-			return 0. ;
-		}
+		catch( IndexOutOfBoundsException e ){}
+		catch( NumberFormatException e ){}
+		return maskHeightPixels ;
 	}
 
 	public void setPosAngleDegrees( double posAngle )
@@ -1805,8 +1800,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr ) ;
-			posAngle = pa.doubleValue() ;
+			posAngle = Double.valueOf( posAngleStr ) ;
 		}
 		catch( NumberFormatException e )
 		{
@@ -1854,9 +1848,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int filterSet = 1 ;
 		// Added by RDK
 		if( isPupilImaging() )
-			filterSet = Integer.valueOf( PUPIL[ 1 ] ).intValue() ;
+			filterSet = Integer.valueOf( PUPIL[ 1 ] ) ;
 		else
-			filterSet = Integer.valueOf( ( String )IMAGERS.elementAt( getImagerIndex() , 1 ) ).intValue() ;
+			filterSet = Integer.valueOf( IMAGERS.elementAt( getImagerIndex() , 1 ) ) ;
 		// End of added by RDK
 		return filterSet ;
 	}
@@ -1869,9 +1863,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int filterSet = 1 ;
 		// Added by RDK
 		if( isPupilImaging() )
-			filterSet = Integer.valueOf( PUPIL[ 2 ] ).intValue() ;
+			filterSet = Integer.valueOf( PUPIL[ 2 ] ) ;
 		else
-			filterSet = Integer.valueOf( ( String )IMAGERS.elementAt( getImagerIndex() , 2 ) ).intValue() ;
+			filterSet = Integer.valueOf( IMAGERS.elementAt( getImagerIndex() , 2 ) ) ;
 		// End of added by RDK
 		return filterSet ;
 	}
@@ -1904,7 +1898,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int nfilters = filterLUT.getNumRows() - 1 ;
 		String filterList[] = new String[ nfilters ] ;
 		for( int i = 0 ; i < nfilters ; i++ )
-			filterList[ i ] = ( String )filterLUT.elementAt( i + 1 , 0 ) ;
+			filterList[ i ] = filterLUT.elementAt( i + 1 , 0 ) ;
 
 		return filterList ;
 	}
@@ -1914,7 +1908,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int nmags = filterLUT.getNumColumns() - 4 ;
 		String filterMags[] = new String[ nmags ] ;
 		for( int i = 0 ; i < nmags ; i++ )
-			filterMags[ i ] = ( String )filterLUT.elementAt( 0 , i + 4 ) ;
+			filterMags[ i ] = filterLUT.elementAt( 0 , i + 4 ) ;
 
 		return filterMags ;
 	}
@@ -2073,19 +2067,19 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			if( isImaging() )
 			{
 				findex = FILTERS.indexInColumn( filter , 0 ) ;
-				cwl = new Double( ( String )FILTERS.elementAt( findex , 1 ) ).doubleValue() ;
-				spectralCoverage = ( String )FILTERS.elementAt( findex , 2 ) ;
+				cwl = new Double( FILTERS.elementAt( findex , 1 ) ) ;
+				spectralCoverage = FILTERS.elementAt( findex , 2 ) ;
 			}
 			else
 			{
 				// filter is the CCS name of the filter
 				// Need to get the OTFilter name to lookup the focus, cwl and order
 				int di = getDisperserIndex() ;
-				String OTFilter = ( String )DISPERSERS.elementAt( di , 2 ) ;
+				String OTFilter = DISPERSERS.elementAt( di , 2 ) ;
 				findex = SPECTFILTERS.indexInColumn( OTFilter , 0 ) ;
-				cwl = new Double( ( String )SPECTFILTERS.elementAt( findex , 3 ) ).doubleValue() ;
-				order = Integer.valueOf( ( String )SPECTFILTERS.elementAt( findex , 2 ) ).intValue() ;
-				spectralCoverage = ( String )SPECTFILTERS.elementAt( findex , 4 ) ;
+				cwl = new Double( SPECTFILTERS.elementAt( findex , 3 ) ) ;
+				order = Integer.valueOf( SPECTFILTERS.elementAt( findex , 2 ) ) ;
+				spectralCoverage = SPECTFILTERS.elementAt( findex , 4 ) ;
 			}
 			setCentralWavelength( cwl ) ;
 			setOrder( order ) ;
@@ -2121,7 +2115,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			else
 			{
 				int di = getDisperserIndex() ;
-				filter = ( String )DISPERSERS.elementAt( di , 2 ) ;
+				filter = DISPERSERS.elementAt( di , 2 ) ;
 				findex = SPECTFILTERS.indexInColumn( filter , 0 ) ;
 			}
 		}
@@ -2154,9 +2148,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		else
 		{
 			int di = getDisperserIndex() ;
-			String OTFilter = ( String )DISPERSERS.elementAt( di , 2 ) ;
+			String OTFilter = DISPERSERS.elementAt( di , 2 ) ;
 			int findex = SPECTFILTERS.indexInColumn( OTFilter , 0 ) ;
-			filter = ( String )SPECTFILTERS.elementAt( findex , 1 ) ;
+			filter = SPECTFILTERS.elementAt( findex , 1 ) ;
 			setFilter( filter ) ;
 		}
 		return filter ;
@@ -2171,9 +2165,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( !isImaging() )
 		{
 			int di = getDisperserIndex() ;
-			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 ) ;
+			String arcOTFilter = DISPERSERS.elementAt( di , 3 ) ;
 			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 ) ;
-			arcFilter = ( String )SPECTFILTERS.elementAt( findex , 1 ) ;
+			arcFilter = SPECTFILTERS.elementAt( findex , 1 ) ;
 		}
 		return arcFilter ;
 	}
@@ -2187,9 +2181,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( !isImaging() )
 		{
 			int di = getDisperserIndex() ;
-			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 ) ;
+			String arcOTFilter = DISPERSERS.elementAt( di , 3 ) ;
 			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 ) ;
-			arcCwl = ( String )SPECTFILTERS.elementAt( findex , 3 ) ;
+			arcCwl = SPECTFILTERS.elementAt( findex , 3 ) ;
 		}
 		return arcCwl ;
 	}
@@ -2203,9 +2197,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( !isImaging() )
 		{
 			int di = getDisperserIndex() ;
-			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 ) ;
+			String arcOTFilter = DISPERSERS.elementAt( di , 3 ) ;
 			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 ) ;
-			arcFocus = ( String )SPECTFILTERS.elementAt( findex , 5 ) ;
+			arcFocus = SPECTFILTERS.elementAt( findex , 5 ) ;
 		}
 		return arcFocus ;
 	}
@@ -2219,9 +2213,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( !isImaging() )
 		{
 			int di = getDisperserIndex() ;
-			String arcOTFilter = ( String )DISPERSERS.elementAt( di , 3 ) ;
+			String arcOTFilter = DISPERSERS.elementAt( di , 3 ) ;
 			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 ) ;
-			arcOrder = ( String )SPECTFILTERS.elementAt( findex , 2 ) ;
+			arcOrder = SPECTFILTERS.elementAt( findex , 2 ) ;
 		}
 		return arcOrder ;
 	}
@@ -2262,7 +2256,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( isImaging() )
 			return 0 ;
 		int findex = getFilterIndex() ;
-		order = Integer.valueOf( ( String )SPECTFILTERS.elementAt( findex , 2 ) ).intValue() ;
+		order = Integer.valueOf( SPECTFILTERS.elementAt( findex , 2 ) ) ;
 		return order ;
 	}
 
@@ -2369,14 +2363,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		if( isImaging() )
 		{
 			int fi = getFilterIndex() ;
-			spectralCoverage = ( String )FILTERS.elementAt( fi , 2 ) ;
+			spectralCoverage = FILTERS.elementAt( fi , 2 ) ;
 		}
 		else
 		{
 			int di = getDisperserIndex() ;
-			String OTFilter = ( String )DISPERSERS.elementAt( di , 2 ) ;
+			String OTFilter = DISPERSERS.elementAt( di , 2 ) ;
 			int findex = SPECTFILTERS.indexInColumn( OTFilter , 0 ) ;
-			spectralCoverage = ( String )SPECTFILTERS.elementAt( findex , 4 ) ;
+			spectralCoverage = SPECTFILTERS.elementAt( findex , 4 ) ;
 		}
 		setSpectralCoverage( spectralCoverage ) ;
 		return spectralCoverage ;
@@ -2428,13 +2422,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		{
 			//  get default flat from FILTERS lut
 			int findex = getFilterIndex() ;
-			defaultFlatSource = ( String )FILTERS.elementAt( findex , 3 ) ;
+			defaultFlatSource = FILTERS.elementAt( findex , 3 ) ;
 		}
 		else
 		{
 			//  get default flat from DISPERSERS lut
 			int dindex = getDisperserIndex() ;
-			defaultFlatSource = ( String )DISPERSERS.elementAt( dindex , 5 ) ;
+			defaultFlatSource = DISPERSERS.elementAt( dindex , 5 ) ;
 		}
 		return defaultFlatSource ;
 	}
@@ -2507,10 +2501,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public void setInstAper()
 	{
 		int maskIndex = MASKS.indexInColumn( getMask() , 0 ) ;
-		setInstApX( ( String )MASKS.elementAt( maskIndex , 4 ) ) ;
-		setInstApY( ( String )MASKS.elementAt( maskIndex , 5 ) ) ;
-		setInstApZ( ( String )MASKS.elementAt( maskIndex , 6 ) ) ;
-		setInstApL( ( String )MASKS.elementAt( maskIndex , 7 ) ) ;
+		setInstApX( MASKS.elementAt( maskIndex , 4 ) ) ;
+		setInstApY( MASKS.elementAt( maskIndex , 5 ) ) ;
+		setInstApZ( MASKS.elementAt( maskIndex , 6 ) ) ;
+		setInstApL( MASKS.elementAt( maskIndex , 7 ) ) ;
 	}
 
 	/**
@@ -2542,7 +2536,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		else
 		{
 			int di = getDisperserIndex() ;
-			dispersion = new Double( ( String )DISPERSERS.elementAt( di , 1 ) ).doubleValue() ;
+			dispersion = new Double( DISPERSERS.elementAt( di , 1 ) ) ;
 		}
 		return dispersion ;
 	}
@@ -2561,8 +2555,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 		else
 		{
-			Double dsd = Double.valueOf( ds ) ;
-			dispersion = dsd.doubleValue() ;
+			dispersion = Double.valueOf( ds ) ;
 		}
 		return dispersion ;
 	}
@@ -2627,8 +2620,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 		else
 		{
-			Double rsd = Double.valueOf( rs ) ;
-			resolution = rsd.doubleValue() ;
+			resolution = Double.valueOf( rs ) ;
 		}
 		return resolution ;
 	}
@@ -2667,8 +2659,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	{
 		_avTable.set( ATTR_DACONF , DAConf ) ;
 		int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-		setReadMode( ( String )MODES_OT.elementAt( ri , 1 ) ) ;
-		setReadArea( ( String )MODES_OT.elementAt( ri , 3 ) , ( String )MODES_OT.elementAt( ri , 4 ) ) ;
+		setReadMode( MODES_OT.elementAt( ri , 1 ) ) ;
+		setReadArea( MODES_OT.elementAt( ri , 3 ) , MODES_OT.elementAt( ri , 4 ) ) ;
 	}
 
 	/**
@@ -2687,7 +2679,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		// Find corresponding row in MODES lut
 		int ri = RBig.indexInColumn( daconf , 2 ) ;
 
-		double et = Double.valueOf( ( String )RBig.elementAt( ri , 0 ) ).doubleValue() ;
+		double et = Double.valueOf( RBig.elementAt( ri , 0 ) ) ;
 
 		_avTable.set( ATTR_DACONF_MINEXPT , et ) ;
 	}
@@ -2703,9 +2695,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		boolean currentModeOk = false ;
 		for( int i = 0 ; i < R.getNumRows() ; i++ )
 		{
-			String DAConf = ( String )R.elementAt( i , 2 ) ;
+			String DAConf = R.elementAt( i , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			String mode = ( String )MODES_OT.elementAt( ri , 1 ) ;
+			String mode = MODES_OT.elementAt( ri , 1 ) ;
 			if( readMode.equalsIgnoreCase( mode ) )
 			{
 				currentModeOk = true ;
@@ -2714,9 +2706,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		}
 		if( !currentModeOk )
 		{
-			String DAConf = ( String )R.elementAt( 0 , 2 ) ;
+			String DAConf = R.elementAt( 0 , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			readMode = ( String )MODES_OT.elementAt( ri , 1 ) ;
+			readMode = MODES_OT.elementAt( ri , 1 ) ;
 		}
 		setReadMode( readMode ) ;
 	}
@@ -2827,7 +2819,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			et = limitExpTimeOT( et ) ;
 			String DAConf = getDAConf( et ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			readout = ( String )MODES_OT.elementAt( ri , 2 ) ;
+			readout = MODES_OT.elementAt( ri , 2 ) ;
 			// End of added by RDK
 			setReadout( readout ) ;
 		}
@@ -2855,8 +2847,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int rows = 0 ;
 		for( int i = 0 ; i < RBRows ; i++ )
 		{
-			minE = Double.valueOf( ( String )RBig.elementAt( i , 0 ) ).doubleValue() ;
-			maxE = Double.valueOf( ( String )RBig.elementAt( i , 1 ) ).doubleValue() ;
+			minE = Double.valueOf( RBig.elementAt( i , 0 ) ) ;
+			maxE = Double.valueOf( RBig.elementAt( i , 1 ) ) ;
 			if( ( minE <= et ) && ( maxE > et ) )
 				rows++ ;
 		}
@@ -2872,11 +2864,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			int nextRow = 0 ;
 			for( int i = 0 ; i < RBRows ; i++ )
 			{
-				minE = Double.valueOf( ( String )RBig.elementAt( i , 0 ) ).doubleValue() ;
-				maxE = Double.valueOf( ( String )RBig.elementAt( i , 1 ) ).doubleValue() ;
+				minE = Double.valueOf( RBig.elementAt( i , 0 ) ) ;
+				maxE = Double.valueOf( RBig.elementAt( i , 1 ) ) ;
 				if( ( minE <= et ) && ( maxE > et ) )
 				{
-					Vector row = RBig.getRow( i ) ;
+					Vector<String> row = RBig.getRow( i ) ;
 					R.addRow( row ) ;
 					nextRow++ ;
 				}
@@ -2899,7 +2891,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int RRows = R.getNumRows() ;
 		String readoutChoices[] = new String[ RRows ] ;
 		for( int i = 0 ; i < RRows ; i++ )
-			readoutChoices[ i ] = ( String )R.elementAt( i , 3 ) ;
+			readoutChoices[ i ] = R.elementAt( i , 3 ) ;
 
 		return readoutChoices ;
 	}
@@ -2921,9 +2913,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		Vector<String> v = new Vector<String>() ;
 		for( int i = 0 ; i < RRows ; i++ )
 		{
-			String DAConf = ( String )R.elementAt( i , 2 ) ;
+			String DAConf = R.elementAt( i , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			insertSorted( v , ( String )MODES_OT.elementAt( ri , 1 ) ) ;
+			insertSorted( v , MODES_OT.elementAt( ri , 1 ) ) ;
 		}
 		String readModeChoices[] = new String[ v.size() ] ;
 		VectorToStringArray( v , readModeChoices ) ;
@@ -2945,13 +2937,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		Vector<String> v = new Vector<String>() ;
 		for( int i = 0 ; i < RRows ; i++ )
 		{
-			String DAConf = ( String )R.elementAt( i , 2 ) ;
+			String DAConf = R.elementAt( i , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			String mode = ( String )MODES_OT.elementAt( ri , 1 ) ;
+			String mode = MODES_OT.elementAt( ri , 1 ) ;
 			if( mode.equalsIgnoreCase( readMode ) )
 			{
-				String readRows = ( String )MODES_OT.elementAt( ri , 3 ) ;
-				String readCols = ( String )MODES_OT.elementAt( ri , 4 ) ;
+				String readRows = MODES_OT.elementAt( ri , 3 ) ;
+				String readCols = MODES_OT.elementAt( ri , 4 ) ;
 				String readArea = readRows + "x" + readCols ;
 				if( !v.contains( readArea ) )
 					v.add( readArea ) ;
@@ -3025,7 +3017,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public String getChopFreqRound()
 	{
 		String cfs = getChopFreq() ;
-		double cfd = Double.valueOf( cfs ).doubleValue() ;
+		double cfd = Double.valueOf( cfs ) ;
 		double cfdr = MathUtil.round( cfd , 3 ) ;
 		String cfsr = Double.toString( cfdr ) ;
 		return cfsr ;
@@ -3078,14 +3070,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	{
 		int i ;
 		int iMax = CHOPS.getNumRows() - 1 ;
-		double cMax = Double.valueOf( ( String )CHOPS.elementAt( iMax , 0 ) ).doubleValue() ;
-		double cfd = Double.valueOf( getChopFreq() ).doubleValue() ;
+		double cMax = Double.valueOf( CHOPS.elementAt( iMax , 0 ) ) ;
+		double cfd = Double.valueOf( getChopFreq() ) ;
 		if( cfd >= cMax )
 			i = iMax - 1 ;
 		else
 			i = CHOPS.rangeInColumn( cfd , 0 ) ;
 
-		double cd = Double.valueOf( ( String )CHOPS.elementAt( i , 1 ) ).doubleValue() ;
+		double cd = Double.valueOf( CHOPS.elementAt( i , 1 ) ) ;
 		return cd ;
 	}
 
@@ -3309,7 +3301,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			LookUpTable filterLUT = getFilterLUT() ;
 			int row = filterLUT.indexInColumn( filter , 0 ) ;
 			int column = filterLUT.indexInRow( mag , 0 ) ;
-			set = Double.valueOf( ( String )filterLUT.elementAt( row , column ) ).doubleValue() ;
+			set = Double.valueOf( filterLUT.elementAt( row , column ) ) ;
 		}
 		else
 		{
@@ -3317,7 +3309,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			String disperser = getDisperser() ;
 			int row = SPECMAGS.indexInColumn( disperser , 0 ) ;
 			int column = SPECMAGS.indexInRow( mag , 0 ) ;
-			set = Double.valueOf( ( String )SPECMAGS.elementAt( row , column ) ).doubleValue() ;
+			set = Double.valueOf( SPECMAGS.elementAt( row , column ) ) ;
 			// Ensure exposure time is within limits
 			set = limitExpTimeOT( set ) ;
 		}
@@ -3368,17 +3360,17 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			LookUpTable filterLUT = getFilterLUT() ;
 			String filter = getFilter() ;
 			int fi = filterLUT.indexInColumn( filter , 0 ) ;
-			fet = Double.valueOf( ( String )filterLUT.elementAt( fi , 3 ) ).doubleValue() ;
+			fet = Double.valueOf( filterLUT.elementAt( fi , 3 ) ) ;
 		}
 		else
 		{
 			// Get flat exposure time from DISPERSERS LUT
-			fet = Double.valueOf( ( String )DISPERSERS.elementAt( getDisperserIndex() , 6 ) ).doubleValue() ;
+			fet = Double.valueOf( DISPERSERS.elementAt( getDisperserIndex() , 6 ) ) ;
 			// Need to multiply this by factor associated with mask
 			// Added at request of CJD by RDK 4 Apr 2003
 			String mask = getMask() ;
 			int maskNo = MASKS.indexInColumn( mask , 0 ) ;
-			double etm = Double.valueOf( ( String )MASKS.elementAt( maskNo , 3 ) ).doubleValue() ;
+			double etm = Double.valueOf( MASKS.elementAt( maskNo , 3 ) ) ;
 			fet = fet * etm ;
 		}
 		fet = limitExpTimeOT( fet ) ;
@@ -3395,7 +3387,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		// Added at request of CJD by RDK 4 Apr 2003
 		String mask = getMask() ;
 		int maskNo = MASKS.indexInColumn( mask , 0 ) ;
-		double etm = Double.valueOf( ( String )MASKS.elementAt( maskNo , 3 ) ).doubleValue() ;
+		double etm = Double.valueOf( MASKS.elementAt( maskNo , 3 ) ) ;
 		aet *= etm ;
 		return aet ;
 	}
@@ -3430,7 +3422,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	 */
 	public String getDutyCycleRound()
 	{
-		double dcd = Double.valueOf( getDutyCycle() ).doubleValue() * 100. ;
+		double dcd = Double.valueOf( getDutyCycle() ) * 100. ;
 		double dcdr = MathUtil.round( dcd , 1 ) ;
 		String dcsr = Double.toString( dcdr ) ;
 		return dcsr ;
@@ -3445,11 +3437,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		String DAConf ;
 		for( int i = 0 ; i < R.getNumRows() ; i++ )
 		{
-			DAConf = ( String )R.elementAt( i , 2 ) ;
+			DAConf = R.elementAt( i , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			String mode = ( String )MODES_OT.elementAt( ri , 1 ) ;
-			int rows = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 3 ) ).intValue() ;
-			int cols = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 4 ) ).intValue() ;
+			String mode = MODES_OT.elementAt( ri , 1 ) ;
+			int rows = Integer.valueOf( MODES_OT.elementAt( ri , 3 ) ) ;
+			int cols = Integer.valueOf( MODES_OT.elementAt( ri , 4 ) ) ;
 			if( readMode.equalsIgnoreCase( mode ) && ra[ 0 ] == rows && ra[ 1 ] == cols )
 				return DAConf ;
 		}
@@ -3568,13 +3560,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "THERMAL ND" ) ;
 
 		// Get the readout interval
-		W_readInterval = Double.valueOf( ( String )MODES_OT.elementAt( ri , 5 ) ).doubleValue() ;
+		W_readInterval = Double.valueOf( MODES_OT.elementAt( ri , 5 ) ) ;
 
 		// Get the observation overhead
-		double obsOverhead = Double.valueOf( ( String )MODES_OT.elementAt( ri , 6 ) ).doubleValue() ;
+		double obsOverhead = Double.valueOf( MODES_OT.elementAt( ri , 6 ) ) ;
 
 		// Get the readout overhead
-		double readoutOverhead = Double.valueOf( ( String )MODES_OT.elementAt( ri , 7 ) ).doubleValue() ;
+		double readoutOverhead = Double.valueOf( MODES_OT.elementAt( ri , 7 ) ) ;
 
 		// Compute actual exposure time
 		if( ifND )
@@ -3601,7 +3593,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	public double getExposureOverhead()
 	{
 		double overhead = 0. ;
-		double dc = ( Double.valueOf( getDutyCycle() ) ).doubleValue() ;
+		double dc = Double.valueOf( getDutyCycle() ) ;
 		double expTime = getExposureTime() ;
 		overhead = expTime / dc - expTime ;
 		return overhead ;
@@ -3632,8 +3624,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( coadds ) ;
 		}
 		catch( Exception ex ){}
 
@@ -3669,11 +3660,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		int raSave[] = new int[ 2 ] ;
 		for( int i = 0 ; i < R.getNumRows() ; i++ )
 		{
-			String DAConf = ( String )R.elementAt( i , 2 ) ;
+			String DAConf = R.elementAt( i , 2 ) ;
 			int ri = MODES_OT.indexInColumn( DAConf , 0 ) ;
-			String mode = ( String )MODES_OT.elementAt( ri , 1 ) ;
-			ra[ 0 ] = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 3 ) ).intValue() ;
-			ra[ 1 ] = Integer.valueOf( ( String )MODES_OT.elementAt( ri , 4 ) ).intValue() ;
+			String mode = MODES_OT.elementAt( ri , 1 ) ;
+			ra[ 0 ] = Integer.valueOf( MODES_OT.elementAt( ri , 3 ) ) ;
+			ra[ 1 ] = Integer.valueOf( MODES_OT.elementAt( ri , 4 ) ) ;
 			int areaDiff = Math.abs( ra[ 0 ] * ra[ 1 ] - readArea ) ;
 			if( readMode.equalsIgnoreCase( mode ) && areaDiff < minAreaDiff )
 			{
@@ -3783,12 +3774,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			String oldCols = st2.nextToken() ;
 			for( int i = 0 ; i < MODES_OT.getNumRows() ; i++ )
 			{
-				String mode = ( String )MODES_OT.elementAt( i , 1 ) ;
-				String rows = ( String )MODES_OT.elementAt( i , 3 ) ;
-				String cols = ( String )MODES_OT.elementAt( i , 4 ) ;
+				String mode = MODES_OT.elementAt( i , 1 ) ;
+				String rows = MODES_OT.elementAt( i , 3 ) ;
+				String cols = MODES_OT.elementAt( i , 4 ) ;
 				if( oldMode.equalsIgnoreCase( mode ) && oldRows.equalsIgnoreCase( rows ) && oldCols.equalsIgnoreCase( cols ) )
 				{
-					String DAConf = ( String )MODES_OT.elementAt( i , 0 ) ;
+					String DAConf = MODES_OT.elementAt( i , 0 ) ;
 					setDAConf( DAConf ) ;
 					setDAConfMinExpT( DAConf ) ;
 				}

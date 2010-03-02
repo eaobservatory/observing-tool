@@ -19,11 +19,11 @@ import java.util.NoSuchElementException ;
  * @author Alan Bridger, UKATC
  * @version 0.5
  */
-public class LookUpTable extends Vector
+public class LookUpTable extends Vector<String>
 {
 	private int numRows ;
 	private int numColumns ;
-	private Vector<Vector> lut ;
+	private Vector<Vector<String>> lut ;
 
 	/*
 	 * The constructor initializes the lut.
@@ -34,7 +34,7 @@ public class LookUpTable extends Vector
 	 */
 	public LookUpTable()
 	{
-		lut = new Vector<Vector>() ;
+		lut = new Vector<Vector<String>>() ;
 	}
 
 	/**
@@ -45,9 +45,9 @@ public class LookUpTable extends Vector
 		if( numRows < 0 || numColumns < 0 )
 			throw new NegativeArraySizeException() ;
 
-		lut = new Vector<Vector>( numRows ) ;
+		lut = new Vector<Vector<String>>( numRows ) ;
 		for( int i = 0 ; i < numRows ; i++ )
-			lut.addElement( new Vector( numColumns ) ) ;
+			lut.addElement( new Vector<String>( numColumns ) ) ;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class LookUpTable extends Vector
 	/**
 	 * Add a row to the lut. The row is added to the end of the table.
 	 */
-	public void addRow( Vector row )
+	public void addRow( Vector<String> row )
 	{
 		lut.addElement( row ) ;
 		numRows = lut.size() ;
@@ -80,35 +80,35 @@ public class LookUpTable extends Vector
 	 * Add a column to the lut. The column is added to the end of the table.
 	 * THIS METHOD IS NOT IMPLEMENTED.
 	 */
-	public void addColumn( Vector column ){}
+	public void addColumn( Vector<String> column ){}
 
 	/**
 	 * Insert an object at a specific position.
 	 * THIS METHOD IS NOT IMPLEMENTED
 	 */
-	public void insertElementAt( Object obj , int rowPos , int colPos ){}
+	public void insertElementAt( String obj , int rowPos , int colPos ){}
 
 	/**
 	 * Insert a row at a specific position.
 	 * THIS METHOD IS NOT IMPLEMENTED
 	 */
-	public void insertRowAt( Vector row , int rowPos ){}
+	public void insertRowAt( Vector<String> row , int rowPos ){}
 
 	/**
 	 * Insert a column at a specific position.
 	 * THIS METHOD IS NOT IMPLEMENTED
 	 */
-	public void insertColumnAt( Vector column , int colPos ){}
+	public void insertColumnAt( Vector<String> column , int colPos ){}
 
 	/**
 	 * Set the object at a specific position.
 	 */
-	public void setElementAt( Object obj , int rowPos , int colPos ) throws ArrayIndexOutOfBoundsException
+	public void setElementAt( String obj , int rowPos , int colPos ) throws ArrayIndexOutOfBoundsException
 	{
 		if( rowPos < 0 || rowPos >= numRows || colPos < 0 || colPos >= numColumns )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector() ;
+		Vector<String> vRow = new Vector<String>() ;
 		vRow = this.getRow( rowPos ) ;
 		vRow.setElementAt( obj , colPos ) ;
 		this.setRowAt( vRow , rowPos ) ;
@@ -117,7 +117,7 @@ public class LookUpTable extends Vector
 	/**
 	 * Set the row at a specific position
 	 */
-	public void setRowAt( Vector row , int rowPos ) throws ArrayIndexOutOfBoundsException
+	public void setRowAt( Vector<String> row , int rowPos ) throws ArrayIndexOutOfBoundsException
 	{
 		if( rowPos < 0 || rowPos >= numRows )
 			throw new ArrayIndexOutOfBoundsException() ;
@@ -129,14 +129,14 @@ public class LookUpTable extends Vector
 	 * Set the column at a specific position
 	 * THIS METHOD IS NOT IMPLEMENTED
 	 */
-	public void setColumnAt( Vector column , int colPos ){}
+	public void setColumnAt( Vector<String> column , int colPos ){}
 
 	/**
 	 * getAsVectorArray returns the whole LookUpTable as a Vector Array
 	 */
-	public Vector[] getAsVectorArray()
+	public Vector<String>[] getAsVectorArray()
 	{
-		Vector[] v = new Vector[ numRows ] ;
+		Vector<String>[] v = new Vector[ numRows ] ;
 		for( int i = 0 ; i < numRows ; i++ )
 			v[ i ] = this.getRow( i ) ;
 
@@ -146,9 +146,9 @@ public class LookUpTable extends Vector
 	/**
 	 * getRow returns a Vector of the objects in the specified row
 	 */
-	public Vector getRow( int row ) throws ArrayIndexOutOfBoundsException
+	public Vector<String> getRow( int row ) throws ArrayIndexOutOfBoundsException
 	{
-		Vector vRow = new Vector( numColumns ) ;
+		Vector<String> vRow = new Vector<String>( numColumns ) ;
 
 		if( row < 0 || row > numRows )
 			throw new ArrayIndexOutOfBoundsException() ;
@@ -160,16 +160,16 @@ public class LookUpTable extends Vector
 	/**
 	 * getColumn returns a Vector of the objects in the specified column
 	 */
-	public Vector getColumn( int column ) throws ArrayIndexOutOfBoundsException
+	public Vector<String> getColumn( int column ) throws ArrayIndexOutOfBoundsException
 	{
-		Vector vCol = new Vector( numRows ) ;
+		Vector<String> vCol = new Vector<String>( numRows ) ;
 
 		if( column < 0 || column > numColumns )
 			throw new ArrayIndexOutOfBoundsException() ;
 
 		for( int i = 0 ; i < numRows ; i++ )
 		{
-			Vector vRow = this.getRow( i ) ;
+			Vector<String> vRow = this.getRow( i ) ;
 			vCol.addElement( vRow.elementAt( column ) ) ;
 		}
 		return vCol ;
@@ -178,16 +178,16 @@ public class LookUpTable extends Vector
 	/**
 	 * elementAt returns the Object at the given row/column position
 	 */
-	public Object elementAt( int row , int column ) throws ArrayIndexOutOfBoundsException
+	public String elementAt( int row , int column ) throws ArrayIndexOutOfBoundsException
 	{
 		if( row < 0 || row >= numRows || column < 0 || column >= numColumns )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns ) ;
+		Vector<String> vRow = new Vector<String>( numColumns ) ;
 		vRow = this.getRow( row ) ;
 		if( vRow == null )
 			return null ;
-		return( vRow.elementAt( column ) ) ;
+		return vRow.elementAt( column ) ;
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class LookUpTable extends Vector
 		if( column < 0 || column >= numColumns )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vCol = new Vector( numRows ) ;
+		Vector<String> vCol = new Vector<String>( numRows ) ;
 		vCol = this.getColumn( column ) ;
 		for( int i = 0 ; i < numRows ; i++ )
 		{
@@ -216,7 +216,7 @@ public class LookUpTable extends Vector
 		if( row < 0 || row >= numRows )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns ) ;
+		Vector<String> vRow = new Vector<String>( numColumns ) ;
 		vRow = this.getRow( row ) ;
 		for( int i = 0 ; i < numColumns ; i++ )
 		{
@@ -236,13 +236,13 @@ public class LookUpTable extends Vector
 		if( column < 0 || column >= numColumns )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vCol = new Vector( numRows ) ;
+		Vector<String> vCol = new Vector<String>( numRows ) ;
 		vCol = this.getColumn( column ) ;
 		for( int i = 0 ; i < numRows ; i++ )
 		{
 			try
 			{
-				if( new Double( ( String )vCol.elementAt( i ) ).doubleValue() < dval )
+				if( new Double( vCol.elementAt( i ) ) < dval )
 					continue ;
 			}
 			catch( NumberFormatException ex )
@@ -264,13 +264,13 @@ public class LookUpTable extends Vector
 		if( row < 0 || row >= numRows )
 			throw new ArrayIndexOutOfBoundsException() ;
 
-		Vector vRow = new Vector( numColumns ) ;
+		Vector<String> vRow = new Vector<String>( numColumns ) ;
 		vRow = this.getRow( row ) ;
 		for( int i = 0 ; i < numColumns ; i++ )
 		{
 			try
 			{
-				if( new Double( ( String )vRow.elementAt( i ) ).doubleValue() < dval )
+				if( new Double( vRow.elementAt( i ) ) < dval )
 					continue ;
 			}
 			catch( NumberFormatException ex )

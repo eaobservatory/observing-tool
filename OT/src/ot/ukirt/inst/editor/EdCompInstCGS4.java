@@ -55,10 +55,10 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser ;
 		LookUpTable disps = SpInstCGS4.DISPERSERS ;
-		Vector v = new Vector() ;
-		for( int i = 0 ; i < SpInstCGS4.getDispersers().getNumRows() ; ++i )
+		Vector<String> v = new Vector<String>() ;
+		for( int i = 0 ; i < disps.getNumRows() ; ++i )
 		{
-			String res = ( String )disps.elementAt( i , 1 ) ;
+			String res = disps.elementAt( i , 1 ) ;
 			if( i == 2 )
 				res = "40000" ;
 			v.addElement( disps.elementAt( i , 0 ) + " (R\u007e" + res + ")" ) ;
@@ -294,7 +294,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		try
 		{
 			int i = d.indexInColumn( disperser , 0 ) ;
-			String res = ( String )d.elementAt( i , 1 ) ;
+			String res = d.elementAt( i , 1 ) ;
 			if( i == 2 )
 				res = "40000" ;
 			return( d.elementAt( i , 0 ) + " (R\u007e" + res + ")" ) ;
@@ -401,7 +401,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	private void _updateMaskMenu()
 	{
 		DropDownListBoxWidgetExt ddlbw ;
-		Vector menu = _instCGS4.getMaskMenu() ;
+		Vector<String> menu = _instCGS4.getMaskMenu() ;
 		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
 		ddlbw.setChoices( menu ) ;
 	}

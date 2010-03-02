@@ -190,7 +190,7 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 						}
 					}
 				}
-				_avTable.set( SpInstIRCAM3.ATTR_INSTRUMENT_APER + "LIter" , ( String )farray.elementAt( filtind , 1 ) , index ) ;
+				_avTable.set( SpInstIRCAM3.ATTR_INSTRUMENT_APER + "LIter" , farray.elementAt( filtind , 1 ) , index ) ;
 			}
 		}
 	}

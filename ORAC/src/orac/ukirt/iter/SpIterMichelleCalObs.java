@@ -439,13 +439,13 @@ public class SpIterMichelleCalObs extends SpIterObserveBase
 		if( getCalType() == FLAT )
 		{
 			inst.setFlatExpTime( getExposureTime() ) ;
-			inst.setFlatObservationTime( Double.valueOf( getObservationTime() ).doubleValue() ) ;
+			inst.setFlatObservationTime( Double.valueOf( getObservationTime() ) ) ;
 			inst.updateDAFlatConf() ;
 		}
 		else if( getCalType() == ARC )
 		{
 			inst.setArcExpTime( getExposureTime() ) ;
-			inst.setArcObservationTime( Double.valueOf( getObservationTime() ).doubleValue() ) ;
+			inst.setArcObservationTime( Double.valueOf( getObservationTime() ) ) ;
 			inst.updateDAArcConf() ;
 		}
 		/* Update local instance variables from Michelle class */

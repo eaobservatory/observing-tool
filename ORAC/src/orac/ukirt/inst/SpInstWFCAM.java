@@ -139,7 +139,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 				else if( InstCfg.matchAttr( instInfo , "version" ) )
 					VERSION = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_posangle" ) )
-					DEFAULT_POSANGLE = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_POSANGLE = Double.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "readmodes" ) )
 					READMODES = instInfo.getValueAsArray() ;
 				else if( InstCfg.matchAttr( instInfo , "default_readmode" ) )
@@ -151,17 +151,17 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 				else if( InstCfg.matchAttr( instInfo , "default_filter" ) )
 					DEFAULT_FILTER = instInfo.getValue() ;
 				else if( InstCfg.matchAttr( instInfo , "default_exptime" ) )
-					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_EXPTIME = Double.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "default_flat_exptime" ) )
-					DEFAULT_FLAT_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_FLAT_EXPTIME = Double.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "default_focus_exptime" ) )
-					DEFAULT_FOCUS_EXPTIME = Double.valueOf( instInfo.getValue() ).doubleValue() ;
+					DEFAULT_FOCUS_EXPTIME = Double.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "default_coadds" ) )
-					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					DEFAULT_COADDS = Integer.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "default_flat_coadds" ) )
-					DEFAULT_FLAT_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;
+					DEFAULT_FLAT_COADDS = Integer.valueOf( instInfo.getValue() ) ;
 				else if( InstCfg.matchAttr( instInfo , "default_focus_coadds" ) )
-					DEFAULT_FOCUS_COADDS = Integer.valueOf( instInfo.getValue() ).intValue() ;	
+					DEFAULT_FOCUS_COADDS = Integer.valueOf( instInfo.getValue() ) ;	
 				else if( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) )
 					INSTRUMENT_APER = instInfo.getValueAsArray() ;
 				else
@@ -215,8 +215,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr ) ;
-			posAngle = pa.doubleValue() ;
+			posAngle = Double.valueOf( posAngleStr ) ;
 		}
 		catch( NumberFormatException e )
 		{
@@ -260,7 +259,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		int nfilters = FILTERS.getNumRows() ;
 		String filterList[] = new String[ nfilters ] ;
 		for( int i = 0 ; i < nfilters ; i++ )
-			filterList[ i ] = ( String )FILTERS.elementAt( i , 0 ) ;
+			filterList[ i ] = FILTERS.elementAt( i , 0 ) ;
 
 		return filterList ;
 	}
@@ -366,8 +365,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( coadds ) ;
 		}
 		catch( Exception ex ){}
 
