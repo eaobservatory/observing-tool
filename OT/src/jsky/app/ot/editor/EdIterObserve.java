@@ -74,7 +74,7 @@ public final class EdIterObserve extends OtItemEditor implements ActionListener
 		SpIterObserveBase iterObserve = ( SpIterObserveBase )_spItem ;
 
 		JComboBox sbw = _w.repeatComboBox ;
-		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
+		int i = ( Integer )sbw.getSelectedItem() ;
 
 		iterObserve.setCount( i ) ;
 	}

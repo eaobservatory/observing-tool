@@ -321,7 +321,7 @@ public class OtProps
 		String tmp = ( String )_props.get( SAVE_PROMPT ) ;
 		if( tmp == null )
 			return true ;
-		return Boolean.valueOf( tmp ).booleanValue() ;
+		return Boolean.valueOf( tmp ) ;
 	}
 
 	/**

@@ -87,7 +87,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 						String expTimeStr = ( String )v.elementAt( 0 ) ;
 						try
 						{
-							expTime = Double.valueOf( expTimeStr ).doubleValue() ;
+							expTime = Double.valueOf( expTimeStr ) ;
 						}
 						catch( Exception ex ){}
 

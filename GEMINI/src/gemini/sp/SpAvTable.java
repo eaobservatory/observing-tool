@@ -440,7 +440,7 @@ public final class SpAvTable implements java.io.Serializable
 			return def ;
 		try
 		{
-			return Double.valueOf( value ).doubleValue() ;
+			return Double.valueOf( value ) ;
 		}
 		catch( Exception ex ){}
 		return def ;

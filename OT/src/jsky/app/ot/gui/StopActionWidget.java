@@ -110,7 +110,7 @@ public class StopActionWidget extends JPanel
 			{
 				if( evt.getPropertyName().equals( "enabled" ) )
 				{
-					boolean enabled = ( ( Boolean )evt.getNewValue() ).booleanValue() ;
+					boolean enabled = ( Boolean )evt.getNewValue() ;
 					stopButton.setEnabled( enabled ) ;
 					blinkLed( enabled ) ;
 					if( !enabled )

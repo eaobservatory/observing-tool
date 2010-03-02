@@ -376,7 +376,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public double getChopThrow()
 	{
-		return Double.valueOf( getChopThrowAsString() ).doubleValue() ;
+		return Double.valueOf( getChopThrowAsString() ) ;
 	}
 
 	/**
@@ -413,7 +413,7 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public double getChopAngle()
 	{
-		return Double.valueOf( getChopAngleAsString() ).doubleValue() ;
+		return Double.valueOf( getChopAngleAsString() ) ;
 	}
 
 	/**
@@ -737,16 +737,14 @@ public class SpTelescopeObsComp extends SpObsComp
          */
 		if( name.equals( TX_PM1 ) )
 		{
-			Double dValue = new Double( value ) ;
-			dValue = new Double( dValue.doubleValue() * 1000.0 ) ;
+			Double dValue = new Double( value ) * 1000. ;
 			_currentPosition.setPropMotionRA( dValue.toString() ) ;
 			return ;
 		}
 
 		if( name.equals( TX_PM2 ) )
 		{
-			Double dValue = new Double( value ) ;
-			dValue = new Double( dValue.doubleValue() * 1000.0 ) ;
+			Double dValue = new Double( value ) * 1000. ;
 			_currentPosition.setPropMotionDec( dValue.toString() ) ;
 			return ;
 		}

@@ -69,7 +69,7 @@ public class JcmtSpValidation extends SpValidation
 				double loMax = 0. ;
 				double[] defaultOverlaps = null ;
 				double[] bandwidths = null ;
-				int systems = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
+				int systems = new Integer( spInstHeterodyne.getBandMode() ) ;
 
 				/*
 				 * We cannot use anything in edfreq here as it causes a build problem
@@ -93,9 +93,9 @@ public class JcmtSpValidation extends SpValidation
 					Object loMinObject = loMinField.get( receiver ) ;
 					Object loMaxObject = loMaxField.get( receiver ) ;
 					if( loMinObject instanceof Double )
-						loMin = ( ( Double )loMinObject ).doubleValue() ;
+						loMin = ( Double )loMinObject ;
 					if( loMaxObject instanceof Double )
-						loMax = ( ( Double )loMaxObject ).doubleValue() ;
+						loMax = ( Double )loMaxObject ;
 
 					Field bandSpecs = receiver.getClass().getDeclaredField( "bandspecs" ) ;
 					Object bandSpecVector = bandSpecs.get( receiver ) ;
@@ -145,7 +145,7 @@ public class JcmtSpValidation extends SpValidation
 				if( loMax != 0. && ( loMax + spInstHeterodyne.getFeIF() ) < skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) ) ;
 
-				int available = new Integer( spInstHeterodyne.getBandMode() ).intValue() ;
+				int available = new Integer( spInstHeterodyne.getBandMode() ) ;
 				String sideBand = spInstHeterodyne.getBand() ;
 				for( int index = 0 ; index < available ; index++ )
 				{

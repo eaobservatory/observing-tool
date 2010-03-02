@@ -512,7 +512,7 @@ public class OT extends JFrame
 		try
 		{
 			Float jv = new Float( sVersion ) ;
-			if( jv.floatValue() < 1.5 )
+			if( jv < 1.5 )
 			{
 				String message = "The Observing Tool requires at least java 1.5 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade" ;
 				JOptionPane.showMessageDialog( null , message , "OT does not support current version of Java" , JOptionPane.ERROR_MESSAGE ) ;

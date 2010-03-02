@@ -67,7 +67,7 @@ public final class EdIterRepeat extends OtItemEditor implements ActionListener
 		SpIterRepeat iterRepeat = ( SpIterRepeat )_spItem ;
 
 		JComboBox sbw = _w.repeatComboBox ;
-		int i = ( ( Integer )( sbw.getSelectedItem() ) ).intValue() ;
+		int i = ( Integer )sbw.getSelectedItem() ;
 		iterRepeat.setCount( i ) ;
 		_spItem.setTitleAttr( "Repeat " + i + "X" ) ;
 	}

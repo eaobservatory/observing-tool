@@ -327,12 +327,12 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = _beIF.get( i ).doubleValue() ;
-			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
+			double beIF = _beIF.get( i ) ;
+			double beBandWidth = _beBandWidth.get( i ) ;
 			if( _fitRegionInside )
 			{
-				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
-				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 6.0 ) ) ) / 1.0E9 ;
+				xMinHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 2. ) ) ) / 1.E9 ;
+				xMaxHz[ i ] = ( _vDisp.getLO1() + ( beIF - ( beBandWidth / 6. ) ) ) / 1.E9 ;
 			}
 			else
 			{
@@ -434,8 +434,8 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 		int[] result = new int[ _beIF.size() * 2 ] ;
 		for( int i = 0 ; i < _beIF.size() ; i++ )
 		{
-			double beIF = _beIF.get( i ).doubleValue() ;
-			double beBandWidth = _beBandWidth.get( i ).doubleValue() ;
+			double beIF = _beIF.get( i ) ;
+			double beBandWidth = _beBandWidth.get( i ) ;
 			// Min, max frequencies in range of upper backend sideband.
 			double beMinUSB = _vDisp.getLO1() + ( beIF - ( 0.5 * beBandWidth ) ) ;
 			double beMaxUSB = _vDisp.getLO1() + ( beIF + ( 0.5 * beBandWidth ) ) ;

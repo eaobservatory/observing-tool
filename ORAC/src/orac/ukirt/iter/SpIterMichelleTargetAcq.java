@@ -66,7 +66,6 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration
 		String chopDelayValue = String.valueOf( ibo.W_chopDelay ) ;
 		String obsTimeValue = String.valueOf( ibo.W_obsTime ) ;
 
-		//	System.out.println("SpIterMichelleTargetAcq._thisFirstElement expTime " +  exposureTimeValue + " coadds " + coaddsValue + " " + ibo.getDisperser()) ;
 		_values = new SpIterValue[ 23 ] ;
 		_values[ 0 ] = new SpIterValue( SpInstConstants.ATTR_EXPOSURE_TIME , exposureTimeValue ) ;
 		_values[ 1 ] = new SpIterValue( SpInstConstants.ATTR_COADDS , coaddsValue ) ;
@@ -462,7 +461,7 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 	{
 		SpInstMichelle inst = ( SpInstMichelle )getInstrumentItem() ;
 		inst.setTargetAcqExpTime( getExposureTime() ) ;
-		inst.setTargetAcqObservationTime( Double.valueOf( getObservationTime() ).doubleValue() ) ;
+		inst.setTargetAcqObservationTime( Double.valueOf( getObservationTime() ) ) ;
 		inst.updateDATargetAcqConf() ;
 
 		/* Update local instance variables from Michelle class */

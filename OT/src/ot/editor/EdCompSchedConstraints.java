@@ -254,7 +254,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		double elevationOrAirmass = 0. ; 
 		if( input != null && input.trim().length() != 0 )
 		{
-    		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
+    		elevationOrAirmass = Double.valueOf( input ) ;
     		if( displayAirmass )
     			elevationOrAirmass = AirmassUtilities.elevationToAirmass( elevationOrAirmass ) ;
 		}
@@ -266,7 +266,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		double elevationOrAirmass = 0. ;
 		if( input != null && input.trim().length() != 0 )
 		{
-    		elevationOrAirmass = Double.valueOf( input ).doubleValue() ;
+    		elevationOrAirmass = Double.valueOf( input ) ;
     		if( _schedConstObsComp.getDisplayAirmass() )
     			elevationOrAirmass = AirmassUtilities.airmassToElevation( elevationOrAirmass ) ;
 		}

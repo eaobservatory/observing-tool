@@ -129,7 +129,7 @@ public class SpMSB extends SpObsContextItem
 					return PRIORITY_LOW ;
 			}
 		}
-		return( ( new Integer( str ) ).intValue() ) ;
+		return new Integer( str ) ;
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class SpMSB extends SpObsContextItem
 		String str = _avTable.get( ATTR_PRIORITY ) ;
 		if( str == null )
 			return PRIORITY_LOW ;
-		return( ( new Integer( str ) ).intValue() ) ;
+		return new Integer( str ) ;
 	}
 
 	/**

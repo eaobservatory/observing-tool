@@ -1621,7 +1621,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	 */
 	public String validateChopAngle( String chopAngleString )
 	{
-		double chopAngle = Double.valueOf( chopAngleString ).doubleValue() ;
+		double chopAngle = Double.valueOf( chopAngleString ) ;
 
 		if( chopAngle < -90 )
 		{

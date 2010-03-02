@@ -156,7 +156,7 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem ) ;
 
 		if( e.getSource() == _w.repeatComboBox )
-			iterSky.setCount( ( ( Integer )_w.repeatComboBox.getSelectedItem() ).intValue() ) ;
+			iterSky.setCount( ( Integer )_w.repeatComboBox.getSelectedItem() ) ;
 
 		String skyPattern = SKY + "[0-9]+" ;
 		double boxSize = 0 ;

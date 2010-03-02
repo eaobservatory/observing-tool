@@ -45,7 +45,7 @@ public class Format
 
 		try
 		{
-			result = Double.valueOf( doubleStr ).doubleValue() ;
+			result = Double.valueOf( doubleStr ) ;
 		}
 		catch( Exception ex ){}
 
@@ -64,7 +64,7 @@ public class Format
 
 		try
 		{
-			result = Integer.valueOf( intStr ).intValue() ;
+			result = Integer.valueOf( intStr ) ;
 		}
 		catch( Exception ex ){}
 

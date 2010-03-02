@@ -234,7 +234,7 @@ public class HeterodyneNoise
 				continue ;
 			}
 			current = next ;
-			next = iter.next().doubleValue() ;
+			next = iter.next() ;
 			if( tau >= current && tau < next )
 				break ;
 		}

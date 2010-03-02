@@ -514,8 +514,8 @@ public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetW
 				{
 					if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
 					{
-						minExposure = new Double( current[ min ] ).doubleValue() ;
-						maxExposure = new Double( current[ max ] ).doubleValue() ;
+						minExposure = new Double( current[ min ] ) ;
+						maxExposure = new Double( current[ max ] ) ;
 						found = true ;
 						break ;
 					}
@@ -523,7 +523,7 @@ public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetW
 			}
 			if( found )
 			{
-				double candidateDouble = new Double( candidate ).doubleValue() ;
+				double candidateDouble = new Double( candidate ) ;
 				if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
 				{
 					// the following setExpTime is redundant BUT may com in useful later
