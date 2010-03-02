@@ -173,13 +173,13 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			String disperser = getDisperser() ;
 			int row = SpInstUIST.SPECMAGS.indexInColumn( disperser , 0 ) ;
 			int column = SpInstUIST.SPECMAGS.indexInRow( mag , 0 ) ;
-			exposureTime = Double.valueOf( ( String )SpInstUIST.SPECMAGS.elementAt( row , column ) ).doubleValue() ;
+			exposureTime = Double.valueOf( SpInstUIST.SPECMAGS.elementAt( row , column ) ) ;
 
 			setExposureTime( exposureTime ) ;
 		}
 		else
 		{
-			exposureTime = Double.valueOf( exposureTimeString ).doubleValue() ;
+			exposureTime = Double.valueOf( exposureTimeString ) ;
 		}
 
 		return Double.toString( exposureTime ) ;
@@ -195,9 +195,9 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		if( filter == null )
 		{
 			int di = getDisperserIndex() ;
-			String OTFilter = ( String )SpInstUIST.DISPERSERS.elementAt( di , 2 ) ;
+			String OTFilter = SpInstUIST.DISPERSERS.elementAt( di , 2 ) ;
 			int findex = SpInstUIST.SPECTFILTERS.indexInColumn( OTFilter , 0 ) ;
-			filter = ( String )SpInstUIST.SPECTFILTERS.elementAt( findex , 1 ) ;
+			filter = SpInstUIST.SPECTFILTERS.elementAt( findex , 1 ) ;
 
 			setFilter( filter ) ;
 		}
@@ -277,7 +277,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		if( ds == null )
 		{
 			int di = getDisperserIndex() ;
-			dispersion = Double.valueOf( ( String )SpInstUIST.DISPERSERS.elementAt( di , 1 ) ).doubleValue() ;
+			dispersion = Double.valueOf( SpInstUIST.DISPERSERS.elementAt( di , 1 ) ) ;
 
 			setDispersion( dispersion ) ;
 		}
@@ -385,7 +385,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 			int ciInstSm = SpInstUIST.SPECMAGS.indexInRow( inst.getSourceMag() , 0 ) ;
 			int ciMinMag = SpInstUIST.SPECMAGS.indexInRow( SpInstUIST.MIN_MAG_TRAGET_ACQ , 0 ) ;
 			int ci = Math.max( ciInstSm , ciMinMag ) ;
-			sm = ( String )SpInstUIST.SPECMAGS.elementAt( 0 , ci ) ;
+			sm = SpInstUIST.SPECMAGS.elementAt( 0 , ci ) ;
 			setSourceMag( sm ) ;
 		}
 
@@ -410,7 +410,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 
 		String specMags[] = new String[ ncols - ci ] ;
 		for( int i = ci ; i < ncols ; i++ )
-			specMags[ i - ci ] = ( String )SpInstUIST.SPECMAGS.elementAt( 0 , i ) ;
+			specMags[ i - ci ] = SpInstUIST.SPECMAGS.elementAt( 0 , i ) ;
 
 		return specMags ;
 	}
@@ -470,13 +470,13 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		if( maskWidthString == null )
 		{
 			int maskIndex = SpInstUIST.MASKS.indexInColumn( getMask() , 0 ) ;
-			maskWidth = new Double( ( String )SpInstUIST.MASKS.elementAt( maskIndex , 1 ) ).doubleValue() ;
+			maskWidth = new Double( SpInstUIST.MASKS.elementAt( maskIndex , 1 ) ) ;
 
 			setMaskWidthPixels( maskWidth ) ;
 		}
 		else
 		{
-			maskWidth = Double.valueOf( maskWidthString ).doubleValue() ;
+			maskWidth = Double.valueOf( maskWidthString ) ;
 		}
 
 		return maskWidth ;
@@ -498,7 +498,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		int maskSet ;
 		try
 		{
-			maskSet = Integer.valueOf( ( String )SpInstUIST.DISPERSERS.elementAt( getDisperserIndex() , 4 ) ).intValue() ;
+			maskSet = Integer.valueOf( SpInstUIST.DISPERSERS.elementAt( getDisperserIndex() , 4 ) ) ;
 		}
 		catch( Exception ex )
 		{
@@ -517,7 +517,7 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		try
 		{
 			int maskIndex = SpInstUIST.MASKS.indexInColumn( getMask() , 0 ) ;
-			maskHeight = new Double( ( String )SpInstUIST.MASKS.elementAt( maskIndex , 2 ) ) ;
+			maskHeight = new Double( SpInstUIST.MASKS.elementAt( maskIndex , 2 ) ) ;
 		}
 		catch( IndexOutOfBoundsException e ){}
 		catch( NumberFormatException e ){}

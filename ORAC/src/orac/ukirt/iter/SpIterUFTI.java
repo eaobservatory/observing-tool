@@ -209,7 +209,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 						}
 					}
 				}
-				_avTable.set( SpInstUFTI.ATTR_INSTRUMENT_APER + "LIter" , ( String )farray.elementAt( filtind , 1 ) , index ) ;
+				_avTable.set( SpInstUFTI.ATTR_INSTRUMENT_APER + "LIter" , farray.elementAt( filtind , 1 ) , index ) ;
 			}
 		}
 	}

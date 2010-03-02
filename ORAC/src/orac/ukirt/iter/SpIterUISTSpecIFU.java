@@ -143,7 +143,7 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 		int nmags = SpInstUIST.SPECMAGS.getNumColumns() - 1 ;
 		String specMags[] = new String[ nmags ] ;
 		for( int i = 0 ; i < nmags ; i++ )
-			specMags[ i ] = ( String )SpInstUIST.SPECMAGS.elementAt( 0 , i + 1 ) ;
+			specMags[ i ] = SpInstUIST.SPECMAGS.elementAt( 0 , i + 1 ) ;
 
 		IterConfigItem iciSourceMag = new IterConfigItem( "Source Magnitude" , SpInstUIST.ATTR_SOURCE_MAG + "Iter" , specMags ) ;
 
@@ -166,7 +166,7 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTransla
 		int row = SpInstUIST.SPECMAGS.indexInColumn( disperser , 0 ) ;
 		int column = SpInstUIST.SPECMAGS.indexInRow( sourceMag , 0 ) ;
 
-		String set = ( String )SpInstUIST.SPECMAGS.elementAt( row , column ) ;
+		String set = SpInstUIST.SPECMAGS.elementAt( row , column ) ;
 		_avTable.set( "exposureTimeIter" , set , index ) ;
 	}
 

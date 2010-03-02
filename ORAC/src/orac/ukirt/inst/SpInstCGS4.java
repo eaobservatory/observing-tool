@@ -135,7 +135,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		_avTable.noNotifySet( attr , "0" , 0 ) ;
 
 		attr = ATTR_MASK ;
-		value = ( String )MASKS.elementAt( 0 , 0 ) ;
+		value = MASKS.elementAt( 0 , 0 ) ;
 		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		attr = ATTR_SRCMAG ;
@@ -186,35 +186,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 				if( InstCfg.matchAttr( instInfo , "dispersers" ) )
 				{
 					DISPERSERS = instInfo.getValueAsLUT() ;
-					// insert the order tables
-					try
-					{
-						int row = DISPERSERS.indexInColumn( "ORDERS1" , 2 ) ;
-						DISPERSERS.setElementAt( ORDERS1 , row , 2 ) ;
-
-						row = DISPERSERS.indexInColumn( "ORDERS3" , 2 ) ;
-						DISPERSERS.setElementAt( ORDERS3 , row , 2 ) ;
-
-						row = DISPERSERS.indexInColumn( "EXPTIMES40" , 3 ) ;
-						DISPERSERS.setElementAt( EXPTIMES40 , row , 3 ) ;
-						row = DISPERSERS.indexInColumn( "EXPTIMESECH" , 3 ) ;
-						DISPERSERS.setElementAt( EXPTIMESECH , row , 3 ) ;
-
-						row = DISPERSERS.indexInColumn( "FILTERS40" , 4 ) ;
-						DISPERSERS.setElementAt( FILTERS40 , row , 4 ) ;
-						row = DISPERSERS.indexInColumn( "FILTERSECH" , 4 ) ;
-						DISPERSERS.setElementAt( FILTERSECH , row , 4 ) ;
-					}
-					catch( NoSuchElementException ex )
-					{
-						System.out.println( "Error indexing in dispersers table in CGS4 cfg file" ) ;
-						System.out.println( ex ) ;
-					}
-					catch( ArrayIndexOutOfBoundsException ex )
-					{
-						System.out.println( "Unexpected error setting CGS4 luts" ) ;
-						System.out.println( ex ) ;
-					}
 				}
 				else if( InstCfg.matchAttr( instInfo , "modes" ) )
 				{
@@ -257,8 +228,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 					String dbet = instInfo.getValue() ;
 					try
 					{
-						Double tmp = Double.valueOf( dbet ) ;
-						DEFBIASEXPTIME = tmp.doubleValue() ;
+						DEFBIASEXPTIME = Double.valueOf( dbet ) ;
 					}
 					catch( Exception ex ){}
 				}
@@ -339,11 +309,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		{
 			System.out.println( "Error reading CGS4 inst. cfg file" ) ;
 		}
-	}
-
-	public static LookUpTable getDispersers()
-	{
-		return DISPERSERS ;
 	}
 
 	/**
@@ -427,8 +392,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 
 		try
 		{
+			LookUpTable delut = null ;
 			// get the default exp. time lut
-			LookUpTable delut = ( LookUpTable )DISPERSERS.elementAt( di , 3 ) ;
+			if( di == DISPERSERS.indexInColumn( "EXPTIMES40" , 3 ) )
+				delut = EXPTIMES40 ;
+			else if( di == DISPERSERS.indexInColumn( "EXPTIMESECH" , 3 ) )
+				delut = EXPTIMESECH ;
 
 			// determine the row from the cwl
 			int row = delut.rangeInColumn( cwl , 0 ) ;
@@ -437,9 +406,9 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			int column = delut.indexInRow( sm , 0 ) ;
 
 			// and get the element (=default exp. time)
-			Double et = Double.valueOf( ( String )delut.elementAt( row , column ) ) ;
+			Double et = Double.valueOf( delut.elementAt( row , column ) ) ;
 			// Divide by mask width.
-			exptime = et.doubleValue() / sw ;
+			exptime = et / sw ;
 
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
@@ -471,10 +440,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	 */
 	public double getDefaultBiasExpTime()
 	{
-		if( DEFBIASEXPTIME == 0. )
-			return super.getDefaultBiasExpTime() ;
-
-		return DEFBIASEXPTIME ;
+		return DEFBIASEXPTIME != 0. ? DEFBIASEXPTIME : super.getDefaultBiasExpTime() ;
 	}
 
 	/**
@@ -482,10 +448,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	 */
 	public int getDefaultBiasCoadds()
 	{
-		if( DEFBIASCOADDS == 0 )
-			return super.getDefaultBiasCoadds() ;
-
-		return DEFBIASCOADDS ;
+		return DEFBIASCOADDS != 0 ? DEFBIASCOADDS : super.getDefaultBiasCoadds() ;
 	}
 
 	/**
@@ -521,8 +484,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( coadds ) ;
 		}
 		catch( Exception ex ){}
 
@@ -540,7 +502,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int coadds = 0 ;
 		try
 		{
-			float f = ( float )( 5. / et + .5 ) ;
+			float f = 5.f / et + .5f ;
 			coadds = Math.round( f ) ;
 		}
 		catch( Exception ex )
@@ -583,8 +545,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( expPCP ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( expPCP ) ;
 		}
 		catch( Exception ex ){}
 
@@ -624,8 +585,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( cycPO ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( cycPO ) ;
 		}
 		catch( Exception ex ){}
 
@@ -742,7 +702,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int di = getDisperserIndex() ;
 		try
 		{
-			return Integer.parseInt( ( String )DISPERSERS.elementAt( di , 1 ) ) ;
+			return Integer.parseInt( DISPERSERS.elementAt( di , 1 ) ) ;
 		}
 		catch( NumberFormatException e ){}
 		return 0 ;
@@ -773,8 +733,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		int o = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( order ) ;
-			o = tmp.intValue() ;
+			o = Integer.valueOf( order ) ;
 		}
 		catch( Exception ex ){}
 
@@ -808,9 +767,14 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 
 		try
 		{
-			LookUpTable dolut = ( LookUpTable )DISPERSERS.elementAt( di , 2 ) ;
+			LookUpTable dolut = null ;
+			if( di == DISPERSERS.indexInColumn( "ORDERS1" , 2 ) )
+				dolut = ORDERS1 ;
+			else if( di == DISPERSERS.indexInColumn( "ORDERS3" , 2 ) )
+				dolut = ORDERS3 ;
+
 			int pos = dolut.rangeInColumn( cwl , 0 ) ;
-			order = Integer.parseInt( ( String )dolut.elementAt( pos , 1 ) ) ;
+			order = Integer.parseInt( dolut.elementAt( pos , 1 ) ) ;
 		}
 		catch( Exception ex )
 		{
@@ -850,8 +814,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cwl ) ;
-			d = tmp.doubleValue() ;
+			d = Double.valueOf( cwl ) ;
 		}
 		catch( Exception ex ){}
 
@@ -901,7 +864,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			int di = getDisperserIndex() ;
 			String disp = getDisperser() ;
 			double cw = getCentralWavelength() ;
-			double coverage = ( Double.valueOf( ( String )DISPERSERS.elementAt( di , 9 ) ) ).doubleValue() ;
+			double coverage = Double.valueOf( DISPERSERS.elementAt( di , 9 ) ) ;
 			double wr ;
 
 			// Ordinary gratings.  Range fixed at each order.
@@ -984,8 +947,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cvfo ) ;
-			d = tmp.doubleValue() ;
+			d = Double.valueOf( cvfo ) ;
 		}
 		catch( Exception ex ){}
 
@@ -1019,7 +981,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		{
 			try
 			{
-				mask = ( String )MASKS.elementAt( 0 , 0 ) ;
+				mask = MASKS.elementAt( 0 , 0 ) ;
 			}
 			catch( Exception ex ){}
 		}
@@ -1058,12 +1020,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	/**
 	 * Get the mask menu for the current disperser.
 	 */
-	public Vector getMaskMenu()
+	public Vector<String> getMaskMenu()
 	{
 		String disp = getDisperser() ;
 
 		// The default menu of masks
-		Vector maskMenu = MASKS.getColumn( 0 ) ;
+		Vector<String> maskMenu = MASKS.getColumn( 0 ) ;
 
 		// The menu of masks for the echelle
 		if( disp.toLowerCase().startsWith( "echelle" ) )
@@ -1081,7 +1043,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		
 		try
 		{
-			returnable = new Double( ( String )MASKS.elementAt( getMaskIndex() , 1 ) ).doubleValue() ;
+			returnable = new Double( MASKS.elementAt( getMaskIndex() , 1 ) ) ;
 		}
 		catch( IndexOutOfBoundsException e ){}
 		catch( NumberFormatException e ){}
@@ -1138,7 +1100,11 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		try
 		{
 			// get the default filter lut
-			LookUpTable fillut = ( LookUpTable )DISPERSERS.elementAt( di , 4 ) ;
+			LookUpTable fillut = null ;
+			if( di == DISPERSERS.indexInColumn( "FILTERS40" , 4 ) )
+				fillut = FILTERS40 ;
+			else if( di == DISPERSERS.indexInColumn( "FILTERSECH" , 4 ) )
+				fillut = FILTERSECH ;
 
 			// determine the row from the cwl
 			int row = fillut.rangeInColumn( cwl , 0 ) ;
@@ -1154,7 +1120,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			catch( NoSuchElementException e ){}
 
 			// and get the element (=default filter), catching any failures from above
-			filter = ( String )fillut.elementAt( row , column ) ;
+			filter = fillut.elementAt( row , column ) ;
 		}
 		catch( Exception ex )
 		{
@@ -1209,12 +1175,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 
 		// Per disperser values of inst. aper zero points are in
 		// columns 7 and 8 of the dispersers lut.
-		double x0 = ( Double.valueOf( ( String )DISPERSERS.elementAt( di , 7 ) ) ).doubleValue() ;
-		double y0 = ( Double.valueOf( ( String )DISPERSERS.elementAt( di , 8 ) ) ).doubleValue() ;
-
-		// Spectral scale is in column 5 of the dispersers lut, and spatial in
-		// column 6.
-		double spatialScale = ( Double.valueOf( ( String )DISPERSERS.elementAt( di , 5 ) ) ).doubleValue() ;
+		double x0 = Double.valueOf( DISPERSERS.elementAt( di , 7 ) ) ;
+		double y0 = Double.valueOf( DISPERSERS.elementAt( di , 8 ) ) ;
 
 		// Might be a small dependence on slit too. Probably small...
 		// Ignored for now.
@@ -1223,7 +1185,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		// inst. aper for a 0 degree slit. ? Probably also a small term.
 
 		double paRad = Angle.degreesToRadians( pa ) ;
-		// The  following section of code is repleaced by what follows
+		// The  following section of code is replaced by what follows
 
 		double offsetRad = Angle.degreesToRadians( ANGLE_OFFSET ) ;
 		double x = x0 + ROTATION_SCALE * ( Angle.sinRadians( offsetRad ) - Angle.sinRadians( offsetRad - paRad ) ) ;
@@ -1288,8 +1250,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr ) ;
-			posAngle = pa.doubleValue() ;
+			posAngle = Double.valueOf( posAngleStr ) ;
 		}
 		catch( NumberFormatException e )
 		{
@@ -1328,7 +1289,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			{
 				// Convert offset to wavelength
 				name = ATTR_CVFWAVELENGTH ;
-				Double newValue = new Double( getCentralWavelength() + ( Double.valueOf( value ) ).doubleValue() ) ;
+				Double newValue = new Double( getCentralWavelength() + Double.valueOf( value ) ) ;
 				value = newValue.toString() ;
 			}
 		}
@@ -1462,8 +1423,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			if( ( currentIterStepItem != null ) && ( ( currentIterStepItem instanceof SpIterBiasObs ) || ( currentIterStepItem instanceof SpIterDarkObs ) || ( currentIterStepItem instanceof SpIterCGS4CalObs ) || ( currentIterStepItem instanceof SpIterConfigObs ) ) )
 				extra_oh = 30. ;
 
-			int sampling_x = Integer.valueOf( getSampling().substring( 0 , 1 ) ).intValue() ;
-			int sampling_y = Integer.valueOf( getSampling().substring( 2 , 3 ) ).intValue() ;
+			int sampling_x = Integer.valueOf( getSampling().substring( 0 , 1 ) ) ;
+			int sampling_y = Integer.valueOf( getSampling().substring( 2 , 3 ) ) ;
 
 			return ( sampling_x * sampling_y * currentNoCoadds * ( currentExposureTime + getExposureOverhead() ) ) + _int_oh + _obs_oh + extra_oh ;
 		}

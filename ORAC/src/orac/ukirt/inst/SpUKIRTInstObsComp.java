@@ -359,7 +359,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 					{
 						if( attribute.equals( ATTR_EXPOSURE_TIME ) )
 						{
-							currentExposureTime = Double.valueOf( value ).doubleValue() ;
+							currentExposureTime = Double.valueOf( value ) ;
 							if( currentIterStepItem instanceof SpIterConfigBase )
 								exposureTimeOverride = true ;
 							
@@ -369,7 +369,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 
 					if( attribute.equals( ATTR_COADDS ) )
 					{
-						currentNoCoadds = Integer.valueOf( value ).intValue() ;
+						currentNoCoadds = Integer.valueOf( value ) ;
 						if( currentIterStepItem instanceof SpIterConfigBase )
 							coaddsOverride = true ;
 						

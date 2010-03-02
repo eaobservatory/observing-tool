@@ -78,7 +78,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		attr = ATTR_READAREA ;
-		value = ( String )READAREAS.elementAt( 0 , 0 ) ;
+		value = READAREAS.elementAt( 0 , 0 ) ;
 		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		attr = ATTR_FILTER ;
@@ -93,7 +93,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		_avTable.noNotifySet( attr , value , 0 ) ;
 
 		attr = ATTR_POLARISER ;
-		value = ( String )POLARISERS.elementAt( 0 , 0 ) ;
+		value = POLARISERS.elementAt( 0 , 0 ) ;
 		_avTable.noNotifySet( attr , value , 0 ) ;
 	}
 
@@ -158,8 +158,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 					String dbet = instInfo.getValue() ;
 					try
 					{
-						Double tmp = Double.valueOf( dbet ) ;
-						DEFBIASEXPTIME = tmp.doubleValue() ;
+						DEFBIASEXPTIME = Double.valueOf( dbet ) ;
 					}
 					catch( Exception ex ){}
 				}
@@ -185,8 +184,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 					String ps = instInfo.getValue() ;
 					try
 					{
-						Double tmp = Double.valueOf( ps ) ;
-						PLATESCALE = tmp.doubleValue() ;
+						PLATESCALE = Double.valueOf( ps ) ;
 					}
 					catch( Exception ex ){}
 				}
@@ -293,8 +291,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		// Get the element (= default exposure time).
 		try
 		{
-			Double et = Double.valueOf( ( String )delut.elementAt( row , column ) ) ;
-			exptime = et.doubleValue() ;
+			exptime = Double.valueOf( delut.elementAt( row , column ) ) ;
 		}
 		catch( Exception ex )
 		{
@@ -357,8 +354,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		int c = 0 ;
 		try
 		{
-			Integer tmp = Integer.valueOf( coadds ) ;
-			c = tmp.intValue() ;
+			c = Integer.valueOf( coadds ) ;
 		}
 		catch( Exception ex ){}
 		setNoCoadds( c ) ;
@@ -464,7 +460,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 	{
 		String readoutArea = _avTable.get( ATTR_READAREA ) ;
 		if( readoutArea == null )
-			readoutArea = ( String )READAREAS.elementAt( 0 , 0 ) ;
+			readoutArea = READAREAS.elementAt( 0 , 0 ) ;
 
 		return readoutArea ;
 	}
@@ -545,7 +541,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 			row = delut.indexInColumn( filt , 0 ) ;
 
 			// The mode column is the second one.
-			mode = ( String )delut.elementAt( row , 1 ) ;
+			mode = delut.elementAt( row , 1 ) ;
 		}
 		catch( ArrayIndexOutOfBoundsException ex )
 		{
@@ -586,7 +582,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 	{
 		String pol = _avTable.get( ATTR_POLARISER ) ;
 		if( pol == null )
-			pol = ( String )POLARISERS.elementAt( 0 , 0 ) ;
+			pol = POLARISERS.elementAt( 0 , 0 ) ;
 
 		return pol ;
 	}
@@ -655,8 +651,7 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		double posAngle = 0. ;
 		try
 		{
-			Double pa = Double.valueOf( posAngleStr ) ;
-			posAngle = pa.doubleValue() ;
+			posAngle = Double.valueOf( posAngleStr ) ;
 		}
 		catch( NumberFormatException e )
 		{
@@ -680,14 +675,14 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 		int poli = getPolariserIndex() ;
 
 		// Read the X,Y instrument apertures from the readout-area lookup table.
-		double x = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 1 ) ) ).doubleValue() ;
-		double y = ( Double.valueOf( ( String )READAREAS.elementAt( roai , 2 ) ) ).doubleValue() ;
+		double x = Double.valueOf( READAREAS.elementAt( roai , 1 ) ) ;
+		double y = Double.valueOf( READAREAS.elementAt( roai , 2 ) ) ;
 
 		// Polariser overrides readout area.  (Is there a check that prevents sub-arrays being used with the polariser?)
 		if( polariser.equalsIgnoreCase( "prism" ) )
 		{
-			x = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 1 ) ) ).doubleValue() ;
-			y = ( Double.valueOf( ( String )POLARISERS.elementAt( poli , 2 ) ) ).doubleValue() ;
+			x = Double.valueOf( POLARISERS.elementAt( poli , 1 ) ) ;
+			y = Double.valueOf( POLARISERS.elementAt( poli , 2 ) ) ;
 		}
 
 		// Store the revised instrument apertures.

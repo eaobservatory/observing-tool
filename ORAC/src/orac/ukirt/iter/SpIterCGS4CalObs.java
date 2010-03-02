@@ -255,17 +255,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )FLATLAMPS1.elementAt( pos , 2 ) ;
+						etstr = FLATLAMPS1.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )FLATLAMPS2.elementAt( pos , 2 ) ;
+						etstr = FLATLAMPS2.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )FLATLAMPS3.elementAt( pos , 2 ) ;
+						etstr = FLATLAMPS3.elementAt( pos , 2 ) ;
 					}
 				}
 				catch( Exception ex )
@@ -291,17 +291,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )ARCLAMPS1.elementAt( pos , 2 ) ;
+						etstr = ARCLAMPS1.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )ARCLAMPS2.elementAt( pos , 2 ) ;
+						etstr = ARCLAMPS2.elementAt( pos , 2 ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						etstr = ( String )ARCLAMPS3.elementAt( pos , 2 ) ;
+						etstr = ARCLAMPS3.elementAt( pos , 2 ) ;
 					}
 				}
 				catch( Exception ex )
@@ -317,8 +317,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		// Convert to double and divide by slit width
 		try
 		{
-			Double tmp = Double.valueOf( etstr ) ;
-			et = tmp.doubleValue() / sw ;
+			et = Double.valueOf( etstr ) / sw ;
 		}
 		catch( Exception ex ){}
 
@@ -359,17 +358,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )FLATLAMPS1.elementAt( pos , 1 ) ;
+						lamp = FLATLAMPS1.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )FLATLAMPS2.elementAt( pos , 1 ) ;
+						lamp = FLATLAMPS2.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )FLATLAMPS3.elementAt( pos , 1 ) ;
+						lamp = FLATLAMPS3.elementAt( pos , 1 ) ;
 					}
 				}
 				catch( Exception ex )
@@ -394,17 +393,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )ARCLAMPS1.elementAt( pos , 1 ) ;
+						lamp = ARCLAMPS1.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )ARCLAMPS2.elementAt( pos , 1 ) ;
+						lamp = ARCLAMPS2.elementAt( pos , 1 ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						lamp = ( String )ARCLAMPS3.elementAt( pos , 1 ) ;
+						lamp = ARCLAMPS3.elementAt( pos , 1 ) ;
 					}
 				}
 				catch( Exception ex )
@@ -468,7 +467,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 	public double getCvfWavelength()
 	{
 		double cwl = _avTable.getDouble( SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH , 0. ) ;
-		if( cwl < 0.5 )
+		if( cwl < .5 )
 		{
 			cwl = getDefaultCvfWavelength() ;
 			setCvfWavelength( cwl ) ;
@@ -503,8 +502,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		double d = 0. ;
 		try
 		{
-			Double tmp = Double.valueOf( cwl ) ;
-			d = tmp.doubleValue() ;
+			d = Double.valueOf( cwl ) ;
 		}
 		catch( Exception ex ){}
 
@@ -586,15 +584,15 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					{
 						case 0 :
 							pos = ARCFILTS1.rangeInColumn( instcwl , 0 ) ;
-							filter = ( String )ARCFILTS1.elementAt( pos , 1 ) ;
+							filter = ARCFILTS1.elementAt( pos , 1 ) ;
 							break ;
 						case 1 :
 							pos = ARCFILTS2.rangeInColumn( instcwl , 0 ) ;
-							filter = ( String )ARCFILTS2.elementAt( pos , 1 ) ;
+							filter = ARCFILTS2.elementAt( pos , 1 ) ;
 							break ;
 						case 2 :
 							pos = ARCFILTS3.rangeInColumn( instcwl , 0 ) ;
-							filter = ( String )ARCFILTS3.elementAt( pos , 1 ) ;
+							filter = ARCFILTS3.elementAt( pos , 1 ) ;
 							break ;
 						default :
 							break ;
@@ -677,7 +675,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		}
 		else
 		{
-			nd = Boolean.valueOf( ndstr ).booleanValue() ;
+			nd = Boolean.valueOf( ndstr ) ;
 		}
 		return nd ;
 	}
@@ -701,17 +699,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = FLATLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS1.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( FLATLAMPS1.elementAt( pos , 3 ) ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = FLATLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS2.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( FLATLAMPS2.elementAt( pos , 3 ) ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = FLATLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )FLATLAMPS3.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( FLATLAMPS3.elementAt( pos , 3 ) ) ;
 					}
 				}
 				catch( Exception ex )
@@ -736,17 +734,17 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 					if( instdi == 0 )
 					{
 						int pos = ARCLAMPS1.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS1.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( ARCLAMPS1.elementAt( pos , 3 ) ) ;
 					}
 					else if( instdi == 1 )
 					{
 						int pos = ARCLAMPS2.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS2.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( ARCLAMPS2.elementAt( pos , 3 ) ) ;
 					}
 					else if( instdi == 2 )
 					{
 						int pos = ARCLAMPS3.rangeInColumn( instcwl , 0 ) ;
-						ndFilter = Boolean.valueOf( ( String )ARCLAMPS3.elementAt( pos , 3 ) ).booleanValue() ;
+						ndFilter = Boolean.valueOf( ARCLAMPS3.elementAt( pos , 3 ) ) ;
 					}
 				}
 				catch( Exception ex )
