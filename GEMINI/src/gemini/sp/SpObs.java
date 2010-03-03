@@ -782,9 +782,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		String lastGRPMEM = "" ;
 		String lastDRRECIPE = "" ;
 
-		int found = 0 ;
-		int removed = 0 ;
-
 		for( int i = 1 ; i < v.size() ; i++ )
 		{
 			if( v.get( i ).startsWith( "setHeader GRPMEM " ) )
@@ -797,21 +794,14 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 					v.remove( i + 1 ) ;
 					v.remove( i ) ;
 					i-- ;
-					removed++ ;
 				}
 				else
 				{
 					lastGRPMEM = nextGrpMem ;
 					lastDRRECIPE = nextRecipe ;
-					found++ ;
 				}
 			}
 		}
-
-		if( found == 0 )
-			logger.error( "No recipes found." ) ;
-		else if( removed >= found )
-			logger.info( "Removed " + removed + " of " + found + " recipes." ) ;
 	}
 	
 	/**
