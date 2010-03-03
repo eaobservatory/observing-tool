@@ -37,7 +37,6 @@ import java.awt.Container ;
  */
 public class SideBandDisplay extends JFrame implements ChangeListener , MouseListener
 {
-
 	private double subBandWidth ;
 	private int displayWidth = EdFreq.DISPLAY_WIDTH ;
 	private JSlider slider ;
@@ -105,9 +104,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 		this.subBandWidth = bandWidths[ 0 ] ;
 
-		double mid = 0.5 * ( lRangeLimit + uRangeLimit ) ;
-		double lowIF = mid - feIF - ( feBandWidth * 0.5 ) ;
-		double highIF = mid + feIF + ( feBandWidth * 0.5 ) ;
+		double mid = .5 * ( lRangeLimit + uRangeLimit ) ;
+		double lowIF = mid - feIF - ( feBandWidth * .5 ) ;
+		double highIF = mid + feIF + ( feBandWidth * .5 ) ;
 
 		el = new EmissionLines( lowIF , highIF , redshift , displayWidth , 20 , samplerCount ) ;
 
@@ -122,8 +121,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		}
 		catch( Exception e ){}
 
-		targetScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , redshift , 9 , displayWidth , JSlider.HORIZONTAL ) ;
-		localScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , 0.0 , 9 , displayWidth , JSlider.HORIZONTAL ) ;
+		targetScale = new GraphScale( lowIF , highIF , 1.E9 , .1E9 , redshift , 9 , displayWidth , JSlider.HORIZONTAL ) ;
+		localScale = new GraphScale( lowIF , highIF , 1.E9 , .1E9 , 0. , 9 , displayWidth , JSlider.HORIZONTAL ) ;
 
 		/* Create slider for Front-end local oscillator */
 
@@ -131,16 +130,16 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		int lslide = ( int )Math.rint( lRangeLimit / EdFreq.SLIDERSCALE ) ;
 		int uslide = ( int )Math.rint( uRangeLimit / EdFreq.SLIDERSCALE ) ;
 		slider = new JSlider( JSlider.HORIZONTAL , lslide , uslide , centre ) ;
-		slider.setMinorTickSpacing( ( int )Math.rint( 1.0E9 / EdFreq.SLIDERSCALE ) ) ;
-		slider.setMajorTickSpacing( ( int )Math.rint( 10.0E9 / EdFreq.SLIDERSCALE ) ) ;
+		slider.setMinorTickSpacing( ( int )Math.rint( 1.E9 / EdFreq.SLIDERSCALE ) ) ;
+		slider.setMajorTickSpacing( ( int )Math.rint( 10.E9 / EdFreq.SLIDERSCALE ) ) ;
 		slider.setPaintTicks( true ) ;
 		slider.setPaintLabels( true ) ;
 
 		/* Create labels for slider at 10GHz intervals */
 
 		Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>() ;
-		for( j = lslide ; j <= uslide ; j += ( int )Math.rint( 10.0E9 / EdFreq.SLIDERSCALE ) )
-			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int )Math.rint( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) ) ;
+		for( j = lslide ; j <= uslide ; j += ( int )Math.rint( 10.E9 / EdFreq.SLIDERSCALE ) )
+			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int )Math.rint( 1.E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) ) ;
 
 		slider.setLabelTable( labels ) ;
 
@@ -209,11 +208,12 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 		if( st != null )
 		{
-			GraphScale gs = new GraphScale( 0.0 , 1.1 , 0.5 , 0.1 , 0.0 , 0 , ( st.getPreferredSize() ).height , JSlider.VERTICAL ) ;
+			int preferredHeight = st.getPreferredSize().height ;
+			GraphScale gs = new GraphScale( 0. , 1.1 , .5 , .1 , 0. , 0 , preferredHeight , JSlider.VERTICAL ) ;
 			area3.add( gs , BorderLayout.EAST ) ;
 
-			area3.setPreferredSize( new Dimension( 100 , ( st.getPreferredSize() ).height ) ) ;
-			area3.setSize( new Dimension( 100 , ( st.getPreferredSize() ).height ) ) ;
+			area3.setPreferredSize( new Dimension( 100 , preferredHeight ) ) ;
+			area3.setSize( new Dimension( 100 , preferredHeight ) ) ;
 			titlePanel.add( area3 ) ;
 		}
 
@@ -221,8 +221,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		JLabel label5 = new JLabel( "LO1" , SwingConstants.CENTER ) ;
 		area4.add( label4 , BorderLayout.NORTH ) ;
 		area4.add( label5 , BorderLayout.CENTER ) ;
-		area4.setPreferredSize( new Dimension( 100 , ( scales.getPreferredSize() ).height ) ) ;
-		area4.setSize( new Dimension( 100 , ( scales.getPreferredSize() ).height ) ) ;
+		area4.setPreferredSize( new Dimension( 100 , scales.getPreferredSize().height ) ) ;
+		area4.setSize( new Dimension( 100 , scales.getPreferredSize().height ) ) ;
 		titlePanel.add( area4 ) ;
 
 		contentPanel.add( titlePanel ) ;
@@ -256,7 +256,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 	public double getLO1()
 	{
-		return _lo1 ; // (double)slider.getValue ( ) * EdFreq.SLIDERSCALE ;
+		return _lo1 ;
 	}
 
 	public void setMainLine( double frequency )
@@ -308,38 +308,33 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 	public void setCentreFrequency( double centre , int subsystem )
 	{
-		if( jt == null )
-			return ;
-		jt.getSamplers()[ subsystem ].setCentreFrequency( centre ) ;
+		if( jt != null )
+			jt.getSamplers()[ subsystem ].setCentreFrequency( centre ) ;
 	}
 
 	public void setBandWidth( double width , int subsystem )
 	{
-		if( jt == null )
-			return ;
-		jt.getSamplers()[ subsystem ].setBandWidth( width ) ;
+		if( jt != null )
+			jt.getSamplers()[ subsystem ].setBandWidth( width ) ;
 	}
 
 	public void setLineText( String lineText , int subsystem )
 	{
-		if( jt == null )
-			return ;
-		jt.setLineText( lineText , subsystem ) ;
+		if( jt != null )
+			jt.setLineText( lineText , subsystem ) ;
 	}
 
 	public void resetModeAndBand( String mode , String band )
 	{
-		if( jt == null )
-			return ;
-		jt.resetModeAndBand( mode , band ) ;
+		if( jt != null )
+			jt.resetModeAndBand( mode , band ) ;
 	}
 
 	public void moveSlider( String band , double newPos , int subsystem )
 	{
-		double deltaF = 4.0e9 - newPos ;
-		if( jt == null )
-			return ;
-		jt.moveSlider( band , deltaF , subsystem ) ;
+		double deltaF = 4.e9 - newPos ;
+		if( jt != null )
+			jt.moveSlider( band , deltaF , subsystem ) ;
 	}
 
 	/**
@@ -353,18 +348,18 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	public Vector<Object>[] getCurrentConfiguration()
 	{
 		// Create the array
-		Vector[] results = new Vector[ jt.getSamplers().length ] ;
+		Vector<Object>[] results = new Vector[ jt.getSamplers().length ] ;
 		LineDetails details ;
 		String text ;
 		for( int i = 0 ; i < results.length ; i++ )
 		{
-			results[ i ] = new Vector() ;
+			results[ i ] = new Vector<Object>() ;
 			try
 			{
 				details = jt.getLineDetails( i ) ;
 				results[ i ].add( details.name ) ;
 				results[ i ].add( details.transition ) ;
-				results[ i ].add( new Double( details.frequency * 1.0E6 ) ) ;
+				results[ i ].add( new Double( details.frequency * 1.E6 ) ) ;
 			}
 			catch( Exception e )
 			{
@@ -382,7 +377,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 						String frequency = text.substring( text.lastIndexOf( ' ' ) ) ;
 						double rf ;
 						if( frequency.matches( "\\d*.??\\d*" ) )
-							rf = Double.parseDouble( frequency ) * 1.0E6 ;
+							rf = Double.parseDouble( frequency ) * 1.E6 ;
 						else
 							rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() ) ;
 						results[ i ].add( new Double( rf ) ) ;
@@ -433,17 +428,17 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 			public double getRedshift()
 			{
-				return 0.0 ;
+				return 0. ;
 			}
 
 			public double getRestFrequency( int subsystem )
 			{
-				return 0.0 ;
+				return 0. ;
 			}
 
 			public double getObsFrequency( int subsystem )
 			{
-				return 0.0 ;
+				return 0. ;
 			}
 
 			public void updateCentreFrequency( double centre , int subsystem ){}
@@ -458,11 +453,11 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 			public double getCurrentBandwidth( int subsystem )
 			{
-				return 0.0 ;
+				return 0. ;
 			}
 		} ) ;
 
-		sbt.updateDisplay( "Frequency editor test" , 365.0E+9 , 375.0E+9 , 4.0E9 , 1.8E9 , 1 , 0.0 , new double[] { 0.25E9 , 1.0E9 } , new int[] { 8192 , 2048 } , 8 ) ;
+		sbt.updateDisplay( "Frequency editor test" , 365.E+9 , 375.E+9 , 4.E9 , 1.8E9 , 1 , 0. , new double[] { .25E9 , 1.E9 } , new int[] { 8192 , 2048 } , 8 ) ;
 		sbt.setVisible( true ) ;
 	}
 
