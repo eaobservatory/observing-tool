@@ -143,7 +143,7 @@ public class OT extends JFrame
 
 		// fill the whole screen
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
-		int w = ( int )( screen.width - 10 ) , h = ( int )( screen.height - 150 ) ;
+		int w = screen.width - 10 , h = screen.height - 150 ;
 		desktop.setPreferredSize( new Dimension( w , h ) ) ;
 
 		setContentPane( desktop ) ;
