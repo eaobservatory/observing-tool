@@ -365,7 +365,7 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 		//
 
 		// Each element in the array is the name of an attribute being iterated over.
-		List l = icb.getConfigAttribs() ;
+		List<String> l = icb.getConfigAttribs() ;
 
 		if( ( l == null ) || ( l.size() == 0 ) )
 		{

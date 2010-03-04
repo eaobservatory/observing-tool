@@ -273,15 +273,6 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 
 	/**
 	 */
-	private void _insertPos( SpTelescopePos tp , int rowIndex )
-	{
-		Vector<String> v = _createPosRow( tp ) ;
-		absInsertRowAt( v , rowIndex ) ;
-		_posTable.put( tp.getTag() , tp ) ;
-	}
-
-	/**
-	 */
 	private void _insertAllPos( TelescopePos[] tpA )
 	{
 		Vector[] dataV = new Vector[ tpA.length ] ;
@@ -314,35 +305,6 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 
 		if( _coordSysInTable )
 			setCell( v.elementAt( 4 ) , 4 , index ) ;
-	}
-
-	/**
-	 */
-	private void _removePos( String tag )
-	{
-		SpTelescopePos tp = ( SpTelescopePos )_posTable.get( tag ) ;
-		if( tp != null )
-		{
-			_posTable.remove( tag ) ;
-	
-			for( int i = 0 ; i < getRowCount() ; ++i )
-			{
-				String curTag = ( String )getCell( 0 , i ) ;
-				if( tag.equals( curTag ) )
-				{
-					removeRowAt( i ) ;
-					break ;
-				}
-			}
-		}
-	}
-
-	/**
-	 */
-	private void _removeAllPos()
-	{
-		_posTable.clear() ;
-		removeAllRows() ;
 	}
 
 	/**

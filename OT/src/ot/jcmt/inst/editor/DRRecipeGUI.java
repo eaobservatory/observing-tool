@@ -189,7 +189,7 @@ public class DRRecipeGUI extends JPanel
 			Field field =  whatami.getDeclaredField( type ) ;
 			if( field != null )
 			{
-				Class klass = field.getType() ;
+				Class<?> klass = field.getType() ;
 				if( klass == Object[].class )
 					typeFields = ( Object[] )field.get( this ) ;
 				

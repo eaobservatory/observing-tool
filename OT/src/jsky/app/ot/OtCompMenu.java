@@ -35,10 +35,10 @@ class OtCompMenu extends JMenu
 		addSeparator() ;
 
 		// Sort the instrument types
-		Vector spTypeV = OtCfg.instrumentTypes ;
+		Vector<SpType> spTypeV = OtCfg.instrumentTypes ;
 		OtSortableSpType[] sst = new OtSortableSpType[ spTypeV.size() ] ;
 		for( int i = 0 ; i < sst.length ; ++i )
-			sst[ i ] = new OtSortableSpType( ( SpType )spTypeV.elementAt( i ) ) ;
+			sst[ i ] = new OtSortableSpType( spTypeV.elementAt( i ) ) ;
 
 		QuickSort.sort( sst , 0 , sst.length , null ) ;
 

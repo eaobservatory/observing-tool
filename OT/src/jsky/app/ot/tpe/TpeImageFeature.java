@@ -52,7 +52,7 @@ public abstract class TpeImageFeature
 		TpeImageFeature tif = null ;
 		try
 		{
-			Class c = Class.forName( className ) ;
+			Class<?> c = Class.forName( className ) ;
 			tif = ( TpeImageFeature )c.newInstance() ;
 		}
 		catch( Exception ex )

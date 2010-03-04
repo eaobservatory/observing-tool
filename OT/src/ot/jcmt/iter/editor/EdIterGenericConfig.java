@@ -6,6 +6,7 @@
 //
 package ot.jcmt.iter.editor ;
 
+import gemini.sp.iter.IterConfigItem;
 import gemini.util.ObservingToolUtilities;
 
 import java.util.Hashtable ;
@@ -79,7 +80,7 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig 
 
 		_valueEditor = _listBoxVE ;
 
-		_iterItems = new Hashtable() ;
+		_iterItems = new Hashtable<String,IterConfigItem>() ;
 
 		gui.continuousSpinCheckBox.addActionListener( this ) ;
 	}

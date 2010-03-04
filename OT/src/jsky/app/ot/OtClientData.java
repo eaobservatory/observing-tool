@@ -97,7 +97,7 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 		{
 			try
 			{
-				Class c = Class.forName( tpeImageFeatureClass ) ;
+				Class<?> c = Class.forName( tpeImageFeatureClass ) ;
 				_feature = ( TpeImageFeature )c.newInstance() ;
 			}
 			catch( Exception ex )

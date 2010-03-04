@@ -44,7 +44,7 @@ public final class OtItemEditorFactory
 		{
 			try
 			{
-				Class c = Class.forName( editorClassName ) ;
+				Class<?> c = Class.forName( editorClassName ) ;
 				ed = ( OtItemEditor )c.newInstance() ;
 				ht.put( spItem.getRootItem() , ed ) ;
 			}

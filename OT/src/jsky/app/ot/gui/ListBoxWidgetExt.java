@@ -198,7 +198,7 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	}
 
 	/** Set the contents of the list */
-	public void setChoices( Vector v )
+	public void setChoices( Vector<String> v )
 	{
 		DefaultListModel model = new DefaultListModel() ;
 		int n = v.size() ;

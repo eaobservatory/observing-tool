@@ -162,7 +162,7 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 	}
 
 	/** Set the choices by specifying a Vector containing the strings that represent the choices. */
-	public void setChoices( Vector choices )
+	public void setChoices( Vector<String> choices )
 	{
 		actionsEnabled = false ;
 		removeAllItems() ;

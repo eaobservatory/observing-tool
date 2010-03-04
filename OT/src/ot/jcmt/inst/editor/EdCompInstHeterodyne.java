@@ -706,7 +706,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						_inst.setTransition( speciesTransition , index ) ;
 						_updateTransitionChoice() ;
 
-						Vector moleculeVector = getSpecies() ;
+						Vector<SelectionList> moleculeVector = getSpecies() ;
 
 						Transition transition = null ;
 
@@ -856,7 +856,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				checkSideband() ;
 				configureFrequencyEditor() ;
 				enableNamedWidgets( false ) ;
-				_frequencyEditor.show() ;
+				_frequencyEditor.setVisible( true ) ;
 			}
 			else if( name.equals( "hide" ) )
 			{
@@ -864,7 +864,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				getFrequencyEditorConfiguration() ;
 				enableNamedWidgets( true ) ;
 				_updateRegionInfo() ;
-				_frequencyEditor.hide() ;
+				_frequencyEditor.setVisible( false ) ;
 				_hidingFrequencyEditor = false ;
 				_updateTable() ;
 			}
@@ -1322,7 +1322,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		 * First get all the available species
 		 * Get the new model
 		 */
-		Vector speciesList = getSpecies() ;
+		Vector<SelectionList> speciesList = getSpecies() ;
 
 		// Loop through this list to get the element corresponding to the current molecule
 		SelectionList currentSpecies = null ;
@@ -1399,11 +1399,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		transBox.addActionListener( this ) ;
 	} // End of method
 
-	private Vector getSpecies()
+	private Vector<SelectionList> getSpecies()
 	{
 		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 ) ;
 		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 ) ;
-		Vector molecules = _lineCatalog.returnSpecies( obsmin * ( 1. + getRedshift() ) , obsmax * ( 1. + getRedshift() ) ) ;
+		Vector<SelectionList> molecules = _lineCatalog.returnSpecies( obsmin * ( 1. + getRedshift() ) , obsmax * ( 1. + getRedshift() ) ) ;
 		return molecules ;
 	}
 
@@ -1665,10 +1665,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void setAvailableRegions()
 	{
-		Vector bandspecs = _receiver.bandspecs ;
+		Vector<BandSpec> bandspecs = _receiver.bandspecs ;
 		Vector<String> available = new Vector<String>() ;
 		for( int i = 0 ; i < bandspecs.size() ; i++ )
-			available.add( ( ( BandSpec )bandspecs.get( i ) ).toString() ) ;
+			available.add( bandspecs.get( i ).toString() ) ;
 		/*
 		 * Special handling for RxA only. If we are using one of the hybrid modes
 		 * only 2 regions are allowed
@@ -1680,9 +1680,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			BandSpec currentBandSpec = null ;
 			for( int i = 0 ; i < bandspecs.size() ; i++ )
 			{
-				if( ( ( BandSpec )bandspecs.get( i ) ).toString().equals( current ) )
+				if( bandspecs.get( i ).toString().equals( current ) )
 				{
-					currentBandSpec = ( BandSpec )bandspecs.get( i ) ;
+					currentBandSpec = bandspecs.get( i ) ;
 					if( _w.firstBandwidth.getSelectedIndex() > -1 )
 					{
 						int nHybrids = currentBandSpec.getNumHybridSubBands( _w.firstBandwidth.getSelectedIndex() ) ;
@@ -1878,19 +1878,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		if( !initialisedRegion )
 			_initialiseRegionInfo() ;
 
-		Vector bandSpecs = _receiver.bandspecs ;
+		Vector<BandSpec> bandSpecs = _receiver.bandspecs ;
 		BandSpec currentBandSpec = null ;
 
 		String bandMode = _inst.getBandMode() ;
 		int active = new Integer( _inst.getBandMode() ) ;
 
-		currentBandSpec = ( BandSpec )bandSpecs.get( active - 1 ) ;
+		currentBandSpec = bandSpecs.get( active - 1 ) ;
 		if( !currentBandSpec.toString().equals( bandMode ) )
-			currentBandSpec = ( BandSpec )bandSpecs.get( 0 ) ;
+			currentBandSpec = bandSpecs.get( 0 ) ;
 
 		BandSpec otherBandSpec = null ;
 		if( active == 3 )
-			otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
+			otherBandSpec = bandSpecs.get( 3 ) ;
 
 		BandSpec activeBandSpec = null ;
 
@@ -1950,11 +1950,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private void configureFrequencyEditor( Vector<Double> shifts )
 	{
 		// First get the current bandspec from the mode selection
-		Vector bandSpecs = _receiver.bandspecs ;
-		BandSpec currentBandSpec = ( BandSpec )bandSpecs.get( 0 ) ;
+		Vector<BandSpec> bandSpecs = _receiver.bandspecs ;
+		BandSpec currentBandSpec = bandSpecs.get( 0 ) ;
 		for( int i = 0 ; i < bandSpecs.size() ; i++ )
 		{
-			BandSpec bandSpec = ( BandSpec )bandSpecs.get( i ) ;
+			BandSpec bandSpec = bandSpecs.get( i ) ;
 			if( bandSpec.toString().equals( _inst.getBandMode() ) )
 			{
 				currentBandSpec = bandSpec ;
@@ -1985,7 +1985,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_frequencyEditor.resetModeAndBand( _inst.getMode() , _inst.getBand() ) ;
 
 		// Need to deal with LO1...
-		double obsFreq = _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) ;
+		double obsFreq = _inst.getRestFrequency( 0 ) / ( 1. + getRedshift() ) ;
 
 		String band = _inst.getBand() ;
 		if( BEST.equals( band ) || USB.equals( band ) )
