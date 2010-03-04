@@ -49,13 +49,6 @@ SOURCES = \
 	ProgListWindowInternalFrame.java \
 	ProgListWindowFrame.java \
 	LastLogin.java \
-	ConfirmAccessInfoGUI.java \
-	ConfirmLoginWindow.java \
-	ConfirmLoginWindowDialog.java \
-	OdbAccessGUI.java \
-	OtODBAccessWindow.java \
-	OtODBAccessWindowFrame.java \
-	OtODBAccessWindowInternalFrame.java \
 	OtTreeDragSource.java \
 	OtTreeDropTarget.java \
 	OtDragDropObject.java \
