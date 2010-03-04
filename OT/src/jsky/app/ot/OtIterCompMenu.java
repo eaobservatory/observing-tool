@@ -38,10 +38,10 @@ class OtIterCompMenu extends JMenu
 		addSeparator() ;
 
 		// Sort the iterator types
-		Vector spTypeV = OtCfg.iteratorTypes ;
+		Vector<SpType> spTypeV = OtCfg.iteratorTypes ;
 		OtSortableSpType[] sst = new OtSortableSpType[ spTypeV.size() ] ;
 		for( int i = 0 ; i < sst.length ; ++i )
-			sst[ i ] = new OtSortableSpType( ( SpType )spTypeV.elementAt( i ) ) ;
+			sst[ i ] = new OtSortableSpType( spTypeV.elementAt( i ) ) ;
 
 		QuickSort.sort( sst , 0 , sst.length , null ) ;
 

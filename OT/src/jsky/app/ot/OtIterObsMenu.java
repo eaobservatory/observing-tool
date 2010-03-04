@@ -32,10 +32,10 @@ class OtIterObsMenu extends JMenu
 		super( "Create an Observation Iterator" ) ;
 
 		// Sort the iterator types
-		Vector spTypeV = OtCfg.obsIteratorTypes ;
+		Vector<SpType> spTypeV = OtCfg.obsIteratorTypes ;
 		OtSortableSpType[] sst = new OtSortableSpType[ spTypeV.size() ] ;
 		for( int i = 0 ; i < sst.length ; ++i )
-			sst[ i ] = new OtSortableSpType( ( SpType )spTypeV.elementAt( i ) ) ;
+			sst[ i ] = new OtSortableSpType( spTypeV.elementAt( i ) ) ;
 
 		QuickSort.sort( sst , 0 , sst.length , null ) ;
 

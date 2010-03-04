@@ -220,11 +220,11 @@ final class TpeFeatureManager
 	/**
 	 * Disable/enable the given features.
 	 */
-	public void setDisabled( Vector tifV , boolean disabled )
+	public void setDisabled( Vector<TpeImageFeature> tifV , boolean disabled )
 	{
 		for( int i = 0 ; i < tifV.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i ) ;
+			TpeImageFeature tif = tifV.elementAt( i ) ;
 			setDisabled( tif , disabled ) ;
 		}
 	}

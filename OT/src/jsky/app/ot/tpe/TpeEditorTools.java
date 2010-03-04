@@ -246,11 +246,11 @@ final class TpeEditorTools
 	 * Disable or enable the set of creational tools associated with the
 	 * given image features.
 	 */
-	public void setCreateToolsDisabled( Vector tifV , boolean disabled )
+	public void setCreateToolsDisabled( Vector<TpeImageFeature> tifV , boolean disabled )
 	{
 		for( int i = 0 ; i < tifV.size() ; ++i )
 		{
-			TpeImageFeature tif = ( TpeImageFeature )tifV.elementAt( i ) ;
+			TpeImageFeature tif = tifV.elementAt( i ) ;
 			setCreateToolsDisabled( tif , disabled ) ;
 		}
 	}

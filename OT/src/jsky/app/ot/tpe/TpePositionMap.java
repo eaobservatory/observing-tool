@@ -100,7 +100,7 @@ public class TpePositionMap extends FitsPosMap
 	 */
 	public FitsPosMapEntry locate( int x , int y )
 	{
-		Hashtable posTable = getPosTable() ;
+		Hashtable<String,FitsPosMapEntry> posTable = getPosTable() ;
 		if( posTable == null )
 			return null ;
 

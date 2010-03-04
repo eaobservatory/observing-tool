@@ -473,7 +473,7 @@ public final class OtCfg
 		SpType spType = null ;
 		try
 		{
-			Class c = Class.forName( className ) ;
+			Class<?> c = Class.forName( className ) ;
 			Field f = c.getField( "SP_TYPE" ) ;
 			spType = ( SpType )f.get( null ) ; // SP_TYPE must be a static field
 		}

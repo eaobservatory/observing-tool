@@ -20,7 +20,6 @@ import ot.gui.PasswordWidgetExt ;
 
 import java.awt.Component ;
 import java.awt.Frame ;
-import java.util.Vector ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import javax.swing.ButtonGroup ;
@@ -40,7 +39,6 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	public static final String LOGIN_PATH = "folderWidget.loginPage" ;
 	public static final String PROG_LIST_PATH = "folderWidget.progListPage" ;
 	private String _username ;
-	private Vector _progs ;
 	private ListBoxWidgetExt _progList ;
 
 	/**
@@ -257,8 +255,7 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	 */
 	public void updateWindow()
 	{
-		if( _progs == null )
-			gotoPage( LOGIN_PAGE ) ;
+		gotoPage( LOGIN_PAGE ) ;
 	}
 
 	/**

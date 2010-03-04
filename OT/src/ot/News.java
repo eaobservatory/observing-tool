@@ -63,7 +63,7 @@ public final class News extends JFrame
 				catch( Exception ex ){}
 			}
 		}
-		_news.show() ;
+		_news.setVisible( true ) ;
 		_news.toFront() ;
 		_news.setState( JFrame.NORMAL ) ;
 	}
@@ -71,7 +71,7 @@ public final class News extends JFrame
 	public synchronized static void hideNews()
 	{
 		if( _news != null )
-			_news.hide() ;
+			_news.setVisible( false ) ;
 	}
 
 	private News()

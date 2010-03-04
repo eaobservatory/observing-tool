@@ -538,7 +538,7 @@ public final class EdCompInstMichelle extends EdCompInstBase
 	//
 	private void _updateSamplingChoices()
 	{
-		_w.spectroscopy_sampling.setChoices( _instMichelle.SAMPLINGS ) ;
+		_w.spectroscopy_sampling.setChoices( SpInstMichelle.SAMPLINGS ) ;
 		_w.spectroscopy_sampling.setValue( _instMichelle.getPixelSampling() ) ;
 	}
 

@@ -39,10 +39,10 @@ public class RowManipulateTableWidget extends JTable
 	 * Insert a new row into the table at a given index, not just adding to
 	 * the end and changing display indices.
 	 */
-	public void absInsertRowAt( Vector row , int index )
+	public void absInsertRowAt( Vector<String> row , int index )
 	{
 		if( row == null )
-			row = new Vector( getModel().getColumnCount() ) ;
+			row = new Vector<String>( getModel().getColumnCount() ) ;
 
 		getModel().insertRow( index , row ) ;
 	}
@@ -60,7 +60,7 @@ public class RowManipulateTableWidget extends JTable
 	}
 
 	/* Set the column headers */
-	public void setColumnHeaders( Vector names )
+	public void setColumnHeaders( Vector<String> names )
 	{
 		getModel().setColumnIdentifiers( names ) ;
 	}
@@ -147,7 +147,7 @@ public class RowManipulateTableWidget extends JTable
 	/**
 	 * Debugging method that prints a "table row".
 	 */
-	protected void _printTableRow( int index , Vector v )
+	protected void _printTableRow( int index , Vector<String> v )
 	{
 		System.out.print( index + ") " ) ;
 		for( int i = 0 ; i < v.size() ; ++i )

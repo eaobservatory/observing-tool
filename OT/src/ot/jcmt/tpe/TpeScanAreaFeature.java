@@ -170,7 +170,7 @@ public class TpeScanAreaFeature extends TpeImageFeature implements TpeDraggableF
 		SpIterRasterObs iterRaster = null ;
 		SpItem item = _iw.getBaseItem() ;
 		
-		Vector rasters = SpTreeMan.findAllItems( item , SpIterRasterObs.class.getName() ) ;
+		Vector<SpItem> rasters = SpTreeMan.findAllItems( item , SpIterRasterObs.class.getName() ) ;
 		
 		if( rasters.size() == 1 )
 			iterRaster = ( SpIterRasterObs )rasters.elementAt( 0 ) ;

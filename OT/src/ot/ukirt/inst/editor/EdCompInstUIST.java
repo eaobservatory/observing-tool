@@ -272,7 +272,7 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 
 				String[] maskList = _instUIST.getMaskList() ;
 				String currentMask = _instUIST.getMask() ;
-				TreeSet comparator ;
+				TreeSet<String> comparator ;
 				if( val.equals( "IJ" ) || val.equals( "JH" ) )
 					comparator = _instUIST.NON_IJJH_MASKS ;
 				else
@@ -403,7 +403,7 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 
 		//
 		// Readout area
-		//
+		//getMicroStepPatterns
 		_w.dataAcq_readArea.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
 			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
@@ -881,14 +881,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 	private void _updateDutyCycle()
 	{
 		_w.dataAcq_dutyCycle.setText( _instUIST.getDutyCycleRound() ) ;
-	}
-
-	//
-	// Update the coadds
-	//
-	private void _updateCoadds()
-	{
-		_w.dataAcq_coadds.setText( _instUIST.getCoaddsString() ) ;
 	}
 
 	//

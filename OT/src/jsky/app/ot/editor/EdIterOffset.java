@@ -202,7 +202,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 
 		// See if we can get the obsComp. If not, just return since we can't do anything without it.
 		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem ) ;
-		if( obsComp == null )
+		if( obsComp != null )
 		{
 			Vector<SpIterSky> children = new Vector<SpIterSky>() ;
 			getOffsetSkyChildren( ( SpIterOffset )_spItem , children ) ;

@@ -72,7 +72,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 
 		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
 		{
-			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() ) ;
+			TreeSet<String> ts = new TreeSet<String>( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() ) ;
 			if( !ts.contains( SpIterMicroStep.NO_PATTERN ) )
 				_patternVector.add( SpIterMicroStep.NO_PATTERN ) ;
 			
