@@ -226,7 +226,7 @@ public class JcmtSpValidation extends SpValidation
 	{
 		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
 		String instrument = null ;
-		Vector recipeList = null ;
+		Vector<String> recipeList = null ;
 		if( _inst instanceof SpInstHeterodyne )
 		{
 			instrument = "heterodyne" ;

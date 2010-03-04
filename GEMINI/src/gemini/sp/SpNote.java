@@ -106,7 +106,7 @@ public class SpNote extends SpItem
 	public String[] getInstructions()
 	{
 		ArrayList<String> rtnArray = new ArrayList<String>() ;
-		Enumeration e = _avTable.attributes() ;
+		Enumeration<String> e = _avTable.attributes() ;
 		if( e != null )
 		{
 			while( e.hasMoreElements() )

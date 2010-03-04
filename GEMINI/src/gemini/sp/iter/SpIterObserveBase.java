@@ -75,7 +75,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 		{
 			if( parent instanceof SpIterConfigObs )
 			{
-				Vector v ;
+				Vector<String> v ;
 
 				// Try to inherit exposure times
 				if( !expTimeSet )
@@ -84,7 +84,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 					if( v != null )
 					{
 						// Just pick the first one in the list
-						String expTimeStr = ( String )v.elementAt( 0 ) ;
+						String expTimeStr = v.elementAt( 0 ) ;
 						try
 						{
 							expTime = Double.valueOf( expTimeStr ) ;

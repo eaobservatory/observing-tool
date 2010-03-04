@@ -1213,19 +1213,19 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 		 * delete the attributes, and then rest the values after processing with the
 		 * parent
 		 */
-		Vector cf = _avTable.getAll( ATTR_CENTRE_FREQUENCY ) ;
+		Vector<String> cf = _avTable.getAll( ATTR_CENTRE_FREQUENCY ) ;
 		_avTable.rm( ATTR_CENTRE_FREQUENCY ) ;
-		Vector bw = _avTable.getAll( ATTR_BANDWIDTH ) ;
+		Vector<String> bw = _avTable.getAll( ATTR_BANDWIDTH ) ;
 		_avTable.rm( ATTR_BANDWIDTH ) ;
-		Vector ch = _avTable.getAll( ATTR_CHANNELS ) ;
+		Vector<String> ch = _avTable.getAll( ATTR_CHANNELS ) ;
 		_avTable.rm( ATTR_CHANNELS ) ;
-		Vector mo = _avTable.getAll( ATTR_MOLECULE ) ;
+		Vector<String> mo = _avTable.getAll( ATTR_MOLECULE ) ;
 		_avTable.rm( ATTR_MOLECULE ) ;
-		Vector tr = _avTable.getAll( ATTR_TRANSITION ) ;
+		Vector<String> tr = _avTable.getAll( ATTR_TRANSITION ) ;
 		_avTable.rm( ATTR_TRANSITION ) ;
-		Vector rf = _avTable.getAll( ATTR_REST_FREQUENCY ) ;
+		Vector<String> rf = _avTable.getAll( ATTR_REST_FREQUENCY ) ;
 		_avTable.rm( ATTR_REST_FREQUENCY ) ;
-		Vector ov = _avTable.getAll( ATTR_OVERLAP ) ;
+		Vector<String> ov = _avTable.getAll( ATTR_OVERLAP ) ;
 		_avTable.rm( ATTR_OVERLAP ) ;
 
 		super.toXML( indent , xmlBuffer ) ;

@@ -281,13 +281,6 @@ public class GraphScale extends JPanel implements ChangeListener
 		}
 	}
 
-	private double log10( double value )
-	{
-		double log10e = .4342944819033 ;
-
-		return( log10e * Math.log( value ) ) ;
-	}
-
 	private void drawLabelX( Graphics g , int x , int y , double value , int exponent )
 	{
 		Graphics2D g2 ;

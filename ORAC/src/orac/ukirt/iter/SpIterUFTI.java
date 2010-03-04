@@ -232,7 +232,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		IterConfigItem iciAcqMode = new IterConfigItem( "Acqmode" , SpInstUFTI.ATTR_MODE + "Iter" , SpInstUFTI.MODES ) ;
 
 		// Readout area.  This is now a lookup table, so extract the first column, and put the areas into an array.
-		Vector vRA = SpInstUFTI.READAREAS.getColumn( 0 ) ;
+		Vector<String> vRA = SpInstUFTI.READAREAS.getColumn( 0 ) ;
 
 		String[] readoutAreas = new String[ vRA.size() ] ;
 		for( int i = 0 ; i < vRA.size() ; ++i )
@@ -241,9 +241,9 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		IterConfigItem iciReadoutArea = new IterConfigItem( "ReadoutArea" , SpInstUFTI.ATTR_READAREA + "Iter" , readoutAreas ) ;
 
 		// Filters.
-		Vector vBB = SpInstUFTI.BROAD_BAND_FILTERS.getColumn( 0 ) ;
-		Vector vNB = SpInstUFTI.NARROW_BAND_FILTERS.getColumn( 0 ) ;
-		Vector vSP = SpInstUFTI.SPECIAL_FILTERS.getColumn( 0 ) ;
+		Vector<String> vBB = SpInstUFTI.BROAD_BAND_FILTERS.getColumn( 0 ) ;
+		Vector<String> vNB = SpInstUFTI.NARROW_BAND_FILTERS.getColumn( 0 ) ;
+		Vector<String> vSP = SpInstUFTI.SPECIAL_FILTERS.getColumn( 0 ) ;
 
 		// Concatenate filters to form a master array.
 		int n = vBB.size() + vNB.size() + vSP.size() ;

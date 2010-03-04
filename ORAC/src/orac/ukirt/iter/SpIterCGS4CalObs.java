@@ -418,7 +418,7 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 		}
 
 		// Set the ND filter too, just to make sure it happens.
-		boolean nd = getNdFilter() ;
+		getNdFilter() ;
 		return lamp ;
 	}
 

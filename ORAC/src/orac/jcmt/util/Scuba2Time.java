@@ -171,15 +171,6 @@ public class Scuba2Time implements SpJCMTConstants
 		return airmass ;
 	}
 
-	private SpSchedConstObsComp findSchedConstraints( SpItem root )
-	{
-		SpSchedConstObsComp schedConstraints = null ;
-		Object tmp = findObjectInContext( root , SpSchedConstObsComp.class ) ;
-		if( tmp != null )
-			schedConstraints = ( SpSchedConstObsComp )tmp ;
-		return schedConstraints ;
-	}
-
 	private SpSiteQualityObsComp findSiteQuality( SpItem root )
 	{
 		SpSiteQualityObsComp siteQuality = null ;

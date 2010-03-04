@@ -268,64 +268,6 @@ public class HeterodyneNoise
 		return tSys ;
 	}
 
-	private static TreeMap<Double,Double> getAtmosphereData( double tau )
-	{
-		double[] availableBands = { 0.03 , 0.05 , 0.065 , 0.1 , 0.16 , 0.2 } ;
-		TreeMap<Double,Double> tauMap = new TreeMap<Double,Double>() ;
-		int index = 0 ;
-
-		// Find the tau band we are in
-		if( tau >= availableBands[ availableBands.length - 1 ] )
-		{
-			index = availableBands.length - 1 ;
-		}
-		else if( tau < availableBands[ 0 ] )
-		{
-			index = 0 ;
-		}
-		else
-		{
-			for( int i = 1 ; i < availableBands.length ; i++ )
-			{
-				if( tau >= availableBands[ i - 1 ] && tau < availableBands[ i ] )
-					break ;
-				index++ ;
-			}
-		}
-
-		// We now have the index so open the file
-		String fileName = cfgDir ;
-		if( !fileName.endsWith( "/" ) )
-			fileName += '/' ;
-		fileName += "tau" ;
-		String tmp = Double.toString( availableBands[ index ] ) ;
-		StringTokenizer st = new StringTokenizer( tmp , "." ) ;
-		st.nextToken() ;
-		tmp = st.nextToken() + ".dat" ;
-		fileName = fileName + tmp ;
-		URL url = ObservingToolUtilities.resourceURL( fileName ) ;
-		try
-		{
-			InputStream is = url.openStream();
-			BufferedReader fileReader = new BufferedReader( new InputStreamReader( is ) ) ;
-			String inputLine ;
-			while( ( inputLine = fileReader.readLine() ) != null )
-			{
-				st = new StringTokenizer( inputLine ) ;
-				Double frequency = new Double( st.nextToken() ) ;
-				Double depth = new Double( st.nextToken() ) ;
-				tauMap.put( frequency , depth ) ;
-			}
-			fileReader.close() ;
-			is.close() ;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace() ;
-		}
-		return tauMap ;
-	}
-
 	private static double getTransmission( String filename , double freq )
 	{
 		String path = cfgDir ;

@@ -132,7 +132,6 @@ public class SpAvTableDOM
 	class AvToDom
 	{
 		protected StringTokenizer _attrTokenizer ;
-		protected Vector _values ;
 		protected Node _nodePointer ;
 		protected String _xmlTag ;
 
@@ -280,7 +279,7 @@ public class SpAvTableDOM
 			else
 			{
 				// Is the final section of the attribute string _avTabAttribute.
-				Vector v = _avTab.getAll( _avTabAttribute ) ;
+				Vector<String> v = _avTab.getAll( _avTabAttribute ) ;
 
 				if( v != null && v.size() > 0 )
 				{

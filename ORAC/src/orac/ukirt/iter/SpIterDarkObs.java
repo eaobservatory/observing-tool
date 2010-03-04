@@ -181,7 +181,7 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		// We will also need to get the DRRecipe component to allow us to set the  appropriate headers
 		// Find the parent first...
 		SpItem parent = parent() ;
-		Vector recipes = null ;
+		Vector<SpItem> recipes = null ;
 		while( parent != null )
 		{
 			if( parent instanceof SpMSB )

@@ -91,7 +91,7 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 		}
 		else
 		{
-			Vector vFilters = SpInstUIST.FILTERS.getColumn( 0 ) ;
+			Vector<String> vFilters = SpInstUIST.FILTERS.getColumn( 0 ) ;
 			int n = vFilters.size() ;
 			String[] filters = new String[ n ] ;
 			for( int i = 0 ; i < n ; i++ )
