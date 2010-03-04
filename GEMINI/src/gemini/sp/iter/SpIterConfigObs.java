@@ -44,7 +44,7 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      * Get the exposure times being iterated over (if any). Null is returned if
      * the exposure times are not being iterated over.
      */
-	public Vector getExposureTimes()
+	public Vector<String> getExposureTimes()
 	{
 		return _avTable.getAll( SpInstConstants.ATTR_EXPOSURE_TIME + "Iter" ) ;
 	}
@@ -53,7 +53,7 @@ public abstract class SpIterConfigObs extends SpIterConfigBase
      * Get the coadds being iterated over (if any). Null is returned if the
      * coadds are not being iterated over.
      */
-	public Vector getCoadds()
+	public Vector<String> getCoadds()
 	{
 		return _avTable.getAll( SpInstConstants.ATTR_COADDS + "Iter" ) ;
 	}

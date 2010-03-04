@@ -112,7 +112,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 		}
 		else
 		{
-			Vector vFilters = SpInstWFCAM.FILTERS.getColumn( 0 ) ;
+			Vector<String> vFilters = SpInstWFCAM.FILTERS.getColumn( 0 ) ;
 			int n = vFilters.size() ;
 			String[] filters = new String[ n ] ;
 			for( int i = 0 ; i < n ; i++ )

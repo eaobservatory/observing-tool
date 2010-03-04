@@ -135,11 +135,11 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 			}
 		}
 
-		Vector tpv = avTab.getAll( USER_POS_LIST ) ;
+		Vector<String> tpv = avTab.getAll( USER_POS_LIST ) ;
 		if( tpv == null )
 			return v ;
 
-		Enumeration e = tpv.elements() ;
+		Enumeration<String> e = tpv.elements() ;
 		while( e.hasMoreElements() )
 		{
 			String tag = ( String )e.nextElement() ;
@@ -456,7 +456,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		// If this is a user tag, remove it from the list of user positions
 		if( tp.getTag().startsWith( SpTelescopePos.USER_TAG ) )
 		{
-			Vector v = _avTab.getAll( USER_POS_LIST ) ;
+			Vector<String> v = _avTab.getAll( USER_POS_LIST ) ;
 			int i = v.indexOf( tp.getTag() ) ;
 			if( i != -1 )
 				_avTab.rm( USER_POS_LIST , i ) ;

@@ -648,7 +648,7 @@ public class UkirtSpValidation extends SpValidation
 		}
 		else
 		{
-			Vector recipes = null ;
+			Vector<String> recipes = null ;
 
 			// NOTE that _IN_GROUP_ recipes are not considered because they are currently all set to false in SpDRRecipe.
 			boolean flat = false ;

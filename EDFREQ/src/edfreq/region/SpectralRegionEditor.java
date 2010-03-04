@@ -382,20 +382,20 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 			double beBandWidth = _beBandWidth.get( i ) ;
 			if( _fitRegionInside )
 			{
-				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
-				xMaxHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 6.0 ) ) ) / 1.0E9 ;
+				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 2. ) ) ) / 1.E9 ;
+				xMaxHz[ i ] = ( _lineDisplay.getLO1() + ( beIF - ( beBandWidth / 6. ) ) ) / 1.E9 ;
 			}
 			else
 			{
-				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF + ( beBandWidth / 6.0 ) ) ) / 1.0E9 ;
-				xMaxHz[ i ] = ( _lineDisplay.getLO1() + ( beIF + ( beBandWidth / 2.0 ) ) ) / 1.0E9 ;
+				xMinHz[ i ] = ( _lineDisplay.getLO1() + ( beIF + ( beBandWidth / 6. ) ) ) / 1.E9 ;
+				xMaxHz[ i ] = ( _lineDisplay.getLO1() + ( beIF + ( beBandWidth / 2. ) ) ) / 1.E9 ;
 			}
 
 			_fitRegionInside = !_fitRegionInside ;
 
 		}
-		_fitRegionInside = ( ( double )_fitRegionBars.size() % 2.0 == 0 ) ;
-		addBaselineFitRegion( null , null , _lineDisplay.getLO1() / 1.0E9 , resetLayout ) ;
+		_fitRegionInside = ( ( double )_fitRegionBars.size() % 2. == 0 ) ;
+		addBaselineFitRegion( null , null , _lineDisplay.getLO1() / 1.E9 , resetLayout ) ;
 	}
 
 	/**
@@ -575,7 +575,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 		// Make sure _lineDisplay.getPixelsPerValue() is called after
         // _lineDisplay.updateDisplay() ;
-		_feBandWidthPixels = ( int )( ( feBandWidth / 1.0E9 ) * _lineDisplay.getPixelsPerValue() ) ;
+		_feBandWidthPixels = ( int )( ( feBandWidth / 1.E9 ) * _lineDisplay.getPixelsPerValue() ) ;
 
 		_parent.pack() ;
 	}
@@ -627,16 +627,16 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 			double beIF = _beIF.get( i ) ;
 			double beBandWidth = _beBandWidth.get( i ) ;
 			// Min, max frequencies in range of upper backend sideband.
-			double beMinUSB = _lineDisplay.getLO1() + ( beIF - ( 0.5 * beBandWidth ) ) ;
-			double beMaxUSB = _lineDisplay.getLO1() + ( beIF + ( 0.5 * beBandWidth ) ) ;
+			double beMinUSB = _lineDisplay.getLO1() + ( beIF - ( .5 * beBandWidth ) ) ;
+			double beMaxUSB = _lineDisplay.getLO1() + ( beIF + ( .5 * beBandWidth ) ) ;
 
 			// Min frequency in range of upper frontend sideband.
-			double feMinUSB = _lineDisplay.getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) ) ;
+			double feMinUSB = _lineDisplay.getLO1() + ( _feIF - ( .5 * _feBandWidth ) ) ;
 
 			double pixelsPerValue = _lineDisplay.getPixelsPerValue() ;
 
-			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
-			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
+			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.E9 ) * pixelsPerValue ) ;
+			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.E9 ) * pixelsPerValue ) ;
 		}
 
 		return result ;
@@ -747,7 +747,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 					double[] d2 = ( double[] )o[ 1 ] ;
 					for( int l = 0 ; l < d1.length ; l++ )
 					{
-						double[] d = { d1[ l ] * 1.0E9 , d2[ l ] * 1.0E9 } ;
+						double[] d = { d1[ l ] * 1.E9 , d2[ l ] * 1.E9 } ;
 						result[ k++ ] = d ;
 					}
 				}
@@ -762,8 +762,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 	{
 		double[] result = new double[ 2 ] ;
 
-		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.0E9 ) + ( _feIF - ( 0.5 * _feBandWidth ) ) + lo1 ;
-		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.0E9 ) ;
+		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.E9 ) + ( _feIF - ( .5 * _feBandWidth ) ) + lo1 ;
+		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.E9 ) ;
 
 		// If the region should appear in the lower sideband than reflect the
         // values on LO1.
@@ -801,7 +801,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 
 			_lineDisplay.setDisplayWidth( EdFreq.DISPLAY_WIDTH * zoom ) ;
 
-			_feBandWidthPixels = ( int )( ( _feBandWidth / 1.0E9 ) * _lineDisplay.getPixelsPerValue() ) ;
+			_feBandWidthPixels = ( int )( ( _feBandWidth / 1.E9 ) * _lineDisplay.getPixelsPerValue() ) ;
 
 			for( int i = 0 ; i < _allRegionBars.size() ; i++ )
 				_allRegionBars.get( i ).resetRangeBars( zoom ) ;
@@ -863,20 +863,17 @@ public class SpectralRegionEditor extends JPanel implements ActionListener
 			System.exit( 0 ) ;
 		}
 
-		double lRangeLimit = Double.parseDouble( args[ 0 ] ) * 1.0E9 ;
-		double uRangeLimit = Double.parseDouble( args[ 1 ] ) * 1.0E9 ;
+		double lRangeLimit = Double.parseDouble( args[ 0 ] ) * 1.E9 ;
+		double uRangeLimit = Double.parseDouble( args[ 1 ] ) * 1.E9 ;
 		double redshift = Double.parseDouble( args[ 2 ] ) ;
 
-		double feIF = 4.0E9 ;
+		double feIF = 4.E9 ;
 		double feBandWidth = 1.8E9 ;
 
 		int sideBand = EdFreq.SIDE_BAND_USB ;
-		boolean dsb = true ;
 
 		if( args.length == 4 )
 		{
-			dsb = false ;
-
 			if( args[ 3 ].equalsIgnoreCase( "usb" ) )
 				sideBand = EdFreq.SIDE_BAND_USB ;
 			else if( args[ 3 ].equalsIgnoreCase( "lsb" ) )

@@ -213,7 +213,7 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 		IterConfigItem iciAcqMode = new IterConfigItem( "Acqmode" , SpInstIRCAM3.ATTR_MODE + "Iter" , SpInstIRCAM3.MODES ) ;
 
 		// Readout area.  This is now a lookup table, so extract the first column, and put the areas into an array.
-		Vector vRA = SpInstIRCAM3.READAREAS.getColumn( 0 ) ;
+		Vector<String> vRA = SpInstIRCAM3.READAREAS.getColumn( 0 ) ;
 
 		String[] readoutAreas = new String[ vRA.size() ] ;
 		for( int i = 0 ; i < vRA.size() ; ++i )
@@ -222,9 +222,9 @@ public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 		IterConfigItem iciReadoutArea = new IterConfigItem( "ReadoutArea" , SpInstIRCAM3.ATTR_READAREA + "Iter" , readoutAreas ) ;
 
 		// Filters.
-		Vector vBB = SpInstIRCAM3.BROAD_BAND_FILTERS.getColumn( 0 ) ;
-		Vector vNB = SpInstIRCAM3.NARROW_BAND_FILTERS.getColumn( 0 ) ;
-		Vector vSP = SpInstIRCAM3.SPECIAL_FILTERS.getColumn( 0 ) ;
+		Vector<String> vBB = SpInstIRCAM3.BROAD_BAND_FILTERS.getColumn( 0 ) ;
+		Vector<String> vNB = SpInstIRCAM3.NARROW_BAND_FILTERS.getColumn( 0 ) ;
+		Vector<String> vSP = SpInstIRCAM3.SPECIAL_FILTERS.getColumn( 0 ) ;
 
 		// Concatenate filters to form a master array.
 		int n = vBB.size() + vNB.size() + vSP.size() ;
