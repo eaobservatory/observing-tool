@@ -205,7 +205,7 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 	 */
 	private void _insertAllPos( TelescopePos[] tpA )
 	{
-		Vector[] dataV = new Vector[ tpA.length ] ;
+		Vector<String>[] dataV = new Vector[ tpA.length ] ;
 
 		for( int i = 0 ; i < tpA.length ; ++i )
 		{

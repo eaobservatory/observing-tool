@@ -105,7 +105,8 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	/**
 	 * Notify observers when a row is selected.
 	 */
-	protected void _notifySelect( int rowIndex )
+	@SuppressWarnings( "unchecked" )
+    protected void _notifySelect( int rowIndex )
 	{
 		Vector<TableWidgetWatcher> v ;
 		synchronized( this )
@@ -124,7 +125,8 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	/**
 	 * Extends action method of TableWidget to notify observers.
 	 */
-	public void action( int colIndex , int rowIndex )
+	@SuppressWarnings( "unchecked" )
+    public void action( int colIndex , int rowIndex )
 	{
 		// XXX allan: this method is not called, from anywhere now, but there are no watchers using it either...
 
@@ -155,10 +157,10 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 		TableWidgetExt table = new TableWidgetExt() ;
 		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" } ;
 		table.setColumnHeaders( headers ) ;
-		Vector[] v = new Vector[ 5 ] ;
+		Vector<String>[] v = new Vector[ 5 ] ;
 		for( int i = 0 ; i < v.length ; i++ )
 		{
-			v[ i ] = new Vector( 4 ) ;
+			v[ i ] = new Vector<String>( 4 ) ;
 			for( int j = 0 ; j < headers.length ; j++ )
 				v[ i ].add( "cell " + i + ", " + j ) ;
 		}

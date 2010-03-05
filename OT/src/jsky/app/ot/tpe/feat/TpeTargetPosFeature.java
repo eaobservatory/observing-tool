@@ -132,10 +132,10 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 
 		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries() ;
+		Enumeration<FitsPosMapEntry> e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			FitsPosMapEntry pme = e.nextElement() ;
 			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos ;
 
 			if( positionIsClose( pme , fme.xWidget , fme.yWidget ) && tp.isUserPosition() )
@@ -173,10 +173,10 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 		if( getDrawTags() )
 			g.setFont( FONT ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries() ;
+		Enumeration<FitsPosMapEntry> e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			FitsPosMapEntry pme = e.nextElement() ;
 			SpTelescopePos tp = ( SpTelescopePos )pme.telescopePos ;
 			if( tp.isUserPosition() )
 			{
@@ -210,10 +210,10 @@ public class TpeTargetPosFeature extends TpePositionFeature implements TpeCreate
 	{
 		TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
 
-		Enumeration e = pm.getAllPositionMapEntries() ;
+		Enumeration<FitsPosMapEntry> e = pm.getAllPositionMapEntries() ;
 		while( e.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )e.nextElement() ;
+			FitsPosMapEntry pme = e.nextElement() ;
 
 			if( positionIsClose( pme , fme.xWidget , fme.yWidget ) && ( ( SpTelescopePos )pme.telescopePos ).isUserPosition() )
 			{

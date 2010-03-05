@@ -314,7 +314,7 @@ final public class JHLauncher implements java.io.Serializable
 				String family = fonts[ i ].getFamily() ;
 				String testFamily = null ;
 				DefaultMutableTreeNode test = null ;
-				for( Enumeration e = topNode.children() ; e.hasMoreElements() ; )
+				for( Enumeration<?> e = topNode.children() ; e.hasMoreElements() ; )
 				{
 					test = ( DefaultMutableTreeNode )e.nextElement() ;
 					testFamily = ( String )test.getUserObject() ;

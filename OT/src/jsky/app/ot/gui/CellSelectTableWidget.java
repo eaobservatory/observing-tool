@@ -205,7 +205,8 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	/**
 	 * The given cell was selected.
 	 */
-	public void cellSelected( int colIndex , int rowIndex )
+	@SuppressWarnings( "unchecked" )
+    public void cellSelected( int colIndex , int rowIndex )
 	{
 		if( ( colIndex < 0 ) || ( colIndex >= getModel().getColumnCount() ) )
 			return ;
@@ -262,10 +263,10 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 		CellSelectTableWidget table = new CellSelectTableWidget() ;
 		String[] headers = new String[] { "One" , "Two" , "Three" , "Four" } ;
 		table.setColumnHeaders( headers ) ;
-		Vector[] v = new Vector[ 5 ] ;
+		Vector<String>[] v = new Vector[ 5 ] ;
 		for( int i = 0 ; i < v.length ; i++ )
 		{
-			v[ i ] = new Vector( 4 ) ;
+			v[ i ] = new Vector<String>( 4 ) ;
 			for( int j = 0 ; j < headers.length ; j++ )
 				v[ i ].add( "cell " + i + ", " + j ) ;
 		}

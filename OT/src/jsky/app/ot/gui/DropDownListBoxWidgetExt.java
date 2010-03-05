@@ -94,7 +94,8 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector<DropDownListBoxWidgetWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<DropDownListBoxWidgetWatcher> _getWatchers()
 	{
 		return ( Vector<DropDownListBoxWidgetWatcher> )_watchers.clone() ;
 	}

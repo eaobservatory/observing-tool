@@ -119,7 +119,7 @@ public class SpIterNod extends SpIterComp
 	/**
 	 * Get the nod pattern as Vector.
 	 */
-	public Vector getNodPatternVector()
+	public Vector<String> getNodPatternVector()
 	{
 		return _avTable.getAll( ATTR_NOD_PATTERN ) ;
 	}

@@ -210,7 +210,8 @@ public abstract class TelescopePosList implements java.io.Serializable
 	/**
      * Copy the watchers list.
      */
-	protected final synchronized Vector<TelescopePosListWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    protected final synchronized Vector<TelescopePosListWatcher> _getWatchers()
 	{
 		if( _watchers != null )
 			return ( Vector<TelescopePosListWatcher> )_watchers.clone() ;
@@ -221,7 +222,8 @@ public abstract class TelescopePosList implements java.io.Serializable
 	/**
      * Copy the selection watchers list.
      */
-	protected final synchronized Vector<TelescopePosSelWatcher> _getSelWatchers()
+	@SuppressWarnings( "unchecked" )
+    protected final synchronized Vector<TelescopePosSelWatcher> _getSelWatchers()
 	{
 		if( _selWatchers != null )
 			return ( Vector<TelescopePosSelWatcher> )_selWatchers.clone() ;

@@ -243,11 +243,11 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 				j1 = MathUtil.round( microSteps[ j ][ 1 ] , 3 ) ;
 				
 				boolean firstRun = true ;
-				Enumeration e = this.children() ;
+				Enumeration<SpItem> e = this.children() ;
 				
 				while( e.hasMoreElements() )
 				{
-					SpItem child = ( SpItem )e.nextElement() ;
+					SpItem child = e.nextElement() ;
 					if( child instanceof SpTranslatable )
 					{
 						translatable = ( SpTranslatable )child ;

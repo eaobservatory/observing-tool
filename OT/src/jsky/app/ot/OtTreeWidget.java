@@ -86,6 +86,7 @@ final class ConfirmAVClobber
  * <p>The tree represents the hierarchy of Science Program items.  Methods
  * for adding, removing, and moving items around in the tree are provided.
  */
+@SuppressWarnings( "serial" )
 public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttributes , SpHierarchyChangeObserver , TreeExpansionListener
 {
 	// The OtTreeNodeWidget of the root node.
@@ -281,7 +282,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	public SpItem[] getMultiSelectedItems()
 	{
 		SpItem[] spItemA = null ;
-		Vector v = getMultiSelectNodes() ;
+		Vector<Object> v = getMultiSelectNodes() ;
 		if( ( v != null ) && ( v.size() != 0 ) )
 		{
 			int n = v.size() ;

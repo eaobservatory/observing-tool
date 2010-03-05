@@ -95,7 +95,8 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	//
 	// Notify watchers that a key has been pressed.
 	//
-	private void _notifyKeyPress( KeyEvent evt )
+	@SuppressWarnings( "unchecked" )
+    private void _notifyKeyPress( KeyEvent evt )
 	{
 		Vector<KeyPressWatcher> v ;
 		synchronized( this )

@@ -348,8 +348,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	private void _showRecipeType( LookUpTable recipes )
 	{
-		Vector[] rowsV = new Vector[ recipes.getNumRows() ] ;
-		rowsV = recipes.getAsVectorArray() ;
+		Vector<String>[] rowsV = recipes.getAsVectorArray() ;
 		TableWidgetExt tw = ( TableWidgetExt )getWidget( _instStr , "recipeTable" ) ;
 		tw.setRows( rowsV ) ;
 	}

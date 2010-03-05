@@ -656,7 +656,8 @@ public final class SpAvTable implements java.io.Serializable
 	/**
      * Make a copy of the table.
      */
-	public SpAvTable copy()
+	@SuppressWarnings( "unchecked" )
+    public SpAvTable copy()
 	{
 		// Shallow copy the table structure.
 		TreeMap<String,SpAttr> htCopy = ( TreeMap<String,SpAttr> )_avTable.clone() ;

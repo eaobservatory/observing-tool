@@ -150,8 +150,7 @@ public final class EdCompInstIRCAM3 extends EdCompInstBase implements TableWidge
 	 */
 	private void _showFilterType( LookUpTable filters )
 	{
-		Vector[] rowsV = new Vector[ filters.getNumRows() ] ;
-		rowsV = filters.getAsVectorArray() ;
+		Vector<String>[] rowsV = filters.getAsVectorArray() ;
 		_w.filterTable.setRows( rowsV ) ;
 	}
 

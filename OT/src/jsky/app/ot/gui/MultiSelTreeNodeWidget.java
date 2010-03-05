@@ -94,7 +94,7 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	{
 		if( multipleItemsSelected() )
 		{
-			Vector v = getMultiSelTreeWidget().getMultiSelectNodes() ;
+			Vector<Object> v = getMultiSelTreeWidget().getMultiSelectNodes() ;
 			int n = v.size() ;
 			for( int i = 0 ; i < n ; i++ )
 			{

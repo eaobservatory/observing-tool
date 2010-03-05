@@ -110,7 +110,8 @@ public class FitsImageWidget extends ViewportImageWidget
 		_infoObs.removeAllElements() ;
 	}
 
-	private void _notifyInfoObs()
+	@SuppressWarnings( "unchecked" )
+    private void _notifyInfoObs()
 	{
 		Vector<FitsImageInfoObserver> v ;
 		synchronized( _infoObs )

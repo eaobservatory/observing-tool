@@ -442,7 +442,8 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	/**
 	 * Copy the watchers list.
 	 */
-	private final synchronized Vector<TpeWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private final synchronized Vector<TpeWatcher> _getWatchers()
 	{
 		if( _watchers == null )
 			return null ;

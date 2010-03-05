@@ -220,7 +220,8 @@ public abstract class TelescopePos implements java.io.Serializable
 	/**
      * Copy the watchers list.
      */
-	protected final synchronized Vector<TelescopePosWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    protected final synchronized Vector<TelescopePosWatcher> _getWatchers()
 	{
 		if( _watchers != null )
 			return ( Vector<TelescopePosWatcher> )_watchers.clone() ;

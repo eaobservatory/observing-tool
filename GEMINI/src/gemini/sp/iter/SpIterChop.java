@@ -258,9 +258,9 @@ public class SpIterChop extends SpIterComp
 		return result ;
 	}
 
-	public Vector[] getAllSteps()
+	public Vector<String>[] getAllSteps()
 	{
-		Vector[] result = new Vector[ getStepCount() ] ;
+		Vector<String>[] result = new Vector[ getStepCount() ] ;
 
 		for( int i = 0 ; i < getStepCount() ; i++ )
 			result[ i ] = getStep( i ) ;

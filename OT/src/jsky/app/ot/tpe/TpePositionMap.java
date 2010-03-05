@@ -104,10 +104,10 @@ public class TpePositionMap extends FitsPosMap
 		if( posTable == null )
 			return null ;
 
-		Enumeration enumeration = posTable.elements() ;
+		Enumeration<FitsPosMapEntry> enumeration = posTable.elements() ;
 		while( enumeration.hasMoreElements() )
 		{
-			FitsPosMapEntry pme = ( FitsPosMapEntry )enumeration.nextElement() ;
+			FitsPosMapEntry pme = enumeration.nextElement() ;
 			Point2D.Double p = pme.screenPos ;
 			if( p == null )
 				continue ;

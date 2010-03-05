@@ -360,7 +360,7 @@ public class UkirtSpValidation extends SpValidation
 						tmpInstIter = ( SpIterConfigObs )e2.nextElement() ;
 						if( tmpInstIter != null && tmpInstIter.getExposureTimes() != null )
 						{
-							for( Enumeration e3 = tmpInstIter.getExposureTimes().elements() ; e3.hasMoreElements() ; )
+							for( Enumeration<?> e3 = tmpInstIter.getExposureTimes().elements() ; e3.hasMoreElements() ; )
 							{
 								try
 								{

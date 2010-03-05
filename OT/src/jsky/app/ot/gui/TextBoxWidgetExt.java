@@ -126,7 +126,8 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector<TextBoxWidgetWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<TextBoxWidgetWatcher> _getWatchers()
 	{
 		return ( Vector<TextBoxWidgetWatcher> )_watchers.clone() ;
 	}

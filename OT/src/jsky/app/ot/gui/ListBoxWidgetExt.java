@@ -105,7 +105,8 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector<ListBoxWidgetWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<ListBoxWidgetWatcher> _getWatchers()
 	{
 		return ( Vector<ListBoxWidgetWatcher> )_watchers.clone() ;
 	}
