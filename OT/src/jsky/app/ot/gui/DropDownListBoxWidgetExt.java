@@ -6,6 +6,7 @@
 //
 package jsky.app.ot.gui ;
 
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JComboBox ;
 import javax.swing.JFrame ;
@@ -92,26 +93,16 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 	}
 
 	//
-	// Get a copy of the _watchers Vector.
-	//
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<DropDownListBoxWidgetWatcher> _getWatchers()
-	{
-		return ( Vector<DropDownListBoxWidgetWatcher> )_watchers.clone() ;
-	}
-
-	//
 	// Notify watchers that an item has been double-clicked.
 	//
-	private void _notifyAction( int index )
+	private synchronized void _notifyAction( int index )
 	{
 		if( actionsEnabled )
 		{
-			Vector<DropDownListBoxWidgetWatcher> v = _getWatchers() ;
-			int cnt = v.size() ;
-			for( int i = 0 ; i < cnt ; ++i )
+			Enumeration<DropDownListBoxWidgetWatcher> e = _watchers.elements() ;
+			while( e.hasMoreElements() )
 			{
-				DropDownListBoxWidgetWatcher watcher = v.elementAt( i ) ;
+				DropDownListBoxWidgetWatcher watcher = e.nextElement() ;
 				watcher.dropDownListBoxAction( this , index , getStringValue() ) ;
 			}
 		}

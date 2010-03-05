@@ -6,6 +6,7 @@
 //
 package jsky.app.ot.gui ;
 
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JFrame ;
 import javax.swing.JScrollPane ;
@@ -205,7 +206,6 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	/**
 	 * The given cell was selected.
 	 */
-	@SuppressWarnings( "unchecked" )
     public void cellSelected( int colIndex , int rowIndex )
 	{
 		if( ( colIndex < 0 ) || ( colIndex >= getModel().getColumnCount() ) )
@@ -213,18 +213,15 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 		if( ( rowIndex < 0 ) || ( rowIndex >= getModel().getRowCount() ) )
 			return ;
 
-		Vector<CellSelectTableWatcher> v ;
 		synchronized( this )
 		{
-			v = ( Vector<CellSelectTableWatcher> )_watchers.clone() ;
-		}
+			Enumeration<CellSelectTableWatcher> e = _watchers.elements() ;
 
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
-		{
-			CellSelectTableWatcher cstw ;
-			cstw = v.elementAt( i ) ;
-			cstw.cellSelected( this , colIndex , rowIndex ) ;
+			while( e.hasMoreElements() )
+			{
+				CellSelectTableWatcher cstw = e.nextElement() ;
+				cstw.cellSelected( this , colIndex , rowIndex ) ;
+			}
 		}
 	}
 

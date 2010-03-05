@@ -8,6 +8,7 @@ package jsky.app.ot.gui ;
 
 import java.awt.event.MouseAdapter ;
 import java.awt.event.MouseEvent ;
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.DefaultListModel ;
 import javax.swing.JFrame ;
@@ -103,24 +104,14 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	}
 
 	//
-	// Get a copy of the _watchers Vector.
-	//
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<ListBoxWidgetWatcher> _getWatchers()
-	{
-		return ( Vector<ListBoxWidgetWatcher> )_watchers.clone() ;
-	}
-
-	//
 	// Notify watchers that an item has been selected.
 	//
-	private void _notifySelect( int index )
+	private synchronized void _notifySelect( int index )
 	{
-		Vector<ListBoxWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<ListBoxWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			ListBoxWidgetWatcher watcher = v.elementAt( i ) ;
+			ListBoxWidgetWatcher watcher = e.nextElement() ;
 			watcher.listBoxSelect( this , index , getStringValue() ) ;
 		}
 	}
@@ -128,13 +119,12 @@ public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 	//
 	// Notify watchers that an item has been double-clicked.
 	//
-	private void _notifyAction( int index )
+	private synchronized void _notifyAction( int index )
 	{
-		Vector<ListBoxWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<ListBoxWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			ListBoxWidgetWatcher watcher = v.elementAt( i ) ;
+			ListBoxWidgetWatcher watcher = e.nextElement() ;
 			watcher.listBoxAction( this , index , getStringValue() ) ;
 		}
 	}

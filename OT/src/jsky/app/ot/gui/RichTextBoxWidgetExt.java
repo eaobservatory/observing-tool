@@ -6,6 +6,7 @@
 //
 package jsky.app.ot.gui ;
 
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JTextArea ;
 import java.awt.event.KeyEvent ;
@@ -95,18 +96,12 @@ public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 	//
 	// Notify watchers that a key has been pressed.
 	//
-	@SuppressWarnings( "unchecked" )
-    private void _notifyKeyPress( KeyEvent evt )
+    private synchronized void _notifyKeyPress( KeyEvent evt )
 	{
-		Vector<KeyPressWatcher> v ;
-		synchronized( this )
+		Enumeration<KeyPressWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<KeyPressWatcher> )_watchers.clone() ;
-		}
-
-		for( int i = 0 ; i < v.size() ; ++i )
-		{
-			KeyPressWatcher kpw = v.elementAt( i ) ;
+			KeyPressWatcher kpw = e.nextElement() ;
 			kpw.keyPressed( evt ) ;
 		}
 	}

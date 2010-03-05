@@ -13,6 +13,7 @@ import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import java.awt.event.MouseAdapter ;
 import java.awt.event.MouseEvent ;
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JButton ;
 import javax.swing.ImageIcon ;
@@ -155,26 +156,15 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 		_watchers.removeAllElements() ;
 	}
 
-	//
-	// Get a copy of the _watchers Vector.
-	//
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<CommandButtonWidgetWatcher> _getWatchers()
-	{
-		return ( Vector<CommandButtonWidgetWatcher> )_watchers.clone() ;
-	}
-
 	/**
 	 * Notify watchers of an action event.
 	 */
-	public void action()
+	public synchronized void action()
 	{
-		Vector<CommandButtonWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<CommandButtonWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			CommandButtonWidgetWatcher watcher ;
-			watcher = v.elementAt( i ) ;
+			CommandButtonWidgetWatcher watcher = e.nextElement() ;
 			watcher.commandButtonAction( this ) ;
 		}
 	}

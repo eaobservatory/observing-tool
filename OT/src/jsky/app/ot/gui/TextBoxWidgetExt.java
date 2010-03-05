@@ -8,6 +8,7 @@ package jsky.app.ot.gui ;
 
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JTextField ;
 import javax.swing.JFrame ;
@@ -124,42 +125,31 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , 
 	}
 
 	//
-	// Get a copy of the _watchers Vector.
-	//
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<TextBoxWidgetWatcher> _getWatchers()
-	{
-		return ( Vector<TextBoxWidgetWatcher> )_watchers.clone() ;
-	}
-
-	//
 	// Notify watchers that a key has been pressed.
 	// 
-	private void _notifyKeyPress()
+	private synchronized void _notifyKeyPress()
 	{
-		Vector<TextBoxWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<TextBoxWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			TextBoxWidgetWatcher watcher = v.elementAt( i ) ;
+			TextBoxWidgetWatcher watcher = e.nextElement() ;
 			try
 			{
 				watcher.textBoxKeyPress( this ) ;
 			}
-			catch( Exception e ){}
+			catch( Exception ex ){}
 		}
 	}
 
 	//
 	// Notify watchers that a return key has been pressed in the text box.
 	//
-	private void _notifyAction()
+	private synchronized void _notifyAction()
 	{
-		Vector<TextBoxWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<TextBoxWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			TextBoxWidgetWatcher watcher = v.elementAt( i ) ;
+			TextBoxWidgetWatcher watcher = e.nextElement() ;
 			watcher.textBoxAction( this ) ;
 		}
 	}

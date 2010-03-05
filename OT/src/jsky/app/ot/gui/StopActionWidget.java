@@ -15,6 +15,7 @@ import java.awt.event.ActionListener ;
 import java.beans.PropertyChangeListener ;
 import java.beans.PropertyChangeEvent ;
 import java.net.URL ;
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.JButton ;
 import javax.swing.JPanel ;
@@ -208,14 +209,12 @@ public class StopActionWidget extends JPanel
 	// The StopActionButtonWidget calls this method to inform that the
 	// button has been pressed.
 	//
-	private void _stopAction()
+	private synchronized void _stopAction()
 	{
-		Vector<StopActionWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<StopActionWatcher> e = _watchers.elements() ;;
+		while( e.hasMoreElements() )
 		{
-			StopActionWatcher watcher ;
-			watcher = v.elementAt( i ) ;
+			StopActionWatcher watcher = e.nextElement() ;
 			watcher.stopAction( this ) ;
 		}
 	}
@@ -243,15 +242,6 @@ public class StopActionWidget extends JPanel
 	public synchronized final void deleteWatchers()
 	{
 		_watchers.removeAllElements() ;
-	}
-
-	/**
-	 * Get a copy of the _watchers Vector.
-	 */
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<StopActionWatcher> _getWatchers()
-	{
-		return ( Vector<StopActionWatcher> )_watchers.clone() ;
 	}
 	
 	/**
