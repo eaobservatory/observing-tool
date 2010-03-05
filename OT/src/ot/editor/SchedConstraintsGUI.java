@@ -33,6 +33,7 @@ import javax.swing.border.EtchedBorder ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.OptionWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class SchedConstraintsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

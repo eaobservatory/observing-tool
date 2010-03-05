@@ -9,6 +9,7 @@ package gemini.sp ;
 /**
  * The library item.
  */
+@SuppressWarnings( "serial" )
 public class SpLibrary extends SpRootItem
 {
 	/**

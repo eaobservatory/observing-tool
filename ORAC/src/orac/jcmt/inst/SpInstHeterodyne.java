@@ -173,6 +173,7 @@ import java.util.Vector ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpInstHeterodyne extends SpJCMTInstObsComp
 {
 

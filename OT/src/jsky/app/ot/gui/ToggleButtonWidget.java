@@ -24,6 +24,7 @@ import javax.swing.border.BevelBorder ;
  *
  * @author	Shane Walker, Dayle Kotturi, Allan Brighton (port to Swing)
  */
+@SuppressWarnings( "serial" )
 public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidget , ItemListener
 {
 	private final static int _PADX = 2 ;

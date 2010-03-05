@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities ;
 import javax.swing.tree.TreeModel ;
 
 /** Simple wrapper for JTree to add auto-scrolling support for use with drag&drop */
+@SuppressWarnings( "serial" )
 public class AutoscrollTree extends JTree implements Autoscroll
 {
 	public static final Insets defaultScrollInsets = new Insets( 8 , 8 , 8 , 8 ) ;

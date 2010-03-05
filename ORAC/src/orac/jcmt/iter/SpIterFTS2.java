@@ -3,6 +3,7 @@ package orac.jcmt.iter ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 
+@SuppressWarnings( "serial" )
 public class SpIterFTS2 extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "FTS2Obs" , "FTS-2" ) ;

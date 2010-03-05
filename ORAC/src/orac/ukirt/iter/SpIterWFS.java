@@ -19,6 +19,7 @@ import java.util.Hashtable ;
 import java.util.List ;
 import java.util.Vector ;
 
+@SuppressWarnings( "serial" )
 public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "iterWFS" , "WFS" ) ;

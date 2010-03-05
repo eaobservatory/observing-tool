@@ -30,6 +30,7 @@ import ot.util.DialogUtil ;
  *
  * @author Shane Walker, Allan Brighton (ported to Swing)
  */
+@SuppressWarnings( "serial" )
 public class TreeWidgetExt extends JPanel
 {
 	/** The tree */

@@ -14,9 +14,9 @@ import javax.swing.JScrollBar ;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class SideBandGui extends JScrollBar
 {
-
 	private int lowLimit ;
 	private int highLimit ;
 	private int bandWidth ;

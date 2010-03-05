@@ -10,6 +10,7 @@ package gemini.sp.iter ;
  * A data object that describes an attribute that may be iterated over. Client
  * code uses an IterConfigItem to present choices for iteration to the user.
  */
+@SuppressWarnings( "serial" )
 public class IterConfigItem implements java.io.Serializable
 {
 	/**

@@ -16,6 +16,7 @@ import java.util.Enumeration ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpAND extends SpObsContextItem
 {
 	/**

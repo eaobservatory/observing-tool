@@ -31,6 +31,7 @@ import gemini.util.TranslationUtils ;
 /**
  * The WFCAM configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instWFCAM" , "WFCAM" ) ;

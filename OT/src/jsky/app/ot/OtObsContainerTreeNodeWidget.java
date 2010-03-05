@@ -11,6 +11,7 @@ package jsky.app.ot ;
  * subclass of OtTreeNodeWidget is used in order to draw the chains between
  * observations correctly.
  */
+@SuppressWarnings( "serial" )
 public class OtObsContainerTreeNodeWidget extends OtTreeNodeWidget
 {
 	public OtObsContainerTreeNodeWidget( OtTreeWidget tree )

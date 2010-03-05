@@ -29,6 +29,7 @@ import jsky.app.ot.gui.RichTextBoxWidgetExt ;
  *
  * @author M.Folger (based on the class News in orac2/OT/ot/src, freebongo OT)
  */
+@SuppressWarnings( "serial" )
 public final class News extends JFrame
 {
 	private static News _news ;

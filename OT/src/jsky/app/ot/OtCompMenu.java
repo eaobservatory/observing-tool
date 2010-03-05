@@ -20,6 +20,7 @@ import jsky.util.QuickSort ;
 /**
  * A menu used to create observation components.
  */
+@SuppressWarnings( "serial" )
 class OtCompMenu extends JMenu
 {
 	/**

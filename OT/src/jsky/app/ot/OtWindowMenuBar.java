@@ -32,6 +32,7 @@ import orac.ukirt.util.UkirtUtil ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class OtWindowMenuBar extends JMenuBar
 {
 	/** The target science program editor */

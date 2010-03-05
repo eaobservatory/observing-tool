@@ -255,6 +255,7 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
  *
  * @author Allan Brighton (ported to Swing/JSky, changed the layout)
  */
+@SuppressWarnings( "serial" )
 public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeManagerWatcher , CloseableApp
 {
 	/** Displays the science program hierarchy. */

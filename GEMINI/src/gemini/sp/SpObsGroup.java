@@ -12,6 +12,7 @@ package gemini.sp ;
  * scheduler that any contained observations are to be scheduled as a block,
  * without intervening observations.
  */
+@SuppressWarnings( "serial" )
 public class SpObsGroup extends SpObsContextItem
 {
 	/**

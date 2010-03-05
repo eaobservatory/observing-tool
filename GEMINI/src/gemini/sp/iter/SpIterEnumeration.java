@@ -17,6 +17,7 @@ import java.util.Enumeration ;
 // each child of the parent. Each SpIterEnumeration is used to get all
 // the iteration steps from the children of the parent.
 //
+@SuppressWarnings( "serial" )
 class SpIterChildEnumeration implements Enumeration<SpIterEnumeration> , java.io.Serializable
 {
 
@@ -171,6 +172,7 @@ class SpIterChildEnumeration implements Enumeration<SpIterEnumeration> , java.io
  * position. So long as there are offset positions available,
  * _thisHasMoreElements() should return true.
  */
+@SuppressWarnings( "serial" )
 public abstract class SpIterEnumeration implements Enumeration<Vector<SpIterStep>> , java.io.Serializable
 {
 

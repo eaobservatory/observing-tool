@@ -25,6 +25,7 @@ import java.util.List ;
 /**
  * The FP configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instIRPOL" , "IRPOL" ) ;

@@ -35,6 +35,7 @@ import java.awt.Container ;
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger
  *         (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SideBandDisplay extends JFrame implements ChangeListener , MouseListener
 {
 	private double subBandWidth ;

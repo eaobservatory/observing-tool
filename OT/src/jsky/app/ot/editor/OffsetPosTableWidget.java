@@ -22,6 +22,7 @@ import gemini.util.TelescopePosWatcher ;
 /**
  * An extension of the TableWidget to support telescope offset lists.
  */
+@SuppressWarnings( "serial" )
 public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePosWatcher , TelescopePosListWatcher , TelescopePosSelWatcher
 {
 	private SpOffsetPosList _opl ;

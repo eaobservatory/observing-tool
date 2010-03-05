@@ -41,7 +41,7 @@ import orac.util.TelescopeUtil ;
 // has been commented out for now. I have not removed it completely from the code in case it is
 // needed in the future.
 // A DropDownListBoxWidgetExt with the available named target choices has been added.
-
+@SuppressWarnings( "serial" )
 public class TelescopeGUI extends JPanel
 {
 	JTabbedPane targetSystemsTabbedPane = new JTabbedPane() ;

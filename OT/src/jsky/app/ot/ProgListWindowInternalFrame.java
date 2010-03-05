@@ -13,6 +13,7 @@ import javax.swing.JInternalFrame ;
 /** 
  * Provides a top level window and menubar for the ProgListWindow class.
  */
+@SuppressWarnings( "serial" )
 public class ProgListWindowInternalFrame extends JInternalFrame
 {
 	/** main panel */

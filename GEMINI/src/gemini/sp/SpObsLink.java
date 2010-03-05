@@ -11,6 +11,7 @@ import gemini.util.Assert ;
 /**
  * The observation link item.
  */
+@SuppressWarnings( "serial" )
 public class SpObsLink extends SpItem
 {
 

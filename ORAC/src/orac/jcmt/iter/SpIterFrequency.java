@@ -22,6 +22,7 @@ import java.util.Vector ;
  *
  * @author modified for JCMT by Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterFrequency extends SpIterConfigObsUKIRT
 {
 

@@ -15,6 +15,7 @@ import java.util.Vector ;
  * @see gemini.sp.SpTelescopePosList
  * @see gemini.sp.SpOffsetPosList
  */
+@SuppressWarnings( "serial" )
 public abstract class TelescopePosList implements java.io.Serializable
 {
 	// Position List content/ordering watchers

@@ -14,7 +14,7 @@ import java.util.List ;
 /**
  * The Wavefront Sensor instrument component
  */
-
+@SuppressWarnings( "serial" )
 public final class SpInstWFS extends SpUKIRTInstObsComp
 {
 	// Public attributes

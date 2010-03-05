@@ -3,6 +3,7 @@ package orac.jcmt.iter ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 
+@SuppressWarnings( "serial" )
 public class SpIterArrayTestObs extends SpIterJCMTObs
 {
 

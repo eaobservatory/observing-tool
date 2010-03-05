@@ -20,6 +20,7 @@ import java.util.Vector ;
 //
 // The Enumeration of the steps produced by the Nod iterator.
 //
+@SuppressWarnings( "serial" )
 class SpIterNodEnumeration extends SpIterEnumeration
 {
 	private String[] _nodPattern ;
@@ -54,6 +55,7 @@ class SpIterNodEnumeration extends SpIterEnumeration
  *
  * @author modified as Nod Iterator by Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterNod extends SpIterComp
 {
 	public static final String ATTR_NOD_PATTERN = "nodPattern" ;

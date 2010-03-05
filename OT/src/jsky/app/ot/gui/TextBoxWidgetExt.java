@@ -20,6 +20,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  *
  * @author	Shane Walker, Allan Brighton (Swing port)
  */
+@SuppressWarnings( "serial" )
 public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget , DocumentListener , ActionListener
 {
 	// Observers

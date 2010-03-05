@@ -20,6 +20,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class ToggleButtonWidgetPanel extends JPanel
 {
 	/** Array of buttons to display */

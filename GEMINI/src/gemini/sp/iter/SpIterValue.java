@@ -11,6 +11,7 @@ package gemini.sp.iter ;
  * one particular attribute in the step. Because attributes can have multiple
  * values, the SpIterValue allows an array of values to be supplied.
  */
+@SuppressWarnings( "serial" )
 public class SpIterValue implements java.io.Serializable
 {
 	public String attribute ;

@@ -18,6 +18,7 @@ import java.net.URLDecoder ;
  * The Note item. Notes are arbitrary text information that may be entered at
  * any level of the hierarchy.
  */
+@SuppressWarnings( "serial" )
 public class SpNote extends SpItem
 {
 	public static final String ATTR_NOTE = "note" ;

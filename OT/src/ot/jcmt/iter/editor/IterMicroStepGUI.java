@@ -21,6 +21,7 @@ import javax.swing.JLabel ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterMicroStepGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

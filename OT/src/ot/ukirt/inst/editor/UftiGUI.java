@@ -27,6 +27,7 @@ import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.TableWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class UftiGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

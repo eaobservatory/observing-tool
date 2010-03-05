@@ -15,6 +15,7 @@ import java.util.Vector ;
  * @see MultiSelTreeWidget
  * @author	Shane Walker
  */
+@SuppressWarnings( "serial" )
 public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 {
 	/** Default constructor (need to call setTree(TreeNodeWidgetExt) later). */

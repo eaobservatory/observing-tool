@@ -19,6 +19,7 @@ import gemini.sp.iter.SpIterConfigObs ;
 /**
  * The POL configuration iterator for JCMT (SCUBA).
  */
+@SuppressWarnings( "serial" )
 public class SpIterPOL extends SpIterConfigObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instPOL" , "POL" ) ;

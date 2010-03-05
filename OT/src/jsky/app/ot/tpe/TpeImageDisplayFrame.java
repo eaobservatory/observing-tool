@@ -19,6 +19,7 @@ import jsky.image.gui.ImageDisplayToolBar ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame
 {
 	/** Tool bar with Tpe specific commands */

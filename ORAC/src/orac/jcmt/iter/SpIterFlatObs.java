@@ -20,6 +20,7 @@ import gemini.sp.obsComp.SpInstObsComp;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterFlatObs extends SpIterJCMTObs
 {
 

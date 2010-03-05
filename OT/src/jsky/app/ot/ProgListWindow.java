@@ -30,6 +30,7 @@ import javax.swing.JLayeredPane ;
 /**
  * A window that presents an interface used to obtain program listings and fetch programs from the ODB. This is a singleton class so at most one ProgListWindow will ever exist.
  */
+@SuppressWarnings( "serial" )
 public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatcher , StopActionWatcher , ActionListener
 {
 	// The singleton ProgListWindowFrame or InternalFrame instance.

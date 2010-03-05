@@ -19,6 +19,7 @@ import javax.swing.JPanel ;
  * 
  * @author Martin Folger ( M.Folger@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class DataReductionScreen extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

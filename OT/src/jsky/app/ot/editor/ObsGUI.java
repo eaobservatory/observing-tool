@@ -26,6 +26,7 @@ import jsky.app.ot.gui.CheckBoxWidgetExt ;
 /**
  * Changes for OMP (MFO, August 2001).
  */
+@SuppressWarnings( "serial" )
 public class ObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

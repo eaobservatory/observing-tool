@@ -19,6 +19,7 @@ import javax.swing.JLabel ;
 import javax.swing.JPanel ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterNodGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

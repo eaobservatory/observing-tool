@@ -25,6 +25,7 @@ import gemini.util.Format ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterSkydipObs extends SpIterJCMTObs
 {
 	public static String[] START_POSITIONS = { "Zenith" , "Horizon" , "Automatic" } ;

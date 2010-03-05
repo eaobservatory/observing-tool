@@ -28,6 +28,7 @@ import gemini.sp.obsComp.SpStareCapability ;
 /**
  * The UFTI instrument Observation Component
  */
+@SuppressWarnings( "serial" )
 public final class SpInstUFTI extends SpUKIRTInstObsComp
 {
 	public static final String ATTR_MODE = "acqMode" ;

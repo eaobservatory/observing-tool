@@ -21,6 +21,7 @@ import java.util.Vector ;
  * interested in when the structure or hierarchy of the program is modified, the
  * client may implement the SpHierarchyChangeObserver.
  */
+@SuppressWarnings( "serial" )
 public final class SpEditState implements Observer , java.io.Serializable
 {
 

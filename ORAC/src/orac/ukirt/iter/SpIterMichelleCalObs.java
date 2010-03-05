@@ -22,6 +22,7 @@ import gemini.sp.iter.SpIterObserveBase ;
 import gemini.sp.iter.SpIterStep ;
 import gemini.sp.iter.SpIterValue ;
 
+@SuppressWarnings( "serial" )
 class SpIterMichelleCalObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -82,6 +83,7 @@ class SpIterMichelleCalObsEnumeration extends SpIterEnumeration
 /**
  * Iterator for Michelle calibration observations (FLAT and ARC).
  */
+@SuppressWarnings( "serial" )
 public class SpIterMichelleCalObs extends SpIterObserveBase
 {
 

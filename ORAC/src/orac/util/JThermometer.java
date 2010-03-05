@@ -15,6 +15,7 @@ import javax.swing.DefaultBoundedRangeModel ;
 import javax.swing.JComponent ;
 import javax.swing.JFrame ;
 
+@SuppressWarnings( "serial" )
 public class JThermometer extends JComponent
 {
 	protected Dimension _preferredSize = new Dimension( 200 , 50 ) ;

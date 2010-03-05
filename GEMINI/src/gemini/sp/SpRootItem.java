@@ -15,9 +15,9 @@ import gemini.util.Version ;
  * @see SpPlan
  * @see SpLibrary
  */
+@SuppressWarnings( "serial" )
 public class SpRootItem extends SpObsContextItem
 {
-
 	/** The version of the OT used to generate this file */
 	public static final String ATTR_OT_VERSION = "ot_version" ;
 

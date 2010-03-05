@@ -31,6 +31,7 @@ import gemini.util.TranslationUtils ;
 /**
  * The UIST spectroscopy/IFU configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instUISTSpecIFU" , "UIST Spec/IFU" ) ;

@@ -27,6 +27,7 @@ import java.awt.Image ;
  * 
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class GraphScale extends JPanel implements ChangeListener
 {
 	private static final int MIN_LABEL_SPACING = 60 ;

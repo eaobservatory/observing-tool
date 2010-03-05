@@ -12,6 +12,7 @@ import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.obsComp.SpMicroStepUser ;
 
+@SuppressWarnings( "serial" )
 public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.SCUBA2" , "SCUBA-2" ) ;

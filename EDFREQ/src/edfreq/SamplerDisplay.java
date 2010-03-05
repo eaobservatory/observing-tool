@@ -14,6 +14,7 @@ import javax.swing.JLabel ;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class SamplerDisplay extends JLabel implements SamplerWatcher
 {
 	public SamplerDisplay( String text )

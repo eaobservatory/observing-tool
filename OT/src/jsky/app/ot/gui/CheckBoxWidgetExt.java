@@ -24,6 +24,7 @@ import jsky.util.gui.BasicWindowMonitor ;
 /**
  * An CheckBoxWidget that permits clients to register as button press watchers.
  */
+@SuppressWarnings( "serial" )
 public class CheckBoxWidgetExt extends JCheckBox implements DescriptiveWidget , ActionListener
 {
 	// Observers

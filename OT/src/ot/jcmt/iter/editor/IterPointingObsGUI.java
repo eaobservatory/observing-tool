@@ -35,7 +35,7 @@ import jsky.app.ot.gui.CommandButtonWidgetExt ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterPointingObsGUI extends IterJCMTGenericGUI
 {
 	JPanel acsisPanel = new JPanel() ;

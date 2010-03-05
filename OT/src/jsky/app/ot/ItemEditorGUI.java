@@ -22,6 +22,7 @@ import java.net.URL ;
 /** 
  * Implements the basic GUI layout for the OT item editor panel.
  */
+@SuppressWarnings( "serial" )
 public class ItemEditorGUI extends JPanel
 {
 	/** Text box describing the panel */

@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel ;
  * A TableWidget subclass that supports manipulation of table rows
  * (moving them up and down and to the front and back).
  */
+@SuppressWarnings( "serial" )
 public class RowManipulateTableWidget extends JTable
 {
 	/** Default constructor */

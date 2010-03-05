@@ -22,6 +22,7 @@ import jsky.app.ot.gui.CellSelectTableWidget ;
 import jsky.app.ot.gui.ListBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class MiniConfigIterGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

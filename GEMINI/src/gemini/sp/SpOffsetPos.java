@@ -12,6 +12,7 @@ import gemini.util.TelescopePos ;
  * A data object that describes an offset position and includes methods for
  * extracting positions from A/V tables.
  */
+@SuppressWarnings( "serial" )
 public final class SpOffsetPos extends TelescopePos
 {
 

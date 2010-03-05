@@ -9,6 +9,7 @@ package gemini.sp ;
 /**
  * The library folder item.
  */
+@SuppressWarnings( "serial" )
 public class SpLibraryFolder extends SpObsContextItem
 {
 

@@ -60,6 +60,7 @@ import jsky.app.ot.tpe.TpeManager ;
 /**
  * This is the editor for the target list component.
  */
+@SuppressWarnings( "serial" )
 public final class EdSurvey extends EdCompTargetList implements ListSelectionListener , KeyListener , Observer
 {
 	private static final String[] COLUMN_NAMES = 

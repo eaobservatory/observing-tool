@@ -28,6 +28,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class MichelleGUI extends JPanel
 {
 	JPanel jPanel1 = new JPanel() ;

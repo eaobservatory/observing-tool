@@ -16,6 +16,7 @@ import gemini.sp.iter.SpIterConfigObs;
 /**
  * The Michelle configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterMichelle extends SpIterConfigObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelle" , "Michelle" );

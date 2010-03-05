@@ -14,6 +14,7 @@ import gemini.sp.iter.SpIterObserveBase ;
 import gemini.sp.iter.SpIterStep ;
 import gemini.sp.iter.SpIterValue ;
 
+@SuppressWarnings( "serial" )
 class SpIterCalObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -57,6 +58,7 @@ class SpIterCalObsEnumeration extends SpIterEnumeration
 /**
  * Iterator for Cal Unit observes (FLAT and ARC).
  */
+@SuppressWarnings( "serial" )
 public class SpIterCalObs extends SpIterObserveBase
 {
 	/** Identifier for a FLAT calibration. */

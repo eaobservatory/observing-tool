@@ -8,4 +8,5 @@
  */
 package ot.ukirt.inst.editor ;
 
+@SuppressWarnings( "serial" )
 public class Ircam3GUI extends UftiGUI{}

@@ -12,6 +12,7 @@ import gemini.sp.SpType ;
 /**
  * The base class for observation component items.
  */
+@SuppressWarnings( "serial" )
 public class SpObsComp extends SpItem
 {
 	/**

@@ -17,6 +17,7 @@ import javax.swing.JPanel ;
 import javax.swing.JLabel ;
 import javax.swing.JComboBox ;
 
+@SuppressWarnings( "serial" )
 public class IterObserveGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

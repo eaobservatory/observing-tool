@@ -15,6 +15,7 @@ import javax.swing.JFrame ;
 /** 
  * Provides a top level window and menubar for the SplashScreen class.
  */
+@SuppressWarnings( "serial" )
 public class SplashFrame extends JFrame
 {
 

@@ -45,6 +45,7 @@ import java.util.ArrayList ;
  * (Gemini/UKIRT) But the tags can be changed to other telescope specific names.
  * Example: For JCMT BASE_TAG is set to "SCIENCE".
  */
+@SuppressWarnings( "serial" )
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
 	/**

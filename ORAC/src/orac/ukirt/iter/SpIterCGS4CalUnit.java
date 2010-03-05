@@ -15,6 +15,7 @@ import gemini.sp.iter.SpIterConfigObs;
 /**
  * The CGS4CalUnit configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterCGS4CalUnit extends SpIterConfigObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "CGS4CalUnit" , "CGS4 Cal Unit (Advanced)" );

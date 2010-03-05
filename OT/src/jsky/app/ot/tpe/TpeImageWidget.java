@@ -28,6 +28,7 @@ import jsky.coords.wcscon ;
 /**
  * This class is concerned with drawing targets, WFS etc., on a DSS image.
  */
+@SuppressWarnings( "serial" )
 public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver , SpPosAngleObserver
 {
 	private SpItem _baseItem ;

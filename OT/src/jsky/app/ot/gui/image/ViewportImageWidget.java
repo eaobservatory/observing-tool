@@ -24,6 +24,7 @@ import jsky.navigator.NavigatorImageDisplay ;
  * the mouse is at all times and when it is pressed and released.   View
  * change observers are notified whenever the view on the base image changes.
  */
+@SuppressWarnings( "serial" )
 public class ViewportImageWidget extends NavigatorImageDisplay implements MouseInputListener
 {
 	private Vector<ViewportMouseObserver> _mouseObs = new Vector<ViewportMouseObserver>() ;

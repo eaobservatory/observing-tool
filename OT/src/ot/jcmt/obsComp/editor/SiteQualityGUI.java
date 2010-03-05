@@ -31,6 +31,7 @@ import javax.swing.border.Border ;
 import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class SiteQualityGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

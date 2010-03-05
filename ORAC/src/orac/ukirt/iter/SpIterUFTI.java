@@ -31,6 +31,7 @@ import java.util.List ;
 /**
  * The UFTI configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instUFTI" , "UFTI" ) ;

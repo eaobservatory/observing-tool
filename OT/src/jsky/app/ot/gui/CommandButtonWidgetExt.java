@@ -29,6 +29,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  *
  * @author	Shane Walker, Dayle Kotturi, Allan Brighton (port to Swing)
  */
+@SuppressWarnings( "serial" )
 public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget , ActionListener
 {
 	private final static int _PADX = 2 ;

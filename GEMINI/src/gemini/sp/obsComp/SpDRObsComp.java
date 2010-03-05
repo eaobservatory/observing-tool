@@ -18,6 +18,7 @@ import gemini.sp.obsComp.SpObsComp ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public abstract class SpDRObsComp extends SpObsComp
 {
 	public SpDRObsComp( SpType spType )

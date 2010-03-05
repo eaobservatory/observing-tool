@@ -14,6 +14,7 @@ import javax.swing.border.Border ;
 
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterDREAMObsGUI extends IterJCMTGenericGUI
 {
 	TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt() ;

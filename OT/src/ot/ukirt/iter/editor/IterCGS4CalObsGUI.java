@@ -23,6 +23,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterCGS4CalObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

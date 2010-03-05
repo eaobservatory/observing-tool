@@ -16,6 +16,7 @@ import jsky.util.gui.GenericToolBar ;
 /** 
  * A tool bar for the main OT window.
  */
+@SuppressWarnings( "serial" )
 public class OtWindowToolBar extends GenericToolBar
 {
 	/** The target science program editor */

@@ -19,6 +19,7 @@ import java.awt.Dimension ;
 import java.awt.GridLayout ;
 import java.awt.Toolkit ;
 
+@SuppressWarnings( "serial" )
 public class VersionSelector extends JPanel implements ActionListener
 {
 	private static final VersionSelector selector = new VersionSelector() ;

@@ -38,7 +38,7 @@ import javax.swing.border.BevelBorder ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterJiggleObsGUI extends IterJCMTGenericGUI
 {
 	JPanel acsisPanel = new JPanel() ;

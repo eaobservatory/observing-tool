@@ -15,6 +15,7 @@ import javax.swing.JDesktopPane ;
 /** 
  * Provides a top level window and menubar for the SplashScreen class.
  */
+@SuppressWarnings( "serial" )
 public class SplashInternalFrame extends JInternalFrame
 {
 	/** main panel */

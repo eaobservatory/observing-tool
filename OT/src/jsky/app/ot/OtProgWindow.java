@@ -21,6 +21,7 @@ import gemini.sp.SpType ;
  * features implemented in this subclass have to do with the Observing
  * Database (ODB).  
  */
+@SuppressWarnings( "serial" )
 public final class OtProgWindow extends OtWindow implements StopActionWatcher
 {
 	/**

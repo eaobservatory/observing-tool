@@ -27,6 +27,7 @@ interface SpIterRepeatConstants
 //
 // Enumeration of the repeat iterator's values.
 //
+@SuppressWarnings( "serial" )
 class SpIterRepeatEnumeration extends SpIterEnumeration implements SpIterRepeatConstants
 {
 	private int _curCount = 0 ;
@@ -60,9 +61,9 @@ class SpIterRepeatEnumeration extends SpIterEnumeration implements SpIterRepeatC
  * A simple iterator that repeats the steps of nested iterators the specified
  * number of times.
  */
+@SuppressWarnings( "serial" )
 public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants , SpTranslatable
 {
-
 	/**
      * Default constructor.
      */

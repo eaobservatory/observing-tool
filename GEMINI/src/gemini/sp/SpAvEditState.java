@@ -13,6 +13,7 @@ import java.util.Observable ;
  * edit state of an item's SpAvTable and saves backup versions in case edits are
  * undone. Every SpItem has one and only one SpAvEditState and vice-versa.
  */
+@SuppressWarnings( "serial" )
 public final class SpAvEditState extends Observable implements java.io.Serializable
 {
 	/**

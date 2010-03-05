@@ -15,6 +15,7 @@ import gemini.util.Format ;
 /**
  * Site Quality observation component.
  */
+@SuppressWarnings( "serial" )
 public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 {
 	public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated" ;

@@ -14,6 +14,7 @@ import java.util.Vector ;
  * A configuration iterator base class for iterators that include exposure time
  * and coadd attributes.
  */
+@SuppressWarnings( "serial" )
 public abstract class SpIterConfigObs extends SpIterConfigBase
 {
 	/**

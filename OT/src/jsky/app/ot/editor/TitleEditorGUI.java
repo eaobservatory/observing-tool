@@ -17,6 +17,7 @@ import javax.swing.JPanel ;
 import javax.swing.JLabel ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class TitleEditorGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

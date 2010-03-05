@@ -15,6 +15,7 @@ import java.util.Vector ;
 // the set of IterConfigItems that they offer for iteration. The subclasses
 // do not need to provide their own SpIterEnumeration subclass.
 //
+@SuppressWarnings( "serial" )
 class SpIterConfigEnumeration extends SpIterEnumeration
 {
 	private SpIterConfigBase _iterConfig ;
@@ -84,6 +85,7 @@ class SpIterConfigEnumeration extends SpIterEnumeration
  * The base class for iterators that iterate over configurations. For example,
  * the SpIterNIRI iterator iterates over filters, grisms, etc.
  */
+@SuppressWarnings( "serial" )
 public abstract class SpIterConfigBase extends SpIterComp
 {
 

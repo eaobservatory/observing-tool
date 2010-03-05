@@ -22,6 +22,7 @@ import jsky.app.ot.gui.TableWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterChopGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

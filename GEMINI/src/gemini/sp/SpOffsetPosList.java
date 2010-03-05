@@ -15,9 +15,9 @@ import gemini.util.TelescopePosList ;
 /**
  * A data object that describes a list of telescope offset positions.
  */
+@SuppressWarnings( "serial" )
 public final class SpOffsetPosList extends TelescopePosList implements java.io.Serializable
 {
-
 	// The name of the attribute that holds the target list
 	public static final String OFFSET_POS_LIST = "offsetPositions" ;
 

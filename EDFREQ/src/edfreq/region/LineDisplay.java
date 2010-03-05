@@ -30,6 +30,7 @@ import edfreq.GraphScale ;
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger
  *         (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class LineDisplay extends JPanel implements Observer
 {
 	private EmissionLines el ;

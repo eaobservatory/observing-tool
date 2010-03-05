@@ -36,6 +36,7 @@ import gemini.sp.obsComp.SpTelescopeObsComp ;
  * @see gemini.sp.obsComp.SpTelescopeObsComp
  * @see gemini.sp.SpObsContextItem
  */
+@SuppressWarnings( "serial" )
 public class SpObsData implements java.io.Serializable
 {
 	private double _x = 0. ;

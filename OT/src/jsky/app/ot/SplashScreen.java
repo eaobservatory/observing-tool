@@ -22,6 +22,7 @@ import gemini.util.Version ;
 
 import jsky.util.Preferences ;
 
+@SuppressWarnings( "serial" )
 public final class SplashScreen extends SplashGUI implements ActionListener
 {
 	/** The top level parent frame (or internal frame) used to close the window */

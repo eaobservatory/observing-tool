@@ -18,6 +18,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  * Was an extension of the Marimba TableWidget to support row selection
  * and action observers. Now this class is derived from JTable.
  */
+@SuppressWarnings( "serial" )
 public class TableWidgetExt extends RowManipulateTableWidget implements DescriptiveWidget
 {
 	// Observers

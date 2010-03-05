@@ -39,6 +39,7 @@ import java.math.BigDecimal ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver , SpMapItem , SpJCMTConstants
 {
 

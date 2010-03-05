@@ -28,7 +28,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterNoiseObsGUI extends IterJCMTGenericGUI
 {
 	JPanel noisePanel = new JPanel() ;

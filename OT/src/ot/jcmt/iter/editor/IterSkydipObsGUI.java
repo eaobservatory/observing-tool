@@ -20,7 +20,7 @@ import java.awt.GridLayout ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterSkydipObsGUI extends IterJCMTGenericGUI
 {
 	CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt() ;

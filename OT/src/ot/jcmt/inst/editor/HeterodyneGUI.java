@@ -40,6 +40,7 @@ import edfreq.FrequencyEditorCfg ;
  *
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class HeterodyneGUI extends JPanel
 {
 	// Get the front end configuration

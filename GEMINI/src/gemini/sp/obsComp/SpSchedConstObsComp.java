@@ -17,9 +17,9 @@ import gemini.sp.SpType ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpSchedConstObsComp extends SpObsComp
 {
-
 	/** This attribute records the earliest scheduling date. */
 	public static final String ATTR_EARLIEST = "earliest" ;
 

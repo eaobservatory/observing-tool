@@ -12,6 +12,7 @@ import gemini.sp.SpType ;
 /**
  * This is the base class for all iterator Science Program components.
  */
+@SuppressWarnings( "serial" )
 public abstract class SpIterComp extends SpItem
 {
 	/**

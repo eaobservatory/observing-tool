@@ -39,6 +39,7 @@ import gemini.util.Assert ;
  *
  * @see OtItemEditor
  */
+@SuppressWarnings( "serial" )
 public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 {
 	/** The top level parent frame (or internal frame). */

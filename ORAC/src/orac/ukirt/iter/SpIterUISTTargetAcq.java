@@ -35,6 +35,7 @@ import java.io.IOException ;
 /**
  * Enumerater for the elements of the Observe iterator.
  */
+@SuppressWarnings( "serial" )
 class SpIterUISTTargetAcqEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -87,6 +88,7 @@ class SpIterUISTTargetAcqEnumeration extends SpIterEnumeration
 
 }
 
+@SuppressWarnings( "serial" )
 public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instUISTTargetAcq" , "UIST Spec/IFU Target Acquisition" ) ;

@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultTreeCellRenderer ;
 /**
  * Controls the appearance of OT tree nodes.
  */
+@SuppressWarnings( "serial" )
 public class TreeWidgetCellRenderer extends DefaultTreeCellRenderer
 {
 	public Component getTreeCellRendererComponent( JTree tree , Object value , boolean sel , boolean expanded , boolean leaf , int row , boolean hasFocus )

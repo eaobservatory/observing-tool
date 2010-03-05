@@ -8,9 +8,9 @@ import edfreq.EmissionLines ;
 import edfreq.GraphScale ;
 import edfreq.EdFreq ;
 
+@SuppressWarnings( "serial" )
 public class VelocityDisplay extends JPanel
 {
-
 	private GraphScale _localScale ; // Rest frame velocity scale
 	private GraphScale _targetScale ; // Redshifted velocity scale
 	private EmissionLines _el ; // Emission lines panel

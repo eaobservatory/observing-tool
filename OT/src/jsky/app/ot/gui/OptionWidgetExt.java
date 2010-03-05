@@ -21,6 +21,7 @@ import java.awt.event.ActionListener ;
 /**
  * An OptionWidget that permits clients to register as button press watchers.
  */
+@SuppressWarnings( "serial" )
 public class OptionWidgetExt extends JRadioButton implements DescriptiveWidget , ActionListener
 {
 	// Observers
