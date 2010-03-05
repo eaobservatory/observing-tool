@@ -19,6 +19,7 @@ import java.util.NoSuchElementException ;
  * @author Alan Bridger, UKATC
  * @version 0.5
  */
+@SuppressWarnings( "serial" )
 public class LookUpTable extends Vector<String>
 {
 	private int numRows ;

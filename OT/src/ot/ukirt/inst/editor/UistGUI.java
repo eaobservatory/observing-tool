@@ -28,6 +28,7 @@ import jsky.app.ot.gui.OptionWidgetExt ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 
+@SuppressWarnings( "serial" )
 public class UistGUI extends JPanel
 {
 	JPanel jPanel1 = new JPanel() ;

@@ -32,6 +32,7 @@ import gemini.util.JACLogger ;
  * the next or previous observation (if any). 17Apr00 AB Added standard flag to
  * this.
  */
+@SuppressWarnings( "serial" )
 public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConstants
 {
 	static JACLogger logger = JACLogger.getLogger( SpObs.class ) ;

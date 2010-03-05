@@ -21,9 +21,9 @@ import gemini.util.JACLogger ;
  * exposure time, and the number of coadds. It also serves as a marker for these
  * classes.
  */
+@SuppressWarnings( "serial" )
 public abstract class SpIterObserveBase extends SpIterComp
 {
-
 	public static final String ATTR_COUNT = "repeatCount" ;
 	public static final String ATTR_EXPOSURE_TIME = "exposureTime" ;
 	public static final String ATTR_COADDS = "coadds" ;

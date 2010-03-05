@@ -21,6 +21,7 @@ import gemini.sp.iter.SpIterValue ;
  * <em>The iterator code, especially the "compilation" or enumeration
  * of iterators, is going to change significantly.</em>
  */
+@SuppressWarnings( "serial" )
 public class IterEnumTableWidget extends TableWidgetExt
 {
 	/**

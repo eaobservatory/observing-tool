@@ -20,6 +20,7 @@ import jsky.app.ot.gui.DescriptiveWidget ;
  *
  * @author	Shane Walker, Allan Brighton (Swing port)
  */
+@SuppressWarnings( "serial" )
 public class PasswordWidgetExt extends JPasswordField implements DescriptiveWidget , DocumentListener , ActionListener
 {
 	/**

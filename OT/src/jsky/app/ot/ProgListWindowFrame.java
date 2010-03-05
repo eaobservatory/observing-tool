@@ -14,6 +14,7 @@ import javax.swing.JFrame ;
 /** 
  * Provides a top level window and menubar for the ProgListWindow class.
  */
+@SuppressWarnings( "serial" )
 public class ProgListWindowFrame extends JFrame
 {
 	/** main panel */

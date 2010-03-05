@@ -29,6 +29,7 @@ import jsky.app.ot.gui.TableWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class DRRecipeGUI extends JPanel
 {
 	CardLayout cardLayout1 = new CardLayout() ;

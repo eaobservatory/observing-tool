@@ -15,6 +15,7 @@ package gemini.sp.iter ;
  * 
  * @see SpIterEnumeration
  */
+@SuppressWarnings( "serial" )
 public class SpIterStep implements java.io.Serializable
 {
 	/** The title of the iteration step. */

@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent ;
  * Note: the Swing version is based on JTextArea, which is for plain text,
  * so the class name should probably be changed (allan).
  */
+@SuppressWarnings( "serial" )
 public class RichTextBoxWidgetExt extends JTextArea implements DescriptiveWidget
 {
 	// The observers

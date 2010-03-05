@@ -31,6 +31,7 @@ import java.util.Vector ;
 //
 // Enumerater for the elements of the Sky iterator.
 //
+@SuppressWarnings( "serial" )
 class SpIterSkyEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -61,6 +62,7 @@ class SpIterSkyEnumeration extends SpIterEnumeration
 /**
  * A simple "Sky" iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterSky extends SpIterObserveBase implements SpTranslatable
 {
 	public static final String ATTR_SKY_NAME = "sky" ;

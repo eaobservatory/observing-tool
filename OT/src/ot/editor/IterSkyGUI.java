@@ -31,6 +31,7 @@ import javax.swing.SwingConstants ;
  *
  * @author M.Folger@roe.ac.uk (modified copy of jsky.app.ot.editor.IterSkyGUI by Allan Brighton)
  */
+@SuppressWarnings( "serial" )
 public class IterSkyGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

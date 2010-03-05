@@ -36,7 +36,7 @@ import orac.ukirt.iter.SpIterWFCAMCalObs ;
  *
  * @author Alan Pickup
  */
-
+@SuppressWarnings( "serial" )
 public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStepUser
 {
 	/** Width and height of one IR detector in arcsecs. */

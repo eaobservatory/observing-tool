@@ -34,6 +34,7 @@ import java.util.Vector ;
 /**
  * Enumerater for the elements of the Observe iterator.
  */
+@SuppressWarnings( "serial" )
 class SpIterDarkObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -71,6 +72,7 @@ class SpIterDarkObsEnumeration extends SpIterEnumeration
 
 }
 
+@SuppressWarnings( "serial" )
 public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "darkObs" , "Dark" ) ;

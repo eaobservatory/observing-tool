@@ -10,6 +10,7 @@ package gemini.sp ;
  * The observation folder item. Observation Folders define a new scope and may
  * contain observations, observation groups, or observation components.
  */
+@SuppressWarnings( "serial" )
 public class SpObsFolder extends SpObsContextItem
 {
 

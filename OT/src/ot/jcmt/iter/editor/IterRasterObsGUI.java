@@ -36,7 +36,7 @@ import orac.util.JThermometer ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterRasterObsGUI extends IterJCMTGenericGUI
 {
 	JPanel rasterPanel = new JPanel() ;

@@ -25,6 +25,7 @@ import gemini.util.TelescopePosWatcher ;
 /**
  * An extension of the TableWidget to support telescope target lists.
  */
+@SuppressWarnings( "serial" )
 public class TelescopePosTableWidget extends TableWidgetExt implements TelescopePosWatcher , TelescopePosListWatcher , TelescopePosSelWatcher
 {
 	private Hashtable<String,TelescopePos> _posTable ;

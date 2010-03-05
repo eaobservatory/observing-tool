@@ -20,6 +20,7 @@ import gemini.util.Assert ;
  * not only maintains a reference to an associated SpItem, but also provides
  * support for dragging and dropping items in the Science Program tree.
  */
+@SuppressWarnings( "serial" )
 public abstract class OtTreeNodeWidget extends MultiSelTreeNodeWidget implements Observer , OtGuiAttributes
 {
 	/** The font for unedited items.  */

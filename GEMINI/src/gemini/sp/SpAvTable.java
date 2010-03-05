@@ -17,6 +17,7 @@ import java.util.Vector ;
 // vector is a vector of strings. A vector is used because each
 // attribute can have multiple values.
 //
+@SuppressWarnings( "serial" )
 final class SpAttr implements java.io.Serializable
 {
 	private String _description ;
@@ -56,6 +57,7 @@ final class SpAttr implements java.io.Serializable
  * instances of SpAttr (a description, vector of strings pair). Since a vector
  * is stored in each SpAttr, multiple values are permitted for each attribute.
  */
+@SuppressWarnings( "serial" )
 public final class SpAvTable implements java.io.Serializable
 {
 	// The table of attributes and values.

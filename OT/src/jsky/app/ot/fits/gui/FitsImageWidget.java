@@ -28,6 +28,7 @@ import gemini.util.PolygonD ;
 /**
  * A ViewportImageWidget that understands coordinate systems.
  */
+@SuppressWarnings( "serial" )
 public class FitsImageWidget extends ViewportImageWidget
 {
 	protected FitsImageInfo _imgInfo = new FitsImageInfo() ;

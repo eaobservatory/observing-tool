@@ -23,6 +23,7 @@ import java.util.Vector ;
  * 
  * @see gemini.sp.obsComp.SpTelescopeObsComp
  */
+@SuppressWarnings( "serial" )
 public final class SpTelescopePosList extends TelescopePosList implements java.io.Serializable
 {
 

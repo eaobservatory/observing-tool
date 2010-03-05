@@ -18,6 +18,7 @@ import java.util.Vector ;
 /**
  * This class defines the Enumeration for SpIterChop.
  */
+@SuppressWarnings( "serial" )
 class SpIterChopEnumeration extends SpIterEnumeration
 {
 	private SpIterChop _iterChop ;
@@ -80,6 +81,7 @@ class SpIterChopEnumeration extends SpIterEnumeration
  * @author Martin Folger (M.Folger@roe.ac.uk, based on
  *         gemini/sp/iter/SpIterConfigBase.java)
  */
+@SuppressWarnings( "serial" )
 public class SpIterChop extends SpIterComp
 {
 	/**

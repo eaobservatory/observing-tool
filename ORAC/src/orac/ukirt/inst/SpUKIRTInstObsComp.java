@@ -40,6 +40,7 @@ import java.util.Vector ;
  * @see gemini.sp.SpObsContextItem
  * @see gemini.sp.obsComp.SpInstObsComp
  */
+@SuppressWarnings( "serial" )
 public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 {
 	public static final int XAP_INDEX = 0 ; // Location of inst aper X value

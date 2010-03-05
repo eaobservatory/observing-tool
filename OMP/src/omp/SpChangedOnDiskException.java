@@ -15,6 +15,7 @@ package omp ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpChangedOnDiskException extends Exception
 {
 	SpChangedOnDiskException( String message )

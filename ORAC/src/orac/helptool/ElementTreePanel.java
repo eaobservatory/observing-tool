@@ -54,6 +54,7 @@ import java.util.Enumeration ;
  * @author Scott Violet
  * @version 1.6 08/26/98
  */
+@SuppressWarnings( "serial" )
 final public class ElementTreePanel extends JPanel implements CaretListener , DocumentListener , TreeSelectionListener , java.io.Serializable
 {
 	/** Tree showing the documents element structure. */

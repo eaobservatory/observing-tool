@@ -21,6 +21,7 @@ import jsky.util.QuickSort ;
 // A  menu used to create "observe" iterators (cal unit flats
 // and arcs, bias, darks, and generic observes).
 //
+@SuppressWarnings( "serial" )
 class OtIterObsMenu extends JMenu
 {
 	/**

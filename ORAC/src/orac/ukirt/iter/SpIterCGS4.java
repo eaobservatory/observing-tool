@@ -28,6 +28,7 @@ import gemini.util.TranslationUtils ;
 /**
  * The CGS4 configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instCGS4" , "CGS4" ) ;

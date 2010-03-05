@@ -19,6 +19,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  *
  * @author	Shane Walker, Allan Brighton (Swing port)
  */
+@SuppressWarnings( "serial" )
 public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWidget
 {
 	// Observers

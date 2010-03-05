@@ -41,6 +41,7 @@ import javax.swing.JButton ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpectralRegionDialog extends JDialog implements ActionListener
 {
 	private JButton okButton = new JButton( "OK" ) ;

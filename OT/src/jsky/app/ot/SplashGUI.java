@@ -27,6 +27,7 @@ import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 
 import java.net.URL ;
 
+@SuppressWarnings( "serial" )
 public class SplashGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

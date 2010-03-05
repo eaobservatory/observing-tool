@@ -37,6 +37,7 @@ import orac.ukirt.inst.SpUKIRTInstObsComp ;
 /**
  * Enumerater for the elements of the Observe iterator.
  */
+@SuppressWarnings( "serial" )
 class SpIterBiasObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -74,6 +75,7 @@ class SpIterBiasObsEnumeration extends SpIterEnumeration
 
 }
 
+@SuppressWarnings( "serial" )
 public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "biasObs" , "Bias" ) ;

@@ -21,6 +21,7 @@ import java.util.Vector ;
 /**
  * The IRCAM3 configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterIRCAM3 extends SpIterConfigObsUKIRT
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instIRCAM3" , "IRCAM3" ) ;

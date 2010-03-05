@@ -21,6 +21,7 @@ import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterWFCAMCalObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

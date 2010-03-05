@@ -17,6 +17,7 @@ import javax.swing.JScrollPane ;
 import javax.swing.JButton ;
 import javax.swing.BorderFactory ;
 
+@SuppressWarnings( "serial" )
 public class IterFolderGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

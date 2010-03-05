@@ -21,6 +21,7 @@ import orac.jcmt.SpJCMTConstants ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTConstants
 {
 	/**

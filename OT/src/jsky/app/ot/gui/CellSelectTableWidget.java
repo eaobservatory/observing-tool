@@ -22,6 +22,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  * A TableWidget subclass that supports selection of individual cells
  * (as opposed to just entire rows as int org.freebongo.gui.TableWidget).
  */
+@SuppressWarnings( "serial" )
 public class CellSelectTableWidget extends RowManipulateTableWidget implements DescriptiveWidget
 {
 	/**

@@ -33,6 +33,7 @@ import ot.util.DialogUtil ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class OtWasteBin extends JLabel implements DropTargetListener
 {
 	protected String imgpath = "ot/images/" ;

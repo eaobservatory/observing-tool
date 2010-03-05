@@ -40,6 +40,7 @@ import orac.ukirt.iter.SpIterCGS4CalObs ;
  * @version 1.0
  *
  */
+@SuppressWarnings( "serial" )
 public final class SpInstCGS4 extends SpUKIRTInstObsComp
 {
 	// Attributes presented to user

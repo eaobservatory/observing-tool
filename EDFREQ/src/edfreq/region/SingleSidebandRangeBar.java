@@ -26,9 +26,9 @@ import edfreq.EdFreq ;
  * 
  * @author Martin Folger
  */
+@SuppressWarnings( "serial" )
 public class SingleSidebandRangeBar extends JPanel implements Observer
 {
-
 	private RangeBar _bar ;
 
 	/**

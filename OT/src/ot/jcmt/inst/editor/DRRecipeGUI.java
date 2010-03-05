@@ -25,6 +25,7 @@ import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TableWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class DRRecipeGUI extends JPanel
 {
 	Class<? extends DRRecipeGUI> whatami = this.getClass() ;

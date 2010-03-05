@@ -26,6 +26,7 @@ import jsky.app.ot.gui.StopActionWidget ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import ot.gui.PasswordWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class RemoteGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

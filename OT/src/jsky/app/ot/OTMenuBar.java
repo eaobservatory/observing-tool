@@ -16,6 +16,7 @@ import javax.swing.JComponent ;
 /** 
  * Implements the menubar for the OT application class. 
  */
+@SuppressWarnings( "serial" )
 public class OTMenuBar extends JMenuBar implements ActionListener
 {
 	/** Target class */

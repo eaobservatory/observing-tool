@@ -19,6 +19,7 @@ import ot.OtWasteBin ;
 /** 
  * Provides a top level window and menubar for the OtWindow class.
  */
+@SuppressWarnings( "serial" )
 public class OtWindowFrame extends JFrame implements WindowListener
 {
 	/** main panel */

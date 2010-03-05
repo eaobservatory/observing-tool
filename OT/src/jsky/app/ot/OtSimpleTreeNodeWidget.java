@@ -14,6 +14,7 @@ package jsky.app.ot ;
  * All of this is necessitated by the fact that Bongo widgets can't
  * be cloned.
  */
+@SuppressWarnings( "serial" )
 public class OtSimpleTreeNodeWidget extends OtTreeNodeWidget
 {
 

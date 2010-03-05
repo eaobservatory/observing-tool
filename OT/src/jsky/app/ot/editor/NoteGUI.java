@@ -24,6 +24,7 @@ import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 import jsky.app.ot.OtCfg ;
 
+@SuppressWarnings( "serial" )
 public class NoteGUI extends JPanel
 {
 	BorderLayout borderLayout1 = new BorderLayout() ;

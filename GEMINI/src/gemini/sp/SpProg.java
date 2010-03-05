@@ -11,6 +11,7 @@ import java.util.Enumeration ;
 /**
  * The science program item.
  */
+@SuppressWarnings( "serial" )
 public class SpProg extends SpRootItem
 {
 	/** The PI (principal investigator) attribute. */

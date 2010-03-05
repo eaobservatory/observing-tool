@@ -20,6 +20,7 @@ import javax.swing.JComboBox ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterCalObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

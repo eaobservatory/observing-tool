@@ -18,6 +18,7 @@ import java.util.Observable ;
  *      observation.
  * </ul>
  */
+@SuppressWarnings( "serial" )
 public class OtObsTreeNodeWidget extends OtTreeNodeWidget
 {
 	public OtObsTreeNodeWidget(){}

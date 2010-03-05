@@ -38,9 +38,9 @@ import java.util.Vector ;
  * 
  * @author Martin Folger
  */
+@SuppressWarnings( "serial" )
 public class RangeBar extends JPanel implements MouseMotionListener , MouseListener
 {
-
 	protected static final Dimension DEFAULT_PREFERRED_SIZE = new Dimension( 100 , 20 ) ;
 	public static final Color DEFAULT_BAR_COLOR = Color.blue ;
 	public static final Color DEFAULT_RANGE_COLOR = SideBand.getSideBandColor() ;

@@ -30,6 +30,7 @@ import java.util.Enumeration ;
 /**
  * The UIST configuration iterator (Imaging).
  */
+@SuppressWarnings( "serial" )
 public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instUISTImaging" , "UIST Imaging" ) ;

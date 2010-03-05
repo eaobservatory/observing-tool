@@ -23,6 +23,7 @@ import javax.swing.border.EtchedBorder ;
 import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class SiteQualityGUI extends JPanel
 {
 	GridLayout gridLayout1 = new GridLayout( 3 , 2 ) ;

@@ -33,6 +33,7 @@ import gemini.sp.iter.SpIterObserveBase ;
 import gemini.sp.iter.SpIterStep ;
 import gemini.sp.iter.SpIterValue ;
 
+@SuppressWarnings( "serial" )
 class SpIterUISTCalObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -95,6 +96,7 @@ class SpIterUISTCalObsEnumeration extends SpIterEnumeration
 /**
  * Iterator for UIST calibration observations (FLAT and ARC).
  */
+@SuppressWarnings( "serial" )
 public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatable
 {
 	/** Identifier for a FLAT calibration. */

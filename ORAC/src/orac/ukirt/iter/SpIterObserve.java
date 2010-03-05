@@ -27,6 +27,7 @@ import java.util.Vector ;
 //
 // Enumerater for the elements of the Observe iterator.
 //
+@SuppressWarnings( "serial" )
 class SpIterObserveEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -58,6 +59,7 @@ class SpIterObserveEnumeration extends SpIterEnumeration
 /**
  * A simple "Observe" iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "observe" , "Observe" ) ;

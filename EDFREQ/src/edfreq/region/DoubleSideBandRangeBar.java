@@ -28,9 +28,9 @@ import edfreq.EdFreq ;
  * 
  * @author Martin Folger
  */
+@SuppressWarnings( "serial" )
 public class DoubleSideBandRangeBar extends JPanel implements Observer
 {
-
 	private RangeBar _lowerRangeBar = new RangeBar( EdFreq.SIDE_BAND_LSB ) ;
 	private RangeBar _upperRangeBar = new RangeBar( EdFreq.SIDE_BAND_USB ) ;
 	private JLabel _baselineId = new JLabel() ;

@@ -41,6 +41,7 @@ import edfreq.EdFreq ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class VelocityRegionEditor extends JPanel implements ActionListener
 {
 

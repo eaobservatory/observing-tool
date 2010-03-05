@@ -15,6 +15,7 @@ import gemini.sp.iter.SpIterConfigObs ;
 /**
  * The CalUnit configuration iterator.
  */
+@SuppressWarnings( "serial" )
 public class SpIterCalUnit extends SpIterConfigObs
 {
 

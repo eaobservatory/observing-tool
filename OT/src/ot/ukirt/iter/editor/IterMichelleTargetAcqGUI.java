@@ -19,6 +19,7 @@ import javax.swing.BorderFactory ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterMichelleTargetAcqGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

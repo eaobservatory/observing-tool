@@ -38,6 +38,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  * @see MultiSelTreeNodeWidget
  * @author      Shane Walker, Allan Brighton (Swing port), Martin Folger (Multi Drag and Drop)
  */
+@SuppressWarnings( "serial" )
 public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRenderer , MouseListener
 {
 	/**

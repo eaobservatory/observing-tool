@@ -33,6 +33,7 @@ import gemini.sp.iter.SpIterObserveBase ;
 import gemini.sp.iter.SpIterStep ;
 import gemini.sp.iter.SpIterValue ;
 
+@SuppressWarnings( "serial" )
 class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -74,6 +75,7 @@ class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
 /**
  * Iterator for WFCAM FLAT observations.
  */
+@SuppressWarnings( "serial" )
 public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatable
 {
 	/** Identifier for a SKYFLAT calibration. */

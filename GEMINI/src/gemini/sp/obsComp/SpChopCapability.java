@@ -9,9 +9,9 @@ package gemini.sp.obsComp ;
 /**
  * A capability for getting and setting chop attributes.
  */
+@SuppressWarnings( "serial" )
 public class SpChopCapability extends SpInstCapability implements SpInstConstants
 {
-
 	public static final String CAPABILITY_NAME = "chop" ;
 
 	/**

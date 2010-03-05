@@ -22,6 +22,7 @@ import jsky.util.QuickSort ;
 /**
  * A popup menu used to create observation components.
  */
+@SuppressWarnings( "serial" )
 class OtCompPopupMenu extends JPopupMenu
 {
 	/**

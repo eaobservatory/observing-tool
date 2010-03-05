@@ -25,6 +25,7 @@ import gemini.util.Format ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterFocusObs extends SpIterJCMTObs
 {
 	public static String[] AXES = { "x" , "y" , "z" } ;

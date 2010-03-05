@@ -9,9 +9,9 @@ package gemini.sp.obsComp ;
 /**
  * A base class for IR instrument observation component items.
  */
+@SuppressWarnings( "serial" )
 public class SpStareCapability extends SpInstCapability implements SpInstConstants
 {
-
 	public static final String CAPABILITY_NAME = "stare" ;
 
 	/**

@@ -32,6 +32,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  * button. Both the LED and the stop button are displayed according to
  * the current state, which may be set by the caller.
  */
+@SuppressWarnings( "serial" )
 public class StopActionWidget extends JPanel
 {
 	/** Handle for the "LED" button */

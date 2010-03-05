@@ -19,6 +19,7 @@ import javax.swing.BorderFactory ;
 import javax.swing.JComboBox ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterBiasObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

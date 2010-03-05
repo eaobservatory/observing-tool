@@ -36,7 +36,7 @@ import gemini.sp.obsComp.SpStareCapability ;
  *
  * @author Alan Pickup
  */
-
+@SuppressWarnings( "serial" )
 public final class SpInstUIST extends SpUKIRTInstObsComp
 {
 	// Attributes presented to user

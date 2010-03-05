@@ -32,6 +32,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
  * @author Martin Folger (M.Folger@roe.ac.uk),
  *         based on Allan Brighton (jsky/app/ot/editor/TitleEditorGUI.java)
  */
+@SuppressWarnings( "serial" )
 public class MsbEditorGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

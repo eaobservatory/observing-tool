@@ -32,9 +32,9 @@ import java.awt.Color ;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class SkyTransmission extends JPanel implements ChangeListener
 {
-
 	int xSize ;
 	int ySize ;
 	String _feName = null ;

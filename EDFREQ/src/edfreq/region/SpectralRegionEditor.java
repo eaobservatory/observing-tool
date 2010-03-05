@@ -43,9 +43,9 @@ import edfreq.EdFreq ;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpectralRegionEditor extends JPanel implements ActionListener
 {
-
 	private Color FIT_REGION_BAR_COLOR = Color.blue ;
 	private Color LINE_REGION_BAR_COLOR = Color.red ;
 	private int[] ZOOM_OPTIONS = { 1 , 2 , 3 , 4 } ;

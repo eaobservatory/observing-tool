@@ -12,6 +12,7 @@ import javax.swing.JPanel ;
 
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class WfsGUI extends JPanel
 {
 	JLabel coaddsLabel = new JLabel() ;

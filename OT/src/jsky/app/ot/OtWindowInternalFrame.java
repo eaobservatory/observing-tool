@@ -20,6 +20,7 @@ import ot.OtWasteBin ;
 /** 
  * Provides a top level window and menubar for the OtWindow class.
  */
+@SuppressWarnings( "serial" )
 public class OtWindowInternalFrame extends JInternalFrame implements CloseableApp
 {
 	/** main panel */

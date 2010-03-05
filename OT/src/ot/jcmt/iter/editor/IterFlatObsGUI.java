@@ -27,7 +27,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
  * @author$
  * @version$
  */
-
+@SuppressWarnings( "serial" )
 public class IterFlatObsGUI extends IterJCMTGenericGUI
 {
 	JPanel flatPanel = new JPanel() ;

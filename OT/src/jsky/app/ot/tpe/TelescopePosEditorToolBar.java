@@ -24,6 +24,7 @@ import jsky.app.ot.tpe.feat.TpeGuidePosFeature ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class TelescopePosEditorToolBar extends JToolBar
 {
 	/** The main image display widget */

@@ -34,6 +34,7 @@ import java.io.FileReader ;
  * @see gemini.sp.SpObsData
  * @see gemini.sp.SpObsContextItem
  */
+@SuppressWarnings( "serial" )
 public class SpSurveyObsComp extends SpObsComp
 {
 	public static final String ATTR_REMAINING = "remaining" ;

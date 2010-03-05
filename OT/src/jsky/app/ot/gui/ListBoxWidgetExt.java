@@ -22,6 +22,7 @@ import jsky.util.gui.BasicWindowMonitor ;
  *
  * @author	Shane Walker
  */
+@SuppressWarnings( "serial" )
 public class ListBoxWidgetExt extends JList implements DescriptiveWidget
 {
 	// Observers

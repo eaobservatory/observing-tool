@@ -26,6 +26,7 @@ import gemini.sp.obsComp.SpStareCapability ;
 /**
  * The IRCAM3 instrument Observation Component
  */
+@SuppressWarnings( "serial" )
 public final class SpInstIRCAM3 extends SpUKIRTInstObsComp
 {
 	public static final String ATTR_MODE = "acqMode" ;

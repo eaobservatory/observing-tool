@@ -21,7 +21,8 @@ import jsky.util.QuickSort ;
 // A popup menu used to create iterator folders and components
 // (except for the "observe" iterators--cal unit flats and arcs,
 // bias, darks, and generic observes).
-// 
+//
+@SuppressWarnings( "serial" )
 class OtIterCompPopupMenu extends JPopupMenu
 {
 	/**

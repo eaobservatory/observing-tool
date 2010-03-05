@@ -26,6 +26,7 @@ import gemini.util.MathUtil ;
 /**
  * Enumerater for the elements of the Observe iterator.
  */
+@SuppressWarnings( "serial" )
 class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration
 {
 
@@ -101,6 +102,7 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration
 
 }
 
+@SuppressWarnings( "serial" )
 public class SpIterMichelleTargetAcq extends SpIterObserveBase
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instMichelleTargetAcq" , "Michelle Spectroscopy Target Acquisition" ) ;

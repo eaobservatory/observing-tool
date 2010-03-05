@@ -11,6 +11,7 @@ import java.awt.Insets ;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 {
 	public CheckBoxWidgetExt continuousSpinCheckBox ;

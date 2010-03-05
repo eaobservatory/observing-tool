@@ -22,6 +22,7 @@ import javax.swing.BorderFactory ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class WfcamGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

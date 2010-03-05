@@ -22,6 +22,7 @@ import gemini.util.Format ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterJiggleObs extends SpIterJCMTObs
 {
 

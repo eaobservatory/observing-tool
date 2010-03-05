@@ -22,6 +22,7 @@ import java.awt.Color ;
 import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class OtPreferencesGUI extends JPanel
 {
 	JTabbedPane jTabbedPane1 = new JTabbedPane() ;

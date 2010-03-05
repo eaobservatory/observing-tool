@@ -31,6 +31,7 @@ import gemini.sp.obsComp.SpDRObsComp ;
  * Modified for WFCAM: 2003-Mar-31 Alan Pickup, UKATC
  *
  */
+@SuppressWarnings( "serial" )
 public final class SpDRRecipe extends SpDRObsComp
 {
 	public static final String ATTR_BIAS_RECIPE = "BiasRecipe" ;

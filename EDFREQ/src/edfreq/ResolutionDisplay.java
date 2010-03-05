@@ -14,9 +14,9 @@ import javax.swing.JLabel ;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
+@SuppressWarnings( "serial" )
 public class ResolutionDisplay extends JLabel implements SamplerWatcher
 {
-
 	private int channels ;
 	private int resolution ;
 	private double width ;

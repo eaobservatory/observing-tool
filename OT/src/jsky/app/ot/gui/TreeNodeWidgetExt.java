@@ -26,6 +26,7 @@ import java.net.URL ;
  *
  * @author	Shane Walker, Allan Brighton (ported from Bongo to Swing)
  */
+@SuppressWarnings( "serial" )
 public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 {
 	/** The tree to which this node belongs */

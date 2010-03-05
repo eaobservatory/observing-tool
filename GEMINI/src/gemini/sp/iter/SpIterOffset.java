@@ -28,6 +28,7 @@ import java.util.Vector ;
 //
 // The Enumeration of the steps produced by the Offset iterator.
 //
+@SuppressWarnings( "serial" )
 class SpIterOffsetEnumeration extends SpIterEnumeration
 {
 
@@ -67,6 +68,7 @@ class SpIterOffsetEnumeration extends SpIterEnumeration
  * 
  * @see SpOffsetPosList
  */
+@SuppressWarnings( "serial" )
 public class SpIterOffset extends SpIterComp implements SpTranslatable
 {
 

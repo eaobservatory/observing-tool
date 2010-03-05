@@ -22,7 +22,7 @@ import java.util.Vector ;
  * This class extends the SpIterConfigObs class and adds some UKIRT
  * specific items and overrides.
  */
-
+@SuppressWarnings( "serial" )
 public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements SpTranslatable
 {
 

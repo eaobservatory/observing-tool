@@ -20,6 +20,7 @@ import javax.swing.JComboBox ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterDarkObsGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

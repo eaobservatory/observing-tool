@@ -35,6 +35,7 @@ import gemini.sp.iter.SpIterValue ;
 
 import gemini.util.ConfigWriter ;
 
+@SuppressWarnings( "serial" )
 class SpIterCGS4CalObsEnumeration extends SpIterEnumeration
 {
 	private int _curCount = 0 ;
@@ -83,6 +84,7 @@ class SpIterCGS4CalObsEnumeration extends SpIterEnumeration
 /**
  * Iterator for Cal Unit observes (FLAT and ARC).
  */
+@SuppressWarnings( "serial" )
 public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatable
 {
 

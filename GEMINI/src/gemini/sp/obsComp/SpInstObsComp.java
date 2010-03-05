@@ -25,6 +25,7 @@ import java.util.Vector ;
  * @see gemini.sp.SpObsData
  * @see gemini.sp.SpObsContextItem
  */
+@SuppressWarnings( "serial" )
 public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 {
 	Class< ? extends SpInstObsComp > myself = this.getClass() ;

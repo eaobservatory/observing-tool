@@ -19,6 +19,7 @@ import jsky.navigator.NavigatorImageDisplayToolBar ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class TpeImageDisplayMenuBar extends NavigatorImageDisplayMenuBar
 {
 	/**

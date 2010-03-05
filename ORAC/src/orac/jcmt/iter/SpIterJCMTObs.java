@@ -28,6 +28,7 @@ import orac.jcmt.SpJCMTConstants ;
  * widget. The number of integrations is changed instead. But that does not result in
  * seperate SpIterSteps.
  */
+@SuppressWarnings( "serial" )
 class SpIterJCMTObsEnumeration extends SpIterEnumeration implements SpJCMTConstants
 {
 	private int _curCount = 0 ;
@@ -70,6 +71,7 @@ class SpIterJCMTObsEnumeration extends SpIterEnumeration implements SpJCMTConsta
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 {
 

@@ -19,6 +19,7 @@ import jsky.image.gui.DivaMainImageDisplay ;
  * @version $Revision$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class TpeImageDisplayControl extends NavigatorImageDisplayControl
 {
 	/**

@@ -29,6 +29,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
  * @see gemini.sp.obsComp.SpInstObsComp
  * @see SpObs
  */
+@SuppressWarnings( "serial" )
 public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPosAngleObserver
 {
 

@@ -43,6 +43,7 @@ import java.util.StringTokenizer ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class ReportBox extends JFrame
 {
 	protected JPanel jPanel1 = new JPanel() ;

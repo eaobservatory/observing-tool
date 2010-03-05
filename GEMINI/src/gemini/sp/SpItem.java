@@ -14,6 +14,7 @@ import java.util.Observable ;
 // Implements Enumeration. Can be used to iterate over the SpItem's
 // children.
 //
+@SuppressWarnings( "serial" )
 final class SpChildren implements Enumeration<SpItem> , java.io.Serializable
 {
 
@@ -83,6 +84,7 @@ final class SpChildren implements Enumeration<SpItem> , java.io.Serializable
  * Make sure you do not confuse SpAvTable attributes and XML attributes when
  * reading this documentation.
  */
+@SuppressWarnings( "serial" )
 public class SpItem extends Observable implements Cloneable , java.io.Serializable
 {
 

@@ -31,6 +31,7 @@ import java.awt.Image ;
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger
  *         (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class EmissionLines extends JPanel implements MouseListener , ChangeListener
 {
 	int xSize ;

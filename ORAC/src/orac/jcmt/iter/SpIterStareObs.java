@@ -26,6 +26,7 @@ import gemini.util.Format ;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public class SpIterStareObs extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Stare" ) ;

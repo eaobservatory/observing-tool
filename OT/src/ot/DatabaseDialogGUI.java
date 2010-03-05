@@ -23,6 +23,7 @@ import javax.swing.JLabel ;
 import javax.swing.BorderFactory ;
 import ot.gui.PasswordWidgetExt ; // MFO (24 July 2001)
 
+@SuppressWarnings( "serial" )
 public class DatabaseDialogGUI extends JPanel
 {
 	BorderLayout borderLayout1 = new BorderLayout() ;

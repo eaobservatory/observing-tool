@@ -12,6 +12,7 @@ import java.util.Hashtable ;
 /**
  * These are the valid types for program and plan items.
  */
+@SuppressWarnings( "serial" )
 public class SpType implements java.io.Serializable
 {
 

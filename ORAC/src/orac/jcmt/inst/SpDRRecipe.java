@@ -33,6 +33,7 @@ import java.util.TreeMap ;
  *
  * @author Alan Bridger, UKATC, modified for JCMT OT by Martin Folger (M.Folger@roe.ac.uk)
  */
+@SuppressWarnings( "serial" )
 public final class SpDRRecipe extends SpDRObsComp
 {
 	public static final String PROJECTION_TYPES_TAG = "projection types" ;

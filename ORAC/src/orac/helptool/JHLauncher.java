@@ -81,6 +81,7 @@ import java.util.jar.JarFile ;
  * @version	1.37	04/11/99
  */
 
+@SuppressWarnings( "serial" )
 final public class JHLauncher implements java.io.Serializable
 {
 	private static JFrame frame ;

@@ -38,7 +38,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
  * @author Martin Folger
  * @version 1.0
  */
-
+@SuppressWarnings( "serial" )
 public class IterStareObsGUI extends IterJCMTGenericGUI
 {
 	JPanel acsisPanel = new JPanel() ;

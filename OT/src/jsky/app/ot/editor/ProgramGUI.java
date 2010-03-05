@@ -20,6 +20,7 @@ import javax.swing.JPanel ;
 import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class ProgramGUI extends JPanel
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;

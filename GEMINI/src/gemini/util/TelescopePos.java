@@ -11,9 +11,9 @@ import java.util.Vector ;
 /**
  * Base class for telescope positions.
  */
+@SuppressWarnings( "serial" )
 public abstract class TelescopePos implements java.io.Serializable
 {
-
 	/** The position's <i>unique</i> string tag. */
 	protected String _tag ;
 

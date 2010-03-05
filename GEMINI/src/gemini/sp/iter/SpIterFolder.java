@@ -26,6 +26,7 @@ import gemini.util.TranslationUtils ;
  * The Iterator Folder (or "Sequence") item. The job of the folder is to hold
  * iterators for an Observation Context.
  */
+@SuppressWarnings( "serial" )
 public class SpIterFolder extends SpItem implements SpTranslatable
 {
 	/**

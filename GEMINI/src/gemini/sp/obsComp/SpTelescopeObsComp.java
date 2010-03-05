@@ -25,6 +25,7 @@ import java.util.Enumeration ;
  * @see gemini.sp.SpObsData
  * @see gemini.sp.SpObsContextItem
  */
+@SuppressWarnings( "serial" )
 public class SpTelescopeObsComp extends SpObsComp
 {
 	/** TCS XML constants. */

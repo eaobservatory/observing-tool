@@ -5,6 +5,7 @@ package omp ;
  * MSB Done dialog box.
  * 
  */
+@SuppressWarnings( "serial" )
 public class InvalidUserException extends Exception
 {
 	InvalidUserException( String message )

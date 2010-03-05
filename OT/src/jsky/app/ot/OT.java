@@ -43,6 +43,7 @@ import gemini.sp.SpTreeMan ;
 import gemini.util.ObservingToolUtilities;
 import orac.ukirt.iter.SpIterMichelleCalObs ;
 
+@SuppressWarnings( "serial" )
 public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */

@@ -13,6 +13,7 @@ import gemini.sp.SpAvTable ;
  * <p>
  * The base class mainly implements the code required to copy a capability.
  */
+@SuppressWarnings( "serial" )
 public class SpInstCapability implements Cloneable , java.io.Serializable
 {
 	protected SpAvTable _avTable ;
