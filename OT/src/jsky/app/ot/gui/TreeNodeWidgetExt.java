@@ -227,7 +227,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public final void addWatcherAll( TreeNodeWidgetWatcher watcher )
 	{
 		addWatcher( watcher ) ;
-		Enumeration e = postorderEnumeration() ;
+		Enumeration<?> e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
 			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
@@ -250,7 +250,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public final void deleteWatcherAll( TreeNodeWidgetWatcher watcher )
 	{
 		deleteWatcher( watcher ) ;
-		Enumeration e = postorderEnumeration() ;
+		Enumeration<?> e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
 			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
@@ -273,7 +273,7 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	public final void deleteWatchersAll()
 	{
 		deleteWatchers() ;
-		Enumeration e = postorderEnumeration() ;
+		Enumeration<?> e = postorderEnumeration() ;
 		while( e.hasMoreElements() )
 		{
 			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;

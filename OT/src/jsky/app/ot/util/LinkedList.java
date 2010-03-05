@@ -190,7 +190,7 @@ public class LinkedList
 	/**
 	 * @return an enumeration to iterate through all elements in the list
 	 */
-	public Enumeration elements()
+	public Enumeration<?> elements()
 	{
 		return new ListEnumeration( head ) ;
 	}
@@ -209,7 +209,7 @@ public class LinkedList
 		for( int i = 1 ; i <= 10 ; i++ )
 			a.insert( new Integer( i ) ) ;
 
-		Enumeration e = a.elements() ;
+		Enumeration<?> e = a.elements() ;
 		while( e.hasMoreElements() )
 			System.out.println( e.nextElement() ) ;
 
@@ -243,6 +243,7 @@ class Link
  * A class for enumerating a linked list implements the Enumeration
  * interface.
  */
+@SuppressWarnings( "unchecked" )
 class ListEnumeration implements Enumeration
 {
 	private Link cursor ;

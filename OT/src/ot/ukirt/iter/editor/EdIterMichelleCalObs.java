@@ -14,7 +14,6 @@ import orac.ukirt.iter.SpIterMichelleCalObs ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
@@ -68,12 +67,6 @@ public final class EdIterMichelleCalObs extends OtItemEditor implements TextBoxW
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-		CommandButtonWidgetExt cbw ;
-
-		// Set the calibration choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.calType ;
-
 		TextBoxWidgetExt tbw ;
 
 		// Exposure time
@@ -83,15 +76,6 @@ public final class EdIterMichelleCalObs extends OtItemEditor implements TextBoxW
 		// Exposure time
 		tbw = ( TextBoxWidgetExt )_w.observationTime ;
 		tbw.addWatcher( this ) ;
-
-		// Flat source
-		ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source ;
-
-		// Flat sampling
-		ddlbw = ( DropDownListBoxWidgetExt )_w.flat_sampling ;
-
-		// default button
-		cbw = ( CommandButtonWidgetExt )_w.useDefaults ;
 
 		super._init() ;
 

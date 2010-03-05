@@ -43,7 +43,6 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 	JMenuItem item ;
 	private double lowLimit ;
 	private double highLimit ;
-	private double halfrange ;
 	private double restHalfrange ;
 	private LineDetails[] lineStore ;
 	private LineDetails[] altLineStore ;
@@ -86,7 +85,6 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		this.redshift = redshift ;
 
 		restHalfrange = .5 * ( highLimit - lowLimit ) ;
-		halfrange = .5 * ( this.highLimit - this.lowLimit ) ;
 
 		/* Select the emission lines within the frequency range */
 
@@ -167,7 +165,6 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		this.redshift = redshift ;
 		lowLimit = restLowLimit * ( 1. + redshift ) ;
 		highLimit = restHighLimit * ( 1. + redshift ) ;
-		halfrange = .5 * ( highLimit - lowLimit ) ;
 		updateLines() ;
 		repaint() ;
 	}
@@ -325,7 +322,6 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		restHighLimit = value + restHalfrange ;
 		lowLimit = restLowLimit * ( 1. + redshift ) ;
 		highLimit = restHighLimit * ( 1. + redshift ) ;
-		halfrange = .5 * ( highLimit - lowLimit ) ;
 
 		updateLines() ;
 

@@ -112,6 +112,6 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements Sp
 		if( inst == null || !( inst instanceof SpUKIRTInstObsComp ) )
 			throw new SpTranslationNotSupportedException( "No instrument, or not a UKIRT instrument" ) ;
 
-		IterConfigItem[] a_ici = getAvailableItems() ;
+		getAvailableItems() ;
 	}
 }

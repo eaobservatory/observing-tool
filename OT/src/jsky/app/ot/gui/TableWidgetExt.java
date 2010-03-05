@@ -150,7 +150,8 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	/**
 	 * test main
 	 */
-	public static void main( String[] args )
+	@SuppressWarnings( "unchecked" )
+    public static void main( String[] args )
 	{
 		JFrame frame = new JFrame( "TableWidgetExt" ) ;
 

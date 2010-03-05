@@ -32,8 +32,6 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.obsComp.SpSurveyObsComp ;
-import jsky.app.ot.tpe.feat.TpeCatalogFeature ;
-import jsky.app.ot.util.BasicPropertyList ;
 import jsky.catalog.skycat.SkycatConfigFile ;
 import jsky.navigator.NavigatorImageDisplayFrame ;
 import jsky.navigator.NavigatorImageDisplayInternalFrame ;
@@ -61,8 +59,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	private static final String BLANK_IMAGE = "Blank Image" ;
 	public static final String ANY_SERVER = "any" ;
 	public static final String FILE_IMAGE = "file" ;
-	private TpeImageFeature BASE_FEATURE ;
-	private TpeImageFeature CATALOG_FEATURE ;
 	private Vector<TpeImageFeature> _targetListFeatures = new Vector<TpeImageFeature>() ;
 	private Vector<TpeImageFeature> _instrumentFeatures = new Vector<TpeImageFeature>() ;
 	private SpTelescopePosList _posList ;
@@ -84,9 +80,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 
 	// image frame toolbar (on the side with toggle buttons)
 	private TelescopePosEditorToolBar _tpeToolBar ;
-
-	// image frame menubar
-	private TpeImageDisplayMenuBar _tpeMenuBar ;
 
 	/** Used in {@link #loadImage(java.lang.String)}. */
 	private Point2D.Double _convertedPosition = new Point2D.Double() ;
@@ -124,7 +117,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		if( parent instanceof TpeImageDisplayFrame )
 		{
 			_tpeToolBar = ( ( TpeImageDisplayFrame )parent ).getTpeToolBar() ;
-			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayFrame )parent ).getJMenuBar() ;
+			(( TpeImageDisplayFrame )parent).getJMenuBar() ;
 		}
 		else if( parent instanceof TpeImageDisplayInternalFrame )
 		{
@@ -149,9 +142,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		for( int i = 0 ; i < _targetListFeatures.size() ; ++i )
 			_addFeature( _targetListFeatures.elementAt( i ) ) ;
 
-		if( _targetListFeatures.firstElement() != null )
-			BASE_FEATURE = _targetListFeatures.firstElement() ;
-		else
+		if( _targetListFeatures.firstElement() == null )
 			DialogUtil.error( "No base/science feature found." ) ;
 
 		// Instrument features
@@ -165,8 +156,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		{
 			TpeImageFeature tif = v.elementAt( i ) ;
 			_addFeature( tif ) ;
-			if( tif instanceof TpeCatalogFeature )
-				CATALOG_FEATURE = tif ;
 		}
 
 		// Select the "Browse" tool.
@@ -403,7 +392,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		_featureMan.addFeature( tif ) ;
 
 		// If this feature has properties, show them in the "View" menu.
-		final BasicPropertyList pl = tif.getProperties() ;
+		tif.getProperties() ;
 
 		_editorTools.addCreateTools( tif ) ;
 		return true ;

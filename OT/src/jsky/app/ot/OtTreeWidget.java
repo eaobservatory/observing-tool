@@ -108,7 +108,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		OtAdvancedTreeDragSource source = new OtAdvancedTreeDragSource( this ) ;
 
 		// Add a drop target to the FileTree
-		OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget( this , source ) ;
+		new OtAdvancedTreeDropTarget( this , source ) ;
 
 		tree.addTreeExpansionListener( this ) ;
 	}
@@ -180,7 +180,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public void updateNodeExpansions()
 	{
-		Enumeration allOffsprings = _otTNW.depthFirstEnumeration() ;
+		Enumeration<?> allOffsprings = _otTNW.depthFirstEnumeration() ;
 		OtTreeNodeWidget otTreeNodeWidget = null ;
 
 		while( allOffsprings.hasMoreElements() )

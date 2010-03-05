@@ -231,7 +231,8 @@ public final class EdIterSky extends OtItemEditor implements ActionListener , Ch
 
 	public void changedUpdate( DocumentEvent e ){}
 	
-	public void getSkyPositions( SpItem spItem )
+	@SuppressWarnings( "unchecked" )
+    public void getSkyPositions( SpItem spItem )
 	{
 		if( spItem != null )
 		{

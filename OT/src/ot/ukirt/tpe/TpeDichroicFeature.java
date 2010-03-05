@@ -177,10 +177,8 @@ public class TpeDichroicFeature extends TpeImageFeature
 			_oobtArea.npoints = 5 ;
 		}
 
-		double w = fii.pixelsPerArcsec * OOBT_WIDTH ;
 		double w2 = fii.pixelsPerArcsec * OOBT_WIDTH / 2. ;
 		double h = fii.pixelsPerArcsec * OOBT_HEIGHT ;
-		double h2 = fii.pixelsPerArcsec * OOBT_HEIGHT / 2. ;
 
 		_oobtArea.xpoints[ 0 ] = x - w2 ;
 		_oobtArea.xpoints[ 1 ] = x + w2 ;
@@ -202,10 +200,8 @@ public class TpeDichroicFeature extends TpeImageFeature
 			_oobbArea.npoints = 5 ;
 		}
 
-		w = fii.pixelsPerArcsec * OOBB_WIDTH ;
 		w2 = fii.pixelsPerArcsec * OOBB_WIDTH / 2. ;
 		h = fii.pixelsPerArcsec * OOBB_HEIGHT ;
-		h2 = fii.pixelsPerArcsec * OOBB_HEIGHT / 2. ;
 
 		_oobbArea.xpoints[ 0 ] = x - w2 ;
 		_oobbArea.xpoints[ 1 ] = x + w2 ;

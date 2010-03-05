@@ -251,7 +251,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 				if( xMin[ i ] > lo1 )
 				{
 					System.out.println( "xMin[i] > lo1" ) ;
-					barX = ( ( int )Math.round( ( xMin[ i ] - ( _mainLine / 1.0E9 - _feBandWidth * 1.0E-9 / 2 ) ) * pixelsPerValue ) ) ;
+					barX = ( ( int )Math.round( ( xMin[ i ] - ( _mainLine / 1.E9 - _feBandWidth * 1.E-9 / 2 ) ) * pixelsPerValue ) ) ;
 				}
 				else
 				{
@@ -377,7 +377,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 
 		// Make sure _vDisp.getPixelsPerValue() is called after
         // _vDisp.updateDisplay() ;
-		_feBandWidthPixels = ( int )( ( feBandWidth / 1.0E9 ) * _vDisp.getPixelsPerValue() ) ;
+		_feBandWidthPixels = ( int )( ( feBandWidth / 1.E9 ) * _vDisp.getPixelsPerValue() ) ;
 
 		_parent.pack() ;
 	}
@@ -438,16 +438,16 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 			double beIF = _beIF.get( i ) ;
 			double beBandWidth = _beBandWidth.get( i ) ;
 			// Min, max frequencies in range of upper backend sideband.
-			double beMinUSB = _vDisp.getLO1() + ( beIF - ( 0.5 * beBandWidth ) ) ;
-			double beMaxUSB = _vDisp.getLO1() + ( beIF + ( 0.5 * beBandWidth ) ) ;
+			double beMinUSB = _vDisp.getLO1() + ( beIF - ( .5 * beBandWidth ) ) ;
+			double beMaxUSB = _vDisp.getLO1() + ( beIF + ( .5 * beBandWidth ) ) ;
 
 			// Min frequency in range of upper frontend sideband.
-			double feMinUSB = _vDisp.getLO1() + ( _feIF - ( 0.5 * _feBandWidth ) ) ;
+			double feMinUSB = _vDisp.getLO1() + ( _feIF - ( .5 * _feBandWidth ) ) ;
 
 			double pixelsPerValue = _vDisp.getPixelsPerValue() ;
 
-			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
-			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.0E9 ) * pixelsPerValue ) ;
+			result[ i * 2 ] = ( int )( ( ( beMinUSB - feMinUSB ) / 1.E9 ) * pixelsPerValue ) ;
+			result[ i * 2 + 1 ] = ( int )( ( ( beMaxUSB - feMinUSB ) / 1.E9 ) * pixelsPerValue ) ;
 		}
 
 		return result ;
@@ -518,7 +518,7 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 					double[] d2 = ( double[] )o[ 1 ] ;
 					for( int l = 0 ; l < d1.length ; l++ )
 					{
-						double[] d = { d1[ l ] * 1.0E9 , d2[ l ] * 1.0E9 } ;
+						double[] d = { d1[ l ] * 1.E9 , d2[ l ] * 1.E9 } ;
 						result[ k++ ] = d ;
 					}
 				}
@@ -533,15 +533,15 @@ public class VelocityRegionEditor extends JPanel implements ActionListener
 	{
 		double[] result = new double[ 2 ] ;
 
-		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.0E9 ) + ( _feIF - ( 0.5 * _feBandWidth ) ) + lo1 ;
-		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.0E9 ) ;
+		result[ 0 ] = ( ( barX / pixelsPerValue ) * 1.E9 ) + ( _feIF - ( .5 * _feBandWidth ) ) + lo1 ;
+		result[ 1 ] = result[ 0 ] + ( ( barWidth / pixelsPerValue ) * 1.E9 ) ;
 
 		// If the region should appear in the lower sideband than reflect the
         // values on LO1.
 		if( _sideBand == EdFreq.SIDE_BAND_LSB )
 		{
-			result[ 0 ] -= 2.0 * ( result[ 0 ] - lo1 ) ;
-			result[ 1 ] -= 2.0 * ( result[ 1 ] - lo1 ) ;
+			result[ 0 ] -= 2. * ( result[ 0 ] - lo1 ) ;
+			result[ 1 ] -= 2. * ( result[ 1 ] - lo1 ) ;
 
 			// Now swap the values
 			double result0 = result[ 0 ] ;

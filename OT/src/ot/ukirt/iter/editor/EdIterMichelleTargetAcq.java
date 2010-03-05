@@ -25,7 +25,6 @@ import jsky.app.ot.editor.OtItemEditor ;
 public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
 {
 	private SpIterMichelleTargetAcq _ita ;
-	private boolean haveInitialised = false ;
 	private IterMichelleTargetAcqGUI _w ;
 
 	/**
@@ -61,8 +60,6 @@ public final class EdIterMichelleTargetAcq extends OtItemEditor implements TextB
 	public void setup( SpItem spItem )
 	{
 		_ita = ( SpIterMichelleTargetAcq )spItem ;
-
-		haveInitialised = false ;
 		super.setup( spItem ) ;
 	}
 

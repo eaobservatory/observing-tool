@@ -38,7 +38,6 @@ import java.awt.Container ;
 @SuppressWarnings( "serial" )
 public class SideBandDisplay extends JFrame implements ChangeListener , MouseListener
 {
-	private double subBandWidth ;
 	private int displayWidth = EdFreq.DISPLAY_WIDTH ;
 	private JSlider slider ;
 	private EmissionLines el ;
@@ -102,8 +101,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 		contentPanel.add( Box.createHorizontalGlue() ) ;
 		dataPanel = Box.createVerticalBox() ;
 		titlePanel = Box.createVerticalBox() ;
-
-		this.subBandWidth = bandWidths[ 0 ] ;
 
 		double mid = .5 * ( lRangeLimit + uRangeLimit ) ;
 		double lowIF = mid - feIF - ( feBandWidth * .5 ) ;
@@ -346,7 +343,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
      * returned for each susbsystem. This method replaces other calls for
      * setting things in the heterodyne editor.
      */
-	public Vector<Object>[] getCurrentConfiguration()
+	@SuppressWarnings( "unchecked" )
+    public Vector<Object>[] getCurrentConfiguration()
 	{
 		// Create the array
 		Vector<Object>[] results = new Vector[ jt.getSamplers().length ] ;

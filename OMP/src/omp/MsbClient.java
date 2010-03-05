@@ -121,7 +121,7 @@ public class MsbClient extends SoapClient
 			addParameter( "projID" , String.class , projID ) ;
 			addParameter( "checksum" , String.class , checksum ) ;
 
-			Object tmp = doCall( url , "urn:OMP::MSBServer" , "doneMSB" ) ;
+			doCall( url , "urn:OMP::MSBServer" , "doneMSB" ) ;
 		}
 		catch( Exception e )
 		{

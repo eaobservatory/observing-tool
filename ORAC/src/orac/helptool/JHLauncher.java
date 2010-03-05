@@ -261,7 +261,7 @@ final public class JHLauncher implements java.io.Serializable
 		{
 			try
 			{
-				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment() ;
+				GraphicsEnvironment.getLocalGraphicsEnvironment() ;
 			}
 			catch( NoClassDefFoundError err )
 			{
@@ -1118,7 +1118,7 @@ final public class JHLauncher implements java.io.Serializable
 	{
 		try
 		{
-			AccessControlException ex = new AccessControlException( "" ) ;
+			new AccessControlException( "" ) ;
 			on12 = true ;
 		}
 		catch( NoClassDefFoundError ex )

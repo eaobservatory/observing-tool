@@ -96,7 +96,6 @@ public final class SpDRRecipe extends SpDRObsComp
 	public static String[] PROJECTION_TYPES = null ;
 	public static String[] GRID_FUNCTION_TYPES = null ;
 	public static String[] POLYNOMIALS = null ;
-	private double DEFAULT_BASELINE = 0 ;
 	public static LookUpTable HETERODYNE ;
 	public static LookUpTable SCUBA2 ;
 	public static final String OBJECT_RECIPE_DEFAULT = "DEFAULT" ;
@@ -146,9 +145,7 @@ public final class SpDRRecipe extends SpDRObsComp
 				else if( InstCfg.matchAttr( instInfo , PROJECTION_TYPES_TAG ) )
 					PROJECTION_TYPES = instInfo.getValueAsArray() ;
 				else if( InstCfg.matchAttr( instInfo , GRID_FUNCTION_TYPES_TAG ) )
-					GRID_FUNCTION_TYPES = instInfo.getValueAsArray() ;
-				else if( InstCfg.matchAttr( instInfo , "DEFAULT_BASELINE_FRACTION" ) )
-					DEFAULT_BASELINE = Double.parseDouble( instInfo.getValue() ) ;	
+					GRID_FUNCTION_TYPES = instInfo.getValueAsArray() ;	
 				else if( InstCfg.likeAttr( instInfo , "default_recipe" ) )
 					addDefaultRecipe( instInfo.getKeyword() , instInfo.getValue() ) ;
 			}
