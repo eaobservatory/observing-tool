@@ -10,7 +10,6 @@ import gemini.util.ObservingToolUtilities ;
 
 import java.awt.Font ;
 import java.util.Vector ;
-import java.util.Enumeration ;
 import javax.swing.ImageIcon ;
 import javax.swing.tree.DefaultTreeModel ;
 import javax.swing.tree.TreeNode ;
@@ -20,9 +19,7 @@ import javax.swing.tree.DefaultMutableTreeNode ;
 import java.net.URL ;
 
 /**
- * A TreeNodeWidget extension.  It Supports a "watcher".  
- * A watcher is an object that supports the TreeNodeWidgetWatcher 
- * interface to receive notification of when a node is selected or acted upon.
+ * A TreeNodeWidget extension.
  *
  * @author	Shane Walker, Allan Brighton (ported from Bongo to Swing)
  */
@@ -31,9 +28,6 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 {
 	/** The tree to which this node belongs */
 	protected TreeWidgetExt tree ;
-
-	/** The list of clients interested in TreeNodeWidget actions. */
-	protected Vector<TreeNodeWidgetWatcher> _watchers ;
 
 	/** url string of the image for this node */
 	protected String src ;
@@ -211,77 +205,6 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	}
 
 	/**
-	 * Add a watcher for this node only.
-	 */
-	public synchronized final void addWatcher( TreeNodeWidgetWatcher watcher )
-	{
-		if( _watchers == null )
-			_watchers = new Vector<TreeNodeWidgetWatcher>() ;
-		if( !_watchers.contains( watcher ) )
-			_watchers.addElement( watcher ) ;
-	}
-
-	/**
-	 * Add a watcher for this node and the entire subtree rooted at this node.
-	 */
-	public final void addWatcherAll( TreeNodeWidgetWatcher watcher )
-	{
-		addWatcher( watcher ) ;
-		Enumeration<?> e = postorderEnumeration() ;
-		while( e.hasMoreElements() )
-		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
-			node.addWatcher( watcher ) ;
-		}
-	}
-
-	/**
-	 * Delete a watcher for this node only.
-	 */
-	public synchronized final void deleteWatcher( TreeNodeWidgetWatcher watcher )
-	{
-		if( _watchers != null )
-			_watchers.removeElement( watcher ) ;
-	}
-
-	/**
-	 * Delete a watcher for this node and the entire subtree rooted at this node.
-	 */
-	public final void deleteWatcherAll( TreeNodeWidgetWatcher watcher )
-	{
-		deleteWatcher( watcher ) ;
-		Enumeration<?> e = postorderEnumeration() ;
-		while( e.hasMoreElements() )
-		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
-			node.deleteWatcher( watcher ) ;
-		}
-	}
-
-	/**
-	 * Delete all watchers for this node only.
-	 */
-	public synchronized final void deleteWatchers()
-	{
-		if( _watchers != null )
-			_watchers.removeAllElements() ;
-	}
-
-	/**
-	 * Delete a watcher for this node and the entire subtree rooted at this node.
-	 */
-	public final void deleteWatchersAll()
-	{
-		deleteWatchers() ;
-		Enumeration<?> e = postorderEnumeration() ;
-		while( e.hasMoreElements() )
-		{
-			TreeNodeWidgetExt node = ( TreeNodeWidgetExt )e.nextElement() ;
-			node.deleteWatchers() ;
-		}
-	}
-
-	/**
 	 * Add a child at the given position. 
 	 */
 	public void add( int pos , TreeNodeWidgetExt node )
@@ -305,30 +228,6 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 		return getChildCount() ;
 	}
 
-	//
-	// Notify all watchers that the node has been selected.
-	//
-	@SuppressWarnings( "unchecked" )
-    void notifySelect()
-	{
-		if( _watchers != null )
-		{
-			Vector<TreeNodeWidgetWatcher> v ;
-			synchronized( this )
-			{
-				v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
-			}
-
-			int cnt = v.size() ;
-			for( int i = 0 ; i < cnt ; ++i )
-			{
-				TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
-				tnww.nodeSelected( this ) ;
-			}
-			tree.notifySelect( this ) ;
-		}
-	}
-
 	/**
 	 * Select a tree node and notify the watcher.
 	 */
@@ -336,38 +235,6 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	{
 		if( tree.getSelectedNode() != this )
 			tree.selectNode( this ) ;
-	}
-
-	/**
-	 * Notify all watchers that the node has been double-clicked.
-	 */
-	@SuppressWarnings( "unchecked" )
-    void notifyAction()
-	{
-		Vector<TreeNodeWidgetWatcher> v ;
-		synchronized( this )
-		{
-			if( _watchers == null )
-				return ;
-
-			v = ( Vector<TreeNodeWidgetWatcher> )_watchers.clone() ;
-		}
-
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
-		{
-			TreeNodeWidgetWatcher tnww = v.elementAt( i ) ;
-			tnww.nodeAction( this ) ;
-		}
-		tree.notifyAction( this ) ;
-	}
-
-	/**
-	 * Override TreeNodeWidget action method to notify the watcher.
-	 */
-	public void action()
-	{
-		notifyAction() ;
 	}
 
 	/**

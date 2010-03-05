@@ -236,7 +236,6 @@ public class TreeWidgetExt extends JPanel
 			TreeWidgetWatcher tww = v.elementAt( i ) ;
 			tww.nodeSelected( this , tnw ) ;
 		}
-		tnw.notifySelect() ;
 	}
 
 	/** Notify that a node was double-clicked. */
@@ -249,7 +248,6 @@ public class TreeWidgetExt extends JPanel
 			TreeWidgetWatcher tww = v.elementAt( i ) ;
 			tww.nodeAction( this , tnw ) ;
 		}
-		tnw.notifyAction() ;
 	}
 
 	/**
