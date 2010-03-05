@@ -75,7 +75,6 @@ public class MultiSelTreeNodeWidget extends TreeNodeWidgetExt
 	{
 		// Turn off the multi-select
 		getMultiSelTreeWidget().multiUnselect() ;
-		super.action() ;
 	}
 
 	/**
