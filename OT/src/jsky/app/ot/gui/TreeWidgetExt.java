@@ -215,7 +215,8 @@ public class TreeWidgetExt extends JPanel
 	}
 
 	/** Get a copy of the current list of watchers */
-	public Vector<TreeWidgetWatcher> getWatchers()
+	@SuppressWarnings( "unchecked" )
+    public Vector<TreeWidgetWatcher> getWatchers()
 	{
 		synchronized( this )
 		{

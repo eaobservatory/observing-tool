@@ -112,13 +112,13 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	/**
 	 * Get a vector containing the selected tree nodes.
 	 */
-	public Vector getMultiSelectNodes()
+	public Vector<Object> getMultiSelectNodes()
 	{
 		TreePath[] paths = tree.getSelectionPaths() ;
-		Vector v = null ;
+		Vector<Object> v = null ;
 		if( paths != null )
 		{
-			v = new Vector( paths.length , 1 ) ;
+			v = new Vector<Object>( paths.length , 1 ) ;
 			for( int i = 0 ; i < paths.length ; i++ )
 				v.add( i , paths[ i ].getLastPathComponent() ) ;
 		}
@@ -128,7 +128,7 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
 	/** Notify that multiple nodes have been selected.  */
 	protected void notifyMultiSelect()
 	{
-		Vector v = getWatchers() ;
+		Vector<TreeWidgetWatcher> v = getWatchers() ;
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{

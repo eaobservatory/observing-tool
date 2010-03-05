@@ -459,10 +459,10 @@ public class SpTelescopeObsComp extends SpObsComp
 		xmlString.append( "<OCS_CONFIG>" ) ;
 		xmlString.append( "\n  <TCS_CONFIG>" ) ;
 		String indent = "  " ;
-		Enumeration avAttributes = _avTable.attributes() ;
+		Enumeration<String> avAttributes = _avTable.attributes() ;
 		while( avAttributes.hasMoreElements() )
 		{
-			String currAttr = ( String )avAttributes.nextElement() ;
+			String currAttr = avAttributes.nextElement() ;
 			if( !currAttr.startsWith( "." ) )
 				this.processAvAttribute( currAttr , indent , xmlString ) ;
 		}

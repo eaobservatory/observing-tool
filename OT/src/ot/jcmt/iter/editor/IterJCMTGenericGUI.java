@@ -24,6 +24,7 @@ import javax.swing.border.Border ;
 import javax.swing.border.TitledBorder ;
 import javax.swing.border.BevelBorder ;
 
+@SuppressWarnings( "serial" )
 public class IterJCMTGenericGUI extends JPanel
 {
 	TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt() ;

@@ -158,7 +158,8 @@ public class CommandButtonWidgetExt extends JButton implements DescriptiveWidget
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector<CommandButtonWidgetWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<CommandButtonWidgetWatcher> _getWatchers()
 	{
 		return ( Vector<CommandButtonWidgetWatcher> )_watchers.clone() ;
 	}

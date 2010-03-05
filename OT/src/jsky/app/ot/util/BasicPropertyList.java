@@ -87,7 +87,8 @@ public class BasicPropertyList
 	/**
 	 * Get a copy of the _watchers Vector.
 	 */
-	private synchronized final Vector<PropertyWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<PropertyWatcher> _getWatchers()
 	{
 		return ( Vector<PropertyWatcher> )_watchers.clone() ;
 	}

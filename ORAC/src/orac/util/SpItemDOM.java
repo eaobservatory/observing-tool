@@ -312,7 +312,7 @@ public class SpItemDOM
 			System.out.println( "Problems loading properties form file " + args[ 0 ] + ": " + e ) ;
 		}
 
-		Enumeration e = props.propertyNames() ;
+		Enumeration<?> e = props.propertyNames() ;
 		String key = null ;
 		String property = null ;
 		Vector<String> vector = null ;

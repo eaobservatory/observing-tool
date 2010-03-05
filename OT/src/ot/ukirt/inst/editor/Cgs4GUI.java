@@ -30,6 +30,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class Cgs4GUI extends JPanel
 {
 	JLabel jLabel1 = new JLabel() ;

@@ -165,7 +165,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	/**
 	 * Get scan angle.
 	 */
-	public Vector getScanAngles()
+	public Vector<String> getScanAngles()
 	{
 		return _avTable.getAll( ATTR_SCANAREA_SCAN_PA ) ;
 	}

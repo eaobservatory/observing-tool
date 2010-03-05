@@ -20,5 +20,5 @@ public interface MultiSelTreeWidgetWatcher extends TreeWidgetWatcher
 	/**
 	 * Receive notification that multiple nodes have been selected.
 	 */
-	public void multiNodeSelect( TreeWidgetExt tw , Vector nodes ) ;
+	public void multiNodeSelect( TreeWidgetExt tw , Vector<Object> nodes ) ;
 }

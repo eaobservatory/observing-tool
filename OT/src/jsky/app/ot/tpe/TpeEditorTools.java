@@ -78,10 +78,10 @@ final class TpeEditorTools
 		} ) ;
 
 		// Hide all the create tools.
-		Enumeration e = _enumerateCreateTools() ;
+		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			tbw = ( ToggleButtonWidget )e.nextElement() ;
+			tbw = e.nextElement() ;
 			tbw.setVisible( false ) ;
 		}
 	}
@@ -89,9 +89,9 @@ final class TpeEditorTools
 	//
 	// Get an enumeration of the create tool buttons.
 	//
-	private Enumeration _enumerateCreateTools()
+	private Enumeration<ToggleButtonWidget> _enumerateCreateTools()
 	{
-		return new Enumeration()
+		return new Enumeration<ToggleButtonWidget>()
 		{ // XXX allan: should make 2 separate ToggleButtonPanels
 			private int i = 4 ; // skip first 3 buttons (Browse, Drag, Erase) and empty label
 
@@ -107,7 +107,7 @@ final class TpeEditorTools
 				}
 			}
 
-			public Object nextElement()
+			public ToggleButtonWidget nextElement()
 			{
 				return _tpeToolBar.getModeToggleButton( i++ ) ;
 			}
@@ -121,10 +121,10 @@ final class TpeEditorTools
 	{
 		// Find an open tool button
 		ToggleButtonWidget tbw = null ;
-		Enumeration e = _enumerateCreateTools() ;
+		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement() ;
+			ToggleButtonWidget tmp = e.nextElement() ;
 			if( !( tmp.isVisible() ) )
 			{
 				tbw = tmp ; // This one was occupied
@@ -279,10 +279,10 @@ final class TpeEditorTools
 	 */
 	public String getCurrentButtonLabel()
 	{
-		Enumeration e = _enumerateCreateTools() ;
+		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement() ;
+			ToggleButtonWidget tbw = e.nextElement() ;
 			if( tbw.getBooleanValue() )
 				return tbw.getText() ;
 		}

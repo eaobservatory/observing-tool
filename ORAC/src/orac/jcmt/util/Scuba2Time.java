@@ -17,7 +17,6 @@ import orac.jcmt.SpJCMTConstants ;
 
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
 import orac.util.DrUtil ;
-import gemini.sp.obsComp.SpSchedConstObsComp ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.SpItem ;
 import gemini.sp.SpTelescopePos ;

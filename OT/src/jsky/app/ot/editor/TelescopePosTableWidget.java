@@ -276,7 +276,7 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 	 */
 	private void _insertAllPos( TelescopePos[] tpA )
 	{
-		Vector[] dataV = new Vector[ tpA.length ] ;
+		Vector<String>[] dataV = new Vector[ tpA.length ] ;
 
 		_posTable.clear() ;
 		for( int i = 0 ; i < tpA.length ; ++i )

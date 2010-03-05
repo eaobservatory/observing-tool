@@ -177,8 +177,7 @@ public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetW
 	 */
 	private void _showFilterType( LookUpTable filters )
 	{
-		Vector[] rowsV = new Vector[ filters.getNumRows() ] ;
-		rowsV = filters.getAsVectorArray() ;
+		Vector<String>[]rowsV = filters.getAsVectorArray() ;
 		TableWidgetExt tw = ( TableWidgetExt )_w.filterTable ;
 		tw.setRows( rowsV ) ;
 	}

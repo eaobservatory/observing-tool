@@ -118,7 +118,8 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify hierarchy change observer that items have been added.
 	//
-	void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
+	@SuppressWarnings( "unchecked" )
+    void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
 	{
 		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
@@ -138,7 +139,8 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify hierarchy change observer that items have been removed.
 	//
-	void notifyRemoved( SpItem parent , SpItem[] children )
+	@SuppressWarnings( "unchecked" )
+    void notifyRemoved( SpItem parent , SpItem[] children )
 	{
 		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
@@ -156,7 +158,8 @@ public final class SpEditState implements Observer , java.io.Serializable
 	}
 
 	// Not yet used.
-	void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
+	@SuppressWarnings( "unchecked" )
+    void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
 		Vector<SpHierarchyChangeObserver> v ;
 		synchronized( this )
@@ -205,7 +208,8 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify edit change observers of an update.
 	//
-	private void _notifyEditChange()
+	@SuppressWarnings( "unchecked" )
+    private void _notifyEditChange()
 	{
 		Vector<SpEditChangeObserver> v ;
 		synchronized( this )

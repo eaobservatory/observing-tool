@@ -308,7 +308,8 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	//
 	// Notify all watchers that the node has been selected.
 	//
-	void notifySelect()
+	@SuppressWarnings( "unchecked" )
+    void notifySelect()
 	{
 		if( _watchers != null )
 		{
@@ -340,7 +341,8 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode
 	/**
 	 * Notify all watchers that the node has been double-clicked.
 	 */
-	void notifyAction()
+	@SuppressWarnings( "unchecked" )
+    void notifyAction()
 	{
 		Vector<TreeNodeWidgetWatcher> v ;
 		synchronized( this )

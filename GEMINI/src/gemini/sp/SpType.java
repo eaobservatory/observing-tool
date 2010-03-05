@@ -264,11 +264,10 @@ public class SpType implements java.io.Serializable
 	/**
      * Enumerate all the SpTypes for the given type.
      */
-	public static Enumeration getSpTypes( final String typeStr )
+	public static Enumeration<SpType> getSpTypes( final String typeStr )
 	{
-		return new Enumeration()
+		return new Enumeration<SpType>()
 		{
-
 			private SpType _nextSpType ;
 
 			private Enumeration<SpType> _enum = _types.elements() ;
@@ -289,7 +288,7 @@ public class SpType implements java.io.Serializable
 				return true ;
 			}
 
-			public Object nextElement()
+			public SpType nextElement()
 			{
 				return _nextSpType ;
 			}

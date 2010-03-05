@@ -200,7 +200,8 @@ public final class TpeManager implements TpeWatcher
 	/**
 	 * Get a copy of the _openWatchers Vector.
 	 */
-	private synchronized static Vector<TpeManagerWatcher> _getWatchers( SpItem spItem )
+	@SuppressWarnings( "unchecked" )
+    private synchronized static Vector<TpeManagerWatcher> _getWatchers( SpItem spItem )
 	{
 		SpItem spRoot = findRootItem( spItem ) ;
 		Vector<TpeManagerWatcher> v = _openWatchers.get( spRoot ) ;

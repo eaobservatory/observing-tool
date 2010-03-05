@@ -44,10 +44,10 @@ final class TpeFeatureManager
 		_iw = iw ;
 
 		// Hide all the toggle buttons
-		Enumeration e = _enumerateToggleButtons() ;
+		Enumeration<ToggleButtonWidget> e = _enumerateToggleButtons() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tbw = ( ToggleButtonWidget )e.nextElement() ;
+			ToggleButtonWidget tbw = e.nextElement() ;
 			tbw.setVisible( false ) ;
 		}
 	}
@@ -55,9 +55,9 @@ final class TpeFeatureManager
 	//
 	// Get an enumeration of the toggle view buttons.
 	//
-	private Enumeration _enumerateToggleButtons()
+	private Enumeration<ToggleButtonWidget> _enumerateToggleButtons()
 	{
-		return new Enumeration()
+		return new Enumeration<ToggleButtonWidget>()
 		{
 			private int i = 0 ;
 
@@ -73,7 +73,7 @@ final class TpeFeatureManager
 				}
 			}
 
-			public Object nextElement()
+			public ToggleButtonWidget nextElement()
 			{
 				return _tpeToolBar.getViewToggleButton( i++ ) ;
 			}
@@ -87,10 +87,10 @@ final class TpeFeatureManager
 	{
 		// Find an open toggle button
 		ToggleButtonWidget tbw = null ;
-		Enumeration e = _enumerateToggleButtons() ;
+		Enumeration<ToggleButtonWidget> e = _enumerateToggleButtons() ;
 		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidget tmp = ( ToggleButtonWidget )e.nextElement() ;
+			ToggleButtonWidget tmp = e.nextElement() ;
 			if( !( tmp.isVisible() ) )
 			{
 				tbw = tmp ;

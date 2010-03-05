@@ -16,6 +16,7 @@ import javax.swing.border.Border ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
+@SuppressWarnings( "serial" )
 public class IterFTS2ObsGUI extends JPanel
 {
 	JPanel portSetupPanel = new JPanel() ;

@@ -248,7 +248,8 @@ public class StopActionWidget extends JPanel
 	/**
 	 * Get a copy of the _watchers Vector.
 	 */
-	private synchronized final Vector<StopActionWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<StopActionWatcher> _getWatchers()
 	{
 		return ( Vector<StopActionWatcher> )_watchers.clone() ;
 	}

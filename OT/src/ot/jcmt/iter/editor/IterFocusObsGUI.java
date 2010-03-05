@@ -31,6 +31,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
  * @version 1.0
  */
 
+@SuppressWarnings( "serial" )
 public class IterFocusObsGUI extends IterJCMTGenericGUI
 {
 	JPanel scubaAcsisPanel = new JPanel() ;

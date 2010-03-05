@@ -155,7 +155,8 @@ public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidg
 	//
 	// Get a copy of the _watchers Vector.
 	//
-	private synchronized final Vector<ToggleButtonWidgetWatcher> _getWatchers()
+	@SuppressWarnings( "unchecked" )
+    private synchronized final Vector<ToggleButtonWidgetWatcher> _getWatchers()
 	{
 		return ( Vector<ToggleButtonWidgetWatcher> )_watchers.clone() ;
 	}
