@@ -191,7 +191,7 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	public void addRow()
 	{
 		DefaultTableModel model = getModel() ;
-		Vector v = new Vector( model.getColumnCount() ) ;
+		Vector<Object> v = new Vector<Object>( model.getColumnCount() ) ;
 		model.addRow( v ) ;
 	}
 
@@ -256,7 +256,8 @@ public class CellSelectTableWidget extends RowManipulateTableWidget implements D
 	/**
 	 * test main
 	 */
-	public static void main( String[] args )
+	@SuppressWarnings( "unchecked" )
+    public static void main( String[] args )
 	{
 		JFrame frame = new JFrame( "CellSelectTableWidget" ) ;
 

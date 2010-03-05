@@ -46,8 +46,8 @@ import java.lang.reflect.Field ;
  */
 public class JcmtSpValidation extends SpValidation
 {
-
-	public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
+	@SuppressWarnings( "unchecked" )
+    public void checkObservation( SpObs spObs , Vector<ErrorMessage> report )
 	{
 		if( report == null )
 			report = new Vector<ErrorMessage>() ;

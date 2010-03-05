@@ -18,7 +18,6 @@ import orac.ukirt.iter.SpIterWFCAMCalObs ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
@@ -77,18 +76,6 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-		CommandButtonWidgetExt cbw ;
-
-		// Set the calType choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
-
-		// Set the readMode choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode ;
-
-		// Set the filter choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter ;
-
 		TextBoxWidgetExt tbw ;
 
 		// Exposure time
@@ -102,9 +89,6 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		// Focus
 		tbw = ( TextBoxWidgetExt )_w.focusPos ;
 		tbw.addWatcher( this ) ;
-
-		// default button
-		cbw = ( CommandButtonWidgetExt )_w.useDefaults ;
 
 		super._init() ;
 

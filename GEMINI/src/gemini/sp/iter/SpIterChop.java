@@ -258,7 +258,8 @@ public class SpIterChop extends SpIterComp
 		return result ;
 	}
 
-	public Vector<String>[] getAllSteps()
+	@SuppressWarnings( "unchecked" )
+    public Vector<String>[] getAllSteps()
 	{
 		Vector<String>[] result = new Vector[ getStepCount() ] ;
 

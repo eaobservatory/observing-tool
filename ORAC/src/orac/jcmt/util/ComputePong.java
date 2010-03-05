@@ -666,12 +666,15 @@ public class ComputePong
 		public double tEnd(){ return tend ; }
 		public PongArcSegment arc(){ return arc ; }
 		public PongStraightSegment straight(){ return straight ; }
-		public String type(){ return type ; }
+		@SuppressWarnings( "unused" )
+        public String type(){ return type ; }
 
 		public void setTStart( double value ){ tstart = value ; }
 		public void setTEnd( double value ){ tend = value ; }
-		public void setArc( PongArcSegment value ){ arc = value ; }
-		public void setStraight( PongStraightSegment value ){ straight = value ; }
+		@SuppressWarnings( "unused" )
+        public void setArc( PongArcSegment value ){ arc = value ; }
+		@SuppressWarnings( "unused" )
+        public void setStraight( PongStraightSegment value ){ straight = value ; }
 		public void setType( String value )
 		{
 			for( String candidate : types )
@@ -694,12 +697,18 @@ public class ComputePong
 		private double thetaFin ;
 		private double rotDir ;
 
-		public double xCenter(){ return xCenter ; }
-		public double yCenter(){ return yCenter ; }
-		public double radius(){ return radius ; }
-		public double thetaInit(){ return thetaInit ; }
-		public double thetaFin(){ return thetaFin ; }
-		public double rotDir(){ return rotDir ; }
+		@SuppressWarnings( "unused" )
+        public double xCenter(){ return xCenter ; }
+		@SuppressWarnings( "unused" )
+        public double yCenter(){ return yCenter ; }
+		@SuppressWarnings( "unused" )
+        public double radius(){ return radius ; }
+		@SuppressWarnings( "unused" )
+        public double thetaInit(){ return thetaInit ; }
+		@SuppressWarnings( "unused" )
+        public double thetaFin(){ return thetaFin ; }
+		@SuppressWarnings( "unused" )
+        public double rotDir(){ return rotDir ; }
 
 		public void setXCenter( double value ){ xCenter = value ; }
 		public void setYCenter( double value ){ yCenter = value ; }
@@ -718,12 +727,18 @@ public class ComputePong
 		private double mx ;
 		private double my ;
 
-		public double xStart(){ return xStart ; }
-		public double yStart(){ return yStart ; }
-		public double xEnd(){ return xEnd ; }
-		public double yEnd(){ return yEnd ; }
-		public double mx(){ return mx ; }
-		public double my(){ return my ; }
+		@SuppressWarnings( "unused" )
+        public double xStart(){ return xStart ; }
+		@SuppressWarnings( "unused" )
+        public double yStart(){ return yStart ; }
+		@SuppressWarnings( "unused" )
+        public double xEnd(){ return xEnd ; }
+		@SuppressWarnings( "unused" )
+        public double yEnd(){ return yEnd ; }
+		@SuppressWarnings( "unused" )
+        public double mx(){ return mx ; }
+		@SuppressWarnings( "unused" )
+        public double my(){ return my ; }
 
 		public void setXStart( double value ){ xStart = value ; }
 		public void setYStart( double value ){ yStart = value ; }

@@ -29,7 +29,6 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 	private static String _tpeViewGuideLabel = null ;
 	private static final String PROP_SHOW_TAGS = "Show Tags" ;
 	private static BasicPropertyList _props ;
-	private static boolean _offsetPosition = false ;
 
 	static
 	{
@@ -340,9 +339,6 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 				_dragObject = pme ;
 
 				SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos ;
-
-				// Save whether this is an offset or not, so we can set the final position  to an offset as well
-				_offsetPosition = tp.isOffsetPosition() ;
 
 				tp.setOffsetPosition( false ) ;
 				tp.setXY( fme.ra , fme.dec ) ;

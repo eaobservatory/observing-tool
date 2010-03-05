@@ -1111,29 +1111,29 @@ public class UkirtSpValidation extends SpValidation
 		 * registered with SpFactory - necessary so that the component subtypes
 		 * can be understood.
 		 */
-		SpItem spItem = new SpInstUFTI() ;
-		spItem = new SpInstCGS4() ;
-		spItem = new SpInstIRCAM3() ;
-		spItem = new SpInstMichelle() ;
-		spItem = new SpInstUIST() ;
-		spItem = new SpInstWFCAM() ;
-		spItem = new SpDRRecipe() ;
-		spItem = new SpIterBiasObs() ;
-		spItem = new SpIterDarkObs() ;
-		spItem = new SpIterCGS4() ;
-		spItem = new SpIterMichelle() ;
-		spItem = new SpIterUFTI() ;
-		spItem = new SpIterWFCAM() ;
-		spItem = new SpIterIRCAM3() ;
-		spItem = new SpIterCGS4CalUnit() ;
-		spItem = new SpIterCGS4CalObs() ;
-		spItem = new SpIterFP() ;
-		spItem = new SpIterIRPOL() ;
-		spItem = new SpIterNod() ;
-		spItem = new SpIterChop() ;
-		spItem = new SpIterObserve() ;
-		spItem = new SpIterSky() ;
-		spItem = new SpSiteQualityObsComp() ;
+		new SpInstUFTI() ;
+		new SpInstCGS4() ;
+		new SpInstIRCAM3() ;
+		new SpInstMichelle() ;
+		new SpInstUIST() ;
+		new SpInstWFCAM() ;
+		new SpDRRecipe() ;
+		new SpIterBiasObs() ;
+		new SpIterDarkObs() ;
+		new SpIterCGS4() ;
+		new SpIterMichelle() ;
+		new SpIterUFTI() ;
+		new SpIterWFCAM() ;
+		new SpIterIRCAM3() ;
+		new SpIterCGS4CalUnit() ;
+		new SpIterCGS4CalObs() ;
+		new SpIterFP() ;
+		new SpIterIRPOL() ;
+		new SpIterNod() ;
+		new SpIterChop() ;
+		new SpIterObserve() ;
+		new SpIterSky() ;
+		new SpSiteQualityObsComp() ;
 
 		SpProg root = null ;
 		SpInputXML inXML = new SpInputXML() ;

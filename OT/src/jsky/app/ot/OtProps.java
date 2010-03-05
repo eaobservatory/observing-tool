@@ -85,7 +85,8 @@ public class OtProps
 	//
 	// Notify of a property change.
 	//
-	private static void _notifyPropertyChange( String property , String value )
+	@SuppressWarnings( "unchecked" )
+    private static void _notifyPropertyChange( String property , String value )
 	{
 		Vector<AppPropertyWatcher> vGen = null ;
 		Vector<AppPropertyWatcher> vSingle = null ;

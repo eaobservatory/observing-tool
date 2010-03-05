@@ -18,7 +18,6 @@ public class VelocityDisplay extends JPanel
 	private double _lRangeLimit ; // Lower range in frequency (Hz)
 	private double _uRangeLimit ; // Upper frequency limit (Hz)
 	private double _feIF ; // FE IF frequency (Hz)
-	private double _feBandWidth ; // FE bandwidth (Hz)
 	private double _mainLineFreq ; // main line frequency(Hz)
 	private int _currentSideband = EdFreq.SIDE_BAND_USB ; // The current sideband
 	private boolean _isDSB = true ;
@@ -28,10 +27,9 @@ public class VelocityDisplay extends JPanel
 	{
 		_mainLineFreq = mainLine ;
 		_redshift = redshift ;
-		_uRangeLimit = _mainLineFreq + ( 0.5 * feMaxBandWidth ) ;
-		_lRangeLimit = _mainLineFreq - ( 0.5 * feMaxBandWidth ) ;
+		_uRangeLimit = _mainLineFreq + ( .5 * feMaxBandWidth ) ;
+		_lRangeLimit = _mainLineFreq - ( .5 * feMaxBandWidth ) ;
 		_feIF = feIF ;
-		_feBandWidth = feMaxBandWidth ;
 		_isDSB = isDSB ;
 
 		if( primarySideband == EdFreq.SIDE_BAND_LSB )

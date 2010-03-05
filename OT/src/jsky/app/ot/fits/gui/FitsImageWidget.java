@@ -7,7 +7,6 @@
 package jsky.app.ot.fits.gui ;
 
 import diva.canvas.GraphicsPane ;
-import diva.canvas.event.EventLayer ;
 import java.awt.Component ;
 import java.awt.event.MouseEvent ;
 import java.awt.geom.Point2D ;
@@ -42,7 +41,7 @@ public class FitsImageWidget extends ViewportImageWidget
 
 		// We need to use the Diva classes to get the correct mouse events 
 		// (see ancestor class DivaGraphicsImageDisplay)
-		EventLayer layer = (( GraphicsPane )getCanvasPane()).getBackgroundEventLayer() ;
+		(( GraphicsPane )getCanvasPane()).getBackgroundEventLayer() ;
 	}
 
 	/** 

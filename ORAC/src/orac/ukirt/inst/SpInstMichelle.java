@@ -3083,10 +3083,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	public void setAcquisition()
 	{
 		/* Setup for normal exposures */
-		double et = getExpTime() ;
-		String filter = getFilter() ;
-		String waveplate = getWaveplate() ;
-		double ma = getMaskAngle() ;
+		getExpTime() ;
+		getFilter() ;
+		getWaveplate() ;
+		getMaskAngle() ;
 		updateDAObjConf() ;
 	}
 

@@ -203,7 +203,8 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 
 	/**
 	 */
-	private void _insertAllPos( TelescopePos[] tpA )
+	@SuppressWarnings( "unchecked" )
+    private void _insertAllPos( TelescopePos[] tpA )
 	{
 		Vector<String>[] dataV = new Vector[ tpA.length ] ;
 

@@ -18,7 +18,6 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 public final class EdCompInstWFS extends EdCompInstBase implements ActionListener
 {
-	private EdStareCapability _edStareCapability ;
 	private SpInstWFS _inst ;
 	private WfsGUI _w ;
 	boolean _ignoreActions = false ;
@@ -28,7 +27,6 @@ public final class EdCompInstWFS extends EdCompInstBase implements ActionListene
 		_title = "UKIRT Wavefront Sensor" ;
 		_presSource = _w = new WfsGUI() ;
 		_description = "The WFS instrument is configured with this component" ;
-		_edStareCapability = new EdStareCapability() ;
 
 		_w.expTimeTextBox.addWatcher( new TextBoxWidgetWatcher()
 		{

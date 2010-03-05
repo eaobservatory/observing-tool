@@ -43,15 +43,7 @@ public class SingleSidebandRangeBar extends JPanel implements Observer
 	/** Frontend sideband width in pixels. */
 	private int _feBandWidth ;
 
-	/** Lower limit of backend sideband in pixels. */
-	private int _beBandMin ;
-
-	/** Upper limit of backend sideband in pixels. */
-	private int _beBandMax ;
-
 	private int _sideband = EdFreq.SIDE_BAND_USB ;
-
-	private boolean _isDSB ;
 
 	Vector<Integer> _xRanges = new Vector<Integer>() ;
 
@@ -119,8 +111,6 @@ public class SingleSidebandRangeBar extends JPanel implements Observer
 		System.out.println( "xRanges=" + _xRanges ) ;
 		_feBandWidth = feBandWidth ;
 		_totalWidth = totalWidth ;
-		_beBandMin = xRanges[ 0 ] ;
-		_beBandMax = xRanges[ 1 ] ;
 
 		resetRangeBar() ;
 	}
@@ -159,8 +149,6 @@ public class SingleSidebandRangeBar extends JPanel implements Observer
 	public void resetRangeBar( int feBandWidth , int totalWidth , int[] beBandRange , int sideBand , boolean dsb )
 	{
 		resetRangeBar( feBandWidth , totalWidth , beBandRange ) ;
-
-		_isDSB = dsb ;
 		_sideband = sideBand ;
 	}
 

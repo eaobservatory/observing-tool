@@ -465,15 +465,14 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 		if( w == _w.newButton )
 		{
 			// Create a new offset position
-			SpOffsetPos op ;
 			if( _curPos == null )
 			{
-				op = _opl.createPosition() ;
+				_opl.createPosition() ;
 			}
 			else
 			{
 				int i = _opl.getPositionIndex( _curPos ) ;
-				op = _opl.createPosition( i + 1 ) ;
+				_opl.createPosition( i + 1 ) ;
 			}
 		}
 		else if( w == _w.removeAllButton )

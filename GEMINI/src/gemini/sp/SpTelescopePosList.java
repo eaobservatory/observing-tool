@@ -52,7 +52,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		{
 			_avTab = new SpAvTable() ;
 			_posList = new Vector<SpTelescopePos>() ;
-			SpTelescopePos tp = createPosition( SpTelescopePos.BASE_TAG , 0.0 , 0.0 ) ;
+			createPosition( SpTelescopePos.BASE_TAG , 0. , 0. ) ;
 		}
 	}
 

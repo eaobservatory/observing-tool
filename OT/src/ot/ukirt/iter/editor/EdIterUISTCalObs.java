@@ -16,7 +16,6 @@ import orac.ukirt.iter.SpIterUISTCalObs ;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
@@ -70,12 +69,6 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-		CommandButtonWidgetExt cbw ;
-
-		// Set the calibration choices
-		ddlbw = ( DropDownListBoxWidgetExt )_w.calType ;
-
 		TextBoxWidgetExt tbw ;
 
 		// Exposure time
@@ -85,19 +78,10 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 		// Observation time
 		tbw = ( TextBoxWidgetExt )_w.observationTime ;
 
-		// Flat source
-		ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source ;
-
-		// arc source
-		ddlbw = ( DropDownListBoxWidgetExt )_w.arc_source ;
-
 		// Coadds
 		tbw = ( TextBoxWidgetExt )_w.coadds ;
 		// Added watcher to coadds (RDK)
 		tbw.addWatcher( this ) ;
-
-		// default button
-		cbw = ( CommandButtonWidgetExt )_w.useDefaults ;
 
 		super._init() ;
 

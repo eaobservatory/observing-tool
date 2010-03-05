@@ -135,7 +135,8 @@ public class LookUpTable extends Vector<String>
 	/**
 	 * getAsVectorArray returns the whole LookUpTable as a Vector Array
 	 */
-	public Vector<String>[] getAsVectorArray()
+	@SuppressWarnings( "unchecked" )
+    public Vector<String>[] getAsVectorArray()
 	{
 		Vector<String>[] v = new Vector[ numRows ] ;
 		for( int i = 0 ; i < numRows ; i++ )

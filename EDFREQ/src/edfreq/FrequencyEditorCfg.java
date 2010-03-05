@@ -166,10 +166,6 @@ public class FrequencyEditorCfg
 						myFrontEndMixers.put( myFrontEnds[ i ] , mixers[ i ] ) ;
 					_frequencyEditorCfg.frontEndMixers = myFrontEndMixers ;
 				}
-				else if( InstCfg.matchAttr( instInfo , "velocity_frames" ) )
-				{
-					String[] myVelocityFrames = instInfo.getValueAsArray() ;
-				}
 				else if( InstCfg.likeAttr( instInfo , "bandspecs" ) )
 				{
 					String[][] specs = instInfo.getValueAs2DArray() ;

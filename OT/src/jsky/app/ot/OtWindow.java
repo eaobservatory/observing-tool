@@ -147,7 +147,7 @@ abstract class GroupingButtonManagerBase extends ButtonManagerBase implements Mu
 	}
 
 	// This method is called whenever multiple tree nodes are selected.
-	public void multiNodeSelect( TreeWidgetExt tw , Vector tnwA )
+	public void multiNodeSelect( TreeWidgetExt tw , Vector<Object> tnwA )
 	{
 		_updateButton() ;
 	}
@@ -1028,7 +1028,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	/** 
 	 * Add the current science program to the history list
 	 */
-	protected void addToHistory()
+	@SuppressWarnings( "unchecked" )
+    protected void addToHistory()
 	{
 		SpRootItem rootItem = getItem() ;
 		if( !noStack && rootItem != null )

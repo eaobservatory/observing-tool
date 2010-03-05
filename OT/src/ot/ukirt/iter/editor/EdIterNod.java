@@ -74,7 +74,8 @@ public final class EdIterNod extends OtItemEditor implements ActionListener
 	/**
 	 *
 	 */
-	public void actionPerformed( ActionEvent evt )
+	@SuppressWarnings( "unchecked" )
+    public void actionPerformed( ActionEvent evt )
 	{
 		if( !ignoreActions )
 		{

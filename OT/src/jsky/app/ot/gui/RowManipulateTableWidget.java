@@ -74,7 +74,8 @@ public class RowManipulateTableWidget extends JTable
 	}
 
 	/** Return the value in the cell at the given row and column. */
-	public Object getCell( int col , int row )
+	@SuppressWarnings( "unchecked" )
+    public Object getCell( int col , int row )
 	{
 		Vector data = getModel().getDataVector() ;
 		return ( ( Vector )data.get( row ) ).get( col ) ;

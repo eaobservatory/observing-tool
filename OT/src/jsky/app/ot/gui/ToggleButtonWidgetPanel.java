@@ -26,9 +26,6 @@ public class ToggleButtonWidgetPanel extends JPanel
 	/** Array of buttons to display */
 	private ToggleButtonWidget[] buttons ;
 
-	/** If true, multiple buttons may be selected, otherwise only one */
-	private boolean enableMultipleSelection ;
-
 	/**
 	 * Create a panel containing toggle buttons, arranged in the
 	 * given number of rows and columns.
@@ -45,7 +42,6 @@ public class ToggleButtonWidgetPanel extends JPanel
 		setLayout( new GridLayout( nrows , ncols , hgap , vgap ) ) ;
 		buttons = new ToggleButtonWidget[ names.length ] ;
 		ButtonGroup group = new ButtonGroup() ;
-		this.enableMultipleSelection = enableMultipleSelection ;
 
 		for( int i = 0 ; i < names.length ; i++ )
 		{

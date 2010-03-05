@@ -496,11 +496,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			}
 		} ) ;
 
-		JTabbedPane fwe ;
 		TextBoxWidgetExt tbwe ;
-
-		// *** The "extras" folder
-		fwe = _w.extrasFolder ;
 
 		// --- Proper Motion Page
 		tbwe = _w.propMotionRATBW ;
