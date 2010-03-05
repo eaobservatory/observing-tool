@@ -11,6 +11,7 @@ import java.awt.Font ;
 import java.awt.FontMetrics ;
 import java.awt.event.ItemListener ;
 import java.awt.event.ItemEvent ;
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.ImageIcon ;
 import javax.swing.JToggleButton ;
@@ -152,26 +153,15 @@ public class ToggleButtonWidget extends JToggleButton implements DescriptiveWidg
 		_watchers.removeAllElements() ;
 	}
 
-	//
-	// Get a copy of the _watchers Vector.
-	//
-	@SuppressWarnings( "unchecked" )
-    private synchronized final Vector<ToggleButtonWidgetWatcher> _getWatchers()
-	{
-		return ( Vector<ToggleButtonWidgetWatcher> )_watchers.clone() ;
-	}
-
 	/**
 	 * Notify watchers of an action event.
 	 */
-	public void action()
+	public synchronized void action()
 	{
-		Vector<ToggleButtonWidgetWatcher> v = _getWatchers() ;
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
+		Enumeration<ToggleButtonWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			ToggleButtonWidgetWatcher watcher ;
-			watcher = v.elementAt( i ) ;
+			ToggleButtonWidgetWatcher watcher = e.nextElement() ;
 			watcher.toggleButtonAction( this ) ;
 		}
 	}

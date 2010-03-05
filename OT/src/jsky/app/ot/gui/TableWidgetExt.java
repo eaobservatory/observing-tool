@@ -6,6 +6,7 @@
 //
 package jsky.app.ot.gui ;
 
+import java.util.Enumeration ;
 import java.util.Vector ;
 import javax.swing.ListSelectionModel ;
 import javax.swing.JScrollPane ;
@@ -105,45 +106,13 @@ public class TableWidgetExt extends RowManipulateTableWidget implements Descript
 	/**
 	 * Notify observers when a row is selected.
 	 */
-	@SuppressWarnings( "unchecked" )
-    protected void _notifySelect( int rowIndex )
+    protected synchronized void _notifySelect( int rowIndex )
 	{
-		Vector<TableWidgetWatcher> v ;
-		synchronized( this )
+		Enumeration<TableWidgetWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<TableWidgetWatcher> )_watchers.clone() ;
-		}
-
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
-		{
-			TableWidgetWatcher tww = v.elementAt( i ) ;
+			TableWidgetWatcher tww = e.nextElement() ;
 			tww.tableRowSelected( this , rowIndex ) ;
-		}
-	}
-
-	/**
-	 * Extends action method of TableWidget to notify observers.
-	 */
-	@SuppressWarnings( "unchecked" )
-    public void action( int colIndex , int rowIndex )
-	{
-		// XXX allan: this method is not called, from anywhere now, but there are no watchers using it either...
-
-		System.out.println( "Action on table: col(" + colIndex + "), row(" + rowIndex + ")" ) ;
-
-		// Notify watchers
-		Vector<TableWidgetWatcher> v ;
-		synchronized( this )
-		{
-			v = ( Vector<TableWidgetWatcher> )_watchers.clone() ;
-		}
-
-		int cnt = v.size() ;
-		for( int i = 0 ; i < cnt ; ++i )
-		{
-			TableWidgetWatcher tww = v.elementAt( i ) ;
-			tww.tableAction( this , colIndex , rowIndex ) ;
 		}
 	}
 
