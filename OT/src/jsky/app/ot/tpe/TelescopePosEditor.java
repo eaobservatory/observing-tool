@@ -49,6 +49,7 @@ import jsky.coords.wcscon ;
  * @version $Revision$ $Date$
  * @author Allan Brighton
  */
+@SuppressWarnings( "serial" )
 public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver , SpHierarchyChangeObserver
 {
 	// Lists of fully qualified image feature class names.  
@@ -122,7 +123,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 		else if( parent instanceof TpeImageDisplayInternalFrame )
 		{
 			_tpeToolBar = ( ( TpeImageDisplayInternalFrame )parent ).getTpeToolBar() ;
-			_tpeMenuBar = ( TpeImageDisplayMenuBar )( ( TpeImageDisplayInternalFrame )parent ).getJMenuBar() ;
+			( ( TpeImageDisplayInternalFrame )parent ).getJMenuBar() ;
 		}
 		else
 		{
