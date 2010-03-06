@@ -87,7 +87,7 @@ public class QuickMatch
 	}
 
 	// Ripped from Horizons for debugging
-	public static void printMap( TreeMap map )
+	public static void printMap( TreeMap<String,Object> map )
 	{
 		if( map == null )
 			return ;
@@ -118,9 +118,9 @@ public class QuickMatch
 		return quickmatch ;
 	}
 
-	public TreeMap parseLine( String line )
+	public TreeMap<String,? extends Object> parseLine( String line )
 	{
-		TreeMap merged = null ;
+		TreeMap<String,? extends Object> merged = null ;
 		if( line != null && !line.trim().equals( "" ) )
 		{
 			if( isName( line ) )
