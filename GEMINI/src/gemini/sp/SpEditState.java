@@ -93,10 +93,8 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void addHierarchyChangeObserver( SpHierarchyChangeObserver hco )
 	{
-		if( _hierObservers.contains( hco ) )
-			return ;
-
-		_hierObservers.addElement( hco ) ;
+		if( !_hierObservers.contains( hco ) )
+			_hierObservers.addElement( hco ) ;
 	}
 
 	/**
@@ -118,19 +116,12 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify hierarchy change observer that items have been added.
 	//
-	@SuppressWarnings( "unchecked" )
-    void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
+    synchronized void notifyAdded( SpItem parent , SpItem[] newChildren , SpItem afterChild )
 	{
-		Vector<SpHierarchyChangeObserver> v ;
-		synchronized( this )
+		Enumeration<SpHierarchyChangeObserver> e = _hierObservers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
-		}
-
-		for( int i = 0 ; i < v.size() ; ++i )
-		{
-			SpHierarchyChangeObserver hco ;
-			hco = v.elementAt( i ) ;
+			SpHierarchyChangeObserver hco = e.nextElement() ;
 			hco.spItemsAdded( parent , newChildren , afterChild ) ;
 		}
 		setEdited() ;
@@ -139,38 +130,24 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify hierarchy change observer that items have been removed.
 	//
-	@SuppressWarnings( "unchecked" )
-    void notifyRemoved( SpItem parent , SpItem[] children )
+    synchronized void notifyRemoved( SpItem parent , SpItem[] children )
 	{
-		Vector<SpHierarchyChangeObserver> v ;
-		synchronized( this )
+		Enumeration<SpHierarchyChangeObserver> e = _hierObservers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
-		}
-
-		for( int i = 0 ; i < v.size() ; ++i )
-		{
-			SpHierarchyChangeObserver hco ;
-			hco = v.elementAt( i ) ;
+			SpHierarchyChangeObserver hco = e.nextElement() ;
 			hco.spItemsRemoved( parent , children ) ;
 		}
 		setEdited() ;
 	}
 
 	// Not yet used.
-	@SuppressWarnings( "unchecked" )
-    void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
+    synchronized void notifyMoved( SpItem oldParent , SpItem[] children , SpItem newParent , SpItem afterChild )
 	{
-		Vector<SpHierarchyChangeObserver> v ;
-		synchronized( this )
+		Enumeration<SpHierarchyChangeObserver> e = _hierObservers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<SpHierarchyChangeObserver> )_hierObservers.clone() ;
-		}
-
-		for( int i = 0 ; i < v.size() ; ++i )
-		{
-			SpHierarchyChangeObserver hco ;
-			hco = v.elementAt( i ) ;
+			SpHierarchyChangeObserver hco = e.nextElement() ;
 			hco.spItemsMoved( oldParent , children , newParent , afterChild ) ;
 		}
 		setEdited() ;
@@ -183,10 +160,8 @@ public final class SpEditState implements Observer , java.io.Serializable
      */
 	public synchronized final void addEditChangeObserver( SpEditChangeObserver eco )
 	{
-		if( _editObservers.contains( eco ) )
-			return ;
-
-		_editObservers.addElement( eco ) ;
+		if( !_editObservers.contains( eco ) )
+			_editObservers.addElement( eco ) ;
 	}
 
 	/**
@@ -208,19 +183,12 @@ public final class SpEditState implements Observer , java.io.Serializable
 	//
 	// Notify edit change observers of an update.
 	//
-	@SuppressWarnings( "unchecked" )
-    private void _notifyEditChange()
+    private synchronized void _notifyEditChange()
 	{
-		Vector<SpEditChangeObserver> v ;
-		synchronized( this )
+		Enumeration<SpEditChangeObserver> e = _editObservers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			v = ( Vector<SpEditChangeObserver> )_editObservers.clone() ;
-		}
-
-		for( int i = 0 ; i < v.size() ; ++i )
-		{
-			SpEditChangeObserver eco ;
-			eco = v.elementAt( i ) ;
+			SpEditChangeObserver eco = e.nextElement() ;
 			eco.spEditStateChange( _spItem ) ;
 		}
 	}

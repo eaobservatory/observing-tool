@@ -6,6 +6,7 @@
 //
 package gemini.util ;
 
+import java.util.Enumeration ;
 import java.util.Vector ;
 
 /**
@@ -193,10 +194,8 @@ public abstract class TelescopePos implements java.io.Serializable
 	{
 		if( _watchers == null )
 			_watchers = new Vector<TelescopePosWatcher>() ;
-		else if( _watchers.contains( tpw ) )
-			return ;
-
-		_watchers.addElement( tpw ) ;
+		if( !_watchers.contains( tpw ) )
+			_watchers.addElement( tpw ) ;
 	}
 
 	/**
@@ -218,29 +217,16 @@ public abstract class TelescopePos implements java.io.Serializable
 	}
 
 	/**
-     * Copy the watchers list.
-     */
-	@SuppressWarnings( "unchecked" )
-    protected final synchronized Vector<TelescopePosWatcher> _getWatchers()
-	{
-		if( _watchers != null )
-			return ( Vector<TelescopePosWatcher> )_watchers.clone() ;
-		else
-			return null ;
-	}
-
-	/**
      * Notify of a location update.
      */
-	protected void _notifyOfLocationUpdate()
+	protected synchronized void _notifyOfLocationUpdate()
 	{
-		Vector<TelescopePosWatcher> v = _getWatchers() ;
-		if( v != null )
+		if( _watchers != null )
 		{
-			for( int i = 0 ; i < v.size() ; ++i )
+			Enumeration<TelescopePosWatcher> e = _watchers.elements() ;
+			while( e.hasMoreElements() )
 			{
-				TelescopePosWatcher tpw ;
-				tpw = v.elementAt( i ) ;
+				TelescopePosWatcher tpw = e.nextElement() ;
 				tpw.telescopePosLocationUpdate( this ) ;
 			}
 		}
@@ -249,15 +235,14 @@ public abstract class TelescopePos implements java.io.Serializable
 	/**
      * Notify of a generic/non-location update.
      */
-	protected void _notifyOfGenericUpdate()
+	protected synchronized void _notifyOfGenericUpdate()
 	{
-		Vector<TelescopePosWatcher> v = _getWatchers() ;
-		if( v != null )
+		if( _watchers != null )
 		{
-			for( int i = 0 ; i < v.size() ; ++i )
+			Enumeration<TelescopePosWatcher> e = _watchers.elements() ;
+			while( e.hasMoreElements() )
 			{
-				TelescopePosWatcher tpw ;
-				tpw = v.elementAt( i ) ;
+				TelescopePosWatcher tpw = e.nextElement() ;
 				tpw.telescopePosGenericUpdate( this ) ;
 			}
 		}

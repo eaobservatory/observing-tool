@@ -28,7 +28,7 @@ import java.util.Vector ;
 @SuppressWarnings( "serial" )
 public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 {
-	Class< ? extends SpInstObsComp > myself = this.getClass() ;
+	Class<? extends SpInstObsComp> myself = this.getClass() ;
 	Hashtable<String,SpInstCapability> _capabilityH = new Hashtable<String,SpInstCapability>() ;
 
 	/**
@@ -70,7 +70,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 	/**
      * Get an enumeration of all the capability names.
      */
-	public Enumeration< String > getCapabilityNames()
+	public Enumeration<String> getCapabilityNames()
 	{
 		return _capabilityH.keys() ;
 	}
@@ -84,8 +84,8 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		SpAvTable avClone = spClone.getTable() ;
 
 		// Clone each capability, setting its avTable correctly.
-		Vector< SpInstCapability > v = new Vector< SpInstCapability >() ;
-		Enumeration< SpInstCapability > caps = _capabilityH.elements() ;
+		Vector<SpInstCapability> v = new Vector<SpInstCapability>() ;
+		Enumeration<SpInstCapability> caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
 			SpInstCapability cap = caps.nextElement() ;
@@ -93,7 +93,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
 		}
 
 		// Place each cloned capability in the cloned component's table.
-		spClone._capabilityH = new Hashtable< String , SpInstCapability >() ;
+		spClone._capabilityH = new Hashtable<String,SpInstCapability>() ;
 		for( int i = 0 ; i < v.size() ; ++i )
 		{
 			SpInstCapability cap = v.elementAt( i ) ;
@@ -322,7 +322,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	protected void setTable( SpAvTable avTable )
 	{
-		Enumeration< SpInstCapability > caps = _capabilityH.elements() ;
+		Enumeration<SpInstCapability> caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
 			SpInstCapability cap = caps.nextElement() ;
@@ -337,7 +337,7 @@ public abstract class SpInstObsComp extends SpObsComp implements SpInstConstants
      */
 	protected void replaceTable( SpAvTable avTable )
 	{
-		Enumeration< SpInstCapability > caps = _capabilityH.elements() ;
+		Enumeration<SpInstCapability> caps = _capabilityH.elements() ;
 		while( caps.hasMoreElements() )
 		{
 			SpInstCapability cap = caps.nextElement() ;
