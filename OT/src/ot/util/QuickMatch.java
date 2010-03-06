@@ -54,7 +54,7 @@ public class QuickMatch
 		if( args.length != 0 )
 			input = args[ 0 ] ;
 		QuickMatch match = getInstance() ;
-		TreeMap merged = match.parseLine( input ) ;
+		TreeMap<String,String> merged = match.parseLine( input ) ;
 		printMap( merged ) ;
 	}
 
@@ -87,23 +87,15 @@ public class QuickMatch
 	}
 
 	// Ripped from Horizons for debugging
-	public static void printMap( TreeMap<String,Object> map )
+	public static void printMap( TreeMap<String,String> map )
 	{
 		if( map == null )
 			return ;
 		String key , value ;
-		Object tmp ;
 		while( map.size() != 0 )
 		{
-			tmp = map.lastKey() ;
-			if( !( tmp instanceof String ) )
-			{
-				System.out.println( tmp + " not a String - something *really* wrong" ) ;
-				System.exit( -8 ) ;
-			}
-			key = ( String )tmp ;
-			tmp = map.remove( key ) ;
-			value = tmp.toString() ;
+			key = map.lastKey() ;
+			value = map.remove( key ) ;
 			System.out.println( key + " == " + value ) ;
 		}
 
@@ -118,9 +110,9 @@ public class QuickMatch
 		return quickmatch ;
 	}
 
-	public TreeMap<String,? extends Object> parseLine( String line )
+	public TreeMap<String,String> parseLine( String line )
 	{
-		TreeMap<String,? extends Object> merged = null ;
+		TreeMap<String,String> merged = null ;
 		if( line != null && !line.trim().equals( "" ) )
 		{
 			if( isName( line ) )
@@ -131,9 +123,9 @@ public class QuickMatch
 		return merged ;
 	}
 	
-	private TreeMap<String,Double> keyValuePairs( String line )
+	private TreeMap<String,String> keyValuePairs( String line )
 	{
-		TreeMap<String,Double> treemap = new TreeMap<String,Double>() ;
+		TreeMap<String,String> treemap = new TreeMap<String,String>() ;
 		if( line != null && !line.trim().equals( "" ) )
 		{
 			line = line.trim() ;
@@ -162,7 +154,7 @@ public class QuickMatch
 					value = parseValue( match ) ;
 				
 				if( value != null )
-					treemap.put( keyValueGroup , value ) ;
+					treemap.put( keyValueGroup , value.toString() ) ;
 			}
 		}
 		return treemap ;

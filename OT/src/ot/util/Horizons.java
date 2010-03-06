@@ -56,7 +56,7 @@ public class Horizons
 			inputFileName = inputFileName.replaceFirst( "~" , System.getProperty( "user.home" ) ) ;
 
 		Horizons horizon = Horizons.getInstance() ;
-		TreeMap<String,Object> treeMap = null ;
+		TreeMap<String,String> treeMap = null ;
 		treeMap = horizon.resolveFromFile( inputFileName ) ;
 		if( treeMap.isEmpty() )
 			treeMap = horizon.resolveName( inputFileName ) ;
@@ -103,9 +103,10 @@ public class Horizons
 		return cacheDirectory ;
 	}
 
-	private TreeMap<String,Object> readCache( String query )
+	@SuppressWarnings( "unchecked" )
+    private TreeMap<String,String> readCache( String query )
 	{
-		TreeMap<String,Object> treeMap = null ;
+		TreeMap<String,String> treeMap = null ;
 		if( query != null && !query.trim().equals( "" ) )
 		{
 			FileInputStream fileInputStream = null ;
@@ -117,7 +118,7 @@ public class Horizons
 				objectInputStream = new ObjectInputStream( fileInputStream ) ;
 				Object tmp = objectInputStream.readObject() ;
 				if( tmp instanceof TreeMap )
-					treeMap = ( TreeMap<String,Object> )tmp ;
+					treeMap = ( TreeMap<String,String> )tmp ;
 				/* we don't care if the map is empty */
 			}
 			catch( java.io.FileNotFoundException fnfe )
@@ -150,7 +151,7 @@ public class Horizons
 		return treeMap ;
 	}
 
-	private boolean writeCache( TreeMap<String,Object> result , String query )
+	private boolean writeCache( TreeMap<String,String> result , String query )
 	{
 		// n.b. we still write even if the map is empty
 		boolean success = false ;
@@ -211,9 +212,9 @@ public class Horizons
 		return vector ;
 	}
 
-	public TreeMap<String,Object> resolveFromFile( String name )
+	public TreeMap<String,String> resolveFromFile( String name )
 	{
-		TreeMap<String,Object> treeMap = new TreeMap<String,Object>() ;
+		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
 		if( name != null && !name.trim().equals( "" ) )
 		{
 			TreeMap<String,String> map ;
@@ -231,9 +232,9 @@ public class Horizons
 		return treeMap ;
 	}
 
-	public TreeMap<String,Object> resolveName( String name )
+	public TreeMap<String,String> resolveName( String name )
 	{
-		TreeMap<String,Object> treeMap = new TreeMap<String,Object>() ;
+		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
 		if( name != null && !name.trim().equals( "" ) )
 		{
 			if( caching )
@@ -278,28 +279,26 @@ public class Horizons
 		return treeMap ;
 	}
 
-	public static void printMap( TreeMap<String,Object> map )
+	public static void printMap( TreeMap<String,String> map )
 	{
 		if( map != null )
 		{
 			String key , value ;
-			Object tmp ;
 			while( map.size() != 0 )
 			{
 				key = map.lastKey() ;
-				tmp = map.remove( key ) ;
-				value = tmp.toString() ;
+				value = map.remove( key ) ;
 				System.out.println( key + " == " + value ) ;
 			}
 		}
 	}
 
-	private TreeMap<String,Object> parse( Vector<String> vector )
+	private TreeMap<String,String> parse( Vector<String> vector )
 	{
 		String line ;
-		TreeMap<String,Object> treeMap = new TreeMap<String,Object>() ;
+		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
 		QuickMatch quickMatch = QuickMatch.getInstance() ;
-		TreeMap<String,? extends Object> tmpMap = null ;
+		TreeMap<String,String> tmpMap = null ;
 		while( vector.size() != 0 )
 		{
 			line = vector.remove( 0 ) ;
