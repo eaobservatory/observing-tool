@@ -1798,7 +1798,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			_w.resolveOrbitalElementButton.setText( "Resolving ..." ) ;
 			Horizons horizons = Horizons.getInstance() ;
 			String query = _w.nameTBW.getText() ;
-			TreeMap treeMap = horizons.resolveName( query ) ;
+			TreeMap<String,String> treeMap = horizons.resolveName( query ) ;
 			_resolving = false ;
 			_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
 
@@ -1810,121 +1810,45 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			}
 			else
 			{
-				Object tmp = treeMap.get( "NAME" ) ;
-				String value = "" ;
-				
-				if( tmp != null && tmp instanceof String )
-					value = ( String )tmp ;
+				String value = treeMap.get( "NAME" ) ;
 				
 				if( !value.trim().equals( "" ) )
 				{
 					_w.orbitalElementResolvedNameLabel.setText( value ) ;
 					
-					tmp = treeMap.get( "EPOCH" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemEpoch( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemEpoch( null ) ;
-					}
+					value = treeMap.get( "EPOCH" ) ;
+					_curPos.setConicSystemEpoch( value ) ;
 		
-					tmp = treeMap.get( "TP" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemEpochPerih( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemEpochPerih( null ) ;
-					}
+					value = treeMap.get( "TP" ) ;
+					_curPos.setConicSystemEpochPerih( value ) ;
 		
-					tmp = treeMap.get( "IN" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemInclination( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemInclination( null ) ;
-					}
+					value = treeMap.get( "IN" ) ;
+					_curPos.setConicSystemInclination( value ) ;
 		
-					tmp = treeMap.get( "W" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemPerihelion( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemPerihelion( null ) ;
-					}
+					value = treeMap.get( "W" ) ;
+					_curPos.setConicSystemPerihelion( value ) ;
 		
-					tmp = treeMap.get( "EC" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemE( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemE( null ) ;
-					}
+					value = treeMap.get( "EC" ) ;
+					_curPos.setConicSystemE( value ) ;
 		
-					tmp = treeMap.get( "OM" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemAnode( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemAnode( null ) ;
-					}
+					value = treeMap.get( "OM" ) ;
+					_curPos.setConicSystemAnode( value ) ;
 		
 					int conicSystemType = _w.conicSystemType.getIntegerValue() ;
 					if( conicSystemType == SpTelescopePos.TYPE_MAJOR || conicSystemType == SpTelescopePos.TYPE_MINOR )
-						tmp = treeMap.get( "A" ) ;
+						value = treeMap.get( "A" ) ;
 					else if( conicSystemType == SpTelescopePos.TYPE_COMET )
-						tmp = treeMap.get( "QR" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemAorQ( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemAorQ( null ) ;
-					}
+						value = treeMap.get( "QR" ) ;
+					_curPos.setConicSystemAorQ( value ) ;
 
 					if( conicSystemType == SpTelescopePos.TYPE_MINOR )
-						tmp = treeMap.get( "MA" ) ;
+						value = treeMap.get( "MA" ) ;
 					else if( conicSystemType == SpTelescopePos.TYPE_MAJOR ||  conicSystemType == SpTelescopePos.TYPE_COMET )
-						tmp = treeMap.get( "L" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemLorM( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemLorM( null ) ;
-					}
+						value = treeMap.get( "L" ) ;
+					_curPos.setConicSystemLorM( value ) ;
 		
-					tmp = treeMap.get( "N" ) ;
-					if( tmp != null && tmp instanceof Double )
-					{
-						value = tmp.toString() ;
-						_curPos.setConicSystemDailyMotion( value ) ;
-					}
-					else
-					{
-						_curPos.setConicSystemDailyMotion( null ) ;
-					}
+					value = treeMap.get( "N" ) ;
+					_curPos.setConicSystemDailyMotion( value ) ;
 		
 					_updateTargetSystemPane( _curPos ) ;
 				
