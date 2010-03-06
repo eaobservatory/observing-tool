@@ -1028,7 +1028,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	/** 
 	 * Add the current science program to the history list
 	 */
-	@SuppressWarnings( "unchecked" )
     protected void addToHistory()
 	{
 		SpRootItem rootItem = getItem() ;
@@ -1049,15 +1048,19 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			}
 
 			// add to the history list and remove duplicates
-			ListIterator<OtHistoryItem> it = ( ( LinkedList<OtHistoryItem> )historyList.clone() ).listIterator( 0 ) ;
+			ListIterator<OtHistoryItem> it = historyList.listIterator( 0 ) ;
+			Vector<Integer> indexes = new Vector<Integer>() ;
 			for( int i = 0 ; it.hasNext() ; i++ )
 			{
 				OtHistoryItem hi = it.next() ;
 				if( hi.title.equals( title ) )
-					historyList.remove( i ) ;
+					indexes.add( i ) ;
 			}
+			while( indexes.size() != 0 )
+				historyList.remove( indexes.remove( 0 ) ) ;
+
 			historyList.addFirst( item ) ;
-			
+
 			if( historyList.size() > 20 )
 				historyList.removeLast() ;
 		}

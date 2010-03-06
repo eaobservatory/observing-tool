@@ -11,6 +11,7 @@ import jsky.app.ot.util.AppPropertyWatcher ;
 
 import java.awt.Point ;
 import java.awt.Dimension ;
+import java.util.Enumeration ;
 import java.util.Hashtable ;
 import java.util.Properties ;
 import java.util.Vector ;
@@ -85,44 +86,22 @@ public class OtProps
 	//
 	// Notify of a property change.
 	//
-	@SuppressWarnings( "unchecked" )
-    private static void _notifyPropertyChange( String property , String value )
+    private synchronized static void _notifyPropertyChange( String property , String value )
 	{
-		Vector<AppPropertyWatcher> vGen = null ;
-		Vector<AppPropertyWatcher> vSingle = null ;
-		try
+		Enumeration<AppPropertyWatcher> e = _watchers.elements() ;
+		while( e.hasMoreElements() )
 		{
-			synchronized( Class.forName( "ot.OtProps" ) )
-			{
-				if( _watchers.size() != 0 )
-					vGen = ( Vector<AppPropertyWatcher> )_watchers.clone() ;
-
-				vSingle = _singlePropWatchers.get( property ) ;
-				if( vSingle != null )
-					vSingle = ( Vector<AppPropertyWatcher> )vSingle.clone() ;
-			}
-		}
-		catch( ClassNotFoundException ex )
-		{
-			return ;
+			AppPropertyWatcher apw = e.nextElement() ;
+			apw.propertyChange( property , value ) ;
 		}
 
-		// Notify the general watchers.
-		if( vGen != null )
-		{
-			for( int i = 0 ; i < vGen.size() ; ++i )
-			{
-				AppPropertyWatcher apw = vGen.elementAt( i ) ;
-				apw.propertyChange( property , value ) ;
-			}
-		}
-
-		// Notify the specific property watchers.
+		Vector<AppPropertyWatcher> vSingle = _singlePropWatchers.get( property ) ;
 		if( vSingle != null )
 		{
-			for( int i = 0 ; i < vSingle.size() ; ++i )
+			e = vSingle.elements() ;
+			while( e.hasMoreElements() )
 			{
-				AppPropertyWatcher apw = ( AppPropertyWatcher )vSingle.elementAt( i ) ;
+				AppPropertyWatcher apw = e.nextElement() ;
 				apw.propertyChange( property , value ) ;
 			}
 		}
