@@ -1,3 +1,7 @@
++++ March 2010 release
+
+  - Minor fixes including offset iterator fixes.
+
 +++ January 2010 release
 
   - Added some SiO lines and a special config upon request.
