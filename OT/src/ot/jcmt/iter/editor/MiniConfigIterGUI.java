@@ -30,7 +30,7 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 		}
 	}
 
-	void jbInit() throws Exception
+	protected void jbInit() throws Exception
 	{
 		continuousSpinLabel = new JLabel() ;
 		continuousSpinLabel.setFont( new java.awt.Font( "Dialog" , 3 , 12 ) ) ;
