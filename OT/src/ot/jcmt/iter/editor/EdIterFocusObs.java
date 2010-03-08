@@ -27,7 +27,6 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 {
 	private IterFocusObsGUI _w ; // the GUI layout panel
 	private SpIterFocusObs _iterObs ;
-	private boolean SCUBA2 ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -107,15 +106,11 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 				_w.acsisPanel.setVisible( true ) ;
 				_w.switchingMode.setVisible( false ) ;
 				_w.switchingModeLabel.setVisible( false ) ;
-
-				SCUBA2 = false ;
 			}
 			else if( spInstObsComp instanceof SpInstSCUBA2 )
 			{
 				_w.acsisPanel.setVisible( false ) ;
 				_iterObs.rmSwitchingMode() ;
-
-				SCUBA2 = true ;
 			}
 		}
 		else
@@ -126,8 +121,6 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 			_w.stepsLabel.setVisible( false ) ;
 			_w.steps.setVisible( false ) ;
 			_w.mmLabel.setVisible( false ) ;
-
-			SCUBA2 = false ;
 		}
 	}
 }
