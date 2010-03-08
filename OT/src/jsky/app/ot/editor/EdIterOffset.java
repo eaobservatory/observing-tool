@@ -535,6 +535,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 				_w.gridYSpacing.setValue( iterRaster.getHeight() ) ;
 			}
 		}
+		_updateWidgets() ;
 	}
 
 	// Added by MFO (20 February 2002)
