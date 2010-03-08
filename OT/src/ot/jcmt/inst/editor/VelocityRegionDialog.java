@@ -48,7 +48,6 @@ public class VelocityRegionDialog extends JDialog implements ActionListener
 	private JButton cancelButton = new JButton( "Cancel" ) ;
 	private JPanel buttonPanel = new JPanel() ;
 	private EdDRRecipe _drRecipeEditor ;
-	private SpDRRecipe _drRecipe ;
 	protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration() ;
 	private VelocityRegionEditor _vre = new VelocityRegionEditor( this ) ;
 
@@ -79,7 +78,6 @@ public class VelocityRegionDialog extends JDialog implements ActionListener
 			return ;
 		}
 
-		_drRecipe = drRecipe ;
 		_drRecipeEditor = drRecipeEditor ;
 
 		double redshift ;
