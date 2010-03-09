@@ -83,8 +83,6 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 		_opl.addSelWatcher( this ) ;
 		_tpArray = _opl.getAllPositions() ;
 		_insertAllPos( _tpArray ) ;
-
-		selectRowAt( 0 ) ;
 	}
 
 	/**
@@ -298,6 +296,19 @@ public class OffsetPosTableWidget extends TableWidgetExt implements TelescopePos
 	 */
 	public boolean selectPos( TelescopePos tp )
 	{
+		int index = _opl.getPositionIndex( tp ) ;
+		if( index == -1 )
+			return false ;
+
+		return selectPos( index ) ;
+	}
+
+	/**
+	 * Select a given position.
+	 */
+	public boolean selectPos( String tag )
+	{
+		TelescopePos tp = _opl.getPosition( tag ) ;
 		int index = _opl.getPositionIndex( tp ) ;
 		if( index == -1 )
 			return false ;
