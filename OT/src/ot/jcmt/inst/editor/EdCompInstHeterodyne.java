@@ -678,7 +678,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 							component.setSelectedItem( bandWidthString ) ;
 							double bandwidth = new Double( bandWidthString ) ;
 							if( bandwidth != 0. )
-								_inst.setBandWidth( bandwidth / 1.0E-6 , componentIndex ) ;
+								_inst.setBandWidth( bandwidth / 1.E-6 , componentIndex ) ;
 						}
 						else
 						{
@@ -799,7 +799,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				if( transition instanceof Transition )
 				{
 					double frequency = (( Transition )transition).frequency ;
-					_inst.setSkyFrequency( frequency / ( 1.0 + getRedshift() ) ) ;
+					_inst.setSkyFrequency( frequency / ( 1. + getRedshift() ) ) ;
 					for( int index = 0 ; index < _regionInfo.length ; index++ )
 					{
 						// Set the current transition
@@ -887,7 +887,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		double mainline = _inst.getRestFrequency( 0 ) ;
 		double centre = _inst.getCentreFrequency( 0 ) ;
 		// Check if it is correctly located
-		double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
+		double halfReceverBandwidth = _receiver.bandWidth * .5 ;
 		if( centre <= _receiver.feIF - halfReceverBandwidth || centre >= _receiver.feIF + halfReceverBandwidth )
 		{
 			centre = _receiver.feIF ;
@@ -1810,7 +1810,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				double restFreq = _inst.getRestFrequency( 0 ) ;
 				_inst.setRestFrequency( restFreq , i ) ;
-				_inst.setSkyFrequency( restFreq / ( 1.0 + getRedshift() ) ) ;
+				_inst.setSkyFrequency( restFreq / ( 1. + getRedshift() ) ) ;
 				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.E9 ) ) ;
 			}
 			else
@@ -1831,14 +1831,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_inst.setBandWidth( _inst.getBandWidth( 0 ) , i ) ;
 				double bandwidth = _inst.getBandWidth( i ) ;
 				_regionInfo[ i ].add( new Double( bandwidth ) ) ;
-				int resolution = ( int )Math.rint( ( bandwidth * 1.0E-3 ) / _inst.getChannels( 0 ) ) ;
+				int resolution = ( int )Math.rint( ( bandwidth * 1.E-3 ) / _inst.getChannels( 0 ) ) ;
 				_regionInfo[ i ].add( new Integer( resolution ) ) ; // Need to add resolution here
 			}
 			else
 			{
 				double bandwidth = _inst.getBandWidth( i ) ;
 				_regionInfo[ i ].add( new Double( bandwidth ) ) ;
-				int resolution = ( int )Math.rint( ( bandwidth * 1.0E-3 ) / _inst.getChannels( i ) ) ;
+				int resolution = ( int )Math.rint( ( bandwidth * 1.E-3 ) / _inst.getChannels( i ) ) ;
 				_regionInfo[ i ].add( new Integer( resolution ) ) ; // Need to add resolution here
 			}
 			if( _inst.getChannels( i ) == 0 )
@@ -1960,7 +1960,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// Set the centre frequencies
 			_frequencyEditor.setCentreFrequency( _inst.getCentreFrequency( i ) , i ) ;
 			_frequencyEditor.setBandWidth( _inst.getBandWidth( i ) , i ) ;
-			_frequencyEditor.setLineText( _inst.getMolecule( i ) + "  " + _inst.getTransition( i ) + "  " + ( _inst.getRestFrequency( i ) / 1.0E6 ) , i ) ;
+			_frequencyEditor.setLineText( _inst.getMolecule( i ) + "  " + _inst.getTransition( i ) + "  " + ( _inst.getRestFrequency( i ) / 1.E6 ) , i ) ;
 		}
 
 		// Configure the frequency editor
