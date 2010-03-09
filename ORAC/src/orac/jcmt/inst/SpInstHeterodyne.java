@@ -838,7 +838,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 * @param Number
 	 *            of subsystems (starting at 0).
 	 * 
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 * @param subsystem
 	 *            Subsystem number (starting at 0).
 	 */
@@ -852,7 +851,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 *
 	 * @param Number of subsystems (starting at 0).
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 * @param subsystem  Subsystem number (starting at 0).
 	 */
 	public void setBandWidth( String value , int subsystem )
@@ -878,7 +876,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 *
 	 * @param Number of subsystems (starting at 0).
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 * @param subsystem  Subsystem number (starting at 0).
 	 */
 	public void setNumHybridSubBands( int value , int subsystem )
@@ -891,7 +888,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 *
 	 * @param Number of subsystems (starting at 0).
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 * @param subsystem  Subsystem number (starting at 0).
 	 */
 	public void setNumHybridSubBands( String value , int subsystem )
@@ -917,7 +913,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	 *
 	 * @param Number of subsystems (starting at 0).
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 * @param subsystem  Subsystem number (starting at 0).
 	 */
 	public void setChannels( int value , int subsystem )
@@ -950,7 +945,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	/**
 	 * Set overlap of multiple subbands in one subsystem.
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 */
 	public void setOverlap( double value , int subsystem )
 	{
@@ -960,7 +954,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	/**
 	 * Set overlap of multiple subbands in one subsystem.
 	 *
-	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
 	 */
 	public void setOverlap( String value , int subsystem )
 	{

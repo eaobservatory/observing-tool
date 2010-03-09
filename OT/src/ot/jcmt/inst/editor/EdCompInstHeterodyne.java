@@ -133,7 +133,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	Receiver _receiver ;
 
 	// Information related to each possible spectral region
-	Vector[] _regionInfo = new Vector[ Integer.parseInt( HeterodyneGUI.SUBSYSTEMS[ HeterodyneGUI.SUBSYSTEMS.length - 1 ] ) ] ;
+	@SuppressWarnings( "unchecked" )
+	Vector<Object>[] _regionInfo = new Vector[ Integer.parseInt( HeterodyneGUI.SUBSYSTEMS[ HeterodyneGUI.SUBSYSTEMS.length - 1 ] ) ] ;
 	boolean defaultToRadialVelocity = true ;
 	String currentFrequency = "" ;
 	Component[] components = null ;
@@ -417,7 +418,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < moleculeVector.size() ; i++ )
 		{
 			if( moleculeVector.get( i ).toString().trim().equals( molecule ) )
-				transition = ( Transition )(( SelectionList )moleculeVector.get( i )).objectList.get( 0 ) ;
+				transition = ( Transition )moleculeVector.get( i ).objectList.get( 0 ) ;
 		}
 
 		if( transition != null )
@@ -497,9 +498,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		(( AbstractButton )_w.modeSelector.getComponent( modeWidgetNames.get( _inst.getMode() ) )).setSelected( true ) ;
 		int integer = 0 ;
 		String band = _inst.getBandMode() ;
-		int bandMode ;
-		if( band != null && !band.equals( "" ) )
-			bandMode = regionWidgetNames.get( band ) ;
 
 		(( AbstractButton )_w.regionSelector.getComponent( integer )).setSelected( true ) ;
 
@@ -712,7 +710,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 						for( int i = 0 ; i < moleculeVector.size() ; i++ )
 						{
-							SelectionList selectionList = ( SelectionList )moleculeVector.get( i ) ;
+							SelectionList selectionList = moleculeVector.get( i ) ;
 							if( selectionList.toString().trim().equals( species ) )
 							{
 								for( int j = 0 ; j < selectionList.objectList.size() ; j++ )
@@ -746,7 +744,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					for( int index = 0 ; index < ci.$subSystems ; index++ )
 					{
 						double frequency = ci.$freq.elementAt( index ) ;
-						_inst.setRestFrequency( frequency * 1.0E9 , index ) ;
+						_inst.setRestFrequency( frequency * 1.E9 , index ) ;
 						_inst.setMolecule( NO_LINE , index ) ;
 						_inst.setTransition( NO_LINE , index ) ;
 					}
@@ -768,7 +766,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			JComboBox component = ( JComboBox )components[ componentIndex ] ;
 			if( source == component )
 			{
-				_inst.setBandWidth( Double.parseDouble( ( String )component.getSelectedItem() ) * 1.0E6 , componentIndex ) ;
+				_inst.setBandWidth( Double.parseDouble( ( String )component.getSelectedItem() ) * 1.E6 , componentIndex ) ;
 				setAvailableRegions() ;
 				_updateRegionInfo() ;
 				_updateWidgets() ;
@@ -827,11 +825,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					if( changed )
 					{
 						double f = Double.parseDouble( frequency ) * 1.E9 ;
-						double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 ) ;
-						double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 ) ;
+						double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * .5 ) ;
+						double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * .5 ) ;
 						if( f >= obsmin && f <= obsmax )
 						{
-							_inst.setSkyFrequency( f / ( 1.0 + getRedshift() ) ) ;
+							_inst.setSkyFrequency( f / ( 1. + getRedshift() ) ) ;
 							for( int index = 0 ; index < _regionInfo.length ; index++ )
 							{
 								_inst.setRestFrequency( f , index ) ;
@@ -927,7 +925,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( line < 0. )
 				line = -line ;
 
-			double halfBandwidth = 0.5 * ( _receiver.bandWidth - _inst.getBandWidth( index ) ) ;
+			double halfBandwidth = .5 * ( _receiver.bandWidth - _inst.getBandWidth( index ) ) ;
 			if( line > ( _receiver.feIF + halfBandwidth ) )
 				line = ( _receiver.feIF + halfBandwidth ) ;
 			else if( line < ( _receiver.feIF - halfBandwidth ) )
@@ -1053,22 +1051,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		tf.setForeground( Color.RED ) ;
 	}
 
-	public void bandWidthChoiceAction( ActionEvent ae ){}
-
-	public void feMoleculeAction( ActionEvent ae ){}
-
-	public void feTransitionAction( ActionEvent ae ){}
-
-	public void moleculeFrequencyChanged(){}
-
-	public void updateSideBandDisplay(){}
-
-	public void updateSideBandDisplay( int nSubBands , Vector shifts ){}
-
-	public void setSideBandDisplayVisible( boolean visible ){}
-
-	public void setSideBandDisplayLocation( int x , int y ){}
-
 	// Added by MFO (8 January 2002)
 	/**
 	 * Returns "usb" (Upper Side Band) or "lsb" (Lower Side Band).
@@ -1097,13 +1079,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		String bandMode = _inst.getBandMode() ;
 		int active = new Integer( _inst.getBandMode() ) ;
 
-		currentBandSpec = ( BandSpec )bandSpecs.get( active - 1 ) ;
+		currentBandSpec = bandSpecs.get( active - 1 ) ;
 		if( !currentBandSpec.toString().equals( bandMode ) )
-			currentBandSpec = ( BandSpec )bandSpecs.get( 0 ) ;
+			currentBandSpec = bandSpecs.get( 0 ) ;
 
 		BandSpec otherBandSpec = null ;
 		if( active == 3 )
-			otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
+			otherBandSpec = bandSpecs.get( 3 ) ;
 
 		double[] values = null ;
 		boolean showDialog = false ;
@@ -1328,7 +1310,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		SelectionList currentSpecies = null ;
 		for( int i = 0 ; i < speciesList.size() ; i++ )
 		{
-			SelectionList currentSelectionList = ( SelectionList )speciesList.get( i ) ;
+			SelectionList currentSelectionList = speciesList.get( i ) ;
 			if( currentSelectionList.toString().equals( currentMolecule ) )
 			{
 				currentSpecies = currentSelectionList ;
@@ -1401,8 +1383,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private Vector<SelectionList> getSpecies()
 	{
-		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 ) ;
-		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 ) ;
+		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * .5 ) ;
+		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * .5 ) ;
 		Vector<SelectionList> molecules = _lineCatalog.returnSpecies( obsmin * ( 1. + getRedshift() ) , obsmax * ( 1. + getRedshift() ) ) ;
 		return molecules ;
 	}
@@ -1775,7 +1757,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			tbm.setColumnIdentifiers( _w.COLUMN_NAMES ) ;
 			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
 			{
-				Vector<Integer> row = new Vector<Integer>( _regionInfo[ i ] ) ;
+				Vector<Object> row = new Vector<Object>( _regionInfo[ i ] ) ;
 				row.add( 0 , new Integer( i ) ) ;
 				tbm.addRow( row ) ;
 			}
@@ -1803,7 +1785,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < _regionInfo.length ; i++ )
 		{
 			if( _regionInfo[ i ] == null )
-				_regionInfo[ i ] = new Vector() ;
+				_regionInfo[ i ] = new Vector<Object>() ;
 			else
 				_regionInfo[ i ].clear() ;
 			if( _inst.getMolecule( i ) == null )
@@ -1829,11 +1811,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				double restFreq = _inst.getRestFrequency( 0 ) ;
 				_inst.setRestFrequency( restFreq , i ) ;
 				_inst.setSkyFrequency( restFreq / ( 1.0 + getRedshift() ) ) ;
-				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.0E9 ) ) ;
+				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.E9 ) ) ;
 			}
 			else
 			{
-				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.0E9 ) ) ;
+				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.E9 ) ) ;
 			}
 			if( _inst.getCentreFrequency( i ) == 0. )
 			{
@@ -1914,12 +1896,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 
 			if( _regionInfo[ i ] == null )
-				_regionInfo[ i ] = new Vector() ;
+				_regionInfo[ i ] = new Vector<Object>() ;
 			else
 				_regionInfo[ i ].clear() ;
 			_regionInfo[ i ].add( _inst.getMolecule( i ) ) ;
 			_regionInfo[ i ].add( _inst.getTransition( i ) ) ;
-			_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.0E9 ) ) ;
+			_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.E9 ) ) ;
 			_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( i ) ) ) ;
 			_regionInfo[ i ].add( new Double( _inst.getBandWidth( i ) ) ) ;
 			// Get the overlap and overlap based on the current b/w
@@ -1929,9 +1911,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				{
 					double overlap = activeBandSpec.defaultOverlaps[ j ] ;
 					int channels = activeBandSpec.getDefaultOverlapChannels()[ j ] ;
-					int resolution = ( int )Math.rint( ( _inst.getBandWidth( i ) * 1.0E-3 ) / channels ) ;
+					int resolution = ( int )Math.rint( ( _inst.getBandWidth( i ) * 1.E-3 ) / channels ) ;
 					_regionInfo[ i ].add( new Integer( resolution ) ) ;
-					_regionInfo[ i ].add( new Double( activeBandSpec.defaultOverlaps[ j ] * 1.0E-6 ) ) ;
+					_regionInfo[ i ].add( new Double( activeBandSpec.defaultOverlaps[ j ] * 1.E-6 ) ) ;
 					_regionInfo[ i ].add( new Integer( channels ) ) ;
 					_inst.setOverlap( overlap , i ) ;
 					_inst.setChannels( channels , i ) ;
@@ -2005,7 +1987,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void getFrequencyEditorConfiguration()
 	{
-		Vector[] configs = _frequencyEditor.getCurrentConfiguration() ;
+		Vector<Object>[] configs = _frequencyEditor.getCurrentConfiguration() ;
 		for( int i = 0 ; i < configs.length ; i++ )
 		{
 			_inst.setMolecule( configs[ i ].get( 0 ).toString() , i ) ;
@@ -2148,7 +2130,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 	}
 
-	class TableRowRenderer extends DefaultTableCellRenderer
+	@SuppressWarnings( "serial" )
+    class TableRowRenderer extends DefaultTableCellRenderer
 	{
 		public TableRowRenderer()
 		{
