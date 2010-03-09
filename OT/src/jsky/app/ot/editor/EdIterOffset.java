@@ -150,10 +150,6 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 
 		/*
 		 * Select the position that was previously selected.
-		 * This has probably never worked (neither Freebongo nor Swing OT)
-		 * because the table seems to be reset somehow after _updateWidgets().
-		 * And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
-		 * rather then to the selectedRow. (MFO, 6 December 2001)
 		 */
 		int selIndex = _avTab.getInt( ".gui.selectedOffsetPos" , 0 ) ;
 		_offTW.selectPos( selIndex ) ;
@@ -472,19 +468,27 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 			else
 			{
 				int i = _opl.getPositionIndex( _curPos ) ;
-				_opl.createPosition( i + 1 ) ;
+				_curPos = _opl.createPosition( i + 1 ) ;
+				_avTab.set( ".gui.selectedOffsetPos" , i + 1 ) ;
 			}
 		}
 		else if( w == _w.removeAllButton )
 		{
 			// Remove an offset position
 			_opl.removeAllPositions() ;
+			_avTab.rm( ".gui.selectedOffsetPos" ) ;
 		}
 		else if( w == _w.removeButton )
 		{
 			// Remove an offset position
 			if( _curPos != null )
+			{
+				int i = _opl.getPositionIndex( _curPos ) ;
+				if( i > 0 )
+					i-- ;
+				_avTab.set( ".gui.selectedOffsetPos" , i ) ;
 				_opl.removePosition( _curPos ) ;
+			}
 		}
 		else if( w == _w.topButton )
 		{
