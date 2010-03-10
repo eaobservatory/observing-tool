@@ -23,7 +23,7 @@
 	<property name="orac.jar" value="${orac.dir}/${local.jar.dir}/orac.jar"/>
 	<property name="omp.jar" value="${omp.dir}/${local.jar.dir}/omp.jar"/>
 	<property name="edfreq.jar" value="${edfreq.dir}/${local.jar.dir}/edfreq.jar"/>
-	<property name="ot.jar" value="${gemini.dir}/${local.jar.dir}/ot.jar"/>
+	<property name="ot.jar" value="${ot.dir}/${local.jar.dir}/ot.jar"/>
 
 	<property name="gemini.install.dir" value="${gemini.dir}/${local.install.dir}"/>
 	<property name="orac.install.dir" value="${orac.dir}/${local.install.dir}"/>
