@@ -1812,7 +1812,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			{
 				String value = treeMap.get( "NAME" ) ;
 				
-				if( !value.trim().equals( "" ) )
+				if( value != null && !value.trim().equals( "" ) )
 				{
 					_w.orbitalElementResolvedNameLabel.setText( value ) ;
 					
