@@ -237,7 +237,7 @@ public class Horizons
 		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
 		if( name != null && !name.trim().equals( "" ) )
 		{
-			if( name.matches( "^\\d+$" ) )
+			if( !name.matches( ";$" ) )
 				name += ";" ;
 
 			if( caching )
