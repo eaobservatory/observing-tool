@@ -185,7 +185,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		_avTable = new SpAvTable() ;
 		_avTable.setStateMachine( _editAvFSM ) ;
 
-		_className = getClass().getName().substring( getClass().getName().lastIndexOf( "." ) + 1 ) ;
+		_className = getClass().getSimpleName() ;
 	}
 
 	/**
