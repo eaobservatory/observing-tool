@@ -1,5 +1,7 @@
 +++ March 2010 release
 
+  - Minor fixes to Orbital Elements name resolution.
+
   - Minor fixes including offset iterator fixes.
 
 +++ January 2010 release
