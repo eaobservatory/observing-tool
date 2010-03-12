@@ -484,7 +484,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 			if( _curPos != null )
 			{
 				int i = _opl.getPositionIndex( _curPos ) ;
-				if( i > 0 )
+				if( i > 0 && i == _opl.size() - 1 )
 					i-- ;
 				_avTab.set( ".gui.selectedOffsetPos" , i ) ;
 				_opl.removePosition( _curPos ) ;
