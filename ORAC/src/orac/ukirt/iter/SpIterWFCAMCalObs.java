@@ -494,4 +494,17 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 		v.add( "do " + getCount() + " _observe" ) ;
 	}
+
+	/**
+	 * Fix up old programs.
+	 */
+	public void processXmlElementContent( String name , String value , int pos )
+	{
+		if( name != null && name.length() > 0 && value != null )
+		{
+			if( name.equals( SpUISTCalConstants.ATTR_CALTYPE ) && value.equals( "Focus" ) )
+					value = FOCUS_STRING ;
+		}
+		super.processXmlElementContent( name , value , pos ) ;
+	}
 }
