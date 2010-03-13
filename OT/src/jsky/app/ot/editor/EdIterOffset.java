@@ -357,44 +357,32 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 
 	private double _getGridXOffset()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridXOffset ;
-		return tbwe.getDoubleValue( 0. ) ;
+		return _w.gridXOffset.getDoubleValue( 0. ) ;
 	}
 
 	private double _getGridYOffset()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridYOffset ;
-		return tbwe.getDoubleValue( 0. ) ;
+		return _w.gridYOffset.getDoubleValue( 0. ) ;
 	}
 
 	private double _getGridXSpacing()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridXSpacing ;
-		return tbwe.getDoubleValue( 0. ) ;
+		return _w.gridXSpacing.getDoubleValue( 0. ) ;
 	}
 
 	private double _getGridYSpacing()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridYSpacing ;
-		return tbwe.getDoubleValue( 0. ) ;
+		return _w.gridYSpacing.getDoubleValue( 0. ) ;
 	}
 
 	private int _getGridRows()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridRows ;
-		return tbwe.getIntegerValue( 1 ) ;
+		return _w.gridRows.getIntegerValue( 1 ) ;
 	}
 
 	private int _getGridCols()
 	{
-		TextBoxWidgetExt tbwe ;
-		tbwe = _w.gridCols ;
-		return tbwe.getIntegerValue( 1 ) ;
+		return _w.gridCols.getIntegerValue( 1 ) ;
 	}
 
 	/*
