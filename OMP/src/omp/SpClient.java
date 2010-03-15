@@ -331,9 +331,11 @@ public class SpClient extends SoapClient
 			ByteArrayInputStream bis = new ByteArrayInputStream( bytes ) ;
 			while( ( len = bis.read( buff ) ) > 0 )
 				gos.write( buff , 0 , len ) ;
+			gos.flush() ;
 			gos.close() ;
 			bis.close() ;
 			toSend = bos.toByteArray() ;
+			bos.flush() ;
 			bos.close() ;
 		}
 		catch( Exception e )

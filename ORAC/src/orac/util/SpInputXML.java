@@ -280,6 +280,7 @@ public class SpInputXML extends DefaultHandler
 			fr.close() ;
 			FileWriter fw = new FileWriter( args[ 0 ] ) ;
 			fw.write( spItem.toXML() ) ;
+			fw.flush() ;
 			fw.close() ;
 		}
 		catch( Exception e )
