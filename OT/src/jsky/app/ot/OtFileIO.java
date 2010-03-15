@@ -112,6 +112,7 @@ public class OtFileIO
 			printStream.print( xml ) ;
 			printStream.flush() ;
 			os.flush() ;
+			fos.flush() ;
 		}
 		catch( SecurityException se )
 		{

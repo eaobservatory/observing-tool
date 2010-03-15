@@ -44,6 +44,7 @@ public class MsbClient extends SoapClient
 			if( tmp != null )
 			{
 				fw.write( ( String )tmp ) ;
+				fw.flush() ;
 				fw.close() ;
 			}
 			else
@@ -88,6 +89,7 @@ public class MsbClient extends SoapClient
 				spItem = new SpInputXML().xmlToSpItem( r ) ;
 
 				fw.write( spXML ) ;
+				fw.flush() ;
 				fw.close() ;
 			}
 			else

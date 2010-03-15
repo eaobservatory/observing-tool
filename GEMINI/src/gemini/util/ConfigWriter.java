@@ -68,6 +68,7 @@ public class ConfigWriter
 			String fileName = confDir + File.separator + getTelFile() ;
 			BufferedWriter writer = new BufferedWriter( new FileWriter( fileName ) ) ;
 			writer.write( xml ) ;
+			writer.flush() ;
 			writer.close() ;
 		}
 	}
@@ -95,7 +96,7 @@ public class ConfigWriter
 			BufferedWriter writer = new BufferedWriter( new FileWriter( fileName ) ) ;
 
 			write( writer , table ) ;
-
+			writer.flush();
 			writer.close() ;
 		}
 	}

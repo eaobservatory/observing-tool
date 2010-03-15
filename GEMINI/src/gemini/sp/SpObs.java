@@ -532,6 +532,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 			FileWriter fw = new FileWriter( confWriter.getExecName() ) ;
 			for( String txt : v )
 				fw.write( txt + "\n" ) ;
+			fw.flush() ;
 			fw.close() ;
 		}
 		catch( IOException ioe )
