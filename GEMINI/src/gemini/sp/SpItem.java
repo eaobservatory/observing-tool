@@ -1070,7 +1070,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 
 		if( !avAttr.startsWith( ":" ) )
 		{
-			if( _avTable.getAll( avAttr ).size() == 1 )
+			if( _avTable.size( avAttr ) == 1 )
 			{
 				xmlBuffer.append( "\n  " + indent + avToXml( avAttr , _avTable.get( avAttr ) ) ) ;
 			}
@@ -1079,12 +1079,12 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 				String value ;
 				xmlBuffer.append( "\n  " + indent + "<" + avAttr + ">" ) ;
 
-				for( int i = 0 ; i < _avTable.getAll( avAttr ).size() ; i++ )
+				for( int i = 0 ; i < _avTable.size( avAttr ) ; i++ )
 				{
 					value = _avTable.get( avAttr , i ) ;
 
 					if( ( value != null ) && ( value.length() > 0 ) )
-						xmlBuffer.append( "\n    " + indent + "<value>" + _avTable.get( avAttr , i ) + "</value>" ) ;
+						xmlBuffer.append( "\n    " + indent + "<value>" + value + "</value>" ) ;
 					else
 						xmlBuffer.append( "\n    " + indent + "<value>" + "</value>" ) ;
 				}
@@ -1238,13 +1238,19 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		if( avAttr.indexOf( ':' ) < 0 )
 		{
 			if( avAttr.startsWith( "." ) )
-				return "<" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" + value + "</" + XML_META_PREFIX + avAttr.replace( '.' , '_' ) + ">" ;
+			{
+				String tag = XML_META_PREFIX + avAttr.replace( '.' , '_' ) ;
+				return "<" + tag + ">" + value + "</" + tag + ">" ;
+			}
 			else
+			{
 				return "<" + avAttr + ">" + asciiToXml( value ) + "</" + avAttr + ">" ;
+			}
 		}
 		else
 		{
-			return "<" + avAttr.substring( 0 , avAttr.indexOf( ':' ) ) + " " + avAttr.substring( avAttr.indexOf( ':' ) + 1 ) + "=\"" + value + "\"/>" ;
+			int index = avAttr.indexOf( ':' ) ;
+			return "<" + avAttr.substring( 0 , index ) + " " + avAttr.substring( index + 1 ) + "=\"" + value + "\"/>" ;
 		}
 	}
 	
