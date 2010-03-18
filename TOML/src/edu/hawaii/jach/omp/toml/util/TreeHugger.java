@@ -169,7 +169,7 @@ public class TreeHugger
 	 * Marshal the document for this instance to an output stream
 	 * @param os - OutputStream to write to
 	 */
-	protected void marshalDocument( OutputStream os )
+	public void marshalDocument( OutputStream os )
 	{
 		try
 		{
