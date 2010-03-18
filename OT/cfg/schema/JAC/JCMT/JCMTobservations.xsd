@@ -36,6 +36,15 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="flatSourceList">
+	<xsd:restriction base="xsd:string">
+		<xsd:enumeration value="DARK"/>
+		<xsd:enumeration value="SKY"/>
+		<xsd:enumeration value="ZENITH"/>
+		<xsd:enumeration value="BLACKBODY"/>
+	</xsd:restriction>
+</xsd:simpleType>
+
 <xsd:simpleType name="jigglePatternList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="DEFAULT"/>
@@ -255,6 +264,7 @@
 	<xsd:complexType>
 		<xsd:sequence>
 			<xsd:group ref="toml:jac_meta_group"/>
+			<xsd:element name="flatSource" type="toml:flatSourceList" minOccurs="0"/>
 		</xsd:sequence>
 		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
 		<xsd:attribute name="subtype" type="xsd:string" fixed="flatObs"/>
