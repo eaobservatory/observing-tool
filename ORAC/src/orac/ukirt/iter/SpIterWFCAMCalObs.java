@@ -506,6 +506,8 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 					value = FOCUS_STRING ;
 			else if( name.equals( SpUISTCalConstants.ATTR_CALTYPE ) && value.equals( "SkyFlat" ) )
 				value = SKYFLAT_STRING ;
+			else if( name.equals( SpUISTCalConstants.ATTR_CALTYPE ) && value.equals( "DomeFlat" ) )
+				value = DOMEFLAT_STRING ;
 		}
 		super.processXmlElementContent( name , value , pos ) ;
 	}
