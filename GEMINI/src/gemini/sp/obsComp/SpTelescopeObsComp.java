@@ -693,140 +693,98 @@ public class SpTelescopeObsComp extends SpObsComp
      */
 	public void processXmlElementContent( String name , String value , int pos )
 	{
-
 		// All the hard wired strings are taken from the JAC TCS XML.
 		// They are left hard wired as they are unlikely to be needed outside this class.
-
 		if( _currentPosition == null )
 		{
 			super.processXmlElementContent( name , value , pos ) ;
-			return ;
 		}
-
-		if( name.equals( TX_BASE ) || name.equals( TX_TARGET ) )
-			return ;
-
-		if( name.equals( TX_TARGET_NAME ) )
+		else if( name.equals( TX_BASE ) || name.equals( TX_TARGET ) ){ /* ignore */ }
+		else if( name.equals( TX_TARGET_NAME ) )
 		{
 			_currentPosition.setName( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_SPHERICAL_SYSTEM ) )
+		else if( name.equals( TX_SPHERICAL_SYSTEM ) )
 		{
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL ) ;
-			return ;
 		}
-
-		if( name.equals( TX_CONIC_SYSTEM ) )
+		else if( name.equals( TX_CONIC_SYSTEM ) )
 		{
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC ) ;
-			return ;
 		}
-
-		if( name.equals( TX_NAMED_SYSTEM ) )
+		else if( name.equals( TX_NAMED_SYSTEM ) )
 		{
 			// Ignore here and set system type in processXmlAttribute.
 			// processXmlAttribute might not be called because the
 			// XML element TX_NAMED_SYSTEM does not contain PCDATA.
-			return ;
 		}
-
 		/*
          * Since the proper motion is stored in arcsecs/yr, but is displayed in
          * mas/year, we need to convert between the two before assigning.
          */
-		if( name.equals( TX_PM1 ) )
+		else if( name.equals( TX_PM1 ) )
 		{
 			Double dValue = new Double( value ) * 1000. ;
 			_currentPosition.setPropMotionRA( dValue.toString() ) ;
-			return ;
 		}
-
-		if( name.equals( TX_PM2 ) )
+		else if( name.equals( TX_PM2 ) )
 		{
 			Double dValue = new Double( value ) * 1000. ;
 			_currentPosition.setPropMotionDec( dValue.toString() ) ;
-			return ;
 		}
-
 		// ---- Sperical System
         // --------------------------------------------------------
-
 		// Coordinate 1 (x axis)
-		if( name.equals( TX_C1 ) )
+		else if( name.equals( TX_C1 ) )
 		{
 			_currentPosition.setXYFromString( value , _currentPosition.getYaxisAsString() ) ;
-			return ;
 		}
-
 		// Coordinate 2 (y axis)
-		if( name.equals( TX_C2 ) )
+		else if( name.equals( TX_C2 ) )
 		{
 			_currentPosition.setXYFromString( _currentPosition.getXaxisAsString() , value ) ;
-			return ;
 		}
-
 		// ---- Conic System (Orbital Elements)
         // ----------------------------------------
-
-		if( name.equals( TX_EPOCH ) )
+		else if( name.equals( TX_EPOCH ) )
 		{
 			if( _currentPosition.getSystemType() == SpTelescopePos.SYSTEM_CONIC )
 				_currentPosition.setConicSystemEpoch( value ) ;
 			else
 				_currentPosition.setTrackingEpoch( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_EPOCH_PERIH ) )
+		else if( name.equals( TX_EPOCH_PERIH ) )
 		{
 			_currentPosition.setConicSystemEpochPerih( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_INCLINATION ) )
+		else if( name.equals( TX_INCLINATION ) )
 		{
 			_currentPosition.setConicSystemInclination( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_ANODE ) )
+		else if( name.equals( TX_ANODE ) )
 		{
 			_currentPosition.setConicSystemAnode( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_PERIHELION ) )
+		else if( name.equals( TX_PERIHELION ) )
 		{
 			_currentPosition.setConicSystemPerihelion( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_AORQ ) )
+		else if( name.equals( TX_AORQ ) )
 		{
 			_currentPosition.setConicSystemAorQ( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_E ) )
+		else if( name.equals( TX_E ) )
 		{
 			_currentPosition.setConicSystemE( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_LORM ) )
+		else if( name.equals( TX_LORM ) )
 		{
 			_currentPosition.setConicSystemLorM( value ) ;
-			return ;
 		}
-
-		if( name.equals( TX_N ) )
+		else if( name.equals( TX_N ) )
 		{
 			_currentPosition.setConicSystemDailyMotion( value ) ;
-			return ;
 		}
-
 		// ---- Named System
         // -----------------------------------------------------------
 
@@ -835,15 +793,12 @@ public class SpTelescopeObsComp extends SpObsComp
 
 		// ---- Offset
         // -----------------------------------------------------------------
-
-		if( name.equals( TX_OFFSET ) )
+		else if( name.equals( TX_OFFSET ) )
 		{
 			_currentPosition.setOffsetPosition( true ) ;
-			return ;
 		}
-
 		// Offset, coordinate 1
-		if( name.equals( TX_DC1 ) )
+		else if( name.equals( TX_DC1 ) )
 		{
 			try
 			{
@@ -854,16 +809,10 @@ public class SpTelescopeObsComp extends SpObsComp
 				else
 					_currentPosition.setXY( dc1 , _currentPosition.getYaxis() ) ;
 			}
-			catch( Exception e )
-			{
-				// ignore
-			}
-
-			return ;
+			catch( Exception e ){ /* ignore */ }
 		}
-
 		// Offset, coordinate 2
-		if( name.equals( TX_DC2 ) )
+		else if( name.equals( TX_DC2 ) )
 		{
 			try
 			{
@@ -874,32 +823,24 @@ public class SpTelescopeObsComp extends SpObsComp
 				else
 					_currentPosition.setXY( _currentPosition.getXaxis() , dc2 ) ;
 			}
-			catch( Exception e )
-			{
-				// ignore
-			}
-
-			return ;
+			catch( Exception e ){ /* ignore */ }
 		}
-
 		// ---- Details
         // ----------------------------------------------------------------
-
 		// Radial Velocity
-		if( name.equals( TX_RV ) )
+		else if( name.equals( TX_RV ) )
 		{
 			_currentPosition.setTrackingRadialVelocity( value ) ;
-			return ;
 		}
-
 		// Paralax
-		if( name.equals( TX_PARALLAX ) )
+		else if( name.equals( TX_PARALLAX ) )
 		{
 			_currentPosition.setTrackingParallax( value ) ;
-			return ;
 		}
-
-		super.processXmlElementContent( name , value , pos ) ;
+		else
+		{
+			super.processXmlElementContent( name , value , pos ) ;
+		}
 	}
 
 	/**
@@ -910,14 +851,13 @@ public class SpTelescopeObsComp extends SpObsComp
 		if( name.equals( TX_BASE ) )
 		{
 			_currentPosition = null ;
-
 			// save() just means reset() in this context.
 			getAvEditFSM().save() ;
-
-			return ;
 		}
-
-		super.processXmlElementEnd( name ) ;
+		else
+		{
+			super.processXmlElementEnd( name ) ;
+		}
 	}
 
 	/**
@@ -942,41 +882,32 @@ public class SpTelescopeObsComp extends SpObsComp
 			{
 				_currentPosition = getPosList().createPosition( value , 0. , 0. ) ;
 			}
-
-			return ;
 		}
-
-		if( elementName.equals( TX_SPHERICAL_SYSTEM ) )
+		else if( elementName.equals( TX_SPHERICAL_SYSTEM ) )
+		{
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL ) ;
+		}
 		else if( elementName.equals( TX_CONIC_SYSTEM ) )
+		{
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC ) ;
+		}
 		else if( elementName.equals( TX_NAMED_SYSTEM ) )
+		{
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
-
-		if( ( elementName.equals( TX_SPHERICAL_SYSTEM ) || elementName.equals( TX_OFFSET ) ) && attributeName.equals( TX_SYSTEM ) )
+		}
+		else if( ( elementName.equals( TX_SPHERICAL_SYSTEM ) || elementName.equals( TX_OFFSET ) ) && attributeName.equals( TX_SYSTEM ) )
 		{
 			if( value.equals( TX_J2000 ) )
-			{
 				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK5 ] ) ;
-				return ;
-			}
 			else if( value.equals( TX_B1950 ) )
-			{
 				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.FK4 ] ) ;
-				return ;
-			}
 			else if( value.equals( TX_AZEL ) )
-			{
 				_currentPosition.setCoordSys( CoordSys.COORD_SYS[ CoordSys.AZ_EL ] ) ;
-				return ;
-			}
-
-			_currentPosition.setCoordSys( value ) ;
-			return ;
+			else
+				_currentPosition.setCoordSys( value ) ;
 		}
-
 		// Type of conic or name system (comet, major, minor etc.)
-		if( ( elementName.equals( TX_CONIC_SYSTEM ) || elementName.equals( TX_NAMED_SYSTEM ) ) && ( attributeName.equals( TX_CONIC_NAMED_TYPE ) || attributeName.equals( TX_OLD_CONIC_NAMED_TYPE ) ) )
+		else if( ( elementName.equals( TX_CONIC_SYSTEM ) || elementName.equals( TX_NAMED_SYSTEM ) ) && ( attributeName.equals( TX_CONIC_NAMED_TYPE ) || attributeName.equals( TX_OLD_CONIC_NAMED_TYPE ) ) )
 		{
 			if( _currentPosition != null )
 			{
@@ -984,30 +915,26 @@ public class SpTelescopeObsComp extends SpObsComp
 
 				if( elementName.equals( TX_NAMED_SYSTEM ) )
 					_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
-
-				return ;
 			}
 		}
-
-		if( elementName.equals( TX_RV ) )
+		else if( elementName.equals( TX_RV ) )
 		{
-			if( _currentPosition == null )
-				return ;
-
-			if( attributeName.equals( TX_RV_DEFN ) )
-				_currentPosition.setTrackingRadialVelocityDefn( value ) ;
-			else if( attributeName.equals( TX_RV_FRAME ) )
-				_currentPosition.setTrackingRadialVelocityFrame( value ) ;
-			return ;
+			if( _currentPosition != null )
+			{
+				if( attributeName.equals( TX_RV_DEFN ) )
+					_currentPosition.setTrackingRadialVelocityDefn( value ) ;
+				else if( attributeName.equals( TX_RV_FRAME ) )
+					_currentPosition.setTrackingRadialVelocityFrame( value ) ;
+			}
 		}
-
-		if( elementName.equals( TX_EPOCH ) || elementName.equals( TX_EPOCH_PERIH ) || elementName.equals( TX_INCLINATION ) || elementName.equals( TX_ANODE ) || elementName.equals( TX_PERIHELION ) || elementName.equals( TX_AORQ ) || elementName.equals( TX_E ) || elementName.equals( TX_LORM ) || elementName.equals( TX_N ) || elementName.equals( TX_PM1 ) || elementName.equals( TX_PM2 ) )
+		else if( elementName.equals( TX_EPOCH ) || elementName.equals( TX_EPOCH_PERIH ) || elementName.equals( TX_INCLINATION ) || elementName.equals( TX_ANODE ) || elementName.equals( TX_PERIHELION ) || elementName.equals( TX_AORQ ) || elementName.equals( TX_E ) || elementName.equals( TX_LORM ) || elementName.equals( TX_N ) || elementName.equals( TX_PM1 ) || elementName.equals( TX_PM2 ) )
 		{
 			// ignore
-			return ;
 		}
-
-		super.processXmlAttribute( elementName , attributeName , value ) ;
+		else
+		{
+			super.processXmlAttribute( elementName , attributeName , value ) ;
+		}
 	}
 
 	/**
