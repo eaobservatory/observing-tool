@@ -124,6 +124,14 @@ public class TreeHugger
 /////////////////// DOCUMENT METHODS
 
 	/**
+	 * Get the document object or null.
+	 */
+	public Document getDocument()
+	{
+		return document ;
+	}
+
+	/**
 	 * Create a new document for this instance
 	 */
 	protected void newDocument()
