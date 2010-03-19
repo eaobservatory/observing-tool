@@ -192,31 +192,22 @@
 </xsd:element>
 
 <xsd:element name="SpIterUFTI">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element name="acqModeIter"      type="toml:uftiAcqModeIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="coaddsIter"       type="toml:uftiCoaddsIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="exposureTimeIter" type="toml:uftiExpTimeIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="filterIter"       type="toml:uftiFilterIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="instAperLIter"    type="toml:uftiAperIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="instAperXIter"    type="toml:uftiAperIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="instAperYIter"    type="toml:uftiAperIteratorType"
-		   minOccurs="0"/>
-      <xsd:element name="iterConfigList"   type="toml:uftiIterTypeList"
-		   minOccurs="1"/>
-      <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="instUFTI"/>
-  </xsd:complexType>
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:group ref="toml:jac_meta_group"/>
+			<xsd:element name="acqModeIter"      type="toml:uftiAcqModeIteratorType" minOccurs="0"/>
+			<xsd:element name="coaddsIter"       type="toml:uftiCoaddsIteratorType" minOccurs="0"/>
+			<xsd:element name="exposureTimeIter" type="toml:uftiExpTimeIteratorType" minOccurs="0"/>
+			<xsd:element name="filterIter"       type="toml:uftiFilterIteratorType" minOccurs="0"/>
+			<xsd:element name="instAperLIter"    type="toml:uftiAperIteratorType" minOccurs="0"/>
+			<xsd:element name="instAperXIter"    type="toml:uftiAperIteratorType" minOccurs="0"/>
+			<xsd:element name="instAperYIter"    type="toml:uftiAperIteratorType" minOccurs="0"/>
+			<xsd:element name="iterConfigList"   type="toml:uftiIterTypeList" minOccurs="1"/>
+			<xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+		<xsd:attribute name="subtype" type="xsd:string" fixed="instUFTI"/>
+	</xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

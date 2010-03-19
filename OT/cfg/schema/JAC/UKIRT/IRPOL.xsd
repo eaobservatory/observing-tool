@@ -43,19 +43,16 @@
 
 <!-- IRPOL elements -->
 <xsd:element name="SpIterIRPOL">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="toml:meta_unique"        minOccurs="0"/>
-      <xsd:element ref="toml:meta_version"       minOccurs="0"/>
-      <xsd:element name="IRPOLIter"       type="toml:irpolIterType"/>
-      <xsd:element name="iterConfigList"  type="xsd:string"  fixed="IRPOLIter"/>
-      <xsd:group   ref="toml:instIterContent"    minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="instIRPOL"/>
-  </xsd:complexType>
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:group ref="toml:jac_meta_group"/>
+			<xsd:element name="IRPOLIter"       type="toml:irpolIterType"/>
+			<xsd:element name="iterConfigList"  type="xsd:string"  fixed="IRPOLIter"/>
+			<xsd:group   ref="toml:instIterContent"    minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+		<xsd:attribute name="subtype" type="xsd:string" fixed="instIRPOL"/>
+	</xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

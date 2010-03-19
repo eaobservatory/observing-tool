@@ -42,11 +42,7 @@
 <xsd:group name="obsContent">
   <xsd:choice>
     <xsd:group   ref="toml:obsContent"/>
-    <xsd:element ref="toml:SpInstCGS4"/>
-    <xsd:element ref="toml:SpInstUFTI"/>
-    <xsd:element ref="toml:SpInstUIST"/>
-    <xsd:element ref="toml:SpInstMichelle"/>
-    <xsd:element ref="toml:SpInstWFCAM"/>
+    <xsd:group ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
