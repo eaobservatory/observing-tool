@@ -109,6 +109,67 @@
   <shift> 3.23084E9</shift>
 </configuration>
 
+<!-- -->
+
+<configuration>
+  <name>      RxA_CH3NH2_No1  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <species>   CH3NH2          </species>
+  <species>   CH3NH2          </species>
+  <transition>4 2  - 4 1 </transition>
+  <transition>7 2  - 7 1 </transition>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 1000.0          </bandwidth>
+  <shift>     4.0E9           </shift>
+  <shift>     4.142305E9      </shift>
+</configuration>
+
+<configuration>
+  <name>      RxA_CH3NH2_No3  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <species>   CH3NH2          </species>
+  <species>   CH3NH2          </species>
+  <transition>8- 2  - 8 1 </transition>
+  <transition>6- 2  - 6 1 </transition>
+  <bandwidth> 1000.0          </bandwidth>
+  <bandwidth> 1000.0          </bandwidth>
+  <shift>     3.67275E9       </shift>
+  <shift>     4.346501E9      </shift>
+</configuration>
+
+<configuration>
+  <name>      RxA_CH3NH2_No4  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <species>   CH3NH2          </species>
+  <species>   CH3NH2          </species>
+  <transition>6- 2  - 6 1 </transition>
+  <transition>2 2  - 2 1 </transition>
+  <bandwidth> 1000.0          </bandwidth>
+  <bandwidth> 1000.0          </bandwidth>
+  <shift>     3.62375E9       </shift>
+  <shift>     4.358492E9      </shift>
+</configuration>
+
+<!-- -->
+
 <configuration>
   <name>      HARP_COH13CN_250</name>
   <frontEnd>  HARP            </frontEnd>
@@ -120,7 +181,7 @@
   <systems>   2               </systems>
   <species>   CO              </species>
   <species>   H-13-CN         </species>
-  <transition>3  - 2          </transition>
+  <transition>6- 2  - 6 1 </transition>
   <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
