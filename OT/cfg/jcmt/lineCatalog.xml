@@ -222,6 +222,14 @@ the end of the transition name - it makes the display nicer.
     <transition name="2 2 - 1 1 " frequency="809128.2"/>
     <transition name="2 3 - 1 2 " frequency="809496.6"/>
   </species>
+  <species name = "CH3NH2">
+    <transition name="4 2  - 4 1 " frequency="229310.2984"/>
+    <transition name="7 2  - 7 1 " frequency="229452.6034"/>
+    <transition name="8- 2  - 8 1 " frequency="235735.0370"/>
+    <transition name="6- 2  - 6 1 " frequency="236408.7880"/>
+    <transition name="2 2  - 2 1 " frequency="237143.5300"/>
+    <transition name="10 2  - 10 1 " frequency="260293.5364"/>
+  </species>
   <species name = "CH3OH">
     <transition name="7 1 4  - 6 0 3 " frequency="181296.03"/>
     <transition name="4 2 4  - 5 1 4 " frequency="181771.05"/>
