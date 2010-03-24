@@ -163,21 +163,23 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		catch( Exception e ){}
 
 		if( _frequencyEditor == null )
+		{
 			_frequencyEditor = new SideBandDisplay( this ) ;
 
-		_frequencyEditor.addComponentListener( new ComponentAdapter()
-		{
-			public void componentHidden( ComponentEvent e )
+			_frequencyEditor.addComponentListener( new ComponentAdapter()
 			{
-				// If the user has deliberately closed the window without using the hide button, this will
-				// do the same except we won't get the latest configuration
-				if( !_hidingFrequencyEditor )
+				public void componentHidden( ComponentEvent e )
 				{
-					enableNamedWidgets( true ) ;
-					_updateWidgets() ;
+					// If the user has deliberately closed the window without using the hide button, this will
+					// do the same except we won't get the latest configuration
+					if( !_hidingFrequencyEditor )
+					{
+						enableNamedWidgets( true ) ;
+						_updateWidgets() ;
+					}
 				}
-			}
-		} ) ;
+			} ) ;
+		}
 
 		// Add listeners to stuff on the front end configuration panel
 		for( int i = 0 ; i < _w.feSelector.getComponentCount() ; i++ )
