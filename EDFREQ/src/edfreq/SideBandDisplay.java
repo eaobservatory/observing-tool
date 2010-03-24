@@ -80,7 +80,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 				int option = JOptionPane.showConfirmDialog( null , "This will delete your changes." + "\nTo save, use the 'hide' button on the heterodyne editor." + "\nDo you want to save your changes?" , "Changes will be deleted" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE ) ;
 
 				if( option == JOptionPane.NO_OPTION )
-					setVisible( true ) ;
+					setVisible( false ) ;
 			}
 		} ) ;
 
