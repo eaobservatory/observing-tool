@@ -331,7 +331,8 @@ public class TreeHugger
 					node = nodes.item( i ) ;
 					converted = nodeToObject( node ) ;
 					if( converted != null )
-						results.add( type ) ;
+						results.add( converted ) 
+;
 				}
 			}
 			catch( XPathExpressionException xpee )
