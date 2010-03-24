@@ -109,7 +109,7 @@
   <shift> 3.23084E9</shift>
 </configuration>
 
-<!-- -->
+<!--
 
 <configuration>
   <name>      RxA_CH3NH2_No1  </name>
@@ -168,7 +168,7 @@
   <shift>     4.358492E9      </shift>
 </configuration>
 
-<!-- -->
+-->
 
 <configuration>
   <name>      HARP_COH13CN_250</name>
