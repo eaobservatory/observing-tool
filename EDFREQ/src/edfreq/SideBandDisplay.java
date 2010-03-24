@@ -26,6 +26,9 @@ import javax.swing.SwingUtilities ;
 import javax.swing.JOptionPane ;
 import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
+
+import java.lang.reflect.InvocationTargetException ;
+import java.lang.reflect.Method ;
 import java.util.Hashtable ;
 import java.util.Vector ;
 
@@ -61,6 +64,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	
 	private Container contentPane ;
 
+	 private Object callBackObject = null ;
+	 private Method callBackMethod = null ;
+
 	public SideBandDisplay( HeterodyneEditor hetEditor )
 	{
 		super( "Frequency editor" ) ;
@@ -81,6 +87,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 
 				if( option == JOptionPane.NO_OPTION )
 					setVisible( false ) ;
+				else if( option == JOptionPane.YES_OPTION )
+					callBack() ;
 			}
 		} ) ;
 
@@ -486,5 +494,41 @@ public class SideBandDisplay extends JFrame implements ChangeListener , MouseLis
 	{
 		if( SwingUtilities.isRightMouseButton( e ) )
 			slider.setEnabled( false ) ;
+	}
+
+	/**
+	 * Sets an object to call back and it's method name by which to call it.
+	 * Method should take no arguments.
+	 * If method cannot be found, call back will fail.
+	 * @param object - object to call back.
+	 * @param methodName - name of the method to be called on this object.
+	 */
+	public void setCallback( Object object , String methodName )
+	{
+		try
+        {
+	        callBackMethod = object.getClass().getMethod( methodName , new Class<?>[ 0 ] ) ;
+	        callBackObject = object ;
+        }
+        catch( SecurityException e ){ e.printStackTrace() ; }
+        catch( NoSuchMethodException e ){ e.printStackTrace() ; }
+	}
+
+	/**
+	 * Calls an object by it's call back method.
+	 * If call back has not been correctly set up it will fail.
+	 */
+	private void callBack()
+	{
+		if( callBackObject != null && callBackMethod != null )
+		{
+			try
+            {
+	            callBackMethod.invoke( callBackObject , new Object[ 0 ] ) ;
+            }
+            catch( IllegalArgumentException e ){ e.printStackTrace() ; }
+            catch( IllegalAccessException e ){ e.printStackTrace(); }
+            catch( InvocationTargetException e ){ e.printStackTrace() ; }
+		}
 	}
 }

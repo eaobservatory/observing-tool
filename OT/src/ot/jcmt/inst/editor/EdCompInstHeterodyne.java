@@ -858,13 +858,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 			else if( name.equals( "hide" ) )
 			{
-				_hidingFrequencyEditor = true ;
-				getFrequencyEditorConfiguration() ;
-				enableNamedWidgets( true ) ;
-				_updateRegionInfo() ;
-				_frequencyEditor.setVisible( false ) ;
-				_hidingFrequencyEditor = false ;
-				_updateTable() ;
+				hideFreqEditor() ;
 			}
 			else
 			{
@@ -878,6 +872,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 
 		_updateWidgets() ;
+	}
+
+	public void hideFreqEditor()
+	{
+		_hidingFrequencyEditor = true ;
+		getFrequencyEditorConfiguration() ;
+		enableNamedWidgets( true ) ;
+		_updateRegionInfo() ;
+		_frequencyEditor.setVisible( false ) ;
+		_hidingFrequencyEditor = false ;
+		_updateTable() ;
 	}
 
 	private void _adjustCentralFrequencies()
@@ -1983,6 +1988,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_frequencyEditor.setLineText( "No Line" , subbandCount - 1 ) ;
 		}
 
+		_frequencyEditor.setCallback( this , "hideFreqEditor" ) ;
 	}
 
 	private void getFrequencyEditorConfiguration()
