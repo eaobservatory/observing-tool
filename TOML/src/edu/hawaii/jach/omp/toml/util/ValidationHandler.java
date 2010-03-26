@@ -5,6 +5,7 @@
 
 package edu.hawaii.jach.omp.toml.util ;
 
+import java.lang.reflect.Method ;
 import java.util.Vector ;
 
 import javax.xml.bind.ValidationEvent ;
@@ -25,30 +26,37 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 
 	String regexStart = "\"http://omp.jach.hawaii.edu/schema/TOML\":" ;
 
+	TreeHugger treeHugger = null ;
+
+	public ValidationHandler( TreeHugger th )
+	{
+		treeHugger = th ;
+	}
+
 	public boolean handleEvent( ValidationEvent ve )
 	{
 		ValidationEventLocator vel = ve.getLocator() ;
 		System.out.println( "\n" ) ;
-		System.out.println( severity.values()[ ve.getSeverity() ] ) ;
 		if( vel.getLineNumber() == -1 && vel.getColumnNumber() == -1 )
-			nodeEvent( vel ) ;
+			nodeEvent( vel , severity.values()[ ve.getSeverity() ] , ve.getMessage() ) ;
 		else
-			textEvent( vel ) ;
-		
-		printMessage( ve.getMessage() ) ;
+			textEvent( vel , severity.values()[ ve.getSeverity() ] , ve.getMessage() ) ;
 
 		return true ;
 	}
 
 	private void printMessage( String exceptionMessage )
 	{
-		System.out.println() ;
 		String[] messages = exceptionMessage.split( "[,']" ) ;
+		String finalMessage = "" ;
 		for( String message : messages )
-			System.out.println( substitute( message ) ) ;
+			finalMessage += substitute( message ) + "\n" ;
+		errorMessages.add( finalMessage ) ;
 	}
 
-	private void nodeEvent( ValidationEventLocator vel )
+	String[] named = { "SpMSB" , "SpAND" , "SpOR" , "SpObs" , "SpSurveyContainer" } ;
+
+	private void nodeEvent( ValidationEventLocator vel , ValidationHandler.severity level , String message )
 	{
 		Node node = vel.getNode() ;
 		Vector<Node> nodes = new Vector<Node>() ;
@@ -58,55 +66,89 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 			node = node.getParentNode() ;
 		}
 		
-		System.out.println( "Node : " ) ;
+		String errorMessage = "##########################\n" ;
+		errorMessage += level + "\n" ;
+		errorMessage += "Node : \n" ;
 		String space = " " ;
 		for( Node currentNode : nodes )
 		{
 			String name = currentNode.getNodeName() ;
-			System.out.print( space + "+" + name ) ;
-			System.out.print( "\n" ) ;
+			String title = "" ;
+
+			for( String type : named )
+			{
+				if( type.equals( name ) )
+				{
+					try
+					{
+						Object obj = treeHugger.nodeToObject( currentNode ) ;
+						Method getTitle = obj.getClass().getMethod( "getTitle" , new Class<?>[ 0 ] ) ;
+						Object result = getTitle.invoke(  obj  , new Object[ 0 ] ) ;
+						if( result != null )
+							title += " - " + result ;
+					}
+					catch( Exception e ){}
+					break ;
+				}
+			}
+
+			errorMessage +=( space + "+" + name + title ) ;
+			errorMessage +=( "\n" ) ;
 			space += " " ;
 		}
+		errorMessage += "\n" + message + "\n" ;
+		printMessage( errorMessage ) ;
 	}
 
-	private void textEvent( ValidationEventLocator vel )
+	private void textEvent( ValidationEventLocator vel , ValidationHandler.severity level , String message )
 	{
-		System.out.println( "XML Line : " + vel.getLineNumber() ) ;
-		System.out.println( "Column : " + vel.getColumnNumber() ) ;
+		String errorMessage = "##########################\n" ;
+		errorMessage += "XML Line : " + vel.getLineNumber() ;
+		errorMessage += "Column : " + vel.getColumnNumber() ;
+		errorMessage += message + "\n" ;
+		printMessage( errorMessage ) ;
+	}
+
+	private Vector<String> errorMessages = new Vector<String>() ;
+
+	public synchronized Vector<String> getErrors()
+	{
+		Vector<String> returnableMessages = errorMessages ;
+		errorMessages = new Vector<String>() ;
+		return returnableMessages ;
 	}
 
 	public void error( SAXParseException exception ) throws SAXException
 	{
-		System.out.println( "\n" ) ;
-		System.out.println( "Error" ) ;
-		handleSAXParseException( exception ) ;
+		handleSAXParseException( "Error" , exception ) ;
 	}
 
 	public void fatalError( SAXParseException exception ) throws SAXException
 	{
-		System.out.println( "Fatal Error" ) ;
-		handleSAXParseException( exception ) ;
+		handleSAXParseException( "Fatal Error" , exception ) ;
 	}
 
 	public void warning( SAXParseException exception ) throws SAXException
 	{
-		System.out.println( "Warning" ) ;
-		handleSAXParseException( exception ) ;
+		handleSAXParseException( "Warning" , exception ) ;
 	}
 
-	private void handleSAXParseException( SAXParseException exception ) throws SAXException
+	private void handleSAXParseException( String type , SAXParseException exception ) throws SAXException
 	{
+		String message = "##############################\n" ;
+		message += type + "\n" ;
 		if( exception.getPublicId() != null )
-			System.out.println( exception.getPublicId() ) ;
+			message += exception.getPublicId() + "\n" ;
 		if( exception.getSystemId() != null )
-			System.out.println( exception.getSystemId() ) ;
+			message += exception.getSystemId() + "\n" ;
 		if( exception.getLineNumber() > 0 )
-			System.out.println( "XML Line : " + exception.getLineNumber() ) ;
+			message += "XML Line : " + exception.getLineNumber() + "\n" ;
 		if( exception.getColumnNumber() > 0 )
-			System.out.println( "Column : " + exception.getColumnNumber() ) ;
+			message += "Column : " + exception.getColumnNumber() + "\n" ;
 		if( exception.getCause() != null )
-			System.out.println( exception.getCause() ) ;
-		printMessage( exception.getMessage() ) ;
+			message += exception.getCause() + "\n" ;
+		message += exception.getMessage() ;
+		printMessage( message ) ;
 	}
 
 	public String substitute( String candidate )
