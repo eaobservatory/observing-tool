@@ -31,11 +31,13 @@ import javax.xml.xpath.XPathConstants ;
 import javax.xml.xpath.XPathExpression ;
 import javax.xml.xpath.XPathExpressionException ;
 import javax.xml.xpath.XPathFactory ;
+import javax.xml.validation.Validator ;
 
 import org.w3c.dom.Node ;
 import org.w3c.dom.Document ;
 import org.w3c.dom.NodeList ;
 import org.xml.sax.SAXException ;
+import org.xml.sax.ErrorHandler ;
 
 /**
  * General class for creating and manipulating the relationships between 
@@ -52,6 +54,7 @@ public class TreeHugger
 	private Schema schema ;
 	private Binder<Node> binder ;
 	protected ValidationEventHandler validationHandler = null ;
+	private Validator validator = null ;
 
 	protected Document document ;
 
@@ -59,12 +62,15 @@ public class TreeHugger
 
 	public static void main( String[] args ) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException
 	{
-		System.setProperty( SchemaManager.CFG_KEY , "file:///export/data/shart/current/ingot-git/cfg/schemas.cfg" ) ;
-		java.io.FileInputStream fis = new java.io.FileInputStream( "/home/shart/ukirtcal.xml" ) ;
-		TreeHugger treeHugger = new TreeHugger( "ukirt" , fis ) ;
+		System.setProperty( SchemaManager.CFG_KEY , "file:///export/data/shart/current/jsky-ot/TOML/cfg/schemas.cfg" ) ;
+		java.io.FileInputStream fis = new java.io.FileInputStream( "/export/data/shart/M10BN001.xml" ) ;
+		TreeHugger treeHugger = new TreeHugger( "jcmt" , fis ) ;
 		Object factory = treeHugger.getObjectFactory() ;
 		System.out.println( factory.getClass().getName() ) ;
 		List<?> list = treeHugger.findAllObjectsOfType( "SpProg" ) ;
+		System.out.println( list.size() ) ;
+		for( int index = 0 ; index < list.size(); index++ )
+			System.out.println( list.get( index ).getClass().getName() ) ;
 	}
 
 ///////////// CONSTRUCTORS
@@ -200,7 +206,7 @@ public class TreeHugger
 	 * @param node - XML node
 	 * @return JAXB object representing that node, or null
 	 */
-	protected Object nodeToObject( Node node )
+	public Object nodeToObject( Node node )
 	{
 		Object object = null ;
 		if( node != null )
@@ -221,7 +227,7 @@ public class TreeHugger
 	 * @param object - JAXB object
 	 * @return XML node representing that object, or null
 	 */
-	protected Node objectToNode( Object object )
+	public Node objectToNode( Object object )
 	{
 		Node node = null ;
 		try
@@ -238,7 +244,7 @@ public class TreeHugger
 	 * @param XML node
 	 * @return JAXB object representing that node or null
 	 */
-	protected Object unmarshalNodeToObject( Node node )
+	public Object unmarshalNodeToObject( Node node )
 	{
 		Object unmarshalled = null ;
 		try
@@ -254,7 +260,7 @@ public class TreeHugger
 	 * @param JAXB object
 	 * @return XML node representing that JAXB object or null
 	 */
-	protected Node marshalObjectToNode( Object object )
+	public Node marshalObjectToNode( Object object )
 	{
 		Node node = null ;
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance() ;
@@ -272,6 +278,8 @@ public class TreeHugger
 		catch( JAXBException e ){ e.printStackTrace() ; }
 		return node ;
 	}
+
+//////////////// SEARCH
 
 	/**
 	 * Finds all objects of a given type for the whole document
@@ -301,6 +309,18 @@ public class TreeHugger
 	 */
 	public List<?> findAllObjectsOfType( Class<?> type , Node startNode )
 	{
+		return findAllObjectsOfType( type.getSimpleName() , startNode ) ;
+	}
+
+	/**
+	 * Finds all objects of a given type, from a given node
+	 * @param type - Class of type to find
+	 * @param startNode - XML node to start search from
+	 * @return List<?> of found nodes cast to Class type
+	 */
+	public List<?> findAllObjectsOfType( Class<?> type , Object startPoint )
+	{
+		Node startNode = objectToNode( startPoint ) ;
 		return findAllObjectsOfType( type.getSimpleName() , startNode ) ;
 	}
 
@@ -342,21 +362,7 @@ public class TreeHugger
 		return results ;
 	}
 
-//////////////// BIND POST SETUP	
-
-	/**
-	 * @return Binder object if schema has been initialised.
-	 */	
-	protected Binder<Node> getBinder()
-	{
-		if( binder == null )
-		{
-			binder = getContext().createBinder() ;
-			binder.setSchema( getSchema() ) ;
-			setValidationHandler( validationHandler ) ;
-		}
-		return binder ;
-	}
+//////////////// VALIDATION
 
 	/**
 	 * Sets the default validation handler, only one validation handler at a time can be used
@@ -408,6 +414,39 @@ public class TreeHugger
 		if( oldhandler != handler )
 			setValidationHandler( handler ) ;
 		return oldhandler ;
+	}
+
+	/**
+	 * Returns a Validator object for the current schema.
+	 * @return
+	 */
+	public Validator getValidator()
+	{
+		if( validator == null )
+		{
+			validator = getSchema().newValidator() ;
+
+			if( validationHandler != null )
+				validator.setErrorHandler( ( ErrorHandler )validationHandler ) ;
+		}
+		return validator ;
+	}
+
+//////////////// BIND POST SETUP
+
+	/**
+	 * @return Binder object if schema has been initialised.
+	 */
+	protected Binder<Node> getBinder()
+	{
+		if( binder == null )
+		{
+			binder = getContext().createBinder() ;
+			binder.setSchema( getSchema() ) ;
+			if( validationHandler != null )
+				setValidationHandler( validationHandler ) ;
+		}
+		return binder ;
 	}
 
 ////////////// POST SETUP
