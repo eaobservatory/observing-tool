@@ -67,6 +67,7 @@
 		</javac>
 		<jar jarfile="${toml.jar}"
 		     basedir="${toml.install.path}">
+			<fileset dir="${toml.dir}/cfg" />
 		</jar>
 	</target>
 
