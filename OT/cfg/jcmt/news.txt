@@ -1,4 +1,6 @@
-+++ March 2010 release
++++ April 2010 release
+
+  - Update to resolution for single system 500 MHz Heterodyne observations.
 
   - Minor fixes to Orbital Elements name resolution.
 
