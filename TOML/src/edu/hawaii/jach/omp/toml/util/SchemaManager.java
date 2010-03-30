@@ -149,22 +149,29 @@ public class SchemaManager
 	 */
 	private static void init()
 	{
+		URL url = null ;
 		SCHEMA_PATH = System.getProperty( CFG_KEY ) ;
 		if( SCHEMA_PATH == null )
 		{
 			System.out.println( "Property \"" + CFG_KEY + "\" not set." ) ;
+			url = SchemaManager.class.getClassLoader().getResource( CFG_KEY ) ;
 		}
 		else
 		{
 			try
 			{
-				String[] lines = read( new URL( SCHEMA_PATH ) ) ;
-				parse( lines ) ;
+				url = new URL( SCHEMA_PATH ) ;
 			}
 			catch( MalformedURLException e )
 			{
 				e.printStackTrace() ;
 			}
+		}
+
+		if( url != null )
+		{
+			String[] lines = read( url ) ;
+			parse( lines ) ;
 		}
 	}
 
