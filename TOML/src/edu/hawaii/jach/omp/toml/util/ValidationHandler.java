@@ -24,7 +24,8 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 		WARNING , ERROR , FATAL
 	} ;
 
-	String regexStart = "\"http://omp.jach.hawaii.edu/schema/TOML\":" ;
+	private static final String TOML_URL = "http://omp.jach.hawaii.edu/schema/TOML" ;
+	private static final String XXMMSS = "( +)?(\\+|\\-)?\\d{1,2}(:| )+\\d{1,2}(:| )+\\d{1,2}(\\.\\d+)?|( +)?(\\+|\\-)?\\d*\\.\\d*" ;
 
 	TreeHugger treeHugger = null ;
 
@@ -43,15 +44,6 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 			textEvent( vel , severity.values()[ ve.getSeverity() ] , ve.getMessage() ) ;
 
 		return true ;
-	}
-
-	private void printMessage( String exceptionMessage )
-	{
-		String[] messages = exceptionMessage.split( "[,']" ) ;
-		String finalMessage = "" ;
-		for( String message : messages )
-			finalMessage += substitute( message ) + "\n" ;
-		errorMessages.add( finalMessage ) ;
 	}
 
 	String[] named = { "SpMSB" , "SpAND" , "SpOR" , "SpObs" , "SpSurveyContainer" } ;
@@ -96,8 +88,8 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 			errorMessage +=( "\n" ) ;
 			space += " " ;
 		}
-		errorMessage += "\n" + message + "\n" ;
-		printMessage( errorMessage ) ;
+		errorMessage += "\n" + parseMessage( message ) + "\n" ;
+		errorMessages.add( errorMessage ) ;
 	}
 
 	private void textEvent( ValidationEventLocator vel , ValidationHandler.severity level , String message )
@@ -105,8 +97,8 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 		String errorMessage = "##########################\n" ;
 		errorMessage += "XML Line : " + vel.getLineNumber() ;
 		errorMessage += "Column : " + vel.getColumnNumber() ;
-		errorMessage += message + "\n" ;
-		printMessage( errorMessage ) ;
+		errorMessage += parseMessage( message )+ "\n" ;
+		errorMessages.add( errorMessage ) ;
 	}
 
 	private Vector<String> errorMessages = new Vector<String>() ;
@@ -147,13 +139,31 @@ public class ValidationHandler implements ValidationEventHandler , ErrorHandler
 			message += "Column : " + exception.getColumnNumber() + "\n" ;
 		if( exception.getCause() != null )
 			message += exception.getCause() + "\n" ;
-		message += exception.getMessage() ;
-		printMessage( message ) ;
+		message += parseMessage( exception.getMessage() ) ;
+		errorMessages.add( message ) ;
+	}
+
+	public String replacePatterns( String candidate )
+	{
+		return candidate.replace( XXMMSS , "XX:MM:SS pattern" ) ;
 	}
 
 	public String substitute( String candidate )
 	{
-		candidate = candidate.replaceAll( regexStart , "" ) ;
-		return candidate ;
+		candidate = candidate.replaceAll( "\"" + TOML_URL + "\":" , "" ) ;
+		return candidate.replaceAll( TOML_URL , "" ) ;
+	}
+
+	private String parseMessage( String exceptionMessage )
+	{
+		exceptionMessage = replacePatterns( exceptionMessage ) ;
+		String[] messages = exceptionMessage.split( "[\\[\\]{}<>,']" ) ;
+		String finalMessage = "" ;
+		for( String message : messages )
+		{
+			if( !message.trim().equals( "" ) )
+				finalMessage += substitute( message ) + "\n" ;
+		}
+		return finalMessage ;
 	}
 }
