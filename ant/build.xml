@@ -51,6 +51,9 @@
 	<property name="ukirt.java.path" value="${schema.java.path}.ukirt"/>
 	<property name="jcmt.java.path" value="${schema.java.path}.jcmt"/>
 
+	<property name="xjc" value="xjc"/>
+        <available file="/Library/Java/Home/bin/xjc" property="xjc" value="/Library/Java/Home/bin/xjc"/>
+
 	<target name="clean">
 		<delete dir="${gemini.install.dir}"/>
 		<delete dir="${orac.install.dir}"/>
@@ -106,7 +109,7 @@
 	</target>
 
 	<target name="toml" depends="mkdir">
-		<exec executable="xjc">
+		<exec executable="${xjc}">
 			<arg value="-verbose"/>
 			<arg value="-d"/>
 			<arg value="${toml.schema.dir}"/>
@@ -114,7 +117,7 @@
 			<arg value="${ukirt.java.path}"/>
 			<arg value="${ukirt.schema}"/>
 		</exec>
-		<exec executable="xjc">
+		<exec executable="${xjc}">
 			<arg value="-verbose"/>
 			<arg value="-d"/>
 			<arg value="${toml.schema.dir}"/>
