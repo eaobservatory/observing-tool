@@ -11,7 +11,7 @@
 	<property name="install.dir.tools" value="${install.dir}/tools"/>
 	<property name="install.dir.tools.jsky" value="${install.dir.tools}/jsky"/>
 	<property name="install.dir.bin" value="${install.dir}/bin"/>
-	<property name="install.dir.cfg" value="${install.dir}/cfg/ot"/>
+	<property name="install.dir.cfg" value="${install.dir}/cfg"/>
 
 	<property name="gemini.dir" value="${basedir}/GEMINI"/>
 	<property name="orac.dir" value="${basedir}/ORAC"/>
@@ -194,11 +194,11 @@
 			<fileset dir="${ot.dir}/tools"/>
 		</copy>
 
-		<copy todir="${install.dir.cfg}">
+		<copy todir="${install.dir.cfg}/ot">
 			<fileset dir="${ot.dir}/cfg"/>
 		</copy>
 		<chmod perm="+w">
-			<fileset dir="${install.dir.cfg}"/>
+			<fileset dir="${install.dir.cfg}/ot"/>
 		</chmod>
 	</target>
 
