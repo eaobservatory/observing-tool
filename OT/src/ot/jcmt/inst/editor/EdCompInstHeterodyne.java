@@ -500,6 +500,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		(( AbstractButton )_w.modeSelector.getComponent( modeWidgetNames.get( _inst.getMode() ) )).setSelected( true ) ;
 		int integer = 0 ;
 		String band = _inst.getBandMode() ;
+		integer = Integer.parseInt( band ) ;
+		if( integer > 0 )
+			integer-- ;
 
 		(( AbstractButton )_w.regionSelector.getComponent( integer )).setSelected( true ) ;
 
