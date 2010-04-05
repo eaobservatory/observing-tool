@@ -1,5 +1,7 @@
 +++ April 2010 release
 
+  - Bug fix : Target component was incorrectly reading all targets as FK5.
+
   - Update to resolution for single system 500 MHz Heterodyne observations.
 
   - Minor fixes to Orbital Elements name resolution.
