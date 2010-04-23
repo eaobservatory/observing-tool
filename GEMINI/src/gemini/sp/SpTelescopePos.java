@@ -289,7 +289,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	static final String numberRegex = "^(\\+|-)?(\\d+\\.?\\d*|\\d*\\.?\\d+)$" ; 
 	
-	static final String dateRegex = "^\\d{4}\\s[a-zA-Z]{3}\\s\\d{1,2}\\.?\\d*$" ;
+	static final String dateRegex = "^\\d{4}(\\s|-)[a-zA-Z]{3}(\\s|-)\\d{1,2}\\.?\\d*$" ;
 
 	/**
      * Set the list of tags that represent guide stars. For instance, for
