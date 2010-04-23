@@ -91,7 +91,7 @@ public class MJDUtils
      */
 	public static double convertMJD( String yyyymmdd_ddd )
 	{
-		StringTokenizer stringTokenizer = new StringTokenizer( yyyymmdd_ddd , " ,: ;/" ) ;
+		StringTokenizer stringTokenizer = new StringTokenizer( yyyymmdd_ddd , " ,: ;/-" ) ;
 		GregorianCalendar calendar = new GregorianCalendar() ;
 
 		int year = 0 ;
