@@ -240,6 +240,7 @@ public class SpSurveyContainer extends SpObsContextItem
 			// Not calling setRemaining() does not seem to cause a problem for
 			// the OT but is causes a problem for the Survey Definition Tool
 			setRemaining( 1 , _telescopeObsCompVector.size() - 1 ) ;
+			setPriority( 1 , _telescopeObsCompVector.size() - 1 ) ;
 		}
 	}
 
@@ -250,6 +251,9 @@ public class SpSurveyContainer extends SpObsContextItem
 			_telescopeObsCompVector.add( at , spTelescopeObsComp ) ;
 			spTelescopeObsComp.setEditFSM( getEditFSM() ) ;
 			spTelescopeObsComp.getTable().edit() ;
+
+			_avTable.insertAt( ATTR_REMAINING , "1" , at ) ;
+			_avTable.insertAt( ATTR_PRIORITY , "1" , at ) ;
 		}
 	}
 
