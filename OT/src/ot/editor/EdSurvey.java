@@ -44,6 +44,7 @@ import gemini.sp.SpItem ;
 import gemini.sp.SpTelescopePos ;
 import gemini.sp.SpSurveyContainer ;
 import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.util.DDMMSS ;
 import jsky.app.ot.editor.EdCompTargetList ;
 import jsky.app.ot.tpe.TelescopePosEditor ;
 import jsky.app.ot.tpe.TpeManager ;
@@ -77,6 +78,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 	private SpSurveyContainer _surveyObsComp = null ;
 	private SpTelescopeObsComp _telescopeObsComp = null ;
 	private boolean _ignoreEvents = false ;
+	private static final String doubleRegex = "[+-]?\\d+\\.\\d+" ;
 
 	/**
 	 * Only used for GUIs that display list of survey targets and the
@@ -416,76 +418,38 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		// a colon or a space.  If neither exist, then we should already be in decimal degrees
 		double n1 = 0. ;
 		double n2 = 0. ;
-		String[] spaceStrings = o1.toString().split( "\\s" ) ;
-		String[] colonStrings = o1.toString().split( ":" ) ;
-		if( spaceStrings.length > 1 )
-		{
-			// Convert to decimal degrees
-			for( int i = 0 ; i < spaceStrings.length ; i++ )
-			{
-				double value = Double.parseDouble( spaceStrings[ i ] ) / Math.pow( 60. , i ) ;
-				n1 += value ;
-			}
-		}
-		else if( colonStrings.length > 1 )
-		{
-			// Convert to decimal degrees
-			for( int i = 0 ; i < colonStrings.length ; i++ )
-			{
-				double value = Double.parseDouble( colonStrings[ i ] ) / Math.pow( 60. , i ) ;
-				n1 += value ;
-			}
-		}
-		else
-		{
-			n1 = Double.parseDouble( o1.toString() ) ;
-		}
-		spaceStrings = o2.toString().split( "\\s" ) ;
-		colonStrings = o2.toString().split( ":" ) ;
-		if( spaceStrings.length > 1 )
-		{
-			// Convert to decimal degrees
-			for( int i = 0 ; i < spaceStrings.length ; i++ )
-			{
-				double value = Double.parseDouble( spaceStrings[ i ] ) / Math.pow( 60. , i ) ;
-				n2 += value ;
-			}
-		}
-		else if( colonStrings.length > 1 )
-		{
-			// Convert to decimal degrees
-			for( int i = 0 ; i < colonStrings.length ; i++ )
-			{
-				double value = Double.parseDouble( colonStrings[ i ] ) / Math.pow( 60. , i ) ;
-				n2 += value ;
-			}
-		}
-		else
-		{
-			n2 = Double.parseDouble( o2.toString() ) ;
-		}
-		return compareAsNumber( new Double( n1 ) , new Double( n2 ) ) ;
+
+		String s1 = o1.toString() ;
+		String s2 = o2.toString() ;
+		if( DDMMSS.validFormat( s1 ) )
+			n1 = DDMMSS.valueOf( s1 ) ;
+		else if( s1.matches( doubleRegex ) )
+			n1 = Double.parseDouble( s1 ) ;
+
+		if( DDMMSS.validFormat( s2 ) )
+			n2 = DDMMSS.valueOf( s2 ) ;
+		else if( s2.matches( doubleRegex ) )
+			n2 = Double.parseDouble( s2 ) ;
+
+		return compareAsNumber( n1 , n2 ) ;
 	}
 
 	public void _swap( int row1 , int row2 )
 	{
-		// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
-		SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 ) ;
-		SpTelescopeObsComp tp2 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row2 ) ;
-		_surveyObsComp.removeSpTelescopeObsComp( row2 ) ;
-		_surveyObsComp.removeSpTelescopeObsComp( row1 ) ;
-		_surveyObsComp.addSpTelescopeObsComp( tp2 , row1 ) ;
-		_surveyObsComp.addSpTelescopeObsComp( tp1 , row2 ) ;
-
-		// Also swap the remaining and priority
 		int rem1 = _surveyObsComp.getRemaining( row1 ) ;
 		int rem2 = _surveyObsComp.getRemaining( row2 ) ;
 
-		_surveyObsComp.setRemaining( rem1 , row2 ) ;
-		_surveyObsComp.setRemaining( rem2 , row1 ) ;
-
 		int pri1 = _surveyObsComp.getPriority( row1 ) ;
 		int pri2 = _surveyObsComp.getPriority( row2 ) ;
+
+		// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
+		SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 ) ;
+		_surveyObsComp.removeSpTelescopeObsComp( row1 ) ;
+		_surveyObsComp.addSpTelescopeObsComp( tp1 , row2 ) ;
+
+		// Also swap the remaining and priority
+		_surveyObsComp.setRemaining( rem1 , row2 ) ;
+		_surveyObsComp.setRemaining( rem2 , row1 ) ;
 
 		_surveyObsComp.setPriority( pri1 , row2 ) ;
 		_surveyObsComp.setPriority( pri2 , row1 ) ;
