@@ -80,6 +80,9 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 	private boolean _ignoreEvents = false ;
 	private static final String doubleRegex = "[+-]?\\d+\\.\\d+" ;
 
+	private static final int LESS_THAN = -1 ;
+	private static final int EQUAL = 0 ;
+	private static final int GREATER_THAN = 1 ;
 	/**
 	 * Only used for GUIs that display list of survey targets and the
 	 * target information editor side by side (rather than using a JTabbedPane).
@@ -180,7 +183,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 				{
 					// Sort based on selected column...
 					boolean ascending = ( ( e.getModifiers() & InputEvent.SHIFT_MASK ) == 0 ) ;
-					_sortByColumn( column , ascending ) ;
+					_sortByColumn( column , ascending , 0 , _surveyGUI.fieldTable.getRowCount() - 1 ) ;
 					_updateFieldTable() ;
 				}
 			}
@@ -331,31 +334,50 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		_ignoreEvents = false ;
 	}
 
-	private void _sortByColumn( int column , boolean ascending )
+	private void _sortByColumn( int column , boolean ascending , int left , int right )
 	{
-		for( int i = 0 ; i < _surveyGUI.fieldTable.getRowCount() ; i++ )
-		{
-			for( int j = i + 1 ; j < _surveyGUI.fieldTable.getRowCount() ; j++ )
-			{
-				if( _compare( i , j , column , ascending ) == 1 )
-					_swap( i , j ) ;
-			}
-		}
+		int index = partition( left , right , column , ascending ) ;
+		if( left < index - 1 )
+			_sortByColumn( column , ascending , left , index - 1 ) ;
+		if( index < right )
+			_sortByColumn( column , ascending , index , right ) ;
 	}
 
-	public int _compare( int row1 , int row2 , int column , boolean ascending )
+	private int partition( int left , int right , int column , boolean ascending )
 	{
+		int i = left ;
+		int j = right ;
+
 		TableModel data = _surveyGUI.fieldTable.getModel() ;
 
-		Object o1 = data.getValueAt( row1 , column ) ;
-		Object o2 = data.getValueAt( row2 , column ) ;
+		Object pivot = data.getValueAt( ( left + right ) / 2 , column ) ;
 
-		if( o1 == null && o2 == null )
-			return 0 ;
-		else if( o1 == null )
-			return -1 ;
-		else if( o2 == null )
-			return 1 ;
+		while( i <= j )
+		{
+			while( _compare( data.getValueAt( i , column ) , pivot , column , ascending ) == LESS_THAN )
+				i++ ;
+
+			while( _compare( data.getValueAt( j , column ) , pivot , column , ascending ) == GREATER_THAN )
+				j-- ;
+
+			if( i <= j )
+			{
+				_swap( i , j ) ;
+				i++ ;
+				j-- ;
+			}
+		}
+		return i ;
+	}
+
+	private int _compare( Object first , Object second , int column , boolean ascending )
+	{
+		if( first == null && second == null )
+			return EQUAL ;
+		else if( first == null )
+			return LESS_THAN ;
+		else if( second == null )
+			return GREATER_THAN ;
 
 		// Since these are quite hard to sort we will not try to do it in a generic way
 		int result = 0 ;
@@ -363,21 +385,21 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		{
 			case 0 :
 			case 1 :
-				result = compareAsString( o1 , o2 ) ;
+				result = compareAsString( first , second ) ;
 				break ;
 			case 2 :
-				result = compareYaxis( o1 , o2 ) ;
+				result = compareYaxis( first , second ) ;
 				break ;
 			case 3 :
 			case 4 :
-				if( o1.toString().equals( "REMOVED" ) )
-					o1 = "100" ;
-				if( o2.toString().equals( "REMOVED" ) )
-					o2 = "100" ;
-				result = compareAsNumber( o1 , o2 ) ;
+				if( first.toString().equals( "REMOVED" ) )
+					first = "100" ;
+				if( second.toString().equals( "REMOVED" ) )
+					second = "100" ;
+				result = compareAsNumber( first , second ) ;
 				break ;
 			default :
-				result = compareAsString( o1 , o2 ) ;
+				result = compareAsString( first , second ) ;
 		}
 		return ascending ? result : -1 * result ;
 	}
@@ -386,11 +408,11 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 	{
 		int result = o1.toString().compareTo( o2.toString() ) ;
 		if( result > 0 )
-			return 1 ;
+			return GREATER_THAN ;
 		else if( result < 0 )
-			return -1 ;
+			return LESS_THAN ;
 
-		return 0 ;
+		return EQUAL ;
 	}
 
 	private int compareAsNumber( Object o1 , Object o2 )
@@ -400,11 +422,11 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			double d1 = new Double( o1.toString() ) ;
 			double d2 = new Double( o2.toString() ) ;
 			if( d1 < d2 )
-				return -1 ;
+				return LESS_THAN ;
 			else if( d1 > d2 )
-				return 1 ;
+				return GREATER_THAN ;
 			else
-				return 0 ;
+				return EQUAL ;
 		}
 		catch( NumberFormatException nfe ){}
 		return 0 ;
