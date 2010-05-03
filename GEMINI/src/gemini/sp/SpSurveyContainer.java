@@ -511,13 +511,24 @@ public class SpSurveyContainer extends SpObsContextItem
 	public void processXmlAttribute( String elementName , String attributeName , String value )
 	{
 		if( _processingTelObsComp != null )
+		{
 			_processingTelObsComp.processXmlAttribute( elementName , attributeName , value ) ;
+		}
 		else if( attributeName.equals( ATTR_PRIORITY ) )
-			setPriority( Integer.parseInt( value ) , _telescopeObsCompVector.size() ) ;
+		{
+			int priority = Integer.parseInt( value ) ;
+			if( priority < 1 )
+				priority = 1 ;
+			setPriority( priority , _telescopeObsCompVector.size() ) ;
+		}
 		else if( attributeName.equals( ATTR_REMAINING ) )
+		{
 			setRemaining( Integer.parseInt( value ) , _telescopeObsCompVector.size() ) ;
+		}
 		else
+		{
 			super.processXmlAttribute( elementName , attributeName , value ) ;
+		}
 	}
 
 	public void processXmlElementContent( String name , String value )
