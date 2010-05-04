@@ -216,7 +216,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			_surveyObsComp.addSpTelescopeObsComp() ;
 
 			_surveyObsComp.setRemaining( 1 , 0 ) ;
-			_surveyObsComp.setPriority( 0 , 0 ) ;
+			_surveyObsComp.setPriority( 1 , 0 ) ;
 		}
 
 		if( _surveyObsComp.hasMSBParent() )
@@ -348,9 +348,10 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		int i = left ;
 		int j = right ;
 
+		System.out.println( i + " " + j ) ;
 		TableModel data = _surveyGUI.fieldTable.getModel() ;
 
-		Object pivot = data.getValueAt( ( left + right ) / 2 , column ) ;
+		Object pivot = data.getValueAt( ( i + j ) / 2 , column ) ;
 
 		while( i <= j )
 		{
@@ -406,30 +407,31 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 
 	private int compareAsString( Object o1 , Object o2 )
 	{
+		int returnable = EQUAL ;
 		int result = o1.toString().compareTo( o2.toString() ) ;
 		if( result > 0 )
-			return GREATER_THAN ;
+			returnable = GREATER_THAN ;
 		else if( result < 0 )
-			return LESS_THAN ;
+			returnable = LESS_THAN ;
 
-		return EQUAL ;
+		return returnable ;
 	}
 
 	private int compareAsNumber( Object o1 , Object o2 )
 	{
+		int returnable = EQUAL ;
 		try
 		{
 			double d1 = new Double( o1.toString() ) ;
 			double d2 = new Double( o2.toString() ) ;
 			if( d1 < d2 )
-				return LESS_THAN ;
+				returnable = LESS_THAN ;
 			else if( d1 > d2 )
-				return GREATER_THAN ;
-			else
-				return EQUAL ;
+				returnable = GREATER_THAN ;
 		}
 		catch( NumberFormatException nfe ){}
-		return 0 ;
+
+		return returnable ;
 	}
 
 	private int compareYaxis( Object o1 , Object o2 )
@@ -585,7 +587,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).addRow( _getRowData( _surveyObsComp.addSpTelescopeObsComp().getPosList().getBasePosition() ) ) ;
 
 			_surveyObsComp.setRemaining( 1 , _surveyGUI.fieldTable.getRowCount() - 1 ) ;
-			_surveyObsComp.setPriority( 0 , _surveyGUI.fieldTable.getRowCount() - 1 ) ;
+			_surveyObsComp.setPriority( 1 , _surveyGUI.fieldTable.getRowCount() - 1 ) ;
 
 			_surveyGUI.selectLabel.setText( "from " + _surveyGUI.fieldTable.getRowCount() ) ;
 			_surveyGUI.selectLabel.repaint() ;

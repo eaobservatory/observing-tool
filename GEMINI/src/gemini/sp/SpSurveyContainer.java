@@ -224,6 +224,7 @@ public class SpSurveyContainer extends SpObsContextItem
 		SpTelescopeObsComp spTelescopeObsComp = noNotifyAddSpTelescopeObsComp() ;
 		spTelescopeObsComp.getTable().edit() ;
 		setRemaining( 1 , _telescopeObsCompVector.size() - 1 ) ;
+		setPriority( 1 , _telescopeObsCompVector.size() - 1 ) ;
 		return spTelescopeObsComp ;
 	}
 
