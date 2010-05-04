@@ -258,6 +258,11 @@ public class SpSurveyContainer extends SpObsContextItem
 		}
 	}
 
+	public SpTelescopeObsComp replaceSpTelescopeObsComp( SpTelescopeObsComp spTelescopeObsComp , int at )
+	{
+		return _telescopeObsCompVector.set( at , spTelescopeObsComp ) ;
+	}
+
 	public void removeSpTelescopeObsComp( SpTelescopeObsComp spTelescopeObsComp )
 	{
 		if( _telescopeObsCompVector.contains( spTelescopeObsComp ) )

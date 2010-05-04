@@ -83,6 +83,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 	private static final int LESS_THAN = -1 ;
 	private static final int EQUAL = 0 ;
 	private static final int GREATER_THAN = 1 ;
+
 	/**
 	 * Only used for GUIs that display list of survey targets and the
 	 * target information editor side by side (rather than using a JTabbedPane).
@@ -348,7 +349,6 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		int i = left ;
 		int j = right ;
 
-		System.out.println( i + " " + j ) ;
 		TableModel data = _surveyGUI.fieldTable.getModel() ;
 
 		Object pivot = data.getValueAt( ( i + j ) / 2 , column ) ;
@@ -362,45 +362,46 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 				j-- ;
 
 			if( i <= j )
-			{
-				_swap( i , j ) ;
-				i++ ;
-				j-- ;
-			}
+				_swap( i++ , j-- ) ;
 		}
 		return i ;
 	}
 
 	private int _compare( Object first , Object second , int column , boolean ascending )
 	{
-		if( first == null && second == null )
-			return EQUAL ;
-		else if( first == null )
-			return LESS_THAN ;
-		else if( second == null )
-			return GREATER_THAN ;
-
-		// Since these are quite hard to sort we will not try to do it in a generic way
-		int result = 0 ;
-		switch( column )
+		int result = EQUAL ;
+		if( first == null || second == null )
 		{
-			case 0 :
-			case 1 :
-				result = compareAsString( first , second ) ;
-				break ;
-			case 2 :
-				result = compareYaxis( first , second ) ;
-				break ;
-			case 3 :
-			case 4 :
-				if( first.toString().equals( "REMOVED" ) )
-					first = "100" ;
-				if( second.toString().equals( "REMOVED" ) )
-					second = "100" ;
-				result = compareAsNumber( first , second ) ;
-				break ;
-			default :
-				result = compareAsString( first , second ) ;
+			if( first == null && second == null )
+				result = EQUAL ;
+			else if( first == null )
+				result = LESS_THAN ;
+			else if( second == null )
+				result = GREATER_THAN ;
+		}
+		else
+		{
+			// Since these are quite hard to sort we will not try to do it in a generic way
+			switch( column )
+			{
+				case 0 :
+				case 1 :
+					result = compareAsString( first , second ) ;
+					break ;
+				case 2 :
+					result = compareYaxis( first , second ) ;
+					break ;
+				case 3 :
+				case 4 :
+					if( first.toString().equals( "REMOVED" ) )
+						first = "100" ;
+					if( second.toString().equals( "REMOVED" ) )
+						second = "100" ;
+					result = compareAsNumber( first , second ) ;
+					break ;
+				default :
+					result = compareAsString( first , second ) ;
+			}
 		}
 		return ascending ? result : -1 * result ;
 	}
@@ -460,26 +461,29 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 
 	public void _swap( int row1 , int row2 )
 	{
-		int rem1 = _surveyObsComp.getRemaining( row1 ) ;
-		int rem2 = _surveyObsComp.getRemaining( row2 ) ;
+		if( row1 != row2 )
+		{
+			int rem1 = _surveyObsComp.getRemaining( row1 ) ;
+			int rem2 = _surveyObsComp.getRemaining( row2 ) ;
 
-		int pri1 = _surveyObsComp.getPriority( row1 ) ;
-		int pri2 = _surveyObsComp.getPriority( row2 ) ;
+			int pri1 = _surveyObsComp.getPriority( row1 ) ;
+			int pri2 = _surveyObsComp.getPriority( row2 ) ;
 
-		// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
-		SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 ) ;
-		_surveyObsComp.removeSpTelescopeObsComp( row1 ) ;
-		_surveyObsComp.addSpTelescopeObsComp( tp1 , row2 ) ;
+			// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
+			SpTelescopeObsComp tp2 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row2 ) ;
+			SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 ) ;
+			_surveyObsComp.replaceSpTelescopeObsComp( tp1 , row2 ) ;
+			_surveyObsComp.replaceSpTelescopeObsComp( tp2 , row1 ) ;
 
-		// Also swap the remaining and priority
-		_surveyObsComp.setRemaining( rem1 , row2 ) ;
-		_surveyObsComp.setRemaining( rem2 , row1 ) ;
+			// Also swap the remaining and priority
+			_surveyObsComp.setRemaining( rem1 , row2 ) ;
+			_surveyObsComp.setRemaining( rem2 , row1 ) ;
 
-		_surveyObsComp.setPriority( pri1 , row2 ) ;
-		_surveyObsComp.setPriority( pri2 , row1 ) ;
+			_surveyObsComp.setPriority( pri1 , row2 ) ;
+			_surveyObsComp.setPriority( pri2 , row1 ) ;
 
-		_updateFieldTable() ;
-
+			_updateFieldTable() ;
+		}
 	}
 
 	private String[] _getRowData( SpTelescopePos tp )
