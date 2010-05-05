@@ -98,13 +98,18 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public static final int FOCUS_TEL = 4 ;
 	public static final String FOCUS_TEL_STRING = "focus_tel" ;
 
+	/** Identifier for a FOCUS_FIT calibration. */
+	public static final int FOCUS_FIT = 5 ;
+	public static final String FOCUS_FIT_STRING = "focus_fit" ;
+
 	protected static final String choices[] = 
 	{ 
 			SKYFLAT_STRING , 
 			DOMEFLAT_STRING , 
 			FOCUS_STRING , 
 			DARK_STRING ,
-			FOCUS_TEL_STRING
+			FOCUS_TEL_STRING ,
+			FOCUS_FIT_STRING
 	} ;
 	
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" ) ;
@@ -168,14 +173,15 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	{
 		int type = FOCUS ;
 		String calType = _avTable.get( SpUISTCalConstants.ATTR_CALTYPE ) ;
-		if( SKYFLAT_STRING.equalsIgnoreCase( calType ) )
-			type = SKYFLAT ;
-		else if( DOMEFLAT_STRING.equalsIgnoreCase( calType ) )
-			type = DOMEFLAT ;
-		else if( DARK_STRING.equalsIgnoreCase( calType ) )
-			type = DARK ;
-		else if( FOCUS_TEL_STRING.equalsIgnoreCase( calType ) )
-			type = FOCUS_TEL ;
+
+		for( int index = 0 ; index < choices.length ; index++ )
+		{
+			if( choices[ index ].equals(  calType ) )
+			{
+				type = index ;
+				break ;
+			}
+		}
 
 		return type ;
 	}
@@ -194,15 +200,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public String getCalTypeString()
 	{
 		String calType = FOCUS_STRING ;
-		if( getCalType() == SKYFLAT )
-			calType = SKYFLAT_STRING ;
-		else if( getCalType() == DOMEFLAT )
-			calType = DOMEFLAT_STRING ;
-		else if( getCalType() == DARK )
-			calType = DARK_STRING ;
-		else if( getCalType() == FOCUS_TEL )
-			calType = FOCUS_TEL_STRING ;
-			
+
+		int type = getCalType() ;
+		if( type < choices.length )
+			calType = choices[ type ] ;
+
 		return calType ;
 	}
 
@@ -457,6 +459,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 					break ;
 				case FOCUS :
 				case FOCUS_TEL :
+				case FOCUS_FIT :
 					v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) ) ;
 					v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() ) ;
 					break ;
