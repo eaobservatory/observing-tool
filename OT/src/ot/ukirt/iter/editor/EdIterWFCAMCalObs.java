@@ -107,7 +107,7 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
 		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
 		ddlbw.setValue( ico.getCalType() ) ;
-		if( ico.getCalType() == SpIterWFCAMCalObs.FOCUS || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_TEL )
+		if( ico.getCalType() == SpIterWFCAMCalObs.FOCUS || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_TEL || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_FIT )
 		{
 			_w.focusPos.setVisible( true ) ;
 			_w.focusLabel.setVisible( true ) ;
