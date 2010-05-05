@@ -31,18 +31,6 @@ import jsky.app.ot.editor.OtItemEditor ;
  */
 public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , ActionListener
 {
-	/** Identifier for a SKYFLAT calibration. */
-	public static final int SKYFLAT = 0 ;
-
-	/** Identifier for a DOMEFLAT calibration. */
-	public static final int DOMEFLAT = 1 ;
-
-	/** Identifier for a FOCUS calibration. */
-	public static final int FOCUS = 2 ;
-	
-	/** Identifier for a DARK calibration. */
-	public static final int DARK = 3 ;
-
 	private IterWFCAMCalObsGUI _w ; // the GUI layout
 
 	/**
@@ -119,7 +107,7 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
 		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
 		ddlbw.setValue( ico.getCalType() ) ;
-		if( ico.getCalType() == FOCUS )
+		if( ico.getCalType() == SpIterWFCAMCalObs.FOCUS || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_TEL )
 		{
 			_w.focusPos.setVisible( true ) ;
 			_w.focusLabel.setVisible( true ) ;

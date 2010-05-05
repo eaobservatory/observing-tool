@@ -94,12 +94,17 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 	public static final int DARK = 3 ;
 	public static final String DARK_STRING = "dark" ;
 
+	/** Identifier for a FOCUS_TEL calibration. */
+	public static final int FOCUS_TEL = 4 ;
+	public static final String FOCUS_TEL_STRING = "focus_tel" ;
+
 	protected static final String choices[] = 
 	{ 
 			SKYFLAT_STRING , 
 			DOMEFLAT_STRING , 
 			FOCUS_STRING , 
-			DARK_STRING 
+			DARK_STRING ,
+			FOCUS_TEL_STRING
 	} ;
 	
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" ) ;
@@ -169,6 +174,8 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			type = DOMEFLAT ;
 		else if( DARK_STRING.equalsIgnoreCase( calType ) )
 			type = DARK ;
+		else if( FOCUS_TEL_STRING.equalsIgnoreCase( calType ) )
+			type = FOCUS_TEL ;
 
 		return type ;
 	}
@@ -193,6 +200,8 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			calType = DOMEFLAT_STRING ;
 		else if( getCalType() == DARK )
 			calType = DARK_STRING ;
+		else if( getCalType() == FOCUS_TEL )
+			calType = FOCUS_TEL_STRING ;
 			
 		return calType ;
 	}
@@ -447,6 +456,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 					v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() ) ;
 					break ;
 				case FOCUS :
+				case FOCUS_TEL :
 					v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) ) ;
 					v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() ) ;
 					break ;
