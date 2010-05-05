@@ -161,6 +161,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 		{
 			public void stateChanged( ChangeEvent e )
 			{
+				_surveyGUI.telescopeGUIVisible() ;
 				_updateWidgets() ;
 			}
 		} ) ;
