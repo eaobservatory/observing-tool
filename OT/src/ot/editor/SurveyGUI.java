@@ -20,6 +20,7 @@ import javax.swing.JScrollPane ;
 import javax.swing.JTabbedPane ;
 import javax.swing.border.EtchedBorder ;
 import java.awt.BorderLayout ;
+import java.awt.Component ;
 import java.awt.FlowLayout ;
 import java.awt.Color ;
 import java.awt.Dimension ;
@@ -45,6 +46,7 @@ public class SurveyGUI extends JPanel
 	JTextField selectField = new JTextField() ;
 	JLabel titleLabel = new JLabel( "Title:" ) ;
 	JTextField titleField = new JTextField() ;
+	private boolean visible = false ;
 
 	/**
 	 * List of fiels.
@@ -109,6 +111,7 @@ public class SurveyGUI extends JPanel
 		surveyPanel.setPreferredSize( new Dimension( 100 , 100 ) ) ;
 
 		tabbedPane.add( "Survey Targets" , surveyPanel ) ;
+		telescopeGUIVisible() ;
 		tabbedPane.add( "Target Information" , _telescopeGUI ) ;
 
 		add( tabbedPane , BorderLayout.CENTER ) ;
@@ -124,5 +127,13 @@ public class SurveyGUI extends JPanel
 	public TelescopeGUI getTelescopeGUI()
 	{
 		return _telescopeGUI ;
+	}
+
+	public void telescopeGUIVisible()
+	{
+		Component[] components = _telescopeGUI.getComponents() ;
+		for( Component component : components )
+			component.setVisible( visible ) ;
+		visible = !visible ;
 	}
 }
