@@ -524,7 +524,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		if( !testForRecipes( v ) )
 		{
 			logger.error( "DR Recipes are missing from this observation." ) ;
-			throw new RuntimeException( "No DR Recipes have been found for this observation. This is probably an error, the software should be restarted and a fault filed." ) ;		
 		}
 
 		try
