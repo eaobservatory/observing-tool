@@ -78,6 +78,10 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		tbw = ( TextBoxWidgetExt )_w.focusPos ;
 		tbw.addWatcher( this ) ;
 
+		// FocusTel
+		tbw = ( TextBoxWidgetExt )_w.focusTelSteps ;
+		tbw.addWatcher( this ) ;
+
 		super._init() ;
 
 		_ignoreActionEvents = false ;
@@ -106,19 +110,17 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		// Update calType selection box
 		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
 		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
-		ddlbw.setValue( ico.getCalType() ) ;
-		if( ico.getCalType() == SpIterWFCAMCalObs.FOCUS || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_TEL || ico.getCalType() == SpIterWFCAMCalObs.FOCUS_FIT )
-		{
-			_w.focusPos.setVisible( true ) ;
-			_w.focusLabel.setVisible( true ) ;
-			_w.focusPos.setEditable( true ) ;
-		}
-		else
-		{
-			_w.focusPos.setVisible( false ) ;
-			_w.focusLabel.setVisible( false ) ;
-			_w.focusPos.setEditable( false ) ;
-		}
+		int calType = ico.getCalType() ;
+		ddlbw.setValue( calType ) ;
+		boolean focusTel = calType == SpIterWFCAMCalObs.FOCUS_TEL ;
+		boolean focusType =  calType == SpIterWFCAMCalObs.FOCUS || focusTel || calType == SpIterWFCAMCalObs.FOCUS_FIT ;
+		_w.focusPos.setVisible( focusType ) ;
+		_w.focusLabel.setVisible( focusType ) ;
+		_w.focusPos.setEditable( focusType ) ;
+		_w.focusTelStepsLabel.setVisible( focusTel ) ;
+		_w.focusTelSteps.setVisible( focusTel ) ;
+		if( focusTel && _w.focusTelSteps != source )
+			_w.focusTelSteps.setValue( ico.getFocusTelSteps() ) ;
 
 		// Update readMode selection box
 		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode ;
@@ -185,10 +187,7 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 					_updateWidgets( _w.ExpTime ) ;
 				}
 			}
-			catch( Exception ex )
-			{
-				// ignore
-			}
+			catch( Exception e ){}
 		}
 		else if( tbw == _w.Coadds )
 		{
@@ -202,10 +201,7 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 					_updateWidgets( _w.Coadds ) ;
 				}
 			}
-			catch( Exception ex )
-			{
-				// ignore
-			}
+			catch( Exception e ){}
 		}
 		else if( tbw == _w.focusPos )
 		{
@@ -215,12 +211,23 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 				ico.setFocus( focusValue ) ;
 				_updateWidgets( _w.focusPos ) ;
 			}
-			catch( Exception e )
-			{
-				// ignored
-			}
+			catch( Exception e ){}
 		}
-		// End of added by RDK
+		else if( tbw == _w.focusTelSteps )
+		{
+			System.out.println( "focus tel steps" ) ;
+			try
+			{
+				double value = Double.parseDouble( tbw.getText() ) ;
+				ico.setFocusTelSteps( value ) ;
+				_updateWidgets( _w.focusTelSteps ) ;
+			}
+			catch( Exception e ){}
+		}
+		else
+		{
+			System.out.println( "nothing" ) ;
+		}
 	}
 
 	/**

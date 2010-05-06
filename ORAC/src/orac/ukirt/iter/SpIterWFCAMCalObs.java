@@ -111,6 +111,9 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			FOCUS_TEL_STRING ,
 			FOCUS_FIT_STRING
 	} ;
+
+	private static final String doOneObserve = "do 1 _observe" ;
+	private final static String telFocus = "telFocus" ;
 	
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" ) ;
 
@@ -399,7 +402,18 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 	public double getFocus()
 	{
-		return _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0.0 ) ;
+		return _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) ;
+	}
+
+	public void setFocusTelSteps( double value )
+	{
+		System.out.println( value ) ;
+		_avTable.set( FOCUS_TEL_STRING , value ) ;
+	}
+
+	public double getFocusTelSteps()
+	{
+		return _avTable.getDouble( FOCUS_TEL_STRING , 0. ) ;
 	}
 
 	/* 
@@ -412,6 +426,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		_avTable.rm( SpWFCAMCalConstants.ATTR_EXPOSURE_TIME ) ;
 		_avTable.rm( SpWFCAMCalConstants.ATTR_COADDS ) ;
 		_avTable.rm( SpWFCAMCalConstants.ATTR_FOCUS ) ;
+		_avTable.rm( FOCUS_TEL_STRING ) ;
 	}
 
 	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException{}
@@ -447,10 +462,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			parent = parent.parent() ;
 		}
 
+		int calType = getCalType() ;
 		if( recipes != null && recipes.size() != 0 )
 		{
 			SpDRRecipe recipe = ( SpDRRecipe )recipes.get( 0 ) ;
-			switch( getCalType() )
+			switch( calType )
 			{
 				case SKYFLAT :
 				case DOMEFLAT :
@@ -476,7 +492,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				logger.error( "No recipe header written, no recipes found." ) ;
 		}
 		
-		if( getCalType() == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )
+		if( calType == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )
 			v.add( "setFocus " + getFocus() ) ;
 
 		// Update all the items
@@ -500,12 +516,31 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		
 		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
 		
-		if( getCalType() == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) != 0. )
+		if( calType == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) != 0. )
 			v.add( gemini.sp.SpTranslationConstants.objectString ) ;
 		else
 			v.add( "set " + getCalTypeString().toUpperCase() ) ;
 
-		v.add( "do " + getCount() + " _observe" ) ;
+		if( calType == FOCUS_TEL )
+		{
+			double stepSize = getFocusTelSteps() ;
+			if( stepSize != 0. )
+			{
+				v.add( telFocus + " " + ( 2 * -stepSize ) ) ;
+				v.add( doOneObserve ) ;
+				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
+				v.add( doOneObserve ) ;
+				v.add( telFocus + " " + -stepSize ) ;
+				v.add( doOneObserve ) ;
+				v.add( telFocus + " " + stepSize ) ;
+				v.add( doOneObserve ) ;
+				v.add( telFocus + " 0.0" ) ;
+			}
+		}
+		else
+		{
+			v.add( "do " + getCount() + " _observe" ) ;
+		}
 	}
 
 	/**
