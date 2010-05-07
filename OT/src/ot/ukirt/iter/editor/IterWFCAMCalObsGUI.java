@@ -128,7 +128,7 @@ public class IterWFCAMCalObsGUI extends JPanel
 		readModeLabel.setText( "Read Mode" ) ;
 		focusTelStepsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		focusTelStepsLabel.setForeground( Color.black ) ;
-		focusTelStepsLabel.setText( "Steps" ) ;
+		focusTelStepsLabel.setText( "Step Size" ) ;
 		focusTelSteps.setBorder( BorderFactory.createLoweredBevelBorder() ) ;
 		focusTelSteps.setHorizontalAlignment( SwingConstants.CENTER ) ;
 		focusTelSteps.setBackground( Color.WHITE ) ;
