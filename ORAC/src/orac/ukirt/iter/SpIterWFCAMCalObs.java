@@ -528,11 +528,11 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			{
 				v.add( telFocus + " " + ( 2 * -stepSize ) ) ;
 				v.add( doOneObserve ) ;
-				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
-				v.add( doOneObserve ) ;
 				v.add( telFocus + " " + -stepSize ) ;
 				v.add( doOneObserve ) ;
 				v.add( telFocus + " " + stepSize ) ;
+				v.add( doOneObserve ) ;
+				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( telFocus + " 0.0" ) ;
 			}
