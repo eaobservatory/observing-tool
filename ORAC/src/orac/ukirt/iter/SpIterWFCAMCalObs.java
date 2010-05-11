@@ -114,6 +114,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 	private static final String doOneObserve = "do 1 _observe" ;
 	private final static String telFocus = "telFocus" ;
+	private final static String focusFit = "setFocus" ;
 	
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "WFCAMCalObs" , "WFCAM Calibration" ) ;
 
@@ -407,7 +408,6 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 
 	public void setFocusTelSteps( double value )
 	{
-		System.out.println( value ) ;
 		_avTable.set( FOCUS_TEL_STRING , value ) ;
 	}
 
@@ -535,6 +535,22 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( telFocus + " 0.0" ) ;
+			}
+		}
+		else if( calType == FOCUS_FIT )
+		{
+			double stepSize = getFocusTelSteps() ;
+			if( stepSize != 0. )
+			{
+				v.add( focusFit + " " + ( 2 * -stepSize ) ) ;
+				v.add( doOneObserve ) ;
+				v.add( focusFit + " " + -stepSize ) ;
+				v.add( doOneObserve ) ;
+				v.add( focusFit + " " + stepSize ) ;
+				v.add( doOneObserve ) ;
+				v.add( focusFit + " " + ( 2 * stepSize ) ) ;
+				v.add( doOneObserve ) ;
+				v.add( focusFit + " 0.0" ) ;
 			}
 		}
 		else
