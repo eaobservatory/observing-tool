@@ -112,14 +112,14 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
 		int calType = ico.getCalType() ;
 		ddlbw.setValue( calType ) ;
-		boolean focusTel = calType == SpIterWFCAMCalObs.FOCUS_TEL ;
-		boolean focusType =  calType == SpIterWFCAMCalObs.FOCUS || focusTel || calType == SpIterWFCAMCalObs.FOCUS_FIT ;
+		boolean fitOrTel = calType == SpIterWFCAMCalObs.FOCUS_TEL || calType == SpIterWFCAMCalObs.FOCUS_FIT  ;
+		boolean focusType = calType == SpIterWFCAMCalObs.FOCUS || fitOrTel ;
 		_w.focusPos.setVisible( focusType ) ;
 		_w.focusLabel.setVisible( focusType ) ;
 		_w.focusPos.setEditable( focusType ) ;
-		_w.focusTelStepsLabel.setVisible( focusTel ) ;
-		_w.focusTelSteps.setVisible( focusTel ) ;
-		if( focusTel && _w.focusTelSteps != source )
+		_w.focusTelStepsLabel.setVisible( fitOrTel ) ;
+		_w.focusTelSteps.setVisible( fitOrTel ) ;
+		if( fitOrTel && _w.focusTelSteps != source )
 			_w.focusTelSteps.setValue( ico.getFocusTelSteps() ) ;
 
 		// Update readMode selection box
@@ -215,7 +215,6 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		}
 		else if( tbw == _w.focusTelSteps )
 		{
-			System.out.println( "focus tel steps" ) ;
 			try
 			{
 				double value = Double.parseDouble( tbw.getText() ) ;
