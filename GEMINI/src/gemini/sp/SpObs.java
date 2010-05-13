@@ -952,7 +952,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
 			String s = v.get( i ) ;
-			if( s.equals( darkString ) || s.equals( biasString ) || s.equals( focusString ) || s.equals( domeString ) )
+			if( s.equals( darkString ) || s.equals( biasString ) || s.startsWith( focusString ) || s.equals( domeString ) )
 			{
 				// Add a call to the _guide_off macro before this command
 				v.add( i++ , "do 1 _guide_off" ) ;
