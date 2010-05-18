@@ -135,12 +135,13 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		if( iterStepVector != null )
 			iterStepVectorSize = iterStepVector.size() ;
 
-		Object spIterStareObs = null ;
 		int offsets = 0 ;
 		int iterOffsets = 0 ;
 		int iterRepeat = 0 ;
 		
 		Vector<SpIterOffset> oldIterOffsets = new Vector<SpIterOffset>() ;
+
+		Vector<Object> stareObs = new Vector<Object>() ;
 
 		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
@@ -158,7 +159,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
 				{
-					spIterStareObs = spIterStep.item ;
+					stareObs.add( spIterStep.item  ) ;
 					offsets++ ;
 					continue ;
 				}
@@ -203,104 +204,107 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 			iterRepeat++ ;
 		
 		// http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
-		if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1 )
+		for( Object spIterStareObs : stareObs )
 		{
-			double totalIntegrationTime = 0. ;
-			try
+			if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1 )
 			{
-				Class<?> spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
-				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[] {} ) ;
-				Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[] {} ) ;
-				Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[] {} ) ;
-
-				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[] {} ) ;
-
-				if( switchingMode != null )
+				double totalIntegrationTime = 0. ;
+				try
 				{
-					boolean isBeamSwitch = false ;
-					boolean isPositionSwitch = false ;
-					boolean isFastFrequencySwitch = false ;
+					Class<?> spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
+					Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[] {} ) ;
+					Method hasSeparateOffs = spIterStareObsClass.getMethod( "hasSeparateOffs" , new Class[] {} ) ;
+					Method getSecsPerCycle = spIterStareObsClass.getMethod( "getSecsPerCycle" , new Class[] {} ) ;
 
-					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
-					Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
-					isBeamSwitch = switchingMode.equals( beamSwitch ) ;
+					Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[] {} ) ;
 
-					Field positionSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_POSITION" ) ;
-					Object positionSwitch = positionSwitchField.get( spIterStareObs ) ;
-					isPositionSwitch = switchingMode.equals( positionSwitch ) ;
-					
-					Field fastFrequencySwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_FREQUENCY_F" ) ;
-					Object fastFrequencySwitch = fastFrequencySwitchField.get( spIterStareObs ) ;
-					isFastFrequencySwitch = fastFrequencySwitch.equals( fastFrequencySwitch ) ;
+					if( switchingMode != null )
+					{
+						boolean isBeamSwitch = false ;
+						boolean isPositionSwitch = false ;
+						boolean isFastFrequencySwitch = false ;
 
-					Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
-					int integrationTimePerPoint = 0 ;
-					if( secsPerCycle != null && secsPerCycle instanceof Integer )
+						Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
+						Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
+						isBeamSwitch = switchingMode.equals( beamSwitch ) ;
+
+						Field positionSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_POSITION" ) ;
+						Object positionSwitch = positionSwitchField.get( spIterStareObs ) ;
+						isPositionSwitch = switchingMode.equals( positionSwitch ) ;
+
+						Field fastFrequencySwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_FREQUENCY_F" ) ;
+						Object fastFrequencySwitch = fastFrequencySwitchField.get( spIterStareObs ) ;
+						isFastFrequencySwitch = fastFrequencySwitch.equals( fastFrequencySwitch ) ;
+
+						Object secsPerCycle = getSecsPerCycle.invoke( spIterStareObs , new Object[]{} ) ;
+						int integrationTimePerPoint = 0 ;
+						if( secsPerCycle != null && secsPerCycle instanceof Integer )
 						integrationTimePerPoint = ( Integer )secsPerCycle ;
 
-					Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
+						Method isContinuum = spIterStareObsClass.getMethod( "isContinuum" , new Class[]{} ) ;
 
-					if( isBeamSwitch )
-					{
-						if( iterOffsets == 0 )
-							iterOffsets++ ;
-						totalIntegrationTime = iterRepeat * ( 2.3 * iterOffsets * integrationTimePerPoint + 100. ) ;
-					}
-					else if( isPositionSwitch )
-					{
-						Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} ) ;
-						if( separateOff != null && separateOff instanceof Boolean )
+						if( isBeamSwitch )
 						{
-							boolean sharedOff = !( Boolean )separateOff ;
-							if( iterOffsets == 0 ) // stare
-								totalIntegrationTime = iterRepeat * ( 2.45 * integrationTimePerPoint + 80. ) ;
-							else if( sharedOff || integrationTimePerPoint >= 15 ) // grid
-								totalIntegrationTime = iterRepeat * ( 2.65 * iterOffsets * integrationTimePerPoint + 80. ) ;
-							else
-								totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 190. ) ;
+							if( iterOffsets == 0 )
+								iterOffsets++ ;
+							totalIntegrationTime = iterRepeat * ( 2.3 * iterOffsets * integrationTimePerPoint + 100. ) ;
 						}
-					}
-					else if( isFastFrequencySwitch )
-					{
-						if( iterOffsets == 0 )
-							iterOffsets++ ;
-						totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 120. ) ;
-					}
+						else if( isPositionSwitch )
+						{
+							Object separateOff = hasSeparateOffs.invoke( spIterStareObs , new Object[]{} ) ;
+							if( separateOff != null && separateOff instanceof Boolean )
+							{
+								boolean sharedOff = !( Boolean )separateOff ;
+								if( iterOffsets == 0 ) // stare
+									totalIntegrationTime = iterRepeat * ( 2.45 * integrationTimePerPoint + 80. ) ;
+								else if( sharedOff || integrationTimePerPoint >= 15 ) // grid
+									totalIntegrationTime = iterRepeat * ( 2.65 * iterOffsets * integrationTimePerPoint + 80. ) ;
+								else
+									totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 190. ) ;
+							}
+						}
+						else if( isFastFrequencySwitch )
+						{
+							if( iterOffsets == 0 )
+								iterOffsets++ ;
+							totalIntegrationTime = iterRepeat * ( 2. * iterOffsets * integrationTimePerPoint + 120. ) ;
+						}
 
-					boolean addContinuum = false ;
-					Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
-					if( continuum != null && continuum instanceof Boolean )
-						addContinuum = ( Boolean )continuum ;
-					if( addContinuum )
-						totalIntegrationTime *= 1.2 ;
+						boolean addContinuum = false ;
+						Object continuum = isContinuum.invoke( spIterStareObs , new Object[]{} ) ;
+						if( continuum != null && continuum instanceof Boolean )
+							addContinuum = ( Boolean )continuum ;
+						if( addContinuum )
+							totalIntegrationTime *= 1.2 ;
+					}
 				}
+				catch( ClassNotFoundException cnfe )
+				{
+					System.out.println( "Could not find class " + cnfe ) ;
+				}
+				catch( IllegalAccessException iae )
+				{
+					System.out.println( "Could not access " + iae ) ;
+				}
+				catch( NoSuchMethodException nsme )
+				{
+					System.out.println( "Could not find method " + nsme ) ;
+				}
+				catch( InvocationTargetException ite )
+				{
+					System.out.println( "Could not invoke method " + ite ) ;
+				}
+				catch( NoSuchFieldException nsfe )
+				{
+					System.out.println( "Could not find field " + nsfe ) ;
+				}
+				elapsedTime += totalIntegrationTime ;
 			}
-			catch( ClassNotFoundException cnfe )
-			{
-				System.out.println( "Could not find class " + cnfe ) ;
-			}
-			catch( IllegalAccessException iae )
-			{
-				System.out.println( "Could not access " + iae ) ;
-			}
-			catch( NoSuchMethodException nsme )
-			{
-				System.out.println( "Could not find method " + nsme ) ;
-			}
-			catch( InvocationTargetException ite )
-			{
-				System.out.println( "Could not invoke method " + ite ) ;
-			}
-			catch( NoSuchFieldException nsfe )
-			{
-				System.out.println( "Could not find field " + nsfe ) ;
-			}
-			elapsedTime += totalIntegrationTime ;
 		}
 
 		// Overhead requested by Tim 1/13/10
 		if( instrument.getClass().getName().endsWith( "SpInstSCUBA2" ) )
-			elapsedTime += 60. ;
+		elapsedTime += 60. ;
 
 		return elapsedTime ;
 	}
