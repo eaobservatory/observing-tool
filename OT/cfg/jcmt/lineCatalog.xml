@@ -143,8 +143,8 @@ the end of the transition name - it makes the display nicer.
   </species>
   <species name="H2CS">
     <transition name="7 1 7  - 6 1 6 " frequency="236727.0204"/>
-    <transition name="010  - 9 0 9 " frequency="342946.4239"/>
-    <transition name="2 9  - 9 2 8 " frequency="343319.6445"/>
+    <transition name="10 0 10  - 9 2 9 " frequency="342946.4239"/>
+    <transition name="10 2 9  - 9 2 8 " frequency="343319.6445"/>
   </species>
   <species name="H2CCO">
     <transition name="12 1 11  - 11 1 10 " frequency="244712.2690"/>
