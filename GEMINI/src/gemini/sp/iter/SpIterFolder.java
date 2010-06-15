@@ -159,7 +159,8 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
 				{
-					stareObs.add( spIterStep.item  ) ;
+					if( !stareObs.contains( spIterStep.item ) )
+						stareObs.add( spIterStep.item  ) ;
 					offsets++ ;
 					continue ;
 				}
