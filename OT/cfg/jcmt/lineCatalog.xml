@@ -1414,7 +1414,7 @@ the end of the transition name - it makes the display nicer.
 		<transition frequency="267240.8201" name="15   -  14 "/>
 	</species>
 	<species name="Si-29-O">
-		<transition frequency="267240.8201" name="8 0  - 7 0 "/>
+		<transition frequency="257255.2156" name="6 0  - 5 0 "/>
 	</species>
 	<species name="DCN">
 		<transition frequency="217238.6307" name="3  - 2 "/>
