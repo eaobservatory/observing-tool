@@ -1329,6 +1329,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			// Select HMSDEG/DEGDEG pane.
 			_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW ) ;
 
+			_updateWidgets() ;
 			return ;
 		}
 		else if( w == _w.removeButton )
