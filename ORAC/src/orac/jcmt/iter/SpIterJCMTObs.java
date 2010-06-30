@@ -246,7 +246,7 @@ public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 
 	public void rmFrequencyOffsetThrow()
 	{
-		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_RATE ) ;
+		_avTable.noNotifyRm( ATTR_FREQUENCY_OFFSET_THROW ) ;
 	}
 
 	public void rmFrequencyOffsetValues()
