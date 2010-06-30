@@ -130,6 +130,10 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 				_iterObs.rmFrequencyOffsetRate() ;
 				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() ) ;
 			}
+			else
+			{
+				_iterObs.rmFrequencyOffsetValues() ;
+			}
 			_iterObs.setSwitchingMode( val ) ;
 			_updateWidgets() ;
 		}
