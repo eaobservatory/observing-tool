@@ -7,11 +7,15 @@ public class SpIterFTS2 extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "FTS2Obs" , "FTS-2" ) ;
 	public static String[] JIGGLE_PATTERNS = {} ;
-	public static String[] SPECIAL_MODES = { "SED" , "Spectral Line" , "ZPD" } ;
+	public static String[] SPECIAL_MODES = { "SED" , "Spectral Line" , "Spectral Flatfield" , "ZPD" } ;
 
 	public static final String SPECIAL_MODE = "SpecialMode" ;
 	public static final String TRACKING_PORT = "TrackingPort" ;
 	public static final String IS_DUAL_PORT = "isDualPort" ;
+
+	public static final String FOV = "FOV" ;
+	public static final String SCAN_SPEED = "ScanSpeed" ;
+
 	//	Register the prototype.
 	static
 	{
@@ -33,45 +37,75 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public String getSpecialMode()
     {
-    	if( !_avTable.exists( SPECIAL_MODE ) )
-    		_avTable.set( SPECIAL_MODE , SPECIAL_MODES[ 0 ] ) ;
-    	return _avTable.get( SPECIAL_MODE ) ;
+	if( !_avTable.exists( SPECIAL_MODE ) )
+		_avTable.set( SPECIAL_MODE , SPECIAL_MODES[ 0 ] ) ;
+	return _avTable.get( SPECIAL_MODE ) ;
     }
-    
+
     public void setSpecialMode( String mode )
     {
-    	for( String current : SPECIAL_MODES )
-    	{
-    		if( current.equals( mode ) )
-    		{
-    			_avTable.set( SPECIAL_MODE , mode ) ;
-    			break ;
-    		}
-    	}
+	for( String current : SPECIAL_MODES )
+	{
+		if( current.equals( mode ) )
+		{
+			_avTable.set( SPECIAL_MODE , mode ) ;
+			break ;
+		}
+	}
     }
-    
+
     public int getTrackingPort()
     {
-    	if( !_avTable.exists( TRACKING_PORT ) )
-    		_avTable.set( TRACKING_PORT , 1 ) ;
-    	return _avTable.getInt( TRACKING_PORT , 1 ) ;
+	if( !_avTable.exists( TRACKING_PORT ) )
+		_avTable.set( TRACKING_PORT , 1 ) ;
+	return _avTable.getInt( TRACKING_PORT , 1 ) ;
     }
-    
+
     public void setTrackingPort( int port )
     {
-    	if( port == 1 || port == 2)
-    		_avTable.set( TRACKING_PORT , port ) ;
+	if( port == 1 || port == 2 )
+		_avTable.set( TRACKING_PORT , port ) ;
     }
-    
+
     public boolean isDualPort()
     {
-    	if( !_avTable.exists( IS_DUAL_PORT ) )
-    		_avTable.set( IS_DUAL_PORT , true ) ;
-    	return _avTable.getBool( IS_DUAL_PORT ) ;
+	if( !_avTable.exists( IS_DUAL_PORT ) )
+		_avTable.set( IS_DUAL_PORT , true ) ;
+	return _avTable.getBool( IS_DUAL_PORT ) ;
     }
-    
+
     public void setIsDualPort( boolean dualPort )
     {
-    	_avTable.set( IS_DUAL_PORT , dualPort ) ;
+	_avTable.set( IS_DUAL_PORT , dualPort ) ;
+    }
+
+    public double getFOV()
+    {
+	return _avTable.getDouble( FOV , 0.56 ) ;
+    }
+
+    public void setFOV( double fov )
+    {
+	_avTable.set( FOV , fov ) ;
+    }
+
+    public double getResolution()
+    {
+	return 0.02425 * Math.sqrt( getFOV() / Math.PI ) ;
+    }
+
+    public double getScanSpeed()
+    {
+	return _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
+    }
+
+    public void setScanSpeed( double scanSpeed )
+    {
+	_avTable.set( SCAN_SPEED , scanSpeed ) ;
+    }
+
+    public double getNyquist()
+    {
+	return 250. / getScanSpeed() ;
     }
 }
