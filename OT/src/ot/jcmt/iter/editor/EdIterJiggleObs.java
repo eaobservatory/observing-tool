@@ -141,6 +141,9 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			_iterObs.setScaleFactor( tbwe.getDoubleValue( 1. ) ) ;
 		else
 			super.textBoxKeyPress( tbwe ) ;
+
+		_w.noiseTextBox.setValue( calculateNoise() ) ;
+		_w.noiseTextBox.setToolTipText( _noiseToolTip ) ;
 	}
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
