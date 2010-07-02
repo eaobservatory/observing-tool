@@ -104,7 +104,7 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public void setScanSpeed( double scanSpeed )
     {
-	scanSpeed *= 2.5 ;
+	scanSpeed = MathUtil.round( scanSpeed * 2.5 , 5 ) ;
 	_avTable.set( SCAN_SPEED , scanSpeed ) ;
     }
 
