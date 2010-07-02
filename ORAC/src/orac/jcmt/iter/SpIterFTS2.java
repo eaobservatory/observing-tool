@@ -2,6 +2,7 @@ package orac.jcmt.iter ;
 
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
+import gemini.util.MathUtil ;
 
 @SuppressWarnings( "serial" )
 public class SpIterFTS2 extends SpIterJCMTObs
@@ -97,11 +98,14 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getScanSpeed()
     {
-	return _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
+	double scanSpeed = _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
+	scanSpeed = MathUtil.round( scanSpeed / 2.5 , 5 ) ;
+	return scanSpeed ;
     }
 
     public void setScanSpeed( double scanSpeed )
     {
+	scanSpeed *= 2.5 ;
 	_avTable.set( SCAN_SPEED , scanSpeed ) ;
     }
 
