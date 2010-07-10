@@ -1,6 +1,7 @@
 package ot.jcmt.iter.editor ;
 
 import java.awt.BorderLayout ;
+import java.awt.Component ;
 import java.awt.Font ;
 import java.awt.GridBagConstraints ;
 import java.awt.GridBagLayout ;
@@ -132,8 +133,8 @@ public class IterFTS2ObsGUI extends JPanel
 		resolutionFOVPanel.setBorder( resolutionBorder ) ;
 		resolutionFOVPanel.setLayout( new GridBagLayout() ) ;
 		resolutionFOVPanel.add( resolutionFOV , new GridBagConstraints( 0 , 0 , 4 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		resolutionFOVPanel.add( loResHiFOVLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		resolutionFOVPanel.add( hiResLoFOVLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( hiResLoFOVLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( loResHiFOVLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( resolutionLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( resolution , new GridBagConstraints( 1 , 2 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( OneDividedByCM , new GridBagConstraints( 3 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
@@ -145,7 +146,7 @@ public class IterFTS2ObsGUI extends JPanel
 		hiSpdLoNyqLabel.setText( "Hi spd/Lo Nyq" ) ;
 		loSpdHiNyqLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
 		loSpdHiNyqLabel.setText( "Lo spd/Hi Nyq" ) ;
-		scanSpeedLabel.setText( "Scan speed : " ) ;
+		scanSpeedLabel.setText( "Optical scan speed : " ) ;
 		cmPerSecondLabel.setText( "cm/s" ) ;
 		nyquistLabel.setText( "Nyquist : " ) ;
 		OneOverByCM.setText( "1/cm" ) ;
@@ -153,7 +154,7 @@ public class IterFTS2ObsGUI extends JPanel
 		nyquist.setEditable( false ) ;
 		scanSpeedNyquist.setPaintTicks( true ) ;
 		scanSpeedNyquist.setPaintTrack( true ) ;
-		Border scanspeedNyquistBorder = BorderFactory.createTitledBorder( "Scan speed/Nyquist" ) ;
+		Border scanspeedNyquistBorder = BorderFactory.createTitledBorder( "Optical scan speed/Nyquist" ) ;
 		scanSpeedNyquistPanel.setBorder( scanspeedNyquistBorder ) ;
 		scanSpeedNyquistPanel.setLayout( new GridBagLayout() ) ;
 		scanSpeedNyquistPanel.add( scanSpeedNyquist , new GridBagConstraints( 0 , 0 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
@@ -186,5 +187,20 @@ public class IterFTS2ObsGUI extends JPanel
 		southernPanel.add( sensitivityTimePanel ) ;
 
 		this.add( southernPanel , BorderLayout.SOUTH ) ;
+	}
+
+	public void southernPanelEnabled( boolean enabled )
+	{
+		Component[] components = sensitivityTimePanel.getComponents() ;
+		for( Component component : components )
+			component.setEnabled( enabled ) ;
+
+		components = scanSpeedNyquistPanel.getComponents() ;
+		for( Component component : components )
+			component.setEnabled( enabled ) ;
+
+		components = resolutionFOVPanel.getComponents() ;
+		for( Component component : components )
+			component.setEnabled( enabled ) ;
 	}
 }

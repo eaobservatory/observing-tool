@@ -8,7 +8,12 @@ public class SpIterFTS2 extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "FTS2Obs" , "FTS-2" ) ;
 	public static String[] JIGGLE_PATTERNS = {} ;
-	public static String[] SPECIAL_MODES = { "SED" , "Spectral Line" , "Spectral Flatfield" , "ZPD" } ;
+	public static final String SED = "SED" ;
+	public static final String SPECTRAL_LINE = "Spectral Line" ;
+	public static final String SPECTRAL_FLAT_FIELD = "Spectral Flatfield" ;
+	public static final String ZPD = "ZPD" ;
+	public static final String VARIABLE_MODE = "Variable Mode" ;
+	public static String[] SPECIAL_MODES = { SED , SPECTRAL_LINE , SPECTRAL_FLAT_FIELD , ZPD , VARIABLE_MODE } ;
 
 	public static final String SPECIAL_MODE = "SpecialMode" ;
 	public static final String TRACKING_PORT = "TrackingPort" ;
@@ -82,7 +87,7 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getFOV()
     {
-	return _avTable.getDouble( FOV , 0.56 ) ;
+	return _avTable.getDouble( FOV , 4.39 ) ;
     }
 
     public void setFOV( double fov )
@@ -90,10 +95,12 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	_avTable.set( FOV , fov ) ;
     }
 
-    public double getResolution()
-    {
-	return 0.02425 * Math.sqrt( getFOV() / Math.PI ) ;
-    }
+	public double getResolution()
+	{
+		double FOV = getFOV() ;
+		FOV *= FOV ;
+		return 0.02425 * Math.sqrt( FOV / Math.PI ) ;
+	}
 
     public double getScanSpeed()
     {
@@ -102,11 +109,11 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	return scanSpeed ;
     }
 
-    public void setScanSpeed( double scanSpeed )
-    {
-	scanSpeed = MathUtil.round( scanSpeed * 2.5 , 5 ) ;
-	_avTable.set( SCAN_SPEED , scanSpeed ) ;
-    }
+	public void setScanSpeed( double scanSpeed )
+	{
+		scanSpeed = MathUtil.round( scanSpeed * 2.5 , 5 ) ;
+		_avTable.set( SCAN_SPEED , scanSpeed ) ;
+	}
 
     public double getNyquist()
     {

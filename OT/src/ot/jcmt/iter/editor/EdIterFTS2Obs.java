@@ -31,8 +31,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.port1.addActionListener( this ) ;
 		_w.port2.addActionListener( this ) ;
 
-		_w.resolutionFOV.setMinimum( 56 ) ;
-		_w.resolutionFOV.setMaximum( 900 ) ;
+		_w.resolutionFOV.setMinimum( 439 ) ;
+		_w.resolutionFOV.setMaximum( 731 ) ;
 		_w.resolutionFOV.addChangeListener( this ) ;
 
 		_w.scanSpeedNyquist.setMinimum( 40 ) ;
@@ -72,6 +72,7 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.resolution.setText( "" + MathUtil.round( _inst.getResolution() , 4 ) ) ;
 		_w.scanSpeed.setText( "" + speed ) ;
 		_w.nyquist.setText( "" + MathUtil.round( _inst.getNyquist() , 4 ) ) ;
+		_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( _inst.getSpecialMode() ) ) ;
 	}
 
     public void actionPerformed( ActionEvent e )
@@ -80,8 +81,11 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	    if( _w.specialModes.equals( source ) )
 	    {
 	    	Object item = (( DropDownListBoxWidgetExt )source).getSelectedItem() ;
-	    	if( item instanceof String )
+		if( item instanceof String )
+		{
 			_inst.setSpecialMode( ( String )item ) ;
+			_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( item ) ) ;	
+		}
 	    }
 	    else if( _w.dual.equals( source ) )
 	    {
@@ -101,22 +105,22 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	    }    
     }
 
-    public void stateChanged( ChangeEvent e )
-    {
-	Object source = e.getSource() ;
-	if( source == _w.resolutionFOV )
+	public void stateChanged( ChangeEvent e )
 	{
-		int fov = _w.resolutionFOV.getValue() ;
-		double fieldOfView = fov / 100. ;
-		_inst.setFOV( fieldOfView ) ;
-		_updateWidgets() ;
+		Object source = e.getSource() ;
+		if( source == _w.resolutionFOV )
+		{
+			int fov = _w.resolutionFOV.getValue() ;
+			double fieldOfView = fov / 100. ;
+			_inst.setFOV( fieldOfView ) ;
+			_updateWidgets() ;
+		}
+		else if( source == _w.scanSpeedNyquist )
+		{
+			int scanSpeed = _w.scanSpeedNyquist.getValue() ;
+			double speed = scanSpeed / 100. ;
+			_inst.setScanSpeed( speed ) ;
+			_updateWidgets() ;
+		}
 	}
-	else if( source == _w.scanSpeedNyquist )
-	{
-		int scanSpeed = _w.scanSpeedNyquist.getValue() ;
-		double speed = scanSpeed / 100. ;
-		_inst.setScanSpeed( speed ) ;
-		_updateWidgets() ;
-	}
-    }
 }
