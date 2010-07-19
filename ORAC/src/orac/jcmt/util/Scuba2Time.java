@@ -13,6 +13,7 @@ import orac.jcmt.iter.SpIterNoiseObs ;
 import orac.jcmt.iter.SpIterSkydipObs  ;
 import orac.jcmt.iter.SpIterStareObs ;
 import orac.jcmt.iter.SpIterDREAMObs ;
+import orac.jcmt.iter.SpIterFTS2 ;
 import orac.jcmt.SpJCMTConstants ;
 
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
@@ -51,6 +52,8 @@ public class Scuba2Time implements SpJCMTConstants
 			integrationTime = stare( ( SpIterStareObs )obs ) ;
 		else if( obs instanceof SpIterDREAMObs )
 			integrationTime = dream( ( SpIterDREAMObs )obs ) ;
+		else if( obs instanceof SpIterFTS2 )
+			integrationTime = fts2( ( SpIterFTS2 )obs ) ;
 
 		return integrationTime ;
 	}
@@ -184,6 +187,50 @@ public class Scuba2Time implements SpJCMTConstants
 			}
 		}
 		return found ;
+	}
+
+	private static final double multiplicand450 = 1.7 * ( 10 ^ 6 ) ;
+	private static final double multiplicand850 = 4.4 * ( 10 ^ 4 ) ;
+	private boolean fourFifty = false ;
+	public double fts2( SpIterFTS2 fts2 )
+	{
+		double integrationTime = 0. ;
+		double multiplicand = 0. ;
+		double FOV = fts2.getFOV() ;
+		FOV *= FOV ; // in square arcminutes
+		double mapArea = FOV ; // in square degrees, for now assume FOV
+		double mappingEfficiancy = 0.6 ; // supplied
+
+		double airmass = getAirmass( fts2 ) ;
+		double csoTau = 0. ;
+		double NEFD = 0. ;
+		if( airmass > -1. )
+		{
+			SpSiteQualityObsComp siteQuality = findSiteQuality( fts2 ) ;
+
+			if( siteQuality != null )
+			{
+				csoTau = siteQuality.getNoiseCalculationTau() ;
+
+				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
+				NEFD = s2n.calculateNEFD( Scuba2Noise.eight50 , csoTau , getAirmass( fts2 ) ) ;			}
+		}
+
+		double spectralResolution = fts2.getResolutionInHz() ;
+		double sensitivity = fts2.getSensitivity() ; // in mJy Hz ^ -0.5
+
+		if( fourFifty )
+			multiplicand = multiplicand450 ;
+		else
+			multiplicand = multiplicand850 ;
+
+		double multiplyMapArea = multiplicand * mapArea ;
+		double FOVEfficiancy = FOV * mappingEfficiancy ;
+		double resolutionSensitivity = spectralResolution * sensitivity ;
+
+		integrationTime = ( multiplyMapArea / FOVEfficiancy ) * ( NEFD / resolutionSensitivity ) ; 
+
+		return integrationTime ;
 	}
 
 	private double pointing( SpIterPointingObs pointing )

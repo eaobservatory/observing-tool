@@ -44,6 +44,8 @@ public class IterFTS2ObsGUI extends JPanel
 	JLabel loResHiFOVLabel = new JLabel() ;
 	JLabel resolutionLabel = new JLabel() ;
 	JTextField resolution = new JTextField() ;
+	JLabel MHzLabel = new JLabel() ;
+	JTextField resolutionMHz = new JTextField() ;
 	JLabel OneDividedByCM = new JLabel() ;
 	JLabel FOVLabel = new JLabel() ;
 	JTextField FOV = new JTextField() ;
@@ -122,10 +124,12 @@ public class IterFTS2ObsGUI extends JPanel
 		loResHiFOVLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
 		loResHiFOVLabel.setText( "Lo Res/Hi FOV" ) ;
 		resolutionLabel.setText(  "Resolution : " ) ;
+		MHzLabel.setText( "MHz" ) ;
 		OneDividedByCM.setText( "1/CM" ) ;
 		FOVLabel.setText( "FOV" ) ;
 		squareArcminutes.setText( "arcmin^2" ) ;
 		resolution.setEditable( false ) ;
+		resolutionMHz.setEditable( false ) ;
 		FOV.setEditable( false ) ;
 		resolutionFOV.setPaintTicks( true ) ;
 		resolutionFOV.setPaintTrack( true ) ;
@@ -138,9 +142,11 @@ public class IterFTS2ObsGUI extends JPanel
 		resolutionFOVPanel.add( resolutionLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( resolution , new GridBagConstraints( 1 , 2 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( OneDividedByCM , new GridBagConstraints( 3 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		resolutionFOVPanel.add( FOVLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		resolutionFOVPanel.add( FOV , new GridBagConstraints( 1 , 3 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		resolutionFOVPanel.add( squareArcminutes , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( resolutionMHz , new GridBagConstraints( 1 , 3 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( MHzLabel , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( FOVLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( FOV , new GridBagConstraints( 1 , 4 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( squareArcminutes , new GridBagConstraints( 3 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
 		hiSpdLoNyqLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
 		hiSpdLoNyqLabel.setText( "Hi spd/Lo Nyq" ) ;

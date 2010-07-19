@@ -1,5 +1,6 @@
 package orac.jcmt.iter ;
 
+import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.util.MathUtil ;
@@ -21,6 +22,10 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
 	public static final String FOV = "FOV" ;
 	public static final String SCAN_SPEED = "ScanSpeed" ;
+	public static final String SENSITIVITY = "Sensitivity" ;
+
+	// Approximate light speed
+	final static double c = 3 * Math.pow( 10 , 8 ) ;
 
 	//	Register the prototype.
 	static
@@ -87,7 +92,7 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getFOV()
     {
-	return _avTable.getDouble( FOV , 4.39 ) ;
+	return _avTable.getDouble( FOV , 0.44 ) ;
     }
 
     public void setFOV( double fov )
@@ -100,6 +105,27 @@ public class SpIterFTS2 extends SpIterJCMTObs
 		double FOV = getFOV() ;
 		FOV *= FOV ;
 		return 0.02425 * Math.sqrt( FOV / Math.PI ) ;
+	}
+
+	public double getResolutionInHz()
+	{
+		double resolution = getResolution() ;
+
+		double wavelength = ( ( 1. / resolution ) * 1000000. ) / 100. ;
+		double micrometres = wavelength * Math.pow( 10 , -6 ) ;
+		double frequency = c / micrometres ;
+
+		return frequency ;
+	}
+
+	public double getResolutionInMHz()
+	{
+		return getResolutionInHz() * Math.pow( 10 , -6 ) ;
+	}
+
+	public double getResolutionInGHz()
+	{
+		return getResolutionInHz() * Math.pow( 10 , -9 ) ;
 	}
 
     public double getScanSpeed()
@@ -119,4 +145,35 @@ public class SpIterFTS2 extends SpIterJCMTObs
     {
 	return 250. / getScanSpeed() ;
     }
+
+    public void setSensitivity( String sensitivityString )
+    {
+    	try
+    	{
+    		double sensitivity = new Double( sensitivityString ) ;
+    		setSensitivity( sensitivity ) ;
+    	}
+    	catch( NumberFormatException nfe ){}
+    }
+
+    public void setSensitivity( double sensitivity )
+    {
+    	_avTable.set( SENSITIVITY , sensitivity ) ;
+    }
+
+    public double getSensitivity()
+    {
+    	return _avTable.getDouble( SENSITIVITY , 0. ) ;
+    }
+
+	public double getElapsedTime()
+	{
+		double time = SCUBA2_STARTUP_TIME ;
+
+		Scuba2Time s2time = new Scuba2Time() ;
+
+		time = s2time.totalIntegrationTime( this ) ;
+
+		return time ;
+	}
 }
