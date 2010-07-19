@@ -60,9 +60,9 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenu createFileMenu()
 	{
 		fileMenu = new JMenu( "File" ) ;
-		fileMenu.add( createFileNewProgramMenuItem() ) ;
-		fileMenu.add( createFileNewLibraryMenuItem() ) ;
-		fileMenu.add( createFileOpenMenuItem() ) ;
+		fileMenu.add( createMenuItem( NEW_PROGRAM ) ) ;
+		fileMenu.add( createMenuItem( NEW_LIBRARY ) ) ;
+		fileMenu.add( createMenuItem( OPEN ) ) ;
 
 		JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems() ;
 		for( int i = 0 ; i < instLibraryMenuItems.length ; i++ )
@@ -75,9 +75,9 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 			fileMenu.add( instLibraryMenuItems[ i ] ) ;
 		}
 		fileMenu.addSeparator() ;
-		fileMenu.add( createFilePreferencesMenuItem() ) ;
+		fileMenu.add( createMenuItem( PREFERENCES ) ) ;
 		fileMenu.addSeparator() ;
-		fileMenu.add( createFileExitMenuItem() ) ;
+		fileMenu.add( createMenuItem( EXIT ) ) ;
 		return fileMenu ;
 	}
 
@@ -87,16 +87,16 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	protected JMenu createObservingDatabaseMenu()
 	{
 		observingDatabaseMenu = new JMenu( "Observing Database" ) ;
-		observingDatabaseMenu.add( createObservingDatabaseFetchProgramMenuItem() ) ;
+		observingDatabaseMenu.add( createMenuItem( FETCH_PROGRAM ) ) ;
 		return observingDatabaseMenu ;
 	}
 
 	protected JMenu createHelpMenu()
 	{
 		helpMenu = new JMenu( "Help" ) ;
-		helpMenu.add( createHelpNewsMenuItem() ) ;
-		helpMenu.add( createHelpAboutMenuItem() ) ;
-		helpMenu.add( createHelpOtHelpMenuItem() ) ;
+		helpMenu.add( createMenuItem( NEWS ) ) ;
+		helpMenu.add( createMenuItem( ABOUT ) ) ;
+		helpMenu.add( createMenuItem( OT_HELP ) ) ;
 
 		helpMenu.setAlignmentX( JComponent.RIGHT_ALIGNMENT ) ;
 
@@ -106,29 +106,9 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 	/**
 	 * Create the File => "New Program" menu item
 	 */
-	protected JMenuItem createFileNewProgramMenuItem()
+	protected JMenuItem createMenuItem( String itemName )
 	{
-		JMenuItem menuItem = new JMenuItem( NEW_PROGRAM ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "New Library" menu item
-	 */
-	protected JMenuItem createFileNewLibraryMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( NEW_LIBRARY ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "Open" menu item
-	 */
-	protected JMenuItem createFileOpenMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( OPEN ) ;
+		JMenuItem menuItem = new JMenuItem( itemName ) ;
 		menuItem.addActionListener( this ) ;
 		return menuItem ;
 	}
@@ -157,66 +137,6 @@ public class OTMenuBar extends JMenuBar implements ActionListener
 		}
 
 		return menuItems ;
-	}
-
-	/**
-	 * Create the File => "Preferences" menu item
-	 */
-	protected JMenuItem createFilePreferencesMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( PREFERENCES ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the File => "Exit" menu item
-	 */
-	protected JMenuItem createFileExitMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( EXIT ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the Observing Database => "Fetch Program" menu item
-	 */
-	protected JMenuItem createObservingDatabaseFetchProgramMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( FETCH_PROGRAM ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the Help => "News ..." menu item
-	 */
-	protected JMenuItem createHelpNewsMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( NEWS ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the Help => "About ..." menu item
-	 */
-	protected JMenuItem createHelpAboutMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( ABOUT ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
-	}
-
-	/**
-	 * Create the Help => "OT Help ..." menu item
-	 */
-	protected JMenuItem createHelpOtHelpMenuItem()
-	{
-		JMenuItem menuItem = new JMenuItem( OT_HELP ) ;
-		menuItem.addActionListener( this ) ;
-		return menuItem ;
 	}
 
 	public void actionPerformed( ActionEvent ae )
