@@ -16,24 +16,21 @@
 package ot.jcmt.tpe ;
 
 import java.awt.Polygon ;
-import java.awt.geom.Point2D;
+import java.awt.geom.Point2D ;
 
-import jsky.app.ot.tpe.TpeImageWidget;
+import jsky.app.ot.tpe.TpeImageWidget ;
 import jsky.app.ot.tpe.TpeSciArea ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
-import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePos ;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
-import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.util.Angle;
-import gemini.util.CoordSys;
-import gemini.util.DDMMSS;
-import gemini.util.HHMMSS;
+import gemini.sp.obsComp.SpTelescopeObsComp ;
+import gemini.util.CoordSys ;
 import gemini.util.PolygonD ;
 import orac.jcmt.iter.SpIterRasterObs ;
-import orac.util.CoordConvert;
 import gemini.util.RADec ;
+import orac.util.MapArea ;
 
 /**
  * Describes a Scan Area and facilitates drawing, rotating it.
@@ -94,17 +91,14 @@ public class TpeScanArea extends TpeSciArea
 	
 	public PolygonD getPolygonDAt( double x , double y , TpeImageWidget _iw )
 	{
-		System.out.println( "x " + x  + " y " + y ) ;
 		if( raster != null )
 		{
-			System.out.println( "Raster found" ) ;
 			SpTelescopeObsComp targetList = SpTreeMan.findTargetList( raster ) ;
 			SpTelescopePosList list = targetList.getPosList() ;
 			SpTelescopePos position = list.getBasePosition() ;
 			if( position.getCoordSys() == CoordSys.GAL )
 			{
-				System.out.println( "Galactic system found" ) ;
-				RADec[] positions = orac.util.MapArea.createNewMapArea( position.getXaxis() , position.getYaxis() , 0 , 0 , raster.getWidth() , raster.getHeight() , raster.getPosAngle() ) ;
+				RADec[] positions = MapArea.createNewMapArea( position.getXaxis() , position.getYaxis() , 0 , 0 , raster.getWidth() , raster.getHeight() , raster.getPosAngle() ) ;
 
 				PolygonD pd = _pd ;
 				double[] xpoints = pd.xpoints ;
@@ -131,14 +125,6 @@ public class TpeScanArea extends TpeSciArea
 
 				return new PolygonD( pd ) ;
 			}
-			else
-			{
-				System.out.println( position.getCoordSysAsString() + " found" ) ;
-			}
-		}
-		else
-		{
-			System.out.println( "Raster not found" ) ;
 		}
 		return super.getPolygonDAt( x , y ) ;
 	}
