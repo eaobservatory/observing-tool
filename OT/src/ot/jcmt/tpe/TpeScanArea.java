@@ -15,10 +15,25 @@
 //
 package ot.jcmt.tpe ;
 
+import java.awt.Polygon ;
+import java.awt.geom.Point2D;
+
+import jsky.app.ot.tpe.TpeImageWidget;
 import jsky.app.ot.tpe.TpeSciArea ;
 import jsky.app.ot.fits.gui.FitsImageInfo ;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.util.Angle;
+import gemini.util.CoordSys;
+import gemini.util.DDMMSS;
+import gemini.util.HHMMSS;
+import gemini.util.PolygonD ;
 import orac.jcmt.iter.SpIterRasterObs ;
+import orac.util.CoordConvert;
+import gemini.util.RADec ;
 
 /**
  * Describes a Scan Area and facilitates drawing, rotating it.
@@ -29,6 +44,17 @@ import orac.jcmt.iter.SpIterRasterObs ;
  */
 public class TpeScanArea extends TpeSciArea
 {
+	private SpIterRasterObs raster ;
+	private PolygonD _pd ;
+
+	public TpeScanArea()
+	{
+		_pd = new PolygonD() ;
+		_pd.xpoints = new double[ 5 ] ;
+		_pd.ypoints = new double[ 5 ] ;
+		_pd.npoints = 5 ;
+	}
+
 	/**
 	 * Update the ScanArea fields, returning true iff changes were made.
 	 */
@@ -43,6 +69,8 @@ public class TpeScanArea extends TpeSciArea
 	public boolean update( SpIterRasterObs iterRaster , FitsImageInfo fii )
 	{
 		double w , h , posAngle , sky ;
+
+		raster = iterRaster ;
 
 		w = iterRaster.getWidth() * fii.pixelsPerArcsec ;
 		h = iterRaster.getHeight() * fii.pixelsPerArcsec ;
@@ -62,5 +90,61 @@ public class TpeScanArea extends TpeSciArea
 		}
 
 		return false ;
+	}
+	
+	public PolygonD getPolygonDAt( double x , double y , TpeImageWidget _iw )
+	{
+		System.out.println( "x " + x  + " y " + y ) ;
+		if( raster != null )
+		{
+			System.out.println( "Raster found" ) ;
+			SpTelescopeObsComp targetList = SpTreeMan.findTargetList( raster ) ;
+			SpTelescopePosList list = targetList.getPosList() ;
+			SpTelescopePos position = list.getBasePosition() ;
+			if( position.getCoordSys() == CoordSys.GAL )
+			{
+				System.out.println( "Galactic system found" ) ;
+				RADec[] positions = orac.util.MapArea.createNewMapArea( position.getXaxis() , position.getYaxis() , 0 , 0 , raster.getWidth() , raster.getHeight() , raster.getPosAngle() ) ;
+
+				PolygonD pd = _pd ;
+				double[] xpoints = pd.xpoints ;
+				double[] ypoints = pd.ypoints ;
+
+				Point2D.Double point = _iw.raDecToImageWidget( positions[ 0 ].ra , positions[ 0 ].dec ) ;
+				xpoints[ 0 ] = point.x ;
+				ypoints[ 0 ] = point.y ;
+
+				point = _iw.raDecToImageWidget( positions[ 1 ].ra , positions[ 1 ].dec ) ;
+				xpoints[ 1 ] = point.x ;
+				ypoints[ 1 ] = point.y ;
+
+				point = _iw.raDecToImageWidget( positions[ 2 ].ra , positions[ 2 ].dec ) ;
+				xpoints[ 2 ] = point.x ;
+				ypoints[ 2 ] = point.y ;
+
+				point = _iw.raDecToImageWidget( positions[ 3 ].ra , positions[ 3 ].dec ) ;
+				xpoints[ 3 ] = point.x ;
+				ypoints[ 3 ] = point.y ;
+
+				xpoints[ 4 ] = xpoints[ 0 ] ;
+				ypoints[ 4 ] = ypoints[ 0 ] ;
+
+				return new PolygonD( pd ) ;
+			}
+			else
+			{
+				System.out.println( position.getCoordSysAsString() + " found" ) ;
+			}
+		}
+		else
+		{
+			System.out.println( "Raster not found" ) ;
+		}
+		return super.getPolygonDAt( x , y ) ;
+	}
+
+	public Polygon getPolygonAt( double x , double y )
+	{
+		return getPolygonDAt( x , y ).getAWTPolygon() ;
 	}
 }
