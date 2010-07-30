@@ -253,43 +253,46 @@ public class EdIterOffsetFeature extends TpeImageFeature implements TpeDraggable
 		if( getSciAreaMode() != SCI_AREA_NONE )
 			tsa = _iw.getSciArea() ;
 
-		Enumeration<FitsPosMapEntry> e = _opm.getAllPositionMapEntries() ;
-		while( e.hasMoreElements() )
+		if( _opm != null )
 		{
-			FitsPosMapEntry pme = e.nextElement() ;
-			if( pme.telescopePos.getTag().startsWith( SpOffsetPos.GUIDE_TAG ) )
-				g.setColor( Color.blue ) ;
-			else
-				g.setColor( Color.yellow ) ;
-				
-			Point2D.Double p = pme.screenPos ;
-			// Rotate this point based on the current pos angle off the science area
-			g.drawOval( ( int )( p.x - r ) , ( int )( p.y - r ) , d , d ) ;
-
-			if( getDrawIndex() )
+			Enumeration<FitsPosMapEntry> e = _opm.getAllPositionMapEntries() ;
+			while( e.hasMoreElements() )
 			{
-				// Should probably use font metrics to position the tag ...
-				// This is rather arbitrary ...
-				SpOffsetPos op = ( SpOffsetPos )pme.telescopePos ;
-				if( !( op.getTag().startsWith( SpOffsetPos.GUIDE_TAG ) ) )
-					g.drawString( String.valueOf( _opl.getPositionIndex( op ) ) , ( int )p.x + d , ( int )p.y + d + r ) ;
-			}
+				FitsPosMapEntry pme = e.nextElement() ;
+				if( pme.telescopePos.getTag().startsWith( SpOffsetPos.GUIDE_TAG ) )
+					g.setColor( Color.blue ) ;
+				else
+					g.setColor( Color.yellow ) ;
 
-			switch( getSciAreaMode() )
-			{
-				case SCI_AREA_SELECTED :
-					if( pme.telescopePos == _opl.getSelectedPos() )
+				Point2D.Double p = pme.screenPos ;
+				// Rotate this point based on the current pos angle off the science area
+				g.drawOval( ( int )( p.x - r ) , ( int )( p.y - r ) , d , d ) ;
+
+				if( getDrawIndex() )
+				{
+					// Should probably use font metrics to position the tag ...
+					// This is rather arbitrary ...
+					SpOffsetPos op = ( SpOffsetPos )pme.telescopePos ;
+					if( !( op.getTag().startsWith( SpOffsetPos.GUIDE_TAG ) ) )
+						g.drawString( String.valueOf( _opl.getPositionIndex( op ) ) , ( int )p.x + d , ( int )p.y + d + r ) ;
+				}
+
+				switch( getSciAreaMode() )
+				{
+					case SCI_AREA_SELECTED :
+						if( pme.telescopePos == _opl.getSelectedPos() )
+							g.drawPolygon( tsa.getPolygonAt( ( double )p.x , ( double )p.y ) ) ;
+						break ;
+					case SCI_AREA_ALL :
 						g.drawPolygon( tsa.getPolygonAt( ( double )p.x , ( double )p.y ) ) ;
-					break ;
-				case SCI_AREA_ALL :
-					g.drawPolygon( tsa.getPolygonAt( ( double )p.x , ( double )p.y ) ) ;
-					break ;
-			}
+						break ;
+				}
 
-			if( _mapItems != null )
-			{
-				for( int j = 0 ; j < _mapItems.size() ; j++ )
-					g.drawPolygon( getPolygon( ( double )p.x , ( double )p.y , _mapItems.get( j ) , fii , pme ) ) ;
+				if( _mapItems != null )
+				{
+					for( int j = 0 ; j < _mapItems.size() ; j++ )
+						g.drawPolygon( getPolygon( ( double )p.x , ( double )p.y , _mapItems.get( j ) , fii , pme ) ) ;
+				}
 			}
 		}
 	}
@@ -417,51 +420,52 @@ public class EdIterOffsetFeature extends TpeImageFeature implements TpeDraggable
 
 	private Polygon getPolygon( double x , double y , SpMapItem spMapItem , FitsImageInfo fii , FitsPosMapEntry pme )
 	{
+		Polygon polygon = null ;
 		if( spMapItem instanceof SpIterRasterObs )
+			polygon = getPolygonAt( pme.telescopePos , _iw , ( SpIterRasterObs )spMapItem ) ;
+
+		if( polygon == null )
 		{
-			Polygon polygon = getPolygonAt( pme.telescopePos , _iw , ( SpIterRasterObs  )spMapItem ) ;
-			if( polygon != null )
-				return polygon ;
+			polygon = new Polygon() ;
+			double corner_x , corner_y , corner_x_rotated , corner_y_rotated ;
+			double hw = ( spMapItem.getWidth() / 2 ) * fii.pixelsPerArcsec ;
+			double hh = ( spMapItem.getHeight() / 2 ) * fii.pixelsPerArcsec ;
+			double posAngle = ( spMapItem.getPosAngle() * Math.PI ) / 180. ;
+			double cosAngle = Math.cos( posAngle ) ;
+			double sinAngle = Math.sin( posAngle ) ;
+
+			// Upper right corner
+			corner_x = hw ;
+			corner_y = hh ;
+			corner_x_rotated = ( corner_x * cosAngle ) + ( corner_y * sinAngle ) ;
+			corner_y_rotated = ( corner_x * -sinAngle ) + ( corner_y * cosAngle ) ;
+
+			polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
+
+			// Upper left corner
+			corner_x = -hw ;
+			corner_y = hh ;
+			corner_x_rotated = ( corner_x * cosAngle ) + ( corner_y * Math.sin( posAngle ) ) ;
+			corner_y_rotated = ( corner_x * -sinAngle ) + ( corner_y * cosAngle ) ;
+
+			polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
+
+			// Lower left corner
+			corner_x = -hw ;
+			corner_y = -hh ;
+			corner_x_rotated = ( corner_x * cosAngle ) + ( corner_y * sinAngle ) ;
+			corner_y_rotated = ( corner_x * -sinAngle ) + ( corner_y * cosAngle ) ;
+
+			polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
+
+			// Lower right corner
+			corner_x = hw ;
+			corner_y = -hh ;
+			corner_x_rotated = ( corner_x * cosAngle ) + ( corner_y * sinAngle ) ;
+			corner_y_rotated = ( corner_x * -sinAngle ) + ( corner_y * cosAngle ) ;
+
+			polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
 		}
-
-		Polygon polygon = new Polygon() ;
-		double corner_x , corner_y , corner_x_rotated , corner_y_rotated ;
-		double w = spMapItem.getWidth() ;
-		double h = spMapItem.getHeight() ;
-		double posAngle = ( spMapItem.getPosAngle() * Math.PI ) / 180. ;
-
-		// Upper right corner
-		corner_x = ( w / 2. ) * fii.pixelsPerArcsec ;
-		corner_y = ( h / 2. ) * fii.pixelsPerArcsec ;
-		corner_x_rotated = ( corner_x * Math.cos( posAngle ) ) + ( corner_y * Math.sin( posAngle ) ) ;
-		corner_y_rotated = ( corner_x * ( -Math.sin( posAngle ) ) ) + ( corner_y * Math.cos( posAngle ) ) ;
-
-		polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
-
-		// Upper left corner
-		corner_x = -( w / 2. ) * fii.pixelsPerArcsec ;
-		corner_y = ( h / 2. ) * fii.pixelsPerArcsec ;
-		corner_x_rotated = ( corner_x * Math.cos( posAngle ) ) + ( corner_y * Math.sin( posAngle ) ) ;
-		corner_y_rotated = ( corner_x * ( -Math.sin( posAngle ) ) ) + ( corner_y * Math.cos( posAngle ) ) ;
-
-		polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
-
-		// Lower left corner
-		corner_x = -( w / 2. ) * fii.pixelsPerArcsec ;
-		corner_y = -( h / 2. ) * fii.pixelsPerArcsec ;
-		corner_x_rotated = ( corner_x * Math.cos( posAngle ) ) + ( corner_y * Math.sin( posAngle ) ) ;
-		corner_y_rotated = ( corner_x * ( -Math.sin( posAngle ) ) ) + ( corner_y * Math.cos( posAngle ) ) ;
-
-		polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
-
-		// Lower right corner
-		corner_x = ( w / 2. ) * fii.pixelsPerArcsec ;
-		corner_y = -( h / 2. ) * fii.pixelsPerArcsec ;
-		corner_x_rotated = ( corner_x * Math.cos( posAngle ) ) + ( corner_y * Math.sin( posAngle ) ) ;
-		corner_y_rotated = ( corner_x * ( -Math.sin( posAngle ) ) ) + ( corner_y * Math.cos( posAngle ) ) ;
-
-		polygon.addPoint( ( int )( corner_x_rotated + x ) , ( int )( corner_y_rotated + y ) ) ;
-
 		return polygon ;
 	}
 
