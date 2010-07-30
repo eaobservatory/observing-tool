@@ -781,11 +781,6 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 		}
 
 		_notifyOfGenericUpdate() ;
-
-		// Changing the coordinate system while maintaining the
-		// coordinate values (as done in the OT) results in
-		// change of location. (MFO, April 09, 2002)
-		_notifyOfLocationUpdate() ;
 	}
 
 	/**
