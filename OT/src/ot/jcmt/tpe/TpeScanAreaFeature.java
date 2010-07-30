@@ -195,7 +195,7 @@ public class TpeScanAreaFeature extends TpeImageFeature implements TpeDraggableF
 
 		double xBase = ( double )fii.baseScreenPos.x ;
 		double yBase = ( double )fii.baseScreenPos.y ;
-		_scanAreaPD = _scanArea.getPolygonDAt( xBase , yBase , _iw ) ;
+		_scanAreaPD = _scanArea.getPolygonDAt( xBase , yBase , _iw , iterRaster ) ;
 
 		// Init the _tickMarkPD
 		if( _tickMarkPD == null )
