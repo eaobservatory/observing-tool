@@ -41,7 +41,6 @@ import orac.util.MapArea ;
  */
 public class TpeScanArea extends TpeSciArea
 {
-	private SpIterRasterObs raster ;
 	private PolygonD _pd ;
 
 	public TpeScanArea()
@@ -67,8 +66,6 @@ public class TpeScanArea extends TpeSciArea
 	{
 		double w , h , posAngle , sky ;
 
-		raster = iterRaster ;
-
 		w = iterRaster.getWidth() * fii.pixelsPerArcsec ;
 		h = iterRaster.getHeight() * fii.pixelsPerArcsec ;
 
@@ -89,16 +86,16 @@ public class TpeScanArea extends TpeSciArea
 		return false ;
 	}
 	
-	public PolygonD getPolygonDAt( double x , double y , TpeImageWidget _iw )
+	public PolygonD getPolygonDAt( double x , double y , TpeImageWidget _iw , SpIterRasterObs iterRaster )
 	{
-		if( raster != null )
+		if( iterRaster != null && _iw != null )
 		{
-			SpTelescopeObsComp targetList = SpTreeMan.findTargetList( raster ) ;
+			SpTelescopeObsComp targetList = SpTreeMan.findTargetList( iterRaster ) ;
 			SpTelescopePosList list = targetList.getPosList() ;
 			SpTelescopePos position = list.getBasePosition() ;
 			if( position.getCoordSys() == CoordSys.GAL )
 			{
-				RADec[] positions = MapArea.createNewMapArea( position.getXaxis() , position.getYaxis() , 0 , 0 , raster.getWidth() , raster.getHeight() , raster.getPosAngle() ) ;
+				RADec[] positions = MapArea.createNewMapArea( position.getXaxis() , position.getYaxis() , 0 , 0 , iterRaster.getWidth() , iterRaster.getHeight() , iterRaster.getPosAngle() ) ;
 
 				PolygonD pd = _pd ;
 				double[] xpoints = pd.xpoints ;
@@ -129,8 +126,8 @@ public class TpeScanArea extends TpeSciArea
 		return super.getPolygonDAt( x , y ) ;
 	}
 
-	public Polygon getPolygonAt( double x , double y )
+	public Polygon getPolygonAt( double x , double y , TpeImageWidget _iw , SpIterRasterObs iterRaster  )
 	{
-		return getPolygonDAt( x , y ).getAWTPolygon() ;
+		return getPolygonDAt( x , y , _iw , iterRaster ).getAWTPolygon() ;
 	}
 }
