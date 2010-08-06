@@ -140,6 +140,54 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 		return iciA ;
 	}
 
+	public Hashtable<String,String> getIterTable() throws SpTranslationNotSupportedException
+	{
+		SpInstWFCAM inst ;
+		Hashtable<String,String> configTable = new Hashtable<String,String>() ;
+		try
+		{
+			inst = ( SpInstWFCAM )SpTreeMan.findInstrument( this ) ;
+		}
+		catch( Exception e )
+		{
+			throw new SpTranslationNotSupportedException( "No WFCAM instrument is scope" ) ;
+		}
+
+		List<String> iterList = getConfigAttribs() ;
+		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
+		for( int i = 0 ; i < nConfigs ; i++ )
+		{
+			configTable = inst.getConfigItems() ;
+			for( int j = 0 ; j < iterList.size() ; j++ )
+			{
+				if( iterList.contains( "filterIter" ) )
+					configTable.put( "filter" , getConfigSteps( "filterIter" ).get( i ) ) ;
+
+				if( iterList.contains( "readModeIter" ) )
+					configTable.put( "readMode" , getConfigSteps( "readModeIter" ).get( i ) ) ;
+
+				if( iterList.contains( "exposureTimeIter" ) )
+					configTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+
+				if( iterList.contains( "coaddsIter" ) )
+					configTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
+
+				if( iterList.contains( "instAperXIter" ) )
+					configTable.put( "instAperX" , getConfigSteps( "instAperXIter" ).get( i ) ) ;
+
+				if( iterList.contains( "instAperYIter" ) )
+					configTable.put( "instAperY" , getConfigSteps( "instAperYIter" ).get( i ) ) ;
+
+				if( iterList.contains( "instAperZIter" ) )
+					configTable.put( "instAperZ" , getConfigSteps( "instAperZIter" ).get( i ) ) ;
+
+				if( iterList.contains( "instAperLIter" ) )
+					configTable.put( "instAperL" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
+			}
+		}
+		return configTable ;
+	}
+
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpInstWFCAM inst ;
