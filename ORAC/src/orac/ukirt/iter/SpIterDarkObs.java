@@ -145,6 +145,20 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 				parent = parent.parent() ;
 			}
 		}
+		else if( "WFCAM".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
+		{
+			// If we are inside a WFCAM iterator, we need to pick up it's hashtable
+			SpItem parent = parent() ;
+			while( parent != null )
+			{
+				if( parent instanceof SpIterWFCAM )
+				{
+					defaultsTable = (( SpIterWFCAM )parent).getIterTable() ;
+					break ;
+				}
+				parent = parent.parent() ;
+			}
+		}
 
 		// Set the number of dark exposures
 		defaultsTable.put( "darkNumExp" , "" + getCoadds() ) ;
@@ -160,14 +174,6 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 		{
 			if( "WFCAM".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
 				defaultsTable.put( "type" , "dark" ) ;
-		}
-
-		// Delete things we dont't need
-		if( "WFCAM".equalsIgnoreCase( defaultsTable.get( "instrument" ) ) )
-		{
-			defaultsTable.remove( "filter" ) ;
-			defaultsTable.remove( "instPort" ) ;
-			defaultsTable.remove( "readMode" ) ;
 		}
 
 		// Now we need to write a config for this dark

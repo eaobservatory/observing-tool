@@ -204,6 +204,20 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 				parent = parent.parent() ;
 			}
 		}
+		else if( "WFCAM".equalsIgnoreCase( t.get( "instrument" ) ) )
+		{
+			// If we are inside a WFCAM iterator, we need to pick up it's hashtable
+			SpItem parent = parent() ;
+			while( parent != null )
+			{
+				if( parent instanceof SpIterWFCAM )
+				{
+					t = (( SpIterWFCAM )parent).getIterTable() ;
+					break ;
+				}
+				parent = parent.parent() ;
+			}
+		}
 
 		// CGS4 specific
 		if( t.containsKey( "biasExpTime" ) )
@@ -220,15 +234,7 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			t.put( "coadds" , "" + getCoadds() ) ;
 
 		// Delete redundant entries
-		if( "WFCAM".equalsIgnoreCase( t.get( "instrument" ) ) )
-		{
-			t.remove( "filter" ) ;
-			t.remove( "instPort" ) ;
-			t.remove( "readMode" ) ;
-			t.remove( "exposureTime" ) ;
-			t.remove( "coadds" ) ;
-		}
-		else if( "UIST".equalsIgnoreCase( t.get( "instrument" ) ) )
+		if( "UIST".equalsIgnoreCase( t.get( "instrument" ) ) )
 		{
 			t.remove( "instPort" ) ;
 			t.remove( "camera" ) ;
