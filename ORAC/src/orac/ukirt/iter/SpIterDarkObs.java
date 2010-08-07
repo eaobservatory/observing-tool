@@ -25,6 +25,7 @@ import gemini.sp.obsComp.SpInstObsComp ;
 import gemini.util.ConfigWriter ;
 
 import orac.ukirt.inst.SpDRRecipe ;
+import orac.ukirt.inst.SpInstWFCAM ;
 
 import java.io.IOException ;
 
@@ -151,7 +152,11 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 			SpItem parent = parent() ;
 			while( parent != null )
 			{
-				if( parent instanceof SpIterWFCAM )
+				if( parent instanceof SpInstWFCAM )
+				{
+					break ;
+				}
+				else if( parent instanceof SpIterWFCAM )
 				{
 					defaultsTable = (( SpIterWFCAM )parent).getIterTable() ;
 					break ;
