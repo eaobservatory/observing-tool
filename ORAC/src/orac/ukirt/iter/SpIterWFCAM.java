@@ -154,40 +154,37 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 		}
 
 		List<String> iterList = getConfigAttribs() ;
-		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
-		for( int i = 0 ; i < nConfigs ; i++ )
+		configTable = inst.getConfigItems() ;
+		for( int j = 0 ; j < iterList.size() ; j++ )
 		{
-			configTable = inst.getConfigItems() ;
-			for( int j = 0 ; j < iterList.size() ; j++ )
-			{
-				if( iterList.contains( "filterIter" ) )
-					configTable.put( "filter" , getConfigSteps( "filterIter" ).get( i ) ) ;
+			if( iterList.contains( "filterIter" ) )
+				configTable.put( "filter" , getConfigStep( "filterIter" , step ) ) ;
 
-				if( iterList.contains( "readModeIter" ) )
-					configTable.put( "readMode" , getConfigSteps( "readModeIter" ).get( i ) ) ;
+			if( iterList.contains( "readModeIter" ) )
+				configTable.put( "readMode" , getConfigStep( "readModeIter" , step ) ) ;
 
-				if( iterList.contains( "exposureTimeIter" ) )
-					configTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
+			if( iterList.contains( "exposureTimeIter" ) )
+				configTable.put( "exposureTime" , getConfigStep( "exposureTimeIter" , step ) ) ;
 
-				if( iterList.contains( "coaddsIter" ) )
-					configTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
+			if( iterList.contains( "coaddsIter" ) )
+				configTable.put( "coadds" , getConfigStep( "coaddsIter" , step ) ) ;
 
-				if( iterList.contains( "instAperXIter" ) )
-					configTable.put( "instAperX" , getConfigSteps( "instAperXIter" ).get( i ) ) ;
+			if( iterList.contains( "instAperXIter" ) )
+				configTable.put( "instAperX" , getConfigStep( "instAperXIter" , step ) ) ;
 
-				if( iterList.contains( "instAperYIter" ) )
-					configTable.put( "instAperY" , getConfigSteps( "instAperYIter" ).get( i ) ) ;
+			if( iterList.contains( "instAperYIter" ) )
+				configTable.put( "instAperY" , getConfigStep( "instAperYIter" , step ) ) ;
 
-				if( iterList.contains( "instAperZIter" ) )
-					configTable.put( "instAperZ" , getConfigSteps( "instAperZIter" ).get( i ) ) ;
+			if( iterList.contains( "instAperZIter" ) )
+				configTable.put( "instAperZ" , getConfigStep( "instAperZIter" , step ) ) ;
 
-				if( iterList.contains( "instAperLIter" ) )
-					configTable.put( "instAperL" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
-			}
+			if( iterList.contains( "instAperLIter" ) )
+				configTable.put( "instAperL" , getConfigStep( "instAperLIter" , step ) ) ;
 		}
 		return configTable ;
 	}
 
+	private int step = 0 ;
 	public void translate( Vector<String> v ) throws SpTranslationNotSupportedException
 	{
 		SpInstWFCAM inst ;
@@ -202,35 +199,11 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 
 		List<String> iterList = getConfigAttribs() ;
 		int nConfigs = getConfigSteps( iterList.get( 0 ) ).size() ;
-		for( int i = 0 ; i < nConfigs ; i++ )
+		for( step = 0 ; step < nConfigs ; step++ )
 		{
 			Hashtable<String,String> configTable = inst.getConfigItems() ;
-			for( int j = 0 ; j < iterList.size() ; j++ )
-			{
-				if( iterList.contains( "filterIter" ) )
-					configTable.put( "filter" , getConfigSteps( "filterIter" ).get( i ) ) ;
-					
-				if( iterList.contains( "readModeIter" ) )
-					configTable.put( "readMode" , getConfigSteps( "readModeIter" ).get( i ) ) ;
-
-				if( iterList.contains( "exposureTimeIter" ) )
-					configTable.put( "exposureTime" , getConfigSteps( "exposureTimeIter" ).get( i ) ) ;
-
-				if( iterList.contains( "coaddsIter" ) )
-					configTable.put( "coadds" , getConfigSteps( "coaddsIter" ).get( i ) ) ;
-
-				if( iterList.contains( "instAperXIter" ) )
-					configTable.put( "instAperX" , getConfigSteps( "instAperXIter" ).get( i ) ) ;
-
-				if( iterList.contains( "instAperYIter" ) )
-					configTable.put( "instAperY" , getConfigSteps( "instAperYIter" ).get( i ) ) ;
-
-				if( iterList.contains( "instAperZIter" ) )
-					configTable.put( "instAperZ" , getConfigSteps( "instAperZIter" ).get( i ) ) ;
-
-				if( iterList.contains( "instAperLIter" ) )
-					configTable.put( "instAperL" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
-			}
+			Hashtable<String,String> localConfigs = getIterTable() ;
+			configTable.putAll( localConfigs ) ;
 
 			String xAper = " " + configTable.get( "instAperX" ) ;
 			String yAper = " " + configTable.get( "instAperY" ) ;
