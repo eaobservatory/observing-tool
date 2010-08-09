@@ -82,6 +82,8 @@ public final class SpIterWFS extends SpIterConfigObsUKIRT implements SpTranslata
 					configTable.put( "lensPos" , getConfigSteps( "lensPosIter" ).get( i ) ) ;
 			}
 
+			configTable.put( "config_name" , "WFS-ITERATOR" ) ;
+
 			try
 			{
 				ConfigWriter.getCurrentInstance().write( configTable ) ;

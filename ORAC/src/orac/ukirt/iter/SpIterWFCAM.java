@@ -210,6 +210,8 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 			String zAper = " " + configTable.get( "instAperZ" ) ;
 			String lAper = " " + configTable.get( "instAperL" ) ;
 
+			configTable.put( "config_name" , "WFCAM-ITERATOR" ) ;
+
 			try
 			{
 				ConfigWriter.getCurrentInstance().write( configTable ) ;

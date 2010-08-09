@@ -332,6 +332,9 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 				if( iterList.contains( "instAperLIter" ) )
 					lAper = " " + getConfigSteps( "instAperLIter" ).get( i ) ;
 			}
+
+			defaultsTable.put( "config_name" , "UFTI-ITERATOR" ) ;
+
 			try
 			{
 				ConfigWriter.getCurrentInstance().write( defaultsTable ) ;
