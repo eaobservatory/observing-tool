@@ -17,7 +17,6 @@ public class ConfigWriter
 	private int _counter ;
 	private static ConfigWriter _writer ;
 	private String _instName = "none" ;
-	private String _configName = "none" ;
 	private Hashtable<String,String> _lastConfig = null ;
 
 	private ConfigWriter()
@@ -41,7 +40,7 @@ public class ConfigWriter
 
 	public String getCurrentName()
 	{
-		return _configName + "_" + _timeStamp + "_" + _counter ;
+		return _instName + "_" + _timeStamp + "_" + _counter ;
 	}
 
 	public String getTelFile()
@@ -84,11 +83,8 @@ public class ConfigWriter
 
 			_lastConfig = table ;
 
-			// First get the config or instrument name from the hashtable
-			_configName = table.remove( "config_name" ) ;
+			// First get the instrument from the hashtable
 			_instName = table.get( "instrument" ) ;
-			if( _configName == null )
-				_configName = _instName ;
 			_counter++ ;
 
 			String confDir = System.getProperty( "CONF_PATH" ) ;
