@@ -585,9 +585,6 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslat
 		items.put( "maskHeight" , "" + getMaskHeightArcsec() ) ;
 		items.put( "coadds" , "" + getCoadds() ) ;
 		items.put( "type" , "TARGETACQ" ) ;
-
-		items.put( "config_name" , "UIST-TARGET-ACQUISITION" ) ;
-
 		try
 		{
 			ConfigWriter.getCurrentInstance().write( items ) ;

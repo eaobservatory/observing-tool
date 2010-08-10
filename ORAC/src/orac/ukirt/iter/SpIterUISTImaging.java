@@ -151,9 +151,6 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 				if( iterList.contains( "instAperLIter" ) )
 					lAper = " " + getConfigSteps( "instAperLIter" ).get( i ) ;
 			}
-
-			defaultsTable.put( "config_name" , "UIST-IMAGING" ) ;
-
 			try
 			{
 				ConfigWriter.getCurrentInstance().write( defaultsTable ) ;

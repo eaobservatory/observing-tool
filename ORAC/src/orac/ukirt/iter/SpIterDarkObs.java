@@ -181,8 +181,6 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable
 				defaultsTable.put( "type" , "dark" ) ;
 		}
 
-		defaultsTable.put( "config_name" , defaultsTable.get( "instrument" ) + "-DARK" ) ;
-
 		// Now we need to write a config for this dark
 		try
 		{

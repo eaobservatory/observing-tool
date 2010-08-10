@@ -850,8 +850,6 @@ public class SpIterCGS4CalObs extends SpIterObserveBase implements SpTranslatabl
 			}
 		}
 
-		configTable.put( "config_name" , "CGS4-CALIBRATION" ) ;
-
 		try
 		{
 			ConfigWriter.getCurrentInstance().write( configTable ) ;

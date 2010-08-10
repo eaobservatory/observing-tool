@@ -505,8 +505,6 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		// Remove stuff we don't need
 		configTable.remove( "instPort" ) ;
 
-		configTable.put( "config_name" , "WFCAM-CALOBS" ) ;
-
 		try
 		{
 			ConfigWriter.getCurrentInstance().write( configTable ) ;

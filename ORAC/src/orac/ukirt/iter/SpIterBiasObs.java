@@ -295,8 +295,6 @@ public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 			logger.error( "No DRRecipe Component found in bias obs." ) ;
 		}
 
-		t.put( "config_name" , t.get( "instrument" ) + "-BIAS" ) ;
-
 		try
 		{
 			ConfigWriter.getCurrentInstance().write( t ) ;

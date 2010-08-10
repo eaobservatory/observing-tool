@@ -150,8 +150,6 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 					_myTable.put( "centralWavelength" , getConfigSteps( "instAperLIter" ).get( i ) ) ;
 				}
 
-				_myTable.put( "config_name" , "CGS4-ITERATOR" ) ;
-
 				try
 				{
 					ConfigWriter.getCurrentInstance().write( _myTable ) ;
