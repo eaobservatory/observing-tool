@@ -27,6 +27,7 @@ import gemini.sp.SpTranslatable ;
 import gemini.sp.SpTranslationNotSupportedException ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
+import gemini.sp.SpTranslationConstants ;
 
 import gemini.sp.iter.SpIterEnumeration ;
 import gemini.sp.iter.SpIterObserveBase ;
@@ -535,6 +536,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( telFocus + " 0.0" ) ;
+				v.add( SpTranslationConstants.breakString ) ;
 			}
 		}
 		else if( calType == FOCUS_FIT )
@@ -551,6 +553,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 				v.add( focusFit + " " + ( 2 * stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( focusFit + " 0.0" ) ;
+				v.add( SpTranslationConstants.breakString ) ;
 			}
 		}
 		else
