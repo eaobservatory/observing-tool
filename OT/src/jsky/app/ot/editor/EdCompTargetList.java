@@ -793,6 +793,9 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 
 				fwe.setEnabledAt( 2 , false ) ;
 				break ;
+			default :
+				_setXYAxisBoxPrompts( CoordSys.X_AXIS_LABEL[ _system.getIntegerValue() ] , CoordSys.Y_AXIS_LABEL[ _system.getIntegerValue() ] ) ;
+				break ;
 		}
 	}
 
