@@ -189,8 +189,8 @@ public class Scuba2Time implements SpJCMTConstants
 		return found ;
 	}
 
-	private static final double multiplicand450 = 1.7 * ( 10 ^ 6 ) ;
-	private static final double multiplicand850 = 4.4 * ( 10 ^ 4 ) ;
+	private static final double multiplicand450 = 1.7 * ( int )Math.pow( 10 , 6 ) ;
+	private static final double multiplicand850 = 4.4 * ( int )Math.pow( 10 , 4 ) ;
 	private boolean fourFifty = false ;
 	public double fts2( SpIterFTS2 fts2 )
 	{
@@ -213,7 +213,11 @@ public class Scuba2Time implements SpJCMTConstants
 				csoTau = siteQuality.getNoiseCalculationTau() ;
 
 				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
-				NEFD = s2n.calculateNEFD( Scuba2Noise.eight50 , csoTau , getAirmass( fts2 ) ) ;			}
+				if( fourFifty )
+					NEFD = s2n.calculateNEFD( Scuba2Noise.four50 , csoTau , airmass ) ;
+				else
+					NEFD = s2n.calculateNEFD( Scuba2Noise.eight50 , csoTau , airmass ) ;
+			}
 		}
 
 		double spectralResolution = fts2.getResolutionInHz() ;
