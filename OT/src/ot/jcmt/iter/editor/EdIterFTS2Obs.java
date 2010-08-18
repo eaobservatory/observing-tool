@@ -93,7 +93,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		if( item instanceof String )
 		{
 			_inst.setSpecialMode( ( String )item ) ;
-			_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( item ) ) ;	
+			_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( item ) ) ;
+			_w.integrationTime.setEnabled( false ) ;
 		}
 	    }
 	    else if( _w.dual.equals( source ) )
