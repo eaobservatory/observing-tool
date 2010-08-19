@@ -1,5 +1,6 @@
 package orac.jcmt.iter ;
 
+import orac.jcmt.util.Scuba2Noise ;
 import orac.jcmt.util.Scuba2Time ;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
@@ -27,6 +28,8 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	// Approximate light speed
 	final static double c = 3 * Math.pow( 10 , 8 ) ;
 
+	public Scuba2Time s2time = new Scuba2Time() ;
+
 	//	Register the prototype.
 	static
 	{
@@ -48,56 +51,56 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public String getSpecialMode()
     {
-	if( !_avTable.exists( SPECIAL_MODE ) )
-		_avTable.set( SPECIAL_MODE , SPECIAL_MODES[ 0 ] ) ;
-	return _avTable.get( SPECIAL_MODE ) ;
+    	if( !_avTable.exists( SPECIAL_MODE ) )
+    		_avTable.set( SPECIAL_MODE , SPECIAL_MODES[ 0 ] ) ;
+    	return _avTable.get( SPECIAL_MODE ) ;
     }
 
     public void setSpecialMode( String mode )
     {
-	for( String current : SPECIAL_MODES )
-	{
-		if( current.equals( mode ) )
-		{
-			_avTable.set( SPECIAL_MODE , mode ) ;
-			break ;
-		}
-	}
+    	for( String current : SPECIAL_MODES )
+    	{
+    		if( current.equals( mode ) )
+    		{
+    			_avTable.set( SPECIAL_MODE , mode ) ;
+    			break ;
+    		}
+    	}
     }
 
     public int getTrackingPort()
     {
-	if( !_avTable.exists( TRACKING_PORT ) )
-		_avTable.set( TRACKING_PORT , 1 ) ;
-	return _avTable.getInt( TRACKING_PORT , 1 ) ;
+    	if( !_avTable.exists( TRACKING_PORT ) )
+			_avTable.set( TRACKING_PORT , 1 ) ;
+		return _avTable.getInt( TRACKING_PORT , 1 ) ;
     }
 
     public void setTrackingPort( int port )
     {
-	if( port == 1 || port == 2 )
-		_avTable.set( TRACKING_PORT , port ) ;
+    	if( port == 1 || port == 2 )
+    		_avTable.set( TRACKING_PORT , port ) ;
     }
 
     public boolean isDualPort()
     {
-	if( !_avTable.exists( IS_DUAL_PORT ) )
-		_avTable.set( IS_DUAL_PORT , true ) ;
-	return _avTable.getBool( IS_DUAL_PORT ) ;
+    	if( !_avTable.exists( IS_DUAL_PORT ) )
+    		_avTable.set( IS_DUAL_PORT , true ) ;
+    	return _avTable.getBool( IS_DUAL_PORT ) ;
     }
 
     public void setIsDualPort( boolean dualPort )
     {
-	_avTable.set( IS_DUAL_PORT , dualPort ) ;
+    	_avTable.set( IS_DUAL_PORT , dualPort ) ;
     }
 
     public double getFOV()
     {
-	return _avTable.getDouble( FOV , 0.44 ) ;
+    	return _avTable.getDouble( FOV , 0.44 ) ;
     }
 
     public void setFOV( double fov )
     {
-	_avTable.set( FOV , fov ) ;
+    	_avTable.set( FOV , fov ) ;
     }
 
 	public double getResolution()
@@ -130,9 +133,9 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getScanSpeed()
     {
-	double scanSpeed = _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
-	scanSpeed = MathUtil.round( scanSpeed / 2.5 , 5 ) ;
-	return scanSpeed ;
+    	double scanSpeed = _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
+    	scanSpeed = MathUtil.round( scanSpeed / 2.5 , 5 ) ;
+    	return scanSpeed ;
     }
 
 	public void setScanSpeed( double scanSpeed )
@@ -143,36 +146,30 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getNyquist()
     {
-	return 250. / getScanSpeed() ;
+    	return 250. / getScanSpeed() ;
     }
 
-    public void setSensitivity( String sensitivityString )
+    public double getSensitivity450()
     {
-    	try
-    	{
-    		double sensitivity = new Double( sensitivityString ) ;
-    		setSensitivity( sensitivity ) ;
-    	}
-    	catch( NumberFormatException nfe ){}
+    	double sensitivity = 0. ;
+    	double integrationTime = this.getSampleTime() ;
+    	sensitivity = s2time.ftsSensitivity( this , integrationTime , Scuba2Noise.four50 ) ;
+    	return sensitivity ;
     }
 
-    public void setSensitivity( double sensitivity )
+    public double getSensitivity850()
     {
-    	_avTable.set( SENSITIVITY , sensitivity ) ;
-    }
-
-    public double getSensitivity()
-    {
-    	return _avTable.getDouble( SENSITIVITY , 0. ) ;
+    	double sensitivity = 0. ;
+    	double integrationTime = this.getSampleTime() ;
+    	sensitivity = s2time.ftsSensitivity( this , integrationTime , Scuba2Noise.eight50 ) ;
+    	return sensitivity ;
     }
 
 	public double getElapsedTime()
 	{
 		double time = SCUBA2_STARTUP_TIME ;
 
-		Scuba2Time s2time = new Scuba2Time() ;
-
-		time = s2time.totalIntegrationTime( this ) ;
+		time = getSampleTime() ;
 
 		return time ;
 	}

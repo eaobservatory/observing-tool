@@ -221,7 +221,11 @@ public class Scuba2Time implements SpJCMTConstants
 		}
 
 		double spectralResolution = fts2.getResolutionInHz() ;
-		double sensitivity = fts2.getSensitivity() ; // in mJy Hz ^ -0.5
+		double sensitivity = 0. ; // in mJy Hz ^ -0.5
+		if( fourFifty )
+			sensitivity = fts2.getSensitivity450() ;
+		else
+			sensitivity = fts2.getSensitivity850() ;
 
 		if( fourFifty )
 			multiplicand = multiplicand450 ;
@@ -235,6 +239,48 @@ public class Scuba2Time implements SpJCMTConstants
 		integrationTime = ( multiplyMapArea / FOVEfficiancy ) * ( NEFD / resolutionSensitivity ) ; 
 
 		return integrationTime ;
+	}
+
+	public double ftsSensitivity( SpIterFTS2 fts2 , double integrationTime , String fourFiftyOr850 )
+	{
+		double multiplicand = 0. ;
+		double FOV = fts2.getFOV() ;
+		FOV *= FOV ; // in square arcminutes
+		double mapArea = FOV ; // in square degrees, for now assume FOV
+		double mappingEfficiancy = 0.6 ; // supplied
+
+		double airmass = getAirmass( fts2 ) ;
+		double csoTau = 0. ;
+		double NEFD = 0. ;
+		if( airmass > -1. )
+		{
+			SpSiteQualityObsComp siteQuality = findSiteQuality( fts2 ) ;
+
+			if( siteQuality != null )
+			{
+				csoTau = siteQuality.getNoiseCalculationTau() ;
+
+				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
+				NEFD = s2n.calculateNEFD( fourFiftyOr850 , csoTau , airmass ) ;
+			}
+		}
+
+		double spectralResolution = fts2.getResolutionInHz() ;
+
+		if( fourFiftyOr850.equals( Scuba2Noise.four50 ) )
+			multiplicand = multiplicand450 ;
+		else if( fourFiftyOr850.equals( Scuba2Noise.eight50 ) )
+			multiplicand = multiplicand850 ;
+		else
+			throw new RuntimeException( fourFiftyOr850 + " not supported." ) ;
+
+		double multiplyMapArea = multiplicand * mapArea ;
+		double FOVEfficiancy = FOV * mappingEfficiancy ;
+		double resolutionSensitivity = spectralResolution * integrationTime ;
+
+		double sensitivity = ( multiplyMapArea / FOVEfficiancy ) * ( NEFD / resolutionSensitivity ) ; 
+
+		return sensitivity ;
 	}
 
 	private double pointing( SpIterPointingObs pointing )

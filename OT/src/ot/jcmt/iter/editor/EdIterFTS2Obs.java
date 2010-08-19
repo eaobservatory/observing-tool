@@ -9,6 +9,7 @@ import javax.swing.JTextField ;
 import javax.swing.event.ChangeEvent ;
 import javax.swing.event.ChangeListener ;
 
+import gemini.sp.SpAvTable ;
 import gemini.sp.SpItem ;
 import gemini.util.MathUtil ;
 import orac.jcmt.iter.SpIterFTS2 ;
@@ -43,7 +44,9 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.scanSpeedNyquist.setMajorTickSpacing( 10 ) ;
 		_w.scanSpeedNyquist.addChangeListener( this ) ;
 
-		_w.sensitivity.addKeyListener( this ) ;
+		_w.sensitivity450.addKeyListener( this ) ;
+		_w.sensitivity850.addKeyListener( this ) ;
+		_w.integrationTime.addKeyListener( this ) ;
 	}
 
 	/**
@@ -79,9 +82,10 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.scanSpeed.setText( "" + speed ) ;
 		_w.nyquist.setText( "" + MathUtil.round( _inst.getNyquist() , 4 ) ) ;
 		_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( _inst.getSpecialMode() ) ) ;
+			_w.sensitivity450.setText( "" + MathUtil.round( _inst.getSensitivity450() , 5 ) ) ;
+			_w.sensitivity850.setText( "" + MathUtil.round( _inst.getSensitivity850() , 5 ) ) ;
 		if( !keypress )
-			_w.sensitivity.setText( "" + _inst.getSensitivity() ) ;
-		_w.integrationTime.setText( "" + MathUtil.round( _inst.getElapsedTime() , 4 ) ) ;
+			_w.integrationTime.setText( "" + _inst.getElapsedTime() ) ;
 	}
 
     public void actionPerformed( ActionEvent e )
@@ -90,11 +94,25 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	    if( _w.specialModes.equals( source ) )
 	    {
 	    	Object item = (( DropDownListBoxWidgetExt )source).getSelectedItem() ;
-		if( item instanceof String )
-		{
-			_inst.setSpecialMode( ( String )item ) ;
-			_w.southernPanelEnabled( SpIterFTS2.VARIABLE_MODE.equals( item ) ) ;
-		}
+	    	if( item instanceof String )
+			{
+				_inst.setSpecialMode( ( String )item ) ;
+				boolean variableMode = SpIterFTS2.VARIABLE_MODE.equals( item ) ;
+				_w.southernPanelEnabled( variableMode ) ;
+				SpAvTable table = _inst.getTable() ;
+				if( variableMode )
+				{
+					_inst.setFOV( _inst.getFOV() ) ;
+					_inst.setScanSpeed( _inst.getScanSpeed() ) ;
+					_inst.setSampleTime( "" + _inst.getSampleTime() ) ;
+				}
+				else
+				{
+					table.rm( SpIterFTS2.FOV ) ;
+					table.rm( SpIterFTS2.SCAN_SPEED ) ;
+					table.rm( SpIterFTS2.ATTR_SAMPLE_TIME ) ;
+				}
+			}
 	    }
 	    else if( _w.dual.equals( source ) )
 	    {
@@ -138,12 +156,15 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
     boolean keypress = false ;
     public void keyReleased( KeyEvent e )
     {
-	JTextField textBox = ( JTextField )e.getSource() ;
-	String value = textBox.getText() ;
-	_inst.setSensitivity( value ) ;
-	keypress = true ;
-	_updateWidgets() ;
-	keypress = false ;
+    	JTextField textBox = ( JTextField )e.getSource() ;
+    	if( textBox == _w.integrationTime )
+    	{
+    		String value = textBox.getText() ;	
+    		_inst.setSampleTime( value ) ;
+    		keypress = true ;
+    		_updateWidgets() ;
+    		keypress = false ;
+    	}
     }
 
     public void keyTyped( KeyEvent e ){}

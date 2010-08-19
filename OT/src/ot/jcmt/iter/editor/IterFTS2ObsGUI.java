@@ -63,9 +63,12 @@ public class IterFTS2ObsGUI extends JPanel
 	JLabel OneOverByCM = new JLabel() ;
 
 	JPanel sensitivityTimePanel = new JPanel() ;
-	JLabel sensitivityLabel = new JLabel() ;
-	JTextField sensitivity = new JTextField() ;
-	JLabel milijanskys = new JLabel() ;
+	JLabel sensitivity450Label = new JLabel() ;
+	JTextField sensitivity450 = new JTextField() ;
+	JLabel sensitivity850Label = new JLabel() ;
+	JTextField sensitivity850 = new JTextField() ;
+	JLabel milijanskys450 = new JLabel() ;
+	JLabel milijanskys850 = new JLabel() ;
 	JLabel integrationTimeLabel = new JLabel() ;
 	JTextField integrationTime = new JTextField() ;
 	JLabel secondsLabel = new JLabel() ;
@@ -173,20 +176,26 @@ public class IterFTS2ObsGUI extends JPanel
 		scanSpeedNyquistPanel.add( nyquist , new GridBagConstraints( 1 , 3 , 1 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		scanSpeedNyquistPanel.add( OneOverByCM , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
 
-		sensitivityLabel.setText( "Sensitivity : " ) ;
-		milijanskys.setText( "mJy" ) ;
+		sensitivity450Label.setText( "Sensitivity @ 450 : " ) ;
+		sensitivity850Label.setText( "Sensitivity @ 850 : " ) ;
+		milijanskys450.setText( "mJy" ) ;
+		milijanskys850.setText( "mJy" ) ;
 		integrationTimeLabel.setText( "Integration time : " ) ;
 		secondsLabel.setText( "s" ) ;
-		integrationTime.setEnabled( false ) ;
+		sensitivity450.setEnabled( false ) ;
+		sensitivity850.setEnabled( false ) ;
 		Border sensitivityTimeBorder = BorderFactory.createTitledBorder( "Sensitivity/Times" ) ;
 		sensitivityTimePanel.setBorder( sensitivityTimeBorder ) ;
 		sensitivityTimePanel.setLayout( new GridBagLayout() ) ;
-		sensitivityTimePanel.add( sensitivityLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
-		sensitivityTimePanel.add( sensitivity , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 10. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
-		sensitivityTimePanel.add( milijanskys , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
-		sensitivityTimePanel.add( integrationTimeLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
-		sensitivityTimePanel.add( integrationTime , new GridBagConstraints( 1 , 1 , 1 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
-		sensitivityTimePanel.add( secondsLabel , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( sensitivity450Label , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( sensitivity450 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 10. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( milijanskys450 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( sensitivity850Label , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( sensitivity850 , new GridBagConstraints( 1 , 1 , 1 , 1 , 0. , 10. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( milijanskys850 , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( integrationTimeLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( integrationTime , new GridBagConstraints( 1 , 2 , 1 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		sensitivityTimePanel.add( secondsLabel , new GridBagConstraints( 2 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
 
 		southernPanel.setLayout( new GridLayout( 2 , 2 ) ) ;
 		southernPanel.add( resolutionFOVPanel ) ;
@@ -198,14 +207,9 @@ public class IterFTS2ObsGUI extends JPanel
 
 	public void southernPanelEnabled( boolean enabled )
 	{
-		Component[] components = sensitivityTimePanel.getComponents() ;
-		for( Component component : components )
-		{
-			if( integrationTime != component )
-				component.setEnabled( enabled ) ;
-		}
+		integrationTime.setEnabled( enabled ) ;
 
-		components = scanSpeedNyquistPanel.getComponents() ;
+		Component[]components = scanSpeedNyquistPanel.getComponents() ;
 		for( Component component : components )
 			component.setEnabled( enabled ) ;
 
