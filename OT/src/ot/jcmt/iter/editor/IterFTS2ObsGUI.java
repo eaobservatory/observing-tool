@@ -177,6 +177,7 @@ public class IterFTS2ObsGUI extends JPanel
 		milijanskys.setText( "mJy" ) ;
 		integrationTimeLabel.setText( "Integration time : " ) ;
 		secondsLabel.setText( "s" ) ;
+		integrationTime.setEnabled( false ) ;
 		Border sensitivityTimeBorder = BorderFactory.createTitledBorder( "Sensitivity/Times" ) ;
 		sensitivityTimePanel.setBorder( sensitivityTimeBorder ) ;
 		sensitivityTimePanel.setLayout( new GridBagLayout() ) ;
@@ -199,7 +200,10 @@ public class IterFTS2ObsGUI extends JPanel
 	{
 		Component[] components = sensitivityTimePanel.getComponents() ;
 		for( Component component : components )
-			component.setEnabled( enabled ) ;
+		{
+			if( integrationTime != component )
+				component.setEnabled( enabled ) ;
+		}
 
 		components = scanSpeedNyquistPanel.getComponents() ;
 		for( Component component : components )
