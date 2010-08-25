@@ -204,6 +204,8 @@
         <!-- ACSIS -->
         <xsd:sequence>
           <xsd:element name="continuumMode"   type="xsd:boolean"/>
+	  <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal" minOccurs="0"/>
+	  <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal" minOccurs="0"/>
           <xsd:element name="jigglePa"        type="xsd:double"/>
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
           <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
