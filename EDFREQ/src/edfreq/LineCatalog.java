@@ -51,6 +51,11 @@ public class LineCatalog
 		if( !catalogFile.endsWith( "/" ) )
 			catalogFile += "/" ;
 		catalogFile += lineCatalogFile ;
+		initialiseFromFile( catalogFile ) ;
+	}
+
+	public void initialiseFromFile( String catalogFile ) throws Exception
+	{
 		URL url = ObservingToolUtilities.resourceURL( catalogFile ) ;
 		if( url == null )
 			new Exception( "Can not open line catalog file " + catalogFile ) ;
@@ -173,7 +178,7 @@ public class LineCatalog
 
 		TreeMap<String,TreeMap<Double,String>> speciesTable = new TreeMap<String,TreeMap<Double,String>>() ;
 
-		TreeMap< Double , String > freqTransMap ;
+		TreeMap<Double,String> freqTransMap ;
 
 		public void startElement( String namespace , String localName , String qName , Attributes attr )
 		{
@@ -215,7 +220,7 @@ public class LineCatalog
 
 		public void endDocument(){} ;
 
-		public TreeMap< String , TreeMap< Double , String >> getCatalog()
+		public TreeMap<String,TreeMap<Double,String>> getCatalog()
 		{
 			return speciesTable ;
 		}
