@@ -522,39 +522,25 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		else
 			v.add( "set " + getCalTypeString().toUpperCase() ) ;
 
-		if( calType == FOCUS_TEL )
+		boolean calTypeFit = calType == FOCUS_FIT ;
+		if( calType == FOCUS_TEL || calTypeFit )
 		{
+			String command = telFocus ;
+			if( calTypeFit )
+				command = focusFit ;
 			double stepSize = getFocusTelSteps() ;
 			if( stepSize != 0. )
 			{
 				v.add( "startGroup" ) ;
-				v.add( telFocus + " " + ( 2 * -stepSize ) ) ;
+				v.add( command + " " + ( 2 * -stepSize ) ) ;
 				v.add( doOneObserve ) ;
-				v.add( telFocus + " " + -stepSize ) ;
+				v.add( command + " " + -stepSize ) ;
 				v.add( doOneObserve ) ;
-				v.add( telFocus + " " + stepSize ) ;
+				v.add( command + " " + stepSize ) ;
 				v.add( doOneObserve ) ;
-				v.add( telFocus + " " + ( 2 * stepSize ) ) ;
+				v.add( command + " " + ( 2 * stepSize ) ) ;
 				v.add( doOneObserve ) ;
-				v.add( telFocus + " 0.0" ) ;
-				v.add( SpTranslationConstants.breakString ) ;
-			}
-		}
-		else if( calType == FOCUS_FIT )
-		{
-			double stepSize = getFocusTelSteps() ;
-			if( stepSize != 0. )
-			{
-				v.add( "startGroup" ) ;
-				v.add( focusFit + " " + ( 2 * -stepSize ) ) ;
-				v.add( doOneObserve ) ;
-				v.add( focusFit + " " + -stepSize ) ;
-				v.add( doOneObserve ) ;
-				v.add( focusFit + " " + stepSize ) ;
-				v.add( doOneObserve ) ;
-				v.add( focusFit + " " + ( 2 * stepSize ) ) ;
-				v.add( doOneObserve ) ;
-				v.add( focusFit + " 0.0" ) ;
+				v.add( command + " 0.0" ) ;
 				v.add( SpTranslationConstants.breakString ) ;
 			}
 		}
