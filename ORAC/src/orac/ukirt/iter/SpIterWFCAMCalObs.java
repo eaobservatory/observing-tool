@@ -527,6 +527,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			double stepSize = getFocusTelSteps() ;
 			if( stepSize != 0. )
 			{
+				v.add( "startGroup" ) ;
 				v.add( telFocus + " " + ( 2 * -stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( telFocus + " " + -stepSize ) ;
@@ -544,6 +545,7 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			double stepSize = getFocusTelSteps() ;
 			if( stepSize != 0. )
 			{
+				v.add( "startGroup" ) ;
 				v.add( focusFit + " " + ( 2 * -stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( focusFit + " " + -stepSize ) ;
