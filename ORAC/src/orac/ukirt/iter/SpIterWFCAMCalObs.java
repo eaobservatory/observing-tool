@@ -516,14 +516,22 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 		}
 		
 		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
-		
-		if( calType == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) != 0. )
-			v.add( gemini.sp.SpTranslationConstants.objectString ) ;
-		else
-			v.add( "set " + getCalTypeString().toUpperCase() ) ;
 
+		boolean calTypeTel = calType == FOCUS_TEL ;
 		boolean calTypeFit = calType == FOCUS_FIT ;
-		if( calType == FOCUS_TEL || calTypeFit )
+
+		if( calType == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0. ) != 0. )
+		{
+			v.add( gemini.sp.SpTranslationConstants.objectString ) ;
+		}
+		else
+		{
+			if( calTypeTel || calTypeFit )
+				v.add( "startGroup" ) ;
+			v.add( "set " + getCalTypeString().toUpperCase() ) ;
+		}
+
+		if( calTypeTel || calTypeFit )
 		{
 			String command = telFocus ;
 			if( calTypeFit )
@@ -531,7 +539,6 @@ public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatab
 			double stepSize = getFocusTelSteps() ;
 			if( stepSize != 0. )
 			{
-				v.add( "startGroup" ) ;
 				v.add( command + " " + ( 2 * -stepSize ) ) ;
 				v.add( doOneObserve ) ;
 				v.add( command + " " + -stepSize ) ;
