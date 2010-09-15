@@ -35,7 +35,7 @@ public class IterSetupObsGUI extends IterJCMTGenericGUI
 
 	private void jbInit() throws Exception
 	{
-		currentAzimuth.setText( "Do Skydip at Current Azimuth?" ) ;
+		currentAzimuth.setText( "Do setup at current telescope location ?" ) ;
 		currentAzimuth.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		this.setLayout( layout ) ;
 		this.add( currentAzimuth ) ;
