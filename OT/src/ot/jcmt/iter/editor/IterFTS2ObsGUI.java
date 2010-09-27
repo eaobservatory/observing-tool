@@ -208,7 +208,7 @@ public class IterFTS2ObsGUI extends JPanel
 
 	public void southernPanelEnabled( boolean enabled )
 	{
-		integrationTime.setEnabled( enabled ) ;
+		integrationTime.setEnabled( true ) ;
 
 		Component[]components = scanSpeedNyquistPanel.getComponents() ;
 		for( Component component : components )
