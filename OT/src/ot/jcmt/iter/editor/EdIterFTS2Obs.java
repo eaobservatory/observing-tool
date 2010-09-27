@@ -35,8 +35,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.port1.addActionListener( this ) ;
 		_w.port2.addActionListener( this ) ;
 
-		_w.resolutionFOV.setMinimum( 44 ) ;
-		_w.resolutionFOV.setMaximum( 731 ) ;
+		_w.resolutionFOV.setMinimum( SpIterFTS2.minimumResolutionScaled ) ;
+		_w.resolutionFOV.setMaximum( SpIterFTS2.maximumResolutionScaled ) ;
 		_w.resolutionFOV.addChangeListener( this ) ;
 
 		_w.scanSpeedNyquist.setMinimum( 40 ) ;
@@ -72,12 +72,12 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.dual.setSelected( isDualPort ) ;
 		_w.single.setSelected( !isDualPort ) ;
 
-		double fov = _inst.getFOV() ;
+		double resolution = _inst.getResolution() ;
 		double speed = _inst.getScanSpeed() ;
-		_w.resolutionFOV.setValue( ( int )( fov * 100 ) ) ;
+		_w.resolutionFOV.setValue( ( int )( resolution * SpIterFTS2.resolutionScale ) ) ;
 		_w.scanSpeedNyquist.setValue( ( int )( speed * 100 ) ) ;
-		_w.FOV.setText( "" + fov ) ;
-		_w.resolution.setText( "" + MathUtil.round( _inst.getResolution() , 4 ) ) ;
+		_w.FOV.setText( "" + MathUtil.round( _inst.getFOV() , 4 ) ) ;
+		_w.resolution.setText( "" + MathUtil.round( resolution , 4 ) ) ;
 		_w.resolutionMHz.setText( "" + MathUtil.round( _inst.getResolutionInMHz() , 4 ) ) ;
 		_w.scanSpeed.setText( "" + speed ) ;
 		_w.nyquist.setText( "" + MathUtil.round( _inst.getNyquist() , 4 ) ) ;
@@ -102,7 +102,7 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 				SpAvTable table = _inst.getTable() ;
 				if( variableMode )
 				{
-					_inst.setFOV( _inst.getFOV() ) ;
+					_inst.setResolution( _inst.getResolution() ) ;
 					_inst.setScanSpeed( _inst.getScanSpeed() ) ;
 					_inst.setSampleTime( "" + _inst.getSampleTime() ) ;
 				}
@@ -137,9 +137,9 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		Object source = e.getSource() ;
 		if( source == _w.resolutionFOV )
 		{
-			int fov = _w.resolutionFOV.getValue() ;
-			double fieldOfView = fov / 100. ;
-			_inst.setFOV( fieldOfView ) ;
+			int fovResolution = _w.resolutionFOV.getValue() ;
+			double resolution = fovResolution / SpIterFTS2.resolutionScale ;
+			_inst.setResolution( resolution ) ;
 			_updateWidgets() ;
 		}
 		else if( source == _w.scanSpeedNyquist )
