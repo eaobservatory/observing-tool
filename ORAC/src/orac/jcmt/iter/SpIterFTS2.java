@@ -24,9 +24,22 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	public static final String FOV = "FOV" ;
 	public static final String SCAN_SPEED = "ScanSpeed" ;
 	public static final String SENSITIVITY = "Sensitivity" ;
+	public static final String RESOLUTION = "resolution" ;
 
 	// Approximate light speed
-	final static double c = 3 * Math.pow( 10 , 8 ) ;
+	private final static double c = 3 * Math.pow( 10 , 8 ) ;
+
+	public final static double FOVScale = 100. ;
+	public final static double minimumFOV = .44 ;
+	public final static int minimumFOVScaled = ( int )Math.rint( minimumFOV * FOVScale ) ;
+	public final static double maximumFOV = 7.362 ;
+	public final static int maximumFOVScaled = ( int )Math.rint( maximumFOV * FOVScale ) ;
+
+	public final static double resolutionScale = 1000. ;
+	public final static double minimumResolution = .006 ;
+	public final static int minimumResolutionScaled = ( int )Math.rint( minimumResolution * resolutionScale ) ;
+	public final static double maximumResolution = .1 ;
+	public final static int maximumResolutionScaled = ( int )Math.rint( maximumResolution * resolutionScale ) ;
 
 	public Scuba2Time s2time = new Scuba2Time() ;
 
@@ -95,19 +108,22 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getFOV()
     {
-    	return _avTable.getDouble( FOV , 0.44 ) ;
+    	double resolution = getResolution() ;
+
+    	resolution = Math.pow( resolution , 1.83 ) ;
+    	double FOV = 1871.74 * resolution ;
+
+    	return FOV > maximumFOV ? maximumFOV : FOV ;
     }
 
-    public void setFOV( double fov )
+    public void setResolution( double resolution )
     {
-    	_avTable.set( FOV , fov ) ;
+    	_avTable.set( RESOLUTION , resolution ) ;
     }
 
 	public double getResolution()
 	{
-		double FOV = getFOV() ;
-		FOV *= FOV ;
-		return 0.02425 * Math.sqrt( FOV / Math.PI ) ;
+		return _avTable.getDouble( RESOLUTION , minimumResolution ) ;
 	}
 
 	public double getResolutionInHz()
