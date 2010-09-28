@@ -193,4 +193,10 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
 		return time ;
 	}
+
+	public void setupForSCUBA2()
+	{
+		super.setupForSCUBA2() ;
+		setSampleTime( String.valueOf( getSampleTime() ) ) ;
+	}
 }
