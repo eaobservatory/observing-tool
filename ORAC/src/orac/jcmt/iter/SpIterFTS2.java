@@ -168,17 +168,19 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     public double getSensitivity450()
     {
-    	double sensitivity = 0. ;
-    	double integrationTime = this.getSampleTime() ;
-    	sensitivity = s2time.ftsSensitivity( this , integrationTime , Scuba2Noise.four50 ) ;
-    	return sensitivity ;
+    	return getSensitivity( Scuba2Noise.four50 ) ;
     }
 
     public double getSensitivity850()
     {
+    	return getSensitivity( Scuba2Noise.eight50 ) ;
+    }
+
+    public double getSensitivity( String wavelength )
+    {
     	double sensitivity = 0. ;
     	double integrationTime = this.getSampleTime() ;
-    	sensitivity = s2time.ftsSensitivity( this , integrationTime , Scuba2Noise.eight50 ) ;
+    	sensitivity = s2time.ftsSensitivity( this , integrationTime , wavelength ) ;
     	return sensitivity ;
     }
 
