@@ -112,6 +112,7 @@ public class SpIterFTS2 extends SpIterJCMTObs
 
     	resolution = Math.pow( resolution , 1.83 ) ;
     	double FOV = 1871.74 * resolution ;
+    	FOV = FOV < minimumFOV ? minimumFOV :FOV ;
 
     	return FOV > maximumFOV ? maximumFOV : FOV ;
     }
