@@ -104,13 +104,11 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 				{
 					_inst.setResolution( _inst.getResolution() ) ;
 					_inst.setScanSpeed( _inst.getScanSpeed() ) ;
-					_inst.setSampleTime( "" + _inst.getSampleTime() ) ;
 				}
 				else
 				{
 					table.rm( SpIterFTS2.FOV ) ;
 					table.rm( SpIterFTS2.SCAN_SPEED ) ;
-					table.rm( SpIterFTS2.ATTR_SAMPLE_TIME ) ;
 				}
 			}
 	    }
