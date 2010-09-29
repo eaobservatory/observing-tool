@@ -42,6 +42,14 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	public final static double maximumResolution = .1 ;
 	public final static int maximumResolutionScaled = ( int )Math.rint( maximumResolution * resolutionScale ) ;
 
+	public final static double speedScale = 100. ;
+	public final static double minimumSpeed = .4 ;
+	public final static int minimumSpeedScaled = ( int )Math.rint( minimumSpeed * speedScale ) ;
+	public final static double maximumSpeed = 8. ;
+	public final static int maximumSpeedScaled = ( int )Math.rint( maximumSpeed * speedScale ) ;
+	public final static double speedIncrement = .1 ;
+	public final static int speedIncrementScaled = ( int )Math.rint( speedIncrement * speedScale ) ;
+
 	public Scuba2Time s2time = new Scuba2Time() ;
 
 	//	Register the prototype.

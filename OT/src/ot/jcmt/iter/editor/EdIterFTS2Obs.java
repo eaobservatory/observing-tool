@@ -39,9 +39,9 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.resolutionFOV.setMaximum( SpIterFTS2.maximumResolutionScaled ) ;
 		_w.resolutionFOV.addChangeListener( this ) ;
 
-		_w.scanSpeedNyquist.setMinimum( 40 ) ;
-		_w.scanSpeedNyquist.setMaximum( 800 ) ;
-		_w.scanSpeedNyquist.setMajorTickSpacing( 10 ) ;
+		_w.scanSpeedNyquist.setMinimum( SpIterFTS2.minimumSpeedScaled ) ;
+		_w.scanSpeedNyquist.setMaximum( SpIterFTS2.maximumSpeedScaled ) ;
+		_w.scanSpeedNyquist.setMajorTickSpacing( SpIterFTS2.speedIncrementScaled ) ;
 		_w.scanSpeedNyquist.addChangeListener( this ) ;
 
 		_w.sensitivity450.addKeyListener( this ) ;
@@ -75,7 +75,7 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		double resolution = _inst.getResolution() ;
 		double speed = _inst.getScanSpeed() ;
 		_w.resolutionFOV.setValue( ( int )( resolution * SpIterFTS2.resolutionScale ) ) ;
-		_w.scanSpeedNyquist.setValue( ( int )( speed * 100 ) ) ;
+		_w.scanSpeedNyquist.setValue( ( int )( speed * SpIterFTS2.speedScale ) ) ;
 		_w.FOV.setText( "" + MathUtil.round( _inst.getFOV() , 4 ) ) ;
 		_w.resolution.setText( "" + MathUtil.round( resolution , 4 ) ) ;
 		_w.resolutionMHz.setText( "" + MathUtil.round( _inst.getResolutionInMHz() , 4 ) ) ;
@@ -143,7 +143,7 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		else if( source == _w.scanSpeedNyquist )
 		{
 			int scanSpeed = _w.scanSpeedNyquist.getValue() ;
-			double speed = scanSpeed / 100. ;
+			double speed = scanSpeed / SpIterFTS2.speedScale ;
 			_inst.setScanSpeed( speed ) ;
 			_updateWidgets() ;
 		}
