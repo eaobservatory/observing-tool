@@ -39,6 +39,7 @@ Obsmodes'</a> is also available.
  <li><a href="#het_tsched">Scheduling Constraints</a>
  <li><a href="#het_tfoc">The Observation component</a>
  <li><a href="#het_tcc">The target component</a>
+ <li><a href="#Moving_Objects">Moving objects</a>
  <li><a href="#het_tpe">The position editor</a>
  <li><a href="#het_tci">The chop iterator</a>
  <li><a href="#het_offset">The offset iterator</a>
@@ -777,6 +778,107 @@ the positions now showing are valid for your submillimetre studies.
 <!-- N.B. Not all ACSII characters are allowed in the target name -
       make sure your target name is built up of only the following
       characters A-Z, a-z 0-9,+,- and _. -->
+
+<p>
+<hr style="width: 100%; height: 2px;">
+<h3><a name="Moving_Objects"></a>Moving Objects</h3>
+Moving objects (excepting planets and other bodies which are accessible
+in the pull down menu in the Target component) are accommodated via
+orbital elements. The format of these elements is fairly specific. An
+example is given in the figure below.
+<p>
+<div style="text-align: center; font-weight: bold;">Comet Tempel-1:
+orbital elements
+</div>
+<div align="center">
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Top:</span>
+Orbital elements as found, in
+this example, on the
+      <a href="http://neo.jpl.nasa.gov/orbits/">NASA JPL NEO orbit
+diagrams page</a></td>
+      <td style="text-align: center; vertical-align: middle;"><img
+ alt="Orbital elements from the neo site" src="orbitelements1.png"
+ style="width: 485px; height: 464px;">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Bottom:</span>
+Elements specified in the
+Target Component Elements tab.
+Note the different format for Epoch and Time of Perihelion Passage, in
+particular.</td>
+      <td style="text-align: center; vertical-align: middle;"><img
+ alt="equivalent in the target component" src="orbitelements2.png"
+ style="width: 655px; height: 162px;">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+      </td>
+      <td style="vertical-align: top;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>
+The OT can use the Horizons database to resolve a given minor planet's
+name into elements. An example is given below.
+<p>
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr align="center">
+      <td style="vertical-align: top; text-align: left;"><span
+ style="font-weight: bold;">Name resolution for moving objects: </span>When
+"Orbital elements" is the selected Target Type, the "Resolve name"
+button queries the Horizons database for elements.
+      <p>
+Note that the name format is somewhat picky and you may have to use
+trial and error to get something that works for a particular target.
+Also note that the OT uses a resource at JPL which is intended for
+human reading, not computer processing. As such the output format is
+subject to arbitrary changes, so there is no guarantee that this search
+feature will work or that the results are accurate; for example it is
+possible that elements may end up in the wrong field or omitted
+completely.
+      <p>
+      <span
+ style="font-weight: bold; font-style: italic; text-decoration: underline;"><blink>Always</blink>
+double check the returned values.</span>
+      <p>
+      </td>
+      <td style="vertical-align: top;"><img alt=""
+ src="target_elements1.png" style="width: 684px; height: 562px;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>
+<h3><a name="Proper_Motion"></a>Allowing for Proper Motion</h3>
+Entries for the RA and Declination proper motion rates (in
+milliarcseconds per year) can be made in your target component.
+<p>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Proper
+motion</span> entered as milliarcseconds per year in the target
+component. These values are taken into account when slewing the
+telescope.
+      </td>
+      <td style="vertical-align: top; text-align: right;"><img
+ style="width: 488px; height: 159px;" alt=""
+ src="target_propermotion.png">
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <p>
 But wait - that's not all.<p> 
