@@ -726,7 +726,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	{
 		for( int i = 0 ; i < children.length ; ++i )
 			doExtract( children[ i ] ) ;
-		_editFSM.notifyRemoved( this , children ) ;
+		if( _editFSM != null )
+			_editFSM.notifyRemoved( this , children ) ;
 	}
 
 	/**
