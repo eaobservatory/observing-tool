@@ -757,7 +757,8 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 			newParent.doInsert( children[ i ] , children[ i - 1 ] ) ;
 		}
 
-		_editFSM.notifyMoved( this , children , newParent , afterChild ) ;
+		if( _editFSM != null )
+			_editFSM.notifyMoved( this , children , newParent , afterChild ) ;
 	}
 
 	/**
