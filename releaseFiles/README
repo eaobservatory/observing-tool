@@ -17,8 +17,12 @@ cd ot
 3. checkout the release code ...
 git checkout -b release origin/release
 
-4. the OT is built using gmake, build the OT ...
-gmake install
+4. the OT is built using perl or ant ( preferred, ) build the OT ...
+perl wiki-build.pl
+
+or
+
+ant -f ant/build.xml
 
 5. copy the compiled code to the webstart directory ...
 cp -r install/lib releaseFiles/webstart
