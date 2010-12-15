@@ -17,9 +17,19 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 	public CheckBoxWidgetExt continuousSpinCheckBox ;
 	private JLabel continuousSpinLabel ;
 
-	public MiniConfigIterGUI(){}
+	public MiniConfigIterGUI()
+	{
+		try
+		{
+			jbInit() ;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace() ;
+		}
+	}
 
-	protected void jbInit() throws Exception
+	void jbInit() throws Exception
 	{
 		continuousSpinLabel = new JLabel() ;
 		continuousSpinLabel.setFont( new java.awt.Font( "Dialog" , 3 , 12 ) ) ;
