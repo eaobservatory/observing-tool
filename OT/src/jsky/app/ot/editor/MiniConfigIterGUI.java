@@ -68,7 +68,7 @@ public class MiniConfigIterGUI extends JPanel
 		}
 	}
 
-	protected void jbInit() throws Exception
+	void jbInit() throws Exception
 	{
 		this.setPreferredSize( new Dimension( 394 , 356 ) ) ;
 		this.setLayout( gridBagLayout1 ) ;
