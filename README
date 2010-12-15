@@ -27,3 +27,4 @@ perl wiki-build.pl
 
 ant -f ant/build.xml
 
+Building from the master branch requires Java 1.6 due to JSky3.
