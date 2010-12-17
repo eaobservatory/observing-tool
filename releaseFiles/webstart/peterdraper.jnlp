@@ -3,7 +3,7 @@
 	<information>
 		<title>peterdraper</title>
 		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
-		<homepage href="http://www.jach.hawaii.edu/~shart/webstart"/>
+		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
 	</information>
 	<resources>
 		<jar href="tools/pal.jar"/>
