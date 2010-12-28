@@ -4,7 +4,11 @@
 		<title>Java Help</title>
 		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
 		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+		<offline-allowed/>
 	</information>
+	<security>
+		<all-permissions/>
+	</security>
 	<resources>
 		<jar href="tools/jhbasic.jar"/>
 	</resources>
