@@ -255,7 +255,10 @@ public class HeterodyneNoise
 
 		if( ssb )
 		{
-			if( "HARP".equals( fe ) || "WD".equals( fe ) )
+			if( "HARP".equals( fe ) )
+			        // HARP Tsys based on formulas as used in JCMT HITEC tool and provided by RPT
+			        tSys = getHarpTsys( tau, airmass, freq );
+			else if( "WD".equals( fe ) )
 				tSys = ( getTrx( fe , freq ) + nuTel * tSky + tTel ) / ( nuSky * nuTel ) ;
 			else
 				tSys = ( 2. * getTrx( fe , freq ) + nuTel * tSky + tTel ) / ( nuSky * nuTel ) ;
@@ -400,6 +403,43 @@ public class HeterodyneNoise
 		return MathUtil.round( rmsNoise , 3 ) ;
 	}
 	
+	private static double getHarpTsys( double tau , double airmass , double freq )
+	{
+	        // HARP Tsys based on formulas as used in JCMT HITEC tool and provided by RPT
+	        double tRx    = 90.;
+	        double tAtm   = 260.;
+	        double tAmb   = 265.;
+	        double f_850  = 3.3;
+	        double nu_tel = 0.9;
+
+		double e_tau  = Math.exp( -tau * airmass );
+		double nu_sky = Math.exp( -f_850 * tau * airmass );
+		double tSky = tAtm * ( 1. - nu_sky );
+		double tTel = tAmb * ( 1. - nu_tel );
+
+		double tSys_345 = ( tRx + nu_tel * tSky + tTel ) / ( nu_sky * nu_tel );
+
+		// Second order parameters for extrapolation from Tsys_345
+		double c2 = -3.66 * e_tau + 3.75;
+		double c1 = -2.0;
+		double c0 = tSys_345 + 15.0;    // Bias higher
+
+		double x = freq - 345.796;
+
+		if (freq < 329.5) {
+		    c0 *= 1.5;
+		} else if (freq < 333.) {
+		    c0 *= 1.1;
+		} else if (freq > 372.) {
+		    c0 *= 2.5;
+		} else if (freq > 366.25) {
+		    c0 *= 1.7;
+		}
+
+		double tSys = c2 * x * x + c1 * x + c0;
+	        return tSys;
+	}
+
 	public static double getHeterodyneNoise( SpIterJCMTObs obs , SpInstHeterodyne instrument , double tSys )
 	{
 		// Set up all the vectors required
