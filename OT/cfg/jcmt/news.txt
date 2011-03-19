@@ -1,3 +1,19 @@
++++ March 2011 release
+
+  - Galactic coordinate support in the position editor for scans and offsets.
+
+  - Changing integration time now updates noise level immediately
+
+  - Corrected a validation bug related to frequency offset
+
+  - Corrected a bug related to estimated observing time
+
+  - Corrected a bug in the Tsys calculation for heterodyne receivers
+
+  - Modified HARP Tsys calculation to match revised HITEC formulas
+
+  - Corrected a validation bug when elevation constraints were used
+
 +++ April 2010 release
 
   - Bug fix : Heterodyne component now displays correct number of systems.

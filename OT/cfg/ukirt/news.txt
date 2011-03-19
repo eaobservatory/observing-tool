@@ -1,3 +1,12 @@
++++ March 2011 release
+
+  - Galactic coordinate support in the position editor for scans and offsets.
+
+  - Corrected a validation bug when elevation constraints were used
+
+  - Removed SKY_FLAT and SKY_FLAT_MASKED and added REDUCE_TWILIGHT_FLAT and
+    REDUCE_TWILIGHT_FLAT_MASKED recipes.
+
 +++ April 2010 release
 
   - Bug fix : Target component was incorrectly reading all targets as FK5.
