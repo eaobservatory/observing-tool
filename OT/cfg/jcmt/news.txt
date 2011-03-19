@@ -1,7 +1,3 @@
-+++ ???? 2010 release
-
-  - Galactic coordinate support in the position editor for scans and offsets.
-
 +++ April 2010 release
 
   - Bug fix : Heterodyne component now displays correct number of systems.
