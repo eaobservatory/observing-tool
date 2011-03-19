@@ -1,7 +1,3 @@
-+++ ??? 2010 release
-
-  - Galactic coordinate support in the position editor for scans and offsets.
-
 +++ December 2009 release
 
   - SCUBA-2 Shared Risk Observing release.
