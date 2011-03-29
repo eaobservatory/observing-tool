@@ -5,14 +5,14 @@ If you are reading this you already have the code.
 
 For the sake of completeness here are the full instructions.
 
-1a. if in Hilo ...
-git clone /jac_sw/gitroot/ot.git ot
+1. In Hilo ...
+cd /jac_sw
+git clone /jac_sw/gitroot/ot.git ot_release_<YYYYMMDD>
 
-1b. if remote to the JAC ...
-git clone ssh://ssh.jach.hawaii.edu/jac_sw/gitroot/ot.git ot
+where <YYYYMMDD> is replaced with the current date.
 
 2. change to the code directory ...
-cd ot
+cd ot_release_<YYYYMMDD>
 
 3. checkout the release code ...
 git checkout -b release origin/release
@@ -36,17 +36,22 @@ Building from the release branch requires Java 1.5
 cp -r install/lib releaseFiles/webstart
 cp -r install/tools releaseFiles/webstart
 
-6. copy the webstart directory contents to the webserver ...
-cp -r releaseFiles/webstart/* /ftp/pub/ot
+6. Make a new directory in /ftp/pub ...
+mkdir /ftp/pub/ot_release_<YYYYMMDD>
 
-7. change to the webserver directory ...
-cd /ftp/pub/ot
+7. copy the webstart directory contents to the webserver ...
+cp -r releaseFiles/webstart/* /ftp/pub/ot_release_<YYYYMMDD>
 
-8. run the signing script ...
+8. change to the webserver directory ...
+cd /ftp/pub/ot_release_<YYYYMMDD>
+
+9. run the signing script ...
 perl work/isign.pl
 
-9. test it works ...
-javaws http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp
+10. Change the softlink ...
+cd /ftp/pub
+rm -f ot
+ln -s ot_release_<YYYYMMDD> ot
 
-For future installs, step 4 is repeated, step 5 also but the files are
-copied to the webserver directory. Steps 7, 8 and 9 are then repeated.
+11. test it works ...
+javaws http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp
