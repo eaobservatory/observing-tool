@@ -9,10 +9,6 @@
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>
-===IMPORTANT REMINDER===: for SCUBA-2 users should *ignore* the timing
-&amp; noise estimates that the OT reports. Future releases of the OT
-will report accurate timings and noise estimates.
-
 The SCUBA-2 template MSBs in the library have been tailored for Pong
 maps of ~40 mins and a pointsource Daisy of ~30 mins.  For Daisy
 observations the duration is approx. equal to the integration time
