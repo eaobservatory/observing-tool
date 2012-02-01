@@ -126,6 +126,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		setHeight( Format.toDouble( heightStr ) ) ;
 	}
 
+        /** Get average size of map area from height and width */
+        public double getAvgMapSize()
+	{
+            double height = getHeight();
+            double width = getWidth();
+            return (height + width) / 2.0;
+	}
+
 	/**
 	 * Get area position angle (map position angle).
 	 */
@@ -204,11 +212,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	public double getScanVelocity()
 	{
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
-		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
-		if( ( inst != null && inst instanceof SpInstSCUBA2 ) || _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. ) == 0. )
+                // Calculate from average width/height. We always do this even if
+                // there is a number cached.
+		if ( inst != null && inst instanceof SpInstSCUBA2 )
 		{
-			double scanVelocity = ( ( SpJCMTInstObsComp )inst ).getDefaultScanVelocity() ;
-			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + scanVelocity , 0 ) ;
+                    double scanVelocity = ( ( SpJCMTInstObsComp )inst ).getDefaultScanVelocity() ;
+                    double avgSize = getAvgMapSize();
+                    if (avgSize <= 600.0) {
+                        // About 2 seconds of scanning
+                        scanVelocity = avgSize / 2.0;
+                    } else if (avgSize <= 1200.0) {
+                        scanVelocity = 280.0;
+                    } else if (avgSize <= 2200.0) {
+                        scanVelocity = 400.0;
+                    } else if (avgSize <= 4800.0) {
+                        scanVelocity = 600.0;
+                    } else {
+                        // Fastest speed for biggest maps
+                        scanVelocity = 600.0;
+                    }
+                    _avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + scanVelocity , 0 ) ;
 		}
 		return _avTable.getDouble( ATTR_SCANAREA_SCAN_VELOCITY , 0. ) ;
 	}
@@ -298,11 +321,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	/** Get scan dy. */
 	public double getScanDy()
 	{
-		// No scan velocity set yet. Try to calculate of the default velocity according to the instrument used.
 		SpInstObsComp inst = SpTreeMan.findInstrument( this ) ;
-		if( ( inst != null && inst instanceof SpInstSCUBA2 ) || _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 0. ) == 0. )
+                // Calculate from average width/height. We always do this even if
+                // there is a number cached.
+		if( inst != null && inst instanceof SpInstSCUBA2 )
 		{
-			double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy() ;
+                    double scanDy = ( ( SpJCMTInstObsComp )inst ).getDefaultScanDy() ;
+                    double avgSize = getAvgMapSize();
+                    if (avgSize <= 600.0) {
+                        // About 2 seconds of scanning
+                        scanDy = 30.0;
+                    } else if (avgSize <= 1200.0) {
+                        scanDy = 30.0;
+                    } else if (avgSize <= 2200.0) {
+                        scanDy = 60.0;
+                    } else if (avgSize <= 4800.0) {
+                        scanDy = 180.0;
+                    } else {
+                        // Largest maps
+                        scanDy = 360.0;
+                    }
 			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + scanDy , 0 ) ;
 		}
 		return _avTable.getDouble( ATTR_SCANAREA_SCAN_DY , 10. ) ;
