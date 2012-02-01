@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>scuba2_lib.xml</meta_gui_filename>
+  <meta_gui_filename>SCUBA2.xml</meta_gui_filename>
   <ot_version>20110329</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
@@ -36,18 +36,19 @@ observations.
       <title>IMPORTANT README</title>
     </SpNote>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Pointsource (Daisy)  MSB</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <SpDRRecipeRef idref="3"/>
         <SpInstSCUBA2Ref idref="1"/>
         <SpSiteQualityObsCompRef idref="2"/>
         <SpTelescopeObsCompRef idref="0"/>
-        <estimatedDuration units="seconds">1920.0</estimatedDuration>
+        <estimatedDuration units="seconds">1860.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Pointsource Daisy map</title>
-        <totalDuration units="seconds">1920.0</totalDuration>
+        <totalDuration units="seconds">1860.0</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -67,7 +68,7 @@ conveying the general ideas behind your science program is useful for
 the observer (who may not be an expert in your field) and the
 TSS. (Make sure to check "show to the Observer").
 
-2) Details of calibration observations. By fefault, the TSS will add
+2) Details of calibration observations. By default, the TSS will add
 suitable calibration, pointing, and focus observations throughout the
 night and it typically is not necessary to include these observations
 in your MSBs.
@@ -92,6 +93,9 @@ See the examples under "Example optionals".
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
+        <SpDRRecipe id="3" type="oc" subtype="DRRecipe">
+          <meta_unique>true</meta_unique>
+        </SpDRRecipe>
         <SpInstSCUBA2 id="1" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
@@ -111,15 +115,6 @@ See the examples under "Example optionals".
             </target>
           </BASE>
         </SpTelescopeObsComp>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">60.0</estimatedDuration>
-          <standard>false</standard>
-          <title>Observation</title>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-          </SpIterFolder>
-        </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">1860.0</estimatedDuration>
@@ -149,13 +144,14 @@ See the examples under "Example optionals".
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Map (Pong)  MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="4"/>
-        <SpSiteQualityObsCompRef idref="5"/>
-        <SpTelescopeObsCompRef idref="3"/>
+        <SpDRRecipeRef idref="7"/>
+        <SpInstSCUBA2Ref idref="5"/>
+        <SpSiteQualityObsCompRef idref="6"/>
+        <SpTelescopeObsCompRef idref="4"/>
         <estimatedDuration units="seconds">2969.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -180,7 +176,7 @@ conveying the general ideas behind your science program is useful for
 the observer (who may not be an expert in your field) and the
 TSS. (Make sure to check "show to the Observer").
 
-2) Details of calibration observations. By fefault, the TSS will add
+2) Details of calibration observations. By default, the TSS will add
 suitable calibration, pointing, and focus observations throughout the
 night and it typically is not necessary to include these observations
 in your MSBs.
@@ -200,16 +196,19 @@ See the examples under "Example optionals".
 </note>
           <title>Please read</title>
         </SpNote>
-        <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="6" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA2 id="4" type="oc" subtype="inst.SCUBA2">
+        <SpDRRecipe id="7" type="oc" subtype="DRRecipe">
+          <meta_unique>true</meta_unique>
+        </SpDRRecipe>
+        <SpInstSCUBA2 id="5" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpTelescopeObsComp id="3" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="4" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -264,9 +263,10 @@ See the examples under "Example optionals".
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="7"/>
-        <SpSiteQualityObsCompRef idref="8"/>
-        <SpTelescopeObsCompRef idref="6"/>
+        <SpDRRecipeRef idref="11"/>
+        <SpInstSCUBA2Ref idref="9"/>
+        <SpSiteQualityObsCompRef idref="10"/>
+        <SpTelescopeObsCompRef idref="8"/>
         <estimatedDuration units="seconds">8161.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -291,7 +291,7 @@ conveying the general ideas behind your science program is useful for
 the observer (who may not be an expert in your field) and the
 TSS. (Make sure to check "show to the Observer").
 
-2) Details of calibration observations. By fefault, the TSS will add
+2) Details of calibration observations. By default, the TSS will add
 suitable calibration, pointing, and focus observations throughout the
 night and it typically is not necessary to include these observations
 in your MSBs.
@@ -311,16 +311,19 @@ See the examples under "Example optionals".
 </note>
           <title>Please read</title>
         </SpNote>
-        <SpSiteQualityObsComp id="8" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="10" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA2 id="7" type="oc" subtype="inst.SCUBA2">
+        <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
+          <meta_unique>true</meta_unique>
+        </SpDRRecipe>
+        <SpInstSCUBA2 id="9" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpTelescopeObsComp id="6" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="8" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -375,9 +378,10 @@ See the examples under "Example optionals".
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="10"/>
-        <SpSiteQualityObsCompRef idref="11"/>
-        <SpTelescopeObsCompRef idref="9"/>
+        <SpDRRecipeRef idref="15"/>
+        <SpInstSCUBA2Ref idref="13"/>
+        <SpSiteQualityObsCompRef idref="14"/>
+        <SpTelescopeObsCompRef idref="12"/>
         <estimatedDuration units="seconds">30337.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -402,7 +406,7 @@ conveying the general ideas behind your science program is useful for
 the observer (who may not be an expert in your field) and the
 TSS. (Make sure to check "show to the Observer").
 
-2) Details of calibration observations. By fefault, the TSS will add
+2) Details of calibration observations. By default, the TSS will add
 suitable calibration, pointing, and focus observations throughout the
 night and it typically is not necessary to include these observations
 in your MSBs.
@@ -422,16 +426,19 @@ See the examples under "Example optionals".
 </note>
           <title>Please read</title>
         </SpNote>
-        <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="14" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA2 id="10" type="oc" subtype="inst.SCUBA2">
+        <SpDRRecipe id="15" type="oc" subtype="DRRecipe">
+          <meta_unique>true</meta_unique>
+        </SpDRRecipe>
+        <SpInstSCUBA2 id="13" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpTelescopeObsComp id="9" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -490,9 +497,9 @@ See the examples under "Example optionals".
       <title>Example optionals: Calibration, Pointing and Focus</title>
       <SpMSB checksum="536be0fc46ef21c50233556b4d19a495A" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="13"/>
-        <SpSiteQualityObsCompRef idref="14"/>
-        <SpTelescopeObsCompRef idref="12"/>
+        <SpInstSCUBA2Ref idref="17"/>
+        <SpSiteQualityObsCompRef idref="18"/>
+        <SpTelescopeObsCompRef idref="16"/>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -502,16 +509,16 @@ See the examples under "Example optionals".
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Pointing observation. Will normally be inserted as needed by TSS.</note>
         </SpNote>
-        <SpInstSCUBA2 id="13" type="oc" subtype="inst.SCUBA2">
+        <SpInstSCUBA2 id="17" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpSiteQualityObsComp id="14" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="18" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="16" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -555,9 +562,9 @@ See the examples under "Example optionals".
       </SpMSB>
       <SpMSB checksum="536be0fc46ef21c50233556b4d19a495A" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="16"/>
-        <SpSiteQualityObsCompRef idref="17"/>
-        <SpTelescopeObsCompRef idref="15"/>
+        <SpInstSCUBA2Ref idref="20"/>
+        <SpSiteQualityObsCompRef idref="21"/>
+        <SpTelescopeObsCompRef idref="19"/>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -567,16 +574,16 @@ See the examples under "Example optionals".
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Pointing observation. Will normally be inserted as needed by TSS.</note>
         </SpNote>
-        <SpInstSCUBA2 id="16" type="oc" subtype="inst.SCUBA2">
+        <SpInstSCUBA2 id="20" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="21" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpTelescopeObsComp id="15" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="19" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -612,9 +619,9 @@ See the examples under "Example optionals".
       </SpMSB>
       <SpMSB checksum="f9007b4c11f5e44cdf5d15adfee76371A" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstSCUBA2Ref idref="19"/>
-        <SpSiteQualityObsCompRef idref="20"/>
-        <SpTelescopeObsCompRef idref="18"/>
+        <SpInstSCUBA2Ref idref="23"/>
+        <SpSiteQualityObsCompRef idref="24"/>
+        <SpTelescopeObsCompRef idref="22"/>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -624,16 +631,16 @@ See the examples under "Example optionals".
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>X, Y, or Z focus observation. Will normally be inserted when needed by TSS.</note>
         </SpNote>
-        <SpInstSCUBA2 id="19" type="oc" subtype="inst.SCUBA2">
+        <SpInstSCUBA2 id="23" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
-        <SpSiteQualityObsComp id="20" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="24" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
-        <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="22" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
