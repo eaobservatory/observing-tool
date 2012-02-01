@@ -1,3 +1,7 @@
++++ February 2012 release
+
+  - Fix time estimates for SCUBA-2 pong maps.
+
 +++ March 2011 release
 
   - Galactic coordinate support in the position editor for scans and offsets.
