@@ -129,30 +129,6 @@ public class Scuba2Time implements SpJCMTConstants
 		return integrationTime ;
 	}
 
-	public double scanFromCall( SpIterRasterObs raster )
-	{
-		double integrationTime = scan( raster ) ;
-		double height = raster.getHeight() ;
-		double width = raster.getWidth() ;
-
-		double airmass = getAirmass( raster ) ;
-		if( airmass > -1. )
-		{
-			SpSiteQualityObsComp siteQuality = findSiteQuality( raster ) ;
-
-			if( siteQuality != null )
-			{
-				double csoTau = siteQuality.getNoiseCalculationTau() ;
-
-				Scuba2Noise s2n = Scuba2Noise.getInstance() ;
-				double desiredNoiseMJanskys = s2n.noiseForMapTotalIntegrationTime( Scuba2Noise.eight50 , integrationTime , csoTau , airmass , width , height , false ) ;
-				integrationTime = s2n.totalIntegrationTimeForMap( Scuba2Noise.eight50 , csoTau , airmass , desiredNoiseMJanskys , width , height ) ;
-			}
-		}
-
-		return integrationTime ;
-	}
-
 	private double getAirmass( SpItem root )
 	{
 		double airmass = -1. ;
