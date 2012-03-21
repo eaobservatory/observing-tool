@@ -1,3 +1,7 @@
++++ March 2012 release
+
+  - Updated noise estimates for SCUBA-2 maps to match those given by the ITC.
+
 +++ February 2012 release
 
   - Fix time estimates for SCUBA-2 pong maps.
