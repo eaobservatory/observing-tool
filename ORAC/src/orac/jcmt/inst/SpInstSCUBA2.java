@@ -115,8 +115,8 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 	
 	public double[] getScienceArea()
 	{
-		// 4 arcminute diameter circle
-		double[] scienceArea = new double[]{ 120. } ;
+		// 8 arcminute diameter circle
+		double[] scienceArea = new double[]{ 240.0 } ;
 		return scienceArea ;
 	}
 }
