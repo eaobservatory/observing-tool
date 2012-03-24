@@ -9,6 +9,7 @@ import gemini.sp.SpTelescopePos ;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.util.Angle;
 import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
 import orac.jcmt.iter.SpIterFTS2;
@@ -99,15 +100,18 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		// Calculate maximum source elevation
 
 		// TODO: check this expression
-		double sourceMaxElevation = 90 - Math.abs(declination - latitude);
+		// (a check: it does lead to acos(-1) for vertical angle)
+		double sourceMaxElevation = 90
+				- Math.abs(declination - latitude);
 
 		
 		// Find range of observable elevations
 
-		double elevationMin = 30;
+		double elevationMin = 0;
 		double elevationMax = 90;
 		boolean rising = true;
 		boolean setting = true;
+		boolean seeTransit = false;
 
 		SpItem base = _iw.getBaseItem();
 		if (base == null) {return false;}
@@ -152,6 +156,7 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		
 		if (elevationMax > sourceMaxElevation) {
 			elevationMax = sourceMaxElevation;
+			seeTransit = true;
 		}
 
 		
@@ -162,11 +167,50 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 
 			radFov = 60;
 			radOffset = 180;
+			double offsetAngle = 45;
 
 			int trackingPort = fts2.getTrackingPort();
 
-			// Dummy range...	
-			arcs.add(new ArcRange(0, 90));
+			switch (trackingPort) {
+				case 1:
+					break;
+				case 2:
+					offsetAngle += 180;
+					break;
+				default:
+					return false;
+			}
+
+			NasmythPlatform platform = NasmythPlatform.LEFT;
+
+			double riseStart = offsetAngle + nasmythAngle(latitude,
+				elevationMin, declination, false, platform);
+
+			double setEnd = offsetAngle + nasmythAngle(latitude,
+				elevationMin, declination, true, platform);
+
+
+			if (seeTransit && rising && setting) {
+				arcs.add(new ArcRange(riseStart, setEnd));
+			}
+			else {
+				if (rising) {
+					arcs.add(new ArcRange(riseStart,
+						offsetAngle + nasmythAngle(
+							latitude, elevationMax,
+							declination, false,
+							platform)));
+				}
+
+				if (setting) {
+					arcs.add(new ArcRange(
+						offsetAngle + nasmythAngle(
+							latitude, elevationMax,
+							declination, true,
+							platform),
+						setEnd));
+				}
+			}
 
 			return true;
 		}
@@ -274,5 +318,61 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 			(int) (90 + range.angleEnd),
 			-endCap);
 
+	}
+
+	/**
+	 * Enum of platforms.
+	 */
+	protected enum NasmythPlatform {
+		LEFT(-1),
+		RIGHT(+1);
+
+		private final double sign;
+		NasmythPlatform(double sign) {
+			this.sign = sign;
+		}
+		public double getSign() {return sign;}
+	}
+
+	/**
+	 * Calculate angle to pole as seen by a Nasmyth instrument.
+	 */
+	protected static double nasmythAngle(double latitudeDeg,
+			double elevationDeg, double declinationDeg,
+			boolean setting, NasmythPlatform platform) {
+		double latitude = Angle.degreesToRadians(latitudeDeg);
+		double elevation = Angle.degreesToRadians(elevationDeg);
+		double declination = Angle.degreesToRadians(declinationDeg);
+
+		double verticalAngle = Math.acos(
+			(Math.sin(latitude)
+				- Math.sin(declination) * Math.sin(elevation))
+			/ (Math.cos(declination) * Math.cos(elevation)));
+
+		if (setting) verticalAngle = 2 * Math.PI - verticalAngle;
+
+		return Angle.radiansToDegrees(verticalAngle
+			+ platform.getSign() * elevation);
+	}
+
+
+	/**
+	 * Main method to test nasmythAngle function.
+	 */
+	public static void main(String[] args) {
+		double dec = 20;
+		double lat = 20;
+		
+		double maxEl = 90 - Math.abs(dec - lat);
+
+		for (double el = 0; el < maxEl; el ++) {
+			System.out.println(el + " " + nasmythAngle(lat,
+				el, dec, false, NasmythPlatform.LEFT));
+		}
+
+		for (double el = maxEl; el > 0; el --) {
+			System.out.println(el + " " + nasmythAngle(lat,
+				el, dec, true, NasmythPlatform.LEFT));
+		}
 	}
 }
