@@ -13,18 +13,104 @@ public class Scuba2Noise
 	private static Scuba2Noise self ;
 	private OrderedMap<Double,Double> fourFifty ;
 	private OrderedMap<Double,Double> eightFifty ;
-	public static final String four50 = "450" ;
-	public static final String eight50 = "850" ;
+
+	public final static double scuba2DaisySize = 100;
+	public final static double[] scuba2PongSizes =
+		{900, 1800, 3600, 7200};
+
+	// Time parameters for standard map sizes
+	// taken from propscuba2itc.pl
+
+	private enum Scuba2Wavelength {
+		WL850("850",
+			196, -44,				// daisy
+			new double[]{421, 823, 1735, 3472},	// pong tA
+			new double[]{-95, -187, -394, -789}),	// pong tB
+
+		WL450("450", 
+			911, -121,				// daisy
+			new double[]{1961, 3841, 8353, 16976},	// pong tA
+			new double[]{-261, -512, -1113, -2263});// pong tB
+
+		public final String id;
+		public final double daisyTA;
+		public final double daisyTB;
+		public final double[] pongTA;
+		public final double[] pongTB;
+
+		Scuba2Wavelength(String id, double daisyTA, double daisyTB,
+				double[] pongTA, double[] pongTB) {
+			this.id = id;
+
+			assert(pongTA.length == scuba2PongSizes.length);
+			assert(pongTB.length == scuba2PongSizes.length);
+	
+			this.daisyTA = daisyTA;
+			this.daisyTB = daisyTB;
+			this.pongTA = pongTA;
+			this.pongTB = pongTB;
+		}
+
+		public static Scuba2Wavelength fromId(String id)
+				throws IllegalArgumentException {
+			for (Scuba2Wavelength wl : values()) {
+				if (wl.id.equals(id)) return wl;
+			}
+			throw new IllegalArgumentException(
+				"Scuba2 wavelength " + id + " not known");
+		}
+
+		public double getTA(double mapSize) {
+			if (mapSize == scuba2DaisySize) return daisyTA;
+			return interpolateParameter(scuba2PongSizes, pongTA, mapSize, "Map size");
+		}
+
+		public double getTB(double mapSize) {
+			if (mapSize == scuba2DaisySize) return daisyTB;
+			return interpolateParameter(scuba2PongSizes, pongTB, mapSize, "Map size");
+		}
+
+		private double interpolateParameter(double[] xs, double[] ys, double x, String controlName)
+		{
+			assert(xs.length == ys.length);
+			if (x < xs[0]) throw new IllegalArgumentException(
+				controlName + " " + x + " too small to calculate noise");
+			if (x > xs[xs.length - 1]) throw new IllegalArgumentException(
+				controlName + " " + x + " too large to calculate noise");
+
+			double x0 = 0;
+			double x1 = 0;
+			double y0 = 0;
+			double y1 = 0;
+
+			for (int i = 0; i < xs.length; i ++) {
+				if (xs[i] == x) {
+					return ys[i];
+				}
+				else if (xs[i] > x) {
+					x1 = xs[i];
+					y1 = ys[i];
+					break;
+				}
+				else {
+					x0 = xs[i];
+					y0 = ys[i];
+				}
+			}
+
+			return MathUtil.linterp(x0, y0, x1, y1, x);
+		}
+	};
+
+
+	public static final String four50 = Scuba2Wavelength.WL450.id;
+	public static final String eight50 = Scuba2Wavelength.WL850.id;
 
 	private static final double fourFiftyTauMultiplicand = 26.0 ;
 	private static final double eightFiftyTauMultiplicand = 4.6 ;
 	private static final double fourFiftyTauCorrection = .01923 ;
 	private static final double eightFiftyTauCorrection = .00435 ;
 
-	private OrderedMap<Double,Double> tA850;
-	private OrderedMap<Double,Double> tB850;
-	private OrderedMap<Double,Double> tA450;
-	private OrderedMap<Double,Double> tB450;
 
 	/**
 	 * Singleton constructor, private for obvious reasons.
@@ -44,27 +130,6 @@ public class Scuba2Noise
 		eightFifty.add( .065 , 55. ) ;
 		eightFifty.add( .100 , 70. ) ;
 		eightFifty.add( .150 , 90. ) ;
-
-		// Time parameters for standard map sizes
-		// taken from propscuba2itc.pl
-		tA450 = new OrderedMap<Double, Double>();
-		tB450 = new OrderedMap<Double, Double>();
-		tA850 = new OrderedMap<Double, Double>();
-		tB850 = new OrderedMap<Double, Double>();
-		tA850.add(100.0, 196.0);	tB850.add(100.0, -44.0);
-		tA450.add(100.0, 911.0);	tB450.add(100.0, -121.0);
-
-		tA850.add(900.0, 421.0);	tB850.add(900.0, -95.0);
-		tA450.add(900.0, 1961.0);	tB450.add(900.0, -261.0);
-
-		tA850.add(1800.0, 823.0);	tB850.add(1800.0, -187.0);
-		tA450.add(1800.0, 3841.0);	tB450.add(1800.0, -512.0);
-
-		tA850.add(3600.0, 1735.0);	tB850.add(3600.0, -394.0);
-		tA450.add(3600.0, 8353.0);	tB450.add(3600.0, -1113.0);
-
-		tA850.add(7200.0, 3472.0);	tB850.add(7200.0, -789.0);
-		tA450.add(7200.0, 16976.0); 	tB450.add(7200.0, -2263.0);
 	}
 
 	/**
@@ -238,29 +303,17 @@ public class Scuba2Noise
 	{
 		double mJy = -1 ;
 
-		double mapSize = (widthArcSeconds > heightArcSeconds)
+		double mapSize = (widthArcSeconds == heightArcSeconds)
 				? widthArcSeconds
-				: heightArcSeconds;
+				: Math.sqrt(widthArcSeconds * heightArcSeconds);
 
-		double tA;
-		double tB;
 
-		if( four50.equals( waveLength ) )
-		{
-			tA = lookupParameter(tA450, mapSize);
-			tB = lookupParameter(tB450, mapSize);
-		}
-		else if( eight50.equals( waveLength ) )
-		{
-			tA = lookupParameter(tA850, mapSize);
-			tB = lookupParameter(tB850, mapSize);
-		}
-		else
-		{
-			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
-		}
+		Scuba2Wavelength wl = Scuba2Wavelength.fromId(waveLength);
 
-		
+		double tA = wl.getTA(mapSize);
+		double tB = wl.getTB(mapSize);
+
+
 		// binning factor		
 		final double factor = 4;
 
@@ -271,19 +324,6 @@ public class Scuba2Noise
 		return mJy ;
 	}
 
-	private Double lookupParameter(OrderedMap<Double,Double> map, Double target)
-	{
-		Double value = map.find(target);
-		if (value != null) return value;
-
-		Vector<Double> keys = map.keys();
-		for (int index = 0; index < keys.size(); index ++) {
-			double current = keys.elementAt(index);
-			if (target < current) return map.find(index);
-		}
-
-		return map.find(map.size() - 1);
-	}
 
 	/**
 	 * Method for testing.
