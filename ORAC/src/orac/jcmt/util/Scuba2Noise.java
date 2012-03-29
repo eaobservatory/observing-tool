@@ -6,6 +6,7 @@ package orac.jcmt.util ;
 
 import gemini.util.MathUtil ;
 import orac.util.OrderedMap ;
+import orac.jcmt.SpJCMTConstants ;
 import java.util.Vector ;
 
 public class Scuba2Noise
@@ -14,7 +15,16 @@ public class Scuba2Noise
 	private OrderedMap<Double,Double> fourFifty ;
 	private OrderedMap<Double,Double> eightFifty ;
 
-	public final static double scuba2DaisySize = 100;
+
+	private static class TATB {
+		public final double tA;
+		public final double tB;
+		public TATB(double tA, double tB) {
+			this.tA = tA;
+			this.tB = tB;
+		}
+	}
+
 	public final static double[] scuba2PongSizes =
 		{900, 1800, 3600, 7200};
 
@@ -23,30 +33,30 @@ public class Scuba2Noise
 
 	private enum Scuba2Wavelength {
 		WL850("850",
-			196, -44,				// daisy
+			196, -44,				// point
 			new double[]{421, 823, 1735, 3472},	// pong tA
 			new double[]{-95, -187, -394, -789}),	// pong tB
 
 		WL450("450", 
-			911, -121,				// daisy
+			911, -121,				// point
 			new double[]{1961, 3841, 8353, 16976},	// pong tA
 			new double[]{-261, -512, -1113, -2263});// pong tB
 
 		public final String id;
-		public final double daisyTA;
-		public final double daisyTB;
+		public final double pointTA;
+		public final double pointTB;
 		public final double[] pongTA;
 		public final double[] pongTB;
 
-		Scuba2Wavelength(String id, double daisyTA, double daisyTB,
+		Scuba2Wavelength(String id, double pointTA, double pointTB,
 				double[] pongTA, double[] pongTB) {
 			this.id = id;
 
 			assert(pongTA.length == scuba2PongSizes.length);
 			assert(pongTB.length == scuba2PongSizes.length);
 	
-			this.daisyTA = daisyTA;
-			this.daisyTB = daisyTB;
+			this.pointTA = pointTA;
+			this.pointTB = pointTB;
 			this.pongTA = pongTA;
 			this.pongTB = pongTB;
 		}
@@ -60,14 +70,20 @@ public class Scuba2Noise
 				"Scuba2 wavelength " + id + " not known");
 		}
 
-		public double getTA(double mapSize) {
-			if (mapSize == scuba2DaisySize) return daisyTA;
-			return interpolateParameter(scuba2PongSizes, pongTA, mapSize, "Map size");
-		}
-
-		public double getTB(double mapSize) {
-			if (mapSize == scuba2DaisySize) return daisyTB;
-			return interpolateParameter(scuba2PongSizes, pongTB, mapSize, "Map size");
+		public TATB getTATB(double mapSize, String scanStrategy) {
+			if (SpJCMTConstants.SCAN_PATTERN_POINT.equals(scanStrategy)) {
+				return new TATB(pointTA, pointTB);
+			}
+			else if (SpJCMTConstants.SCAN_PATTERN_PONG.equals(scanStrategy)) {
+				return new TATB(
+					interpolateParameter(scuba2PongSizes, pongTA, mapSize, "Map size"),
+					interpolateParameter(scuba2PongSizes, pongTB, mapSize, "Map size"));
+			}
+			else {
+				throw new IllegalArgumentException(
+					"Can not calculate noise for strategy "
+					+ scanStrategy);
+			}
 		}
 
 		private double interpolateParameter(double[] xs, double[] ys, double x, String controlName)
@@ -198,7 +214,7 @@ public class Scuba2Noise
 	 * @param wavelength
 	 * @return noise equivalent flux density in milijanskys
 	 */
-	public double calculateNEFD( String waveLength , Double csoTau , double airmass )
+	public double calculateNEFD( String waveLength , Double csoTau , double airmass ) throws IllegalArgumentException
 	{
 		double mJy = -1. ;
 
@@ -209,7 +225,7 @@ public class Scuba2Noise
 		else if( eight50.equals( waveLength ) )
 			wavelengthLookup = eightFifty ;
 		else
-			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+			throw new IllegalArgumentException( "Wave length " + waveLength + " unknown at this time." ) ;
 
 		Vector<Double> csoTaus = wavelengthLookup.keys() ;
 		if( csoTaus.contains( csoTau ) )
@@ -266,7 +282,8 @@ public class Scuba2Noise
 	 * @param csoTau
 	 * @return sky opacity
 	 */
-	private double calculateTau(String waveLength, double csoTau) {
+	private double calculateTau(String waveLength, double csoTau)
+			throws IllegalArgumentException {
 		double tauMultiplicand = 0. ;
 		double tauCorrection = 0. ;
 
@@ -282,7 +299,7 @@ public class Scuba2Noise
 		}
 		else
 		{
-			throw new RuntimeException( "Wave length " + waveLength + " unknown at this time." ) ;
+			throw new IllegalArgumentException( "Wave length " + waveLength + " unknown at this time." ) ;
 		}
 
 		return tauMultiplicand * ( csoTau - tauCorrection ) ;
@@ -299,7 +316,7 @@ public class Scuba2Noise
 	 * @param heightArcSeconds
 	 * @return desired noise in milijanskys
 	 */
-	public double noiseForMapTotalIntegrationTime( String waveLength , double time , double csoTau , double airmass , double widthArcSeconds , double heightArcSeconds )
+	public double noiseForMapTotalIntegrationTime( String waveLength , double time , double csoTau , double airmass , double widthArcSeconds , double heightArcSeconds , String scanStrategy ) throws IllegalArgumentException
 	{
 		double mJy = -1 ;
 
@@ -310,16 +327,14 @@ public class Scuba2Noise
 
 		Scuba2Wavelength wl = Scuba2Wavelength.fromId(waveLength);
 
-		double tA = wl.getTA(mapSize);
-		double tB = wl.getTB(mapSize);
-
+		TATB p = wl.getTATB(mapSize, scanStrategy);
 
 		// binning factor		
 		final double factor = 4;
 
 		final double trans = StrictMath.exp(- airmass * calculateTau(waveLength, csoTau));
 
-		mJy = (tA / trans + tB) / StrictMath.sqrt(factor * time);
+		mJy = (p.tA / trans + p.tB) / StrictMath.sqrt(factor * time);
 
 		return mJy ;
 	}
@@ -382,8 +397,11 @@ public class Scuba2Noise
 					timeSeconds = new Double( args[ 4 ] ) ;
 					double widthArcMinutes = new Double( args[ 5 ] ) ;
 					double heightArcMinutes = new Double( args[ 6 ] ) ;
-					result = s2n.noiseForMapTotalIntegrationTime( waveLength , timeSeconds , csoTau , airmass , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) ) ;
-					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", time " + timeSeconds + ", width " + widthArcMinutes + ", height " + heightArcMinutes + " = " + result + " mJy." ) ;
+					String strategy = (widthArcMinutes == 0)
+						? SpJCMTConstants.SCAN_PATTERN_POINT
+						: SpJCMTConstants.SCAN_PATTERN_PONG;
+					result = s2n.noiseForMapTotalIntegrationTime( waveLength , timeSeconds , csoTau , airmass , ( widthArcMinutes * 60 ) , ( heightArcMinutes * 60 ) , strategy) ;
+					System.out.println( "Time for map using CSO Tau " + csoTau + ", airmass " + airmass + ", time " + timeSeconds + ", width " + widthArcMinutes + ", height " + heightArcMinutes + ", strategy " + strategy + " = " + result + " mJy." ) ;
 					break ;
 				default :
 					System.out.println( "Unknown program type." ) ;

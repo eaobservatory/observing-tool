@@ -270,34 +270,41 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		}
 
 		double airmass = 0. ;
-		
-		SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
-		if( base.getCoordSys() == CoordSys.FK5 )
-		{
-			airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
-		}
-		else if( base.getCoordSys() == CoordSys.AZ_EL )
-		{
-			airmass = DrUtil.airmass( base.getYaxis() ) ;
-		}
-		else
-		{
-			double yAxis = convertPosition( base.getCoordSys() , base.getXaxis() , base.getYaxis() ) ;
-			airmass = DrUtil.airmass( yAxis , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
-		}
-		
-		double csoTau = siteQualityObsComp.getNoiseCalculationTau() ;
 
-		if( instObsComp instanceof SpInstHeterodyne )
-		{
-			return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau ) ;
+		try {
+		
+			SpTelescopePos base = telescopeObsComp.getPosList().getBasePosition() ;
+			if( base.getCoordSys() == CoordSys.FK5 )
+			{
+				airmass = DrUtil.airmass( base.getYaxis() , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+			}
+			else if( base.getCoordSys() == CoordSys.AZ_EL )
+			{
+				airmass = DrUtil.airmass( base.getYaxis() ) ;
+			}
+			else
+			{
+				double yAxis = convertPosition( base.getCoordSys() , base.getXaxis() , base.getYaxis() ) ;
+				airmass = DrUtil.airmass( yAxis , DDMMSS.valueOf( OtCfg.getTelescopeLatitude() ) ) ;
+			}
+			
+			double csoTau = siteQualityObsComp.getNoiseCalculationTau() ;
+
+			if( instObsComp instanceof SpInstHeterodyne )
+			{
+				return "" + calculateNoise( ( SpInstHeterodyne )instObsComp , airmass , csoTau ) ;
+			}
+			else if( instObsComp instanceof SpInstSCUBA2 )
+			{
+				double fourFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.four50 , airmass , csoTau ) ;
+				double eightFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.eight50 , airmass , csoTau ) ;
+				_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ",  (450) = " + fourFifty + ",  (850) = " + eightFifty ;
+				return "" + fourFifty + "@450," + eightFifty + "@850" ;
+			}
 		}
-		else if( instObsComp instanceof SpInstSCUBA2 )
-		{
-			double fourFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.four50 , airmass , csoTau ) ;
-			double eightFifty = calculateNoise( ( SpInstSCUBA2 )instObsComp , Scuba2Noise.eight50 , airmass , csoTau ) ;
-			_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ",  (450) = " + fourFifty + ",  (850) = " + eightFifty ;
-			return "" + fourFifty + "@450," + eightFifty + "@850" ;
+		catch (Exception e) {
+			_noiseToolTip = e.toString();
+			return "Not available" ;
 		}
 
 		_noiseToolTip = "Not available" ;
