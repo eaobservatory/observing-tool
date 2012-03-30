@@ -51,13 +51,34 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		arcs = new Vector<ArcRange>();
 	}
 
-	private class ArcRange {
+	private static class ArcRange {
 		public double angleStart;
 		public double angleEnd;
 
 		public ArcRange(double start, double end) {
 			angleStart = start;
 			angleEnd = end;
+		}
+
+		public void offset(double offset) {
+			angleStart += offset;
+			angleEnd += offset;
+		}
+
+		public void checkOrder() {
+			if (angleStart > angleEnd) {
+				double angle = angleStart;
+				angleStart = angleEnd;
+				angleEnd = angle;
+			}
+		}
+
+		public static ArcRange merge(ArcRange a, ArcRange b) {
+			a.checkOrder();
+			b.checkOrder();
+			return new ArcRange(
+				Math.min(a.angleStart, b.angleStart),
+				Math.max(a.angleEnd, b.angleEnd));
 		}
 	}
 
@@ -183,32 +204,38 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 
 			NasmythPlatform platform = NasmythPlatform.LEFT;
 
-			double riseStart = offsetAngle + nasmythAngle(latitude,
-				elevationMin, declination, false, platform);
 
-			double setEnd = offsetAngle + nasmythAngle(latitude,
-				elevationMin, declination, true, platform);
+			ArcRange rangeRising = null;
+			ArcRange rangeSetting = null;
+
+			if (rising) {
+				rangeRising = nasmythAngleRange(latitude,
+					elevationMin, elevationMax,
+					declination, false,
+					platform);
+				rangeRising.offset(offsetAngle);
+			}
+
+			if (setting) {
+				rangeSetting = nasmythAngleRange(latitude,
+					elevationMin, elevationMax,
+					declination, true,
+					platform);
+				rangeSetting.offset(offsetAngle);
+			}
 
 
 			if (seeTransit && rising && setting) {
-				arcs.add(new ArcRange(riseStart, setEnd));
+				arcs.add(ArcRange.merge(rangeRising,
+							rangeSetting));
 			}
 			else {
 				if (rising) {
-					arcs.add(new ArcRange(riseStart,
-						offsetAngle + nasmythAngle(
-							latitude, elevationMax,
-							declination, false,
-							platform)));
+					arcs.add(rangeRising);
 				}
 
 				if (setting) {
-					arcs.add(new ArcRange(
-						offsetAngle + nasmythAngle(
-							latitude, elevationMax,
-							declination, true,
-							platform),
-						setEnd));
+					arcs.add(rangeSetting);
 				}
 			}
 
@@ -320,6 +347,7 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 
 	}
 
+
 	/**
 	 * Enum of platforms.
 	 */
@@ -334,12 +362,19 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		public double getSign() {return sign;}
 	}
 
+
 	/**
-	 * Calculate angle to pole as seen by a Nasmyth instrument.
-	 */
-	protected static double nasmythAngle(double latitudeDeg,
+	 * Calculate parallactic angle.
+	 *
+	 * Returns a value in the range -180 - 360 degrees
+	 * in order to be able to give a continuous range of
+	 * angles for sources transiting to either side of the zenith.
+	 *
+	 * TODO: move this to Pal?
+	 */ 
+	private static double parallacticAngle(double latitudeDeg,
 			double elevationDeg, double declinationDeg,
-			boolean setting, NasmythPlatform platform) {
+			boolean setting) {
 		double latitude = Angle.degreesToRadians(latitudeDeg);
 		double elevation = Angle.degreesToRadians(elevationDeg);
 		double declination = Angle.degreesToRadians(declinationDeg);
@@ -349,30 +384,93 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 				- Math.sin(declination) * Math.sin(elevation))
 			/ (Math.cos(declination) * Math.cos(elevation)));
 
-		if (setting) verticalAngle = 2 * Math.PI - verticalAngle;
+		if (setting) {
+			if (declination >= latitude)
+				verticalAngle = 2 * Math.PI - verticalAngle;
+			else
+				verticalAngle = - verticalAngle;
+		}
 
-		return Angle.radiansToDegrees(verticalAngle
-			+ platform.getSign() * elevation);
+		return Angle.radiansToDegrees(verticalAngle);
 	}
 
 
 	/**
-	 * Main method to test nasmythAngle function.
+	 * Calculate angle to pole as seen by a Nasmyth instrument.
+	 */
+	private static double nasmythAngle(double latitudeDeg,
+			double elevationDeg, double declinationDeg,
+			boolean setting, NasmythPlatform platform) {
+
+		double verticalAngle = parallacticAngle(latitudeDeg,
+				elevationDeg, declinationDeg, setting);
+
+		return verticalAngle + platform.getSign() * elevationDeg;
+	}
+
+	
+	/**
+	 * Calculate range of nasmyth angles for given elevantion range,
+	 */
+	private static ArcRange nasmythAngleRange(double latitudeDeg,
+			double elevationDegMin, double elevationDegMax,
+			double declinationDeg,
+			boolean setting, NasmythPlatform platform) {
+
+		double angleMin = 0;
+		double angleMax = 0;
+		boolean first = true;
+
+		if (elevationDegMax < elevationDegMin) {
+			double elevationDeg = elevationDegMax;
+			elevationDegMax = elevationDegMin;
+			elevationDegMin = elevationDeg;
+		}
+
+		for (double elevationDeg = elevationDegMin;
+				elevationDeg <= elevationDegMax;
+				elevationDeg += 0.5) {
+
+			double angle = nasmythAngle(latitudeDeg,
+				elevationDeg, declinationDeg,
+				setting, platform);
+
+			if (first || angle < angleMin) angleMin = angle;
+			if (first || angle > angleMax) angleMax = angle;
+
+			first = false;
+		}
+
+		return new ArcRange(angleMin, angleMax);
+	}
+
+
+	/**
+	 * Main method to test parallacticAngle and nasmythAngle functions.
 	 */
 	public static void main(String[] args) {
-		double dec = 20;
+		assert(args.length == 1);
+		double dec = Double.parseDouble(args[0]);
 		double lat = 20;
 		
 		double maxEl = 90 - Math.abs(dec - lat);
 
 		for (double el = 0; el < maxEl; el ++) {
-			System.out.println(el + " " + nasmythAngle(lat,
-				el, dec, false, NasmythPlatform.LEFT));
+			System.out.println(el + " "
+				+ parallacticAngle(lat,
+					el, dec, false)
+				+ " "
+				+ nasmythAngle(lat,
+					el, dec, false, NasmythPlatform.LEFT));
 		}
 
 		for (double el = maxEl; el > 0; el --) {
-			System.out.println(el + " " + nasmythAngle(lat,
-				el, dec, true, NasmythPlatform.LEFT));
+			System.out.println(el + " " 
+				+ parallacticAngle(lat,
+					el, dec, true)
+				+ " "
+				+ nasmythAngle(lat,
+					el, dec, true, NasmythPlatform.LEFT));
 		}
 	}
 }
