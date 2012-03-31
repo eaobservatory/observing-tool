@@ -90,8 +90,7 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 	 */
 	private boolean calculateArcs() {
 		arcs.clear();
-
-
+		
 		// Find latitude of telescope.
 
 		double latitude = DDMMSS.valueOf(OtCfg.getTelescopeLatitude());
@@ -190,6 +189,10 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 			radOffset = 180;
 			double offsetAngle = 45;
 
+			// Reference arcs only apply in dual port mode
+			boolean dualPort = fts2.isDualPort();
+			if (! dualPort) return true;
+
 			int trackingPort = fts2.getTrackingPort();
 
 			switch (trackingPort) {
@@ -254,6 +257,9 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 	 */
 	public void draw(Graphics g , FitsImageInfo fii) {
 		if (! calculateArcs()) return;
+
+		//arcs.clear();
+		//arcs.add(new ArcRange(0, 90));
 		
 		// TODO: check that baseScreenPos always gives the position of the actual target
 		double x0 = fii.baseScreenPos.x;
@@ -314,35 +320,35 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 			(int) (y0 - (scale * radInner)),
 			(int) (2 * scale * radInner),
 			(int) (2 * scale * radInner),
-			(int) (90 + range.angleStart),
-			(int) (range.angleEnd - range.angleStart));
+			(int) (90 - range.angleStart),
+			(int) (range.angleStart - range.angleEnd));
 
 		g.drawArc((int) (x0 - (scale * radOuter)),
 			(int) (y0 - (scale * radOuter)),
 			(int) (2 * scale * radOuter),
 			(int) (2 * scale * radOuter),
-			(int) (90 + range.angleStart),
-			(int) (range.angleEnd - range.angleStart));
+			(int) (90 - range.angleStart),
+			(int) (range.angleStart - range.angleEnd));
 
-		double x1 = x0 - scale * radOffset * Math.sin(Math.PI * range.angleStart / 180);
+		double x1 = x0 + scale * radOffset * Math.sin(Math.PI * range.angleStart / 180);
 		double y1 = y0 - scale * radOffset * Math.cos(Math.PI * range.angleStart / 180);
-		int endCap = (range.angleEnd > range.angleStart) ? -180 : 180;
+		int endCap = (range.angleEnd < range.angleStart) ? -180 : 180;
 
 		g.drawArc((int) (x1 - (scale * radFov)),
 			(int) (y1 - (scale * radFov)),
 			(int) (2 * scale * radFov),
 			(int) (2 * scale * radFov),
-			(int) (90 + range.angleStart),
+			(int) (90 - range.angleStart),
 			endCap);
 
-		double x2 = x0 - scale * radOffset * Math.sin(Math.PI * range.angleEnd / 180);
+		double x2 = x0 + scale * radOffset * Math.sin(Math.PI * range.angleEnd / 180);
 		double y2 = y0 - scale * radOffset * Math.cos(Math.PI * range.angleEnd / 180);
 
 		g.drawArc((int) (x2 - (scale * radFov)),
 			(int) (y2 - (scale * radFov)),
 			(int) (2 * scale * radFov),
 			(int) (2 * scale * radFov),
-			(int) (90 + range.angleEnd),
+			(int) (90 - range.angleEnd),
 			-endCap);
 
 	}
