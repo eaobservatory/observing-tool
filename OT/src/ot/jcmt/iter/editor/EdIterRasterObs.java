@@ -26,8 +26,6 @@ import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.OptionWidgetWatcher ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
-import jsky.app.ot.tpe.TpeManager ;
-import jsky.app.ot.tpe.TelescopePosEditor ;
 
 import gemini.sp.SpItem ;
 import gemini.sp.SpTreeMan ;
@@ -542,16 +540,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
 	
-	private void resetTPE()
-	{
-		if( _spItem != null )
-		{
-			TelescopePosEditor tpe = TpeManager.get( _spItem ) ;
-			if( tpe != null )
-				tpe.reset( _spItem ) ;
-		}
-	}
-
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		_iterObs.getAvEditFSM().deleteObserver( this ) ;

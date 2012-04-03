@@ -115,20 +115,24 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	    else if( _w.dual.equals( source ) )
 	    {
 	    	_inst.setIsDualPort( true ) ;
+		resetTPE();
 	    }
 	    else if( _w.single.equals( source ) )
 	    {
 	    	_inst.setIsDualPort( false ) ;
+		resetTPE();
 	    }
 	    else if( _w.port1.equals( source ) )
 	    {
 	    	_inst.setTrackingPort( 1 ) ;
+		resetTPE();
 	    }
 	    else if( _w.port2.equals( source ) )
 	    {
 	    	_inst.setTrackingPort( 2 ) ;
+		resetTPE();
 	    }
-    }
+	}
 
 	public void stateChanged( ChangeEvent e )
 	{
