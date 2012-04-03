@@ -13,6 +13,9 @@ import jsky.app.ot.gui.TextBoxWidgetExt ;
 import gemini.sp.SpAvTable ;
 import gemini.sp.SpItem ;
 import gemini.util.Assert ;
+import jsky.app.ot.tpe.TpeManager ;
+import jsky.app.ot.tpe.TelescopePosEditor ;
+
 
 /**
  * This is the base class for all SpItem editors.  It uses a
@@ -224,5 +227,18 @@ public abstract class OtItemEditor
 	{
 		double d = tbwe.getDoubleValue( def ) ;
 		_avTab.set( attribute , d ) ;
+	}
+
+	/**
+	 * Call the reset method of the associated TelescopePosEditor.
+	 */ 
+	protected void resetTPE()
+	{
+		if( _spItem != null )
+		{
+			TelescopePosEditor tpe = TpeManager.get( _spItem ) ;
+			if( tpe != null )
+				tpe.reset( _spItem ) ;
+		}
 	}
 }

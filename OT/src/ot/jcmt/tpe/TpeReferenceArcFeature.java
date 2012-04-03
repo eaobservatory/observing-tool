@@ -185,9 +185,9 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		if (base instanceof SpIterFTS2) {
 			SpIterFTS2 fts2 = (SpIterFTS2) base;
 
-			radFov = 60;
-			radOffset = 180;
-			double offsetAngle = 45;
+			radFov = 92;
+			radOffset = 207;
+			double offsetAngle = 90;
 
 			// Reference arcs only apply in dual port mode
 			boolean dualPort = fts2.isDualPort();
