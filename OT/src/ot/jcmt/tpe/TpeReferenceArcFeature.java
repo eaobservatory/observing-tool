@@ -46,7 +46,7 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 
 
 	public TpeReferenceArcFeature() {
-		super("Sausages", "Reference Arc");
+		super("Ref. Arcs", "Arcs showing the possible positions of the reference beam.");
 
 		arcs = new Vector<ArcRange>();
 	}
@@ -127,7 +127,7 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		
 		// Find range of observable elevations
 
-		double elevationMin = 0;
+		double elevationMin = 20; // assumed minimum elevation
 		double elevationMax = 90;
 		boolean rising = true;
 		boolean setting = true;
@@ -185,8 +185,8 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		if (base instanceof SpIterFTS2) {
 			SpIterFTS2 fts2 = (SpIterFTS2) base;
 
-			radFov = 92;
-			radOffset = 207;
+			radFov = 93.3;
+			radOffset = 210.2;
 			double offsetAngle = 90;
 
 			// Reference arcs only apply in dual port mode
