@@ -36,7 +36,7 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	{
 		_title = "Or Folder Editor" ;
 		_presSource = _w = new OrEditorGUI() ;
-		_description = "Change the title of the item here." ;
+		_description = "The or folder can be configured here." ;
 
 		for( int i = 0 ; i < 100 ; i++ )
 			_w.numberOfItems.addItem( "" + i ) ;

@@ -914,47 +914,35 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 * Observation black: Observation is not optional.
 	 * Observation green: Observation is optional.
 	 */
-	public Component getTreeCellRendererComponent( JTree tree , Object value , boolean selected , boolean expanded , boolean leaf , int row , boolean hasFocus )
-	{
-		OtTreeNodeWidget treeNodeWidget = null ;
+	public Component getTreeCellRendererComponent(JTree tree, Object value,
+			boolean selected, boolean expanded, boolean leaf,
+			int row, boolean hasFocus) {
+		TreeWidgetCellRenderer resultComponent = (TreeWidgetCellRenderer) 
+			super.getTreeCellRendererComponent(tree, value, selected,
+				expanded, leaf, row, hasFocus);
 
-		if( ( value != null ) && value instanceof OtTreeNodeWidget )
-			treeNodeWidget = ( OtTreeNodeWidget )value ;
+		if ((value == null) || ! (value instanceof OtTreeNodeWidget)) {
+			return resultComponent;
+		}
+		
+		SpItem item = ((OtTreeNodeWidget) value).getItem();
 
-		if( ( treeNodeWidget == null ) || ( ( !( treeNodeWidget.getItem() instanceof SpMSB ) ) && ( !( treeNodeWidget.getItem() instanceof SpNote ) ) ) )
-			return super.getTreeCellRendererComponent( tree , value , selected , expanded , leaf , row , hasFocus ) ;
 
-		TreeWidgetCellRenderer resultComponent = ( TreeWidgetCellRenderer )super.getTreeCellRendererComponent( tree , value , selected , expanded , leaf , row , hasFocus ) ;
-
-		if( ( treeNodeWidget != null ) && ( treeNodeWidget.getItem() instanceof SpMSB ) )
-		{
-			SpMSB spMSB = ( SpMSB )treeNodeWidget.getItem() ;
-
-			if( spMSB.isSuspended() )
-				resultComponent.setForeground( Color.red ) ;
-			else if( spMSB.getNumberRemaining() < 1 )
-				resultComponent.setForeground( Color.gray ) ;
+		if (item instanceof SpNote) {
+			if (((SpNote) item).isObserveInstruction())
+				resultComponent.setForeground(Color.blue);
+		}
+		else if (item.isSuspended()) {
+			resultComponent.setForeground(Color.red);
+		}
+		else if (item.isDisabled()) {
+			resultComponent.setForeground(Color.gray);
+		}
+		else if (item.isOptional()) {
+			resultComponent.setForeground(GREEN);
 		}
 
-		if( ( treeNodeWidget != null ) && ( treeNodeWidget.getItem() instanceof SpObs ) )
-		{
-			SpObs spObs = ( SpObs )treeNodeWidget.getItem() ;
-
-			// Note that only SpObs with getIsMSB() == false can be optional. So unless there is something wrong with
-			// the Science program spObs.isOptional() implies spObs.getIsMSB() == false.
-			if( spObs.isMSB() && spObs.isSuspended() )
-				resultComponent.setForeground( Color.red ) ;
-			else if( spObs.isOptional() )
-				resultComponent.setForeground( GREEN ) ;
-		}
-
-		if( ( treeNodeWidget != null ) && ( treeNodeWidget.getItem() instanceof SpNote ) )
-		{
-			if( ( ( SpNote )treeNodeWidget.getItem() ).isObserveInstruction() )
-				resultComponent.setForeground( Color.blue ) ;
-		}
-
-		return resultComponent ;
+		return resultComponent;
 	}
 
 	public void autoAssignPriority()

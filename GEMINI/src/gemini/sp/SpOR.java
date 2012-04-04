@@ -32,6 +32,18 @@ public class SpOR extends SpObsContextItem
 		_avTable.noNotifySet( ATTR_NUMBER_OF_ITEMS , "1" , 0 ) ;
 	}
 
+
+	/**
+	 * Create a display title including the number of items to include.
+	 */
+	public String getTitle() {
+		return super.getTitle()
+			+ " (" + getNumberOfItems()
+			// + " of " + childCount() // does not update...
+			+ ")";
+	}
+
+
 	/**
      * Set number of items in OR folder (such as MSBs, AND folder) that are to
      * be selected.
@@ -146,5 +158,12 @@ public class SpOR extends SpObsContextItem
 		if( elapsedTime != 0. )
 			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
 		return elapsedTime ;
+	}
+
+	/**
+	 * Disabled if set to observe 0 items. 
+	 */
+	public boolean isDisabled() {
+		return getNumberOfItems() == 0; 
 	}
 }
