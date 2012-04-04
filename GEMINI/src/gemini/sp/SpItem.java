@@ -1284,4 +1284,36 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 
 		return result.toString() ;
 	}
+
+	/**
+	 * Determines whether the SpItem is disabled.
+	 *
+	 * Subclasses should override this by providing a method
+	 * to determine whether they should be considered to
+	 * be in a disabled state.  This will decide whether the
+	 * item should be grayed out in the tree view.
+	 */
+	public boolean isDisabled() {
+		return false;
+	}
+
+	/**
+	 * Determines if the SpItem is suspended.
+	 *
+	 * Subclasses should override this if the item is
+	 * capable of being suspended.
+	 */
+	public boolean isSuspended() {
+		return false;
+	} 
+
+	/**
+	 * Determins if the SpItem is optional.
+	 *
+	 * Subclasses should override this if the item
+	 * can be marked as optional.
+	 */
+	public boolean isOptional() {
+		return false;
+	} 
 }

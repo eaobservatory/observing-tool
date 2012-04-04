@@ -355,4 +355,11 @@ public class SpMSB extends SpObsContextItem
 
 		super.processXmlAttribute( elementName , attributeName , value ) ;
 	}
+
+	/**
+	 * Disabled if 0 repeats remaining.
+	 */
+	public boolean isDisabled() {
+		return getNumberRemaining() < 1;
+	}  
 }
