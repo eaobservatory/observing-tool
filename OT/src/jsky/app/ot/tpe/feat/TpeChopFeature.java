@@ -20,6 +20,7 @@ import jsky.app.ot.tpe.TpeDraggableFeature ;
 import jsky.app.ot.tpe.TpeImageWidget ;
 
 import gemini.util.Angle ;
+import orac.util.ScienceArea;
 
 /**
  * An implementation class used to simplify the job of rotating.
@@ -75,6 +76,19 @@ public class TpeChopFeature extends TpeImageFeature implements TpeDraggableFeatu
 	}
 
 	/**
+	 * Reports whether the chop pattern includes the base position.
+	 *
+	 * The default value is true.  Subclasses should override this
+	 * as required.
+	 *
+	 * Where this is false, the chop position is drawn as 
+	 * offset to one side by half of the chop distance.
+	 */
+	protected boolean isInclusiveOfBase() {
+		return true;
+	}
+
+	/**
 	 * Calculate the polygon describing the screen location of the science area.
 	 */
 	protected boolean _calc( FitsImageInfo fii )
@@ -84,6 +98,12 @@ public class TpeChopFeature extends TpeImageFeature implements TpeDraggableFeatu
 		if( ( spIterChop == null ) || ( spIterChop.getSelectedIndex() < 0 ) )
 			return false ;
 
+		/*
+		 * Subclasses may depend on this being set, so do so now before
+		 * calling isInclusiveOfBase.
+		 */ 
+		this._iterChop = spIterChop;
+
 		int chopStepIndex = spIterChop.getSelectedIndex() ;
 		String coordFrame = spIterChop.getCoordFrame( chopStepIndex ) ;
 
@@ -92,41 +112,36 @@ public class TpeChopFeature extends TpeImageFeature implements TpeDraggableFeatu
 		_baseX = ( double )fii.baseScreenPos.x ;
 		_baseY = ( double )fii.baseScreenPos.y ;
 
-		_chopX = spIterChop.getThrow( chopStepIndex ) * Math.sin( ( ( 180 + spIterChop.getAngle( chopStepIndex ) ) / 360 ) * ( Math.PI * 2.0 ) ) ;
-		_chopY = spIterChop.getThrow( chopStepIndex ) * Math.cos( ( ( 180 + spIterChop.getAngle( chopStepIndex ) ) / 360 ) * ( Math.PI * 2.0 ) ) ;
+		double scale = fii.pixelsPerArcsec;
+		double chopThrow = spIterChop.getThrow(chopStepIndex);
+		double chopAngle = spIterChop.getAngle(chopStepIndex) * Math.PI / 180;
 
-		_chopX *= fii.pixelsPerArcsec ;
-		_chopY *= fii.pixelsPerArcsec ;
+		double sideFactor = isInclusiveOfBase() ? 1 : 0.5;
 
-		_chopX += _baseX ;
-		_chopY += _baseY ;
+		_chopX = _baseX - scale * sideFactor * chopThrow * Math.sin(chopAngle);
+		_chopY = _baseY - scale * sideFactor * chopThrow * Math.cos(chopAngle);
 
-		double[] scienceArea = null ;
-
-		if( _iw.getInstrumentItem() != null )
-			scienceArea = _iw.getInstrumentItem().getScienceArea() ;
-
-		double scienceAreaRadius = 0. ;
-
-		if( scienceArea != null )
-		{
-			if( scienceArea.length == 1 )
-				scienceAreaRadius = scienceArea[ 0 ] ;
-			else
-				scienceAreaRadius = Math.sqrt( ( scienceArea[ 0 ] * scienceArea[ 0 ] ) + ( scienceArea[ 1 ] * scienceArea[ 1 ] ) ) ;
+		ScienceArea scienceArea = null;
+		try {
+			if (_iw.getInstrumentItem() != null ) {
+				scienceArea = ScienceArea.fromArray(
+					_iw.getInstrumentItem().getScienceArea());
+			}
+		}
+		catch (RuntimeException e) {
+			e.printStackTrace();
 		}
 
-		_chopInnerRadius = spIterChop.getThrow( chopStepIndex ) - scienceAreaRadius ;
-		_chopInnerRadius *= fii.pixelsPerArcsec ;
+		double scienceAreaRadius = (scienceArea == null)
+			? 0
+			: scienceArea.getBoundingRadius();
 
-		_chopOuterRadius = spIterChop.getThrow( chopStepIndex ) + scienceAreaRadius ;
-		_chopOuterRadius *= fii.pixelsPerArcsec ;
+		_chopInnerRadius = scale * (sideFactor * chopThrow - scienceAreaRadius);
+		_chopOuterRadius = scale * (sideFactor * chopThrow + scienceAreaRadius);
 
 		// Already have the current values
 		if( _valid && ( spIterChop == _iterChop ) )
 			return true ;
-
-		_iterChop = spIterChop ;
 
 		_valid = true ;
 		return true ;
@@ -135,68 +150,55 @@ public class TpeChopFeature extends TpeImageFeature implements TpeDraggableFeatu
 	/**
 	 * Draw the feature.
 	 */
-	public void draw( Graphics g , FitsImageInfo fii )
-	{
-		if( !_calc( fii ) )
-			return ;
+	public void draw(Graphics g , FitsImageInfo fii) {
+		if (! _calc(fii)) return;
 
-		g.setColor( Color.magenta ) ;
+		double scale = fii.pixelsPerArcsec;
 
-		double[] scienceArea = null ;
+		ScienceArea scienceArea = null;
+		try {
+			if (_iw.getInstrumentItem() != null ) {
+				scienceArea = ScienceArea.fromArray(
+					_iw.getInstrumentItem().getScienceArea());
+			}
+		}
+		catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+
+		g.setColor(Color.magenta);
+
 
 		// There is an instrument in scope then draw the science area around the base and chop position.
-		if( ( _iw.getInstrumentItem() != null ) && ( ( scienceArea = _iw.getInstrumentItem().getScienceArea() ) != null ) )
-		{
-
-			// ScienceArea is circular (approximately circular detector/array as opposed to
-			// circular representation of science area due to Az/El mounting)
-			if( scienceArea.length == 1 )
-			{
-				double radius = scienceArea[ 0 ] * fii.pixelsPerArcsec ;
-				g.drawArc( ( int )( _baseX - radius ) , ( int )( _baseY - radius ) , ( int )( 2 * radius ) , ( int )( 2 * radius ) , 0 , 360 ) ;
-
-				g.drawArc( ( int )( _chopX - radius ) , ( int )( _chopY - radius ) , ( int )( 2 * radius ) , ( int )( 2 * radius ) , 0 , 360 ) ;
-			}
-
-			// Recangular Science Area.
-			if( scienceArea.length == 2 )
-			{
-				// Draw rectangular Science Area as circle because of Az/El coordinate system.
-				if( _drawAsCircle )
-				{
-					double radius = Math.sqrt( ( scienceArea[ 0 ] * scienceArea[ 0 ] ) + ( scienceArea[ 1 ] * scienceArea[ 1 ] ) ) ;
-					radius *= fii.pixelsPerArcsec ;
-					g.drawArc( ( int )( _baseX - radius ) , ( int )( _baseY - radius ) , ( int )( 2 * radius ) , ( int )( 2 * radius ) , 0 , 360 ) ;
-					g.drawArc( ( int )( _chopX - radius ) , ( int )( _chopY - radius ) , ( int )( 2 * radius ) , ( int )( 2 * radius ) , 0 , 360 ) ;
-				}
-				// Draw rectangular Science Area as rectangle.
-				else
-				{
-					double w = scienceArea[ 0 ] * fii.pixelsPerArcsec ;
-					double h = scienceArea[ 1 ] * fii.pixelsPerArcsec ;
-
-					g.drawRect( ( int )( _baseX - ( w / 2. ) ) , ( int )( _baseY - ( h / 2. ) ) , ( int )w , ( int )h ) ;
-					g.drawRect( ( int )( _chopX - ( w / 2. ) ) , ( int )( _chopY - ( h / 2. ) ) , ( int )w , ( int )h ) ;
-				}
-			}
+		if (scienceArea != null) {
+			scienceArea.draw(g, _drawAsCircle, _baseX, _baseY, scale);
+			scienceArea.draw(g, _drawAsCircle, _chopX, _chopY, scale);
 		}
 
 		// Draw the actual chop positions (at the centre of the science areas) as a small boxes.
 		// The box at position (_chopX, _chopY), i.e. the one with the label,
 		// is used for dragging the position with the mouse.
-		g.drawRect( ( int )_chopX - 2 , ( int )_chopY - 2 , 4 , 4 ) ;
-		g.drawRect( ( int )_baseX - 2 , ( int )_baseY - 2 , 4 , 4 ) ;
+		g.drawRect((int) _chopX - 2, (int) _chopY - 2, 4, 4);
+		g.drawRect((int) _baseX - 2, (int) _baseY - 2, 4, 4);
 
 		//   g.setFont(FONT) ;
-		g.drawString( _name + " (Step " + _iterChop.getSelectedIndex() + ")" , ( int )_chopX + 3 , ( int )_chopY + 2 ) ;
+		g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")",
+			(int) _chopX + 3, (int) _chopY + 2);
 
-		// If the exact position is not known due to the Az/El coordinate system.
-		// then draw two circles around the base. The science area is between these two circles.
-		if( _drawAsCircle )
-		{
-			g.drawArc( ( int )( _baseX - _chopInnerRadius ) , ( int )( _baseY - _chopInnerRadius ) , ( int )( 2 * _chopInnerRadius ) , ( int )( 2 * _chopInnerRadius ) , 0 , 360 ) ;
-			g.drawArc( ( int )( _baseX - _chopOuterRadius ) , ( int )( _baseY - _chopOuterRadius ) , ( int )( 2 * _chopOuterRadius ) , ( int )( 2 * _chopOuterRadius ) , 0 , 360 ) ;
-		}
+		if (_drawAsCircle) drawCircles(g);
+	}
+
+	/**
+	 * Draw two circles around the base position based on the chop locations.
+	 *
+	 * If the exact position is not known due to the Az/El coordinate system
+	 * then the science area is between these two circles.
+	 */
+	protected void drawCircles(Graphics g) {
+		g.drawOval((int)(_baseX - _chopInnerRadius), (int)(_baseY - _chopInnerRadius),
+			(int)(2 * _chopInnerRadius), (int)( 2 * _chopInnerRadius));
+		g.drawOval((int)(_baseX - _chopOuterRadius), (int)(_baseY - _chopOuterRadius),
+			(int)(2 * _chopOuterRadius), (int)( 2 * _chopOuterRadius));
 	}
 
 	/**
