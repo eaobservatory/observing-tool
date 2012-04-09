@@ -1104,101 +1104,78 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	}
 
 	/**
+	 * Perform validation of the item currently selected in the tree widget.
 	 * @return true  if selected component has been checked and found valid.
 	 *         false if the component has been checked and found invalid
-	 *               OR if the component has not been checked because it is neither an observation nor a science program.
+	 *               or if the component has not been checked because it is
+	 *               neither an observation nor a science program.
 	 */
-	public boolean doValidation()
-	{
-		SpItem spItem = _tw.getSelectedItem() ;
-		String reportBoxTitle = "Validation Report" ;
+	public boolean doValidation() {
+		SpItem spItem = _tw.getSelectedItem();
+		String reportBoxTitle = "Validation Report";
 
 		// checking whether an item has been selected that can be checked and returning false otherwise.
-		if( !( spItem instanceof SpProg ) && !( spItem instanceof SpMSB ) )
-		{
-			new ReportBox( "Please select an observation, MSB or science program." ) ;
-			return false ;
+		if (!(spItem instanceof SpProg) && !(spItem instanceof SpMSB)) {
+			new ReportBox("Please select an observation, MSB or science program.");
+			return false;
 		}
 
-		if( OtCfg.telescopeUtil == null )
-		{
-			new ReportBox( "Could not find validation tool.\n" + "Make sure a telescope cfg class is specified in the ot.cfg file." , reportBoxTitle ) ;
-			return false ;
-		}
-
-		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool() ;
-
-		if( spValidation == null )
-		{
-			new ReportBox( "Could not find validation tool." , reportBoxTitle ) ;
-			return false ;
-		}
-
-		Vector<ErrorMessage> report = new Vector<ErrorMessage>() ;
-
-		ErrorMessage.reset() ;
-
-		if( spItem instanceof SpMSB )
-			spValidation.checkMSB( ( SpMSB )spItem , report ) ;
-		else
-			spValidation.checkSciProgram( ( SpProg )spItem , report ) ;
-
-		// ADDED BY SDW...
-		if( spItem instanceof SpProg || spItem instanceof SpLibrary )
-			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report ) ;
+		Vector<ErrorMessage> report = doValidation(spItem);
 
 		// at the moment there is no difference in how errors and warnings are handled.
-		if( ErrorMessage.getErrorCount() > 0 )
-		{
-			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle ) ;
-			return false ;
+		if ((ErrorMessage.getErrorCount() > 0)
+				|| (ErrorMessage.getWarningCount() > 0)) {
+			new ReportBox(ErrorMessage.messagesToString(report.elements()),
+				reportBoxTitle);
+			return false;
 		}
-		else if( ErrorMessage.getWarningCount() > 0 )
-		{
-			new ReportBox( ErrorMessage.messagesToString( report.elements() ) , reportBoxTitle ) ;
-			return false ;
-		}
-		else
-		{
-			new ReportBox( spItem.type().getReadable() + " settings are valid." , reportBoxTitle ) ;
-			return true ;
+		else {
+			new ReportBox(spItem.type().getReadable() + " settings are valid.",
+				reportBoxTitle);
+			return true;
 		}
 	}
 
 	/**
-	 * @return true  if selected component has been checked and found valid.
-	 *         false if the component has been checked and found invalid
-	 *               OR if the component has not been checked because it is neither an observation nor a science program.
+	 * Perform validation of the specified science program item. 
+	 * This method calls ErrorMessage.reset() before building the
+	 * list of errors.
+	 * @return Vector of ErrorMessage objects
 	 */
-	public static Vector<ErrorMessage> doValidation( SpItem spItem )
-	{
-		Vector<ErrorMessage> report = new Vector<ErrorMessage>() ;
+	public static Vector<ErrorMessage> doValidation(SpItem spItem) {
+		Vector<ErrorMessage> report = new Vector<ErrorMessage>();
+		ErrorMessage.reset();
 
-		if( OtCfg.telescopeUtil == null )
-		{
-			String message = "No Validation performed - Error getting TelescopeUtil" ;
-			report.add( new ErrorMessage( ErrorMessage.INFO , "" , message ) ) ;
-			return report ;
+		if (OtCfg.telescopeUtil == null) {
+			report.add(new ErrorMessage(ErrorMessage.INFO, "",
+				"No Validation performed: Error getting TelescopeUtil."
+				+ " Make sure a telescope cfg class is specified in the ot.cfg file."));
+			return report;
 		}
 
-		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool() ;
+		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
 
-		if( spValidation == null )
-		{
-			String message = "No validation performed - Could not find validation tool." ;
-			report.add( new ErrorMessage( ErrorMessage.INFO , "" , message ) ) ;
-			return report ;
+		if (spValidation == null) {
+			report.add(new ErrorMessage(ErrorMessage.INFO , "",
+				"No validation performed: Could not find validation tool."));
+			return report;
 		}
 
-		ErrorMessage.reset() ;
+		if (spItem instanceof SpMSB) {
+			spValidation.checkMSB((SpMSB) spItem ,report);
+		}
+		else {
+			spValidation.checkSciProgram((SpProg) spItem, report);
+		}
 
-		spValidation.checkSciProgram( ( SpProg )spItem , report ) ;
 
 		// ADDED BY SDW...
-		if( spItem instanceof SpProg || spItem instanceof SpLibrary )
-			spValidation.schemaValidate( spItem.toXML() , OtCfg.getSchemaURL() , OtCfg.getSchemaLocation() , report ) ;
+		if (spItem instanceof SpProg || spItem instanceof SpLibrary) {
+			spValidation.schemaValidate(spItem.toXML(),
+				OtCfg.getSchemaURL(), OtCfg.getSchemaLocation(), report);
+		}
 
-		return report ;
+		return report;
 	}
 
 	/** 
