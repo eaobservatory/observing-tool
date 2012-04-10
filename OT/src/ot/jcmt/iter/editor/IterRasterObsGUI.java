@@ -27,6 +27,7 @@ import javax.swing.border.Border ;
 import javax.swing.border.BevelBorder ;
 import javax.swing.border.TitledBorder ;
 import orac.util.JThermometer ;
+import ot.gui.GuiUtil;
 
 /**
  * Title:        <p>
@@ -66,8 +67,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public JPanel nonHarpPanel = new JPanel() ;
 	public TextBoxWidgetExt sizeOfXPixel = new TextBoxWidgetExt() ;
 	public TextBoxWidgetExt sizeOfYPixel = new TextBoxWidgetExt() ;
-	private JLabel dimensionWarningTop = createLabel( "Dimension must be equally" , Color.red ) ;
-	private JLabel dimensionWarningBottom = createLabel( "divisible by spacing" , Color.red ) ;
+	private JLabel dimensionWarningTop = GuiUtil.createLabel( "Dimension must be equally" , Color.red ) ;
+	private JLabel dimensionWarningBottom = GuiUtil.createLabel( "divisible by spacing" , Color.red ) ;
 	
 	// harp
 	private JPanel harpPanel = new JPanel() ;
@@ -131,42 +132,42 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		
 		// fill in the contents of the area panel
 		// width		
-		areaPanel.add( createLabel( "Width" ) , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "Width" ) , new GridBagConstraints( 0 , 0 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		areaPanel.add( width , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 2 ) , 0 , 0 ) ) ;
-		areaPanel.add( createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 0 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 0 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 
 		// height
-		areaPanel.add( createLabel( "Height" ) , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "Height" ) , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		areaPanel.add( height , new GridBagConstraints( 2 , 1 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 2 ) , 0 , 0 ) ) ;
-		areaPanel.add( createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 1 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 		
 		// PA
 		posAngle.setColumns( 5 ) ;
-		areaPanel.add( createLabel( "PA" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "PA" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		areaPanel.add( posAngle , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 2 ) , 0 , 0 ) ) ;
-		areaPanel.add( createLabel( "(degrees)" ) , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "(degrees)" ) , new GridBagConstraints( 3 , 3 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 		
 		// dx
-		areaPanel.add( createLabel( "Sample Spacing" ) , new GridBagConstraints( 0 , 5 , 2 , 1 , 0. , 0. , GBWEST , GBHORIZONTAL , insetsTL( 10 , 5 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "Sample Spacing" ) , new GridBagConstraints( 0 , 5 , 2 , 1 , 0. , 0. , GBWEST , GBHORIZONTAL , insetsTL( 10 , 5 ) , 0 , 0 ) ) ;
 		areaPanel.add( dx , new GridBagConstraints( 2 , 5 , 1 , 1 , 1. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 2 ) , 0 , 0 ) ) ;
-		areaPanel.add( createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 5 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( GuiUtil.createLabel( "(arcsecs)" ) , new GridBagConstraints( 3 , 5 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 		
 		// dy
 		subAreaPanel.setLayout( new GridLayout( 1 , 3 ) ) ;
-		subAreaPanel.add( createLabel( "Scan Spacing" ) ) ;
+		subAreaPanel.add( GuiUtil.createLabel( "Scan Spacing" ) ) ;
 		subAreaPanel.add( dy ) ;
-		subAreaPanel.add( createLabel( "(arcsecs)" ) ) ;
+		subAreaPanel.add( GuiUtil.createLabel( "(arcsecs)" ) ) ;
 		areaPanel.add( subAreaPanel , new GridBagConstraints( 0 , 6 , 4 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , insetsTL( 10 , 5 ) , 0 , 0 ) ) ;
 		
 		// scan panel
 		scanPanel.setLayout( new GridBagLayout() ) ;
 		scanPanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Scan" ) ) ;
 
-		scanPanel.add( createLabel( "System" ) , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		scanPanel.add( GuiUtil.createLabel( "System" ) , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		scanPanel.add( scanSystem , new GridBagConstraints( 1 , 1 , 2 , 1 , 0. , 0. , GBSOUTHWEST , GBNONE , insetsL( 2 ) , 0 , 0 ) ) ;
-		scanPanel.add( createLabel( "PA" ) , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 1. , GBWEST , GBNONE , insetsLB( 5 , 5 ) , 0 , 0 ) ) ;
+		scanPanel.add( GuiUtil.createLabel( "PA" ) , new GridBagConstraints( 0 , 0 , 1 , 1 , 0. , 1. , GBWEST , GBNONE , insetsLB( 5 , 5 ) , 0 , 0 ) ) ;
 		scanPanel.add( scanAngle , new GridBagConstraints( 1 , 0 , 1 , 1 , 0. , 0. , GBSOUTH , GBHORIZONTAL , allInsets( 2 ) , 0 , 0 ) ) ;
-		scanPanel.add( createLabel( "(degrees)" ) , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
+		scanPanel.add( GuiUtil.createLabel( "(degrees)" ) , new GridBagConstraints( 2 , 0 , 1 , 1 , 0. , 0. , GBEAST , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 
 		scubaAcsisPanel.add( areaPanel , BorderLayout.CENTER ) ;
 		scubaAcsisPanel.add( scanPanel , BorderLayout.SOUTH ) ;
@@ -174,14 +175,14 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		// Heterodyne
 		heterodynePanel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Heterodyne Details" ) ) ;
 		heterodynePanel.setLayout( new GridBagLayout() ) ;
-		heterodynePanel.add( createLabel( "Sample Time" ) , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( GuiUtil.createLabel( "Sample Time" ) , new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		heterodynePanel.add( acsisSampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 5 ) , 0 , 0 ) ) ;
-		heterodynePanel.add( createLabel( "(sec)" ) , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBNONE , insetsR( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( GuiUtil.createLabel( "(sec)" ) , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBNONE , insetsR( 5 ) , 0 , 0 ) ) ;
 		defaultButton.setText( "Default" ) ;
 		heterodynePanel.add( defaultButton , new GridBagConstraints( 1 , 5 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , allInsets( 5 ) , 0 , 0 ) ) ;
-		heterodynePanel.add( createLabel( "Secs/Row" ) , new GridBagConstraints( 0 , 6 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
-		heterodynePanel.add( createLabel( "(estimated)" ) , new GridBagConstraints( 0 , 7 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
-		heterodynePanel.add( createLabel( "Secs/Observation" ) , new GridBagConstraints( 0 , 9 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( GuiUtil.createLabel( "Secs/Row" ) , new GridBagConstraints( 0 , 6 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( GuiUtil.createLabel( "(estimated)" ) , new GridBagConstraints( 0 , 7 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		heterodynePanel.add( GuiUtil.createLabel( "Secs/Observation" ) , new GridBagConstraints( 0 , 9 , 1 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		heterodynePanel.add( secsPerRow , new GridBagConstraints( 1 , 6 , 1 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 5 ) , 0 , 0 ) ) ;
 		heterodynePanel.add( secsPerObservation , new GridBagConstraints( 1 , 9 , 2 , 1 , 0. , 0. , GBCENTER , GBHORIZONTAL , allInsets( 5 ) , 0 , 0 ) ) ;
 		secsPerObservation.setEditable( false ) ;
@@ -189,10 +190,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		
 		// non harp
 		nonHarpPanel.setLayout( new GridBagLayout() ) ;
-		nonHarpPanel.add( createLabel( " " ) , new GridBagConstraints( 0 , 0 , 3 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( createLabel( "Nr of samples/pixels" ) , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
+		nonHarpPanel.add( GuiUtil.createLabel( " " ) , new GridBagConstraints( 0 , 0 , 3 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
+		nonHarpPanel.add( GuiUtil.createLabel( "Nr of samples/pixels" ) , new GridBagConstraints( 0 , 1 , 2 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
 		nonHarpPanel.add( sizeOfXPixel , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
-		nonHarpPanel.add( createLabel( "Nr of scans/pixels" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
+		nonHarpPanel.add( GuiUtil.createLabel( "Nr of scans/pixels" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
 		nonHarpPanel.add( sizeOfYPixel , new GridBagConstraints( 1 , 4 , 1 , 1 , 0. , 0. , GBCENTER , GBBOTH , allInsets( 0 ) , 0 , 0 ) ) ;
 		nonHarpPanel.add( dimensionWarningTop , new GridBagConstraints( 0 , 5 , 3 , 1 , 0. , 0. , GBCENTER , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
 		nonHarpPanel.add( dimensionWarningBottom , new GridBagConstraints( 0 , 6 , 3 , 1 , 0. , 0. , GBCENTER , GBNONE , allInsets( 0 ) , 0 , 0 ) ) ;
@@ -202,31 +203,31 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		
 		// harp
 		harpPanel.setLayout( new GridBagLayout() ) ;
-		harpPanel.add( createLabel( "Scan Spacing" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
+		harpPanel.add( GuiUtil.createLabel( "Scan Spacing" ) , new GridBagConstraints( 0 , 3 , 2 , 1 , 0. , 0. , GBWEST , GBNONE , insetsL( 5 ) , 0 , 0 ) ) ;
 		harpPanel.add( harpRasters , new GridBagConstraints( 2 , 3 , 2 , 1 , 0. , 0. , GBEAST , GBHORIZONTAL , insetsL( 5 ) , 0 , 0 ) ) ;
 
 		// scuba2
 		scuba2Panel.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "SCUBA-2 Details" ) ) ;
 		scuba2Panel.setLayout( new GridLayout( 10 , 1 ) ) ;
-		scuba2Panel.add( createLabel( "Scan Strategy" ) ) ;
+		scuba2Panel.add( GuiUtil.createLabel( "Scan Strategy" ) ) ;
 		scuba2Panel.add( scanningStrategies ) ;
 		
 		mapCyclesPanel.setLayout( new GridLayout( 1 , 2 ) ) ;
-		mapCyclesPanel.add( createLabel( "Times round map" ) ) ;
+		mapCyclesPanel.add( GuiUtil.createLabel( "Times round map" ) ) ;
 		mapCyclesPanel.add( numberOfMapCycles ) ;
 		scuba2Panel.add( mapCyclesPanel ) ;
 		
 		pointSourcePanel.setLayout( new GridLayout( 1 , 3 ) ) ;
-		pointSourcePanel.add( createLabel( "Integration time" ) ) ;
+		pointSourcePanel.add( GuiUtil.createLabel( "Integration time" ) ) ;
 		pointSourcePanel.add( pointSourceTime ) ;
-		pointSourcePanel.add( createLabel( "Seconds" ) ) ;
+		pointSourcePanel.add( GuiUtil.createLabel( "Seconds" ) ) ;
 		scuba2Panel.add( pointSourcePanel ) ;
 		
 		scanSpeedPanel.setLayout( new GridLayout( 1 , 3 ) ) ;
-		scanSpeedPanel.add( createLabel( "Scan Speed" ) ) ;
+		scanSpeedPanel.add( GuiUtil.createLabel( "Scan Speed" ) ) ;
 		scanSpeedPanel.add( scanSpeed ) ;
 		scanSpeed.setEnabled( false ) ;
-		scanSpeedPanel.add( createLabel( "ArcSec/Sec" ) ) ;
+		scanSpeedPanel.add( GuiUtil.createLabel( "ArcSec/Sec" ) ) ;
 		scuba2Panel.add( scanSpeedPanel ) ;
 		
 		rasterPanel.add( scubaAcsisPanel ) ;
@@ -282,23 +283,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	{
 		dimensionWarningTop.setVisible( show ) ;
 		dimensionWarningBottom.setVisible( show ) ;
-	}
-	
-	// convenience methods to reduce space
-	
-	private JLabel createLabel( String text )
-	{
-		return createLabel( text , Color.black ) ;
-	}
-	
-	private JLabel createLabel( String text , Color colour  )
-	{
-		JLabel label = new JLabel() ;
-		label.setFont( new Font( "Dialog" , 0 , 12 ) ) ;
-		label.setForeground( colour ) ;
-		label.setText( text ) ;
-		return label ;
-	}
+	}	
 	
 	private Insets insetsL( int left )
 	{

@@ -37,7 +37,6 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 {
 	private TextBoxWidgetExt _obsTitle ;
 	private JLabel _obsState ;
-	private JToggleButton _priHigh , _priMedium , _priLow ;
 	private ObsGUI _w ; // the GUI layout panel
 
 	/**
@@ -71,11 +70,6 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 			_w.optional.setVisible( false ) ;
 			_w.optional.deleteWatcher( this ) ;
 		}
-
-		_w.remaining.addItem( SpObs.REMOVE_STRING ) ;
-
-		for( int i = 0 ; i <= 100 ; i++ )
-			_w.remaining.addItem( "" + i ) ;
 
 		_w.remaining.addActionListener( this ) ;
 
@@ -250,19 +244,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		else if( ( w instanceof AbstractButton ) && !(( AbstractButton )w).isSelected() )
 			return ;
 
-		if( w == _priHigh )
-		{
-			spObs.setPriority( SpObs.PRIORITY_HIGH ) ;
-		}
-		else if( w == _priMedium )
-		{
-			spObs.setPriority( SpObs.PRIORITY_MEDIUM ) ;
-		}
-		else if( w == _priLow )
-		{
-			spObs.setPriority( SpObs.PRIORITY_LOW ) ;
-		}
-		else if( w == _w.unSuspendCB )
+		if( w == _w.unSuspendCB )
 		{
 			String message = "This is an Irreversible Operation" + "\n" + "Are you sure you want to proceed?" ;
 			int option = JOptionPane.showConfirmDialog( _w , message , "Irreversible Operation" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE ) ;
