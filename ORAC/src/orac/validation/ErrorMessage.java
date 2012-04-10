@@ -235,30 +235,27 @@ public class ErrorMessage
 		return _errorWarningCount[ WARNING ] ;
 	}
 
-	public static String messagesToString( Enumeration<ErrorMessage> messages )
-	{
-		StringBuffer buffer = new StringBuffer() ;
+	public static String messagesToString(Enumeration<ErrorMessage> messages) {
+		StringBuffer buffer = new StringBuffer();
 
-		buffer.append( "If an error has been identified in an Observation you will be unable to take data with it.\n\n" ) ;
-		buffer.append( "If a warning is listed your observation or programme is probably non-standard, or is missing information which is not essential. You should check it carefully to make sure it is what you need.\n\n" ) ;
+		buffer.append("If an error has been identified in an"
+			+ " Observation you will be unable to take data with it.\n\n");
+		buffer.append("If a warning is listed your observation"
+			+ " or programme is probably non-standard, or is missing"
+			+ " information which is not essential."
+			+ " You should check it carefully to make sure it is what you need.\n\n");
 
-		buffer.append( getErrorCount() + " errors, " + getWarningCount() + " warnings.\n\n" ) ;
+		buffer.append(getErrorCount() + " errors, " + getWarningCount() + " warnings.\n\n");
 
-		Object obj ;
-		while( messages.hasMoreElements() )
-		{
-			obj = messages.nextElement() ;
-			if( obj instanceof ErrorMessage )
-				buffer.append( ( ( ErrorMessage )obj ).toString() ) ;
-			else
-				buffer.append( obj.toString() ) ;
+		while (messages.hasMoreElements()) {
+			ErrorMessage err = messages.nextElement();
+			buffer.append(err.toString());
 		}
 
-		return buffer.toString() ;
+		return buffer.toString();
 	}
 
-	public static void printMessages( Enumeration<ErrorMessage> messages , PrintStream out )
-	{
-		out.print( messagesToString( messages ) ) ;
+	public static void printMessages(Enumeration<ErrorMessage> messages, PrintStream out) {
+		out.print(messagesToString(messages ));
 	}
 }

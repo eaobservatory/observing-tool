@@ -213,9 +213,9 @@ public class JcmtSpValidation extends SpValidation
 			}
 			
 			// Check whether the observation a DR recipe (as its own child OR in its context).
-			SpDRRecipe recipe = ( SpDRRecipe )findRecipe( spObs ) ;
+			SpDRRecipe recipe = findRecipe(spObs);
 			if( recipe == null && ( ( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) ) ) )
-				report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No Dr-recipe component." ) ) ;
+				report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No DR-recipe component." ) ) ;
 			else if( recipe != null )
 				checkDRRecipe( recipe , report , titleString , thisObs ) ;
 		}
@@ -256,23 +256,7 @@ public class JcmtSpValidation extends SpValidation
 			}
 		}
 	}
-	
-	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
-	{
-		if( spMSB instanceof SpObs )
-			checkObservation( ( SpObs )spMSB , report ) ;
-		super.checkMSBgeneric( spMSB , report ) ;
-	}
 
-	/**
-	 * Void method really, should not be called, 
-	 * exists here only to differentiate between 
-	 * super.checkMSBgeneric and this.checkMSBgeneric
-	 */
-	protected void checkMSBgeneric( SpMSB spMSB , Vector<ErrorMessage> report )
-	{
-		throw new RuntimeException( "Should not have ended up in JcmtSpValidation.checkMSBgeneric" ) ;
-	}
 	
 	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector<ErrorMessage> report )
 	{
