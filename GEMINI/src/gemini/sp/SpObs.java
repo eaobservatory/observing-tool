@@ -90,20 +90,6 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 		return ( SpItem )super.clone() ;
 	}
 
-	/**
-     * Override getTitle so that it simply returns the "title" attribute if set.
-     */
-	public String getTitle()
-	{
-		String title = getTitleAttr() ;
-		if( ( title == null ) || title.equals( "" ) )
-			title = type().getReadable() ;
-
-		if( isMSB() )
-				return title + " (" + getNumberRemaining() + "X)" ;
-		else
-			return title ;
-	}
 
 	/**
      * Get the "standard" flag of the observation.

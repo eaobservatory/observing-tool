@@ -95,18 +95,32 @@ public class SpMSB extends SpObsContextItem
 	}
 
 	/**
-     * Override getTitle so that it simply returns the "title" attribute if set.
-     */
-	public String getTitle()
-	{
-		String title = getTitleAttr() ;
-		if( ( title == null ) || title.equals( "" ) )
-			title = type().getReadable() ;
+ 	 * Determines whether this item is a MSB.
+ 	 * This could either be an actual MSB or
+ 	 * an Observation acting as one.
+ 	 */
+	public boolean isMSB() {
+		return true;
+	} 
 
-		if( getNumberRemaining() < 0 )
-			return title + " (" + REMOVED_STRING + ")" ;
-		else
-			return title + " (" + getNumberRemaining() + "X)" ;
+	/**
+	 * Override getTitle so that it simply returns the "title" attribute if set.
+	 */
+	public String getTitle() {
+		String title = getTitleAttr();
+		if ((title == null) || title.equals( "" ))
+			title = type().getReadable();
+
+		if (isMSB()) {
+			if (getNumberRemaining() < 0) {
+				return title + " (" + REMOVED_STRING + ")";
+			}
+			else {
+				return title + " (" + getNumberRemaining() + "X)";
+			}
+		}
+		
+		return title;
 	}
 
 	/**

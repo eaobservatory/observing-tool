@@ -8,114 +8,87 @@
  */
 package jsky.app.ot.editor ;
 
+// Why are there two packages each containing a random selection of GUI classes?
+import ot.editor.MsbObsCommonGUI;
+
 import java.awt.GridBagLayout ;
 import java.awt.Insets ;
 import java.awt.GridBagConstraints ;
 import java.awt.Color ;
 import java.awt.Dimension ;
 import java.awt.Font ;
-import java.util.Vector ;
 import javax.swing.JLabel ;
 import javax.swing.JComboBox ;
 import javax.swing.JPanel ;
 import javax.swing.JCheckBox ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
+
+import ot.gui.GuiUtil;
 
 /**
  * Changes for OMP (MFO, August 2001).
  */
 @SuppressWarnings( "serial" )
-public class ObsGUI extends JPanel
+public class ObsGUI extends MsbObsCommonGUI
 {
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;
-	JLabel jLabel1 = new JLabel() ;
-	TextBoxWidgetExt obsTitle = new TextBoxWidgetExt() ;
-	JLabel jLabel4 = new JLabel() ;
-	JComboBox jComboBox1 ;
-	Vector<Integer> priorities = new Vector<Integer>() ;
-	final int nPriorities = 99 ;
-	JPanel msbPanel = new JPanel() ;
-	JLabel obsStateLabel = new JLabel() ;
 	GridBagLayout gridBagLayout2 = new GridBagLayout() ;
-	JLabel estimatedTimeLabel = new JLabel() ;
+
+	TextBoxWidgetExt obsTitle = new TextBoxWidgetExt() ;
+
+	JPanel msbPanel = new JPanel() ;
+	JLabel obsStateLabel;
 	TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt() ;
-	JLabel remainingLabel = new JLabel() ;
-	DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt() ;
-	JLabel xLabel = new JLabel() ;
-	JLabel obsState = new JLabel() ;
+	JLabel obsState; 
 	CheckBoxWidgetExt optional = new CheckBoxWidgetExt() ;
 	CheckBoxWidgetExt standard = new CheckBoxWidgetExt() ;
 	JCheckBox unSuspendCB = new JCheckBox() ;
-	JLabel jLabel6 = new JLabel() ;
 
 	public ObsGUI()
 	{
-		try
-		{
-			for( int i = 1 ; i <= nPriorities ; i++ )
-				priorities.add( new Integer( i ) ) ;
-
-			jComboBox1 = new JComboBox( priorities ) ;
-			jbInit() ;
+		try {
+			jbInit();
 		}
-		catch( Exception ex )
-		{
-			ex.printStackTrace() ;
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	void jbInit() throws Exception
 	{
-		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		jLabel1.setForeground( Color.black ) ;
-		jLabel1.setText( "Obs Name" ) ;
-		this.setLayout( gridBagLayout1 ) ;
+		this.setLayout(gridBagLayout1);
+		this.setPreferredSize(new Dimension(280, 280));
+
+		JLabel jLabel1 = GuiUtil.createLabel("Obs Name");
 
 		// Added for OMP (MFO, 1 August 2001)
-		jLabel4.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		jLabel4.setForeground( Color.black ) ;
-		jLabel4.setText( "Priority" ) ;
+		JLabel jLabel4 = GuiUtil.createLabel("Priority");
 
-		this.setPreferredSize( new Dimension( 280 , 280 ) ) ;
+		obsStateLabel = GuiUtil.createLabel("Status");
 
-		obsStateLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		obsStateLabel.setForeground( Color.black ) ;
-		obsStateLabel.setText( "Status" ) ;
+		msbPanel.setLayout(gridBagLayout2);
 
-		msbPanel.setLayout( gridBagLayout2 ) ;
+		JLabel estimatedTimeLabel = GuiUtil.createLabel("Estimated Time (w/o optionals)");
+		estimatedTime.setEditable(false);
 
-		estimatedTimeLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		estimatedTimeLabel.setForeground( Color.black ) ;
-		estimatedTimeLabel.setText( "Estimated Time (w/o optionals)" ) ;
-		estimatedTime.setEditable( false ) ;
+		JLabel remainingLabel = GuiUtil.createLabel("Observe");
 
-		remainingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		remainingLabel.setForeground( Color.black ) ;
-		remainingLabel.setText( "Observe" ) ;
+		JLabel xLabel = GuiUtil.createLabel("X");
 
-		xLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		xLabel.setForeground( Color.black ) ;
-		xLabel.setText( "X" ) ;
+		unSuspendCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 12));
+		unSuspendCB.setForeground(Color.black);
+		unSuspendCB.setText("Un-Suspend") ;
 
-		unSuspendCB.setFont( new java.awt.Font( "Dialog" , Font.BOLD , 12 ) ) ;
-		unSuspendCB.setForeground( Color.black ) ;
-		unSuspendCB.setText( "Un-Suspend" ) ;
+		obsState = GuiUtil.createLabel("Not in Active Database");
 
-		obsState.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		obsState.setForeground( Color.black ) ;
-		obsState.setText( "Not in Active Database" ) ;
+		optional.setText("Optional");
+		optional.setFont(new java.awt.Font("Dialog",0, 12));
 
-		optional.setText( "Optional" ) ;
-		optional.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		standard.setText("Flag as Standard");
+		standard.setFont(new java.awt.Font("Dialog", 0, 12));
 
-		standard.setText( "Flag as Standard" ) ;
-		standard.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-
-		jLabel6.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		jLabel6.setForeground( Color.black ) ;
-		jLabel6.setText( "(1-highest, 99-lowest)" ) ;
+		JLabel jLabel6 = GuiUtil.createLabel("(1-highest, 99-lowest)");
 
 		this.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		this.add( obsTitle , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;

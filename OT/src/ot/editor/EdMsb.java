@@ -48,11 +48,6 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 
 		_w.jComboBox1.addActionListener( this ) ;
 
-		_w.remaining.addItem( SpMSB.REMOVE_STRING ) ;
-
-		for( int i = 0 ; i <= 100 ; i++ )
-			_w.remaining.addItem( "" + i ) ;
-
 		_w.remaining.addActionListener( this ) ;
 		_w.unSuspendCB.addActionListener( this ) ;
 	}
@@ -149,56 +144,49 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 	 */
 	public void textBoxAction( TextBoxWidgetExt tbw ){}
 
-	public void actionPerformed( ActionEvent evt )
-	{
-		if( ignoreActions )
-			return ;
+	public void actionPerformed(ActionEvent evt) {
+		if (ignoreActions) {
+			return;
+		}
 
-		Object w = evt.getSource() ;
-		SpMSB spMSB = ( SpMSB )_spItem ;
+		Object w = evt.getSource();
+		SpMSB spMSB = ( SpMSB )_spItem;
 
-		if( w == _w.remaining )
-		{
-			if( _w.remaining.getSelectedItem().equals( SpMSB.REMOVE_STRING ) )
-			{
-				spMSB.setNumberRemaining( -1 * spMSB.getNumberRemaining() ) ;
-				_updateWidgets() ;
+		if (w == _w.remaining) {
+			if (_w.remaining.getSelectedItem().equals( SpMSB.REMOVE_STRING )) {
+				spMSB.setNumberRemaining(-1 * spMSB.getNumberRemaining());
+				_updateWidgets();
 			}
-			else
-			{
-				spMSB.setNumberRemaining( _w.remaining.getSelectedIndex() - 1 ) ;
+			else {
+				spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);
 			}
 		}
 
-		if( w instanceof JComboBox )
-		{
-			Object value = _w.jComboBox1.getSelectedItem() ;
-			if( value != null && value instanceof Integer )
-				spMSB.setPriority( ( Integer )value ) ;
-			else
-				spMSB.setPriority( SpMSB.PRIORITY_LOW ) ;
+		if (w instanceof JComboBox) {
+			Object value = _w.jComboBox1.getSelectedItem();
+
+			if (value != null && value instanceof Integer) {
+				spMSB.setPriority((Integer) value);
+			}
+			else {
+				spMSB.setPriority(SpMSB.PRIORITY_LOW);
+			}
 		}
 
-		if( w == _w.unSuspendCB )
-		{
-			String message = "This is an Irreversible Operation" + "\n" + "Are you sure you want to proceed?" ;
-			int option = JOptionPane.showConfirmDialog( _w , message , "Irreversible Operation" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE ) ;
-			if( option == JOptionPane.NO_OPTION )
-				return ;
+		if (w == _w.unSuspendCB) {
+			int option = JOptionPane.showConfirmDialog(_w, 
+				"This is an Irreversible Operation" 
+				+ "\n" + "Are you sure you want to proceed?",
+				"Irreversible Operation", JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE);
 
-			spMSB.unSuspend() ;
-			_w.unSuspendCB.setVisible( false ) ;
-			return ;
+			if (option == JOptionPane.NO_OPTION) {
+				return;
+			}
+
+			spMSB.unSuspend();
+			_w.unSuspendCB.setVisible(false);
+			return;
 		}
-
-		if( ( w instanceof AbstractButton ) && !( ( AbstractButton )w ).isSelected() )
-			return ;
-
-		if( w == _w.priorityHigh )
-			spMSB.setPriority( SpObs.PRIORITY_HIGH ) ;
-		else if( w == _w.priorityMedium )
-			spMSB.setPriority( SpObs.PRIORITY_MEDIUM ) ;
-		else if( w == _w.priorityLow )
-			spMSB.setPriority( SpObs.PRIORITY_LOW ) ;
 	}
 }
