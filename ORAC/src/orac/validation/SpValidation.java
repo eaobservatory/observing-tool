@@ -57,8 +57,6 @@ import java.util.Date ;
  *
  * Errors and warnings are issued otherwise.
  *
- * The class contains a main method and can be used as a stand alone command line tool to validate science programs.
- *
  * @author M.Folger@roe.ac.uk UKATC
  */
 public class SpValidation

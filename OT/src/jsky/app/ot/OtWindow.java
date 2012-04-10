@@ -1147,7 +1147,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		ErrorMessage.reset();
 
 		if (OtCfg.telescopeUtil == null) {
-			report.add(new ErrorMessage(ErrorMessage.INFO, "",
+			report.add(new ErrorMessage(ErrorMessage.WARNING, "",
 				"No Validation performed: Error getting TelescopeUtil."
 				+ " Make sure a telescope cfg class is specified in the ot.cfg file."));
 			return report;
@@ -1156,7 +1156,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
 
 		if (spValidation == null) {
-			report.add(new ErrorMessage(ErrorMessage.INFO , "",
+			report.add(new ErrorMessage(ErrorMessage.WARNING, "",
 				"No validation performed: Could not find validation tool."));
 			return report;
 		}
