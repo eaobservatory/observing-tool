@@ -41,7 +41,7 @@ public abstract class EdMsbObsCommon extends OtItemEditor
 	 * Does not need to check the ignoreActions flag because
 	 * this will not be triggered by calls to setRemainingCount.
 	 */ 
-	public void remainingCountUnRemoved() {
+	public void remainingCountToggleRemoved() {
 		SpMSB spMSB = (SpMSB) _spItem;
 		spMSB.setNumberRemaining(-1 * spMSB.getNumberRemaining());
 		_updateWidgets();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
@@ -31,6 +32,7 @@ public abstract class MsbObsCommonGUI extends JPanel {
 
 	public JComboBox jComboBox1;
 	protected DropDownListBoxWidgetExt remaining;
+	protected JButton unRemoveButton;
 
 	public TextBoxWidgetExt nameBox = new TextBoxWidgetExt() ;
 	public TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt() ;
@@ -58,9 +60,23 @@ public abstract class MsbObsCommonGUI extends JPanel {
 
 		// Initialize the remaining counter selection.
 		
+		unRemoveButton = new JButton("Restore");
+		unRemoveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Should be irrelevant for now, but check
+				// in case the usage of this flag is extended later.
+				if (! remainingCountActions) return;
+
+				for (RemainingCountListener listener: remainingCountListeners) {
+					listener.remainingCountToggleRemoved();
+				}
+			}
+			
+		});
+
 		remaining = new DropDownListBoxWidgetExt();
 
-		remaining.addItem(SpObs.REMOVE_STRING);
+		remaining.addItem(SpObs.REMOVED_STRING);
 
 		for(int i = 0; i <= 100; i++) {
 			remaining.addItem("" + i);
@@ -73,15 +89,17 @@ public abstract class MsbObsCommonGUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (! remainingCountActions) return;
 
-				if (e.getSource() == remaining) {
+				if (remaining.getSelectedItem().equals(SpObs.REMOVED_STRING)) {
 					for (RemainingCountListener listener: remainingCountListeners) {
-						if (remaining.getSelectedItem().equals(SpObs.REMOVE_STRING)) {
-							listener.remainingCountUnRemoved();
-						}
-						else {
-							listener.remainingCountChanged(remaining.getSelectedIndex() - 1);
-						}
+						listener.remainingCountToggleRemoved();
 					}
+				}
+				else {
+					for (RemainingCountListener listener: remainingCountListeners) {
+						listener.remainingCountChanged(remaining.getSelectedIndex() - 1);
+					}
+
+					unRemoveButton.setVisible(false);
 				}
 			}
 		});
@@ -109,9 +127,11 @@ public abstract class MsbObsCommonGUI extends JPanel {
 			remainingCountActions = false;
 
 			if (numberRemaining < 0) {
-				remaining.setValue(SpObs.REMOVE_STRING);
+				remaining.setValue(SpObs.REMOVED_STRING);
+				unRemoveButton.setVisible(true);
 			}
 			else {
+				unRemoveButton.setVisible(false);
 				remaining.setSelectedIndex(numberRemaining + 1);
 			}
 		}
@@ -150,9 +170,9 @@ public abstract class MsbObsCommonGUI extends JPanel {
 		void remainingCountChanged(int numberRemaining);
 
 		/**
-		 * Invoked when the remaining count should be
-		 * toggled between removed and unremoved.
+		 * Invoked to instruct the listener to toggle the
+		 * the remaining count between removed and unremoved.
 		 */
-		void remainingCountUnRemoved();
+		void remainingCountToggleRemoved();
 	}
 }

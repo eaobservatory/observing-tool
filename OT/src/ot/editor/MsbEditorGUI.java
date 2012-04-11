@@ -16,7 +16,8 @@ import java.awt.Insets ;
 import java.awt.Color ;
 import java.awt.Dimension ;
 import java.awt.Font ;
-import javax.swing.JLabel ;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JComboBox ;
 import javax.swing.JToggleButton ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
@@ -73,9 +74,14 @@ public class MsbEditorGUI extends MsbObsCommonGUI
 		this.add( estimatedTime , new GridBagConstraints( 1 , 3 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 15 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		this.add( jLabel7 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 10 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		this.add( totalTime , new GridBagConstraints( 1 , 4 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 15 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
-		this.add( remaining , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
-		this.add( jLabel5 , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+
+		JPanel panel = new JPanel();
+		panel.add(remaining);
+		panel.add(jLabel5);
+		panel.add(unRemoveButton);
+		this.add(panel, new GridBagConstraints( 1 , 1 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST, GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
 		this.add( unSuspendCB , new GridBagConstraints( 3 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) ) ;
+
 	}
 }

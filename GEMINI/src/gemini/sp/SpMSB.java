@@ -64,7 +64,6 @@ public class SpMSB extends SpObsContextItem
      * @see #REMOVED_CODE
      */
 	public static final String REMOVED_STRING = "REMOVED" ;
-	public static final String REMOVE_STRING = "(UN)REMOVE" ;
 
 	/** This attribute records whether an MSB has been suspended */
 	public static final String ATTR_SUSPEND = ":suspend" ;
