@@ -17,7 +17,6 @@ import java.awt.Color ;
 import java.awt.Dimension ;
 import java.awt.Font ;
 import javax.swing.JLabel ;
-import javax.swing.JCheckBox ;
 import javax.swing.JComboBox ;
 import javax.swing.JToggleButton ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
@@ -33,10 +32,7 @@ import ot.gui.GuiUtil;
 @SuppressWarnings( "serial" )
 public class MsbEditorGUI extends MsbObsCommonGUI
 {
-	TextBoxWidgetExt nameBox = new TextBoxWidgetExt() ;
-	TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt() ;
 	TextBoxWidgetExt totalTime = new TextBoxWidgetExt() ;
-	JCheckBox unSuspendCB = new JCheckBox() ;
 
 	public MsbEditorGUI()
 	{

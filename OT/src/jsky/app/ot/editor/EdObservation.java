@@ -30,19 +30,17 @@ import gemini.sp.SpObs ;
 import orac.util.OracUtilities ;
 import orac.util.TelescopeUtil ;
 
+import ot.editor.MsbObsCommonGUI;
+import ot.editor.EdMsbObsCommon;
+
 /**
  * This is the editor for the Observation item.
  */
-public final class EdObservation extends OtItemEditor implements TextBoxWidgetWatcher , CheckBoxWidgetWatcher , Observer , ActionListener
+public final class EdObservation extends EdMsbObsCommon implements TextBoxWidgetWatcher, CheckBoxWidgetWatcher, Observer, ActionListener
 {
 	private TextBoxWidgetExt _obsTitle ;
 	private JLabel _obsState ;
 	private ObsGUI _w ; // the GUI layout panel
-
-	/**
-	 * If true, ignore action events.
-	 */
-	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -53,7 +51,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		_presSource = _w = new ObsGUI() ;
 		_description = "The observation is the smallest entity that can be scheduled." ;
 
-		_obsTitle = _w.obsTitle ;
+		_obsTitle = _w.nameBox;
 		_obsTitle.addWatcher( this ) ;
 
 		_obsState = _w.obsState ;
@@ -71,7 +69,7 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 			_w.optional.deleteWatcher( this ) ;
 		}
 
-		_w.remaining.addActionListener( this ) ;
+		_w.addRemainingCountListener(this);
 
 		_w.obsStateLabel.setVisible( false ) ;
 		_w.obsState.setVisible( false ) ;
@@ -140,12 +138,8 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 		// Added for OMP (MFO, 7 August 2001)
 		_w.optional.setValue( obs.isOptional() ) ;
 
-		int numberRemaining = obs.getNumberRemaining() ;
-
-		if( numberRemaining < 0 )
-			_w.remaining.setValue( SpObs.REMOVE_STRING ) ;
-		else
-			_w.remaining.setSelectedIndex( numberRemaining + 1 ) ;
+		int numberRemaining = obs.getNumberRemaining();
+		_w.setRemainingCount(numberRemaining);
 
 		_w.unSuspendCB.addActionListener( this ) ;
 
@@ -224,20 +218,6 @@ public final class EdObservation extends OtItemEditor implements TextBoxWidgetWa
 
 		Object w = evt.getSource() ;
 		SpObs spObs = ( SpObs )_spItem ;
-
-		// Added for OMP (MFO, 7 August 2001)
-		if( w == _w.remaining )
-		{
-			if( _w.remaining.getSelectedItem().equals( SpObs.REMOVE_STRING ) )
-			{
-				spObs.setNumberRemaining( -1 * spObs.getNumberRemaining() ) ;
-				_updateWidgets() ;
-			}
-			else
-			{
-				spObs.setNumberRemaining( _w.remaining.getSelectedIndex() - 1 ) ;
-			}
-		}
 
 		if( w instanceof JComboBox )
 			spObs.setPriority( ( Integer )_w.jComboBox1.getSelectedItem() ) ;
