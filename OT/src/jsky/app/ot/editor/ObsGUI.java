@@ -20,8 +20,6 @@ import java.awt.Font ;
 import javax.swing.JLabel ;
 import javax.swing.JComboBox ;
 import javax.swing.JPanel ;
-import javax.swing.JCheckBox ;
-import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
 import ot.gui.GuiUtil;
@@ -32,18 +30,11 @@ import ot.gui.GuiUtil;
 @SuppressWarnings( "serial" )
 public class ObsGUI extends MsbObsCommonGUI
 {
-	GridBagLayout gridBagLayout1 = new GridBagLayout() ;
-	GridBagLayout gridBagLayout2 = new GridBagLayout() ;
-
-	TextBoxWidgetExt obsTitle = new TextBoxWidgetExt() ;
-
 	JPanel msbPanel = new JPanel() ;
 	JLabel obsStateLabel;
-	TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt() ;
 	JLabel obsState; 
 	CheckBoxWidgetExt optional = new CheckBoxWidgetExt() ;
 	CheckBoxWidgetExt standard = new CheckBoxWidgetExt() ;
-	JCheckBox unSuspendCB = new JCheckBox() ;
 
 	public ObsGUI()
 	{
@@ -57,6 +48,8 @@ public class ObsGUI extends MsbObsCommonGUI
 
 	void jbInit() throws Exception
 	{
+		GridBagLayout gridBagLayout1 = new GridBagLayout() ;
+		GridBagLayout gridBagLayout2 = new GridBagLayout() ;
 		this.setLayout(gridBagLayout1);
 		this.setPreferredSize(new Dimension(280, 280));
 
@@ -91,7 +84,7 @@ public class ObsGUI extends MsbObsCommonGUI
 		JLabel jLabel6 = GuiUtil.createLabel("(1-highest, 99-lowest)");
 
 		this.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
-		this.add( obsTitle , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+		this.add( nameBox, new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		this.add( msbPanel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		msbPanel.add( jLabel4 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 30 , 0 , 0 ) , 0 , 0 ) ) ;
 		msbPanel.add( jComboBox1 , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 0 ) , 0 , 0 ) ) ;

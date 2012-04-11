@@ -22,20 +22,18 @@ import gemini.sp.SpMSB ;
 import gemini.sp.SpSurveyContainer ;
 import orac.util.OracUtilities ;
 
+import ot.editor.MsbObsCommonGUI;
+import ot.editor.EdMsbObsCommon;
+
 /**
  * MSB folder editor.
  *
  * @author Martin Folger (M.Folger@roe.ac.uk),
  *         based on jsky/app/ot/editor/EdTitle.java
  */
-public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
+public final class EdMsb extends EdMsbObsCommon implements TextBoxWidgetWatcher, ActionListener, MsbObsCommonGUI.RemainingCountListener
 {
 	private MsbEditorGUI _w ; // the GUI layout
-
-	/**
-	 * If true, ignore action events.
-	 */
-	private boolean ignoreActions = false ;
 
 	/**
 	 * The constructor initializes the title, description, and presentation source.
@@ -48,24 +46,21 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 
 		_w.jComboBox1.addActionListener( this ) ;
 
-		_w.remaining.addActionListener( this ) ;
+		_w.addRemainingCountListener(this);
 		_w.unSuspendCB.addActionListener( this ) ;
 	}
 
 	/**
 	 * Do any (one time) initialization.
 	 */
-	protected void _init()
-	{
-		TextBoxWidgetExt tbw = _w.nameBox ;
-		tbw.addWatcher( this ) ;
+	protected void _init() {
+		TextBoxWidgetExt tbw = _w.nameBox;
+		tbw.addWatcher(this);
 
-		if( _spItem != null )
-		{
-			if( _spItem.parent() instanceof SpSurveyContainer )
-			{
-				_w.remaining.setEnabled( false ) ;
-				_w.jComboBox1.setEnabled( false ) ;
+		if (_spItem != null) {
+			if (_spItem.parent() instanceof SpSurveyContainer) {
+				_w.setRemainingCountEnabled(false);
+				_w.jComboBox1.setEnabled(false);
 			}
 		}
 	}
@@ -79,7 +74,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 		if( _spItem != null )
 		{
 			boolean enable = !( _spItem.parent() instanceof SpSurveyContainer ) ;
-			_w.remaining.setEnabled( enable ) ;
+			_w.setRemainingCountEnabled(enable);
 			_w.jComboBox1.setEnabled( enable ) ;
 		}
 		// Show the title
@@ -97,25 +92,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 		ignoreActions = true ;
 
 		int numberRemaining = ( ( SpMSB )_spItem ).getNumberRemaining() ;
-
-		if( numberRemaining < 0 )
-		{
-			_w.remaining.setValue( SpMSB.REMOVE_STRING ) ;
-		}
-		else
-		{
-			try
-			{
-				_w.remaining.setSelectedIndex( numberRemaining + 1 ) ;
-			}
-			catch( IllegalArgumentException iae )
-			{
-				JOptionPane.showMessageDialog( _w , "Number of observes exceeds maximum, setting to maximum" , "Too many observes found (" + numberRemaining + ")" , JOptionPane.WARNING_MESSAGE ) ;
-				ignoreActions = false ;
-				_w.remaining.setSelectedIndex( 101 ) ;
-				ignoreActions = true ;
-			}
-		}
+		_w.setRemainingCount(numberRemaining);
 
 		_w.unSuspendCB.setVisible( ( ( SpMSB )_spItem ).isSuspended() ) ;
 
@@ -151,16 +128,6 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher , 
 
 		Object w = evt.getSource();
 		SpMSB spMSB = ( SpMSB )_spItem;
-
-		if (w == _w.remaining) {
-			if (_w.remaining.getSelectedItem().equals( SpMSB.REMOVE_STRING )) {
-				spMSB.setNumberRemaining(-1 * spMSB.getNumberRemaining());
-				_updateWidgets();
-			}
-			else {
-				spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);
-			}
-		}
 
 		if (w instanceof JComboBox) {
 			Object value = _w.jComboBox1.getSelectedItem();
