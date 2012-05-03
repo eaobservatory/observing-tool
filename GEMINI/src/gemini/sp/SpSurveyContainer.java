@@ -228,8 +228,17 @@ public class SpSurveyContainer extends SpObsContextItem
 		return spTelescopeObsComp ;
 	}
 
-	public void addSpTelescopeObsComp( SpTelescopeObsComp spTelescopeObsComp )
-	{
+	public void addSpTelescopeObsComp(SpTelescopeObsComp spTelescopeObsComp) {
+		addSpTelescopeObsCompWithRemPri(spTelescopeObsComp, null, null);
+	}
+
+	/*
+	 * Convenience method to be called from load(Reader).
+	 * This takes strings because load(Reader) does the adding in two
+	 * places and I wanted to avoid duplicating the string handling code.
+	 */
+	private void addSpTelescopeObsCompWithRemPri(SpTelescopeObsComp spTelescopeObsComp,
+			String remainingString, String priorityString) {
 		if( !_telescopeObsCompVector.contains( spTelescopeObsComp ) )
 		{
 			_telescopeObsCompVector.add( spTelescopeObsComp ) ;
@@ -240,8 +249,27 @@ public class SpSurveyContainer extends SpObsContextItem
 			// writeTargetList() will not be called in processAvAttribute().
 			// Not calling setRemaining() does not seem to cause a problem for
 			// the OT but is causes a problem for the Survey Definition Tool
-			setRemaining( 1 , _telescopeObsCompVector.size() - 1 ) ;
-			setPriority( 1 , _telescopeObsCompVector.size() - 1 ) ;
+			//
+			// Update 2012-05-03: use the specified strings if available.
+
+			int remaining = 1;
+			int priority = 1;
+
+			if (null != remainingString) try {
+				remaining = Integer.parseInt(remainingString);
+			}
+			catch (NumberFormatException e) {
+				System.err.println("SpSurveyContainer: could not parse remaining number " + remainingString);
+			}
+			if (null != priorityString) try {
+				priority = Integer.parseInt(priorityString);
+			}
+			catch (NumberFormatException e) {
+				System.err.println("SpSurveyContainer: could not parse remaining number " + remainingString);
+			}
+
+			setRemaining(remaining, _telescopeObsCompVector.size() - 1);
+			setPriority(priority, _telescopeObsCompVector.size() - 1);
 		}
 	}
 
@@ -312,6 +340,8 @@ public class SpSurveyContainer extends SpObsContextItem
 		String surveyID = null ;
 
 		SpTelescopeObsComp spTelescopeObsComp = null ;
+		String remainingString = null;
+		String priorityString = null;
 
 		do
 		{
@@ -369,8 +399,21 @@ public class SpSurveyContainer extends SpObsContextItem
 
 				if( tag.equalsIgnoreCase( SpTelescopePos.BASE_TAG ) )
 				{
-					if( spTelescopeObsComp != null )
-						addSpTelescopeObsComp( spTelescopeObsComp ) ;
+					if (spTelescopeObsComp != null) {
+						addSpTelescopeObsCompWithRemPri(spTelescopeObsComp,
+							 remainingString, priorityString);
+						remainingString = null;
+						priorityString = null;
+					}
+
+					// Read remaining and priority strings only after saving
+					// the previous target and only if we are looking at a
+					// base position.
+					if (stringTokenizer.hasMoreTokens())
+						remainingString = stringTokenizer.nextToken().trim();
+					if (stringTokenizer.hasMoreTokens())
+						priorityString = stringTokenizer.nextToken().trim();
+
 
 					spTelescopeObsComp = new SpTelescopeObsComp() ;
 					spTelescopeObsComp.setSurveyComponent( this ) ;
@@ -395,13 +438,19 @@ public class SpSurveyContainer extends SpObsContextItem
 							System.err.println( "SpSurveyContainer.load(): Could not parse position in tile from \"" + tileString + "\". Assuming first position in tile." ) ;
 						}
 
-						spTelescopeObsComp.setPositionInTile( positionInTile ) ;
+						// Use -1 as a dummy value, just so we can get at the
+						// remaining and priority positional parameters without
+						// having to specity position in tile.
 
-						spTelescopeObsComp.setFitsKey( "SURVEY" , 0 ) ;
-						spTelescopeObsComp.setFitsValue( getSurveyID() , 0 ) ;
+						if (positionInTile != -1) {
+							spTelescopeObsComp.setPositionInTile( positionInTile ) ;
 
-						spTelescopeObsComp.setFitsKey( "SURVEY_I" , 1 ) ;
-						spTelescopeObsComp.setFitsValue( name , 1 ) ;
+							spTelescopeObsComp.setFitsKey( "SURVEY" , 0 ) ;
+							spTelescopeObsComp.setFitsValue( getSurveyID() , 0 ) ;
+
+							spTelescopeObsComp.setFitsKey( "SURVEY_I" , 1 ) ;
+							spTelescopeObsComp.setFitsValue( name , 1 ) ;
+						}
 					}
 				}
 				else
@@ -432,8 +481,9 @@ public class SpSurveyContainer extends SpObsContextItem
 			;
 
 		// Add the remaining field
-		if( spTelescopeObsComp != null )
-			addSpTelescopeObsComp( spTelescopeObsComp ) ;
+		if (spTelescopeObsComp != null) {
+			addSpTelescopeObsCompWithRemPri(spTelescopeObsComp, remainingString, priorityString);
+		}
 	}
 
 	public SpItem deepCopy()
