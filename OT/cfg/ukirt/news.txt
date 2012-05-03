@@ -1,3 +1,10 @@
++++ May 2012 release
+
+  - When loading a file of coordinates into a survey container, the
+    remaining count and priority can now be specified after the
+    position in tile.  (The position in tile can be given as -1 to skip
+    this parameter.)
+
 +++ March 2011 release
 
   - Galactic coordinate support in the position editor for scans and offsets.

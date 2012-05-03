@@ -1,3 +1,13 @@
++++ May 2012 release
+
+  - SCUBA-2 pong map noise parameters are now interpolated between standard
+    map sizes.
+
+  - When loading a file of coordinates into a survey container, the
+    remaining count and priority can now be specified after the
+    position in tile.  (The position in tile can be given as -1 to skip
+    this parameter.)
+
 +++ March 2012 release
 
   - Updated noise estimates for SCUBA-2 maps to match those given by the ITC.
