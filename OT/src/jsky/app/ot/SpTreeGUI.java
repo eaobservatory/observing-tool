@@ -7,15 +7,12 @@
 
 package jsky.app.ot ;
 
-import java.awt.Component ;
 import java.awt.BorderLayout ;
 import java.awt.Dimension ;
 import java.awt.event.ActionEvent ;
 import javax.swing.JPanel ;
-import javax.swing.JDesktopPane ;
 import javax.swing.AbstractAction ;
 import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
 import javax.swing.JSplitPane ;
 import javax.swing.border.BevelBorder ;
 import jsky.util.gui.BasicWindowMonitor ;
@@ -32,11 +29,8 @@ import jsky.util.gui.GenericToolBarTarget ;
 @SuppressWarnings({ "serial" })
 public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 {
-	/** The top level parent frame (or internal frame). */
-	protected Component parent ;
-
-	/** Set this to the JDesktopPane, if using internal frames. */
-	protected JDesktopPane desktop = null ;
+	/** The top level parent frame. */
+	protected JFrame parent;
 
 	/** The tree widget used to display the science program. */
 	protected OtTreeWidget tree ;
@@ -410,61 +404,32 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget
 	/**
 	 * Make a new SpTreeGUI widget.
 	 *
-	 * @param parent the top level parent frame (or internal frame)
+	 * @param parent the top level parent frame
 	 */
-	public SpTreeGUI( Component parent )
-	{
-		this() ;
-		this.parent = parent ;
+	public SpTreeGUI(JFrame parent) {
+		this();
+		this.parent = parent;
 	}
 
-	/** Return the top level parent frame (or internal frame) used to close the window */
-	public Component getParentFrame()
-	{
-		return parent ;
+	/** Return the top level parent frame used to close the window */
+	public JFrame getParentFrame() {
+		return parent;
 	}
 
-	/** Set the top level parent frame (or internal frame) used to close the window */
-	public void setParentFrame( Component p )
-	{
-		parent = p ;
+	/** Set the top level parent frame used to close the window */
+	public void setParentFrame(JFrame p) {
+		parent = p;
 	}
 
 	/** Set the frame's title. */
-	public void setTitle( String s )
-	{
-		if( parent != null )
-		{
-			if( parent instanceof JFrame )
-				( ( JFrame )parent ).setTitle( s ) ;
-			else
-				( ( JInternalFrame )parent ).setTitle( s ) ;
-		}
+	public void setTitle(String s) {
+		if (parent != null) parent.setTitle(s);
 	}
 
 	/** Return the frame's title. */
-	public String getTitle()
-	{
-		if( parent != null )
-		{
-			if( parent instanceof JFrame )
-				return ( ( JFrame )parent ).getTitle() ;
-			else
-				return ( ( JInternalFrame )parent ).getTitle() ;
-		}
-		return "" ;
-	}
-
-	/** Return the JDesktopPane, if using internal frames, otherwise null */
-	public JDesktopPane getDesktop()
-	{
-		return desktop ;
-	}
-
-	/** Set the JDesktopPane to use for top level windows, if using internal frames */
-	public void setDesktop( JDesktopPane desktop )
-	{
-		this.desktop = desktop ;
+	public String getTitle() {
+		if (parent != null) return parent.getTitle();
+		return "";
 	}
 
 	// The following three methods were added for the OMP project.

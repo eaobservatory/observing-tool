@@ -16,7 +16,6 @@ import java.io.InputStreamReader ;
 import java.io.IOException ;
 import java.net.URL ;
 import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
 import jsky.app.ot.gui.RichTextBoxWidgetExt ;
 import gemini.util.Version ;
 
@@ -25,8 +24,8 @@ import jsky.util.Preferences ;
 @SuppressWarnings( "serial" )
 public final class SplashScreen extends SplashGUI implements ActionListener
 {
-	/** The top level parent frame (or internal frame) used to close the window */
-	protected Component parent ;
+	/** The top level parent frame used to close the window */
+	protected JFrame parent ;
 	private String OT_VERSION = "ot_version" ;
 	private static String fullVersion = Version.getInstance().getFullVersion() ;
 
@@ -97,24 +96,18 @@ public final class SplashScreen extends SplashGUI implements ActionListener
 		rt.setFont( rt.getFont().deriveFont( Font.BOLD ) ) ;
 	}
 
-	/** Set the top level parent frame (or internal frame) used to close the window */
-	public void setParentFrame( Component p )
-	{
-		parent = p ;
+	/** Set the top level parent frame used to close the window */
+	public void setParentFrame(JFrame p) {
+		parent = p;
 	}
 
-	/** Return the top level parent frame (or internal frame) used to close the window */
-	public Component getParentFrame()
-	{
-		return parent ;
+	/** Return the top level parent frame used to close the window */
+	public JFrame getParentFrame() {
+		return parent;
 	}
 
-	public void dismiss()
-	{
-		if( parent instanceof JFrame )
-			( ( JFrame )parent ).dispose() ;
-		else if( parent instanceof JInternalFrame )
-			( ( JInternalFrame )parent ).dispose() ;
+	public void dismiss() {
+		if (parent != null) parent.dispose();
 	}
 
 	public void actionPerformed( ActionEvent e )

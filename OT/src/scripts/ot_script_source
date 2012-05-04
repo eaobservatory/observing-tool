@@ -7,10 +7,9 @@ set JAVA = `which java`
 set TELESCOPE_LIST = "ukirt jcmt"  
 
 set TELESCOPE = "" 
-set INTERNAL_FRAMES = -nointernalframes 
 set EDFREQ_CFG = "edfreq/acsisCfg.xml"
 set DISALLOW_MULTI_BW_PROP = ""
-set USAGE = "Usage: $0 [-h] [-[no]internalframes] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
+set USAGE = "Usage: $0 [-h] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
 set XMLFILES = ""
 set OT_CFG_FILE = ""
  
@@ -23,10 +22,6 @@ while ("$1" != "")
   if("$1" == "-h") then 
     printf "${USAGE}" 
     exit 
-  else if("$1" == "-internalframes") then 
-    set INTERNAL_FRAMES = -internalframes 
-  else if("$1" == "-nointernalframes") then 
-    set INTERNAL_FRAMES = -nointernalframes 
   else if( `echo $1 | grep -i ".xml"` != "" ) then
     set XMLFILES = "$XMLFILES $1"
   else if(-d ${CFG_DIRS}/"$1") then 
@@ -52,14 +47,6 @@ echo Settings:
 
 echo "  Telescope:       ${TELESCOPE}"
 
-if("${INTERNAL_FRAMES}" == "-internalframes") then
-  echo "  Internal Frames: Yes"
-else if("${INTERNAL_FRAMES}" == "-nointernalframes") then
-  echo "  Internal Frames: No"
-else
-  printf "\nError: Variable INTERNAL_FRAMES has invalid value \042${INTERNAL_FRAMES}\042. Allowed values: \042-internalframes\042, \042-nointernalframes\042.\n\n"
-endif
-
 echo "Use ot -h for information on how to change these settings."
 
 if (${?OT_CATALOG_FILE}) then
@@ -76,4 +63,4 @@ else
         set USER_HOME = ""
 endif
 
-${JAVA} -Xms10m -Xmx500m -DTELESCOPE=${TELESCOPE} $USER_HOME -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
+${JAVA} -Xms10m -Xmx500m -DTELESCOPE=${TELESCOPE} $USER_HOME -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${XMLFILES}

@@ -18,9 +18,7 @@ import java.io.InputStreamReader ;
 import java.io.Reader ;
 import java.net.URL ;
 import java.util.Vector ;
-import javax.swing.JDesktopPane ;
 import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
 import javax.swing.JLayeredPane ;
 import javax.swing.JMenuBar ;
 import javax.swing.JOptionPane ;
@@ -47,9 +45,6 @@ public class OT extends JFrame
 {
 	/** Vector of all non-internal OtWindowFrame's */
 	private static Vector<OtWindowFrame> _otWindowFrames = new Vector<OtWindowFrame>() ;
-
-	/** Main window, when using internal frames */
-	private static JDesktopPane desktop ;
 
 	/** Help launcher. */
 	private static JHLauncher helpLauncher = null ;
@@ -87,25 +82,14 @@ public class OT extends JFrame
 	private static String _otUserDir = null ;
 
 	/**
-	 * Create the OT application using internal frames.
+	 * Create the OT application.
 	 */
-	public OT()
-	{
-		this( true ) ;
+	public OT() {
+		super("OT");
 	}
 
-	public OT( boolean internalFrames )
-	{
-		super( "OT" ) ;
-
-		if( internalFrames )
-			makeLayout() ;
-	}
-
-	/** Return the desktop, if using internal frames, otherwise null. */
-	public static JDesktopPane getDesktop()
-	{
-		return desktop ;
+	@Deprecated public OT(boolean internalFrames) {
+		this();
 	}
 
 	/** Return the help launcher. */
@@ -125,66 +109,12 @@ public class OT extends JFrame
 		return _databaseDialog ;
 	}
 
-	/**
-	 * Do the window layout using internal frames
-	 */
-	protected void makeLayout()
-	{
-		// add main menubar
-		setJMenuBar( makeMenuBar() ) ;
-
-		// Add a LayeredPane object for the Internal frames
-		desktop = new JDesktopPane() ;
-
-		// MFO: set desktop background
-		setDesktopBackground() ;
-
-		//Make dragging faster:
-		desktop.putClientProperty( "JDesktopPane.dragMode" , "outline" ) ;
-
-		// fill the whole screen
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
-		int w = screen.width - 10 , h = screen.height - 150 ;
-		desktop.setPreferredSize( new Dimension( w , h ) ) ;
-
-		setContentPane( desktop ) ;
-
-		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE ) ;
-		addWindowListener( new WindowAdapter()
-		{
-			public void windowClosing( WindowEvent e )
-			{
-				exit() ;
-			}
-		} ) ;
-
-		pack() ;
-		setVisible( true ) ;
-	}
-
-	/** Make and return the application menubar (used when internal frames are in use) */
-	protected JMenuBar makeMenuBar()
-	{
-		return new OTMenuBar( this ) ;
-	}
-
 	/** 
 	 * Open a new program.
 	 */
-	public static void newProgram()
-	{
-		OtProps.setSaveShouldPrompt( true ) ;
-		if( desktop == null )
-		{
-			addOtWindowFrame( new OtWindowFrame( new OtProgWindow() ) ) ;
-		}
-		else
-		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow() ) ;
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
-			desktop.moveToFront( c ) ;
-		}
-
+	public static void newProgram() {
+		OtProps.setSaveShouldPrompt(true);
+		addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
 	}
 
 	/** 
@@ -204,48 +134,6 @@ public class OT extends JFrame
 	{
 		OtProps.setSaveShouldPrompt( false ) ;
 		OtFileIO.open() ;
-	}
-
-	/** 
-	 * Open a science program from the standard library
-	 */
-	public void openStandardLibrary()
-	{
-		OtProps.setSaveShouldPrompt( false ) ;
-		if( _otWindowFrames != null )
-			_otWindowFrames.clear() ;
-		URL url = ObservingToolUtilities.resourceURL( "jsky/app/ot/cfg/library.xml" ) ;
-		Reader r = null ;
-		/** This probably isn't adequate -- just using fetchXMLSp.  Should
-		 * be changed when it becomes a problem.
-		 */
-		SpRootItem spItem = null ;
-		try
-		{
-			r = new InputStreamReader( url.openStream() ) ;
-			spItem = OtFileIO.fetchSp( r ) ;
-		}
-		catch( IOException ex )
-		{
-			DialogUtil.error( this , "Could not open the standard library." ) ;
-			return ;
-		}
-		finally
-		{
-			try
-			{
-				if( r != null )
-					r.close() ;
-			}
-			catch( Exception ex ){}
-		}
-
-		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) )
-		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpLibrary )spItem ) ) ;
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
-			desktop.moveToFront( c ) ;
-		}
 	}
 
 	/*
@@ -306,10 +194,7 @@ public class OT extends JFrame
 	 */
 	public static void preferences()
 	{
-		if( desktop != null )
-			_preferencesDialog.show( desktop ) ;
-		else
-			_preferencesDialog.show() ;
+		_preferencesDialog.show() ;
 	}
 
 	/** 
@@ -322,26 +207,12 @@ public class OT extends JFrame
 		 * when there are edited programs, 
 		 * look for edited programs and prompt
 		 */
-		if( desktop != null )
+		for( int i = 0 ; i < OtWindowFrame.getWindowFrames().size() ; i++ )
 		{
-			JInternalFrame[] ar = desktop.getAllFrames() ;
-			for( int i = 0 ; i < ar.length ; i++ )
-			{
-				if( !( ar[ i ] instanceof CloseableApp ) )
-					continue ;
-				CloseableApp sa = ( CloseableApp )ar[ i ] ;
-				if( !sa.closeApp() )
-					return ;
-			}
+			if( !( ( OtWindowFrame )OtWindowFrame.getWindowFrames().get( i ) ).getEditor().closeApp() )
+				return ;
 		}
-		else
-		{
-			for( int i = 0 ; i < OtWindowFrame.getWindowFrames().size() ; i++ )
-			{
-				if( !( ( OtWindowFrame )OtWindowFrame.getWindowFrames().get( i ) ).getEditor().closeApp() )
-					return ;
-			}
-		}
+
 		System.exit( 0 ) ; // Must be running as a local application.
 	}
 
@@ -350,10 +221,7 @@ public class OT extends JFrame
 	 */
 	public static void fetchProgram()
 	{
-		if( desktop != null )
-			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH , desktop ) ;
-		else
-			_databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH ) ;
+		_databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
 	}
 
 	/**
@@ -372,16 +240,8 @@ public class OT extends JFrame
 			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;
 			return ;
 		}
-		if( desktop != null )
-		{
-			SplashInternalFrame f = new SplashInternalFrame( desktop , url ) ;
-			_splash = f.getSplash() ;
-			desktop.add( f , JLayeredPane.MODAL_LAYER ) ;
-		}
-		else
-		{
-			_splash = new SplashFrame( url ).getSplash() ;
-		}
+
+		_splash = new SplashFrame(url).getSplash();
 	}
 
 	/**
@@ -419,28 +279,6 @@ public class OT extends JFrame
 		URL url = ObservingToolUtilities.resourceURL( "news.txt" , "ot.cfgdir" ) ;
 		if( url != null )
 			News.showNews( url ) ;
-	}
-
-	/**
-	 * Method sets background.
-	 * Sets to background image to CFG_DIR/images/background.gif if there is one.
-	 * The background area not covered by the image (or the whole background if there is no image)
-	 * is set to light blue.
-	 * 
-	 * @author Martin Folger (M.Folger@roe.ac.uk)
-	 */
-	protected void setDesktopBackground()
-	{
-		//MFO
-		// set background to light blue.
-		desktop.setBackground( new Color( 210 , 225 , 255 ) ) ;
-		// set desktop background
-
-		URL url = ObservingToolUtilities.resourceURL( "images/background.gif" , "ot.resource.cfgdir" ) ;
-		ImageIcon icon = new ImageIcon( url ) ;
-		JLabel label = new JLabel( icon ) ;
-		label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
-		desktop.add( label , new Integer( Integer.MIN_VALUE ) ) ;
 	}
 
 	public static void addOtWindowFrame( OtWindowFrame frame )
@@ -486,141 +324,110 @@ public class OT extends JFrame
 	}
 
 	/** 
-	 * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [-[no]internalframes] [programFile]
+	 * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [programFile]
 	 * <p>
 	 * The <em>jsky.catalog.skycat.config</em> property defines the Skycat style catalog config file to use.
 	 * (The default uses the user's ~/.skycat/skycat.cfg file, or the ESO Skycat config file, if found).
 	 * <p>
-	 * If -internalframes is specified, internal frames are used. 
-	 * The -nointernalframes option has the opposite effect.
-	 * (The default is not to use internal frames).
-	 * <p>
 	 * If a program filename is specified, it is loaded on startup.
 	 */
-	public static void main( String args[] )
-	{
-		boolean internalFrames = false ;
-		boolean ok = true ;
-		Vector<String> filenames = null ;
+	public static void main(String args[]) {
+		boolean ok = true;
+		Vector<String> filenames = null;
 
-		// Check which version of java we are running
-		String jVersion = System.getProperty( "java.version" ) ;
-		String sVersion = null ;
-		// Just get the first 3 characters, which should be n.m
-		if( jVersion.matches( "\\d\\.\\d.*" ) )
-			sVersion = jVersion.substring( 0 , 3 ) ;
-		// Convert this to a float
-		try
-		{
-			Float jv = new Float( sVersion ) ;
-			if( jv < 1.5 )
-			{
-				String message = "The Observing Tool requires at least java 1.5 to work.\n" + "You seem to currently be running version " + jVersion + "\n" + "Please Upgrade" ;
-				JOptionPane.showMessageDialog( null , message , "OT does not support current version of Java" , JOptionPane.ERROR_MESSAGE ) ;
-				System.exit( 0 ) ;
+		try {
+			// Check which version of java we are running
+			String jVersion = System.getProperty("java.version");
+
+			if (Double.parseDouble(jVersion.substring(0, 3)) < 1.6) {
+				String message = "The Observing Tool requires at least Java 1.6 to work.\n"
+					+ "You seem to currently be running version "
+					+ jVersion + "\n" + "Please Upgrade";
+				JOptionPane.showMessageDialog(null, message,
+					"OT does not support current version of Java",
+					JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
 		}
-		catch( NumberFormatException nfe )
-		{
-			String message = "Unable to confirm which version of java you are running.\n" + "Continuing anyway" ;
-			System.err.println( message ) ;
+		catch(NumberFormatException nfe) {
+			System.err.println("Unable to confirm which version of java you are running.");
+			System.err.println("Continuing anyway");
 		}
 
-		for( int i = 0 ; i < args.length ; i++ )
-		{
-			if( args[ i ].charAt( 0 ) == '-' )
-			{
-				String opt = args[ i ] ;
-				if( opt.equals( "-internalframes" ) )
-				{
-					internalFrames = true ;
+		for(int i = 0; i < args.length; i++) {
+			if (args[i].charAt(0) == '-') {
+				String opt = args[i];
+				if (opt.equals("-internalframes")) {
+					System.err.println("Warning: option -internalframes has been removed");
 				}
-				else if( opt.equals( "-nointernalframes" ) )
-				{
-					internalFrames = false ;
+				else if (opt.equals( "-nointernalframes")) {
+					System.err.println("Warning: option -nointernalframes has been removed");
 				}
-				else
-				{
-					System.out.println( "Unknown option: " + opt ) ;
-					ok = false ;
-					break ;
+				else {
+					System.err.println("Unknown option: " + opt);
+					ok = false;
+					break;
 				}
 			}
-			else
-			{
+			else {
 
-				String filename = args[ i ] ;
-				if( filename.toLowerCase().endsWith( ".xml" ) )
-				{
-					if( filenames == null )
-						filenames = new Vector<String>() ;
+				String filename = args[i];
+				if (filename.toLowerCase().endsWith(".xml")) {
+					if (filenames == null)
+						filenames = new Vector<String>();
 
-					filenames.add( filename ) ;
+					filenames.add(filename);
 				}
-
 			}
 		}
 
-		if( !ok )
-		{
-			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [-[no]internalframes]" ) ;
-			System.exit( 1 ) ;
+		if (!ok) {
+			System.err.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT" );
+			System.exit(1);
 		}
 
-		VersionSelector.checkVersions() ;
+		VersionSelector.checkVersions();
 
-		try
-		{
-			OtCfg.init() ;
+		try {
+			OtCfg.init();
 		}
-		catch( Throwable e )
-		{
-			e.printStackTrace() ;
+		catch (Throwable e) {
+			e.printStackTrace();
 
-			JOptionPane.showMessageDialog( null , "Problem with OT configuration:\nThis might result in invalid Science Programs." , "Problem with OT configuration." , JOptionPane.ERROR_MESSAGE ) ;
-		}
-
-		if( internalFrames )
-		{
-			new OT() ;
-		}
-		else
-		{
-			/*
-			 * No internal frames:
-			 * Create a small frame to contain the menus that would otherwise be in the big frame containing the
-			 * desktop with the internal frames. (MFO, 17 August 2001)
-			 */
-			JFrame menuFrame = new JFrame( "OT" ) ;
-			menuFrame.setJMenuBar( new OTMenuBar( new OT( false ) ) ) ;
-			
-			URL url = ObservingToolUtilities.resourceURL( "images/background_small.gif" , "ot.resource.cfgdir" ) ;
-			ImageIcon icon = new ImageIcon( url ) ;
-			JLabel label = new JLabel( icon ) ;
-			label.setBounds( 0 , 0 , icon.getIconWidth() , icon.getIconHeight() ) ;
-			menuFrame.add( label ) ;
-
-			menuFrame.setDefaultCloseOperation( DO_NOTHING_ON_CLOSE ) ;
-			menuFrame.addWindowListener( new WindowAdapter()
-			{
-				public void windowClosing( WindowEvent e )
-				{
-					exit() ;
-				}
-			} ) ;
-
-			menuFrame.pack() ;
-			menuFrame.setVisible( true ) ;
+			JOptionPane.showMessageDialog(null, "Problem with OT configuration:\nThis might result in invalid Science Programs.",
+				"Problem with OT configuration.", JOptionPane.ERROR_MESSAGE);
 		}
 
-		if( filenames != null )
-		{
-			while( filenames.size() != 0 )
-				OtFileIO.open( filenames.remove( 0 ) ) ;
+		/*
+		 * Create a small frame to contain the menus that would originally have been in the
+		 * desktop pane with the internal frames. (MFO, 17 August 2001)
+		 */
+		JFrame menuFrame = new JFrame("OT");
+		menuFrame.setJMenuBar(new OTMenuBar(new OT()));
+
+		URL url = ObservingToolUtilities.resourceURL(
+			"images/background_small.gif", "ot.resource.cfgdir");
+		ImageIcon icon = new ImageIcon(url);
+		JLabel label = new JLabel(icon);
+		label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+		menuFrame.add(label);
+
+		menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		menuFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				exit();
+			}
+		});
+
+		menuFrame.pack();
+		menuFrame.setVisible(true);
+
+		if (filenames != null) {
+			while (filenames.size() != 0)
+				OtFileIO.open(filenames.remove(0));
 		}
-		else
-		{
-			OT.showSplashScreen() ;
+		else {
+			OT.showSplashScreen();
 		}
 	}
 }

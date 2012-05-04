@@ -24,7 +24,6 @@ import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import javax.swing.ButtonGroup ;
 import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
 import javax.swing.JLayeredPane ;
 
 /**
@@ -33,8 +32,8 @@ import javax.swing.JLayeredPane ;
 @SuppressWarnings( "serial" )
 public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatcher , StopActionWatcher , ActionListener
 {
-	// The singleton ProgListWindowFrame or InternalFrame instance.
-	private static Component _instance ;
+	// The singleton ProgListWindowFrame instance.
+	private static ProgListWindowFrame _instance ;
 	public static final String LOGIN_PAGE = "loginPage" ;
 	public static final String PROG_LIST_PAGE = "progListPage" ;
 	public static final String LOGIN_PATH = "folderWidget.loginPage" ;
@@ -43,28 +42,17 @@ public final class ProgListWindow extends RemoteGUI implements TextBoxWidgetWatc
 	private ListBoxWidgetExt _progList ;
 
 	/**
-	 * Get the singleton ProgListWindow JFrame or JInternalFrame.
+	 * Get the singleton ProgListWindow JFrame
 	 */
-	public static synchronized Component instance()
+	public static synchronized ProgListWindowFrame instance()
 	{
-		if( _instance == null )
-		{
-			if( OT.getDesktop() == null )
-			{
-				_instance = new ProgListWindowFrame() ;
-			}
-			else
-			{
-				_instance = new ProgListWindowInternalFrame() ;
-				OT.getDesktop().add( ( JInternalFrame )_instance , JLayeredPane.MODAL_LAYER ) ;
-			}
+		if (_instance == null) {
+			_instance = new ProgListWindowFrame();
 		}
 
-		// make window popup in case it was iconified.
-		if( _instance instanceof ProgListWindowFrame )
-			( ( ProgListWindowFrame )_instance ).setState( java.awt.Frame.NORMAL ) ;
+		 _instance.setState(java.awt.Frame.NORMAL);
 
-		return _instance ;
+		return _instance;
 	}
 
 	//
