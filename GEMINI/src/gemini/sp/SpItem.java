@@ -1316,4 +1316,15 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 	public boolean isOptional() {
 		return false;
 	} 
+
+	/**
+	 * General interface for any function object which can be applied
+	 * to SpItem objects.
+	 */
+	public interface SpItemAction {
+		/**
+		 * Perform the action on the SpItem.
+		 */
+		public void apply(SpItem item);
+	}
 }

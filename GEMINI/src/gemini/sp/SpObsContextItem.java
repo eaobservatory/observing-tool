@@ -6,6 +6,8 @@
 //
 package gemini.sp ;
 
+import java.util.Enumeration;
+
 import gemini.sp.obsComp.SpTelescopeObsComp ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
@@ -130,5 +132,25 @@ public class SpObsContextItem extends SpItem implements SpBasePosObserver , SpPo
 	{
 		_fixObsDataBeforeExtract( child ) ;
 		super.doExtract( child ) ;
+	}
+
+	/**
+	 * Loop over the specified SpItems and apply the given action.
+	 *
+	 * Recurses if it finds nested instances of SpObsContextItem,
+	 * except that it does not recurse into survey containers
+	 * because they may require special treatment.
+	 */
+	public static void applyAction(SpItemAction action,
+			 Enumeration<SpItem> children) {
+		while (children.hasMoreElements()) {
+			SpItem child = children.nextElement();
+			action.apply(child);
+
+			if (child instanceof SpObsContextItem
+				&& ! (child instanceof SpSurveyContainer)) {
+				applyAction(action, child.children());
+			}
+		}
 	}
 }

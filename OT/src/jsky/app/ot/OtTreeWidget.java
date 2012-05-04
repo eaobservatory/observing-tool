@@ -23,6 +23,7 @@ import gemini.sp.SpItem ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpLibrary ;
 import gemini.sp.SpObs ;
+import gemini.sp.SpObsContextItem;
 import gemini.sp.SpMSB ;
 import gemini.sp.SpNote ;
 import gemini.sp.SpSurveyContainer ;
@@ -1059,45 +1060,45 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	{
 		MSBCounter counter = new MSBCounter();
 
-		actOnMSBs(counter, _spProg.children());
+		SpObsContextItem.applyAction(counter, _spProg.children());
 
 		MSBPrioritize prioritize = new MSBPrioritize(
 			PrioritySequence.prepareSequence(counter.getCount()));
 
-		actOnMSBs(prioritize, _spProg.children());
+		SpObsContextItem.applyAction(prioritize, _spProg.children());
 	}
 
-	private interface SpItemAction {
-		public void apply(SpItem item);
-	}
-
-	private static class MSBCounter implements SpItemAction {
+	private static class MSBCounter implements SpItem.SpItemAction {
 		private int n = 0;
 		public int getCount() {return n;}
 		public void apply (SpItem child) {
-			if ((child instanceof SpMSB) || (child instanceof SpObs
-						&& ((SpObs) child).isMSB())) {
+			if ((child instanceof SpMSB) && ((SpMSB) child).isMSB()) {
 				n ++;
+			}
+			else if ((child instanceof SpSurveyContainer)
+					&& ! ((SpSurveyContainer) child).hasMSBParent()) {
+				n += ((SpSurveyContainer) child).size();
 			}
 		}
 	}
 
-	private static class MSBPrioritize implements SpItemAction {
+	private static class MSBPrioritize implements SpItem.SpItemAction {
 		private PrioritySequence seq;
 		public MSBPrioritize(PrioritySequence seq) {this.seq = seq;}
 		public void apply(SpItem child) {
-			if ((child instanceof SpMSB) || (child instanceof SpObs
-						&& ((SpObs) child).isMSB())) {
+			if ((child instanceof SpMSB) && ((SpMSB) child).isMSB()) {
 				int priority = seq.next();
 				((SpMSB)child).setPriority(priority);
 			}
-		}
-	}
-
-	private void actOnMSBs(SpItemAction action, Enumeration<SpItem> children) {
-		while (children.hasMoreElements()) {
-			SpItem child = children.nextElement();
-			action.apply(child);
+			else if ((child instanceof SpSurveyContainer)
+					&& ! ((SpSurveyContainer) child).hasMSBParent()) {
+				SpSurveyContainer survey = (SpSurveyContainer) child;
+				int n = survey.size();
+				for (int i = 0; i < n; i ++) {
+					int priority = seq.next();
+					survey.setPriority(priority, i);
+				}
+			}
 		}
 	}
 
