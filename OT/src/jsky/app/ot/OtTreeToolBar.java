@@ -280,6 +280,7 @@ public class OtTreeToolBar extends GenericToolBar
 		makeMsbFolderButton() ;
 		makeAndFolderButton() ;
 		makeOrFolderButton() ;
+		makeSurveyButton();
 
 		makeObservationButton() ;
 		makeComponentMenuButton() ;
