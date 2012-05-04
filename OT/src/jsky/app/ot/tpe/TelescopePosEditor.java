@@ -102,12 +102,10 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 * given image file or URL, if not null.
 	 *
 	 * @param imageFileOrUrl an image file or URL to display 
-	 * @param internalFrames if true, use internal frames
 	 * @param showNavigator if true, display the catalog navigator on startup
 	 */
-	public TelescopePosEditor( String imageFileOrUrl , boolean internalFrames , boolean showNavigator )
-	{
-		super( imageFileOrUrl , showNavigator ) ;
+	public TelescopePosEditor(String imageFileOrUrl, boolean showNavigator) {
+		super(imageFileOrUrl, showNavigator);
 
 		// get the TPE toolbar handle
 		Component parent = _iw.getParentFrame() ;
@@ -197,9 +195,8 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 *
 	 * @param imageFileOrUrl an image file or URL to display 
 	 */
-	public TelescopePosEditor( String imageFileOrUrl )
-	{
-		this( imageFileOrUrl , false , false ) ;
+	public TelescopePosEditor(String imageFileOrUrl) {
+		this(imageFileOrUrl, false);
 	}
 
 	/**
@@ -210,9 +207,8 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	 *
 	 * @param spItem an SpItem containing coordinates 
 	 */
-	public TelescopePosEditor( SpItem spItem )
-	{
-		this( null , false , false ) ;
+	public TelescopePosEditor(SpItem spItem) {
+		this(null, false);
 
 		reset( _getPosList( spItem ) , spItem ) ;
 
@@ -891,13 +887,11 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	/**
 	 * Test main:
 	 * 
-	 * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditort [-internalframes] 
+	 * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditor
 	 *             [-shownavigator] [imageFileOrUrl]
 	 * <p>
 	 * The <em>jsky.catalog.skycat.config</em> property defines the Skycat style catalog config file to use.
 	 * (The default uses the ESO Skycat config file).
-	 * <p>
-	 * If -internalframes is specified, internal frames are used. 
 	 * <p>
 	 * If -shownavigator is specified, the catalog navigator window is displayed on startup. 
 	 * <p>
@@ -906,7 +900,6 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 	public static void main( String[] args )
 	{
 		String imageFileOrUrl = null ;
-		boolean internalFrames = false ;
 		boolean showNavigator = false ;
 		boolean ok = true ;
 
@@ -917,7 +910,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 				String opt = args[ i ] ;
 				if( opt.equals( "-internalframes" ) )
 				{
-					internalFrames = true ;
+					System.err.println("Warning: option -internalframes has been removed");
 				}
 				else if( opt.equals( "-shownavigator" ) )
 				{
@@ -942,13 +935,12 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 			}
 		}
 
-		if( !ok )
-		{
-			System.out.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditor [-internalframes] [-shownavigator] [imageFileOrUrl]" ) ;
-			System.exit( 1 ) ;
+		if (!ok) {
+			System.out.println("Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] TelescopePosEditor [-shownavigator] [imageFileOrUrl]");
+			System.exit(1);
 		}
 
-		new TelescopePosEditor( imageFileOrUrl , internalFrames , showNavigator ) ;
+		new TelescopePosEditor(imageFileOrUrl, showNavigator);
 	}
 
 	/**

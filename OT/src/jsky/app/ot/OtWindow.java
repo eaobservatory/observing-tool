@@ -22,18 +22,8 @@ import java.util.Observer ;
 import java.util.Stack ;
 import java.util.Vector ;
 import javax.swing.AbstractAction ;
-import javax.swing.JDesktopPane ;
 import javax.swing.JFileChooser ;
 import javax.swing.JFrame ;
-import javax.swing.JInternalFrame ;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane ;
 import javax.swing.JMenu ;
 import javax.swing.JOptionPane ;
@@ -329,18 +319,7 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			return ;
 		}
 
-		// use internal frames?
-		JDesktopPane desktop = OT.getDesktop() ;
-		if( desktop == null )
-		{
-			new OtWindowFrame( editor ) ;
-		}
-		else
-		{
-			Component c = new OtWindowInternalFrame( editor ) ;
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
-			desktop.moveToFront( c ) ;
-		}
+		new OtWindowFrame(editor);
 	}
 
 	/**
@@ -493,12 +472,11 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		fireChange( new ChangeEvent( this ) ) ;
 	}
 
-	/** Set the top level parent frame (or internal frame) used to close the window */
-	public void setParentFrame( Component p )
+	/** Set the top level parent frame used to close the window */
+	public void setParentFrame(JFrame p)
 	{
-		super.setParentFrame( p ) ;
-		if( _itemEditor != null )
-			_itemEditor.setParentFrame( p ) ;
+		super.setParentFrame(p);
+		if (_itemEditor != null) _itemEditor.setParentFrame(p);
 	}
 
 	/** Return true if the program has been saved */
@@ -677,19 +655,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		// Try to clear up memory
 		_tw.resetProg() ;
 
-		JDesktopPane desktop = OT.getDesktop() ;
-
-		if( desktop == null )
-		{
-			( ( JFrame )parent ).setVisible( false ) ;
-			( ( JFrame )parent ).dispose() ;
-			OT.removeOtWindowFrame( ( OtWindowFrame )parent ) ;
-		}
-		else
-		{
-			parent.setVisible( false ) ;
-			( ( JInternalFrame )parent ).dispose() ;
-		}
+		parent.setVisible(false);
+		parent.dispose();
+		// TODO: eliminate this cast?
+		OT.removeOtWindowFrame((OtWindowFrame) parent);
 
 		return true ;
 	}
@@ -887,19 +856,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	/** 
 	 * Display a new science program window.
 	 */
-	public void newProgram()
-	{
-		JDesktopPane desktop = OT.getDesktop() ;
-		if( desktop == null )
-		{
-			new OtWindowFrame( new OtProgWindow() ) ;
-		}
-		else
-		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow() ) ;
-			desktop.add( c , JLayeredPane.DEFAULT_LAYER ) ;
-			desktop.moveToFront( c ) ;
-		}
+	public void newProgram() {
+		new OtWindowFrame(new OtProgWindow());
 	}
 
 	/** 

@@ -6,7 +6,6 @@
 //
 package jsky.app.ot ;
 
-import java.awt.Component ;
 import java.awt.Frame ;
 import java.awt.event.MouseAdapter ;
 import java.awt.event.MouseEvent ;
@@ -42,10 +41,9 @@ import gemini.util.Assert ;
 @SuppressWarnings( "serial" )
 public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 {
-	/** The top level parent frame (or internal frame). */
-	private Component _parent ;
+	/** The top level parent frame. */
+	private JFrame _parent;
 
-	/** The top level parent frame (or internal frame). */
 	private OtWindow _otWindow ;
 	private SpItem _curItem ;
 	private ProgramInfo _progInfo ;
@@ -296,22 +294,18 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer
 		return _parent != null && _parent.isVisible() ;
 	}
 
-	public void toFront()
-	{
-		if( _parent instanceof JFrame )
-			( ( JFrame )_parent ).setState( Frame.NORMAL ) ;
+	public void toFront() {
+		_parent.setState(Frame.NORMAL);
 	}
 
-	/** Return the top level parent frame (or internal frame) used to close the window */
-	public Component getParentFrame()
-	{
-		return _parent ;
+	/** Return the top level parent frame used to close the window */
+	public JFrame getParentFrame() {
+		return _parent;
 	}
 
-	/** Set the top level parent frame (or internal frame) used to close the window */
-	public void setParentFrame( Component p )
-	{
-		_parent = p ;
+	/** Set the top level parent frame used to close the window */
+	public void setParentFrame(JFrame p) {
+		_parent = p;
 	}
 
 	/** Set a reference to the parent panel. */

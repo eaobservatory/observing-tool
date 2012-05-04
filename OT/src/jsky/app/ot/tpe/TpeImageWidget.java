@@ -52,7 +52,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 * Open up another window like this one and return a reference to it.
 	 * <p>
 	 * Note: derived classes should redefine this to return an instance of the
-	 * correct class, which should be derived JFrame or JInternalFrame.
+	 * correct class, which should be derived JFrame
 	 */
 	public TpeImageDisplayFrame newWindow()
 	{

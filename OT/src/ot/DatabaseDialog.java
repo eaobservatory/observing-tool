@@ -15,15 +15,12 @@ import java.awt.Dimension ;
 import java.awt.Toolkit ;
 import java.awt.Component ;
 import java.awt.BorderLayout ;
-import javax.swing.JInternalFrame ;
-import javax.swing.JDesktopPane ;
 import javax.swing.JLayeredPane ;
 import javax.swing.JFrame ;
 import javax.swing.JOptionPane ;
 import jsky.app.ot.OT ;
 import jsky.app.ot.LoginInfo ;
 import jsky.app.ot.OtProgWindow ;
-import jsky.app.ot.OtWindowInternalFrame ;
 import jsky.app.ot.OtWindowFrame ;
 import jsky.app.ot.gui.StopActionWidget ;
 import jsky.util.gui.DialogUtil ;
@@ -48,12 +45,7 @@ public class DatabaseDialog implements ActionListener
 	private DatabaseDialogGUI _w ;
 
 	/**
-	 * Is only used if the OT is started with internal frames.
-	 */
-	private JInternalFrame _internalFrame ;
-
-	/**
-	 * Is only used if the OT is started with internal frames.
+	 * Is only used if the OT is started without internal frames.
 	 */
 	private static JFrame _dialogComponent ;
 	public static int ACCESS_MODE_FETCH = 0 ;
@@ -81,36 +73,30 @@ public class DatabaseDialog implements ActionListener
 		_stopAction.getStopButton().addActionListener( this ) ;
 	}
 
-	public void fetchProgram()
-	{
-		show( DatabaseDialog.ACCESS_MODE_FETCH , OT.getDesktop() ) ;
+	public void fetchProgram() {
+		show(DatabaseDialog.ACCESS_MODE_FETCH);
 	}
 
-	public void storeProgram( SpItem spItem )
-	{
-		SpProg prog = ( SpProg )spItem ;
-		String projectID = prog.getProjectID() ;
-		prog.setOTVersion() ;
-		prog.setTelescope() ;
+	public void storeProgram(SpItem spItem) {
+		SpProg prog = (SpProg) spItem;
+		String projectID = prog.getProjectID();
+		prog.setOTVersion();
+		prog.setTelescope();
 
-		if( ( projectID == null ) || projectID.trim().equals( "" ) )
-		{
-			DialogUtil.error( _w , "Please specify a Project ID (Science Program component)." ) ;
+		if (( projectID == null ) || projectID.trim().equals( "" )) {
+			DialogUtil.error(_w , "Please specify a Project ID (Science Program component).");
 		}
-		else
-		{
-			_spItemToBeSaved = spItem ;
-			show( DatabaseDialog.ACCESS_MODE_STORE , OT.getDesktop() ) ;
+		else {
+			_spItemToBeSaved = spItem;
+			show(DatabaseDialog.ACCESS_MODE_STORE);
 		}
 	}
 
 	/**
-	 * For ise with internal frames.
-	 * 
 	 * @param accessMode
 	 *            fetchProgram or storeProgram.
 	 */
-	public void show( int accessMode , JDesktopPane desktop )
+	public void show(int accessMode)
 	{
 		_mode = accessMode ;
 		if( accessMode == ACCESS_MODE_STORE )
@@ -129,51 +115,25 @@ public class DatabaseDialog implements ActionListener
 			_w.loginTextBox.setEditable( true ) ;
 		}
 
-		if( desktop != null )
-		{
-			_internalFrame = new JInternalFrame( _title ) ;
-			_internalFrame.add( _w ) ;
-			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER ) ;
-			_w.setVisible( true ) ;
-			_internalFrame.setVisible( true ) ;
-			_internalFrame.setLocation( 150 , 150 ) ;
-			_internalFrame.pack() ;
+		if (_dialogComponent == null) {
+			_dialogComponent = new JFrame();
+
+			_dialogComponent.add(_w);
+			_dialogComponent.pack();
+
+			// center the window on the screen
+			Dimension dim = _dialogComponent.getSize();
+			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			_dialogComponent.setLocation(screen.width / 2 - dim.width / 2, screen.height / 2 - dim.height / 2);
 		}
-		else
-		{
-			if( _dialogComponent == null )
-			{
-				_dialogComponent = new JFrame() ;
 
-				_dialogComponent.add( _w ) ;
-				_dialogComponent.pack() ;
-
-				// center the window on the screen
-				Dimension dim = _dialogComponent.getSize() ;
-				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize() ;
-				_dialogComponent.setLocation( screen.width / 2 - dim.width / 2 , screen.height / 2 - dim.height / 2 ) ;
-			}
-
-			_dialogComponent.setTitle( _title ) ;
-			_dialogComponent.setVisible( true ) ;
-			_dialogComponent.setState( JFrame.NORMAL ) ;
-		}
+		_dialogComponent.setTitle(_title);
+		_dialogComponent.setVisible(true);
+		_dialogComponent.setState(JFrame.NORMAL);
 	}
 
-	/**
-	 * For use in no-internal-frames mode.
-	 */
-	public void show( int accessMode )
-	{
-		show( accessMode , null ) ;
-	}
-
-	public void hide()
-	{
-		if( _internalFrame != null )
-			_internalFrame.dispose() ;
-		else
-			_dialogComponent.setVisible( false ) ;
+	public void hide() {
+		_dialogComponent.setVisible(false);
 	}
 
 	/**
@@ -220,16 +180,7 @@ public class DatabaseDialog implements ActionListener
 		// database argument is not needed, 0 is just a dummy.
 		LoginInfo li = new LoginInfo( projectID , 0 , password ) ;
 
-		if( OT.getDesktop() == null )
-		{
-			new OtWindowFrame( new OtProgWindow( ( SpRootItem )spItem , li ) ) ;
-		}
-		else
-		{
-			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpRootItem )spItem , li ) ) ;
-			OT.getDesktop().add( c , JLayeredPane.DEFAULT_LAYER ) ;
-			OT.getDesktop().moveToFront( c ) ;
-		}
+		new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li));
 
 		hide() ;
 	}

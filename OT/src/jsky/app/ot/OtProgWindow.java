@@ -76,23 +76,20 @@ public final class OtProgWindow extends OtWindow implements StopActionWatcher
 	}
 
 	/**
-	 * Set the top level parent frame (or internal frame) for this window.
+	 * Set the top level parent frame for this window.
 	 * (Override here to set the frame icon).
 	 */
-	public void setParentFrame( Component p )
-	{
-		super.setParentFrame( p ) ;
+	public void setParentFrame(JFrame p) {
+		super.setParentFrame(p);
 
-		if( p instanceof JFrame && _curItem != null )
-		{
-			SpType type = _curItem.type() ;
-			JFrame f = ( JFrame )p ;
-			if( type.equals( SpType.SCIENCE_PROGRAM ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/ngc104.gif" ) ).getImage() ) ;
-			else if( type.equals( SpType.SCIENCE_PLAN ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/comet.gif" ) ).getImage() ) ;
-			else if( type.equals( SpType.LIBRARY ) )
-				f.setIconImage( new ImageIcon( getClass().getResource( "images/libIcon.gif" ) ).getImage() ) ;
+		if (_curItem != null) {
+			SpType type = _curItem.type();
+			if (type.equals(SpType.SCIENCE_PROGRAM))
+				p.setIconImage(new ImageIcon(getClass().getResource("images/ngc104.gif")).getImage());
+			else if (type.equals(SpType.SCIENCE_PLAN))
+				p.setIconImage(new ImageIcon(getClass().getResource("images/comet.gif")).getImage());
+			else if (type.equals(SpType.LIBRARY))
+				p.setIconImage(new ImageIcon(getClass().getResource("images/libIcon.gif")).getImage());
 		}
 	}
 

@@ -14,8 +14,6 @@ import jsky.app.ot.OtProps ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import javax.swing.ButtonGroup ;
-import javax.swing.JInternalFrame ;
-import javax.swing.JDesktopPane ;
 import javax.swing.JLayeredPane ;
 import javax.swing.JFrame ;
 import javax.swing.JOptionPane ;
@@ -35,12 +33,7 @@ public class OtPreferencesDialog implements ActionListener
 	private OtPreferencesGUI _w ;
 
 	/**
-	 * Is only used if the OT is started with internal frames.
-	 */
-	private JInternalFrame _internalFrame ;
-
-	/**
-	 * Is only used if the OT is started with internal frames.
+	 * Is only used if the OT is started without internal frames.
 	 */
 	private JFrame _preferencesDialogFrame ;
 
@@ -66,29 +59,6 @@ public class OtPreferencesDialog implements ActionListener
 		_w.okButton.addActionListener( this ) ;
 		_w.applyButton.addActionListener( this ) ;
 		_w.cancelButton.addActionListener( this ) ;
-	}
-
-	/**
-	 * For ise with internal frames.
-	 */
-	public void show( JDesktopPane desktop )
-	{
-		if( desktop != null )
-		{
-			boolean saveShouldPrompt = OtProps.isSaveShouldPrompt() ;
-			_w.closePromptOption.setSelected( saveShouldPrompt ) ;
-			_w.closeNoSaveOption.setSelected( !saveShouldPrompt ) ;
-
-			_internalFrame = new JInternalFrame( _title ) ;
-			_internalFrame.add( _w ) ;
-			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER ) ;
-			_w.setVisible( true ) ;
-			_internalFrame.setVisible( true ) ;
-			_internalFrame.setLocation( 100 , 100 ) ;
-			_internalFrame.pack() ;
-		}
-
-		_w.setVisible( true ) ;
 	}
 
 	/**
@@ -125,10 +95,7 @@ public class OtPreferencesDialog implements ActionListener
 
 	public void hide()
 	{
-		if( _internalFrame != null )
-			_internalFrame.dispose() ;
-		else
-			_preferencesDialogFrame.setVisible( false ) ;
+		_preferencesDialogFrame.setVisible( false ) ;
 	}
 
 	/**
