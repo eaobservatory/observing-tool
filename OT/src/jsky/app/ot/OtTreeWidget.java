@@ -945,74 +945,141 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 		return resultComponent;
 	}
 
-	public void autoAssignPriority()
-	{
-		int numberMSBs = 0 ;
-		int nMin = 0 ;
-		int nLow = 0 ;
+	/**
+	 * Generates priority numbers.
+	 *
+	 * Simple class for use when the number of entries is less than the
+	 * allowable range of priorities.
+	 */
+	private static class PrioritySequence {
+		protected int priority = 1;
 
-		// Find all of the children of the program
-		Enumeration<SpItem> children = _spProg.children() ;
-		// For now just count the MSBs and Obs that are MSBs
-		while( children.hasMoreElements() )
-		{
-			SpItem child = children.nextElement() ;
-			if( ( child instanceof SpMSB ) || ( child instanceof SpObs && ( ( SpObs )child ).isMSB() ) )
-				numberMSBs++ ;
-		}
-		if( numberMSBs > 99 )
-		{ // Limit to priority
-			float x = ( float )numberMSBs / 99 ;
-			// Get the smallest number of priorities that can be assigned to high ranking MSBs
-			nMin = ( int )x ;
-			nLow = 99 * ( nMin + 1 ) - numberMSBs ;
-			children = _spProg.children() ;
-			int priority = 1 ;
-			int priorityCount = 1 ;
-			int msbCount = 1 ;
-			boolean updateDone = false ;
-			System.out.println( "Should update nMin at msbCount of " + ( nLow * nMin ) ) ;
-			while( children.hasMoreElements() )
-			{
-				SpItem child = ( SpItem )children.nextElement() ;
-				if( ( child instanceof SpMSB ) || ( child instanceof SpObs && ( ( SpObs )child ).isMSB() ) )
-				{
-					System.out.println( "setting msb " + msbCount + " to priority " + priority ) ;
-					( ( SpMSB )child ).setPriority( priority ) ;
-					if( msbCount == nLow * nMin && !updateDone )
-					{
-						System.out.println( "Restting nMib at msbCount " + msbCount ) ;
-						nMin++ ;
-						priority++ ;
-						priorityCount = 1 ;
-						msbCount++ ;
-						updateDone = true ;
-						continue ;
-					}
-					if( priorityCount == nMin )
-					{
-						priorityCount = 1 ;
-						priority++ ;
-						msbCount++ ;
-						continue ;
-					}
-					msbCount++ ;
-					priorityCount++ ;
-				}
+		/**
+		 * Factory method which returns the appropriate type of
+		 * PrioritySequence depending on the number of entries.
+		 */
+		public static PrioritySequence prepareSequence(int numberMSBs) {
+			if (numberMSBs > 99) {
+				return new PrioritySequenceStepped(numberMSBs);
+			}
+			else {
+				return new PrioritySequence();
 			}
 		}
-		else
-		{
-			int priority = 1 ;
-			children = _spProg.children() ;
-			while( children.hasMoreElements() )
-			{
-				SpItem child = ( SpItem )children.nextElement() ;
-				if( ( child instanceof SpMSB ) || ( child instanceof SpObs && ( ( SpObs )child ).isMSB() ) )
-				{
-					( ( SpMSB )child ).setPriority( priority ) ;
-					priority++ ;
-				}
+
+		// Prevent direct access to constructor.
+		protected PrioritySequence() {}
+
+		/**
+		 * Return the next priority number in sequence.
+		 *
+		 * The number is obtained from calculateNext() and
+		 * compared with the allowed range.
+		 */
+		public int next() {
+			int value = calculateNext();
+			if (value < 1) {
+				System.err.println("Warning: sequence returned priority less than 1");
+				return 1;
+			}
+			if (value > 99) {
+				System.err.println("Warning: sequence returned priority over 99");
+				return 99;
+			}
+			return value;
+		}
+
+		/**
+		 * Calculate next sequence number.
+		 *
+		 * This implementation simply returns numbers increasing by one each call.
+		 */
+		protected int calculateNext() {
+			return priority ++;
+		}
+	}
+
+	/**
+	 * Generates priority numbers with a step in the gradient.
+	 *
+	 * Class for use when the number of entries exceeds the allowable
+	 * range of priorities.
+	 */
+	private static class PrioritySequenceStepped extends PrioritySequence {
+		private int nMin = 0;
+		private int nLow = 0;
+		private int priorityCount = 1;
+		private int msbCount = 1;
+		boolean updateDone = false;
+
+		protected PrioritySequenceStepped(int numberMSBs) {
+			float x = (float) numberMSBs / 99;
+
+			// Get the smallest number of priorities that can be assigned to high ranking MSBs
+
+			// nMin is n/99 - remainder/99
+			nMin = (int) x;
+
+			// This gives 99 - remainder
+			nLow = 99 * (nMin + 1) - numberMSBs;
+
+			//System.out.println("Should update nMin at msbCount of " + (nLow * nMin));
+		}
+
+		protected int calculateNext() {
+			int value = priority;
+
+			if (msbCount == nLow * nMin && !updateDone) {
+				//System.out.println("Restting nMin at msbCount " + msbCount);
+				nMin ++;
+				priority ++;
+				priorityCount = 1;
+				updateDone = true;
+			}
+			else if (priorityCount == nMin) {
+				priorityCount = 1;
+				priority ++;
+			}
+			else {
+				priorityCount ++;
+			}
+
+			msbCount ++;
+
+			//System.out.println("Setting msb " + msbCount + " to priority " + value);
+			return value;
+		}
+	}
+
+	/**
+	 * Automatically re-assigns priorities to the elements of a
+	 * Science Programme based on the order in which they appear.
+	 */
+	public void autoAssignPriority()
+	{
+		int numberMSBs = 0;
+
+		// Find all of the children of the program
+		Enumeration<SpItem> children = _spProg.children();
+
+		// For now just count the MSBs and Obs that are MSBs
+		while (children.hasMoreElements()) {
+			SpItem child = children.nextElement();
+			if ((child instanceof SpMSB) || (child instanceof SpObs
+						&& ((SpObs) child).isMSB())) {
+				numberMSBs ++;
+			}
+		}
+
+		PrioritySequence seq = PrioritySequence.prepareSequence(numberMSBs);
+
+		children = _spProg.children();
+		while (children.hasMoreElements()) {
+			SpItem child = children.nextElement();
+			if ((child instanceof SpMSB) || (child instanceof SpObs
+						&& ((SpObs) child).isMSB())) {
+				int priority = seq.next();
+				((SpMSB)child).setPriority(priority);
 			}
 		}
 	}
