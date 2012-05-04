@@ -1057,30 +1057,47 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 */
 	public void autoAssignPriority()
 	{
-		int numberMSBs = 0;
+		MSBCounter counter = new MSBCounter();
 
-		// Find all of the children of the program
-		Enumeration<SpItem> children = _spProg.children();
+		actOnMSBs(counter, _spProg.children());
 
-		// For now just count the MSBs and Obs that are MSBs
-		while (children.hasMoreElements()) {
-			SpItem child = children.nextElement();
+		MSBPrioritize prioritize = new MSBPrioritize(
+			PrioritySequence.prepareSequence(counter.getCount()));
+
+		actOnMSBs(prioritize, _spProg.children());
+	}
+
+	private interface SpItemAction {
+		public void apply(SpItem item);
+	}
+
+	private static class MSBCounter implements SpItemAction {
+		private int n = 0;
+		public int getCount() {return n;}
+		public void apply (SpItem child) {
 			if ((child instanceof SpMSB) || (child instanceof SpObs
 						&& ((SpObs) child).isMSB())) {
-				numberMSBs ++;
+				n ++;
 			}
 		}
+	}
 
-		PrioritySequence seq = PrioritySequence.prepareSequence(numberMSBs);
-
-		children = _spProg.children();
-		while (children.hasMoreElements()) {
-			SpItem child = children.nextElement();
+	private static class MSBPrioritize implements SpItemAction {
+		private PrioritySequence seq;
+		public MSBPrioritize(PrioritySequence seq) {this.seq = seq;}
+		public void apply(SpItem child) {
 			if ((child instanceof SpMSB) || (child instanceof SpObs
 						&& ((SpObs) child).isMSB())) {
 				int priority = seq.next();
 				((SpMSB)child).setPriority(priority);
 			}
+		}
+	}
+
+	private void actOnMSBs(SpItemAction action, Enumeration<SpItem> children) {
+		while (children.hasMoreElements()) {
+			SpItem child = children.nextElement();
+			action.apply(child);
 		}
 	}
 
