@@ -1,0 +1,12 @@
+*.*.swp
+/install
+/TOML/schema
+/TOML/install
+/GEMINI/install
+/ORAC/install
+/OMP/install
+/EDFREQ/install
+/OT/install
+/OT/cfg/jcmt/tau.list
+/OT/cfg/jcmt/versionFile
+/OT/cfg/ukirt/versionFile
