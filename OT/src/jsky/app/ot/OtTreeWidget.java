@@ -1064,34 +1064,34 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	 * Automatically re-assigns priorities to the elements of a
 	 * Science Programme based on the order in which they appear.
 	 */
-	public void autoAssignPriority()
+	public void autoAssignPriority(boolean selected)
 	{
 		MSBCounter counter = new MSBCounter();
 
-		SpObsContextItem.applyAction(counter, _spProg.children());
+		SpObsContextItem.applyAction(counter, getEnumForApply(selected));
 
 		MSBPrioritize prioritize = new MSBPrioritize(
 			PrioritySequence.prepareSequence(counter.getCount()));
 
-		SpObsContextItem.applyAction(prioritize, _spProg.children());
+		SpObsContextItem.applyAction(prioritize, getEnumForApply(selected));
 	}
 
 	/**
 	 * Assigns the given priority to all elements.
 	 */
-	public void autoAssignPriorityFixed(int priority) {
+	public void autoAssignPriorityFixed(boolean selected, int priority) {
 		SpObsContextItem.applyAction(new MSBPrioritize(
 			new PrioritySequenceFixed(priority)),
-			 _spProg.children());
+			 getEnumForApply(selected));
 	}
 
 	/**
 	 * Alters the priority of all elements by the given amount.
 	 */
-	public void autoAssignPriorityShift(int delta) {
+	public void autoAssignPriorityShift(boolean selected, int delta) {
 		SpObsContextItem.applyAction(
 			new MSBPriorityShift(delta),
-			 _spProg.children());
+			 getEnumForApply(selected));
 	}
 
 	private static class MSBCounter implements SpItem.SpItemAction {
@@ -1150,6 +1150,58 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 				}
 			}
 		}
+	}
+
+	private Enumeration<SpItem>getEnumForApply(boolean selected) {
+		if (selected) return getMultiSelectedItemsEnumerationWithoutRecursion();
+		return _spProg.children();
+	}
+
+	/**
+	 * Construct an enumeration safe for recursive application.
+	 *
+	 * This is really just intended for use with the prioritization
+	 * methods, and something better should be constructed for other usage.
+	 *
+	 * Turns the result from getMultiSelectedItems into a Vector and then
+	 * goes through it and removes all items with a parent in that vector.
+	 *
+	 * Not very efficient as Vector uses Enumeration rather than Iterator
+	 * and so you can't remove items from it.  However we need
+	 * Enumeration to match what SpItem.children() returns.  Ideally we
+	 * would move to using the modern collections.
+	 *
+	 * Also remove items which are children of Survey Containers as they
+	 * may need to be handled specially.
+	 */
+	private Enumeration<SpItem> getMultiSelectedItemsEnumerationWithoutRecursion() {
+		Vector<SpItem> v = new Vector<SpItem>();
+		SpItem[] array = getMultiSelectedItems();
+		for (int i = 0; i < array.length; i ++) {
+			v.add(array[i]);
+		}
+
+		Vector<SpItem> filtered = new Vector<SpItem>();
+		Enumeration<SpItem> e = v.elements();
+		ITEM: while (e.hasMoreElements()) {
+			SpItem item = e.nextElement();
+			if ((item.parent() != null) 
+					&& (item.parent() instanceof
+						SpSurveyContainer)) {
+				continue ITEM;
+			}
+
+			Enumeration<SpItem> sub = v.elements();
+			while (sub.hasMoreElements()) {
+				SpItem potentialParent = sub.nextElement();
+				if (item.hasParentRecursive(potentialParent)) {
+					continue ITEM;
+				}
+			}
+			filtered.add(item);
+		}
+
+		return filtered.elements();
 	}
 
 	private boolean canAddSCUBA2( SpItem target , SpItem[] items )
