@@ -6,8 +6,11 @@
 
 package jsky.app.ot ;
 
-import java.awt.Component ;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent ;
+import java.awt.event.ActionListener;
 import java.net.URL ;
 import java.io.File ;
 import java.io.FileReader ;
@@ -18,12 +21,25 @@ import java.util.Observer ;
 import java.util.Stack ;
 import java.util.Vector ;
 import javax.swing.AbstractAction ;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser ;
 import javax.swing.JFrame ;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane ;
 import javax.swing.JMenu ;
 import javax.swing.JOptionPane ;
-import javax.swing.JTree ;
+import javax.swing.JRadioButton;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JTree;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent ;
 import javax.swing.event.ChangeListener ;
 import javax.swing.event.EventListenerList ;
@@ -1062,11 +1078,119 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	}
 
 	/**
-	 * Auto Prioritize all the MSBs currently in the Tree
+	 * Method invoked by the prioritizeAction action of SpTreeGUI.
+	 *
+	 * This overrides an empty method in that class.
+	 *
+	 * Previous response was to immediately auto prioritize all the MSBs
+	 * currently in the Tree in the order in which they are displayed.
+	 * Now it opens a dialogue window offering a choice of prioritization
+	 * functions.
 	 */
-	public void prioritize()
-	{
-		_tw.autoAssignPriority() ;
+	public void prioritize() {
+		JDialog dialog = new PrioritizationFunctionDialog(parent);
+		dialog.setLocationRelativeTo(parent);
+		dialog.show();
+	}
+
+	/**
+	 * Dialog allowing the user to choose a prioritization function.
+	 */
+	private class PrioritizationFunctionDialog extends JDialog
+			implements ActionListener {
+		private JRadioButton auto, set, add, sub;
+		private SpinnerNumberModel num;
+		private JCheckBox selected;
+
+		public PrioritizationFunctionDialog(JFrame parent) {
+			super(parent, "Automatic Prioritization", true);
+			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			setLayout(new BorderLayout());
+			ButtonGroup group = new ButtonGroup();
+
+			JPanel panel = new JPanel();
+			panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+			panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+			// Automatic
+			JPanel subpanel = new JPanel();
+			subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.PAGE_AXIS));
+			subpanel.setBorder(BorderFactory.createEtchedBorder());
+			subpanel.setAlignmentX(LEFT_ALIGNMENT);
+			auto = new JRadioButton("Automatic", true);
+			group.add(auto);
+			subpanel.add(auto);
+			subpanel.add(new JLabel("Assigns new priorities to all MSBs in the Science Program"));
+			subpanel.add(new JLabel("from 1 to 99 based on the order in which they appear."));
+			panel.add(subpanel);
+
+			// Set / adjust
+			panel.add(Box.createRigidArea(new Dimension(0, 10)));
+			subpanel = new JPanel();
+			subpanel.setLayout(new BoxLayout(subpanel, BoxLayout.PAGE_AXIS));
+			subpanel.setBorder(BorderFactory.createEtchedBorder());
+			subpanel.setAlignmentX(LEFT_ALIGNMENT);
+			set = new JRadioButton("Set priority");
+			subpanel.add(set);
+			group.add(set);
+			sub = new JRadioButton("Increase priority (lower priority number)");
+			subpanel.add(sub);
+			group.add(sub);
+			add = new JRadioButton("Decrease priority (higher priority number)");
+			subpanel.add(add);
+			group.add(add);
+			JPanel row = new JPanel(new FlowLayout(FlowLayout.LEADING));
+			row.setAlignmentX(LEFT_ALIGNMENT);
+			row.add(new JLabel("Priority or change"));
+			num = new SpinnerNumberModel(1, 1, 99, 1);
+			JSpinner spinner = new JSpinner(num);
+			row.add(spinner);
+			subpanel.add(row);
+			selected = new JCheckBox("Selected MSBs only", false);
+			selected.setAlignmentX(LEFT_ALIGNMENT);
+			//To be added when implemented!
+			//subpanel.add(selected);
+			panel.add(subpanel);
+			add(panel, BorderLayout.CENTER);
+
+			// Buttons
+			panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+			panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+			JButton ok = new JButton("OK");
+			ok.addActionListener(this);
+			panel.add(ok);
+			JButton cancel = new JButton("Cancel");
+			cancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+			}});
+			panel.add(cancel);
+			add(panel, BorderLayout.PAGE_END);
+
+			pack();
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (auto.isSelected()) {
+				_tw.autoAssignPriority();
+			}
+			else if (set.isSelected()) {
+				_tw.autoAssignPriorityFixed((Integer) num.getNumber());
+			}
+			else if (add.isSelected() || sub.isSelected()) {
+				_tw.autoAssignPriorityShift(
+					(sub.isSelected() ? -1 : 1) *
+					(Integer) num.getNumber());
+			}
+			else {
+				JOptionPane.showMessageDialog(this,
+					"No prioritization action selected",
+					"Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			dispose();
+		}
 	}
 
 	/**

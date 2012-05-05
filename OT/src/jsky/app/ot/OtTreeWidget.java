@@ -1053,6 +1053,14 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 	}
 
 	/**
+	 * Generates a sequence of priority numbers by repeating a fixed value.
+	 */
+	private static class PrioritySequenceFixed extends PrioritySequence {
+		public PrioritySequenceFixed(int priority) {this.priority = priority;}
+		protected int calculateNext() {return priority;}
+	}
+
+	/**
 	 * Automatically re-assigns priorities to the elements of a
 	 * Science Programme based on the order in which they appear.
 	 */
@@ -1066,6 +1074,24 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 			PrioritySequence.prepareSequence(counter.getCount()));
 
 		SpObsContextItem.applyAction(prioritize, _spProg.children());
+	}
+
+	/**
+	 * Assigns the given priority to all elements.
+	 */
+	public void autoAssignPriorityFixed(int priority) {
+		SpObsContextItem.applyAction(new MSBPrioritize(
+			new PrioritySequenceFixed(priority)),
+			 _spProg.children());
+	}
+
+	/**
+	 * Alters the priority of all elements by the given amount.
+	 */
+	public void autoAssignPriorityShift(int delta) {
+		SpObsContextItem.applyAction(
+			new MSBPriorityShift(delta),
+			 _spProg.children());
 	}
 
 	private static class MSBCounter implements SpItem.SpItemAction {
@@ -1096,6 +1122,30 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements OtGuiAttri
 				int n = survey.size();
 				for (int i = 0; i < n; i ++) {
 					int priority = seq.next();
+					survey.setPriority(priority, i);
+				}
+			}
+		}
+	}
+
+	private static class MSBPriorityShift implements SpItem.SpItemAction {
+		private int delta;
+		public MSBPriorityShift(int delta) {this.delta = delta;}
+		public void apply(SpItem child) {
+			if ((child instanceof SpMSB) && ((SpMSB) child).isMSB()) {
+				int priority = ((SpMSB)child).getPriority() + delta;
+				if (priority < 1) {priority = 1;}
+				if (priority > 99) {priority = 99;}
+				((SpMSB)child).setPriority(priority);
+			}
+			else if ((child instanceof SpSurveyContainer)
+					&& ! ((SpSurveyContainer) child).hasMSBParent()) {
+				SpSurveyContainer survey = (SpSurveyContainer) child;
+				int n = survey.size();
+				for (int i = 0; i < n; i ++) {
+					int priority = survey.getPriority(i) + delta;
+					if (priority < 1) {priority = 1;}
+					if (priority > 99) {priority = 99;}
 					survey.setPriority(priority, i);
 				}
 			}
