@@ -1170,8 +1170,10 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			auto = new JRadioButton("Automatic", true);
 			group.add(auto);
 			subpanel.add(auto);
-			subpanel.add(new JLabel("Assigns new priorities to all MSBs in the Science Program"));
-			subpanel.add(new JLabel("from 1 to 99 based on the order in which they appear."));
+			subpanel.add(new JLabel("Assigns new priorities to MSBs from 1 to 99"));
+			subpanel.add(new JLabel("based on the order in which they appear"));
+			subpanel.add(new JLabel("(or were selected if 'Selected MSBs only'"));
+			subpanel.add(new JLabel("is selected)."));
 			panel.add(subpanel);
 
 			// Set / adjust
@@ -1196,11 +1198,13 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 			JSpinner spinner = new JSpinner(num);
 			row.add(spinner);
 			subpanel.add(row);
+			panel.add(subpanel);
+
+			// Options
+			panel.add(Box.createRigidArea(new Dimension(0, 10)));
 			selected = new JCheckBox("Selected MSBs only", false);
 			selected.setAlignmentX(LEFT_ALIGNMENT);
-			//To be added when implemented!
-			//subpanel.add(selected);
-			panel.add(subpanel);
+			panel.add(selected);
 			add(panel, BorderLayout.CENTER);
 
 			// Buttons
@@ -1222,13 +1226,15 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 		public void actionPerformed(ActionEvent e) {
 			if (auto.isSelected()) {
-				_tw.autoAssignPriority();
+				_tw.autoAssignPriority(selected.isSelected());
 			}
 			else if (set.isSelected()) {
-				_tw.autoAssignPriorityFixed((Integer) num.getNumber());
+				_tw.autoAssignPriorityFixed(selected.isSelected(),
+					(Integer) num.getNumber());
 			}
 			else if (add.isSelected() || sub.isSelected()) {
 				_tw.autoAssignPriorityShift(
+					selected.isSelected(),
 					(sub.isSelected() ? -1 : 1) *
 					(Integer) num.getNumber());
 			}

@@ -1327,4 +1327,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
 		 */
 		public void apply(SpItem item);
 	}
+
+	/**
+	 * Checks whether the specified item is a direct or indirect parent.
+	 */
+	public boolean hasParentRecursive(SpItem item) {
+		if (_parent == null) return false;
+		if (item == _parent) return true;
+		return _parent.hasParentRecursive(item);
+	}
 }
