@@ -1,5 +1,6 @@
 *.*.swp
 /install
+/docs/javadoc
 /TOML/schema
 /TOML/install
 /GEMINI/install
