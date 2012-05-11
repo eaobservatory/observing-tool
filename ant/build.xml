@@ -9,9 +9,12 @@
 	<property name="install.dir" value="${basedir}/install"/>
 	<property name="install.dir.lib" value="${install.dir}/lib"/>
 	<property name="install.dir.tools" value="${install.dir}/tools"/>
-	<property name="install.dir.tools.jsky" value="${install.dir.tools}/jsky"/>
+	<property name="install.dir.tools.jsky" value="${install.dir.tools}/jsky3"/>
 	<property name="install.dir.bin" value="${install.dir}/bin"/>
 	<property name="install.dir.cfg" value="${install.dir}/cfg"/>
+
+	<property name="docs.dir" value="${basedir}/docs"/>
+	<property name="javadoc.dir" value="${docs.dir}/javadoc"/>
 
 	<property name="gemini.dir" value="${basedir}/GEMINI"/>
 	<property name="orac.dir" value="${basedir}/ORAC"/>
@@ -98,7 +101,8 @@
 		<mkdir dir="${install.dir}"/>
 		<mkdir dir="${install.dir.lib}"/>
 		<mkdir dir="${install.dir.tools}"/>
-		<mkdir dir="${install.dir.tools.jsky}"/>
+		<!-- No need to do this as the recursive copy will create it.
+		<mkdir dir="${install.dir.tools.jsky}"/> -->
 		<mkdir dir="${install.dir.bin}"/>
 		<mkdir dir="${install.dir.cfg}"/>
 
@@ -141,14 +145,17 @@
 		</jar>
 	</target>
 
-	<target name="gemini" depends="toml">
+	<!-- <target name="gemini" depends="toml"> -->
+	<target name="gemini" depends="mkdir">
 		<javac srcdir="${gemini.dir}/src"
 		       destdir="${gemini.install.path}"
 		       debug="on"
 		       target="1.6">
-			<classpath>
+			<compilerarg value="-Xlint"/>
+			<compilerarg value="-Xlint:-path"/>
+			<!-- <classpath>
 				<pathelement location="${toml.jar}" />
-			</classpath>
+			</classpath> -->
 		</javac>
 		<jar jarfile="${gemini.jar}"
 		     basedir="${gemini.install.path}">
@@ -160,11 +167,13 @@
 		       destdir="${orac.install.path}"
 		       debug="on"
 		       target="1.6">
+			<compilerarg value="-Xlint"/>
+			<compilerarg value="-Xlint:-path"/>
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
 				</fileset>
-				<pathelement location="${toml.jar}" />
+				<!-- <pathelement location="${toml.jar}" /> -->
 				<pathelement location="${gemini.jar}" />
 			</classpath>
 		</javac>
@@ -178,11 +187,13 @@
 		       destdir="${omp.install.path}"
 		       debug="on"
 		       target="1.6">
+			<compilerarg value="-Xlint"/>
+			<compilerarg value="-Xlint:-path"/>
 			<classpath>
 				<fileset dir="${omp.dir}/tools">
 					<include name="*.jar"/>
 				</fileset>
-				<pathelement location="${toml.jar}" />
+				<!-- <pathelement location="${toml.jar}" /> -->
 				<pathelement location="${gemini.jar}" />
 				<pathelement location="${orac.jar}" />
 			</classpath>
@@ -197,11 +208,13 @@
 		       destdir="${edfreq.install.path}"
 		       debug="on"
 		       target="1.6">
+			<compilerarg value="-Xlint"/>
+			<compilerarg value="-Xlint:-path"/>
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
 				</fileset>
-				<pathelement location="${toml.jar}" />
+				<!-- <pathelement location="${toml.jar}" /> -->
 				<pathelement location="${gemini.jar}" />
 				<pathelement location="${orac.jar}" />
 				<pathelement location="${omp.jar}" />
@@ -217,6 +230,9 @@
 		       destdir="${ot.install.path}"
 		       debug="on"
 		       target="1.6">
+			<compilerarg value="-Xlint"/>
+			<!-- Ignore path errors coming from JSky jar file manifests. -->
+			<compilerarg value="-Xlint:-path"/>
 			<classpath>
 				<fileset dir="${orac.dir}/tools">
 					<include name="*.jar"/>
@@ -230,7 +246,7 @@
 				<fileset dir="${ot.dir}/tools/jsky3">
 					<include name="*.jar"/>
 				</fileset>
-				<pathelement location="${toml.jar}" />
+				<!-- <pathelement location="${toml.jar}" /> -->
 				<pathelement location="${gemini.jar}" />
 				<pathelement location="${orac.jar}" />
 				<pathelement location="${omp.jar}" />
@@ -258,7 +274,7 @@
 		<copy file="${omp.jar}" todir="${install.dir.lib}" />
 		<copy file="${edfreq.jar}" todir="${install.dir.lib}" />
 		<copy file="${ot.jar}" todir="${install.dir.lib}" />
-		<copy file="${toml.jar}" todir="${install.dir.lib}" />
+		<!-- <copy file="${toml.jar}" todir="${install.dir.lib}" /> -->
 
 		<copy todir="${install.dir.tools}">
 			<fileset dir="${orac.dir}/tools"/>
@@ -266,9 +282,10 @@
 			<fileset dir="${ot.dir}/tools"/>
 		</copy>
 
+		<!-- We don't need to do this as it is included in the previous copy.
 		<copy todir="${install.dir.tools.jsky}">
 			<fileset dir="${ot.dir}/tools/jsky3"/>
-		</copy>
+		</copy> -->
 
 		<copy todir="${install.dir.cfg}/ot">
 			<fileset dir="${ot.dir}/cfg"/>
@@ -292,7 +309,7 @@
 			<fileset dir="${install.dir.tools}">
 				<include name="*.jar"/>
 			</fileset>
-			<fileset dir="${install.dir.tools}/jsky3">
+			<fileset dir="${install.dir.tools.jsky}">
 				<include name="*.jar"/>
 			</fileset>
 		</path>
@@ -315,5 +332,22 @@
 
 	<target name="main" depends="install">
 		<echo message="Done"/>
+	</target>
+
+	<target name="javadoc">
+		<javadoc destdir="${javadoc.dir}"
+		         private="on">
+		         <sourcepath>
+				<pathelement location="${gemini.dir}/src"/>
+				<pathelement location="${orac.dir}/src"/>
+				<pathelement location="${omp.dir}/src"/>
+				<pathelement location="${edfreq.dir}/src"/>
+				<pathelement location="${ot.dir}/src"/>
+		         </sourcepath>
+		</javadoc>
+	</target>
+
+	<target name="cleanjavadoc">
+		<delete dir="${javadoc.dir}"/>
 	</target>
 </project>
