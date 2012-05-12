@@ -64,23 +64,17 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 	{
 		_ignoreActionEvents = true ;
 
-		TextBoxWidgetExt tbw ;
-
 		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.ExpTime ;
-		tbw.addWatcher( this ) ;
+		_w.ExpTime.addWatcher(this);
 
 		// Coadds
-		tbw = ( TextBoxWidgetExt )_w.Coadds ;
-		tbw.addWatcher( this ) ;
+		_w.Coadds.addWatcher(this);
 
 		// Focus
-		tbw = ( TextBoxWidgetExt )_w.focusPos ;
-		tbw.addWatcher( this ) ;
+		_w.focusPos.addWatcher(this);
 
 		// FocusTel
-		tbw = ( TextBoxWidgetExt )_w.focusTelSteps ;
-		tbw.addWatcher( this ) ;
+		_w.focusTelSteps.addWatcher(this);
 
 		super._init() ;
 
@@ -101,17 +95,14 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-
 		SpIterWFCAMCalObs ico = ( SpIterWFCAMCalObs )_spItem ;
 
 		// Get the choices and defaults from the instrument.
 
 		// Update calType selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.CalType ;
-		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
+		_w.CalType.setChoices(ico.getCalTypeChoices());
 		int calType = ico.getCalType() ;
-		ddlbw.setValue( calType ) ;
+		_w.CalType.setValue(calType) ;
 		boolean fitOrTel = calType == SpIterWFCAMCalObs.FOCUS_TEL || calType == SpIterWFCAMCalObs.FOCUS_FIT  ;
 		boolean focusType = calType == SpIterWFCAMCalObs.FOCUS || fitOrTel ;
 		_w.focusPos.setVisible( focusType ) ;
@@ -123,26 +114,21 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 			_w.focusTelSteps.setValue( ico.getFocusTelSteps() ) ;
 
 		// Update readMode selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.ReadMode ;
-		ddlbw.setChoices( ico.getReadModeChoices() ) ;
-		ddlbw.setValue( ico.getReadMode() ) ;
+		_w.ReadMode.setChoices(ico.getReadModeChoices());
+		_w.ReadMode.setValue(ico.getReadMode());
 
 		// Update filters selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.Filter ;
-		ddlbw.setChoices( ico.getFilterChoices() ) ;
-		ddlbw.setValue( ico.getFilter() ) ;
+		_w.Filter.setChoices( ico.getFilterChoices() ) ;
+		_w.Filter.setValue( ico.getFilter() ) ;
 
 		// Observe repetitions
 		_w.repeatComboBox.setValue( ico.getCount() - 1 ) ;
 
-		TextBoxWidgetExt tbw ;
-
 		// Exposure time
 		if( _w.ExpTime != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.ExpTime ;
 			String expTimeStr = String.valueOf( ico.getExposureTime() ) ;
-			tbw.setValue( expTimeStr ) ;
+			_w.ExpTime.setValue(expTimeStr);
 			if( _w.focusPos.isVisible() && _w.focusPos != source )
 				_w.focusPos.setValue( "" + ico.getFocus() ) ;
 		}
@@ -150,8 +136,7 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		// Coadds
 		else if( _w.Coadds != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.Coadds ;
-			tbw.setValue( ico.getCoaddsString() ) ;
+			_w.Coadds.setValue( ico.getCoaddsString() ) ;
 			if( _w.focusPos.isVisible() && _w.focusPos != source )
 				_w.focusPos.setValue( "" + ico.getFocus() ) ;
 		}
@@ -159,11 +144,8 @@ public final class EdIterWFCAMCalObs extends OtItemEditor implements TextBoxWidg
 		// Focus
 		if( _w.focusPos != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.ExpTime ;
-			String expTimeStr = String.valueOf( ico.getExposureTime() ) ;
-			tbw.setValue( expTimeStr ) ;
-			tbw = ( TextBoxWidgetExt )_w.Coadds ;
-			tbw.setValue( ico.getCoaddsString() ) ;
+			_w.ExpTime.setValue(String.valueOf(ico.getExposureTime()));
+			_w.Coadds.setValue(ico.getCoaddsString());
 		}
 
 		_ignoreActionEvents = false ;

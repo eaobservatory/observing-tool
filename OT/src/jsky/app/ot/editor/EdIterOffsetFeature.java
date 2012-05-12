@@ -281,17 +281,17 @@ public class EdIterOffsetFeature extends TpeImageFeature implements TpeDraggable
 				{
 					case SCI_AREA_SELECTED :
 						if( pme.telescopePos == _opl.getSelectedPos() )
-							g.drawPolygon( tsa.getPolygonAt( ( double )p.x , ( double )p.y ) ) ;
+							g.drawPolygon(tsa.getPolygonAt(p.x, p.y));
 						break ;
 					case SCI_AREA_ALL :
-						g.drawPolygon( tsa.getPolygonAt( ( double )p.x , ( double )p.y ) ) ;
+						g.drawPolygon(tsa.getPolygonAt(p.x, p.y));
 						break ;
 				}
 
 				if( _mapItems != null )
 				{
 					for( int j = 0 ; j < _mapItems.size() ; j++ )
-						g.drawPolygon( getPolygon( ( double )p.x , ( double )p.y , _mapItems.get( j ) , fii , pme ) ) ;
+						g.drawPolygon(getPolygon(p.x, p.y, _mapItems.get(j), fii, pme));
 				}
 			}
 		}

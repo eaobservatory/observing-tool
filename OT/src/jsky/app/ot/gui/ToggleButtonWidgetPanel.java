@@ -128,7 +128,7 @@ public class ToggleButtonWidgetPanel extends JPanel
 			} ) ;
 		}
 
-		ToggleButtonWidget tbw = ( ToggleButtonWidget )panel.getButton( "seven" ) ;
+		ToggleButtonWidget tbw = panel.getButton("seven");
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )

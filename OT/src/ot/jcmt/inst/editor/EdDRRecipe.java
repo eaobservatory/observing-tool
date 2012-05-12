@@ -213,7 +213,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	{
 		_spDRRecipe = ( SpDRRecipe )spItem ;
 		
-		SpInstObsComp tmpInst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
+		SpInstObsComp tmpInst = SpTreeMan.findInstrument(_spDRRecipe);
 		if( _inst != null && ( tmpInst == null || !tmpInst.equals( _inst ) ) )
 		{
 			_spDRRecipe.reset() ;

@@ -157,8 +157,8 @@ public class TpeSciAreaFeature extends TpeImageFeature implements TpeDraggableFe
 
 		_instItem = spInst ;
 
-		double xBase = ( double )fii.baseScreenPos.x ;
-		double yBase = ( double )fii.baseScreenPos.y ;
+		double xBase = fii.baseScreenPos.x;
+		double yBase = fii.baseScreenPos.y;
 		_sciAreaPD = _sciArea.getPolygonDAt( xBase , yBase ) ;
 
 		// Init the _tickMarkPD

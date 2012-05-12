@@ -66,7 +66,7 @@ public class ItemEditorGUI extends JPanel
 		panel.add( "North" , _descriptionBox ) ;
 		panel.add( "Center" , _contentPresentation ) ;
 		Border b = BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5 , 5 , 5 , 5 ) , BorderFactory.createEtchedBorder() ) ;
-		_border = ( TitledBorder )BorderFactory.createTitledBorder( b , "Component Editor" , TitledBorder.LEFT , TitledBorder.CENTER , new Font( "Dialog" , Font.BOLD | Font.ITALIC , 18 )) ;
+		_border = BorderFactory.createTitledBorder(b, "Component Editor", TitledBorder.LEFT, TitledBorder.CENTER, new Font("Dialog", Font.BOLD | Font.ITALIC, 18));
 		panel.setBorder( _border ) ;
 		return panel ;
 	}

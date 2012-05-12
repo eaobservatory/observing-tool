@@ -223,7 +223,7 @@ public final class TpeManager implements TpeWatcher
 		int cnt = v.size() ;
 		for( int i = 0 ; i < cnt ; ++i )
 		{
-			TpeManagerWatcher watcher = ( TpeManagerWatcher )v.elementAt( i ) ;
+			TpeManagerWatcher watcher = v.elementAt(i);
 			watcher.tpeOpened( tpe ) ;
 		}
 	}

@@ -84,7 +84,7 @@ public class VelocityRegionDialog extends JDialog implements ActionListener
 		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne ) ;
 		if( tgt != null )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )tgt.getPosList().getBasePosition() ;
+			SpTelescopePos tp = tgt.getPosList().getBasePosition();
 			redshift = tp.getRedshift() ;
 		}
 		else

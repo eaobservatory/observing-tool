@@ -976,19 +976,16 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 	//
 	private void _updateFilterCategory()
 	{
-		OptionWidgetExt ow = null ;
 		String filterCategory = _instUIST.getFilterCategory() ;
 		if( filterCategory.equalsIgnoreCase( "broad" ) )
 		{
-			ow = ( OptionWidgetExt )_w.filterBroadBand ;
-			ow.setValue( true ) ;
-			ow = ( OptionWidgetExt )_w.filterNarrowBand ;
-			ow.setEnabled( _instUIST.getNarrowFilterSet() != 0 ) ;
+			_w.filterBroadBand.setValue(true);
+			_w.filterNarrowBand.setEnabled(
+				_instUIST.getNarrowFilterSet() != 0);
 		}
 		else
 		{
-			ow = ( OptionWidgetExt )_w.filterNarrowBand ;
-			ow.setValue( true ) ;
+			_w.filterNarrowBand.setValue(true);
 		}
 	}
 

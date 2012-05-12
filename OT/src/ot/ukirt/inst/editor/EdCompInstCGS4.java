@@ -53,7 +53,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Disperser
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser ;
+		ddlbw = _w.disperser;
 		LookUpTable disps = SpInstCGS4.DISPERSERS ;
 		Vector<String> v = new Vector<String>() ;
 		for( int i = 0 ; i < disps.getNumRows() ; ++i )
@@ -83,7 +83,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// source magnitude
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag ;
+		ddlbw = _w.sourceMag;
 		ddlbw.setChoices( SpInstCGS4.SRCMAGS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -101,7 +101,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// sampling
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling ;
+		ddlbw = _w.sampling;
 		ddlbw.setChoices( SpInstCGS4.SAMPLINGS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -118,7 +118,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Mask
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw = _w.mask;
 		ddlbw.setChoices( SpInstCGS4.MASKS.getColumn( 0 ) ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -139,7 +139,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Polariser
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser ;
+		ddlbw = _w.polariser;
 		ddlbw.setChoices( SpInstCGS4.POLARISERS ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -156,7 +156,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Acq. Mode
 		//
-		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode ;
+		ddlbw = _w.acqMode;
 		ddlbw.setChoices( SpInstCGS4.MODES ) ;
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -174,7 +174,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Central Wavelength
 		//
-		tbw = ( TextBoxWidgetExt )_w.centralWavelength ;
+		tbw = _w.centralWavelength;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
@@ -195,7 +195,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// CVF offset
 		//
-		tbw = ( TextBoxWidgetExt )_w.cvfOffset ;
+		tbw = _w.cvfOffset;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
@@ -209,7 +209,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		//
 		// Order
 		//
-		tbw = ( TextBoxWidgetExt )_w.order ;
+		tbw = _w.order;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
@@ -222,7 +222,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 			public void textBoxAction( TextBoxWidgetExt tbw ){} // ignore
 		} ) ;
 
-		cbw = ( CommandButtonWidgetExt )_w.defaultOrder ;
+		cbw = _w.defaultOrder;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -233,7 +233,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 		} ) ;
 
 		CheckBoxWidgetExt cbwe ;
-		cbwe = ( CheckBoxWidgetExt )_w.useND ;
+		cbwe = _w.useND;
 		cbwe.addWatcher( new CheckBoxWidgetWatcher()
 		{
 			public void checkBoxAction( CheckBoxWidgetExt cbw )
@@ -243,7 +243,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 			}
 		} ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.exposureTime ;
+		tbw = _w.exposureTime;
 		tbw.addWatcher( new TextBoxWidgetWatcher()
 		{
 			public void textBoxKeyPress( TextBoxWidgetExt tbw )
@@ -254,7 +254,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 			public void textBoxAction( TextBoxWidgetExt tbw ){}
 		} ) ;
 
-		cbw = ( CommandButtonWidgetExt )_w.defaultAcquisition ;
+		cbw = _w.defaultAcquisition;
 		cbw.addWatcher( new CommandButtonWidgetWatcher()
 		{
 			public void commandButtonAction( CommandButtonWidgetExt cbw )
@@ -321,43 +321,38 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	protected void _updateWidgets()
 	{
 		DropDownListBoxWidgetExt ddlbw ;
-		TextBoxWidgetExt tbw ;
 		CheckBoxWidgetExt cbwe ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode ;
+		ddlbw = _w.acqMode;
 		ddlbw.setValue( _instCGS4.getMode() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.disperser ;
+		ddlbw = _w.disperser;
 		ddlbw.setValue( _fullDispName( _instCGS4.getDisperser() ) ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag ;
+		ddlbw = _w.sourceMag;
 		ddlbw.setValue( _instCGS4.getSourceMagnitude() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw = _w.mask;
 		ddlbw.setValue( _instCGS4.getMask() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser ;
+		ddlbw = _w.polariser;
 		ddlbw.setValue( _instCGS4.getPolariser() ) ;
 
-		ddlbw = ( DropDownListBoxWidgetExt )_w.sampling ;
+		ddlbw = _w.sampling;
 		ddlbw.setValue( _instCGS4.getSampling() ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.centralWavelength ;
 		double centralWavelength = _instCGS4.getCentralWavelength() ;
-		tbw.setText( Double.toString( centralWavelength ) ) ;
+		_w.centralWavelength.setText( Double.toString( centralWavelength ) ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.order ;
 		int order = _instCGS4.getOrder() ;
-		tbw.setText( Integer.toString( order ) ) ;
+		_w.order.setText( Integer.toString( order ) ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.filter ;
-		tbw.setText( _instCGS4.getFilter() ) ;
+		_w.filter.setText( _instCGS4.getFilter() ) ;
 
-		cbwe = ( CheckBoxWidgetExt )_w.useND ;
+		cbwe = _w.useND;
 		cbwe.setValue( _instCGS4.getNdFilter() ) ;
 
-		tbw = ( TextBoxWidgetExt )_w.cvfOffset ;
-		tbw.setValue( _instCGS4.getCvfOffset() ) ;
+		_w.cvfOffset.setValue( _instCGS4.getCvfOffset() ) ;
 
 		_updateScienceFOV() ;
 		_updateWavelengthCoverage() ;
@@ -375,7 +370,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateScienceFOV()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.scienceFOV ;
+		TextBoxWidgetExt tbw = _w.scienceFOV;
 		double[] scienceArea = _instCGS4.getScienceArea() ;
 
 		double w = MathUtil.round( scienceArea[ 0 ] , 2 ) ;
@@ -389,7 +384,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateOrder()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.order ;
+		TextBoxWidgetExt tbw = _w.order;
 		int o = _instCGS4.getDefaultOrder() ;
 		_instCGS4.setOrder( o ) ;
 		tbw.setText( Integer.toString( o ) ) ;
@@ -402,7 +397,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	{
 		DropDownListBoxWidgetExt ddlbw ;
 		Vector<String> menu = _instCGS4.getMaskMenu() ;
-		ddlbw = ( DropDownListBoxWidgetExt )_w.mask ;
+		ddlbw = _w.mask;
 		ddlbw.setChoices( menu ) ;
 	}
 
@@ -424,7 +419,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	//
 	private void _updateExpInfo()
 	{
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime ;
+		TextBoxWidgetExt tbw = _w.exposureTime;
 		double d = _instCGS4.getExpTime() ;
 		String e = Double.toString( d ) ;
 		_instCGS4.setExpTime( e ) ;
@@ -449,7 +444,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	private void _updateWavelengthCoverage()
 	{
 		TextBoxWidgetExt tbw ;
-		tbw = ( TextBoxWidgetExt )_w.wavelengthCoverage ;
+		tbw = _w.wavelengthCoverage;
 
 		double coverage[] = _instCGS4.getWavelengthCoverage() ;
 		//  If resolution > 10000  (arbitrary) display 4 dec. pl., otherwise 2.
@@ -467,7 +462,7 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 	private void _updateResolution()
 	{
 		TextBoxWidgetExt tbw ;
-		tbw = ( TextBoxWidgetExt )_w.resolution ;
+		tbw = _w.resolution;
 
 		int res = ( new Double( _instCGS4.getResolution() ) ).intValue() ;
 		tbw.setText( Integer.toString( res ) ) ;

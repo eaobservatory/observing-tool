@@ -107,7 +107,7 @@ public class SpInstSCUBA2 extends SpJCMTInstObsComp implements SpMicroStepUser
 				offsets[ j ][ 0 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
 				offsets[ j ][ 1 ] = Double.parseDouble( MICROSTEP_PATTERNS[ i ][ k++ ] ) ;
 			}
-			result.put( ( String )MICROSTEP_PATTERNS[ i ][ 0 ] , offsets ) ;
+			result.put(MICROSTEP_PATTERNS[i][0], offsets);
 		}
 
 		return result ;

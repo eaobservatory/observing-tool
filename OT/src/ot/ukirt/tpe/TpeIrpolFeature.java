@@ -87,8 +87,8 @@ public class TpeIrpolFeature extends TpeImageFeature
 		double[] xpoints = _fovAreaPD.xpoints ;
 		double[] ypoints = _fovAreaPD.ypoints ;
 
-		double x = ( double )fii.baseScreenPos.x ;
-		double y = ( double )fii.baseScreenPos.y ;
+		double x = fii.baseScreenPos.x;
+		double y = fii.baseScreenPos.y;
 
 		double wl = fii.pixelsPerArcsec * FOV_WIDTHL ;
 		double wr = fii.pixelsPerArcsec * FOV_WIDTHR ;

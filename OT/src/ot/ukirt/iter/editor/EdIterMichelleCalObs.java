@@ -67,15 +67,8 @@ public final class EdIterMichelleCalObs extends OtItemEditor implements TextBoxW
 	{
 		_ignoreActionEvents = true ;
 
-		TextBoxWidgetExt tbw ;
-
-		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.exposureTime ;
-		tbw.addWatcher( this ) ;
-
-		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.observationTime ;
-		tbw.addWatcher( this ) ;
+		_w.exposureTime.addWatcher(this) ;
+		_w.observationTime.addWatcher( this ) ;
 
 		super._init() ;
 
@@ -90,29 +83,22 @@ public final class EdIterMichelleCalObs extends OtItemEditor implements TextBoxW
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-
 		SpIterMichelleCalObs ico = ( SpIterMichelleCalObs )_spItem ;
 
 		// Get the choices and defaults from the instrument.
 
 		// Show the calib. type
-		ddlbw = ( DropDownListBoxWidgetExt )_w.calType ;
-		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
-		ddlbw.setValue( ico.getCalTypeString() ) ;
+		_w.calType.setChoices(ico.getCalTypeChoices());
+		_w.calType.setValue(ico.getCalTypeString());
 
 		// Observe repetitions
 		_w.repeatComboBox.setValue( ico.getCount() - 1 ) ;
 
-		TextBoxWidgetExt tbw ;
-
 		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.exposureTime ;
-		tbw.setValue( ico.getExposureTime() ) ;
+		_w.exposureTime.setValue(ico.getExposureTime());
 
 		// Observation time
-		tbw = ( TextBoxWidgetExt )_w.observationTime ;
-		tbw.setValue( ico.getObservationTime() ) ;
+		_w.observationTime.setValue(ico.getObservationTime());
 
 		// Deal with Flat Sampling according to state of inst & caltype
 		if( ico.getCalType() == FLAT )
@@ -120,12 +106,11 @@ public final class EdIterMichelleCalObs extends OtItemEditor implements TextBoxW
 			// MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
 			( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" ) ;
 
-			ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source ;
-			ddlbw.setChoices( ico.getFlatSourceChoices() ) ;
-			ddlbw.setValue( ico.getFlatSource() ) ;
-			ddlbw = ( DropDownListBoxWidgetExt )_w.flat_sampling ;
-			ddlbw.setChoices( ico.getSamplingChoices() ) ;
-			ddlbw.setValue( ico.getSampling() ) ;
+			_w.flat_source.setChoices(ico.getFlatSourceChoices());
+			_w.flat_source.setValue(ico.getFlatSource());
+
+			_w.flat_sampling.setChoices(ico.getSamplingChoices());
+			_w.flat_sampling.setValue(ico.getSampling());
 		}
 		else
 		{

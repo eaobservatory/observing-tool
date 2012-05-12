@@ -471,8 +471,8 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			int pri2 = _surveyObsComp.getPriority( row2 ) ;
 
 			// We also need to swap the TelescopePositions so when the table is redrawn, the new positions are read
-			SpTelescopeObsComp tp2 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row2 ) ;
-			SpTelescopeObsComp tp1 = ( SpTelescopeObsComp )_surveyObsComp.getSpTelescopeObsComp( row1 ) ;
+			SpTelescopeObsComp tp2 = _surveyObsComp.getSpTelescopeObsComp(row2);
+			SpTelescopeObsComp tp1 = _surveyObsComp.getSpTelescopeObsComp(row1);
 			_surveyObsComp.replaceSpTelescopeObsComp( tp1 , row2 ) ;
 			_surveyObsComp.replaceSpTelescopeObsComp( tp2 , row1 ) ;
 

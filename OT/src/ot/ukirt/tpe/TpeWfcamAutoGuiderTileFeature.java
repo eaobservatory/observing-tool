@@ -85,8 +85,8 @@ public class TpeWfcamAutoGuiderTileFeature extends TpeImageFeature
 
 		double xOffset = xOffsets[ i ] ;
 		double yOffset = yOffsets[ i ] ;
-		double x = ( double )fii.baseScreenPos.x + ( xOffset * fii.pixelsPerArcsec ) ;
-		double y = ( double )fii.baseScreenPos.y + ( yOffset * fii.pixelsPerArcsec ) ;
+		double x = fii.baseScreenPos.x + (xOffset * fii.pixelsPerArcsec);
+		double y = fii.baseScreenPos.y + (yOffset * fii.pixelsPerArcsec);
 
 		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2. ;
 		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2. ;

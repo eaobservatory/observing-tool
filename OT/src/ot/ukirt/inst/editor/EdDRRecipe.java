@@ -73,7 +73,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		CommandButtonWidgetExt cbw = null ;
 		CheckBoxWidgetExt ckbw = null ;
 
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
+		SpInstObsComp inst = SpTreeMan.findInstrument(_spDRRecipe);
 
 		// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
@@ -362,7 +362,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		String instStr ;
 
 		// get instrument  so we can determine which recipe selections to show
-		SpInstObsComp inst = ( ( SpInstObsComp )SpTreeMan.findInstrument( _spDRRecipe ) ) ;
+		SpInstObsComp inst = SpTreeMan.findInstrument(_spDRRecipe);
 
 		// MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).

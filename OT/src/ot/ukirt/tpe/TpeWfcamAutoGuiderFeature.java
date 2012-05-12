@@ -90,8 +90,8 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
 		double[] xpoints = _autoguiderAreaPD.xpoints ;
 		double[] ypoints = _autoguiderAreaPD.ypoints ;
 
-		double x = ( double )fii.baseScreenPos.x ;
-		double y = ( double )fii.baseScreenPos.y ;
+		double x = fii.baseScreenPos.x;
+		double y = fii.baseScreenPos.y;
 
 		double w = ( fii.pixelsPerArcsec * AUTOGUIDER_WIDTH ) / 2. ;
 		double h = ( fii.pixelsPerArcsec * AUTOGUIDER_HEIGHT ) / 2. ;

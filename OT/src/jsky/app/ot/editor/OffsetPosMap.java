@@ -95,7 +95,7 @@ public class OffsetPosMap extends FitsPosMap implements FitsImageInfoObserver
 		double xaxis = tp.getXaxis() ;
 		double yaxis = tp.getYaxis() ;
 		double posAngle = ( ( ( SpOffsetPosList )_tpl ).getPosAngle() * Math.PI ) / 180.0 ;
-		SpInstObsComp myInst = ( SpInstObsComp )( ( TpeImageWidget )_iw ).getInstrumentItem() ;
+		SpInstObsComp myInst = ((TpeImageWidget) _iw).getInstrumentItem();
 		if( myInst instanceof SpUKIRTInstObsComp )
 			posAngle = myInst.getPosAngleRadians() ;
 

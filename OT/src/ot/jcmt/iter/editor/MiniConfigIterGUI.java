@@ -44,7 +44,7 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 
 	public void enableParent( boolean enabled )
 	{
-		Container container = ( Container )getParent() ;
+		Container container = getParent();
 		enableComponent( container , enabled ) ;
 	}
 

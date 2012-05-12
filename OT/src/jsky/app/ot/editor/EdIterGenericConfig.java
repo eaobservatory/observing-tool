@@ -380,7 +380,7 @@ public class EdIterGenericConfig extends OtItemEditor implements CellSelectTable
 		int index = 0 ;
 		for( int i = 0 ; i < l.size() ; ++i )
 		{
-			String attrib = ( String )l.get( i ) ;
+			String attrib = l.get(i);
 
 			if( isUserEditable( attrib ) )
 			{

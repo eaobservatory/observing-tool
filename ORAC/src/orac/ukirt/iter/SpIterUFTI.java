@@ -237,7 +237,7 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 
 		String[] readoutAreas = new String[ vRA.size() ] ;
 		for( int i = 0 ; i < vRA.size() ; ++i )
-			readoutAreas[ i ] = ( String )vRA.elementAt( i ) ;
+			readoutAreas[i] = vRA.elementAt(i);
 
 		IterConfigItem iciReadoutArea = new IterConfigItem( "ReadoutArea" , SpInstUFTI.ATTR_READAREA + "Iter" , readoutAreas ) ;
 
@@ -250,15 +250,15 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable
 		int n = vBB.size() + vNB.size() + vSP.size() ;
 		String[] filters = new String[ n ] ;
 		for( int i = 0 ; i < vBB.size() ; ++i )
-			filters[ i ] = ( String )vBB.elementAt( i ) ;
+			filters[i] = vBB.elementAt(i);
 
 		int offset = vBB.size() ;
 		for( int i = 0 ; i < vNB.size() ; ++i )
-			filters[ offset + i ] = ( String )vNB.elementAt( i ) ;
+			filters[offset + i] = vNB.elementAt(i);
 
 		offset += vNB.size() ;
 		for( int i = 0 ; i < vSP.size() ; ++i )
-			filters[ offset + i ] = ( String )vSP.elementAt( i ) ;
+			filters[offset + i] = vSP.elementAt(i);
 
 		IterConfigItem iciFilter = new IterConfigItem( "Filter" , SpInstUFTI.ATTR_FILTER + "Iter" , filters ) ;
 
