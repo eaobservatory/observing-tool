@@ -243,7 +243,6 @@ class Link
  * A class for enumerating a linked list implements the Enumeration
  * interface.
  */
-@SuppressWarnings( "unchecked" )
 class ListEnumeration implements Enumeration
 {
 	private Link cursor ;
