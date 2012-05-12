@@ -69,19 +69,16 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 	{
 		_ignoreActionEvents = true ;
 
-		TextBoxWidgetExt tbw ;
-
 		// Exposure time
-		tbw = ( TextBoxWidgetExt )_w.exposureTime ;
-		tbw.addWatcher( this ) ;
+		_w.exposureTime.addWatcher(this);
 
 		// Observation time
-		tbw = ( TextBoxWidgetExt )_w.observationTime ;
+		// Do nothing with _w.observationTime ?
+		// (there was a compiler warning here for casting it,
+		// but the value was not used)
 
 		// Coadds
-		tbw = ( TextBoxWidgetExt )_w.coadds ;
-		// Added watcher to coadds (RDK)
-		tbw.addWatcher( this ) ;
+		_w.coadds.addWatcher(this);
 
 		super._init() ;
 
@@ -102,8 +99,6 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 	{
 		_ignoreActionEvents = true ;
 
-		DropDownListBoxWidgetExt ddlbw ;
-
 		SpIterUISTCalObs ico = ( SpIterUISTCalObs )_spItem ;
 
 		// Get the choices and defaults from the instrument.
@@ -116,28 +111,23 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 		}
 
 		// Update calType selection box
-		ddlbw = ( DropDownListBoxWidgetExt )_w.calType ;
-		ddlbw.setChoices( ico.getCalTypeChoices() ) ;
-		ddlbw.setValue( ico.getCalTypeString() ) ;
+		_w.calType.setChoices(ico.getCalTypeChoices());
+		_w.calType.setValue(ico.getCalTypeString());
 
 		// Observe repetitions
 		_w.repeatComboBox.setValue( ico.getCount() - 1 ) ;
 
-		TextBoxWidgetExt tbw ;
-
 		// Exposure time
 		if( _w.exposureTime != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.exposureTime ;
 			String expTimeStr = ico.getExpTimeOTString() ;
-			tbw.setValue( expTimeStr ) ;
+			_w.exposureTime.setValue(expTimeStr);
 		}
 
 		// Added by RDK
 		if( _w.coadds != source )
 		{
-			tbw = ( TextBoxWidgetExt )_w.coadds ;
-			tbw.setValue( ico.getCoaddsString() ) ;
+			_w.coadds.setValue(ico.getCoaddsString());
 		}
 
 		// Deal with Flat and Arc according to state of inst & caltype
@@ -146,31 +136,27 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 			// MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
 			( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "FLAT" ) ;
 
-			ddlbw = ( DropDownListBoxWidgetExt )_w.flat_source ;
-			ddlbw.setChoices( ico.getFlatSourceChoices() ) ;
-			ddlbw.setValue( ico.getFlatSource() ) ;
+			_w.flat_source.setChoices( ico.getFlatSourceChoices() ) ;
+			_w.flat_source.setValue( ico.getFlatSource() ) ;
 		}
 		else
 		{
 			// DAP: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
 			( ( CardLayout )( _w.calTypesPanel.getLayout() ) ).show( _w.calTypesPanel , "ARC" ) ;
 
-			ddlbw = ( DropDownListBoxWidgetExt )_w.arc_source ;
-			ddlbw.setChoices( ico.getArcSourceChoices() ) ;
-			ddlbw.setValue( ico.getArcSource() ) ;
+			_w.arc_source.setChoices( ico.getArcSourceChoices() ) ;
+			_w.arc_source.setValue( ico.getArcSource() ) ;
 		}
 
 		// Update data acquisition config
 		ico.updateDAConf() ;
 
 		// Added by RDK
-		tbw = ( TextBoxWidgetExt )_w.observationTime ;
-		tbw.setValue( ico.getObservationTimeString() ) ;
+		_w.observationTime.setValue(ico.getObservationTimeString());
 		// End of added by RDK
 
 		// Added by RDK
-		tbw = ( TextBoxWidgetExt )_w.filter ;
-		tbw.setValue( ico.getFilter() ) ;
+		_w.filter.setValue(ico.getFilter());
 		// End of added by RDK
 
 		_ignoreActionEvents = false ;

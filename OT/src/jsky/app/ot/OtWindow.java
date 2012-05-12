@@ -1081,15 +1081,9 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 	 * functions.
 	 */
 	public void prioritize() {
-		JDialog dialog;
-		if (parent instanceof JFrame) {
-			dialog = new PrioritizationFunctionDialog((JFrame) parent);
-			dialog.setLocationRelativeTo((JFrame) parent);
-		}
-		else {
-			dialog = new PrioritizationFunctionDialog();
-		}
-		dialog.show();
+		JDialog dialog = new PrioritizationFunctionDialog(parent);
+		dialog.setLocationRelativeTo(parent);
+		dialog.setVisible(true);
 	}
 
 	/**

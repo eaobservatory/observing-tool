@@ -844,7 +844,7 @@ public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver
 
 				case TpeEditorTools.MODE_CREATE :
 					TpeImageFeature tif ;
-					tif = ( TpeImageFeature )_editorTools.getImageFeature() ;
+					tif = _editorTools.getImageFeature();
 					_iw.create( mouseEvent , tif , _editorTools.getCurrentButtonLabel() ) ;
 					break ;
 			}

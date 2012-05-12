@@ -143,7 +143,7 @@ public final class SpTelescopePosList extends TelescopePosList implements java.i
 		Enumeration<String> e = tpv.elements() ;
 		while( e.hasMoreElements() )
 		{
-			String tag = ( String )e.nextElement() ;
+			String tag = e.nextElement();
 			tp = getPosition( spItem , avTab , tag , list ) ;
 			if( tp != null )
 				v.addElement( tp ) ;

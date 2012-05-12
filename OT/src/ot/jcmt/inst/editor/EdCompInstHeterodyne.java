@@ -404,8 +404,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private void _initialiseInstHeterodyne()
 	{
 		String frontEndName = _cfg.frontEnds[ 0 ] ;
-		_receiver = ( Receiver )_cfg.receivers.get( frontEndName ) ;
-		BandSpec bandSpec = ( BandSpec )_receiver.bandspecs.get( 0 ) ;
+		_receiver = _cfg.receivers.get(frontEndName);
+		BandSpec bandSpec = _receiver.bandspecs.get(0);
 
 		// Get hold of the lines in the upper side-band that. Make sure it is not to close to
 		// the edge of the range so that the IF can default to the front-end IF.
@@ -420,7 +420,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < moleculeVector.size() ; i++ )
 		{
 			if( moleculeVector.get( i ).toString().trim().equals( molecule ) )
-				transition = ( Transition )moleculeVector.get( i ).objectList.get( 0 ) ;
+				transition = moleculeVector.get(i).objectList.get(0);
 		}
 
 		if( transition != null )
@@ -436,9 +436,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		_inst.initialiseValues( "acsis" , // Back end name
 		frontEndName , // front end
-		( ( String[] )_cfg.frontEndTable.get( frontEndName ) )[ 0 ] , // mode
+		_cfg.frontEndTable.get( frontEndName)[0], // mode
 		bandSpec.toString() , // band mode
-		( ( String[] )_cfg.frontEndMixers.get( frontEndName ) )[ 0 ] , // mixer
+		_cfg.frontEndMixers.get(frontEndName)[0], // mixer
 		"" + bandSpec.defaultOverlaps[ 0 ] , // overlap
 		BEST , // band
 		"" + _receiver.feIF , // centre frequency
@@ -493,7 +493,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum ) ;
 		currentFrequency = tf.getText() ;
 
-		_receiver = ( Receiver )_cfg.receivers.get( _inst.getFrontEnd() ) ;
+		_receiver = _cfg.receivers.get(_inst.getFrontEnd());
 
 		// Update the front end panel
 		(( AbstractButton )_w.feSelector.getComponent( feWidgetNames.get( _inst.getFrontEnd() ) )).setSelected( true ) ;
@@ -558,7 +558,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		String rvFrame ;
 		if( target != null && defaultToRadialVelocity )
 		{
-			SpTelescopePos tp = ( SpTelescopePos )target.getPosList().getBasePosition() ;
+			SpTelescopePos tp = target.getPosList().getBasePosition();
 			rv = tp.getTrackingRadialVelocity() ;
 			rvDefn = tp.getTrackingRadialVelocityDefn() ;
 			rvFrame = tp.getTrackingRadialVelocityFrame() ;
@@ -720,7 +720,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 							{
 								for( int j = 0 ; j < selectionList.objectList.size() ; j++ )
 								{
-									transition = ( Transition )selectionList.objectList.get( j ) ;
+									transition = selectionList.objectList.get(j);
 									String transitionName = transition.name.trim() ;
 									if( transitionName.equals( speciesTransition ) )
 										break ;
@@ -963,7 +963,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			// This has been called as a response to a user action
 			String feSelected = ( ( JRadioButton )ae.getSource() ).getText() ;
-			_receiver = ( Receiver )_cfg.receivers.get( feSelected ) ;
+			_receiver = _cfg.receivers.get(feSelected);
 			_inst.setFrontEnd( feSelected ) ;
 			_inst.setFeIF( _receiver.feIF ) ;
 			_inst.setFeBandWidth( _receiver.bandWidth ) ;
@@ -1627,7 +1627,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void setAvailableModes()
 	{
-		List<String> availableModes = Arrays.asList( ( String[] )_cfg.frontEndTable.get( _inst.getFrontEnd() ) ) ;
+		List<String> availableModes = Arrays.asList(_cfg.frontEndTable.get(_inst.getFrontEnd()));
 		String currentMode = _inst.getMode() ;
 		boolean changeMode = false ;
 

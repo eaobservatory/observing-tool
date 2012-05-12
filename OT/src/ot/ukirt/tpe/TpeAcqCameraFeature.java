@@ -67,8 +67,8 @@ public class TpeAcqCameraFeature extends TpeImageFeature
 		double[] xpoints = _fovAreaPD.xpoints ;
 		double[] ypoints = _fovAreaPD.ypoints ;
 
-		double x = ( double )fii.baseScreenPos.x ;
-		double y = ( double )fii.baseScreenPos.y ;
+		double x = fii.baseScreenPos.x;
+		double y = fii.baseScreenPos.y;
 
 		double w = ( fii.pixelsPerArcsec * FOV_WIDTH ) / 2. ;
 		double h = ( fii.pixelsPerArcsec * FOV_HEIGHT ) / 2. ;

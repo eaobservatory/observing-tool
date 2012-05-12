@@ -218,7 +218,7 @@ public final class EdIterOffset extends OtItemEditor implements TableWidgetWatch
 				if( !tp.isOffsetPosition() )
 				{
 					// To simplify things, we convert this to an offset position internally
-					SpTelescopePos base = ( SpTelescopePos )obsComp.getPosList().getBasePosition() ;
+					SpTelescopePos base = obsComp.getPosList().getBasePosition();
 					childOffset = RADecMath.getOffset( tp.getXaxis() , tp.getYaxis() , base.getXaxis() , base.getYaxis() , _opl.getPosAngle() ) ;
 					childOffset[ 0 ] = childOffset[ 0 ] * Math.cos( Math.toRadians( base.getYaxis() ) ) ;
 				}

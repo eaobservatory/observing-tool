@@ -81,9 +81,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 	{
 		if( _iterObs != null )
 		{
-			_w.widePhotom.setSelected( ( ( SpIterStareObs )_iterObs ).getWidePhotom() ) ;
+			_w.widePhotom.setSelected(_iterObs.getWidePhotom());
 			SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
-			SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs ;
+			SpIterStareObs _iterStareObs = _iterObs;
 			if( instrument instanceof SpInstHeterodyne )
 			{
 				_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
@@ -115,7 +115,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 	private void updateSeparateOffs()
 	{
-		SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs ;
+		SpIterStareObs _iterStareObs = _iterObs;
 		boolean separateOffsCriteria = false ;
 		boolean visibility = false ;
 		boolean enabled = false ;
@@ -209,14 +209,14 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 ) ;
 		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
-			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( ( SpIterStareObs )_iterObs , inst , tSys ) , 3 ) ;
+			return MathUtil.round(HeterodyneNoise.getHeterodyneNoise(_iterObs, inst, tSys), 3);
 		else
 			return -999.9 ;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
-		( ( SpIterStareObs )_iterObs ).setWidePhotom( _w.widePhotom.isSelected() ) ;
+		_iterObs.setWidePhotom(_w.widePhotom.isSelected());
 	}
 
 	public void checkBoxAction( CheckBoxWidgetExt cbwe )
@@ -229,12 +229,12 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		}
 		else if( cbwe == super._w.arrayCentred )
 		{
-			( ( SpIterStareObs )_iterObs ).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
+			_iterObs.setArrayCentred(super._w.arrayCentred.isSelected());
 		}
 		else if( cbwe == super._w.separateOffs )
 		{
 			boolean isSelected = super._w.separateOffs.isSelected() ;
-			( ( SpIterStareObs )_iterObs ).setSeparateOffs( isSelected ) ;
+			_iterObs.setSeparateOffs(isSelected);
 			if( isSelected )
 			{
 				_iterObs.setContinuumMode( false ) ;

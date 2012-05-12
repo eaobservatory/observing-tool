@@ -96,7 +96,7 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTransla
 			int n = vFilters.size() ;
 			String[] filters = new String[ n ] ;
 			for( int i = 0 ; i < n ; i++ )
-				filters[ i ] = ( String )vFilters.elementAt( i ) ;
+				filters[i] = vFilters.elementAt(i);
 
 			// Filters.
 			iciFilter = new IterConfigItem( "Filter" , SpInstUIST.ATTR_FILTER + "Iter" , filters ) ;

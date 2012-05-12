@@ -114,7 +114,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 
 		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) && ( !pattern.equals( SpIterMicroStep.NO_PATTERN ) ) )
 		{
-			double[][] offsets = ( double[][] )( ( SpMicroStepUser )inst ).getMicroStepPatterns().get( _w.microStepPattern.getSelectedItem() ) ;
+			double[][] offsets = ((SpMicroStepUser) inst).getMicroStepPatterns().get(_w.microStepPattern.getSelectedItem());
 
 			for( int i = 0 ; i < offsets.length ; i++ )
 				opl.createPosition( offsets[ i ][ 0 ] , offsets[ i ][ 1 ] ) ;

@@ -248,7 +248,7 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 	 */
 	protected String calculateNoise()
 	{
-		SpTelescopeObsComp telescopeObsComp = ( SpTelescopeObsComp )SpTreeMan.findTargetList( _iterObs ) ;
+		SpTelescopeObsComp telescopeObsComp = SpTreeMan.findTargetList(_iterObs);
 		if( telescopeObsComp == null )
 		{
 			_noiseToolTip = "No target" ;

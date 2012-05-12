@@ -88,6 +88,6 @@ public class IterEnumTableWidget extends TableWidgetExt
 
 	public void addRow( Vector<String> v )
 	{
-		(( DefaultTableModel )getModel()).addRow( v ) ;
+		getModel().addRow(v);
 	}
 }

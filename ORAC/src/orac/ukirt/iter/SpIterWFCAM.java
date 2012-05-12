@@ -117,7 +117,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 			int n = vFilters.size() ;
 			String[] filters = new String[ n ] ;
 			for( int i = 0 ; i < n ; i++ )
-				filters[ i ] = ( String )vFilters.elementAt( i ) ;
+				filters[i] = vFilters.elementAt(i);
 
 			// Filters.
 			iciFilter = new IterConfigItem( "Filter" , SpInstWFCAM.ATTR_FILTER + "Iter" , filters ) ;

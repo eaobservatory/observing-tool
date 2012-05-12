@@ -143,7 +143,7 @@ public class TpeImageWidget extends FitsImageWidget implements SpBasePosObserver
 	 */
 	public SpInstObsComp getInstrumentItem()
 	{
-		return ( SpInstObsComp )SpTreeMan.findInstrument( _baseItem ) ;
+		return SpTreeMan.findInstrument(_baseItem);
 	}
 
 	/**

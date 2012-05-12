@@ -112,7 +112,7 @@ public class SpNote extends SpItem
 		{
 			while( e.hasMoreElements() )
 			{
-				String key = ( String )e.nextElement() ;
+				String key = e.nextElement();
 				if( key.startsWith( "." ) || key.startsWith( ":" ) || key.equals( ATTR_TITLE ) || key.equals( ATTR_NOTE ) )
 					continue ;
 				String value = _avTable.get( key ) ;

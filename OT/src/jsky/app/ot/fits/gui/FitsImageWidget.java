@@ -270,7 +270,7 @@ public class FitsImageWidget extends ViewportImageWidget
 		// to it, so to unrotate we need -(posAngle + 2*theta)
 		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees ) ;
 		double angle = -( posAngleRad + 2.0 * _imgInfo.theta ) ;
-		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle ) ;
+		Point2D.Double pd = skyRotate(x, y, angle);
 
 		double ppa = _imgInfo.pixelsPerArcsec ;
 		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa ;
@@ -308,8 +308,8 @@ public class FitsImageWidget extends ViewportImageWidget
 			return null ;
 
 		double angle = _imgInfo.theta + phi ;
-		double xBase = ( double )_imgInfo.baseScreenPos.x ;
-		double yBase = ( double )_imgInfo.baseScreenPos.y ;
+		double xBase = _imgInfo.baseScreenPos.x;
+		double yBase = _imgInfo.baseScreenPos.y;
 
 		return ScreenMath.rotateRadians( x , y , angle , xBase , yBase ) ;
 	}
@@ -324,8 +324,8 @@ public class FitsImageWidget extends ViewportImageWidget
 			return ;
 
 		double angle = _imgInfo.theta + phi ;
-		double xBase = ( double )_imgInfo.baseScreenPos.x ;
-		double yBase = ( double )_imgInfo.baseScreenPos.y ;
+		double xBase = _imgInfo.baseScreenPos.x ;
+		double yBase = _imgInfo.baseScreenPos.y ;
 
 		ScreenMath.rotateRadians( p , angle , xBase , yBase ) ;
 	}
@@ -426,7 +426,7 @@ public class FitsImageWidget extends ViewportImageWidget
 		// to it, so to unrotate we need -(posAngle + 2*theta)
 		double posAngleRad = Angle.degreesToRadians( _imgInfo.posAngleDegrees ) ;
 		double angle = -( posAngleRad + 2.0 * _imgInfo.theta ) ;
-		Point2D.Double pd = skyRotate( ( double )x , ( double )y , angle ) ;
+		Point2D.Double pd = skyRotate(x, y, angle);
 
 		double ppa = _imgInfo.pixelsPerArcsec ;
 		double xOff = ( _imgInfo.baseScreenPos.x - pd.x ) / ppa ;

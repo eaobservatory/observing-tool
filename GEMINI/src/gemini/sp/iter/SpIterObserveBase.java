@@ -102,7 +102,7 @@ public abstract class SpIterObserveBase extends SpIterComp
 					if( v != null )
 					{
 						// Just pick the first one in the list
-						String coaddsStr = ( String )v.elementAt( 0 ) ;
+						String coaddsStr = v.elementAt(0);
 						try
 						{
 							coadds = Integer.parseInt( coaddsStr ) ;

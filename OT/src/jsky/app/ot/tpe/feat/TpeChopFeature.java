@@ -109,8 +109,8 @@ public class TpeChopFeature extends TpeImageFeature implements TpeDraggableFeatu
 
 		_drawAsCircle = drawAsCircle( coordFrame ) ;
 
-		_baseX = ( double )fii.baseScreenPos.x ;
-		_baseY = ( double )fii.baseScreenPos.y ;
+		_baseX = fii.baseScreenPos.x;
+		_baseY = fii.baseScreenPos.y;
 
 		double scale = fii.pixelsPerArcsec;
 		double chopThrow = spIterChop.getThrow(chopStepIndex);

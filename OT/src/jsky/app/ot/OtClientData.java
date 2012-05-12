@@ -81,7 +81,7 @@ public final class OtClientData implements SpCloneableClientData , TpeFeatureCli
 			return null ;
 		}
 
-		cd.tnw = ( OtTreeNodeWidget )this.tnw.copy() ;
+		cd.tnw = this.tnw.copy();
 		cd.tnw.setItem( spItem ) ;
 		cd.tnw.setText( spItem.getTitle() ) ;
 

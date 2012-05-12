@@ -41,7 +41,7 @@ final class TpeEditorTools
 		ToggleButtonWidget tbw ;
 
 		// Browse Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Browse" ) ;
+		tbw = _tpeToolBar.getModeToggleButton("Browse");
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
@@ -54,7 +54,7 @@ final class TpeEditorTools
 		_browseButton = tbw ;
 
 		// Drag Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Drag" ) ;
+		tbw = _tpeToolBar.getModeToggleButton("Drag");
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )
@@ -66,7 +66,7 @@ final class TpeEditorTools
 		} ) ;
 
 		// Erase Tool
-		tbw = ( ToggleButtonWidget )_tpeToolBar.getModeToggleButton( "Erase" ) ;
+		tbw = _tpeToolBar.getModeToggleButton("Erase");
 		tbw.addWatcher( new ToggleButtonWidgetWatcher()
 		{
 			public void toggleButtonAction( ToggleButtonWidget tbw )

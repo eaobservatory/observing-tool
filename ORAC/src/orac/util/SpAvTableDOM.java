@@ -111,7 +111,7 @@ public class SpAvTableDOM
 		Vector<String> attributeVector = new Vector<String>() ;
 
 		while( e.hasMoreElements() )
-			attributeVector.add( ( String )e.nextElement() ) ;
+			attributeVector.add(e.nextElement());
 
 		String[] attributeArray = new String[ attributeVector.size() ] ;
 		attributeVector.toArray( attributeArray ) ;

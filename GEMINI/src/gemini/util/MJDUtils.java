@@ -89,6 +89,7 @@ public class MJDUtils
      *            TT in YYYY MM DD.ddd format.
      * @return TT in MJD (days).
      */
+	@SuppressWarnings("fallthrough")
 	public static double convertMJD( String yyyymmdd_ddd )
 	{
 		StringTokenizer stringTokenizer = new StringTokenizer( yyyymmdd_ddd , " ,: ;/-" ) ;

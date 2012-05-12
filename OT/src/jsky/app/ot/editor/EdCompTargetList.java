@@ -1454,7 +1454,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 					String[] namedTargets = OtCfg.getNamedTargets() ;
 					for( int targetCount = 0 ; targetCount < namedTargets.length ; targetCount++ )
 					{
-						if( _name.getValue().equalsIgnoreCase( ( String )namedTargets[ targetCount ] ) )
+						if (_name.getValue().equalsIgnoreCase(namedTargets[targetCount]))
 						{
 							// Another winner!
 							targetFound = true ;
