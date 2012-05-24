@@ -1062,40 +1062,6 @@ public class UkirtSpValidation extends SpValidation
 			print( child , indentStr + "   " ) ;
 	}
 
-	/**
-	 * UKIRT specific version of the method.
-	 *
-	 * This UKIRT specific version of the checkMSB method does currently not
-	 * check for observation components because this is still done
-	 * in checkObservation. However the UKIRT checkObservation method is
-	 * slightly out of date as it does not take into account MSBs.
-	 * At some point the checking for instrument components should be
-	 * unified according to the OMP system requirements which would make
-	 * this UKIRT specific checkMSB method obsolete.
-	 * The checkMSB method of the parent class could then be used.
-	 */
-	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
-	{
-		if( spMSB instanceof SpObs )
-		{
-			checkObservation( ( SpObs )spMSB , report ) ;
-		}
-		else
-		{
-			Enumeration<SpItem> children = spMSB.children() ;
-			SpItem child ;
-
-			while( children.hasMoreElements() )
-			{
-				child = children.nextElement() ;
-
-				if( child instanceof SpObs )
-					checkObservation( ( SpObs )child , report ) ;
-			}
-		}
-		super.checkMSBgeneric( spMSB , report ) ;
-	}
-
 	public static void main( String[] args )
 	{
 		if( args.length < 1 )
