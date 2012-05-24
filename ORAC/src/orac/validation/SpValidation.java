@@ -909,11 +909,6 @@ public class SpValidation
 		latestCalendar.set( Calendar.MINUTE , 0 ) ;
 		latestCalendar.set( Calendar.SECOND , 0 ) ;
 
-		if (before.before(TimeUtils.getCurrentUTCDate())) {
-			report.add(new ErrorMessage(ErrorMessage.WARNING,
-				"The earliest scheduled start time is before the current UTC date", ""));
-		}
-
 		if (after.before(TimeUtils.getCurrentUTCDate())) {
 			report.add(new ErrorMessage(ErrorMessage.ERROR,
 				"The latest scheduled end time is before the current UTC date", ""));
