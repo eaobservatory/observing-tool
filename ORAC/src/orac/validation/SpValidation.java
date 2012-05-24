@@ -136,31 +136,52 @@ public class SpValidation
 	protected void checkSciProgramRecursively( SpItem spItem , Vector<ErrorMessage> report )
 	{
 		Enumeration<SpItem> children = spItem.children() ;
-		SpItem child ;
 
 		while( children.hasMoreElements() )
 		{
-			child = children.nextElement() ;
+			SpItem child = children.nextElement();
+			System.err.println("Validation: checking " + child.getClass().getName());
 
-			if( child instanceof SpMSB )
-				checkMSB( ( SpMSB )child , report ) ;
-			else if( child instanceof SpSchedConstObsComp )
-				checkSchedComp( ( SpSchedConstObsComp )child , report ) ;
-			else
-				checkSciProgramRecursively( child , report ) ;
+			if (child instanceof SpMSB) {
+				checkMSB((SpMSB) child, report);
+			}
+			else if (! checkCommonItem(child, report)) {
+				checkSciProgramRecursively(child, report);
+			}
 		}
+	}
+
+	/**
+	 * Attempt to check common science programme items.
+	 *
+	 * Currently this only checks scheduling constraints.
+	 *
+	 * The reason for having this method is that both
+	 * checkSciProgramRecursively and checkMSB loop over thier
+	 * children.  We want to handle the items which could be
+	 * in either context without having to repeat the code.
+	 *
+	 * TODO: the proper way to do this would be to have a validate method
+	 * on the SpItems rather than having to use instanceof.
+	 *
+	 * @return true if the item was checked, otherwise the caller
+	 * 	should continue to recurse inside.
+	 */
+	protected boolean checkCommonItem(SpItem child, Vector<ErrorMessage> report) {
+		if (child instanceof SpSchedConstObsComp) {
+			checkSchedComp((SpSchedConstObsComp) child, report);
+			return true;
+		}
+
+		return false;
 	}
 
 	public void checkMSB( SpMSB spMSB , Vector<ErrorMessage> report )
 	{
-		checkMSBgeneric( spMSB , report ) ;
-	}
-
-	protected void checkMSBgeneric( SpMSB spMSB , Vector<ErrorMessage> report )
-	{
-		/*MFO DEBUG*/
-		if( report == null )
+		if( report == null ) {
+			System.err.println("SpValidation.checkMSB: recieved null report, validation messages will be lost!");
 			report = new Vector<ErrorMessage>() ;
+		}
 
 		if( SpItemUtilities.findSiteQuality( spMSB ) == null )
 			report.add( new ErrorMessage( ErrorMessage.ERROR , "MSB \"" + spMSB.getTitle() + "\"" , "Site quality component list is missing." ) ) ;
@@ -229,14 +250,16 @@ public class SpValidation
 		else
 		{
 			Enumeration<SpItem> children = spMSB.children() ;
-			SpItem child ;
 
-			while( children.hasMoreElements() )
-			{
-				child = children.nextElement() ;
+			while (children.hasMoreElements()) {
+				SpItem child = children.nextElement() ;
 
-				if( child instanceof SpObs )
-					checkObservation( ( SpObs )child , report ) ;
+				if (child instanceof SpObs) {
+					checkObservation((SpObs) child, report);
+				}
+				else {
+					checkCommonItem(child, report);
+				}
 			}
 		}
 	}
