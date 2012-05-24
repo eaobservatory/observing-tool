@@ -140,7 +140,6 @@ public class SpValidation
 		while( children.hasMoreElements() )
 		{
 			SpItem child = children.nextElement();
-			System.err.println("Validation: checking " + child.getClass().getName());
 
 			if (child instanceof SpMSB) {
 				checkMSB((SpMSB) child, report);
@@ -910,10 +909,19 @@ public class SpValidation
 		latestCalendar.set( Calendar.MINUTE , 0 ) ;
 		latestCalendar.set( Calendar.SECOND , 0 ) ;
 
-		if( before.before( TimeUtils.getCurrentUTCDate() ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "The earliest scheduled start time is before the current UTC date" , "" ) ) ;
+		if (before.before(TimeUtils.getCurrentUTCDate())) {
+			report.add(new ErrorMessage(ErrorMessage.WARNING,
+				"The earliest scheduled start time is before the current UTC date", ""));
+		}
 
-		if( after.after( latestCalendar.getTime() ) )
-			report.add( new ErrorMessage( ErrorMessage.ERROR , "The latest scheduled end time is after the latest schedulable end time" , "" ) ) ;
+		if (after.before(TimeUtils.getCurrentUTCDate())) {
+			report.add(new ErrorMessage(ErrorMessage.ERROR,
+				"The latest scheduled end time is before the current UTC date", ""));
+		}
+
+		if (after.after(latestCalendar.getTime())) {
+			report.add(new ErrorMessage(ErrorMessage.ERROR,
+				"The latest scheduled end time is after the latest schedulable end time", ""));
+		}
 	}
 }
