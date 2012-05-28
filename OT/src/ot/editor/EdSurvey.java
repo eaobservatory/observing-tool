@@ -129,6 +129,7 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 
 		_surveyGUI.fieldTable.getSelectionModel().addListSelectionListener( this ) ;
 		_surveyGUI.addButton.addActionListener( this ) ;
+		_surveyGUI.duplicateButton.addActionListener( this ) ;
 		_surveyGUI.removeButton.addActionListener( this ) ;
 		_surveyGUI.removeAllButton.addActionListener( this ) ;
 		_surveyGUI.loadButton.addActionListener( this ) ;
@@ -600,6 +601,27 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			_updateFieldTable() ;
 
 			return ;
+		}
+		else if (source == _surveyGUI.duplicateButton) {
+			int currentRow = _surveyGUI.fieldTable.getSelectedRow();
+
+			SpTelescopeObsComp target = _surveyObsComp.getSpTelescopeObsComp(currentRow).clone();
+			_surveyObsComp.addSpTelescopeObsComp(target);
+
+			((DefaultTableModel) _surveyGUI.fieldTable.getModel()).addRow(_getRowData(
+				target.getPosList().getBasePosition()));
+
+			_surveyObsComp.setRemaining(_surveyObsComp.getRemaining(currentRow),
+					_surveyGUI.fieldTable.getRowCount() - 1);
+			_surveyObsComp.setPriority(_surveyObsComp.getPriority(currentRow),
+					_surveyGUI.fieldTable.getRowCount() - 1);
+
+			_surveyGUI.selectLabel.setText("from " + _surveyGUI.fieldTable.getRowCount());
+			_surveyGUI.selectLabel.repaint() ;
+
+			_updateFieldTable() ;
+
+			return;
 		}
 		else if( source == _surveyGUI.removeButton )
 		{
