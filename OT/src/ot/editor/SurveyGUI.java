@@ -37,6 +37,7 @@ public class SurveyGUI extends JPanel
 	JComboBox remaining = new JComboBox() ;
 	JComboBox priority = new JComboBox() ;
 	JButton addButton = new JButton( "Add" ) ;
+	JButton duplicateButton = new JButton("Duplicate");
 	JButton removeButton = new JButton( "Remove" ) ;
 	JButton removeAllButton = new JButton( "Remove all" ) ;
 	JButton loadButton = new JButton( "Load" ) ;
@@ -62,6 +63,7 @@ public class SurveyGUI extends JPanel
 		priority.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		remaining.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		addButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		duplicateButton.setFont(new java.awt.Font("Dialog", 0, 12));
 		removeButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		removeAllButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		loadButton.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
@@ -75,6 +77,7 @@ public class SurveyGUI extends JPanel
 
 		JPanel buttonPanel = new JPanel() ;
 		buttonPanel.add( addButton ) ;
+		buttonPanel.add(duplicateButton);
 		buttonPanel.add( removeButton ) ;
 		buttonPanel.add( removeAllButton ) ;
 		buttonPanel.add( loadButton ) ;
