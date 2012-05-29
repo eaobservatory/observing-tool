@@ -124,9 +124,8 @@ public class HeterodyneNoise
 				for (String file: files) {
 					if (file.startsWith("tau") && file.endsWith(".dat")) {
 						// Extract the tau value
-						String value = "0." + file.substring(files.indexOf("u") + 1, file.lastIndexOf("."));
-						double dtmp = Double.parseDouble(value);
-						_availableBands.put(dtmp, file);
+						String value = "0." + file.substring(file.indexOf("u") + 1, file.lastIndexOf("."));
+						_availableBands.put(Double.valueOf(value), file);
 					}
 				}
 			}
