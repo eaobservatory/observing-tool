@@ -301,9 +301,10 @@ public class OtFileIO
 
 		fd.setFileFilter( xmlFilter ) ;
 
-		int rtn = fd.showSaveDialog( null ) ;
-		if( rtn == JFileChooser.CANCEL_OPTION )
-			return false ;
+		int rtn = fd.showSaveDialog(null);
+		if(rtn != JFileChooser.APPROVE_OPTION) {
+			return false;
+		}
 
 		File f = fd.getSelectedFile() ;
 		String filename = f.getName() ;
@@ -314,9 +315,6 @@ public class OtFileIO
 		 */
 		if( !filename.toLowerCase().endsWith( ".xml" ) )
 			f = new File( f.getAbsolutePath() + ".xml" ) ;
-
-		if( f == null )
-			return false ;
 
 		String dir = f.getParent() ;
 		if( !dir.endsWith( File.separator ) )

@@ -6,10 +6,6 @@
 //
 package jsky.app.ot ;
 
-import java.awt.Color ;
-import java.awt.Component ;
-import java.awt.Dimension ;
-import java.awt.Toolkit ;
 import java.awt.event.WindowAdapter ;
 import java.awt.event.WindowEvent ;
 import java.io.File ;
@@ -19,8 +15,6 @@ import java.io.Reader ;
 import java.net.URL ;
 import java.util.Vector ;
 import javax.swing.JFrame ;
-import javax.swing.JLayeredPane ;
-import javax.swing.JMenuBar ;
 import javax.swing.JOptionPane ;
 import javax.swing.JLabel ;
 import javax.swing.ImageIcon ;
@@ -29,9 +23,6 @@ import gemini.sp.SpItem;
 import gemini.sp.SpLibrary ;
 import gemini.sp.SpRootItem ;
 import gemini.sp.SpType ;
-import jsky.app.ot.util.CloseableApp ;
-import ot.util.DialogUtil ;
-
 import ot.News ;
 import ot.OtPreferencesDialog ;
 import ot.DatabaseDialog ;

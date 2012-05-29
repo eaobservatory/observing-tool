@@ -26,6 +26,7 @@ import ot.gui.GuiUtil;
  * and an interface provided to prevent editor classes
  * from having to deal with the widget directly.
  */
+@SuppressWarnings("serial")
 public abstract class MsbObsCommonGUI extends JPanel {
 
 	protected final int nPriorities = 99;

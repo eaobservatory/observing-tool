@@ -9,7 +9,6 @@ import gemini.sp.SpTelescopePos ;
 import gemini.sp.SpTelescopePosList ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
-import gemini.sp.SpMSB ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterJCMTObs ;

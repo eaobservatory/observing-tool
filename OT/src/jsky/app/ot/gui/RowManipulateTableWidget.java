@@ -74,8 +74,7 @@ public class RowManipulateTableWidget extends JTable
 	}
 
 	/** Return the value in the cell at the given row and column. */
-	@SuppressWarnings( "unchecked" )
-    public Object getCell( int col , int row )
+	public Object getCell( int col , int row )
 	{
 		Vector data = getModel().getDataVector() ;
 		return ( ( Vector )data.get( row ) ).get( col ) ;
@@ -162,8 +161,7 @@ public class RowManipulateTableWidget extends JTable
 	/**
 	 * Move a row to the front (index 0).
 	 */
-	@SuppressWarnings( "unchecked" )
-    public void absMoveToFirstRowAt( int index )
+	public void absMoveToFirstRowAt( int index )
 	{
 		if( ( index > 0 ) && ( index < getModel().getRowCount() ) )
 		{
@@ -183,8 +181,7 @@ public class RowManipulateTableWidget extends JTable
 	/**
 	 * Decrement a row's absolute position (move it higher in the table).
 	 */
-	@SuppressWarnings( "unchecked" )
-    public void absDecrementRowAt( int index )
+	public void absDecrementRowAt( int index )
 	{
 		if( ( index > 0 ) && ( index < getModel().getRowCount() ) )
 		{
@@ -201,8 +198,7 @@ public class RowManipulateTableWidget extends JTable
 	/**
 	 * Increment a row's absolute position (move it lower in the table).
 	 */
-	@SuppressWarnings( "unchecked" )
-    public void absIncrementRowAt( int index )
+	public void absIncrementRowAt( int index )
 	{
 		int lastIndex = getModel().getRowCount() - 1 ;
 		if( ( index > 0 ) && ( index < lastIndex ) )
@@ -220,8 +216,7 @@ public class RowManipulateTableWidget extends JTable
 	/**
 	 * Decrement a row's absolute position (move it higher in the table).
 	 */
-	@SuppressWarnings( "unchecked" )
-    public void absMoveToLastRowAt( int index )
+	public void absMoveToLastRowAt( int index )
 	{
 		int lastIndex = getModel().getRowCount() - 1 ;
 		if( ( index >= 0 ) && ( index < lastIndex ) )
@@ -243,8 +238,7 @@ public class RowManipulateTableWidget extends JTable
 	 * in the array of Vectors.  Each Vector contains a row's worth of
 	 * data.
 	 */
-	@SuppressWarnings( "unchecked" )
-    public Vector[] getAllRowsData()
+	public Vector[] getAllRowsData()
 	{
 		Vector[] va = new Vector[ getModel().getRowCount() ] ;
 		getAllRowsData( va ) ;
@@ -256,8 +250,7 @@ public class RowManipulateTableWidget extends JTable
 	 * in the array of Vectors.  Each Vector contains a row's worth of
 	 * data.
 	 */
-	@SuppressWarnings( "unchecked" )
-    public void getAllRowsData( Vector[] va )
+	public void getAllRowsData( Vector[] va )
 	{
 		int rowCount = getModel().getRowCount() ;
 		Vector data = getModel().getDataVector() ;
@@ -266,8 +259,7 @@ public class RowManipulateTableWidget extends JTable
 	}
 
 	/** Set the contents of the table */
-	@SuppressWarnings( "unchecked" )
-    public void setRows( Vector[] v )
+	public void setRows( Vector[] v )
 	{
 		int rowCount = v.length ;
 		Vector<Vector> data = new Vector<Vector>( rowCount ) ;
@@ -287,8 +279,7 @@ public class RowManipulateTableWidget extends JTable
 	 * Override marimba's method that prints nasty error message if 
 	 * there are no rows. Null vector is ok as result of guidestar search. 
 	 */
-	@SuppressWarnings( "unchecked" )
-    public Vector getRowData( int index )
+	public Vector getRowData( int index )
 	{
 		DefaultTableModel model = getModel() ;
 		// do nothing if one of the parameters is incorrect

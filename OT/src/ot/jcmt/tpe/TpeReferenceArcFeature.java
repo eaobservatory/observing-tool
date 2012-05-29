@@ -6,7 +6,6 @@ import java.awt.Graphics;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpTelescopePos ;
-import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Angle;

@@ -10,7 +10,6 @@ import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpSurveyContainer ;
 import gemini.sp.SpProg ;
-import gemini.sp.SpMSB ;
 import orac.ukirt.inst.SpInstCGS4 ;
 import orac.ukirt.inst.SpInstMichelle ;
 import orac.ukirt.inst.SpInstUIST ;

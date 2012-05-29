@@ -18,7 +18,6 @@ import java.awt.Color ;
 import java.awt.Dimension ;
 import java.awt.Font ;
 import javax.swing.JLabel ;
-import javax.swing.JComboBox ;
 import javax.swing.JPanel ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 

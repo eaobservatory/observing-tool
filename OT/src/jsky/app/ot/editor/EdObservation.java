@@ -13,7 +13,6 @@ import java.util.Observer ;
 import java.util.Observable ;
 
 import javax.swing.AbstractButton ;
-import javax.swing.JToggleButton ;
 import javax.swing.JLabel ;
 import javax.swing.JOptionPane ;
 import javax.swing.JComboBox ;
@@ -30,7 +29,6 @@ import gemini.sp.SpObs ;
 import orac.util.OracUtilities ;
 import orac.util.TelescopeUtil ;
 
-import ot.editor.MsbObsCommonGUI;
 import ot.editor.EdMsbObsCommon;
 
 /**

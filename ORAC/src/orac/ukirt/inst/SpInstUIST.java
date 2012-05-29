@@ -2861,7 +2861,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		{
 			// Declare the new lookup table and construct it
 			LookUpTable R = new LookUpTable() ;
-			int nextRow = 0 ;
 			for( int i = 0 ; i < RBRows ; i++ )
 			{
 				minE = Double.valueOf( RBig.elementAt( i , 0 ) ) ;
@@ -2870,7 +2869,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				{
 					Vector<String> row = RBig.getRow( i ) ;
 					R.addRow( row ) ;
-					nextRow++ ;
 				}
 			}
 			return R ;

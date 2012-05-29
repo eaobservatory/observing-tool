@@ -6,7 +6,6 @@
 //
 package jsky.app.ot ;
 
-import java.awt.Component ;
 import javax.swing.ImageIcon ;
 import javax.swing.JFrame ;
 import jsky.app.ot.gui.StopActionWatcher ;

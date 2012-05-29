@@ -14,7 +14,6 @@ import jsky.app.ot.OtProps ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import javax.swing.ButtonGroup ;
-import javax.swing.JLayeredPane ;
 import javax.swing.JFrame ;
 import javax.swing.JOptionPane ;
 
@@ -37,11 +36,6 @@ public class OtPreferencesDialog implements ActionListener
 	 */
 	private JFrame _preferencesDialogFrame ;
 
-	/**
-	 *
-	 */
-	private String _title ;
-
 	// Keys to use for proxy server settings
 	private static final String PROXY_HOST = "http.proxyHost" ;
 	private static final String PROXY_PORT = "http.proxyPort" ;
@@ -49,7 +43,6 @@ public class OtPreferencesDialog implements ActionListener
 
 	public OtPreferencesDialog()
 	{
-		_title = "OT Preferences" ;
 		_w = new OtPreferencesGUI() ;
 
 		ButtonGroup grp = new ButtonGroup() ;

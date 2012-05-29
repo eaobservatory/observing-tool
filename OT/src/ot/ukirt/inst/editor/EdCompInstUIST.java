@@ -24,7 +24,6 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher ;
 import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
-import jsky.app.ot.gui.OptionWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
 
