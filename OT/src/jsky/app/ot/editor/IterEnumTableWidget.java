@@ -8,7 +8,6 @@ package jsky.app.ot.editor ;
 
 import java.util.List ;
 import java.util.Vector ;
-import javax.swing.table.DefaultTableModel ;
 import jsky.app.ot.gui.TableWidgetExt ;
 import gemini.sp.iter.SpIterStep ;
 import gemini.sp.iter.SpIterValue ;

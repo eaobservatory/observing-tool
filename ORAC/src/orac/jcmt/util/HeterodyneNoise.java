@@ -4,6 +4,7 @@ import java.io.BufferedReader ;
 import java.io.InputStreamReader ;
 import java.io.InputStream ;
 import java.net.URL ;
+import java.util.ArrayList;
 import java.util.Iterator ;
 import java.util.Set ;
 import java.util.StringTokenizer ;
@@ -98,43 +99,36 @@ public class HeterodyneNoise
 
 	private static void getAvailableTau()
 	{
-		String tauList = cfgDir + "tau.list" ;
-		URL url = ObservingToolUtilities.resourceURL( tauList ) ;
-		Vector<String> filesVector = new Vector<String>() ;
-		if( url != null )
-		{
-			try
-			{
-				InputStream is = url.openStream() ;
-				BufferedReader in = new BufferedReader( new InputStreamReader( is ) ) ;
-				String inputLine = "" ;
-				while( ( inputLine = in.readLine() ) != null )
-					filesVector.add( inputLine ) ;
-				in.close() ;
-				is.close() ;
+		String tauList = cfgDir + "tau.list";
+		URL url = ObservingToolUtilities.resourceURL( tauList );
+		ArrayList<String> files = new ArrayList<String>();
+		if (url != null) {
+			try {
+				InputStream is = url.openStream();
+				BufferedReader in = new BufferedReader(new InputStreamReader(is));
+				String inputLine = "";
+				while ((inputLine = in.readLine()) != null) {
+					files.add(inputLine);
+				}
+				in.close();
+				is.close();
 			}
-			catch( Exception e )
-			{
-				System.out.println( "Problems reading file " + tauList + " : " + e ) ;
+			catch(Exception e) {
+				System.err.println("HeterodyneNoise: problems reading file " + tauList + " : " + e);
 			}
-			String[] files = new String[ filesVector.size() ] ;
-			filesVector.toArray( files ) ;
-			if( files != null )
-			{
-				for( int i = 0 ; i < files.length ; i++ )
-				{
-					if( files[ i ].startsWith( "tau" ) && files[ i ].endsWith( ".dat" ) )
-					{
+
+			if (files.size() == 0) {
+				System.out.println( "No files in " + cfgDir ) ;
+			}
+			else {
+				for (String file: files) {
+					if (file.startsWith("tau") && file.endsWith(".dat")) {
 						// Extract the tau value
-						String value = "0." + files[ i ].substring( files[ i ].indexOf( "u" ) + 1 , files[ i ].lastIndexOf( "." ) ) ;
-						double dtmp = Double.parseDouble( value ) ;
-						_availableBands.put( new Double( dtmp ) , files[ i ] ) ;
+						String value = "0." + file.substring(files.indexOf("u") + 1, file.lastIndexOf("."));
+						double dtmp = Double.parseDouble(value);
+						_availableBands.put(dtmp, file);
 					}
 				}
-			}
-			else
-			{
-				System.out.println( "No files in " + cfgDir ) ;
 			}
 		}
 	}

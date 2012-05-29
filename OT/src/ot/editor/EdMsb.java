@@ -9,15 +9,11 @@ package ot.editor ;
 import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
 
-import javax.swing.AbstractButton ;
 import javax.swing.JComboBox ;
 import javax.swing.JOptionPane ;
 
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.TextBoxWidgetWatcher ;
-import jsky.app.ot.editor.OtItemEditor ;
-
-import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
 import gemini.sp.SpSurveyContainer ;
 import orac.util.OracUtilities ;

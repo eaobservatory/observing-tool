@@ -18,13 +18,11 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 import ot.util.DialogUtil ;
 import ot.gui.PasswordWidgetExt ;
 
-import java.awt.Component ;
 import java.awt.Frame ;
 import java.awt.event.ActionListener ;
 import java.awt.event.ActionEvent ;
 import javax.swing.ButtonGroup ;
 import javax.swing.JFrame ;
-import javax.swing.JLayeredPane ;
 
 /**
  * A window that presents an interface used to obtain program listings and fetch programs from the ODB. This is a singleton class so at most one ProgListWindow will ever exist.

@@ -18,8 +18,6 @@ import java.awt.Dimension ;
 import java.awt.Font ;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JComboBox ;
-import javax.swing.JToggleButton ;
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import ot.gui.GuiUtil;
 
