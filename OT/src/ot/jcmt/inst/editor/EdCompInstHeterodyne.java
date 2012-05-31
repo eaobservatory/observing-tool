@@ -326,8 +326,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_w.vDef.setChoices( TelescopeUtil.TCS_RV_DEFINITIONS ) ;
 		_w.vDef.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_inst.setVelocityDefinition( newTag ) ;
@@ -353,8 +351,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_w.vFrame.setChoices( TelescopeUtil.TCS_RV_FRAMES ) ;
 		_w.vFrame.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_inst.setVelocityFrame( newTag ) ;

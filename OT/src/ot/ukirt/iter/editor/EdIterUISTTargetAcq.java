@@ -55,8 +55,6 @@ public final class EdIterUISTTargetAcq extends OtItemEditor implements TextBoxWi
 		//
 		_w.sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_ita.setSourceMag( val ) ;

@@ -59,8 +59,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 		//
 		_w.camera.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_updateCamera( val ) ;
@@ -98,8 +96,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 		//
 		_w.imaging_filterCategory.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instMichelle.setFilterCategory( val ) ;
@@ -114,8 +110,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 		//
 		_w.imaging_filter.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instMichelle.setFilterOT( val ) ;
@@ -134,8 +128,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 		//
 		_w.spectroscopy_grating.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instMichelle.setDisperser( val ) ;
@@ -217,8 +209,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 
 		_w.spectroscopy_mask.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instMichelle.setMask( val ) ;
@@ -253,9 +243,6 @@ public final class EdCompInstMichelle extends EdCompInstBase
 		//
 		_w.spectroscopy_sampling.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instMichelle.setPixelSampling( val ) ;

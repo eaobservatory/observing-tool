@@ -90,8 +90,6 @@ public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetW
 
 		_w.polariser.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUFTI.setPolariser( val ) ;
@@ -106,8 +104,6 @@ public final class EdCompInstUFTI extends EdCompInstBase implements TableWidgetW
 
 		_w.sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUFTI.setSourceMagnitude( val ) ;

@@ -226,25 +226,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			_type.addChoice( _w.targetSystemsTabbedPane.getTitleAt( i ) ) ;
 		_type.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
-			{
-				for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
-				{
-					if( tab == i )
-					{
-						_w.targetSystemsTabbedPane.setEnabledAt( tab , true ) ;
-						_w.targetSystemsTabbedPane.setSelectedIndex( tab ) ;
-						Component[] component = ( ( JPanel )_w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents() ;
-						for( int count = 0 ; count < component.length ; count++ )
-							component[ count ].setEnabled( true ) ;
-					}
-					else
-					{
-						_w.targetSystemsTabbedPane.setEnabledAt( tab , false ) ;
-					}
-				}
-			}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
@@ -282,8 +263,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 
 		_tag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_changeTag( newTag ) ;
@@ -434,8 +413,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_system.setChoices( OtCfg.telescopeUtil.getCoordSys() ) ;
 		_system.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 
@@ -458,8 +435,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_w.velDefn.setChoices( TelescopeUtil.TCS_RV_DEFINITIONS ) ;
 		_w.velDefn.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityDefn( newTag ) ;
@@ -482,8 +457,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_w.velFrame.setChoices( TelescopeUtil.TCS_RV_FRAMES ) ;
 		_w.velFrame.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityFrame( newTag ) ;
@@ -1531,8 +1504,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	}
 
 	public void textBoxAction( TextBoxWidgetExt tbwe ){}
-
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 	{

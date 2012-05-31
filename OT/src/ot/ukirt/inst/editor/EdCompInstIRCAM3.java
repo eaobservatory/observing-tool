@@ -84,8 +84,6 @@ public final class EdCompInstIRCAM3 extends EdCompInstBase implements TableWidge
 
 		_w.polariser.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instIRCAM3.setPolariser( val ) ;
@@ -98,8 +96,6 @@ public final class EdCompInstIRCAM3 extends EdCompInstBase implements TableWidge
 
 		_w.sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instIRCAM3.setSourceMagnitude( val ) ;

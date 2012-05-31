@@ -52,8 +52,6 @@ public final class EdCompInstWFCAM extends EdCompInstBase implements ActionListe
 		// ReadMode drop down list box
 		_w.ReadMode.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instWFCAM.setReadMode( val ) ;
@@ -64,8 +62,6 @@ public final class EdCompInstWFCAM extends EdCompInstBase implements ActionListe
 		// Filter drop down list box
 		_w.Filter.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instWFCAM.setFilter( val ) ;

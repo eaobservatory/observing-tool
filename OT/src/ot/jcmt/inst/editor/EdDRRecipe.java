@@ -320,8 +320,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	 */
 	public void tableAction( TableWidgetExt twe , int colIndex , int rowIndex ){}
 
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val ){}
 
 	public void actionPerformed( ActionEvent e ){}

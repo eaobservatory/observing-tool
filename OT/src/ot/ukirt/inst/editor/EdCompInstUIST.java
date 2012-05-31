@@ -73,8 +73,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.camera.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_updateCamera( val ) ;
@@ -143,8 +141,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 
 		_w.imaging_and_polarimetry_mask.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setMask( val ) ;
@@ -170,8 +166,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.imaging_sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setSourceMag( val ) ;
@@ -182,8 +176,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 
 		_w.spectroscopy_sourceMag.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setSourceMag( val ) ;
@@ -225,8 +217,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.imaging_imagerList.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setImager( val ) ;
@@ -244,8 +234,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.imaging_filter.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setFilter( val ) ;
@@ -263,8 +251,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.spectroscopy_grism.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setDisperser( val ) ;
@@ -306,8 +292,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 
 		_w.spectroscopy_mask.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setMask( val ) ;
@@ -391,8 +375,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//
 		_w.dataAcq_readMode.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setReadMode( val ) ;
@@ -405,8 +387,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements ActionListen
 		//getMicroStepPatterns
 		_w.dataAcq_readArea.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instUIST.setReadAreaString( val ) ;
