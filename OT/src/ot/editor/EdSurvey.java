@@ -808,7 +808,5 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			if( _curPos.isBasePosition() && dd == _system )
 				( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( val , _surveyGUI.fieldTable.getSelectedRow() , 3 ) ;
 		}
-
-		public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 	}
 }

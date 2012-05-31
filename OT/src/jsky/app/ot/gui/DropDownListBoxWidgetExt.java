@@ -196,11 +196,6 @@ public class DropDownListBoxWidgetExt extends JComboBox implements DescriptiveWi
 
 		ddlbwe.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val )
-			{
-				System.out.println( "dropDownListBoxSelect: " + ddlbwe.getValue() ) ;
-			}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 			{
 				System.out.println( "dropDownListBoxAction: " + ddlbwe.getValue() ) ;

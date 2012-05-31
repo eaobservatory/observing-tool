@@ -67,8 +67,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setDisperser( _dispTrim( val ) ) ;
@@ -88,8 +86,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setSourceMagnitude( val ) ;
@@ -106,8 +102,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setSampling( val ) ;
@@ -123,8 +117,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setMask( val ) ;
@@ -144,8 +136,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setPolariser( val ) ;
@@ -161,8 +151,6 @@ public final class EdCompInstCGS4 extends EdCompInstBase
 
 		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
-			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
-
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 			{
 				_instCGS4.setMode( val ) ;

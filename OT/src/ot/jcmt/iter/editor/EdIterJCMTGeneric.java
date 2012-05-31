@@ -139,8 +139,6 @@ public class EdIterJCMTGeneric extends OtItemEditor implements DropDownListBoxWi
 		}
 	}
 
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val ){}
-
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		if( tbwe == _w.frequencyOffset_throw )

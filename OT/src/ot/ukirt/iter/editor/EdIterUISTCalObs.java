@@ -211,11 +211,6 @@ public final class EdIterUISTCalObs extends OtItemEditor implements TextBoxWidge
 	public void textBoxAction( TextBoxWidgetExt tbwe ){}
 
 	/**
-	 * DD list box select.
-	 */
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}
-
-	/**
 	 * DD list box action.
 	 */
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int i , String val ){}

@@ -8,17 +8,16 @@ package jsky.app.ot.gui ;
 
 /**
  * An interface supported by clients that which to be notified of
- * DropDownListBoxWidget selection and action (double click).
+ * DropDownListBoxWidget action (menu selection)
  */
 public interface DropDownListBoxWidgetWatcher
 {
 	/**
 	 * Called when an item is selected.
-	 */
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val ) ;
-
-	/**
-	 * Called when an item is double clicked.
+         *
+         * Note: in recent version of Java, this is not fired when the
+         * already-selected combobox entry is clicked.  This is because
+         * a combobox is not meant to be misused as a command menu.
 	 */
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val ) ;
 }

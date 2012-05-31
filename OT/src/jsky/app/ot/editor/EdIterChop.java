@@ -349,8 +349,6 @@ public class EdIterChop extends OtItemEditor implements DropDownListBoxWidgetWat
 		}
 	}
 
-	public void dropDownListBoxSelect( DropDownListBoxWidgetExt ddlbwe , int index , String val ){}
-
 	public void tableChanged( TableModelEvent e )
 	{
 		if( !_ignoreGuiEvents )
