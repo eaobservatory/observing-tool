@@ -6,7 +6,11 @@
 //
 package jsky.app.ot.tpe.feat ;
 
-import gemini.sp.SpTelescopePosList ;
+import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpTelescopePos;
+import gemini.util.RADec;
+import gemini.util.CoordSys;
+import orac.util.CoordConvert;
 
 import jsky.app.ot.fits.gui.FitsPosMapEntry ;
 import jsky.app.ot.fits.gui.FitsMouseEvent ;
@@ -80,15 +84,28 @@ public abstract class TpePositionFeature extends TpeImageFeature implements TpeD
 
 	/**
 	 */
-	public void dragStop( FitsMouseEvent fme )
+	public void dragStop(FitsMouseEvent fme)
 	{
-		if( _dragObject != null )
-		{
-			// Make sure to update the telescope position and let observers be notified.
-
-			TpePositionMap pm = TpePositionMap.getMap( _iw ) ;
-			pm.updatePosition( _dragObject , fme ) ;
+		if (_dragObject != null) {
+			dragDoPositionUpdate(fme);
 			_dragObject = null ;
+
+			_iw.repaint() ;
+		}
+	}
+
+	protected void dragDoPositionUpdate(FitsMouseEvent fme) {
+		if (_dragObject != null) {
+			SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
+
+			try {
+				RADec raDec = CoordConvert.convert(fme.ra, fme.dec, CoordSys.FK5, tp.getCoordSys());
+				tp.setXY(raDec.ra, raDec.dec);
+			}
+			catch (UnsupportedOperationException e) {
+				tp.setCoordSys(CoordSys.FK5);
+				tp.setXY(fme.ra, fme.dec);
+			}
 		}
 	}
 }

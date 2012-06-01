@@ -341,9 +341,6 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 				SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos ;
 
 				tp.setOffsetPosition( false ) ;
-				tp.setXY( fme.ra , fme.dec ) ;
-				tp.setCoordSys( CoordSys.FK5 ) ;
-				tp.setXY( fme.ra , fme.dec ) ;
 
 				return true ;
 			}
@@ -361,6 +358,8 @@ public class TpeGuidePosFeature extends TpePositionFeature implements TpeCreatea
 			SpTelescopePos tp = ( SpTelescopePos )_dragObject.telescopePos ;
 	
 			// See if we can snap to a catalog star
+			// Code removed in 7dab9164629e0d4acef1f359b10c2b0b3359ff24
+			// but has been commented out for entire git history.
 			boolean snappedToCatStar = false ;
 	
 			if( !snappedToCatStar )
