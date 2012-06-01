@@ -10,9 +10,11 @@ import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Angle;
 import gemini.util.CoordSys;
+import gemini.util.RADec;
 import gemini.util.DDMMSS;
 import orac.jcmt.iter.SpIterFTS2;
 import orac.util.SpItemUtilities;
+import orac.util.CoordConvert;
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.tpe.TpeImageFeature;
@@ -106,15 +108,23 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		
 		SpTelescopePos basePosition = ((SpTelescopeObsComp) telescope).getPosList().getBasePosition();
 
-		// TODO: handle other coordinate system
-		if (basePosition.getCoordSys() != CoordSys.FK5) {
-			// See for example EdIterJCMTGeneric for how to convert...
-			System.err.println("Wrong coordinate system in TpeReferenceArcFeature");
-			return false;
+		double declination = 0;
+
+		if (basePosition.getCoordSys() == CoordSys.FK5) {
+			declination = basePosition.getYaxis();
 		}
-
-		double declination = basePosition.getYaxis();
-
+		else {
+			try {
+				RADec raDec = CoordConvert.convert(
+					basePosition.getXaxis(), basePosition.getYaxis(),
+					basePosition.getCoordSys(), CoordSys.FK5);
+				declination = raDec.dec;
+			}
+			catch (UnsupportedOperationException e) {
+				System.err.println("Wrong coordinate system in TpeReferenceArcFeature");
+				return false;
+			}
+		}
 
 		// Calculate maximum source elevation
 
