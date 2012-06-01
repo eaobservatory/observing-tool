@@ -247,7 +247,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	}
 
 	/**
-	 * This public methods allows the SpectralRegionDialog to cause the widgets of this editor to be updated.
+	 * This public methods allows the dialog to cause the widgets of this editor to be updated.
 	 */
 	public void refresh()
 	{
