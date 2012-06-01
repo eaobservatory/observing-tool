@@ -26,7 +26,6 @@ import jsky.app.ot.gui.CheckBoxWidgetExt ;
 import javax.swing.border.Border ;
 import javax.swing.border.BevelBorder ;
 import javax.swing.border.TitledBorder ;
-import orac.util.JThermometer ;
 import ot.gui.GuiUtil;
 
 /**
@@ -88,7 +87,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt() ;
 
 	// misc
-	public JThermometer thermometer = new JThermometer() ; // ?
 	public CheckBoxWidgetExt rowReversal = new CheckBoxWidgetExt() ; // ?
 	
 	// convenience variables ( rather than static imports )

@@ -56,10 +56,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	private static final String ALONG_WIDTH = "Along Width" ;
 	private final String[] SCAN_PA_CHOICES = { AUTOMATIC , ALONG_HEIGHT , ALONG_WIDTH , USER_DEF } ;
 
-	// The following defines the maximum file size we are currently allowing for raster.
-	// Since this is for use with the thermometer, which only accepts integers, we will specify the maximum size in MBytes
-	private int _maxFileSize = 2048 ;
-
 	// Some default values for the non-editable text fields
 	private final int DEFAULT_SECS_ROW = 240 ;
 	private final int DEFAULT_SECS_MAP = 3600 ;
@@ -106,7 +102,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	{
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES ) ;
 		_w.scanSystem.setChoices( SCAN_SYSTEMS ) ;
-		_w.thermometer.setMaximum( _maxFileSize ) ;
 		
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
 			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + CoordConvert.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" ) ;
@@ -375,7 +370,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.acsisSampleTime.setValue( _iterObs.getSampleTime() ) ;
 
 		updateTimes() ;
-		updateThermometer() ;
 
 		updateSizeOfPixels() ;
 		addWatchers() ;
@@ -535,7 +529,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			super.textBoxKeyPress( tbwe ) ;
 		}
 		updateTimes() ;
-		updateThermometer() ;
 
 		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
@@ -618,7 +611,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			super.dropDownListBoxAction( ddlbwe , index , val ) ;
 		}
 		updateTimes() ;
-		updateThermometer() ;
 
 		_iterObs.getAvEditFSM().addObserver( this ) ;
 	}
@@ -747,36 +739,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			else
 				_w.secsPerObservation.setForeground( errColor ) ;
 			_w.secsPerObservation.setValue( formatter.format( obsTime ) ) ;
-		}
-	}
-
-	/**
-	 * Update the thermometer. Only need this for heterodyne at the moment.
-	 */
-	private void updateThermometer()
-	{
-		// First see if the heterodyne panel is visible
-		if( _w.heterodynePanel.isVisible() )
-		{
-			// Get the instrument
-			SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
-			if( inst != null && inst instanceof SpInstHeterodyne )
-			{
-				SpInstHeterodyne heterodyne = ( SpInstHeterodyne )inst ;
-				// Get the number of channels
-				int maxChannels = 0 ;
-				for( int i = 0 ; i < heterodyne.getNumSubSystems() ; i++ )
-				{
-					if( heterodyne.getChannels( i ) > maxChannels )
-						maxChannels = heterodyne.getChannels( i ) ;
-				}
-	
-				int samplesPerRow = ( int )( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
-				int numberOfRows = ( int )( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
-	
-				int fileSize = ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) ;
-				_w.thermometer.setExtent( fileSize ) ;
-			}
 		}
 	}
 }
