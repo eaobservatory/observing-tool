@@ -1,5 +1,7 @@
 package orac.util ;
 
+import java.lang.UnsupportedOperationException;
+
 import uk.ac.starlink.pal.Pal ;
 import uk.ac.starlink.pal.AngleDR ;
 import uk.ac.starlink.pal.Stardata ;
@@ -13,6 +15,48 @@ public class CoordConvert
 	private static Pal pal = new Pal() ;
 
 	private static int rounding = 5 ;
+
+	/**
+	 * Convert between coordinate systems.
+	 * @param x first coordinate in input system
+	 * @param y second coordinate in input system
+	 * @param inputSystem integer constant from CoordSys
+	 * @param targetSystem integer constant from CoordSys
+	 * @return gemini.util.RADec as defined for the functions below
+	 * @throws UnsupportedOperationException if the requested conversion
+	 * has not been implemented
+	 */
+	public static RADec convert(double x, double y,
+				int inputSystem, int targetSystem)
+			throws UnsupportedOperationException {
+
+		if (inputSystem == targetSystem) {
+			return new RADec(targetSystem, x, y);
+		}
+		else if (inputSystem == CoordSys.FK5 && targetSystem == CoordSys.FK4) {
+			return CoordConvert.Fk54z(x, y);
+		}
+		else if (inputSystem == CoordSys.FK4 && targetSystem == CoordSys.FK5) {
+			return CoordConvert.Fk45z(x, y);
+		}
+		else if (inputSystem == CoordSys.FK5 && targetSystem == CoordSys.GAL) {
+			return CoordConvert.fk52gal(x, y);
+		}
+		else if (inputSystem == CoordSys.GAL && targetSystem == CoordSys.FK5) {
+			return CoordConvert.gal2fk5(x, y);
+		}
+		else if (inputSystem == CoordSys.GAL && targetSystem == CoordSys.FK4) {
+			return CoordConvert.gal2fk4(x, y);
+		}
+		else if (inputSystem == CoordSys.FK4 && targetSystem == CoordSys.GAL) {
+			return CoordConvert.fk42gal(x, y);
+		}
+
+		throw new UnsupportedOperationException("Cannot convert "
+				+ CoordSys.COORD_SYS[inputSystem]
+				+ " to "
+				+ CoordSys.COORD_SYS[targetSystem]);
+	}
 
 	private static RADec FkXXz( double ra , double dec , int targetSystem )
 	{
@@ -163,104 +207,6 @@ public class CoordConvert
 		raDec = Fk54z( raDec.ra , raDec.dec ) ;
 
 		raDec = new RADec( CoordSys.FK4 , raDec.ra , raDec.dec ) ;
-
-		return raDec ;
-	}
-
-	/**
-	 * Convert from FK5 to Galactic by hand
-	 * @param ra
-	 * @param dec
-	 * @return gemini.util.RADec representing theta and phi
-	 */
-	public static RADec fk52galII( double ra , double dec )
-	{
-		RADec raDec = null ;
-
-		/* Degrees to Radians */
-
-		double raInRadians = Math.toRadians( ra ) ;
-		double decInRadians = Math.toRadians( dec ) ;
-
-		/*  Spherical to cartesian */
-
-		double[] returned = spherical2Cartesian( raInRadians , decInRadians ) ;
-		double x = returned[ 0 ] ;
-		double y = returned[ 1 ] ;
-		double z = returned[ 2 ] ;
-
-		/*  Rotate to galactic */
-
-		double tmpX = x * -0.054875539726 + y * -0.873437108010 + z * -0.483834985808 ;
-		double tmpY = x * 0.494109453312 + y * -0.444829589425 + z * 0.746982251810 ;
-		double tmpZ = x * -0.867666135858 + y * -0.198076386122 + z * 0.455983795705 ;
-
-		x = tmpX ;
-		y = tmpY ;
-		z = tmpZ ;
-
-		/*  Cartesian to spherical */
-
-		returned = cartesian2Spherical( x , y , z ) ;
-		raInRadians = returned[ 0 ] ;
-		decInRadians = returned[ 1 ] ;
-
-		/* Radians to Degrees */
-
-		ra = Math.toDegrees( raInRadians ) ;
-		dec = Math.toDegrees( decInRadians ) ;
-
-		ra = round( ra , rounding ) ;
-		dec = round( dec , rounding ) ;
-
-		raDec = new RADec( CoordSys.GAL , ra , dec ) ;
-
-		return raDec ;
-	}
-
-	/**
-	 * Convert from Galactic to FK5 by hand
-	 * @param ra
-	 * @param dec
-	 * @return gemini.util.RADec
-	 */
-	public static RADec gal2fk5II( double theta , double phi )
-	{
-		RADec raDec = null ;
-
-		double raInRadians = Math.toRadians( theta ) ;
-		double decInRadians = Math.toRadians( phi ) ;
-
-		/*  Spherical to cartesian */
-
-		double[] returned = spherical2Cartesian( raInRadians , decInRadians ) ;
-		double x = returned[ 0 ] ;
-		double y = returned[ 1 ] ;
-		double z = returned[ 2 ] ;
-
-		/*  Rotate to equatorial coordinates */
-
-		double tmpX = x * -0.054875539726 + y * 0.494109453312 + z * -0.867666135858 ;
-		double tmpY = x * -0.873437108010 + y * -0.444829589425 + z * -0.198076386122 ;
-		double tmpZ = x * -0.483834985808 + y * 0.746982251810 + z * 0.455983795705 ;
-
-		x = tmpX ;
-		y = tmpY ;
-		z = tmpZ ;
-
-		/*  Cartesian to spherical */
-
-		returned = cartesian2Spherical( x , y , z ) ;
-		raInRadians = returned[ 0 ] ;
-		decInRadians = returned[ 1 ] ;
-
-		double ra = Math.toDegrees( raInRadians ) ;
-		double dec = Math.toDegrees( decInRadians ) ;
-
-		ra = round( ra , rounding ) ;
-		dec = round( dec , rounding ) ;
-
-		raDec = new RADec( CoordSys.FK5 , ra , dec ) ;
 
 		return raDec ;
 	}

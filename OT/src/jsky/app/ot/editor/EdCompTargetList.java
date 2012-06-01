@@ -969,7 +969,6 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		Assert.notFalse( sysInt != -1 ) ;
 
 		int current = _curPos.getCoordSys() ;
-		String currentSystem = CoordSys.COORD_SYS[ current ] ;
 
 		double ra = 0. ;
 		double dec = 0. ;
@@ -985,49 +984,14 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			dec = _curPos.getRealYaxis() ;
 		}
 
-		RADec raDec = null ;
-
-		if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
-		{
-			raDec = CoordConvert.Fk54z( ra , dec ) ;
+		try {
+			RADec raDec = CoordConvert.convert(ra, dec, current, sysInt);
 			ra = raDec.ra ;
 			dec = raDec.dec ;
 		}
-		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
-		{
-			raDec = CoordConvert.Fk45z( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
-		}
-		else if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
-		{
-			raDec = CoordConvert.fk52gal( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
-		}
-		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
-		{
-			raDec = CoordConvert.gal2fk5( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
-		}
-		else if( currentSystem.equals( CoordSys.GAL_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
-		{
-			raDec = CoordConvert.gal2fk4( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
-		}
-		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.GAL_STRING ) )
-		{
-			raDec = CoordConvert.fk42gal( ra , dec ) ;
-			ra = raDec.ra ;
-			dec = raDec.dec ;
-		}
-		else
-		{
-			// Cannot do the conversion
-			ra = 0. ;
-			dec = 0. ;
+		catch (UnsupportedOperationException e) {
+			ra = 0.0;
+			dec = 0.0;
 		}
 
 		_curPos.setCoordSys( sysInt ) ;
