@@ -62,7 +62,6 @@ import orac.util.SpInputXML ;
 import jsky.app.ot.tpe.TelescopePosEditor ;
 import jsky.app.ot.tpe.TpeManager ;
 import jsky.app.ot.tpe.TpeManagerWatcher ;
-import jsky.app.ot.util.CloseableApp ;
 import jsky.app.ot.OtCfg ;
 import ot.util.DialogUtil ;
 
@@ -262,7 +261,7 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
  * @author Allan Brighton (ported to Swing/JSky, changed the layout)
  */
 @SuppressWarnings( "serial" )
-public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeManagerWatcher , CloseableApp
+public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeManagerWatcher
 {
 	/** Displays the science program hierarchy. */
 	protected OtTreeWidget _tw ;
@@ -635,8 +634,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 
 	/**
 	 * Close this window if possible. Return false if not. The reason why the program might not be closeable is if it has been edited and the user wants to cancel the close instead of saving or ignoring changes.
-	 * 
-	 * @see CloseableApp
 	 */
 	public boolean closeApp()
 	{
