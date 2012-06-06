@@ -1,3 +1,20 @@
++++ June 2012 release
+
+  - Added new WFCAM filter 1.644FeII.
+
+  - The prioritize button now opens a dialogue box offering to set/adjust
+    priorities as well as the previous 'automatic' ordering.  (It also
+    now supports survey containers and and and or folders.)
+
+  - Duplicate button added to survey containers.
+
+  - Tried to stop coordinates being changed to J2000 when dragged in the
+    position editor window.
+
+  - Updates to validation: some messages should no longer be shown twice,
+    it should now behave more consistently and it should no longer complain
+    about the start date being before the current date.
+
 +++ May 2012 release
 
   - When loading a file of coordinates into a survey container, the
