@@ -23,8 +23,9 @@
     <xsd:enumeration value="H"/>
     <xsd:enumeration value="K"/>
     <xsd:enumeration value="1-0S1"/>
-    <xsd:enumeration value="1.619nbH"/>
-    <!-- xsd:enumeration value="BGamma"/>
+    <xsd:enumeration value="1.644FeII"/>
+    <!-- <xsd:enumeration value="1.619nbH"/>
+    <xsd:enumeration value="BGamma"/>
     <xsd:enumeration value="1.205nbJ"/ -->
     <xsd:enumeration value="Blank"/>
   </xsd:restriction>
