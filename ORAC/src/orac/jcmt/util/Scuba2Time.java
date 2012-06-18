@@ -13,7 +13,7 @@ import orac.jcmt.iter.SpIterNoiseObs ;
 import orac.jcmt.iter.SpIterSkydipObs  ;
 import orac.jcmt.iter.SpIterStareObs ;
 import orac.jcmt.iter.SpIterDREAMObs ;
-import orac.jcmt.iter.SpIterFTS2 ;
+import orac.jcmt.iter.SpIterFTS2Obs ;
 import orac.jcmt.SpJCMTConstants ;
 
 import orac.jcmt.obsComp.SpSiteQualityObsComp ;
@@ -52,8 +52,8 @@ public class Scuba2Time implements SpJCMTConstants
 			integrationTime = stare( ( SpIterStareObs )obs ) ;
 		else if( obs instanceof SpIterDREAMObs )
 			integrationTime = dream( ( SpIterDREAMObs )obs ) ;
-		else if( obs instanceof SpIterFTS2 )
-			integrationTime = fts2( ( SpIterFTS2 )obs ) ;
+		else if( obs instanceof SpIterFTS2Obs )
+			integrationTime = fts2( ( SpIterFTS2Obs )obs ) ;
 
 		return integrationTime ;
 	}
@@ -192,7 +192,7 @@ public class Scuba2Time implements SpJCMTConstants
 	private static final double multiplicand450 = 1.7 * ( int )Math.pow( 10 , 6 ) ;
 	private static final double multiplicand850 = 4.4 * ( int )Math.pow( 10 , 4 ) ;
 	private boolean fourFifty = false ;
-	public double fts2( SpIterFTS2 fts2 )
+	public double fts2( SpIterFTS2Obs fts2 )
 	{
 		double integrationTime = 0. ;
 		double multiplicand = 0. ;
@@ -241,7 +241,7 @@ public class Scuba2Time implements SpJCMTConstants
 		return integrationTime ;
 	}
 
-	public double ftsSensitivity( SpIterFTS2 fts2 , double integrationTime , String fourFiftyOr850 )
+	public double ftsSensitivity( SpIterFTS2Obs fts2 , double integrationTime , String fourFiftyOr850 )
 	{
 		double multiplicand = 0. ;
 		double FOV = fts2.getFOV() ;

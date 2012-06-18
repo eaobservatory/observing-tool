@@ -12,7 +12,7 @@ import gemini.util.Angle;
 import gemini.util.CoordSys;
 import gemini.util.RADec;
 import gemini.util.DDMMSS;
-import orac.jcmt.iter.SpIterFTS2;
+import orac.jcmt.iter.SpIterFTS2Obs;
 import orac.util.SpItemUtilities;
 import orac.util.CoordConvert;
 import jsky.app.ot.OtCfg;
@@ -191,8 +191,8 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 		
 		// Check the base item (which has caused this class to be loaded)
 
-		if (base instanceof SpIterFTS2) {
-			SpIterFTS2 fts2 = (SpIterFTS2) base;
+		if (base instanceof SpIterFTS2Obs) {
+			SpIterFTS2Obs fts2 = (SpIterFTS2Obs) base;
 
 			radFov = 93.3;
 			radOffset = 210.2;
