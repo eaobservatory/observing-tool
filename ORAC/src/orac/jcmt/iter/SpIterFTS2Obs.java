@@ -7,7 +7,7 @@ import gemini.sp.SpType ;
 import gemini.util.MathUtil ;
 
 @SuppressWarnings( "serial" )
-public class SpIterFTS2 extends SpIterJCMTObs
+public class SpIterFTS2Obs extends SpIterJCMTObs
 {
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "FTS2Obs" , "FTS-2" ) ;
 	public static String[] JIGGLE_PATTERNS = {} ;
@@ -55,10 +55,10 @@ public class SpIterFTS2 extends SpIterJCMTObs
 	//	Register the prototype.
 	static
 	{
-		SpFactory.registerPrototype( new SpIterFTS2() ) ;
+		SpFactory.registerPrototype( new SpIterFTS2Obs() ) ;
 	}
 	
-	public SpIterFTS2()
+	public SpIterFTS2Obs()
 	{
 		super( SP_TYPE ) ;
 	}
