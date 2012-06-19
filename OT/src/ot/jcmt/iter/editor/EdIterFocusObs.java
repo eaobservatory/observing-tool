@@ -9,6 +9,9 @@
 // $Id$
 package ot.jcmt.iter.editor ;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import jsky.app.ot.gui.TextBoxWidgetExt ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
 
@@ -23,7 +26,7 @@ import orac.jcmt.inst.SpInstSCUBA2 ;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterFocusObs extends EdIterJCMTGeneric
+public final class EdIterFocusObs extends EdIterJCMTGeneric implements ItemListener
 {
 	private IterFocusObsGUI _w ; // the GUI layout panel
 	private SpIterFocusObs _iterObs ;
@@ -50,6 +53,9 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 		_w.switchingMode.setVisible( false ) ;
 		_w.switchingModeLabel.setVisible( false ) ;
 		_w.frequencyPanel.setVisible( false ) ;
+
+                _w.pol2_in_beam.addItemListener(this);
+                _w.fts2_in_beam.addItemListener(this);
 	}
 
 	/**
@@ -66,6 +72,9 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 		_w.axis.setValue( _iterObs.getAxis() ) ;
 		_w.steps.setValue( _iterObs.getSteps() ) ;
 		_w.focusPoints.setValue( _iterObs.getFocusPoints() ) ;
+
+                _w.pol2_in_beam.setSelected(_iterObs.isPol2InBeam());
+                _w.fts2_in_beam.setSelected(_iterObs.isFts2InBeam());
 
 		super._updateWidgets() ;
 	}
@@ -106,11 +115,17 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 				_w.acsisPanel.setVisible( true ) ;
 				_w.switchingMode.setVisible( false ) ;
 				_w.switchingModeLabel.setVisible( false ) ;
+
+                                _w.fts2_in_beam.setVisible(false);
+                                _w.pol2_in_beam.setVisible(false);
 			}
 			else if( spInstObsComp instanceof SpInstSCUBA2 )
 			{
 				_w.acsisPanel.setVisible( false ) ;
 				_iterObs.rmSwitchingMode() ;
+
+                                _w.fts2_in_beam.setVisible(true);
+                                _w.pol2_in_beam.setVisible(true);
 			}
 		}
 		else
@@ -121,6 +136,18 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
 			_w.stepsLabel.setVisible( false ) ;
 			_w.steps.setVisible( false ) ;
 			_w.mmLabel.setVisible( false ) ;
+
+                        _w.fts2_in_beam.setVisible(false);
+                        _w.pol2_in_beam.setVisible(false);
 		}
 	}
+
+        public void itemStateChanged(ItemEvent e) {
+                if (e.getSource() == _w.pol2_in_beam) {
+                        _iterObs.setPol2InBeam(_w.pol2_in_beam.isSelected());
+                }
+                else if (e.getSource() == _w.fts2_in_beam) {
+                        _iterObs.setFts2InBeam(_w.fts2_in_beam.isSelected());
+                }
+        }
 }

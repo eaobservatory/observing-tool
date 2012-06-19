@@ -11,6 +11,7 @@ package ot.jcmt.iter.editor ;
 
 import javax.swing.JPanel ;
 import javax.swing.JLabel ;
+import javax.swing.JCheckBox;
 import javax.swing.BorderFactory ;
 import javax.swing.border.Border ;
 import javax.swing.border.BevelBorder ;
@@ -47,6 +48,10 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI
 	JPanel acsisPanel = new JPanel() ;
 	JLabel jLabel2 = new JLabel() ;
 	JLabel jLabel1 = new JLabel() ;
+        JCheckBox fts2_in_beam = new JCheckBox(
+                "FTS-2 in beam", false);
+        JCheckBox pol2_in_beam = new JCheckBox(
+                "POL-2 in beam", false);
 
 	public IterFocusObsGUI()
 	{
@@ -99,6 +104,8 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI
 		scubaAcsisPanel.add( jLabel6 , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		scubaAcsisPanel.add( focusPoints , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		scubaAcsisPanel.add( automaticTarget , new GridBagConstraints( 0 , 4 , 3 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 20 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		scubaAcsisPanel.add(fts2_in_beam, new GridBagConstraints( 0 , 5 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 20 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		scubaAcsisPanel.add(pol2_in_beam, new GridBagConstraints( 0 , 6 , 2 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 20 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		this.add( acsisPanel , BorderLayout.SOUTH ) ;
 	}
 }

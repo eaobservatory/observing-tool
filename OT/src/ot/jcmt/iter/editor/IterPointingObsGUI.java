@@ -9,9 +9,11 @@
 // $Id$
 package ot.jcmt.iter.editor ;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel ;
 import javax.swing.JLabel ;
 import javax.swing.JPopupMenu ;
+import javax.swing.BoxLayout ;
 import javax.swing.BorderFactory ;
 import javax.swing.SwingConstants ;
 import javax.swing.border.Border ;
@@ -19,7 +21,6 @@ import javax.swing.border.BevelBorder ;
 import java.awt.GridBagLayout ;
 import java.awt.GridBagConstraints ;
 import java.awt.Insets ;
-import java.awt.BorderLayout ;
 import java.awt.Color ;
 import java.awt.Dimension ;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
@@ -54,6 +55,10 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI
 	JLabel jLabel8 = new JLabel() ;
 	CommandButtonWidgetExt pointingPixelButton = new CommandButtonWidgetExt() ;
 	JPopupMenu pointingPixelPopupMenu = new JPopupMenu() ;
+        JCheckBox fts2_in_beam = new JCheckBox(
+                "FTS-2 in beam", false);
+        JCheckBox pol2_in_beam = new JCheckBox(
+                "POL-2 in beam", false);
 
 	public IterPointingObsGUI()
 	{
@@ -73,7 +78,7 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED ) ;
 		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Pointing setup" ) ;
 		pointingPanel.setBorder( titleBorder ) ;
-		pointingPanel.setLayout( new BorderLayout() ) ;
+		pointingPanel.setLayout( new BoxLayout(pointingPanel, BoxLayout.Y_AXIS) ) ;
 		acsisPanel.setLayout( gridBagLayout1 ) ;
 		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		jLabel1.setForeground( Color.black ) ;
@@ -124,6 +129,8 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI
 		acsisPanel.add( secsPerObservation , new GridBagConstraints( 1 , 6 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 		acsisPanel.add( continuum , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 40 , 0 , 0 ) , 0 , 0 ) ) ;
 		acsisPanel.add( spectralLine , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 40 , 0 , 0 ) , 0 , 0 ) ) ;
-		pointingPanel.add( automaticTarget , BorderLayout.SOUTH ) ;
+		pointingPanel.add( automaticTarget ) ;
+                pointingPanel.add(fts2_in_beam);
+                pointingPanel.add(pol2_in_beam);
 	}
 }
