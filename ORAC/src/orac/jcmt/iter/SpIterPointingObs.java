@@ -24,11 +24,8 @@ import gemini.sp.obsComp.SpInstObsComp ;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings( "serial" )
-public class SpIterPointingObs extends SpIterJCMTObs
+public class SpIterPointingObs extends SpIterJCMTObsInBeamChoice
 {
-        public static final String FTS2_IN_BEAM = "InBeamFTS2";
-	public static final String POL2_IN_BEAM = "InBeamPol2";
-
 	/**
 	 * Pointing pixel choices.
 	 *
@@ -108,27 +105,4 @@ public class SpIterPointingObs extends SpIterJCMTObs
 	{
 		return new String[]{ SWITCHING_MODE_BEAM } ;
 	}
-
-        public boolean isPol2InBeam() {
-                if (! _avTable.exists(POL2_IN_BEAM)) {
-                        _avTable.set(POL2_IN_BEAM, false);
-                }
-                return _avTable.getBool(POL2_IN_BEAM);
-        }
-
-        public boolean isFts2InBeam() {
-                if (! _avTable.exists(FTS2_IN_BEAM)) {
-                        _avTable.set(FTS2_IN_BEAM, false);
-                }
-                return _avTable.getBool(FTS2_IN_BEAM);
-
-        }
-
-        public void setPol2InBeam(boolean in_beam) {
-                _avTable.set(POL2_IN_BEAM, in_beam);
-        }
-
-        public void setFts2InBeam(boolean in_beam) {
-                _avTable.set(FTS2_IN_BEAM, in_beam);
-        }
 }
