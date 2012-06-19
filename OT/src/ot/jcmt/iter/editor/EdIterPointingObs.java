@@ -11,6 +11,8 @@ package ot.jcmt.iter.editor ;
 
 import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 import javax.swing.JMenuItem ;
 
@@ -29,7 +31,7 @@ import orac.jcmt.iter.SpIterPointingObs ;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterPointingObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher , OptionWidgetWatcher , ActionListener
+public final class EdIterPointingObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher , OptionWidgetWatcher , ActionListener, ItemListener
 {
 	private IterPointingObsGUI _w ; // the GUI layout panel
 	private SpIterPointingObs _iterObs ;
@@ -52,6 +54,9 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements Comman
 		_w.frequencyPanel.setVisible( false ) ;
 		_w.switchingModeLabel.setVisible( false ) ;
 		_w.switchingMode.setVisible( false ) ;
+
+                _w.fts2_in_beam.addItemListener(this);
+                _w.pol2_in_beam.addItemListener(this);
 	}
 
 	/**
@@ -66,6 +71,9 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements Comman
 	protected void _updateWidgets()
 	{
 		super._updateWidgets() ;
+
+                _w.fts2_in_beam.setSelected(_iterObs.isFts2InBeam());
+                _w.pol2_in_beam.setSelected(_iterObs.isPol2InBeam());
 	}
 
 	public void commandButtonAction( CommandButtonWidgetExt cbwe )
@@ -96,10 +104,25 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements Comman
 			_w.switchingMode.setVisible( false ) ;
 			_w.switchingModeLabel.setVisible( false ) ;
 			_w.acsisPanel.setVisible( false ) ;
+
+                        _w.fts2_in_beam.setVisible(false);
+                        _w.pol2_in_beam.setVisible(false);
 		}
 		else
 		{
 			_w.acsisPanel.setVisible( false ) ;
+                        _w.fts2_in_beam.setVisible(true);
+                        _w.pol2_in_beam.setVisible(true);
+
 		}
 	}
+
+        public void itemStateChanged(ItemEvent e) {
+                if (e.getSource() == _w.pol2_in_beam) {
+                        _iterObs.setPol2InBeam(_w.pol2_in_beam.isSelected());
+                }
+                else if (e.getSource() == _w.fts2_in_beam) {
+                        _iterObs.setFts2InBeam(_w.fts2_in_beam.isSelected());
+                }
+        }
 }
