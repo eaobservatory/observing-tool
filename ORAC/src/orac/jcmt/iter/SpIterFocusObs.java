@@ -26,11 +26,9 @@ import gemini.util.Format ;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings( "serial" )
-public class SpIterFocusObs extends SpIterJCMTObs
+public class SpIterFocusObs extends SpIterJCMTObsInBeamChoice
 {
 	public static String[] AXES = { "x" , "y" , "z" } ;
-	public static final String FTS2_IN_BEAM = "InBeamFTS2";
-	public static final String POL2_IN_BEAM = "InBeamPol2";
 
 	private Scuba2Time s2time = null ;
 
@@ -139,27 +137,4 @@ public class SpIterFocusObs extends SpIterJCMTObs
 	{
 		return new String[] { SWITCHING_MODE_BEAM } ;
 	}
-
-        public boolean isPol2InBeam() {
-                if (! _avTable.exists(POL2_IN_BEAM)) {
-                        _avTable.set(POL2_IN_BEAM, false);
-                }
-                return _avTable.getBool(POL2_IN_BEAM);
-        }
-
-        public boolean isFts2InBeam() {
-                if (! _avTable.exists(FTS2_IN_BEAM)) {
-                        _avTable.set(FTS2_IN_BEAM, false);
-                }
-                return _avTable.getBool(FTS2_IN_BEAM);
-
-        }
-
-        public void setPol2InBeam(boolean in_beam) {
-                _avTable.set(POL2_IN_BEAM, in_beam);
-        }
-
-        public void setFts2InBeam(boolean in_beam) {
-                _avTable.set(FTS2_IN_BEAM, in_beam);
-        }
 }
