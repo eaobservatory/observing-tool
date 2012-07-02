@@ -37,7 +37,6 @@ public class IterFTS2ObsGUI extends JPanel
 	DropDownListBoxWidgetExt specialModes = new DropDownListBoxWidgetExt() ;
 	BorderLayout specialModesBorderLayout = new BorderLayout() ;
 	JPanel leftPanel = new JPanel() ;
-	JPanel rightPanel = new JPanel() ;
 
 	JPanel resolutionFOVPanel = new JPanel() ;
 	JSlider resolutionFOV = new JSlider( JSlider.HORIZONTAL ) ;
@@ -106,8 +105,8 @@ public class IterFTS2ObsGUI extends JPanel
 		trackingPortLabel.setText( "Tracking Port : " ) ;	
 		portSetupPanel.add( trackingPortLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
-		port1.setText( "Port 1" ) ;
-		port2.setText( "Port 2" ) ;
+		port1.setText( "Port 1 (S4A and S8D)" ) ;
+		port2.setText( "Port 2 (S4B and S8C)" ) ;
 		portsGroup.add( port1 ) ;
 		portsGroup.add( port2 ) ;
 		portSetupPanel.add( port1 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
@@ -119,9 +118,8 @@ public class IterFTS2ObsGUI extends JPanel
 		modesPanel.add( specialModes , BorderLayout.CENTER ) ;
 		
 		leftPanel.add( portSetupPanel ) ;
-		rightPanel.add( modesPanel ) ;
-		this.add( leftPanel , BorderLayout.WEST ) ;
-		this.add( rightPanel , BorderLayout.CENTER ) ;
+		this.add( leftPanel , BorderLayout.CENTER ) ;
+		this.add( modesPanel , BorderLayout.NORTH ) ;
 
 		hiResLoFOVLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
 		hiResLoFOVLabel.setText( "Hi Res/Lo FOV" ) ;
