@@ -32,8 +32,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.specialModes.addActionListener( this ) ;
 		_w.dual.addActionListener( this ) ;
 		_w.single.addActionListener( this ) ;
-		_w.port1.addActionListener( this ) ;
-		_w.port2.addActionListener( this ) ;
+		_w.port8d.addActionListener( this ) ;
+		_w.port8c.addActionListener( this ) ;
 
 		_w.resolutionFOV.setMinimum( SpIterFTS2Obs.minimumResolutionScaled ) ;
 		_w.resolutionFOV.setMaximum( SpIterFTS2Obs.maximumResolutionScaled ) ;
@@ -65,9 +65,9 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	protected void _updateWidgets()
 	{
 		_w.specialModes.setSelectedItem( _inst.getSpecialMode() ) ;
-		boolean isPort1 = _inst.getTrackingPort() == 1 ;
-		_w.port1.setSelected( isPort1 ) ;
-		_w.port2.setSelected( !isPort1 ) ;
+		boolean isPort8D = SpIterFTS2Obs.PORT_8D.equals(_inst.getTrackingPort());
+		_w.port8d.setSelected( isPort8D ) ;
+		_w.port8c.setSelected( !isPort8D ) ;
 		boolean isDualPort = _inst.isDualPort() ;
 		_w.dual.setSelected( isDualPort ) ;
 		_w.single.setSelected( !isDualPort ) ;
@@ -122,14 +122,14 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 	    	_inst.setIsDualPort( false ) ;
 		resetTPE();
 	    }
-	    else if( _w.port1.equals( source ) )
+	    else if( _w.port8d.equals( source ) )
 	    {
-	    	_inst.setTrackingPort( 1 ) ;
+	    	_inst.setTrackingPort( SpIterFTS2Obs.PORT_8D ) ;
 		resetTPE();
 	    }
-	    else if( _w.port2.equals( source ) )
+	    else if( _w.port8c.equals( source ) )
 	    {
-	    	_inst.setTrackingPort( 2 ) ;
+	    	_inst.setTrackingPort( SpIterFTS2Obs.PORT_8C ) ;
 		resetTPE();
 	    }
 	}

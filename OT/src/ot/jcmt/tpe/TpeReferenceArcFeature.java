@@ -202,16 +202,15 @@ public class TpeReferenceArcFeature extends TpeImageFeature {
 			boolean dualPort = fts2.isDualPort();
 			if (! dualPort) return true;
 
-			int trackingPort = fts2.getTrackingPort();
+			String trackingPort = fts2.getTrackingPort();
 
-			switch (trackingPort) {
-				case 1:
-					break;
-				case 2:
-					offsetAngle += 180;
-					break;
-				default:
-					return false;
+                        if (SpIterFTS2Obs.PORT_8D.equals(trackingPort)) {
+                        }
+                        else if (SpIterFTS2Obs.PORT_8C.equals(trackingPort)) {
+				offsetAngle += 180;
+                        }
+                        else {
+				return false;
 			}
 
 			NasmythPlatform platform = NasmythPlatform.LEFT;
