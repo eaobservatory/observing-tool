@@ -22,6 +22,9 @@ public class SpIterFTS2Obs extends SpIterJCMTObs
 	public static final String TRACKING_PORT = "TrackingPort" ;
 	public static final String IS_DUAL_PORT = "isDualPort" ;
 
+        public static final String PORT_8D = "8D";
+        public static final String PORT_8C = "8C";
+
 	public static final String FOV = "FOV" ;
 	public static final String SCAN_SPEED = "ScanSpeed" ;
 	public static final String SENSITIVITY = "Sensitivity" ;
@@ -90,16 +93,16 @@ public class SpIterFTS2Obs extends SpIterJCMTObs
     	}
     }
 
-    public int getTrackingPort()
+    public String getTrackingPort()
     {
     	if( !_avTable.exists( TRACKING_PORT ) )
-			_avTable.set( TRACKING_PORT , 1 ) ;
-		return _avTable.getInt( TRACKING_PORT , 1 ) ;
+			_avTable.set( TRACKING_PORT , PORT_8D ) ;
+		return _avTable.get( TRACKING_PORT ) ;
     }
 
-    public void setTrackingPort( int port )
+    public void setTrackingPort( String port )
     {
-    	if( port == 1 || port == 2 )
+    	if( PORT_8D.equals(port) || PORT_8C.equals(port) )
     		_avTable.set( TRACKING_PORT , port ) ;
     }
 

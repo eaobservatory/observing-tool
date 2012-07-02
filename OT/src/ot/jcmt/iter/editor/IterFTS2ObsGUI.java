@@ -25,8 +25,8 @@ public class IterFTS2ObsGUI extends JPanel
 	JPanel portSetupPanel = new JPanel() ;
 	JRadioButton dual = new JRadioButton() ;
 	JRadioButton single = new JRadioButton() ;
-	JRadioButton port1 = new JRadioButton() ;
-	JRadioButton port2 = new JRadioButton() ;
+	JRadioButton port8d = new JRadioButton() ;
+	JRadioButton port8c = new JRadioButton() ;
 	ButtonGroup dualSingleGroup = new ButtonGroup() ;
 	ButtonGroup portsGroup = new ButtonGroup() ;
 	JLabel trackingPortLabel = new JLabel() ;
@@ -105,12 +105,12 @@ public class IterFTS2ObsGUI extends JPanel
 		trackingPortLabel.setText( "Tracking Port : " ) ;	
 		portSetupPanel.add( trackingPortLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
-		port1.setText( "Port 1 (S4A and S8D)" ) ;
-		port2.setText( "Port 2 (S4B and S8C)" ) ;
-		portsGroup.add( port1 ) ;
-		portsGroup.add( port2 ) ;
-		portSetupPanel.add( port1 , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		portSetupPanel.add( port2 , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;		
+		port8d.setText( "Port 1 (S4A and S8D)" ) ;
+		port8c.setText( "Port 2 (S4B and S8C)" ) ;
+		portsGroup.add( port8d ) ;
+		portsGroup.add( port8c ) ;
+		portSetupPanel.add( port8d , new GridBagConstraints( 1 , 2 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		portSetupPanel.add( port8c , new GridBagConstraints( 1 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) ) ;		
 
 		specialModesLabel.setText( "Special Modes " ) ;
 		modesPanel.setLayout( specialModesBorderLayout ) ;
