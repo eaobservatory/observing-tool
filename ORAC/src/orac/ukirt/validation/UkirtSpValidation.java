@@ -629,6 +629,8 @@ public class UkirtSpValidation extends SpValidation
 		{
 			report.add( new ErrorMessage( ErrorMessage.WARNING , telescopeObsComp.getTitle() + titleString , "No guide star specified." ) ) ;
 		}
+
+                super.checkTargetList(telescopeObsComp, report);
 	}
 
 	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report )
