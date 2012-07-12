@@ -518,10 +518,10 @@ public class SpValidation
 			for( int i = 0 ; i < position.length ; i++ )
 			{
 				SpTelescopePos pos = ( SpTelescopePos )position[ i ] ;
+				String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
+
 				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && pos.isBasePosition() )
 				{
-					String itemString =  "Telescope target " + pos.getName() + " in " + titleString ;
-					
 					double Xaxis = pos.getXaxis() ;
 					double Yaxis = pos.getYaxis() ;
 					
@@ -551,6 +551,30 @@ public class SpValidation
 					if( !DDMMSS.validate( ddmmss ) )
 						report.add( new ErrorMessage( ErrorMessage.WARNING , itemString , "Dec not valid" ) ) ;
 				}
+
+                                String pmRA = pos.getPropMotionRA();
+                                String pmDec = pos.getPropMotionDec();
+
+                                if (!(((pmRA == null) || "".equals(pmRA)) && ((pmDec == null) || "".equals(pmDec)))) {
+                                        String pmEpoch = pos.getTrackingEpoch();
+
+                                        if (pmEpoch == null || "".equals(pmEpoch)) {
+                                                report.add(new ErrorMessage(ErrorMessage.ERROR, itemString, "Proper motion epoch is not specified"));
+                                        }
+                                        else {
+                                                try {
+                                                        double epoch = Double.parseDouble(pmEpoch);
+
+                                                        if (epoch < 1950 || epoch > 2050) {
+                                                                report.add(new ErrorMessage(ErrorMessage.WARNING, itemString, "Proper motion epoch not in range 1950-2050."));
+                                                        }
+                                                }
+                                                catch (NumberFormatException e) {
+                                                        report.add(new ErrorMessage(ErrorMessage.ERROR, itemString, "Could not parse proper motion epoch."));
+                                                }
+
+                                        }
+                                }
 			}
 		}
 		else
