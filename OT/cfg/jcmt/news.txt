@@ -1,3 +1,8 @@
++++ July 2012 release
+
+  - The validation button checks whether an epoch has been specified
+    for targets with proper motion.
+
 +++ June 2012 release
 
   - The prioritize button now opens a dialogue box offering to set/adjust

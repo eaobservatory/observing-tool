@@ -1,3 +1,10 @@
++++ July 2012 release
+
+  - The validation button checks whether an epoch has been specified
+    for targets with proper motion.
+
+  - Added JITTER_FLIP32 to WFCAM recipe list.
+
 +++ June 2012 release
 
   - Added new WFCAM filter 1.644FeII.
