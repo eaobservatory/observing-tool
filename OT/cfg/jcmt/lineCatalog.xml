@@ -1603,5 +1603,9 @@ if any additionas are made to the list.
 		<transition frequency="346718.858" name="15 2 13  - 14 2 12"/>
 		<transition frequency="356137.2654" name="16 2 15  - 15 2 14"/>
 	</species>
+	<species name="HDO">
+		<transition frequency="225896.72" name="3 1 2  - 2 2 1"/>
+		<transition frequency="241561.55" name="2 1 1  - 2 1 2"/>
+	</species>
 </LineCatalog>
 
