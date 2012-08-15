@@ -422,37 +422,37 @@ public class TelescopeGUI extends JPanel
 		targetSystemsTabbedPane.add( objectGBW , "RA/Dec" ) ;
 		targetSystemsTabbedPane.add( conicSystemPanel , "Orbital Elements" ) ;
 
-		conicSystemPanel.add( orbitalElementResolvedNameLabel , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( orbitalElementResolvedNameLabel , new GridBagConstraints( 4 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( resolveOrbitalElementButton , new GridBagConstraints( 7 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
 
-		conicSystemPanel.add( epoch , new GridBagConstraints( 4 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( orbinc , new GridBagConstraints( 4 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( anode , new GridBagConstraints( 4 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( epoch , new GridBagConstraints( 4 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( orbinc , new GridBagConstraints( 4 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( anode , new GridBagConstraints( 4 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( epochLabel , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( orbincLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( anodeLabel , new GridBagConstraints( 3 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( perihLabel , new GridBagConstraints( 6 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( aorqLabel , new GridBagConstraints( 6 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( eLabel , new GridBagConstraints( 6 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( perih , new GridBagConstraints( 7 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( aorq , new GridBagConstraints( 7 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( e , new GridBagConstraints( 7 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( perih , new GridBagConstraints( 7 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( aorq , new GridBagConstraints( 7 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( e , new GridBagConstraints( 7 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( jLabel20 , new GridBagConstraints( 5 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 15 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( jLabel22 , new GridBagConstraints( 5 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( jLabel23 , new GridBagConstraints( 5 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( jLabel24 , new GridBagConstraints( 8 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( jLabel25 , new GridBagConstraints( 8 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( conicSystemType , new GridBagConstraints( 0 , 0 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 5 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( l_or_m , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( dm , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( l_or_m , new GridBagConstraints( 1 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( dm , new GridBagConstraints( 1 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( l_or_mLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( dmLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( l_or_mUnitsLabel , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 15 ) , 0 , 0 ) ) ;
 		conicSystemPanel.add( dmUnitsLabel , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
-		conicSystemPanel.add( epochPerih , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( epochPerihLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		conicSystemPanel.add( epochPerihUnitsLabel , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 15 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( epochPerih , new GridBagConstraints( 1 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( epochPerihLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( epochPerihUnitsLabel , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 15 ) , 0 , 0 ) ) ;
 
 		targetSystemsTabbedPane.add( namedSystemPanel , "Named Planets" ) ;
 		namedSystemPanel.add( namedTarget , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
