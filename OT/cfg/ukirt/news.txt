@@ -1,3 +1,8 @@
++++ August 2012 release
+
+  - Minor update to display of orbital elements target information
+    to allow input boxes to stretch.
+
 +++ July 2012 release
 
   - The validation button checks whether an epoch has been specified
