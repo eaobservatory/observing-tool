@@ -591,6 +591,19 @@ public class SpValidation
 			SpSurveyContainer container = ( SpSurveyContainer )containers.get( count ) ;
 			for( int i = 0 ; i < container.size() ; i++ )
 				checkTargetList( container.getSpTelescopeObsComp( i ) , report ) ;
+
+			// Check that survey containers do not include bare SpObs
+			// unless they are in an MSB already.
+			if (! container.hasMSBParent()) {
+				Enumeration<SpItem> children = container.children();
+				while (children.hasMoreElements()) {
+					SpItem child = children.nextElement();
+					if (child instanceof SpObs) {
+						report.add(new ErrorMessage(ErrorMessage.ERROR,
+									    container.getTitle() + " includes a bare SpObs", ""));
+					}
+				}
+			}
 		}
 	}
 
