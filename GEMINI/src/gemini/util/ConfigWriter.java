@@ -18,10 +18,13 @@ public class ConfigWriter
 	private static ConfigWriter _writer ;
 	private String _instName = "none" ;
 	private Hashtable<String,String> _lastConfig = null ;
+	private static int exec_counter = 0;
 
 	private ConfigWriter()
 	{
-		_timeStamp = new SimpleDateFormat( "yyyyMMdd_HHmmssSSS" ).format( new Date() ) ;
+		_timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date()))
+		           + String.format("%03d", ++ exec_counter) ;
+		exec_counter %= 1000;
 		_lastConfig = null ;
 		_counter = 0 ;
 	}
