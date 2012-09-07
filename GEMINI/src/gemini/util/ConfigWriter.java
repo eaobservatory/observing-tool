@@ -23,7 +23,7 @@ public class ConfigWriter
 	private ConfigWriter()
 	{
 		_timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date()))
-		           + String.format("%03d", ++ exec_counter) ;
+		           + String.format("%03d", exec_counter ++) ;
 		exec_counter %= 1000;
 		_lastConfig = null ;
 		_counter = 0 ;
