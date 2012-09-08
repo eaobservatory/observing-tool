@@ -33,14 +33,14 @@ public class Scuba2Noise
 
 	private enum Scuba2Wavelength {
 		WL850("850",
-			196, -44,				// point
-			new double[]{421, 823, 1735, 3472},	// pong tA
-			new double[]{-95, -187, -394, -789}),	// pong tB
+			189, -48,				// point
+			new double[]{407, 795, 1675, 3354},	// pong tA
+			new double[]{-104, -203, -428, -857}),	// pong tB
 
 		WL450("450", 
-			911, -121,				// point
-			new double[]{1961, 3841, 8353, 16976},	// pong tA
-			new double[]{-261, -512, -1113, -2263});// pong tB
+			689, -118,				// point
+			new double[]{1483, 2904, 6317, 12837},	// pong tA
+			new double[]{-254, -497, -1082, -2200});// pong tB
 
 		public final String id;
 		public final double pointTA;
@@ -124,7 +124,7 @@ public class Scuba2Noise
 
 	private static final double fourFiftyTauMultiplicand = 26.0 ;
 	private static final double eightFiftyTauMultiplicand = 4.6 ;
-	private static final double fourFiftyTauCorrection = .01923 ;
+	private static final double fourFiftyTauCorrection = .01196 ;
 	private static final double eightFiftyTauCorrection = .00435 ;
 
 
