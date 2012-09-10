@@ -228,10 +228,10 @@
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
       <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
+      <xsd:element name="integrations"    type="xsd:positiveInteger" minOccurs="0"/>
       <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"       minOccurs="0"/>
-      <xsd:element name="integrations"    type="xsd:positiveInteger" minOccurs="0"/>
       <xsd:element name="scanPattern"     type="toml:scubaScanPatterns" minOccurs="0"/>
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
     </xsd:sequence>
