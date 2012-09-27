@@ -81,6 +81,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.resolutionMHz.setText( "" + MathUtil.round( _inst.getResolutionInMHz() , 4 ) ) ;
 		_w.scanSpeed.setText( "" + speed ) ;
 		_w.nyquist.setText( "" + MathUtil.round( _inst.getNyquist() , 4 ) ) ;
+		_w.physicalSpeed.setText("" + MathUtil.round(speed * 2.5, 4));
+		_w.physicalDistance.setText("" + MathUtil.round(2.5 / resolution, 4));
 		_w.southernPanelEnabled( SpIterFTS2Obs.VARIABLE_MODE.equals( _inst.getSpecialMode() ) ) ;
 			_w.sensitivity450.setText( "" + MathUtil.round( _inst.getSensitivity450() , 5 ) ) ;
 			_w.sensitivity850.setText( "" + MathUtil.round( _inst.getSensitivity850() , 5 ) ) ;

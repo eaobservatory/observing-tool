@@ -50,6 +50,13 @@ public class IterFTS2ObsGUI extends JPanel
 	JLabel FOVLabel = new JLabel() ;
 	JTextField FOV = new JTextField() ;
 	JLabel squareArcminutes = new JLabel() ;
+	JLabel physicalDistanceLabel = new JLabel("Physical dist.") ;
+	JTextField physicalDistance = new JTextField() ;
+	JLabel physicalDistanceUnit = new JLabel("mm") ;
+	JLabel physicalSpeedLabel = new JLabel("Physical speed") ;
+	JTextField physicalSpeed = new JTextField() ;
+	JLabel physicalSpeedUnit = new JLabel("mm/s") ;
+
 
 	JPanel scanSpeedNyquistPanel = new JPanel() ;
 	JSlider scanSpeedNyquist = new JSlider( JSlider.HORIZONTAL ) ;
@@ -150,6 +157,12 @@ public class IterFTS2ObsGUI extends JPanel
 		resolutionFOVPanel.add( FOV , new GridBagConstraints( 1 , 4 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		resolutionFOVPanel.add( squareArcminutes , new GridBagConstraints( 3 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
+		physicalDistance.setEditable(false);
+		resolutionFOVPanel.add( physicalDistanceLabel , new GridBagConstraints( 0 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( physicalDistance , new GridBagConstraints( 1 , 5 , 2 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		resolutionFOVPanel.add( physicalDistanceUnit , new GridBagConstraints( 3 , 5 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+
+
 		hiSpdLoNyqLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
 		hiSpdLoNyqLabel.setText( "Hi spd/Lo Nyq" ) ;
 		loSpdHiNyqLabel.setFont( new Font( "Arial" , Font.PLAIN , 10 ) ) ;
@@ -174,6 +187,11 @@ public class IterFTS2ObsGUI extends JPanel
 		scanSpeedNyquistPanel.add( nyquistLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		scanSpeedNyquistPanel.add( nyquist , new GridBagConstraints( 1 , 3 , 1 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		scanSpeedNyquistPanel.add( OneOverByCM , new GridBagConstraints( 2 , 3 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+		physicalSpeed.setEditable(false);
+		scanSpeedNyquistPanel.add( physicalSpeedLabel, new GridBagConstraints( 0 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		scanSpeedNyquistPanel.add( physicalSpeed , new GridBagConstraints( 1 , 4 , 1 , 1 , 10. , 0. , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		scanSpeedNyquistPanel.add( physicalSpeedUnit , new GridBagConstraints( 2 , 4 , 1 , 1 , 0. , 0. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;	
+
 
 		sensitivity450Label.setText( "Sensitivity @ 450 : " ) ;
 		sensitivity850Label.setText( "Sensitivity @ 850 : " ) ;
