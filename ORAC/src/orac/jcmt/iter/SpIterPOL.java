@@ -9,6 +9,7 @@
 // $Id$
 package orac.jcmt.iter ;
 
+import java.util.Vector;
 import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.iter.IterConfigItem ;
@@ -110,5 +111,30 @@ public class SpIterPOL extends SpIterConfigObs
 	public boolean hasContinuousSpin()
 	{
 		return getTable().exists( SpIterPOL.CONTINUOUS_SPIN ) ;
-	}	
+	}
+
+	/*
+	 * Special case for enumeration of a constantly spinning polarimeter:
+	 * one entry.
+	 */
+	@Override public int getConfigStepCount() {
+		if (hasContinuousSpin()) {
+			return 1;
+		}
+		else {
+			return super.getConfigStepCount();
+		}
+	}
+	@Override public Vector<String> getConfigAttribs() {
+		if (hasContinuousSpin()) {
+			Vector<String> vec = new Vector<String>();
+			vec.add("POL");
+			return vec;
+		}
+		else {
+			Vector<String> vec = super.getConfigAttribs();
+			for (String l: vec) {System.err.println("Vector entry: " + l);}
+			return vec;
+		}
+	}
 }
