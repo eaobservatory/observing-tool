@@ -162,7 +162,7 @@ public class SpIterFTS2Obs extends SpIterJCMTObs
 
     public double getScanSpeed()
     {
-    	double scanSpeed = _avTable.getDouble( SCAN_SPEED , 0.4 ) ;
+    	double scanSpeed = _avTable.getDouble( SCAN_SPEED , 1.0 ) ;
     	scanSpeed = MathUtil.round( scanSpeed / 2.5 , 5 ) ;
     	return scanSpeed ;
     }
