@@ -28,6 +28,7 @@ import orac.validation.ErrorMessage ;
 
 import orac.jcmt.iter.SpIterJiggleObs ;
 import orac.jcmt.iter.SpIterNoiseObs ;
+import orac.jcmt.iter.SpIterPOL;
 
 import java.lang.reflect.Method ;
 import java.lang.reflect.InvocationTargetException ;
@@ -217,6 +218,19 @@ public class JcmtSpValidation extends SpValidation
 			else if( recipe != null )
 				checkDRRecipe( recipe , report , titleString , thisObs ) ;
 		}
+
+		// Check POL-2 iterators.
+		for (SpItem item: SpTreeMan.findAllInstances(spObs, SpIterPOL.class.getName())) {
+			SpIterPOL pol = (SpIterPOL) item;
+
+			// Currently SpIterPOL returns 1 step count for continuous spin mode,
+			// but testing it explicitly here anyway in case that behaviour changes.
+			if (!(pol.hasContinuousSpin() || pol.getConfigStepCount() != 0)) {
+				report.add(new ErrorMessage(ErrorMessage.ERROR, titleString , "POL iterator is not continuous spin but does not have waveplate angles selected." ) ) ;
+			}
+		}
+
+
 		super.checkObservation( spObs , report ) ;
 	}
 

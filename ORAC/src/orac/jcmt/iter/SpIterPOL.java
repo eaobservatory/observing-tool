@@ -132,9 +132,7 @@ public class SpIterPOL extends SpIterConfigObs
 			return vec;
 		}
 		else {
-			Vector<String> vec = super.getConfigAttribs();
-			for (String l: vec) {System.err.println("Vector entry: " + l);}
-			return vec;
+			return super.getConfigAttribs();
 		}
 	}
 }
