@@ -122,6 +122,8 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 		if( instrument == null )
 			return 0. ;
+
+		boolean isHeterodyne = instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1;
 		
 		Vector<Vector<SpIterStep>> iterStepVector = compile() ;
 		Vector<SpIterStep> iterStepSubVector = null ;
@@ -157,7 +159,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
 					nPol++ ;
 				
-				if( spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
+				if( isHeterodyne && spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
 				{
 					if( !stareObs.contains( spIterStep.item ) )
 						stareObs.add( spIterStep.item  ) ;
@@ -167,8 +169,9 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 
 				iterationTracker.update( spIterStep ) ;
 
-				if( spIterStep.item instanceof SpIterObserveBase )
-					elapsedTime += iterationTracker.getObserveStepTime() ;
+				if( spIterStep.item instanceof SpIterObserveBase ) {
+					elapsedTime += iterationTracker.getObserveStepTime();
+				}
 
 				if( spIterStep.item instanceof SpIterRepeat )
 				{
@@ -207,7 +210,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable
 		// http://www.jach.hawaii.edu/software/jcmtot/het_obsmodes.html 2007-07-12
 		for( Object spIterStareObs : stareObs )
 		{
-			if( spIterStareObs != null && instrument.getClass().getName().indexOf( "SpInstHeterodyne" ) > -1 )
+			if( spIterStareObs != null && isHeterodyne)
 			{
 				double totalIntegrationTime = 0. ;
 				try
