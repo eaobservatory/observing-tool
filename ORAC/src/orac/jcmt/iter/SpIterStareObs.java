@@ -82,6 +82,7 @@ public class SpIterStareObs extends SpIterJCMTObs
 		}
 		else if( instrument instanceof SpInstSCUBA2 )
 		{
+			totalIntegrationTime = getSecsPerCycle();
 		}
 		return( overhead + totalIntegrationTime ) ;
 	}
