@@ -229,8 +229,6 @@ public class TelescopeGUI extends JPanel
 		jLabel14.setForeground( Color.black ) ;
 		jLabel14.setText( "RA" ) ;
 		detailsPW.setLayout( gridBagLayout3 ) ;
-		detailsPW.setMinimumSize( new Dimension( 400 , 83 ) ) ;
-		detailsPW.setPreferredSize( new Dimension( 400 , 89 ) ) ;
 		jLabel13.setFont( new java.awt.Font( "Dialog" , 0 , 10 ) ) ;
 		jLabel13.setForeground( Color.black ) ;
 		jLabel13.setText( "(milli-arcsec/year)" ) ;
@@ -272,8 +270,6 @@ public class TelescopeGUI extends JPanel
 		chopSystemLabel.setText( "System" ) ;
 		chopSystem.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		targetSystemsTabbedPane.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		targetSystemsTabbedPane.setMinimumSize( new Dimension( 273 , 140 ) ) ;
-		targetSystemsTabbedPane.setPreferredSize( new Dimension( 274 , 130 ) ) ;
 		namedSystemPanel.setLayout( gridBagLayout6 ) ;
 		conicSystemPanel.setLayout( gridBagLayout7 ) ;
 		epochLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
