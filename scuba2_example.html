@@ -66,7 +66,7 @@ Daisies are the simplest case and there are only 2 things you need to edit:
 (1) your target coordinates (in the 'Target Information' component) <br>
 (2) the integration time (in the 'Scan' component). The integration time is total time you want on source. 
 <p>
-You will have calculated the latter when preparing your proposal using the <a href="http://www.jach.hawaii.edu/jac-bin/propscuba2itc.pl">time integration calculator</a>. The minimum integration time for daisies is 15 seconds although the overhead for an observation this short will be quite high. The daisy pattern will keep running until the integration time expires and should not be interupted before completion to gain the most even coverage. If you find the total time for your observation exceeds 40 minutes, reduce your integration time and increase the number of repeats.
+You will have calculated the latter when preparing your proposal using the <a href="http://www.jach.hawaii.edu/jac-bin/propscuba2itc.pl">time integration calculator</a>. The minimum integration time for daisies is 15 seconds although the overhead for an observation this short will be quite high. The daisy pattern will keep running until the integration time expires and should not be interrupted before completion to gain the most even coverage. If you find the total time for your observation exceeds 40 minutes, reduce your integration time and increase the number of repeats.
 <p>
 The Scan Speed box is greyed out and cannot be edited. However the number in the box is a default and does not necessarily reflect the speed for your observation.
 <p>
@@ -93,7 +93,7 @@ Select the pong MSB you wish to use, copy and paste the (i.e. <b>'15 arcmin map 
 (1) Target coordinates (in the 'Target Information' component)<br>
 (2) Times round map (in the 'Scan' component)<br>
 <p>
-We recommend that the number of times round the map be selected to fit the maximum number of rotations into the 40 minute time limit. This is the default number in the template MSBs. You may use a fewer number of times round the map but more rotations results in a flatter map we strongly advise you not to go below approximtely 10 mintues i.e. 3 times for a 15 arcmin map and 2 times round the map for a 30 arcmin map and 1 degree map. From the map sizes specified the telescope translator will implement other observing parameters (scan spacing and scan velocity) to produce an optimum map. 
+We recommend that the number of times round the map be selected to fit the maximum number of rotations into the 40 minute time limit. This is the default number in the template MSBs. You may use a fewer number of times round the map but more rotations results in a flatter map we strongly advise you not to go below approximately 10 minutes i.e. 3 times for a 15 arcmin map and 2 times round the map for a 30 arcmin map and 1 degree map. From the map sizes specified the telescope translator will implement other observing parameters (scan spacing and scan velocity) to produce an optimum map.
 <p>NOTE: Pong map sizes other than the 3 standard ones can be specified, but in
 those cases the observation system will use best-guesses for the pong
 parameters and thus may not be optimum. Users use non-standard sizes
@@ -119,7 +119,7 @@ Below is an example of a 900" pong Note the height and width are adjusted to be 
 <a name="notes_recipe"></a>
 <li><font size=3><b>Assigning a DR recipe</b></font></li>
 <p>
-When preparing your msb's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed at CADC. There are currently 2 main options:
+When preparing your MSB's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed at CADC. There are currently 2 main options:
 <br>
 (1) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure. This uses the 'bright_extended' config file.
 <br>
@@ -132,7 +132,7 @@ To select the recipe you wish to use go to the DRRecipe component button and hig
 <a name="notes_40min"></a>
 <li><font size=3><b>Concerning 40 minute MSBs</b></font></li>
 <p>
-The time limit of 40 minutes was chosen as a reasonable compromise for an MSB between maximising the number of times around the map in an observation and the interval between necessary constraints such as pointing, focussing, array setups and scheduling. It is possible to take data for longer but instrument drifts during azimuth tracking can cause some bolometers to lose their calibration during very long observations.
+The time limit of 40 minutes was chosen as a reasonable compromise for an MSB between maximising the number of times around the map in an observation and the interval between necessary constraints such as pointing, focusing, array setups and scheduling. It is possible to take data for longer but instrument drifts during azimuth tracking can cause some bolometers to lose their calibration during very long observations.
 <p>
 Another important factor is the amount of data the is passed to the map-maker. We can sequence at about 45 minutes and any request for longer than this will be split into multiple chunks. The duration of a single chunk that can be processed by the map-maker is constrained by the total RAM available in the computer and 40 minutes reflects the chunk of data the map-maker can handle on a computer with a reasonable (e.g. 60GB) amount of memory. 
 <p>
@@ -166,12 +166,12 @@ Don't worry, it is wrong. This will be fixed in the near future but believe the 
 <a name="qus_bigger"></a>
 <li><font size=2><b>I want to make a map bigger than an degree, what's the best way?</b></font></li>
 <p>
-You can build up a large area by tiling the pong maps.  The legacy surveys have determined that the most effective way to tile pongs is in a hexagonal pattern. It is also possible to specify pong map sizes other than the 3 standard, but in those cases the observation system will use best-guesses for the pong parameters and thus may not be optimum. Users use non-standard sizes at their own risk. We recommend you dont exceed 7200'' x 7200'' for  pong maps and be aware that the integration time does drop off considerably.
+You can build up a large area by tiling the pong maps.  The legacy surveys have determined that the most effective way to tile pongs is in a hexagonal pattern. It is also possible to specify pong map sizes other than the 3 standard, but in those cases the observation system will use best-guesses for the pong parameters and thus may not be optimum. Users use non-standard sizes at their own risk. We recommend you don't exceed 7200'' x 7200'' for  pong maps and be aware that the integration time does drop off considerably.
 <p>
 <a name="qus_timesround"></a>
 <li><font size=2><b>I only want to go once round my pong map, am I allowed?</b></font></li>
 <p>
-If you have a very strong source and are unconcerned about the background you can go only once around the pong. You can expect the background to be extremely variable however. We would recommmend at least twice round and ideally not fewer than three times round. 
+If you have a very strong source and are unconcerned about the background you can go only once around the pong. You can expect the background to be extremely variable however. We would recommend at least twice round and ideally not fewer than three times round.
 <p>
 <a name="qus_load"></a>
 <li><font size=2><b>My project wont load when I enter my project number?</b></font></li>
