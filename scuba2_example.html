@@ -39,7 +39,7 @@ alink="# ff0000">
 <p>
 <a name="info"></a>
 <h2>General Information</h2>
-There are two observing modes available with SCUBA-2 - a daisy for point sources and a pong for larger scale mapping. Details on each can be found <a href="http://www.jach.hawaii.edu/JCMT/continuum/scuba2/12ACfP/scuba2_12Acfp_support.html">here</a>.
+There are two observing modes available with SCUBA-2 - a daisy for point sources and a pong for larger scale mapping. Details on each can be found <a href="http://www.jach.hawaii.edu/JCMT/continuum/scuba2/scuba2_obsmodes.html">here</a>.
 <p>
 We are currently recommending a time limit on individual observations of not more than 40 minutes in length. If you find your observations exceed this time we suggest you increase the number of repeats.
 <p>
@@ -121,9 +121,9 @@ Below is an example of a 900" pong Note the height and width are adjusted to be 
 <p>
 When preparing your msb's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed at CADC. There are currently 2 main options:
 <br>
-(1) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure, assumes bright sources with extended emission.
+(1) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure. This uses the 'bright_extended' config file.
 <br>
-(2) REDUCE_SCAN_FAINT_SOURCES - designed to extract faint emission, this will apply a matched filter to your data.
+(2) REDUCE_SCAN_FAINT_SOURCES - designed to extract faint emission. This uses the 'blank_field' config file then applies a matched filter to your data.
 <p>
 To select the recipe you wish to use go to the DRRecipe component button and highlight the recipe you would like to add then click 'Set' next to the Scan button (for SCUBA-2).
 <p>
@@ -132,7 +132,7 @@ To select the recipe you wish to use go to the DRRecipe component button and hig
 <a name="notes_40min"></a>
 <li><font size=3><b>Concerning 40 minute MSBs</b></font></li>
 <p>
-The time limit of 40 minutes was chosen as a reasonable compromise for an MSB between maximising the number of times around the map in an observation and the intervaql between necessary constraints such as pointing, focussing, array setups and scheduling. It is possible to take data for longer but instrument drifts during azimuth tracking can cause some bolometers to lose their calibration during very long observations. 
+The time limit of 40 minutes was chosen as a reasonable compromise for an MSB between maximising the number of times around the map in an observation and the interval between necessary constraints such as pointing, focussing, array setups and scheduling. It is possible to take data for longer but instrument drifts during azimuth tracking can cause some bolometers to lose their calibration during very long observations.
 <p>
 Another important factor is the amount of data the is passed to the map-maker. We can sequence at about 45 minutes and any request for longer than this will be split into multiple chunks. The duration of a single chunk that can be processed by the map-maker is constrained by the total RAM available in the computer and 40 minutes reflects the chunk of data the map-maker can handle on a computer with a reasonable (e.g. 60GB) amount of memory. 
 <p>
