@@ -76,10 +76,23 @@ public class SplashGUI extends JPanel
 		openButton.setText( "Open Existing Program" ) ;
 		dismissButton.setText( "Dismiss" ) ;
 		fetchButton.setText( "Fetch Program" ) ;
-		this.add( splashImage , new GridBagConstraints( 0 , 0 , 1 , 4 , 0.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 16 , 5 , 0 , 5 ) , 0 , 0 ) ) ;
+		this.add( splashImage , new GridBagConstraints( 0 , 0 , 1 , 2 , 0.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 16 , 5 , 0 , 5 ) , 0 , 0 ) ) ;
 		this.add( redistLabel , new GridBagConstraints( 1 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		this.add( jScrollPane1 , new GridBagConstraints( 1 , 0 , 2 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 10 , 5 , 5 , 7 ) , 0 , 0 ) ) ;
-		this.add( jPanel1 , new GridBagConstraints( 0 , 2 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+
+		int buttongridy = 2;
+		String version = System.getProperty("java.version");
+
+                if (version.compareTo("1.6") < 0) {
+			JLabel versionWarning = new JLabel("From January 2013 the OT will require Java 1.6 in preparation for semester 13A.");
+			versionWarning.setForeground(Color.RED);
+			this.add(versionWarning , new GridBagConstraints( 0 , buttongridy++, 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 15 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+			versionWarning = new JLabel("(Your current Java version is " + version + ".)");
+			versionWarning.setForeground(Color.RED);
+			this.add(versionWarning , new GridBagConstraints( 0 , buttongridy++, 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 15 , 0 ) , 0 , 0 ) ) ;
+                }
+
+		this.add( jPanel1 , new GridBagConstraints( 0 , buttongridy , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		jPanel1.add( fetchButton , null ) ;
 		jPanel1.add( newButton , null ) ;
 		jPanel1.add( openButton , null ) ;
