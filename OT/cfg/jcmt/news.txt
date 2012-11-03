@@ -1,3 +1,22 @@
++++ November 2012 release
+
+  - From January 2013 the OT will require Java version 1.6 so
+    that we can use JSky3.  In this release the splash screen shows
+    a warning if the Java version is older than this.
+
+  - Two HDO lines at 225 and 241GHz added to the line catalogue.
+
+  - Validator now checks for bare observations in survey containers.
+
+  - Updated SCUBA-2 noise parameters to match the 13A call for proposals
+    update to the online ITC.
+
+  - Removed fixed sizes of the panels on the target information
+    page to avoid problems where the orbital elements panel
+    did not fit in the space assigned.
+
+  - Included the latest documentation from the JCMT OT website.
+
 +++ August 2012 release
 
   - Minor update to display of orbital elements target information
