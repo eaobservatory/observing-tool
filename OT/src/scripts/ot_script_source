@@ -63,4 +63,4 @@ else
         set USER_HOME = ""
 endif
 
-${JAVA} -Xms10m -Xmx500m -DTELESCOPE=${TELESCOPE} $USER_HOME -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${XMLFILES}
+${JAVA} -Xms10m -Xmx1000m -DTELESCOPE=${TELESCOPE} $USER_HOME -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -DOT_CATALOG_FILE=${CATALOG_FILE} ${OT_CFG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} -Dapple.laf.useScreenMenuBar=true jsky.app.ot.OT ${XMLFILES}
