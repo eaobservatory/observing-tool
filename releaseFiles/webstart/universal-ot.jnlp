@@ -18,7 +18,7 @@
 		<all-permissions/>
 	</security>
 	<resources>
-		<j2se version="1.6+" java-vm-args="-Xms5m -Xmx500m -oss5m"/>
+		<j2se version="1.6+" java-vm-args="-Xms10m -Xmx1000m"/>
 		<!-- LIB -->
 		<jar href="lib/ot.jar"/>
 		<jar href="lib/cfg.jar"/>
