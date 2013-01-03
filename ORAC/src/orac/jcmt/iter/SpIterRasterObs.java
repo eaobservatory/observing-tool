@@ -802,8 +802,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		String strategy = _avTable.get( ATTR_SCAN_STRATEGY ) ;
 		if( strategy == null || strategy.equals( "" ) )
 		{
-			strategy = SCAN_STRATEGIES[ 0 ] ;
-			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , strategy , 0 ) ;
+			strategy = SCAN_STRATEGIES_SCUBA2[ 0 ] ;
+			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SCAN_STRATEGIES_SCUBA2[ 0 ] , 0 ) ;
 		}
 		
 		if( strategy.equals( SCAN_PATTERN_POINT ) )

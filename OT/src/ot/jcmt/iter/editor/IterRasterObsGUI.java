@@ -83,7 +83,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	public TextBoxWidgetExt scanSpeed = new TextBoxWidgetExt() ;
 	
 	// harp and scuba2
-	private JLabel scanStrategyLabel = createLabel( "Scan Strategy" ) ;
+	private JLabel scanStrategyLabel = GuiUtil.createLabel( "Scan Strategy" ) ;
 	public DropDownListBoxWidgetExt scanningStrategies = new DropDownListBoxWidgetExt() ;
 
 	// misc

@@ -7,7 +7,6 @@
 package jsky.app.ot ;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent ;
@@ -22,6 +21,13 @@ import java.util.Observer ;
 import java.util.Stack ;
 import java.util.Vector ;
 import javax.swing.AbstractAction ;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser ;
 import javax.swing.JFrame ;
 import javax.swing.JLabel;
@@ -1091,17 +1097,8 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver , TpeMan
 		private SpinnerNumberModel num;
 		private JCheckBox selected;
 
-		public PrioritizationFunctionDialog() {
-			super();
-			__init();
-		}
-
 		public PrioritizationFunctionDialog(JFrame parent) {
 			super(parent, "Automatic Prioritization", true);
-			__init();
-		}
-
-		private void __init() {
 			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			setLayout(new BorderLayout());
 			ButtonGroup group = new ButtonGroup();
