@@ -1,3 +1,15 @@
++++ January 2013 release
+
+  - Maximum memory usage increased to 1000M to avoid problems
+    saving very large programs.
+
+  - Updated line catalogue to include an SO2 line at 241GHz and
+    H2CS line at 338GHz.
+
+  - Upgraded JSky to version 3.
+
+  - Included support for FTS-2 and POL-2.
+
 +++ November 2012 release
 
   - From January 2013 the OT will require Java version 1.6 so
@@ -421,5 +433,5 @@ Council. All Rights Reserved.
 Copyright 2004-2007 Particle Physics and Astronomy Research Council.
 All Rights Reserved.
 
-Copyright 2007-2012 Science and Technology Facilities Council.
+Copyright 2007-2013 Science and Technology Facilities Council.
 All Rights Reserved.
