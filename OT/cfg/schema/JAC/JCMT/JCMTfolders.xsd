@@ -37,6 +37,11 @@
 	</xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="jcmtPolContinuousSpin">
+	<xsd:restriction base="xsd:string">
+	</xsd:restriction>
+</xsd:simpleType>
+
 <!-- Complex types -->
 <xsd:complexType name="jcmtPolType" mixed="true">
     <xsd:complexContent>
@@ -54,8 +59,13 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="POLIter"         type="toml:jcmtPolType"/>
-      <xsd:element name="iterConfigList"  type="toml:jcmtIterList"/>
+      <xsd:choice>
+        <xsd:element name="continuousSpin"    type="toml:jcmtPolContinuousSpin"/>
+        <xsd:sequence>
+          <xsd:element name="POLIter"         type="toml:jcmtPolType"/>
+          <xsd:element name="iterConfigList"  type="toml:jcmtIterList"/>
+        </xsd:sequence>
+      </xsd:choice>
       <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
