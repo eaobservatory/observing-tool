@@ -64,6 +64,14 @@ public class JcmtSpValidation extends SpValidation
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
+
+				/* Check for retired receivers which are still present to allow
+				   programmes to be loaded successfully. */
+				if (spInstHeterodyne.getFrontEnd() != null && spInstHeterodyne.getFrontEnd().equals("A3")) {
+					report.add(new ErrorMessage(ErrorMessage.WARNING, titleString,
+						"Receiver RxA3 was removed for upgrade in January 2013.  Please update your programme to use RxA3M and check your observing frequencies carefully."));
+				}
+
 				double loMin = 0. ;
 				double loMax = 0. ;
 				double[] defaultOverlaps = null ;
