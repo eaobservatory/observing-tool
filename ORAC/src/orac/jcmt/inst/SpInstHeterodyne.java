@@ -402,7 +402,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	public String getFrontEnd()
 	{
 		if( _avTable.get( ATTR_FE_NAME ) == null || _avTable.get( ATTR_FE_NAME ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_FE_NAME , "A3" , 0 ) ;
+			_avTable.noNotifySet( ATTR_FE_NAME , "A3M" , 0 ) ;
 
 		return _avTable.get( ATTR_FE_NAME ) ;
 	}
