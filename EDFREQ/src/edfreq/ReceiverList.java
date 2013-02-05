@@ -40,6 +40,14 @@ public class ReceiverList
 
 		receivers.put( "HARP-B" , r ) ;
 
+		r = new Receiver( "A3M" , 211.0E9 , 255.0E9 , 5.7E9 , 4.0E9 ) ;
+
+		r.bandspecs.add( new BandSpec( "1-system" , 1 , new double[] { 1.0E9 , 4.0E9 } , new double[] { 1.0E8 , 4.0E8 } , new int[] { 32768 , 8192 } , new int[] { 4 , 4 } ) ) ;
+		r.bandspecs.add( new BandSpec( "4-system" , 4 , new double[] { 0.25E9 , 1.0E9 } , new int[] { 8192 , 2048 } ) ) ;
+		r.bandspecs.add( new BandSpec( "8-system" , 8 , new double[] { 0.25E9 , 1.0E9 } , new int[] { 4096 , 1024 } ) ) ;
+
+		receivers.put( "A3M" , r ) ;
+
 		r = new Receiver( "A3" , 215.0E9 , 272.0E9 , 4.0E9 , 1.8E9 ) ;
 
 		r.bandspecs.add( new BandSpec( "1-system" , 1 , new double[] { 1.0E9 , 4.0E9 } , new double[] { 1.0E8 , 4.0E8 } , new int[] { 32768 , 8192 } , new int[] { 4 , 4 } ) ) ;

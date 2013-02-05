@@ -1657,29 +1657,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		Vector<String> available = new Vector<String>() ;
 		for( int i = 0 ; i < bandspecs.size() ; i++ )
 			available.add( bandspecs.get( i ).toString() ) ;
-		/*
-		 * Special handling for RxA only. If we are using one of the hybrid modes
-		 * only 2 regions are allowed
-		 */
+
 		String current = _inst.getBandMode() ;
-		if( "A3".equalsIgnoreCase( _receiver.name ) )
-		{
-			// Get the number of hybrid subband
-			BandSpec currentBandSpec = null ;
-			for( int i = 0 ; i < bandspecs.size() ; i++ )
-			{
-				if( bandspecs.get( i ).toString().equals( current ) )
-				{
-					currentBandSpec = bandspecs.get( i ) ;
-					if( _w.firstBandwidth.getSelectedIndex() > -1 )
-					{
-						int nHybrids = currentBandSpec.getNumHybridSubBands( _w.firstBandwidth.getSelectedIndex() ) ;
-						if( nHybrids == 4 && available.contains( "4" ) )
-							available.remove( "4" ) ;
-					}
-				}
-			}
-		}
 		boolean change = false ;
 		Iterator<String> iter = regionWidgetNames.keySet().iterator() ;
 
