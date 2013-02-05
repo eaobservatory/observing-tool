@@ -1,3 +1,9 @@
++++ February 2013 release
+
+  - Added RxA3M as a new receiver.  RxA3 is still present in the
+    OT to assist in converting programs to RxA3M, but it should
+    not be selected for new programs.
+
 +++ January 2013 release
 
   - Maximum memory usage increased to 1000M to avoid problems
