@@ -932,12 +932,25 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				line = -line ;
 
 			double halfBandwidth = .5 * ( _receiver.bandWidth - _inst.getBandWidth( index ) ) ;
-			if( line > ( _receiver.feIF + halfBandwidth ) )
+			boolean outOfBand = false;
+
+			if( line > ( _receiver.feIF + halfBandwidth ) ) {
 				line = ( _receiver.feIF + halfBandwidth ) ;
-			else if( line < ( _receiver.feIF - halfBandwidth ) )
+				outOfBand = true;
+			}
+			else if( line < ( _receiver.feIF - halfBandwidth ) ) {
 				line = ( _receiver.feIF - halfBandwidth ) ;
+				outOfBand = true;
+			}
 
 			_inst.setCentreFrequency( line , index ) ;
+
+			if (outOfBand) {
+				JOptionPane.showMessageDialog(null,
+					"The central frequency for spectral region " + index
+					+ " is outside the tuning range of the receiver.\nIt is advised that you reconfigure this spectral region and save this program before use.",
+					"Central Frequency Reset", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 
