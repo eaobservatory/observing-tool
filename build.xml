@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE project PUBLIC "-//ANT//DTD project//EN" "misc/project.dtd" >
+<!DOCTYPE project PUBLIC "-//ANT//DTD project//EN" "ant/misc/project.dtd" >
 
-<project name="OT" default="main" basedir="..">
+<project name="OT" default="main" basedir=".">
 	<property name="local.install.dir" value="install"/>
 	<property name="local.install.path" value="${local.install.dir}/classes"/>
 	<property name="local.jar.dir" value="${local.install.dir}/lib"/>
