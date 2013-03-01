@@ -17,18 +17,8 @@ cd ot_release_<YYYYMMDD>
 3. checkout the release code ...
 git checkout -b release origin/release
 
-4. the OT is no longer built using gmake, instead there are two methods
-which can be used depending on circumstance. Ant ( ant.apache.org ) is
-the preferred method of building, however there is also a Perl script
-which can do the building. The Perl script should be phased out.
-
-Either way, to build use one of the following ...
-
-perl wiki-build.pl
-
-... or ...
-
-ant -f ant/build.xml
+4. Ant ( ant.apache.org ) is the preferred method of building ...
+ant
 
 Building from the release branch requires Java 1.5
 
