@@ -1,3 +1,14 @@
++++ March 2013 release
+
+  - Made RxA3 the default receiver again.  RxA3M is still present
+    but should not be selected for now.
+
+  - Issue a warning if changing to a narrower band receiver
+    (e.g. RxA3M to RxA3) has put a spectral region out of range.
+    When this happens the centre frequency of the band edge will
+    be shown in the frequency configuration table, and the frequencies
+    must be edited to create a useable tuning.
+
 +++ February 2013 release
 
   - Added RxA3M as a new receiver.  RxA3 is still present in the
