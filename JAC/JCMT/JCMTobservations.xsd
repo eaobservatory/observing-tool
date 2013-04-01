@@ -175,13 +175,13 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="arrayCentred"    type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="continuousCal"   type="xsd:boolean"                minOccurs="0"/>
+      <xsd:element name="continuumMode"   type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="cycleReversal"   type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
-      <xsd:element name="arrayCentred"    type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="continuumMode"   type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="separateOffs"    type="xsd:boolean"                minOccurs="0"/>
