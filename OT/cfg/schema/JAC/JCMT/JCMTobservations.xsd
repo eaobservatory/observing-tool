@@ -83,6 +83,25 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="fts2SpecialModes">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="SED" />
+    <xsd:enumeration value="SED 850um" />
+    <xsd:enumeration value="Spectral Line" />
+    <xsd:enumeration value="Spectral Line 850um" />
+    <xsd:enumeration value="Spectral Flatfield" />
+    <xsd:enumeration value="ZPD" />
+    <xsd:enumeration value="Variable Mode" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="fts2TrackingPorts">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="8D" />
+    <xsd:enumeration value="8C" />
+  </xsd:restriction>
+</xsd:simpleType>
+
 <!-- Complex types -->
 
 <xsd:complexType name="rasterObsAreaType">
@@ -271,6 +290,22 @@
 		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
 		<xsd:attribute name="subtype" type="xsd:string" fixed="flatObs"/>
 	</xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterFTS2Obs">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="ScanSpeed"     type="toml:nonNegativeDecimal" minOccurs="0"/>
+      <xsd:element name="SpecialMode"   type="toml:fts2SpecialModes"   minOccurs="1"/>
+      <xsd:element name="TrackingPort"  type="toml:fts2TrackingPorts"  minOccurs="1"/>
+      <xsd:element name="isDualPort"    type="xsd:boolean"             minOccurs="1"/>
+      <xsd:element name="resolution"    type="toml:nonNegativeDecimal" minOccurs="0"/>
+      <xsd:element name="sampleTime"    type="toml:nonNegativeDecimal" minOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="FTS2Obs"/>
+  </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>
