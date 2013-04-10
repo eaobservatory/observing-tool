@@ -29,6 +29,7 @@
     <xsd:element ref="toml:SpIterDREAMObs"/>
     <xsd:element ref="toml:SpIterArrayTestObs"/>
     <xsd:element ref="toml:SpIterFlatObs"/>
+    <xsd:element ref="toml:SpIterFTS2Obs"/>
   </xsd:choice>
 </xsd:group>
 
