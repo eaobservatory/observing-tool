@@ -42,8 +42,8 @@ public class SpIterFTS2Obs extends SpIterJCMTObs
 	public final static double maximumFOV = 7.362 ;
 	public final static int maximumFOVScaled = ( int )Math.rint( maximumFOV * FOVScale ) ;
 
-	public final static double resolutionScale = 1000. ;
-	public final static double minimumResolution = .006 ;
+	public final static double resolutionScale = 100000. ;
+	public final static double minimumResolution = 0.00564 ;
 	public final static int minimumResolutionScaled = ( int )Math.rint( minimumResolution * resolutionScale ) ;
 	public final static double maximumResolution = .1 ;
 	public final static int maximumResolutionScaled = ( int )Math.rint( maximumResolution * resolutionScale ) ;
