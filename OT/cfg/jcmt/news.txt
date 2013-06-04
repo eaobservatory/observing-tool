@@ -1,3 +1,9 @@
++++ June 2013 release
+
+  - Improved validation of DR Recipe components.
+
+  - Increased FTS-2 variable mode resolution range.
+
 +++ March 2013 release
 
   - Made RxA3 the default receiver again.  RxA3M is still present
