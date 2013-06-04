@@ -77,7 +77,7 @@ public final class EdIterFTS2Obs extends OtItemEditor implements ActionListener 
 		_w.resolutionFOV.setValue( ( int )( resolution * SpIterFTS2Obs.resolutionScale ) ) ;
 		_w.scanSpeedNyquist.setValue( ( int )( speed * SpIterFTS2Obs.speedScale ) ) ;
 		_w.FOV.setText( "" + MathUtil.round( _inst.getFOV() , 4 ) ) ;
-		_w.resolution.setText( "" + MathUtil.round( resolution , 4 ) ) ;
+		_w.resolution.setText( "" + MathUtil.round( resolution , 5 ) ) ;
 		_w.resolutionMHz.setText( "" + MathUtil.round( _inst.getResolutionInMHz() , 4 ) ) ;
 		_w.scanSpeed.setText( "" + speed ) ;
 		_w.nyquist.setText( "" + MathUtil.round( _inst.getNyquist() , 4 ) ) ;
