@@ -224,7 +224,7 @@ public class JcmtSpValidation extends SpValidation
 			if( recipe == null && ( ( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) ) ) )
 				report.add( new ErrorMessage( ErrorMessage.WARNING , titleString , "No DR-recipe component." ) ) ;
 			else if( recipe != null )
-				checkDRRecipe( recipe , report , titleString , thisObs ) ;
+				checkDRRecipe( recipe , report , titleString , thisObs , obsComp ) ;
 		}
 
 		// Check POL-2 iterators.
@@ -242,22 +242,44 @@ public class JcmtSpValidation extends SpValidation
 		super.checkObservation( spObs , report ) ;
 	}
 
-	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report , String obsTitle , SpIterJCMTObs thisObs )
+        /*
+         * Check the DR Recipe for validity.
+         *
+         * Takes the observation's instrument as a parameter so that we can check the recipes are
+         * correct for that instrument.
+         */
+	public void checkDRRecipe( SpDRRecipe recipe , Vector<ErrorMessage> report , String obsTitle , SpIterJCMTObs thisObs , SpInstObsComp obsInst )
 	{
+		// Check if there is an instrument of the wrong type in this DR
+		// recipe's scope.  (Because if there is, it's probably selecting
+		// recipes for that other instrument.)
 		SpInstObsComp _inst = SpTreeMan.findInstrument( recipe ) ;
+		if (_inst != null && obsInst != null) {
+			if (! _inst.getClass().equals(obsInst.getClass())) {
+				report.add(new ErrorMessage(ErrorMessage.ERROR, obsTitle,
+					"This observation uses a data reduction recipe component for the wrong type of instrument."));
+			}
+		}
+
+		// Determine the type of instrument, as referred to by the
+		// observation which references this DR recipe.
+		// (Altered 2013/06/03 -- was previously the instrumet
+		// found in the tree above this DR recipe, which could
+		// be the wrong one.)
 		String instrument = null ;
 		Vector<String> recipeList = null ;
-		if( _inst instanceof SpInstHeterodyne )
+		if( obsInst instanceof SpInstHeterodyne )
 		{
 			instrument = "heterodyne" ;
 			recipeList = SpDRRecipe.HETERODYNE.getColumn( 0 ) ;
 		}
-		else if( _inst instanceof SpInstSCUBA2 )
+		else if( obsInst instanceof SpInstSCUBA2 )
 		{
 			instrument = "scuba2" ;
 			recipeList = SpDRRecipe.SCUBA2.getColumn( 0 ) ;
 		}
 
+		// Check that the recipes are set correctly.
 		String[] types = recipe.getAvailableTypes( instrument ) ;
 		if( types != null )
 		{
