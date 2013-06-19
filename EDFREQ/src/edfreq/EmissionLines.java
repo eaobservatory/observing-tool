@@ -16,6 +16,7 @@ import javax.swing.JSlider ;
 import javax.swing.JFrame ;
 import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
+import java.util.ArrayList;
 import java.util.Hashtable ;
 import java.awt.event.MouseListener ;
 import java.awt.event.MouseEvent ;
@@ -45,6 +46,7 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 	private double highLimit ;
 	private double restHalfrange ;
 	private LineDetails[] lineStore ;
+        private Hashtable<Integer,ArrayList<LineDetails>> lineStoreExtra;
 	private LineDetails[] altLineStore ;
 	private LineCatalog lineCatalog ;
 	private Image buffer = null ;
@@ -89,6 +91,7 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		/* Select the emission lines within the frequency range */
 
 		lineStore = new LineDetails[ xSize ] ;
+                lineStoreExtra = new Hashtable<Integer, ArrayList<LineDetails>>();
 		try
 		{
 			lineCatalog = LineCatalog.getInstance() ;
@@ -101,7 +104,7 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 		for( j = 0 ; j < xSize ; j++ )
 			lineStore[ j ] = null ;
 
-		lineCatalog.returnLines( this.lowLimit , this.highLimit , xSize , lineStore ) ;
+		lineCatalog.returnLines( this.lowLimit , this.highLimit , xSize , lineStore, lineStoreExtra);
 
 		/* Set up the graphics */
 
@@ -259,6 +262,20 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 
 				item.addChangeListener( this ) ;
 				popup.add( item ) ;
+
+                                // Also check if there are any "extra" lines at the same pixel position.
+                                if (lineStoreExtra.containsKey(i)) {
+                                    for (LineDetails details: lineStoreExtra.get(i)) {
+
+                                        item = new JMenuItem(details.name + "  " + details.transition + "  " + details.frequency / 1.0e3);
+
+                                        popupLineTable.put(item, details);
+                                        popupLinePosTable.put(item, new int[] {i});
+
+                                        item.addChangeListener(this);
+                                        popup.add(item);
+                                    }
+                                }
 			}
 		}
 
@@ -337,8 +354,9 @@ public class EmissionLines extends JPanel implements MouseListener , ChangeListe
 
 		for( j = 0 ; j < xSize ; j++ )
 			lineStore[ j ] = null ;
+		lineStoreExtra.clear();
 
-		lineCatalog.returnLines( lowLimit , highLimit , xSize , lineStore ) ;
+		lineCatalog.returnLines( lowLimit , highLimit , xSize , lineStore, lineStoreExtra) ;
 
 		if( ( ( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit ) ) || _currentDisplayMode == VELOCITY_DISPLAY )
 		{
