@@ -1,3 +1,8 @@
++++ July 2013 release
+
+  - Prevented nearby lines obscuring each other in the frequency
+    editor's pop up menu.
+
 +++ June 2013 release
 
   - Improved validation of DR Recipe components.

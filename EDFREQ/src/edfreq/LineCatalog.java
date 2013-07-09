@@ -23,8 +23,10 @@ import gemini.util.ObservingToolUtilities ;
 import java.io.IOException ;
 import java.io.InputStream ;
 import java.net.URL ;
+import java.util.ArrayList;
 import java.util.TreeMap ;
 import java.util.Iterator ;
+import java.util.Hashtable;
 import java.util.Vector ;
 
 import org.apache.xerces.parsers.SAXParser ;
@@ -81,16 +83,33 @@ public class LineCatalog
 		catalog = handler.getCatalog() ;
 	}
 
-	public void returnLines( double minFreq , double maxFreq , int listSize , LineDetails lineRef[] )
-	{
-		int pix ;
-		double invRange ;
-
-		/*
+	/**
          * Search for all lines between minFreq and maxFreq and record their
          * details in lineRef given a linear scaling between index numbers and
          * frequency.
+         *
+         * This overloads returnLines to provide the previous behaviour (no lineRefExtra
+         * parameter) for code which depends on it.
          */
+	public void returnLines(double minFreq, double maxFreq, int listSize, LineDetails lineRef[]) {
+            returnLines(minFreq, maxFreq, listSize, lineRef, null);
+        }
+
+        /**
+         * Search for all lines betwen minFreq and maxFreq and return their
+         * details in lineRef.
+         *
+         * (See returnLines for more information.)
+         *
+         * If a line would overwrite a line already in the list, it is
+         * added to the lineRefExtra table.  Null can be provided instead
+         * of a table to disable this functionality.
+         */
+	public void returnLines(double minFreq, double maxFreq, int listSize, LineDetails lineRef[],
+                                Hashtable<Integer,ArrayList<LineDetails>> lineRefExtra )
+	{
+		int pix ;
+		double invRange ;
 
 		minFreq = minFreq * 1.0E-6 ;
 		maxFreq = maxFreq * 1.0E-6 ;
@@ -111,7 +130,22 @@ public class LineCatalog
 				Double currentFreq = iter.next() ;
 				String currentName = submap.get( currentFreq ) ;
 				pix = ( int )( ( ( double )listSize ) * ( currentFreq - minFreq ) * invRange ) ;
-				lineRef[ pix ] = new LineDetails( molName , currentName , currentFreq ) ;
+                                LineDetails details = new LineDetails(molName, currentName, currentFreq);
+
+                                if (lineRef[pix] != null && lineRefExtra != null) {
+                                    ArrayList<LineDetails> extras;
+                                    if (lineRefExtra.containsKey(pix)) {
+                                        extras = lineRefExtra.get(pix);
+                                    }
+                                    else {
+                                        extras = new ArrayList<LineDetails>();
+                                        lineRefExtra.put(pix, extras);
+                                    }
+                                    extras.add(details);
+                                }
+                                else {
+                                    lineRef[pix] = details;
+                                }
 			}
 		}
 	}
