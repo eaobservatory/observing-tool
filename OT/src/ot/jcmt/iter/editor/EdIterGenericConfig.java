@@ -83,6 +83,7 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig 
 		_iterItems = new Hashtable<String,IterConfigItem>() ;
 
 		gui.continuousSpinCheckBox.addActionListener( this ) ;
+		gui.calibratorInBeamCheckBox.addActionListener( this ) ;
 	}
 
 	public void actionPerformed( ActionEvent event )
@@ -94,6 +95,9 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig 
 			if( !enabled )
 				_updateWidgets() ;
 		}
+                else if (event.getSource() == gui.calibratorInBeamCheckBox) {
+                    ((SpIterPOL) _spItem).setCalibratorInBeam(gui.calibratorInBeamCheckBox.getBooleanValue());
+                }
 		else
 		{
 			super.actionPerformed( event ) ;
@@ -124,5 +128,7 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig 
 		boolean usingSpin = (( SpIterPOL )_spItem).hasContinuousSpin() ;
 		gui.continuousSpinCheckBox.setSelected( usingSpin ) ;
 		setContinuousSpin( usingSpin ) ;
+
+		gui.calibratorInBeamCheckBox.setSelected(((SpIterPOL) _spItem).isCalibratorInBeam());
 	}
 }

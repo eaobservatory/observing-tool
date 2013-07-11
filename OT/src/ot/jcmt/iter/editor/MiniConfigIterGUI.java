@@ -16,6 +16,8 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 {
 	public CheckBoxWidgetExt continuousSpinCheckBox ;
 	private JLabel continuousSpinLabel ;
+	public CheckBoxWidgetExt calibratorInBeamCheckBox;
+	private JLabel calibratorInBeamLabel;
 
 	public MiniConfigIterGUI()
 	{
@@ -38,8 +40,19 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 
 		continuousSpinCheckBox = new CheckBoxWidgetExt() ;
 
-		this.add( continuousSpinLabel , new GridBagConstraints( 0 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
+		this.add( continuousSpinLabel , new GridBagConstraints( 1 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
 		this.add( continuousSpinCheckBox , new GridBagConstraints( 0 , 10 , 1 , 1 , 1. , 1. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
+
+		calibratorInBeamLabel = new JLabel() ;
+		calibratorInBeamLabel.setFont( new java.awt.Font( "Dialog" , 3 , 12 ) ) ;
+		calibratorInBeamLabel.setForeground( Color.black ) ;
+		calibratorInBeamLabel.setText( "Calibrator In Beam" ) ;
+
+		calibratorInBeamCheckBox = new CheckBoxWidgetExt() ;
+
+		this.add( calibratorInBeamLabel , new GridBagConstraints( 1 , 11 , 1 , 1 , 1. , 1. , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
+		this.add( calibratorInBeamCheckBox , new GridBagConstraints( 0 , 11 , 1 , 1 , 1. , 1. , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) ) ;
+
 	}
 
 	public void enableParent( boolean enabled )
@@ -54,7 +67,10 @@ public class MiniConfigIterGUI extends jsky.app.ot.editor.MiniConfigIterGUI
 		for( int index = 0 ; index < componentCount ; index++ )
 		{
 			Component component = container.getComponent( index ) ;
-			if( continuousSpinCheckBox == component )
+			if (component == continuousSpinCheckBox
+                        ||  component == calibratorInBeamCheckBox
+                        ||  component == continuousSpinLabel
+                        ||  component == calibratorInBeamLabel)
 				continue ;
 			else if( component instanceof JPanel || component instanceof JScrollPane )
 				enableComponent( ( Container )component , enabled ) ;
