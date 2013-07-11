@@ -60,9 +60,13 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:choice>
-        <xsd:element name="continuousSpin"    type="toml:jcmtPolContinuousSpin"/>
+        <xsd:sequence>
+          <xsd:element name="continuousSpin"  type="toml:jcmtPolContinuousSpin"/>
+          <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
         <xsd:sequence>
           <xsd:element name="POLIter"         type="toml:jcmtPolType"/>
+          <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
           <xsd:element name="iterConfigList"  type="toml:jcmtIterList"/>
         </xsd:sequence>
       </xsd:choice>
