@@ -74,7 +74,12 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 		if( _schedConstObsComp.getEarliest().equals( SpSchedConstObsComp.NO_VALUE ) )
 		{
 			earliestCalendar = Calendar.getInstance() ;
-			earliestCalendar.setTime( TimeUtils.getCurrentUTCDate() ) ;
+			earliestCalendar.set( Calendar.YEAR , 2000 ) ;
+			earliestCalendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
+			earliestCalendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
+			earliestCalendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
+			earliestCalendar.set( Calendar.MINUTE , 0 ) ;
+			earliestCalendar.set( Calendar.SECOND , 0 ) ;
 			_schedConstObsComp.initEarliest( OracUtilities.toISO8601( earliestCalendar.getTime() ) ) ;
 			_updateWidgets() ;
 		}
