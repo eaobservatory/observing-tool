@@ -20,17 +20,6 @@ import java.awt.Component ;
  */
 public class DialogUtil extends jsky.util.gui.DialogUtil
 {
-
-	/** 
-	 * Report an error message.
-	 * 
-	 * @param msg the error message
-	 */
-	public static void error( Component parentComponent , String msg )
-	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
-
 	/** 
 	 * Report an error message based on the given exception.
 	 * 
@@ -60,38 +49,5 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 		String s = msg + ": " + e.toString() ;
 
 		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
-
-	/** 
-	 * Display an informational message.
-	 * 
-	 * @param msg the message
-	 */
-	public static void message( Component parentComponent , String msg )
-	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Message" , JOptionPane.INFORMATION_MESSAGE ) ;
-	}
-
-	/** 
-	 * Get an input string from the user and return it. 
-	 *
-	 * @param msg the message to display
-	 * @return the value typed in by the user, or null if Cancel was pressed
-	 */
-	public static String input( Component parentComponent , String msg )
-	{
-		return JOptionPane.showInputDialog( parentComponent , msg , "Input" , JOptionPane.QUESTION_MESSAGE ) ;
-	}
-
-	/** 
-	 * Display a confirm dialog with YES, NO, CANCEL buttons and return
-	 * a JOptionPane constant indicating the choice.
-	 *
-	 * @param msg the message to display
-	 * @return a JOptionPane constant indicating the choice
-	 */
-	public static int confirm( Component parentComponent , String msg )
-	{
-		return JOptionPane.showConfirmDialog( parentComponent , msg ) ;
 	}
 }
