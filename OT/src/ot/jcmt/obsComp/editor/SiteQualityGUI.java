@@ -10,7 +10,7 @@
 /**
  * Title:        JSky<p>
  * Description:  <p>
- * Copyright:    Copyright (c) Allan Brighton<p>
+ * Copyright:    Copyright 2000 Association for Universities for Research in Astronomy, Inc.<p>
  * Company:      <p>
  * @author Allan Brighton
  * @version 1.0

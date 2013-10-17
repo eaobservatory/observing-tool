@@ -1,7 +1,7 @@
 /**
  * Title:        OT2<p>
  * Description:  Version of OT using JBuilder<p>
- * Copyright:    Copyright (c) Allan Brighton<p>
+ * Copyright:    Copyright 2000 Association for Universities for Research in Astronomy, Inc.<p>
  * Company:      Gemini<p>
  * @author Allan Brighton
  * @version 1.0
