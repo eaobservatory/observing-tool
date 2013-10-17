@@ -1,11 +1,5 @@
 /*
- * ESO Archive
- * 
- * $Id$
- * 
- * who             when        what
- * --------------  ----------  ----------------------------------------
- * Allan Brighton  1999/05/03  Created
+ * Copyright (C) 2001 PPARC
  */
 
 package ot.util ;
@@ -16,7 +10,7 @@ import java.awt.Component ;
 /** 
  * Utility class with static methods for commonly used dialogs.
  *
- * @author Allan Brighton (modified by Martin Folger)
+ * @author Martin Folger
  */
 public class DialogUtil extends jsky.util.gui.DialogUtil
 {
