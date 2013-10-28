@@ -1,13 +1,41 @@
 /*
- * @(#) JHLauncher.java 1.37 - last change made 04/11/99
- *
- * (c) 1997-1998 Sun Microsystems, Inc.  All rights reserved.  Use is
- * subject to license terms. Sun, Sun Microsystems, the Sun Logo, Solaris,
- * Java, the Java Coffee Cup Logo, and JavaHelp are trademarks or registered
- * trademarks of Sun Microsystems, Inc. in  the U.S. and other countries.
- *
- *
- * This is *copied* from JavaHelp for the orac OM 
+ * @(#)JHLauncher.java	1.45 06/10/30
+ * 
+ * Copyright (c) 2006 Sun Microsystems, Inc.  All Rights Reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 
+ * - Redistribution of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ * 
+ * - Redistribution in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in
+ *   the documentation and/or other materials provided with the
+ *   distribution.
+ * 
+ * Neither the name of Sun Microsystems, Inc. or the names of
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ * 
+ * This software is provided "AS IS," without a warranty of any
+ * kind. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND
+ * WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY
+ * EXCLUDED. SUN MICROSYSTEMS, INC. ("SUN") AND ITS LICENSORS SHALL
+ * NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF
+ * USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
+ * DERIVATIVES. IN NO EVENT WILL SUN OR ITS LICENSORS BE LIABLE FOR
+ * ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL,
+ * CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND
+ * REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR
+ * INABILITY TO USE THIS SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGES.
+ * 
+ * You acknowledge that this software is not designed, licensed or
+ * intended for use in the design, construction, operation or
+ * maintenance of any nuclear facility. 
  */
 
 package orac.helptool;
@@ -18,7 +46,6 @@ import java.awt.event.*;
 import javax.help.*;
 import javax.swing.border.*;
 import javax.swing.*;
-import javax.swing.JFrame;
 import javax.swing.text.*;
 import javax.swing.tree.*;
 import javax.swing.event.*;
@@ -33,15 +60,14 @@ import java.util.jar.JarFile;
 
 /**
  * This class displays JavaHelp HelpSets.
- * This is copied by mt for the orac om in 1999
  *
  * @author Eduardo Pelegri-Llopart
  * @author Roger D. Brinkley
- * @version	1.37	04/11/99
+ * @version	1.45	10/30/06
  */
 
 @SuppressWarnings("serial")
-final public class JHLauncher implements java.io.Serializable {
+public class JHLauncher {
 
     private static JFrame frame;
 
@@ -58,8 +84,9 @@ final public class JHLauncher implements java.io.Serializable {
     HelpSet hs = null;
     private JFrame elementTreeFrame;
 
-    private static String hsName = null; // name for the HelpSet
+    private static String hsName = null; // name for the HelpSet 
     private static String hsPath = null; // URL spec to the HelpSet
+    private static String id = null;
 
     public JHLauncher() {
     }
@@ -71,8 +98,8 @@ final public class JHLauncher implements java.io.Serializable {
 	    if (url == null) {
 		// could not find it!
 		JOptionPane.showMessageDialog(null,
-					      "HelpSet not found",
-					      "Error",
+					      "HelpSet not found", 
+					      "Error", 
 					      JOptionPane.ERROR_MESSAGE);
 		return;
 	    }
@@ -85,8 +112,8 @@ final public class JHLauncher implements java.io.Serializable {
 	    hs = new HelpSet(loader, url);
 	} catch (Exception ee) {
 	    JOptionPane.showMessageDialog(null,
-					  "HelpSet not found",
-					  "Error",
+					  "HelpSet not found", 
+					  "Error", 
 					  JOptionPane.ERROR_MESSAGE);
 	    return;
 	}
@@ -108,18 +135,18 @@ final public class JHLauncher implements java.io.Serializable {
 
 	public void actionPerformed(ActionEvent e) {
 	    if (opDialog == null) {
-		opDialog = new JDialog(JHLauncher.this.getJFrame(),
+		opDialog = new JDialog(JHLauncher.this.getFrame(),
 				       "Open Page", false);
 		initOpenPageComponents();
 		opDialog.pack();
-
+		
 		cancelButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 			opDialog.setVisible(false);
 			opDialog.dispose();
 		    }
 		});
-
+		
 		okButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 			try {
@@ -131,7 +158,7 @@ final public class JHLauncher implements java.io.Serializable {
 			opDialog.dispose();
 		    }
 		});
-
+		
 		chooseFileButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 			JFileChooser fc = new JFileChooser();
@@ -147,12 +174,12 @@ final public class JHLauncher implements java.io.Serializable {
 			}
 		    }
 		});
-
+		
 	    }
 	    opDialog.setVisible( true );
 	}
 	private void initOpenPageComponents() {
-
+		    
 				// playing with Boxes
 	    Box topBox = Box.createVerticalBox();
 
@@ -201,7 +228,7 @@ final public class JHLauncher implements java.io.Serializable {
     }
 
 
-  private class SetFontListener implements ActionListener,
+    private class SetFontListener implements ActionListener, 
 	TreeSelectionListener, ItemListener{
 	JDialog sfDialog = null;
 	JComboBox cb;
@@ -215,25 +242,25 @@ final public class JHLauncher implements java.io.Serializable {
 	    try {
 		GraphicsEnvironment.getLocalGraphicsEnvironment();
 	    } catch (NoClassDefFoundError err) {
-		JOptionPane.showMessageDialog(null,
+		JOptionPane.showMessageDialog(null, 
 					      "Setting Fonts on JDK1.1 not allowed",
-					      "Set Font...",
+					      "Set Font...", 
 					      JOptionPane.ERROR_MESSAGE);
 		return;
 	    }
 	    if (sfDialog == null) {
-		sfDialog = new JDialog(JHLauncher.this.getJFrame(),
+		sfDialog = new JDialog(JHLauncher.this.getFrame(),
 				       "Set Font...", false);
 		initSetFontComponents();
 		sfDialog.pack();
-
+		
 		cancelButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 			sfDialog.setVisible(false);
 			sfDialog.dispose();
 		    }
 		});
-
+		
 		okButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 			jh.setFont(font);
@@ -241,7 +268,7 @@ final public class JHLauncher implements java.io.Serializable {
 			sfDialog.dispose();
 		    }
 		});
-
+		
 	    }
 	    font = jh.getFont();
 	    preview.setFont(font);
@@ -249,7 +276,7 @@ final public class JHLauncher implements java.io.Serializable {
 	}
 
 	private void initSetFontComponents() {
-
+		    
 	    Border border;
 	    Vector fontFamilyNode = new Vector();
 	    DefaultMutableTreeNode topNode = new DefaultMutableTreeNode();
@@ -259,7 +286,7 @@ final public class JHLauncher implements java.io.Serializable {
 	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	    fonts = ge.getAllFonts();
 	    for (int i = 0 ; i < fonts.length ; i++) {
-		DefaultMutableTreeNode node =
+		DefaultMutableTreeNode node = 
 		    new DefaultMutableTreeNode(new MyFont(fonts[i]));
 		String family = fonts[i].getFamily();
 		String testFamily = null;
@@ -274,7 +301,7 @@ final public class JHLauncher implements java.io.Serializable {
 		    test = null;
 		}
 		if (test == null) {
-		    DefaultMutableTreeNode parent =
+		    DefaultMutableTreeNode parent = 
 			new DefaultMutableTreeNode(family);
 		    topNode.add(parent);
 		    parent.add(node);
@@ -372,16 +399,16 @@ final public class JHLauncher implements java.io.Serializable {
 		return;
 	    }
 
-	    DefaultMutableTreeNode node =
+	    DefaultMutableTreeNode node = 
 		(DefaultMutableTreeNode) path.getLastPathComponent();
-
+	
 	    // only get set the font "Font" objects
 	    Object obj = node.getUserObject();
 	    if (obj instanceof MyFont) {
 		MyFont myf = (MyFont) obj;
 		String size = (String)cb.getSelectedItem();
 		font = myf.getFont().deriveFont(Integer.valueOf(size).floatValue());
-
+		
 		preview.setFont(font);
 	    }
 	}
@@ -392,7 +419,7 @@ final public class JHLauncher implements java.io.Serializable {
 
 	    String size = (String)cb.getSelectedItem();
 	    font = font.deriveFont(Integer.valueOf(size).floatValue());
-
+	    
 	    preview.setFont(font);
 	}
     }
@@ -428,7 +455,7 @@ final public class JHLauncher implements java.io.Serializable {
         public void actionPerformed(ActionEvent e) {
 	    elementTreeFrame = null;
 	    if(elementTreeFrame == null) {
-		// Create a frame containing an instance of
+		// Create a frame containing an instance of 
 		// ElementTreePanel.
 		try {
 		    String    title = "Element Tree For Current Document";
@@ -511,7 +538,7 @@ final public class JHLauncher implements java.io.Serializable {
 	return menuBar;
     }
 
-    public JFrame getJFrame() {
+    public Frame getFrame() {
 	return frame;
     }
 
@@ -577,7 +604,7 @@ final public class JHLauncher implements java.io.Serializable {
 	return back;
     }
 
-public void setup(String args[]) {
+    private void setup(String args[]) {
 	ClassLoader loader = this.getClass().getClassLoader();
 	String path = null;	// the classpath to use (1.2-only)
 
@@ -589,7 +616,7 @@ public void setup(String args[]) {
 	    if (args[0].equals("-helpset")) {
 		// Name of HelpSet.  Look for it in the classpath
 		args = shiftArgs(args, 1);
-		if (on12) {
+		if (on12) { 
 		   File file = new File(args[0]);
 		   handleHSFile(file);
 		   URL urls[] = parseURLs(hsPath);
@@ -635,8 +662,18 @@ public void setup(String args[]) {
 	    } else if (args[0].equals("-debug")) {
 		debug = true;
 		args = shiftArgs(args, 1);
+	    } else if (args[0].equals("-ID")) {
+		// This is the given URL for the HelpSet
+		args = shiftArgs(args, 1);
+		id = args[0];
+		args = shiftArgs(args, 1);
+	    } else if (args[0].equals("-contentViewer")) {
+		// Use the native browser
+		args = shiftArgs(args, 1);
+		SwingHelpUtilities.setContentViewerUI(args[0]);
+		args = shiftArgs(args, 1);
 	    } else {
-		usage(); usage();usage();
+		usage();
 	    }
 	}
 
@@ -688,6 +725,13 @@ public void setup(String args[]) {
 	    showSD();
 	    return;
 	}
+	if (id != null) {
+	    try {
+		jh.setCurrentID(id);
+	    } catch (BadIDException ex) {
+		System.out.println("ID "+ id + " doesn't exist in Helpset");
+	    }
+	}
 	createFrame(null, null); // defaults
 	launch();
     }
@@ -728,10 +772,10 @@ public void setup(String args[]) {
 
 	if (!on12) {
 	    JOptionPane.showMessageDialog(null,
-					  "Cannot set the HelpSet on JDK1.1 Platforms",
-					  "Error",
+					  "Cannot set the HelpSet on JDK1.1 Platforms", 
+					  "Error", 
 					  JOptionPane.ERROR_MESSAGE);
-	    if (jh == null)
+	    if (jh == null) 
 		frame.setVisible(false);    //System.exit(0);
 	    else
 		return;
@@ -787,7 +831,7 @@ public void setup(String args[]) {
 	b.addActionListener(new DisplayAction());
 	bottomBox.add(b);
 	bottomBox.add(Box.createRigidArea(new Dimension(15,0)));
-
+	
 	b = new JButton("Cancel");
 	b.addActionListener(new CancelAction());
 	bottomBox.add(b);
@@ -888,8 +932,8 @@ public void setup(String args[]) {
 	    URL url = HelpSet.findHelpSet(cl, name);
 	    if (url == null) {
 		JOptionPane.showMessageDialog(selectionDialog,
-					      "HelpSet not found",
-					      "Error",
+					      "HelpSet not found", 
+					      "Error", 
 					      JOptionPane.ERROR_MESSAGE);
 		return;
 	    }
@@ -902,6 +946,7 @@ public void setup(String args[]) {
 	    if (jh == null) {
 		jh = new JHelp(hs);
 	    } else {
+		jh.setHelpSetPresentation(hs.getDefaultPresentation());
 		DefaultHelpModel m = new DefaultHelpModel(hs);
 		jh.setModel(m);
 	    }
@@ -967,7 +1012,7 @@ public void setup(String args[]) {
     protected void setMenuBar(JMenuBar bar) {
 	frame.setJMenuBar(bar);
     }
-
+    
     public void launch() {
 	if (frame == null) return;
 	frame.setVisible(true);
@@ -982,7 +1027,7 @@ public void setup(String args[]) {
 	if (msg != null) {
 	    System.err.println("JHLauncher: "+msg);
 	}
-	System.err.println("Usage: [-helpset name | -classpath path | -hsURL spec]");
+	System.err.println("Usage: [-helpset name | -classpath path | -hsURL spec | -ID id | -contentViewer viewerclass]");
 	frame.setVisible(false);    //System.exit(1);
     }
 
@@ -1003,5 +1048,5 @@ public void setup(String args[]) {
 	}
     }
 
-
 }
+
