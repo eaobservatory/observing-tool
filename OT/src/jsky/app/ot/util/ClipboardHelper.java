@@ -1,3 +1,20 @@
+/*
+ * Contains FreeBongo Source Code -- This software contains some element of
+ * the FreeBongo Source Code.
+ *
+ * FreeBongo Source Code, copyrighted 1996-1998 Marimba, Inc.
+ * All Rights Reserved.
+ *
+ * Use, duplication, modification or distribution of this software is
+ * prohibited except in accordance with the terms of the FreeBongo License.
+ * A copy of the FreeBongo License may be obtained at www.freebongo.org.
+ * This software is provided "AS IS" without any express or implied warranty
+ * of any kind. See the FreeBongo License for specific language governing
+ * rights and limitations. The Contributor is solely responsible for any use
+ * of this software. Marimba, Inc. shall not be liable in connection with any
+ * use or distribution of this software.
+ */
+
 package jsky.app.ot.util;
 
 import java.awt.*;
