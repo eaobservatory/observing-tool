@@ -1,4 +1,4 @@
-package jsky.app.ot.util ;
+package jsky.app.ot.util;
 
 import java.awt.Toolkit ;
 import java.awt.datatransfer.Clipboard ;
@@ -20,9 +20,9 @@ import java.awt.datatransfer.Transferable ;
  */
 public final class ClipboardHelper
 {
-	private static Object contents = null ;
+	private static Object contents = null;
 
-	private static ClipboardHelper requestor = new ClipboardHelper() ;
+	private static ClipboardHelper requestor = new ClipboardHelper();
 
 	/** not to be instantiated */
 	private ClipboardHelper(){}
@@ -37,10 +37,10 @@ public final class ClipboardHelper
 		{
 			try
 			{
-				Toolkit toolkit = Toolkit.getDefaultToolkit() ;
-				Clipboard cb = toolkit.getSystemClipboard() ;
-				StringSelection s = new StringSelection( ( String )arg ) ;
-				cb.setContents( s , s ) ;
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Clipboard cb = toolkit.getSystemClipboard();
+				StringSelection s = new StringSelection( ( String )arg );
+				cb.setContents( s , s );
 			}
 			catch( Throwable t )
 			{
@@ -51,17 +51,17 @@ public final class ClipboardHelper
 		{
 			try
 			{
-				Toolkit toolkit = Toolkit.getDefaultToolkit() ;
-				Clipboard cb = toolkit.getSystemClipboard() ;
-				StringSelection s = new StringSelection( "" ) ;
-				cb.setContents( s , s ) ;
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Clipboard cb = toolkit.getSystemClipboard();
+				StringSelection s = new StringSelection( "" );
+				cb.setContents( s , s );
 			}
 			catch( Throwable t )
 			{
 				// we're in Communicator or something again....
 			}
 		}
-		contents = arg ;
+		contents = arg;
 	}
 
 	/**
@@ -69,42 +69,42 @@ public final class ClipboardHelper
 	 */
 	public static Object getClipboard()
 	{
-		Object result = contents ;
+		Object result = contents;
 		try
 		{
-			Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard() ;
-			Transferable trans = cb.getContents( requestor ) ;
+			Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+			Transferable trans = cb.getContents( requestor );
 
 			// get clipboard content
 			try
 			{
-				Object sysContent = trans.getTransferData( DataFlavor.stringFlavor ) ;
+				Object sysContent = trans.getTransferData( DataFlavor.stringFlavor );
 				if( sysContent != null )
 				{
 					if( sysContent instanceof String )
 					{
-						String str = ( String )sysContent ;
+						String str = ( String )sysContent;
 						// for empty string: take contents of ClipboardHelper
 						if( str.trim().length() == 0 )
-							result = contents ;
+							result = contents;
 						else
-							result = str ;
+							result = str;
 					}
 				}
 			}
 			catch( java.io.IOException e )
 			{
-				result = contents ;
+				result = contents;
 			}
 			catch( UnsupportedFlavorException e )
 			{
-				result = contents ;
+				result = contents;
 			}
 		}
 		catch( Throwable t )
 		{
 			// we're in Communicator or something again....
 		}
-		return result ;
+		return result;
 	}
 }
