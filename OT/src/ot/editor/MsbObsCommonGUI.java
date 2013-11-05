@@ -1,3 +1,5 @@
+// Copyright 2000 Association for Universities for Research in Astronomy, Inc.
+
 package ot.editor;
 
 import java.util.Vector;

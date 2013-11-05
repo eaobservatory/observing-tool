@@ -1,3 +1,6 @@
+// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
+// Observatory Control System, Gemini Telescopes Project.
+
 package ot.editor;
 
 import gemini.sp.SpMSB;
