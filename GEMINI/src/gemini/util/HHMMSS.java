@@ -1,25 +1,33 @@
-// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
-// Observatory Control System, Gemini Telescopes Project.
-// See the file COPYRIGHT for complete details.
-//
-// $Id$
-//
 /*
- * NCSA Horizon Image Browser Project Horizon National Center for Supercomputing
- * Applications University of Illinois at Urbana-Champaign 605 E. Springfield,
- * Champaign IL 61820 horizon@ncsa.uiuc.edu
- * 
+ * NCSA Horizon Image Browser
+ * Project Horizon
+ * National Center for Supercomputing Applications
+ * University of Illinois at Urbana-Champaign
+ * 605 E. Springfield, Champaign IL 61820
+ * horizon@ncsa.uiuc.edu
+ *
  * Copyright (C) 1996, Board of Trustees of the University of Illinois
- * 
+ *
  * NCSA Horizon software, both binary and source (hereafter, Software) is
- * copyrighted by The Board of Trustees of the University of Illinois (UI), and
- * ownership remains with the UI.
- * 
- * You should have received a full statement of copyright and conditions for use
- * with this package ; if not, a copy may be obtained from the above address.
- * Please see this statement for more details.
- * 
+ * copyrighted by The Board of Trustees of the University of Illinois
+ * (UI), and ownership remains with the UI.
+ *
+ * You should have received a full statement of copyright and
+ * conditions for use with this package; if not, a copy may be
+ * obtained from the above address.  Please see this statement
+ * for more details.
+ *
+ * Modifications:
+ *
+ * This is a modified version and not the original NCSA Horizon
+ * HHMMSSCoordAxisPos / HHMMSSAxisPosFormatter class distributed by the UI.
+ *
+ * Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
+ * Observatory Control System, Gemini Telescopes Project.
+ *
+ * Copyright (C) 2007-2008 Science and Technology Facilities Council.
  */
+
 package gemini.util ;
 
 /**
