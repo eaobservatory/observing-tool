@@ -1,20 +1,12 @@
-/*==============================================================*/
-/*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001-2002              */
-/*                                                              */
-/*==============================================================*/
-// $Id$
-/**
- * Title:        JSky<p>
- * Description:  <p>
- * Copyright:    Copyright 2000 Association for Universities for Research in Astronomy, Inc.<p>
- * Company:      <p>
+// Copyright 2000 Association for Universities for Research in Astronomy, Inc.
+
+/*
+ * Copyright 2001-2002 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
  * @author Allan Brighton
- * @version 1.0
  */
+
 package ot.jcmt.obsComp.editor ;
 
 import java.awt.GridBagLayout ;
