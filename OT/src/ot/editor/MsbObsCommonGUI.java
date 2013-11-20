@@ -1,4 +1,6 @@
 // Copyright 2000 Association for Universities for Research in Astronomy, Inc.
+// Observatory Control System, Gemini Telescopes Project.
+// See the file COPYRIGHT for complete details.
 
 package ot.editor;
 

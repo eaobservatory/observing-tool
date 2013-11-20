@@ -1,4 +1,6 @@
-// Copyright 2000 Association for Universities for Research in Astronomy, Inc.
+// Copyright 2000 Association for Universities for Research in Astronomy, Inc.,
+// Gemini Telescopes Project.
+// See the file COPYRIGHT for complete details.
 
 /*
  * Copyright 2001-2002 United Kingdom Astronomy Technology Centre, an
