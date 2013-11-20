@@ -1,8 +1,18 @@
+// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
 // $Id$
 //
+
+/*
+ * Copyright 2002 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
+ * Copyright 2002-2010 Science and Technology Facilities Research Council
+ */
+
+
 package gemini.sp ;
 
 import gemini.util.CoordSys ;
