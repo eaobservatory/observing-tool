@@ -2,7 +2,7 @@
 <!DOCTYPE catalogs PUBLIC "-//JSky//DTD for Catalog Access//EN" "AstroCat.dtd">
 
 <catalogs version="1.0">
-    <catalog name="Splatalogue Simple Line Access Service" type="catalog"/>
+    <!-- Unknown host <catalog name="Splatalogue Simple Line Access Service" type="catalog"/> -->
     <catalog name="2MASS All-Sky Atlas Image Service" type="archive"/>
     <catalog name="2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)" type="catalog"/>
     <catalog name="2MASS All-Sky Extended Source Catalog" type="catalog"/>
@@ -12,7 +12,7 @@
     <catalog name="2MASS Large Galaxy Atlas" type="archive"/>
     <catalog name="The 2MASS All-Sky Catalog" type="catalog"/>
     <catalog name="2MASS Catalog at UKIRT" type="catalog"/>
-    <catalog name="ABELL at CADC" type="catalog"/>
+    <!-- File not found <catalog name="ABELL at CADC" type="catalog"/> -->
     <catalog name="Data release 6 of Sloan Digital Sky Survey catalogs" type="catalog"/>
     <catalog name="Digitized Sky (Version II infrared) at ESO" type="imagesvr"/>
     <catalog name="Digitized Sky (Version II) at ESO" type="imagesvr"/>
@@ -24,28 +24,35 @@
     <catalog name="GSC-2 at ESO" type="catalog"/>
     <catalog name="Guide Star Catalog at CADC" type="catalog"/>
     <catalog name="Guide Star Catalog at ESO" type="catalog"/>
-    <catalog name="IRAS at CADC" type="catalog"/>
+    <!-- File not found <catalog name="IRAS at CADC" type="catalog"/> -->
     <catalog name="NED at ESO" type="catalog"/>
     <catalog name="PPM at ESO" type="catalog"/>
     <catalog name="QSO at CADC" type="catalog"/>
-    <catalog name="RC3 at CADC" type="catalog"/>
-    <catalog name="SAO at CADC" type="catalog"/>
+    <!-- File not found <catalog name="RC3 at CADC" type="catalog"/> -->
+    <!-- File not found <catalog name="SAO at CADC" type="catalog"/> -->
     <catalog name="SIMBAD via ESO" type="catalog"/>
-    <catalog name="Sloan Digital Sky Survey (DR3)" type="catalog"/>
-    <catalog name="Sloan Digital Sky Survey (DR5)" type="catalog"/>
+    <!-- <catalog name="Sloan Digital Sky Survey (DR3)" type="catalog"/> -->
+    <!-- <catalog name="Sloan Digital Sky Survey (DR5)" type="catalog"/> -->
     <catalog name="Sloan Digital Sky Survey DR1" type="archive"/>
     <catalog name="Sloan Digital Sky Survey DR2" type="archive"/>
     <catalog name="Sloan Digital Sky Survey DR3" type="archive"/>
     <catalog name="Sloan Digital Sky Survey DR4 - Images" type="archive"/>
-    <catalog name="Sloan Digital Sky Survey DR4" type="archive"/>
+    <!-- Don't need JPEG as well as FITS? <catalog name="Sloan Digital Sky Survey DR4" type="archive"/> -->
     <catalog name="Sloan Digital Sky Survey DR5 - Images" type="archive"/>
-    <catalog name="Sloan Digitized Sky Survey(DR1)" type="catalog"/>
-    <catalog name="Sloan Digitized Sky Survey(DR2)" type="catalog"/>
-    <catalog name="Sloan Digitized Sky Survey(DR4)" type="catalog"/>
+    <!-- <catalog name="Sloan Digitized Sky Survey(DR1)" type="catalog"/> -->
+    <!-- <catalog name="Sloan Digitized Sky Survey(DR2)" type="catalog"/> -->
+    <!-- <catalog name="Sloan Digitized Sky Survey(DR4)" type="catalog"/> -->
+    <catalog name="The SDSS Photometric Catalog, Release 3 (Abazajian+ 2005)" type="catalog"/>
+    <catalog name="The SDSS Photometric Catalog, Release 4 (Adelman-McCarthy+, 2006)" type="catalog"/>
+    <catalog name="The SDSS Photometric Catalog, Release 5 (Adelman-McCarthy+, 2007)" type="catalog"/>
+    <catalog name="The SDSS Photometric Catalog, Release 6 (Adelman-McCarthy+, 2007)" type="catalog"/>
+    <catalog name="The SDSS Photometric Catalog, Release 7 (Adelman-McCarthy+, 2009)" type="catalog"/>
+    <catalog name="The SDSS Photometric Catalog, Release 8 (Adelman-McCarthy+, 2011)" type="catalog"/>
     <catalog name="UCAC2 Catalog at CDS" type="catalog"/>
     <catalog name="USNO at CADC" type="catalog"/>
     <catalog name="USNO at ESO" type="catalog"/>
-    <catalog name="ZCAT at CADC" type="catalog"/>
+    <!-- File not found <catalog name="ZCAT at CADC" type="catalog"/> -->
+    <catalog name="CADC/JCMT Image Search" type="archive"/>
 
     <!-- IRSA Image Servers -->
     <catalog name="2MASS Quick-Look Image Retrieval Service - J-Band" type="imagesvr" path="2MASSImg-j.xml"/>
@@ -58,5 +65,8 @@
     <catalog name="SLAP Services" type="directory" path="Slap.xml"/>
 
     <catalog name="Skycat Catalogs" type="directory" class="jsky.catalog.skycat.SkycatConfigFile"/>
+
+    <catalog name="NVO Directory" type="directory" class="jsky.catalog.vo.VoCatalogDirectory" protocol="http"
+             host="nvo.stsci.edu" port="-1" path="/vor10/ristandardservice.asmx"/>
 
 </catalogs>
