@@ -1,3 +1,19 @@
++++ December 2013 release
+
+  - Added a checkbox for the POL-2 calibrator to the POL iterator.
+
+  - Allowed Site Quality components at additional levels to avoid
+    problems loading schema-compliant programs which the OT
+    previously rejected.
+
+  - Updated the RxA_SIOSO_250x2 special configuration due to a
+    change to the name of the transition in the line catalogue.
+
+  - Set a default earliest schedule date in the past.
+
+  - When loading Survey Container positions from files, handle
+    REFERENCE positions in a similar manner to SCIENCE positions.
+
 +++ July 2013 release
 
   - Prevented nearby lines obscuring each other in the frequency
