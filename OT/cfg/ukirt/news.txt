@@ -1,3 +1,14 @@
++++ December 2013 release
+
+  - Allowed Site Quality components at additional levels to avoid
+    problems loading schema-compliant programs which the OT
+    previously rejected.
+
+  - Set a default earliest schedule date in the past.
+
+  - When loading Survey Container positions from files, handle
+    all positions in a similar manner to base positions.
+
 +++ July 2013 release
 
   - No changes for UKIRT.
