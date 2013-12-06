@@ -1,6 +1,26 @@
+/*
+ * Copyright (C) 2012-2013 Science and Technology Facilities Council.
+ * All Rights Reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 package orac.jcmt.iter;
 
 import gemini.sp.SpType;
+import orac.util.InBeam;
 
 /**
  * Class which adds the ability to place components in the
@@ -13,11 +33,6 @@ import gemini.sp.SpType;
  */
 @SuppressWarnings("serial")
 public abstract class SpIterJCMTObsInBeamChoice extends SpIterJCMTObs {
-        /**
-         * Name of the XML element controlling what is in the beam.
-         */
-        private static final String IN_BEAM = "in_beam";
-
         /**
          * Component name of POL-2.
          */
@@ -40,89 +55,28 @@ public abstract class SpIterJCMTObsInBeamChoice extends SpIterJCMTObs {
          * Determine whether POL-2 is in the beam.
          */
         public boolean isPol2InBeam() {
-                return isInBeam(IN_BEAM_POL2);
+                return InBeam.isInBeam(_avTable, IN_BEAM_POL2);
         }
 
         /**
          * Determine whether FTS-2 is in the beam.
          */
         public boolean isFts2InBeam() {
-                return isInBeam(IN_BEAM_FTS2);
-        }
-
-        /**
-         * Determine whether an arbitrary component
-         * identified by name is in the beam.
-         */
-        private boolean isInBeam(String component) {
-            if (! _avTable.exists(IN_BEAM)) {
-                    return false;
-            }
-
-            for (String x: _avTable.get(IN_BEAM).split("\\s")) {
-                    if (x.equalsIgnoreCase(component)) {
-                        return true;
-                    }
-            }
-
-            return false;
+                return InBeam.isInBeam(_avTable, IN_BEAM_FTS2);
         }
 
         /**
          * Set whether POL-2 is in the beam.
          */
         public void setPol2InBeam(boolean pol2_in_beam) {
-                setInBeam(IN_BEAM_POL2, pol2_in_beam);
+                InBeam.setInBeam(_avTable, IN_BEAM_POL2, pol2_in_beam);
         }
 
         /**
          * Set whether FTS-2 is in the beam.
          */
         public void setFts2InBeam(boolean fts2_in_beam) {
-                setInBeam(IN_BEAM_FTS2, fts2_in_beam);
+                InBeam.setInBeam(_avTable, IN_BEAM_FTS2, fts2_in_beam);
         }
 
-        /**
-         * Set whether an arbitrary component identified
-         * by name is in the beam.
-         */
-        private void setInBeam(String component, boolean in_beam) {
-                StringBuilder list = new StringBuilder();
-                boolean found = false;
-
-                if (_avTable.exists(IN_BEAM)) {
-                        for (String x: _avTable.get(IN_BEAM).split("\\s")) {
-                            if (x.equalsIgnoreCase(component)) {
-                                found = true;
-
-                                if (! in_beam)  {
-                                        continue;
-                                }
-                            }
-
-                            if (list.length() > 0) {
-                                    list.append(" ");
-                            }
-
-                            list.append(x);
-                        }
-                }
-
-                if (in_beam && ! found) {
-                        if (list.length() > 0) {
-                                list.append(" ");
-                        }
-
-                        list.append(component);
-                }
-
-                if (list.length() > 0) {
-                        _avTable.set(IN_BEAM, list.toString());
-                }
-                else {
-                        if (_avTable.exists(IN_BEAM)) {
-                                _avTable.rm(IN_BEAM);
-                        }
-                }
-        }
 }

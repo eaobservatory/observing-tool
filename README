@@ -5,16 +5,13 @@ If you are reading this you already have the code.
 
 For the sake of completeness here are the full instructions.
 
-1a. if in Hilo ...
-git clone /jac_sw/gitroot/ot.git ot
-
-1b. if remote to the JAC ...
-git clone ssh://ssh.jach.hawaii.edu/jac_sw/gitroot/ot.git ot
+1. Check out the code
+    git clone https://github.com/jac-h/observing-tool.git jacot
 
 2. change to the code directory ...
-cd ot
+    cd jacot
 
 3. Ant (ant.apache.org) is the preferred method of building ...
-ant
+    ant
 
 Building from the master branch requires Java 1.6 due to JSky3.

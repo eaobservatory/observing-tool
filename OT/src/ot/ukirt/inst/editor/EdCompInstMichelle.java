@@ -1,18 +1,14 @@
-/*==============================================================*/
-/*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2000                   */
-/*                                                              */
-/*==============================================================*/
-//
 // Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
-//
-// author: Alan Pickup = dap@roe.ac.uk         2001 Feb
-//
+
+/*
+ * Copyright 2001 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
+ * author: Alan Pickup = dap@roe.ac.uk         2001 Feb
+ */
+
 package ot.ukirt.inst.editor ;
 
 import orac.ukirt.inst.SpInstMichelle ;

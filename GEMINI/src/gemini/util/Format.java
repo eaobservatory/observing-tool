@@ -1,32 +1,26 @@
-// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
-// Observatory Control System, Gemini Telescopes Project.
-// See the file COPYRIGHT for complete details.
-//
-// $Id$
-//
 /*
- * Gary Cornell and Cay S. Horstmann, Core Java (Book/CD-ROM) Published By
- * SunSoft Press/Prentice-Hall Copyright (C) 1996 Sun Microsystems Inc. All
- * Rights Reserved. ISBN 0-13-565755-5
- * 
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for NON-COMMERCIAL purposes and without fee is hereby granted
- * provided that this copyright notice appears in all copies.
- * 
- * THE AUTHORS AND PUBLISHER MAKE NO REPRESENTATIONS OR WARRANTIES ABOUT THE
- * SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
- * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE, OR NON-INFRINGEMENT. THE AUTHORS AND PUBLISHER SHALL NOT
- * BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING,
- * MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+ * Copyright 2002 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /**
- * A class for formatting numbers that follows printf conventions. Also
- * implements C-like atoi and atof functions
+ * A class for parsing numbers which traps exceptions.
  * 
- * @version 1.01 15 Feb 1996
- * @author Cay Horstmann
+ * @author Martin Folger
  */
 package gemini.util ;
 

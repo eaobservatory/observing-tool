@@ -583,6 +583,10 @@ public final class SpTreeMan implements SpInsertConstants
 		// Components
 		_insertAfter.put( "oc,oc" , ip ) ;
 		_insertAfter.put( "oc,no" , ip ) ;
+		_insertAfter.put( "oc,og" , ip ) ; // Schema allows Site Quality
+		_insertAfter.put( "oc,of" , ip ) ; // in the top level, so
+		_insertAfter.put( "oc,fo" , ip ) ; // we seem to need all these?
+		_insertAfter.put( "oc,sc" , ip ) ; // GSB 8/13/13
 	}
 
 	/**

@@ -154,6 +154,7 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
+      <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
       <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
       <xsd:element name="switchingMode"  type="toml:jcmtSwitchingModeList" minOccurs="0" />
@@ -170,6 +171,7 @@
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
       <xsd:element name="axis"            type="toml:axisList"/>
       <xsd:element name="focusPoints"     type="xsd:positiveInteger"/>
+      <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="steps"           type="xsd:double" minOccurs="0" />
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0" />
     </xsd:sequence>

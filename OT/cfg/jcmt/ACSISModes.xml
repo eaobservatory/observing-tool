@@ -82,7 +82,7 @@
   <systems>   2               </systems>
   <species>   SiO             </species>
   <species>   SO              </species>
-  <transition>6  - 5          </transition>
+  <transition>6 0  - 5 0      </transition>
   <transition>4 3  - 3 4      </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>

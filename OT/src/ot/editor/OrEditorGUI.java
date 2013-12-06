@@ -2,7 +2,7 @@
 /**
  * Title:        JSky<p>
  * Description:  <p>
- * Copyright:    Copyright (c) Allan Brighton<p>
+ * Copyright:    Copyright 2000 Association for Universities for Research in Astronomy, Inc.<p>
  * Company:      <p>
  * @author Martin Folger (M.Folger@roe.ac.uk),
  *         based on Allan Brighton (jsky/app/ot/editor/TitleEditorGUI.java)

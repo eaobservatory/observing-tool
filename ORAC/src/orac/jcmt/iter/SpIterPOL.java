@@ -1,12 +1,22 @@
-/*==============================================================*/
-/*                                                              */
-/*                UK Astronomy Technology Centre                */
-/*                 Royal Observatory, Edinburgh                 */
-/*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2000                   */
-/*                                                              */
-/*==============================================================*/
-// $Id$
+/*
+ * Copyright 2000-2002 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 package orac.jcmt.iter ;
 
 import java.util.Vector;
@@ -14,6 +24,7 @@ import gemini.sp.SpFactory ;
 import gemini.sp.SpType ;
 import gemini.sp.iter.IterConfigItem ;
 import gemini.sp.iter.SpIterConfigObs ;
+import orac.util.InBeam;
 
 // This is basically a crude copy of the UKIRT IRPOL iterator.
 // The hard wired values might need changing. (Added by MFO, 11 January 2002)
@@ -26,6 +37,11 @@ public class SpIterPOL extends SpIterConfigObs
 	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "instPOL" , "POL" ) ;
 	
 	public static String CONTINUOUS_SPIN = "continuousSpin" ;
+
+        /**
+         * Component name of the POL-2 calibrator.
+         */
+        private static final String IN_BEAM_POL2_CAL = "pol2_cal";
 
 	// Register the prototype.
 	static
@@ -112,6 +128,21 @@ public class SpIterPOL extends SpIterConfigObs
 	{
 		return getTable().exists( SpIterPOL.CONTINUOUS_SPIN ) ;
 	}
+
+        /*
+         * Set the in_beam element to either include or exclude the
+         * POL-2 calibrator.
+         */
+        public void setCalibratorInBeam(boolean enabled) {
+            InBeam.setInBeam(_avTable, IN_BEAM_POL2_CAL, enabled);
+        }
+
+        /*
+         * Determine whether the in_beam element contains the POL-2 calibrator.
+         */
+        public boolean isCalibratorInBeam() {
+            return InBeam.isInBeam(_avTable, IN_BEAM_POL2_CAL);
+        }
 
 	/*
 	 * Special case for enumeration of a constantly spinning polarimeter:

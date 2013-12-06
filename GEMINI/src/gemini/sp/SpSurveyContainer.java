@@ -1,16 +1,12 @@
 // Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
-//
-/* ============================================================== */
-/*                                                              */
-/* UK Astronomy Technology Centre */
-/* Royal Observatory, Edinburgh */
-/* Joint Astronomy Centre, Hilo */
-/* Copyright (c) PPARC 2003 */
-/*                                                              */
-/* ============================================================== */
-// $Id$
+
+/*
+ * Copyright 2003 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ */
+
 package gemini.sp ;
 
 import gemini.util.CoordSys ;
@@ -459,7 +455,10 @@ public class SpSurveyContainer extends SpObsContextItem
 					{
 						try
 						{
-							spTelescopeObsComp.getPosList().createPosition( tag , x , y , coordSystemIndex ).setName( name ) ;
+                                                        SpTelescopePos pos = spTelescopeObsComp.getPosList().createPosition(tag, 0.0, 0.0);
+                                                        pos.setName(name);
+                                                        pos.setXYFromString(x, y);
+                                                        pos.setCoordSys(CoordSys.getSystem(coordSystemIndex));
 						}
 						catch( Exception e )
 						{

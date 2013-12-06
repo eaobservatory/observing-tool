@@ -1,11 +1,20 @@
 /*
- * ESO Archive
- * 
- * $Id$
- * 
- * who             when        what
- * --------------  ----------  ----------------------------------------
- * Allan Brighton  1999/05/03  Created
+ * Copyright 2001 United Kingdom Astronomy Technology Centre, an
+ * establishment of the Science and Technology Facilities Council.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 package ot.util ;
@@ -16,21 +25,10 @@ import java.awt.Component ;
 /** 
  * Utility class with static methods for commonly used dialogs.
  *
- * @author Allan Brighton (modified by Martin Folger)
+ * @author Martin Folger
  */
 public class DialogUtil extends jsky.util.gui.DialogUtil
 {
-
-	/** 
-	 * Report an error message.
-	 * 
-	 * @param msg the error message
-	 */
-	public static void error( Component parentComponent , String msg )
-	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
-
 	/** 
 	 * Report an error message based on the given exception.
 	 * 
@@ -60,38 +58,5 @@ public class DialogUtil extends jsky.util.gui.DialogUtil
 		String s = msg + ": " + e.toString() ;
 
 		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
-
-	/** 
-	 * Display an informational message.
-	 * 
-	 * @param msg the message
-	 */
-	public static void message( Component parentComponent , String msg )
-	{
-		JOptionPane.showMessageDialog( parentComponent , msg , "Message" , JOptionPane.INFORMATION_MESSAGE ) ;
-	}
-
-	/** 
-	 * Get an input string from the user and return it. 
-	 *
-	 * @param msg the message to display
-	 * @return the value typed in by the user, or null if Cancel was pressed
-	 */
-	public static String input( Component parentComponent , String msg )
-	{
-		return JOptionPane.showInputDialog( parentComponent , msg , "Input" , JOptionPane.QUESTION_MESSAGE ) ;
-	}
-
-	/** 
-	 * Display a confirm dialog with YES, NO, CANCEL buttons and return
-	 * a JOptionPane constant indicating the choice.
-	 *
-	 * @param msg the message to display
-	 * @return a JOptionPane constant indicating the choice
-	 */
-	public static int confirm( Component parentComponent , String msg )
-	{
-		return JOptionPane.showConfirmDialog( parentComponent , msg ) ;
 	}
 }

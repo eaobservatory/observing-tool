@@ -3,7 +3,7 @@
 /**
  * Title:        JSky<p>
  * Description:  <p>
- * Copyright:    Copyright (c) Allan Brighton, modified by Martin Folger (M.Folger@roe.ac.uk)<p>
+ * Copyright:    Copyright 2000 Association for the Universities for Research in Astronomy, Inc.<p>
  * Company:      <p>
  * @author Allan Brighton, modified by Martin Folger (M.Folger@roe.ac.uk)
  * @version 1.0
