@@ -476,7 +476,10 @@ public class SpSurveyContainer extends SpObsContextItem
 					{
 						try
 						{
-							spTelescopeObsComp.getPosList().createPosition( tag , x , y , coordSystemIndex ).setName( name ) ;
+                                                        SpTelescopePos pos = spTelescopeObsComp.getPosList().createPosition(tag, 0.0, 0.0);
+                                                        pos.setName(name);
+                                                        pos.setXYFromString(x, y);
+                                                        pos.setCoordSys(CoordSys.getSystem(coordSystemIndex));
 						}
 						catch( Exception e )
 						{
