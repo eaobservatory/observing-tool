@@ -379,7 +379,7 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 						v.add( "-system galactic ALL" ) ;
 						break ;
 					case CoordSys.HADEC :
-						v.add( "-system mount ALL" ) ;
+						v.add( "-system MOUNT ALL" ) ;
 						break ;
 					default :
 						v.add( "-system J2000 ALL" ) ;
