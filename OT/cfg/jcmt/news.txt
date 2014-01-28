@@ -1,3 +1,7 @@
++++ January 2014 release
+
+  - Cached data from Horizons now expire after 10 minutes.
+
 +++ December 2013 release
 
   - Added a checkbox for the POL-2 calibrator to the POL iterator.
