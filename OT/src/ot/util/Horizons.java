@@ -128,8 +128,17 @@ public class Horizons
 				fileInputStream = new FileInputStream( fileName ) ;
 				objectInputStream = new ObjectInputStream( fileInputStream ) ;
 				Object tmp = objectInputStream.readObject() ;
-				if( tmp instanceof TreeMap )
-					treeMap = ( TreeMap<String,String> )tmp ;
+				if( tmp instanceof TreeMap ) {
+				        TreeMap<String,String> tmpTreeMap = (TreeMap<String,String>) tmp;
+
+                                        String cacheTimestamp = tmpTreeMap.get("_CACHE_TIMESTAMP_");
+                                        if (cacheTimestamp != null) {
+                                                if (System.currentTimeMillis() - Long.parseLong(cacheTimestamp) < 600000) {
+                                                        tmpTreeMap.remove("_CACHE_TIMESTAMP_");
+                                                        treeMap = tmpTreeMap;
+                                                }
+                                        }
+                                }
 				/* we don't care if the map is empty */
 			}
 			catch( java.io.FileNotFoundException fnfe )
@@ -144,6 +153,9 @@ public class Horizons
 			{ 
 				/* we already have TreeMap */
 			}
+                        catch (NumberFormatException e) {
+				System.out.println(e + " while reading timestamp from cache file " + fileName);
+                        }
 			finally
 			{
 				try
@@ -172,12 +184,16 @@ public class Horizons
 			ObjectOutputStream objectOutputStream = null ;
 			if( query != null && !query.trim().equals( "" ) )
 			{
+                                @SuppressWarnings("unchecked")
+                                TreeMap<String,String> resultCopy = (TreeMap<String,String>) result.clone();
+                                resultCopy.put("_CACHE_TIMESTAMP_", Long.toString(System.currentTimeMillis()));
+
 				String fileName = getFileName( query ) ;
 				try
 				{
 					fileOutputStream = new FileOutputStream( fileName ) ;
 					objectOutputStream = new ObjectOutputStream( fileOutputStream ) ;
-					objectOutputStream.writeObject( result ) ;
+					objectOutputStream.writeObject( resultCopy ) ;
 					objectOutputStream.flush() ;
 					fileOutputStream.flush() ;
 					success = true ;
