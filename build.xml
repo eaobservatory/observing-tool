@@ -132,11 +132,13 @@
 		<javac srcdir="${toml.schema.dir}"
 		       destdir="${toml.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 		</javac>
 		<javac srcdir="${toml.src.dir}"
 		       destdir="${toml.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 		</javac>
 		<jar jarfile="${toml.jar}"
@@ -150,6 +152,7 @@
 		<javac srcdir="${gemini.dir}/src"
 		       destdir="${gemini.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
@@ -166,6 +169,7 @@
 		<javac srcdir="${orac.dir}/src"
 		       destdir="${orac.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
@@ -186,6 +190,7 @@
 		<javac srcdir="${omp.dir}/src"
 		       destdir="${omp.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
@@ -207,6 +212,7 @@
 		<javac srcdir="${edfreq.dir}/src"
 		       destdir="${edfreq.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
@@ -229,6 +235,7 @@
 		<javac srcdir="${ot.dir}/src"
 		       destdir="${ot.install.path}"
 		       debug="on"
+                       source="1.6"
 		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<!-- Ignore path errors coming from JSky jar file manifests. -->
