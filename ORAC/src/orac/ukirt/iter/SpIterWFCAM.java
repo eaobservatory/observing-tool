@@ -229,6 +229,7 @@ public class SpIterWFCAM extends SpIterConfigObsUKIRT implements SpTranslatable
 				throw new SpTranslationNotSupportedException( "Unable to write config file for WFCAM iterator:" + e.getMessage() ) ;
 			}
 			v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() ) ;
+			if (step > 0) {v.add("startGroup");}
 			v.add( "define_inst " + getItemName() + xAper + yAper + zAper + lAper ) ;
 
 			// translate all the children...
