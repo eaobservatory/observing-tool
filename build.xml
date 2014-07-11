@@ -138,8 +138,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 		</javac>
 		<jar jarfile="${toml.jar}"
 		     basedir="${toml.output.path}">
@@ -152,8 +152,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
 		</javac>
@@ -168,8 +168,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
 			<classpath>
@@ -187,8 +187,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
 			<classpath>
@@ -207,8 +207,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
                         <classpath>
@@ -228,8 +228,8 @@
                        includeantruntime="false"
                        classpathref="classpath"
 		       debug="on"
-                       source="1.7"
-		       target="1.7">
+                       source="1.6"
+		       target="1.6">
 			<compilerarg value="-Xlint"/>
 			<compilerarg value="-Xlint:-path"/>
 			<classpath>
