@@ -109,11 +109,13 @@
 		<mkdir dir="${output.dir.bin}"/>
 		<mkdir dir="${output.dir.cfg}"/>
 
+                <!--
 		<mkdir dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/jcmt"/>
         	<mkdir dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/ukirt"/>
 		<mkdir dir="${toml.output.dir}"/>
 		<mkdir dir="${toml.output.path}"/>
 		<mkdir dir="${toml.dir}/${local.jar.dir}"/>
+                -->
 	</target>
 
 	<target name="toml" depends="mkdir">
@@ -146,7 +148,8 @@
 		</jar>
 	</target>
 
-	<target name="gemini" depends="toml">
+	<!-- <target name="gemini" depends="toml"> -->
+	<target name="gemini" depends="mkdir">
 		<javac srcdir="${gemini.dir}/main:${gemini.dir}/test"
 		       destdir="${gemini.output.path}"
                        includeantruntime="false"
@@ -260,7 +263,7 @@
 		<copy file="${omp.jar}" todir="${output.dir.lib}" />
 		<copy file="${edfreq.jar}" todir="${output.dir.lib}" />
 		<copy file="${ot.jar}" todir="${output.dir.lib}" />
-		<copy file="${toml.jar}" todir="${output.dir.lib}" />
+		<!-- <copy file="${toml.jar}" todir="${output.dir.lib}" /> -->
 
                 <copy todir="${output.dir.lib}">
                         <fileset dir="${basedir}/lib"/>
