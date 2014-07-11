@@ -20,7 +20,7 @@ unless( -e $keystore ){ &genkey( $pass ) ; }
 if( -e $saveddir ){ print `rm -f $saveddir/*` ; }
 else{ print `mkdir $saveddir` ; }
 
-@dirs = ( 'lib' , 'tools' ) ;
+@dirs = ( 'lib' ) ;
 foreach $dir ( @dirs )
 {
 	chdir( $dir ) or next ;
