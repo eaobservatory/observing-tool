@@ -1,3 +1,3 @@
 #!/bin/bash
 
-git merge -s recursive -X subtree=OT/cfg/ukirt/help ukirt-help
+git merge -s recursive -X subtree=ot/src/main/cfg/ukirt/help ukirt-help

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for file in OT/tools/jsky3/*.jar
+for file in lib/jsky3/*.jar
 do
     newfile=../jsky/jskycat/target/jskycat-3.0-assembly.dir/lib/`basename $file`
     newfilenl=../jsky/jskycat/target/jskycat-3.0-assembly.dir/`basename $file`
