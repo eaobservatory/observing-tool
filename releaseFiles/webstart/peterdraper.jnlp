@@ -10,21 +10,21 @@
 		<all-permissions/>
 	</security>
 	<resources>
-		<jar href="tools/pal.jar"/>
-		<jar href="tools/jsky3/vo-0.2.jar"/>
-		<jar href="tools/jsky3/fits-0.1.jar"/>
-		<jar href="tools/jsky3/util-1.0.jar"/>
-		<jar href="tools/jsky3/astrogrid-0.2.jar"/>
-		<jar href="tools/jsky3/rmi-lite-1.0.jar"/>
-		<jar href="tools/jsky3/ttools-2.0-3.jar"/>
-		<jar href="tools/jsky3/registry-1.0.jar"/>
-		<jar href="tools/jsky3/table-2.7-1.jar"/>
-		<jar href="tools/jsky3/bzip2-1.0.jar"/>
-		<jar href="tools/jsky3/connect-0.1.jar"/>
-		<jar href="tools/jsky3/task-0.2.jar"/>
-		<jar href="tools/jsky3/votable-2.0.jar"/>
-		<jar href="tools/jsky3/soapserver-0.4.jar"/>
-		<jar href="tools/jsky3/plastic-0.4+.jar"/>
+		<jar href="lib/pal.jar"/>
+		<jar href="lib/jsky3/vo-0.2.jar"/>
+		<jar href="lib/jsky3/fits-0.1.jar"/>
+		<jar href="lib/jsky3/util-1.0.jar"/>
+		<jar href="lib/jsky3/astrogrid-0.2.jar"/>
+		<jar href="lib/jsky3/rmi-lite-1.0.jar"/>
+		<jar href="lib/jsky3/ttools-2.0-3.jar"/>
+		<jar href="lib/jsky3/registry-1.0.jar"/>
+		<jar href="lib/jsky3/table-2.7-1.jar"/>
+		<jar href="lib/jsky3/bzip2-1.0.jar"/>
+		<jar href="lib/jsky3/connect-0.1.jar"/>
+		<jar href="lib/jsky3/task-0.2.jar"/>
+		<jar href="lib/jsky3/votable-2.0.jar"/>
+		<jar href="lib/jsky3/soapserver-0.4.jar"/>
+		<jar href="lib/jsky3/plastic-0.4+.jar"/>
 	</resources>
 	<component-desc/>
 </jnlp>

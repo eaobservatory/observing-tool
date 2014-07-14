@@ -1,1 +1,83 @@
-universal-ot.jnlp
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="jac-ot.jnlp">
+	<information>
+		<title>JAC Observing Tool</title>
+		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
+		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+		<description>The Joint Astronomy Centre Observing Tool via Webstart.</description>
+		<description kind="short">The JAC Observing Tool.</description>
+		<icon href="images/jaclogo-small.png"/>
+		<icon kind="splash" href="images/jaclogo-large.png"/>
+		<offline-allowed/> 
+		<shortcut online="false">
+			<desktop/>
+			<menu submenu="JAC Observing Tool"/>
+		</shortcut>
+	</information>
+	<security>
+		<all-permissions/>
+	</security>
+	<resources>
+		<j2se version="1.6+" java-vm-args="-Xms10m -Xmx1000m"/>
+		<!-- LIB -->
+		<jar href="lib/ot.jar"/>
+		<jar href="lib/cfg.jar"/>
+		<jar href="lib/omp.jar"/>
+		<jar href="lib/orac.jar"/>
+		<jar href="lib/edfreq.jar"/>
+		<jar href="lib/gemini.jar"/>
+		<!-- TOOLS -->
+		<jar href="lib/hamcrest-core-1.3.jar"/>
+		<jar href="lib/image.jar"/>
+		<jar href="lib/junit-4.11.jar"/>
+		<jar href="lib/graph.jar"/>
+		<jar href="lib/mail.jar"/>
+		<jar href="lib/xmlParserAPIs.jar"/>
+		<jar href="lib/activation.jar"/>
+		<jar href="lib/soap.jar"/>
+		<jar href="lib/jdom-b4.jar"/>
+		<jar href="lib/xercesImpl.jar"/>
+		<!-- JSKY -->
+		<jar href="lib/jsky3/commons-logging-1.0.4.jar"/>
+		<jar href="lib/jsky3/jsky-image-3.0.jar"/>
+		<jar href="lib/jsky3/commons-httpclient-2.0.2.jar"/>
+		<jar href="lib/jsky3/servlet-api-2.2.jar"/>
+		<jar href="lib/jsky3/xml-apis-1.0.b2.jar"/>
+		<jar href="lib/jsky3/jsky-science-3.0.jar"/>
+		<jar href="lib/jsky3/jsamp-0.3-1.jar"/>
+		<jar href="lib/jsky3/jsky-catalog-gui-3.0.jar"/>
+		<jar href="lib/jsky3/looks-2.2.1.jar"/>
+		<jar href="lib/jsky3/axis-saaj-1.4.jar"/>
+		<jar href="lib/jsky3/jfreechart-1.0.12.jar"/>
+		<jar href="lib/jsky3/dom4j-1.6.1.jar"/>
+		<jar href="lib/jsky3/jcommon-1.0.15.jar"/>
+		<jar href="lib/jsky3/jsky-coords-3.0.jar"/>
+		<jar href="lib/jsky3/commons-codec-1.3.jar"/>
+		<jar href="lib/jsky3/axis-1.4.jar"/>
+		<jar href="lib/jsky3/tamfits-1.0.jar"/>
+		<jar href="lib/jsky3/forms-1.2.1.jar"/>
+		<jar href="lib/jsky3/jsky-util-gui-3.0.jar"/>
+		<jar href="lib/jsky3/jsky-util-3.0.jar"/>
+		<jar href="lib/jsky3/commons-discovery-0.2.jar"/>
+		<jar href="lib/jsky3/diva-ptII7.0.1.jar"/>
+		<jar href="lib/jsky3/jai-codec-1.1.2.jar"/>
+		<jar href="lib/jsky3/jai-core-1.1.2.jar"/>
+		<jar href="lib/jsky3/jskycat-3.0.jar"/>
+		<jar href="lib/jsky3/jel_g-2.0.1.jar"/>
+		<jar href="lib/jsky3/xmlrpc-2.0.1.jar"/>
+		<jar href="lib/jsky3/axis-jaxrpc-1.4.jar"/>
+		<jar href="lib/jsky3/mlibwrapper_jai-1.1.2.jar"/>
+		<jar href="lib/jsky3/jsky-catalog-3.0.jar"/>
+		<jar href="lib/jsky3/javax.servlet-5.1.12.jar"/>
+		<jar href="lib/jsky3/hcompress-0.52.jar"/>
+		<jar href="lib/jsky3/jsky-image-gui-3.0.jar"/>
+		<jar href="lib/jsky3/axis-wsdl4j-1.5.1.jar"/>
+		<!-- JAVA HELP -->
+		<extension name="jh" href="jh.jnlp"/>
+		<!-- PETER DRAPER -->
+		<extension name="peterdraper" href="peterdraper.jnlp"/>
+		<!-- PROPERTIES -->
+		<property name="apple.laf.useScreenMenuBar" value="true"/>
+	</resources>
+	<application-desc main-class="jsky.app.ot.OT"/>
+</jnlp>

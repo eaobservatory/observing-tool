@@ -10,7 +10,7 @@
 		<all-permissions/>
 	</security>
 	<resources>
-		<jar href="tools/jhbasic.jar"/>
+		<jar href="lib/jhbasic.jar"/>
 	</resources>
 	<component-desc/>
 </jnlp>
