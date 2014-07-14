@@ -23,6 +23,7 @@
 <xsd:element name="namedSystem"          type="toml:namedTargetType"/>
 <xsd:element name="spherSystem"          type="toml:sphericalCoordinateSystemType"/>
 <xsd:element name="conicSystem"          type="toml:conicSystemType"/>
+<xsd:element name="tleSystem"            type="toml:tleSystemType"/>
 
 <!-- Typical Telescope Parameters -->
 <xsd:element name="maxElevation"         type="toml:elevationLimits"/>
@@ -135,6 +136,25 @@
 <xsd:element name="e" type="xsd:double"/>
 
 <!-- End of conic system elements -->
+
+<!-- TLE System Elements -->
+
+<!-- The epoch year of the orbital elements (YYYY) -->
+<xsd:element name="epochYr" type="xsd:integer"/>
+
+<!-- The epoch day (day of the year and fractional portion of the day) -->
+<xsd:element name="epochDay" type="xsd:double"/>
+
+<!-- The Right Ascension of the ascending node. Units: degrees -->
+<xsd:element name="raanode" type="xsd:double"/>
+
+<!-- The argument of perigee. Units: degrees -->
+<xsd:element name="perigee" type="xsd:double"/>
+
+<!-- The BSTAR drag term. Units: degrees -->
+<xsd:element name="bstar" type="xsd:double"/>
+
+<!-- End of TLE System Elements -->
 
 <xsd:element name="estimatedDuration">
   <xsd:complexType>

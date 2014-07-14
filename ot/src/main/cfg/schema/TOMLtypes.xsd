@@ -233,6 +233,7 @@
       <xsd:element ref="toml:namedSystem"/>
       <xsd:element ref="toml:spherSystem"/>
       <xsd:element ref="toml:conicSystem"/>
+      <xsd:element ref="toml:tleSystem"/>
     </xsd:choice>
   </xsd:sequence>
 </xsd:complexType>
@@ -275,6 +276,20 @@
     <xsd:element ref="toml:n"/>
   </xsd:all>
   <xsd:attribute name="TYPE" type="toml:conicSystemBodyList"/>
+</xsd:complexType>
+
+<xsd:complexType name="tleSystemType">
+  <xsd:all>
+    <xsd:element ref="toml:epochYr"/>
+    <xsd:element ref="toml:epochDay"/>
+    <xsd:element ref="toml:inclination"/>
+    <xsd:element ref="toml:raanode"/>
+    <xsd:element ref="toml:perigee"/>
+    <xsd:element ref="toml:e"/>
+    <xsd:element ref="toml:LorM"/>
+    <xsd:element ref="toml:n"/>
+    <xsd:element ref="toml:bstar"/>
+  </xsd:all>
 </xsd:complexType>
 
 </xsd:schema>
