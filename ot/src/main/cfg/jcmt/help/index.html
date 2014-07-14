@@ -38,14 +38,160 @@ http://www.jach.hawaii.edu/JCMT/allocations</a>),
 or email <a
 href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 
-<h2> General Information: </h2> 
+
+
+<h2>Contents</h2>
+
+      Because the OT is a graphical tool, the initial description of
+      how to use it will undoubtedly appear long-winded. But if you use
+      the text and screen shots to give yourself some practice you'll
+      find that you'll actually be able to prepare your program in a
+      modest number of steps.<p>
+
+<ul>
+      <li><a href="#gen">General information</a>
+      <li><a href="#gs">Getting started</a>
+      <li><a href="#ysp">Your science program</a>
+      <li><a href="#syp">Saving your progress</a>
+      <li><a href="#ggtm">Getting going: The MSB</a> <p>
+
+      <li><a href="het_example.html"> <b>Heterodyne MSBs</b></a> 
+<ul>
+<li>A Guided Tour of an Example MSB (Beam-Switched <i>Sample</i>)
+ <ul>
+ <li><a href="het_example.html#het_anat"> Anatomy of a beam-switched MSB </a> 
+ <li><a href="het_example.html#ria">Really Important Aside - or is it Inside? </a>
+ <li><a href="het_example.html#het_eoam">Elements of an MSB</a>
+ <li><a href="het_example.html#thingies">Components, Iterators and All That</a>
+ <li><a href="het_example.html#het_thsc">The Het Setup component</a>
+<ul><li><a href="het_example.html#het_freq_ed">The Frequency Editor</a>
+    <li><a href="./het_sp_config.html">ACSIS Special
+		Configurations</a>
+</ul>
+ <li><a href="het_example.html#het_rcpe">DRRecipe Component</a>
+ <li><a href="het_example.html#het_tsc">Site Quality</a>
+ <li><a href="het_example.html#het_tsched">Scheduling Constraints</a>
+ <li><a href="het_example.html#het_tfoc">The Observation component</a>
+ <li><a href="het_example.html#het_tcc">The target component</a>
+ <li><a href="het_example.html#Moving_Objects">Moving objects</a>
+ <li><a href="het_example.html#het_tpe">The position editor</a>
+ <li><a href="het_example.html#het_tci">The chop iterator</a>
+ <li><a href="het_example.html#het_offset">The offset iterator</a>
+ <li><a href="het_example.html#het_sample">The photom/sample eye</a>
+ <li><a href="het_example.html#het_time">The repeat iterator and integration time in general</a>
+ <li> <a href="het_example.html#het_note">Adding  a note</a>
+ <li><a href="het_example.html#het_summary">Summary: Making your heterodyne MSB.</a>
+ </ul>
+<li><a href="het_example.html#het_msblib">The Heterodyne MSB library</a>
+
+ <ul>
+ <li><a href="het_example.html#het_sam_folder">Samples</a>
+ <li><a href="het_example.html#het_grid_folder">Grid Maps</a>
+ <li><a href="het_example.html#het_jig_folder">Jiggle Maps</a>
+ <li><a href="het_example.html#het_rast_folder">Scan Maps</a>
+  <ul>
+    <li><a href="het_example.html#rxa_rast_example">Making a Scan
+		      Map With a Non-Array Receiver (RxA/RxW)</a>
+    <li><a href="het_example.html#harp_rast_example">Making a Scan
+		      Map With an Array Receiver (HARP)</a>
+</ul>
+ </ul>
+
+
+</ul>
+
+    <li><a href="scuba2_example.html"> <b>SCUBA-2 MSBs</b></a> 
+<ul>
+ <ul>
+ <li><a href="scuba2_example.html#info"> General Information </a>
+ <li><a href="scuba2_example.html#start"> Getting started </a>
+ <li><a href="scuba2_example.html#daisy">Daisy MSBs </a>
+  <ul>
+    <li><a href="scuba2_example.html#ex_daisy">Example: Daisy</a></ul>
+ <li><a href="scuba2_example.html#pong">Pong MSBs</a>
+ <ul>
+    <li><a href="scuba2_example.html#ex_daisy">Example: Pong900</a></ul>
+ <li><a href="scuba2_example.html#notes"> Notes </a>
+  <ul>
+<li><a href="scuba2_example.html#notes_recipe">Assigning a DR recipe</a>
+    <li><a href="scuba2_example.html#notes_elev">Elevation constraints</a>
+ <li><a href="scuba2_example.html#notes_cals">Frequency of calibrators</a>
+</ul>
+ <li><a href="scuba2_example.html#qus">Questions</a>
+<ul><li><a href="scuba2_example.html#qus_ot">My version of the OT does not show the same options as the example?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_time">Why is the length of my observation slightly longer than my integration time?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_pongtime">The noise estimate from the OT seems to be incorrect?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_bigger">I want to make a map bigger than an degree, what's the best way?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_timesround">I only want to go once round my pong map, am I allowed?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_load">My project wont load when I enter my project number?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_survey">I have a lot of sources,  how can I speed up creation of my MSBs?</a></ul>
+<ul><li><a href="scuba2_example.html#qus_submit">How do I submit my project?</a></ul>
+</ul></ul>
+      <li><a href="recap.html#recap"> <b>Recap</b></a>
+<ul> 
+     <li><a href="recap.html#database">Submitting to our database</a> <p>
+</ul>
+     
+ <li><a href="faq.html#faq"><b>Frequently Asked Questions</b></a>
+
+<ul>
+
+<li><a href="faq.html#why"><em>Why do I have to do this</em>?</a>
+
+<li><a href="faq.html#deadline"><em>What is the deadline for submissions?</em></a>
+
+<li><a href="faq.html#scheduling"><em>What happens to my MSBs after I submit them?</em></a>
+
+<li><a href="faq.html#length"><em>What length should my MSB be?</em></a>
+
+<li><a href="faq.html#redundancy"><em>My MSBs only last half an hour so it is
+      a waste to do a calibration for each one!</em></a>
+
+<li><a href="faq.html#library"><em>I want to do something that is not in the
+      library</em></a>
+
+<li><a href="faq.html#server"><em>What does the warning
+		  "Some of the observations in the MSB contained
+		  default settings for the target information"
+		    mean? </em></a>
+
+<li><a href="faq.html#timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
+
+</ul>
+
+<li><a href="advanced.html#advanced"><b>Advanced topics</b></a>
+
+<ul>
+
+<li><a href="advanced.html#placement">A note about placement. </a>
+
+<li><a href="advanced.html#velocities">Velocities: The Het and Target component.</a>
+
+<li><a href="advanced.html#replication">Generating a programme from a catalogue file.</a>
+
+<li><a href="advanced.html#constraints">Additional scheduling constraints.</a>
+
+<li> <a href="advanced.html#andor">AND and OR Folders.</a>
+
+<li> <a href="advanced.html#survey">Survey Container.</a>
+
+<li><a href="advanced.html#proxy">To those behind a firewall: Setting your proxy server.</a>
+
+</ul>
+
+
+</ul>
+
+ <h2><a name="gen">General information</a></h2>
 
 <p> This version of the <em><b>JCMT OT</b></em> enables users to build
-their science program for heterodyne and SCUBA-2 observations. <a
-href="het_example.html#het_msblib">Template libraries</a> are provided
-that cover the observing modes being offered: <em>Samples, Grids,
-Jiggles,</em> for heterodyne observing and <em>Scans</em> for heterodyne
-and SCUBA-2 observing. Investigators are urged to
+their science program for heterodyne and SCUBA-2 observations. A <a
+href="het_example.html#het_msblib">heterodyne template library</a> and <a
+href="scuba2_example.html#start">SCUBA-2 template library</a> are provided
+which allow users to create MSBs for any available observing mode: <em>Samples, Grids,
+Jiggles</em> and <em>Scans</em> for heterodyne, and <em>PONG </em>or <em>DAISY scans</em> for SCUBA-2. 
+
+Investigators are urged to
 carefully inspect the example for a beam-switched observation below
 and to read the more extensive explanation and instructions presented
 for each observing mode. While the components will look familiar to
@@ -228,147 +374,6 @@ href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.  <i>Even
 though the information is not required in order to set up a science
 program, experienced as well as novice JCMT observers are encouraged
 to read the document as a general background.</i>
-
-<h2>Contents</h2>
-
-      Because the OT is a graphical tool, the initial description of
-      how to use it will undoubtedly appear long-winded. But if you use
-      the text and screen shots to give yourself some practice you'll
-      find that you'll actually be able to prepare your program in a
-      modest number of steps.<p>
-
-<ul>
-      <li><a href="#gs">Getting started</a>
-      <li><a href="#ysp">Your science program</a>
-      <li><a href="#syp">Saving your progress</a>
-      <li><a href="#ggtm">Getting going: The MSB</a> <p>
-
-      <li><a href="het_example.html"> <b>Heterodyne MSBs</b></a> 
-<ul>
-<li>A Guided Tour of an Example MSB (Beam-Switched <i>Sample</i>)
- <ul>
- <li><a href="het_example.html#het_anat"> Anatomy of a beam-switched MSB </a> 
- <li><a href="het_example.html#ria">Really Important Aside - or is it Inside? </a>
- <li><a href="het_example.html#het_eoam">Elements of an MSB</a>
- <li><a href="het_example.html#thingies">Components, Iterators and All That</a>
- <li><a href="het_example.html#het_thsc">The Het Setup component</a>
-<ul><li><a href="het_example.html#het_freq_ed">The Frequency Editor</a>
-    <li><a href="./het_sp_config.html">ACSIS Special
-		Configurations</a>
-</ul>
- <li><a href="het_example.html#het_rcpe">DRRecipe Component</a>
- <li><a href="het_example.html#het_tsc">Site Quality</a>
- <li><a href="het_example.html#het_tsched">Scheduling Constraints</a>
- <li><a href="het_example.html#het_tfoc">The Observation component</a>
- <li><a href="het_example.html#het_tcc">The target component</a>
- <li><a href="het_example.html#Moving_Objects">Moving objects</a>
- <li><a href="het_example.html#het_tpe">The position editor</a>
- <li><a href="het_example.html#het_tci">The chop iterator</a>
- <li><a href="het_example.html#het_offset">The offset iterator</a>
- <li><a href="het_example.html#het_sample">The photom/sample eye</a>
- <li><a href="het_example.html#het_time">The repeat iterator and integration time in general</a>
- <li> <a href="het_example.html#het_note">Adding  a note</a>
- <li><a href="het_example.html#het_summary">Summary: Making your heterodyne MSB.</a>
- </ul>
-<li><a href="het_example.html#het_msblib">The Heterodyne MSB library</a>
-
- <ul>
- <li><a href="het_example.html#het_sam_folder">Samples</a>
- <li><a href="het_example.html#het_grid_folder">Grid Maps</a>
- <li><a href="het_example.html#het_jig_folder">Jiggle Maps</a>
- <li><a href="het_example.html#het_rast_folder">Scan Maps</a>
-  <ul>
-    <li><a href="het_example.html#rxa_rast_example">Making a Scan
-		      Map With a Non-Array Receiver (RxA/RxW)</a>
-    <li><a href="het_example.html#harp_rast_example">Making a Scan
-		      Map With an Array Receiver (HARP)</a>
-</ul>
- </ul>
-
-
-</ul>
-
-    <li><a href="scuba2_example.html"> <b>SCUBA-2 MSBs</b></a> 
-<ul>
- <ul>
- <li><a href="scuba2_example.html#info"> General Information </a>
- <li><a href="scuba2_example.html#start"> Getting started </a>
- <li><a href="scuba2_example.html#daisy">Daisy MSBs </a>
-  <ul>
-    <li><a href="scuba2_example.html#ex_daisy">Example: Daisy</a></ul>
- <li><a href="scuba2_example.html#pong">Pong MSBs</a>
- <ul>
-    <li><a href="scuba2_example.html#ex_daisy">Example: Pong900</a></ul>
- <li><a href="scuba2_example.html#notes"> Notes </a>
-  <ul>
-<li><a href="scuba2_example.html#notes_recipe">Assigning a DR recipe</a>
-    <li><a href="scuba2_example.html#notes_elev">Elevation constraints</a>
- <li><a href="scuba2_example.html#notes_cals">Frequency of calibrators</a>
-</ul>
- <li><a href="scuba2_example.html#qus">Questions</a>
-<ul><li><a href="scuba2_example.html#qus_ot">My version of the OT does not show the same options as the example?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_time">Why is the length of my observation slightly longer than my integration time?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_pongtime">The noise estimate from the OT seems to be incorrect?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_bigger">I want to make a map bigger than an degree, what's the best way?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_timesround">I only want to go once round my pong map, am I allowed?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_load">My project wont load when I enter my project number?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_survey">I have a lot of sources,  how can I speed up creation of my MSBs?</a></ul>
-<ul><li><a href="scuba2_example.html#qus_submit">How do I submit my project?</a></ul>
-</ul></ul>
-      <li><a href="recap.html#recap"> <b>Recap</b></a>
-<ul> 
-     <li><a href="recap.html#database">Submitting to our database</a> <p>
-</ul>
-     
- <li><a href="faq.html#faq"><b>Frequently Asked Questions</b></a>
-
-<ul>
-
-<li><a href="faq.html#why"><em>Why do I have to do this</em>?</a>
-
-<li><a href="faq.html#deadline"><em>What is the deadline for submissions?</em></a>
-
-<li><a href="faq.html#scheduling"><em>What happens to my MSBs after I submit them?</em></a>
-
-<li><a href="faq.html#length"><em>What length should my MSB be?</em></a>
-
-<li><a href="faq.html#redundancy"><em>My MSBs only last half an hour so it is
-      a waste to do a calibration for each one!</em></a>
-
-<li><a href="faq.html#library"><em>I want to do something that is not in the
-      library</em></a>
-
-<li><a href="faq.html#server"><em>What does the warning
-		  "Some of the observations in the MSB contained
-		  default settings for the target information"
-		    mean? </em></a>
-
-<li><a href="faq.html#timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
-
-</ul>
-
-<li><a href="advanced.html#advanced"><b>Advanced topics</b></a>
-
-<ul>
-
-<li><a href="advanced.html#placement">A note about placement. </a>
-
-<li><a href="advanced.html#velocities">Velocities: The Het and Target component.</a>
-
-<li><a href="advanced.html#replication">Generating a programme from a catalogue file.</a>
-
-<li><a href="advanced.html#constraints">Additional scheduling constraints.</a>
-
-<li> <a href="advanced.html#andor">AND and OR Folders.</a>
-
-<li> <a href="advanced.html#survey">Survey Container.</a>
-
-<li><a href="advanced.html#proxy">To those behind a firewall: Setting your proxy server.</a>
-
-</ul>
-
-
-</ul>
 
 
     <h2><a name="gs">Getting started</a></h2>
