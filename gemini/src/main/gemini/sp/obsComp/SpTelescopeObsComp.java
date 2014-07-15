@@ -57,6 +57,7 @@ public class SpTelescopeObsComp extends SpObsComp
 	private static final String TX_SPHERICAL_SYSTEM = "spherSystem" ;
 	private static final String TX_CONIC_SYSTEM = "conicSystem" ;
 	private static final String TX_NAMED_SYSTEM = "namedSystem" ;
+	private static final String TX_TLE_SYSTEM = "tleSystem" ;
 	private static final String TX_SYSTEM = "SYSTEM" ;
 	private static final String TX_CONIC_NAMED_TYPE = "TYPE" ;
 	private static final String TX_OLD_CONIC_NAMED_TYPE = "type" ;
@@ -76,6 +77,17 @@ public class SpTelescopeObsComp extends SpObsComp
 	private static final String TX_E = "e" ;
 	private static final String TX_LORM = "LorM" ;
 	private static final String TX_N = "n" ;
+
+        /** TCS XML constants: TLE. */
+	private static final String TX_TLE_EPOCH_YEAR = "epochYr";
+	private static final String TX_TLE_EPOCH_DAY = "epochDay";
+	private static final String TX_TLE_INCLINATION = "inclination";
+	private static final String TX_TLE_RAANODE = "raanode";
+	private static final String TX_TLE_PERIGEE = "perigee";
+	private static final String TX_TLE_E = "e";
+	private static final String TX_TLE_LORM = "LorM";
+	private static final String TX_TLE_N = "n";
+	private static final String TX_TLE_BSTAR = "bstar";
 
 	/** TCS XML constant: proper motion, x axis. */
 	private static final String TX_PM1 = "pm1" ;
@@ -605,6 +617,24 @@ public class SpTelescopeObsComp extends SpObsComp
 				xmlBuffer.append( "\n      " + indent + "</" + TX_CONIC_SYSTEM + ">" ) ;
 				break ;
 
+                        // TLE system (space junk)
+                        case SpTelescopePos.SYSTEM_TLE:
+                                xmlBuffer.append("\n      " + indent + "<" + TX_TLE_SYSTEM + ">");
+
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_EPOCH_YEAR + ">" + targetPos.getTleSystemEpochYear() + "</" + TX_TLE_EPOCH_YEAR + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_EPOCH_DAY + ">" + targetPos.getTleSystemEpochDay() + "</" + TX_TLE_EPOCH_DAY + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_INCLINATION + ">" + targetPos.getTleSystemInclination() + "</" + TX_TLE_INCLINATION + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_RAANODE + ">" + targetPos.getTleSystemRaANode() + "</" + TX_TLE_RAANODE + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_PERIGEE + ">" + targetPos.getTleSystemPerigee() + "</" + TX_TLE_PERIGEE + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_E + ">" + targetPos.getTleSystemE() + "</" + TX_TLE_E + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_LORM + ">" + targetPos.getTleSystemLorM() + "</" + TX_TLE_LORM + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_N + ">" + targetPos.getTleSystemN() + "</" + TX_TLE_N + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_BSTAR + ">" + targetPos.getTleSystemBStar() + "</" + TX_TLE_BSTAR + ">");
+
+                                xmlBuffer.append("\n      " + indent + "</" + TX_TLE_SYSTEM + ">");
+
+                                break;
+
 			// Named system (planet, sun, moon etc.)
 			case SpTelescopePos.SYSTEM_NAMED :
 				xmlBuffer.append( "\n      " + indent + "<" + TX_NAMED_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\"" + targetPos.getConicOrNamedType() + "\"/>" ) ;
@@ -745,6 +775,11 @@ public class SpTelescopeObsComp extends SpObsComp
 			return ;
 		}
 
+                if (name.equals(TX_TLE_SYSTEM)) {
+                        _currentPosition.setSystemType(SpTelescopePos.SYSTEM_TLE);
+                        return;
+                }
+
 		if( name.equals( TX_NAMED_SYSTEM ) )
 		{
 			// Ignore here and set system type in processXmlAttribute.
@@ -847,6 +882,53 @@ public class SpTelescopeObsComp extends SpObsComp
 			_currentPosition.setConicSystemDailyMotion( value ) ;
 			return ;
 		}
+
+                // ---- TLE System (Space Junk) ----
+
+                if (name.equals(TX_TLE_EPOCH_YEAR)) {
+                        _currentPosition.setTleSystemEpochYear(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_EPOCH_DAY)) {
+                        _currentPosition.setTleSystemEpochDay(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_INCLINATION)) {
+                        _currentPosition.setTleSystemInclination(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_RAANODE)) {
+                        _currentPosition.setTleSystemRaANode(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_PERIGEE)) {
+                        _currentPosition.setTleSystemPerigee(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_E)) {
+                        _currentPosition.setTleSystemE(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_LORM)) {
+                        _currentPosition.setTleSystemLorM(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_N)) {
+                        _currentPosition.setTleSystemN(value);
+                        return;
+                }
+
+                if (name.equals(TX_TLE_BSTAR)) {
+                        _currentPosition.setTleSystemBStar(value);
+                        return;
+                }
 
 		// ---- Named System
         // -----------------------------------------------------------
@@ -973,6 +1055,9 @@ public class SpTelescopeObsComp extends SpObsComp
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_CONIC ) ;
 		else if( elementName.equals( TX_NAMED_SYSTEM ) )
 			_currentPosition.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
+                else if (elementName.equals(TX_TLE_SYSTEM)) {
+                        _currentPosition.setSystemType(SpTelescopePos.SYSTEM_TLE);
+                }
 
 		if( ( elementName.equals( TX_SPHERICAL_SYSTEM ) || elementName.equals( TX_OFFSET ) ) && attributeName.equals( TX_SYSTEM ) )
 		{
