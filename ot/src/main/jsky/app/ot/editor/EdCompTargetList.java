@@ -1211,6 +1211,12 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.namedSystemPanel ) ;
 				_w.targetTypeDDList.setSelectedIndex( 2 ) ;
 				break ;
+
+                        case SpTelescopePos.SYSTEM_TLE:
+                                _w.targetSystemsTabbedPane.setSelectedComponent(_w.tleSystemPanel);
+                                _w.targetTypeDDList.setSelectedIndex(3);
+                                break;
+
 			default :// SpTelescopePos.SYSTEM_SPHERICAL
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW ) ;
 				_w.targetTypeDDList.setSelectedIndex( 0 ) ;
@@ -1433,6 +1439,11 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_curPos = _tpTable.getSelectedPos() ;
 				overrideVelocityFrame() ;
 			}
+                        else if (component == _w.tleSystemPanel) {
+                                _curPos.setSystemType(SpTelescopePos.SYSTEM_TLE);
+                                _curPos = _tpTable.getSelectedPos();
+				overrideVelocityFrame() ;
+                        }
 			else if( component == _w.namedSystemPanel )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;

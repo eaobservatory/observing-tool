@@ -71,6 +71,7 @@ public class TelescopeGUI extends JPanel
 	JPanel objectGBW = new JPanel() ;
 	JPanel conicSystemPanel = new JPanel() ;
 	JPanel namedSystemPanel = new JPanel() ;
+        JPanel tleSystemPanel = new JPanel();
 	JPanel buttonPanel = new JPanel() ;
 	GridBagLayout gridBagLayout1 = new GridBagLayout() ;
 	TextBoxWidgetExt nameTBW = new TextBoxWidgetExt() ;
@@ -474,6 +475,8 @@ public class TelescopeGUI extends JPanel
 
 		targetSystemsTabbedPane.add( namedSystemPanel , "Named Planets" ) ;
 		namedSystemPanel.add( namedTarget , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+
+                targetSystemsTabbedPane.add(tleSystemPanel, "TLE");
 
 		for( int i = 0 ; i < targetSystemsTabbedPane.getTabCount() ; i++ )
 		{
