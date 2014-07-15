@@ -20,7 +20,7 @@ git checkout -b release origin/release
 4. Ant ( ant.apache.org ) is the preferred method of building ...
 ant
 
-Building from the release branch requires Java 1.5
+Building from the release branch requires Java 1.6
 
 5. copy the compiled code to the webstart directory ...
 cp -r output/lib releaseFiles/webstart
