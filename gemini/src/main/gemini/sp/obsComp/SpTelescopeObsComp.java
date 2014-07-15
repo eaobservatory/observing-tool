@@ -739,6 +739,22 @@ public class SpTelescopeObsComp extends SpObsComp
 		xmlBuffer.append( "\n  " + indent + "</" + TX_BASE + ">" ) ;
 	}
 
+        /**
+         * XML parsing handler for the start of elements.
+         */
+        public void processXmlElementStart(String name) {
+                if (name.equals(TX_TLE_SYSTEM)) {
+                        // The TLE system doesn't have any attributes so the
+                        // "normal" XML processing methods don't seem to be
+                        // being called.  Therefore also check for it in the
+                        // element start method.
+                        _currentPosition.setSystemType(SpTelescopePos.SYSTEM_TLE);
+                }
+                else {
+                        super.processXmlElementStart(name);
+                }
+        }
+
 	/**
      * Parses JAC TCS XML.
      */
