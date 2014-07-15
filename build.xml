@@ -39,19 +39,6 @@
 	<property name="edfreq.output.path" value="${edfreq.dir}/${local.output.path}"/>
 	<property name="ot.output.path" value="${ot.dir}/${local.output.path}"/>
 
-	<property name="toml.dir" value="${basedir}/toml/src"/>
-	<property name="toml.jar" value="${toml.dir}/${local.jar.dir}/toml.jar"/>
-	<property name="toml.schema.dir" value="${toml.dir}/main"/>
-	<property name="toml.output.dir" value="${toml.dir}/${local.output.dir}"/>
-	<property name="toml.output.path" value="${toml.dir}/${local.output.path}"/>
-
-	<property name="path.to.schema" value="${ot.dir}/main/cfg/schema"/>
-	<property name="ukirt.schema" value="${path.to.schema}/JAC/UKIRT/UKIRT.xsd"/>
-	<property name="jcmt.schema" value="${path.to.schema}/JAC/JCMT/JCMT.xsd"/>
-	<property name="schema.java.path" value="edu.hawaii.jach.omp.toml"/>
-	<property name="ukirt.java.path" value="${schema.java.path}.ukirt"/>
-	<property name="jcmt.java.path" value="${schema.java.path}.jcmt"/>
-
         <path id="classpath">
                 <fileset dir="${basedir}/lib" includes="**/*.jar"/>
                 <fileset dir="${basedir}/lib/jsky3" includes="**/*.jar"/>
@@ -74,13 +61,6 @@
 		<delete file="${ot.dir}/main/cfg/ukirt/versionFile"/>
 		<delete file="${ot.dir}/main/cfg/jcmt/versionFile"/>
 		<delete file="${ot.dir}/main/cfg/jcmt/tau.list"/>
-
-		<delete dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/jcmt"/>
-                <delete dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/ukirt"/>
-		<delete dir="${toml.dir}/${local.jar.dir}"/>
-		<delete dir="${toml.output.path}"/>
-		<delete dir="${toml.output.dir}"/>
-		<delete dir="${toml.jar}"/>
 	</target>
 
 	<target name="mkdir" depends="clean">
@@ -108,47 +88,8 @@
 		<mkdir dir="${output.dir.lib}"/>
 		<mkdir dir="${output.dir.bin}"/>
 		<mkdir dir="${output.dir.cfg}"/>
-
-                <!--
-		<mkdir dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/jcmt"/>
-        	<mkdir dir="${toml.schema.dir}/edu/hawaii/jach/omp/toml/ukirt"/>
-		<mkdir dir="${toml.output.dir}"/>
-		<mkdir dir="${toml.output.path}"/>
-		<mkdir dir="${toml.dir}/${local.jar.dir}"/>
-                -->
 	</target>
 
-	<target name="toml" depends="mkdir">
-		<exec executable="xjc">
-			<arg value="-verbose"/>
-			<arg value="-d"/>
-			<arg value="${toml.schema.dir}"/>
-			<arg value="-p"/>
-			<arg value="${ukirt.java.path}"/>
-			<arg value="${ukirt.schema}"/>
-		</exec>
-		<exec executable="xjc">
-			<arg value="-verbose"/>
-			<arg value="-d"/>
-			<arg value="${toml.schema.dir}"/>
-			<arg value="-p"/>
-			<arg value="${jcmt.java.path}"/>
-			<arg value="${jcmt.schema}"/>
-		</exec>
-		<javac srcdir="${toml.dir}/main:${toml.dir}/test"
-		       destdir="${toml.output.path}"
-                       includeantruntime="false"
-                       classpathref="classpath"
-		       debug="on"
-                       source="1.6"
-		       target="1.6">
-		</javac>
-		<jar jarfile="${toml.jar}"
-		     basedir="${toml.output.path}">
-		</jar>
-	</target>
-
-	<!-- <target name="gemini" depends="toml"> -->
 	<target name="gemini" depends="mkdir">
 		<javac srcdir="${gemini.dir}/main:${gemini.dir}/test"
 		       destdir="${gemini.output.path}"
@@ -263,7 +204,6 @@
 		<copy file="${omp.jar}" todir="${output.dir.lib}" />
 		<copy file="${edfreq.jar}" todir="${output.dir.lib}" />
 		<copy file="${ot.jar}" todir="${output.dir.lib}" />
-		<!-- <copy file="${toml.jar}" todir="${output.dir.lib}" /> -->
 
                 <copy todir="${output.dir.lib}">
                         <fileset dir="${basedir}/lib"/>
@@ -316,7 +256,6 @@
 				<pathelement location="${omp.dir}/main"/>
 				<pathelement location="${edfreq.dir}/main"/>
 				<pathelement location="${ot.dir}/main"/>
-                                <pathelement location="${toml.dir}/main"/>
 		         </sourcepath>
 		</javadoc>
 	</target>
@@ -343,7 +282,6 @@
                      <fileset dir="${omp.dir}/test" includes="**/*Test.java"/>
                      <fileset dir="${edfreq.dir}/test" includes="**/*Test.java"/>
                      <fileset dir="${ot.dir}/test" includes="**/*Test.java"/>
-                     <fileset dir="${toml.dir}/test" includes="**/*Test.java"/>
                 </batchtest>
             </junit>
         </target>
