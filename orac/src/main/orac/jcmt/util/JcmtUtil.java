@@ -73,6 +73,8 @@ public class JcmtUtil implements TelescopeUtil
 				return true ;
 			case FEATURE_OFFSET_GRID_PA :
 				return true ;
+                        case FEATURE_TLE_SYSTEM:
+                                return false;
 			default :
 				return false ;
 		}
