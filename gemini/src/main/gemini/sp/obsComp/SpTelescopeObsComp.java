@@ -770,6 +770,12 @@ public class SpTelescopeObsComp extends SpObsComp
 			return ;
 		}
 
+                // Some elements have the same name for different system types.  Therefore
+                // we need to determine the system type in order to be able to distinguish
+                // them.
+                boolean isConic = (_currentPosition.getSystemType() == SpTelescopePos.SYSTEM_CONIC);
+                boolean isTLE = (_currentPosition.getSystemType() == SpTelescopePos.SYSTEM_TLE);
+
 		if( name.equals( TX_BASE ) || name.equals( TX_TARGET ) )
 			return ;
 
@@ -857,7 +863,7 @@ public class SpTelescopeObsComp extends SpObsComp
 			return ;
 		}
 
-		if( name.equals( TX_INCLINATION ) )
+		if( isConic && name.equals( TX_INCLINATION ) )
 		{
 			_currentPosition.setConicSystemInclination( value ) ;
 			return ;
@@ -881,19 +887,19 @@ public class SpTelescopeObsComp extends SpObsComp
 			return ;
 		}
 
-		if( name.equals( TX_E ) )
+		if( isConic && name.equals( TX_E ) )
 		{
 			_currentPosition.setConicSystemE( value ) ;
 			return ;
 		}
 
-		if( name.equals( TX_LORM ) )
+		if( isConic && name.equals( TX_LORM ) )
 		{
 			_currentPosition.setConicSystemLorM( value ) ;
 			return ;
 		}
 
-		if( name.equals( TX_N ) )
+		if( isConic && name.equals( TX_N ) )
 		{
 			_currentPosition.setConicSystemDailyMotion( value ) ;
 			return ;
@@ -911,7 +917,7 @@ public class SpTelescopeObsComp extends SpObsComp
                         return;
                 }
 
-                if (name.equals(TX_TLE_INCLINATION)) {
+                if (isTLE && name.equals(TX_TLE_INCLINATION)) {
                         _currentPosition.setTleSystemInclination(value);
                         return;
                 }
@@ -926,17 +932,17 @@ public class SpTelescopeObsComp extends SpObsComp
                         return;
                 }
 
-                if (name.equals(TX_TLE_E)) {
+                if (isTLE && name.equals(TX_TLE_E)) {
                         _currentPosition.setTleSystemE(value);
                         return;
                 }
 
-                if (name.equals(TX_TLE_LORM)) {
+                if (isTLE && name.equals(TX_TLE_LORM)) {
                         _currentPosition.setTleSystemLorM(value);
                         return;
                 }
 
-                if (name.equals(TX_TLE_N)) {
+                if (isTLE && name.equals(TX_TLE_N)) {
                         _currentPosition.setTleSystemN(value);
                         return;
                 }
