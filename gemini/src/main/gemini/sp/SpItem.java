@@ -842,9 +842,9 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * This allows to keep the basic form
      * 
      * <pre><tt>
-     * &lt ;SpItem &lt ;i&gt ;user attributes (XML representation of SpAvTable attributes starting with ':')&lt ;/i&gt ; type=&quot ;x&quot ; sybtype=&quot ;y&quot ;&gt ;
-     *   &lt ;i&gt ;XML representation of SpAvTable&lt ;/i&gt ;
-     * &lt ;SpItem&gt ;
+     * &lt;SpItem &lt;i&gt;user attributes (XML representation of SpAvTable attributes starting with ':')&lt;/i&gt; type=&quot;x&quot; sybtype=&quot;y&quot;&gt;
+     *   &lt;i&gt;XML representation of SpAvTable&lt;/i&gt;
+     * &lt;SpItem&gt;
      * </tt></pre>
      */
 	public String toXML()
@@ -931,13 +931,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>"attribute"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt ;value&gt ;12.3&lt ;/attribute&gt ;</td>
+     * <td>&lt;value&gt;12.3&lt;/attribute&gt;</td>
      * </tr>
      * <tr>
      * <td>Example:<br>
      * <tt>"expTime"</tt></td>
      * <td><tt>12.3</tt></td>
-     * <td>&lt ;expTime&gt ;12.3&lt ;/expTime&gt ;</td>
+     * <td>&lt;expTime&gt;12.3&lt;/expTime&gt;</td>
      * </tr>
      * <tr>
      * <td span=3><br>
@@ -949,11 +949,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <td>
      * 
      * <pre>
-     * &lt ;attribute&gt ;
-     * 	 &lt ;value&gt ;value Vector entry 1&lt ;/value&gt ;
-     * 	 &lt ;value&gt ;value Vector entry 2&lt ;/value&gt ;
-     * 	 &lt ;value&gt ;value Vector entry 3&lt ;/value&gt ;
-     * 	 &lt ;/attribute&gt ;
+     * &lt;attribute&gt;
+     * 	 &lt;value&gt;value Vector entry 1&lt;/value&gt;
+     * 	 &lt;value&gt;value Vector entry 2&lt;/value&gt;
+     * 	 &lt;value&gt;value Vector entry 3&lt;/value&gt;
+     * 	 &lt;/attribute&gt;
      * </pre>
      * 
      * </td>
@@ -965,11 +965,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <td>
      * 
      * <pre>
-     * &lt ;expTimes&gt ;
-     * 	 &lt ;value&gt ;12.3&lt ;/value&gt ;
-     * 	 &lt ;value&gt ;23.4&lt ;/value&gt ;
-     * 	 &lt ;value&gt ;34.4&lt ;/value&gt ;
-     * 	 &lt ;/expTimes&gt ;
+     * &lt;expTimes&gt;
+     * 	 &lt;value&gt;12.3&lt;/value&gt;
+     * 	 &lt;value&gt;23.4&lt;/value&gt;
+     * 	 &lt;value&gt;34.4&lt;/value&gt;
+     * 	 &lt;/expTimes&gt;
      * </pre>
      * 
      * </td>
@@ -981,14 +981,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>":attribute"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt ;SpItem attribute="value"&gt ; ... &lt ;/SpItem&gt ;<br>
+     * <td>&lt;SpItem attribute="value"&gt; ... &lt;/SpItem&gt;<br>
      * where SpItem is any subclass of SpItem</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>":optional"</tt></td>
      * <td><tt>"true"</tt></td>
-     * <td>&lt ;SpItem optional="true"&gt ; ... &lt ;/SpItem&gt ;<br>
+     * <td>&lt;SpItem optional="true"&gt; ... &lt;/SpItem&gt;<br>
      * where SpItem is any subclass of SpItem</td>
      * </tr>
      * <tr>
@@ -998,13 +998,13 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>"attrPrefix:attrSuffix"</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt ;attrPrefix attrSuffix="value"/&gt ;</td>
+     * <td>&lt;attrPrefix attrSuffix="value"/&gt;</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>"acquisation:mode"</tt></td>
      * <td><tt>"imaging"</tt></td>
-     * <td>&lt ;acquisation mode="imaging"/&gt ;</td>
+     * <td>&lt;acquisation mode="imaging"/&gt;</td>
      * </tr>
      * <tr>
      * <td span=3><br>
@@ -1013,14 +1013,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * <tr>
      * <td><tt>".string1.string2.string3 ..."</tt></td>
      * <td><tt>"value"</tt></td>
-     * <td>&lt ;meta_string1_string2_string3 ...&gt ;
-     * value&lt ;/meta_string1_string2_string3 ...&gt ;</td>
+     * <td>&lt;meta_string1_string2_string3 ...&gt;
+     * value&lt;/meta_string1_string2_string3 ...&gt;</td>
      * </tr>
      * <tr>
      * <td>Example<br>
      * <tt>"gui.collapsed"</tt></td>
      * <td><tt>"true"</tt></td>
-     * <td>&lt ;meta_gui_collapsed&gt ; true&lt ;/meta_gui_collapsed&gt ;</td>
+     * <td>&lt;meta_gui_collapsed&gt; true&lt;/meta_gui_collapsed&gt;</td>
      * </tr>
      * </table>
      * 
@@ -1053,14 +1053,14 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * another is <tt>acquisation = "on"</tt> then they will be translated as
      * 
      * <pre>
-     *   &lt ;acquisation mode=&quot ;imaging&quot ;&gt ;
-     *   &lt ;acquisation&gt ;on&lt ;/acquisation&gt ;
+     *   &lt;acquisation mode=&quot;imaging&quot;&gt;
+     *   &lt;acquisation&gt;on&lt;/acquisation&gt;
      * </pre>
      * 
      * and <b>not</b> as
      * 
      * <pre>
-     *   &lt ;acquisation mode=&quot ;imaging&quot ;&gt ;on&lt ;/acquisation&gt ;
+     *   &lt;acquisation mode=&quot;imaging&quot;&gt;on&lt;/acquisation&gt;
      * </pre>
      * 
      * <h3>Overriding processAvAttribute()</h3>
@@ -1153,7 +1153,7 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      * is parsed.
      * 
      * This methods is used when the XML contains a number of
-     * <tt>&lt ;value&gt ;text&lt ;/value&gt ;</tt> elements. These value elements
+     * <tt>&lt;value&gt;text&lt;/value&gt;</tt> elements. These value elements
      * are used as the XML representation of mulitple values of one
      * {@link gemini.sp.SpAvTable} attribute. Each SpAvTable attribute can have
      * multiple values each of which is stored at a certain position in a
@@ -1168,11 +1168,11 @@ public class SpItem extends Observable implements Cloneable , java.io.Serializab
      *            XML element name
      * @param value
      *            <tt><i>value</i></tt> in
-     *            <tt>&lt ;value&gt ;<i>value</i>&lt ;/value&gt ;</tt> element
+     *            <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element
      *            number <i>pos</i>
      * @param pos
      *            Indicates which
-     *            <tt>&lt ;value&gt ;<i>value</i>&lt ;/value&gt ;</tt> element's
+     *            <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element's
      *            value is returned. Corresponds to the position of the value in
      *            side the Vector of the SpAvTable attribute <i>name</i>.
      */

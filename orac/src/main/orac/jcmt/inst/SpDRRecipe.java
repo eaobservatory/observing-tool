@@ -299,7 +299,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	}
 
 	/**
-	 * Creates &lt ;ms_truncation&gt ; element for ACSIS/OCS XML.
+	 * Creates &lt;ms_truncation&gt; element for ACSIS/OCS XML.
 	 *
 	 * This method is used by the temporary ACSIS translator
 	 * and might become obsolete once the final ACSIS translator is in place.
@@ -316,7 +316,7 @@ public final class SpDRRecipe extends SpDRObsComp
 	}
 
 	/**
-	 * Creates &lt ;cubet&gt ; element for ACSIS/OCS XML.
+	 * Creates &lt;cubet&gt; element for ACSIS/OCS XML.
 	 *
 	 * This method is used by the temporary ACSIS translator
 	 * and might become obsolete once the final ACSIS translator is in place.

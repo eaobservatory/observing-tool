@@ -44,7 +44,7 @@ package gemini.sp ;
  * <pre>
  *    Observation Folder
  *       Site Quality (Observation Component)
- *   --&gt ; where a new Observation would go if inserted inside of the folder
+ *   --&gt; where a new Observation would go if inserted inside of the folder
  * </pre>
  * 
  * @see SpTreeMan

@@ -99,7 +99,7 @@ public class BandSpec
 	// Added by MFO (September 5, 2002)
 	/**
      * @param numHybridSubBands
-     *            1 for non-hybrid, &gt ;1 for hybrid.
+     *            1 for non-hybrid, &gt; 1 for hybrid.
      */
 	public BandSpec( String name , int numBands , double[] bandWidths , double[] defaultOverlaps , int[] channels , int[] numHybridSubBands )
 	{

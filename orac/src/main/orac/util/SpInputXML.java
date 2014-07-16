@@ -56,13 +56,13 @@ import org.xml.sax.InputSource ;
  * the new characters being appended to the old ones and in
  * {@link gemini.sp.SpItem.processXmlElementContent(java.lang.String,java.lang.String)}
  * to be called again with the old and appended new characters.<br>
- * A special case is the XML element <tt>&lt ;value&gt ;</tt> which is used to represent one of multible values
+ * A special case is the XML element <tt>&lt;value&gt;</tt> which is used to represent one of multible values
  * of one SpAvTable entry. Since <tt>"value"</tt> is a reserved String that should not be used as an SpAvTable
- * attribute name it can be assumed that a <tt>&lt ;value&gt ;</tt> element does not contain any further
- * XML elements inside it. So in this case of the <tt>&lt ;value&gt ;</tt> element
+ * attribute name it can be assumed that a <tt>&lt;value&gt;</tt> element does not contain any further
+ * XML elements inside it. So in this case of the <tt>&lt;value&gt;</tt> element
  *{@link gemini.sp.SpItem.processXmlElementContent(java.lang.String,java.lang.String,int)} is only invoked
  * in {@link endElement(java.lang.String,java.lang.String,java.lang.String)} at the end of the
- * <tt>&lt ;value&gt ;</tt> element.
+ * <tt>&lt;value&gt;</tt> element.
  *
  * <ul>The following SpItem methods are invoked during the parsing of the SpItem XML
  *   <li> {@link gemini.sp.SpItem#processXmlElementStart(java.lang.String)}

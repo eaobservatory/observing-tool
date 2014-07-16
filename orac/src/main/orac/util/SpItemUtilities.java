@@ -61,7 +61,7 @@ public class SpItemUtilities
 	 * For, say, SpTelescopeObsComp we get the SpAvTable attribute
 	 * name "SpTelescopeObsCompRef:idref" with the XML representation:
 	 * <!-- <SpTelescopeObsCompRef id="some_id"> -->
-	 *      &lt ;SpTelescopeObsCompRef id="some_id"&gt ;
+	 *      &lt;SpTelescopeObsCompRef id="some_id"&gt;
 	 * inside the the SpMSB element.
 	 *   
 	 */

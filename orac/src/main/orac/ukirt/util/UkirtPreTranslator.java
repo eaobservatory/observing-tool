@@ -48,7 +48,7 @@ public class UkirtPreTranslator extends TcsPreTranslator
 	 *
 	 * Note that the tag which is defined as "Base" in ot.cfg and also displayed as
 	 * "Base" in the OT is changed to "science" in the TCS XML output to avoid confusion
-	 * with the existing &lt ;base&gt ; element in the TCS XML.
+	 * with the existing &lt;base&gt; element in the TCS XML.
 	 */
 	protected String[] getTcsTargetTypes()
 	{

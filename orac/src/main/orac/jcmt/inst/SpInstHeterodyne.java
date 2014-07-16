@@ -315,7 +315,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp
 	/**
 	 * XML element containing the Acsis configuration.
 	 *
-	 * The XML_ELEMENT_ACSIS_CONFIGURATION String is <tt>&lt ;jcmt_config&gt ;</tt>.
+	 * The XML_ELEMENT_ACSIS_CONFIGURATION String is <tt>&lt;jcmt_config&gt;</tt>.
 	 */
 	private static final String XML_ELEMENT_ACSIS_CONFIGURATION = "jcmt_config" ;
 	private static final String XML_ELEMENT_ACSIS_SUBSYSTEMS = "subsystems" ;

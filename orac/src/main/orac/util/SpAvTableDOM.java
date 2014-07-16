@@ -62,25 +62,25 @@ import java.util.Arrays ;
  * -->
  *
  * <!-- for javadoc -->
- * (1)       one.two.three   some text        &lt ;one&gt ;
- *                                              &lt ;two&gt ;
- *                                                &lt ;three&gt ;some text&lt ;/three&gt ;
- *                                              &lt ;/two&gt ;
- *                                            &lt ;/one&gt ;
+ * (1)       one.two.three   some text        &lt;one&gt;
+ *                                              &lt;two&gt;
+ *                                                &lt;three&gt;some text&lt;/three&gt;
+ *                                              &lt;/two&gt;
+ *                                            &lt;/one&gt;
  * 
- * (2)       one.two:three   some text        &lt ;one&gt ;
- *                                              &lt ;two three="some text"&gt ;&lt ;/two&gt ;
- *                                            &lt ;/one&gt ;
+ * (2)       one.two:three   some text        &lt;one&gt;
+ *                                              &lt;two three="some text"&gt;&lt;/two&gt;
+ *                                            &lt;/one&gt;
  * 
- * (3)                                        &lt ;one&gt ;
- *                                              &lt ;two&gt ;
- *           one.two#1.three some text            &lt ;three&gt ;some text&lt ;/three&gt ;
- *                                              &lt ;/two&gt ;
- *                                              &lt ;two&gt ;
- *           one.two#2.three some more text       &lt ;three&gt ;some more text&lt ;/three&gt ;
- *                                              &lt ;/two&gt ;
- *                                              &lt ;two&gt ;
- *           one.two#3:myAttr.three something else  &lt ;three myAttr="something else"/&gt ;
+ * (3)                                        &lt;one&gt;
+ *                                              &lt;two&gt;
+ *           one.two#1.three some text            &lt;three&gt;some text&lt;/three&gt;
+ *                                              &lt;/two&gt;
+ *                                              &lt;two&gt;
+ *           one.two#2.three some more text       &lt;three&gt;some more text&lt;/three&gt;
+ *                                              &lt;/two&gt;
+ *                                              &lt;two&gt;
+ *           one.two#3:myAttr.three something else  &lt;three myAttr="something else"/&gt;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
@@ -159,7 +159,7 @@ public class SpAvTableDOM
 		 * 
 		 * <!-- XML attributes are placed insight xml tags: <tag my_attribute="my value"> -->
 		 * <!-- for javadoc -->
-		 *      XML attributes are placed insight xml tags: &lt ;tag my_attribute="my value"&gt ;
+		 *      XML attributes are placed insight xml tags: &lt;tag my_attribute="my value"&gt;
 		 *
 		 * @see #_avTabAttribute
 		 */

@@ -132,7 +132,7 @@ public class SpItemDOM
 	}
 
 	/**
-	 * @return DOM element representing &lt ;SP_ITEM_DATA_TAG&gt ; if there is one
+	 * @return DOM element representing &lt;SP_ITEM_DATA_TAG&gt; if there is one
 	 *         or null otherwise.
 	 */
 	public ElementImpl getItemDataElement( ElementImpl element )
@@ -237,7 +237,7 @@ public class SpItemDOM
 	}
 
 	/**
-	 * @return SpItem if the DOM element represent an SpItem (i.e. has a &lt ;SP_ITEM_DATA_TAG&gt ;)
+	 * @return SpItem if the DOM element represent an SpItem (i.e. has a &lt;SP_ITEM_DATA_TAG&gt;)
 	 *         or null otherwise.
 	 */
 	protected SpItem getSpItem( ElementImpl element )

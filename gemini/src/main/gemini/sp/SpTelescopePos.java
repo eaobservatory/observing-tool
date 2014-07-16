@@ -56,8 +56,8 @@ import java.util.ArrayList ;
  * 
  * <pre>
  *    Index  Field
- *        0  tag   - one of &quot ;Base&quot ;, &quot ;User&quot ;, or a site-specific guide star 
- *                   tag name like &quot ;PWFS1&quot ;
+ *        0  tag   - one of &quot;Base&quot;, &quot;User&quot;, or a site-specific guide star 
+ *                   tag name like &quot;PWFS1&quot;
  *        1  name  - arbitrary name of the position (e.g., a tag from a
  *                   position in a guide star catalog)
  *        2  xaxis - the x axis of the position (e.g., the RA)
@@ -1250,7 +1250,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	/**
      * Conic System (Oribital Elements).
      * 
-     * Get the longitude of the ascending node (&Omega ;).
+     * Get the longitude of the ascending node (&Omega;).
      */
 	public double getConicSystemAnode()
 	{
@@ -1260,7 +1260,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	/**
      * Conic System (Oribital Elements).
      * 
-     * Set the longitude of the ascending node (&Omega ;).
+     * Set the longitude of the ascending node (&Omega;).
      */
 	public void setConicSystemAnode( String value )
 	{
@@ -1273,7 +1273,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	/**
      * Conic System (Oribital Elements).
      * 
-     * Get the argument of perihelion (&omega ;).
+     * Get the argument of perihelion (&omega;).
      */
 	public double getConicSystemPerihelion()
 	{
@@ -1283,7 +1283,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	/**
      * Conic System (Oribital Elements).
      * 
-     * Set the argument of perihelion (&omega ;).
+     * Set the argument of perihelion (&omega;).
      */
 	public void setConicSystemPerihelion( String value )
 	{

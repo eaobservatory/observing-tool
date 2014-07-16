@@ -304,10 +304,10 @@ public class SpTelescopeObsComp extends SpObsComp
      * this method returns
      * 
      * <pre>
-     * &quot ;lower right&quot ; pointing in tile: getPositionInTile() returns 0
-     * &quot ;upper right&quot ; pointing in tile: getPositionInTile() returns 1
-     * &quot ;lower left&quot ;  pointing in tile: getPositionInTile() returns 2
-     * &quot ;upper left&quot ;  pointing in tile: getPositionInTile() returns 3
+     * &quot;lower right&quot; pointing in tile: getPositionInTile() returns 0
+     * &quot;upper right&quot; pointing in tile: getPositionInTile() returns 1
+     * &quot;lower left&quot;  pointing in tile: getPositionInTile() returns 2
+     * &quot;upper left&quot;  pointing in tile: getPositionInTile() returns 3
      * </pre>
      * 
      * If this SpTelescopeObsComp was not created as part of a tile then
@@ -324,18 +324,18 @@ public class SpTelescopeObsComp extends SpObsComp
      * Example:
      * 
      * <pre>
-     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 1, say
-     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 1
-     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 1
-     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 1
-     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 2
-     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 2
-     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 2
-     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 2
-     * &quot ;lower right&quot ; pointing in new tile: getPositionInTile() returns 0 =&gt ; &quot ;startTile&quot ; =&gt ; TILENUM == 3
-     * &quot ;upper right&quot ; pointing in     tile: getPositionInTile() returns 1 =&gt ;             =&gt ; TILENUM == 3
-     * &quot ;lower left&quot ;  pointing in     tile: getPositionInTile() returns 2 =&gt ;             =&gt ; TILENUM == 3
-     * &quot ;upper left&quot ;  pointing in     tile: getPositionInTile() returns 3 =&gt ;             =&gt ; TILENUM == 3
+     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 1, say
+     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 1
+     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 1
+     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 1
+     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 2
+     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 2
+     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 2
+     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 2
+     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 3
+     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 3
+     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 3
+     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 3
      * ...
      * </pre>
      * 

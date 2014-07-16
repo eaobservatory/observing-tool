@@ -373,10 +373,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 *
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt ;SCAN_AREA&gt ;
-	 *   &lt ;SCAN <b>SYSTEM="FPLANE"</b>&gt ;
-	 *   &lt ;/SCAN&gt ;
-	 * &lt ;SCAN_AREA&gt ;
+	 * &lt;SCAN_AREA&gt;
+	 *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
+	 *   &lt;/SCAN&gt;
+	 * &lt;SCAN_AREA&gt;
 	 * </pre>
 	 */
 	public String getScanSystem()
@@ -389,10 +389,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	 *
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt ;SCAN_AREA&gt ;
-	 *   &lt ;SCAN <b>SYSTEM="FPLANE"</b>&gt ;
-	 *   &lt ;/SCAN&gt ;
-	 * &lt ;SCAN_AREA&gt ;
+	 * &lt;SCAN_AREA&gt;
+	 *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
+	 *   &lt;/SCAN&gt;
+	 * &lt;SCAN_AREA&gt;
 	 * </pre>
 	 */
 	public void setScanSystem( String system )

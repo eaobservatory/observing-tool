@@ -220,10 +220,10 @@ class ICTextBoxValueEditor extends ICValueEditor implements TextBoxWidgetWatcher
  * iterated over (i.e., the table columns) are stored in an attribute
  * called "iterConfigList".  For example:
  * <pre>
- *     &lt ;av name=iterConfigList descr="No Description"&gt ;
- *        &lt ;val value="filterIter"&gt ;
- *        &lt ;val value="diffuserIter"&gt ;
- *     &lt ;/av&gt ;
+ *     &lt;av name=iterConfigList descr="No Description"&gt;
+ *        &lt;val value="filterIter"&gt;
+ *        &lt;val value="diffuserIter"&gt;
+ *     &lt;/av&gt;
  * </pre>
  * shows that this configuration iterator is iterating over two items,
  * the "filters" and "diffusers".
@@ -232,10 +232,10 @@ class ICTextBoxValueEditor extends ICValueEditor implements TextBoxWidgetWatcher
  * For each item being iterated over, there is a attribute with a value
  * for each of its steps.  For instance:
  * <pre>
- *     &lt ;av name=filterIter descr="No Description"&gt ;
- *        &lt ;val value="x300 NDF + CBF"&gt ;
- *        &lt ;val value="CBF"&gt ;
- *     &lt ;/av&gt ;
+ *     &lt;av name=filterIter descr="No Description"&gt;
+ *        &lt;val value="x300 NDF + CBF"&gt;
+ *        &lt;val value="CBF"&gt;
+ *     &lt;/av&gt;
  * </pre>
  *
  * <p>

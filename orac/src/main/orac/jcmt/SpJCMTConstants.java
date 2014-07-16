@@ -95,10 +95,10 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt ;SCAN_AREA&gt ;
-	 *   &lt ;SCAN SYSTEM="FPLANE"&gt ;
-	 *   &lt ;/SCAN&gt ;
-	 * &lt ;SCAN_AREA&gt ;
+	 * &lt;SCAN_AREA&gt;
+	 *   &lt;SCAN SYSTEM="FPLANE"&gt;
+	 *   &lt;/SCAN&gt;
+	 * &lt;SCAN_AREA&gt;
 	 * </pre>
 	 */
 	public static final String TRACKING = "TRACKING" ;
@@ -151,8 +151,8 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt ;CHOP SYSTEM="TRACKING"&gt ;
-	 * &lt ;/CHOP&gt ;
+	 * &lt;CHOP SYSTEM="TRACKING"&gt;
+	 * &lt;/CHOP&gt;
 	 * </pre>
 	 */
 	public static final String[] CHOP_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE , "SCAN" } ;
@@ -172,8 +172,8 @@ public interface SpJCMTConstants
 	 * Corresponding TCS XML:
 	 * Refers to TCS XML:
 	 * <pre>
-	 * &lt ;JIGGLE SYSTEM="TRACKING"&gt ;
-	 * &lt ;/JIGGLE&gt ;
+	 * &lt;JIGGLE SYSTEM="TRACKING"&gt;
+	 * &lt;/JIGGLE&gt;
 	 * </pre>
 	 */
 	public static final String[] JIGGLE_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE } ;

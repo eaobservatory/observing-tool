@@ -998,9 +998,9 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 	 * Set the labels for the x and y coordinate text boxes.
 	 * 
 	 * <pre><tt>
-	 *  Coordinate System FK5/FK4     : &quot ;&quot ; (no label)
-	 *  Other Coordinate Systems      : &quot ;(degrees)&quot ;
-	 *  Offset (any Coordinate System): &quot ;(arcsecs)&quot ;
+	 *  Coordinate System FK5/FK4     : &quot;&quot; (no label)
+	 *  Other Coordinate Systems      : &quot;(degrees)&quot;
+	 *  Offset (any Coordinate System): &quot;(arcsecs)&quot;
 	 * </tt></pre>
 	 */
 	private void _updateXYUnitsLabels()
