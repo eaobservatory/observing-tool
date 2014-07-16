@@ -31,9 +31,11 @@ import java.awt.event.ActionListener ;
 import java.awt.Component ;
 import java.util.Arrays ;
 import javax.swing.JLabel ;
+import javax.swing.JList;
 import javax.swing.JTabbedPane ;
 import javax.swing.JPanel ;
 import javax.swing.DefaultComboBoxModel ;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JOptionPane ;
 import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
@@ -87,6 +89,7 @@ import gemini.util.DDMMSS ;
 /**
  * This is the editor for the target list component.
  */
+@SuppressWarnings("serial")
 public class EdCompTargetList extends OtItemEditor implements TelescopePosWatcher , TableWidgetWatcher , ActionListener , ChangeListener , TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , OtConstants
 {
 	/** String used in DropDownListBoxWidgetExt namedTarget. */
@@ -254,6 +257,34 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_w.resolveOrbitalElementButton.addActionListener( this ) ;
 
 		_type = _w.targetTypeDDList ;
+
+                // If the telescope does not support TLE then we need prevent
+                // selection of the TLE system.  Do this rather than simply
+                // removing it from the GUI because the code refers to the TLE
+                // GUI elements by index, so it would be safest for them to
+                // remain in place.  Set a model which prevents TLE from being
+                // selected and set a renderer which shows it as disabled.
+                if (! OtCfg.telescopeUtil.supports(TelescopeUtil.FEATURE_TLE_SYSTEM)) {
+                    _type.setModel(new DefaultComboBoxModel() {
+                            public void setSelectedItem(Object anItem) {
+                                    if ((anItem == null) || ! anItem.toString().equals("TLE")) {
+                                            super.setSelectedItem(anItem);
+                                    }
+                            }
+                    });
+
+                    _type.setRenderer(new DefaultListCellRenderer() {
+                            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                                    setText(value.toString());
+                                    setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
+                                    setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
+                                    setEnabled(list.isEnabled() && (index != 3));
+                                    setFocusable(index != 3);
+                                    return this;
+                            }
+                    });
+                }
+
 		for( int i = 0 ; i < _w.targetSystemsTabbedPane.getTabCount() ; i++ )
 			_type.addChoice( _w.targetSystemsTabbedPane.getTitleAt( i ) ) ;
 		_type.addWatcher( new DropDownListBoxWidgetWatcher()
