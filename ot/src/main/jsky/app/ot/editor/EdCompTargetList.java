@@ -240,6 +240,17 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_w.conicSystemType.addWatcher( this ) ;
 		_w.namedTarget.addWatcher( this ) ;
 
+                // TLE system watchers
+                _w.tleEpochYear.addWatcher(this);
+                _w.tleEpochDay.addWatcher(this);
+                _w.tleInclination.addWatcher(this);
+                _w.tleRaANode.addWatcher(this);
+                _w.tlePerigee.addWatcher(this);
+                _w.tleE.addWatcher(this);
+                _w.tleLorM.addWatcher(this);
+                _w.tleN.addWatcher(this);
+                _w.tleBStar.addWatcher(this);
+
 		_w.resolveOrbitalElementButton.addActionListener( this ) ;
 
 		_type = _w.targetTypeDDList ;
@@ -1161,6 +1172,18 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 					_w.namedTarget.setValue( SELECT_TARGET ) ;
 
 				break ;
+
+                        case SpTelescopePos.SYSTEM_TLE:
+                                _w.tleEpochYear.setValue(tp.getTleSystemEpochYear());
+                                _w.tleEpochDay.setValue(tp.getTleSystemEpochDay());
+                                _w.tleInclination.setValue(tp.getTleSystemInclination());
+                                _w.tleRaANode.setValue(tp.getTleSystemRaANode());
+                                _w.tlePerigee.setValue(tp.getTleSystemPerigee());
+                                _w.tleE.setValue(tp.getTleSystemE());
+                                _w.tleLorM.setValue(tp.getTleSystemLorM());
+                                _w.tleN.setValue(tp.getTleSystemN());
+                                _w.tleBStar.setValue(tp.getTleSystemBStar());
+                                break;
 		}
 	}
 
@@ -1533,6 +1556,33 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			_curPos.setConicSystemLorM( _w.l_or_m.getValue() ) ;
 		else if( tbwe == _w.dm )
 			_curPos.setConicSystemDailyMotion( _w.dm.getValue() ) ;
+                else if (tbwe == _w.tleEpochYear) {
+                        _curPos.setTleSystemEpochYear(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleEpochDay) {
+                        _curPos.setTleSystemEpochDay(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleInclination) {
+                        _curPos.setTleSystemInclination(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleRaANode) {
+                        _curPos.setTleSystemRaANode(tbwe.getValue());
+                }
+                else if (tbwe == _w.tlePerigee) {
+                        _curPos.setTleSystemPerigee(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleE) {
+                        _curPos.setTleSystemE(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleLorM) {
+                        _curPos.setTleSystemLorM(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleN) {
+                        _curPos.setTleSystemN(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleBStar) {
+                        _curPos.setTleSystemBStar(tbwe.getValue());
+                }
 	}
 
 	public void textBoxAction( TextBoxWidgetExt tbwe ){}

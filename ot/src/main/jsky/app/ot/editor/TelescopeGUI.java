@@ -57,6 +57,7 @@ import jsky.app.ot.gui.CommandButtonWidgetExt ;
 import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
 import orac.util.TelescopeUtil ;
+import ot.gui.GuiUtil;
 
 // MFO, June 06, 2002:
 // At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -163,6 +164,17 @@ public class TelescopeGUI extends JPanel
 	JLabel targetType = new JLabel() ;
 	DropDownListBoxWidgetExt targetTypeDDList = new DropDownListBoxWidgetExt() ;
 	JLabel resolvedName = new JLabel() ;
+
+        // Widgets for the TLE panel
+	TextBoxWidgetExt tleEpochYear = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleEpochDay = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleInclination = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleRaANode = new TextBoxWidgetExt();
+	TextBoxWidgetExt tlePerigee = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleE = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleLorM = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleN = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleBStar = new TextBoxWidgetExt();
 
 	// Widgets for radial velocity frame
 	JLabel velLabel = new JLabel() ;
@@ -475,6 +487,36 @@ public class TelescopeGUI extends JPanel
 
 		targetSystemsTabbedPane.add( namedSystemPanel , "Named Planets" ) ;
 		namedSystemPanel.add( namedTarget , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+
+                // TLE System Panel
+                tleSystemPanel.setLayout(new GridBagLayout());
+
+                tleSystemPanel.add(GuiUtil.createLabel("Epoch year"),  new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleEpochYear,                       new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("Epoch day"),   new GridBagConstraints(3, 0, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleEpochDay,                        new GridBagConstraints(4, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("BSTAR"),       new GridBagConstraints(6, 0, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleBStar,                           new GridBagConstraints(7, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(8, 0, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+
+                tleSystemPanel.add(GuiUtil.createLabel("Inclination"), new GridBagConstraints(0, 1, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleInclination,                     new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(2, 1, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("RA A. Node"),  new GridBagConstraints(3, 1, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleRaANode,                         new GridBagConstraints(4, 1, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(5, 1, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("e"),           new GridBagConstraints(6, 1, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleE,                               new GridBagConstraints(7, 1, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+
+                tleSystemPanel.add(GuiUtil.createLabel("Perigee"),     new GridBagConstraints(0, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tlePerigee,                         new GridBagConstraints(1, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(2, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("M"),           new GridBagConstraints(3, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleLorM,                            new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(5, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("n"),           new GridBagConstraints(6, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleN,                               new GridBagConstraints(7, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(8, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
 
                 targetSystemsTabbedPane.add(tleSystemPanel, "TLE");
 
