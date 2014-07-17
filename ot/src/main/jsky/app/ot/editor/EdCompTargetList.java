@@ -31,9 +31,11 @@ import java.awt.event.ActionListener ;
 import java.awt.Component ;
 import java.util.Arrays ;
 import javax.swing.JLabel ;
+import javax.swing.JList;
 import javax.swing.JTabbedPane ;
 import javax.swing.JPanel ;
 import javax.swing.DefaultComboBoxModel ;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JOptionPane ;
 import javax.swing.event.ChangeListener ;
 import javax.swing.event.ChangeEvent ;
@@ -87,6 +89,7 @@ import gemini.util.DDMMSS ;
 /**
  * This is the editor for the target list component.
  */
+@SuppressWarnings("serial")
 public class EdCompTargetList extends OtItemEditor implements TelescopePosWatcher , TableWidgetWatcher , ActionListener , ChangeListener , TextBoxWidgetWatcher , DropDownListBoxWidgetWatcher , OtConstants
 {
 	/** String used in DropDownListBoxWidgetExt namedTarget. */
@@ -240,9 +243,48 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 		_w.conicSystemType.addWatcher( this ) ;
 		_w.namedTarget.addWatcher( this ) ;
 
+                // TLE system watchers
+                _w.tleEpochYear.addWatcher(this);
+                _w.tleEpochDay.addWatcher(this);
+                _w.tleInclination.addWatcher(this);
+                _w.tleRaANode.addWatcher(this);
+                _w.tlePerigee.addWatcher(this);
+                _w.tleE.addWatcher(this);
+                _w.tleLorM.addWatcher(this);
+                _w.tleN.addWatcher(this);
+                _w.tleBStar.addWatcher(this);
+
 		_w.resolveOrbitalElementButton.addActionListener( this ) ;
 
 		_type = _w.targetTypeDDList ;
+
+                // If the telescope does not support TLE then we need prevent
+                // selection of the TLE system.  Do this rather than simply
+                // removing it from the GUI because the code refers to the TLE
+                // GUI elements by index, so it would be safest for them to
+                // remain in place.  Set a model which prevents TLE from being
+                // selected and set a renderer which shows it as disabled.
+                if (! OtCfg.telescopeUtil.supports(TelescopeUtil.FEATURE_TLE_SYSTEM)) {
+                    _type.setModel(new DefaultComboBoxModel() {
+                            public void setSelectedItem(Object anItem) {
+                                    if ((anItem == null) || ! anItem.toString().equals("TLE")) {
+                                            super.setSelectedItem(anItem);
+                                    }
+                            }
+                    });
+
+                    _type.setRenderer(new DefaultListCellRenderer() {
+                            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                                    setText(value.toString());
+                                    setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
+                                    setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
+                                    setEnabled(list.isEnabled() && (index != 3));
+                                    setFocusable(index != 3);
+                                    return this;
+                            }
+                    });
+                }
+
 		for( int i = 0 ; i < _w.targetSystemsTabbedPane.getTabCount() ; i++ )
 			_type.addChoice( _w.targetSystemsTabbedPane.getTitleAt( i ) ) ;
 		_type.addWatcher( new DropDownListBoxWidgetWatcher()
@@ -1161,6 +1203,18 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 					_w.namedTarget.setValue( SELECT_TARGET ) ;
 
 				break ;
+
+                        case SpTelescopePos.SYSTEM_TLE:
+                                _w.tleEpochYear.setValue(tp.getTleSystemEpochYear());
+                                _w.tleEpochDay.setValue(tp.getTleSystemEpochDay());
+                                _w.tleInclination.setValue(tp.getTleSystemInclination());
+                                _w.tleRaANode.setValue(tp.getTleSystemRaANode());
+                                _w.tlePerigee.setValue(tp.getTleSystemPerigee());
+                                _w.tleE.setValue(tp.getTleSystemE());
+                                _w.tleLorM.setValue(tp.getTleSystemLorM());
+                                _w.tleN.setValue(tp.getTleSystemN());
+                                _w.tleBStar.setValue(tp.getTleSystemBStar());
+                                break;
 		}
 	}
 
@@ -1211,6 +1265,12 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.namedSystemPanel ) ;
 				_w.targetTypeDDList.setSelectedIndex( 2 ) ;
 				break ;
+
+                        case SpTelescopePos.SYSTEM_TLE:
+                                _w.targetSystemsTabbedPane.setSelectedComponent(_w.tleSystemPanel);
+                                _w.targetTypeDDList.setSelectedIndex(3);
+                                break;
+
 			default :// SpTelescopePos.SYSTEM_SPHERICAL
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW ) ;
 				_w.targetTypeDDList.setSelectedIndex( 0 ) ;
@@ -1433,6 +1493,11 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 				_curPos = _tpTable.getSelectedPos() ;
 				overrideVelocityFrame() ;
 			}
+                        else if (component == _w.tleSystemPanel) {
+                                _curPos.setSystemType(SpTelescopePos.SYSTEM_TLE);
+                                _curPos = _tpTable.getSelectedPos();
+				overrideVelocityFrame() ;
+                        }
 			else if( component == _w.namedSystemPanel )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED ) ;
@@ -1522,6 +1587,33 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
 			_curPos.setConicSystemLorM( _w.l_or_m.getValue() ) ;
 		else if( tbwe == _w.dm )
 			_curPos.setConicSystemDailyMotion( _w.dm.getValue() ) ;
+                else if (tbwe == _w.tleEpochYear) {
+                        _curPos.setTleSystemEpochYear(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleEpochDay) {
+                        _curPos.setTleSystemEpochDay(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleInclination) {
+                        _curPos.setTleSystemInclination(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleRaANode) {
+                        _curPos.setTleSystemRaANode(tbwe.getValue());
+                }
+                else if (tbwe == _w.tlePerigee) {
+                        _curPos.setTleSystemPerigee(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleE) {
+                        _curPos.setTleSystemE(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleLorM) {
+                        _curPos.setTleSystemLorM(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleN) {
+                        _curPos.setTleSystemN(tbwe.getValue());
+                }
+                else if (tbwe == _w.tleBStar) {
+                        _curPos.setTleSystemBStar(tbwe.getValue());
+                }
 	}
 
 	public void textBoxAction( TextBoxWidgetExt tbwe ){}

@@ -534,6 +534,9 @@ public final class EdSurvey extends EdCompTargetList implements ListSelectionLis
 			case SpTelescopePos.SYSTEM_CONIC :
 				v.addElement( "Orb. Elem." ) ;
 				break ;
+                        case SpTelescopePos.SYSTEM_TLE:
+                                v.addElement("TLE");
+                                break;
 			case SpTelescopePos.SYSTEM_NAMED :
 				v.addElement( "Planets etc." ) ;
 				break ;

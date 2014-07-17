@@ -101,6 +101,14 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
      */
 	public static final int SYSTEM_NAMED = 2 ;
 
+        /**
+         * TLE system.
+         *
+         * A target specified by a TLE set.
+         */
+
+        public static final int SYSTEM_TLE = 3;
+
 	/** Conic/Named System type Major. */
 	public static final int TYPE_MAJOR = 0 ;
 
@@ -297,6 +305,17 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 	public static final int BASE_YOFF = 27 ;
 
+        /* TLE components. */
+        public static final int TLE_SYSTEM_EPOCH_YEAR = 28;
+        public static final int TLE_SYSTEM_EPOCH_DAY = 29;
+        public static final int TLE_SYSTEM_INCLINATION = 30;
+        public static final int TLE_SYSTEM_RAANODE = 31;
+        public static final int TLE_SYSTEM_PERIGEE = 32;
+        public static final int TLE_SYSTEM_E = 33;
+        public static final int TLE_SYSTEM_LORM = 34;
+        public static final int TLE_SYSTEM_N = 35;
+        public static final int TLE_SYSTEM_BSTAR = 36;
+
 	private SpItem _spItem ;
 
 	private SpAvTable _avTab ; // The table that holds this position
@@ -428,13 +447,14 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 	}
 
 	/**
-     * Set the system type: spherical, conic, named.
+     * Set the system type: spherical, conic, named or TLE.
      * 
      * Do not confuse with the coord system.
      * 
      * @param systemType
      *            One of {@link #SYSTEM_SPHERICAL}, {@link #SYSTEM_CONIC},
-     *            {@link #SYSTEM_NAMED} If another int is supplied then the
+     *            {@link #SYSTEM_NAMED}, {@link #SYSTEM_TLE}.
+     *            If another int is supplied then the
      *            system is set to {@link #SYSTEM_SPHERICAL}.
      */
 	public void setSystemType( int systemType )
@@ -462,6 +482,10 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 				_avTab.set( _tag , SYSTEM_NAMED , SYSTEM_TYPE ) ;
 				setConicOrNamedType( NAMED_SYSTEM_TYPES[ TYPE_MAJOR ] ) ;
 				break ;
+
+                        case SYSTEM_TLE:
+                                _avTab.set(_tag, SYSTEM_TLE, SYSTEM_TYPE);
+                                break;
 
 			default :
 				_avTab.set( _tag , SYSTEM_SPHERICAL , SYSTEM_TYPE ) ;
@@ -1478,6 +1502,132 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 				_avTab.set( _tag , systemType , CONIC_OR_NAMED_TYPE ) ;
 		}
 	}
+
+        /** Get TLE system epoch year.
+         */
+
+        public int getTleSystemEpochYear() {
+            return _avTab.getInt(_tag, TLE_SYSTEM_EPOCH_YEAR, 0);
+        }
+
+        /** Set TLE system epoch year.
+         */
+
+        public void setTleSystemEpochYear(String value) {
+            _avTab.set(_tag, Format.toInt(value), TLE_SYSTEM_EPOCH_YEAR);
+        }
+
+        /** Get TLE system epoch day.
+         */
+
+        public double getTleSystemEpochDay() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_EPOCH_DAY, 0.0);
+        }
+
+        /** Set TLE system epoch day.
+         */
+
+        public void setTleSystemEpochDay(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_EPOCH_DAY);
+        }
+
+        /** Get TLE system inclinatino.
+         */
+
+        public double getTleSystemInclination() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_INCLINATION, 0.0);
+        }
+
+        /** Set TLE system inclination.
+         */
+
+        public void setTleSystemInclination(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_INCLINATION);
+        }
+
+        /** Get TLE system RA ascending node.
+         */
+
+        public double getTleSystemRaANode() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_RAANODE, 0.0);
+        }
+
+        /** Set TLE system RA ascending node.
+         */
+
+        public void setTleSystemRaANode(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_RAANODE);
+        }
+
+        /** Get TLE system perigee.
+         */
+
+        public double getTleSystemPerigee() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_PERIGEE, 0.0);
+        }
+
+        /** Set TLE system perigee.
+         */
+
+        public void setTleSystemPerigee(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_PERIGEE);
+        }
+
+        /** Get TLE system e.
+         */
+
+        public double getTleSystemE() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_E, 0.0);
+        }
+
+        /** Set TLE system e.
+         */
+
+        public void setTleSystemE(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_E);
+        }
+
+        /** Get TLE system L or M.
+         */
+
+        public double getTleSystemLorM() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_LORM, 0.0);
+        }
+
+        /** Set TLE system L or M.
+         */
+
+        public void setTleSystemLorM(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_LORM);
+        }
+
+        /** Get TLE system n.
+         */
+
+        public double getTleSystemN() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_N, 0.0);
+        }
+
+        /** Set TLE system n.
+         */
+
+        public void setTleSystemN(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_N);
+        }
+
+        /** Get TLE system B*.
+         */
+
+        public double getTleSystemBStar() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_BSTAR, 0.0);
+        }
+
+        /** Set TLE system B*.
+         */
+
+        public void setTleSystemBStar(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_BSTAR);
+        }
 
 	/**
      * Set a base position.

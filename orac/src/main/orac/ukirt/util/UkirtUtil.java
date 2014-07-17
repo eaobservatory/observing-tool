@@ -68,6 +68,8 @@ public class UkirtUtil implements TelescopeUtil
 				return true ;
 			case FEATURE_TARGET_INFO_TRACKING :
 				return false ;
+                        case FEATURE_TLE_SYSTEM:
+                                return true;
 			default :
 				return false ;
 		}

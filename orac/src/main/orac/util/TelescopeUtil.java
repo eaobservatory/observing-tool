@@ -66,6 +66,12 @@ public interface TelescopeUtil
 	 * "Flag as standard" option on Observation component.
 	 */
 	public static final int FEATURE_FLAG_AS_STANDARD = 4 ;
+
+        /**
+         * Support for the TLE system.
+         */
+        public static final int FEATURE_TLE_SYSTEM = 5;
+
 	public static final String CHOP = "chop" ;
 
 	/** TCS radial velocity definitions */

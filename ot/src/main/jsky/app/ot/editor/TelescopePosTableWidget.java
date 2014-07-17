@@ -285,6 +285,9 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 				case SpTelescopePos.SYSTEM_NAMED :
 					v.addElement( "Planets etc." ) ;
 					break ;
+                                case SpTelescopePos.SYSTEM_TLE:
+                                        v.addElement("TLE");
+                                        break;
 				case SpTelescopePos.SYSTEM_SPHERICAL :
 					v.addElement( tp.getCoordSysAsString() ) ;
 					break ;
