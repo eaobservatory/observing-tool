@@ -172,7 +172,7 @@ public class TelescopeGUI extends JPanel
 	TextBoxWidgetExt tleRaANode = new TextBoxWidgetExt();
 	TextBoxWidgetExt tlePerigee = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleE = new TextBoxWidgetExt();
-	TextBoxWidgetExt tleLorM = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleMeanAnomaly = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleN = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleBStar = new TextBoxWidgetExt();
 
@@ -512,7 +512,7 @@ public class TelescopeGUI extends JPanel
                 tleSystemPanel.add(tlePerigee,                         new GridBagConstraints(1, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(2, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("Mn. anom."),   new GridBagConstraints(3, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-                tleSystemPanel.add(tleLorM,                            new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleMeanAnomaly,                     new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(5, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("Mn. mot."),    new GridBagConstraints(6, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
                 tleSystemPanel.add(tleN,                               new GridBagConstraints(7, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));

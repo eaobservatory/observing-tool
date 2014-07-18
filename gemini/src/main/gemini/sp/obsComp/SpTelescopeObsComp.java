@@ -85,7 +85,7 @@ public class SpTelescopeObsComp extends SpObsComp
 	private static final String TX_TLE_RAANODE = "raanode";
 	private static final String TX_TLE_PERIGEE = "perigee";
 	private static final String TX_TLE_E = "e";
-	private static final String TX_TLE_LORM = "LorM";
+	private static final String TX_TLE_MEAN_ANOMALY = "LorM";
 	private static final String TX_TLE_N = "n";
 	private static final String TX_TLE_BSTAR = "bstar";
 
@@ -627,7 +627,7 @@ public class SpTelescopeObsComp extends SpObsComp
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_RAANODE + ">" + targetPos.getTleSystemRaANode() + "</" + TX_TLE_RAANODE + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_PERIGEE + ">" + targetPos.getTleSystemPerigee() + "</" + TX_TLE_PERIGEE + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_E + ">" + targetPos.getTleSystemE() + "</" + TX_TLE_E + ">");
-				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_LORM + ">" + targetPos.getTleSystemLorM() + "</" + TX_TLE_LORM + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_MEAN_ANOMALY + ">" + targetPos.getTleSystemMeanAnomaly() + "</" + TX_TLE_MEAN_ANOMALY + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_N + ">" + targetPos.getTleSystemN() + "</" + TX_TLE_N + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_BSTAR + ">" + targetPos.getTleSystemBStar() + "</" + TX_TLE_BSTAR + ">");
 
@@ -937,8 +937,8 @@ public class SpTelescopeObsComp extends SpObsComp
                         return;
                 }
 
-                if (isTLE && name.equals(TX_TLE_LORM)) {
-                        _currentPosition.setTleSystemLorM(value);
+                if (isTLE && name.equals(TX_TLE_MEAN_ANOMALY)) {
+                        _currentPosition.setTleSystemMeanAnomaly(value);
                         return;
                 }
 
