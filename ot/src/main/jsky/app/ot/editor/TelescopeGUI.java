@@ -173,7 +173,7 @@ public class TelescopeGUI extends JPanel
 	TextBoxWidgetExt tlePerigee = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleE = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleMeanAnomaly = new TextBoxWidgetExt();
-	TextBoxWidgetExt tleN = new TextBoxWidgetExt();
+	TextBoxWidgetExt tleMeanMotion = new TextBoxWidgetExt();
 	TextBoxWidgetExt tleBStar = new TextBoxWidgetExt();
 
 	// Widgets for radial velocity frame
@@ -515,7 +515,7 @@ public class TelescopeGUI extends JPanel
                 tleSystemPanel.add(tleMeanAnomaly,                     new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(5, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("Mn. mot."),    new GridBagConstraints(6, 2, 1, 1, 0.0, 1.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-                tleSystemPanel.add(tleN,                               new GridBagConstraints(7, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+                tleSystemPanel.add(tleMeanMotion,                      new GridBagConstraints(7, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
                 tleSystemPanel.add(GuiUtil.createLabel("(deg)"),       new GridBagConstraints(8, 2, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
 
                 targetSystemsTabbedPane.add(tleSystemPanel, "TLE");

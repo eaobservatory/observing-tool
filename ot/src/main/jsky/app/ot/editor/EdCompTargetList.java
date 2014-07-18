@@ -251,7 +251,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
                 _w.tlePerigee.addWatcher(this);
                 _w.tleE.addWatcher(this);
                 _w.tleMeanAnomaly.addWatcher(this);
-                _w.tleN.addWatcher(this);
+                _w.tleMeanMotion.addWatcher(this);
                 _w.tleBStar.addWatcher(this);
 
 		_w.resolveOrbitalElementButton.addActionListener( this ) ;
@@ -1212,7 +1212,7 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
                                 _w.tlePerigee.setValue(tp.getTleSystemPerigee());
                                 _w.tleE.setValue(tp.getTleSystemE());
                                 _w.tleMeanAnomaly.setValue(tp.getTleSystemMeanAnomaly());
-                                _w.tleN.setValue(tp.getTleSystemN());
+                                _w.tleMeanMotion.setValue(tp.getTleSystemMeanMotion());
                                 _w.tleBStar.setValue(tp.getTleSystemBStar());
                                 break;
 		}
@@ -1608,8 +1608,8 @@ public class EdCompTargetList extends OtItemEditor implements TelescopePosWatche
                 else if (tbwe == _w.tleMeanAnomaly) {
                         _curPos.setTleSystemMeanAnomaly(tbwe.getValue());
                 }
-                else if (tbwe == _w.tleN) {
-                        _curPos.setTleSystemN(tbwe.getValue());
+                else if (tbwe == _w.tleMeanMotion) {
+                        _curPos.setTleSystemMeanMotion(tbwe.getValue());
                 }
                 else if (tbwe == _w.tleBStar) {
                         _curPos.setTleSystemBStar(tbwe.getValue());

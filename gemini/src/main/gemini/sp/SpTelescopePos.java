@@ -313,7 +313,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
         public static final int TLE_SYSTEM_PERIGEE = 32;
         public static final int TLE_SYSTEM_E = 33;
         public static final int TLE_SYSTEM_MEAN_ANOMALY = 34;
-        public static final int TLE_SYSTEM_N = 35;
+        public static final int TLE_SYSTEM_MEAN_MOTION = 35;
         public static final int TLE_SYSTEM_BSTAR = 36;
 
 	private SpItem _spItem ;
@@ -1604,15 +1604,15 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
         /** Get TLE system n.
          */
 
-        public double getTleSystemN() {
-            return _avTab.getDouble(_tag, TLE_SYSTEM_N, 0.0);
+        public double getTleSystemMeanMotion() {
+            return _avTab.getDouble(_tag, TLE_SYSTEM_MEAN_MOTION, 0.0);
         }
 
         /** Set TLE system n.
          */
 
-        public void setTleSystemN(String value) {
-            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_N);
+        public void setTleSystemMeanMotion(String value) {
+            _avTab.set(_tag, Format.toDouble(value), TLE_SYSTEM_MEAN_MOTION);
         }
 
         /** Get TLE system B*.

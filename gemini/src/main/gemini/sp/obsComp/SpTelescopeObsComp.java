@@ -86,7 +86,7 @@ public class SpTelescopeObsComp extends SpObsComp
 	private static final String TX_TLE_PERIGEE = "perigee";
 	private static final String TX_TLE_E = "e";
 	private static final String TX_TLE_MEAN_ANOMALY = "LorM";
-	private static final String TX_TLE_N = "n";
+	private static final String TX_TLE_MEAN_MOTION = "mm";
 	private static final String TX_TLE_BSTAR = "bstar";
 
 	/** TCS XML constant: proper motion, x axis. */
@@ -628,7 +628,7 @@ public class SpTelescopeObsComp extends SpObsComp
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_PERIGEE + ">" + targetPos.getTleSystemPerigee() + "</" + TX_TLE_PERIGEE + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_E + ">" + targetPos.getTleSystemE() + "</" + TX_TLE_E + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_MEAN_ANOMALY + ">" + targetPos.getTleSystemMeanAnomaly() + "</" + TX_TLE_MEAN_ANOMALY + ">");
-				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_N + ">" + targetPos.getTleSystemN() + "</" + TX_TLE_N + ">");
+				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_MEAN_MOTION + ">" + targetPos.getTleSystemMeanMotion() + "</" + TX_TLE_MEAN_MOTION + ">");
 				xmlBuffer.append( "\n        " + indent + "<" + TX_TLE_BSTAR + ">" + targetPos.getTleSystemBStar() + "</" + TX_TLE_BSTAR + ">");
 
                                 xmlBuffer.append("\n      " + indent + "</" + TX_TLE_SYSTEM + ">");
@@ -942,8 +942,8 @@ public class SpTelescopeObsComp extends SpObsComp
                         return;
                 }
 
-                if (isTLE && name.equals(TX_TLE_N)) {
-                        _currentPosition.setTleSystemN(value);
+                if (isTLE && name.equals(TX_TLE_MEAN_MOTION)) {
+                        _currentPosition.setTleSystemMeanMotion(value);
                         return;
                 }
 
