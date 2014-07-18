@@ -151,8 +151,11 @@
 <!-- The argument of perigee. Units: degrees -->
 <xsd:element name="perigee" type="xsd:double"/>
 
-<!-- The BSTAR drag term. Units: degrees -->
+<!-- The BSTAR drag term. Units: inverse earth radii -->
 <xsd:element name="bstar" type="xsd:double"/>
+
+<!-- The mean motion term. Units: revs/day -->
+<xsd:element name="mm" type="xsd:double"/>
 
 <!-- End of TLE System Elements -->
 
