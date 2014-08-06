@@ -1,353 +1,296 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE project PUBLIC "-//ANT//DTD project//EN" "ant/misc/project.dtd" >
+<!DOCTYPE project PUBLIC "-//ANT//DTD project//EN" "project.dtd" >
 
 <project name="OT" default="main" basedir=".">
-	<property name="local.install.dir" value="install"/>
-	<property name="local.install.path" value="${local.install.dir}/classes"/>
-	<property name="local.jar.dir" value="${local.install.dir}/lib"/>
+        <property name="local.output.dir" value="output"/>
+        <property name="local.output.path" value="${local.output.dir}/classes"/>
+        <property name="local.jar.dir" value="${local.output.dir}/lib"/>
 
-	<property name="install.dir" value="${basedir}/install"/>
-	<property name="install.dir.lib" value="${install.dir}/lib"/>
-	<property name="install.dir.tools" value="${install.dir}/tools"/>
-	<property name="install.dir.tools.jsky" value="${install.dir.tools}/jsky3"/>
-	<property name="install.dir.bin" value="${install.dir}/bin"/>
-	<property name="install.dir.cfg" value="${install.dir}/cfg"/>
+        <property name="output.dir" value="${basedir}/output"/>
+        <property name="output.dir.lib" value="${output.dir}/lib"/>
+        <property name="output.dir.bin" value="${output.dir}/bin"/>
+        <property name="output.dir.cfg" value="${output.dir}/cfg"/>
 
-	<property name="docs.dir" value="${basedir}/docs"/>
-	<property name="javadoc.dir" value="${docs.dir}/javadoc"/>
+        <property name="docs.dir" value="${basedir}/docs"/>
+        <property name="javadoc.dir" value="${docs.dir}/javadoc"/>
+        <property name="report.dir" value="${output.dir}/report"/>
 
-	<property name="gemini.dir" value="${basedir}/GEMINI"/>
-	<property name="orac.dir" value="${basedir}/ORAC"/>
-	<property name="omp.dir" value="${basedir}/OMP"/>
-	<property name="edfreq.dir" value="${basedir}/EDFREQ"/>
-	<property name="ot.dir" value="${basedir}/OT"/>
+        <property name="gemini.dir" value="${basedir}/gemini/src"/>
+        <property name="orac.dir" value="${basedir}/orac/src"/>
+        <property name="omp.dir" value="${basedir}/omp/src"/>
+        <property name="edfreq.dir" value="${basedir}/edfreq/src"/>
+        <property name="ot.dir" value="${basedir}/ot/src"/>
 
-	<property name="gemini.jar" value="${gemini.dir}/${local.jar.dir}/gemini.jar"/>
-	<property name="orac.jar" value="${orac.dir}/${local.jar.dir}/orac.jar"/>
-	<property name="omp.jar" value="${omp.dir}/${local.jar.dir}/omp.jar"/>
-	<property name="edfreq.jar" value="${edfreq.dir}/${local.jar.dir}/edfreq.jar"/>
-	<property name="ot.jar" value="${ot.dir}/${local.jar.dir}/ot.jar"/>
+        <property name="gemini.jar" value="${gemini.dir}/${local.jar.dir}/gemini.jar"/>
+        <property name="orac.jar" value="${orac.dir}/${local.jar.dir}/orac.jar"/>
+        <property name="omp.jar" value="${omp.dir}/${local.jar.dir}/omp.jar"/>
+        <property name="edfreq.jar" value="${edfreq.dir}/${local.jar.dir}/edfreq.jar"/>
+        <property name="ot.jar" value="${ot.dir}/${local.jar.dir}/ot.jar"/>
 
-	<property name="gemini.install.dir" value="${gemini.dir}/${local.install.dir}"/>
-	<property name="orac.install.dir" value="${orac.dir}/${local.install.dir}"/>
-	<property name="omp.install.dir" value="${omp.dir}/${local.install.dir}"/>
-	<property name="edfreq.install.dir" value="${edfreq.dir}/${local.install.dir}"/>
-	<property name="ot.install.dir" value="${ot.dir}/${local.install.dir}"/>
+        <property name="gemini.output.dir" value="${gemini.dir}/${local.output.dir}"/>
+        <property name="orac.output.dir" value="${orac.dir}/${local.output.dir}"/>
+        <property name="omp.output.dir" value="${omp.dir}/${local.output.dir}"/>
+        <property name="edfreq.output.dir" value="${edfreq.dir}/${local.output.dir}"/>
+        <property name="ot.output.dir" value="${ot.dir}/${local.output.dir}"/>
 
-	<property name="gemini.install.path" value="${gemini.dir}/${local.install.path}"/>
-	<property name="orac.install.path" value="${orac.dir}/${local.install.path}"/>
-	<property name="omp.install.path" value="${omp.dir}/${local.install.path}"/>
-	<property name="edfreq.install.path" value="${edfreq.dir}/${local.install.path}"/>
-	<property name="ot.install.path" value="${ot.dir}/${local.install.path}"/>
+        <property name="gemini.output.path" value="${gemini.dir}/${local.output.path}"/>
+        <property name="orac.output.path" value="${orac.dir}/${local.output.path}"/>
+        <property name="omp.output.path" value="${omp.dir}/${local.output.path}"/>
+        <property name="edfreq.output.path" value="${edfreq.dir}/${local.output.path}"/>
+        <property name="ot.output.path" value="${ot.dir}/${local.output.path}"/>
 
-	<property name="toml.dir" value="${basedir}/TOML"/>
-	<property name="toml.jar" value="${toml.dir}/${local.jar.dir}/toml.jar"/>
-	<property name="toml.schema.dir" value="${toml.dir}/schema"/>
-	<property name="toml.src.dir" value="${toml.dir}/src"/>
-	<property name="toml.install.dir" value="${toml.dir}/${local.install.dir}"/>
-	<property name="toml.install.path" value="${toml.dir}/${local.install.path}"/>
+        <path id="classpath">
+                <fileset dir="${basedir}/lib" includes="**/*.jar"/>
+                <fileset dir="${basedir}/lib/jsky3" includes="**/*.jar"/>
+        </path>
 
-	<property name="path.to.schema" value="${basedir}/OT/cfg/schema"/>
-	<property name="ukirt.schema" value="${path.to.schema}/JAC/UKIRT/UKIRT.xsd"/>
-	<property name="jcmt.schema" value="${path.to.schema}/JAC/JCMT/JCMT.xsd"/>
-	<property name="schema.java.path" value="edu.hawaii.jach.omp.toml"/>
-	<property name="ukirt.java.path" value="${schema.java.path}.ukirt"/>
-	<property name="jcmt.java.path" value="${schema.java.path}.jcmt"/>
+        <path id="output.classpath">
+                <fileset dir="${output.dir.lib}" includes="*.jar"/>
+                <fileset dir="${output.dir.lib}/jsky3" includes="*.jar"/>
+        </path>
 
-	<property name="xjc" value="xjc"/>
-        <available file="/Library/Java/Home/bin/xjc" property="xjc" value="/Library/Java/Home/bin/xjc"/>
+        <target name="clean">
+                <delete dir="${gemini.output.dir}"/>
+                <delete dir="${orac.output.dir}"/>
+                <delete dir="${omp.output.dir}"/>
+                <delete dir="${edfreq.output.dir}"/>
+                <delete dir="${ot.output.dir}"/>
 
-	<target name="clean">
-		<delete dir="${gemini.install.dir}"/>
-		<delete dir="${orac.install.dir}"/>
-		<delete dir="${omp.install.dir}"/>
-		<delete dir="${edfreq.install.dir}"/>
-		<delete dir="${ot.install.dir}"/>
+                <delete dir="${output.dir}"/>
 
-		<delete dir="${install.dir}"/>
+                <delete file="${ot.dir}/main/cfg/ukirt/versionFile"/>
+                <delete file="${ot.dir}/main/cfg/jcmt/versionFile"/>
+                <delete file="${ot.dir}/main/cfg/jcmt/tau.list"/>
+        </target>
 
-		<delete file="${ot.dir}/cfg/ukirt/versionFile"/>
-		<delete file="${ot.dir}/cfg/jcmt/versionFile"/>
-		<delete file="${ot.dir}/cfg/jcmt/tau.list"/>
+        <target name="mkdir" depends="clean">
+                <mkdir dir="${gemini.output.dir}"/>
+                <mkdir dir="${gemini.output.path}"/>
+                <mkdir dir="${gemini.dir}/${local.jar.dir}"/>
 
-		<delete dir="${toml.schema.dir}"/>
-		<delete dir="${toml.dir}/${local.jar.dir}"/>
-		<delete dir="${toml.install.path}"/>
-		<delete dir="${toml.install.dir}"/>
-		<delete dir="${toml.jar}"/>
-	</target>
+                <mkdir dir="${orac.output.dir}"/>
+                <mkdir dir="${orac.output.path}"/>
+                <mkdir dir="${orac.dir}/${local.jar.dir}"/>
 
-	<target name="mkdir" depends="clean">
-		<mkdir dir="${gemini.install.dir}"/>
-		<mkdir dir="${gemini.install.path}"/>
-		<mkdir dir="${gemini.dir}/${local.jar.dir}"/>
-		
-		<mkdir dir="${orac.install.dir}"/>
-		<mkdir dir="${orac.install.path}"/>
-		<mkdir dir="${orac.dir}/${local.jar.dir}"/>
-		
-		<mkdir dir="${omp.install.dir}"/>
-		<mkdir dir="${omp.install.path}"/>
-		<mkdir dir="${omp.dir}/${local.jar.dir}"/>
-		
-		<mkdir dir="${edfreq.install.dir}"/>
-		<mkdir dir="${edfreq.install.path}"/>
-		<mkdir dir="${edfreq.dir}/${local.jar.dir}"/>
-		
-		<mkdir dir="${ot.install.dir}"/>
-		<mkdir dir="${ot.install.path}"/>
-		<mkdir dir="${ot.dir}/${local.jar.dir}"/>
+                <mkdir dir="${omp.output.dir}"/>
+                <mkdir dir="${omp.output.path}"/>
+                <mkdir dir="${omp.dir}/${local.jar.dir}"/>
 
-		<mkdir dir="${install.dir}"/>
-		<mkdir dir="${install.dir.lib}"/>
-		<mkdir dir="${install.dir.tools}"/>
-		<!-- No need to do this as the recursive copy will create it.
-		<mkdir dir="${install.dir.tools.jsky}"/> -->
-		<mkdir dir="${install.dir.bin}"/>
-		<mkdir dir="${install.dir.cfg}"/>
+                <mkdir dir="${edfreq.output.dir}"/>
+                <mkdir dir="${edfreq.output.path}"/>
+                <mkdir dir="${edfreq.dir}/${local.jar.dir}"/>
 
-		<mkdir dir="${toml.schema.dir}"/>
-		<mkdir dir="${toml.install.dir}"/>
-		<mkdir dir="${toml.install.path}"/>
-		<mkdir dir="${toml.dir}/${local.jar.dir}"/>
-	</target>
+                <mkdir dir="${ot.output.dir}"/>
+                <mkdir dir="${ot.output.path}"/>
+                <mkdir dir="${ot.dir}/${local.jar.dir}"/>
 
-	<target name="toml" depends="mkdir">
-		<exec executable="${xjc}">
-			<arg value="-verbose"/>
-			<arg value="-d"/>
-			<arg value="${toml.schema.dir}"/>
-			<arg value="-p"/>
-			<arg value="${ukirt.java.path}"/>
-			<arg value="${ukirt.schema}"/>
-		</exec>
-		<exec executable="${xjc}">
-			<arg value="-verbose"/>
-			<arg value="-d"/>
-			<arg value="${toml.schema.dir}"/>
-			<arg value="-p"/>
-			<arg value="${jcmt.java.path}"/>
-			<arg value="${jcmt.schema}"/>
-		</exec>
-		<javac srcdir="${toml.schema.dir}"
-		       destdir="${toml.install.path}"
-		       debug="on"
-		       target="1.6">
-		</javac>
-		<javac srcdir="${toml.src.dir}"
-		       destdir="${toml.install.path}"
-		       debug="on"
-		       target="1.6">
-		</javac>
-		<jar jarfile="${toml.jar}"
-		     basedir="${toml.install.path}">
-			<fileset dir="${toml.dir}/cfg" />
-		</jar>
-	</target>
+                <mkdir dir="${output.dir}"/>
+                <mkdir dir="${output.dir.lib}"/>
+                <mkdir dir="${output.dir.bin}"/>
+                <mkdir dir="${output.dir.cfg}"/>
+        </target>
 
-	<!-- <target name="gemini" depends="toml"> -->
-	<target name="gemini" depends="mkdir">
-		<javac srcdir="${gemini.dir}/src"
-		       destdir="${gemini.install.path}"
-		       debug="on"
-		       target="1.6">
-			<compilerarg value="-Xlint"/>
-			<compilerarg value="-Xlint:-path"/>
-			<!-- <classpath>
-				<pathelement location="${toml.jar}" />
-			</classpath> -->
-		</javac>
-		<jar jarfile="${gemini.jar}"
-		     basedir="${gemini.install.path}">
-		</jar>
-	</target>
-	
-	<target name="orac" depends="gemini">
-		<javac srcdir="${orac.dir}/src"
-		       destdir="${orac.install.path}"
-		       debug="on"
-		       target="1.6">
-			<compilerarg value="-Xlint"/>
-			<compilerarg value="-Xlint:-path"/>
-			<classpath>
-				<fileset dir="${orac.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<!-- <pathelement location="${toml.jar}" /> -->
-				<pathelement location="${gemini.jar}" />
-			</classpath>
-		</javac>
-		<jar jarfile="${orac.jar}"
-		     basedir="${orac.install.path}">
-		</jar>
-	</target>
-	
-	<target name="omp" depends="orac">
-		<javac srcdir="${omp.dir}/src"
-		       destdir="${omp.install.path}"
-		       debug="on"
-		       target="1.6">
-			<compilerarg value="-Xlint"/>
-			<compilerarg value="-Xlint:-path"/>
-			<classpath>
-				<fileset dir="${omp.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<!-- <pathelement location="${toml.jar}" /> -->
-				<pathelement location="${gemini.jar}" />
-				<pathelement location="${orac.jar}" />
-			</classpath>
-		</javac>
-		<jar jarfile="${omp.jar}"
-		     basedir="${omp.install.path}">
-		</jar>
-	</target>
-	
-	<target name="edfreq" depends="omp">
-		<javac srcdir="${edfreq.dir}/src"
-		       destdir="${edfreq.install.path}"
-		       debug="on"
-		       target="1.6">
-			<compilerarg value="-Xlint"/>
-			<compilerarg value="-Xlint:-path"/>
-			<classpath>
-				<fileset dir="${orac.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<!-- <pathelement location="${toml.jar}" /> -->
-				<pathelement location="${gemini.jar}" />
-				<pathelement location="${orac.jar}" />
-				<pathelement location="${omp.jar}" />
-			</classpath>
-		</javac>
-		<jar jarfile="${edfreq.jar}"
-		     basedir="${edfreq.install.path}">
-		</jar>
-	</target>
+        <target name="gemini" depends="mkdir">
+                <javac srcdir="${gemini.dir}/main:${gemini.dir}/test"
+                       destdir="${gemini.output.path}"
+                       includeantruntime="false"
+                       classpathref="classpath"
+                       debug="on"
+                       source="1.6"
+                       target="1.6">
+                        <compilerarg value="-Xlint"/>
+                        <compilerarg value="-Xlint:-path"/>
+                </javac>
+                <jar jarfile="${gemini.jar}"
+                     basedir="${gemini.output.path}">
+                </jar>
+        </target>
 
-	<target name="ot" depends="edfreq">
-		<javac srcdir="${ot.dir}/src"
-		       destdir="${ot.install.path}"
-		       debug="on"
-		       target="1.6">
-			<compilerarg value="-Xlint"/>
-			<!-- Ignore path errors coming from JSky jar file manifests. -->
-			<compilerarg value="-Xlint:-path"/>
-			<classpath>
-				<fileset dir="${orac.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<fileset dir="${omp.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<fileset dir="${ot.dir}/tools">
-					<include name="*.jar"/>
-				</fileset>
-				<fileset dir="${ot.dir}/tools/jsky3">
-					<include name="*.jar"/>
-				</fileset>
-				<!-- <pathelement location="${toml.jar}" /> -->
-				<pathelement location="${gemini.jar}" />
-				<pathelement location="${orac.jar}" />
-				<pathelement location="${omp.jar}" />
-				<pathelement location="${edfreq.jar}" />
-			</classpath>
-		</javac>
-		<copy todir="${ot.install.path}/jsky/app/ot/images">
-			<fileset dir="${ot.dir}/src/jsky/app/ot/images"/>
-		</copy>
-		<dirset dir="${ot.dir}/src/ot/images"/>
-		<copy todir="${ot.install.path}/ot/images">
-			<fileset dir="${ot.dir}/src/ot/images"/>
-		</copy>
-		<jar jarfile="${ot.jar}"
-		     basedir="${ot.install.path}">
-		</jar>
+        <target name="orac" depends="gemini">
+                <javac srcdir="${orac.dir}/main:${orac.dir}/test"
+                       destdir="${orac.output.path}"
+                       includeantruntime="false"
+                       classpathref="classpath"
+                       debug="on"
+                       source="1.6"
+                       target="1.6">
+                        <compilerarg value="-Xlint"/>
+                        <compilerarg value="-Xlint:-path"/>
+                        <classpath>
+                                <pathelement location="${gemini.jar}" />
+                        </classpath>
+                </javac>
+                <jar jarfile="${orac.jar}"
+                     basedir="${orac.output.path}">
+                </jar>
+        </target>
+
+        <target name="omp" depends="orac">
+                <javac srcdir="${omp.dir}/main:${omp.dir}/test"
+                       destdir="${omp.output.path}"
+                       includeantruntime="false"
+                       classpathref="classpath"
+                       debug="on"
+                       source="1.6"
+                       target="1.6">
+                        <compilerarg value="-Xlint"/>
+                        <compilerarg value="-Xlint:-path"/>
+                        <classpath>
+                                <pathelement location="${gemini.jar}" />
+                                <pathelement location="${orac.jar}" />
+                        </classpath>
+                </javac>
+                <jar jarfile="${omp.jar}"
+                     basedir="${omp.output.path}">
+                </jar>
+        </target>
+
+        <target name="edfreq" depends="omp">
+                <javac srcdir="${edfreq.dir}/main:${edfreq.dir}/test"
+                       destdir="${edfreq.output.path}"
+                       includeantruntime="false"
+                       classpathref="classpath"
+                       debug="on"
+                       source="1.6"
+                       target="1.6">
+                        <compilerarg value="-Xlint"/>
+                        <compilerarg value="-Xlint:-path"/>
+                        <classpath>
+                                <pathelement location="${gemini.jar}" />
+                                <pathelement location="${orac.jar}" />
+                                <pathelement location="${omp.jar}" />
+                        </classpath>
+                </javac>
+                <jar jarfile="${edfreq.jar}"
+                     basedir="${edfreq.output.path}">
+                </jar>
+        </target>
+
+        <target name="ot" depends="edfreq">
+                <javac srcdir="${ot.dir}/main:${ot.dir}/test"
+                       destdir="${ot.output.path}"
+                       includeantruntime="false"
+                       classpathref="classpath"
+                       debug="on"
+                       source="1.6"
+                       target="1.6">
+                        <compilerarg value="-Xlint"/>
+                        <compilerarg value="-Xlint:-path"/>
+                        <classpath>
+                                <pathelement location="${gemini.jar}" />
+                                <pathelement location="${orac.jar}" />
+                                <pathelement location="${omp.jar}" />
+                                <pathelement location="${edfreq.jar}" />
+                        </classpath>
+                </javac>
+                <copy todir="${ot.output.path}/jsky/app/ot/images">
+                        <fileset dir="${ot.dir}/main/jsky/app/ot/images"/>
+                </copy>
+                <dirset dir="${ot.dir}/main/ot/images"/>
+                <copy todir="${ot.output.path}/ot/images">
+                        <fileset dir="${ot.dir}/main/ot/images"/>
+                </copy>
+                <jar jarfile="${ot.jar}"
+                     basedir="${ot.output.path}">
+                </jar>
                 <exec executable="/bin/sh">
-                        <arg value="${basedir}/ant/create_cfg_files.sh"/>
+                        <arg value="${basedir}/scripts/create_cfg_files.sh"/>
                 </exec>
-	</target>
+        </target>
 
-	<target name="copy" depends="ot">
-		<copy file="${gemini.jar}" todir="${install.dir.lib}" />
-		<copy file="${orac.jar}" todir="${install.dir.lib}" />
-		<copy file="${omp.jar}" todir="${install.dir.lib}" />
-		<copy file="${edfreq.jar}" todir="${install.dir.lib}" />
-		<copy file="${ot.jar}" todir="${install.dir.lib}" />
-		<!-- <copy file="${toml.jar}" todir="${install.dir.lib}" /> -->
+        <target name="copy" depends="ot">
+                <copy file="${gemini.jar}" todir="${output.dir.lib}" />
+                <copy file="${orac.jar}" todir="${output.dir.lib}" />
+                <copy file="${omp.jar}" todir="${output.dir.lib}" />
+                <copy file="${edfreq.jar}" todir="${output.dir.lib}" />
+                <copy file="${ot.jar}" todir="${output.dir.lib}" />
 
-		<copy todir="${install.dir.tools}">
-			<fileset dir="${orac.dir}/tools"/>
-			<fileset dir="${omp.dir}/tools"/>
-			<fileset dir="${ot.dir}/tools"/>
-		</copy>
+                <copy todir="${output.dir.lib}">
+                        <fileset dir="${basedir}/lib"/>
+                </copy>
 
-		<!-- We don't need to do this as it is included in the previous copy.
-		<copy todir="${install.dir.tools.jsky}">
-			<fileset dir="${ot.dir}/tools/jsky3"/>
-		</copy> -->
+                <copy todir="${output.dir.cfg}/ot">
+                        <fileset dir="${ot.dir}/main/cfg"/>
+                </copy>
+                <chmod perm="+w">
+                        <fileset dir="${output.dir.cfg}/ot"/>
+                </chmod>
+        </target>
 
-		<copy todir="${install.dir.cfg}/ot">
-			<fileset dir="${ot.dir}/cfg"/>
-		</copy>
-		<chmod perm="+w">
-			<fileset dir="${install.dir.cfg}/ot"/>
-		</chmod>
-	</target>
+        <target name="cfg.jar" depends="copy">
+                <jar jarfile="${output.dir.lib}/cfg.jar"
+                     basedir="${output.dir.cfg}">
+                </jar>
+        </target>
 
-	<target name="cfg.jar" depends="copy">
-		<jar jarfile="${install.dir.lib}/cfg.jar"
-		     basedir="${install.dir.cfg}">
-		</jar>
-	</target>
+        <target name="create.bin.files">
+                <exec executable="/bin/sh">
+                        <arg value="${basedir}/scripts/create_bin_files.sh"/>
+                        <arg pathref="output.classpath"/>
+                </exec>
+                <replaceregexp file="${output.dir.bin}/ot"
+                               match="${output.dir}"
+                               replace=".."
+                               flags="g"
+                               byline="false"/>
+                <chmod perm="+x" file="${output.dir.bin}/ot"/>
+        </target>
 
-	<target name="create.bin.files">
-		<path id="install.classpath">
-			<fileset dir="${install.dir.lib}">
-				<include name="*.jar"/>
-			</fileset>
-			<fileset dir="${install.dir.tools}">
-				<include name="*.jar"/>
-			</fileset>
-			<fileset dir="${install.dir.tools.jsky}">
-				<include name="*.jar"/>
-			</fileset>
-		</path>
-		<exec executable="/bin/sh">
-			<arg value="${basedir}/ant/create_bin_files.sh"/>
-			<arg pathref="install.classpath"/>
-		</exec>
-		<replaceregexp file="${install.dir.bin}/ot"
-			       match="${install.dir}"
-			       replace=".."
-			       flags="g"
-			       byline="false"/>
-		<chmod perm="+x" file="${install.dir.bin}/ot"/>
-	</target>
+        <target name="output">
+                <antcall target="cfg.jar"/>
+                <antcall target="create.bin.files"/>
+        </target>
 
-	<target name="install">
-		<antcall target="cfg.jar"/>
-		<antcall target="create.bin.files"/>
-	</target>
+        <target name="main" depends="output">
+                <echo message="Done"/>
+        </target>
 
-	<target name="main" depends="install">
-		<echo message="Done"/>
-	</target>
+<!-- Create the javadoc -->
 
-	<target name="javadoc">
-		<javadoc destdir="${javadoc.dir}"
-		         private="on">
-		         <sourcepath>
-				<pathelement location="${gemini.dir}/src"/>
-				<pathelement location="${orac.dir}/src"/>
-				<pathelement location="${omp.dir}/src"/>
-				<pathelement location="${edfreq.dir}/src"/>
-				<pathelement location="${ot.dir}/src"/>
-		         </sourcepath>
-		</javadoc>
-	</target>
+        <target name="javadoc">
+                <javadoc destdir="${javadoc.dir}"
+                         private="on">
+                         <sourcepath>
+                                <pathelement location="${gemini.dir}/main"/>
+                                <pathelement location="${orac.dir}/main"/>
+                                <pathelement location="${omp.dir}/main"/>
+                                <pathelement location="${edfreq.dir}/main"/>
+                                <pathelement location="${ot.dir}/main"/>
+                         </sourcepath>
+                </javadoc>
+        </target>
 
-	<target name="cleanjavadoc">
-		<delete dir="${javadoc.dir}"/>
-	</target>
+        <target name="cleanjavadoc">
+                <delete dir="${javadoc.dir}"/>
+        </target>
+
+<!-- Run the JUnit tests -->
+
+        <target name="junit">
+            <mkdir dir="${report.dir}"/>
+            <junit printsummary="yes">
+                <classpath>
+                      <path refid="output.classpath"/>
+                <!--  <path refid="application"/>-->
+                </classpath>
+
+                <formatter type="xml"/>
+
+                <batchtest fork="yes" todir="${report.dir}">
+                     <fileset dir="${gemini.dir}/test" includes="**/*Test.java"/>
+                     <fileset dir="${orac.dir}/test" includes="**/*Test.java"/>
+                     <fileset dir="${omp.dir}/test" includes="**/*Test.java"/>
+                     <fileset dir="${edfreq.dir}/test" includes="**/*Test.java"/>
+                     <fileset dir="${ot.dir}/test" includes="**/*Test.java"/>
+                </batchtest>
+            </junit>
+        </target>
+
+        <target name="junitreport">
+            <junitreport todir="${report.dir}">
+                <fileset dir="${report.dir}" includes="TEST-*.xml"/>
+                <report todir="${report.dir}"/>
+            </junitreport>
+        </target>
+
 </project>

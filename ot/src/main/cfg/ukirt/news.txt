@@ -1,0 +1,412 @@
++++ August 2014 release
+
+  - Added support for TLE coordinates.
+
+  - Added WFCAM recipe MOVING_JITTER.
+
++++ January 2014 release
+
+  - Cached data from Horizons now expire after 10 minutes.
+
++++ December 2013 release
+
+  - Allowed Site Quality components at additional levels to avoid
+    problems loading schema-compliant programs which the OT
+    previously rejected.
+
+  - Set a default earliest schedule date in the past.
+
+  - When loading Survey Container positions from files, handle
+    all positions in a similar manner to base positions.
+
++++ July 2013 release
+
+  - No changes for UKIRT.
+
++++ June 2013 release
+
+  - No changes for UKIRT.
+
++++ March 2013 release
+
+  - No changes for UKIRT.
+
++++ February 2013 release
+
+  - No changes for UKIRT.
+
++++ January 2013 release
+
+  - Maximum memory usage increased to 1000M to avoid problems
+    saving very large programs.
+
+  - Upgraded JSky to version 3.
+
++++ November 2012 release
+
+  - From January 2013 the OT will require Java version 1.6 so
+    that we can use JSky3.  In this release the splash screen shows
+    a warning if the Java version is older than this.
+
+  - Validator now checks for bare observations in survey containers.
+
+  - Removed fixed sizes of the panels on the target information
+    page to avoid problems where the orbital elements panel
+    did not fit in the space assigned.
+
+  - Included the latest documentation from the UKIRT OT website.
+
++++ August 2012 release
+
+  - Minor update to display of orbital elements target information
+    to allow input boxes to stretch.
+
++++ July 2012 release
+
+  - The validation button checks whether an epoch has been specified
+    for targets with proper motion.
+
+  - Added JITTER_FLIP32 to WFCAM recipe list.
+
++++ June 2012 release
+
+  - Added new WFCAM filter 1.644FeII.
+
+  - The prioritize button now opens a dialogue box offering to set/adjust
+    priorities as well as the previous 'automatic' ordering.  (It also
+    now supports survey containers and and and or folders.)
+
+  - Duplicate button added to survey containers.
+
+  - Tried to stop coordinates being changed to J2000 when dragged in the
+    position editor window.
+
+  - Updates to validation: some messages should no longer be shown twice,
+    it should now behave more consistently and it should no longer complain
+    about the start date being before the current date.
+
++++ May 2012 release
+
+  - When loading a file of coordinates into a survey container, the
+    remaining count and priority can now be specified after the
+    position in tile.  (The position in tile can be given as -1 to skip
+    this parameter.)
+
++++ March 2011 release
+
+  - Galactic coordinate support in the position editor for scans and offsets.
+
+  - Corrected a validation bug when elevation constraints were used
+
+  - Removed SKY_FLAT and SKY_FLAT_MASKED and added REDUCE_TWILIGHT_FLAT and
+    REDUCE_TWILIGHT_FLAT_MASKED recipes.
+
++++ April 2010 release
+
+  - Bug fix : Target component was incorrectly reading all targets as FK5.
+
+  - Minor fixes to Orbital Elements name resolution.
+
+  - Minor fixes including offset iterator fixes.
+
++++ December 2009 release
+
+  - SCUBA-2 Shared Risk Observing release.
+
+  - Airmass calculation now works correctly with FK4, FK5 and Az/El.
+
+  - Position editor has been disabled for Galactic coordinates due to
+    poor support in JSky.
+
++++ July 2009
+
+  - JAC Observing Tool available for the first time via Java Web Start.
+
++++ January 2009
+
+  - 2MASS Quick look support for J, H and K band.
+
++++ December 2008
+
+  - Numerous CGS4 updates to support new controller.
+
++++ August 2008
+
+  - Narrow band H filter replaces Bracket Gamma filter for WFCAM. See January 2008.
+
++++ June 2008
+
+  - Additional changes to the UIST configuration files for thermal imaging with the new controller
+
+  - Revised offsets for nod8 (1024 array)
+
+  - Revised default exposure times documented in the thermal imaging notes
+
+  - FLIP recipes in the WFCAM library and DR component
+
++++ January 2008
+
+  - Bracket Gamma filter has replaced Narrow Band J filter in WFCAM. See October 2006 release.
+
++++ November 2007
+
+  - IRPOL representation in position editor better reflects reality.
+
+  - Updated template libraries for UIST and UFTI.
+
+  - Conversion between FK{4,5} and Galactic added to the Target Component.
+
++++ July 2007
+
+  - Conversion between B1950 and J2000 added to the Target Component.
+
+  - Minor fixes for UIST and UFTI.
+
++++ April 2007
+
+  - New filter for UFTI, Y_MK.
+
+  - New filters for UIST, Y_MK and K_s_MK which replaces kshort.
+
+  - New blocker for UIST, IJH_blocker which replaces PK50 and is the default blocker for IJ and JH grisms. 
+
+  - New Data Reduction Recipes, BRIGHT_POINT_SOURCE_NCOLOUR for UFTI and POL_JITTER_CORON, STANDARD_STAR_NOARC, POINT_SOURCE_NOARC, EXTENDED_SOURCE_NOARC, POINT_SOURCE_POL, EXTENDED_SOURCE and EXTENDED_SOURCE_NOSTD for UIST. 
+
++++ October 2006
+
+  - Tiling WFCAM observations gives hints in the Telescope Position Editor as to where autoguider will be.
+
+  - Brackett Gamma filter has been removed and replaced with a specialised filter ( narrow-band J. )
+
+  - Grid patterns for Offset Iterators can append or overwrite positions.
+
+  - When changing between coordinate systems, positions get reset as they are currently not converted.
+
++++ May 2006
+
+  - Fix for Guidestar Offsets in the Position Editor.
+
+  - Fixes for cloning Telescope Positions within Survey Containers. 
+
+  - Fix some IO flushing problems.
+
+  - Added name resolution for Orbital Elements via Horizons.
+
+  - Line numbers added to Schema Validation.
+
++++ April 2006
+
+  - Assorted fixes to Science Program Validation.
+
+  - CGS4 and UIST slit position angles are rounded to a single decimal place.
+
+  - Upgrade to JSky 2.5 ( http://archive.eso.org/JSky/ )
+
+  - It is no longer possible to accidently put sequences before components causing invalid XML to be produced.
+
+  - Copying survey containers get properly cloned.
+
+  - Changes to X-offsets to RA get applied as [ X-offset x cos( Dec ) ]
+
+  - When targetting, the RA and Dec no longer get corrupted causing drift.
+
+  - Initial removal of ODB and OM code.
+
+  - Removal of SERVER options on the command line as part of ODB code removal. 
+
+  - XML Science Programs can now be opened from the command-line.
+
+  - When opening files locally, the default working directory is the directory the user is in when the OT started.
+
+  - Removal of OMP as an option as it is now the default, as a result the OT no longer supports SGML.
+
++++ February 2005
+
+  [Semester 05A release]
+  
+  - Support added for WFCAM instrument.  This includes not only the WFCAM instrument
+    but also the MicroStep iterator, WFCAM calibration "eye", WFCAM library and WFCAM 
+    DR-Recipe component.
+
+  - The Survey Container has been added.  This allows you to put multiple targets in
+    the same container, and gives the Telescope Operator the choice if selecting n of
+    the m targets.  It can either be placed at the top level of a Science Program
+    (like an MSB), in which case it can contain at most 1 MSB (acting as a repeat
+    iterator for the MSB), or within an MSB, when it can contain any number of 
+    observations (acting as a target iterator).
+
+  - The target component now allows you to create "named" sky targets.  These can be either
+    specified as absolute positions or offsets from the base.  The "old style" use of skies
+    is still supported.
+
+  - The sky "eye" interface has changed to support "named" sky targets.  If a named sky is
+    not specified, this eye behaves exactly as it did previously.  If a named sky is
+    specified, then several additional options exist:
+      - You may select which named sky to use;
+      - If the sky target is specified in absolute terms, then it will always go to this
+        position, regardless of the base
+      - If the sky target is specified as an offset from the base, the following additional
+        features are available:
+          - "No offset" - always go to the offset position relative to the BASE target
+          - "Follow offset" - if the BASE is inside an offset iterator, the sky position
+            used will follow the BASE offset pattern, with a user defined scale factor.
+          - "Random offset" - the actual offset position will be somewhere in the specifed
+            box centered on the sky target offset position.
+
+  - MSB's marked as REMOVED can now be UNREMOVED and their count is maintained.
+
+  - Better explanations of the meanings of cloud and moon are given in the
+    Site Quality component, and an additional constraint of J band sky brightness is available.
+
+  - The 150 lpmm disperser has been removed from CGS4
+
+  - The chop settings tab on the target component has been disabled.
+
+  - Additional validation checks are performed, including against an XML schema.
+
+  - More than 1 observer note can now be specified, but they may not appear inside
+    a sequence iterator.
+
+  - Fixed a bug in prompting user to save.
+
+  - Offset positions are now also shown around the Guide star (in blue) in the 
+    position editor.  This allows users to see if the guider will lose lock when
+    going around an offset pattern.
+
++++ December 2003
+
+  [Semester 04A release]
+
+  - Time estimates now report both total time and time without calibrations
+    (estimated time)
+
+  - Validation is now performed against the TOML schema over the web (Note:
+    Failure of validation does not indicate that submission will fail)
+
+  - Improved layout on various components - now requires at least Java version
+    1.4.1
+
+  - On start-up, we now check to ensure that the correct version of Java is
+    being used
+
+  - On submission and retrieval to/from the database, pressing 'enter' after
+    the password now behaves the same as pressing the "Commit" button.
+
+  - Corrected problem with the display of offset positions in the Position
+    Editor.
+
++++ July 3rd 2003
+
+  [Semester 03B release]
+
+  - Added versioning to OT and template libraries
+
+  - Reduced memory leaks
+
+  - Support for multiple observer notes
+
+  - Finer granularity on priority and ability to "auto-prioritize"
+
+  - Support display of suspended MSBs
+
+  - Bug fix to prevent updating all PAs in program when editing
+
+  - Time estimation does not now include removed MSBs
+
+  - Epochs can now be entered in either JD or MJD in the target component
+
+  - Improved time estimation for all instruments
+
+  - Proxy settings can now be done via ot.cfg
+
+  - Improved schema validation reporting
+
+  - MSB/Obs title now get reported in validation, and validation report now on scrollable list
+
+  - Backup files now created during save operation
+
+  - Notes can now be inserted directly at the Project level
+
+  - Some layout changes to prevent widgets from being hidden when resizing
+
+  - Improved Position Editior display to correct the bug that required zoom/unzoom
+
+  - OR folders now allow 0 items to be selected
+
+  - Several changes to the UIST instrument component
+
+  - REFERENCE changed to SKY for UKIRT target component
+  
+  - Elapsed time estimation problem corrected
+
+  - Az/El now supported for UKIRT target component
+
+  - Template library now split into instrument libraries
+
+  - Instruments can now be specified in Observations as well as MSBs ( required UIST feature)
+
+  - IRPOL now displayable on position editor
+
+  - CVF Offset changed to CVF Wavelength in CGS instrument component
+
++++ February 28th 2003
+
+  - Added Proxy setup to config file for site wide installations
+
++++ Jannuary 29th 2003
+
+  - Configure SOAP calls to use proxy server
+
++++ January 28th 2003
+
+ - improve UIST time estimates
+
++++ January 16th 2003
+
+ - First external release to observers
+
+ - MSB replication from catalogue file
+
+ - Updated OMP specific documentation
+
+ - Higher granularity MSB priorities
+
+ - Re-designed site quality component
+
+ - Improved support for moving objects
+
+ - UKIRT Template updates for 03A
+
+ - Position editor access though proxy server
+
+ - Bug fixes
+
+ - Additional documentation
+
++++ October 2002
+
+ - Internal release of OMP OT
+
+===============================================================================
+
+UKIRT Observing Tool
+
+The UKIRT-OT is released as part of the JAC Observation Management
+Project. It has been extensively modified from the Gemini OT version 0.5.
+
+The UKIRT-OT home page is at http://www.jach.hawaii.edu/JAC/software/ukirtot
+
+The OMP home page is http://omp.jach.hawaii.edu
+
+If you have feedback or any questions on the UKIRT-OT please email
+ukirtot@jach.hawaii.edu
+
+OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
+Council All Rights. Reserved.
+
+Copyright 2004-2007 Particle Physics and Astronomy Research Council.
+All Rights Reserved.
+
+Copyright 2007-2013 Science and Technology Facilities Council.
+All Rights Reserved.
+

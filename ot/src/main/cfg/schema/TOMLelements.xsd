@@ -1,0 +1,250 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML"
+            targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
+	    elementFormDefault="qualified">
+
+
+<xsd:element name="country"              type="xsd:string"/>
+<xsd:element name="title"                type="xsd:string"/>
+<xsd:element name="pi"                   type="xsd:string"/>
+<xsd:element name="projectID"            type="xsd:string"/>
+<xsd:element name="version"              type="xsd:string"/>
+<xsd:element name="priority"             type="toml:priorityType"/>
+<xsd:element name="repeatCount"          type="toml:repeatLimits"/>
+<xsd:element name="componentRef"         type="toml:compRefType" abstract="true"/>
+<xsd:element name="standardStar"         type="xsd:boolean"/>
+<xsd:element name="earliestScheduleDate" type="xsd:dateTime"/>
+<xsd:element name="latestScheduleDate"   type="xsd:dateTime"/>
+<xsd:element name="schedPeriodicity"     type="toml:nonNegativeDecimal"/>
+<xsd:element name="meridianApproach"     type="toml:approachType"/>
+<xsd:element name="seeing"               type="toml:seeingType"/>
+<xsd:element name="skyBrightness"        type="toml:magType"/>
+<xsd:element name="tau"                  type="toml:tauType"/>
+<xsd:element name="namedSystem"          type="toml:namedTargetType"/>
+<xsd:element name="spherSystem"          type="toml:sphericalCoordinateSystemType"/>
+<xsd:element name="conicSystem"          type="toml:conicSystemType"/>
+<xsd:element name="tleSystem"            type="toml:tleSystemType"/>
+
+<!-- Typical Telescope Parameters -->
+<xsd:element name="maxElevation"         type="toml:elevationLimits"/>
+<xsd:element name="minElevation"         type="toml:elevationLimits"/>
+<xsd:element name="chopAngle"            type="toml:chopAngleLimits"/>
+<xsd:element name="chopThrow"            type="toml:chopThrowLimits"/>
+
+<!-- Typical Instrument/Observing parameters -->
+<xsd:element name="coadds"              type="xsd:positiveInteger"/>
+<xsd:element name="exposureTime"        type="toml:exposureTimeLimit"/>
+
+<xsd:element name="telescope">
+  <xsd:simpleType>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ukirt"/>
+      <xsd:enumeration value="jcmt"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:element>
+<!-- Conic System elements -->
+
+<!-- MJD of the elements -->
+<xsd:element name="epoch">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="toml:nonNegativeDecimal">
+        <xsd:attribute name="units" type="xsd:string" fixed="days"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- Inclination from the ecliptic -->
+<xsd:element name="inclination">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="toml:degrees180">
+        <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- Longitude of the ascending node -->
+<xsd:element name="anode">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+    
+<!-- Argument of perihelion -->
+<xsd:element name="perihelion">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- Semi major axis (asteroids) or perihelion ditance (comets) -->
+<xsd:element name="aorq">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="au"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- Mean anomally (ateroids) or mean longitude -->
+<xsd:element name="LorM">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- True anomaly  -->
+<xsd:element name="n">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="degrees/day"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!-- Epoch of perihelion passage in MJD -->
+<xsd:element name="epochPerih">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" fixed="days"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="e" type="xsd:double"/>
+
+<!-- End of conic system elements -->
+
+<!-- TLE System Elements -->
+
+<!-- The epoch year of the orbital elements (YYYY) -->
+<xsd:element name="epochYr" type="xsd:integer"/>
+
+<!-- The epoch day (day of the year and fractional portion of the day) -->
+<xsd:element name="epochDay" type="xsd:double"/>
+
+<!-- The Right Ascension of the ascending node. Units: degrees -->
+<xsd:element name="raanode" type="xsd:double"/>
+
+<!-- The argument of perigee. Units: degrees -->
+<xsd:element name="perigee" type="xsd:double"/>
+
+<!-- The BSTAR drag term. Units: inverse earth radii -->
+<xsd:element name="bstar" type="xsd:double"/>
+
+<!-- The mean motion term. Units: revs/day -->
+<xsd:element name="mm" type="xsd:double"/>
+
+<!-- End of TLE System Elements -->
+
+<xsd:element name="estimatedDuration">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" use="optional" default="seconds"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+
+<xsd:element name="totalDuration">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="units" type="xsd:string" use="optional" default="seconds"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="rv">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="defn"  type="toml:rvDefinitionList"/>
+        <xsd:attribute name="frame" type="toml:rvFrameList"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+    
+
+<!-- REUSABLE GROUPS -->
+
+<xsd:group name="ProgInfoGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:country"/>
+    <xsd:element ref="toml:version"/>
+    <xsd:element ref="toml:pi"/>
+    <xsd:element ref="toml:projectID"/>
+    <xsd:element ref="toml:telescope" minOccurs="0"/>
+    <xsd:element ref="toml:title"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="LibraryInfoGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:version"/>
+    <xsd:element ref="toml:title"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="schedBlockGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:estimatedDuration"/>
+    <xsd:element ref="toml:version" minOccurs="0"/>
+    <xsd:element ref="toml:priority" minOccurs="0"/>
+    <xsd:element ref="toml:title"/>
+    <xsd:element ref="toml:totalDuration"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="observationGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:estimatedDuration"/>
+    <xsd:element ref="toml:version" minOccurs="0"/>
+    <xsd:element ref="toml:priority" minOccurs="0"/>
+    <xsd:element ref="toml:standardStar" minOccurs="0"/>
+    <xsd:element ref="toml:title"/>
+    <xsd:element ref="toml:totalDuration" minOccurs="0"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="noteGroup">
+  <xsd:sequence>
+    <xsd:element name="note" type="xsd:string"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="siteQualityGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:seeing" minOccurs="0"/>
+    <xsd:element ref="toml:skyBrightness"  minOccurs="0"/>
+    <xsd:element ref="toml:tau"    minOccurs="0"/>
+  </xsd:sequence>
+</xsd:group>
+
+</xsd:schema>

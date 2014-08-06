@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <html>
+  <head>
+    <title>Preparing SCUBA-2 observation files (MSBs)</title>
+  </head>
+
+<body text="#000000" bgcolor="#bbcccc" link="#003300" vlink="#005500"
+alink="# ff0000">
+<p>
+<font size=2><a href="http://www.jach.hawaii.edu/JCMT/continuum/"> <em>Back to SCUBA-2 Home page</em></a></font><br>
+<font size=2> <a href="index.html"> <em>Back to JCMT OT Primer Main Page</em></a></font>
+
+<h1>Preparing SCUBA-2 observations </h1> <!--
+############################################################################
+-->
+<h2>Contents</h2> 
+ <ul>
+ <li><a href="#info"> General Information </a>
+ <li><a href="#start"> Getting started </a>
+ <li><a href="#daisy">Daisy MSBs</a>
+<ul><li><a href="#ex_daisy">Example: Daisy</a></ul>
+ <li><a href="#pong">Pong MSBs</a>
+<ul><li><a href="#ex_pong">Example: 15 arcmin Pong</a></ul>
+ <li><a href="#notes">Notes</a>
+<ul><li><a href="#notes_recipe">Assigning a DR recipe</a></ul>
+<ul><li><a href="#notes_40min">Concerning 40 minute MSBs</a></ul>
+<ul><li><a href="#notes_elev">Elevation constraints</a></ul>
+<ul><li><a href="#notes_cals">Frequency of calibrators</a></ul>
+ <li><a href="#qus">Questions</a>
+<ul><li><a href="#qus_ot">My version of the OT does not show the same options as the example?</a></ul>
+<ul><li><a href="#qus_time">Why is the length of my observation slightly longer than my integration time?</a></ul>
+<ul><li><a href="#qus_pongtime">The noise estimate from the OT seems to be incorrect?</a></ul>
+<ul><li><a href="#qus_bigger">I want to make a map bigger than an degree, what's the best way?</a></ul>
+<ul><li><a href="#qus_timesround">I only want to go once round my pong map, am I allowed?</a></ul>
+<ul><li><a href="#qus_load">My project wont load when I enter my project number?</a></ul>
+<ul><li><a href="#qus_survey">I have a lot of sources,  how can I speed up creation of my MSBs?</a></ul>
+<ul><li><a href="#qus_submit">How do I submit my project?</a></ul>
+ </ul>
+
+<p>
+<a name="info"></a>
+<h2>General Information</h2>
+There are two observing modes available with SCUBA-2 - a daisy for point sources and a pong for larger scale mapping. Details on each can be found <a href="http://www.jach.hawaii.edu/JCMT/continuum/scuba2/scuba2_obsmodes.html">here</a>.
+<p>
+We are currently recommending a time limit on individual observations of not more than 40 minutes in length. If you find your observations exceed this time we suggest you increase the number of repeats.
+<p>
+If after reading this guide you have any questions about preparing your observations, please consult with your "Friend of the Project" (see http://www.jach.hawaii.edu/JCMT/allocations or your project page), or email jcmtot@jach.hawaii.edu.
+<p>
+<a name="start"></a>
+<h2>Getting started</h2>
+<p>
+ To open up the existing SCUBA-2 library go to the JCMT OT root window and click on:
+<p>
+<img src="s2-images/SCUBA2_library.gif" alt="Contents of the scuba-2 library">
+<p>
+A window will pop up containing a list of folders. In the image below these folders have been expanded:
+<p>
+<img src="s2-images/SCUBA2_library3.gif" alt="Copying a scuba-2 msb">
+<p>
+
+
+<a name="daisy"></a>
+<h2>Daisy MSBs</h2>
+To access the template files go to 'Open SCUBA2 library' from the small OT window. For a template daisy MSB you will want to select, copy and paste the <b>'Pointsource Daisy map'</b> folder.<p>
+Daisies are the simplest case and there are only 2 things you need to edit:
+<p>
+(1) your target coordinates (in the 'Target Information' component) <br>
+(2) the integration time (in the 'Scan' component). The integration time is total time you want on source. 
+<p>
+You will have calculated the latter when preparing your proposal using the <a href="http://www.jach.hawaii.edu/jac-bin/propscuba2itc.pl">time integration calculator</a>. The minimum integration time for daisies is 15 seconds although the overhead for an observation this short will be quite high. The daisy pattern will keep running until the integration time expires and should not be interrupted before completion to gain the most even coverage. If you find the total time for your observation exceeds 40 minutes, reduce your integration time and increase the number of repeats.
+<p>
+The Scan Speed box is greyed out and cannot be edited. However the number in the box is a default and does not necessarily reflect the speed for your observation.
+<p>
+<a name="ex_daisy"></a>
+<li><font size=3><b>Example: Daisy</b></font></li>
+<p>
+Below is an example of a 30 minute observation using the daisy mapping strategy:
+<p>
+<img src="s2-images/SCUBA2_daisy.gif" alt="a daisy msb">
+<p>
+
+
+<p>
+<a name="pong"></a>
+<h2>Pong MSBs</h2>
+To access the template files go to 'Open SCUBA2 library' from the small OT window. You have a choice of three sizes of pongs:
+<p>
+<li>15 arcmin map <br>
+<li>30 arcmin map <br>
+<li>1 degree map <br>
+<p>
+Select the pong MSB you wish to use, copy and paste the (i.e. <b>'15 arcmin map with optional offset(s)'</b>) folder. For pongs there are 2 thing you will need to edit:
+<p>
+(1) Target coordinates (in the 'Target Information' component)<br>
+(2) Times round map (in the 'Scan' component)<br>
+<p>
+We recommend that the number of times round the map be selected to fit the maximum number of rotations into the 40 minute time limit. This is the default number in the template MSBs. You may use a fewer number of times round the map but more rotations results in a flatter map we strongly advise you not to go below approximately 10 minutes i.e. 3 times for a 15 arcmin map and 2 times round the map for a 30 arcmin map and 1 degree map. From the map sizes specified the telescope translator will implement other observing parameters (scan spacing and scan velocity) to produce an optimum map.
+<p>NOTE: Pong map sizes other than the 3 standard ones can be specified, but in
+those cases the observation system will use best-guesses for the pong
+parameters and thus may not be optimum. Users use non-standard sizes
+at their own risk.
+<p>
+
+The numbers in the greyed out boxes for Scan Speed and Sample Spacing do not reflect the actual values used and may not be edited. The PA also becomes irrelevant as a rotating pong will result in a symmetrical map.
+<p>
+You are unlikely to want to make use of the offset iterator for SCUBA-2 but if you do guidelines can be found <a href="http://www.jach.hawaii.edu/software/jcmtot/het_example.html#het_offset">here</a>.
+<p>
+<a name="ex_pong"></a>
+<li><font size=3><b>Example: 15 arcmin pong</b></font></li>
+<p>
+Below is an example of a 900" pong Note the height and width are adjusted to be 900" and the number of times around the map is set to 11.
+<p>
+<img src="s2-images/SCUBA2_025deg_pong.gif" alt="quarter degree pong msb">
+<p>
+
+
+<p>
+<a name="notes"></a>
+<h2>Notes</h2>
+<a name="notes_recipe"></a>
+<li><font size=3><b>Assigning a DR recipe</b></font></li>
+<p>
+When preparing your MSB's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed at CADC. There are currently 2 main options:
+<br>
+(1) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure. This uses the 'bright_extended' config file.
+<br>
+(2) REDUCE_SCAN_FAINT_SOURCES - designed to extract faint emission. This uses the 'blank_field' config file then applies a matched filter to your data.
+<p>
+To select the recipe you wish to use go to the DRRecipe component button and highlight the recipe you would like to add then click 'Set' next to the Scan button (for SCUBA-2).
+<p>
+<img src="s2-images/SCUBA2_DRRecipe.gif" alt="data reduction recipe coptions" width=900>
+<p>
+<a name="notes_40min"></a>
+<li><font size=3><b>Concerning 40 minute MSBs</b></font></li>
+<p>
+The time limit of 40 minutes was chosen as a reasonable compromise for an MSB between maximising the number of times around the map in an observation and the interval between necessary constraints such as pointing, focusing, array setups and scheduling. It is possible to take data for longer but instrument drifts during azimuth tracking can cause some bolometers to lose their calibration during very long observations.
+<p>
+Another important factor is the amount of data the is passed to the map-maker. We can sequence at about 45 minutes and any request for longer than this will be split into multiple chunks. The duration of a single chunk that can be processed by the map-maker is constrained by the total RAM available in the computer and 40 minutes reflects the chunk of data the map-maker can handle on a computer with a reasonable (e.g. 60GB) amount of memory. 
+<p>
+40 minutes is therefore a recommendation rather than a strict rule and if your MSB exceeds that length by a few minutes you need not break it up.
+<p>
+<a name="notes_elev"></a>
+<li><font size=3><b>Elevation constraints</b></font></li>
+<p>
+It is recommend that observations are taken below an elevation of 75 degrees for both daisy and pong maps. The precise pattern traced by the telescope for both of these patterns cannot be sustained at high elevations.
+<p>
+<a name="notes_cals"></a>
+<li><font size=3><b>Frequency of calibrators</b></font></li>
+<p>
+Calibration observations will be taken by the TSS every 2-3 hours. As usual a pointing is typical done every hour or after any large slew.
+<p>
+<a name="qus"></a>
+<h2>Questions</h2>
+<p>
+<a name="qus_ot"></a>
+<li><font size=2><b>My version of the OT does not show the same options as the example?</b></font></li>
+<p>
+You are looking at an older version of JCMT OT. In this case you will have to insert the map sizes manually for pongs. You will also have to manually insert the DRRecipe component (this can be found under the 'component' button along the left hand side of the window).
+<a name="qus_time"></a>
+<li><font size=2><b>Why is the length of my observation slightly longer than my integration time?</b></font></li>
+<p>
+This is due to the dark and flat-field scans which come at the beginning and end of every observation.  These are used by to calibrate the bolometers and will add approximately a minute to the length of your MSB.
+<a name="qus_pongtime"></a>
+<li><font size=2><b>The noise estimate from the OT seems to be incorrect?</b></font></li>
+<p>
+Don't worry, it is wrong. This will be fixed in the near future but believe the noise estimation from the time integration calculator instead of the OT.
+<a name="qus_bigger"></a>
+<li><font size=2><b>I want to make a map bigger than an degree, what's the best way?</b></font></li>
+<p>
+You can build up a large area by tiling the pong maps.  The legacy surveys have determined that the most effective way to tile pongs is in a hexagonal pattern. It is also possible to specify pong map sizes other than the 3 standard, but in those cases the observation system will use best-guesses for the pong parameters and thus may not be optimum. Users use non-standard sizes at their own risk. We recommend you don't exceed 7200'' x 7200'' for  pong maps and be aware that the integration time does drop off considerably.
+<p>
+<a name="qus_timesround"></a>
+<li><font size=2><b>I only want to go once round my pong map, am I allowed?</b></font></li>
+<p>
+If you have a very strong source and are unconcerned about the background you can go only once around the pong. You can expect the background to be extremely variable however. We would recommend at least twice round and ideally not fewer than three times round.
+<p>
+<a name="qus_load"></a>
+<li><font size=2><b>My project wont load when I enter my project number?</b></font></li>
+<p>
+If you have not previously stored anything to our database there will be nothing to retrieve, however space assigned for your project code is there for you when you create and first submit your MSBs. Create your project following the instructions above and store to the on-line database. 
+<a name="qus_survey"></a>
+<li><font size=2><b>I have a lot of sources, how can I speed up creation of my MSBs?</b></font></li>
+<p>
+If you have a large number of sources you may want to use the survey container; instructions on how to use this can be found <a href="http://www.jach.hawaii.edu/software/jcmtot/advanced.html#survey">here</a>. Another option is to use the replication tool. This requires access to JAC machines and details can be found <a href="http://www.jach.hawaii.edu/software/jcmtot/advanced.html#replication">here</a>.
+<a name="qus_submit"></a>
+<li><font size=2><b>How do I submit my project?</b></font></li>
+<p>
+Ensure that you have filled out the title of your project correctly (Title, PI, Country, Project ID), then go to 'Database' along the top menu and select 'Store to online database'. Once you have done this your friend of project will be able to access your MSBs and check them. For more details follow <a href="http://www.jach.hawaii.edu/software/jcmtot/recap.html#database">this link</a> to the main OT primer page.
+
+<p>
