@@ -1,3 +1,9 @@
++++ August 2014 release
+
+  - Added support for TLE coordinates.
+
+  - Added WFCAM recipe MOVING_JITTER.
+
 +++ January 2014 release
 
   - Cached data from Horizons now expire after 10 minutes.

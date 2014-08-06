@@ -1,3 +1,7 @@
++++ August 2014 release
+
+  - No changes for JCMT.
+
 +++ January 2014 release
 
   - Cached data from Horizons now expire after 10 minutes.
