@@ -60115,7 +60115,7 @@ guide star is available.</note>
       <SpDRRecipeRef idref="1319"/>
       <SpInstUFTIRef idref="1318"/>
       <SpTelescopeObsCompRef idref="1317"/>
-      <estimatedDuration units="seconds">156.0</estimatedDuration>
+      <estimatedDuration units="seconds">246.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <standard>true</standard>
@@ -60152,13 +60152,13 @@ guide star is available.</note>
         <meta_version>1.0</meta_version>
         <acqMode>Normal+NDSTARE</acqMode>
         <coadds>1</coadds>
-        <exposureTime>15.0</exposureTime>
-        <filter>I</filter>
+        <exposureTime>30.0</exposureTime>
+        <filter>Z</filter>
         <instAper>
           <value>20.59</value>
           <value>-24.01</value>
           <value>0.0</value>
-          <value>0.9</value>
+          <value>1.033</value>
         </instAper>
         <instPntgOffset>
           <value>0.0</value>
@@ -60196,7 +60196,7 @@ guide star is available.</note>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
-          <exposureTime>15.0</exposureTime>
+          <exposureTime>30.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
