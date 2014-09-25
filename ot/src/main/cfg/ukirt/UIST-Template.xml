@@ -2169,7 +2169,7 @@ in the thermal.</note>
           <biasRefPixelY>512.5</biasRefPixelY>
           <biasWaveform>uist_starev11</biasWaveform>
           <camera>imaging</camera>
-          <centralWavelength>3.77</centralWavelength>
+          <centralWavelength>4.69</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
           <coadds>50</coadds>
@@ -2180,9 +2180,9 @@ in the thermal.</note>
           <dutyCycle>0.4666666666666667</dutyCycle>
           <expTimeOT>0.175</expTimeOT>
           <exposureTime>0.175</exposureTime>
-          <filter>Lp98</filter>
+          <filter>Mp98</filter>
           <filterCategory>broad</filterCategory>
-          <focus>2.18</focus>
+          <focus>1.47</focus>
           <idlePeriod>0.0</idlePeriod>
           <imager>0.12</imager>
           <instAper>
@@ -2227,7 +2227,7 @@ in the thermal.</note>
           <resolution>0.0</resolution>
           <scienceArea>122.88 x 122.88 arcsec</scienceArea>
           <source_mag>11-12</source_mag>
-          <spectralCoverage>3.428um-4.108um</spectralCoverage>
+          <spectralCoverage>4.572um-4.800um</spectralCoverage>
           <waveform>thermalStarev8L</waveform>
         </SpInstUIST>
         <SpNote type="no" subtype="none">
