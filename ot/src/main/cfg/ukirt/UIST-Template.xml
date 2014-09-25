@@ -8,7 +8,7 @@
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2533,7 +2533,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>-90.0</PA>
                 <OFFSET>
@@ -3737,7 +3737,7 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">246.0</estimatedDuration>
           <standard>false</standard>
           <title>5pt jitter_offsets of 20"_0.12"/pix</title>
@@ -3985,7 +3985,7 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">690.0</estimatedDuration>
           <standard>false</standard>
           <title>9pt jitter/offsets of 20"_0.12"/pix</title>
@@ -4252,7 +4252,7 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">426.0</estimatedDuration>
           <standard>false</standard>
           <title>5pt jitter/offsets of 15"_0.06"/pix</title>
@@ -4767,7 +4767,7 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">959.13996</estimatedDuration>
           <standard>false</standard>
           <title>N-colour jitter</title>
@@ -4869,7 +4869,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>JITTER_SELF_FLAT_NCOLOUR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>If you changed the dark exposure time in the UFTI configuration above remember to change it here too.
@@ -4997,7 +4997,7 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">360.0</estimatedDuration>
           <standard>false</standard>
           <title>Quadrant Jitter</title>
@@ -5184,7 +5184,7 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>-90.0</PA>
                   <OFFSET>
@@ -5989,7 +5989,7 @@ Changing the total number of offsets will break the data-reduction recipe.</note
         <title>Coronagraphic Imaging</title>
         <totalDuration units="seconds">1885.3184799999995</totalDuration>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">1885.3184799999995</estimatedDuration>
           <standard>false</standard>
           <title>0.7 arcsec wire/19-point offsets</title>
@@ -8221,7 +8221,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
@@ -8341,7 +8341,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>EXTENDED_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
