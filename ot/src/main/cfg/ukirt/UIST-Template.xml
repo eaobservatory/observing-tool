@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>true</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Template_wpv_5nov08.xml</meta_gui_filename>
-  <ot_version>20081105</ot_version>
+  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
+  <ot_version>20140925</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3487,7 +3487,7 @@ in the thermal.</note>
             <mask>large_field</mask>
             <maskHeight>0.0</maskHeight>
             <maskWidth>0.0</maskWidth>
-            <mode>NDSTARE</mode>
+            <mode>THERMAL ND</mode>
             <mustIdles>100</mustIdles>
             <nreads>2</nreads>
             <nresets>1</nresets>
@@ -3583,7 +3583,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3613,7 +3616,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3643,7 +3649,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3673,7 +3682,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterRepeat>
@@ -6032,7 +6044,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_unique>true</meta_unique>
             <meta_version>3</meta_version>
             <DAConf>ND1</DAConf>
-            <DAConfMinExpT>0.81</DAConfMinExpT>
+            <DAConfMinExpT>1.0</DAConfMinExpT>
             <arrayAngle>0.54</arrayAngle>
             <biasDutyCycle>0.507</biasDutyCycle>
             <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -6828,10 +6840,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6895,7 +6907,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -6957,10 +6969,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7290,10 +7302,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7419,10 +7431,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7752,10 +7764,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7814,7 +7826,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -7876,10 +7888,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8223,10 +8235,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8285,7 +8297,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -8347,10 +8359,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8747,10 +8759,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8813,7 +8825,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -8850,7 +8865,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -8912,10 +8927,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9138,7 +9153,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <refPixelX>480.5</refPixelX>
           <refPixelY>480.5</refPixelY>
           <resetDelay>0.11</resetDelay>
-          <resolution>0.0</resolution>
+          <resolution>896.0550458715596</resolution>
           <scienceArea>3.36 x 6.0 arcsec</scienceArea>
           <source_mag>6-7</source_mag>
           <spectralCoverage>1.395um-2.506um</spectralCoverage>
@@ -9284,10 +9299,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9350,7 +9365,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -9439,10 +9457,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9539,7 +9557,10 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -9577,7 +9598,10 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -9715,7 +9739,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <refPixelX>480.5</refPixelX>
           <refPixelY>480.5</refPixelY>
           <resetDelay>0.11</resetDelay>
-          <resolution>0.0</resolution>
+          <resolution>896.0550458715596</resolution>
           <scienceArea>3.36 x 6.0 arcsec</scienceArea>
           <source_mag>6-7</source_mag>
           <spectralCoverage>1.395um-2.506um</spectralCoverage>
@@ -9861,10 +9885,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9927,7 +9951,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -10016,10 +10043,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -10113,7 +10140,10 @@ NB: p is perpendicular to the IFU long axis, q is along the long axis.
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -10151,7 +10181,10 @@ NB: p is perpendicular to the IFU long axis, q is along the long axis.
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
