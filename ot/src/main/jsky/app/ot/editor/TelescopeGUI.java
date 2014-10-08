@@ -418,7 +418,7 @@ public class TelescopeGUI extends JPanel
 		resolveOrbitalElementButton.setText( "Resolve Name" ) ;
 		resolveOrbitalElementButton.setVisible( true ) ;
 
-		this.add( nameTagPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		this.add( nameTagPanel , new GridBagConstraints( 0 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		nameTagPanel.add( jLabel1 ) ;
 		nameTagPanel.add( nameTBW ) ;
 		nameTagPanel.add( jLabel2 ) ;
@@ -427,7 +427,7 @@ public class TelescopeGUI extends JPanel
 		nameTagPanel.add( targetTypeDDList ) ;
 		nameTagPanel.validate() ;
 
-		this.add( targetSystemsTabbedPane , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		this.add( targetSystemsTabbedPane , new GridBagConstraints( 0 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
 		objectGBW.add( nameResolversDDLBW , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ; // MFO
 		objectGBW.add( resolveButton , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ; // MFO
@@ -435,7 +435,7 @@ public class TelescopeGUI extends JPanel
 
 		objectGBW.add( xaxisTBW , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ;
 
-		objectGBW.add( XYOffsetPanel , new GridBagConstraints( 4 , 1 , 3 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ;
+		this.add( XYOffsetPanel , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ;
 
 		objectGBW.add( Dec_El_STW , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
 		objectGBW.add( RA_Az_STW , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
@@ -447,7 +447,7 @@ public class TelescopeGUI extends JPanel
 		objectGBW.add( offsetCheckBox , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHEAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) ) ;
 		objectGBW.add( xUnitsLabel , new GridBagConstraints( 4 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		objectGBW.add( yUnitsLabel , new GridBagConstraints( 4 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		this.add( extrasFolder , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		this.add( extrasFolder , new GridBagConstraints( 0 , 2 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
 		// Target Types Tabbed Pane, added by MFO (22 February 2002)
 		targetSystemsTabbedPane.add( objectGBW , "RA/Dec" ) ;
@@ -587,12 +587,12 @@ public class TelescopeGUI extends JPanel
 			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
 		}
 		extrasFolder.add( chopPW , "Chop Settings" ) ;
-		this.add( jScrollPane1 , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) ) ;
+		this.add( jScrollPane1 , new GridBagConstraints( 0 , 3 , 2 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) ) ;
 		jScrollPane1.getViewport().add( positionTable , null ) ;
 		gridLayout1.setHgap( 25 ) ;
 		buttonPanel.setLayout( gridLayout1 ) ;
 		setBaseButton.setToolTipText( setBaseButton.getText() ) ;
-		this.add( buttonPanel , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHEAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		this.add( buttonPanel , new GridBagConstraints( 0 , 4 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHEAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		buttonPanel.add( plotButton , null ) ;
 		buttonPanel.add( setBaseButton , null ) ;
 		buttonPanel.add( removeButton , null ) ;
