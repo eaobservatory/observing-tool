@@ -1,5 +1,3 @@
-// $Id$
-
 /**
  * Title:        JSky<p>
  * Description:  <p>

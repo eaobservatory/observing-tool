@@ -45,7 +45,6 @@ import java.io.InputStream ;
  * Created: Mon Aug 27 18:30:31 2001
  * 
  * @author Mathew Rippa, modified by Martin Folger
- * @version $revision$
  */
 public class SpClient extends SoapClient
 {

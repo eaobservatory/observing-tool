@@ -22,9 +22,7 @@
 // HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// $Id$
-//
+
 package gemini.sp ;
 
 import gemini.util.ConfigWriter ;
@@ -131,10 +129,9 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	}
 
 	/**
-     * Set the library verion to the default String. This should be replaced
-     * after the library is commited to CVS. It is set to the CVS keyword
-     * $Revision$.
-     * 
+     * Set the library verion to the default String. This would have been
+     * replaced after the library was commited to CVS, but is currently
+     * set to the CVS keyword $Revision$ and not interpreted.
      */
 	public void setLibraryRevision()
 	{
@@ -144,8 +141,8 @@ public class SpObs extends SpMSB implements SpTranslatable , SpTranslationConsta
 	/**
      * Get the version of the library.
      * 
-     * @return It will return $Revision$ if this has been checked into
-     *         CVS or $Revision$ if not.
+     * @return It will probably return $Revision$ as CVS keywords are no
+     *         longer being interpreted.
      */
 	public String getLibraryRevision()
 	{

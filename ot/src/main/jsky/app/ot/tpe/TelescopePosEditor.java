@@ -23,8 +23,6 @@
  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id$
  */
 
 package jsky.app.ot.tpe ;
@@ -64,7 +62,6 @@ import jsky.coords.wcscon ;
  * stars and instruments and allows the user to edit the positions to use
  * for an observation.
  *
- * @version $Revision$ $Date$
  * @author Allan Brighton
  */
 public class TelescopePosEditor extends JSkyCat implements ViewportMouseObserver , SpHierarchyChangeObserver

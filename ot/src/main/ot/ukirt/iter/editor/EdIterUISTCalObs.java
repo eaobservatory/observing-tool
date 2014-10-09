@@ -28,9 +28,7 @@
 //         Martin Folger = M.Folger@roe.ac.uk  2001 Apr
 // modified for UIST (from Michelle) by
 //         Alan Pickup = A.Pickup              2001 Nov
-//
-// $Id$
-//
+
 package ot.ukirt.iter.editor ;
 
 import orac.ukirt.iter.SpIterUISTCalObs ;

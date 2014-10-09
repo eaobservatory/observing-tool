@@ -23,8 +23,6 @@
  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id$
  */
 
 package jsky.app.ot.gui ;
@@ -39,7 +37,6 @@ import jsky.util.gui.BasicWindowMonitor ;
 /** 
  * This widget displays a group of radio buttons in a tabular layout.
  *
- * @version $Revision$
  * @author Allan Brighton
  */
 @SuppressWarnings( "serial" )

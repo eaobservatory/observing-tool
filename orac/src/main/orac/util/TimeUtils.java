@@ -27,9 +27,6 @@ import java.text.ParsePosition ;
 
 /**
  * Time Utilities.
- *
- * @author  $Author$
- * @version $Id$
  */
 public class TimeUtils
 {

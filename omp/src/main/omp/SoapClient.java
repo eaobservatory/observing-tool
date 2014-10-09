@@ -46,8 +46,6 @@ import java.io.IOException ;
  * 
  * @author <a href="mailto:mrippa@jach.hawaii.edu">Mathew Rippa</a>, modified
  *         by Martin Folger
- * 
- * $Id$
  */
 public class SoapClient
 {

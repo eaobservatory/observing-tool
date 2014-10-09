@@ -30,9 +30,7 @@
 //         Alan Pickup = A.Pickup              2001 Nov
 // modified for WFCAM (from UIST) by
 //         Alan Pickup = A.Pickup              2003 Mar
-//
-// $Id$
-//
+
 package ot.ukirt.iter.editor ;
 
 import orac.ukirt.iter.SpIterWFCAMCalObs ;

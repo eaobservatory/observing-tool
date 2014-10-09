@@ -23,8 +23,6 @@
  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id$
  */
 
 package jsky.app.ot ;
@@ -45,7 +43,6 @@ import jsky.util.gui.GenericToolBarTarget ;
  * Implements the GUI layout of the user interface for the main OT window
  * (was spTree.gui with Bongo).
  *
- * @version $Revision$
  * @author Allan Brighton (ported to Swing/JSky)
  */
 @SuppressWarnings({ "serial" })
