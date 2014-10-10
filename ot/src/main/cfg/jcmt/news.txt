@@ -1,3 +1,7 @@
++++ October 2014 release
+
+  - Removed decommissioned and unsupported name resolvers.
+
 +++ August 2014 release
 
   - No changes for JCMT.
