@@ -22,9 +22,7 @@
 // HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// $Id$
-//
+
 package jsky.app.ot.editor ;
 
 import java.util.Enumeration ;
@@ -254,15 +252,24 @@ public class TelescopePosTableWidget extends TableWidgetExt implements Telescope
 
 		if( tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL || tp.getTag().equals( "REFERENCE" ) )
 		{
-			if( tp.isOffsetPosition() )
-			{
-				v.addElement( "" + tp.getXaxisAsString() + " (\u2206)" ) ;
-				v.addElement( "" + tp.getYaxisAsString() + " (\u2206)" ) ;
+			try {
+				if( tp.isOffsetPosition() )
+				{
+					v.addElement( "" + tp.getXaxisAsString() + " (\u2206)" ) ;
+					v.addElement( "" + tp.getYaxisAsString() + " (\u2206)" ) ;
+				}
+				else
+				{
+					v.addElement( tp.getXaxisAsString() ) ;
+					v.addElement( tp.getYaxisAsString() ) ;
+				}
 			}
-			else
-			{
-				v.addElement( tp.getXaxisAsString() ) ;
-				v.addElement( tp.getYaxisAsString() ) ;
+			catch (IllegalArgumentException e) {
+                                // RADecMath.string2Degrees raises this exception when the
+                                // coordinate system is neither FK4 or FK5.  For now, trap
+                                // the exception and just show "ERROR" in the table.
+				v.addElement("ERROR");
+				v.addElement("ERROR");
 			}
 		}
 		else

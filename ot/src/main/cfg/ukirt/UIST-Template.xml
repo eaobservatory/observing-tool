@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>true</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Template_wpv_5nov08.xml</meta_gui_filename>
-  <ot_version>20081105</ot_version>
+  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
+  <ot_version>20140925</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -47,7 +47,7 @@ of the array only.</note>
         <SpDRRecipeRef idref="2"/>
         <SpInstUISTRef idref="1"/>
         <SpTelescopeObsCompRef idref="0"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">159.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -291,7 +291,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="5"/>
         <SpInstUISTRef idref="4"/>
         <SpTelescopeObsCompRef idref="3"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">171.5</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -535,7 +535,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="8"/>
         <SpInstUISTRef idref="7"/>
         <SpTelescopeObsCompRef idref="6"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">262.20000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -795,7 +795,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="11"/>
         <SpInstUISTRef idref="10"/>
         <SpTelescopeObsCompRef idref="9"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">284.70000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1055,7 +1055,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="14"/>
         <SpInstUISTRef idref="13"/>
         <SpTelescopeObsCompRef idref="12"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">228.9</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1315,7 +1315,7 @@ central (right of telescope aperture) 100 pixels.</note>
         <SpDRRecipeRef idref="17"/>
         <SpInstUISTRef idref="16"/>
         <SpTelescopeObsCompRef idref="15"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">211.89000000000004</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1575,7 +1575,7 @@ central (right of telescope aperture) 100 pixels.</note>
         <SpDRRecipeRef idref="20"/>
         <SpInstUISTRef idref="19"/>
         <SpTelescopeObsCompRef idref="18"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">226.20000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -1835,7 +1835,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="23"/>
         <SpInstUISTRef idref="22"/>
         <SpTelescopeObsCompRef idref="21"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">216.3000000000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -2095,7 +2095,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="26"/>
         <SpInstUISTRef idref="25"/>
         <SpTelescopeObsCompRef idref="24"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">152.75</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -2169,7 +2169,7 @@ in the thermal.</note>
           <biasRefPixelY>512.5</biasRefPixelY>
           <biasWaveform>uist_starev11</biasWaveform>
           <camera>imaging</camera>
-          <centralWavelength>3.77</centralWavelength>
+          <centralWavelength>4.69</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
           <coadds>50</coadds>
@@ -2180,9 +2180,9 @@ in the thermal.</note>
           <dutyCycle>0.4666666666666667</dutyCycle>
           <expTimeOT>0.175</expTimeOT>
           <exposureTime>0.175</exposureTime>
-          <filter>Lp98</filter>
+          <filter>Mp98</filter>
           <filterCategory>broad</filterCategory>
-          <focus>2.18</focus>
+          <focus>1.47</focus>
           <idlePeriod>0.0</idlePeriod>
           <imager>0.12</imager>
           <instAper>
@@ -2227,7 +2227,7 @@ in the thermal.</note>
           <resolution>0.0</resolution>
           <scienceArea>122.88 x 122.88 arcsec</scienceArea>
           <source_mag>11-12</source_mag>
-          <spectralCoverage>3.428um-4.108um</spectralCoverage>
+          <spectralCoverage>4.572um-4.800um</spectralCoverage>
           <waveform>thermalStarev8L</waveform>
         </SpInstUIST>
         <SpNote type="no" subtype="none">
@@ -2339,7 +2339,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="29"/>
         <SpInstUISTRef idref="28"/>
         <SpTelescopeObsCompRef idref="27"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">250.95000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -2533,7 +2533,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>-90.0</PA>
                 <OFFSET>
@@ -2599,7 +2599,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="32"/>
         <SpInstUISTRef idref="31"/>
         <SpTelescopeObsCompRef idref="30"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">211.89000000000004</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -2860,7 +2860,7 @@ central (right of telescope aperture) 100 pixels.</note>
         <SpDRRecipeRef idref="35"/>
         <SpInstUISTRef idref="34"/>
         <SpTelescopeObsCompRef idref="33"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">217.20000000000005</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -3120,7 +3120,7 @@ to avoid sometimes poorly behaved central 100 pixels.</note>
         <SpDRRecipeRef idref="38"/>
         <SpInstUISTRef idref="37"/>
         <SpTelescopeObsCompRef idref="36"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">195.60000000000002</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -3385,7 +3385,7 @@ central (right of telescope aperture) 100 pixels.</note>
         <totalDuration units="seconds">1957.7999999999975</totalDuration>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">1957.7999999999975</estimatedDuration>
           <library_version>$Revision$</library_version>
           <standard>false</standard>
           <title>Nod to sky, subtract sky</title>
@@ -3487,7 +3487,7 @@ in the thermal.</note>
             <mask>large_field</mask>
             <maskHeight>0.0</maskHeight>
             <maskWidth>0.0</maskWidth>
-            <mode>NDSTARE</mode>
+            <mode>THERMAL ND</mode>
             <mustIdles>100</mustIdles>
             <nreads>2</nreads>
             <nresets>1</nresets>
@@ -3583,7 +3583,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3613,7 +3616,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3643,7 +3649,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -3673,7 +3682,10 @@ and requires sky and object to have the recipe selected</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>1</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterRepeat>
@@ -3725,8 +3737,8 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">246.0</estimatedDuration>
           <standard>false</standard>
           <title>5pt jitter_offsets of 20"_0.12"/pix</title>
           <SpNote type="no" subtype="none">
@@ -3973,8 +3985,8 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">690.0</estimatedDuration>
           <standard>false</standard>
           <title>9pt jitter/offsets of 20"_0.12"/pix</title>
           <SpNote type="no" subtype="none">
@@ -4240,8 +4252,8 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">426.0</estimatedDuration>
           <standard>false</standard>
           <title>5pt jitter/offsets of 15"_0.06"/pix</title>
           <SpNote type="no" subtype="none">
@@ -4489,7 +4501,7 @@ and drag/drop in the appropriate observations.</note>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">690.0</estimatedDuration>
           <standard>false</standard>
           <title>9pt jitter_offsets of 15"_0.06"/pix</title>
           <SpNote type="no" subtype="none">
@@ -4755,8 +4767,8 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">959.13996</estimatedDuration>
           <standard>false</standard>
           <title>N-colour jitter</title>
           <SpNote type="no" subtype="none">
@@ -4857,7 +4869,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>JITTER_SELF_FLAT_NCOLOUR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>If you changed the dark exposure time in the UFTI configuration above remember to change it here too.
@@ -4985,8 +4997,8 @@ and drag/drop in the appropriate observations.</note>
           <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">360.0</estimatedDuration>
           <standard>false</standard>
           <title>Quadrant Jitter</title>
           <SpNote type="no" subtype="none">
@@ -5172,7 +5184,7 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>-90.0</PA>
                   <OFFSET>
@@ -5235,7 +5247,7 @@ and drag/drop in the appropriate observations.</note>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">1350.0</estimatedDuration>
           <standard>false</standard>
           <title>extended_3x3</title>
           <SpNote type="no" subtype="none">
@@ -5547,7 +5559,7 @@ and drag/drop in the appropriate observations.</note>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">3462.0</estimatedDuration>
           <standard>false</standard>
           <title>extended_5x5</title>
           <SpNote type="no" subtype="none">
@@ -5977,8 +5989,8 @@ Changing the total number of offsets will break the data-reduction recipe.</note
         <title>Coronagraphic Imaging</title>
         <totalDuration units="seconds">1885.3184799999995</totalDuration>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">1885.3184799999995</estimatedDuration>
           <standard>false</standard>
           <title>0.7 arcsec wire/19-point offsets</title>
           <SpNote type="no" subtype="none">
@@ -6032,7 +6044,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_unique>true</meta_unique>
             <meta_version>3</meta_version>
             <DAConf>ND1</DAConf>
-            <DAConfMinExpT>0.81</DAConfMinExpT>
+            <DAConfMinExpT>1.0</DAConfMinExpT>
             <arrayAngle>0.54</arrayAngle>
             <biasDutyCycle>0.507</biasDutyCycle>
             <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -6284,7 +6296,7 @@ NOTE: Offsets in q move move along the wire, regardless of posn angle.  An offse
         <SpDRRecipeRef idref="41"/>
         <SpInstUISTRef idref="40"/>
         <SpTelescopeObsCompRef idref="39"/>
-        <estimatedDuration units="seconds">180.0</estimatedDuration>
+        <estimatedDuration units="seconds">156.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <standard>false</standard>
@@ -6691,7 +6703,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -6785,7 +6797,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.13996</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -6828,10 +6840,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6881,7 +6893,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">4988.13996</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -6895,7 +6907,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -6957,10 +6969,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7153,7 +7165,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -7247,7 +7259,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.13996</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -7290,10 +7302,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7343,7 +7355,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">5002.41988</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -7419,10 +7431,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7615,7 +7627,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -7709,7 +7721,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.13996</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -7752,10 +7764,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -7800,7 +7812,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -7814,7 +7826,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -7876,10 +7888,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8086,7 +8098,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -8180,7 +8192,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">108.13996</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -8209,7 +8221,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
@@ -8223,10 +8235,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8271,7 +8283,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -8285,7 +8297,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -8329,7 +8341,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>EXTENDED_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
@@ -8347,10 +8359,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8610,7 +8622,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">44.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -8704,7 +8716,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">273.11968</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -8747,10 +8759,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -8813,7 +8825,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -8836,7 +8851,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">5168.819480000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -8850,7 +8865,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedTelescopePos>GUIDE</meta_gui_selectedTelescopePos>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
             <meta_unique>true</meta_unique>
             <BASE TYPE="Base">
               <target>
@@ -8912,10 +8927,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9138,7 +9153,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <refPixelX>480.5</refPixelX>
           <refPixelY>480.5</refPixelY>
           <resetDelay>0.11</resetDelay>
-          <resolution>0.0</resolution>
+          <resolution>896.0550458715596</resolution>
           <scienceArea>3.36 x 6.0 arcsec</scienceArea>
           <source_mag>6-7</source_mag>
           <spectralCoverage>1.395um-2.506um</spectralCoverage>
@@ -9147,7 +9162,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">44.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -9241,7 +9256,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">273.11968</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -9284,10 +9299,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9350,7 +9365,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -9373,7 +9391,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">4180.839760000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky with jitter</title>
           <SpNote type="no" subtype="none">
@@ -9439,10 +9457,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9539,7 +9557,10 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -9577,7 +9598,10 @@ p is perpendicular to the IFU long axis;  q is along the long axis.</note>
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -9715,7 +9739,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <refPixelX>480.5</refPixelX>
           <refPixelY>480.5</refPixelY>
           <resetDelay>0.11</resetDelay>
-          <resolution>0.0</resolution>
+          <resolution>896.0550458715596</resolution>
           <scienceArea>3.36 x 6.0 arcsec</scienceArea>
           <source_mag>6-7</source_mag>
           <spectralCoverage>1.395um-2.506um</spectralCoverage>
@@ -9724,7 +9748,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpInstUIST>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">44.279920000000004</estimatedDuration>
           <standard>true</standard>
           <title>Flat and arc</title>
           <SpNote type="no" subtype="none">
@@ -9818,7 +9842,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpObs>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">273.11968</estimatedDuration>
           <standard>true</standard>
           <title>Bright (standard) star</title>
           <SpNote type="no" subtype="none">
@@ -9861,10 +9885,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -9927,7 +9951,10 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <followOffset>false</followOffset>
                   <repeatCount>2</repeatCount>
+                  <sky>SKY</sky>
+                  <useRandom>false</useRandom>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
@@ -9950,7 +9977,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">180.0</estimatedDuration>
+          <estimatedDuration units="seconds">4180.839760000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -10016,10 +10043,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>open</disperser>
+              <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>open</filter>
+              <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -10113,7 +10140,10 @@ NB: p is perpendicular to the IFU long axis, q is along the long axis.
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">
@@ -10151,7 +10181,10 @@ NB: p is perpendicular to the IFU long axis, q is along the long axis.
                   </obsArea>
                   <SpIterSky type="ic" subtype="sky">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <followOffset>false</followOffset>
                     <repeatCount>1</repeatCount>
+                    <sky>SKY</sky>
+                    <useRandom>false</useRandom>
                   </SpIterSky>
                 </SpIterOffset>
                 <SpIterOffset type="ic" subtype="offset">

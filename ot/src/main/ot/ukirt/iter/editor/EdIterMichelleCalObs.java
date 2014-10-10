@@ -26,9 +26,7 @@
 // author: Alan Pickup = dap@roe.ac.uk         2001 Feb
 // modified for Swing OT by
 //         Martin Folger = M.Folger@roe.ac.uk  2001 Apr
-//
-// $Id$
-//
+
 package ot.ukirt.iter.editor ;
 
 import orac.ukirt.iter.SpIterMichelleCalObs ;

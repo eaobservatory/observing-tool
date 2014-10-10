@@ -23,8 +23,6 @@
  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id$
  */
 
 package jsky.app.ot.tpe ;
@@ -38,7 +36,6 @@ import jsky.navigator.NavigatorImageDisplayToolBar ;
 /**
  * Extends the image display menubar by adding Gemini position editor features.
  *
- * @version $Revision$
  * @author Allan Brighton
  */
 @SuppressWarnings( "serial" )
