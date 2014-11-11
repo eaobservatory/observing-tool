@@ -17,28 +17,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package orac.jcmt.iter ;
+package orac.jcmt.iter;
 
-import gemini.sp.SpFactory ;
-import gemini.sp.SpType ;
+import gemini.sp.SpFactory;
+import gemini.sp.SpType;
 
-@SuppressWarnings( "serial" )
-public class SpIterDREAMObs extends SpIterJCMTObs
-{
-	public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "dreamObs" , "DREAM" ) ;
+@SuppressWarnings("serial")
+public class SpIterDREAMObs extends SpIterJCMTObs {
+    public static final SpType SP_TYPE = SpType.create(
+            SpType.ITERATOR_COMPONENT_TYPE, "dreamObs", "DREAM");
 
-	static
-	{
-		SpFactory.registerPrototype( new SpIterDREAMObs() ) ;
-	}
+    static {
+        SpFactory.registerPrototype(new SpIterDREAMObs());
+    }
 
-	public SpIterDREAMObs()
-	{
-		super( SP_TYPE ) ;
-	}
+    public SpIterDREAMObs() {
+        super(SP_TYPE);
+    }
 
-	public double getElapsedTime()
-	{
-		return 0. ;
-	}
+    public double getElapsedTime() {
+        return 0.0;
+    }
 }

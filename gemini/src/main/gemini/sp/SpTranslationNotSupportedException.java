@@ -17,18 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp ;
+package gemini.sp;
 
-@SuppressWarnings( "serial" )
-public class SpTranslationNotSupportedException extends Exception
-{
-	public SpTranslationNotSupportedException()
-	{
-		super() ;
-	}
+@SuppressWarnings("serial")
+public class SpTranslationNotSupportedException extends Exception {
+    public SpTranslationNotSupportedException() {
+        super();
+    }
 
-	public SpTranslationNotSupportedException( String message )
-	{
-		super( message ) ;
-	}
+    public SpTranslationNotSupportedException(String message) {
+        super(message);
+    }
 }

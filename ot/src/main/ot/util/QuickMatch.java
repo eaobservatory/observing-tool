@@ -19,193 +19,213 @@
 
 /* Designed to be used in conjunction with ot.util.Horizons */
 
-package ot.util ;
+package ot.util;
 
-import java.util.TreeMap ;
-import java.util.regex.Pattern ;
-import java.util.regex.Matcher ;
+import java.util.TreeMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-import gemini.util.MJDUtils ;
+import gemini.util.MJDUtils;
 
-public class QuickMatch
-{
-	static final String word = "[a-zA-Z]" ;
-	static final String keyValueRegex = "\\s*" + word + "+(\\s|\\-)?" + word + "*=\\s*" ;
-	static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*" ;
-	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d+\\.?\\d*" ;
-	static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}" ;
-	static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}" ;
-	static final String nameRegex = "^\\s*JPL/HORIZONS\\s+.+\\s+" + nameDateRegex + "\\s+" + nameTimeRegex + "\\s*$" ;
-	static final String numberRegex = "\\d*\\.?\\d+((D|E)\\d+)?" ;
-	private static QuickMatch quickmatch ;
+public class QuickMatch {
+    static final String word = "[a-zA-Z]";
+    static final String keyValueRegex =
+            "\\s*" + word + "+(\\s|\\-)?" + word + "*=\\s*";
+    static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-"
+            + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*";
+    static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d+\\.?\\d*";
+    static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}";
+    static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}";
+    static final String nameRegex = "^\\s*JPL/HORIZONS\\s+.+\\s+"
+            + nameDateRegex + "\\s+" + nameTimeRegex + "\\s*$";
+    static final String numberRegex = "\\d*\\.?\\d+((D|E)\\d+)?";
+    private static QuickMatch quickmatch;
 
-	Matcher keyValueMatcher ;
-	static Pattern keyValuePattern ;
-	
-	static Pattern numberPattern ;
-	static Matcher numberMatcher ;
-	
-	static Pattern epochPattern ;
-	static Matcher epochMatcher ;
-	
-	static Pattern tpPattern ;
-	static Matcher tpMatcher ;
+    Matcher keyValueMatcher;
+    static Pattern keyValuePattern;
 
-	static
-	{
-		keyValuePattern = Pattern.compile( keyValueRegex ) ;
-		numberPattern = Pattern.compile( numberRegex ) ;
-		epochPattern = Pattern.compile( epochRegex ) ;
-		tpPattern = Pattern.compile( tpRegex ) ;
-	}
+    static Pattern numberPattern;
+    static Matcher numberMatcher;
 
-	public static void main( String[] args )
-	{
-		String input = "  EPOCH=  2453800.5 ! 2006-Mar-06.00 (CT)         RMSW= n.a.  " ;
-		if( args.length != 0 )
-			input = args[ 0 ] ;
-		QuickMatch match = getInstance() ;
-		TreeMap<String,String> merged = match.parseLine( input ) ;
-		printMap( merged ) ;
-	}
+    static Pattern epochPattern;
+    static Matcher epochMatcher;
 
-	public boolean isName( String line )
-	{
-		return ( line != null && !line.trim().equals( "" ) && line.matches( nameRegex ) ) ;
-	}
+    static Pattern tpPattern;
+    static Matcher tpMatcher;
 
-	public TreeMap<String,String> parseName( String line )
-	{
-		TreeMap<String,String> treeMap = new TreeMap<String,String>() ;
-		if( line != null && !line.trim().equals( "" ) )
-		{
-			String[] split = line.split( " " ) ;
-			String current ;
-			String output = "" ;
-			for( int index = 0 ; index < split.length ; index++ )
-			{
-				current = split[ index ] ;
-				if( current.equals( "JPL/HORIZONS" ) || current.trim().equals( "" ) )
-					continue ;
-				if( current.matches( nameDateRegex ) || current.matches( nameTimeRegex ) )
-					continue ;
-				output += ( current + " " ) ;
-			}
-			if( !output.equals( "" ) )
-				treeMap.put( "NAME" , output.trim() ) ;
-		}
-		return treeMap ;
-	}
+    static {
+        keyValuePattern = Pattern.compile(keyValueRegex);
+        numberPattern = Pattern.compile(numberRegex);
+        epochPattern = Pattern.compile(epochRegex);
+        tpPattern = Pattern.compile(tpRegex);
+    }
 
-	// Ripped from Horizons for debugging
-	public static void printMap( TreeMap<String,String> map )
-	{
-		if( map == null )
-			return ;
-		String key , value ;
-		while( map.size() != 0 )
-		{
-			key = map.lastKey() ;
-			value = map.remove( key ) ;
-			System.out.println( key + " == " + value ) ;
-		}
+    public static void main(String[] args) {
+        String input = "  EPOCH=  2453800.5 ! 2006-Mar-06.00 (CT)         RMSW= n.a.  ";
 
-	}
+        if (args.length != 0) {
+            input = args[0];
+        }
 
-	private QuickMatch(){}
+        QuickMatch match = getInstance();
+        TreeMap<String, String> merged = match.parseLine(input);
+        printMap(merged);
+    }
 
-	public static synchronized QuickMatch getInstance()
-	{
-		if( quickmatch == null )
-			quickmatch = new QuickMatch() ;
-		return quickmatch ;
-	}
+    public boolean isName(String line) {
+        return (line != null && !line.trim().equals("")
+                && line.matches(nameRegex));
+    }
 
-	public TreeMap<String,String> parseLine( String line )
-	{
-		TreeMap<String,String> merged = null ;
-		if( line != null && !line.trim().equals( "" ) )
-		{
-			if( isName( line ) )
-				merged = parseName( line ) ;
-			else
-				merged = keyValuePairs( line ) ;
-		}
-		return merged ;
-	}
-	
-	private TreeMap<String,String> keyValuePairs( String line )
-	{
-		TreeMap<String,String> treemap = new TreeMap<String,String>() ;
-		if( line != null && !line.trim().equals( "" ) )
-		{
-			line = line.trim() ;
-			keyValueMatcher = keyValuePattern.matcher( line ) ;
-			numberMatcher = numberPattern.matcher( line ) ;
-			epochMatcher = epochPattern.matcher( line ) ;
-			tpMatcher = tpPattern.matcher( line ) ;
-			
-			String keyValueGroup ;
-			while( keyValueMatcher.find() )
-			{
-				keyValueGroup = keyValueMatcher.group() ;
-				keyValueGroup = keyValueGroup.replace( '=' , ' ' ) ;
-				keyValueGroup = keyValueGroup.trim() ;
-				int end = keyValueMatcher.end() ;
-				Double value = null ;
-				String match = null ;
-				if( keyValueGroup.equals( "EPOCH" ) && epochMatcher.find( end ) )
-					match = epochMatcher.group() ;
-				else if( keyValueGroup.equals( "TP" ) && tpMatcher.find( end ) )
-					match = tpMatcher.group() ;
-				else if( !keyValueGroup.equals( "TP" ) && numberMatcher.find( end ) )
-					match = numberMatcher.group() ;
-				
-				if( match != null )
-					value = parseValue( match ) ;
-				
-				if( value != null )
-					treemap.put( keyValueGroup , value.toString() ) ;
-			}
-		}
-		return treemap ;
-	}
+    public TreeMap<String, String> parseName(String line) {
+        TreeMap<String, String> treeMap = new TreeMap<String, String>();
 
-	private Double parseValue( String value )
-	{
-		Double converted = null ;
-		if( value != null )
-		{
-			if( value.matches( epochRegex ) )
-			{
-				String[] split = value.split( "!" ) ;
-				value = split[ 0 ] ;
-				value = value.trim() ;
-				try
-				{
-					converted = new Double( value ) ;
-				}
-				catch( NumberFormatException nfe ){}
-				converted = MJDUtils.makeMJD( converted ) ;
-			}
-			else if( value.matches( tpRegex ) )
-			{
-				value = value.trim() ;
-				value = value.replace( '-' , ' ' ) ;
-				converted = MJDUtils.convertMJD( value ) ;
-			}
-			else
-			{
-				// See if it's fortranified
-				if( value.matches( "\\d*\\.?\\d+D\\d+" ) )
-					value = value.replace( 'D' , 'E' ) ;
-				try
-				{
-					converted = new Double( value ) ;
-				}
-				catch( NumberFormatException nfe ){}
-			}
-		}
-		return converted ;
-	}
+        if (line != null && !line.trim().equals("")) {
+            String[] split = line.split(" ");
+            String current;
+            String output = "";
+
+            for (int index = 0; index < split.length; index++) {
+                current = split[index];
+
+                if (current.equals("JPL/HORIZONS")
+                        || current.trim().equals("")) {
+                    continue;
+                }
+
+                if (current.matches(nameDateRegex)
+                        || current.matches(nameTimeRegex)) {
+                    continue;
+                }
+
+                output += (current + " ");
+            }
+
+            if (!output.equals("")) {
+                treeMap.put("NAME", output.trim());
+            }
+        }
+
+        return treeMap;
+    }
+
+    // Ripped from Horizons for debugging
+    public static void printMap(TreeMap<String, String> map) {
+        if (map == null) {
+            return;
+        }
+
+        String key, value;
+
+        while (map.size() != 0) {
+            key = map.lastKey();
+            value = map.remove(key);
+            System.out.println(key + " == " + value);
+        }
+    }
+
+    private QuickMatch() {
+    }
+
+    public static synchronized QuickMatch getInstance() {
+        if (quickmatch == null) {
+            quickmatch = new QuickMatch();
+        }
+
+        return quickmatch;
+    }
+
+    public TreeMap<String, String> parseLine(String line) {
+        TreeMap<String, String> merged = null;
+
+        if (line != null && !line.trim().equals("")) {
+            if (isName(line)) {
+                merged = parseName(line);
+            } else {
+                merged = keyValuePairs(line);
+            }
+        }
+
+        return merged;
+    }
+
+    private TreeMap<String, String> keyValuePairs(String line) {
+        TreeMap<String, String> treemap = new TreeMap<String, String>();
+
+        if (line != null && !line.trim().equals("")) {
+            line = line.trim();
+            keyValueMatcher = keyValuePattern.matcher(line);
+            numberMatcher = numberPattern.matcher(line);
+            epochMatcher = epochPattern.matcher(line);
+            tpMatcher = tpPattern.matcher(line);
+
+            String keyValueGroup;
+
+            while (keyValueMatcher.find()) {
+                keyValueGroup = keyValueMatcher.group();
+                keyValueGroup = keyValueGroup.replace('=', ' ');
+                keyValueGroup = keyValueGroup.trim();
+                int end = keyValueMatcher.end();
+                Double value = null;
+                String match = null;
+
+                if (keyValueGroup.equals("EPOCH") && epochMatcher.find(end)) {
+                    match = epochMatcher.group();
+
+                } else if (keyValueGroup.equals("TP") && tpMatcher.find(end)) {
+                    match = tpMatcher.group();
+
+                } else if (!keyValueGroup.equals("TP")
+                        && numberMatcher.find(end)) {
+                    match = numberMatcher.group();
+                }
+
+                if (match != null) {
+                    value = parseValue(match);
+                }
+
+                if (value != null) {
+                    treemap.put(keyValueGroup, value.toString());
+                }
+            }
+        }
+
+        return treemap;
+    }
+
+    private Double parseValue(String value) {
+        Double converted = null;
+
+        if (value != null) {
+            if (value.matches(epochRegex)) {
+                String[] split = value.split("!");
+                value = split[0];
+                value = value.trim();
+
+                try {
+                    converted = new Double(value);
+                } catch (NumberFormatException nfe) {
+                }
+
+                converted = MJDUtils.makeMJD(converted);
+            } else if (value.matches(tpRegex)) {
+                value = value.trim();
+                value = value.replace('-', ' ');
+                converted = MJDUtils.convertMJD(value);
+
+            } else {
+                // See if it's fortranified
+                if (value.matches("\\d*\\.?\\d+D\\d+")) {
+                    value = value.replace('D', 'E');
+                }
+
+                try {
+                    converted = new Double(value);
+                } catch (NumberFormatException nfe) {
+                }
+            }
+        }
+
+        return converted;
+    }
 }

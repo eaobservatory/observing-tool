@@ -17,163 +17,154 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp ;
+package gemini.sp;
 
-import java.util.Enumeration ;
+import java.util.Enumeration;
 
 /**
  * OMP class.
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class SpOR extends SpObsContextItem
-{
+@SuppressWarnings("serial")
+public class SpOR extends SpObsContextItem {
 
-	/** This attribute records the number of items in the OR folder. */
-	public static final String ATTR_NUMBER_OF_ITEMS = ":numberOfItems" ;
+    /** This attribute records the number of items in the OR folder. */
+    public static final String ATTR_NUMBER_OF_ITEMS = ":numberOfItems";
 
-	/**
+    /**
      * Default constructor.
      */
-	protected SpOR()
-	{
-		super( SpType.OR_FOLDER ) ;
-		_avTable.noNotifySet( ATTR_NUMBER_OF_ITEMS , "1" , 0 ) ;
-	}
+    protected SpOR() {
+        super(SpType.OR_FOLDER);
+        _avTable.noNotifySet(ATTR_NUMBER_OF_ITEMS, "1", 0);
+    }
 
+    /**
+     * Create a display title including the number of items to include.
+     */
+    public String getTitle() {
+        return super.getTitle() + " (" + getNumberOfItems()
+                // + " of " + childCount() // does not update...
+                + ")";
+    }
 
-	/**
-	 * Create a display title including the number of items to include.
-	 */
-	public String getTitle() {
-		return super.getTitle()
-			+ " (" + getNumberOfItems()
-			// + " of " + childCount() // does not update...
-			+ ")";
-	}
-
-
-	/**
+    /**
      * Set number of items in OR folder (such as MSBs, AND folder) that are to
      * be selected.
      */
-	public void setNumberOfItems( int numberOfItems )
-	{
-		_avTable.set( ATTR_NUMBER_OF_ITEMS , numberOfItems ) ;
-	}
+    public void setNumberOfItems(int numberOfItems) {
+        _avTable.set(ATTR_NUMBER_OF_ITEMS, numberOfItems);
+    }
 
-	/**
+    /**
      * Get number of items in OR folder (such as MSBs, AND folder) that are to
      * be selected.
-     * 
+     *
      * @return number of items (default 1)
      */
-	public int getNumberOfItems()
-	{
-		return _avTable.getInt( ATTR_NUMBER_OF_ITEMS , 1 ) ;
-	}
+    public int getNumberOfItems() {
+        return _avTable.getInt(ATTR_NUMBER_OF_ITEMS, 1);
+    }
 
-	/**
+    /**
      * Calculates the duration of this OR folder.
-     * 
-     * Returns the mean of the elapsed time per item in the OR folder multiplied
-     * by the number of items that are to be selected.
-     * 
+     *
+     * Returns the mean of the elapsed time per item in the OR folder
+     * multiplied by the number of items that are to be selected.
+     *
      * @see #getNumberOfItems()
      */
-	public double getTotalTime()
-	{
-		double elapsedTime = 0. ;
+    public double getTotalTime() {
+        double elapsedTime = 0.0;
 
-		// Records the number of children that have a duration, i.e. SpAND and
-		// SpMSB (and its subclass SpObs).
-		int n = 0 ;
+        // Records the number of children that have a duration, i.e. SpAND and
+        // SpMSB (and its subclass SpObs).
+        int n = 0;
 
-		Enumeration<SpItem> children = children() ;
-		SpItem spItem = null ;
+        Enumeration<SpItem> children = children();
+        SpItem spItem = null;
 
-		while( children.hasMoreElements() )
-		{
-			spItem = children.nextElement() ;
+        while (children.hasMoreElements()) {
+            spItem = children.nextElement();
 
-			if( spItem instanceof SpMSB )
-			{
-				SpMSB msb = ( SpMSB )spItem ;
-				if( msb.getNumberRemaining() > 0 )
-					elapsedTime += msb.getTotalTime() * msb.getNumberRemaining() ;
-				n++ ;
-			}
-			else if( spItem instanceof SpAND )
-			{
-				elapsedTime += (( SpAND )spItem).getTotalTime() ;
-				n++ ;
-			}
-			else if( spItem instanceof SpSurveyContainer )
-			{
-				elapsedTime += (( SpSurveyContainer )spItem).getTotalTime() ;
-				n++ ;
-			}
-		}
+            if (spItem instanceof SpMSB) {
+                SpMSB msb = (SpMSB) spItem;
 
-		if( elapsedTime != 0. )
-			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
-		return elapsedTime ;
-	}
+                if (msb.getNumberRemaining() > 0) {
+                    elapsedTime += msb.getTotalTime()
+                            * msb.getNumberRemaining();
+                }
 
-	/**
+                n++;
+
+            } else if (spItem instanceof SpAND) {
+                elapsedTime += ((SpAND) spItem).getTotalTime();
+                n++;
+
+            } else if (spItem instanceof SpSurveyContainer) {
+                elapsedTime += ((SpSurveyContainer) spItem).getTotalTime();
+                n++;
+            }
+        }
+
+        if (elapsedTime != 0.0) {
+            elapsedTime = (elapsedTime / n) * getNumberOfItems();
+        }
+
+        return elapsedTime;
+    }
+
+    /**
      * Calculates the duration of this OR folder.
-     * 
-     * Returns the mean of the elapsed time per item in the OR folder multiplied
-     * by the number of items that are to be selected.
-     * 
+     *
+     * Returns the mean of the elapsed time per item in the OR folder
+     * multiplied by the number of items that are to be selected.
+     *
      * @see #getNumberOfItems()
      */
-	public double getElapsedTime()
-	{
-		double elapsedTime = 0. ;
+    public double getElapsedTime() {
+        double elapsedTime = 0.0;
 
-		// Records the number of children that have a duration, i.e. SpAND and
-		// SpMSB (and its subclass SpObs).
-		int n = 0 ;
+        // Records the number of children that have a duration, i.e. SpAND and
+        // SpMSB (and its subclass SpObs).
+        int n = 0;
 
-		Enumeration<SpItem> children = children() ;
-		SpItem spItem = null ;
+        Enumeration<SpItem> children = children();
+        SpItem spItem = null;
 
-		while( children.hasMoreElements() )
-		{
-			spItem = children.nextElement() ;
+        while (children.hasMoreElements()) {
+            spItem = children.nextElement();
 
-			if( spItem instanceof SpMSB )
-			{
-				if( ( ( SpMSB )spItem ).getNumberRemaining() > 0 )
-				{
-					SpMSB msb = ( SpMSB )spItem ;
-					elapsedTime += ( msb.getElapsedTime() * msb.getNumberRemaining() ) ;
-					n++ ;
-				}
-			}
-			else if( spItem instanceof SpAND )
-			{
-				elapsedTime += (( SpAND )spItem).getElapsedTime() ;
-				n++ ;
-			}
-			else if( spItem instanceof SpSurveyContainer )
-			{
-				elapsedTime += (( SpSurveyContainer )spItem).getElapsedTime() ;
-				n++ ;
-			}
-		}
+            if (spItem instanceof SpMSB) {
+                if (((SpMSB) spItem).getNumberRemaining() > 0) {
+                    SpMSB msb = (SpMSB) spItem;
+                    elapsedTime += (msb.getElapsedTime()
+                            * msb.getNumberRemaining());
+                    n++;
+                }
 
-		if( elapsedTime != 0. )
-			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
-		return elapsedTime ;
-	}
+            } else if (spItem instanceof SpAND) {
+                elapsedTime += ((SpAND) spItem).getElapsedTime();
+                n++;
 
-	/**
-	 * Disabled if set to observe 0 items. 
-	 */
-	public boolean isDisabled() {
-		return getNumberOfItems() == 0; 
-	}
+            } else if (spItem instanceof SpSurveyContainer) {
+                elapsedTime += ((SpSurveyContainer) spItem).getElapsedTime();
+                n++;
+            }
+        }
+
+        if (elapsedTime != 0.0) {
+            elapsedTime = (elapsedTime / n) * getNumberOfItems();
+        }
+
+        return elapsedTime;
+    }
+
+    /**
+     * Disabled if set to observe 0 items.
+     */
+    public boolean isDisabled() {
+        return getNumberOfItems() == 0;
+    }
 }

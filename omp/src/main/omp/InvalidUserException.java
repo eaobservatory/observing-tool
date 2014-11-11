@@ -17,18 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package omp ;
+package omp;
 
 /**
  * This exception is thrown when the user specifies an invalid user name on the
  * MSB Done dialog box.
- * 
  */
-@SuppressWarnings( "serial" )
-public class InvalidUserException extends Exception
-{
-	InvalidUserException( String message )
-	{
-		super( message ) ;
-	}
+@SuppressWarnings("serial")
+public class InvalidUserException extends Exception {
+    InvalidUserException(String message) {
+        super(message);
+    }
 }

@@ -17,27 +17,25 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
-import java.util.Vector ;
+import java.util.Vector;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-public class SelectionList
-{
-	public Vector<Transition> objectList ;
+public class SelectionList {
+    public Vector<Transition> objectList;
 
-	public String name ;
+    public String name;
 
-	public SelectionList( String name )
-	{
-		this.name = name ;
-		objectList = new Vector<Transition>() ;
-	}
+    public SelectionList(String name) {
+        this.name = name;
 
-	public String toString()
-	{
-		return name ;
-	}
+        objectList = new Vector<Transition>();
+    }
+
+    public String toString() {
+        return name;
+    }
 }

@@ -17,23 +17,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
-import javax.swing.JLabel ;
+import javax.swing.JLabel;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class SamplerDisplay extends JLabel implements SamplerWatcher
-{
-	public SamplerDisplay( String text )
-	{
-		super( text ) ;
-	}
+@SuppressWarnings("serial")
+public class SamplerDisplay extends JLabel implements SamplerWatcher {
+    public SamplerDisplay(String text) {
+        super(text);
+    }
 
-	public void updateSamplerValues( double centre , double width , int channels )
-	{
-		setText( String.valueOf( centre ) ) ;
-	}
+    public void updateSamplerValues(double centre, double width, int channels) {
+        setText(String.valueOf(centre));
+    }
 }

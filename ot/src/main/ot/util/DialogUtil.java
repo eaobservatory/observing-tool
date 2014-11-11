@@ -17,46 +17,48 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.util ;
+package ot.util;
 
-import javax.swing.JOptionPane ;
-import java.awt.Component ;
+import javax.swing.JOptionPane;
+import java.awt.Component;
 
-/** 
+/**
  * Utility class with static methods for commonly used dialogs.
  *
  * @author Martin Folger
  */
-public class DialogUtil extends jsky.util.gui.DialogUtil
-{
-	/** 
-	 * Report an error message based on the given exception.
-	 * 
-	 * @param e the exception containing the error information
-	 */
-	public static void error( Component parentComponent , Exception e )
-	{
-		e.printStackTrace() ;
+public class DialogUtil extends jsky.util.gui.DialogUtil {
+    /**
+     * Report an error message based on the given exception.
+     *
+     * @param e the exception containing the error information
+     */
+    public static void error(Component parentComponent, Exception e) {
+        e.printStackTrace();
 
-		String s = e.getMessage() ;
-		if( s == null || s.trim().length() == 0 )
-			s = e.toString() ;
+        String s = e.getMessage();
 
-		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
+        if (s == null || s.trim().length() == 0) {
+            s = e.toString();
+        }
 
-	/** 
-	 * Report an error message based on the given message and exception.
-	 * 
-	 * @param msg the message to display
-	 * @param e the exception containing the error information
-	 */
-	public static void error( Component parentComponent , String msg , Exception e )
-	{
-		e.printStackTrace() ;
+        JOptionPane.showMessageDialog(parentComponent, s, "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
 
-		String s = msg + ": " + e.toString() ;
+    /**
+     * Report an error message based on the given message and exception.
+     *
+     * @param msg the message to display
+     * @param e the exception containing the error information
+     */
+    public static void error(Component parentComponent, String msg,
+            Exception e) {
+        e.printStackTrace();
 
-		JOptionPane.showMessageDialog( parentComponent , s , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-	}
+        String s = msg + ": " + e.toString();
+
+        JOptionPane.showMessageDialog(parentComponent, s, "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
 }

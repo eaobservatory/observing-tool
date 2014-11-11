@@ -17,63 +17,59 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.jcmt.iter.editor ;
+package ot.jcmt.iter.editor;
 
-import jsky.app.ot.gui.CheckBoxWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
 
-import gemini.sp.SpItem ;
-import gemini.sp.obsComp.SpInstObsComp ;
-import orac.jcmt.iter.SpIterSetupObs ;
+import gemini.sp.SpItem;
+import gemini.sp.obsComp.SpInstObsComp;
+import orac.jcmt.iter.SpIterSetupObs;
 
 /**
  * Cloned from Skydip
  */
-public final class EdIterSetupObs extends EdIterJCMTGeneric
-{
-	private IterSetupObsGUI _w ; // the GUI layout panel
+public final class EdIterSetupObs extends EdIterJCMTGeneric {
+    private IterSetupObsGUI _w; // the GUI layout panel
 
-	private SpIterSetupObs _iterObs ;
+    private SpIterSetupObs _iterObs;
 
-	/**
-	 * The constructor initializes the title, description, and presentation source.
-	 */
-	public EdIterSetupObs()
-	{
-		super( new IterSetupObsGUI() ) ;
+    /**
+     * The constructor initializes the title, description, and presentation
+     * source.
+     */
+    public EdIterSetupObs() {
+        super(new IterSetupObsGUI());
 
-		_title = "Setup" ;
-		_presSource = _w = ( IterSetupObsGUI )super._w ;
-		_description = "Setup Observation Mode" ;
+        _title = "Setup";
+        _presSource = _w = (IterSetupObsGUI) super._w;
+        _description = "Setup Observation Mode";
 
-		_w.currentAzimuth.addWatcher( this ) ;
-		_w.jPanel1.setVisible( false ) ;
-	}
+        _w.currentAzimuth.addWatcher(this);
+        _w.jPanel1.setVisible(false);
+    }
 
-	/**
-	 * Override setup to store away a reference to the Focus Iterator.
-	 */
-	public void setup( SpItem spItem )
-	{
-		_iterObs = ( SpIterSetupObs )spItem ;
-		super.setup( spItem ) ;
-	}
+    /**
+     * Override setup to store away a reference to the Focus Iterator.
+     */
+    public void setup(SpItem spItem) {
+        _iterObs = (SpIterSetupObs) spItem;
 
-	protected void _updateWidgets()
-	{
-		_w.currentAzimuth.setValue( _iterObs.getDoAtCurrentAz() ) ;
+        super.setup(spItem);
+    }
 
-		super._updateWidgets() ;
-	}
+    protected void _updateWidgets() {
+        _w.currentAzimuth.setValue(_iterObs.getDoAtCurrentAz());
 
-	public void checkBoxAction( CheckBoxWidgetExt cbwe )
-	{
-		if( cbwe == _w.currentAzimuth )
-			_iterObs.setDoAtCurrentAz( _w.currentAzimuth.getBooleanValue() ) ;
-	}
+        super._updateWidgets();
+    }
 
-	public void setInstrument( SpInstObsComp spInstObsComp )
-	{
-		super.setInstrument( spInstObsComp ) ;
-	}
+    public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+        if (cbwe == _w.currentAzimuth) {
+            _iterObs.setDoAtCurrentAz(_w.currentAzimuth.getBooleanValue());
+        }
+    }
 
+    public void setInstrument(SpInstObsComp spInstObsComp) {
+        super.setInstrument(spInstObsComp);
+    }
 }

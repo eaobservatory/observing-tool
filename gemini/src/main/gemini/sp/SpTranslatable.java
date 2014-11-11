@@ -17,36 +17,45 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp ;
+package gemini.sp;
 
-import java.util.Vector ;
+import java.util.Vector;
 
-public interface SpTranslatable
-{
-	/**
-     * Classes that implement this method must provide a translate method. Used
-     * to convert XML into sequences
+public interface SpTranslatable {
+    /**
+     * Classes that implement this method must provide a translate method.
+     *
+     * Used to convert XML into sequences
      */
-	public void translate( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
-	
-	/**
-	 * Called prior to main translation for iterators etc.
-	 * This is useful for not repeating setup mid-observation.
-	 * Although, due to SpTranslatable being an interface it needs to be implemented, 
-	 * it is expected that these methods will remain empty in normal translation.
-	 * @param sequence
-	 * @throws SpTranslationNotSupportedException
-	 */
-	public void translateProlog( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
-	
-	/**
-	 * Called after main translation for iterators etc.
-	 * This is useful for not repeating tear-down mid-observation.
-	 * Although, due to SpTranslatable being an interface it needs to be implemented, 
-	 * it is expected that these methods will remain empty in normal translation. 
-	 * @param sequence
-	 * @throws SpTranslationNotSupportedException
-	 */
-	public void translateEpilog( Vector<String> sequence ) throws SpTranslationNotSupportedException ;
-	
+    public void translate(Vector<String> sequence)
+            throws SpTranslationNotSupportedException;
+
+    /**
+     * Called prior to main translation for iterators etc.
+     *
+     * This is useful for not repeating setup mid-observation.
+     * Although, due to SpTranslatable being an interface it needs to be
+     * implemented, it is expected that these methods will remain empty in
+     * normal translation.
+     *
+     * @param sequence
+     * @throws SpTranslationNotSupportedException
+     */
+    public void translateProlog(Vector<String> sequence)
+            throws SpTranslationNotSupportedException;
+
+    /**
+     * Called after main translation for iterators etc.
+     *
+     * This is useful for not repeating tear-down mid-observation.
+     * Although, due to SpTranslatable being an interface it needs to be
+     * implemented, it is expected that these methods will remain empty in
+     * normal translation.
+     *
+     * @param sequence
+     * @throws SpTranslationNotSupportedException
+     */
+    public void translateEpilog(Vector<String> sequence)
+            throws SpTranslationNotSupportedException;
+
 }

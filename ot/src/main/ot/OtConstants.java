@@ -17,15 +17,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot ;
+package ot;
 
 /**
  * Constants for the OT
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public interface OtConstants
-{
-	public static final String UKIRT = "ukirt" ;
-	public static final String JCMT = "jcmt" ;
+public interface OtConstants {
+    public static final String UKIRT = "ukirt";
+    public static final String JCMT = "jcmt";
 }

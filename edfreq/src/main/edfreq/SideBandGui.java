@@ -17,37 +17,34 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
-import javax.swing.JScrollBar ;
+import javax.swing.JScrollBar;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class SideBandGui extends JScrollBar
-{
-	private SideBand sideBand ;
+@SuppressWarnings("serial")
+public class SideBandGui extends JScrollBar {
+    private SideBand sideBand;
 
-	public SideBandGui( SideBand sideBand , int lowLimit , int highLimit , int bandWidth )
-	{
-		super( JScrollBar.HORIZONTAL , ( lowLimit + highLimit ) / 2 , bandWidth , lowLimit , highLimit ) ;
-		this.sideBand = sideBand ;
-	}
+    public SideBandGui(SideBand sideBand, int lowLimit, int highLimit,
+            int bandWidth) {
+        super(JScrollBar.HORIZONTAL, (lowLimit + highLimit) / 2, bandWidth,
+                lowLimit, highLimit);
+        this.sideBand = sideBand;
+    }
 
-	public void setSideBand( SideBand value )
-	{
-		this.sideBand = value ;
-	}
+    public void setSideBand(SideBand value) {
+        this.sideBand = value;
+    }
 
-	public void updateValue()
-	{
-		setValue( sideBand.getScaledCentre() ) ;
-		setVisibleAmount( sideBand.getScaledWidth() ) ;
-	}
+    public void updateValue() {
+        setValue(sideBand.getScaledCentre());
+        setVisibleAmount(sideBand.getScaledWidth());
+    }
 
-	public void updateSideBand()
-	{
-		sideBand.setScaledCentre( getValue() ) ;
-	}
+    public void updateSideBand() {
+        sideBand.setScaledCentre(getValue());
+    }
 }

@@ -17,17 +17,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package orac.validation ;
+package orac.validation;
 
-import gemini.sp.obsComp.SpInstObsComp ;
-import java.util.Vector ;
+import gemini.sp.obsComp.SpInstObsComp;
+import java.util.Vector;
 
 /**
  * Interface for instrument component validation.
- * 
+ *
  * @author M.Folger@roe.ac.uk UKATC
  */
-public interface InstrumentValidation
-{
-	public void checkInstrument( SpInstObsComp instObsComp , Vector<ErrorMessage> report ) ;
+public interface InstrumentValidation {
+    public void checkInstrument(SpInstObsComp instObsComp,
+            Vector<ErrorMessage> report);
 }

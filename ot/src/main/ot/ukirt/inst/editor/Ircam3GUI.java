@@ -1,10 +1,10 @@
-/**
- * Title:        JSky<p>
- * Description:  <p>
- * Copyright:    Copyright (c) 2000 Association of Universities for Research in Astronomy, Inc. (AURA)<p>
- * Company:      <p>
+/*
+ * Copyright (c) 2000 Association of Universities for Research in Astronomy,
+ * Inc. (AURA)
+ *
  * @author Allan Brighton (modified for ukirt: Martin Folger)
  * @version 1.0
+ *
  * License:
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -28,7 +28,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package ot.ukirt.inst.editor ;
 
-@SuppressWarnings( "serial" )
-public class Ircam3GUI extends UftiGUI{}
+package ot.ukirt.inst.editor;
+
+@SuppressWarnings("serial")
+public class Ircam3GUI extends UftiGUI {
+}

@@ -1,54 +1,57 @@
-// Copyright (c) 1997 Association of Universities for Research in Astronomy, Inc. (AURA)
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification,
-// are permitted provided that the following conditions are met:
-//
-// 1) Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
-// 2) Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
-// 3) The names of AURA and its representatives may not be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
-//
-// THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-// INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-// GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
-// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*
+ * Copyright (c) 1997 Association of Universities for Research in Astronomy, Inc. (AURA)
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1) Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * 2) Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ * 3) The names of AURA and its representatives may not be used to endorse or
+ *   promote products derived from this software without specific prior written
+ *   permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+ * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-package jsky.app.ot ;
+package jsky.app.ot;
 
-import java.awt.Frame ;
-import java.awt.event.MouseAdapter ;
-import java.awt.event.MouseEvent ;
-import java.util.Observable ;
-import java.util.Observer ;
-import javax.swing.JFrame ;
-import javax.swing.JPanel ;
-import javax.swing.JButton ;
-import jsky.app.ot.editor.OtItemEditor ;
-import jsky.app.ot.editor.OtItemEditorFactory ;
-import jsky.app.ot.gui.CommandButtonWidgetExt ;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher ;
-import gemini.sp.SpAvEditState ;
-import gemini.sp.SpItem ;
-import gemini.util.Assert ;
+import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.editor.OtItemEditorFactory;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
+import gemini.sp.SpAvEditState;
+import gemini.sp.SpItem;
+import gemini.util.Assert;
 
 /**
  * This class presents the window in which specific item editors are
- * embedded.  Its GUI contains a PresentationWidget in which the form
- * used to edit the attributes of items is displayed.  It delegates
- * behavior to an associated ot.editor.OtItemEditor class that uses
- * the embeded _content presentation and converts between the screen
- * representation of the item's attributes and values and the real
- * SpItem attributes and values.
+ * embedded.
+ *
+ * Its GUI contains a PresentationWidget in which the form used to edit
+ * the attributes of items is displayed.  It delegates behavior to an
+ * associated ot.editor.OtItemEditor class that uses the embeded _content
+ * presentation and converts between the screen representation of the item's
+ * attributes and values and the real SpItem attributes and values.
  *
  * <p>
  * The editor window is an Observer of SpAvEditState.  When an item's
@@ -57,307 +60,320 @@ import gemini.util.Assert ;
  *
  * @see OtItemEditor
  */
-@SuppressWarnings( "serial" )
-public class OtItemEditorWindow extends ItemEditorGUI implements Observer
-{
-	/** The top level parent frame. */
-	private JFrame _parent;
+@SuppressWarnings("serial")
+public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
+    /** The top level parent frame. */
+    private JFrame _parent;
 
-	private OtWindow _otWindow ;
-	private SpItem _curItem ;
-	private ProgramInfo _progInfo ;
-	private JPanel _content ;
-	private OtItemEditor _editor ;
+    private OtWindow _otWindow;
+    private SpItem _curItem;
+    private ProgramInfo _progInfo;
+    private JPanel _content;
+    private OtItemEditor _editor;
 
-	/**
-	 * Default constructor.
-	 */
-	public OtItemEditorWindow()
-	{
-		_undoButton.addWatcher( new CommandButtonWidgetWatcher()
-		{
-			public void commandButtonAction( CommandButtonWidgetExt cbwe )
-			{
-				undo() ;
-			}
-		} ) ;
+    /**
+     * Default constructor.
+     */
+    public OtItemEditorWindow() {
+        _undoButton.addWatcher(new CommandButtonWidgetWatcher() {
+            public void commandButtonAction(CommandButtonWidgetExt cbwe) {
+                undo();
+            }
+        });
 
-		_closeButton.addWatcher( new CommandButtonWidgetWatcher()
-		{
-			public void commandButtonAction( CommandButtonWidgetExt cbwe )
-			{
-				close() ;
-			}
-		} ) ;
+        _closeButton.addWatcher(new CommandButtonWidgetWatcher() {
+            public void commandButtonAction(CommandButtonWidgetExt cbwe) {
+                close();
+            }
+        });
 
-		_showEditPencil.addMouseListener( new MouseAdapter()
-		{
-			public void mousePressed( MouseEvent e )
-			{
-				// If pencil is showing, we must be in the process of editing something.
-				Assert.notNull( _curItem ) ;
-				// Show the widgets as they were before editing
-				undo() ;
-				_showEditPencil.setIcon( _pencilDownIcon ) ;
-			}
+        _showEditPencil.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                // If pencil is showing, we must be in the process of
+                // editing something.
+                Assert.notNull(_curItem);
 
-			public void mouseReleased( MouseEvent e )
-			{
-				// If pencil is showing, we must be in the process of editing something.
-				Assert.notNull( _curItem ) ;
-				// Show the widgets as they are now
-				undo() ;
-				_showEditPencil.setIcon( _pencilIcon ) ;
-			}
-		} ) ;
-	}
+                // Show the widgets as they were before editing
+                undo();
 
-	/** Called when the window is closed */
-	public void close()
-	{
-		if( _progInfo.online )
-			save( _curItem ) ; // Save any changes
+                _showEditPencil.setIcon(_pencilDownIcon);
+            }
 
-		if( _otWindow != null )
-			_otWindow.close() ;
-	}
+            public void mouseReleased(MouseEvent e) {
+                // If pencil is showing, we must be in the process of
+                // editing something.
+                Assert.notNull(_curItem);
 
-	/**
-	 * Initialize the title, description, and embedded presentation from
-	 * information taken from the given OtItemEditor.
-	 */
-	public void reinit( OtItemEditor ed )
-	{
-		if( ed == null )
-			return ;
+                // Show the widgets as they are now
+                undo();
 
-		// Set the title displayed in the large, italic font at the top of the window.
-		setTitle( ed.getTitle() ) ;
+                _showEditPencil.setIcon(_pencilIcon);
+            }
+        });
+    }
 
-		// Set the description of the item that is displayed
-		_descriptionBox.setText( ed.getDescription() ) ;
+    /**
+     * Called when the window is closed.
+     */
+    public void close() {
+        if (_progInfo.online) {
+            // Save any changes
+            save(_curItem);
+        }
 
-		// Get the content presentation
-		_content = ed.getPresSource() ;
+        if (_otWindow != null) {
+            _otWindow.close();
+        }
+    }
 
-		// Set the content
-		_contentPresentation.removeAll() ;
-		_contentPresentation.add( "Center" , _content ) ;
-		_contentPresentation.revalidate() ;
-		if( _parent != null )
-			_parent.repaint() ;
+    /**
+     * Initialize the title, description, and embedded presentation from
+     * information taken from the given OtItemEditor.
+     */
+    public void reinit(OtItemEditor ed) {
+        if (ed == null) {
+            return;
+        }
 
-		_editor = ed ;
-		_editor.setPresentation( _content ) ;
-		_editor.setOtItemEditorWindow( this ) ;
-		_editor.setDescriptionWidget( _descriptionBox ) ;
-	}
+        // Set the title displayed in the large, italic font at the top of the
+        // window.
+        setTitle(ed.getTitle());
 
-	/** Set the title (tab label) for the given component */
-	public void setTitle( String title )
-	{
-		_border.setTitle( title ) ;
-	}
+        // Set the description of the item that is displayed
+        _descriptionBox.setText(ed.getDescription());
 
-	/**
-	 * Initialize the buttons based upon the state of the AV table being
-	 * edited.
-	 */
-	private void _reinitState( int state )
-	{
-		switch( state )
-		{
-			case SpAvEditState.UNEDITED :
-				_undoButton.setText( "Undo" ) ;
-				_undoButton.setEnabled( false ) ;
-				_showEditPencil.setVisible( false ) ;
-				break ;
+        // Get the content presentation
+        _content = ed.getPresSource();
 
-			case SpAvEditState.EDITED :
-				_undoButton.setText( "Undo" ) ;
-				_undoButton.setEnabled( true ) ;
-				_showEditPencil.setVisible( true ) ;
-				break ;
+        // Set the content
+        _contentPresentation.removeAll();
+        _contentPresentation.add("Center", _content);
+        _contentPresentation.revalidate();
 
-			case SpAvEditState.EDIT_UNDONE :
-				_undoButton.setText( "Redo" ) ;
-				_undoButton.setEnabled( true ) ;
-				_showEditPencil.setVisible( true ) ;
-				break ;
-		}
-	}
+        if (_parent != null) {
+            _parent.repaint();
+        }
 
-	/**
-	 * Set the ProgramInfo variable.  This structure contains global information
-	 * about the program as a whole and is needed to send changes to the ODB.
-	 */
-	public void setInfo( ProgramInfo pi )
-	{
-		_progInfo = pi ;
-	}
+        _editor = ed;
+        _editor.setPresentation(_content);
+        _editor.setOtItemEditorWindow(this);
+        _editor.setDescriptionWidget(_descriptionBox);
+    }
 
-	/**
-	 * Get the item being edited.
-	 */
-	public SpItem getItem()
-	{
-		return _curItem ;
-	}
+    /**
+     * Set the title (tab label) for the given component.
+     */
+    public void setTitle(String title) {
+        _border.setTitle(title);
+    }
 
-	/**
-	 * Set the item being edited.  The OtItemEditor that is associated with
-	 * the class of item represented by the spItem is discovered from the
-	 * spItem's client data and used to reinitialize the editor window.
-	 * In addition, the editor is told to initialize its widgets to reflect
-	 * the values of the attributes in the spItem.
-	 */
-	public void setItem( SpItem spItem )
-	{
-		if( _curItem != null )
-		{
-			if( _progInfo.online )
-				save( _curItem ) ; // Save changes to the item before editing the new one
+    /**
+     * Initialize the buttons based upon the state of the AV table being
+     * edited.
+     */
+    private void _reinitState(int state) {
+        switch (state) {
+            case SpAvEditState.UNEDITED:
+                _undoButton.setText("Undo");
+                _undoButton.setEnabled(false);
+                _showEditPencil.setVisible(false);
+                break;
 
-			if( ( _editor != null ) && ( _curItem != spItem ) )
-				_editor.cleanup() ;
+            case SpAvEditState.EDITED:
+                _undoButton.setText("Undo");
+                _undoButton.setEnabled(true);
+                _showEditPencil.setVisible(true);
+                break;
 
-			_curItem.getAvEditFSM().deleteObserver( this ) ;
-		}
+            case SpAvEditState.EDIT_UNDONE:
+                _undoButton.setText("Redo");
+                _undoButton.setEnabled(true);
+                _showEditPencil.setVisible(true);
+                break;
+        }
+    }
 
-		// Get the appropriate editor for the spItem
-		OtClientData cd = ( OtClientData )spItem.getClientData() ;
-		Assert.notNull( cd ) ;
-		Assert.notNull( cd.itemEditorClass ) ;
-		OtItemEditor ed = OtItemEditorFactory.getEditor( cd.itemEditorClass , spItem ) ;
+    /**
+     * Set the ProgramInfo variable.
+     *
+     * This structure contains global information about the program as a whole
+     * and is needed to send changes to the ODB.
+     */
+    public void setInfo(ProgramInfo pi) {
+        _progInfo = pi;
+    }
 
-		_curItem = spItem ;
+    /**
+     * Get the item being edited.
+     */
+    public SpItem getItem() {
+        return _curItem;
+    }
 
-		// Will only add if not already an observer.
-		_curItem.getAvEditFSM().addObserver( this ) ;
+    /**
+     * Set the item being edited.
+     *
+     * The OtItemEditor that is associated with the class of item represented
+     * by the spItem is discovered from the spItem's client data and used
+     * to reinitialize the editor window.  In addition, the editor is told to
+     * initialize its widgets to reflect the values of the attributes in the
+     * spItem.
+     */
+    public void setItem(SpItem spItem) {
+        if (_curItem != null) {
+            if (_progInfo.online) {
+                // Save changes to the item before editing the new one
+                save(_curItem);
+            }
 
-		// Show the right presentation, title and description.
-		reinit( ed ) ;
+            if ((_editor != null) && (_curItem != spItem)) {
+                _editor.cleanup();
+            }
 
-		// Reset the "edit pencil" and undo buttons depending upon whether the
-		// item has been edited.
-		_reinitState( _curItem.getAvEditState() ) ;
+            _curItem.getAvEditFSM().deleteObserver(this);
+        }
 
-		// Tell the editor to show the values of this item.
-		if( _editor != null )
-			_editor.setup( spItem ) ;
-	}
+        // Get the appropriate editor for the spItem
+        OtClientData cd = (OtClientData) spItem.getClientData();
+        Assert.notNull(cd);
+        Assert.notNull(cd.itemEditorClass);
+        OtItemEditor ed = OtItemEditorFactory.getEditor(cd.itemEditorClass,
+                spItem);
 
-	/**
-	 * Receive an update from either an SpAvEditState machine or the SpItem
-	 * itself.  This method implements the <tt>update</tt> method from the
-	 * Observer interface.  Updates are sent when the state machine changes
-	 * state or when the SpItem's table is replaced.
-	 *
-	 * @param o   the SpAvEditState of the item being edited
-	 * @param arg ignored
-	 */
-	public void update( Observable o , Object arg )
-	{
-		if( o instanceof SpAvEditState )
-		{
-			SpAvEditState fsm = ( SpAvEditState )o ;
-			if( fsm == _curItem.getAvEditFSM() )
-				_reinitState( fsm.getState() ) ;
-		}
-	}
+        _curItem = spItem;
 
-	/**
-	 * Forget any edits that have been made.
-	 */
-	public void undo()
-	{
-		_curItem.getAvEditFSM().undo() ;
-		_editor.update() ;
-	}
+        // Will only add if not already an observer.
+        _curItem.getAvEditFSM().addObserver(this);
 
-	//
-	// See whether the current item has been edited.
-	//
-	private boolean _isEdited( SpItem spItem )
-	{
-		if( spItem == null )
-			return false ;
+        // Show the right presentation, title and description.
+        reinit(ed);
 
-		return !( spItem.getAvEditState() == SpAvEditState.UNEDITED ) ;
-	}
+        // Reset the "edit pencil" and undo buttons depending upon whether the
+        // item has been edited.
+        _reinitState(_curItem.getAvEditState());
 
-	/**
-	 * Save any changes that have been made to a given item.
-	 */
-	public void save( SpItem spItem )
-	{
-		// Nothing to do
-		if( !_isEdited( spItem ) )
-			return ;
+        // Tell the editor to show the values of this item.
+        if (_editor != null) {
+            _editor.setup(spItem);
+        }
+    }
 
-		spItem.getAvEditFSM().save() ;
-	}
+    /**
+     * Receive an update from either an SpAvEditState machine or the SpItem
+     * itself.
+     *
+     * This method implements the <tt>update</tt> method from the
+     * Observer interface.  Updates are sent when the state machine changes
+     * state or when the SpItem's table is replaced.
+     *
+     * @param o   the SpAvEditState of the item being edited
+     * @param arg ignored
+     */
+    public void update(Observable o, Object arg) {
+        if (o instanceof SpAvEditState) {
+            SpAvEditState fsm = (SpAvEditState) o;
 
-	/**
-	 * Hide the window.
-	 */
-	public void setVisible( boolean visible )
-	{
-		_parent.setVisible( visible ) ;
-		if( !visible && _editor != null )
-				_editor.cleanup() ;
-	}
+            if (fsm == _curItem.getAvEditFSM()) {
+                _reinitState(fsm.getState());
+            }
+        }
+    }
 
-	public boolean isVisible()
-	{
-		return _parent != null && _parent.isVisible() ;
-	}
+    /**
+     * Forget any edits that have been made.
+     */
+    public void undo() {
+        _curItem.getAvEditFSM().undo();
+        _editor.update();
+    }
 
-	public void toFront() {
-		_parent.setState(Frame.NORMAL);
-	}
+    /**
+     * See whether the current item has been edited.
+     */
+    private boolean _isEdited(SpItem spItem) {
+        if (spItem == null) {
+            return false;
+        }
 
-	/** Return the top level parent frame used to close the window */
-	public JFrame getParentFrame() {
-		return _parent;
-	}
+        return !(spItem.getAvEditState() == SpAvEditState.UNEDITED);
+    }
 
-	/** Set the top level parent frame used to close the window */
-	public void setParentFrame(JFrame p) {
-		_parent = p;
-	}
+    /**
+     * Save any changes that have been made to a given item.
+     */
+    public void save(SpItem spItem) {
+        // Nothing to do
+        if (!_isEdited(spItem)) {
+            return;
+        }
 
-	/** Set a reference to the parent panel. */
-	public void setOtWindow( OtWindow w )
-	{
-		_otWindow = w ;
-	}
+        spItem.getAvEditFSM().save();
+    }
 
-	/**
-	 * Get the "resizable" property.  If the editor subclass is resizable,
-	 * then it should reset _resizable to true.  Otherwise, the default (false)
-	 * is returned.
-	 */
-	public boolean isResizable()
-	{
-		// XXX allan return _resizable ; 
-		return true ;
-	}
+    /**
+     * Hide the window.
+     */
+    public void setVisible(boolean visible) {
+        _parent.setVisible(visible);
 
-	/**
-	 * Set the "resizable" property.  
-	 */
-	public void setResizable( boolean b ){}
+        if (!visible && _editor != null) {
+            _editor.cleanup();
+        }
+    }
 
-	// Needed for survey component editor, added by MFO, January 08, 2003
-	public JButton getUndoButton()
-	{
-		return _undoButton ;
-	}
+    public boolean isVisible() {
+        return _parent != null && _parent.isVisible();
+    }
 
-	// Needed for survey component editor, added by MFO, January 08, 2003
-	public JButton getShowEditPencilButton()
-	{
-		return _showEditPencil ;
-	}
+    public void toFront() {
+        _parent.setState(Frame.NORMAL);
+    }
+
+    /**
+     * Return the top level parent frame used to close the window.
+     */
+    public JFrame getParentFrame() {
+        return _parent;
+    }
+
+    /**
+     * Set the top level parent frame used to close the window.
+     */
+    public void setParentFrame(JFrame p) {
+        _parent = p;
+    }
+
+    /**
+     * Set a reference to the parent panel.
+     */
+    public void setOtWindow(OtWindow w) {
+        _otWindow = w;
+    }
+
+    /**
+     * Get the "resizable" property.
+     *
+     * If the editor subclass is resizable, then it should reset _resizable
+     * to true.  Otherwise, the default (false) is returned.
+     */
+    public boolean isResizable() {
+        // XXX allan return _resizable;
+        return true;
+    }
+
+    /**
+     * Set the "resizable" property.
+     */
+    public void setResizable(boolean b) {
+    }
+
+    // Needed for survey component editor, added by MFO, January 08, 2003
+    public JButton getUndoButton() {
+        return _undoButton;
+    }
+
+    // Needed for survey component editor, added by MFO, January 08, 2003
+    public JButton getShowEditPencilButton() {
+        return _showEditPencil;
+    }
 }
