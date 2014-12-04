@@ -25,6 +25,7 @@ package orac.ukirt.inst;
 
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.Hashtable;
 import java.util.NoSuchElementException;
 
 import orac.util.LookUpTable;
@@ -3035,5 +3036,20 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
 
     public IterationTracker createIterationTracker() {
         return new IterTrackerMichelle();
+    }
+
+    public Hashtable<String, String> getConfigItems() {
+        Hashtable<String, String> list = new Hashtable<String, String>();
+
+        list.put("instrument", "MICHELLE");
+
+        setInstAper();
+
+        list.put("instAperX", "" + getInstApX());
+        list.put("instAperY", "" + getInstApY());
+        list.put("instAperZ", "" + getInstApZ());
+        list.put("instAperL", "" + getInstApL());
+
+        return list;
     }
 }
