@@ -1976,6 +1976,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
     }
 
     /**
+     * Get the number of reads in the exposure.
+     */
+    private int getNreads() {
+        return _avTable.getInt(ATTR_NREADS, 0);
+    }
+
+    /**
      * Use default observation time
      */
     public void useDefaultObservationTime() {
@@ -2256,6 +2263,55 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         double dcdr = MathUtil.round(dcd, 1);
         String dcsr = Double.toString(dcdr);
         return dcsr;
+    }
+
+    /**
+     * Get the "mustIdles" parameter.
+     */
+    private int getMustIdles() {
+        return _avTable.getInt(ATTR_MUST_IDLES, 0);
+    }
+
+    /**
+     * Get the "nullReads" parameter.
+     */
+    private int getNullReads() {
+        return _avTable.getInt(ATTR_NULL_READS, 0);
+    }
+
+    /**
+     * Get the "nullExposures" parameter.
+     */
+    private int getNullExposures() {
+        return _avTable.getInt(ATTR_NULL_EXPOSURES, 0);
+    }
+
+    /**
+     * Get the "nullCycles" parameter.
+     */
+    private int getNullCycles() {
+        return _avTable.getInt(ATTR_NULL_CYCLES, 0);
+    }
+
+    /**
+     * Get the "idlePeriod" parameter.
+     */
+    private double getIdlePeriod() {
+        return _avTable.getDouble(ATTR_IDLE_PERIOD, 0.0);
+    }
+
+    /**
+     * Get the "nresets" parameter.
+     */
+    private int getNResets() {
+        return _avTable.getInt(ATTR_NRESETS, 0);
+    }
+
+    /**
+     * Get the "waveform" parameter.
+     */
+    private String getWaveform() {
+        return _avTable.get(ATTR_WAVEFORM);
     }
 
     /**
@@ -3041,7 +3097,43 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
     public Hashtable<String, String> getConfigItems() {
         Hashtable<String, String> list = new Hashtable<String, String>();
 
-        list.put("instrument", "MICHELLE");
+        list.put("instrument", "Michelle");
+        list.put("version", VERSION);
+        list.put("configType", CONFIG_TYPE);
+        list.put("type", "object");
+        list.put("camera", getCamera());
+        list.put("polarimetry", (isPolarimetry() ? "yes" : "no"));
+        list.put("mask", getMask());
+        list.put("maskAngle", Double.toString(getMaskAngle()));
+        list.put("posAngle", Double.toString(getPosAngleDegrees()));
+        list.put("disperser", getDisperser());
+        list.put("order", Integer.toString(getOrder()));
+        list.put("sampling", getPixelSampling());
+        list.put("centralWavelength", Double.toString(getCentralWavelength()));
+        list.put("filter", getFilter());
+        list.put("waveplate", getWaveplate());
+        list.put("scienceArea", getScienceAreaString());
+        //list.put("spectralCoverage", getSpectralCoverageString());
+        list.put("pixelFOV", getPixelFOVString());
+        list.put("nreads", Integer.toString(getNreads()));
+        list.put("mode", getMode());
+        list.put("exposureTime", getExposureTimeAsString());
+        list.put("readInterval", Double.toString(getReadInterval()));
+        list.put("chopFrequency", getChopFreq());
+        list.put("resetDelay", Double.toString(getResetDelay()));
+        list.put("nresets", Integer.toString(getNResets()));
+        list.put("chopDelay", Double.toString(getChopDelay()));
+        list.put("coadds", Integer.toString(getCoadds()));
+        list.put("waveform", getWaveform());
+        list.put("dutyCycle", getDutyCycle());
+        list.put("mustIdles", Integer.toString(getMustIdles()));
+        list.put("nullReads", Integer.toString(getNullReads()));
+        list.put("nullExposures", Integer.toString(getNullExposures()));
+        list.put("nullCycles", Integer.toString(getNullCycles()));
+        list.put("idlePeriod", Double.toString(getIdlePeriod()));
+        list.put("observationTime", getObservationTimeString());
+        list.put("darkFilter", getDarkFilter());
+        list.put("darkNumExp", Integer.toString(1));
 
         setInstAper();
 
