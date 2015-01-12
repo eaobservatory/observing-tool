@@ -8,5 +8,4 @@
   <mapID target="Credits" url="credits.html" />
   <mapID target="library" url="library.html" />
   <mapID target="bugs" url="bugs.html" />
-  <mapID target="download" url="download.html" />
 </map>
