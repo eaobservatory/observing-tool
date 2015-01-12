@@ -43,4 +43,4 @@ rm -f ot
 ln -s ot_release_<YYYYMMDD> ot
 
 11. test it works ...
-javaws http://ftp.jach.hawaii.edu/ot/jac-ot.jnlp
+javaws http://ftp.eao.hawaii.edu/ot/jac-ot.jnlp

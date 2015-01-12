@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="jac-ot.jnlp">
+<jnlp spec="1.5+" codebase="http://ftp.eao.hawaii.edu/ot" href="jac-ot.jnlp">
 	<information>
 		<title>JAC Observing Tool</title>
 		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
-		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+		<homepage href="http://www.eaobservatory.org/jcmt/observing/software-installation/"/>
 		<description>The Joint Astronomy Centre Observing Tool via Webstart.</description>
 		<description kind="short">The JAC Observing Tool.</description>
 		<icon href="images/jaclogo-small.png"/>
