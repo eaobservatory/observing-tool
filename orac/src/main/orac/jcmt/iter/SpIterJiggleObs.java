@@ -289,9 +289,12 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     }
 
     public String[] getSwitchingModeOptions() {
-        return new String[]{SWITCHING_MODE_POSITION, SWITCHING_MODE_BEAM,
+        return new String[]{
+                SWITCHING_MODE_POSITION,
+                SWITCHING_MODE_BEAM,
 //              SWITCHING_MODE_FREQUENCY_S,
-                SWITCHING_MODE_FREQUENCY_F};
+                SWITCHING_MODE_FREQUENCY_F,
+        };
     }
 
     public void setSeparateOffs(boolean enable) {
