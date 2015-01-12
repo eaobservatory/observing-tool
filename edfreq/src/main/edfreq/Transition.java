@@ -17,24 +17,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-public class Transition
-{
-	public String name ;
-	public double frequency ;
+public class Transition {
+    public String name;
+    public double frequency;
 
-	public Transition( String name , double frequency )
-	{
-		this.name = name ;
-		this.frequency = frequency ;
-	}
+    public Transition(String name, double frequency) {
+        this.name = name;
+        this.frequency = frequency;
+    }
 
-	public String toString()
-	{
-		return name ;
-	}
+    public String toString() {
+        return name;
+    }
 }

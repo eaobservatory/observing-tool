@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.5+" codebase="http://ftp.jach.hawaii.edu/ot" href="jh.jnlp">
+<jnlp spec="1.5+" codebase="http://ftp.eao.hawaii.edu/ot" href="jh.jnlp">
 	<information>
 		<title>Java Help</title>
 		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
-		<homepage href="http://ftp.jach.hawaii.edu/ot"/>
+		<homepage href="http://www.eaobservatory.org/jcmt/observing/software-installation/"/>
 		<offline-allowed/>
 	</information>
 	<security>

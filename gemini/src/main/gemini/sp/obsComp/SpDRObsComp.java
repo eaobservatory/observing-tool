@@ -17,22 +17,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp.obsComp ;
+package gemini.sp.obsComp;
 
-import gemini.sp.SpType ;
-import gemini.sp.obsComp.SpObsComp ;
+import gemini.sp.SpType;
+import gemini.sp.obsComp.SpObsComp;
 
 /**
  * This interface is used to provide a common super type for
  * orac.ukirt.inst.SpDRRecipe and orac.jcmt.inst.SpDRRecipe.
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public abstract class SpDRObsComp extends SpObsComp
-{
-	public SpDRObsComp( SpType spType )
-	{
-		super( spType ) ;
-	}
+@SuppressWarnings("serial")
+public abstract class SpDRObsComp extends SpObsComp {
+    public SpDRObsComp(SpType spType) {
+        super(spType);
+    }
 }

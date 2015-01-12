@@ -25,30 +25,31 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package jsky.app.ot.tpe ;
+package jsky.app.ot.tpe;
 
-import jsky.navigator.NavigatorImageDisplayMenuBar ;
-import jsky.image.gui.DivaMainImageDisplay ;
-import jsky.navigator.NavigatorImageDisplay ;
-import jsky.image.gui.ImageDisplayToolBar ;
-import jsky.navigator.NavigatorImageDisplayToolBar ;
+import jsky.navigator.NavigatorImageDisplayMenuBar;
+import jsky.image.gui.DivaMainImageDisplay;
+import jsky.navigator.NavigatorImageDisplay;
+import jsky.image.gui.ImageDisplayToolBar;
+import jsky.navigator.NavigatorImageDisplayToolBar;
 
 /**
  * Extends the image display menubar by adding Gemini position editor features.
  *
  * @author Allan Brighton
  */
-@SuppressWarnings( "serial" )
-public class TpeImageDisplayMenuBar extends NavigatorImageDisplayMenuBar
-{
-	/**
-	 * Create the menubar for the given main image display.
-	 *
-	 * @param imageDisplay the target image display
-	 * @param toolBar the toolbar associated with this menubar (shares some actions)
-	 */
-	public TpeImageDisplayMenuBar( DivaMainImageDisplay imageDisplay , ImageDisplayToolBar toolBar )
-	{
-		super( ( NavigatorImageDisplay )imageDisplay , ( NavigatorImageDisplayToolBar )toolBar ) ;
-	}
+@SuppressWarnings("serial")
+public class TpeImageDisplayMenuBar extends NavigatorImageDisplayMenuBar {
+    /**
+     * Create the menubar for the given main image display.
+     *
+     * @param imageDisplay the target image display
+     * @param toolBar the toolbar associated with this menubar (shares some
+     *        actions)
+     */
+    public TpeImageDisplayMenuBar(DivaMainImageDisplay imageDisplay,
+            ImageDisplayToolBar toolBar) {
+        super((NavigatorImageDisplay) imageDisplay,
+                (NavigatorImageDisplayToolBar) toolBar);
+    }
 }

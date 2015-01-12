@@ -17,12 +17,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-interface SamplerWatcher
-{
-	public void updateSamplerValues( double centre , double width , int channels ) ;
+interface SamplerWatcher {
+    public void updateSamplerValues(double centre, double width, int channels);
 }

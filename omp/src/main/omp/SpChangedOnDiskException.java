@@ -17,19 +17,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package omp ;
+package omp;
 
 /**
  * This Exception is thrown when the Server throws a Server.SpChangedOnDisk
  * Exception during storeProgram.
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class SpChangedOnDiskException extends Exception
-{
-	SpChangedOnDiskException( String message )
-	{
-		super( message ) ;
-	}
+@SuppressWarnings("serial")
+public class SpChangedOnDiskException extends Exception {
+    SpChangedOnDiskException(String message) {
+        super(message);
+    }
 }

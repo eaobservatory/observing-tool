@@ -17,12 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.jcmt.inst.editor ;
+package ot.jcmt.inst.editor;
 
-import javax.swing.JPanel ;
+import javax.swing.JPanel;
 
-@SuppressWarnings( "serial" )
-public class Scuba2GUI extends JPanel
-{
-	public Scuba2GUI(){}
+@SuppressWarnings("serial")
+public class Scuba2GUI extends JPanel {
+    public Scuba2GUI() {
+    }
 }

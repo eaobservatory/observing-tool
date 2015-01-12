@@ -1,346 +1,359 @@
-// Copyright (c) 1997 Association of Universities for Research in Astronomy, Inc. (AURA)
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification,
-// are permitted provided that the following conditions are met:
-//
-// 1) Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
-// 2) Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
-// 3) The names of AURA and its representatives may not be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
-//
-// THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-// INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-// GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
-// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*
+ * Copyright (c) 1997 Association of Universities for Research in Astronomy, Inc. (AURA)
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1) Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * 2) Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ * 3) The names of AURA and its representatives may not be used to endorse or
+ *   promote products derived from this software without specific prior written
+ *   permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+ * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-package jsky.app.ot.tpe ;
+package jsky.app.ot.tpe;
 
-import java.awt.Cursor ;
-import java.util.Vector ;
-import java.util.Hashtable ;
-import java.util.Enumeration ;
-import jsky.app.ot.gui.ToggleButtonWidget ;
-import jsky.app.ot.gui.ToggleButtonWidgetWatcher ;
+import java.awt.Cursor;
+import java.util.Vector;
+import java.util.Hashtable;
+import java.util.Enumeration;
+import jsky.app.ot.gui.ToggleButtonWidget;
+import jsky.app.ot.gui.ToggleButtonWidgetWatcher;
 
 /**
  * A helper object to keep up with which tool has been selected and to
- * simplify selecting tools.  This logically belongs with the
- * TelescopePosEditor code but because of its length, its been moved
- * to a separate file.
+ * simplify selecting tools.
+ *
+ * This logically belongs with the TelescopePosEditor code but because
+ * of its length, its been moved to a separate file.
  */
-final class TpeEditorTools
-{
-	static final int MODE_BROWSE = 0 ;
-	static final int MODE_DRAG = 1 ;
-	static final int MODE_ERASE = 2 ;
-	static final int MODE_CREATE = 3 ;
-	private int _curMode = MODE_BROWSE ;
-	private TpeImageFeature _curFeature = null ;
-	private TelescopePosEditor _tpe ;
-	private TelescopePosEditorToolBar _tpeToolBar ;
-	private ToggleButtonWidget _browseButton ;
-	private Hashtable<String,ToggleButtonWidget> _buttonMap = new Hashtable<String,ToggleButtonWidget>() ;
+final class TpeEditorTools {
+    static final int MODE_BROWSE = 0;
+    static final int MODE_DRAG = 1;
+    static final int MODE_ERASE = 2;
+    static final int MODE_CREATE = 3;
+    private int _curMode = MODE_BROWSE;
+    private TpeImageFeature _curFeature = null;
+    private TelescopePosEditor _tpe;
+    private TelescopePosEditorToolBar _tpeToolBar;
+    private ToggleButtonWidget _browseButton;
+    private Hashtable<String, ToggleButtonWidget> _buttonMap =
+            new Hashtable<String, ToggleButtonWidget>();
 
-	/** Create with the Presentation that contains the tool buttons. */
-	TpeEditorTools( TelescopePosEditor tpe )
-	{
-		_tpe = tpe ;
-		_tpeToolBar = _tpe.getTpeToolBar() ;
+    /**
+     * Create with the Presentation that contains the tool buttons.
+     */
+    TpeEditorTools(TelescopePosEditor tpe) {
+        _tpe = tpe;
+        _tpeToolBar = _tpe.getTpeToolBar();
 
-		ToggleButtonWidget tbw ;
+        ToggleButtonWidget tbw;
 
-		// Browse Tool
-		tbw = _tpeToolBar.getModeToggleButton("Browse");
-		tbw.addWatcher( new ToggleButtonWidgetWatcher()
-		{
-			public void toggleButtonAction( ToggleButtonWidget tbw )
-			{
-				_tpe.setCurrentMouseCursor( java.awt.Cursor.getPredefinedCursor( java.awt.Cursor.DEFAULT_CURSOR ) ) ;
-				_curMode = MODE_BROWSE ;
-				_curFeature = null ;
-			}
-		} ) ;
-		_browseButton = tbw ;
+        // Browse Tool
+        tbw = _tpeToolBar.getModeToggleButton("Browse");
 
-		// Drag Tool
-		tbw = _tpeToolBar.getModeToggleButton("Drag");
-		tbw.addWatcher( new ToggleButtonWidgetWatcher()
-		{
-			public void toggleButtonAction( ToggleButtonWidget tbw )
-			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) ) ;
-				_curMode = MODE_DRAG ;
-				_curFeature = null ;
-			}
-		} ) ;
+        tbw.addWatcher(new ToggleButtonWidgetWatcher() {
+            public void toggleButtonAction(ToggleButtonWidget tbw) {
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                _curMode = MODE_BROWSE;
+                _curFeature = null;
+            }
+        });
 
-		// Erase Tool
-		tbw = _tpeToolBar.getModeToggleButton("Erase");
-		tbw.addWatcher( new ToggleButtonWidgetWatcher()
-		{
-			public void toggleButtonAction( ToggleButtonWidget tbw )
-			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) ) ;
-				_curMode = MODE_ERASE ;
-				_curFeature = null ;
-			}
-		} ) ;
+        _browseButton = tbw;
 
-		// Hide all the create tools.
-		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
-		while( e.hasMoreElements() )
-		{
-			tbw = e.nextElement() ;
-			tbw.setVisible( false ) ;
-		}
-	}
+        // Drag Tool
+        tbw = _tpeToolBar.getModeToggleButton("Drag");
 
-	//
-	// Get an enumeration of the create tool buttons.
-	//
-	private Enumeration<ToggleButtonWidget> _enumerateCreateTools()
-	{
-		return new Enumeration<ToggleButtonWidget>()
-		{ // XXX allan: should make 2 separate ToggleButtonPanels
-			private int i = 4 ; // skip first 3 buttons (Browse, Drag, Erase) and empty label
+        tbw.addWatcher(new ToggleButtonWidgetWatcher() {
+            public void toggleButtonAction(ToggleButtonWidget tbw) {
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                _curMode = MODE_DRAG;
+                _curFeature = null;
+            }
+        });
 
-			public boolean hasMoreElements()
-			{
-				try
-				{
-					return( _tpeToolBar.getModeToggleButton( i ) != null ) ;
-				}
-				catch( ArrayIndexOutOfBoundsException e )
-				{
-					return false ;
-				}
-			}
+        // Erase Tool
+        tbw = _tpeToolBar.getModeToggleButton("Erase");
 
-			public ToggleButtonWidget nextElement()
-			{
-				return _tpeToolBar.getModeToggleButton( i++ ) ;
-			}
-		} ;
-	}
+        tbw.addWatcher(new ToggleButtonWidgetWatcher() {
+            public void toggleButtonAction(ToggleButtonWidget tbw) {
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+                _curMode = MODE_ERASE;
+                _curFeature = null;
+            }
+        });
 
-	//
-	// Get an unoccupied tool button.
-	//
-	private ToggleButtonWidget _allocateToolButton()
-	{
-		// Find an open tool button
-		ToggleButtonWidget tbw = null ;
-		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
-		while( e.hasMoreElements() )
-		{
-			ToggleButtonWidget tmp = e.nextElement() ;
-			if( !( tmp.isVisible() ) )
-			{
-				tbw = tmp ; // This one was occupied
-				break ;
-			}
-		}
-		return tbw ;
-	}
+        // Hide all the create tools.
+        Enumeration<ToggleButtonWidget> e = _enumerateCreateTools();
 
-	//
-	// Make a tool button available for allocation again.
-	//
-	private void _freeToolButton( ToggleButtonWidget tbw )
-	{
-		tbw.setVisible( false ) ;
-		tbw.deleteWatchers() ;
-	}
+        while (e.hasMoreElements()) {
+            tbw = e.nextElement();
+            tbw.setVisible(false);
+        }
+    }
 
-	//
-	// Add a creational tool.
-	//
-	private boolean _addCreateTool( String label , final TpeImageFeature tif )
-	{
-		// See if this tool is already present.
-		if( _buttonMap.get( label ) != null )
-			return true ;
+    /**
+     * Get an enumeration of the create tool buttons.
+     */
+    private Enumeration<ToggleButtonWidget> _enumerateCreateTools() {
+        // XXX allan: should make 2 separate ToggleButtonPanels
+        return new Enumeration<ToggleButtonWidget>() {
+            // skip first 3 buttons (Browse, Drag, Erase) and empty label
+            private int i = 4;
 
-		ToggleButtonWidget tbw = _allocateToolButton() ;
-		if( tbw == null )
-			return false ; // Never found a valid one
+            public boolean hasMoreElements() {
+                try {
+                    return (_tpeToolBar.getModeToggleButton(i) != null);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return false;
+                }
+            }
 
-		_buttonMap.put( label , tbw ) ;
+            public ToggleButtonWidget nextElement() {
+                return _tpeToolBar.getModeToggleButton(i++);
+            }
+        };
+    }
 
-		tbw.addWatcher( new ToggleButtonWidgetWatcher()
-		{
-			public void toggleButtonAction( ToggleButtonWidget tbw )
-			{
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) ) ;
-				_curMode = MODE_CREATE ;
-				_curFeature = tif ;
-			}
-		} ) ;
+    /**
+     * Get an unoccupied tool button.
+     */
+    private ToggleButtonWidget _allocateToolButton() {
+        // Find an open tool button
+        ToggleButtonWidget tbw = null;
+        Enumeration<ToggleButtonWidget> e = _enumerateCreateTools();
 
-		tbw.setText( label ) ;
-		tbw.setVisible( true ) ;
-		tbw.setEnabled( true ) ;
-		return true ;
-	}
+        while (e.hasMoreElements()) {
+            ToggleButtonWidget tmp = e.nextElement();
 
-	/**
-	 * Add the create tools for the given feature.
-	 */
-	public void addCreateTools( TpeImageFeature tif )
-	{
-		if( !( tif instanceof TpeCreateableFeature ) )
-			return ; // nothing to add
+            if (!(tmp.isVisible())) {
+                tbw = tmp; // This one was occupied
+                break;
+            }
+        }
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
-		for( int i = 0 ; i < labels.length ; ++i )
-		{
-			if( !_addCreateTool( labels[ i ] , tif ) )
-				throw new RuntimeException( "No more create tool buttons available!" ) ;
-		}
-	}
+        return tbw;
+    }
 
-	//
-	// Delete a creational tool.
-	//
-	private void _deleteCreateTool( String label )
-	{
-		ToggleButtonWidget tbw ;
-		tbw = _buttonMap.get( label ) ;
-		if( tbw != null )
-		{
-			_freeToolButton( tbw ) ;
-			_buttonMap.remove( label ) ;
-		}
-	}
+    /**
+     * Make a tool button available for allocation again.
+     */
+    private void _freeToolButton(ToggleButtonWidget tbw) {
+        tbw.setVisible(false);
+        tbw.deleteWatchers();
+    }
 
-	/**
-	 * Delete the create tools for the given feature.
-	 */
-	public void deleteCreateTools( TpeImageFeature tif )
-	{
-		if( !( tif instanceof TpeCreateableFeature ) )
-			return ; // nothing to delete
+    /**
+     * Add a creational tool.
+     */
+    private boolean _addCreateTool(String label, final TpeImageFeature tif) {
+        // See if this tool is already present.
+        if (_buttonMap.get(label) != null) {
+            return true;
+        }
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
-		for( int i = 0 ; i < labels.length ; ++i )
-			_deleteCreateTool( labels[ i ] ) ;
-	}
+        ToggleButtonWidget tbw = _allocateToolButton();
+        if (tbw == null) {
+            return false; // Never found a valid one
+        }
 
-	//
-	// Disable/enable the given creational tool.
-	//
-	private void _setDisabled( String label , boolean disabled )
-	{
-		ToggleButtonWidget tbw ;
-		tbw = _buttonMap.get( label ) ;
-		if( tbw != null )
-			tbw.setEnabled( !disabled ) ;
-	}
+        _buttonMap.put(label, tbw);
 
-	/**
-	 * Disable or enable the creational tools associated with the given
-	 * image feature.
-	 */
-	public void setCreateToolsDisabled( TpeImageFeature tif , boolean disabled )
-	{
-		if( !( tif instanceof TpeCreateableFeature ) )
-			return ; // nothing to disable
+        tbw.addWatcher(new ToggleButtonWidgetWatcher() {
+            public void toggleButtonAction(ToggleButtonWidget tbw) {
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                _curMode = MODE_CREATE;
+                _curFeature = tif;
+            }
+        });
 
-		String[] labels = ( ( TpeCreateableFeature )tif ).getCreateButtonLabels() ;
-		for( int i = 0 ; i < labels.length ; ++i )
-			_setDisabled( labels[ i ] , disabled ) ;
-	}
+        tbw.setText(label);
+        tbw.setVisible(true);
+        tbw.setEnabled(true);
 
-	/**
-	 * Disable or enable the set of creational tools associated with the
-	 * given image features.
-	 */
-	public void setCreateToolsDisabled( Vector<TpeImageFeature> tifV , boolean disabled )
-	{
-		for( int i = 0 ; i < tifV.size() ; ++i )
-		{
-			TpeImageFeature tif = tifV.elementAt( i ) ;
-			setCreateToolsDisabled( tif , disabled ) ;
-		}
-	}
+        return true;
+    }
 
-	/**
-	 * Get the current mode.  One of MODE_BROWSE, MODE_DRAG, MODE_ERASE, or
-	 * MODE_CREATE.
-	 */
-	public int getMode()
-	{
-		return _curMode ;
-	}
+    /**
+     * Add the create tools for the given feature.
+     */
+    public void addCreateTools(TpeImageFeature tif) {
+        if (!(tif instanceof TpeCreateableFeature)) {
+            return; // nothing to add
+        }
 
-	/**
-	 * Get the image feature.  This will be null if the mode is not MODE_CREATE.
-	 * If MODE_CREATE, the image feature will be the one assoicated with the
-	 * create button.
-	 */
-	public TpeImageFeature getImageFeature()
-	{
-		return _curFeature ;
-	}
+        String[] labels = ((TpeCreateableFeature) tif).getCreateButtonLabels();
 
-	/**
-	 * Get the label of the button that is currently selected.
-	 */
-	public String getCurrentButtonLabel()
-	{
-		Enumeration<ToggleButtonWidget> e = _enumerateCreateTools() ;
-		while( e.hasMoreElements() )
-		{
-			ToggleButtonWidget tbw = e.nextElement() ;
-			if( tbw.getBooleanValue() )
-				return tbw.getText() ;
-		}
-		return null ;
-	}
+        for (int i = 0; i < labels.length; ++i) {
+            if (!_addCreateTool(labels[i], tif)) {
+                throw new RuntimeException(
+                        "No more create tool buttons available!");
+            }
+        }
+    }
 
-	/**
-	 * Go to browse mode.
-	 */
-	public void gotoBrowseMode()
-	{
-		_browseButton.press() ;
-	}
+    /**
+     * Delete a creational tool.
+     */
+    private void _deleteCreateTool(String label) {
+        ToggleButtonWidget tbw;
+        tbw = _buttonMap.get(label);
 
-	/**
-	 * Reset the cursor (mouse indicator) for the current mode.
-	 */
-	public void resetCursor()
-	{
-		switch( _curMode )
-		{
-			case MODE_BROWSE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) ) ;
-				break ;
-			case MODE_DRAG :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) ) ;
-				break ;
-			case MODE_ERASE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.TEXT_CURSOR ) ) ;
-				break ;
-			case MODE_CREATE :
-				_tpe.setCurrentMouseCursor( Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ) ) ;
-				break ;
-		}
-	}
+        if (tbw != null) {
+            _freeToolButton(tbw);
+            _buttonMap.remove(label);
+        }
+    }
 
-	/** Standard dubug string. */
-	public String toString()
-	{
-		return getClass().getName() + "[tool=" + getCurrentButtonLabel() + "]" ;
-	}
+    /**
+     * Delete the create tools for the given feature.
+     */
+    public void deleteCreateTools(TpeImageFeature tif) {
+        if (!(tif instanceof TpeCreateableFeature)) {
+            return; // nothing to delete
+        }
+
+        String[] labels = ((TpeCreateableFeature) tif).getCreateButtonLabels();
+
+        for (int i = 0; i < labels.length; ++i) {
+            _deleteCreateTool(labels[i]);
+        }
+    }
+
+    /**
+     * Disable/enable the given creational tool.
+     */
+    private void _setDisabled(String label, boolean disabled) {
+        ToggleButtonWidget tbw;
+        tbw = _buttonMap.get(label);
+
+        if (tbw != null) {
+            tbw.setEnabled(!disabled);
+        }
+    }
+
+    /**
+     * Disable or enable the creational tools associated with the given
+     * image feature.
+     */
+    public void setCreateToolsDisabled(TpeImageFeature tif, boolean disabled) {
+        if (!(tif instanceof TpeCreateableFeature)) {
+            return; // nothing to disable
+        }
+
+        String[] labels = ((TpeCreateableFeature) tif).getCreateButtonLabels();
+
+        for (int i = 0; i < labels.length; ++i) {
+            _setDisabled(labels[i], disabled);
+        }
+    }
+
+    /**
+     * Disable or enable the set of creational tools associated with the
+     * given image features.
+     */
+    public void setCreateToolsDisabled(Vector<TpeImageFeature> tifV,
+            boolean disabled) {
+        for (int i = 0; i < tifV.size(); ++i) {
+            TpeImageFeature tif = tifV.elementAt(i);
+            setCreateToolsDisabled(tif, disabled);
+        }
+    }
+
+    /**
+     * Get the current mode.
+     *
+     * One of MODE_BROWSE, MODE_DRAG, MODE_ERASE, or MODE_CREATE.
+     */
+    public int getMode() {
+        return _curMode;
+    }
+
+    /**
+     * Get the image feature.
+     *
+     * This will be null if the mode is not MODE_CREATE.
+     * If MODE_CREATE, the image feature will be the one assoicated with the
+     * create button.
+     */
+    public TpeImageFeature getImageFeature() {
+        return _curFeature;
+    }
+
+    /**
+     * Get the label of the button that is currently selected.
+     */
+    public String getCurrentButtonLabel() {
+        Enumeration<ToggleButtonWidget> e = _enumerateCreateTools();
+
+        while (e.hasMoreElements()) {
+            ToggleButtonWidget tbw = e.nextElement();
+
+            if (tbw.getBooleanValue()) {
+                return tbw.getText();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Go to browse mode.
+     */
+    public void gotoBrowseMode() {
+        _browseButton.press();
+    }
+
+    /**
+     * Reset the cursor (mouse indicator) for the current mode.
+     */
+    public void resetCursor() {
+        switch (_curMode) {
+            case MODE_BROWSE:
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                break;
+
+            case MODE_DRAG:
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                break;
+
+            case MODE_ERASE:
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+                break;
+
+            case MODE_CREATE:
+                _tpe.setCurrentMouseCursor(
+                        Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                break;
+        }
+    }
+
+    /**
+     * Standard dubug string.
+     */
+    public String toString() {
+        return getClass().getName() + "[tool=" + getCurrentButtonLabel() + "]";
+    }
 }

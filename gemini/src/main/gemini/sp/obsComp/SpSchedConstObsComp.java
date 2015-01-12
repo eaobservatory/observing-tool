@@ -17,266 +17,234 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp.obsComp ;
+package gemini.sp.obsComp;
 
-import gemini.sp.SpFactory ;
-import gemini.sp.SpType ;
+import gemini.sp.SpFactory;
+import gemini.sp.SpType;
 
 /**
  * Component for OMP scheduling contraints.
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class SpSchedConstObsComp extends SpObsComp
-{
-	/** This attribute records the earliest scheduling date. */
-	public static final String ATTR_EARLIEST = "earliest" ;
+@SuppressWarnings("serial")
+public class SpSchedConstObsComp extends SpObsComp {
+    /** This attribute records the earliest scheduling date. */
+    public static final String ATTR_EARLIEST = "earliest";
 
-	/** This attribute records the latest scheduling date. */
-	public static final String ATTR_LATEST = "latest" ;
+    /** This attribute records the latest scheduling date. */
+    public static final String ATTR_LATEST = "latest";
 
-	/** This attribute records the minimum elevation. */
-	public static final String ATTR_MIN_ELEVATION = "minEl" ;
+    /** This attribute records the minimum elevation. */
+    public static final String ATTR_MIN_ELEVATION = "minEl";
 
-	/** This attribute records the maximum elevation. */
-	public static final String ATTR_MAX_ELEVATION = "maxEl" ;
+    /** This attribute records the maximum elevation. */
+    public static final String ATTR_MAX_ELEVATION = "maxEl";
 
-	/**
+    /**
      * This attribute records the meridian approach (rising/setting).
-     * 
+     *
      * Set to {@link #SOURCE_RISING} or {@link #SOURCE_SETTING}.
      */
-	public static final String ATTR_MERIDIAN_APPROACH = "meridianApproach" ;
+    public static final String ATTR_MERIDIAN_APPROACH = "meridianApproach";
 
-	/** This attribute records the monitoring period */
-	public static final String ATTR_PERIOD = "period" ;
+    /** This attribute records the monitoring period */
+    public static final String ATTR_PERIOD = "period";
 
-	/** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
-	public static final String SOURCE_RISING = "rising" ;
+    /** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
+    public static final String SOURCE_RISING = "rising";
 
-	/** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
-	public static final String SOURCE_SETTING = "setting" ;
+    /** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
+    public static final String SOURCE_SETTING = "setting";
 
-	public static final String NO_VALUE = "none" ;
+    public static final String NO_VALUE = "none";
 
-	public static final String SUBTYPE = "schedConstraints" ;
+    public static final String SUBTYPE = "schedConstraints";
 
-	public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , SUBTYPE , "Sched. Constraints" ) ;
+    public static final SpType SP_TYPE = SpType.create(
+            SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Sched. Constraints");
 
-	// Register the prototype.
-	static
-	{
-		SpFactory.registerPrototype( new SpSchedConstObsComp() ) ;
-	}
+    // Register the prototype.
+    static {
+        SpFactory.registerPrototype(new SpSchedConstObsComp());
+    }
 
-	/**
-     * Default constructor. Initialize the component type.
+    /**
+     * Default constructor.
+     *
+     * Initialize the component type.
      */
-	public SpSchedConstObsComp()
-	{
-		super( SP_TYPE ) ;
+    public SpSchedConstObsComp() {
+        super(SP_TYPE);
 
-		_avTable.noNotifySet( ATTR_EARLIEST , NO_VALUE , 0 ) ;
-		_avTable.noNotifySet( ATTR_LATEST , NO_VALUE , 0 ) ;
-	}
+        _avTable.noNotifySet(ATTR_EARLIEST, NO_VALUE, 0);
+        _avTable.noNotifySet(ATTR_LATEST, NO_VALUE, 0);
+    }
 
-	/**
+    /**
      * Get earliest scheduling date.
      */
-	public String getEarliest()
-	{
-		String earliest = _avTable.get( ATTR_EARLIEST ) ;
+    public String getEarliest() {
+        String earliest = _avTable.get(ATTR_EARLIEST);
 
-		if( earliest == null )
-			earliest = NO_VALUE ;
+        if (earliest == null) {
+            earliest = NO_VALUE;
+        }
 
-		return earliest ;
-	}
+        return earliest;
+    }
 
-	/**
+    /**
      * Set earliest scheduling date.
      */
-	public void setEarliest( String earliest )
-	{
-		_avTable.set( ATTR_EARLIEST , earliest ) ;
-	}
+    public void setEarliest(String earliest) {
+        _avTable.set(ATTR_EARLIEST, earliest);
+    }
 
-	/**
+    /**
      * Set earliest scheduling date without notifying state machine.
-     * 
+     *
      * Useful for initialising item.
      */
-	public void initEarliest( String earliest )
-	{
-		_avTable.noNotifySet( ATTR_EARLIEST , earliest , 0 ) ;
-	}
+    public void initEarliest(String earliest) {
+        _avTable.noNotifySet(ATTR_EARLIEST, earliest, 0);
+    }
 
-	/**
+    /**
      * Get latest scheduling date.
      */
-	public String getLatest()
-	{
-		String latest = _avTable.get( ATTR_LATEST ) ;
+    public String getLatest() {
+        String latest = _avTable.get(ATTR_LATEST);
 
-		if( latest == null )
-			latest = NO_VALUE ;
+        if (latest == null) {
+            latest = NO_VALUE;
+        }
 
-		return latest ;
-	}
+        return latest;
+    }
 
-	/**
+    /**
      * Set latest scheduling date.
      */
-	public void setLatest( String latest )
-	{
-		_avTable.set( ATTR_LATEST , latest ) ;
-	}
+    public void setLatest(String latest) {
+        _avTable.set(ATTR_LATEST, latest);
+    }
 
-	/**
+    /**
      * Set latest scheduling date without notifying state machine.
-     * 
+     *
      * Useful for initialising item.
-     * 
      */
-	public void initLatest( String latest )
-	{
-		_avTable.noNotifySet( ATTR_LATEST , latest , 0 ) ;
-	}
+    public void initLatest(String latest) {
+        _avTable.noNotifySet(ATTR_LATEST, latest, 0);
+    }
 
-	/**
+    /**
      * Get min elevation
      */
-	public String getMinElevation()
-	{
-		return _avTable.get( ATTR_MIN_ELEVATION ) ;
-	}
+    public String getMinElevation() {
+        return _avTable.get(ATTR_MIN_ELEVATION);
+    }
 
-	/**
+    /**
      * Set min elevation.
      */
-	public void setMinElevation( double minEl )
-	{
-		_avTable.set( ATTR_MIN_ELEVATION , minEl ) ;
-	}
+    public void setMinElevation(double minEl) {
+        _avTable.set(ATTR_MIN_ELEVATION, minEl);
+    }
 
-	/**
+    /**
      * Set min elevation.
      */
-	public void setMinElevation( String minEl )
-	{
-		try
-		{
-			_avTable.set( ATTR_MIN_ELEVATION , Double.parseDouble( minEl.trim() ) ) ;
-		}
-		catch( NumberFormatException e )
-		{
-			_avTable.rm( ATTR_MIN_ELEVATION ) ;
-		}
-		catch( NullPointerException e )
-		{
-			_avTable.rm( ATTR_MIN_ELEVATION ) ;
-		}
-	}
+    public void setMinElevation(String minEl) {
+        try {
+            _avTable.set(ATTR_MIN_ELEVATION, Double.parseDouble(minEl.trim()));
+        } catch (NumberFormatException e) {
+            _avTable.rm(ATTR_MIN_ELEVATION);
+        } catch (NullPointerException e) {
+            _avTable.rm(ATTR_MIN_ELEVATION);
+        }
+    }
 
-	/**
+    /**
      * Get max elevation
      */
-	public String getMaxElevation()
-	{
-		return _avTable.get( ATTR_MAX_ELEVATION ) ;
-	}
+    public String getMaxElevation() {
+        return _avTable.get(ATTR_MAX_ELEVATION);
+    }
 
-	/**
+    /**
      * Set max elevation.
      */
-	public void setMaxElevation( double maxEl )
-	{
-		_avTable.set( ATTR_MAX_ELEVATION , maxEl ) ;
-	}
+    public void setMaxElevation(double maxEl) {
+        _avTable.set(ATTR_MAX_ELEVATION, maxEl);
+    }
 
-	/**
+    /**
      * Set max elevation.
      */
-	public void setMaxElevation( String maxEl )
-	{
-		try
-		{
-			_avTable.set( ATTR_MAX_ELEVATION , Double.parseDouble( maxEl.trim() ) ) ;
-		}
-		catch( NumberFormatException e )
-		{
-			_avTable.rm( ATTR_MAX_ELEVATION ) ;
-		}
-		catch( NullPointerException e )
-		{
-			_avTable.rm( ATTR_MAX_ELEVATION ) ;
-		}
-	}
+    public void setMaxElevation(String maxEl) {
+        try {
+            _avTable.set(ATTR_MAX_ELEVATION, Double.parseDouble(maxEl.trim()));
+        } catch (NumberFormatException e) {
+            _avTable.rm(ATTR_MAX_ELEVATION);
+        } catch (NullPointerException e) {
+            _avTable.rm(ATTR_MAX_ELEVATION);
+        }
+    }
 
-	/**
+    /**
      * Get meridian approach.
      */
-	public String getMeridianApproach()
-	{
-		return _avTable.get( ATTR_MERIDIAN_APPROACH ) ;
-	}
+    public String getMeridianApproach() {
+        return _avTable.get(ATTR_MERIDIAN_APPROACH);
+    }
 
-	/**
+    /**
      * Set meridian approach.
      */
-	public void setMeridianApproach( String meridianApproach )
-	{
-		if( meridianApproach == null )
-			_avTable.rm( ATTR_MERIDIAN_APPROACH ) ;
-		else
-			_avTable.set( ATTR_MERIDIAN_APPROACH , meridianApproach ) ;
-	}
+    public void setMeridianApproach(String meridianApproach) {
+        if (meridianApproach == null) {
+            _avTable.rm(ATTR_MERIDIAN_APPROACH);
+        } else {
+            _avTable.set(ATTR_MERIDIAN_APPROACH, meridianApproach);
+        }
+    }
 
-	/**
+    /**
      * Get resheculing period
      */
-	public String getPeriod()
-	{
-		return _avTable.get( ATTR_PERIOD ) ;
-	}
+    public String getPeriod() {
+        return _avTable.get(ATTR_PERIOD);
+    }
 
-	/**
+    /**
      * Set rescheduling period.
      */
-	public void setPeriod( double period )
-	{
-		_avTable.set( ATTR_PERIOD , period ) ;
-	}
+    public void setPeriod(double period) {
+        _avTable.set(ATTR_PERIOD, period);
+    }
 
-	/**
+    /**
      * Set rescheduling period form String.
      */
-	public void setPeriod( String period )
-	{
-		try
-		{
-			_avTable.set( ATTR_PERIOD , Double.parseDouble( period.trim() ) ) ;
-		}
-		catch( NumberFormatException e )
-		{
-			_avTable.rm( ATTR_PERIOD ) ;
-		}
-		catch( NullPointerException e )
-		{
-			_avTable.rm( ATTR_PERIOD ) ;
-		}
-	}
+    public void setPeriod(String period) {
+        try {
+            _avTable.set(ATTR_PERIOD, Double.parseDouble(period.trim()));
+        } catch (NumberFormatException e) {
+            _avTable.rm(ATTR_PERIOD);
+        } catch (NullPointerException e) {
+            _avTable.rm(ATTR_PERIOD);
+        }
+    }
 
-	/** Set whether to display as airmass or elevation */
-	public void setDisplayAirmass( boolean flag )
-	{
-		_avTable.set( ".display.airmass" , flag ) ;
-	}
+    /** Set whether to display as airmass or elevation */
+    public void setDisplayAirmass(boolean flag) {
+        _avTable.set(".display.airmass", flag);
+    }
 
-	/** Get whether to display as airmass or elevation */
-	public boolean getDisplayAirmass()
-	{
-		return( _avTable.getBool( ".display.airmass" ) ) ;
-	}
+    /** Get whether to display as airmass or elevation */
+    public boolean getDisplayAirmass() {
+        return (_avTable.getBool(".display.airmass"));
+    }
 }

@@ -17,283 +17,288 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.editor ;
+package ot.editor;
 
-import gemini.sp.SpItem ;
-import gemini.sp.obsComp.SpSchedConstObsComp ;
-import orac.util.OracUtilities ;
-import orac.util.TimeUtils ;
-import orac.util.AirmassUtilities ;
-import ot.util.DialogUtil ;
+import gemini.sp.SpItem;
+import gemini.sp.obsComp.SpSchedConstObsComp;
+import orac.util.OracUtilities;
+import orac.util.TimeUtils;
+import orac.util.AirmassUtilities;
+import ot.util.DialogUtil;
 
-import jsky.app.ot.gui.TextBoxWidgetExt ;
-import jsky.app.ot.gui.TextBoxWidgetWatcher ;
-import jsky.app.ot.editor.OtItemEditor ;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.editor.OtItemEditor;
 
-import java.util.Calendar ;
+import java.util.Calendar;
 
-import java.awt.event.ActionEvent ;
-import java.awt.event.ActionListener ;
-import java.text.NumberFormat ;
-import javax.swing.ButtonGroup ;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import javax.swing.ButtonGroup;
 
 /**
  * This is the editor for Site Quality component.
  *
- * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
+ * @author modified for JCMT by Martin Folger (M.Folger@roe.ac.uk)
  */
-public final class EdCompSchedConstraints extends OtItemEditor implements TextBoxWidgetWatcher , ActionListener
-{
-	private SchedConstraintsGUI _w ; // the GUI layout panel
-	private SpSchedConstObsComp _schedConstObsComp ;
-	private static final String MAX = "Max" ;
-	private static final String MIN = "Min" ;
-	private static Calendar latestCalendar ;
-	private static Calendar earliestCalendar ;
+public final class EdCompSchedConstraints extends OtItemEditor implements
+        TextBoxWidgetWatcher, ActionListener {
+    private SchedConstraintsGUI _w; // the GUI layout panel
+    private SpSchedConstObsComp _schedConstObsComp;
+    private static final String MAX = "Max";
+    private static final String MIN = "Min";
+    private static Calendar latestCalendar;
+    private static Calendar earliestCalendar;
 
-	/**
-	 * The constructor initializes the title, description, and presentation source.
-	 */
-	public EdCompSchedConstraints()
-	{
-		_title = "Scheduling Constraints" ;
-		_presSource = _w = new SchedConstraintsGUI() ;
-		_description = "Observing constraints set here are used to schedule the observation." ;
+    /**
+     * The constructor initializes the title, description, and presentation
+     * source.
+     */
+    public EdCompSchedConstraints() {
+        _title = "Scheduling Constraints";
+        _presSource = _w = new SchedConstraintsGUI();
+        _description = "Observing constraints set here are used to"
+                + " schedule the observation.";
 
-		ButtonGroup meridianApproachButtons = new ButtonGroup() ;
-		meridianApproachButtons.add( _w.meridianApproachRising ) ;
-		meridianApproachButtons.add( _w.meridianApproachSetting ) ;
-		meridianApproachButtons.add( _w.meridianApproachAny ) ;
+        ButtonGroup meridianApproachButtons = new ButtonGroup();
+        meridianApproachButtons.add(_w.meridianApproachRising);
+        meridianApproachButtons.add(_w.meridianApproachSetting);
+        meridianApproachButtons.add(_w.meridianApproachAny);
 
-		_w.earliest.addWatcher( this ) ;
-		_w.latest.addWatcher( this ) ;
-		_w.minElevation.addWatcher( this ) ;
-		_w.maxElevation.addWatcher( this ) ;
-		_w.period.addWatcher( this ) ;
-		_w.airmassCB.addActionListener( this ) ;
-		_w.meridianApproachRising.addActionListener( this ) ;
-		_w.meridianApproachSetting.addActionListener( this ) ;
-		_w.meridianApproachAny.addActionListener( this ) ;
-	}
+        _w.earliest.addWatcher(this);
+        _w.latest.addWatcher(this);
+        _w.minElevation.addWatcher(this);
+        _w.maxElevation.addWatcher(this);
+        _w.period.addWatcher(this);
+        _w.airmassCB.addActionListener(this);
+        _w.meridianApproachRising.addActionListener(this);
+        _w.meridianApproachSetting.addActionListener(this);
+        _w.meridianApproachAny.addActionListener(this);
+    }
 
-	public void setup( SpItem spItem )
-	{
-		_schedConstObsComp = ( SpSchedConstObsComp )spItem ;
-		super.setup( spItem ) ;
+    public void setup(SpItem spItem) {
+        _schedConstObsComp = (SpSchedConstObsComp) spItem;
+        super.setup(spItem);
 
-		if( _schedConstObsComp.getEarliest().equals( SpSchedConstObsComp.NO_VALUE ) )
-		{
-			earliestCalendar = Calendar.getInstance() ;
-			earliestCalendar.set( Calendar.YEAR , 2000 ) ;
-			earliestCalendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
-			earliestCalendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
-			earliestCalendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
-			earliestCalendar.set( Calendar.MINUTE , 0 ) ;
-			earliestCalendar.set( Calendar.SECOND , 0 ) ;
-			_schedConstObsComp.initEarliest( OracUtilities.toISO8601( earliestCalendar.getTime() ) ) ;
-			_updateWidgets() ;
-		}
+        if (_schedConstObsComp.getEarliest().equals(
+                SpSchedConstObsComp.NO_VALUE)) {
+            earliestCalendar = Calendar.getInstance();
+            earliestCalendar.set(Calendar.YEAR, 2000);
+            earliestCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+            earliestCalendar.set(Calendar.DAY_OF_MONTH, 1);
+            earliestCalendar.set(Calendar.HOUR_OF_DAY, 1);
+            earliestCalendar.set(Calendar.MINUTE, 0);
+            earliestCalendar.set(Calendar.SECOND, 0);
+            _schedConstObsComp.initEarliest(OracUtilities
+                    .toISO8601(earliestCalendar.getTime()));
+            _updateWidgets();
+        }
 
-		if( _schedConstObsComp.getLatest().equals( SpSchedConstObsComp.NO_VALUE ) )
-		{
-			/*
-			 * Tue Jan 19 03:14:07 2038 is the last available date for systems that use 32-bit time.
-			 * Java uses 64-bit time, but the science programs can be parsed on systems that use 32-bit times.
-			 * 
-			 * Frossie assures me that no science program generated by this code will survive that long.
-			 * 
-			 * However the code which causes problems [20080223.003] b0rks at 2038-01-17,
-			 * so the maximum value we can use is 2038-01-16T23:59:59,
-			 * Tim on-the-other-hand uses 2035-01-01T01:00 as his "infinite date", so that is what we use here.
-			 */
-			
-			latestCalendar = Calendar.getInstance() ;
-			latestCalendar.set( Calendar.YEAR , 2035 ) ;
-			latestCalendar.set( Calendar.MONTH , Calendar.JANUARY ) ;
-			latestCalendar.set( Calendar.DAY_OF_MONTH , 1 ) ;
-			latestCalendar.set( Calendar.HOUR_OF_DAY , 1 ) ;
-			latestCalendar.set( Calendar.MINUTE , 0 ) ;
-			latestCalendar.set( Calendar.SECOND , 0 ) ;
-			_schedConstObsComp.initLatest( OracUtilities.toISO8601( latestCalendar.getTime() ) ) ;
-			_updateWidgets() ;
-		}
-	}
+        if (_schedConstObsComp.getLatest().equals(
+                SpSchedConstObsComp.NO_VALUE)) {
+            /*
+             * Tue Jan 19 03:14:07 2038 is the last available date for systems
+             * that use 32-bit time.  Java uses 64-bit time, but the science
+             * programs can be parsed on systems that use 32-bit times.
+             *
+             * Frossie assures me that no science program generated by this
+             * code will survive that long.
+             *
+             * However the code which causes problems [20080223.003] b0rks at
+             * 2038-01-17, so the maximum value we can use is
+             * 2038-01-16T23:59:59,
+             * Tim on-the-other-hand uses 2035-01-01T01:00 as his
+             * "infinite date", so that is what we use here.
+             */
 
-	/**
-	 * Implements the _updateWidgets method from OtItemEditor in order to
-	 * setup the widgets to show the current values of the item.
-	 */
-	protected void _updateWidgets()
-	{
-		_w.earliest.setValue( _schedConstObsComp.getEarliest() ) ;
-		_w.latest.setValue( _schedConstObsComp.getLatest() ) ;
+            latestCalendar = Calendar.getInstance();
 
-		boolean displayAirmass = _schedConstObsComp.getDisplayAirmass() ;
-		if( displayAirmass )
-		{
-			_w.jLabel9.setText( MAX ) ;
-			_w.jLabel10.setText( MIN ) ;
-		}
-		else
-		{
-			_w.jLabel9.setText( MIN ) ;
-			_w.jLabel10.setText( MAX ) ;
-		}
-		
-		_w.airmassCB.removeActionListener( this ) ;
-		_w.airmassCB.setSelected( displayAirmass ) ;
-		_w.airmassCB.addActionListener( this ) ;
-		_w.jLabel6.setVisible( !displayAirmass ) ;
+            latestCalendar.set(Calendar.YEAR, 2035);
+            latestCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+            latestCalendar.set(Calendar.DAY_OF_MONTH, 1);
+            latestCalendar.set(Calendar.HOUR_OF_DAY, 1);
+            latestCalendar.set(Calendar.MINUTE, 0);
+            latestCalendar.set(Calendar.SECOND, 0);
 
-		String minElevation = _schedConstObsComp.getMinElevation() ;		
-		if( minElevation != null && !minElevation.trim().equals( "" ) )
-			minElevation = getElevation( minElevation , displayAirmass ) ;
-		_w.minElevation.setValue( minElevation ) ;
+            _schedConstObsComp.initLatest(
+                    OracUtilities.toISO8601(latestCalendar.getTime()));
 
-		String maxElevation = _schedConstObsComp.getMaxElevation() ;
-		if( maxElevation != null && !maxElevation.equals( "" ) )
-			maxElevation = getElevation( maxElevation , displayAirmass ) ;
-		_w.maxElevation.setValue( maxElevation ) ;
+            _updateWidgets();
+        }
+    }
 
-		_w.period.setValue( _schedConstObsComp.getPeriod() ) ;
+    /**
+     * Implements the _updateWidgets method from OtItemEditor in order to
+     * setup the widgets to show the current values of the item.
+     */
+    protected void _updateWidgets() {
+        _w.earliest.setValue(_schedConstObsComp.getEarliest());
+        _w.latest.setValue(_schedConstObsComp.getLatest());
 
-	    if( _schedConstObsComp.getMeridianApproach() != null )
-		{
-			if( _schedConstObsComp.getMeridianApproach().equals( SpSchedConstObsComp.SOURCE_RISING ) )
-				_w.meridianApproachRising.setValue( true ) ;
-			else
-				_w.meridianApproachSetting.setValue( true ) ;
-		}
-		else
-		{
-			_w.meridianApproachAny.setValue( true ) ;
-		}
-	}
+        boolean displayAirmass = _schedConstObsComp.getDisplayAirmass();
 
-	/**
-	 * Watch changes to the "Earliest" and "Latest" text boxes.
-	 */
-	public void textBoxKeyPress( TextBoxWidgetExt tbw )
-	{
-		// By converting the string to Date and back to a an ISO8601 format string
-		// it gets tidied up in case the user made minor mistakes regarding the format.
-		try
-		{
-			if( tbw == _w.earliest )
-			{
-				if( _w.earliest.getText().equals( "" ) )
-				{
-					_schedConstObsComp.setEarliest( "none" ) ;
-				}
-				else
-				{
-					String earliest = OracUtilities.toISO8601( OracUtilities.parseISO8601( _w.earliest.getText() ) ) ;
-					_schedConstObsComp.setEarliest( earliest ) ;
-				}
-			}
-			else if( tbw == _w.latest )
-			{
-				if( _w.latest.getText().equals( "" ) )
-				{
-					_schedConstObsComp.setLatest( "none" ) ;
-				}
-				else
-				{
-					Calendar newDate = Calendar.getInstance() ;
-					newDate.setTime( OracUtilities.parseISO8601( _w.latest.getText() ) ) ;
-					String latest = OracUtilities.toISO8601( newDate.getTime() ) ;
-					_schedConstObsComp.setLatest( latest ) ;
+        if (displayAirmass) {
+            _w.jLabel9.setText(MAX);
+            _w.jLabel10.setText(MIN);
+        } else {
+            _w.jLabel9.setText(MIN);
+            _w.jLabel10.setText(MAX);
+        }
 
-				}
-			}
-			else if( tbw == _w.minElevation )
-			{
-				String minElevation = _w.minElevation.getValue() ;
-				minElevation = setElevation( minElevation ) ;
-				_schedConstObsComp.setMinElevation( minElevation ) ;
-			}
-			else if( tbw == _w.maxElevation )
-			{
-				String maxElevation = _w.maxElevation.getValue() ;
-				maxElevation = setElevation( maxElevation ) ;
-				_schedConstObsComp.setMaxElevation( maxElevation ) ;
-			}
-			else if( tbw == _w.period )
-			{
-				_schedConstObsComp.setPeriod( _w.period.getValue() ) ;
-			}
-		}
-		catch( Exception e )
-		{
-			DialogUtil.error( _w , e.getMessage() ) ;
-			e.printStackTrace() ;
-		}
-	}
+        _w.airmassCB.removeActionListener(this);
+        _w.airmassCB.setSelected(displayAirmass);
+        _w.airmassCB.addActionListener(this);
+        _w.jLabel6.setVisible(!displayAirmass);
 
-	/**
-	 * Text box action.
-	 */
-	public void textBoxAction( TextBoxWidgetExt tbw )
-	{
-		_updateWidgets() ;
-	}
+        String minElevation = _schedConstObsComp.getMinElevation();
 
-	/**
-	 * Radio button action.
-	 */
-	public void actionPerformed( ActionEvent evt )
-	{
-		Object w = evt.getSource() ;
+        if (minElevation != null && !minElevation.trim().equals("")) {
+            minElevation = getElevation(minElevation, displayAirmass);
+        }
 
-		if( w == _w.meridianApproachRising )
-		{
-			_schedConstObsComp.setMeridianApproach( SpSchedConstObsComp.SOURCE_RISING ) ;
-		}
-		else if( w == _w.meridianApproachSetting )
-		{
-			_schedConstObsComp.setMeridianApproach( SpSchedConstObsComp.SOURCE_SETTING ) ;
-		}
-		else if( w == _w.meridianApproachAny )
-		{
-			_schedConstObsComp.setMeridianApproach( null ) ;
-		}
-		else if( w == _w.airmassCB )
-		{
-			_schedConstObsComp.setDisplayAirmass( _w.airmassCB.isSelected() ) ;
-			_updateWidgets() ;
-		}
-	}
-	
-	private String getElevation( String input , boolean displayAirmass )
-	{
-		double elevationOrAirmass = 0. ; 
-		if( input != null && input.trim().length() != 0 )
-		{
-    		elevationOrAirmass = Double.valueOf( input ) ;
-    		if( displayAirmass )
-    			elevationOrAirmass = AirmassUtilities.elevationToAirmass( elevationOrAirmass ) ;
-		}
-		return format( elevationOrAirmass ) ;
-	}
-	
-	private String setElevation( String input )
-	{
-		double elevationOrAirmass = 0. ;
-		if( input != null && input.trim().length() != 0 )
-		{
-    		elevationOrAirmass = Double.valueOf( input ) ;
-    		if( _schedConstObsComp.getDisplayAirmass() )
-    			elevationOrAirmass = AirmassUtilities.airmassToElevation( elevationOrAirmass ) ;
-		}
-		return format( elevationOrAirmass ) ;
-	}
-	
-	private String format( double elevationOrAirmass )
-	{
-		// Convert value to 3 decimal places
-		NumberFormat nf = NumberFormat.getInstance() ;
-		nf.setMaximumFractionDigits( 3 ) ;
-		nf.setGroupingUsed( false ) ;
-		return nf.format( elevationOrAirmass ) ;
-	}
+        _w.minElevation.setValue(minElevation);
+
+        String maxElevation = _schedConstObsComp.getMaxElevation();
+
+        if (maxElevation != null && !maxElevation.equals("")) {
+            maxElevation = getElevation(maxElevation, displayAirmass);
+        }
+
+        _w.maxElevation.setValue(maxElevation);
+
+        _w.period.setValue(_schedConstObsComp.getPeriod());
+
+        if (_schedConstObsComp.getMeridianApproach() != null) {
+            if (_schedConstObsComp.getMeridianApproach().equals(
+                    SpSchedConstObsComp.SOURCE_RISING)) {
+                _w.meridianApproachRising.setValue(true);
+
+            } else {
+                _w.meridianApproachSetting.setValue(true);
+            }
+
+        } else {
+            _w.meridianApproachAny.setValue(true);
+        }
+    }
+
+    /**
+     * Watch changes to the "Earliest" and "Latest" text boxes.
+     */
+    public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+        // By converting the string to Date and back to a an ISO8601 format
+        // string it gets tidied up in case the user made minor mistakes
+        // regarding the format.
+        try {
+            if (tbw == _w.earliest) {
+                if (_w.earliest.getText().equals("")) {
+                    _schedConstObsComp.setEarliest("none");
+
+                } else {
+                    String earliest = OracUtilities.toISO8601(
+                            OracUtilities.parseISO8601(_w.earliest.getText()));
+                    _schedConstObsComp.setEarliest(earliest);
+                }
+
+            } else if (tbw == _w.latest) {
+                if (_w.latest.getText().equals("")) {
+                    _schedConstObsComp.setLatest("none");
+
+                } else {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.setTime(OracUtilities.parseISO8601(
+                            _w.latest.getText()));
+                    String latest = OracUtilities.toISO8601(newDate.getTime());
+                    _schedConstObsComp.setLatest(latest);
+                }
+
+            } else if (tbw == _w.minElevation) {
+                String minElevation = _w.minElevation.getValue();
+                minElevation = setElevation(minElevation);
+                _schedConstObsComp.setMinElevation(minElevation);
+
+            } else if (tbw == _w.maxElevation) {
+                String maxElevation = _w.maxElevation.getValue();
+                maxElevation = setElevation(maxElevation);
+                _schedConstObsComp.setMaxElevation(maxElevation);
+
+            } else if (tbw == _w.period) {
+                _schedConstObsComp.setPeriod(_w.period.getValue());
+            }
+
+        } catch (Exception e) {
+            DialogUtil.error(_w, e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Text box action.
+     */
+    public void textBoxAction(TextBoxWidgetExt tbw) {
+        _updateWidgets();
+    }
+
+    /**
+     * Radio button action.
+     */
+    public void actionPerformed(ActionEvent evt) {
+        Object w = evt.getSource();
+
+        if (w == _w.meridianApproachRising) {
+            _schedConstObsComp.setMeridianApproach(
+                    SpSchedConstObsComp.SOURCE_RISING);
+
+        } else if (w == _w.meridianApproachSetting) {
+            _schedConstObsComp.setMeridianApproach(
+                    SpSchedConstObsComp.SOURCE_SETTING);
+
+        } else if (w == _w.meridianApproachAny) {
+            _schedConstObsComp.setMeridianApproach(null);
+
+        } else if (w == _w.airmassCB) {
+            _schedConstObsComp.setDisplayAirmass(_w.airmassCB.isSelected());
+            _updateWidgets();
+        }
+    }
+
+    private String getElevation(String input, boolean displayAirmass) {
+        double elevationOrAirmass = 0.0;
+
+        if (input != null && input.trim().length() != 0) {
+            elevationOrAirmass = Double.valueOf(input);
+
+            if (displayAirmass) {
+                elevationOrAirmass =
+                        AirmassUtilities.elevationToAirmass(elevationOrAirmass);
+            }
+        }
+
+        return format(elevationOrAirmass);
+    }
+
+    private String setElevation(String input) {
+        double elevationOrAirmass = 0.;
+
+        if (input != null && input.trim().length() != 0) {
+            elevationOrAirmass = Double.valueOf(input);
+
+            if (_schedConstObsComp.getDisplayAirmass()) {
+                elevationOrAirmass =
+                        AirmassUtilities.airmassToElevation(elevationOrAirmass);
+            }
+        }
+
+        return format(elevationOrAirmass);
+    }
+
+    private String format(double elevationOrAirmass) {
+        // Convert value to 3 decimal places
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(3);
+        nf.setGroupingUsed(false);
+
+        return nf.format(elevationOrAirmass);
+    }
 }

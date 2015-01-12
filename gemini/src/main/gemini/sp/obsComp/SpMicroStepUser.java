@@ -17,18 +17,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package gemini.sp.obsComp ;
+package gemini.sp.obsComp;
 
-import java.util.Hashtable ;
+import java.util.Hashtable;
 
 /**
  * Implemented by instruments that use Micro stepping.
- * 
+ *
  * E.g. WFCAM.
- * 
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public interface SpMicroStepUser
-{
-	public Hashtable<String,double[][]> getMicroStepPatterns() ;
+public interface SpMicroStepUser {
+    public Hashtable<String, double[][]> getMicroStepPatterns();
 }

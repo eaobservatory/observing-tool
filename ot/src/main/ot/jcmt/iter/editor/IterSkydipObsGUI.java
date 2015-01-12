@@ -17,34 +17,29 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.jcmt.iter.editor ;
+package ot.jcmt.iter.editor;
 
-import jsky.app.ot.gui.CheckBoxWidgetExt ;
-import java.awt.GridLayout ;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import java.awt.GridLayout;
 
-@SuppressWarnings( "serial" )
-public class IterSkydipObsGUI extends IterJCMTGenericGUI
-{
-	CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt() ;
-	GridLayout layout = new GridLayout( 1 , 1 ) ;
+@SuppressWarnings("serial")
+public class IterSkydipObsGUI extends IterJCMTGenericGUI {
+    CheckBoxWidgetExt currentAzimuth = new CheckBoxWidgetExt();
+    GridLayout layout = new GridLayout(1, 1);
 
-	public IterSkydipObsGUI()
-	{
-		try
-		{
-			jbInit() ;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace() ;
-		}
-	}
+    public IterSkydipObsGUI() {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	private void jbInit() throws Exception
-	{
-		currentAzimuth.setText( "Do Skydip at Current Azimuth?" ) ;
-		currentAzimuth.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
-		this.setLayout( layout ) ;
-		this.add( currentAzimuth ) ;
-	}
+    private void jbInit() throws Exception {
+        currentAzimuth.setText("Do Skydip at Current Azimuth?");
+        currentAzimuth.setFont(new java.awt.Font("Dialog", 0, 12));
+
+        this.setLayout(layout);
+        this.add(currentAzimuth);
+    }
 }

@@ -17,413 +17,400 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
-import javax.swing.JPanel ;
-import javax.swing.JSlider ;
-import javax.swing.event.ChangeListener ;
-import javax.swing.event.ChangeEvent ;
-import java.awt.Color ;
-import java.awt.Dimension ;
-import java.awt.Rectangle ;
-import java.awt.font.FontRenderContext ;
-import java.awt.geom.Rectangle2D ;
-import java.awt.Graphics ;
-import java.awt.Graphics2D ;
-import java.awt.Image ;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 
 /**
  * Draws the graph scale for the Frequency Editor.
- * 
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ *
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class GraphScale extends JPanel implements ChangeListener
-{
-	private static final int MIN_LABEL_SPACING = 60 ;
-	private int orientation ;
-	private Rectangle tickRect = new Rectangle() ;
-	private Rectangle axisRect = new Rectangle() ;
-	private double majorIncrement ;
-	private double minorIncrement ;
-	private double maximum ;
-	private double minimum ;
-	private boolean inverted = false ;
-	private double pixelsPerValue ;
-	private Image buffer = null ;
-	private Graphics ig ;
-	private int xSize = 0 ;
-	private int ySize = 0 ;
-	private double halfrange ;
-	private int length ;
-	private int exponent ;
-	private double redshift ;
-	private double restMinimum ;
-	private double restMaximum ;
-	private double restHalfrange ;
+@SuppressWarnings("serial")
+public class GraphScale extends JPanel implements ChangeListener {
+    private static final int MIN_LABEL_SPACING = 60;
+    private int orientation;
+    private Rectangle tickRect = new Rectangle();
+    private Rectangle axisRect = new Rectangle();
+    private double majorIncrement;
+    private double minorIncrement;
+    private double maximum;
+    private double minimum;
+    private boolean inverted = false;
+    private double pixelsPerValue;
+    private Image buffer = null;
+    private Graphics ig;
+    private int xSize = 0;
+    private int ySize = 0;
+    private double halfrange;
+    private int length;
+    private int exponent;
+    private double redshift;
+    private double restMinimum;
+    private double restMaximum;
+    private double restHalfrange;
 
-	/**
+    /**
      * Constructor
-     * 
-     * @param minimum
-     *            Minimum frequency (Hz)
-     * @param maximum
-     *            Maximum frequency (Hz)
-     * @param minorIncrement
-     *            Increment to draw minor tick marks at (Hz)
-     * @param majorIncrement
-     *            Increment to draw major tick marks at (Hz)
-     * @param redshift
-     *            Source redshift (Z)
-     * @param exponent
-     *            Scale factor to show frequency values.
-     * @param length
-     *            Length of display (pixels)
-     * @param orientation
-     *            Orientation of display (JSlider.HORIZONTAL or
-     *            JSlider.VERTICAL)
+     *
+     * @param minimum        Minimum frequency (Hz)
+     * @param maximum        Maximum frequency (Hz)
+     * @param minorIncrement Increment to draw minor tick marks at (Hz)
+     * @param majorIncrement Increment to draw major tick marks at (Hz)
+     * @param redshift       Source redshift (Z)
+     * @param exponent       Scale factor to show frequency values.
+     * @param length         Length of display (pixels)
+     * @param orientation    Orientation of display (JSlider.HORIZONTAL or
+     *                       JSlider.VERTICAL)
      */
-	public GraphScale( double minimum , double maximum , double majorIncrement , double minorIncrement , double redshift , int exponent , int length , int orientation )
-	{
-		super() ;
+    public GraphScale(double minimum, double maximum, double majorIncrement,
+            double minorIncrement, double redshift, int exponent, int length,
+            int orientation) {
+        super();
 
-		setLayout( null ) ;
+        setLayout(null);
 
-		restMinimum = minimum ;
-		restMaximum = maximum ;
-		this.minimum = minimum * ( 1. + redshift ) ;
-		this.maximum = maximum * ( 1. + redshift ) ;
-		this.majorIncrement = majorIncrement ;
-		this.minorIncrement = minorIncrement ;
-		this.redshift = redshift ;
-		this.exponent = exponent ;
-		this.length = length ;
-		this.orientation = orientation ;
+        restMinimum = minimum;
+        restMaximum = maximum;
+        this.minimum = minimum * (1.0 + redshift);
+        this.maximum = maximum * (1.0 + redshift);
+        this.majorIncrement = majorIncrement;
+        this.minorIncrement = minorIncrement;
+        this.redshift = redshift;
+        this.exponent = exponent;
+        this.length = length;
+        this.orientation = orientation;
 
-		this.pixelsPerValue = ( ( double )length ) / ( this.maximum - this.minimum ) ;
-		halfrange = ( this.maximum - this.minimum ) / 2. ;
-		restHalfrange = ( restMaximum - restMinimum ) / 2. ;
+        this.pixelsPerValue = ((double) length) / (this.maximum - this.minimum);
+        halfrange = (this.maximum - this.minimum) / 2.0;
+        restHalfrange = (restMaximum - restMinimum) / 2.0;
 
-		calculateTickRect() ;
-		calculateAxisRect() ;
-		setPreferredSize( new Dimension( axisRect.width , axisRect.height ) ) ;
-	}
+        calculateTickRect();
+        calculateAxisRect();
 
-	public GraphScale( double minimum , double maximum , double majorIncrement , double minorIncrement , double redshift , int exponent , int length , int orientation , boolean isVelocity )
-	{
-		super() ;
+        setPreferredSize(new Dimension(axisRect.width, axisRect.height));
+    }
 
-		setLayout( null ) ;
+    public GraphScale(double minimum, double maximum, double majorIncrement,
+            double minorIncrement, double redshift, int exponent, int length,
+            int orientation, boolean isVelocity) {
+        super();
 
-		restMinimum = minimum ;
-		restMaximum = maximum ;
-		if( isVelocity )
-		{
-			// Convert redshift to velocity
-			double velocity = ( Math.pow( 1. + redshift , 2. ) - 1. ) / ( Math.pow( 1. + redshift , 2. ) + 1. ) ;
-			velocity *= EdFreq.LIGHTSPEED ;
-			this.minimum = minimum + velocity ;
-			this.maximum = maximum + velocity ;
-		}
-		else
-		{
-			this.minimum = minimum * ( 1. + redshift ) ;
-			this.maximum = maximum * ( 1. + redshift ) ;
-		}
-		this.majorIncrement = majorIncrement ;
-		this.minorIncrement = minorIncrement ;
-		this.redshift = redshift ;
-		this.exponent = exponent ;
-		this.length = length ;
-		this.orientation = orientation ;
+        setLayout(null);
 
-		this.pixelsPerValue = ( ( double )length ) / ( this.maximum - this.minimum ) ;
-		halfrange = ( this.maximum - this.minimum ) / 2. ;
-		restHalfrange = ( restMaximum - restMinimum ) / 2. ;
+        restMinimum = minimum;
+        restMaximum = maximum;
 
-		calculateTickRect() ;
-		calculateAxisRect() ;
-		setPreferredSize( new Dimension( axisRect.width , axisRect.height ) ) ;
-	}
+        if (isVelocity) {
+            // Convert redshift to velocity
+            double velocity = (Math.pow(1.0 + redshift, 2.0) - 1.0)
+                    / (Math.pow(1.0 + redshift, 2.0) + 1.0);
 
-	/**
+            velocity *= EdFreq.LIGHTSPEED;
+
+            this.minimum = minimum + velocity;
+            this.maximum = maximum + velocity;
+        } else {
+            this.minimum = minimum * (1.0 + redshift);
+            this.maximum = maximum * (1.0 + redshift);
+        }
+
+        this.majorIncrement = majorIncrement;
+        this.minorIncrement = minorIncrement;
+        this.redshift = redshift;
+        this.exponent = exponent;
+        this.length = length;
+        this.orientation = orientation;
+
+        this.pixelsPerValue = ((double) length) / (this.maximum - this.minimum);
+        halfrange = (this.maximum - this.minimum) / 2.0;
+        restHalfrange = (restMaximum - restMinimum) / 2.0;
+
+        calculateTickRect();
+        calculateAxisRect();
+
+        setPreferredSize(new Dimension(axisRect.width, axisRect.height));
+    }
+
+    /**
      * Set the orientation.
-     * 
+     *
      * @see javax.swing.JSlider#HORIZONTAL
      * @see javax.swing.JSlider#VERTICAL
      */
-	public void setOrientation( int orientation )
-	{
-		this.orientation = orientation ;
-	}
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
 
-	/**
+    /**
      * Set the redshift (Z)
      */
-	public void setRedshift( double redshift )
-	{
-		this.redshift = redshift ;
-		this.minimum = restMinimum * ( 1. + redshift ) ;
-		this.maximum = restMaximum * ( 1. + redshift ) ;
-		pixelsPerValue = ( ( double )length ) / ( maximum - minimum ) ;
-		halfrange = ( maximum - minimum ) / 2. ;
-		repaint() ;
-	}
+    public void setRedshift(double redshift) {
+        this.redshift = redshift;
+        this.minimum = restMinimum * (1.0 + redshift);
+        this.maximum = restMaximum * (1.0 + redshift);
 
-	protected int getTickLength()
-	{
-		return 8 ;
-	}
+        pixelsPerValue = ((double) length) / (maximum - minimum);
+        halfrange = (maximum - minimum) / 2.0;
 
-	protected void calculateTickRect()
-	{
-		if( orientation == JSlider.HORIZONTAL )
-		{
-			tickRect.x = 0 ;
-			tickRect.y = 0 ;
-			tickRect.width = length ;
-			tickRect.height = getTickLength() ;
-		}
-		else
-		{
-			tickRect.x = 20 ;
-			tickRect.y = 0 ;
-			tickRect.width = getTickLength() ;
-			tickRect.height = length ;
-		}
-	}
+        repaint();
+    }
 
-	protected void calculateAxisRect()
-	{
-		if( orientation == JSlider.HORIZONTAL )
-		{
-			axisRect.x = tickRect.x ;
-			axisRect.y = tickRect.y ;
-			axisRect.width = tickRect.width ;
-			axisRect.height = tickRect.height + 20 ;
-		}
-		else
-		{
-			axisRect.width = tickRect.width + 20 ;
-			axisRect.height = tickRect.height ;
-			axisRect.x = tickRect.x - 20 ;
-			axisRect.y = tickRect.y ;
-		}
-	}
+    protected int getTickLength() {
+        return 8;
+    }
 
-	/** Paint the ticks */
-	public void paintTicks( Graphics g )
-	{
-		Rectangle tickBounds = tickRect ;
-		double maj ;
-		double min ;
+    protected void calculateTickRect() {
+        if (orientation == JSlider.HORIZONTAL) {
+            tickRect.x = 0;
+            tickRect.y = 0;
+            tickRect.width = length;
+            tickRect.height = getTickLength();
+        } else {
+            tickRect.x = 20;
+            tickRect.y = 0;
+            tickRect.width = getTickLength();
+            tickRect.height = length;
+        }
+    }
 
-		g.setColor( getBackground() ) ;
-		g.fillRect( tickBounds.x , tickBounds.y , tickBounds.width , tickBounds.height ) ;
-		g.setColor( Color.black ) ;
+    protected void calculateAxisRect() {
+        if (orientation == JSlider.HORIZONTAL) {
+            axisRect.x = tickRect.x;
+            axisRect.y = tickRect.y;
+            axisRect.width = tickRect.width;
+            axisRect.height = tickRect.height + 20;
+        } else {
+            axisRect.width = tickRect.width + 20;
+            axisRect.height = tickRect.height;
+            axisRect.x = tickRect.x - 20;
+            axisRect.y = tickRect.y;
+        }
+    }
 
-		/* Find values corresponding to first major and minor tick marks */
+    /**
+     * Paint the ticks.
+     */
+    public void paintTicks(Graphics g) {
+        Rectangle tickBounds = tickRect;
+        double maj;
+        double min;
 
-		maj = majorIncrement * ( double )( ( int )( ( minimum + majorIncrement ) / majorIncrement ) ) ;
-		min = minorIncrement * ( double )( ( int )( ( minimum + minorIncrement ) / minorIncrement ) ) ;
+        g.setColor(getBackground());
+        g.fillRect(tickBounds.x, tickBounds.y, tickBounds.width,
+                tickBounds.height);
+        g.setColor(Color.black);
 
-		if( orientation == JSlider.HORIZONTAL )
-		{
+        /* Find values corresponding to first major and minor tick marks */
 
-			int xPos = 0 ;
-			int xPosPrevious = 0 ;
+        maj = majorIncrement * (double) ((int) ((minimum + majorIncrement)
+                                                    / majorIncrement));
+        min = minorIncrement * (double) ((int) ((minimum + minorIncrement)
+                                                    / minorIncrement));
 
-			if( minorIncrement > 0. )
-			{
-				while( min <= maximum )
-				{
-					xPos = xPositionForValue( min ) ;
-					g.drawLine( xPos , 0 , xPos , tickBounds.height / 2 - 1 ) ;
-					min += minorIncrement ;
-				}
-			}
+        if (orientation == JSlider.HORIZONTAL) {
 
-			if( majorIncrement > 0 )
-			{
-				while( maj <= maximum )
-				{
-					xPos = xPositionForValue( maj ) ;
+            int xPos = 0;
+            int xPosPrevious = 0;
 
-					g.drawLine( xPos , 0 , xPos , tickBounds.height - 2 ) ;
+            if (minorIncrement > 0.0) {
+                while (min <= maximum) {
+                    xPos = xPositionForValue(min);
+                    g.drawLine(xPos, 0, xPos, tickBounds.height / 2 - 1);
 
-					if( ( xPos - xPosPrevious ) >= MIN_LABEL_SPACING )
-					{
-						drawLabelX( g , xPos , tickBounds.height , maj , exponent ) ;
+                    min += minorIncrement;
+                }
+            }
 
-						xPosPrevious = xPos ;
-					}
-					maj += majorIncrement ;
-				}
-			}
-		}
-		else
-		{
-			int yPos = 0 ;
+            if (majorIncrement > 0) {
+                while (maj <= maximum) {
+                    xPos = xPositionForValue(maj);
 
-			if( minorIncrement > 0 )
-			{
-				while( min <= maximum )
-				{
-					yPos = yPositionForValue( min ) ;
+                    g.drawLine(xPos, 0, xPos, tickBounds.height - 2);
 
-					g.drawLine( tickBounds.x + tickBounds.width / 2 - 1 , yPos , tickBounds.x + tickBounds.width - 2 , yPos ) ;
+                    if ((xPos - xPosPrevious) >= MIN_LABEL_SPACING) {
+                        drawLabelX(g, xPos, tickBounds.height, maj, exponent);
 
-					min += minorIncrement ;
-				}
-			}
+                        xPosPrevious = xPos;
+                    }
 
-			if( majorIncrement > 0 )
-			{
-				while( maj <= maximum )
-				{
-					yPos = yPositionForValue( maj ) ;
+                    maj += majorIncrement;
+                }
+            }
+        } else {
+            int yPos = 0;
 
-					g.drawLine( tickBounds.x , yPos , tickBounds.x + tickBounds.width - 2 , yPos ) ;
-					drawLabelY( g , tickBounds.x , yPos , maj , exponent ) ;
+            if (minorIncrement > 0) {
+                while (min <= maximum) {
+                    yPos = yPositionForValue(min);
 
-					maj += majorIncrement ;
-				}
-			}
-		}
-	}
+                    g.drawLine(tickBounds.x + tickBounds.width / 2 - 1, yPos,
+                            tickBounds.x + tickBounds.width - 2, yPos);
 
-	private void drawLabelX( Graphics g , int x , int y , double value , int exponent )
-	{
-		Graphics2D g2 ;
-		Rectangle2D bounds ;
-		FontRenderContext frc ;
+                    min += minorIncrement;
+                }
+            }
 
-		String svalue ;
-		double tvalue ;
+            if (majorIncrement > 0) {
+                while (maj <= maximum) {
+                    yPos = yPositionForValue(maj);
 
-		if( exponent != 0 )
-		{
-			tvalue = value / Math.pow( 10.0 , exponent ) ;
-			svalue = "" + tvalue + "E" + exponent ;
-		}
-		else
-		{
-			svalue = "" + value ;
-		}
+                    g.drawLine(tickBounds.x, yPos, tickBounds.x
+                            + tickBounds.width - 2, yPos);
+                    drawLabelY(g, tickBounds.x, yPos, maj, exponent);
 
-		g2 = ( Graphics2D )g ;
-		frc = g2.getFontRenderContext() ;
-		bounds = g2.getFont().getStringBounds( svalue , frc ) ;
-		int xpos = x - ( ( int )bounds.getWidth() ) / 2 ;
-		int ypos = y + ( int )bounds.getHeight() ;
-		g.drawString( svalue , xpos , ypos ) ;
-	}
+                    maj += majorIncrement;
+                }
+            }
+        }
+    }
 
-	private void drawLabelY( Graphics g , int x , int y , double value , int exponent )
-	{
-		Graphics2D g2 ;
-		Rectangle2D bounds ;
-		FontRenderContext frc ;
+    private void drawLabelX(Graphics g, int x, int y, double value,
+            int exponent) {
+        Graphics2D g2;
+        Rectangle2D bounds;
+        FontRenderContext frc;
 
-		String svalue ;
-		double tvalue ;
+        String svalue;
+        double tvalue;
 
-		if( exponent != 0 )
-		{
-			tvalue = value / Math.pow( 10. , exponent ) ;
-			svalue = "" + tvalue + "E" + exponent ;
-		}
-		else
-		{
-			svalue = "" + value ;
-		}
+        if (exponent != 0) {
+            tvalue = value / Math.pow(10.0, exponent);
+            svalue = "" + tvalue + "E" + exponent;
+        } else {
+            svalue = "" + value;
+        }
 
-		g2 = ( Graphics2D )g ;
-		frc = g2.getFontRenderContext() ;
-		bounds = g2.getFont().getStringBounds( svalue , frc ) ;
-		int xpos = x - ( int )bounds.getWidth() ;
-		int ypos = y + ( ( int )bounds.getHeight() ) / 2 ;
-		g.drawString( svalue , xpos , ypos ) ;
-	}
+        g2 = (Graphics2D) g;
+        frc = g2.getFontRenderContext();
+        bounds = g2.getFont().getStringBounds(svalue, frc);
 
-	protected int xPositionForValue( double value )
-	{
-		int trackLeft = tickRect.x ;
-		int trackRight = tickRect.x + ( tickRect.width - 1 ) ;
+        int xpos = x - ((int) bounds.getWidth()) / 2;
+        int ypos = y + (int) bounds.getHeight();
 
-		return positionForValue( value , trackLeft , trackRight ) ;
-	}
+        g.drawString(svalue, xpos, ypos);
+    }
 
-	protected int yPositionForValue( double value )
-	{
-		int trackTop = tickRect.y ;
-		int trackBottom = tickRect.y + ( tickRect.height - 1 ) ;
-		inverted = true ;
-		return positionForValue( value , trackTop , trackBottom ) ;
-	}
+    private void drawLabelY(Graphics g, int x, int y, double value,
+            int exponent) {
+        Graphics2D g2;
+        Rectangle2D bounds;
+        FontRenderContext frc;
 
-	protected int positionForValue( double value , int trackStart , int trackEnd )
-	{
-		int position ;
+        String svalue;
+        double tvalue;
 
-		if( !inverted )
-		{
-			position = trackStart ;
-			position += Math.round( pixelsPerValue * ( value - minimum ) ) ;
-		}
-		else
-		{
-			position = trackEnd ;
-			position -= Math.round( pixelsPerValue * ( value - minimum ) ) ;
-		}
+        if (exponent != 0) {
+            tvalue = value / Math.pow(10.0, exponent);
+            svalue = "" + tvalue + "E" + exponent;
+        } else {
+            svalue = "" + value;
+        }
 
-		position = Math.max( trackStart , position ) ;
-		position = Math.min( trackEnd , position ) ;
+        g2 = (Graphics2D) g;
+        frc = g2.getFontRenderContext();
+        bounds = g2.getFont().getStringBounds(svalue, frc);
 
-		return position ;
-	}
+        int xpos = x - (int) bounds.getWidth();
+        int ypos = y + ((int) bounds.getHeight()) / 2;
 
-	/** Overrides paintComponent in JComponent */
-	public void paintComponent( Graphics g )
-	{
-		if( buffer == null )
-		{
-			xSize = axisRect.width ;
-			ySize = axisRect.height ;
-			buffer = createImage( xSize , ySize ) ;
+        g.drawString(svalue, xpos, ypos);
+    }
 
-			// added by MFO, 16 November 2001
-			if( buffer == null )
-				return ;
+    protected int xPositionForValue(double value) {
+        int trackLeft = tickRect.x;
+        int trackRight = tickRect.x + (tickRect.width - 1);
 
-			ig = buffer.getGraphics() ;
-		}
+        return positionForValue(value, trackLeft, trackRight);
+    }
 
-		ig.setColor( getBackground() ) ;
-		ig.fillRect( 0 , 0 , xSize , ySize ) ;
-		ig.setColor( getForeground() ) ;
+    protected int yPositionForValue(double value) {
+        int trackTop = tickRect.y;
+        int trackBottom = tickRect.y + (tickRect.height - 1);
 
-		paintTicks( ig ) ;
-		g.drawImage( buffer , 0 , 0 , null ) ;
-	}
+        inverted = true;
 
-	public void stateChanged( ChangeEvent e )
-	{
-		double value ;
+        return positionForValue(value, trackTop, trackBottom);
+    }
 
-		value = EdFreq.SLIDERSCALE * ( double )(( JSlider )e.getSource()).getValue() ;
-		restMinimum = value - restHalfrange ;
-		restMaximum = value + restHalfrange ;
-		minimum = restMinimum * ( 1. + redshift ) ;
-		maximum = restMaximum * ( 1. + redshift ) ;
+    protected int positionForValue(double value, int trackStart, int trackEnd) {
+        int position;
 
-		repaint() ;
+        if (!inverted) {
+            position = trackStart;
+            position += Math.round(pixelsPerValue * (value - minimum));
+        } else {
+            position = trackEnd;
+            position -= Math.round(pixelsPerValue * (value - minimum));
+        }
 
-	}
+        position = Math.max(trackStart, position);
+        position = Math.min(trackEnd, position);
 
-	public String toString()
-	{
-		String rtn = new String( "GraphScale = [xSize=" + xSize + ", ySize=" + ySize + ", length=" + length + ", halfrange=" + halfrange + ", maximum=" + maximum + ", minimum=" + minimum + ", exponent= " + exponent + ", redshift=" + redshift + ", restMaximum=" + restMaximum + ", restMinimum=" + restMinimum + ", restHalfrange=" + restHalfrange + "]" ) ;
-		return rtn ;
-	}
+        return position;
+    }
+
+    /** Overrides paintComponent in JComponent */
+    public void paintComponent(Graphics g) {
+        if (buffer == null) {
+            xSize = axisRect.width;
+            ySize = axisRect.height;
+            buffer = createImage(xSize, ySize);
+
+            // added by MFO, 16 November 2001
+            if (buffer == null) {
+                return;
+            }
+
+            ig = buffer.getGraphics();
+        }
+
+        ig.setColor(getBackground());
+        ig.fillRect(0, 0, xSize, ySize);
+        ig.setColor(getForeground());
+
+        paintTicks(ig);
+        g.drawImage(buffer, 0, 0, null);
+    }
+
+    public void stateChanged(ChangeEvent e) {
+        double value;
+
+        value = EdFreq.SLIDERSCALE
+                * (double) ((JSlider) e.getSource()).getValue();
+
+        restMinimum = value - restHalfrange;
+        restMaximum = value + restHalfrange;
+
+        minimum = restMinimum * (1.0 + redshift);
+        maximum = restMaximum * (1.0 + redshift);
+
+        repaint();
+    }
+
+    public String toString() {
+        String rtn = new String("GraphScale = [xSize=" + xSize
+                + ", ySize=" + ySize
+                + ", length=" + length
+                + ", halfrange=" + halfrange
+                + ", maximum=" + maximum
+                + ", minimum=" + minimum
+                + ", exponent= " + exponent
+                + ", redshift=" + redshift
+                + ", restMaximum=" + restMaximum
+                + ", restMinimum=" + restMinimum
+                + ", restHalfrange=" + restHalfrange + "]");
+        return rtn;
+    }
 }

@@ -17,22 +17,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package ot.jcmt.iter.editor ;
+package ot.jcmt.iter.editor;
 
-@SuppressWarnings( "serial" )
-public class IterArrayTestObsGUI extends IterJCMTGenericGUI
-{
-	public IterArrayTestObsGUI()
-	{
-		try
-		{
-			jbInit() ;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace() ;
-		}
-	}
+@SuppressWarnings("serial")
+public class IterArrayTestObsGUI extends IterJCMTGenericGUI {
+    public IterArrayTestObsGUI() {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	private void jbInit() throws Exception{}
+    private void jbInit() throws Exception {
+    }
 }

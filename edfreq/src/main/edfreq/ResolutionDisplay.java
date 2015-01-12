@@ -17,43 +17,48 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edfreq ;
+package edfreq;
 
-import javax.swing.JLabel ;
+import javax.swing.JLabel;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly (bdk@roe.ac.uk)
  */
-@SuppressWarnings( "serial" )
-public class ResolutionDisplay extends JLabel implements SamplerWatcher
-{
-	private int resolution ;
-	private double width ;
-	private int nMixers ;
+@SuppressWarnings("serial")
+public class ResolutionDisplay extends JLabel implements SamplerWatcher {
+    private int resolution;
+    private double width;
+    private int nMixers;
 
-	public ResolutionDisplay( int channels , double width , int nMixers )
-	{
-		super() ;
-		setHorizontalAlignment( CENTER ) ;
-		this.width = width ;
-		this.nMixers = nMixers ;
+    public ResolutionDisplay(int channels, double width, int nMixers) {
+        super();
 
-		resolution = nMixers * ( int )( 1.0E-3 * width / ( double )channels ) ;
-		setText( String.valueOf( resolution ) ) ;
-	}
+        setHorizontalAlignment(CENTER);
 
-	public void setChannels( int channels )
-	{
-		resolution = nMixers * ( ( int )( 1.0E-3 * width / ( double )channels ) ) ;
-		System.out.println( "Setting text of ResolutionDisplay to " + resolution ) ;
-		setText( String.valueOf( resolution ) ) ;
-		repaint() ;
-	}
+        this.width = width;
+        this.nMixers = nMixers;
 
-	public void updateSamplerValues( double centre , double width , int channels )
-	{
-		this.width = width ;
-		resolution = ( int )Math.rint( nMixers * ( ( width * 1.0E-3 ) / ( double )channels ) ) ;
-		setText( String.valueOf( resolution ) ) ;
-	}
+        resolution = nMixers * (int) (1.0E-3 * width / (double) channels);
+        setText(String.valueOf(resolution));
+    }
+
+    public void setChannels(int channels) {
+        resolution = nMixers * ((int) (1.0E-3 * width / (double) channels));
+
+        System.out.println("Setting text of ResolutionDisplay to "
+                + resolution);
+
+        setText(String.valueOf(resolution));
+
+        repaint();
+    }
+
+    public void updateSamplerValues(double centre, double width, int channels) {
+        this.width = width;
+
+        resolution = (int) Math.rint(nMixers
+                * ((width * 1.0E-3) / (double) channels));
+
+        setText(String.valueOf(resolution));
+    }
 }

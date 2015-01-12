@@ -50,156 +50,174 @@
  * Copyright (C) 2007-2008 Science and Technology Facilities Council.
  */
 
-package gemini.util ;
+package gemini.util;
 
 /**
  * Support for converting between angles in string and double representations.
  */
-public class DDMMSS extends XXMMSS
-{
-	public static final String MYNAME = "Degree-Angle (+/- 90) Coordinate Axis Position Formatter" ;
-	
-	/**
-	 * 
-	 * @param candidate
-	 * @return boolean indicating wether candidate was in a valid Dec DD:MM:SS format
-	 */
-	public static boolean validFormat( String candidate )
-	{
-		return ( candidate != null && ( candidate.matches( decpattern ) || candidate.matches( decpatterncolon ) ) ) ;
-	}
+public class DDMMSS extends XXMMSS {
+    public static final String MYNAME =
+            "Degree-Angle (+/- 90) Coordinate Axis Position Formatter";
 
-	/**
+    /**
+     * @param candidate
+
+     * @return boolean indicating wether candidate was in a valid Dec DD:MM:SS
+     *         format
+     */
+    public static boolean validFormat(String candidate) {
+        return (candidate != null
+                && (candidate.matches(decpattern)
+                        || candidate.matches(decpatterncolon)));
+    }
+
+    /**
      * Covert from a Dec in degrees to a DD:MM:SS String representation.
      */
-	public static String valStr( double degrees , int prec )
-	{
-		int sign = ( degrees < 0 ) ? -1 : 1 ;
-		degrees = Math.abs( degrees ) ;
+    public static String valStr(double degrees, int prec) {
+        int sign = (degrees < 0) ? -1 : 1;
+        degrees = Math.abs(degrees);
 
-		int dd = ( int )degrees ;
-		double tmp = ( degrees - ( double )dd ) * 60. ;
-		int mm = ( int )tmp ;
-		double ss = ( tmp - ( double )mm ) * 60. ;
+        int dd = (int) degrees;
+        double tmp = (degrees - (double) dd) * 60.0;
+        int mm = (int) tmp;
+        double ss = (tmp - (double) mm) * 60.0;
 
-		// correct for formating errors caused by rounding
-		if( ss > 59.99999 )
-		{
-			ss = 0 ;
-			mm += 1 ;
-			if( mm >= 60 )
-			{
-				mm = 0 ;
-				dd += 1 ;
-			}
-		}
+        // correct for formating errors caused by rounding
+        if (ss > 59.99999) {
+            ss = 0;
+            mm += 1;
 
-		StringBuffer out = new StringBuffer() ;
-		if( sign < 0 )
-			out.append( '-' ) ;
-		out.append( dd ) ;
-		if( prec == -2 )
-			return out.toString() ;
+            if (mm >= 60) {
+                mm = 0;
+                dd += 1;
+            }
+        }
 
-		out.append( ':' ) ;
-		if( mm < 10 )
-			out.append( '0' ) ;
-		out.append( mm ) ;
-		if( prec == -1 )
-			return out.toString() ;
+        StringBuffer out = new StringBuffer();
 
-		out.append( ':' ) ;
+        if (sign < 0) {
+            out.append('-');
+        }
 
-		// Ignoring prec for now
-		ss = ( ( double )Math.round( ss * 100. ) ) / 100. ;
-		if( ss < 10 )
-			out.append( '0' ) ;
-		out.append( ss ) ;
+        out.append(dd);
 
-		return out.toString() ;
-	}
+        if (prec == -2) {
+            return out.toString();
+        }
 
-	/**
+        out.append(':');
+
+        if (mm < 10) {
+            out.append('0');
+        }
+
+        out.append(mm);
+
+        if (prec == -1) {
+            return out.toString();
+        }
+
+        out.append(':');
+
+        // Ignoring prec for now
+        ss = ((double) Math.round(ss * 100.0)) / 100.0;
+
+        if (ss < 10) {
+            out.append('0');
+        }
+
+        out.append(ss);
+
+        return out.toString();
+    }
+
+    /**
      * Covert from a Dec in degrees to a DD:MM:SS String representation.
      */
-	public static String valStr( double degrees )
-	{
-		return valStr( degrees , -3 ) ;
-	}
+    public static String valStr(double degrees) {
+        return valStr(degrees, -3);
+    }
 
-	/**
+    /**
      * Convert from Dec as DD:MM:SS string format to degrees.
      */
-	public static double valueOf( String s ) throws NumberFormatException
-	{
-		if( s == null )
-			throw new NumberFormatException( s ) ;
+    public static double valueOf(String s) throws NumberFormatException {
+        if (s == null) {
+            throw new NumberFormatException(s);
+        }
 
-		// Determine the sign from the (trimmed) string
-		s = s.trim() ;
-		if( s.length() == 0 )
-			throw new NumberFormatException( s ) ;
-		int sign = 1 ;
-		if( s.charAt( 0 ) == '-' )
-		{
-			sign = -1 ;
-			s = s.substring( 1 ) ;
-		}
+        // Determine the sign from the (trimmed) string
+        s = s.trim();
 
-		double[] vals = stringTodoubleTriplet( s ) ;
+        if (s.length() == 0) {
+            throw new NumberFormatException(s);
+        }
 
-		double out = sign * ( vals[ 0 ] + vals[ 1 ] / 60. + vals[ 2 ] / 3600. ) ;
-		
-		return out ;
-	}
+        int sign = 1;
 
-	/**
-	 * Check wether a string is in the correct DD:MM:SS format and within range
-	 * @param ddmmss
-	 * @return boolean indicating validity
-	 */
-	public static boolean validate( String ddmmss )
-	{
-		return validate( ddmmss , -180 , 180 ) ;
-	}
-	
-	/**
-	 * Check wether a string is in the correct DD:MM:SS format and within range
-	 * @param ddmmss
-	 * @param min
-	 * @param max
-	 * @return boolean indicating validity
-	 */
-	public static boolean validate( String ddmmss , int min , int max )
-	{
-		boolean valid = true ;
+        if (s.charAt(0) == '-') {
+            sign = -1;
+            s = s.substring(1);
+        }
 
-		if( valid = validFormat( ddmmss ) )
-		{
-			double[] values = stringTodoubleTriplet( ddmmss ) ;
-	
-			double degrees = values[ 0 ] ;
-			double minutes = values[ 1 ] ;
-			double seconds = values[ 2 ] ;
-	
-			if( degrees < min || degrees > max || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60 )
-				valid = false ;
-		}
+        double[] vals = stringTodoubleTriplet(s);
 
-		return valid ;
-	}
+        double out = sign * (vals[0] + vals[1] / 60.0 + vals[2] / 3600.0);
 
-	/**
+        return out;
+    }
+
+    /**
+     * Check wether a string is in the correct DD:MM:SS format and within range
+     *
+     * @param ddmmss
+     *
+     * @return boolean indicating validity
+     */
+    public static boolean validate(String ddmmss) {
+        return validate(ddmmss, -180, 180);
+    }
+
+    /**
+     * Check wether a string is in the correct DD:MM:SS format and within range
+     *
+     * @param ddmmss
+     * @param min
+     * @param max
+     *
+     * @return boolean indicating validity
+     */
+    public static boolean validate(String ddmmss, int min, int max) {
+        boolean valid = true;
+
+        if (valid = validFormat(ddmmss)) {
+            double[] values = stringTodoubleTriplet(ddmmss);
+
+            double degrees = values[0];
+            double minutes = values[1];
+            double seconds = values[2];
+
+            if (degrees < min || degrees > max
+                    || minutes < 0 || minutes >= 60
+                    || seconds < 0 || seconds >= 60) {
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
+    /**
      * For testing.
      */
-	public static void main( String args[] )
-	{
-		for( int i = 0 ; i < args.length ; ++i )
-		{
-			double converted = DDMMSS.valueOf( args[ i ] ) ;
-			String back = DDMMSS.valStr( converted ) ;
-			System.out.println( args[ i ] + " = " + converted ) ;
-			System.out.println( converted + " = " + back ) ;
-		}
-	}
+    public static void main(String args[]) {
+        for (int i = 0; i < args.length; ++i) {
+            double converted = DDMMSS.valueOf(args[i]);
+            String back = DDMMSS.valStr(converted);
+
+            System.out.println(args[i] + " = " + converted);
+            System.out.println(converted + " = " + back);
+        }
+    }
 }

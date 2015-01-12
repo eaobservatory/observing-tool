@@ -17,30 +17,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package orac.util ;
+package orac.util;
 
-import org.apache.xerces.dom.ElementImpl ;
+import org.apache.xerces.dom.ElementImpl;
 
 /**
  * PreTranslator.
  *
- * Applies/removes telescope specific changes to {@link orac.util.SpItemDOM} DOM element.
+ * Applies/removes telescope specific changes to {@link orac.util.SpItemDOM}
+ * DOM element.
  *
  * @author Martin Folger
  */
-public interface PreTranslator
-{
-	/**
-	 * Applies telescope specific changes.
-	 *
-	 * @param  element DOM element from {@link orac.util.SpItemDOM}
-	 */
-	public void translate( ElementImpl element ) throws Exception ;
+public interface PreTranslator {
+    /**
+     * Applies telescope specific changes.
+     *
+     * @param  element DOM element from {@link orac.util.SpItemDOM}
+     */
+    public void translate(ElementImpl element) throws Exception;
 
-	/**
-	 * Removes telescope specific changes.
-	 *
-	 * @param  element DOM element from {@link orac.util.SpItemDOM}
-	 */
-	public void reverse( ElementImpl element ) throws Exception ;
+    /**
+     * Removes telescope specific changes.
+     *
+     * @param  element DOM element from {@link orac.util.SpItemDOM}
+     */
+    public void reverse(ElementImpl element) throws Exception;
 }

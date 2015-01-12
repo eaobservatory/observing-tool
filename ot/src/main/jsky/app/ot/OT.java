@@ -1,443 +1,459 @@
-// Copyright (c) 2000 Association of Universities for Research in Astronomy, Inc. (AURA)
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification,
-// are permitted provided that the following conditions are met:
-//
-// 1) Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
-// 2) Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
-// 3) The names of AURA and its representatives may not be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
-//
-// THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-// INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-// GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
-// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*
+ * Copyright (c) 2000 Association of Universities for Research in Astronomy, Inc. (AURA)
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1) Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * 2) Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ * 3) The names of AURA and its representatives may not be used to endorse or
+ *   promote products derived from this software without specific prior written
+ *   permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY AURA "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL AURA BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+ * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-package jsky.app.ot ;
+package jsky.app.ot;
 
-import java.awt.event.WindowAdapter ;
-import java.awt.event.WindowEvent ;
-import java.io.File ;
-import java.io.IOException ;
-import java.io.InputStreamReader ;
-import java.io.Reader ;
-import java.net.URL ;
-import java.util.Vector ;
-import javax.swing.JFrame ;
-import javax.swing.JOptionPane ;
-import javax.swing.JLabel ;
-import javax.swing.ImageIcon ;
-import gemini.sp.SpFactory ;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import gemini.sp.SpFactory;
 import gemini.sp.SpItem;
-import gemini.sp.SpLibrary ;
-import gemini.sp.SpRootItem ;
-import gemini.sp.SpType ;
-import ot.News ;
-import ot.OtPreferencesDialog ;
-import ot.DatabaseDialog ;
-import orac.helptool.JHLauncher ;
-import gemini.sp.SpTreeMan ;
+import gemini.sp.SpLibrary;
+import gemini.sp.SpRootItem;
+import gemini.sp.SpType;
+import ot.News;
+import ot.OtPreferencesDialog;
+import ot.DatabaseDialog;
+import orac.helptool.JHLauncher;
+import gemini.sp.SpTreeMan;
 import gemini.util.ObservingToolUtilities;
-import orac.ukirt.iter.SpIterMichelleCalObs ;
+import orac.ukirt.iter.SpIterMichelleCalObs;
 
-@SuppressWarnings( "serial" )
-public class OT extends JFrame
-{
-	/** Vector of all non-internal OtWindowFrame's */
-	private static Vector<OtWindowFrame> _otWindowFrames = new Vector<OtWindowFrame>() ;
+@SuppressWarnings("serial")
+public class OT extends JFrame {
+    /** Vector of all non-internal OtWindowFrame's */
+    private static Vector<OtWindowFrame> _otWindowFrames =
+            new Vector<OtWindowFrame>();
 
-	/** Help launcher. */
-	private static JHLauncher helpLauncher = null ;
+    /** Help launcher. */
+    private static JHLauncher helpLauncher = null;
 
-	/** Splash screen displayed on startup */
-	private static SplashScreen _splash ;
+    /** Splash screen displayed on startup */
+    private static SplashScreen _splash;
 
-	/** Preferences Dialog */
-	private static OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog() ;
+    /** Preferences Dialog */
+    private static OtPreferencesDialog _preferencesDialog =
+            new OtPreferencesDialog();
 
-	/** Database Access */
-	private static DatabaseDialog _databaseDialog = new DatabaseDialog() ;
+    /** Database Access */
+    private static DatabaseDialog _databaseDialog = new DatabaseDialog();
 
-	/**
-	 * Default save directory.
-	 *
-	 * This system property key can be used to specify a default directory
-	 * to which save by default or which is used as default directory for file
-	 * save/open dialogs.
-	 *
-	 * The actual key/name to be used to set the system property is <b>ot.userdir</b>.
-	 *
-	 * ot.userdir can be used to specify the users working directory from which the a script
-	 * is called. If the script changes the directory before starting java the original
-	 * working directory would not be accessible from within java. the system property
-	 * user.dir would point to the directory from which java was started.
-	 *
-	 */
-	public static final String PROPERTY_OT_USERDIR = "ot.userdir" ;
+    /**
+     * Default save directory.
+     *
+     * This system property key can be used to specify a default directory
+     * to which save by default or which is used as default directory for file
+     * save/open dialogs.
+     *
+     * The actual key/name to be used to set the system property is
+     * <b>ot.userdir</b>.
+     *
+     * ot.userdir can be used to specify the users working directory from
+     * which the a script is called. If the script changes the directory
+     * before starting java the original working directory would not be
+     * accessible from within java. the system property user.dir would point
+     * to the directory from which java was started.
+     */
+    public static final String PROPERTY_OT_USERDIR = "ot.userdir";
 
-	/**
-	 * @see #PROPERTY_OT_USERDIR
-	 * @see #getOtUserDir()
-	 */
-	private static String _otUserDir = null ;
+    /**
+     * @see #PROPERTY_OT_USERDIR
+     * @see #getOtUserDir()
+     */
+    private static String _otUserDir = null;
 
-	/**
-	 * Create the OT application.
-	 */
-	public OT() {
-		super("OT");
-	}
+    /**
+     * Create the OT application.
+     */
+    public OT() {
+        super("OT");
+    }
 
-	@Deprecated public OT(boolean internalFrames) {
-		this();
-	}
+    @Deprecated
+    public OT(boolean internalFrames) {
+        this();
+    }
 
-	/** Return the help launcher. */
-	public static JHLauncher getHelpLauncher()
-	{
-		return helpLauncher ;
-	}
+    /**
+     * Return the help launcher.
+     */
+    public static JHLauncher getHelpLauncher() {
+        return helpLauncher;
+    }
 
-	/** Set help launcher. */
-	public static void setHelpLauncher( JHLauncher jHLauncher )
-	{
-		helpLauncher = jHLauncher ;
-	}
+    /**
+     * Set help launcher.
+     */
+    public static void setHelpLauncher(JHLauncher jHLauncher) {
+        helpLauncher = jHLauncher;
+    }
 
-	public static DatabaseDialog getDatabaseDialog()
-	{
-		return _databaseDialog ;
-	}
+    public static DatabaseDialog getDatabaseDialog() {
+        return _databaseDialog;
+    }
 
-	/** 
-	 * Open a new program.
-	 */
-	public static void newProgram() {
-		OtProps.setSaveShouldPrompt(true);
-		addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
-	}
+    /**
+     * Open a new program.
+     */
+    public static void newProgram() {
+        OtProps.setSaveShouldPrompt(true);
+        addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
+    }
 
-	/** 
-	 * Make a new library
-	 */
-	public static void newLibrary()
-	{
-		OtProps.setSaveShouldPrompt( true ) ;
-		// Changed by MFO, 15 February 2002
-		OtWindow.create( ( SpLibrary )SpFactory.create( SpType.LIBRARY ) , new FileInfo() ) ;
-	}
+    /**
+     * Make a new library
+     */
+    public static void newLibrary() {
+        OtProps.setSaveShouldPrompt(true);
+        // Changed by MFO, 15 February 2002
+        OtWindow.create((SpLibrary) SpFactory.create(SpType.LIBRARY),
+                new FileInfo());
+    }
 
-	/** 
-	 * Open a new science program.
-	 */
-	public static void open()
-	{
-		OtProps.setSaveShouldPrompt( false ) ;
-		OtFileIO.open() ;
-	}
+    /**
+     * Open a new science program.
+     */
+    public static void open() {
+        OtProps.setSaveShouldPrompt(false);
+        OtFileIO.open();
+    }
 
-	/*
-	 * Open a standard library.
-	 *
-	 * Method based on OT.openLibrary from old ATC OT.
-	 */
-	public void openLibrary( String library )
-	{
-		OtProps.setSaveShouldPrompt( false ) ;
+    /**
+     * Open a standard library.
+     *
+     * Method based on OT.openLibrary from old ATC OT.
+     */
+    public void openLibrary(String library) {
+        OtProps.setSaveShouldPrompt(false);
 
-		SpRootItem spItem = null ;
-		URL url = ObservingToolUtilities.resourceURL( library , "ot.resource.cfgdir" ) ;
+        SpRootItem spItem = null;
+        URL url = ObservingToolUtilities.resourceURL(library,
+                "ot.resource.cfgdir");
 
-		// Check whether the alternative library could not be found either.
-		if( url == null )
-		{
-			JOptionPane.showMessageDialog( this , "Could not find standard library resource " + library + "." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-			return ;
-		}
+        // Check whether the alternative library could not be found either.
+        if (url == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Could not find standard library resource "
+                            + library + ".", "Error",
+                    JOptionPane.ERROR_MESSAGE);
 
-		Reader r = null ;
-		try
-		{
-			r = new InputStreamReader( url.openStream() ) ;
-			spItem = OtFileIO.fetchSp( r ) ;
-		}
-		catch( IOException ioe )
-		{
-			JOptionPane.showMessageDialog( this , "Could not open the standard library." , "Error" , JOptionPane.ERROR_MESSAGE ) ;
-		}
-		finally
-		{
-			try
-			{
-				if( r != null )
-					r.close() ;
-			}
-			catch( Exception e ){}
-		}
+            return;
+        }
 
-		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) )
-		{
-			Vector<SpItem> mco = SpTreeMan.findAllItems( spItem , SpIterMichelleCalObs.class.getName() ) ;
-			for( SpItem item : mco )
-			{
-				SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )item ;
-				obs.useDefaults() ;
-				obs.updateDAConf() ;
-			}
-			// Changed by MFO, 22 August 2001
-			OtWindow.create( spItem , new FileInfo() ) ;
-		}
-	}
+        Reader r = null;
 
-	/** 
-	 * Display a preferences dialog.
-	 */
-	public static void preferences()
-	{
-		_preferencesDialog.show() ;
-	}
+        try {
+            r = new InputStreamReader(url.openStream());
+            spItem = OtFileIO.fetchSp(r);
 
-	/** 
-	 * Exit the application with the given status.
-	 */
-	public static void exit()
-	{
-		/*
-		 * If the user wants to be prompted before closing 
-		 * when there are edited programs, 
-		 * look for edited programs and prompt
-		 */
-		for( int i = 0 ; i < OtWindowFrame.getWindowFrames().size() ; i++ )
-		{
-			if( !( ( OtWindowFrame )OtWindowFrame.getWindowFrames().get( i ) ).getEditor().closeApp() )
-				return ;
-		}
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(this,
+                    "Could not open the standard library.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
 
-		System.exit( 0 ) ; // Must be running as a local application.
-	}
+        } finally {
+            try {
+                if (r != null) {
+                    r.close();
+                }
+            } catch (Exception e) {
+            }
+        }
 
-	/** 
-	 * Fetch a science program from the database.
-	 */
-	public static void fetchProgram()
-	{
-		_databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
-	}
+        if ((spItem != null) && (spItem instanceof SpLibrary)) {
+            Vector<SpItem> mco = SpTreeMan.findAllItems(spItem,
+                    SpIterMichelleCalObs.class.getName());
 
-	/**
-	 * Show the splash screen.
-	 */
-	public static void showSplashScreen()
-	{
-		// changed my M.Folger@roe.ac.uk
-		/*
-		 * As _splash is not actually set to null when _splash is dismissed (hideSplashScreen is NOT called) 
-		 * the if condition would prevent _splash to be shown a second time.
-		 */
-		URL url = ObservingToolUtilities.resourceURL( "welcome.txt" , "ot.resource.cfgdir" ) ;
-		if( url == null )
-		{
-			System.out.println( "Warning: missing resource file: jsky/app/ot/cfg/welcome.txt" ) ;
-			return ;
-		}
+            for (SpItem item : mco) {
+                SpIterMichelleCalObs obs = (SpIterMichelleCalObs) item;
+                obs.useDefaults();
+                obs.updateDAConf();
+            }
 
-		_splash = new SplashFrame(url).getSplash();
-	}
+            // Changed by MFO, 22 August 2001
+            OtWindow.create(spItem, new FileInfo());
+        }
+    }
 
-	/**
-	 * Hide the splash screen.
-	 */
-	public static void hideSplashScreen()
-	{
-		if( _splash != null )
-		{
-			_splash.dismiss() ;
-			_splash = null ;
-		}
-	}
+    /**
+     * Display a preferences dialog.
+     */
+    public static void preferences() {
+        _preferencesDialog.show();
+    }
 
-	// From ATC OT.java start
+    /**
+     * Exit the application with the given status.
+     */
+    public static void exit() {
+        // If the user wants to be prompted before closing
+        // when there are edited programs,
+        // look for edited programs and prompt
+        for (int i = 0; i < OtWindowFrame.getWindowFrames().size(); i++) {
+            if (!((OtWindowFrame) OtWindowFrame.getWindowFrames().get(i))
+                    .getEditor().closeApp()) {
+                return;
+            }
+        }
 
-	public static void launchHelp()
-	{
-		if( OT.helpLauncher != null )
-		{
-			OT.helpLauncher.launch() ;
-		}
-		else
-		{
-			URL url = ObservingToolUtilities.resourceURL( "help/othelp.hs" , "ot.cfgdir" ) ;
-			OT.setHelpLauncher( new JHLauncher( url ) ) ;
-		}
-	}
+        System.exit(0); // Must be running as a local application.
+    }
 
-	/**
-	 * Show the news (release notes).
-	 */
-	public static void showNews()
-	{
-		URL url = ObservingToolUtilities.resourceURL( "news.txt" , "ot.cfgdir" ) ;
-		if( url != null )
-			News.showNews( url ) ;
-	}
+    /**
+     * Fetch a science program from the database.
+     */
+    public static void fetchProgram() {
+        _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
+    }
 
-	public static void addOtWindowFrame( OtWindowFrame frame )
-	{
-		_otWindowFrames.add( frame ) ;
-	}
+    /**
+     * Show the splash screen.
+     */
+    public static void showSplashScreen() {
+        // changed my M.Folger@roe.ac.uk
+        /*
+         * As _splash is not actually set to null when _splash is dismissed
+         * (hideSplashScreen is NOT called) the if condition would prevent
+         * _splash to be shown a second time.
+         */
+        URL url = ObservingToolUtilities.resourceURL("welcome.txt",
+                "ot.resource.cfgdir");
 
-	public static void removeOtWindowFrame( OtWindowFrame frame )
-	{
-		_otWindowFrames.remove( frame ) ;
-	}
+        if (url == null) {
+            System.out.println("Warning: missing resource file:"
+                    + " jsky/app/ot/cfg/welcome.txt");
+            return;
+        }
 
-	// From ATC OT.java end
+        _splash = new SplashFrame(url).getSplash();
+    }
 
-	/**
-	 * Get default user directory.
-	 *
-	 * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("otuserdir")
-	 * if it is specified and exists or the users home directory otherwise.
-	 *
-	 * @see #PROPERTY_OT_USERDIR
-	 */
-	public static String getOtUserDir()
-	{
-		if( _otUserDir != null )
-			return _otUserDir ;
+    /**
+     * Hide the splash screen.
+     */
+    public static void hideSplashScreen() {
+        if (_splash != null) {
+            _splash.dismiss();
+            _splash = null;
+        }
+    }
 
-		_otUserDir = System.getProperty( PROPERTY_OT_USERDIR ) ;
+    // From ATC OT.java start
 
-		if( _otUserDir != null )
-		{
-			File dir = new File( _otUserDir ) ;
+    public static void launchHelp() {
+        if (OT.helpLauncher != null) {
+            OT.helpLauncher.launch();
+        } else {
+            URL url = ObservingToolUtilities.resourceURL("help/othelp.hs",
+                    "ot.cfgdir");
+            OT.setHelpLauncher(new JHLauncher(url));
+        }
+    }
 
-			if( !dir.exists() || !dir.isDirectory() || !dir.canWrite() )
-				_otUserDir = System.getProperty( "user.home" ) ;
-		}
-		else
-		{
-			_otUserDir = System.getProperty( "user.home" ) ;
-		}
+    /**
+     * Show the news (release notes).
+     */
+    public static void showNews() {
+        URL url = ObservingToolUtilities.resourceURL("news.txt", "ot.cfgdir");
 
-		return _otUserDir ;
-	}
+        if (url != null) {
+            News.showNews(url);
+        }
+    }
 
-	/** 
-	 * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [programFile]
-	 * <p>
-	 * The <em>jsky.catalog.skycat.config</em> property defines the Skycat style catalog config file to use.
-	 * (The default uses the user's ~/.skycat/skycat.cfg file, or the ESO Skycat config file, if found).
-	 * <p>
-	 * If a program filename is specified, it is loaded on startup.
-	 */
-	public static void main(String args[]) {
-		boolean ok = true;
-		Vector<String> filenames = null;
+    public static void addOtWindowFrame(OtWindowFrame frame) {
+        _otWindowFrames.add(frame);
+    }
 
-		try {
-			// Check which version of java we are running
-			String jVersion = System.getProperty("java.version");
+    public static void removeOtWindowFrame(OtWindowFrame frame) {
+        _otWindowFrames.remove(frame);
+    }
 
-			if (Double.parseDouble(jVersion.substring(0, 3)) < 1.6) {
-				String message = "The Observing Tool requires at least Java 1.6 to work.\n"
-					+ "You seem to currently be running version "
-					+ jVersion + "\n" + "Please Upgrade";
-				JOptionPane.showMessageDialog(null, message,
-					"OT does not support current version of Java",
-					JOptionPane.ERROR_MESSAGE);
-				System.exit(0);
-			}
-		}
-		catch(NumberFormatException nfe) {
-			System.err.println("Unable to confirm which version of java you are running.");
-			System.err.println("Continuing anyway");
-		}
+    // From ATC OT.java end
 
-		for(int i = 0; i < args.length; i++) {
-			if (args[i].charAt(0) == '-') {
-				String opt = args[i];
-				if (opt.equals("-internalframes")) {
-					System.err.println("Warning: option -internalframes has been removed");
-				}
-				else if (opt.equals( "-nointernalframes")) {
-					System.err.println("Warning: option -nointernalframes has been removed");
-				}
-				else {
-					System.err.println("Unknown option: " + opt);
-					ok = false;
-					break;
-				}
-			}
-			else {
+    /**
+     * Get default user directory.
+     *
+     * Returns the directory specified by the system property
+     * PROPERTY_OT_USERDIR ("otuserdir") if it is specified and exists or
+     * the user's home directory otherwise.
+     *
+     * @see #PROPERTY_OT_USERDIR
+     */
+    public static String getOtUserDir() {
+        if (_otUserDir != null) {
+            return _otUserDir;
+        }
 
-				String filename = args[i];
-				if (filename.toLowerCase().endsWith(".xml")) {
-					if (filenames == null)
-						filenames = new Vector<String>();
+        _otUserDir = System.getProperty(PROPERTY_OT_USERDIR);
 
-					filenames.add(filename);
-				}
-			}
-		}
+        if (_otUserDir != null) {
+            File dir = new File(_otUserDir);
 
-		if (!ok) {
-			System.err.println( "Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT" );
-			System.exit(1);
-		}
+            if (!dir.exists() || !dir.isDirectory() || !dir.canWrite()) {
+                _otUserDir = System.getProperty("user.home");
+            }
 
-		VersionSelector.checkVersions();
+        } else {
+            _otUserDir = System.getProperty("user.home");
+        }
 
-		try {
-			OtCfg.init();
-		}
-		catch (Throwable e) {
-			e.printStackTrace();
+        return _otUserDir;
+    }
 
-			JOptionPane.showMessageDialog(null, "Problem with OT configuration:\nThis might result in invalid Science Programs.",
-				"Problem with OT configuration.", JOptionPane.ERROR_MESSAGE);
-		}
+    /**
+     * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [programFile]
+     * <p>
+     * The <em>jsky.catalog.skycat.config</em> property defines the
+     * Skycat-style catalog config file to use. (The default uses the user's
+     * ~/.skycat/skycat.cfg file, or the ESO Skycat config file, if found).
+     * <p>
+     * If a program filename is specified, it is loaded on startup.
+     */
+    public static void main(String args[]) {
+        boolean ok = true;
+        Vector<String> filenames = null;
 
-		/*
-		 * Create a small frame to contain the menus that would originally have been in the
-		 * desktop pane with the internal frames. (MFO, 17 August 2001)
-		 */
-		JFrame menuFrame = new JFrame("OT");
-		menuFrame.setJMenuBar(new OTMenuBar(new OT()));
+        try {
+            // Check which version of java we are running
+            String jVersion = System.getProperty("java.version");
 
-		URL url = ObservingToolUtilities.resourceURL(
-			"images/background_small.gif", "ot.resource.cfgdir");
-		ImageIcon icon = new ImageIcon(url);
-		JLabel label = new JLabel(icon);
-		label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-		menuFrame.add(label);
+            if (Double.parseDouble(jVersion.substring(0, 3)) < 1.6) {
+                String message =
+                        "The Observing Tool requires at least Java 1.6 to"
+                        + " work.\n"
+                        + "You seem to currently be running version "
+                        + jVersion + "\n" + "Please Upgrade";
+                JOptionPane.showMessageDialog(null, message,
+                        "OT does not support current version of Java",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        } catch (NumberFormatException nfe) {
+            System.err.println(
+                    "Unable to confirm which version of java you are running.");
+            System.err.println("Continuing anyway");
+        }
 
-		menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		menuFrame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				exit();
-			}
-		});
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].charAt(0) == '-') {
+                String opt = args[i];
 
-		menuFrame.pack();
-		menuFrame.setVisible(true);
+                if (opt.equals("-internalframes")) {
+                    System.err.println(
+                            "Warning: option -internalframes has been removed");
 
-		if (filenames != null) {
-			while (filenames.size() != 0)
-				OtFileIO.open(filenames.remove(0));
-		}
-		else {
-			OT.showSplashScreen();
-		}
-	}
+                } else if (opt.equals("-nointernalframes")) {
+                    System.err.println(
+                            "Warning: option -nointernalframes has been removed");
+
+                } else {
+                    System.err.println("Unknown option: " + opt);
+                    ok = false;
+                    break;
+                }
+
+            } else {
+                String filename = args[i];
+                if (filename.toLowerCase().endsWith(".xml")) {
+                    if (filenames == null) {
+                        filenames = new Vector<String>();
+                    }
+
+                    filenames.add(filename);
+                }
+            }
+        }
+
+        if (!ok) {
+            System.err.println("Usage: java"
+                    + " [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT");
+
+            System.exit(1);
+        }
+
+        VersionSelector.checkVersions();
+
+        try {
+            OtCfg.init();
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Problem with OT configuration:"
+                    + "\nThis might result in invalid Science Programs.",
+                    "Problem with OT configuration.",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Create a small frame to contain the menus that would originally
+        // have been in the desktop pane with the internal frames.
+        // (MFO, 17 August 2001)
+
+        JFrame menuFrame = new JFrame("OT");
+        menuFrame.setJMenuBar(new OTMenuBar(new OT()));
+
+        URL url = ObservingToolUtilities.resourceURL(
+                "images/background_small.gif", "ot.resource.cfgdir");
+
+        ImageIcon icon = new ImageIcon(url);
+        JLabel label = new JLabel(icon);
+        label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+        menuFrame.add(label);
+
+        menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        menuFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                exit();
+            }
+        });
+
+        menuFrame.pack();
+        menuFrame.setVisible(true);
+
+        if (filenames != null) {
+            while (filenames.size() != 0) {
+                OtFileIO.open(filenames.remove(0));
+            }
+
+        } else {
+            OT.showSplashScreen();
+        }
+    }
 }

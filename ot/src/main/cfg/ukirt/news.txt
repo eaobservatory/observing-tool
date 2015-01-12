@@ -1,3 +1,7 @@
++++ January 2015 release
+
+  - Changed JNLP codebase.
+
 +++ October 2014 release
 
   - Updated UIST and UFTI configuration.
