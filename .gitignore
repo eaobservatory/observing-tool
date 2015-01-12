@@ -1,4 +1,5 @@
-*.*.swp
+*~
+.*.swp
 /output
 /docs/javadoc
 /gemini/src/output
