@@ -8,8 +8,7 @@
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>
-The SCUBA-2 template MSBs in the library have been tailored for Pong
+      <note>The SCUBA-2 template MSBs in the library have been tailored for Pong
 maps of ~40 mins and a pointsource Daisy of ~30 mins.  For Daisy
 observations the duration is approx. equal to the integration time
 requested in the Scan component. For 40-mins Pong maps with
@@ -27,15 +26,14 @@ maximizing the number of times around the map in an observation, the
 "chunk" of data that the mapmaker can handle on a computer with a
 reasonable (e.g. 64 Gb) amount of memory, and the interval between
 necessary meta-observations such as array setup, pointing and focus
-observations.
-</note>
+observations.</note>
       <title>IMPORTANT README</title>
     </SpNote>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Pointsource (Daisy)  MSB</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpDRRecipeRef idref="3"/>
         <SpInstSCUBA2Ref idref="1"/>
         <SpSiteQualityObsCompRef idref="2"/>
@@ -80,8 +78,7 @@ few times for your run include it as a separate calibration MSB noting
 how often you want it to be done and that it should only be done when
 a science observation for your project is being observed. Calibration
 observations should be flagged as 'calibration' on their title page.
-See the examples under "Example optionals".
-</note>
+See the examples under "Example optionals".</note>
           <title>Please read</title>
         </SpNote>
         <SpSiteQualityObsComp id="2" type="oc" subtype="schedInfo">
@@ -90,6 +87,7 @@ See the examples under "Example optionals".
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
         <SpDRRecipe id="3" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpDRRecipe>
         <SpInstSCUBA2 id="1" type="oc" subtype="inst.SCUBA2">
@@ -127,7 +125,7 @@ See the examples under "Example optionals".
                   <PA>0.0</PA>
                   <SCAN_AREA>
                     <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                    <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                    <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
                     </SCAN>
                   </SCAN_AREA>
                 </obsArea>
@@ -143,16 +141,16 @@ See the examples under "Example optionals".
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Map (Pong)  MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpDRRecipeRef idref="7"/>
         <SpInstSCUBA2Ref idref="5"/>
         <SpSiteQualityObsCompRef idref="6"/>
         <SpTelescopeObsCompRef idref="4"/>
-        <estimatedDuration units="seconds">2969.0</estimatedDuration>
+        <estimatedDuration units="seconds">2450.43</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>15 arcmin map with optional offset(s)</title>
-        <totalDuration units="seconds">2969.0</totalDuration>
+        <totalDuration units="seconds">2450.43</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -188,8 +186,7 @@ few times for your run include it as a separate calibration MSB noting
 how often you want it to be done and that it should only be done when
 a science observation for your project is being observed. Calibration
 observations should be flagged as 'calibration' on their title page.
-See the examples under "Example optionals".
-</note>
+See the examples under "Example optionals".</note>
           <title>Please read</title>
         </SpNote>
         <SpSiteQualityObsComp id="6" type="oc" subtype="schedInfo">
@@ -198,6 +195,7 @@ See the examples under "Example optionals".
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
         <SpDRRecipe id="7" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpDRRecipe>
         <SpInstSCUBA2 id="5" type="oc" subtype="inst.SCUBA2">
@@ -221,7 +219,7 @@ See the examples under "Example optionals".
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">2969.0</estimatedDuration>
+          <estimatedDuration units="seconds">2450.43</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -245,7 +243,7 @@ See the examples under "Example optionals".
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="900.0" WIDTH="900.0"/>
-                      <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                      <SCAN DY="30.0" VELOCITY="280.0" SYSTEM="FPLANE">
                       </SCAN>
                     </SCAN_AREA>
                   </obsArea>
@@ -258,16 +256,16 @@ See the examples under "Example optionals".
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpDRRecipeRef idref="11"/>
         <SpInstSCUBA2Ref idref="9"/>
         <SpSiteQualityObsCompRef idref="10"/>
         <SpTelescopeObsCompRef idref="8"/>
-        <estimatedDuration units="seconds">8161.0</estimatedDuration>
+        <estimatedDuration units="seconds">2493.8</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>30 arcmin map with optional offset(s)</title>
-        <totalDuration units="seconds">8161.0</totalDuration>
+        <totalDuration units="seconds">2493.8</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -303,8 +301,7 @@ few times for your run include it as a separate calibration MSB noting
 how often you want it to be done and that it should only be done when
 a science observation for your project is being observed. Calibration
 observations should be flagged as 'calibration' on their title page.
-See the examples under "Example optionals".
-</note>
+See the examples under "Example optionals".</note>
           <title>Please read</title>
         </SpNote>
         <SpSiteQualityObsComp id="10" type="oc" subtype="schedInfo">
@@ -313,6 +310,7 @@ See the examples under "Example optionals".
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
         <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpDRRecipe>
         <SpInstSCUBA2 id="9" type="oc" subtype="inst.SCUBA2">
@@ -336,7 +334,7 @@ See the examples under "Example optionals".
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">8161.0</estimatedDuration>
+          <estimatedDuration units="seconds">2493.8</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -360,7 +358,7 @@ See the examples under "Example optionals".
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="1800.0" WIDTH="1800.0"/>
-                      <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                      <SCAN DY="60.0" VELOCITY="400.0" SYSTEM="FPLANE">
                       </SCAN>
                     </SCAN_AREA>
                   </obsArea>
@@ -373,16 +371,16 @@ See the examples under "Example optionals".
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpDRRecipeRef idref="15"/>
         <SpInstSCUBA2Ref idref="13"/>
         <SpSiteQualityObsCompRef idref="14"/>
         <SpTelescopeObsCompRef idref="12"/>
-        <estimatedDuration units="seconds">30337.0</estimatedDuration>
+        <estimatedDuration units="seconds">2369.0</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>1 degree map with optional offset(s)</title>
-        <totalDuration units="seconds">30337.0</totalDuration>
+        <totalDuration units="seconds">2369.0</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -418,8 +416,7 @@ few times for your run include it as a separate calibration MSB noting
 how often you want it to be done and that it should only be done when
 a science observation for your project is being observed. Calibration
 observations should be flagged as 'calibration' on their title page.
-See the examples under "Example optionals".
-</note>
+See the examples under "Example optionals".</note>
           <title>Please read</title>
         </SpNote>
         <SpSiteQualityObsComp id="14" type="oc" subtype="schedInfo">
@@ -428,6 +425,7 @@ See the examples under "Example optionals".
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
         <SpDRRecipe id="15" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpDRRecipe>
         <SpInstSCUBA2 id="13" type="oc" subtype="inst.SCUBA2">
@@ -451,7 +449,7 @@ See the examples under "Example optionals".
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">30337.0</estimatedDuration>
+          <estimatedDuration units="seconds">2369.0</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -475,7 +473,7 @@ See the examples under "Example optionals".
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="3600.0" WIDTH="3600.0"/>
-                      <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                      <SCAN DY="180.0" VELOCITY="600.0" SYSTEM="FPLANE">
                       </SCAN>
                     </SCAN_AREA>
                   </obsArea>
@@ -545,7 +543,7 @@ See the examples under "Example optionals".
                   <PA>0.0</PA>
                   <SCAN_AREA>
                     <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                    <SCAN DY="60.0" VELOCITY="120.0" SYSTEM="FPLANE">
+                    <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
                     </SCAN>
                   </SCAN_AREA>
                 </obsArea>
@@ -652,7 +650,7 @@ See the examples under "Example optionals".
           </BASE>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">480.0</estimatedDuration>
           <standard>true</standard>
           <title>Observation</title>
