@@ -540,6 +540,7 @@ See the examples under "Example optionals".</note>
           <noiseCalculationTau>0.08</noiseCalculationTau>
         </SpSiteQualityObsComp>
         <SpDRRecipe id="19" type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
         </SpDRRecipe>
         <SpInstSCUBA2 id="17" type="oc" subtype="inst.SCUBA2">
@@ -547,6 +548,7 @@ See the examples under "Example optionals".</note>
           <meta_unique>true</meta_unique>
         </SpInstSCUBA2>
         <SpTelescopeObsComp id="16" type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
