@@ -921,7 +921,7 @@ public class SpItem extends Observable implements Cloneable,
             xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\""
                     + subtypeStr() + "\"\n");
             xmlBuffer.append("\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
-            xmlBuffer.append("\txmlns=\"http://omp.jach.hawaii.edu/schema/TOML\">\n");
+            xmlBuffer.append("\txmlns=\"http://omp.eao.hawaii.edu/schema/TOML\">\n");
 
         } else {
             xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\""

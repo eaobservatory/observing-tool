@@ -482,7 +482,8 @@ JCMT Observing Tool
 The JCMT-OT is released as part of the JAC Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
-The JCMT-OT home page is at http://www.jach.hawaii.edu/JAC/software/jcmtot
+The JCMT-OT home page is at:
+http://www.eaobservatory.org/jcmt/observing/omp/observing-tool/
 
 If you have feedback or any questions on the JCMT-OT please email
 jcmtot@jach.hawaii.edu
