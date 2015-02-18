@@ -1,3 +1,7 @@
++++ February 2015 release
+
+  - Updated JAC URLs to new EAO URLs (including OMP server).
+
 +++ January 2015 release
 
   - Changed JNLP codebase.
