@@ -62,7 +62,7 @@ public class SpClient extends SoapClient {
 
     /** Default URL. */
     private static final String DEFAULT_SP_SERVER =
-            "http://omp.jach.hawaii.edu/cgi-bin/spsrv.pl";
+            "http://omp.eao.hawaii.edu/cgi-bin/spsrv.pl";
 
     /** SOAP action. */
     private static final String SOAP_ACTION = "urn:OMP::SpServer";

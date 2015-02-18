@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
+<xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
+	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 <!-- Primitive types used for CGS4 -->

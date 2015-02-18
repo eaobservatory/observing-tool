@@ -1,3 +1,7 @@
++++ February 2015 release
+
+  - Updated JAC URLs to new EAO URLs (including OMP server).
+
 +++ January 2015 release
 
   - Changed JNLP codebase.
@@ -408,9 +412,7 @@ UKIRT Observing Tool
 The UKIRT-OT is released as part of the JAC Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
-The UKIRT-OT home page is at http://www.jach.hawaii.edu/JAC/software/ukirtot
-
-The OMP home page is http://omp.jach.hawaii.edu
+The OMP home page is http://omp.eao.hawaii.edu/
 
 If you have feedback or any questions on the UKIRT-OT please email
 ukirtot@jach.hawaii.edu

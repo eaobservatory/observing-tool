@@ -1,3 +1,11 @@
++++ February 2015 release
+
+  - Updated JAC URLs to new EAO URLs (including OMP server).
+
+  - Added an example 2 degree pong observation to the SCUBA-2 library.
+
+  - Added choice of SCUBA-2 recipe "REDUCE_SCAN_ISOLATED_SOURCE".
+
 +++ January 2015 release
 
   - Changed JNLP codebase.
@@ -482,7 +490,8 @@ JCMT Observing Tool
 The JCMT-OT is released as part of the JAC Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
-The JCMT-OT home page is at http://www.jach.hawaii.edu/JAC/software/jcmtot
+The JCMT-OT home page is at:
+http://www.eaobservatory.org/jcmt/observing/omp/observing-tool/
 
 If you have feedback or any questions on the JCMT-OT please email
 jcmtot@jach.hawaii.edu
