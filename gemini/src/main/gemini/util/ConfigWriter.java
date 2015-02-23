@@ -110,6 +110,13 @@ public class ConfigWriter {
 
             // First get the instrument from the hashtable
             _instName = table.get("instrument");
+
+            // The .conf file names were "too long" with the full name
+            // of "Michelle" included in them.
+            if (_instName.equals("Michelle")) {
+                _instName = "MICH";
+            }
+
             _counter++;
 
             String confDir = System.getProperty("CONF_PATH");
