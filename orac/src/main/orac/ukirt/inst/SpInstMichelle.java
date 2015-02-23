@@ -2807,7 +2807,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         list.put("filter", getFilter());
         list.put("waveplate", getWaveplate());
         list.put("scienceArea", getScienceAreaString());
-        //list.put("spectralCoverage", getSpectralCoverageString());
+
+        String spectralCoverage = getSpectralCoverageString();
+        if (spectralCoverage != null) {
+            list.put("spectralCoverage", spectralCoverage);
+        }
+
         list.put("pixelFOV", getPixelFOVString());
         list.put("nreads", Integer.toString(getNreads()));
         list.put("mode", getMode());
