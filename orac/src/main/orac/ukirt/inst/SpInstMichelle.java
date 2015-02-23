@@ -2832,7 +2832,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         list.put("idlePeriod", Double.toString(getIdlePeriod()));
         list.put("observationTime", getObservationTimeString());
         list.put("darkFilter", getDarkFilter());
-        list.put("darkNumExp", Integer.toString(1));
+        list.put("darkNumExp", Integer.toString(400));
 
         setInstAper();
 
