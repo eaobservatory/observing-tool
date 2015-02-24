@@ -24,6 +24,7 @@ import gemini.sp.SpType;
 import gemini.sp.SpFactory;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
+import gemini.util.TranslationUtils;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -363,32 +364,6 @@ public class SpIterChop extends SpIterComp implements SpTranslatable {
 
     public void translate(Vector<String> v)
             throws SpTranslationNotSupportedException {
-        SpTranslatable translatable = null;
-        SpTranslatable previous = null;
-
-        Enumeration<SpItem> children = this.children();
-
-        while (children.hasMoreElements()) {
-            SpItem child = children.nextElement();
-
-            if (child instanceof SpTranslatable) {
-                translatable = (SpTranslatable) child;
-
-                if (!translatable.equals(previous)) {
-                    if (previous != null) {
-                        previous.translateEpilog(v);
-                    }
-
-                    previous = translatable;
-                    translatable.translateProlog(v);
-                }
-
-                translatable.translate(v);
-            }
-        }
-
-        if (translatable != null) {
-            translatable.translateEpilog(v);
-        }
+        TranslationUtils.recurse(this.children(), v);
     }
 }
