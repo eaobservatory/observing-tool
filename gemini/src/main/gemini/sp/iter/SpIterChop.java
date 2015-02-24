@@ -19,9 +19,13 @@
 
 package gemini.sp.iter;
 
+import gemini.sp.SpItem;
 import gemini.sp.SpType;
 import gemini.sp.SpFactory;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -87,7 +91,7 @@ class SpIterChopEnumeration extends SpIterEnumeration {
  *         gemini/sp/iter/SpIterConfigBase.java)
  */
 @SuppressWarnings("serial")
-public class SpIterChop extends SpIterComp {
+public class SpIterChop extends SpIterComp implements SpTranslatable {
     /**
      * Records a vector of chop throws.
      *
@@ -348,6 +352,43 @@ public class SpIterChop extends SpIterComp {
 
         } else {
             super.processXmlAttribute(elementName, attributeName, value);
+        }
+    }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        SpTranslatable translatable = null;
+        SpTranslatable previous = null;
+
+        Enumeration<SpItem> children = this.children();
+
+        while (children.hasMoreElements()) {
+            SpItem child = children.nextElement();
+
+            if (child instanceof SpTranslatable) {
+                translatable = (SpTranslatable) child;
+
+                if (!translatable.equals(previous)) {
+                    if (previous != null) {
+                        previous.translateEpilog(v);
+                    }
+
+                    previous = translatable;
+                    translatable.translateProlog(v);
+                }
+
+                translatable.translate(v);
+            }
+        }
+
+        if (translatable != null) {
+            translatable.translateEpilog(v);
         }
     }
 }
