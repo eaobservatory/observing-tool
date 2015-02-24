@@ -32,15 +32,20 @@ import java.util.Hashtable;
 
 public class ConfigWriter {
     private String _timeStamp;
+    private String shortTimeStamp;
     private int _counter;
     private static ConfigWriter _writer;
     private String _instName = "none";
     private Hashtable<String, String> _lastConfig = null;
     private static int exec_counter = 0;
+    private boolean useShortTimeStamp = false;
 
     private ConfigWriter() {
         _timeStamp =
                 (new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date()))
+                        + String.format("%03d", exec_counter++);
+        shortTimeStamp =
+                (new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()))
                         + String.format("%03d", exec_counter++);
         exec_counter %= 1000;
         _lastConfig = null;
@@ -59,11 +64,15 @@ public class ConfigWriter {
     }
 
     public String getCurrentName() {
-        return _instName + "_" + _timeStamp + "_" + _counter;
+        return _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + "_" + _counter;
     }
 
     public String getTelFile() {
-        return _instName + "_" + _timeStamp + ".xml";
+        return _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + ".xml";
     }
 
     public String getExecName() {
@@ -75,7 +84,9 @@ public class ConfigWriter {
         }
 
         return (execPath + File.separator
-                + _instName + "_" + _timeStamp + ".exec");
+                + _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + ".exec");
     }
 
     public void writeTelFile(String xml) throws IOException {
@@ -112,10 +123,11 @@ public class ConfigWriter {
             _instName = table.get("instrument");
 
             // The .conf file names were "too long" with the full name
-            // of "Michelle" included in them.
-            if (_instName.equals("Michelle")) {
-                _instName = "MICH";
-            }
+            // of "Michelle" included in them, so we need to omit the
+            // millisecond part of the filenames.  Unfortunately we
+            // cannot just abbreviate the instrument name as apparently
+            // that doesn't work.
+            useShortTimeStamp = _instName.equals("Michelle");
 
             _counter++;
 
