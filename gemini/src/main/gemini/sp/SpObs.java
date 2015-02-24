@@ -578,6 +578,10 @@ public class SpObs extends SpMSB implements SpTranslatable,
             v.add("breakPoint");
             v.add(darkString);
         }
+        else if (instName.equals("Michelle")) {
+            v.add("-CHOP ChopOff");
+            v.add("SET_CHOPBEAM MIDDLE");
+        }
 
         v.add("-ready");
 
