@@ -33,6 +33,7 @@ import gemini.util.CoordSys;
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterMicroStep;
 import gemini.sp.iter.SpIterOffset;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpMicroStepUser;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -405,6 +406,28 @@ public class SpObs extends SpMSB implements SpTranslatable,
 
             v.add("do 1 _slew_all");
             v.add("do 1 _slew_guide");
+
+            if ("Michelle".equals(instName)) {
+                // Since chopping is now an iterator, it doesn't really make
+                // sense to try to translate it at the "Obs" level.  For now
+                // just take the first chop iterator we can find and the
+                // first setting from it.
+                Vector<SpItem> chops = SpTreeMan.findAllInstances(
+                        this, SpIterChop.class.getName());
+                if (chops.size() != 0) {
+                    SpIterChop chop = (SpIterChop) chops.get(0);
+
+                    // Write chop instructions.
+                    v.add("-CHOP ChopOff");
+                    v.add("SET_CHOPTHROW " + chop.getThrow(0));
+                    v.add("SET_CHOPPA " + chop.getAngle(0));
+                    v.add("-DEFINE_BEAMS "
+                            + chop.getAngle(0) + " " + chop.getThrow(0));
+                    v.add("-CHOP ChopOn");
+                    v.add("-CHOP_EXTERNAL");
+                    v.add("SET_CHOPBEAM A");
+                }
+            }
         }
 
         /*
