@@ -365,6 +365,9 @@ public class SpObs extends SpMSB implements SpTranslatable,
                 || instName.equals("CGS4")) {
             v.add("-SET_CHOPBEAM MIDDLE");
         }
+        else if (instName.equals("Michelle")) {
+            v.add("SET_CHOPBEAM MIDDLE");
+        }
 
         if (obsComp != null) {
             // Add break to sequence only if instrument is not WFCAM
@@ -408,6 +411,9 @@ public class SpObs extends SpMSB implements SpTranslatable,
             v.add("do 1 _slew_guide");
 
             if ("Michelle".equals(instName)) {
+                v.add("GUIDE ON");
+                v.add("-WAIT ALL");
+
                 // Since chopping is now an iterator, it doesn't really make
                 // sense to try to translate it at the "Obs" level.  For now
                 // just take the first chop iterator we can find and the
