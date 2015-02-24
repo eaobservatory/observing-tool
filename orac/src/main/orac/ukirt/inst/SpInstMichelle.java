@@ -935,6 +935,19 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
     }
 
     /**
+     * Get the filter passband.
+     */
+    public double getFilterPassBand(String obsType) {
+        if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
+            /* Get passband of filter */
+            int fi = getFilterIndex(obsType);
+            return Double.valueOf(getFilterLUT().elementAt(fi, 4));
+        }
+
+        return 0.0;
+    }
+
+    /**
      * Get the list of masks
      */
     public String[] getMaskList() {
@@ -2809,9 +2822,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         list.put("scienceArea", getScienceAreaString());
 
         String spectralCoverage = getSpectralCoverageString();
-        if (spectralCoverage != null) {
-            list.put("spectralCoverage", spectralCoverage);
+        if (spectralCoverage == null) {
+            double cw = getCentralWavelength();
+            double hpb = getFilterPassBand("OBJECT") / 2.0;
+            spectralCoverage = String.format("%.2f - %.2f", cw - hpb, cw + hpb);
         }
+        list.put("spectralCoverage", spectralCoverage);
 
         list.put("pixelFOV", getPixelFOVString());
         list.put("nreads", Integer.toString(getNreads()));
