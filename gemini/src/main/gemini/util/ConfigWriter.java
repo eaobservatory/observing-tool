@@ -153,12 +153,17 @@ public class ConfigWriter {
 
     private void write(BufferedWriter w, Hashtable<String, String> t)
             throws IOException {
+        if (t.containsKey("instrument")) {
+            w.write("instrument = " + t.get("instrument"));
+            w.newLine();
+        }
+
         Enumeration<String> e = t.keys();
 
         while (e.hasMoreElements()) {
             String key = e.nextElement();
 
-            if (!key.startsWith("instAper")) {
+            if (! key.startsWith("instAper") && ! key.equals("instrument")) {
                 w.write(key + " = " + t.get(key));
                 w.newLine();
             }
