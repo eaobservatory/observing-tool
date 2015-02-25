@@ -47,8 +47,9 @@ public class TranslationUtils {
                 if (!translatable.equals(previous)) {
                     if (previous != null) {
                         previous.translateEpilog(v);
-                        previous = translatable;
                     }
+
+                    previous = translatable;
 
                     translatable.translateProlog(v);
                 }
