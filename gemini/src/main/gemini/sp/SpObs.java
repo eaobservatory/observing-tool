@@ -413,26 +413,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
             if ("Michelle".equals(instName)) {
                 v.add("GUIDE ON");
                 v.add("-WAIT ALL");
-
-                // Since chopping is now an iterator, it doesn't really make
-                // sense to try to translate it at the "Obs" level.  For now
-                // just take the first chop iterator we can find and the
-                // first setting from it.
-                Vector<SpItem> chops = SpTreeMan.findAllInstances(
-                        this, SpIterChop.class.getName());
-                if (chops.size() != 0) {
-                    SpIterChop chop = (SpIterChop) chops.get(0);
-
-                    // Write chop instructions.
-                    v.add("-CHOP ChopOff");
-                    v.add("SET_CHOPTHROW " + chop.getThrow(0));
-                    v.add("SET_CHOPPA " + chop.getAngle(0));
-                    v.add("-DEFINE_BEAMS "
-                            + chop.getAngle(0) + " " + chop.getThrow(0));
-                    v.add("-CHOP ChopOn");
-                    v.add("-CHOP_EXTERNAL");
-                    v.add("SET_CHOPBEAM A");
-                }
             }
         }
 
@@ -577,10 +557,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
                         && "imaging".equals(defaultsTable.get("camera")))) {
             v.add("breakPoint");
             v.add(darkString);
-        }
-        else if (instName.equals("Michelle")) {
-            v.add("-CHOP ChopOff");
-            v.add("SET_CHOPBEAM MIDDLE");
         }
 
         v.add("-ready");

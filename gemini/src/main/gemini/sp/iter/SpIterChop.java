@@ -360,10 +360,24 @@ public class SpIterChop extends SpIterComp implements SpTranslatable {
     }
 
     public void translateEpilog(Vector<String> v) {
+        v.add("-CHOP ChopOff");
+        v.add("SET_CHOPBEAM MIDDLE");
     }
 
     public void translate(Vector<String> v)
             throws SpTranslationNotSupportedException {
-        TranslationUtils.recurse(this.children(), v);
+        for (int i = 0; i < getStepCount(); i++) {
+            // Write chop instructions.
+            v.add("-CHOP ChopOff");
+            v.add("SET_CHOPTHROW " + getThrow(i));
+            v.add("SET_CHOPPA " + getAngle(i));
+            v.add("-DEFINE_BEAMS " + getAngle(i) + " " + getThrow(i));
+            v.add("-CHOP ChopOn");
+            v.add("-CHOP_EXTERNAL");
+            v.add("SET_CHOPBEAM A");
+
+            // Translate contents of the chop iterator.
+            TranslationUtils.recurse(this.children(), v);
+        }
     }
 }
