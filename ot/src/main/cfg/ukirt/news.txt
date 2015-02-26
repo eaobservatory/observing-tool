@@ -415,7 +415,7 @@ Project. It has been extensively modified from the Gemini OT version 0.5.
 The OMP home page is http://omp.eao.hawaii.edu/
 
 If you have feedback or any questions on the UKIRT-OT please email
-ukirtot@jach.hawaii.edu
+ukirtot@eao.hawaii.edu
 
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
