@@ -21,11 +21,15 @@
 
 package orac.ukirt.iter;
 
+import java.util.Vector;
+
 import orac.ukirt.inst.SpInstMichelle;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.sp.iter.SpIterEnumeration;
@@ -115,7 +119,7 @@ class SpIterMichelleCalObsEnumeration extends SpIterEnumeration {
  * Iterator for Michelle calibration observations (FLAT and ARC).
  */
 @SuppressWarnings("serial")
-public class SpIterMichelleCalObs extends SpIterObserveBase {
+public class SpIterMichelleCalObs extends SpIterObserveBase implements SpTranslatable {
 
     /** Identifier for a FLAT calibration. */
     public static final int FLAT = 0;
@@ -538,5 +542,27 @@ public class SpIterMichelleCalObs extends SpIterObserveBase {
                 getFilter(), 0);
         _avTable.noNotifySet(SpMichelleCalConstants.ATTR_SAMPLING,
                 getSampling(), 0);
+    }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        if (getCalType() == FLAT) {
+            v.add("set FLAT");
+            v.add("break");
+            v.add("do " + getCount() + " _observe");
+        } else if (getCalType() == ARC) {
+            // TODO: implement translation for this calibration type.
+            throw new SpTranslationNotSupportedException(
+                    "Translation of ARC not yet supported for Michelle");
+        } else {
+            throw new SpTranslationNotSupportedException(
+                    "Michelle calibration type not recognised");
+        }
     }
 }
