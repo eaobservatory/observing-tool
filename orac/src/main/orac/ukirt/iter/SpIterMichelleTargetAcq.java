@@ -27,12 +27,16 @@
 
 package orac.ukirt.iter;
 
+import java.util.Vector;
+
 import orac.ukirt.inst.SpInstMichelle;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.sp.iter.SpIterEnumeration;
@@ -149,7 +153,8 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration {
 }
 
 @SuppressWarnings("serial")
-public class SpIterMichelleTargetAcq extends SpIterObserveBase {
+public class SpIterMichelleTargetAcq extends SpIterObserveBase
+        implements SpTranslatable {
     public static final SpType SP_TYPE = SpType.create(
             SpType.ITERATOR_COMPONENT_TYPE, "instMichelleTargetAcq",
             "Michelle Spectroscopy Target Acquisition");
@@ -567,4 +572,18 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase {
         _avTable.noNotifySet(SpMichelleTargetAcqConstants.ATTR_SAMPLING,
                 getSampling(), 0);
     }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        // Write exec entries.
+        v.add("set TARGETACQ");
+        v.add("breakForMovie");
+    }
+
 }
