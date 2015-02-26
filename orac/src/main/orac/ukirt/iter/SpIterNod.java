@@ -196,6 +196,9 @@ public class SpIterNod extends SpIterComp implements SpTranslatable {
     public void translate(Vector<String> v)
             throws SpTranslationNotSupportedException {
         for (String beam: getNodPatternVector()) {
+            // Write nod instructions.
+            v.add("SET_CHOPBEAM " + beam);
+
             // Translate contents of the nod iterator.
             TranslationUtils.recurse(this.children(), v);
         }
