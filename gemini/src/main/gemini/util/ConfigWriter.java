@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.TimeZone;
 
 public class ConfigWriter {
     private String _timeStamp;
@@ -41,12 +42,17 @@ public class ConfigWriter {
     private boolean useShortTimeStamp = false;
 
     private ConfigWriter() {
-        _timeStamp =
-                (new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date()))
+        TimeZone utc = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        longDateFormat.setTimeZone(utc);
+        shortDateFormat.setTimeZone(utc);
+
+        _timeStamp = longDateFormat.format(new Date())
                         + String.format("%03d", exec_counter++);
-        shortTimeStamp =
-                (new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()))
+        shortTimeStamp = shortDateFormat.format(new Date())
                         + String.format("%03d", exec_counter++);
+
         exec_counter %= 1000;
         _lastConfig = null;
         _counter = 0;
