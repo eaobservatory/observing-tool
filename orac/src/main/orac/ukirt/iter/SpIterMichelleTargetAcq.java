@@ -27,7 +27,9 @@
 
 package orac.ukirt.iter;
 
+import java.io.IOException;
 import java.util.Vector;
+import java.util.Hashtable;
 
 import orac.ukirt.inst.SpInstMichelle;
 
@@ -46,6 +48,7 @@ import gemini.sp.iter.SpIterValue;
 
 import gemini.sp.obsComp.SpInstConstants;
 
+import gemini.util.ConfigWriter;
 import gemini.util.MathUtil;
 
 /**
@@ -581,7 +584,33 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 
     public void translate(Vector<String> v)
             throws SpTranslationNotSupportedException {
+        // Find instrument.
+        SpInstMichelle inst;
+        try {
+            inst = (SpInstMichelle) SpTreeMan.findInstrument(this);
+        } catch (Exception e) {
+            throw new SpTranslationNotSupportedException(
+                "Non-Michelle instrument in scope");
+        }
+        if (inst == null) {
+            throw new SpTranslationNotSupportedException(
+                "No instrument in scope");
+        }
+        Hashtable<String, String> config = inst.getConfigItems();
+
+        // Write new config.
+        try {
+            ConfigWriter.getCurrentInstance().write(config);
+        } catch (IOException ioe) {
+            throw new SpTranslationNotSupportedException(
+                    "Unable to write MichelleCalObs config file");
+        }
+
         // Write exec entries.
+        v.add("loadConfig "
+                + ConfigWriter.getCurrentInstance().getCurrentName());
+        v.add("setrotator " + config.get("posAngle"));
+
         v.add("set TARGETACQ");
         v.add("breakForMovie");
     }

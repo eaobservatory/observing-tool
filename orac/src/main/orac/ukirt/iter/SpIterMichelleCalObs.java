@@ -21,9 +21,13 @@
 
 package orac.ukirt.iter;
 
+import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import orac.ukirt.inst.SpInstMichelle;
+import orac.ukirt.inst.SpDRRecipe;
+
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
@@ -36,6 +40,8 @@ import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
+
+import gemini.util.ConfigWriter;
 
 @SuppressWarnings("serial")
 class SpIterMichelleCalObsEnumeration extends SpIterEnumeration {
@@ -552,6 +558,46 @@ public class SpIterMichelleCalObs extends SpIterObserveBase implements SpTransla
 
     public void translate(Vector<String> v)
             throws SpTranslationNotSupportedException {
+        // Find recipe and instrument.
+        SpDRRecipe recipe = (SpDRRecipe) SpTreeMan.findDRRecipe(this);
+        SpInstMichelle inst;
+        try {
+            inst = (SpInstMichelle) SpTreeMan.findInstrument(this);
+        } catch (Exception e) {
+            throw new SpTranslationNotSupportedException(
+                "Non-Michelle instrument in scope");
+        }
+        if (inst == null) {
+            throw new SpTranslationNotSupportedException(
+                "No instrument in scope");
+        }
+        Hashtable<String, String> config = inst.getConfigItems();
+
+        if (recipe != null) {
+            if (getCalType() == FLAT) {
+                v.add("setHeader GRPMEM "
+                        + (recipe.getFlatInGroup() ? "T" : "F"));
+                v.add("setHeader RECIPE "
+                        + recipe.getFlatRecipeName());
+            } else if (getCalType() == ARC) {
+                v.add("setHeader GRPMEM "
+                        + (recipe.getArcInGroup() ? "T" : "F"));
+                v.add("setHeader RECIPE "
+                        + recipe.getArcRecipeName());
+            }
+        }
+
+        try {
+            ConfigWriter.getCurrentInstance().write(config);
+        } catch (IOException ioe) {
+            throw new SpTranslationNotSupportedException(
+                    "Unable to write MichelleCalObs config file");
+        }
+
+        v.add("loadConfig "
+                + ConfigWriter.getCurrentInstance().getCurrentName());
+        v.add("setrotator " + config.get("posAngle"));
+
         if (getCalType() == FLAT) {
             v.add("set FLAT");
             v.add("break");
