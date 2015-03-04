@@ -50,6 +50,7 @@ import gemini.sp.obsComp.SpInstConstants;
 
 import gemini.util.ConfigWriter;
 import gemini.util.MathUtil;
+import gemini.util.TranslationUtils;
 
 /**
  * Enumerater for the elements of the Observe iterator.
@@ -613,6 +614,9 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 
         v.add("set TARGETACQ");
         v.add("breakForMovie");
+
+        // Copy the load instruction for the original config.
+        TranslationUtils.copyFirstLoadConfig(v, false);
     }
 
 }

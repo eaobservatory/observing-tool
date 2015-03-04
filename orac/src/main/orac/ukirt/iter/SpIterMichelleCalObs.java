@@ -42,6 +42,7 @@ import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 
 import gemini.util.ConfigWriter;
+import gemini.util.TranslationUtils;
 
 @SuppressWarnings("serial")
 class SpIterMichelleCalObsEnumeration extends SpIterEnumeration {
@@ -610,5 +611,8 @@ public class SpIterMichelleCalObs extends SpIterObserveBase implements SpTransla
             throw new SpTranslationNotSupportedException(
                     "Michelle calibration type not recognised");
         }
+
+        // Copy the load instruction for the original config.
+        TranslationUtils.copyFirstLoadConfig(v, false);
     }
 }
