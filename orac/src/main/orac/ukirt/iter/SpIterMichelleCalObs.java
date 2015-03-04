@@ -604,9 +604,8 @@ public class SpIterMichelleCalObs extends SpIterObserveBase implements SpTransla
             v.add("break");
             v.add("do " + getCount() + " _observe");
         } else if (getCalType() == ARC) {
-            // TODO: implement translation for this calibration type.
-            throw new SpTranslationNotSupportedException(
-                    "Translation of ARC not yet supported for Michelle");
+            v.add("set ARC");
+            v.add("do " + getCount() + " _observe");
         } else {
             throw new SpTranslationNotSupportedException(
                     "Michelle calibration type not recognised");
