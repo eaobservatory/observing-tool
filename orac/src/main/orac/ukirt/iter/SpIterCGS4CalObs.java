@@ -44,6 +44,7 @@ import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 
 import gemini.util.ConfigWriter;
+import gemini.util.TranslationUtils;
 
 @SuppressWarnings("serial")
 class SpIterCGS4CalObsEnumeration extends SpIterEnumeration {
@@ -886,14 +887,6 @@ public class SpIterCGS4CalObs extends SpIterObserveBase
         v.add("do " + getCount() + " _observe");
 
         // Finally. move the default config (labelled _1) down
-        for (int i = v.size() - 1; i >= 0; i--) {
-            String firstConfig = v.get(i);
-
-            if (firstConfig.matches("loadConfig .*_1")) {
-                v.remove(i);
-                v.add(firstConfig);
-                break;
-            }
-        }
+        TranslationUtils.copyFirstLoadConfig(v, true);
     }
 }

@@ -44,6 +44,7 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.util.ConfigWriter;
+import gemini.util.TranslationUtils;
 
 import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpInstWFCAM;
@@ -249,17 +250,6 @@ public class SpIterDarkObs extends SpIterObserveBase implements SpTranslatable {
         v.add("do " + getCount() + " _observe");
 
         // Finally move the default config (always _1) down
-        String configPattern = "loadConfig .*_1";
-
-        for (int i = v.size() - 1; i >= 0; i--) {
-            String line = v.get(i);
-
-            if (line.matches(configPattern)) {
-                v.removeElementAt(i);
-                v.add(line);
-
-                break;
-            }
-        }
+        TranslationUtils.copyFirstLoadConfig(v, true);
     }
 }

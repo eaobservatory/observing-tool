@@ -27,6 +27,7 @@ import java.io.IOException;
 
 import gemini.util.ConfigWriter;
 import gemini.util.MathUtil;
+import gemini.util.TranslationUtils;
 
 import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.inst.SpDRRecipe;
@@ -760,14 +761,6 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements
         v.add("do " + getCount() + " _observe");
 
         // Finally move the default config file, numbered _1 down
-        for (int i = v.size() - 1; i >= 0; i--) {
-            String defCon = v.get(i);
-
-            if (defCon.matches("loadConfig .*_1")) {
-                v.remove(i);
-                v.add(defCon);
-                break;
-            }
-        }
+        TranslationUtils.copyFirstLoadConfig(v, true);
     }
 }

@@ -62,4 +62,25 @@ public class TranslationUtils {
             translatable.translateEpilog(v);
         }
     }
+
+    /**
+     * Copy the first loadConfig instruction to the end of the exec.
+     *
+     * @param v the exec to alter
+     * @param removeOriginal true to remove the original loadConfig, false
+     *                       to retain the original entry and add a new one.
+     */
+    public static void copyFirstLoadConfig(Vector<String> v, boolean removeOriginal) {
+        for (int i = v.size() - 1; i >= 0; i--) {
+            String defCon = v.get(i);
+
+            if (defCon.matches("loadConfig .*_1")) {
+                if (removeOriginal) {
+                    v.remove(i);
+                }
+                v.add(defCon);
+                break;
+            }
+        }
+    }
 }

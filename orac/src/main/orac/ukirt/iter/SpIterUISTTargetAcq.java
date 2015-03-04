@@ -50,6 +50,7 @@ import gemini.sp.obsComp.SpInstConstants;
 
 import gemini.util.MathUtil;
 import gemini.util.ConfigWriter;
+import gemini.util.TranslationUtils;
 
 import java.io.IOException;
 
@@ -625,17 +626,6 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase implements
         v.add("breakForMovie");
 
         //Finally move the default config (always _1) down
-        String configPattern = "loadConfig .*_1";
-
-        for (int i = v.size() - 1; i >= 0; i--) {
-            String line = v.get(i);
-
-            if (line.matches(configPattern)) {
-                v.removeElementAt(i);
-                v.add(line);
-
-                break;
-            }
-        }
+        TranslationUtils.copyFirstLoadConfig(v, true);
     }
 }
