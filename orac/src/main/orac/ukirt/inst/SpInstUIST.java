@@ -3079,8 +3079,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         updateReadMode();
         updateReadArea();
 
-        String obsType = "Object";
-        updateDAConf(obsType);
+        updateDAConf("Object");
     }
 
     /**
@@ -3253,32 +3252,28 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
      * Update the daconf for a dark observation
      */
     public void updateDADarkConf() {
-        String obsType = "Dark";
-        updateDAConf(obsType);
+        updateDAConf("Dark");
     }
 
     /**
      * Update the daconf for a flat observation
      */
     public void updateDAFlatConf() {
-        String obsType = "Flat";
-        updateDAConf(obsType);
+        updateDAConf("Flat");
     }
 
     /**
      * Update the daconf for an arc observation
      */
     public void updateDAArcConf() {
-        String obsType = "Arc";
-        updateDAConf(obsType);
+        updateDAConf("Arc");
     }
 
     /**
      * Update the daconf for an Object/Sky observatioon
      */
     public void updateDAObjConf() {
-        String obsType = "Object";
-        updateDAConf(obsType);
+        updateDAConf("Object");
         _avTable.set(ATTR_MODE, W_mode);
         _avTable.set(ATTR_NREADS, W_nreads);
         _avTable.set(ATTR_READ_INTERVAL, W_readInterval);
