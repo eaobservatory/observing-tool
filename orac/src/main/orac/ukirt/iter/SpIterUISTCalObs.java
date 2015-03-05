@@ -66,7 +66,7 @@ class SpIterUISTCalObsEnumeration extends SpIterEnumeration {
     protected SpIterStep _thisFirstElement() {
         SpIterUISTCalObs ico = (SpIterUISTCalObs) _iterComp;
 
-        // Only need 16 items now (was 25) RDK
+        // Only need 16 items now (was 25)
         _values = new SpIterValue[16];
 
         ico.updateDAConf();
@@ -77,17 +77,14 @@ class SpIterUISTCalObsEnumeration extends SpIterEnumeration {
                 String.valueOf(ico.W_actExpTime));
 
         // Renumbered _values indexes to be contiguous after above items
-        // removed by RDK
         _values[3] = new SpIterValue(SpUISTCalConstants.ATTR_NREADS,
                 String.valueOf(ico.W_nreads));
 
         // Renumbered _values indexes to be contiguous after above items
-        // removed by RDK
         _values[4] = new SpIterValue(SpUISTCalConstants.ATTR_READ_INTERVAL,
                 String.valueOf(ico.W_readInterval));
 
         // Renumbered _values indexes to be contiguous after above items
-        // removed by RDK
         _values[5] = new SpIterValue(SpUISTCalConstants.ATTR_DUTY_CYCLE,
                 String.valueOf(ico.W_dutyCycle));
         _values[6] = new SpIterValue(SpUISTCalConstants.ATTR_CHOP_FREQUENCY,
@@ -272,7 +269,6 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements
 
     }
 
-    // End of added by RDK
 
     /**
      * Set the exposure time OT
@@ -568,7 +564,6 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements
         return observationTime;
     }
 
-    // End of added by RDK
     /**
      * use Defaults - reset values so that defaults will get used
      */
@@ -597,13 +592,11 @@ public class SpIterUISTCalObs extends SpIterObserveBase implements
             inst.setFlatExpTime(getExpTimeOT());
             String coaddsString = getCoaddsString();
             inst.setFlatCoadds(Integer.valueOf(coaddsString));
-            // End of added by RDK
             inst.updateDAFlatConf();
 
         } else if (getCalType() == ARC) {
             inst.setArcExpTime(getExpTimeOT());
             inst.setArcCoadds(Integer.valueOf(getCoaddsString()));
-            // End of added by RDK
             inst.updateDAArcConf();
         }
 

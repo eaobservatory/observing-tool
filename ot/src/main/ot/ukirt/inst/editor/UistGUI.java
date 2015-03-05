@@ -84,14 +84,12 @@ public class UistGUI extends JPanel {
     JLabel jLabel25 = new JLabel();
 
     // Added jLabel26, jLabel27, and jLabel28 for Readout, Mode, and
-    // Area labels for testing by RDK 30 Dec 2002
     JLabel jLabel26 = new JLabel();
     JLabel jLabel27 = new JLabel();
     JLabel jLabel28 = new JLabel();
 
     TextBoxWidgetExt dataAcq_exposureTime = new TextBoxWidgetExt();
 
-    // Commented for testing by RDK 30 Dec 2002
     TextBoxWidgetExt dataAcq_actualExposureTime = new TextBoxWidgetExt();
     TextBoxWidgetExt dataAcq_actualObservationTime = new TextBoxWidgetExt();
     CommandButtonWidgetExt dataAcq_defaultExpTime =
@@ -104,7 +102,6 @@ public class UistGUI extends JPanel {
     TextBoxWidgetExt imaging_bandpass = new TextBoxWidgetExt();
     TextBoxWidgetExt spectroscopy_order = new TextBoxWidgetExt();
 
-    // Added imaging_pupilCamera for testing by RDK 30 Dec 2002
     CheckBoxWidgetExt imaging_pupilCamera = new CheckBoxWidgetExt();
     GridBagLayout gridBagLayout3 = new GridBagLayout();
     JLabel jLabel19 = new JLabel();
@@ -175,8 +172,6 @@ public class UistGUI extends JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel2.setForeground(Color.black);
         jLabel2.setToolTipText("");
-        // Changed text in jLabel2 from Camera/platescale to Plate scale
-        // for testing by RDK 30 Dec 2002
         jLabel2.setText("Plate scale");
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel3.setForeground(Color.black);
@@ -188,7 +183,6 @@ public class UistGUI extends JPanel {
         imaging_fieldOfView.setBackground(new Color(220, 220, 220));
         imaging_fieldOfView.setBorder(BorderFactory.createLoweredBevelBorder());
         imaging_fieldOfView.setEditable(false);
-        // Added imaging_pupilCamera for testing by RDK 30 Dec 2002
         imaging_pupilCamera.setText("Pupil imaging mode");
         imaging_pupilCamera.setHorizontalAlignment(SwingConstants.RIGHT);
         imaging_pupilCamera.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -364,11 +358,6 @@ public class UistGUI extends JPanel {
         imaging_and_polarimetry_maskLabel.setForeground(Color.black);
         imaging_and_polarimetry_maskLabel.setText("Slit mask");
 
-        // Incremented by 1 row numbers of all dataAcqPanel items to make room
-        // for Readout Mode and Readout Area labels for testing by
-        // RDK 30 Dec 2002
-        // Then rearranged to put exposure time stuff at top of panel and
-        // read mode/area below that
         jPanel2.add(dataAcq_defaultExpTime, new GridBagConstraints(
                 4, 4, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -453,13 +442,10 @@ public class UistGUI extends JPanel {
         jPanel1.add(polarimetry, null);
         this.add(modePanel, BorderLayout.CENTER);
 
-        // Added imaging_pupilCamera for testing by RDK 30 Dec 2002
         imagingPanel.add(imaging_pupilCamera, new GridBagConstraints(
                 0, 0, 2, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
-        // Incremented by 1 row numbers of all imagingPanel items to make room
-        // for imaging_pupilCamera for testing by RDK 30 Dec 2002
         imagingPanel.add(jLabel2, new GridBagConstraints(
                 0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
@@ -532,8 +518,6 @@ public class UistGUI extends JPanel {
         this.add(jPanel2, BorderLayout.SOUTH);
         modePanel.add(imagingPanel, "imagingPanel");
 
-        // Incremented by 1 row numbers of all spectroscopyPanel items to make
-        // room for spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
         spectroscopyPanel.add(jLabel12b, new GridBagConstraints(
                 0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE,

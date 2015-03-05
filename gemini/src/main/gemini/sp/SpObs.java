@@ -371,7 +371,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
 
         if (obsComp != null) {
             // Add break to sequence only if instrument is not WFCAM
-            // - RDK 25 Aug 2005 //
             if (!"WFCAM".equalsIgnoreCase(instName)) {
                 v.add(breakString);
             }
@@ -562,7 +561,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
         v.add("-ready");
 
         // Add breaks to sequence only if instrument is not WFCAM
-        // - RDK 25 Aug 2005
         if (!"WFCAM".equalsIgnoreCase(instName)) {
             addBreak(v);
         }

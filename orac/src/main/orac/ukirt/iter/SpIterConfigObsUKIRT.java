@@ -57,13 +57,11 @@ public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements
     public SpInstObsComp getInstrumentItem() {
         SpItem _baseItem = parent();
 
-        // Added by RDK
         if (_baseItem == null) {
             return null;
         } else {
             return SpTreeMan.findInstrument(_baseItem);
         }
-        //End of Added by RDK
     }
 
     /**
