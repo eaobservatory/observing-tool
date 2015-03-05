@@ -574,19 +574,32 @@ public class SpIterMichelleCalObs extends SpIterObserveBase implements SpTransla
         }
         Hashtable<String, String> config = inst.getConfigItems();
 
-        if (recipe != null) {
-            if (getCalType() == FLAT) {
+        if (getCalType() == FLAT) {
+            if (recipe != null) {
                 v.add("setHeader GRPMEM "
                         + (recipe.getFlatInGroup() ? "T" : "F"));
                 v.add("setHeader RECIPE "
                         + recipe.getFlatRecipeName());
-            } else if (getCalType() == ARC) {
+            }
+
+            config.put("type", "flat");
+            config.put("flatSource", getFlatSource());
+            config.put("sampling", getSampling());
+
+        } else if (getCalType() == ARC) {
+            if (recipe != null) {
                 v.add("setHeader GRPMEM "
                         + (recipe.getArcInGroup() ? "T" : "F"));
                 v.add("setHeader RECIPE "
                         + recipe.getArcRecipeName());
             }
+
+            config.put("type", "arc");
+            config.put("filter", inst.getArcFilter());
         }
+
+        config.put("exposureTime", Double.toString(getExposureTime()));
+        config.put("observationTime", getObservationTime());
 
         try {
             ConfigWriter.getCurrentInstance().write(config);

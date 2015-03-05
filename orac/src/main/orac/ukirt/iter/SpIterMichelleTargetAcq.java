@@ -599,6 +599,16 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
         }
         Hashtable<String, String> config = inst.getConfigItems();
 
+        config.put("coadds", getCoaddsString());
+        config.put("diserser", getDisperser());
+        config.put("exposureTime", getExposureTimeString());
+        config.put("filter", getFilter());
+        config.put("observationTime", getObservationTime());
+        config.put("pixelFOV", getPixelFOVString());
+        config.put("sampling", getSampling());
+        config.put("scienceArea", getScienceAreaString());
+        config.put("type", "TARGETACQ");
+
         // Write new config.
         try {
             ConfigWriter.getCurrentInstance().write(config);
