@@ -28,8 +28,6 @@
 <!-- Typical Telescope Parameters -->
 <xsd:element name="maxElevation"         type="toml:elevationLimits"/>
 <xsd:element name="minElevation"         type="toml:elevationLimits"/>
-<xsd:element name="chopAngle"            type="toml:chopAngleLimits"/>
-<xsd:element name="chopThrow"            type="toml:chopThrowLimits"/>
 
 <!-- Typical Instrument/Observing parameters -->
 <xsd:element name="coadds"              type="xsd:positiveInteger"/>
