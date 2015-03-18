@@ -162,9 +162,7 @@ public final class EdCompInstWFCAM extends EdCompInstBase implements
      */
     public void setup(SpItem spItem) {
         _instWFCAM = (SpInstWFCAM) spItem;
-        // Added by RDK
         _instWFCAM.avTableUpdate();
-        //Edn of added by RDK
         haveInitialised = false;
 
         super.setup(spItem);

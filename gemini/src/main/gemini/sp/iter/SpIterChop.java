@@ -19,9 +19,14 @@
 
 package gemini.sp.iter;
 
+import gemini.sp.SpItem;
 import gemini.sp.SpType;
 import gemini.sp.SpFactory;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
+import gemini.util.TranslationUtils;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -87,7 +92,7 @@ class SpIterChopEnumeration extends SpIterEnumeration {
  *         gemini/sp/iter/SpIterConfigBase.java)
  */
 @SuppressWarnings("serial")
-public class SpIterChop extends SpIterComp {
+public class SpIterChop extends SpIterComp implements SpTranslatable {
     /**
      * Records a vector of chop throws.
      *
@@ -348,6 +353,31 @@ public class SpIterChop extends SpIterComp {
 
         } else {
             super.processXmlAttribute(elementName, attributeName, value);
+        }
+    }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+        v.add("-CHOP ChopOff");
+        v.add("SET_CHOPBEAM MIDDLE");
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        for (int i = 0; i < getStepCount(); i++) {
+            // Write chop instructions.
+            v.add("-CHOP ChopOff");
+            v.add("SET_CHOPTHROW " + getThrow(i));
+            v.add("SET_CHOPPA " + getAngle(i));
+            v.add("-DEFINE_BEAMS " + getAngle(i) + " " + getThrow(i));
+            v.add("-CHOP ChopOn");
+            v.add("-CHOP_EXTERNAL");
+            v.add("SET_CHOPBEAM A");
+
+            // Translate contents of the chop iterator.
+            TranslationUtils.recurse(this.children(), v);
         }
     }
 }

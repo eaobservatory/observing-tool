@@ -29,19 +29,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.TimeZone;
 
 public class ConfigWriter {
     private String _timeStamp;
+    private String shortTimeStamp;
     private int _counter;
     private static ConfigWriter _writer;
     private String _instName = "none";
     private Hashtable<String, String> _lastConfig = null;
     private static int exec_counter = 0;
+    private boolean useShortTimeStamp = false;
 
     private ConfigWriter() {
-        _timeStamp =
-                (new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date()))
+        TimeZone utc = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        longDateFormat.setTimeZone(utc);
+        shortDateFormat.setTimeZone(utc);
+
+        _timeStamp = longDateFormat.format(new Date())
                         + String.format("%03d", exec_counter++);
+        shortTimeStamp = shortDateFormat.format(new Date())
+                        + String.format("%03d", exec_counter++);
+
         exec_counter %= 1000;
         _lastConfig = null;
         _counter = 0;
@@ -59,11 +70,15 @@ public class ConfigWriter {
     }
 
     public String getCurrentName() {
-        return _instName + "_" + _timeStamp + "_" + _counter;
+        return _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + "_" + _counter;
     }
 
     public String getTelFile() {
-        return _instName + "_" + _timeStamp + ".xml";
+        return _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + ".xml";
     }
 
     public String getExecName() {
@@ -75,7 +90,9 @@ public class ConfigWriter {
         }
 
         return (execPath + File.separator
-                + _instName + "_" + _timeStamp + ".exec");
+                + _instName + "_"
+                + (useShortTimeStamp ? shortTimeStamp : _timeStamp)
+                + ".exec");
     }
 
     public void writeTelFile(String xml) throws IOException {
@@ -110,6 +127,14 @@ public class ConfigWriter {
 
             // First get the instrument from the hashtable
             _instName = table.get("instrument");
+
+            // The .conf file names were "too long" with the full name
+            // of "Michelle" included in them, so we need to omit the
+            // millisecond part of the filenames.  Unfortunately we
+            // cannot just abbreviate the instrument name as apparently
+            // that doesn't work.
+            useShortTimeStamp = _instName.equals("Michelle");
+
             _counter++;
 
             String confDir = System.getProperty("CONF_PATH");
@@ -134,12 +159,17 @@ public class ConfigWriter {
 
     private void write(BufferedWriter w, Hashtable<String, String> t)
             throws IOException {
+        if (t.containsKey("instrument")) {
+            w.write("instrument = " + t.get("instrument"));
+            w.newLine();
+        }
+
         Enumeration<String> e = t.keys();
 
         while (e.hasMoreElements()) {
             String key = e.nextElement();
 
-            if (!key.startsWith("instAper")) {
+            if (! key.startsWith("instAper") && ! key.equals("instrument")) {
                 w.write(key + " = " + t.get(key));
                 w.newLine();
             }

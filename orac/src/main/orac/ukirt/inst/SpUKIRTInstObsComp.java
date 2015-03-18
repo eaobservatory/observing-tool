@@ -161,7 +161,6 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp {
     public void setInstAper() {
     }
 
-    // Added by RDK
     /**
      * Update attribute-value table.
      * Each instrument should provide its own implementation.
@@ -169,7 +168,6 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp {
     public void avTableUpdate() {
     }
 
-    // End of added by RDK
 
     /**
      * Get the instrument aperture X value

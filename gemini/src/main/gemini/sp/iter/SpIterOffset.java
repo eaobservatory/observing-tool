@@ -463,6 +463,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
         // If this has a microstep iterator child, we will delegate to it and
         // not put offsets here
         Enumeration<SpItem> children = this.children();
+        String instName = SpTreeMan.findInstrument(this).getTitle();
 
         boolean hasMicrostepChild = false;
 
@@ -500,8 +501,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
 
         } else {
             for (int i = 0; i < _posList.size(); i++) {
-                if ("WFCAM".equalsIgnoreCase(
-                        SpTreeMan.findInstrument(this).getTitle())) {
+                if ("WFCAM".equalsIgnoreCase(instName)) {
                     // Add CASU pipeline headers
                     v.add("title jitter " + (i + 1));
                     v.add("-setHeader NJITTER " + _posList.size());
@@ -523,6 +523,10 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
 
                 String instruction = "offset " + xAxis + " " + yAxis;
                 v.add(instruction);
+
+                if ("Michelle".equalsIgnoreCase(instName)) {
+                    v.add("-WAIT ALL");
+                }
 
                 children = this.children();
 

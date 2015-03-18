@@ -108,9 +108,7 @@ public class IterUISTCalObsGUI extends JPanel {
         jLabel6.setForeground(Color.black);
         jLabel6.setToolTipText("");
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
-        // Next line was for observationTime, switched to coadds by RDK
         coadds.setBorder(BorderFactory.createLoweredBevelBorder());
-        // End of switch by RDK
         repeatComboBox.setPreferredSize(new Dimension(50, 26));
         repeatComboBox.setAutoscrolls(true);
         this.setMinimumSize(new Dimension(280, 206));
@@ -151,21 +149,17 @@ public class IterUISTCalObsGUI extends JPanel {
         calType.setBackground(Color.white);
         arc_source.setBackground(Color.white);
         flat_source.setBackground(Color.white);
-        // Next 3 lines were for coadds, switched to observationTime by RDK
         observationTime.setBackground(new Color(220, 220, 220));
         observationTime.setBorder(BorderFactory.createLoweredBevelBorder());
         observationTime.setEditable(false);
-        // End of switch by RDK
         this.add(repeatComboBox, new GridBagConstraints(
                 2, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
                 new Insets(5, 5, 5, 5), 0, 0));
-        // Next line was for observationTime, switched by RDK to coadds
         this.add(coadds, new GridBagConstraints(
                 2, 6, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
-        // End of switch by RDK
         this.add(jLabel6, new GridBagConstraints(
                 0, 4, 2, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
@@ -186,13 +180,10 @@ public class IterUISTCalObsGUI extends JPanel {
                 3, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
-        // jLabel2 switched to be in row 6 because it goes with observationTime
-        // (RDK)
         this.add(jLabel2, new GridBagConstraints(
                 3, 7, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
-        // End of switch by RDK
         this.add(jLabel9, new GridBagConstraints(
                 0, 0, 2, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
@@ -219,7 +210,6 @@ public class IterUISTCalObsGUI extends JPanel {
                 0, 8, 4, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 0, 5), 0, 0));
-        // Positions of jLabel1 and jLabel10 switched by RDK
         this.add(jLabel10, new GridBagConstraints(
                 0, 6, 2, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
@@ -228,13 +218,10 @@ public class IterUISTCalObsGUI extends JPanel {
                 0, 7, 2, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(5, 5, 5, 5), 0, 0));
-        // End of change by RDK
-        // Next line was for coadds, switched by RDK to observationTime
         this.add(observationTime, new GridBagConstraints(
                 2, 7, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
-        // End of switch by RDK
         arcPanel.add(arc_source, new GridBagConstraints(
                 1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,

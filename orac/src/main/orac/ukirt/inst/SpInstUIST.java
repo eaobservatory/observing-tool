@@ -56,10 +56,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static String ATTR_SOURCE_MAG = "source_mag";
     public static String ATTR_POLARIMETRY = "polarimetry";
 
-    // Added by RDK
     public static String ATTR_PUPIL_IMAGING = "pupil_imaging";
 
-    // End of added by RDK
     public static String ATTR_IMAGER = "imager";
     public static String ATTR_MASK = "mask";
     public static String ATTR_MASK_WIDTH = "maskWidth";
@@ -88,13 +86,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static String ATTR_OBSERVATION_TIME = "observationTime";
     public static String ATTR_EXPTIME_OT = "expTimeOT";
 
-    // Added by RDK
     public static String ATTR_READOUT_OT = "readoutOT";
     public static String ATTR_READMODE = "readMode";
     public static String ATTR_DACONF = "DAConf";
     public static String ATTR_DACONF_MINEXPT = "DAConfMinExpT";
 
-    // End of added by RDK
     public static String NO_VALUE = "none";
     public static final int CAMERA_IMAGING = 0;
     public static final int CAMERA_SPECTROSCOPY = 1;
@@ -115,11 +111,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static String[] POLARIMETRY;
     public static String DEFAULT_POLARIMETRY;
 
-    // Added by RDK
     public static String[] PUPIL;
     public static String DEFAULT_PUPIL_IMAGING;
 
-    // End of added by RDK
     public static String DEFAULT_SOURCE_MAG;
     public static String DEFAULT_PIXEL_FOV;
     public static String DEFAULT_SCIENCE_AREA;
@@ -161,7 +155,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static double SPECT_FOCAL_LENGTH;
     public static double[] SPECT_FIELD_OF_VIEW;
     public static String[] INSTRUMENT_APER; // Array of inst aper values
-    // Added by RDK
 
     public static String[] DISPERSER_CHOICES;
     public static String[] DISPERSER_CHOICES_POL;
@@ -170,7 +163,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static String[] DISPERSER_CHOICES_POL_ACQ;
     public static String[] DISPERSER_CHOICES_IFU_ACQ;
 
-    // End of added by RDK
     public static LookUpTable DISPERSERS;;
     public static LookUpTable SPECTFILTERS;
     public static String DEFAULT_DISPERSER;
@@ -218,27 +210,21 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public static String DEFAULT_MODE;
     public static double DEFAULT_EXPTIME;
 
-    // Added by RDK
     public static String DEFAULT_AREA;
     public static int DEFAULT_COADDS;
     public static int FLAT_COADDS_IMAGING;
     public static int FLAT_COADDS_SPECT;
     public static int ARC_COADDS;
 
-    // End of added by RDK
     public static double ARC_EXPTIME;
     public static double EXPOSURE_OVERHEAD = 0.01;
     public static double READ_INTERVAL;
 
-    // Added by RDK
     public static LookUpTable MODES_OT;
     public static String MIN_MAG_TRAGET_ACQ;
-    // End of added by RDK
 
-    // Added by RDK
     int flatCoadds;
     int arcCoadds;
-    // End of added by RDK
 
     double flatExposureTime;
     double arcExposureTime;
@@ -314,9 +300,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
         attr = ATTR_MASK;
         int mi = IMAGERS.indexInColumn(DEFAULT_IMAGER, 0);
-        // Added by RDK
         String mask = IMAGERS.elementAt(mi, 3);
-        // End of added by RDK
         _avTable.noNotifySet(attr, mask, 0);
         setInstAper();
 
@@ -345,12 +329,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         value = DEFAULT_POLARIMETRY;
         _avTable.noNotifySet(attr, value, 0);
 
-        // Added by RDK
         attr = ATTR_PUPIL_IMAGING;
         value = DEFAULT_PUPIL_IMAGING;
         _avTable.noNotifySet(attr, value, 0);
 
-        // End of added by RDK
 
         attr = ATTR_FILTER;
         value = DEFAULT_FILTERS1;
@@ -392,7 +374,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         value = DEFAULT_MODE;
         _avTable.noNotifySet(attr, value, 0);
 
-        //Added by RDK
         attr = ATTR_READMODE;
         value = DEFAULT_MODE;
         _avTable.noNotifySet(attr, value, 0);
@@ -422,9 +403,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         attr = ATTR_NREADS;
         _avTable.noNotifySet(attr, "0", 0);
 
-        // Added by RDK
         setCoadds(DEFAULT_COADDS);
-        // End of added by RDK
 
         attr = ATTR_DUTY_CYCLE;
         _avTable.noNotifySet(attr, "0.0", 0);
@@ -474,7 +453,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "default_camera")) {
                     DEFAULT_CAMERA = instInfo.getValue();
-                    // Added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo,
                         "default_pupil_imaging")) {
@@ -482,7 +460,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "pupil")) {
                     PUPIL = instInfo.getValueAsArray();
-                    // End of added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "default_source_mag")) {
                     DEFAULT_SOURCE_MAG = instInfo.getValue();
@@ -611,7 +588,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "default_arc_source")) {
                     DEFAULT_ARC_SOURCE = instInfo.getValue();
-                    // Added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "disperser_choices")) {
                     DISPERSER_CHOICES = instInfo.getValueAsArray();
@@ -632,7 +608,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
                 } else if (InstCfg.matchAttr(instInfo,
                         "disperser_choices_pol_acq")) {
                     DISPERSER_CHOICES_POL_ACQ = instInfo.getValueAsArray();
-                    // End of added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "dispersers")) {
                     DISPERSERS = instInfo.getValueAsLUT();
@@ -751,7 +726,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "default_exptime")) {
                     DEFAULT_EXPTIME = Double.valueOf(instInfo.getValue());
-                    // Added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "default_area")) {
                     DEFAULT_AREA = instInfo.getValue();
@@ -768,7 +742,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "arc_coadds")) {
                     ARC_COADDS = Integer.valueOf(instInfo.getValue());
-                    // End of added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "arc_exptime")) {
                     ARC_EXPTIME = Double.valueOf(instInfo.getValue());
@@ -781,14 +754,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "read_interval")) {
                     READ_INTERVAL = Double.valueOf(instInfo.getValue());
-                    // Added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "modes_ot")) {
                     MODES_OT = instInfo.getValueAsLUT();
 
                 } else if (InstCfg.matchAttr(instInfo, "min_mag_target_acq")) {
                     MIN_MAG_TRAGET_ACQ = instInfo.getValue();
-                    // End of added by RDK
 
                 } else if (InstCfg.matchAttr(instInfo, "non_ijjh_masks")) {
                     NON_IJJH_MASKS = new TreeSet<String>();
@@ -1017,10 +988,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
      */
     public void initInstance() {
         // Initialise instance variables and initial config
-        // Added by RDK
         flatCoadds = DEFAULT_COADDS;
         arcCoadds = DEFAULT_COADDS;
-        // End of added by RDK
         useDefaultAcquisition();
         setAcquisition();
     }
@@ -1070,7 +1039,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public void setImager(String imager) {
         _avTable.set(ATTR_IMAGER, imager);
 
-        // Added by RDK 19 Nov 2003: When we change plate scale, check the
+        // When we change plate scale, check the
         // existing filter to make sure it exists in the filter table for
         // the new plate scale. If so, call setFilter with the current value
         // to re-set all filter-dependent values. If the current filter does
@@ -1115,7 +1084,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         _avTable.set(ATTR_PIXEL_SCALE, pixelScale);
     }
 
-    // Added by RDK
     /**
      * Set the pixel scale
      */
@@ -1123,13 +1091,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         _avTable.set(ATTR_PIXEL_SCALE, pixelScale);
     }
 
-    // End of added by RDK
 
     /**
      * Get the pixel scale
      */
     public double getPixelScale() {
-        // Changed by RDK
         double ps;
 
         if (isPupilImaging()) {
@@ -1141,7 +1107,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
             ps = Double.valueOf(IMAGERS.elementAt(imindex, 0));
             setPixelScale(ps);
         }
-        // End of changed by RDK
 
         return ps;
     }
@@ -1243,7 +1208,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
      * Get the list of dispersers
      */
     public String[] getDisperserList() {
-        // Changed by RDK
         if (isPolarimetry()) {
             return DISPERSER_CHOICES_POL;
         } else if (isIFU()) {
@@ -1251,7 +1215,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         } else {
             return DISPERSER_CHOICES;
         }
-        // End of changed by RDK
     }
 
     /**
@@ -1273,7 +1236,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
             }
 
         } else {
-            // Added by RDK
             if (isPolarimetry()) {
                 return DISPERSER_CHOICES_POL[0];
 
@@ -1291,7 +1253,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
                 return DISPERSER_CHOICES[0];
             }
-            // End of added by RDK
         }
     }
 
@@ -1518,13 +1479,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
                     mask = POL_MASK_IMAGING[0];
 
                 } else {
-                    // Added by RDK
                     if (isPupilImaging()) {
                         mask = PUPIL[3];
                     } else {
                         mask = IMAGERS.elementAt(getImagerIndex(), 3);
                     }
-                    // End of added by RDK
                 }
             } else {
                 if (isPolarimetry()) {
@@ -1708,14 +1667,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public int getBroadFilterSet() {
         int filterSet = 1;
 
-        // Added by RDK
         if (isPupilImaging()) {
             filterSet = Integer.valueOf(PUPIL[1]);
         } else {
             filterSet = Integer.valueOf(
                     IMAGERS.elementAt(getImagerIndex(), 1));
         }
-        // End of added by RDK
 
         return filterSet;
     }
@@ -1726,14 +1683,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public int getNarrowFilterSet() {
         int filterSet = 1;
 
-        // Added by RDK
         if (isPupilImaging()) {
             filterSet = Integer.valueOf(PUPIL[2]);
         } else {
             filterSet = Integer.valueOf(
                     IMAGERS.elementAt(getImagerIndex(), 2));
         }
-        // End of added by RDK
 
         return filterSet;
     }
@@ -2170,7 +2125,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return (getPolarimetry().equalsIgnoreCase("yes"));
     }
 
-    // Added by RDK
 
     /**
      * Set pupil_imaging to yes or no
@@ -2200,7 +2154,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return (getPupilImaging().equalsIgnoreCase("yes"));
     }
 
-    // End of added by RDK
 
     /**
      * Set the spectral coverage
@@ -2472,7 +2425,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         useDefaultResolution();
     }
 
-    // Added by RDK
     /**
      * Use default DAConf
      */
@@ -2601,9 +2553,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         setReadArea(rows, cols);
     }
 
-    // End of added by RDK
 
-    // Added by RDK
     /**
      * Get the readout OT
      */
@@ -2612,7 +2562,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return readoutOT;
     }
 
-    // End of added by RDK
 
     /**
      * Use default readout
@@ -2635,14 +2584,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         String readout = _avTable.get(ATTR_READOUT);
 
         if (readout == null) {
-            // Added by RDK
             double et = getExpTimeOT();
             // Limit this to the allowed range
             et = limitExpTimeOT(et);
             String DAConf = getDAConf(et);
             int ri = MODES_OT.indexInColumn(DAConf, 0);
             readout = MODES_OT.elementAt(ri, 2);
-            // End of added by RDK
             setReadout(readout);
         }
 
@@ -2722,7 +2669,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return readoutChoices;
     }
 
-    // Added by RDK
 
     /**
      * Get the read mode choices
@@ -2815,7 +2761,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         }
     }
 
-    // End of added by RDK
 
     /**
      * Get the chop frequency
@@ -2930,7 +2875,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         _avTable.rm(ATTR_EXPTIME_OT);
     }
 
-    // Added by RDK
     /**
      * Use default number of coadds
      */
@@ -2938,7 +2882,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         setCoadds(DEFAULT_COADDS);
     }
 
-    // End of added by RDK
 
     /**
      * Set the actual observation time in seconds
@@ -2947,7 +2890,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         _avTable.set(ATTR_OBSERVATION_TIME, obsTime);
     }
 
-    // Added by RDK
     /**
      * Get the default flat number of coadds
      */
@@ -2971,7 +2913,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return ac;
     }
 
-    // End of added by RDK
 
     /**
      * Get the actual observation time in seconds
@@ -2990,7 +2931,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return obsTime;
     }
 
-    // Added by RDK
     /**
      * Set the flat number of coadds
      */
@@ -3019,7 +2959,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return arcCoadds;
     }
 
-    // End of added by RDK
 
     /**
      * Get the exposure time in seconds as a String
@@ -3079,8 +3018,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         updateReadMode();
         updateReadArea();
 
-        String obsType = "Object";
-        updateDAConf(obsType);
+        updateDAConf("Object");
     }
 
     /**
@@ -3166,7 +3104,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
             // Get flat exposure time from DISPERSERS LUT
             fet = Double.valueOf(DISPERSERS.elementAt(getDisperserIndex(), 6));
             // Need to multiply this by factor associated with mask
-            // Added at request of CJD by RDK 4 Apr 2003
             String mask = getMask();
             int maskNo = MASKS.indexInColumn(mask, 0);
             double etm = Double.valueOf(MASKS.elementAt(maskNo, 3));
@@ -3183,7 +3120,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     public double getDefaultArcExpTime() {
         double aet = ARC_EXPTIME;
         // Need to multiply this by factor associated with mask
-        // Added at request of CJD by RDK 4 Apr 2003
         String mask = getMask();
         int maskNo = MASKS.indexInColumn(mask, 0);
         double etm = Double.valueOf(MASKS.elementAt(maskNo, 3));
@@ -3223,7 +3159,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return dcsr;
     }
 
-    // Added by RDK
     public String getDAConf(double et) {
         String readMode = getReadMode();
         int ra[] = getReadArea();
@@ -3247,38 +3182,33 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         return null;
     }
 
-    // End of added by RDK
 
     /**
      * Update the daconf for a dark observation
      */
     public void updateDADarkConf() {
-        String obsType = "Dark";
-        updateDAConf(obsType);
+        updateDAConf("Dark");
     }
 
     /**
      * Update the daconf for a flat observation
      */
     public void updateDAFlatConf() {
-        String obsType = "Flat";
-        updateDAConf(obsType);
+        updateDAConf("Flat");
     }
 
     /**
      * Update the daconf for an arc observation
      */
     public void updateDAArcConf() {
-        String obsType = "Arc";
-        updateDAConf(obsType);
+        updateDAConf("Arc");
     }
 
     /**
      * Update the daconf for an Object/Sky observatioon
      */
     public void updateDAObjConf() {
-        String obsType = "Object";
-        updateDAConf(obsType);
+        updateDAConf("Object");
         _avTable.set(ATTR_MODE, W_mode);
         _avTable.set(ATTR_NREADS, W_nreads);
         _avTable.set(ATTR_READ_INTERVAL, W_readInterval);
@@ -3292,8 +3222,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
     /**
      * Update the daconf for the given obsType
      */
-
-    // New version of updateDAConf added by RDK
     public void updateDAConf(String obsType) {
         int ri; /* lookup row number */
         W_chopFrequency = "0.0";
@@ -3316,17 +3244,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
 
         } else if (obsType.equalsIgnoreCase("FLAT")) {
             expTime = getFlatExpTime();
-            // Added by RDK
             //Get the number of coadds
             W_coadds = getFlatCoadds();
-            // End of added by RDK
 
         } else if (obsType.equalsIgnoreCase("ARC")) {
             expTime = getArcExpTime();
-            // Added by RDK
             //Get the number of coadds
             W_coadds = getArcCoadds();
-            // End of added by RDK
         }
 
         // Perform DACONFS lookup
@@ -3423,16 +3347,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
      */
     public int[] getReadArea() {
         int ra[] = new int[2];
-        // Added by RDK
         String[] split = getReadAreaString().split("x");
         ra[0] = Integer.parseInt(split[0]);
         ra[1] = Integer.parseInt(split[1]);
-        // End of Added by RDK
 
         return ra;
     }
 
-    //Added by RDK
     /**
      * Update the read area
      */
@@ -3471,7 +3392,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         _avTable.set(ATTR_READAREA, rows + "x" + cols);
     }
 
-    // End of Added by RDK
 
     /**
      * Set the readout area string
@@ -3492,11 +3412,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
      */
     public void useDefaultAcquisition() {
         useDefaultExpTimeOT();
-        // Added by RDK
         useDefaultCoadds();
         double et = getExpTimeOT();
         changeExpTimeOT(et);
-        // End of added by RDK
     }
 
     /**
@@ -3507,7 +3425,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         updateDAObjConf();
     }
 
-    // Added by RDK
     /**
      * Update the attribute-value table.
      *
@@ -3574,13 +3491,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp {
         } else if (_avTable.get(ATTR_VERSION).equals("3")) {
             // This was added to compensate for a bug in convertUISTSp.pl
             // wherein the minumum exposure time attribute was incorrectly
-            // specified as DAConfMinExpTime. (RDK)
+            // specified as DAConfMinExpTime.
             String DAConf = _avTable.get(ATTR_DACONF);
             setDAConfMinExpT(DAConf);
         }
     }
 
-    // End of added by RDK
 
     /**
      * This method gets the acquisition time.

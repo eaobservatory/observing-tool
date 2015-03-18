@@ -29,11 +29,15 @@ package orac.ukirt.iter;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
+
+import gemini.util.TranslationUtils;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -73,7 +77,7 @@ class SpIterNodEnumeration extends SpIterEnumeration {
  * @author modified as Nod Iterator by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SpIterNod extends SpIterComp {
+public class SpIterNod extends SpIterComp implements SpTranslatable {
     public static final String ATTR_NOD_PATTERN = "nodPattern";
     public static String CHOP_BEAM_A = "A";
     public static String CHOP_BEAM_B = "B";
@@ -181,5 +185,22 @@ public class SpIterNod extends SpIterComp {
         }
 
         return result;
+    }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        for (String beam: getNodPatternVector()) {
+            // Write nod instructions.
+            v.add("SET_CHOPBEAM " + beam);
+
+            // Translate contents of the nod iterator.
+            TranslationUtils.recurse(this.children(), v);
+        }
     }
 }

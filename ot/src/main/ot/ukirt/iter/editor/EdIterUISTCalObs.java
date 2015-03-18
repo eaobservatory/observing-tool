@@ -143,7 +143,6 @@ public final class EdIterUISTCalObs extends OtItemEditor implements
             _w.exposureTime.setValue(expTimeStr);
         }
 
-        // Added by RDK
         if (_w.coadds != source) {
             _w.coadds.setValue(ico.getCoaddsString());
         }
@@ -171,13 +170,9 @@ public final class EdIterUISTCalObs extends OtItemEditor implements
         // Update data acquisition config
         ico.updateDAConf();
 
-        // Added by RDK
         _w.observationTime.setValue(ico.getObservationTimeString());
-        // End of added by RDK
 
-        // Added by RDK
         _w.filter.setValue(ico.getFilter());
-        // End of added by RDK
 
         _ignoreActionEvents = false;
     }
@@ -216,7 +211,6 @@ public final class EdIterUISTCalObs extends OtItemEditor implements
                 // ignore
             }
         }
-        // End of added by RDK
     }
 
     /**

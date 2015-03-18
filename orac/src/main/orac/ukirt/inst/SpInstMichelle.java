@@ -935,6 +935,19 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
     }
 
     /**
+     * Get the filter passband.
+     */
+    public double getFilterPassBand(String obsType) {
+        if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
+            /* Get passband of filter */
+            int fi = getFilterIndex(obsType);
+            return Double.valueOf(getFilterLUT().elementAt(fi, 4));
+        }
+
+        return 0.0;
+    }
+
+    /**
      * Get the list of masks
      */
     public String[] getMaskList() {
@@ -2318,40 +2331,35 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
      * Update the daconf for a dark observation
      */
     public void updateDADarkConf() {
-        String obsType = "Dark";
-        updateDAConf(obsType);
+        updateDAConf("Dark");
     }
 
     /**
      * Update the daconf for a flat observation
      */
     public void updateDAFlatConf() {
-        String obsType = "Flat";
-        updateDAConf(obsType);
+        updateDAConf("Flat");
     }
 
     /**
      * Update the daconf for an arc observation
      */
     public void updateDAArcConf() {
-        String obsType = "Arc";
-        updateDAConf(obsType);
+        updateDAConf("Arc");
     }
 
     /**
      * Update the daconf for a target acquisition observation
      */
     public void updateDATargetAcqConf() {
-        String obsType = "TARGETACQ";
-        updateDAConf(obsType);
+        updateDAConf("TARGETACQ");
     }
 
     /**
      * Update the daconf for an Object/Sky observatioon
      */
     public void updateDAObjConf() {
-        String obsType = "Object";
-        updateDAConf(obsType);
+        updateDAConf("Object");
         _avTable.set(ATTR_MODE, W_mode);
         _avTable.set(ATTR_WAVEFORM, W_waveform);
         _avTable.set(ATTR_NREADS, W_nreads);
@@ -2807,7 +2815,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         list.put("filter", getFilter());
         list.put("waveplate", getWaveplate());
         list.put("scienceArea", getScienceAreaString());
-        //list.put("spectralCoverage", getSpectralCoverageString());
+
+        String spectralCoverage = getSpectralCoverageString();
+        if (spectralCoverage == null) {
+            double cw = getCentralWavelength();
+            double hpb = getFilterPassBand("OBJECT") / 2.0;
+            spectralCoverage = String.format("%.2f - %.2f", cw - hpb, cw + hpb);
+        }
+        list.put("spectralCoverage", spectralCoverage);
+
         list.put("pixelFOV", getPixelFOVString());
         list.put("nreads", Integer.toString(getNreads()));
         list.put("mode", getMode());
@@ -2827,7 +2843,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp {
         list.put("idlePeriod", Double.toString(getIdlePeriod()));
         list.put("observationTime", getObservationTimeString());
         list.put("darkFilter", getDarkFilter());
-        list.put("darkNumExp", Integer.toString(1));
+        list.put("darkNumExp", Integer.toString(400));
 
         setInstAper();
 

@@ -33,6 +33,7 @@ import gemini.util.CoordSys;
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterMicroStep;
 import gemini.sp.iter.SpIterOffset;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpMicroStepUser;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -364,10 +365,12 @@ public class SpObs extends SpMSB implements SpTranslatable,
                 || instName.equals("CGS4")) {
             v.add("-SET_CHOPBEAM MIDDLE");
         }
+        else if (instName.equals("Michelle")) {
+            v.add("SET_CHOPBEAM MIDDLE");
+        }
 
         if (obsComp != null) {
             // Add break to sequence only if instrument is not WFCAM
-            // - RDK 25 Aug 2005 //
             if (!"WFCAM".equalsIgnoreCase(instName)) {
                 v.add(breakString);
             }
@@ -405,6 +408,11 @@ public class SpObs extends SpMSB implements SpTranslatable,
 
             v.add("do 1 _slew_all");
             v.add("do 1 _slew_guide");
+
+            if ("Michelle".equals(instName)) {
+                v.add("GUIDE ON");
+                v.add("-WAIT ALL");
+            }
         }
 
         /*
@@ -553,7 +561,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
         v.add("-ready");
 
         // Add breaks to sequence only if instrument is not WFCAM
-        // - RDK 25 Aug 2005
         if (!"WFCAM".equalsIgnoreCase(instName)) {
             addBreak(v);
         }

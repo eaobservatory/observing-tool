@@ -218,7 +218,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
 
         // GUIs in imaging group
 
-        // Added by RDK
 
         // Pupil imaging mode
 
@@ -239,7 +238,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
             }
         });
 
-        // End of added by RDK
 
         // Imager list
 
@@ -399,7 +397,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
 
         // Readout
 
-        // Added by RDK
 
         // Readout mode
 
@@ -427,7 +424,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _w.dataAcq_coadds.addWatcher(new TextBoxWidgetWatcher() {
             public void textBoxKeyPress(TextBoxWidgetExt tbw) {
                 try {
-                    // Added by RDK
                     String coaddsString = tbw.getText();
                     int coadds = Integer.parseInt(coaddsString);
 
@@ -435,7 +431,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
                         _instUIST.setCoadds(coadds);
                         _updateWidgets(_w.dataAcq_coadds);
                     }
-                    // End of added by RDK
 
                 } catch (Exception ex) {
                     // ignore
@@ -456,9 +451,7 @@ public final class EdCompInstUIST extends EdCompInstBase implements
                     double et = Double.parseDouble(ets);
 
                     if (et > 0.00001) {
-                        // Added by RDK
                         _instUIST.changeExpTimeOT(et);
-                        // End of added by RDK
                         _updateWidgets(_w.dataAcq_exposureTime);
                     }
                 } catch (Exception ex) {
@@ -475,12 +468,10 @@ public final class EdCompInstUIST extends EdCompInstBase implements
 
         _w.dataAcq_defaultExpTime.addWatcher(new CommandButtonWidgetWatcher() {
             public void commandButtonAction(CommandButtonWidgetExt cbw) {
-                // Added by RDK
                 _instUIST.useDefaultExpTimeOT();
                 _instUIST.useDefaultReadMode();
                 _instUIST.useDefaultReadArea();
                 _instUIST.useDefaultCoadds();
-                // End of added by RDK
 
                 _updateWidgets();
             }
@@ -500,9 +491,7 @@ public final class EdCompInstUIST extends EdCompInstBase implements
     public void setup(SpItem spItem) {
         _instUIST = (SpInstUIST) spItem;
 
-        // Added by RDK
         _instUIST.avTableUpdate();
-        // End of added by RDK
 
         haveInitialised = false;
         super.setup(spItem);
@@ -531,10 +520,8 @@ public final class EdCompInstUIST extends EdCompInstBase implements
             _updatePolarimetry();
             _updatePupilCamera();
             _updateFilter();
-            // Added by RDK
             _updateReadModeChoices();
             _updateReadAreaChoices();
-            // End of added by RDK
             _updateObsTime();
             haveInitialised = true;
         }
@@ -563,7 +550,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _updateWavelengthCoverage();
         _updateMask();
 
-        // Added by RDK
 
         if (_w.dataAcq_readMode != source) {
             _updateReadModeChoices();
@@ -575,13 +561,11 @@ public final class EdCompInstUIST extends EdCompInstBase implements
             _updateReadArea();
         }
 
-        // End of added by RDK
 
         _updateAcquisition(source);
         _updateScienceFOV();
         _updateChopFreq();
         _updateDutyCycle();
-        // Commented for testing by RDK
         _updateExpTime();
         _updateObsTime();
 
@@ -590,14 +574,12 @@ public final class EdCompInstUIST extends EdCompInstBase implements
             _w.dataAcq_exposureTime.setText(ets);
         }
 
-        // Added by RDK
 
         if (_w.dataAcq_coadds != source) {
             String coadds = _instUIST.getCoaddsString();
             _w.dataAcq_coadds.setText(coadds);
         }
 
-        // End of added by RDK
     }
 
     // Update the actual observation time
@@ -621,7 +603,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _w.polarimetry.setValue(p.equalsIgnoreCase("yes"));
     }
 
-    // Added by RDK
 
     // Update the pupil camera check box
 
@@ -632,7 +613,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _w.polarimetry.setEnabled(!pEqualsYes);
     }
 
-    // End of added by RDK
 
     // Update the resolution
 
@@ -723,7 +703,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _w.spectroscopy_sourceMag.setValue(sourceMag);
     }
 
-    // Added by RDK
 
     // Update the list of read mode choices
 
@@ -755,7 +734,6 @@ public final class EdCompInstUIST extends EdCompInstBase implements
         _w.dataAcq_readArea.setValue(readArea);
     }
 
-    // End of added by RDK
 
     // Update the mask
 
@@ -850,14 +828,12 @@ public final class EdCompInstUIST extends EdCompInstBase implements
             _w.dataAcq_exposureTime.setText(ets);
         }
 
-        // Added by RDK
 
         if (_w.dataAcq_coadds != source) {
             String coadds = _instUIST.getCoaddsString();
             _w.dataAcq_coadds.setText(coadds);
         }
 
-        // End of added by RDK
     }
 
     // Update camera
@@ -927,9 +903,7 @@ public final class EdCompInstUIST extends EdCompInstBase implements
      */
     public TextBoxWidgetExt getCoaddsTextBox() {
         // UIST does not have a coadds text box.
-        // Added by RDK
         return _w.dataAcq_coadds;
-        // End of added by RDK
     }
 
     /**

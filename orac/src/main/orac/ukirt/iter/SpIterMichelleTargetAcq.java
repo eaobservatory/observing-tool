@@ -27,12 +27,18 @@
 
 package orac.ukirt.iter;
 
+import java.io.IOException;
+import java.util.Vector;
+import java.util.Hashtable;
+
 import orac.ukirt.inst.SpInstMichelle;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.sp.iter.SpIterEnumeration;
@@ -42,7 +48,9 @@ import gemini.sp.iter.SpIterValue;
 
 import gemini.sp.obsComp.SpInstConstants;
 
+import gemini.util.ConfigWriter;
 import gemini.util.MathUtil;
+import gemini.util.TranslationUtils;
 
 /**
  * Enumerater for the elements of the Observe iterator.
@@ -149,7 +157,8 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration {
 }
 
 @SuppressWarnings("serial")
-public class SpIterMichelleTargetAcq extends SpIterObserveBase {
+public class SpIterMichelleTargetAcq extends SpIterObserveBase
+        implements SpTranslatable {
     public static final SpType SP_TYPE = SpType.create(
             SpType.ITERATOR_COMPONENT_TYPE, "instMichelleTargetAcq",
             "Michelle Spectroscopy Target Acquisition");
@@ -567,4 +576,57 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase {
         _avTable.noNotifySet(SpMichelleTargetAcqConstants.ATTR_SAMPLING,
                 getSampling(), 0);
     }
+
+    public void translateProlog(Vector<String> v) {
+    }
+
+    public void translateEpilog(Vector<String> v) {
+    }
+
+    public void translate(Vector<String> v)
+            throws SpTranslationNotSupportedException {
+        // Find instrument.
+        SpInstMichelle inst;
+        try {
+            inst = (SpInstMichelle) SpTreeMan.findInstrument(this);
+        } catch (Exception e) {
+            throw new SpTranslationNotSupportedException(
+                "Non-Michelle instrument in scope");
+        }
+        if (inst == null) {
+            throw new SpTranslationNotSupportedException(
+                "No instrument in scope");
+        }
+        Hashtable<String, String> config = inst.getConfigItems();
+
+        config.put("coadds", getCoaddsString());
+        config.put("diserser", getDisperser());
+        config.put("exposureTime", getExposureTimeString());
+        config.put("filter", getFilter());
+        config.put("observationTime", getObservationTime());
+        config.put("pixelFOV", getPixelFOVString());
+        config.put("sampling", getSampling());
+        config.put("scienceArea", getScienceAreaString());
+        config.put("type", "TARGETACQ");
+
+        // Write new config.
+        try {
+            ConfigWriter.getCurrentInstance().write(config);
+        } catch (IOException ioe) {
+            throw new SpTranslationNotSupportedException(
+                    "Unable to write MichelleCalObs config file");
+        }
+
+        // Write exec entries.
+        v.add("loadConfig "
+                + ConfigWriter.getCurrentInstance().getCurrentName());
+        v.add("setrotator " + config.get("posAngle"));
+
+        v.add("set TARGETACQ");
+        v.add("breakForMovie");
+
+        // Copy the load instruction for the original config.
+        TranslationUtils.copyFirstLoadConfig(v, false);
+    }
+
 }

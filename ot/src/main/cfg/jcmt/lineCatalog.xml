@@ -216,6 +216,9 @@ if any additionas are made to the list.
 		<transition frequency="492160.7" name="1 - 0"/>
 		<transition frequency="809343.5" name="2 - 1"/>
 	</species>
+        <species name="CII">
+		<transition frequency="1900536.9" name="1.5 - 0.5"/>
+        </species>
 	<species name="13-CI">
 		<transition frequency="492160.0" name="1 1  - 0 1"/>
 		<transition frequency="492164.2" name="1 2 - 0 1"/>
