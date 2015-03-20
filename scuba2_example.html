@@ -119,13 +119,26 @@ Below is an example of a 900" pong Note the height and width are adjusted to be 
 <a name="notes_recipe"></a>
 <li><font size=3><b>Assigning a DR recipe</b></font></li>
 <p>
-When preparing your MSB's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed at CADC. There are currently 2 main options:
+When preparing your MSB's you can assign a data reduction recipe to your observations. The recipe you select will be applied when your data is processed for the JCMT Science Archive at CADC. There are currently 4 main options:
 <br>
-(1) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure. This uses the 'bright_extended' config file.
+(1) REDUCE_SCAN - a basic general purpose recipe.  If it is known in advance what type of source is being observed, then one of the more specific recipes below may be preferable.  This recipe can be used for the SCUBA-2 standard calibrators as it will recognise them, select an appropriate configuration and derive a flux calibration factor.
 <br>
-(2) REDUCE_SCAN_FAINT_SOURCES - designed to extract faint emission. This uses the 'blank_field' config file then applies a matched filter to your data.
+(2) REDUCE_SCAN_EXTENDED_SOURCES - designed to maximise the recovery of extended structure. This uses the 'bright_extended' config file.
+<br>
+(3) REDUCE_SCAN_FAINT_POINT_SOURCES - designed to extract faint emission. This uses the 'blank_field' config file then applies a matched filter to your data.
+<br>
+(4) REDUCE_SCAN_ISOLATED_SOURCE - designed for observations of a single, bright isolated source.  This uses the 'bright_compact' config file which assumes that there is no emission outside a 60" radius around the tracking position.  It is not appropriate to use this recipe if there may be emission outside this region.
+<p>
+The list also contains two options which should only be used for FTS-2 observations:
+<br>
+(5) REDUCE_FTS_SCAN - to reduce observations of a source taken with FTS-2 scanning.
+<br>
+(6) REDUCE_FTS_ZPD - to reduce FTS-2 ZPD (zero path difference) calibrations.
 <p>
 To select the recipe you wish to use go to the DRRecipe component button and highlight the recipe you would like to add then click 'Set' next to the Scan button (for SCUBA-2).
+<p>
+For more information about the recipes, please see the
+<a href="http://www.starlink.ac.uk/docs/sc21.htx/sc21.html">SCUBA-2 Data Reduction Cookbook</a>.
 <p>
 <img src="s2-images/SCUBA2_DRRecipe.gif" alt="data reduction recipe coptions" width=900>
 <p>
