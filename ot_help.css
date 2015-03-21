@@ -1,0 +1,30 @@
+html {
+    font-family: serif;
+    font-size 12pt;
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    background: silver;
+    width: 100%;
+}
+
+body {
+    max-width: 100ex;
+    background: white;
+    text-align: left;
+    margin-top: 5ex;
+    margin-bottom: 5ex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5ex;
+}
+
+a:link {
+    color: #003300;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #005500;
+    text-decoration: underline;
+}
