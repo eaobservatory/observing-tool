@@ -187,10 +187,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             }
         }
 
-        // See which type of recipe the selected recipe is, if any.
         // Get the instrument and display the relevant options.
-        // Then look for the recipe in these options. If its there highlight
-        // it.
 
         LookUpTable rarray = null;
 
