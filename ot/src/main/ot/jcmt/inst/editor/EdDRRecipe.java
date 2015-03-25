@@ -39,7 +39,6 @@ import orac.jcmt.inst.SpDRRecipe;
 import orac.util.LookUpTable;
 
 import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
@@ -94,12 +93,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
      */
     protected void _initInstWidgets() {
         _w.reset();
-
-        // MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI
-        // (as constraint strings of the respective panels managed by
-        // the CardLayout of DRRecipeGUI).  Might not be elegant but has
-        // always been hard-wired in a similar way.
-        ((CardLayout) (_w.getLayout())).show(_w, _instStr.toLowerCase());
 
         // The recipes
         TextBoxWidgetExt rtbw = null;
@@ -171,12 +164,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
      */
     private void _updateRecipeWidgets() {
         String recipe = null;
-
-        // MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as
-        // constraint strings of the respective panels managed my
-        // the CardLayout of DRRecipeGUI).  Might not be elegant but has
-        // always been hard-wired in a similar way.
-        ((CardLayout) (_w.getLayout())).show(_w, _instStr.toLowerCase());
 
         // First fill in the text box.
         TextBoxWidgetExt tbwe;
