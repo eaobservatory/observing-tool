@@ -41,6 +41,7 @@ import orac.util.LookUpTable;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 // MFO: Preliminary. Get rid of GUI stuff inside this class.
@@ -219,7 +220,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         SpInstObsComp tmpInst = SpTreeMan.findInstrument(_spDRRecipe);
 
         if (_inst != null && (tmpInst == null || !tmpInst.equals(_inst))) {
-            _spDRRecipe.reset();
             initd = false;
         }
 
@@ -233,11 +233,41 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             _instStr = "";
         }
 
+        // The instrument type changed (or was null before), so configure
+        // the GUI for the new instrument.
         if (!initd) {
             _initInstWidgets();
-        } else {
-            _updateRecipeWidgets();
         }
+
+        // Check whether the SpDRRecipe's recipes are still valid for the
+        // current instrument.  We used to call _spDRRecipe.reset() whenever
+        // the instrument changed (i.e. if ! initd) but this caused
+        // recipes to be deleted from science programs which legitimately
+        // used more than one instrument -- the "whack-a-mole" fault
+        // (20150324.011).  For this check, it's not really relevant
+        // what the previous instrument looked at was, so perform it
+        // every time (not just if ! initd).
+        try {
+            LookUpTable recipes = getInstrumentRecipes();
+            for (String type: _spDRRecipe.getAvailableTypes(_instStr)) {
+                String recipe = _spDRRecipe.getRecipeForType(type);
+                if (recipe != null) {
+                    // Try to look up the index of the recipe -- throws
+                    // NoSuchElementException if the recipe isn't there.
+                    recipes.indexInColumn(recipe, 0);
+                }
+
+            }
+        } catch (NoSuchElementException e) {
+            // If _spDRRecipe contained a recipe which isn't allowed for the
+            // instrument, reset it.
+            System.out.println("Recipes not appropriate for inst: clearing.");
+            _spDRRecipe.reset();
+        }
+
+        // Update the recipe widgets to show the selection from the
+        // SpDRRecipe.
+        _updateRecipeWidgets();
 
         super.setup(spItem);
     }
