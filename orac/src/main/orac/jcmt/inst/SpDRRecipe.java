@@ -46,8 +46,6 @@ import java.util.TreeMap;
  */
 @SuppressWarnings("serial")
 public final class SpDRRecipe extends SpDRObsComp {
-    public static final String PROJECTION_TYPES_TAG = "projection types";
-    public static final String GRID_FUNCTION_TYPES_TAG = "grid_function types";
     public static final String ATTR_OBJECT_RECIPE = "objectRecipe";
 
     public static final String ATTR_RASTER_TYPE = "rasterRecipe";
@@ -110,8 +108,6 @@ public final class SpDRRecipe extends SpDRObsComp {
             "None", "Automatic", "Manual",
     };
     public static String[] WINDOW_TYPES = null;
-    public static String[] PROJECTION_TYPES = null;
-    public static String[] GRID_FUNCTION_TYPES = null;
     public static String[] POLYNOMIALS = null;
     public static LookUpTable HETERODYNE;
     public static LookUpTable SCUBA2;
@@ -159,13 +155,6 @@ public final class SpDRRecipe extends SpDRObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "scuba2")) {
                     SCUBA2 = instInfo.getValueAsLUT();
-
-                } else if (InstCfg.matchAttr(instInfo, PROJECTION_TYPES_TAG)) {
-                    PROJECTION_TYPES = instInfo.getValueAsArray();
-
-                } else if (InstCfg.matchAttr(instInfo,
-                        GRID_FUNCTION_TYPES_TAG)) {
-                    GRID_FUNCTION_TYPES = instInfo.getValueAsArray();
 
                 } else if (InstCfg.likeAttr(instInfo, "default_recipe")) {
                     addDefaultRecipe(instInfo.getKeyword(),
