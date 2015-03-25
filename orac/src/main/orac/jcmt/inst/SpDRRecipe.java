@@ -78,37 +78,6 @@ public final class SpDRRecipe extends SpDRObsComp {
     TreeMap<String, TreeMap<String, String>> defaults =
             new TreeMap<String, TreeMap<String, String>>();
 
-    /*
-     * The values of the following String variables were
-     * taken from the corresponding XML elements in <cube_list> when possible.
-     * However, the variable names and method names in which the variable
-     * are more in accordance with naming conventions used elsewhere in the OT.
-     */
-
-    /**
-     * Channel spacings in kHz.
-     *
-     * The values 1000, 2000, 4000, 8000, 16000 are not exact.
-     * <p>
-     * There are other settings depending on the bandwidth and the front end.
-     */
-    public static final String[] CHANNEL_BINNINGS = {
-            "1", "2", "4", "8", "16",
-            "32", "64", "128", "256",
-    };
-
-    /**
-     * The choice has been restricted to "MHz" because the spectral region
-     * editor used to specify baseline fit regions and line regions uses
-     * Hz (GHz) rather than "km.s-1" or "pixel".
-     */
-    public static final String[] BASELINE_REGION_UNITS = {"km.s-1", "MHz"};
-    public static final String[] REGRIDDING_METHODS = {"Linear", "Bessel"};
-    public static final String[] BASELINE_SELECTION = {
-            "None", "Automatic", "Manual",
-    };
-    public static String[] WINDOW_TYPES = null;
-    public static String[] POLYNOMIALS = null;
     public static LookUpTable HETERODYNE;
     public static LookUpTable SCUBA2;
     public static final String OBJECT_RECIPE_DEFAULT = "DEFAULT";
@@ -119,8 +88,6 @@ public final class SpDRRecipe extends SpDRObsComp {
     public static final String[] DR_RECIPES = {OBJECT_RECIPE_DEFAULT};
     public static final SpType SP_TYPE = SpType.create(
             SpType.OBSERVATION_COMPONENT_TYPE, "DRRecipe", "DRRecipe");
-    private int _nRegions = 0;
-    private boolean _readingRegion = false;
     private final Class<? extends SpDRRecipe> whatami = this.getClass();
 
     // Register the prototype.
@@ -272,42 +239,6 @@ public final class SpDRRecipe extends SpDRObsComp {
             }
         } else {
             reset();
-        }
-    }
-
-    public String getWindowType() {
-        return null;
-    }
-
-    /**
-     * Get the DR recipe name. Retained for compatibility
-     */
-    public String getRecipeName() {
-        String recipe = _avTable.get(ATTR_OBJECT_RECIPE);
-        return recipe;
-    }
-
-    public void processXmlElementStart(String name) {
-        if (name.equals("baseline")) {
-            _nRegions = 0;
-        } else if (name.equals("fit_region")) {
-            _readingRegion = true;
-        } else if (name.equals("range") && _readingRegion) {
-
-        } else {
-            super.processXmlElementStart(name);
-        }
-    }
-
-    public void processXmlElementEnd(String name) {
-        if (name.equals("fit_region")) {
-            System.out.println("Incrementing number of regions");
-            _nRegions++;
-            _readingRegion = false;
-        } else if (name.equals("baseline")) {
-            _nRegions = 0;
-        } else {
-            super.processXmlElementEnd(name);
         }
     }
 }
