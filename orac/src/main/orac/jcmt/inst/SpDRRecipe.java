@@ -298,58 +298,6 @@ public final class SpDRRecipe extends SpDRObsComp {
         return recipe;
     }
 
-    /**
-     * Creates &lt;ms_truncation&gt; element for ACSIS/OCS XML.
-     *
-     * This method is used by the temporary ACSIS translator
-     * and might become obsolete once the final ACSIS translator is in place.
-     */
-    public String get_ms_truncation(String indent) {
-        StringBuffer result = new StringBuffer();
-
-        result.append(indent + "<ms_truncation>\n");
-        result.append(indent + "  Currently not used. ???\n");
-        result.append(indent + "</ms_truncation>\n");
-
-        return result.toString();
-    }
-
-    /**
-     * Creates &lt;cubet&gt; element for ACSIS/OCS XML.
-     *
-     * This method is used by the temporary ACSIS translator
-     * and might become obsolete once the final ACSIS translator is in place.
-     */
-    public String get_cube(String indent, SpTelescopePos groupCentre,
-            double mapWidth, double mapHeight, int cubeIndex) {
-        String xAxis = "";
-        String yAxis = "";
-        String coordSystem = "";
-
-        if (groupCentre != null) {
-            xAxis = groupCentre.getXaxisAsString();
-            yAxis = groupCentre.getYaxisAsString();
-            coordSystem = CoordSys.getSystem(groupCentre.getCoordSys());
-        }
-
-        return indent + "<cube id=\"CUBE" + (cubeIndex + 1) + "\">\n"
-                + indent + "  <group_centre>\n"
-                + indent + "    <spherSystem SYSTEM=\"" + coordSystem + "\">\n"
-                + indent + "      <c1>" + xAxis + "</c1>\n"
-                + indent + "      <c2>" + yAxis + "</c2>\n"
-                + indent + "    </spherSystem>\n"
-                + indent + "  </group_centre>\n"
-                + indent + "  <data_source>\n"
-                + indent + "    <spw_ref ref=\"SPW" + (cubeIndex + 1) + "\"/>\n"
-                + indent + "    <range units=\"???\">\n"
-                + indent + "      <min > ??? </min>\n"
-                + indent + "      <max > ??? </max>\n"
-                + indent + "    </range>\n"
-                + indent + "  </data_source>\n"
-                + indent + "  <tcs_coord type=\"TRACKING\"/>\n"
-                + indent + "</cube>\n";
-    }
-
     public void processXmlElementStart(String name) {
         if (name.equals("baseline")) {
             _nRegions = 0;
