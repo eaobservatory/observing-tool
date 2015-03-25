@@ -203,8 +203,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         }
     }
 
-    private String cachedInst = "";
-
     /**
      * Override setup to store away a reference to the SpDRRecipe item.
      *
@@ -230,13 +228,11 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             _instStr = "";
         }
 
-        if (!initd || cachedInst != _instStr) {
+        if (!initd) {
             _initInstWidgets();
         } else {
             _updateRecipeWidgets();
         }
-
-        cachedInst = _instStr;
 
         super.setup(spItem);
     }
