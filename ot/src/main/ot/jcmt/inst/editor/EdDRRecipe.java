@@ -192,10 +192,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         // Then look for the recipe in these options. If its there highlight
         // it.
 
-        // What I really need to do is introduce imaging/spec capabilities into
-        // instruments which I can then get. Imager-spectrometers will be a
-        // special case
-
         LookUpTable rarray = null;
 
         if (_instStr.equalsIgnoreCase(INST_STR_SCUBA2)) {
