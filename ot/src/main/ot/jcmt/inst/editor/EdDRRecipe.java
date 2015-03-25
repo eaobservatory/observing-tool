@@ -134,19 +134,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         twe.addWatcher(this);
 
         // Get the instrument and display the relevant options.
-        LookUpTable rarray = null;
-
-        if (_instStr.equalsIgnoreCase(INST_STR_SCUBA2)) {
-            rarray = SpDRRecipe.SCUBA2;
-        } else if (_instStr.equalsIgnoreCase(INST_STR_HETERODYNE)) {
-            rarray = SpDRRecipe.HETERODYNE;
-        } else {
-            rarray = new LookUpTable();
-        }
-
-        // Show the correct recipes, and select the option widget for the type
-        _showRecipeType(rarray);
-
+        _showRecipeType(getInstrumentRecipes());
 
         // button to reset the recipe to default
         cbw = (CommandButtonWidgetExt) getWidget("defaultName");
@@ -160,6 +148,23 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         });
 
         initd = true;
+    }
+
+    /**
+     * Get the LookUpTable of recipe for the current instrument type.
+     */
+    private LookUpTable getInstrumentRecipes() {
+        LookUpTable rarray = null;
+
+        if (_instStr.equalsIgnoreCase(INST_STR_SCUBA2)) {
+            rarray = SpDRRecipe.SCUBA2;
+        } else if (_instStr.equalsIgnoreCase(INST_STR_HETERODYNE)) {
+            rarray = SpDRRecipe.HETERODYNE;
+        } else {
+            rarray = new LookUpTable();
+        }
+
+        return rarray;
     }
 
     /**
