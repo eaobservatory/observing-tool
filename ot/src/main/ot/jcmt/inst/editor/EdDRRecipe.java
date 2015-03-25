@@ -130,7 +130,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
 
                     TextBoxWidgetExt tbwe = (TextBoxWidgetExt) getWidget(type);
                     tbwe.setText(_currentRecipeSelected);
-                    _disableRecipeEntry(true);
                 }
             });
         }
@@ -153,9 +152,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         });
 
         initd = true;
-    }
-
-    private void _disableRecipeEntry(boolean tf) {
     }
 
     /**
