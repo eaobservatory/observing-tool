@@ -28,3 +28,30 @@ a:visited {
     color: #005500;
     text-decoration: underline;
 }
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+    text-align: center;
+}
+
+p.figure {
+    border: 1px solid #008800;
+    padding: 1ex;
+    text-align: center;
+}
+
+img.figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+
+p.figure img {
+    display: inline-block;
+    margin: 1ex;
+}

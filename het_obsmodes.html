@@ -188,20 +188,12 @@ configuation in which the blue cross coincides with a map pixel, but
 with the target circle on one of blue crosses instead of close to the
 center.)
 
-<p>
-<div align=center>
-<table width=100%>
-<tr><td>
-<img src="het_images/HARP4.png" width="352" height="488">
-</td><td>
-<img src="het_images/HARP4_mc.png" width="352" height="488">
-</td></tr><tr><td>
-<img src="het_images/HARP5.png" width="348" height="492">
-</td><td>
-<img src="het_images/HARP5_mc.png" width="348" height="492">
-</td></tr>
-</table>
-</div>
+<p class="figure">
+<img src="het_images/HARP4.png" width="352" height="488" />
+<img src="het_images/HARP4_mc.png" width="352" height="488" />
+<img src="het_images/HARP5.png" width="348" height="492" />
+<img src="het_images/HARP5_mc.png" width="348" height="492" />
+</p>
 
 <p>
 &nbsp;
@@ -332,23 +324,26 @@ approximate relations thus become (np: number of points in jiggle;
 t_on: requested 'on'-only integration time per jiggle-point):
 
 <p>
-<div align=center>
-<table border=0 width=500>
-<tr><th align=center>Jiggle-Chop</th>
-    <th align=center>Duration (secs)</th></tr>
-<tr><td align=center><i>Separate off</i> or 1x1 BMSW</td>
-    <td align=center> 2.3 * np * t_on + 100 </td></tr>
-<tr><td align=center><i>Shared off</i></td>
-    <td align=center> 1.27 * [np +sqrt(np)]* t_on + 100 </td></tr>
+<table>
+    <tr>
+        <th>Jiggle-Chop</th>
+        <th>Duration (secs)</th>
+    </tr>
+    <tr>
+        <td><i>Separate off</i> or 1x1 BMSW</td>
+        <td> 2.3 * np * t_on + 100 </td>
+    </tr>
+    <tr>
+        <td><i>Shared off</i></td>
+        <td> 1.27 * [np +sqrt(np)]* t_on + 100</td>
+    </tr>
 </table>
 <br>
 
 <p>
-<a href="het_images/jchp_time.gif" target="_blank">
-<img src="het_images/jchp_time.gif"></a>
-</div>
-
+<img src="het_images/jchp_time.gif" width="512" height="512" class="figure" />
 <p>
+
 &nbsp;
 <p>
 <a name="jchp_rms"><h3>Noise:</h3></a>
@@ -487,22 +482,24 @@ timestamp. The approximate relations thus become (np: number of points
 in jiggle; t_on: requested 'on'-only integration time per
 jiggle-point):
 
-<p>
-<div align=center>
-<table border=0 width=500>
-<tr><th align=center>Jiggle-PSSW</th>
-    <th align=center>Duration (secs)</th></tr>
-<tr><td align=center><i>Separate off</i> or 1x1 PSSW</td>
-    <td align=center> 2.45 * np * t_on + 80 </td></tr>
-<tr><td align=center><i>Shared off</i></td>
-    <td align=center> 1.75 * np * t_on + 80 </td></tr>
+<table>
+    <tr>
+        <th>Jiggle-PSSW</th>
+        <th>Duration (secs)</th>
+    </tr>
+    <tr>
+        <td><i>Separate off</i> or 1x1 PSSW</td>
+        <td> 2.45 * np * t_on + 80 </td>
+    </tr>
+    <tr>
+        <td><i>Shared off</i></td>
+        <td> 1.75 * np * t_on + 80</td>
+    </tr>
 </table>
-<br>
 
 <p>
-<a href="het_images/jpsw_time.gif" target="_blank">
-<img src="het_images/jpsw_time.gif"></a>
-</div>
+<img src="het_images/jpsw_time.gif" width="512" height="512" class="figure" />
+</p>
 
 <p>
 &nbsp;
@@ -645,24 +642,28 @@ UT is written or closing the files after the end UT timestamp. The
 approximate relations thus become (np: number of points in jiggle;
 t_on: requested 'on'-only integration time per jiggle-point):
 
-<p>
-<div align=center>
-<table border=0 width=500>
-<tr><th align=center>Grid-PSSW</th>
-    <th align=center>Duration (secs)</th></tr>
-<tr><td align=center>1x1 PSSW</td>
-    <td align=center> 2.45 * t_on + 80 </td></tr>
-<tr><td align=center><i>Shared off</i> and <i>separate &ge; 15s</i></td>
-    <td align=center> 2.65 * np * t_on + 80 </td></tr>
-<tr><td align=center><i>Separate off &lt; 15s</i></td>
-    <td align=center> 2.0 * np * t_on + 190 </td></tr>
+<table>
+    <tr>
+        <th>Grid-PSSW</th>
+        <th>Duration (secs)</th>
+    </tr>
+    <tr>
+        <td>1x1 PSSW</td>
+        <td> 2.45 * t_on + 80 </td>
+    </tr>
+    <tr>
+        <td><i>Shared off</i> and <i>separate &ge; 15s</i></td>
+        <td> 2.65 * np * t_on + 80 </td>
+    </tr>
+    <tr>
+        <td><i>Separate off &lt; 15s</i></td>
+        <td> 2.0 * np * t_on + 190 </td>
+    </tr>
 </table>
-<br>
 
 <p>
-<a href="het_images/gpsw_time.gif" target="_blank">
-<img src="het_images/gpsw_time.gif"></a>
-</div>
+<img src="het_images/gpsw_time.gif" width="512" height="512" class="figure" />
+</p>
 
 <p>
 &nbsp;
@@ -812,19 +813,10 @@ the top which include the fixed overheads, one then finds that the
 <i>separate offs</i> JCHOPS: 15min instead of 33min as is illustrated
 in the final figure. 
 
-<p>
-<div align=center>
-<table>
-<tr><td>
-<a href="het_images/all_rms" target="_blank">
-<img src="het_images/all_rms.gif"></a>
-
-</td><td>
-<a href="het_images/all_rms2.gif" target="_blank">
-<img src="het_images/all_rms2.gif"></a>
-</td></tr>
-</table>
-</div>
+<p class="figure">
+    <img src="het_images/all_rms.gif" width="355" height="360">
+    <img src="het_images/all_rms2.gif" width="367" height="357">
+</p>
 
 <p>
 The figure below shows the benefits in terms of the duration of the
