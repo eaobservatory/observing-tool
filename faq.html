@@ -11,156 +11,208 @@
 </nav>
 
 
-       <h2><a name="faq">Frequently Asked Questions</a></h2>
-
+<h2 id="faq">Frequently Asked Questions</h2>
 
 <dl>
+    <dt id="why">Why do I have to do this?</dt>
+    <dd>
+        <p>
+        A variety of reasons.
+        </p>
+
+        <ul>
+            <li>
+                <p>
+                The OMP project is providing a software system, of which the
+                JCMT-OT is a necessary component, to manage flexible scheduling at
+                JCMT. Its purpose is to increase overall observing efficiency and
+                facilitate communication with the PIs, and at the same time reduce the
+                workload on our overworked queue managers and TSSs. It will also allow
+                you, the PI, to control your observing strategy in a fashion similar
+                to that of classical scheduling. Note that the MSBs that you specify
+                directly run the telescope and the data-acquisition during the
+                observations.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                The JCMT-OT and UKIRT-OT present a unified user interface to all
+                JAC observing
+                </p>
+            </li>
+        </ul>
+    </dd>
 
 
-<dt><a name="why"><em><b>Why do I have to do this</b></em>?</a><p>
-<dd> A variety of reasons. 
-
-<ul>
-<li>The OMP project is providing a software system, of which the
-JCMT-OT is a necessary component, to manage flexible scheduling at
-JCMT. Its purpose is to increase overall observing efficiency and
-facilitate communication with the PIs, and at the same time reduce the
-workload on our overworked queue managers and TSSs. It will also allow
-you, the PI, to control your observing strategy in a fashion similar
-to that of classical scheduling. Note that the MSBs that you specify
-directly run the telescope and the data-acquisition during the
-observations.<p>
-
-<li>The JCMT-OT and UKIRT-OT present a unified user interface to all
-JAC observing<p>
-</ul>
+    <dt id="deadline">What is the deadline for submissions?</dt>
+    <dd>
+        <p>
+        There isn't one. However if you don't submit MSBs for your
+        sources
+        by the time they are observable you could be throwing away
+        opportunities of having your sources observed. Nevertheless, note
+        that there is no requirement that you submit your entire project
+        at once. Therefore you can submit some MSBs, wait for them to
+        get done so you can analyze the results and then submit other
+        MSBs to follow up on those results. Your MSBs will keep on being
+        scheduled until you have exceeded the total time allocated to your
+        project.
+        </p>
+    </dd>
 
 
-<dt><a name="deadline"><em><b>What is the deadline for submissions?</b></em></a><p>
-<dd> There isn't one. However if you don't submit MSBs for your 
-sources
-by the time they are observable you could be throwing away
-opportunities of having your sources observed. Nevertheless, note
-that there is no requirement that you submit your entire project
-at once. Therefore you can submit some MSBs, wait for them to
-get done so you can analyze the results and then submit other
-MSBs to follow up on those results. Your MSBs will keep on being
-scheduled until you have exceeded the total time allocated to your
-project.
-<p>
+    <dt id="scheduling">What happens to my MSBs after I submit them?</dt>
+    <dd>
+        <p>
+        During flexible observing, the observer/TSS will run a tool
+        called JCMT-QT (Query Tool) that allows them to browse our database
+        for suitable MSBs. The QT by default returns as yet unobserved MSBs
+        ranked by TAG priority containing targets that are actually
+        observable, whose site quality requirements match the current
+        conditions, and whose projects still have allocated time left. However,
+        the observer/TSS is able to use the QT to retrieve any submitted MSB
+        at their discretion.
+        </p>
+        <p>
+        When an MSB is selected for actual execution, the Query Tool can be
+        used to retrieve it from our database. The observer/TSS is then
+        presented with a list of the observations in that MSB and given the
+        opportunity to remove redundant calibrations from the MSB or to defer
+        them until a suitable calibrator becomes available. When they are
+        satisfied that the MSB is suitable for execution they send it off to
+        the instrument-specific control system.
+        </p>
+        <p>
+        The MSB may be sent to a translator which converts it into a complete
+        set of instructions for the telescope, receiver(s), and backend.
+        </p>
+        <p>
+        The instructions are then placed in a queue that can be processed. As
+        the queue works its way down the list it takes any sensible course of
+        action, such as prompting the observer/TSS when intervention is
+        needed.
+        </p>
+        <p>
+        After the observations have been carried out and deemed acceptable by
+        the TSS, the MSB is marked as done and will not be rescheduled unless
+        it is resubmitted from the JCMT-OT or marked Undone via the project
+        feedback system. If repeats of the MSB were requested, the repeat counter
+        is decremented by 1.
+        </p>
+    </dd>
 
 
-<dt><a name="scheduling"><em><b>What happens to my MSBs
-		    after I submit them?</b></em></a><p>
+    <dt id="length">What length should my MSB be?</dt>
+    <dd>
+        <p>
+        <b>Heterodyne:</b>
+        The aspect of the MSB you most want to think about is its
+        length. Let's say you have been allocated eight hours for a
+        single source. Now, you could submit a single 8-hour MSB if you
+        wanted. But that would be a very silly thing to do. For one thing, if
+        your source is not up for more than eight hours, it would never be
+        scheduled as our software would detect that it would set before the
+        MSB could be completed. But even if your source were observable for 8
+        hours solid, the observer won't chose to undertake it except near the
+        very beginning of the night, which vastly decreases your scheduling
+        opportunities.
+        <p>
+
+        <p>
+        In the past calibrations have been charged to your project resulting
+        in huge overheads for short observations. This is no longer the case.
+        However if many short observations are all scheduled one after the
+        other they would have to be sent to the queue one by one,
+        thus driving the TSS and observer insane.
+        </p>
+        <p>
+        If your sources are well separated across the sky a pointing
+        may be required between them (even if they are only separated
+        in time by ten minutes). However if they are close by each other
+        they can be done consecutively. If you are including multiple sources
+        in an MSB try to pair or group them so they are all are all
+        close together. If this is not the case then include a
+        note highlighting this to the operator.
+        </p>
+        <p>
+        The golden mean? A 30&ndash;to&ndash;90 minute MSB.
+        If you have any questions about the best way to distribute
+        your sources please consult your Friend of Project for ideas.
+        </p>
+
+        <p>
+        <b>SCUBA-2:</b>
+        We have a 40 minute limit on SCUBA-2 observing blocks.
+        See <a href="scuba2_example.html#notes_40min">here for details</a>.
+        This upper limit usually concerns large pong maps while small daisies
+        fall at the other end of the scale being potentially only a few minutes
+        each. Having short MSBs for SCUBA-2 does not incur the same overheads
+        as heterodyne. Like heterodyne observation consecutive sources that
+        include a large slew will likely require a pointing between them,
+        however SCUBA-2 has the additional factor or requiring the arrays
+        to be setup again after a move between sources.
+        </p>
+    </dd>
+
+    <dt id="redundancy">My MSBs only last half an hour so it is
+    a waste to do a calibration for each one!</dt>
+    <dd>
+        <p>
+        Don't worry about this. The person doing the observing will have
+        the choice of not doing calibrations that are highly redundant.
+        <p>
+    </dd>
+
+    <dt id="library">I want to do something that is not in the library</dt>
+    <dd>
+        <p>
+        You certainly can. However I suggest you let us know for two
+        reasons. First, for your benefit, we'll be able to look your
+        MSBs over to ensure that they will actually do what you intend.
+        Secondly, for our benefit, we would like the chance to
+        create a library MSB that matches your observing mode in case
+        that will be useful to other users.
+        </p>
+    </dd>
 
 
-<dd> During flexible observing, the observer/TSS will run a tool
-called JCMT-QT (Query Tool) that allows them to browse our database
-for suitable MSBs. The QT by default returns as yet unobserved MSBs
-ranked by TAG priority containing targets that are actually
-observable, whose site quality requirements match the current
-conditions, and whose projects still have allocated time left. However,
-the observer/TSS is able to use the QT to retrieve any submitted MSB
-at their discretion.<p>
+    <dt id="server">What does this warning mean? :
+    "Some of the observations in the MSB contained
+    default settings for the target information"</dt>
+    <dd>
+        <p>
+        You probably forgot to enter your co-ordinates! If you really
+        meant to observe 0:0:0, 0:0:0 just ignore it.
+        </p>
+    </dd>
 
-When an MSB is selected for actual execution, the Query Tool can be
-used to retrieve it from our database. The observer/TSS is then
-presented with a list of the observations in that MSB and given the
-opportunity to remove redundant calibrations from the MSB or to defer
-them until a suitable calibrator becomes available. When they are
-satisfied that the MSB is suitable for execution they send it off to
-the instrument-specific control system.<p>
+    <dt id="timeest">I don't agree with the time estimates shown in the OT</dt>
+    <dd>
+        <p>
+        We are fine-tuning these, but they will always be just that -
+        estimates. However it doesn't really matter if they are a bit off. The
+        estimates are used for three things. First, they are used by the QT to
+        check whether the observation can be carried out before the source
+        sets. Second, they allow the observer/TSS to plan the observing. For
+        example, if they believe that the tau is going to change in the next
+        hour, they can select an MSB that is estimated to last less than an
+        hour.
+        </p>
 
-The MSB may be sent to a translator which converts it into a complete
-set of instructions for the telescope, receiver(s), and backend.<p>
+        <p>
+        Third, time estimates are used to provisionally debit remaining time
+        during the night to keep a running tab on projects' use of their
+        allocation. However the final time accounting is done the next day
+        based on the actual time used by a project as derived from the data
+        files and logs. If you find you still have time left after that you
+        can submit an MSB to use it up.
+        </p>
 
-The instructions are then placed in a queue that can be processed. As
-the queue works its way down the list it takes any sensible course of
-action, such as prompting the observer/TSS when intervention is
-needed.<p>
-
-After the observations have been carried out and deemed acceptable by
-the TSS, the MSB is marked as done and will not be rescheduled unless
-it is resubmitted from the JCMT-OT or marked Undone via the project
-feedback system. If repeats of the MSB were requested, the repeat counter
-is decremented by 1.<p>
-
-
-<dt><a name="length"><em><b>What length should my MSB be?</b></em></a><p>
-
-
-<dd>
-<em><b>Heterodyne: </b></em>
-The aspect of the MSB you most want to think about is its
-length. Let's say you have been allocated eight hours for a
-single source. Now, you could submit a single 8-hour MSB if you
-wanted. But that would be a very silly thing to do. For one thing, if
-your source is not up for more than eight hours, it would never be
-scheduled as our software would detect that it would set before the
-MSB could be completed. But even if your source were observable for 8
-hours solid, the observer won't chose to undertake it except near the
-very beginning of the night, which vastly decreases your scheduling
-opportunities. <p>
-
-In the past calibrations have been charged to your project resulting in huge overheads for short observations. This is no longer the case.
-However if many short observations are all scheduled one after the other they would have to be sent to the queue one by one,
-thus driving the TSS and observer insane. <p>
-If your sources are well separated across the sky a pointing may be required between them (even if they are only separated in time by ten minutes). However if they are close by each other they can be done consecutively. If you are including multiple sources in an MSB try to pair or group them so they are all are all close together. If this is not the case then include an note highlighting this to the operator.
-<p>
-The golden mean? A 30-to-90 minute MSB. If you have any questions about the best way to distribute your sources please consult your Friend of Project for ideas.<p>
-
-<em><b>SCUBA-2: </b></em>
-We have a 40 minute limit on SCUBA-2 observing blocks. See <a href="scuba2_example.html#notes_40min">here for details</a>. This upper limit usually concerns large pong maps while small daisies fall at the other end of the scale being potentially only a few minutes each. Having short MSBs for SCUBA-2 does not incur the same overheads as heterodyne. Like heterodyne observation consecutive sources that include a large slew will likely require a pointing between them, however SCUBA-2 has the additional factor or requiring the arrays to be setup again after a move between sources.
-
-<dt><a name="redundancy"><em><b>My MSBs only last half an hour so it is
-      a waste to do a calibration for each one!</b></em></a>
-<p>
-	
-<dd>Don't worry about this. The person doing the observing will have
-the choice of not doing calibrations that are highly redundant.
-<p>
-
-<dt><a name="library"><em><b>I want to do something that is not in the
-library</b></em></a>
-<p>
-
-<dd>You certainly can. However I suggest you let us know for two
-reasons. First, for your benefit, we'll be able to look your
-MSBs over to ensure that they will actually do what you intend. 
-Secondly, for our benefit, we would like the chance to
-create a library MSB that matches your observing mode in case
-that will be useful to other users.<p>
-
-
-<dt><a name="server"><em><b>What does this warning mean ? :
-"Some of the observations in the MSB contained
- default settings for the target information"
-</b></em></a><p>
-
-<dd> You probably forgot to enter your co-ordinates! If you really
-meant to observe 0:0:0, 0:0:0 just ignore it.
-
-<p>
-<dt><a name="timeest"><em><b>I don't agree with the time estimates shown
-in the OT</b></em></a><p>
-
-<dd>We are fine-tuning these, but they will always be just that -
-estimates. However it doesn't really matter if they are a bit off. The
-estimates are used for three things. First, they are used by the QT to
-check whether the observation can be carried out before the source
-sets. Second, they allow the observer/TSS to plan the observing. For
-example, if they believe that the tau is going to change in the next
-hour, they can select an MSB that is estimated to last less than an
-hour.<p>
-
-Third, time estimates are used to provisionally debit remaining time
-during the night to keep a running tab on projects' use of their
-allocation. However the final time accounting is done the next day
-based on the actual time used by a project as derived from the data
-files and logs. If you find you still have time left after that you
-can submit an MSB to use it up.<p>
-
-Please notify us if you believe the time estimate to be grossly in error.
+        <p>
+        Please notify us if you believe the time estimate to be grossly in error.
+        </p>
+    </dd>
 </dl>
 
 <nav>

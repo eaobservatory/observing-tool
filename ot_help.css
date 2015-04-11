@@ -19,6 +19,10 @@ body {
     padding: 5ex;
 }
 
+h1 {
+    text-align: center;
+}
+
 a:link {
     color: #003300;
     text-decoration: underline;
@@ -66,4 +70,30 @@ nav a:link, nav a:visited {
     text-decoration: none;
     margin-left: 2ex;
     margin-right: 2ex;
+}
+
+img.dropright {
+    display: block;
+    float: right;
+    clear: all;
+    margin: 1ex;
+}
+
+dl dt {
+    font-weight: bold;
+    font-style: italic;
+}
+
+ul.custom_marker {
+    list-style-type: none;
+}
+
+ul.custom_marker img {
+    padding-right: 1ex;
+}
+
+p.warning {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
 }

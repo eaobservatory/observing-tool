@@ -11,17 +11,12 @@
 <a href="het_example.html">&#x2190; Preparing Heterodyne Observations</a>
 </nav>
 
-    <div align=center>
-    <h1>JCMT Observing modes, Durations, and Noise</h1>
-    Remo Tilanus, Joint Astronomy Centre
-    </div>
-
+<h1>JCMT Observing modes, Durations, and Noise</h1>
 
 <h2>Contents</h2>
 
-
 <ul>
-<li><a href="het_obsmodes.html#JiggleChop">Jiggle Chop</a></li>
+<li><a href="het_obsmodes.html#JiggleChop">Jiggle Chop</a>
    <ul>
    <li><a href="het_obsmodes.html#jchp_grids">Jiggle patterns</a></li>
    <li><a href="het_obsmodes.html#jchp_control">Loop control</a></li>
@@ -29,7 +24,8 @@
    <li><a href="het_obsmodes.html#jchp_duration">Duration</a></li>
    <li><a href="het_obsmodes.html#jchp_rms">Noise</a></li>
    </ul>
-<li><a href="het_obsmodes.html#JigglePSSW">Jiggle Position-Switch</a></li>
+</li>
+<li><a href="het_obsmodes.html#JigglePSSW">Jiggle Position-Switch</a>
    <ul>
    <li><a href="het_obsmodes.html#jpsw_grids">Jiggle Patterns</a></li>
    <li><a href="het_obsmodes.html#jpsw_control">Loop Control</a></li>
@@ -37,7 +33,8 @@
    <li><a href="het_obsmodes.html#jpsw_duration">Duration</a></li>
    <li><a href="het_obsmodes.html#jpsw_rms">Noise</a></li>
    </ul>
-<li><a href="het_obsmodes.html#GridPSSW">Grids Postion-Switch</a></li>
+</li>
+<li><a href="het_obsmodes.html#GridPSSW">Grids Postion-Switch</a>
    <ul>
    <li><a href="het_obsmodes.html#gpsw_grids">Grids patterns</a></li>
    <li><a href="het_obsmodes.html#gpsw_control">Loop Control</a></li>
@@ -45,24 +42,23 @@
    <li><a href="het_obsmodes.html#gpsw_duration">Duration</a></li>
    <li><a href="het_obsmodes.html#gpsw_rms">Noise</a></li>
    </ul>
-<li><a href="het_obsmodes.html#FSW">Frequency-Switch</a></li>
+</li>
+<li><a href="het_obsmodes.html#FSW">Frequency-Switch</a>
    <ul>
    <li><a href="het_obsmodes.html#fsw_baseline">Baselines</a></li>
    <li><a href="het_obsmodes.html#fsw_switch">Frequency switch amount</a></li>
    <li><a href="het_obsmodes.html#gpsw_shared">Noise performance and map size</a></li>
    </ul>
+</li>
 <li>Scan maps (not included yet)</li>
 <li><a href="het_obsmodes.html#comparing">Comparing observing modes</a></li>
 </ul>
 
-<p>
-&nbsp;
-<p>
-<a name="JiggleChop"><h2>Jiggle-Chop observations</h2></a>
+<h2 id="JiggleChop">Jiggle-Chop observations</h2>
 
-<p> 
-<h3>General description:</h3>
+<h3>General description</h3>
 
+<p>
 This mode of observing is recommended for mapping &le; 2 arcmin fields
 where there are emission free positions relatively close (&le; 180")
 to the target.  Jiggle-Chop (JCHOP) observations utilize (i.e. 'jiggle')
@@ -74,6 +70,7 @@ the other half at a position on the opposite side. This <i>nodding</i>
 involves moving the whole telescope, but all other offsets require
 moving only the secondary mirror. This method of observing the sky
 reference is also referred to as <i>beam-switched</i>.
+</p>
 
 <p>
 The advantage of JCHOP observations is that the patterns can be
@@ -86,10 +83,11 @@ observation, but a customary choice is to chop in AZ i.e. at a
 constant airmass. If there are no sky positions free of emission
 within 180" of the target, the observer will have to select a
 position-switched observing mode instead.
+</p>
 
-<p> 
-<a name="jchp_grids"><h3>Jiggle patterns:</h3></a>
+<h3 id="jchp_grids">Jiggle patterns:</h3>
 
+<p>
 The choice of jiggle pattern requires some care and is not
 straightforward. The detectors of HARP are referred to as
 <i>receptors</i> and this terminology has now been accepted for all
@@ -102,15 +100,19 @@ with its 4x4 array of receptors, using a 4x4 pattern will produce a
 16x16 = 196 pixel map. Much of the complications associated with the
 jiggle patterns arise from the centering of the jiggle pattern and
 where the pointing target will end up in the resulting map:
+</p>
 
-<p>
 <ul>
-<li> A <b><i>receptor-centered</i></b> jiggle pattern places the
-target in the centre of the region mapped by one of the receptors and
-it will also be on one of the pixels in the output map. All <i>NxN</i>
-jiggle patterns such as 3x3, 4x4, or 5x5, are receptor-centered and
-primarily intended for use with the single-receptor receivers or
-dual-pol receivers with two receptors on the same position on the sky.
+    <li>
+        <p>
+        A <b><i>receptor-centered</i></b> jiggle pattern places the
+        target in the centre of the region mapped by one of the receptors and
+        it will also be on one of the pixels in the output map. All <i>NxN</i>
+        jiggle patterns such as 3x3, 4x4, or 5x5, are receptor-centered and
+        primarily intended for use with the single-receptor receivers or
+        dual-pol receivers with two receptors on the same position on the sky.
+        </p>
+    </li>
 </ul>
 
 <p>
@@ -122,17 +124,15 @@ resulting map, or, stated differently, the map will be very assymetric
 around the target position. The orientation of the map is determined
 by position of the K-mirror, which can choose any of 4 angles,
 differing by 90 degrees, depending on the elevation of observation. In
-short, only a region of 1.5x1.5 arcmin will be mapped predictably. 
-Combining observations from different elevations may result in a windmill 
+short, only a region of 1.5x1.5 arcmin will be mapped predictably.
+Combining observations from different elevations may result in a windmill
 pattern around that region:
+</p>
 
 <p>
-<div align=center>
-<img src="het_images/windmill_small.gif"></a>
-</div>
+<img src="het_images/windmill_small.gif" width="284" height="262" class="figure" />
+</p>
 
-<p>
-&nbsp;
 <p>
 The four special patterns intended for use with HARP that fully
 sample the footprint of the array are <i>harp4</i> and <i>harp5</i>,
@@ -146,6 +146,7 @@ making and the cube resulting from the 4x4 receptors of HARP will have
 16x16 pixels in e.g. RA, Dec and cover a region of 2x2 arcmins. The
 harp5 pattern will have 20x20 pixels in RA, Dec covering the same
 region.
+</p>
 
 <p>
 Harp4 and Harp5 can be <i>pixel-centered</i> or <i>map-centered</i>. 
@@ -153,37 +154,42 @@ To understand the distinction one needs to realize that the spatial
 dimensions of a HARP cube will always have an even number of pixels
 i.e. won't have a central pixel. This presents two choices of where
 to put the target in the final map:
+</p>
 
-<p>
 <ul>
-<li> A <b><i>pixel-centered</i></b> jiggle pattern will place the
-target on one of the central 4 pixels of the output map, slightly
-offset by half a pixel in each direction from the center of the
-map. As is the case for the <i>receptor-centered</i> map, discussed
-above, the map will thus be asymmetric around the target but only by
-one <em>map pixel</em>. Due to the possible orientations of the
-K-mirror the edge of the map will this be uncertain by 7.5" or 6",
-respectively. The <i>pixel-centered</i> harp jiggle patterns are named
-<i>harp4</i> and <i>harp5</i> in the JCMTOT. 
-
-<p>
-<li> A <b><i>map-centered</i></b> jiggle pattern will place the target
-exactly in the center of the output map, precisely <i>between the
-central 4 pixels</i>. The resulting map will be symmetric around the
-target position and independent of the K-mirror orientation. However,
-none of the map pixels will align <em>exactly</em> with the target
-position, which should not be an issue for an extended source, but
-might be a concern for a source with a point-like core. The
-<i>map-centered</i> harp jiggle patterns are named <i>harp4_mc</i> and
-<i>harp5_mc</i>. Map-centered patterns are also referred to as
-<i>array-centered</i> since the target is placed on the center of the array
-between the 4 receptors.
-
+    <li>
+        <p>
+        A <b><i>pixel-centered</i></b> jiggle pattern will place the
+        target on one of the central 4 pixels of the output map, slightly
+        offset by half a pixel in each direction from the center of the
+        map. As is the case for the <i>receptor-centered</i> map, discussed
+        above, the map will thus be asymmetric around the target but only by
+        one <em>map pixel</em>. Due to the possible orientations of the
+        K-mirror the edge of the map will this be uncertain by 7.5" or 6",
+        respectively. The <i>pixel-centered</i> harp jiggle patterns are named
+        <i>harp4</i> and <i>harp5</i> in the JCMTOT.
+        </p>
+    </li>
+    <li>
+        <p>
+        A <b><i>map-centered</i></b> jiggle pattern will place the target
+        exactly in the center of the output map, precisely <i>between the
+        central 4 pixels</i>. The resulting map will be symmetric around the
+        target position and independent of the K-mirror orientation. However,
+        none of the map pixels will align <em>exactly</em> with the target
+        position, which should not be an issue for an extended source, but
+        might be a concern for a source with a point-like core. The
+        <i>map-centered</i> harp jiggle patterns are named <i>harp4_mc</i> and
+        <i>harp5_mc</i>. Map-centered patterns are also referred to as
+        <i>array-centered</i> since the target is placed on the center of the array
+        between the 4 receptors.
+        </p>
+    </li>
 </ul>
 
 <p>
 The four harp patterns are illustrated below (click on each pattern to
-show them in a pop-up window). The grey (cyan?) dots in each pattern
+show them in a pop-up window). The cyan dots in each pattern
 are the jiggle positions and the centers of the pixels in the output
 map.  In each figure the pointing target is indicated by the small
 circle and either aligns with a pixel or the center of the map. (For
@@ -191,6 +197,7 @@ completeness: A <i>receptor-centered</i> pattern will select a
 configuation in which the blue cross coincides with a map pixel, but
 with the target circle on one of blue crosses instead of close to the
 center.)
+</p>
 
 <p class="figure">
 <img src="het_images/HARP4.png" width="352" height="488" />
@@ -199,11 +206,9 @@ center.)
 <img src="het_images/HARP5_mc.png" width="348" height="492" />
 </p>
 
-<p>
-&nbsp;
-<p> 
-<a name="jchp_control"><h3>Loop control:</h3></a>
+<h3 id="jchp_control">Loop control</h3>
 
+<p>
 There are three parameters that control the execution of the JCHOP
 observation: the <i>step_time</i>, the <i>max_time_between_chops</i>,
 and the <i>max_time_between_nods</i>. The step_time is the dwell time
@@ -214,6 +219,7 @@ currently set to 9s. The max_time_between_nods, current default 30s,
 determines how many jiggle-patterns and sky references can be observed
 before the telescope nods to the alternate chop configuration with the
 reference on the other side of the target.
+</p>
 
 <p>
 The dwell time per jiggle position is calculated to be as long as
@@ -231,6 +237,7 @@ for every jiggle position: the observing mode changes to chop-jiggle
 increase the overheads: limited testing so far suggests that the
 typical penalty for using continuum mode is an increase of the
 observing time by a factor of <i>1.7</i><font color=red>CHECK!</font>.
+</p>
 
 <p>
 <i>Step_time</i>, <i>max_time_between_chops</i>, and
@@ -241,10 +248,11 @@ control of the operators, although this is not yet being actively used
 at present. PIs of science programs that would significantly benefit
 from settings different from the defaults should contact their
 assigned support scientist.
+</p>
 
-<p> 
-<a name="jchp_shared"><h3>Shared vs. Separate <i>offs</i>:</h3></a>
+<h3 id="jchp_shared">Shared vs. Separate <i>offs</i></h3>
 
+<p>
 An important concept for JCHOP observations is one generally referred
 to as <i>shared offs</i> (meaning <i>shared sky references</i>). This
 concept originates from traditional scan-map observations where the
@@ -262,6 +270,7 @@ there is nothing special about scan-maps: the same applies for any
 observations where a number of points share the sky reference, as is
 the case for HARP jiggle-maps where the full 4x4 or 5x5 jiggle pattern
 is observed before going to the <i>off</i>.
+</p>
 
 <p>
 Observations benefit from <i>shared offs</i> in two ways and the more
@@ -280,6 +289,7 @@ small HARP jiggle patterns and ignoring fixed overheads (which reduce
 the factor to closer to ~2). Nevertheless, one night instead of two
 nights is a huge gain, which is why <i>shared offs</i> are the default
 for JCHOP observations.
+</p>
 
 <p>
 Of course, <em>the above gain comes at a price</em>: all 16 or 25
@@ -299,6 +309,7 @@ noise will be 1/4th (16 independent receptors) instead of 1/16th (196
 pixels) of the noise per pixel.  Finally: note that JCHOP <i>continuum
 mode</i> observations always will have <i>separate offs</i> because
 there will be only a single jiggle position per sky reference.
+</p>
 
 <p>
 In conclusion: <b>if imaging or velocity/frequency data are the
@@ -307,10 +318,11 @@ beneficial and recommended; if accurate flux measurements over
 extended regions are the primary aim or the final maps will be
 spatially smoothed significantly, <i>separate offs</i> are
 recommended instead.</b>
+</p>
+
+<h3 id="jchp_duration">Duration</h3>
 
 <p>
-<a name="jchp_duration"><h3>Duration:</h3></a>
-
 The figure below illustrates the duration of observations based on the
 UT timestamps in the headers. The duration scales linearly with the
 requested integration time for single-point beam-switched observations
@@ -326,8 +338,8 @@ in the plot include an additional ~60secs before the start UT is
 written or closing the files after the end UT timestamp. The
 approximate relations thus become (np: number of points in jiggle;
 t_on: requested 'on'-only integration time per jiggle-point):
+</p>
 
-<p>
 <table>
     <tr>
         <th>Jiggle-Chop</th>
@@ -342,40 +354,41 @@ t_on: requested 'on'-only integration time per jiggle-point):
         <td> 1.27 * [np +sqrt(np)]* t_on + 100</td>
     </tr>
 </table>
-<br>
 
 <p>
 <img src="het_images/jchp_time.gif" width="512" height="512" class="figure" />
 <p>
 
-&nbsp;
+<h3 id="jchp_rms">Noise:</h3>
+
 <p>
-<a name="jchp_rms"><h3>Noise:</h3></a>
- 
 The figure below shows the noise in Jiggle-Chop observations. The top
 panel compares the observed noise to the expected noise, for chopped
 observations ranging from single-position to 5x5 jiggles, both using
 <i>shared</i> and <i>separate offs</i>. Overall the agreement is
 excellent, but the data indicate an excess noise of about 4% (the
 black line).
+</p>
 
 <p>
 The expected noise can thus be calculated using:
+</p>
 
+<p>
 <pre>
-
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
     1.04: 4% excess noise, presently unexplained
     1.23: Correlator digitization factor
     df:   channel-spacing in Hz
     t_on: 'on'-only integration time in sec
-    np:   1 for separate offs else the number of point 
+    np:   1 for separate offs else the number of point
           sharing an off. For patterns not exceeding 9x9
           this is the number of points in the jiggle pattern.
-
 </pre>
+</p>
 
+<p>
 The bottom panel shows the normalized noise: rms*sqrt(int. time) as a
 function of the duration of the observations with the noise calculated
 using the equation above indicated by the black crosses. As expected
@@ -388,24 +401,21 @@ illustrates the point made when discussing <i>separate offs</i>:
 not only do observations with <i>shared</i> offs take less time for
 the same amount of integration time, the resulting noise is lower as
 well.
+</p>
 
 <p>
-<div align=center>
-<a href="het_images/jchp_rms.gif" target="_blank">
-<img src="het_images/jchp_rms.gif"></a>
-</div>
+<img src="het_images/jchp_rms.gif" width="512" height="512" class="figure" />
+</p>
+
+<h2 id="JigglePSSW">Jiggle-Position Switch observations</h2>
+
+<h3>General description</h3>
 
 <p>
-&nbsp;
-<p>
-<a name="JigglePSSW"><h2>Jiggle-Position Switch observations</h2></a>
-
-<p>
-<h3>General description:</h3>
-
 <em>(Since Jiggle-position switch observations share many
 characteristics with the Jiggle-chops, please make sure to have read
 the previous section).</em>
+</p>
 
 <p>
 This mode is recommended for mapping &le; 2 arcmin fields where an
@@ -413,7 +423,8 @@ emission free position is relatively far away from the
 target. Jiggle-PSSW (JPSSW) observations utilize the secondary to
 observe a regular grid-pattern of points but, contrary to JCHOP, use a
 position-switch of the whole telescope to observe sky positions free
-of emission. 
+of emission.
+</p>
 
 <p>
 The advantage of JPSSW over JCHOP is that sky reference positions are
@@ -430,16 +441,15 @@ defined in a coordinate system other than RA, Dec resulting in it
 rotating from observation to observation in that frame). In order to
 minimize the number of moves, the telescope executes an
 OFF-ONs-ONs-OFF etc. pattern, with the switches pairs-wise associated.
+</p>
 
-
-<p> 
-<a name="jpsw_grids"><h3>Jiggle patterns:</h3></a>
+<h3 id="jpsw_grids">Jiggle patterns</h3>
 
 <em>See Jiggle-Chop</em>
 
-<p> 
-<a name="jpsw_control"><h3>Loop control:</h3></a>
+<h3 id="jpsw_control">Loop control</h3>
 
+<p>
 There are two parameters that control the execution of the JPSSW
 observation: the <i>step_time</i>, the <i>max_time_between_refs</i>.
 As for JCHOP, the step_time is the dwell time per jiggle position and
@@ -449,6 +459,7 @@ to the sky reference is require; its current default is 30s. Note
 that in order to minimize the overhead of the position switch, the
 rate of going to the sky position is less than for JCHOP which can
 result in worse baselines.
+</p>
 
 <p>
 The dwell time per jiggle position is calculated such that it is as
@@ -459,15 +470,15 @@ to 5s at the cost of more overhead. Note that position-switch
 observations are not well suited for measuring the continuum level,
 both because of their typically larger switch, as well as the relatively
 long time between sky references even in continuum mode.
+</p>
 
-<p> 
-<a name="jpsw_shared"><h3>Shared vs. Separate <i>offs</i>:</h3></a>
+<h3 id="jpsw_shared">Shared vs. Separate <i>offs</i></h3>
 
 <em>See Jiggle-Chop</em>
 
-<p>
-<a name="jpsw_duration"><h3>Duration:</h3></a>
+<h3 id="jpsw_duration">Duration</h3>
 
+<p>
 The figure below illustrates the duration of observations based on the
 UT timestamps in the headers. The duration scales linearly with the
 requested integration time for single-point position-switched
@@ -485,6 +496,7 @@ the start UT is written or closing the files after the end UT
 timestamp. The approximate relations thus become (np: number of points
 in jiggle; t_on: requested 'on'-only integration time per
 jiggle-point):
+</p>
 
 <table>
     <tr>
@@ -505,11 +517,9 @@ jiggle-point):
 <img src="het_images/jpsw_time.gif" width="512" height="512" class="figure" />
 </p>
 
-<p>
-&nbsp;
-<p>
-<a name="jpsw_rms"><h3>Noise:</h3></a>
+<h3 id="jpsw_rms">Noise</h3>
 
+<p>
 The figure below shows the noise in Jiggle-PSSW observations. The top
 panel compares the observed noise to the expected noise, for PSSW
 observations ranging from single-position to 5x5 jiggles, both using
@@ -518,31 +528,28 @@ an excess noise of about 4% (the black line). The bottom panel shows
 the normalized noise: rms*sqrt(int. time) as a function of the
 duration of the observations with the noise calculated using the
 equation above indicated by the black crosses.
+</p>
 
 <p>
 <em>See Jiggle-Chop for a more detailed discussion</em>
+</p>
 
 <p>
-<div align=center>
-<a href="het_images/jpsw_rms.gif" target="_blank">
-<img src="het_images/jpsw_rms.gif"></a>
-</div>
+<img src="het_images/jpsw_rms.gif" width="512" height="512" class="figure" />
+</p>
+
+<h2 id="GridPSSW">Grid Position-Switch</h2>
+
+<h3 id="gpsw_general">General description</h3>
 
 <p>
-&nbsp;
-<p>
-
-<a name="GridPSSW"><h2>Grid Position-Switch</h2></a>
- 
-<a name="gpsw_general">
-<h3>General description:</h3>
-
 This mode of observing is recommended for sparse mapping or irregular
 patterns. Grid-PSSW (GPSSW) observations don't use motions of the
 secondary mirror, but instead move the telescope between the target
 grid-positions as well as sky positions free of emission. Likewise, it
 is possible to do Grid-BMSW observations, but these will not be
 further discussed here.
+</p>
 
 <p>
 The advantage of Grid-PSSW observations is that the target positions
@@ -557,24 +564,25 @@ will be to a single, specified, reference position. (However, note
 that the reference position can be defined in a coordinate system
 other than RA, Dec resulting in it rotating from observation to
 observation in that frame).
+</p>
 
-<p>
 <p>
 [Note: it is possible to do a grid of jiggle-maps by putting a
 "Jiggle-Eye" inside an "Offset" iterator. However, in this
 case the jiggles will be executed as fully independent observations at
 each grid point, resulting in independent cubes.]
 
-<p> 
-<a name="gpsw_grids"><h3>Grid patterns:</h3></a>
+<h3 id="gpsw_grids">Grid patterns</h3>
 
+<p>
 Grid patterns can be set up using the <i>Offset</i> iterator in the
 JCMTOT, either as a regular pattern or as a list of individual
 offsets.
+</p>
 
-<p> 
-<a name="gpsw_control"><h3>Loop control:</h3></a>
+<h3 id="gpsw_control">Loop control</h3>
 
+<p>
 There are two parameters that control the execution of the GPSSW
 observation: the <i>step_time_grid_pssw</i>, the
 <i>max_time_between_refs</i>. As for the other modes the step_time is
@@ -585,6 +593,7 @@ spend observing grid positions before a position switch to the sky
 reference is require. The rate of going to the sky position is less
 than for the equivalent JCHOP observation, which can result in 
 worse baselines.
+</p>
 
 <p>
 Similar to JPSSW, there is <i>continuum mode</i> for GPSSW, which
@@ -593,10 +602,11 @@ overhead. Note that position-switch observations are not well suited
 for measuring the continuum level both, because of their typically
 larger switch, as well as the relatively long time between sky
 references even in continuum mode.
+</p>
 
-<p> 
-<a name="gpsw_shared"><h3>Shared vs. Separate <i>offs</i>:</h3></a>
+<h3 id="gpsw_shared">Shared vs. Separate <i>offs</i></h3>
 
+<p>
 <i>Shared</i> and <i>separate</i> modes are available as for JCHOP
 (see description there), but without being able to do a fast jiggle to
 cover the pattern the distinction is rather irrelevant in
@@ -610,6 +620,7 @@ offs</i> are particularly inefficient: because of restrictions imposed
 by the data handling within the correlator these observations
 <em>have</em> to switch to the reference after each grid-point, even
 if the integration time per point is only as short as 1s.
+</p>
 
 <p>
 Finally, as soon as the integration time per grid-point becomes such
@@ -617,16 +628,18 @@ that only a single grid-point can be observed before having to go the
 sky reference (i.e. 15sec by default) there will be only one point per
 reference and the distinction between <i>separate</i> and <i>shared
 offs</i> disappears: the observations will use separate offs.
+</p>
 
 <p>
 In conclusion: for any observations with integration times &ge;15s
 per grid-point the choice of <i>shared</i> or <i>separate offs</i> is
-irrelevant. For shorter integration times a choice for <i>separate offs</i> 
+irrelevant. For shorter integration times a choice for <i>separate offs</i>
 comes with a heavy penalty in the form of excessive overheads.
+</p>
+
+<h3 id="gpsw_duration">Duration</h3>
 
 <p>
-<a name="gpsw_duration"><h3>Duration:</h3></a>
-
 The above conclusion is illustrated in the plot below, which shows the
 duration of observations based on the UT timestamps in the
 headers. The duration scales linearly with the requested integration
@@ -645,6 +658,7 @@ durations in the plot include an additional ~60secs before the start
 UT is written or closing the files after the end UT timestamp. The
 approximate relations thus become (np: number of points in jiggle;
 t_on: requested 'on'-only integration time per jiggle-point):
+</p>
 
 <table>
     <tr>
@@ -669,11 +683,9 @@ t_on: requested 'on'-only integration time per jiggle-point):
 <img src="het_images/gpsw_time.gif" width="512" height="512" class="figure" />
 </p>
 
-<p>
-&nbsp;
-<p>
-<a name="gpsw_rms"><h3>Noise:</h3></a>
+<h3 id="gpsw_rms">Noise</h3>
 
+<p>
 The figure below shows the noise in Jiggle-PSSW observations. The top
 panel compares the observed noise to the expected noise, for PSSW
 observations ranging from single-position to 5x5 grids, both using
@@ -683,45 +695,46 @@ the normalized noise: rms*sqrt(int. time) as a function of the
 duration of the observations with the expected noise indicated by the
 black crosses. The equation used is the same as given in the
 discussion of JCHOP observations, but 'np' is a bit less straightforward:
+</p>
 
+<p>
 <pre>
-
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
      np:  number of points with <i>shared offs</i> or 1 if none:
-          max(1,int(30/t_on)) i.e. the number of t_ons that fit 
+          max(1,int(30/t_on)) i.e. the number of t_ons that fit
           in 30sec, but no less than 1. (30secs = time_between_refs.)
-
 </pre>
+</p>
 
+<p>
 Observations with <i>shared offs</i> but <i>on</i> integration times
 in excess of 15s are excuted the same as observations with
-<i>separate offs</i>. 
+<i>separate offs</i>.
+</p>
 
 <p>
 <em>See Jiggle-Chop for more details.</em>
+</p>
 
 <p>
-<div align=center>
-<a href="het_images/gpsw_rms.gif" target="_blank">
-<img src="het_images/gpsw_rms.gif"></a>
-</div>
+<img src="het_images/gpsw_rms.gif" width="512" height="512" class="figure" />
+</p>
 
-<a name="FSW"><h2>Frequency-Switch</h2></a>
- 
-<a name="fsw_general">
-<h3>General description:</h3>
-</a>
+<h2 id="FSW">Frequency-Switch</h2>
+
+<h3 id="fsw_general">General description</h3>
+
 <p>
-Frequency switching mode is suitable for sources with narrow lines (~<
+Frequency switching mode is suitable for sources with narrow lines (~&lt;
 10 MHz) and low line density. In such sources it has superior noise
 performance for single point observations or small maps. Frequency
 switching also has advantages in large maps when there is no nearby
 line free region to use as a reference position.
+</p>
 
-<a name="fsw_baseline">
-<h3>Baselines:</h3>
-</a>
+<h3 id="fsw_baseline">Baselines</h3>
+
 <p>
 Baselines are common with frequency switching. There are several
 reasons for this.  The frequency change and the associated variation
@@ -737,10 +750,10 @@ suitable for observations of narrow lines not affected by
 baselines. It should definitely not be used for continuum
 observations. The JCMT uses an elaborate calibration scheme to reduce
 the baselines which doubles the time integrating on calibration loads.
+</p>
 
-<a name="fsw_switch">
-<h3>Frequency switch amount:</h3>
-</a>
+<h3 id="fsw_switch">Frequency switch amount</h3>
+
 <p>
 The baselines and the performance of the LO system limits
 the amount of the frequency shift. Currently switches up to 32.4 MHz
@@ -755,10 +768,10 @@ canceled. Terrestrial Ozone lines are routinely observed using
 frequency switching. Thus CO and Ozone can generate additional
 features in the spectra. The user needs to select center frequency (or
 velocity) and switch amount to avoid line blends.
+</p>
 
-<a name="fsw_noise">
-<h3>Noise performance and map size:</h3>
-</a>
+<h3 id="fsw_noise">Noise performance and map size</h3>
+
 <p>
 Due to the fact the same line is observed both in the source and
 reference spectra the noise is improved by sqrt(2) after
@@ -773,36 +786,47 @@ reference position in the vicinity of the source, frequency switch can
 maintain the advantages for larger maps. However, it is still
 recommended that the calibration is performed on a line free reference
 position. This requires that a reference position is defined in the OT
-target component. In cases with weak lines (line << Tsys) and no
+target component. In cases with weak lines (line &lt;&lt; Tsys) and no
 continuum it is possible to calibrate on source.
+</p>
 
+
+<h2 id="comparing">Comparing Observing modes</h2>
 
 <p>
-&nbsp;
-<p>
-
-<a name="comparing"><h2>Comparing Observing modes</h2></a>
-
 The figure below shows the duration all observing modes discussed above and
-separates into three groups: 
+separates into three groups:
+</p>
+
 <ul>
-<li>Most efficient: Jiggles with <i>shared</i> offs, either
-beam-switched (JCHOP) or position-switched (JPSSW). Compared to GPSSW
-or separate jiggles, these observations take 30% less time.</li>
-<li>Single-position, GPSSW, and JCHOP/JPSSW with <i>separate offs</i>:
-these observations don't get the benefit from the shared offs or
-accrue additional overheads due to e.g. a position switch to the sky
-reference.</li> <li>GPSSW observations with <i>separate offs</i> and
-integrations time &lt; 15s per grid point: these have excessive
-overheads due to increased number of position switches to the sky
-reference.
+    <li>
+        <p>
+        Most efficient: Jiggles with <i>shared</i> offs, either
+        beam-switched (JCHOP) or position-switched (JPSSW). Compared to GPSSW
+        or separate jiggles, these observations take 30% less time.
+        </p>
+    </li>
+    <li>
+        <p>
+        Single-position, GPSSW, and JCHOP/JPSSW with <i>separate offs</i>:
+        these observations don't get the benefit from the shared offs or
+        accrue additional overheads due to e.g. a position switch to the sky
+        reference.
+        </p>
+    </li>
+    <li>
+        <p>
+        GPSSW observations with <i>separate offs</i> and
+        integrations time &lt; 15s per grid point: these have excessive
+        overheads due to increased number of position switches to the sky
+        reference.
+        </p>
+    </li>
 </ul>
 
 <p>
-<div align=center>
-<a href="het_images/all_time.gif" target="_blank">
-<img src="het_images/all_time.gif"></a>
-</div>
+<img src="het_images/all_time.gif" width="512" height="512" class="figure" />
+</p>
 
 <p>
 In addition to taking less time, JCHOP and JPSSW with <i>shared
@@ -815,7 +839,8 @@ same rms. Using the equations for duration of JCHOP observations at
 the top which include the fixed overheads, one then finds that the
 <i>shared offs</i> JCHOPS will take about half the time as the
 <i>separate offs</i> JCHOPS: 15min instead of 33min as is illustrated
-in the final figure. 
+in the final figure.
+</p>
 
 <p class="figure">
     <img src="het_images/all_rms.gif" width="355" height="360">
@@ -830,15 +855,11 @@ MHz). Note that <i>shared/separate offs</i> are only relevant within a
 single observation, which typically takes 10-20 minutes: the noise in
 coadds of successive observations will scale as usual with the sqrt(nr
 of observations).
-
-
-
+</p>
 
 <p>
-<div align=center>
-<a href="het_images/het_compare.gif" target="_blank">
-<img src="het_images/het_compare.gif"></a>
-</div>
+<img src="het_images/het_compare.gif" width="512" height="371" class="figure" />
+</p>
 
 <nav>
 <a href="index.html">&#x2191; JCMT OT Primer Main Page</a>
