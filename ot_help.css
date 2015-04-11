@@ -55,3 +55,15 @@ p.figure img {
     display: inline-block;
     margin: 1ex;
 }
+
+nav {
+    display: block;
+    text-align: center;
+}
+
+nav a:link, nav a:visited {
+    color: #aaaaaa;
+    text-decoration: none;
+    margin-left: 2ex;
+    margin-right: 2ex;
+}
