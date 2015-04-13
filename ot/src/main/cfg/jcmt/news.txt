@@ -1,3 +1,17 @@
++++ April 2015 release
+
+  - Horizons query caching problem fixed on Windows.
+
+  - Updated line catalog to include CII at 1900.5 GHz.
+
+  - Adjusted automatic clearing of DRRecipe component settings.  Progams
+    using multiple instruments should now be less problematic in this regard.
+
+  - Added validation of heterodyne raster sample time.
+
+  - Corrected automatic sideband changing when necessary for a new frequency
+    so that the sideband is actually changed.
+
 +++ February 2015 release
 
   - Updated JAC URLs to new EAO URLs (including OMP server).
