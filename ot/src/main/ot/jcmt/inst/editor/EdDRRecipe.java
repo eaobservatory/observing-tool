@@ -39,9 +39,9 @@ import orac.jcmt.inst.SpDRRecipe;
 import orac.util.LookUpTable;
 
 import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 // MFO: Preliminary. Get rid of GUI stuff inside this class.
@@ -95,12 +95,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
     protected void _initInstWidgets() {
         _w.reset();
 
-        // MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI
-        // (as constraint strings of the respective panels managed by
-        // the CardLayout of DRRecipeGUI).  Might not be elegant but has
-        // always been hard-wired in a similar way.
-        ((CardLayout) (_w.getLayout())).show(_w, _instStr.toLowerCase());
-
         // The recipes
         TextBoxWidgetExt rtbw = null;
         CommandButtonWidgetExt cbw = null;
@@ -130,7 +124,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
 
                     TextBoxWidgetExt tbwe = (TextBoxWidgetExt) getWidget(type);
                     tbwe.setText(_currentRecipeSelected);
-                    _disableRecipeEntry(true);
                 }
             });
         }
@@ -140,6 +133,9 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         twe = (TableWidgetExt) getWidget("recipeTable");
         twe.setColumnHeaders(new String[]{"Recipe Name", "Description"});
         twe.addWatcher(this);
+
+        // Get the instrument and display the relevant options.
+        _showRecipeType(getInstrumentRecipes());
 
         // button to reset the recipe to default
         cbw = (CommandButtonWidgetExt) getWidget("defaultName");
@@ -155,7 +151,21 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         initd = true;
     }
 
-    private void _disableRecipeEntry(boolean tf) {
+    /**
+     * Get the LookUpTable of recipe for the current instrument type.
+     */
+    private LookUpTable getInstrumentRecipes() {
+        LookUpTable rarray = null;
+
+        if (_instStr.equalsIgnoreCase(INST_STR_SCUBA2)) {
+            rarray = SpDRRecipe.SCUBA2;
+        } else if (_instStr.equalsIgnoreCase(INST_STR_HETERODYNE)) {
+            rarray = SpDRRecipe.HETERODYNE;
+        } else {
+            rarray = new LookUpTable();
+        }
+
+        return rarray;
     }
 
     /**
@@ -175,12 +185,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
      */
     private void _updateRecipeWidgets() {
         String recipe = null;
-
-        // MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as
-        // constraint strings of the respective panels managed my
-        // the CardLayout of DRRecipeGUI).  Might not be elegant but has
-        // always been hard-wired in a similar way.
-        ((CardLayout) (_w.getLayout())).show(_w, _instStr.toLowerCase());
 
         // First fill in the text box.
         TextBoxWidgetExt tbwe;
@@ -203,31 +207,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             } catch (NullPointerException ex) {
             }
         }
-
-        // See which type of recipe the selected recipe is, if any.
-        // Get the instrument and display the relevant options.
-        // Then look for the recipe in these options. If its there highlight
-        // it.
-
-        // What I really need to do is introduce imaging/spec capabilities into
-        // instruments which I can then get. Imager-spectrometers will be a
-        // special case
-
-        LookUpTable rarray = null;
-
-        if (_instStr.equalsIgnoreCase(INST_STR_SCUBA2)) {
-            rarray = SpDRRecipe.SCUBA2;
-        } else if (_instStr.equalsIgnoreCase(INST_STR_HETERODYNE)) {
-            rarray = SpDRRecipe.HETERODYNE;
-        } else {
-            rarray = new LookUpTable();
-        }
-
-        // Show the correct recipes, and select the option widget for the type
-        _showRecipeType(rarray);
     }
-
-    private String cachedInst = "";
 
     /**
      * Override setup to store away a reference to the SpDRRecipe item.
@@ -240,7 +220,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         SpInstObsComp tmpInst = SpTreeMan.findInstrument(_spDRRecipe);
 
         if (_inst != null && (tmpInst == null || !tmpInst.equals(_inst))) {
-            _spDRRecipe.reset();
             initd = false;
         }
 
@@ -254,13 +233,41 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             _instStr = "";
         }
 
-        if (!initd || cachedInst != _instStr) {
+        // The instrument type changed (or was null before), so configure
+        // the GUI for the new instrument.
+        if (!initd) {
             _initInstWidgets();
-        } else {
-            _updateRecipeWidgets();
         }
 
-        cachedInst = _instStr;
+        // Check whether the SpDRRecipe's recipes are still valid for the
+        // current instrument.  We used to call _spDRRecipe.reset() whenever
+        // the instrument changed (i.e. if ! initd) but this caused
+        // recipes to be deleted from science programs which legitimately
+        // used more than one instrument -- the "whack-a-mole" fault
+        // (20150324.011).  For this check, it's not really relevant
+        // what the previous instrument looked at was, so perform it
+        // every time (not just if ! initd).
+        try {
+            LookUpTable recipes = getInstrumentRecipes();
+            for (String type: _spDRRecipe.getAvailableTypes(_instStr)) {
+                String recipe = _spDRRecipe.getRecipeForType(type);
+                if (recipe != null) {
+                    // Try to look up the index of the recipe -- throws
+                    // NoSuchElementException if the recipe isn't there.
+                    recipes.indexInColumn(recipe, 0);
+                }
+
+            }
+        } catch (NoSuchElementException e) {
+            // If _spDRRecipe contained a recipe which isn't allowed for the
+            // instrument, reset it.
+            System.out.println("Recipes not appropriate for inst: clearing.");
+            _spDRRecipe.reset();
+        }
+
+        // Update the recipe widgets to show the selection from the
+        // SpDRRecipe.
+        _updateRecipeWidgets();
 
         super.setup(spItem);
     }

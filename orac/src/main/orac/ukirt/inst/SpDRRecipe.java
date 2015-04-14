@@ -776,14 +776,6 @@ public final class SpDRRecipe extends SpDRObsComp {
     }
 
     /**
-     * Get the DR recipe name. Retained for compatibility
-     */
-    public String getRecipeName() {
-        String recipe = _avTable.get(ATTR_OBJECT_RECIPE);
-        return recipe;
-    }
-
-    /**
      * Get the default recipe (METHOD  REQUIRED...)
      */
     public String getDefaultRecipe() {

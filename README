@@ -6,7 +6,7 @@ If you are reading this you already have the code.
 For the sake of completeness here are the full instructions.
 
 1. Check out the code
-    git clone https://github.com/jac-h/observing-tool.git jacot
+    git clone https://github.com/eaobservatory/observing-tool.git jacot
 
 2. change to the code directory ...
     cd jacot

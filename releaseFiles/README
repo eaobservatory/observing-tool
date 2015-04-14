@@ -7,7 +7,7 @@ For the sake of completeness here are the full instructions.
 
 1. In Hilo ...
 cd /jac_sw
-git clone git://github.com/jac-h/observing-tool.git ot_release_<YYYYMMDD>
+git clone git://github.com/eaobservatory/observing-tool.git ot_release_<YYYYMMDD>
 
 where <YYYYMMDD> is replaced with the current date.
 

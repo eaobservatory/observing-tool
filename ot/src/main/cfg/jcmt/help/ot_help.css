@@ -1,0 +1,99 @@
+html {
+    font-family: serif;
+    font-size 12pt;
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    background: silver;
+    width: 100%;
+}
+
+body {
+    max-width: 100ex;
+    background: white;
+    text-align: left;
+    margin-top: 5ex;
+    margin-bottom: 5ex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5ex;
+}
+
+h1 {
+    text-align: center;
+}
+
+a:link {
+    color: #003300;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #005500;
+    text-decoration: underline;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+    text-align: center;
+}
+
+p.figure {
+    border: 1px solid #008800;
+    padding: 1ex;
+    text-align: center;
+}
+
+img.figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+
+p.figure img {
+    display: inline-block;
+    margin: 1ex;
+}
+
+nav {
+    display: block;
+    text-align: center;
+}
+
+nav a:link, nav a:visited {
+    color: #aaaaaa;
+    text-decoration: none;
+    margin-left: 2ex;
+    margin-right: 2ex;
+}
+
+img.dropright {
+    display: block;
+    float: right;
+    clear: all;
+    margin: 1ex;
+}
+
+dl dt {
+    font-weight: bold;
+    font-style: italic;
+}
+
+ul.custom_marker {
+    list-style-type: none;
+}
+
+ul.custom_marker img {
+    padding-right: 1ex;
+}
+
+p.warning {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}

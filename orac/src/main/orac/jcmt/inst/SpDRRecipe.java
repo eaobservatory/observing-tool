@@ -46,8 +46,6 @@ import java.util.TreeMap;
  */
 @SuppressWarnings("serial")
 public final class SpDRRecipe extends SpDRObsComp {
-    public static final String PROJECTION_TYPES_TAG = "projection types";
-    public static final String GRID_FUNCTION_TYPES_TAG = "grid_function types";
     public static final String ATTR_OBJECT_RECIPE = "objectRecipe";
 
     public static final String ATTR_RASTER_TYPE = "rasterRecipe";
@@ -79,39 +77,6 @@ public final class SpDRRecipe extends SpDRObsComp {
     TreeMap<String, TreeMap<String, String>> defaults =
             new TreeMap<String, TreeMap<String, String>>();
 
-    /*
-     * The values of the following String variables were
-     * taken from the corresponding XML elements in <cube_list> when possible.
-     * However, the variable names and method names in which the variable
-     * are more in accordance with naming conventions used elsewhere in the OT.
-     */
-
-    /**
-     * Channel spacings in kHz.
-     *
-     * The values 1000, 2000, 4000, 8000, 16000 are not exact.
-     * <p>
-     * There are other settings depending on the bandwidth and the front end.
-     */
-    public static final String[] CHANNEL_BINNINGS = {
-            "1", "2", "4", "8", "16",
-            "32", "64", "128", "256",
-    };
-
-    /**
-     * The choice has been restricted to "MHz" because the spectral region
-     * editor used to specify baseline fit regions and line regions uses
-     * Hz (GHz) rather than "km.s-1" or "pixel".
-     */
-    public static final String[] BASELINE_REGION_UNITS = {"km.s-1", "MHz"};
-    public static final String[] REGRIDDING_METHODS = {"Linear", "Bessel"};
-    public static final String[] BASELINE_SELECTION = {
-            "None", "Automatic", "Manual",
-    };
-    public static String[] WINDOW_TYPES = null;
-    public static String[] PROJECTION_TYPES = null;
-    public static String[] GRID_FUNCTION_TYPES = null;
-    public static String[] POLYNOMIALS = null;
     public static LookUpTable HETERODYNE;
     public static LookUpTable SCUBA2;
     public static final String OBJECT_RECIPE_DEFAULT = "DEFAULT";
@@ -122,8 +87,6 @@ public final class SpDRRecipe extends SpDRObsComp {
     public static final String[] DR_RECIPES = {OBJECT_RECIPE_DEFAULT};
     public static final SpType SP_TYPE = SpType.create(
             SpType.OBSERVATION_COMPONENT_TYPE, "DRRecipe", "DRRecipe");
-    private int _nRegions = 0;
-    private boolean _readingRegion = false;
     private final Class<? extends SpDRRecipe> whatami = this.getClass();
 
     // Register the prototype.
@@ -158,13 +121,6 @@ public final class SpDRRecipe extends SpDRObsComp {
 
                 } else if (InstCfg.matchAttr(instInfo, "scuba2")) {
                     SCUBA2 = instInfo.getValueAsLUT();
-
-                } else if (InstCfg.matchAttr(instInfo, PROJECTION_TYPES_TAG)) {
-                    PROJECTION_TYPES = instInfo.getValueAsArray();
-
-                } else if (InstCfg.matchAttr(instInfo,
-                        GRID_FUNCTION_TYPES_TAG)) {
-                    GRID_FUNCTION_TYPES = instInfo.getValueAsArray();
 
                 } else if (InstCfg.likeAttr(instInfo, "default_recipe")) {
                     addDefaultRecipe(instInfo.getKeyword(),
@@ -282,94 +238,6 @@ public final class SpDRRecipe extends SpDRObsComp {
             }
         } else {
             reset();
-        }
-    }
-
-    public String getWindowType() {
-        return null;
-    }
-
-    /**
-     * Get the DR recipe name. Retained for compatibility
-     */
-    public String getRecipeName() {
-        String recipe = _avTable.get(ATTR_OBJECT_RECIPE);
-        return recipe;
-    }
-
-    /**
-     * Creates &lt;ms_truncation&gt; element for ACSIS/OCS XML.
-     *
-     * This method is used by the temporary ACSIS translator
-     * and might become obsolete once the final ACSIS translator is in place.
-     */
-    public String get_ms_truncation(String indent) {
-        StringBuffer result = new StringBuffer();
-
-        result.append(indent + "<ms_truncation>\n");
-        result.append(indent + "  Currently not used. ???\n");
-        result.append(indent + "</ms_truncation>\n");
-
-        return result.toString();
-    }
-
-    /**
-     * Creates &lt;cubet&gt; element for ACSIS/OCS XML.
-     *
-     * This method is used by the temporary ACSIS translator
-     * and might become obsolete once the final ACSIS translator is in place.
-     */
-    public String get_cube(String indent, SpTelescopePos groupCentre,
-            double mapWidth, double mapHeight, int cubeIndex) {
-        String xAxis = "";
-        String yAxis = "";
-        String coordSystem = "";
-
-        if (groupCentre != null) {
-            xAxis = groupCentre.getXaxisAsString();
-            yAxis = groupCentre.getYaxisAsString();
-            coordSystem = CoordSys.getSystem(groupCentre.getCoordSys());
-        }
-
-        return indent + "<cube id=\"CUBE" + (cubeIndex + 1) + "\">\n"
-                + indent + "  <group_centre>\n"
-                + indent + "    <spherSystem SYSTEM=\"" + coordSystem + "\">\n"
-                + indent + "      <c1>" + xAxis + "</c1>\n"
-                + indent + "      <c2>" + yAxis + "</c2>\n"
-                + indent + "    </spherSystem>\n"
-                + indent + "  </group_centre>\n"
-                + indent + "  <data_source>\n"
-                + indent + "    <spw_ref ref=\"SPW" + (cubeIndex + 1) + "\"/>\n"
-                + indent + "    <range units=\"???\">\n"
-                + indent + "      <min > ??? </min>\n"
-                + indent + "      <max > ??? </max>\n"
-                + indent + "    </range>\n"
-                + indent + "  </data_source>\n"
-                + indent + "  <tcs_coord type=\"TRACKING\"/>\n"
-                + indent + "</cube>\n";
-    }
-
-    public void processXmlElementStart(String name) {
-        if (name.equals("baseline")) {
-            _nRegions = 0;
-        } else if (name.equals("fit_region")) {
-            _readingRegion = true;
-        } else if (name.equals("range") && _readingRegion) {
-
-        } else {
-            super.processXmlElementStart(name);
-        }
-    }
-
-    public void processXmlElementEnd(String name) {
-        if (name.equals("fit_region")) {
-            System.out.println("Incrementing number of regions");
-            _nRegions++;
-            _readingRegion = false;
-        } else if (name.equals("baseline")) {
-            _nRegions = 0;
-        } else {
-            super.processXmlElementEnd(name);
         }
     }
 }

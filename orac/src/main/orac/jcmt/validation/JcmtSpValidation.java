@@ -47,6 +47,7 @@ import orac.validation.ErrorMessage;
 
 import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.iter.SpIterNoiseObs;
+import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.iter.SpIterPOL;
 
 import java.lang.reflect.Method;
@@ -279,6 +280,17 @@ public class JcmtSpValidation extends SpValidation {
                     report.add(new ErrorMessage(ErrorMessage.ERROR,
                             spObs.getTitle(),
                             "Cannot use Noise observations with Hetrodyne"));
+                }
+
+                // Do not allow rasters with ACSIS to have a sample time
+                // in excess of 10 seconds.  (See fault 20150410.005.)
+                if (thisObs instanceof SpIterRasterObs) {
+                    if (thisObs.getSampleTime() > 10.0) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            spObs.getTitle(),
+                            "Sample time exceeds 10 seconds"));
+                    }
+
                 }
             }
 

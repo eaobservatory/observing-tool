@@ -2274,12 +2274,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         String sideband = _inst.getBand();
 
         if (!validSideband(sideband)) {
-            JOptionPane.showMessageDialog(null,
-                    "Using " + sideband + " in order to reach line.",
-                    "Changing Sideband!",
-                    JOptionPane.WARNING_MESSAGE);
+            String other = LSB.equals(sideband) ? USB : LSB;
 
-            clickButton(_w.sbSelector, sideband);
+            if (validSideband(other)) {
+                JOptionPane.showMessageDialog(null,
+                        "Using " + other + " in order to reach line.",
+                        "Changing Sideband!",
+                        JOptionPane.WARNING_MESSAGE);
+
+                clickButton(_w.sbSelector, other);
+            }
+            else {
+                JOptionPane.showMessageDialog(null,
+                        "Frequency cannot be reached from " + sideband + ".",
+                        "Frequency not valid for Sideband!",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

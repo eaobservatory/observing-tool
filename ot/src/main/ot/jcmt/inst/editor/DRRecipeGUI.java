@@ -21,7 +21,6 @@ package ot.jcmt.inst.editor;
 
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.Insets;
@@ -79,13 +78,11 @@ public class DRRecipeGUI extends JPanel {
     CommandButtonWidgetExt defaultName = new CommandButtonWidgetExt();
 
     // the following names are not very helpful
-    JPanel panel = new JPanel();
     JPanel bigPanel = new JPanel();
     JPanel thatPanel = new JPanel();
     JPanel anotherPanel = new JPanel();
     JScrollPane scrollPane = new JScrollPane();
 
-    CardLayout cardLayout = new CardLayout();
     BorderLayout borderLayout = new BorderLayout();
     BorderLayout layout = new BorderLayout();
     GridBagLayout panelGridbag = new GridBagLayout();
@@ -100,8 +97,7 @@ public class DRRecipeGUI extends JPanel {
     }
 
     private void jbInit() throws Exception {
-        this.setLayout(cardLayout);
-        panel.setLayout(layout);
+        this.setLayout(layout);
         thatPanel.setLayout(panelGridbag);
         bigPanel.setLayout(borderLayout);
         anotherPanel.setLayout(anotherGridbag);
@@ -145,9 +141,7 @@ public class DRRecipeGUI extends JPanel {
 
         // End of types
 
-        this.add(panel, "heterodyne");
-
-        panel.add(thatPanel, BorderLayout.NORTH);
+        this.add(thatPanel, BorderLayout.NORTH);
 
         thatPanel.add(recipeNameLabel, new GridBagConstraints(
                 2, 0, 1, 1, 1.0, 0.0,
@@ -227,7 +221,7 @@ public class DRRecipeGUI extends JPanel {
 
         // End of types
 
-        panel.add(bigPanel, BorderLayout.CENTER);
+        this.add(bigPanel, BorderLayout.CENTER);
 
         bigPanel.add(anotherPanel, BorderLayout.NORTH);
         anotherPanel.add(defaultName, new GridBagConstraints(
