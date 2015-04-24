@@ -15,8 +15,7 @@
 <h2 id="OT">What is the JCMT OT?</h2>
 <p>
 The purpose of the JCMT OT is to fully specify the observations you wish
-to be carried out at the telescope. As a telescope that undertakes flexible
-observing .....
+to be carried out at the telescope during flexible observing.
 </p>
 
 <p>
@@ -68,3 +67,60 @@ description of each, and help in creating your own program,
 please consult the
 <a href="het_example.html">heterodyne tutorial</a>.
 </p>
+
+
+<h2 id="scheduling">What happens to my project after I upload it?</h2>
+<p>
+During flexible observing, the observer/Telescope operator will run a tool called
+JCMT-QT (Query Tool) that allows them to browse our database for
+suitable project MSBs. The QT by default returns as yet unobserved MSBs ranked
+by TAG priority containing targets that are actually observable, whose
+site quality requirements match the current conditions, and whose projects
+still have allocated time left. However, the observer/TSS is able to use
+the QT to retrieve any submitted MSB at their discretion.
+</p>
+
+<p>
+When an MSB is selected for actual execution, the Query Tool can be used
+to retrieve it from our database. The observer/Telescope operator is then
+presented with a list of the observations in that MSB and given the opportunity to
+remove redundant calibrations from the MSB or to defer them until a suitable
+calibrator becomes available. When they are satisfied that the MSB is
+suitable for execution they send it off to the instrument-specific control system.
+</p>
+
+<p>
+The MSB may be sent to a translator which converts it into a complete set of
+instructions for the telescope, receiver(s), and backend.
+</p>
+
+<p>
+The instructions are then placed in a queue that can be processed. As the queue
+works its way down the list it takes any sensible course of action, such as
+prompting the observer/TSS when intervention is needed.
+</p>
+
+<p>
+After the observations have been carried out and deemed acceptable by the Telescope
+operator, the MSB is marked as done and will not be rescheduled unless it is resubmitted
+from the JCMT-OT or marked Undone via the project feedback system. If repeats of
+the MSB were requested, the repeat counter is decremented by 1.
+</p>
+
+
+<h2 id="deadline">What is the deadline for submissions?</h2>
+<p>
+There is no strict deadline for uploading programs/MSBs.
+However if you don't submit MSBs for your
+sources by the time they are observable you could be throwing away
+opportunities of having your sources observed. Nevertheless, note
+that there is no requirement that you submit your entire project
+at once. Therefore you can submit some MSBs, wait for them to
+get done so you can analyze the results and then submit other
+MSBs to follow up on those results. Your MSBs will keep on being
+scheduled until you have exceeded the total time allocated to your
+project.
+</p>
+
+
+
