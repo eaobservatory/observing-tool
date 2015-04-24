@@ -6,36 +6,263 @@
 </head>
 <body>
 <nav>
-<a href="intro.html">&#x2190; JCMT OT Primer Main Page</a>
+<a href="index.html">&#x2190; JCMT OT Primer Main Page</a>
 </nav>
 
-<h1>Generic MSB Guidance</h1>
+<h1>General description of an MSB</h1>
 
 
-Getting started - the MSB
-
-
-your science program
-
-
-The Library
-
-
-Elements of an MSB
-
-
-Example of two basic generic MSBs (RxA stare), SCUBA-2 Daisy
+As described in <a href="intro.html#MSB">What is an MSB</a>
 
 
 
 
-Components Iterators etc
-
-
-Saving your progress
-
-Validation
+<h2 id="gs">Getting started</h2>
 
 
 
-Uploading to the database
+<p>
+OK, let's do this. Start the JCMT Observing Tool.
+</p>
+
+<p>
+You will see two windows pop up. One has a colour picture of the
+telescope - that's the JCMT root window. You can use its menus to
+open and save files and fetch programs from our database. The
+window with the JCMT line drawing, which pops on top of the root
+window, provides a shortcut to some of the most common startup
+actions, so we call that the startup screen:
+</p>
+
+<p>
+<img src="images/startup.png" alt="Image of startup screen" class="figure" width="720" height="337">
+</p>
+
+<p>
+For now, press "Create New Program" on the startup screen. The
+startup window will be replaced by an science program window. If
+you are using a proxy server to connect to the internet now would
+be a good time to configure the OT to use this &mdash; see the
+instructions <a href="advanced.html#proxy">here</a>.
+</p>
+
+<p>
+("Open Existing Program" lets you open a science program that
+you've previously edited and saved in your own computer system.  "Fetch
+Program" allows you to download a program that that you have
+completed and uploaded to our observing database.  To download
+the program, of course, you will need the project
+ID (e.g. m06bc18) and
+<a href="http://omp.eao.hawaii.edu/cgi-bin/issuepwd.pl">password</a>.
+</p>
+
+<h2 id="ysp">Your science program</h2>
+
+<p>
+Look at your blank science program window. It's essentially
+divided in four sections:
+</p>
+
+<ol>
+    <li>The menu and general tool bars at the top
+    <li>The program tool bar down the left side
+    <li>The program panel in the middle
+    <li>The editor panel on the right
+</ol>
+
+<p>
+The bar between the program panel and the editor panel can be
+dragged around to enlarge or reduce them.
+</p>
+
+<p>
+Currently, the only thing in your program panel is a "Science Program"
+line. We'll add things to it later. For now, take the time to fill in
+its details in the Science Program editor on the right. The most
+important field here is the Project ID field. <em>You have to get this
+right otherwise you will not be able to submit your program to
+us</em>. Your project ID is what you were assigned when you submitted
+your proposal for telescope time. It is of the form m06b followed by a
+country letter and a two digit proposal number (sometimes followed by
+a letter).
+</p>
+
+<p>
+<img src="images/sciprog.png" alt="Science Program window" class="figure" width="828" height="692" />
+</p>
+
+<p>
+Also on the panel are estimates of the total time the specified
+program will take with and without optional observations,
+which are currently both 0 since we haven't specified any
+observations yet.
+</p>
+
+
+
+<h2 id="lib">The Library</h2>
+
+
+<h2 id="ele">Elements of an MSB</h2>
+
+
+<h2 id="exp">Example of two basic generic MSBs (RxA stare), SCUBA-2 Daisy</h2>
+
+
+
+
+<h2 id="etc">Components Iterators etc</h2>
+
+
+
+
+<h2 id="syp">Saving your progress</h2>
+
+<p>
+Now that we've done something we can save it. Open the File menu
+in your Science Program window and choose "Save As...".
+</p>
+
+<p>
+<img src="images/filesave.png" alt="File Save menu" class="figure" width="588" height="418" />
+</p>
+
+<p>
+You will be prompted for a filename and so on:
+</p>
+
+<p>
+<img src="images/saveas.png" alt="Save As window" class="figure" width="516" height="353" />
+</p>
+
+<p>
+The file format is XML, which is a text (not binary) format that
+you can read in later with the OT, or email to your
+collaborators. If you have a question, you can also email your
+file to your "Friend of the Project" along with your question.
+</p>
+
+<p>
+You might have noticed that the title of your Science Program
+was italics and now that you've saved the file, the title is
+normal font. When you edit a component
+of your Science Program its title changes font to indicate that
+you need to save your work.
+</p>
+
+
+
+
+<h2 id="validation">Validation</h2>
+<p>
+When you think you are happy with your MSB, your are
+<strong>strongly</strong> advised to validate the MSB before
+submitting it to the database.
+To do this, click on your science programme and press the "Validation"
+button on the bar above. This will tell you if there's anything
+seriously wrong with your MSBs &mdash; the output can be a bit cryptic
+though &mdash; so do ask us if you can't figure out what it means. You can
+also check individual MSBs and observations.
+</p>
+
+
+
+<h2 id="database">Submitting to our database</h2>
+
+<p>
+When you are happy about the MSBs you have created you can submit
+them to our database. As soon as you do this, they may be observed
+so don't do this unless you mean it! To submit your program to our
+database, pull down the Database menu on your Science Program window:
+</p>
+
+<p>
+<img src="images/submit.png" alt="Submitting" width="603" height="241" class="figure" />
+</p>
+
+<p>
+A little window will pop up using the Project ID that you put
+into your Science Program at the start
+(see <a href="#ysp">Your science program</a>).
+It will also ask you for a password. You
+can get a password from our password generator at
+<a href="http://omp.eao.hawaii.edu/cgi-bin/issuepwd.pl">
+http://omp.eao.hawaii.edu/cgi-bin/issuepwd.pl </a>. If you
+forget it, go there to get another one. If you are PI on more
+than one project you'll need a password per project so that you
+can share it with your different sets of Co-Is. The password you
+get will also allow you access to your
+<a href="http://omp.eao.hawaii.edu/cgi-bin/feedback.pl">Feedback Area</a>
+to check on the progress of your project, double-check
+your MSBs, retrieve your data and exchange views with our
+staff. Check it out. Both the above links can also be found off
+on OMP home page
+<a href="http://omp.eao.hawaii.edu/">http://omp.eao.hawaii.edu</a>
+</p>
+
+<p>
+When you do get your password and submit your program, you will
+receive a summary of all the MSBs contained in your
+program. Check to make sure that everything is okay. If the
+are major problems with you science program the database may complain
+and refuse to accept the submission. If you don't understand what
+the problem is, email us along with a copy of the problematic
+project, but check the
+<a href="faq.html">Frequently Asked Questions </a> for hints first.
+</p>
+
+<p>
+One last thing: don't forget to save your Science Program to
+your local file too. But &mdash; always start a new session by
+fetching the program from our database before making any
+changes, since our system modifies your science program to
+indicate which observations have been observed.
+</p>
+
+
+
+
+<h3>Integration times</h3>
+
+<p>
+Note that throughout this document <b>integration times</b> are the
+<em>"on"-source</em> time only, instead of <em>"on+off"</em> as
+before.
+</p>
+
+
+
+<h3>Advanced OT Topics</h3>
+
+<p>
+There is a section on
+<a href="advanced.html#advanced">Advanced Topics</a>
+that observers should read. There you will learn more about
+how the Target and Heterodyne components can interact with each other,
+and also how to use the
+<a href="advanced.html#andor">AND/OR folders</a>
+when you have many MSBs in your programme.
+<a href="advanced.html#survey">Survey containers</a> may significantly
+simplify your setup if used properly.
+</p>
+
+<h3>Program Validation</h3>
+
+<p>
+Please be sure to <i>carefully</i> double-check your program and to
+<b><i>validate</i></b> after high-lighting the top-most entry in the
+OT program. The quoted Observing times are approximate and estimates
+of overheads are based on limited tests. Check the validation messages
+and contact your Friend of the Project if you need help.
+</p>
+
+<h3>Detailed description of Observing Modes</h3>
+
+<p>
+A detailed description of the various observing modes, rms noise,
+and durations is available as a document
+<a href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.
+<i>Even though the information is not required in order to set up a science
+program, experienced as well as novice JCMT observers are encouraged
+to read the document as a general background.</i>
+</p>
