@@ -149,15 +149,17 @@ you need to save your work.
 <h2 id="lib">The Library</h2>
 
 <p>
-A library containing commonly used MSBs can be found by by going to the JCMT
-root window: 
+The libraries containing commonly used MSBs can be found by by going to the JCMT
+root window.
 </p>
 
 <p>
 <img src="images/root-menu.png" alt="The MSB library" width="281" height="248" class="figure" />
 </p>
 
-<p>We can either click on the ACSIS library, in which case a new window
+<h3 id="lib-acsis">The ACSIS Library</h3>
+
+<p>By clicking on the ACSIS library in the JCMT root window a new window
 will appear displaying a number of
 folders containing commonly used ACSIS MSBs:
 </p>
@@ -166,8 +168,9 @@ folders containing commonly used ACSIS MSBs:
 <img src="het_images/het_copy.png" alt="The ACSIS MSB library" class="figure" />
 </p>
 
+<h3 id="lib-sc2">The SCUBA-2 Library</h3>
 
-<p>or we can click on the SCUBA-2 library, in which case a new window
+<p>By clicking on the SCUBA-2 library in the JCMT root window  new window
 will appear displaying a number of
 folders containing commonly used SCUBA-2 MSBs:
 </p>
@@ -177,11 +180,55 @@ folders containing commonly used SCUBA-2 MSBs:
 </p>
 
 
-<h2 id="ele">Elements of an MSB</h2>
+<h2 id="ele">Elements of a Science Program</h2>
+
+A Science program will contain one or more MSBs. Each MSB will 
 
 
-<h2 id="exp">Example of two basic generic MSBs (RxA stare), SCUBA-2 Daisy</h2>
+The following two examples are shown only to provide familiarity with what
+is included in a program. Further details may be found in the 
 
+<h3 id="exp">Example 1 - of a basic MSBs: RxA stare</h3>
+
+<p> 
+In order to produce this example I have copied over the HARP "Position
+switch sample" from the ACSIS library into an empty Program. Inside
+this MSB it is possible to see components that deal with
+<ul>
+    <li>MSB editor</li>
+    <li>Note</li>
+    <li>Site Quality</li>
+    <li>DR Recipe</li>
+    <li>Het Setup (HARP)</li>
+    <li>Target Information</li>
+    <li>Science Observation</li>
+    <li>Sequence</li>
+    <li><b>Repeat</b></li>
+    <li>Scan</li>
+</ul>
+
+
+<h3 id="exp">Example 2 - of a basic MSBs: SCUBA-2 Daisy</h3>
+
+<p> 
+In order to produce this example I have copied over the "Point Source Daisy map"
+from the SCUBA-2 library into an empty Program. Inside this MSB it is possible to
+see components that deal with
+<ul>
+    <li>MSB editor</li>
+    <li>Note</li>
+    <li>Site Quality</li>
+    <li>DR Recipe</li>
+    <li>SCUBA-2</li>
+    <li>Target Information</li>
+    <li>Science Observation</li>
+    <li>Sequence</li>
+    <li>Scan</li>
+</ul>
+
+<p>
+<img src="s2-images/SCUBA2_example.png" alt="The SC21 MSB library" class="figure" />
+</p>
 
 
 
@@ -199,7 +246,7 @@ folders containing commonly used SCUBA-2 MSBs:
 <p>
 And probably:
 </p>
-
+git 
 <ul>
     <li>Increase the number of integrations, repeats and MSBs</li>
     <li>Modify the chop/update an off/reference position</li>
