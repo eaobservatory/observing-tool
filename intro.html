@@ -20,16 +20,17 @@ to be carried out at the telescope during flexible observing.
 
 <p>
 The JCMT OT enables users to build
-a science program for heterodyne and SCUBA-2 observations.
+a science program for observing at the JCMT to execute both heterodyne 
+and SCUBA-2 observations.
 A <a href="het_example.html#het_msblib">heterodyne template library</a>
 and <a href="scuba2_example.html#start">SCUBA-2 template library</a>
 are provided which allow users to create MSBs for any available observing
-mode: <em>Samples, Grids, Jiggles</em> and <em>Scans</em> for heterodyne,
+mode: <em>Samples, Grids, Jiggles, Scans</em> and <em>Rasters</em>for heterodyne,
 and <em>PONG </em>or <em>DAISY scans</em> for SCUBA-2.
 </p>
 
 <p>
-It JCMT OT is quite a powerful tool; in this document we will demonstrate
+In this document we will demonstrate
 how to prepare a typical observing project and point you to further sources
 of information as necessary.
 </p>
@@ -51,21 +52,23 @@ scheduling? The quantum of scheduling is a Minimum Schedulable Block,
 or MSB. An MSB consists of one or more scientifically meaningful observations
 as well as any calibrations required to fully reduce the
 data. <em>An MSB will always be executed at the telescope in its
-entirety</em>. For more information see
-<a href="faq.html#msb">What makes a good MSB?</a>
-but for the moment bear in mind that the most
-efficient MSB consists of a 30 minute to 70  minute observation on a single
-science target and any necessary calibrations.
+entirety</em>. MSBS naturally vary in length but it is recommended that a
+single MSB consists of a 30 minute to 70  minute observation on a single
+science target and any necessary calibrations. Note: SCUBA-2 observations
+should last no more than 40 minutes in length (see 
+<a href="scuba2_example.html#notes_40min">here</a> for a longer discussion
+on this topic).
 </p>
 
 <p>
-Now that you've seen the basics of creating an observing program,
-and know what an MSB is, you will want to start creating your
-own.  We've created a library of MSBs for the most commonly used
-observing modes which are currently supported.  For a
+A library of MSBs for the most commonly used
+observing mode which are currently supported is provided.  For a
 description of each, and help in creating your own program,
-please consult the
-<a href="het_example.html">heterodyne tutorial</a>.
+please consult the following tutorials:
+<ul> 
+    <li><a href="het_example.html">heterodyne tutorial</a></li>
+    <li><a href="scuba2_example.html">SCUBA-2 tutorial</a></li>
+</ul>
 </p>
 
 
