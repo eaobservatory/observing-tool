@@ -135,7 +135,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
     /**
      * Create the File => "Open <instrument> Library" menu items.
      */
-    protected JMenuItem[] createFileOpenInstLibraryMenuItems(
+    public static JMenuItem[] createFileOpenInstLibraryMenuItems(
             final Component parentComponent) {
         String[] libs = OtCfg.getLibraries();
 

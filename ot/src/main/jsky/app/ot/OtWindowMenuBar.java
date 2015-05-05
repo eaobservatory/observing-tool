@@ -134,6 +134,17 @@ public class OtWindowMenuBar extends JMenuBar {
         menu.add(createFileOpenMenuItem());
         menu.add(createFileOpenNewWindowMenuItem());
         menu.addSeparator();
+
+        for (JMenuItem libraryItem: OTMenuBar.createFileOpenInstLibraryMenuItems(
+                editor)) {
+            if (libraryItem == null) {
+                menu.addSeparator();
+            } else {
+                menu.add(libraryItem);
+            }
+        }
+
+        menu.addSeparator();
         menu.add(editor.getSaveAction());
 
         if (OtCfg.telescopeUtil instanceof UkirtUtil) {
