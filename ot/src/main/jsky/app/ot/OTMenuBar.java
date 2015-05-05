@@ -27,6 +27,7 @@
 
 package jsky.app.ot;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -82,7 +83,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
         fileMenu.add(createMenuItem(OPEN));
         fileMenu.addSeparator();
 
-        JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems();
+        JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems(ot);
 
         for (int i = 0; i < instLibraryMenuItems.length; i++) {
             if (instLibraryMenuItems[i] == null) {
@@ -134,7 +135,8 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
     /**
      * Create the File => "Open <instrument> Library" menu items.
      */
-    protected JMenuItem[] createFileOpenInstLibraryMenuItems() {
+    protected JMenuItem[] createFileOpenInstLibraryMenuItems(
+            final Component parentComponent) {
         String[] libs = OtCfg.getLibraries();
 
         JMenuItem[] menuItems = new JMenuItem[libs.length];
@@ -151,7 +153,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
             menuItems[i] = new JMenuItem("Open " + libname + " library");
             menuItems[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ot.openLibrary(libname + ".xml");
+                    OtFileIO.openLibrary(libname + ".xml", parentComponent);
                 }
             });
         }
