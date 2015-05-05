@@ -81,6 +81,7 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
         fileMenu.add(createMenuItem(NEW_PROGRAM));
         fileMenu.add(createMenuItem(NEW_LIBRARY));
         fileMenu.add(createMenuItem(OPEN));
+        fileMenu.addSeparator();
 
         JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems();
 
