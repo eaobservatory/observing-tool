@@ -146,7 +146,7 @@ you need to save your work.
 </p>
 
 
-<h2 id="lib">The Library</h2>
+<h2 id="lib">The Libraries</h2>
 
 <p>
 The libraries containing commonly used MSBs can be found by by going to the JCMT
@@ -168,6 +168,14 @@ folders containing commonly used ACSIS MSBs:
 <img src="het_images/het_copy.png" alt="The ACSIS MSB library" class="figure" />
 </p>
 
+It is possible to open up and look inside the key ACSIS library components
+see inside the various types of MSBs.
+
+<p>
+<img src="het_images/het_library2.png" alt="The ACSIS MSB library" class="figure" />
+</p>
+
+
 <h3 id="lib-sc2">The SCUBA-2 Library</h3>
 
 <p>By clicking on the SCUBA-2 library in the JCMT root window  new window
@@ -176,27 +184,68 @@ folders containing commonly used SCUBA-2 MSBs:
 </p>
 
 <p>
-<img src="s2-images/SCUBA2_copy.png" alt="The SC21 MSB library" class="figure" />
+<img src="s2-images/SCUBA2_copy.png" alt="The SC2 MSB library" class="figure" />
 </p>
+
+It is possible to open up and look inside the key SCUBA-2 library components
+see inside the various types of MSBs.
+
+<p>
+<img src="s2-images/SCUBA2_library3.png" alt="The SC2 MSB library" class="figure" />
+</p>
+
 
 
 <h2 id="ele">Elements of a Science Program</h2>
 
-A Science program will contain one or more MSBs. A typical MSB will contain:
 
-<ul>
-    <li>MSB editor - </li>
-    <li>Note</li>
-    <li>Site Quality</li>
-    <li>DR Recipe</li>
-    <li>SCUBA-2</li>
-    <li>Target Information</li>
-    <li>Science Observation</li>
-    <li>Sequence</li>
-    <li>Scan</li>
-</ul>
+The best way to get a feel for the various elements within an MSB and its
+structure it is best to copy over an existing one from either the ACSIS
+or SCUBA-2 library into a blank Science Program.Remember a Science program
+will contain one or more MSBs - depending on the specific program of work.
 
-<h2 id="thingies">Components, Iterators And All That</h2>
+
+<h3 id="exp-harp">Example of a basic MSB: a HARP stare</h3>
+
+<p> 
+In order to produce this example I have copied over the HARP "Position
+switch sample" from the ACSIS library into an empty Program.
+<p>
+To open up the MSB click on the push "lever". Inside you will find a
+Note, a Site Quality Component, Het Setup component, a DR Recipe component,
+a second Note (for calibrations), a Target Info. component, and an observation
+component which is labeled "Science Observation". Inside the "Science
+Observation" component we see a Sequence iterator, a Repeat iterator and
+finally a stare:
+
+<p>
+<img src="het_images/het_example.png" alt="The SC21 MSB library" class="figure" />
+</p>
+
+
+<h3 id="exp-sc2">Example of a basic MSB: a SCUBA-2 Daisy</h3>
+
+<p> 
+In order to produce this example I have copied over the "Point Source Daisy map"
+from the SCUBA-2 library into an empty Program. 
+
+<p>
+To open up the MSB click on the push "lever". Just as we saw in the ACSIS example
+we find a Note, a Site Quality Component, Het Setup component, a DR Recipe component,
+a Target Information component, and an observation component which is labeled 
+"Science Observation". Inside the "Science Observation" component we see a
+Sequence iterator, and finally a stare:
+
+<p>
+<img src="s2-images/SCUBA2_example.png" alt="The SC21 MSB library" class="figure" />
+</p>
+
+
+<h3 id="thingies">Components, Iterators And All That</h3>
+
+<p>
+The various icons that appear when making your science program/MSB
+are specific. The explanation for what these icons are are given below:
 
 <ul class="custom_marker">
     <li>
@@ -252,41 +301,48 @@ A Science program will contain one or more MSBs. A typical MSB will contain:
 </ul>
 
 
-<h3 id="exp">Example 1 - of a basic MSBs: HARP stare</h3>
+<h3 id="generic_ele"> Elements common to both ACSIS and SCUBA-2 MSBs </h3>
 
-<p> 
-In order to produce this example I have copied over the HARP "Position
-switch sample" from the ACSIS library into an empty Program. Click on the
-push lever to open up your MSB. Inside you will find a Note, a Site Quality
-Component, Het Setup component, a DR Recipe component, a second Note
-(for calibrations), a Target Info. component, and an observation
-component which is labeled "Science Observation". Inside the "Science
-Observation" component we see a Sequence iterator, a Repeat iterator and
-finally a stare:
+As you could probably tell from looking at the two examples above many of
+elements of an MSB are common to both SCUBA-2 and heterodyne observations.
 
-<p>
-<img src="het_images/het_example.png" alt="The SC21 MSB library" class="figure" />
-</p>
-
-
-<h3 id="exp">Example 2 - of a basic MSBs: SCUBA-2 Daisy</h3>
-
-<p> 
-In order to produce this example I have copied over the "Point Source Daisy map"
-from the SCUBA-2 library into an empty Program. Click on the
-push lever to open up your MSB. Just as we saw in the ACSIS example we find a
-Note, a Site Quality Component, Het Setup component, a DR Recipe component, a Target
-Information component, and an observation component which is labeled 
-"Science Observation". Inside the "Science Observation" component we see a
-Sequence iterator, and finally a stare:
-
-<p>
-<img src="s2-images/SCUBA2_example.png" alt="The SC21 MSB library" class="figure" />
-</p>
-
-
-
-<h2 id="etc">Components Iterators etc</h2>
+<ul>
+    <li>MSB editor </li>
+        <ul>
+        <li>You should provide a unique name for the MSB - i.e.
+         "CO (3-2) observation of M82"
+        <li>You should specify the number of times you with the
+         program to be Observed - by increasing the Observe counter
+        <li>You should edit the Priority 
+        <li>the OT will Provide the length of the current MSB as it stands</li>
+        </ul>
+    <li>Note</li>
+        <ul>
+        <li>You should provide some details about your project - depth
+        required/binning etc. This will help the observer and telescope
+        operator understand your program.</li>
+        </ul>
+    <li>Site Quality</li>
+        <ul>
+        <li>You should specify specific tau limits for an MSB with particular
+        tau constrains</li>
+        </ul>
+    <li>DR Recipe</li>
+        <ul>
+        <li>You should select the most appropriate DR Recipe for an observation</li>
+        </ul>
+    <li>JCMT Instrument</li>
+        <ul>
+        <li>The precise component varies depending on if it is a continuum
+        or heterodyne observation</li>
+        <li> </li>
+        </ul>
+    <li>Target Information</li>
+        <ul>
+        <li> </li>
+        <li> </li>
+        </ul>
+</ul>
 
 
 <h2 id="check">Checklist</h2>
@@ -300,9 +356,9 @@ Sequence iterator, and finally a stare:
 <p>
 And probably:
 </p>
-git 
+
 <ul>
-    <li>Increase the number of integrations, repeats and MSBs</li>
+    <li>Increase the number of "observations" required and scan time if necessary for the MSBs</li>
     <li>Modify the chop/update an off/reference position</li>
     <li>Make an informative note for the observer</li>
 </ul>
