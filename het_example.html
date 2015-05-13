@@ -1035,7 +1035,7 @@ will be displayed as a hierarchy, as shown below.
 </p>
 
 <p>
-<img src="het_images/obs_comp.png" alt="Observation component" width="887" height="604" class="figure" />
+<img src="het_images/obs_comp.png" alt="Observation component" width="841" height="604" class="figure" />
 </p>
 
 
@@ -1074,7 +1074,7 @@ Click on the chop iterator:
 </p>
 
 <p>
-<img src="het_images/het_chop.png" alt="The Chop Iterator" width="841" height="693" class="figure" />
+<img src="het_images/het_chop.png" alt="The Chop Iterator" width="841" height="604" class="figure" />
 </p>
 
 <p>
@@ -1082,14 +1082,21 @@ The chop iterator has a list of chop configurations (in this example
 only one 60 arcsecond chop). Each chop needs to be specified by a
 throw, an angle, and co-ordinate frame of the angle. In this example
 the frame is AZEL (Azimuth Elevation) but other common options are
-TRACKING (RA &amp; Dec) or FPLANE (Focal Plane). A 60 arcsecond chop with
+TRACKING (RA &amp; Dec) or FPLANE (Focal Plane).
+</p>
+
+<p>
+A 60 arcsecond chop with
 an angle of 90 degrees AZEL (i.e. 60 arcsec in the azimuth direction)
 is typical for beamswitched observations of compact sources. If the
 source is extended, one might want to increase the chop throw, or if
 the source was elongated in one direction on the sky, chop in a
-rotated direction relative to the RA/DEC frame. The maximum
-recommended chop throw is 180 arcsec.  There is a software limit of
-240 arcsec. Chopping with large throws is less efficient than using
+rotated direction relative to the RA/DEC frame.
+</p>
+
+<p>
+<b>The maximum recommended chop throw is 180 arcsec</b>. There is a software
+limit of 240 arcsec. Chopping with large throws is less efficient than using
 small throws and also there will be a slight distortion of the beam
 due to observing off-axis. Clicking on Add one can add chop
 configurations. Each configuration will result in a separate
