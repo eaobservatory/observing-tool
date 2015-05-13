@@ -11,12 +11,13 @@
 
 <h1>Creating your program</h1>
 
+<p>
 The JCMT OT software enables users to fully specify the observations required
 to be carried out at the telescope for a specific program. In this section we
 describe how to initially create a program, how to populate a program with MSBs
 (for information bout what is an MSB see <a href="intro.html#MSB">here</a>)
 from a library provided, and how to save/upload your program to our database.
-
+</p>
 
 <h2 id="gs">Getting started</h2>
 
@@ -35,11 +36,13 @@ You will see two windows pop up. One has a colour picture of the
 telescope - that is the JCMT root window. You can use its menus to
 open and save files, access the MSB libraries for both ACSIS and SCUBA-2,
 and fetch programs from our database. 
+</p>
 
-
+<p>
 <img src="images/root.png" width="281" height="248" class="figure" />
+</p>
 
-
+<p>
 The window with the JCMT line drawing, which pops on top of the root
 window, provides a shortcut to some of the most common startup
 actions, so we call that the startup screen:
@@ -168,8 +171,10 @@ folders containing commonly used ACSIS MSBs:
 <img src="het_images/het_copy.png" alt="The ACSIS MSB library" class="figure" />
 </p>
 
+<p>
 It is possible to open up and look inside the key ACSIS library components
 see inside the various types of MSBs.
+</p>
 
 <p>
 <img src="het_images/het_library2.png" alt="The ACSIS MSB library" class="figure" />
@@ -198,18 +203,20 @@ see inside the various types of MSBs.
 
 <h2 id="ele">Elements of a Science Program</h2>
 
-
+<p>
 The best way to get a feel for the various elements within an MSB and its
 structure it is best to copy over an existing one from either the ACSIS
 or SCUBA-2 library into a blank Science Program.Remember a Science program
 will contain one or more MSBs - depending on the specific program of work.
-
+</p>
 
 <h3 id="exp-harp">Example of a basic MSB: a HARP stare</h3>
 
 <p> 
 In order to produce this example I have copied over the HARP "Position
 switch sample" from the ACSIS library into an empty Program.
+</p>
+
 <p>
 To open up the MSB click on the push "lever". Inside you will find a
 Note, a Site Quality Component, Het Setup component, a DR Recipe component,
@@ -217,6 +224,7 @@ a second Note (for calibrations), a Target Info. component, and an observation
 component which is labeled "Science Observation". Inside the "Science
 Observation" component we see a Sequence iterator, a Repeat iterator and
 finally a stare:
+<p>
 
 <p>
 <img src="het_images/het_example.png" alt="The SC21 MSB library" class="figure" />
@@ -228,6 +236,7 @@ finally a stare:
 <p> 
 In order to produce this example I have copied over the "Point Source Daisy map"
 from the SCUBA-2 library into an empty Program. 
+</p>
 
 <p>
 To open up the MSB click on the push "lever". Just as we saw in the ACSIS example
@@ -235,6 +244,7 @@ we find a Note, a Site Quality Component, Het Setup component, a DR Recipe compo
 a Target Information component, and an observation component which is labeled 
 "Science Observation". Inside the "Science Observation" component we see a
 Sequence iterator, and finally a stare:
+</p>
 
 <p>
 <img src="s2-images/SCUBA2_example.png" alt="The SC21 MSB library" class="figure" />
@@ -246,7 +256,7 @@ Sequence iterator, and finally a stare:
 <p>
 The various icons that appear when making your science program/MSB
 are specific. The explanation for what these icons are are given below:
-
+</p>
 <ul class="custom_marker">
     <li>
         <p>
@@ -282,39 +292,36 @@ are specific. The explanation for what these icons are are given below:
         the instrument (het setup component), the telescope (Target
         component) and the scheduler (Site Quality component).
 
-
-<ul>
+ <ul>
     <li>Site Quality</li>
         <ul>
         <li>You should specify specific tau limits for an MSB with particular
         tau constrains</li>
         </ul>
     </ul>
-<p>
-<ul>
+ <p>
+ <ul>
     <li>DR Recipe</li>
         <ul>
         <li>You should select the most appropriate DR Recipe for an observation</li>
         </ul>
     </ul>
-<p>
-<ul>
+ <p>
+ <ul>
     <li>JCMT Instrument</li>
         <ul>
         <li>The precise component varies depending on if it is a continuum
         or heterodyne observation</li>
         </ul>
     </ul>
-<p>
-<ul>
+ <p>
+ <ul>
     <li>Target Information</li>
         <ul>
         <li>You should specify the target information here</li>
         <li>If required (i.e. for Heterodyne observations without a chop position) you should specify a reference position</li>
         </ul>
-</ul>
-
-
+ </ul>
         </p>
     </li>
 
@@ -340,13 +347,11 @@ are specific. The explanation for what these icons are are given below:
         <img src="images/icon_note.png" alt="*" width="18" height="18" />
         Notes are a repository of useful information and can
         go anywhere.
-
         <ul>
         <li>You should provide some details about your project - depth
         required/binning etc. This will help the observer and telescope
         operator understand your program.</li>
         </ul>
-
         </p>
     </li>
 </ul>
@@ -355,12 +360,12 @@ are specific. The explanation for what these icons are are given below:
 
 
 <h2 id="check">Checklist</h2>
-<p>When creating your own program you should ensure you:
+<p>When creating your own program you should ensure you:</p>
 <ul>
-    <li>Fill in your Science Program details</li>
-    <li>Fetch a template MSB from the library</li>
-    <li>Set the target co-ordinates</li>
-    <li>select the DR recipe</li>
+    <li><p>Fill in your Science Program details</p></li>
+    <li><p>Fetch a template MSB from the library</p></li>
+    <li><p>Set the target co-ordinates</p></li>
+    <li><p>select the DR recipe</p></li>
 </ul>
 
 <p>
@@ -368,10 +373,10 @@ And also where necessary:
 </p>
 
 <ul>
-    <li>Increase the number of "observations" required and scan time if necessary for the MSBs</li>
-    <li>Modify the chop/update an off/reference position</li>
-    <li>select the instrument set up </li>
-    <li>Make an informative note for the observer</li>
+    <li><p>Increase the number of "observations" required and scan time if necessary for the MSBs</p></li>
+    <li><p>Modify the chop/update an off/reference position</p></li>
+    <li><p>select the instrument set up</p></li>
+    <li><p>Make an informative note for the observer</p></li>
 </ul>
 
 
