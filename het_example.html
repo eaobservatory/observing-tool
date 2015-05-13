@@ -1175,12 +1175,22 @@ allows the user to choose from beam switching or position switching.
 In this example we are beam-switching, and the chop throw was set with
 the <a href="#het_tci">chop iterator</a>.  In the "Secs per offset
 sample" box, enter the <b>total on-source integration time</b> per
-sample position in seconds. (Note this is different from how it's been
-done in the past when we specified the on+off time.) The estimated RMS
-noise per channel is shown in the "Noise" box.  Typical recommended
-on-source integration times per sample are 5 to 10 minutes. We advise
-to use no observing times >15 minutes, at the risk of loosing
-observations when something goes wrong.
+sample position in seconds.
+</p>
+
+<p>
+The estimated RMS noise per channel is shown in the "Noise" box.
+Typical recommended on-source integration times per sample are 5 to
+15 minutes. We advise to keep observing times under 15-20 minutes,
+at the risk of loosing observations when something goes wrong. Longer
+observations do have risk associated with them however they are more
+efficient - requiring fewer instrument set ups over longer periods of time.
+</p>
+
+
+
+<p>
+<img src="het_images/het_eye.png" alt="The stare eye" width="870" height="647" class="figure" />
 </p>
 
 <p>
@@ -1204,15 +1214,14 @@ penalty for using continuum mode is an increase of the observing time
 by a factor of 1.7.
 </p>
 
-<p>
-<img src="het_images/het_eye.png" alt="The stare eye" width="870" height="647" class="figure" />
-</p>
-
 <h2 id="het_time">The repeat iterator and integration time in general</h2>
 
 <p>
-Back to your Science Program window now. Click on the Repeat
-iterator. It's only property is a repeat counter:
+The Repeat iterator's only property is a repeat counter. This repeat 
+counter will affect things that are <strong>inside</strong>
+the repeat iterator (i.e. indented under it) in turn. So if you set it
+to 2, your science observation consist of two spectral line samples;
+i.e you will end up with precisely two spectral line observations. 
 </p>
 
 <p>
@@ -1220,17 +1229,17 @@ iterator. It's only property is a repeat counter:
 </p>
 
 <p>
-The repeat iterator acts on things that are <strong>inside</strong>
-the repeat iterator (i.e. indented under it) in turn. So if you set it
-to 2, your science observation consist of two spectral line samples;
-i.e you will end up with precisely two spectral line observations. If
-you require a long integration of a source, it makes sense to break
-the observation down into shorter integrations of around ten minutes
+If you require a long integration of a source, it makes sense to break
+the observation down into shorter integrations of around 10-20 minutes
 or so, so that data quality can be assessed as the observation
-progresses. In practice, you set up the integration time required per
+progresses.
+</p>
+
+<p>
+In practice, you set up the integration time required per
 spectral line observation using the stare eye and then use the
 repeat iterator to define a sufficient number of repeats to give the
-total required integration time.
+total required integration time for the MSB.
 </p>
 
 <p>
@@ -1312,8 +1321,7 @@ if preferred:
         <li>
         <p>
         A calibration note for specific instructions for the calibration
-        observations. In the future we hope to be able to replace this
-        note with better methods for including calibration observations.
+        observations - if required.
         </p>
     </li>
 </ul>
@@ -1325,16 +1333,16 @@ observer and TSS at the time the observation is made. If you click on
 the note icon, the right hand panel allows you to enter the name of
 the note and the main text body of the note. The "Show to observer"
 check-box should be checked if you want the note to be visible for the
-observer/TSS at the time of observation. It is <em>strongly</em>
-recommended that each of your MSBs contains at least one "Show to
-observer" note. All of the information about the observation not
-covered by other elements of the MSB should be included in "show to
-observer" notes. This would be much of the material which would have
-previously gone into the "Overall Strategy" and "Observing Cookbook"
-sections of heterodyne observing templates. It is important to note
-that calibration details are not yet explicitly included in heterodyne
-MSBs, so the observer should spell out the required calibration
-observations in a "Calibration" note.
+observer/TSS at the time of observation.
+<p>
+
+</p>
+It is <em>strongly</em>
+advised that each of your MSBs contains at least one "Show to
+observer" note. This should cover the aim of the project, what an
+observer/Telescope Operator might want to keep an eye out for when
+observing the program/MSB at the telescope - emission features,
+baseline issues, noise levels. 
 </p>
 
 <p>
@@ -1350,7 +1358,11 @@ the number of integration and number of repeats as specified. However,
 where possible, an attempt will be made to optimize the process using
 the specified Completion Parameters. The detailed logistics of the
 scheduling may prevent this, but when possible this may save time for your
-project or guarantee the results. For instance you may want to
+project or guarantee the results. 
+</p>
+
+<p>
+For instance you may want to
 allow for more time than the MSBs nominally take to allow for the
 addition of extra repeats in order to ensure the requested
 rms. Setting a S/N target may save unnecassary repeats, etc.
