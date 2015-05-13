@@ -34,7 +34,7 @@ A detailed and technical discussion
                     <li><a href="./het_sp_config.html">ACSIS Special Configurations</a></li>
                 </ul>
             </li>
-            <li><a href="#het_rcpe">DRRecipe Component</a></li>
+            <li><a href="#het_rcpe">DR Recipe Component</a></li>
             <li><a href="#het_tsc">Site Quality</a></li>
             <li><a href="#het_tsched">Scheduling Constraints</a></li>
             <li><a href="#het_tfoc">The Observation component</a></li>
@@ -72,23 +72,30 @@ Go to the JCMT root window, and open the ACSIS library by clicking on
 <img src="het_images/het_library.png" alt="Contents of the heterodyne library" width="291" height="272" class="figure" />
 </p>
 
+
 <p>
 A window will pop up containing a list of folders. The little switch
-on the left of the folder icons is an open/close toggle switch. Push
-open the folder titled "Samples" and then select the MSB labeled
-"Beam-switch sample(1X) " and click "Copy" on the toolbar.
-</p>
+on the left of the folder icons is an open/close toggle switch. 
 
 <p>
 <img src="het_images/het_copy.png" alt="Copying an MSB" width="856" height="693" class="figure" />
 </p>
 
+<p>It is possible to take a look inside some of the folders. To continue with
+the example provided in this guide ensure you have pushed open the folder titled
+"Samples" and then select the MSB labeled
+"Beam-switch sample(1X) " and click "Copy" on the toolbar.
+</p>
 <p>
-Now go back to your Science Program window, and click on "Paste". The
-MSB will be dropped into your science program. Congratulations! You're
-now well underway. Now is a good time to save your progress, so use
-the File&#x2192;Save option in your Science Program window and carry
-on.
+<img src="het_images/het_copy1.png" alt="Copying an MSB" width="856" height="693" class="figure" />
+</p>
+
+<p>
+Now go back to <a href="Generic.html#ysp">your Science Program</a> window,
+and click on "Paste". The MSB will be dropped into your science program.
+Congratulations! You are now well underway. Now is a good time to save your
+progress, so use the <a href="Generic.html#syp">File&#x2192;Save</a> option in your Science Program window
+and carry on.
 </p>
 
 <h2 id="ria">Really Important Aside - or is it Inside?</h2>
@@ -124,7 +131,7 @@ The properties of an MSB are very simple:
 
     <li>
         <p>
-        A pull down menu with a repeat counter. Leave that to 1 for the
+        A pull down menu with an Observe counter. Leave that to 1 for the
         time being.
         </p>
     </li>
@@ -154,20 +161,21 @@ The properties of an MSB are very simple:
         </small>
         </p>
     </li>
+    <li>
+        <p>
+        An estimate of how long the MSB will take to is also displayed.
+        </p>
+    </li>
 </ul>
 
-<p>
-There is also a display of the OT's estimate of how long the MSB will
-take.
-</p>
 
 <h2 id="het_eoam">Elements of an MSB</h2>
 
 <p>
 Click on the push lever to open up your MSB. Inside you will find a
 Het Setup component, a Target Info. component, a Site Quality
-component, and an observation component which is labelled
-"Observation":
+component, and an observation component which is labeled
+"Science Observation":
 </p>
 
 <p>
@@ -180,11 +188,60 @@ component, and an observation component which is labelled
 
 <p>
 A detailed description of the various observing modes, rms noise,
-and durations is available as a document
-<a href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.
-<i>Even though the information is not required in order to set up a science
-program, experienced as well as novice JCMT observers are encouraged
+and durations is available at the following web page outlining
+<a href="https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/observing-modes/"><i>Heterodyne Obsmodes</i></a>.
+</p>
+
+<p><i>Even though the information is not required in order to set up a science
+program, experienced as well as novice JCMT observers are encoursaged
 to read the document as a general background.</i>
+</p>
+
+
+<h2 id="het_tsc">Site Quality</h2>
+
+<p>
+The Site Quality component specifies any weather-related scheduling
+requirements for an MSB. Click on the Site Quality component to get
+the Site Quality panel:
+</p>
+
+<p>
+<img src="het_images/het_site_quality.png" alt="Site Quality Component" width="848" height="692" class="figure" />
+</p>
+
+<p>
+Your TAG normally allocates your program a certain range of tau
+(opacity), so you probably don't need to change anything here unless
+your program is using multiple receivers and the TAG-allocated tau
+range is not sufficiently specific for this MSB. You should specify an
+appropriate range of tau to match the demands of the receiver to be
+used. But <b>beware</b>: the resulting range of tau in which
+the MSB can be observed is then the intersect of the TAG allocation
+and your input: make sure this is not an empty set! For example, if
+the TAG allocation for your project is weather band 4 (tau(225GHz)
+between 0.12 and 0.2) and you request a tau range between 0.1 and
+0.12, then your project will be picked up for observation ONLY if the
+tau is EXACTLY 0.12.
+</p>
+
+<p>
+The default value of the sub-millimetre seeing is "Don't Care".
+</p>
+
+<p>
+It is useful to set the "&tau; for noise calculation" value, however,
+to the <i>average</i> or <i>expected</i> value of tau during which
+your observations are expected to be obtained.  (Note that the OT
+<i>does not know</i> what &tau; range was allocated for your project.)
+The OT uses the value in this field to calculate the estimated RMS of
+the observation specified in the phot/sam etc. "eye"-cons.
+</p>
+
+<p>
+For a review of the Weather Bands used at the JCMT you can visit the
+<a href="http://www.eaobservatory.org/jcmt/observing/weather-bands/">
+JCMT's weather pages</a>.
 </p>
 
 <h2 id="het_thsc">The Het Setup component</h2>
@@ -197,12 +254,9 @@ the required heterodyne instrument (the Front End) and ACSIS
 </p>
 
 <p>
-<img src="het_images/het_het_setup.jpeg" alt="Het Setup component" width="879" height="634" class="figure" />
+<img src="het_images/het_het_setup.png" alt="Het Setup component" width="879" height="634" class="figure" />
 </p>
 
-<p>
-Four boxes are displayed in the editor panel.
-</p>
 
 <h3>Front End Configuration</h3>
 
@@ -213,6 +267,9 @@ Four boxes are displayed in the editor panel.
         choose the required receiver or <b>Front End</b>. The tuning/frequency
         range over which the selected receiver can be tuned is displayed in
         the <b>Front End Summary</b> box in the top-right corner.
+            <ul><li>
+            Currently only receivers A3 and HARP are available for use.
+            </ul></li>
         </p>
     </li>
 
@@ -548,7 +605,7 @@ label, the line identification is important for archival purpose.
 </p>
 
 
-<h2 id="het_rcpe">DRRecipe Component</h2>
+<h2 id="het_rcpe">DR Recipe Component</h2>
 
 <p>
 With the rapid data acquisition rates now afforded by HARP and
@@ -566,14 +623,15 @@ development</i> and thus are likely to change and evolve.
 </p>
 
 <p>
-The <b>DRRecipe</b> component is used to specify the recipe that is
-to be used by ORACDR for reducing the data.  The example
-shown in the figure above (see <a href="#het_eoam">Elements
-of an MSB</a>) shows the DRRecipe component below
+The <b>DR Recipe</b> component is used to specify the 
+<a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch9.html#x10-760001">
+recipe that is to be used by ORACDR</a> for reducing the data.
+The example in the figure below shows the DR Recipe component
+positioned underneath
 the HetSetup component, although it need not be positioned
-exactly here.  (Note that the DRRecipe component needs to be
+exactly here.  (Note that the DR Recipe component needs to be
 paired with a HetSetup component, however.)  Open the
-DRRecipe component by clicking on it.  The bottom portion of
+DR Recipe component by clicking on it.  The bottom portion of
 the window displays a list of the available recipes, with a
 very short description of each.  (See below for a fuller
 description.)  Click on the desired recipe, then click the
@@ -582,7 +640,7 @@ to the desired observing mode.
 </p>
 
 <p>
-<img src="het_images/het_drrecipe.jpeg" alt="DRRecipe elements" width="887" height="604" class="figure" />
+<img src="het_images/het_drrecipe.png" alt="DRRecipe elements" width="887" height="604" class="figure" />
 </p>
 
 
@@ -598,7 +656,9 @@ plus outflow profile. This process is tricky in this sense:
 the baseline fitting can easily remove a feature of interest
 from the preview image. Observers should ALWAYS go back and
 inspect the raw data carefully to assess the accuracy of the
-preview images and pipeline reduction.
+preview images and pipeline reduction. For more information
+please read <a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20.html">
+The Heterodyne Data Reduction Cookbook</a>
 </p>
 
 <p>
@@ -621,6 +681,7 @@ developed for use with the ORACDR pipeline, with an emphasis
 on scan-map data. An outline is provided below, but expect
 changed and redesigns as we gain experience. The main
 purpose of the routines is to
+</p>
 
 <ol>
 <li>fit a baseline to the spectra and
@@ -688,131 +749,7 @@ intensity weighted velocity images.
     </dd>
 </dl>
 
-<h2 id="het_tsc">Site Quality</h2>
 
-<p>
-The Site Quality component specifies any weather-related scheduling
-requirements for an MSB. Click on the Site Quality component to get
-the Site Quality panel:
-</p>
-
-<p>
-<img src="het_images/het_site_quality.png" alt="Site Quality Component" width="848" height="692" class="figure" />
-</p>
-
-<p>
-Your TAG normally allocates your program a certain range of tau
-(opacity), so you probably don't need to change anything here unless
-your program is using multiple receivers and the TAG-allocated tau
-range is not sufficiently specific for this MSB. You should specify an
-appropriate range of tau to match the demands of the receiver to be
-used. But <b>beware</b>: the resulting range of tau in which
-the MSB can be observed is then the intersect of the TAG allocation
-and your input: make sure this is not an empty set! For example, if
-the TAG allocation for your project is weather band 4 (tau(225GHz)
-between 0.12 and 0.2) and you request a tau range between 0.1 and
-0.12, then your project will be picked up for observation ONLY if the
-tau is EXACTLY 0.12.
-</p>
-
-<p>
-The default value of the sub-millimetre seeing is "Don't Care".
-</p>
-
-<p>
-It is useful to set the "&tau; for noise calculation" value, however,
-to the <i>average</i> or <i>expected</i> value of tau during which
-your observations are expected to be obtained.  (Note that the OT
-<i>does not know</i> what &tau; range was allocated for your project.)
-The OT uses the value in this field to calculate the estimated RMS of
-the observation specified in the phot/sam etc. "eye"-cons.
-</p>
-
-<h2 id="het_tsched">Scheduling Constraints</h2>
-
-<p>
-The Scheduling Constraints component allows one to restrict or broaden
-the time over which an MSB will be selected. To insert this component,
-click on the <i>Component</i> button on the left side near the bottom
-of the OT window, and select the "Sched. Constraints".
-</p>
-
-<p>
-<img src="het_images/het_sched_constraints.png" alt="Scheduling Constraints Component" width="848" height="692" class="figure" />
-</p>
-
-<p>
-The main reason you might want to insert this component is if your
-science targets have a very low or very high declination (i.e. &delta;
-&lt; ~-35<sup>o</sup> or &delta; &gt; ~+80<sup>o</sup>). By default,
-MSBs are only selected when the sources are above about 30<sup>o</sup>
-elevation, so low- and high- declination sources may never be selected
-unless you specify a lower minimum elevation.  Similarly, sources at
-~19<sup>o</sup> declination transit almost directly overhead, and you
-may wish to restrict such sources to be selected when they're not at
-extremely high elevations.
-</p>
-
-<p>
-Another reason to insert this component is if your observations are
-time-critical, i.e. they must not be done before a certain date or
-after a certain date.  This can be specified by changing the Earliest
-and/or Latest Schedule Date.
-</p>
-
-<p>
-You may also need to use this component if you have a project which
-requires periodic observations, for example if you were monitoring a
-variable source.  In that case, you can specify the repeat time in the
-"Reschedule every..." box.  The MSB will be reactivated at the
-appropriate time.
-</p>
-
-<h2 id="het_tfoc">The Observation component</h2>
-
-<p>
-Now click on the Observation component to bring up its panel. If you
-recursively open all of the toggle switches, the individual components
-will be displayed as a hierarchy, as shown below.
-</p>
-
-<p>
-<img src="het_images/obs_comp.png" alt="Observation component" width="825" height="695" class="figure" />
-</p>
-
-<p>
-The first element inside the Observation component can be the "Target
-information" component. Note, however, that in the templates the
-target component is outside the Observation component. This allows one
-to construct an MSB to perform multiple observations on a single
-target: such MSBs would therefore contain multiple Observation
-components. More importantly for heterodyne observations it allows the
-Het. Component to access velocity information that may need to be
-obtained from the Target Component.  Further details on this issue of
-component nesting may be found in the section on
-<a href="advanced.html">advanced topics</a>.
-</p>
-
-<p>
-Following the Target component in the example is a sequence iterator
-which contains a repeat iterator, then (depending upon the observation
-type) perhaps a chop iterator or an offset iterator - a
-position-switched scan centred on the Target, as in this example,
-needs neither - and then, finally, a single (action) "eye".  The
-sequence iterator doesn't do anything <i>per se</i>, but it is
-important to note that it represents the sequence of events at the
-telescope. The repeat iterator allows the user to control the number
-of repeats carried out for a certain observation. The "eye"-con
-represents the observation itself.
-</p>
-
-<p>
-The "Flag as calibration" button should be toggled ON if, indeed,
-this observation is intended as a calibration for others.
-This fact is then made known to the TSS who may decide not to
-execute the observation (er . . calibration) if a suitable
-calibration has recently been done already.
-</p>
 
 <h2 id="het_tcc">The target component</h2>
 
@@ -821,7 +758,7 @@ Click on the target component to bring up its panel:
 </p>
 
 <p>
-<img src="het_images/het_target.png" alt="The Target component" width="821" height="688" class="figure" />
+<img src="het_images/het_target.png" alt="The Target component" width="846" height="600" class="figure" />
 </p>
 
 <p>
@@ -1082,6 +1019,57 @@ be performed with the same chop as the science observation.
 <p>
 You can also click on the target component and use Drag to change your
 science co-ordinates if you wish.
+</p>
+
+
+
+
+
+
+<h2 id="het_tfoc">The Observation component</h2>
+
+<p>
+Now click on the Observation component to bring up its panel. If you
+recursively open all of the toggle switches, the individual components
+will be displayed as a hierarchy, as shown below.
+</p>
+
+<p>
+<img src="het_images/obs_comp.png" alt="Observation component" width="887" height="604" class="figure" />
+</p>
+
+<p>
+The first element inside the Observation component can be the "Target
+information" component. Note, however, that in the templates the
+target component is outside the Observation component. This allows one
+to construct an MSB to perform multiple observations on a single
+target: such MSBs would therefore contain multiple Observation
+components. More importantly for heterodyne observations it allows the
+Het. Component to access velocity information that may need to be
+obtained from the Target Component.  Further details on this issue of
+component nesting may be found in the section on
+<a href="advanced.html">advanced topics</a>.
+</p>
+
+<p>
+Following the Target component in the example is a sequence iterator
+which contains a repeat iterator, then (depending upon the observation
+type) perhaps a chop iterator or an offset iterator - a
+position-switched scan centred on the Target, as in this example,
+needs neither - and then, finally, a single (action) "eye".  The
+sequence iterator doesn't do anything <i>per se</i>, but it is
+important to note that it represents the sequence of events at the
+telescope. The repeat iterator allows the user to control the number
+of repeats carried out for a certain observation. The "eye"-con
+represents the observation itself.
+</p>
+
+<p>
+The "Flag as calibration" button should be toggled ON if, indeed,
+this observation is intended as a calibration for others.
+This fact is then made known to the TSS who may decide not to
+execute the observation (er . . calibration) if a suitable
+calibration has recently been done already.
 </p>
 
 <h2 id="het_tci">The chop iterator</h2>

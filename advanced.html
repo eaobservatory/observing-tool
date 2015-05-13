@@ -283,6 +283,50 @@ The scheduling constraints component allows you to:
     </li>
 </ul>
 
+
+
+
+<h2 id="het_tsched">Scheduling Constraints</h2>
+
+<p>
+The Scheduling Constraints component allows one to restrict or broaden
+the time over which an MSB will be selected. To insert this component,
+click on the <i>Component</i> button on the left side near the bottom
+of the OT window, and select the "Sched. Constraints".
+</p>
+
+<p>
+<img src="het_images/het_sched_constraints.png" alt="Scheduling Constraints Component" width="848" height="692" class="figure" />
+</p>
+
+<p>
+The main reason you might want to insert this component is if your
+science targets have a very low or very high declination (i.e. &delta;
+&lt; ~-35<sup>o</sup> or &delta; &gt; ~+80<sup>o</sup>). By default,
+MSBs are only selected when the sources are above about 30<sup>o</sup>
+elevation, so low- and high- declination sources may never be selected
+unless you specify a lower minimum elevation.  Similarly, sources at
+~19<sup>o</sup> declination transit almost directly overhead, and you
+may wish to restrict such sources to be selected when they're not at
+extremely high elevations.
+</p>
+
+<p>
+Another reason to insert this component is if your observations are
+time-critical, i.e. they must not be done before a certain date or
+after a certain date.  This can be specified by changing the Earliest
+and/or Latest Schedule Date.
+</p>
+
+<p>
+You may also need to use this component if you have a project which
+requires periodic observations, for example if you were monitoring a
+variable source.  In that case, you can specify the repeat time in the
+"Reschedule every..." box.  The MSB will be reactivated at the
+appropriate time.
+</p>
+
+
 <h3 id="andor">OR and AND Folders</h3>
 
 <p>
