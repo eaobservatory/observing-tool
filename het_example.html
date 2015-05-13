@@ -1038,30 +1038,17 @@ will be displayed as a hierarchy, as shown below.
 <img src="het_images/obs_comp.png" alt="Observation component" width="887" height="604" class="figure" />
 </p>
 
-<p>
-The first element inside the Observation component can be the "Target
-information" component. Note, however, that in the templates the
-target component is outside the Observation component. This allows one
-to construct an MSB to perform multiple observations on a single
-target: such MSBs would therefore contain multiple Observation
-components. More importantly for heterodyne observations it allows the
-Het. Component to access velocity information that may need to be
-obtained from the Target Component.  Further details on this issue of
-component nesting may be found in the section on
-<a href="advanced.html">advanced topics</a>.
-</p>
 
 <p>
-Following the Target component in the example is a sequence iterator
-which contains a repeat iterator, then (depending upon the observation
-type) perhaps a chop iterator or an offset iterator - a
-position-switched scan centred on the Target, as in this example,
-needs neither - and then, finally, a single (action) "eye".  The
-sequence iterator doesn't do anything <i>per se</i>, but it is
+Inside the Science Observation component we see a sequence iterator.
+The sequence iterator doesn't do anything <i>per se</i>, but it is
 important to note that it represents the sequence of events at the
-telescope. The repeat iterator allows the user to control the number
-of repeats carried out for a certain observation. The "eye"-con
-represents the observation itself.
+telescope. The sequence iterator contains a repeat iterator, then
+(depending upon the observation type) perhaps a chop iterator or an 
+offset iterator - a position-switched scan centred on the Target,
+finally, a single (action) "eye".   The repeat iterator allows
+the user to control the number of repeats carried out for a certain
+observation. The "eye"-con represents the observation itself.
 </p>
 
 <p>
@@ -1070,6 +1057,14 @@ this observation is intended as a calibration for others.
 This fact is then made known to the TSS who may decide not to
 execute the observation (er . . calibration) if a suitable
 calibration has recently been done already.
+</p>
+
+<p>
+The Science Observation component also tells us how long the entire
+sequence will take to execute. This is an important component to
+check when we are creating our program - remebering our rule for
+the <a href="intro.html#MSB">length of a MSB</a> so therefore
+the length of an individual Science Observation within an MSB.
 </p>
 
 <h2 id="het_tci">The chop iterator</h2>
