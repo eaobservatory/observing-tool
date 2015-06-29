@@ -250,8 +250,8 @@ Sequence iterator, and finally a stare:
 <img src="s2-images/SCUBA2_example.png" alt="The SC21 MSB library" class="figure" />
 </p>
 
+<h2 id="thingies" class="likesectionHead">Components, Iterators And All That</h2>
 
-<h3 id="thingies">Components, Iterators And All That</h3>
 
 <p>
 The various icons that appear when making your science program/MSB
@@ -356,6 +356,180 @@ are specific. The explanation for what these icons are are given below:
     </li>
 </ul>
 
+<h2 id="commoncomp" class="likesectionHead">Common components</h2>
+
+
+<p>
+Simply by looking at the HARP and SCUBA-2 MSB examples provided in the previous section it is possible to see several components are common to both both Heterodyne and continuum MSBs. Two that are identical are: 
+</p>
+<ul>
+    <li>
+        <p>
+        Notes
+        </p>
+    </li>
+        <li>
+        <p>
+        Site Quality
+        </p>
+    </li>
+</ul>
+
+<h3  id="het_note">Notes </h3>
+
+<p>
+the JCMT operates a flexible queue system. The best way to communicate
+your program aims and completion parameters is to write a brief note
+to accompany your MSB. 
+</p>
+
+<p>
+By default, the heterodyne library MSBs contain two note element at
+the beginning of the MSB. The notes can be combined into a single one
+if preferred:
+</p>
+
+<ul>
+    <li>
+        <p>
+        A note for general remarks concerning the program.
+        </p>
+    </li>
+        <li>
+        <p>
+        A calibration note for specific instructions for the calibration
+        observations - if required.
+        </p>
+    </li>
+</ul>
+
+<p>
+By default, the SCUBA-2 library MSBs contain a single note element at
+the beginning of the MSB. 
+</p>
+
+<p>
+The note component consists of a text window where you can include
+textual information, with the option of showing the note to the
+observer and TSS at the time the observation is made. If you click on
+the note icon, the right hand panel allows you to enter the name of
+the note and the main text body of the note. The "Show to observer"
+check-box should be checked if you want the note to be visible for the
+observer/TSS at the time of observation.
+<p>
+
+</p>
+It is <em>strongly</em>
+advised that each of your MSBs contains at least one "Show to
+observer" note. This should cover the aim of the project, what an
+observer/Telescope Operator might want to keep an eye out for when
+observing the program/MSB at the telescope - emission features,
+baseline issues, noise levels. 
+</p>
+
+<p>
+<img src="het_images/het_note.png" alt="A note example" width="841" height="695" class="figure" />
+</p>
+
+<p>
+Setting the "Show to observer" tick box brings up a "Completion
+Parameter" and "binning" field. These should contain information which
+help the observer and TSS to decide when to consider your observation
+to be complete. By default, your program will be executed with exactly
+the number of integration and number of repeats as specified. However,
+where possible, an attempt will be made to optimize the process using
+the specified Completion Parameters. The detailed logistics of the
+scheduling may prevent this, but when possible this may save time for your
+project or guarantee the results. 
+</p>
+
+<p>
+For instance you may want to
+allow for more time than the MSBs nominally take to allow for the
+addition of extra repeats in order to ensure the requested
+rms. Setting a S/N target may save unnecassary repeats, etc.
+The "Completion Parameter" should include a value for the total
+expired time, and/or a required signals-to-noise, and/or RMS noise
+value. Best is to provide all three and whichever one is reached first
+determines the completion. The assumed bin size, either in km/s or
+MHz, should be entered in the "Binning" field. The above screenshot
+shows an example of a possible "Show to observer" for an extragalactic
+spectral line observation.  Be aware, however, that ultimately it is
+up to <b>YOU</b>, the PI, to determine when the data have sufficient
+S/N, by downloading and analyzing your data soon after they are
+acquired and updating your MSBs as required.
+</p>
+
+<p>
+Additional notes can be inserted at any point in the MSB from the icon
+menu and you may have more than one "show to observer" notes in an
+MSB. For example, you could choose to insert a "show to observer" note
+above the "chop" element to clarify the use of an unusual chopping
+scheme.
+</p>
+
+<p>
+Finally, there is no need to repeat information in notes that is
+already included in other components of the MSB. This might include
+receiver tunings, chop throws, offset positions and science
+targets. All of these should be set up in the appropriate MSB
+components. If they are reproduced in notes, there is a risk that
+changes made to main body of the MSB will not be reflected in the
+notes, leading to conflicts between the notes and the MSB components
+resulting in confusion at the telescope.
+</p>
+
+
+
+
+<h3 id="het_tsc">Site Quality</h3>
+
+<p>
+The Site Quality component specifies any weather-related scheduling
+requirements for an MSB. Click on the Site Quality component to get
+the Site Quality panel:
+</p>
+
+<p>
+<img src="het_images/het_site_quality.png" alt="Site Quality Component" width="848" height="692" class="figure" />
+</p>
+
+<p>
+The Time Allocation Committee (TAC) normally allocates your program a certain
+range of tau (opacity), so you probably don't need to change anything here
+unless your program is using multiple receivers and the TAC-allocated tau
+range is not sufficiently specific for this MSB. You should specify an
+appropriate range of tau to match the demands of the receiver to be
+used. But <b>beware</b>: the resulting range of tau in which
+the MSB can be observed is then the intersect of the TAC allocation
+and your input: make sure this is not an empty set! For example, if
+the TAC allocation for your project is weather band 4 (tau(225GHz)
+between 0.12 and 0.2) and you request a tau range between 0.1 and
+0.12, then your project will be picked up for observation ONLY if the
+tau is EXACTLY 0.12.
+</p>
+
+<p>
+The default value of the sub-millimetre seeing is "Don't Care".
+</p>
+
+<p>
+It is useful to set the "&tau; for noise calculation" value, however,
+to the <i>average</i> or <i>expected</i> value of tau during which
+your observations are expected to be obtained.  (Note that the OT
+<i>does not know</i> what &tau; range was allocated for your project.)
+The OT uses the value in this field to calculate the estimated RMS of
+the observation specified in the phot/sam etc. "eye"-cons.
+</p>
+
+<p>
+For a review of the Weather Bands used at the JCMT you can visit the
+<a href="http://www.eaobservatory.org/jcmt/observing/weather-bands/">
+JCMT's weather pages</a>.
+</p>
+
+
+
 
 
 
@@ -365,7 +539,7 @@ are specific. The explanation for what these icons are are given below:
     <li><p>Fill in your Science Program details</p></li>
     <li><p>Fetch a template MSB from the library</p></li>
     <li><p>Set the target co-ordinates</p></li>
-    <li><p>select the DR recipe</p></li>
+    <li><p>Select the DR recipe</p></li>
 </ul>
 
 <p>
@@ -375,8 +549,9 @@ And also where necessary:
 <ul>
     <li><p>Increase the number of "observations" required and scan time if necessary for the MSBs</p></li>
     <li><p>Modify the chop/update an off/reference position</p></li>
-    <li><p>select the instrument set up</p></li>
+    <li><p>Select the instrument set up</p></li>
     <li><p>Make an informative note for the observer</p></li>
+    <li><p>Specify site quality - typically this can be left as "allocated"</p></li>
 </ul>
 
 
