@@ -22,12 +22,10 @@ A detailed and technical discussion
 <h2  id="contents">Contents</h2>
 
 <ul>
-    <li>A Guided Tour of an Example MSB (Beam-Switched <i>Sample</i>)
+    <li><a href="#het_info">General Information</a></li>
+    <li><a href="#het_start">Getting started</a></li>
+    <li><a href="#het_anat">Worked example of an MSB (Beam-Switched <i>Sample</i>)<a>
         <ul>
-            <li><a href="#het_anat"> Anatomy of a beam-switched MSB</a></li>
-            <li><a href="#ria">Really Important Aside &mdash; or is it Inside?</a></li>
-            <li><a href="#het_eoam">Elements of an MSB</a></li>
-            <li><a href="#thingies">Components, Iterators And All That</a></li>
             <li><a href="#het_thsc">The Het Setup component</a>
                 <ul>
                     <li><a href="#het_freq_ed">The Frequency Editor</a></li>
@@ -35,8 +33,6 @@ A detailed and technical discussion
                 </ul>
             </li>
             <li><a href="#het_rcpe">DR Recipe Component</a></li>
-            <li><a href="#het_tsc">Site Quality</a></li>
-            <li><a href="#het_tsched">Scheduling Constraints</a></li>
             <li><a href="#het_tfoc">The Observation component</a></li>
             <li><a href="#het_tcc">The target component</a></li>
             <li><a href="#Moving_Objects">Moving objects</a></li>
@@ -45,9 +41,8 @@ A detailed and technical discussion
             <li><a href="#het_offset">The offset iterator</a></li>
             <li><a href="#het_sample">The stare eye</a></li>
             <li><a href="#het_time">The repeat iterator and integration time in general</a></li>
-            <li><a href="#het_note">Adding a note</a></li>
-            <li><a href="#het_summary">Summary: Making your heterodyne MSB</a></li>
         </ul>
+        <li><a href="#het_summary">Summary: Making your heterodyne MSB</a></li>
     </li>
     <li><a href="#het_msblib">The Heterodyne MSB library</a>
         <ul>
@@ -61,12 +56,39 @@ A detailed and technical discussion
     </li>
 </ul>
 
-<h2 class="likesectionHead" id="het_anat">Guided Tour of an Example MSB (Beam-Switched Sample)</h2>
+
+
+<h2 class="likesectionHead" id="het_info">General Information</h2>
 
 <p>
-Go to the JCMT root window, and open the ACSIS library by clicking on
-&ldquo;Open ACSIS library&rdquo;:
+A detailed description of the various observing modes, rms noise,
+and durations is available at the following web page outlining
+<a href="https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/observing-modes/"><i>Heterodyne Obsmodes</i></a>.
 </p>
+
+<p><i>Even though the information is not required in order to set up a science
+program, experienced as well as novice JCMT observers are encoursaged
+to read the document as a general background.</i>
+</p>
+
+<p>
+If after reading this guide you have any questions about preparing
+your observations, please consult with your "Friend of the Project",
+or email <a href="mailto:jcmtot@eaobservatory.org">jcmtot@eaobservatory.org</a>.
+</p>
+
+
+
+<h2 class="likesectionHead" id="het_start">Getting started</h2>
+
+<p>
+To open up the existing heterodyne library go to the JCMT OT root window
+and click on &ldquo;Open ACSIS library&rdquo;:
+</p>
+
+
+
+
 
 <p>
 <img src="het_images/het_library.png" alt="Contents of the heterodyne library" width="291" height="272" class="figure" />
@@ -75,41 +97,34 @@ Go to the JCMT root window, and open the ACSIS library by clicking on
 
 <p>
 A window will pop up containing a list of folders. The little switch
-on the left of the folder icons is an open/close toggle switch. 
-
+on the left of the folder icons is an open/close toggle switch. In the image below these folders have been expanded:
 <p>
-<img src="het_images/het_copy.png" alt="Copying an MSB" width="856" height="693" class="figure" />
-</p>
 
-<p>It is possible to take a look inside some of the folders. To continue with
-the example provided in this guide ensure you have pushed open the folder titled
-"Samples" and then select the MSB labeled
-"Beam-switch sample(1X) " and click "Copy" on the toolbar.
-</p>
 <p>
 <img src="het_images/het_copy1.png" alt="Copying an MSB" width="856" height="693" class="figure" />
+</p>
+
+
+
+
+
+<h2 class="likesectionHead" id="het_anat">Worked example (Beam-Switched Sample) MSB </h2>
+
+<p> This chapter will run through an example MSB. First open the folder titled
+"Samples" within the ACSIS library. Once that folder has expanded select the MSB labeled
+"Beam-switch sample(1X) " and click "Copy" on the toolbar.
 </p>
 
 <p>
 Now go back to <a href="Generic.html#ysp">your Science Program</a> window,
 and click on "Paste". The MSB will be dropped into your science program.
-Congratulations! You are now well underway. Now is a good time to save your
-progress, so use the <a href="Generic.html#syp">File&#x2192;Save</a> option in your Science Program window
-and carry on.
+Remember you can save your
+progress using the <a href="Generic.html#syp">File&#x2192;Save</a> option in your Science Program window.
 </p>
-
-<h2 class="likesectionHead" id="ria">Really Important Aside - or is it Inside?</h2>
 
 <p>
-Do you see how the icon for the MSB is not directly below the icon for the
-Science Program but indented to the right? That's because the MSB is
-<em>inside</em> the Science Program. This is a classic way of representing
-a hierarchical structure, and many of you will be familiar with it from
-other applications, such as the "Manage Bookmarks" screen in the Netscape
-and Mozilla browsers.
+<img src="het_images/het_elements.jpeg" alt="Inside an MSB" width="841" height="697" class="figure" />
 </p>
-
-<h2 class="likesectionHead" id="het_etmc">Editing the MSB component</h2>
 
 <p>
 Click on the title of the MSB. This will activate the MSB
@@ -169,79 +184,8 @@ The properties of an MSB are very simple:
 </ul>
 
 
-<h2 class="likesectionHead" id="het_eoam">Elements of an MSB</h2>
-
 <p>
-Click on the push lever to open up your MSB. Inside you will find a
-Het Setup component, a Target Info. component, a Site Quality
-component, and an observation component which is labeled
-"Science Observation":
-</p>
-
-<p>
-<img src="het_images/het_elements.jpeg" alt="Inside an MSB" width="841" height="697" class="figure" />
-</p>
-
-
-
-<h2 class="likesectionHead">Detailed description of Observing Modes</h2>
-
-<p>
-A detailed description of the various observing modes, rms noise,
-and durations is available at the following web page outlining
-<a href="https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/observing-modes/"><i>Heterodyne Obsmodes</i></a>.
-</p>
-
-<p><i>Even though the information is not required in order to set up a science
-program, experienced as well as novice JCMT observers are encoursaged
-to read the document as a general background.</i>
-</p>
-
-
-<h2 class="likesectionHead" id="het_tsc">Site Quality</h2>
-
-<p>
-The Site Quality component specifies any weather-related scheduling
-requirements for an MSB. Click on the Site Quality component to get
-the Site Quality panel:
-</p>
-
-<p>
-<img src="het_images/het_site_quality.png" alt="Site Quality Component" width="848" height="692" class="figure" />
-</p>
-
-<p>
-Your TAG normally allocates your program a certain range of tau
-(opacity), so you probably don't need to change anything here unless
-your program is using multiple receivers and the TAG-allocated tau
-range is not sufficiently specific for this MSB. You should specify an
-appropriate range of tau to match the demands of the receiver to be
-used. But <b>beware</b>: the resulting range of tau in which
-the MSB can be observed is then the intersect of the TAG allocation
-and your input: make sure this is not an empty set! For example, if
-the TAG allocation for your project is weather band 4 (tau(225GHz)
-between 0.12 and 0.2) and you request a tau range between 0.1 and
-0.12, then your project will be picked up for observation ONLY if the
-tau is EXACTLY 0.12.
-</p>
-
-<p>
-The default value of the sub-millimetre seeing is "Don't Care".
-</p>
-
-<p>
-It is useful to set the "&tau; for noise calculation" value, however,
-to the <i>average</i> or <i>expected</i> value of tau during which
-your observations are expected to be obtained.  (Note that the OT
-<i>does not know</i> what &tau; range was allocated for your project.)
-The OT uses the value in this field to calculate the estimated RMS of
-the observation specified in the phot/sam etc. "eye"-cons.
-</p>
-
-<p>
-For a review of the Weather Bands used at the JCMT you can visit the
-<a href="http://www.eaobservatory.org/jcmt/observing/weather-bands/">
-JCMT's weather pages</a>.
+Before moving on you shoudl also be able to complete the <a href="Generic.html#note">note component</a> and the <a href="Generic.html#siteq">site component</a> which is described further in the <a href="Generic.html">Creating your program</a> chapter.
 </p>
 
 <h2 class="likesectionHead" id="het_thsc">The Het Setup component</h2>
@@ -1230,7 +1174,7 @@ i.e you will end up with precisely two spectral line observations.
 
 <p>
 If you require a long integration of a source, it makes sense to break
-the observation down into shorter integrations of around 10-20 minutes
+the observation down into shorter integrations of around 10 minutes
 or so, so that data quality can be assessed as the observation
 progresses.
 </p>
@@ -1304,98 +1248,6 @@ out (and bottom to top):
     </li>
 </ul>
 
-<h2 class="likesectionHead" id="het_note">Adding information in "Note" elements</h2>
-
-<p>
-By default, the heterodyne library MSBs contain two note element at
-the beginning of the MSB. The notes can be combined into a single one
-if preferred:
-</p>
-
-<ul>
-    <li>
-        <p>
-        A note for general remarks concerning the program.
-        </p>
-    </li>
-        <li>
-        <p>
-        A calibration note for specific instructions for the calibration
-        observations - if required.
-        </p>
-    </li>
-</ul>
-
-<p>
-The note component consists of a text window where you can include
-textual information, with the option of showing the note to the
-observer and TSS at the time the observation is made. If you click on
-the note icon, the right hand panel allows you to enter the name of
-the note and the main text body of the note. The "Show to observer"
-check-box should be checked if you want the note to be visible for the
-observer/TSS at the time of observation.
-<p>
-
-</p>
-It is <em>strongly</em>
-advised that each of your MSBs contains at least one "Show to
-observer" note. This should cover the aim of the project, what an
-observer/Telescope Operator might want to keep an eye out for when
-observing the program/MSB at the telescope - emission features,
-baseline issues, noise levels. 
-</p>
-
-<p>
-<img src="het_images/het_note.png" alt="A note example" width="841" height="695" class="figure" />
-</p>
-
-<p>
-Setting the "Show to observer" tick box brings up a "Completion
-Parameter" and "binning" field. These should contain information which
-help the observer and TSS to decide when to consider your observation
-to be complete. By default, your program will be executed with exactly
-the number of integration and number of repeats as specified. However,
-where possible, an attempt will be made to optimize the process using
-the specified Completion Parameters. The detailed logistics of the
-scheduling may prevent this, but when possible this may save time for your
-project or guarantee the results. 
-</p>
-
-<p>
-For instance you may want to
-allow for more time than the MSBs nominally take to allow for the
-addition of extra repeats in order to ensure the requested
-rms. Setting a S/N target may save unnecassary repeats, etc.
-The "Completion Parameter" should include a value for the total
-expired time, and/or a required signals-to-noise, and/or RMS noise
-value. Best is to provide all three and whichever one is reached first
-determines the completion. The assumed bin size, either in km/s or
-MHz, should be entered in the "Binning" field. The above screenshot
-shows an example of a possible "Show to observer" for an extragalactic
-spectral line observation.  Be aware, however, that ultimately it is
-up to <b>YOU</b>, the PI, to determine when the data have sufficient
-S/N, by downloading and analyzing your data soon after they are
-acquired and updating your MSBs as required.
-</p>
-
-<p>
-Additional notes can be inserted at any point in the MSB from the icon
-menu and you may have more than one "show to observer" notes in an
-MSB. For example, you could choose to insert a "show to observer" note
-above the "chop" element to clarify the use of an unusual chopping
-scheme.
-</p>
-
-<p>
-Finally, there is no need to repeat information in notes that is
-already included in other components of the MSB. This might include
-receiver tunings, chop throws, offset positions and science
-targets. All of these should be set up in the appropriate MSB
-components. If they are reproduced in notes, there is a risk that
-changes made to main body of the MSB will not be reflected in the
-notes, leading to conflicts between the notes and the MSB components
-resulting in confusion at the telescope.
-</p>
 
 <h2 class="likesectionHead" id="het_summary">Summary: Making your heterodyne MSB</h2>
 
@@ -2069,7 +1921,7 @@ regridding of the final map to recover the intended rms/pixel.
 </p>
 
 <p>
-<img src="het_images/het_scan.png" alt="Scans" width="946" height="645" class="figure" />
+<img src="het_images/het_scan.png" alt="Scans" width="880" class="figure" />
 </p>
 
 <p>
