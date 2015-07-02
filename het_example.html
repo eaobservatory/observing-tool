@@ -44,8 +44,8 @@
     </li>
     <li><a href="#het_adv">Advanced Heterodyne topics</a>
         <ul>
-            <li><a href="#het_"></a></li>
-            <li><a href="#het_"></a></li>
+            <li><a href="#het_freq_ed">The Frequency Editor</a></li>
+            <li><a href="#het_tpe">The position editor</a></li>
         </ul>
     </li>
 </ul>
@@ -349,206 +349,12 @@ If your source has a very large radial velocity, you should:
     </li>
 </ul>
 
-<h3 id="het_freq_ed">Frequency Editor</h3>
-
 <p>
-Clicking on the Frequency Editor button will show you something like
-this:
-</p>
-
-<p>
-<img src="het_images/het_frequency_editor.png" alt="Het Freq Editor" width="853" height="273" class="figure" />
-</p>
-
-<p>
-The frequency editor tool is particular useful when trying to configure the
-backend for multiple lines, multiple resolution windows, or for receivers
-operating in double sideband mode, where two differing sky frequencies end
-up with the same IF frequency. In each of these cases finding the correct
-values for the setup of each window is tricky and the visual presentation
-from the frequency editor is indispensable, if only to verify the setup.
-The tool now handles multi-spectral window selection and can be used
-interactively in choosing observing frequencies and bandwidths for each
-window or in combination with
-<a href="./het_sp_config.html"> special ACSIS configurations</a>,
-or simply to check the atmospheric opacity at the observed (or sideband)
-frequency. Before clicking the 'Show Frequency Editor' button, please make
-sure to select the desired number of spectral windows under 'Sp. Regions'
-(See above). Once inside the frequency editor, the frequencies and bandwidths
-can be selected or adjusted.
-</p>
-
-<p>
-Working roughly from top to bottom, left to right, in the example above
-showing only one Spectral Subsystem (USB) with two spectral windows,
-we see:
-</p>
-
-<ul>
-<li>
-    The observing and image side-bands, marked as <b>LSB</b> and <b>USB</b>
-</li>
-<li>
-    Their locations within the respective LO2 ranges and their widths
-</li>
-<li>
-    The identification of the selected emission line associated with a window, marked <b>Line</b>
-</li>
-<li>
-    The <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
-</li>
-<li>
-    The bandwidth, in MHz
-</li>
-<li>
-    The <b>Res</b>olution that the selected bandwidth produces, in kHz
-</li>
-<li>
-    The molecular transitions in this vicinity, marked by vertical bars,
-    on a line labelled <b>Emission Lines</b>
-</li>
-<li>
-    The frequency scale immediately below Emission Lines is the frequency
-    in the rest frame of the source i.e. the emission lines show at their
-    nominal laboratory frequency regardless of the doppler shift.
-</li>
-<li>
-    The line selected is shown in <font color=red>red</font>
-</li>
-<li>
-    The receiver temperature (<font color=red>TRx</font>) is plotted as
-    the <font color=red>red</font> line (although there
-    is no scale currently). It's wise to check this since even a minor
-    change in radial velocity can shift the observed frequency into a
-    region of very large atmospheric opacity.
-</li>
-<li>
-    The <b>FE Freq</b>uency scale, shown below the plot of TRx
-    is the observing frequency in the rest frame of the receiver i.e.
-    the tuning frequency at the telescope.
-    You will notice this scale will shift if you enter a non-zero
-    velocity, and will also shift if you change the velocity
-    definition.
-</li>
-<li>
-    The Local Oscillator frequency, shown as <b>LO1</b>, located within
-    the full tuning range of the receiver.
-    <ul>
-        <li>
-            Note the upper frequency scale, lower frequency scale and LO1 are only
-            approximate because the correction from the receiver rest frame to the
-            chosen rest frame requires the Doppler correction for the Earth's
-            motion, which varies with time.
-        </li>
-    </ul>
-</ul>
-</ul>
-
-<p>
-Among the dynamic functions, we find that:
-</p>
-
-<ul>
-    <li>
-        The positions of the windows can be changed by
-        clicking on the window sliders and dragging . . . Note how the LO1
-        and LO2 (ie the IF) both change
-    </li>
-    <li>
-        The bandwidth can be changed by clicking on the pull-down menu
-    </li>
-    <li>
-        Clicking anywhere along the 'Emission lines' level will identify
-        the nearby lines.
-    </li>
-    <li>
-        Keeping the mouse button depressed while scrolling
-        down through the menu makes the line appear in
-        <font color=green>green</font>
-    </li>
-    <li>
-        The LO1 frequency can be changed by right-clicking on the slider and
-        dragging. This changes both frequency scales and the line rest frequency.
-        Moving the LO slider can be a convenient means of choosing a band centre
-        frequency such that particular spectral lines are included or excluded
-        from your passband.
-    </li>
-</ul>
-
-<p>
-<img src="het_images/het_frequency_editor2.png" alt="Het Freq Editor2" width="846" height="321" class="figure" />
-</p>
-
-<p>
-The above example shows a setup with three 250 MHz windows and one, lower
-resolution, 1000 MHz window for receiver A (for HARP only two windows are
-possible). Of the 250 MHz windows, one is centered on a line in the LSB, two
-on lines in the USB. The line-id for the top window is 'greyed' because it
-corresponds to the observing frequency specified in the main Het. Setup
-component and it 'anchors' all windows. Moving the slider of the top window
-will also slide all other windows. By contrast the remaining three windows
-can be moved independently from one another within the IF band.
-</p>
-
-<p>
-To generate such a multi-line, multi-Subsystem configuration:
-</p>
-
-<ul>
-    <li>
-        In the Front-End configuration window, select a value of Sp.(ectral)
-        regions greater than 1.
-        The Frequency Configuration block at the bottom of the screen will show
-        the appropriate number of 'Region's, although initially they
-        are populated with default values.
-    </li>
-    <li>
-        Select the first line (for Region 0) as above.
-    </li>
-    <li>
-        Press the Frequency Editor button to generate a Frequency Editor
-        window with the appropriate number of Subsystems. The pre-selected
-        line is in <font color=red>red</font>.
-    </li>
-    <li>
-        <b>Click</b> at the level of 'Emission Lines' in the general vicinity
-        (frequency space) of the next desired line
-    </li>
-    <li>
-        Keep the button pressed and scroll down until the line is met,
-        and shown in <font color=green>green</font>
-    </li>
-    <li>
-        Click on the 'Line' box appropriate for that subsystem to center the
-        spectral window and identify it with the selected line.
-    </li>
-    <li>
-        Repeat (from <b>Click</b>) for further lines if necessary
-    </li>
-    <li>
-        Press the Hide Frequency Editor button to transfer these data to the
-        Heterodyne Setup window
-    </li>
-</ul>
-
-<p>
-Note that the movement of the sliders will make for
-configurations that may not be easily repeatable and that use of
-the <i>'Special Configurations'</i> is desirable.
-If you have a multi-line configuration that you consider
-astrophysically important - and which may be useful for either
-yourself or others later on - please contact the JCMT staff
-and request that it become one of the available 'Special
-Configs'. Our (<a href="http://cadcwww.hia.nrc.ca/">CADC</a>)
-database will then be a lot simpler to manage and search if everyone
-using this combination of lines uses precisely the same configuration.
-</p>
-
-<p>
-<b>Note:</b> Please make sure that the window is
-anchored on a line if it is intended to be centered on that
-line. While the observation will proceed with a <i>'no line'</i>
-label, the line identification is important for archival purpose.
+For the majority of users this window will provide enough
+information/options to set up an observation. In rare cases
+ - when trying to configure the backend for multiple lines,
+multiple resolution windows etc - you may need to use the
+<a href="#freq_ed">Frequency Editor</a>
 </p>
 
 
@@ -560,7 +366,7 @@ ACSIS, reducing data by hand has become a very slow and
 tedious process.  Automatic data reduction pipelines have
 become a powerful tool for carrying out these repetitive
 tasks.  ORACDR has been developed for reducing and combining
-JCMT (and UKIRT) data, primarily for producing "preview"
+JCMT data, primarily for producing "preview"
 images for assessing data quality at the telescope, but can
 also be used for the final reduction.  ORACDR uses recipes
 to carry out all
@@ -700,6 +506,15 @@ intensity weighted velocity images.
 
 <h2 class="likesectionHead" id="het_tcc">The target component</h2>
 
+<p><b>WARNING:</b> Positions of
+astronomical objects are often wavelength dependent. For example, the
+SIMBAD coordinates for IRAS16293-2224 are many arcminutes different
+from the JCMT coordinates.</font> The catalogues you may be using will
+have defined the astrometric positions therein on the basis of
+optical- or infrared- or radio- observations. You should check that
+the positions now showing are valid for your submillimetre studies.
+</p>
+
 <p>
 Click on the target component to bring up its panel:
 </p>
@@ -707,6 +522,10 @@ Click on the target component to bring up its panel:
 <p>
 <img src="het_images/het_target.png" alt="The Target component" width="846" height="600" class="figure" />
 </p>
+
+
+<h3  id="het_tinfo">Target Information</h2>
+
 
 <p>
 In this component you will enter the coordinates and velocity of
@@ -728,15 +547,7 @@ specified in the <a href="#het_thsc">Het. Setup</a> component, this
 overrides velocities specified in the target component.
 </p>
 
-<p>
-To specify a reference position, click on "REFERENCE".  The default
-is to enter the offset (in arcseconds) from the source position, but
-by unchecking the "Offset" button, you can enter an absolute position
-for the reference. <b><i>NOTE: the reference position is required for
-position switch observations as the location for the sky reference. If
-present in beam-switched observations, the three-load calibration will
-be carried out at that location.</i></b>
-</p>
+
 
 <p>
 Instead of entering the source coordinates manually, you can
@@ -749,14 +560,45 @@ SIMBAD/NED name for the source will also be indicated next to the
 "Resolve Name" button.
 </p>
 
-<p><b>WARNING:</b> Positions of
-astronomical objects are often wavelength dependent. For example, the
-SIMBAD coordinates for IRAS16293-2224 are many arcminutes different
-from the JCMT coordinates.</font> The catalogues you may be using will
-have defined the astrometric positions therein on the basis of
-optical- or infrared- or radio- observations. You should check that
-the positions now showing are valid for your submillimetre studies.
+
+<h3  id="het_tinfo">Reference Information</h2>
+
+<p>
+The above example is a beam switch observation where the
+off position will be subtracted by a chop position
+(refer to the <a href="#het_tci">chop iterator</a> section).
+This is also the case for the jiggle-chop and jiggle-chop
+offset MSBs available in the 
+<a href="Generic.html#lib-acsis">ACSIS Library</a>.
+All other MSBs require the selection of a reference position.
+
+<p>
+To specify a reference position, click on "REFERENCE".
+The default is to enter an absolute position for the reference.  
 </p>
+
+<p>
+<img src="het_images/het_target-ref1.png" alt="The Reference component" width="800" class="figure" />
+</p>
+
+
+<p>
+By checking the "Offset" button, you can enter the offset
+(in arcseconds) from the source position
+</p>
+
+<p>
+<img src="het_images/het_target-ref2.png" alt="The Reference component" width="800" class="figure" />
+</p>
+
+<p>
+<b><i>NOTE: the reference position is required for
+position switch observations as the location for the sky reference. If
+present in beam-switched observations, the three-load calibration will
+be carried out at that location.</i></b>
+</p>
+
+
 
 <h3 id="Moving_Objects">Moving Objects</h3>
 
@@ -805,11 +647,7 @@ human reading, not computer processing. As such the output format is
 subject to arbitrary changes, so there is no guarantee that this search
 feature will work or that the results are accurate; for example it is
 possible that elements may end up in the wrong field or omitted
-completely.
-</p>
-
-<p class="warning">
-Always double check the returned values.
+completely. <b><i>Always double check the returned values.</b></i>
 </p>
 
 <h3 id="Proper_Motion">Allowing for Proper Motion</h3>
@@ -827,148 +665,6 @@ entered as milliarcseconds per year in the target
 component. These values are taken into account when slewing the
 telescope.
 </p>
-
-<p>
-But wait &mdash; that&rsquo;s not all.
-</p>
-
-<h2 class="likesectionHead" id="het_tpe">The position editor</h2>
-
-<p>
-You can <a href="#het_tci">skip</a> this section if you want because
-you don't have to do anything, but it's kind of cool and can be very
-useful in picking a good chop position. Click on the plot button at
-the bottom left of the target panel:
-</p>
-
-<p>
-A whole new window will pop up - this is the position editor. Looks a
-bit boring at the moment though, with just a small green crosshair in
-the middle. Let's make it a bit more interesting - go to Catalog menu
-and into the Image Servers item and chose a Digital Sky Survey near
-near you:
-</p>
-
-<p>
-<img src="het_images/het_tpe.png" alt="The Position editor" width="661" height="722" class="figure" />
-</p>
-
-<p>
-It's now full of stars. The display application, by the way, is
-based on JSky, for those familiar with it.
-</p>
-
-<p>
-If you're having problems with the position editor, the most likely
-explanation is that your version(s) of JRE, JAI and/or Java may not be
-sufficiently up-to-date; check the
-<a href="download.html">download page</a> for more information.
-If you are behind a firewall, you may
-need to check your
-<a href="advanced.html#proxy">proxy server settings</a>.
-</p>
-
-<p>
-The DSS may not be the most useful survey for planning sub-millimetre
-observations, but you can read in any FITS image with an appropriate
-WCS header using Open under the File menu. You can also fetch a FITS
-image over the Web. The screenshot below shows the SCUBA commissioning
-scan map of W48 <em>(image courtesy Tim Jenness)</em>. If you have an
-Internet connection, go to the File menu, select "Open URL...:" and
-type in the following URL:
-<a href="http://www.eaobservatory.org/JCMT/observing-tool/example/w48.fits">
-http://www.eaobservatory.org/JCMT/observing-tool/example/w48.fits</a>
-or download the image by clicking on the link and and use
-File&#x2192;Open to read it in. Notice that the RA/DEC position fields of
-the target component must be set reasonably near to the world
-co-ordinate of the FITS file otherwise the image may not load
-properly.
-</p>
-
-<p>
-<img src="images/w48.png" alt="W48" width="603" height="469" class="figure" />
-</p>
-
-<p>
-You will then see the DSS image replaced with the sub-millimetre
-image.
-</p>
-
-<blockquote>
-<p>
-A short technical note if you are planning on generating your own
-image for import: if you want to import a SCUBA map in NDF format,
-convert it to FITS by using the
-<a href="http://www.starlink.ac.uk">Starlink</a>
-<a href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html">
-<tt>convert</tt></a> utility with the following arguments:
-</p>
-
-<p>
-<tt>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</tt>
-</p>
-
-<p>
-If you have difficulty despite doing this, let us know.
-</p>
-</blockquote>
-
-<p>
-As was mentioned before, the green cross-hair is the position of your
-science co-ordinates. Click on the button on the left side of the
-position editor entitled "Sci Area". The circle that is drawn is the
-HPBW of the chosen heterodyne receiver.
-</p>
-
-<p>
-Now for the useful thing mentioned earlier: While leaving the position
-editor window open, go back to your science program window and click
-on your chop iterator that is inside your science observation. Now
-look at the position editor. The chop beams and the area in which they
-will rotate during integration are drawn. Well, that's no good &mdash; we're
-chopping onto bright stuff!
-</p>
-
-<p>
-<img src="het_images/het_bright_chop.png" alt="bright stuff" width="661" height="722" class="figure" />
-</p>
-
-<p>
-This is where the position editor comes into its own. We are going to
-use it to specify where exactly we would like to chop. In the chop
-iterator, use the drop down menu to change the chopping co-ordinate
-frame from AZEL to TRACKING (i.e. RA/DEC). You will notice that in the
-position editor the uncertainty circles have disappeared, since we
-will always chop in the same position in the sky:
-</p>
-
-<p>
-<img src="het_images/het_tracking_chop.png" alt="Chop and the Position Editor" width="749" height="901" class="figure" />
-</p>
-
-<p>
-Now back in the position editor, click on the Drag button on the upper
-left side of the window. Then click on the centre of one of the chop
-beams in the display and drag it away from the emission:
-</p>
-
-<p>
-<img src="het_images/het_tracking_chop2.png" alt="Dragging the Chop" width="672" height="880" class="figure" />
-</p>
-
-<p>
-You will note that the values in the chop iterator have automatically
-changed to reflect the new chop throw and angle values. Neat, eh?
-Remember that by default, any calibrations for your observations will
-be performed with the same chop as the science observation.
-</p>
-
-<p>
-You can also click on the target component and use Drag to change your
-science co-ordinates if you wish.
-</p>
-
-
 
 
 
@@ -1003,7 +699,8 @@ The "Flag as calibration" button should be toggled ON if, indeed,
 this observation is intended as a calibration for others.
 This fact is then made known to the TSS who may decide not to
 execute the observation (er . . calibration) if a suitable
-calibration has recently been done already.
+calibration has recently been done already. In most cases this
+will not be required.
 </p>
 
 <p>
@@ -1014,23 +711,39 @@ the <a href="intro.html#MSB">length of a MSB</a> so therefore
 the length of an individual Science Observation within an MSB.
 </p>
 
-<h2 class="likesectionHead" id="het_tci">The chop iterator</h2>
+<p>
+In the case of a position-switched basket weave, we two scan
+components under the sequence iterator. These observations
+typically do not require additional repeats, and they use a
+reference position rather than a chop. For more information
+on basket weave observation see the <a href="#het_rast_folder">scan
+section</a> (which includes
+the Classical raster scan and the Basket Weave raster scan.
+</p>
 
 <p>
-Click on the chop iterator:
+<img src="het_images/obs_comp-raster.png" alt="Observation component for a raster" width="841" height="604" class="figure" />
+</p>
+
+
+
+
+<h2 class="likesectionHead" id="het_tci">The chop iterator</h2>
+
+
+<p>
+The chop iterator  - used to remove background sky emission -
+has a list of chop configurations (in this example
+only one 60 arcsecond chop). Each chop needs to be specified by a
+throw, an angle, and co-ordinate frame of the angle. In this example
+the frame is AZEL (Azimuth Elevation) but other common options are
+TRACKING (RA &amp; Dec) or FPLANE (Focal Plane).
 </p>
 
 <p>
 <img src="het_images/het_chop.png" alt="The Chop Iterator" width="841" height="604" class="figure" />
 </p>
 
-<p>
-The chop iterator has a list of chop configurations (in this example
-only one 60 arcsecond chop). Each chop needs to be specified by a
-throw, an angle, and co-ordinate frame of the angle. In this example
-the frame is AZEL (Azimuth Elevation) but other common options are
-TRACKING (RA &amp; Dec) or FPLANE (Focal Plane).
-</p>
 
 <p>
 A 60 arcsecond chop with
@@ -1064,7 +777,8 @@ regular or irregular spacing.
 
 
 <p>
-The following example has been made by going to the ACSIS Library and
+The following example has been made by going to the 
+<a href="Generic.html#lib-acsis">ACSIS Library</a> and
 copying over a "Position-switch grid" MSB from the "Grids" folder into
 a new program.
 </p>
@@ -1900,7 +1614,7 @@ that position will be used when doing a three-load calibration
 <h3 id="het_rast_folder">Rasters - Classical (scan) & Rasters - Basket Weave</h3>
 
 <p>
-Both Classical (scan) and Basket Weave raster scan folders can be found in the ACSIS Library. 
+Both Classical (scan) and Basket Weave raster scan folders can be found in the <a href="Generic.html#lib-acsis">ACSIS Library</a>. 
 </p>
 
 
@@ -2037,6 +1751,360 @@ For large maps the integration time per pixel (<em>sample time</em>)
 should be set to a small value, e.g. 0.3 seconds per pixel, and then
 repeat the MSB to build up integration time.
 </p>
+
+
+
+
+
+
+<h2 class="likesectionHead" id="het_adv">Advanced Heterodyne Topics</h2>
+
+
+<h3 id="het_freq_ed">The Frequency Editor</h3>
+
+<p>
+Clicking on the Frequency Editor button will show you something like
+this:
+</p>
+
+<p>
+<img src="het_images/het_frequency_editor.png" alt="Het Freq Editor" width="853" height="273" class="figure" />
+</p>
+
+<p>
+The frequency editor tool is particular useful when trying to configure the
+backend for multiple lines, multiple resolution windows, or for receivers
+operating in double sideband mode, where two differing sky frequencies end
+up with the same IF frequency. In each of these cases finding the correct
+values for the setup of each window is tricky and the visual presentation
+from the frequency editor is indispensable, if only to verify the setup.
+The tool now handles multi-spectral window selection and can be used
+interactively in choosing observing frequencies and bandwidths for each
+window or in combination with
+<a href="./het_sp_config.html"> special ACSIS configurations</a>,
+or simply to check the atmospheric opacity at the observed (or sideband)
+frequency. Before clicking the 'Show Frequency Editor' button, please make
+sure to select the desired number of spectral windows under 'Sp. Regions'
+(See above). Once inside the frequency editor, the frequencies and bandwidths
+can be selected or adjusted.
+</p>
+
+<p>
+Working roughly from top to bottom, left to right, in the example above
+showing only one Spectral Subsystem (USB) with two spectral windows,
+we see:
+</p>
+
+<ul>
+<li>
+    The observing and image side-bands, marked as <b>LSB</b> and <b>USB</b>
+</li>
+<li>
+    Their locations within the respective LO2 ranges and their widths
+</li>
+<li>
+    The identification of the selected emission line associated with a window, marked <b>Line</b>
+</li>
+<li>
+    The <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
+</li>
+<li>
+    The bandwidth, in MHz
+</li>
+<li>
+    The <b>Res</b>olution that the selected bandwidth produces, in kHz
+</li>
+<li>
+    The molecular transitions in this vicinity, marked by vertical bars,
+    on a line labelled <b>Emission Lines</b>
+</li>
+<li>
+    The frequency scale immediately below Emission Lines is the frequency
+    in the rest frame of the source i.e. the emission lines show at their
+    nominal laboratory frequency regardless of the doppler shift.
+</li>
+<li>
+    The line selected is shown in <font color=red>red</font>
+</li>
+<li>
+    The receiver temperature (<font color=red>TRx</font>) is plotted as
+    the <font color=red>red</font> line (although there
+    is no scale currently). It's wise to check this since even a minor
+    change in radial velocity can shift the observed frequency into a
+    region of very large atmospheric opacity.
+</li>
+<li>
+    The <b>FE Freq</b>uency scale, shown below the plot of TRx
+    is the observing frequency in the rest frame of the receiver i.e.
+    the tuning frequency at the telescope.
+    You will notice this scale will shift if you enter a non-zero
+    velocity, and will also shift if you change the velocity
+    definition.
+</li>
+<li>
+    The Local Oscillator frequency, shown as <b>LO1</b>, located within
+    the full tuning range of the receiver.
+    <ul>
+        <li>
+            Note the upper frequency scale, lower frequency scale and LO1 are only
+            approximate because the correction from the receiver rest frame to the
+            chosen rest frame requires the Doppler correction for the Earth's
+            motion, which varies with time.
+        </li>
+    </ul>
+</ul>
+</ul>
+
+<p>
+Among the dynamic functions, we find that:
+</p>
+
+<ul>
+    <li>
+        The positions of the windows can be changed by
+        clicking on the window sliders and dragging . . . Note how the LO1
+        and LO2 (ie the IF) both change
+    </li>
+    <li>
+        The bandwidth can be changed by clicking on the pull-down menu
+    </li>
+    <li>
+        Clicking anywhere along the 'Emission lines' level will identify
+        the nearby lines.
+    </li>
+    <li>
+        Keeping the mouse button depressed while scrolling
+        down through the menu makes the line appear in
+        <font color=green>green</font>
+    </li>
+    <li>
+        The LO1 frequency can be changed by right-clicking on the slider and
+        dragging. This changes both frequency scales and the line rest frequency.
+        Moving the LO slider can be a convenient means of choosing a band centre
+        frequency such that particular spectral lines are included or excluded
+        from your passband.
+    </li>
+</ul>
+
+<p>
+<img src="het_images/het_frequency_editor2.png" alt="Het Freq Editor2" width="846" height="321" class="figure" />
+</p>
+
+<p>
+The above example shows a setup with three 250 MHz windows and one, lower
+resolution, 1000 MHz window for receiver A (for HARP only two windows are
+possible). Of the 250 MHz windows, one is centered on a line in the LSB, two
+on lines in the USB. The line-id for the top window is 'greyed' because it
+corresponds to the observing frequency specified in the main Het. Setup
+component and it 'anchors' all windows. Moving the slider of the top window
+will also slide all other windows. By contrast the remaining three windows
+can be moved independently from one another within the IF band.
+</p>
+
+<p>
+To generate such a multi-line, multi-Subsystem configuration:
+</p>
+
+<ul>
+    <li>
+        In the Front-End configuration window, select a value of Sp.(ectral)
+        regions greater than 1.
+        The Frequency Configuration block at the bottom of the screen will show
+        the appropriate number of 'Region's, although initially they
+        are populated with default values.
+    </li>
+    <li>
+        Select the first line (for Region 0) as above.
+    </li>
+    <li>
+        Press the Frequency Editor button to generate a Frequency Editor
+        window with the appropriate number of Subsystems. The pre-selected
+        line is in <font color=red>red</font>.
+    </li>
+    <li>
+        <b>Click</b> at the level of 'Emission Lines' in the general vicinity
+        (frequency space) of the next desired line
+    </li>
+    <li>
+        Keep the button pressed and scroll down until the line is met,
+        and shown in <font color=green>green</font>
+    </li>
+    <li>
+        Click on the 'Line' box appropriate for that subsystem to center the
+        spectral window and identify it with the selected line.
+    </li>
+    <li>
+        Repeat (from <b>Click</b>) for further lines if necessary
+    </li>
+    <li>
+        Press the Hide Frequency Editor button to transfer these data to the
+        Heterodyne Setup window
+    </li>
+</ul>
+
+<p>
+Note that the movement of the sliders will make for
+configurations that may not be easily repeatable and that use of
+the <i>'Special Configurations'</i> is desirable.
+If you have a multi-line configuration that you consider
+astrophysically important - and which may be useful for either
+yourself or others later on - please contact the JCMT staff
+and request that it become one of the available 'Special
+Configs'. Our (<a href="http://cadcwww.hia.nrc.ca/">CADC</a>)
+database will then be a lot simpler to manage and search if everyone
+using this combination of lines uses precisely the same configuration.
+</p>
+
+<p>
+<b>Note:</b> Please make sure that the window is
+anchored on a line if it is intended to be centered on that
+line. While the observation will proceed with a <i>'no line'</i>
+label, the line identification is important for archival purpose.
+</p>
+
+
+
+
+<h2 class="likesectionHead" id="het_tpe">The position editor</h2>
+
+<p>
+You can <a href="#het_tci">skip</a> this section if you want because
+you don't have to do anything, but it's kind of cool and can be very
+useful in picking a good chop position. Click on the plot button at
+the bottom left of the target panel:
+</p>
+
+<p>
+A whole new window will pop up - this is the position editor. Looks a
+bit boring at the moment though, with just a small green crosshair in
+the middle. Let's make it a bit more interesting - go to Catalog menu
+and into the Image Servers item and chose a Digital Sky Survey near
+near you:
+</p>
+
+<p>
+<img src="het_images/het_tpe.png" alt="The Position editor" width="661" height="722" class="figure" />
+</p>
+
+<p>
+It's now full of stars. The display application, by the way, is
+based on JSky, for those familiar with it.
+</p>
+
+<p>
+If you're having problems with the position editor, the most likely
+explanation is that your version(s) of JRE, JAI and/or Java may not be
+sufficiently up-to-date; check the
+<a href="download.html">download page</a> for more information.
+If you are behind a firewall, you may
+need to check your
+<a href="advanced.html#proxy">proxy server settings</a>.
+</p>
+
+<p>
+The DSS may not be the most useful survey for planning sub-millimetre
+observations, but you can read in any FITS image with an appropriate
+WCS header using Open under the File menu. You can also fetch a FITS
+image over the Web. The screenshot below shows the SCUBA commissioning
+scan map of W48 <em>(image courtesy Tim Jenness)</em>. If you have an
+Internet connection, go to the File menu, select "Open URL...:" and
+type in the following URL:
+<a href="http://www.eaobservatory.org/JCMT/observing-tool/example/w48.fits">
+http://www.eaobservatory.org/JCMT/observing-tool/example/w48.fits</a>
+or download the image by clicking on the link and and use
+File&#x2192;Open to read it in. Notice that the RA/DEC position fields of
+the target component must be set reasonably near to the world
+co-ordinate of the FITS file otherwise the image may not load
+properly.
+</p>
+
+<p>
+<img src="images/w48.png" alt="W48" width="603" height="469" class="figure" />
+</p>
+
+<p>
+You will then see the DSS image replaced with the sub-millimetre
+image.
+</p>
+
+<blockquote>
+<p>
+A short technical note if you are planning on generating your own
+image for import: if you want to import a SCUBA map in NDF format,
+convert it to FITS by using the
+<a href="http://www.starlink.ac.uk">Starlink</a>
+<a href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html">
+<tt>convert</tt></a> utility with the following arguments:
+</p>
+
+<p>
+<tt>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</tt>
+</p>
+
+<p>
+If you have difficulty despite doing this, let us know.
+</p>
+</blockquote>
+
+<p>
+As was mentioned before, the green cross-hair is the position of your
+science co-ordinates. Click on the button on the left side of the
+position editor entitled "Sci Area". The circle that is drawn is the
+HPBW of the chosen heterodyne receiver.
+</p>
+
+<p>
+Now for the useful thing mentioned earlier: While leaving the position
+editor window open, go back to your science program window and click
+on your chop iterator that is inside your science observation. Now
+look at the position editor. The chop beams and the area in which they
+will rotate during integration are drawn. Well, that's no good &mdash; we're
+chopping onto bright stuff!
+</p>
+
+<p>
+<img src="het_images/het_bright_chop.png" alt="bright stuff" width="661" height="722" class="figure" />
+</p>
+
+<p>
+This is where the position editor comes into its own. We are going to
+use it to specify where exactly we would like to chop. In the chop
+iterator, use the drop down menu to change the chopping co-ordinate
+frame from AZEL to TRACKING (i.e. RA/DEC). You will notice that in the
+position editor the uncertainty circles have disappeared, since we
+will always chop in the same position in the sky:
+</p>
+
+<p>
+<img src="het_images/het_tracking_chop.png" alt="Chop and the Position Editor" width="749" height="901" class="figure" />
+</p>
+
+<p>
+Now back in the position editor, click on the Drag button on the upper
+left side of the window. Then click on the centre of one of the chop
+beams in the display and drag it away from the emission:
+</p>
+
+<p>
+<img src="het_images/het_tracking_chop2.png" alt="Dragging the Chop" width="672" height="880" class="figure" />
+</p>
+
+<p>
+You will note that the values in the chop iterator have automatically
+changed to reflect the new chop throw and angle values. Neat, eh?
+Remember that by default, any calibrations for your observations will
+be performed with the same chop as the science observation.
+</p>
+
+<p>
+You can also click on the target component and use Drag to change your
+science co-ordinates if you wish.
+</p>
+
+
+
+
+
 
 
 
