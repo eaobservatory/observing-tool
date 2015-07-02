@@ -19,12 +19,7 @@
     <li><a href="#het_start">Getting started</a></li>
     <li><a href="#het_anat">Worked example of an MSB (Beam-Switched <i>Sample</i>)<a>
         <ul>
-            <li><a href="#het_thsc">The Het Setup component</a>
-                <ul>
-                    <li><a href="#het_freq_ed">The Frequency Editor</a></li>
-                    <li><a href="./het_sp_config.html">ACSIS Special Configurations</a></li>
-                </ul>
-            </li>
+            <li><a href="#het_thsc">The Het Setup component</a></li>
             <li><a href="#het_rcpe">DR Recipe Component</a></li>
             <li><a href="#het_tfoc">The Observation component</a></li>
             <li><a href="#het_tcc">The target component</a></li>
@@ -47,13 +42,12 @@
             <li><a href="#het_rast_folder">Scan Maps</a></li>
         </ul>
     </li>
-    <li><a href="#het_qus">Questions</a>
+    <li><a href="#het_adv">Advanced Heterodyne topics</a>
         <ul>
-            <li><a href="#qus_load">My project wont load when I enter my project number?</a></li>
-            <li><a href="#qus_survey">I have a lot of sources,  how can I speed up creation of my MSBs?</a></li>
-            <li><a href="#qus_submit">How do I submit my project?</a></li>
+            <li><a href="#het_"></a></li>
+            <li><a href="#het_"></a></li>
         </ul>
-        </ul>
+    </li>
 </ul>
 
 
@@ -62,7 +56,7 @@
 
 <p>
 A detailed description of the various observing modes, rms noise,
-and durations is available at the following web page outlining
+and durations is available at the following web page:
 <a href="https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/observing-modes/"><i>Heterodyne Obsmodes</i></a>.
 </p>
 
@@ -87,36 +81,27 @@ and click on &ldquo;Open ACSIS library&rdquo;:
 </p>
 
 
-
-
-
 <p>
 <img src="het_images/het_library.png" alt="Contents of the heterodyne library" width="291" height="272" class="figure" />
 </p>
 
 
 <p>
-A window will pop up containing a list of folders. The little switch
-on the left of the folder icons is an open/close toggle switch. In the image below these folders have been expanded:
+A window will pop up containing a list of folders. It is from this
+library that we can and copy over MSBs to be used in our program.
+For more information read <a href="Generic.html#lib-acsis">The ACSIS Library</a>.
 <p>
-
-<p>
-<img src="het_images/het_copy1.png" alt="Copying an MSB" width="856" height="693" class="figure" />
-</p>
-
-
-
 
 
 <h2 class="likesectionHead" id="het_anat">Worked example (Beam-Switched Sample) MSB </h2>
 
 <p> This chapter will run through an example MSB. First open the folder titled
-"Samples" within the ACSIS library. Once that folder has expanded select the MSB labeled
+"Samples" within the <a href="Generic.html#lib-acsis">ACSIS library</a>. Once that folder has expanded select the MSB labeled
 "Beam-switch sample(1X) " and click "Copy" on the toolbar.
 </p>
 
 <p>
-Now go back to <a href="Generic.html#ysp">your Science Program</a> window,
+Now go back to your <a href="Generic.html#ysp">Science Program</a> window,
 and click on "Paste". The MSB will be dropped into your science program.
 Remember you can save your
 progress using the <a href="Generic.html#syp">File&#x2192;Save</a> option in your Science Program window.
@@ -279,11 +264,12 @@ the pull-down lists of <b>molecules</b> and <b>transitions</b> to
 generate the frequency.  (If the particular line/transition you are
 interested in is not in the list, please send an email to <a
 href="mailto:jcmtot@eaobservatory.org">jcmtot@eaobservatory.org</a> so
-that the line can be added for the next release.)  The example above
-shows a <a href="het_sp_config.html">special configuration</a>
-(HARP_H2DN2H_250X2) with the H2D+ 1(1 0 0)-1(1 1 0) transition at
-272.4GHz, and the N2H+ 4-3 transition at 272.7GHz, both using the
-250MHz bandwidth mode, observed simultaneously. Alternately, the
+that the line can be added for the next release.)  
+</p>
+
+<p>
+In the example above the CO (3-2) line has been selected.
+Alternately, the
 tuning frequency may be specified explicitly in GHz. The frequency
 will appear in <font color="red"><b>RED</b></font> until the
 <b>Accept</b> button is clicked. <i>This is essential to ensure
@@ -293,6 +279,23 @@ if the frequency does in fact correspond to a known
 transition. (Look-up occurs from molecule/transition to frequency only
 &mdash; no look-up is done in the opposite direction).
 </p>
+
+
+<p>
+The example below
+shows a <a href="het_sp_config.html">special configuration</a>
+(HARP_H2DN2H_250X2) with the H2D+ 1(1 0 0)-1(1 1 0) transition at
+372.4GHz, and the N2H+ 4-3 transition at 372.7GHz, both using the
+250MHz bandwidth mode, observed simultaneously.
+</p>
+
+<p>
+<img src="het_images/het_het_setup2.png" alt="Het Setup component" width="879" height="634" class="figure" />
+</p>
+
+
+
+
 
 <p>
 The velocity of the target may be entered either here or in the
@@ -1261,7 +1264,7 @@ summarise the general procedure for making your own.
         <p>
         Choose the corresponding MSB template from the heterodyne library and
         copy/paste it to your science program.  Each of these is described
-        briefly <a href="#het_supported">below</a>.
+        briefly <a href="#het_msblib">below</a>.
         </p>
     </li>
     <li>
@@ -1298,29 +1301,55 @@ summarise the general procedure for making your own.
         via the <a href="#het_tpe">position editor</a>.
         </p>
     </li>
+
     <li>
         <p>
-        Set up the stare eye. Remember to enter the total
-        on-source integration time per sample. 
+        Set up the your total integration time for your target.
+        This will be a combination of the following:
         </p>
     </li>
+    <ul><li>
+          <p>
+          The stare eye - remember to enter the total
+          on-source integration time per sample. 
+          </p>
+      </li>
+      <li>
+          <p>
+          The <a href="#het_time">repeat counter</a>
+          to give the number of repeats of the
+          time set up in the stare eye to get your total required
+          integration time in a <em>single</em> observation/MSB.
+          </p>
+          <p>
+          It is encouraged that MSBs are 40-60 minutes in length.
+
+          It is good practice (in terms of writing data to disk) to ensure
+          MSBs 
+ (particularly long stare observations)
+          If you want a total observation integration of 30 minutes
+          on-source (per MSB), you should set up an integration time of 5 minutes in
+          the stare eye and set the repeat counter to 6. When
+          observing, you can then monitor the observation by inspecting the
+          data file produced every ~13 minutes, and co-add the spectra as
+          you go along. In general, if you want to build up long
+          integrations, you will want the duration of the basic observation
+          to be of the order 10 minutes <em>("on+off+overheads")</em>.
+          </p>
+      </li>
+      <li>
+        <p>
+          Set up the <a href="Generic.html#thingies">MSB Observe counter</a> to
+          build up to your <em>total</em> integration time. You may want the
+          duration of the basic observation to be of the order 10
+          minutes. A total MSB to last 40-60 minutes but you might be
+          requiring a total time on source of ten hours. 
+          </p>
+      </li>
+    </ul>
     <li>
         <p>
-        Set up the repeat counter to give the number of repeats of the
-        time set up in the stare eye to get your total required
-        integration time. If you want a total integration of 30 minutes
-        on-source, you should set up an integration time of 5 minutes in
-        the stare eye and set the repeat counter to 6. When
-        observing, you can then monitor the observation by inspecting the
-        data file produced every ~13 minutes, and co-add the spectra as
-        you go along. In general, if you want to build up long
-        integrations, you will want the duration of the basic observation
-        to be of the order 10-15 minutes <em>("on+off+overheads")</em>.
-        </p>
-    </li>
-    <li>
-        <p>
-        Add at least one "show to observer" note. This should contain
+        Add at least one <a href="Generic.html#note">"show to observer" note</a>. This should contain
         additional information on the overall aims of your science
         program, details of required calibrations and any other special
         notices you want the observer and TSS to act upon when the
