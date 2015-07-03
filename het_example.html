@@ -28,7 +28,8 @@
             <li><a href="#het_tci">The chop iterator</a></li>
             <li><a href="#het_offset">The offset iterator</a></li>
             <li><a href="#het_sample">The stare eye</a></li>
-            <li><a href="#het_time">The repeat iterator and integration time in general</a></li>
+            <li><a href="#het_time">The repeat iterator</a></li>
+            <li><a href="#het_inttime">Integration time in general</a></li>
         </ul>
         <li><a href="#het_summary">Summary: Making your heterodyne MSB</a></li>
     </li>
@@ -528,7 +529,7 @@ Click on the target component to bring up its panel:
 
 
 <p>
-In this component you will enter the coordinates and velocity of
+In this component you will enter the coordinates and velocity/redshift of
 the source, and the coordinates of the reference position (for
 position-switched observations).  The "Target Type" is a pull-down
 menu that allows you to select RA/Dec (most common), Orbital Elements
@@ -830,7 +831,9 @@ defined in the Gnomonic (TAN) projection.
 
 <p>
 The science observation itself is represented within the MSB by the
-stare eye. Click on it to display the details of the
+stare eye or (in the case of <a href="#rxa_rast_example">classical
+and basket weave rasters</a>) a scan eye. Click
+on it to display the details of the
 observation. The pull down menu near the top of the right hand frame
 allows the user to choose from beam switching or position switching.
 In this example we are beam-switching, and the chop throw was set with
@@ -875,7 +878,7 @@ penalty for using continuum mode is an increase of the observing time
 by a factor of 1.7.
 </p>
 
-<h2 class="likesectionHead" id="het_time">The repeat iterator and integration time in general</h2>
+<h2 class="likesectionHead" id="het_time">The repeat iterator</h2>
 
 <p>
 The Repeat iterator's only property is a repeat counter. This repeat 
@@ -893,14 +896,27 @@ i.e you will end up with precisely two spectral line observations.
 If you require a long integration of a source, it makes sense to break
 the observation down into shorter integrations of around 10 minutes
 or so, so that data quality can be assessed as the observation
-progresses.
+progresses. It also ensures that if the software fails intermediate
+data is written out and not lost.
 </p>
+
+
+<h2 class="likesectionHead" id="het_inttime">Integration time in general</h2>
+
 
 <p>
 In practice, you set up the integration time required per
-spectral line observation using the stare eye and then use the
+spectral line observation using the stare or scan eye. If you
+selected the stare you should use the
 repeat iterator to define a sufficient number of repeats to give the
-total required integration time for the MSB.
+total required integration time for the MSB - typically we recommend between <a href="intro.html#MSB">30 to 70 minutes</a>. Shorter observations are
+recommended for ease of scheduling in a flexible queue.
+</p>
+
+<p>
+The <b>total</b> time spent on source is then a <i>X</i> times then length
+of one MSB where <i>X</i> is the <a href="eneric.html#thingies">observe counter<a/>
+value which can be specified in the top level of the MSB.
 </p>
 
 <p>
@@ -975,7 +991,6 @@ summarise the general procedure for making your own.
 
 <ul>
     <li>
-        <p>
         Choose the corresponding MSB template from the heterodyne library and
         copy/paste it to your science program.  Each of these is described
         briefly <a href="#het_msblib">below</a>.
@@ -1036,11 +1051,9 @@ summarise the general procedure for making your own.
           integration time in a <em>single</em> observation/MSB.
           </p>
           <p>
-          It is encouraged that MSBs are 40-60 minutes in length.
-
+          It is encouraged that MSBs are 30-70 minutes in length.
           It is good practice (in terms of writing data to disk) to ensure
-          MSBs 
- (particularly long stare observations)
+          MSBs (particularly long stare observations)
           If you want a total observation integration of 30 minutes
           on-source (per MSB), you should set up an integration time of 5 minutes in
           the stare eye and set the repeat counter to 6. When
@@ -1056,7 +1069,7 @@ summarise the general procedure for making your own.
           Set up the <a href="Generic.html#thingies">MSB Observe counter</a> to
           build up to your <em>total</em> integration time. You may want the
           duration of the basic observation to be of the order 10
-          minutes. A total MSB to last 40-60 minutes but you might be
+          minutes. A total MSB to last 30-70 minutes but you might be
           requiring a total time on source of ten hours. 
           </p>
       </li>
@@ -1098,7 +1111,8 @@ summarise the general procedure for making your own.
 
 <p>
 That's pretty much all you need to know to start preparing your
-MSB. The remainder of this primer covers the Heterodyne MSB library.
+MSB. The remainder of this primer covers the Heterodyne MSB library
+and the Advanced topics.
 </p>
 
 <h2 class="likesectionHead" id="het_msblib">The Heterodyne MSB library</h2>
