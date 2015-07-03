@@ -65,104 +65,6 @@ how an AND folder can be used to group observations and use inheritance within
 that group.
 </p>
 
-<h3 id="velocities">Velocities: The Het and Target Component</h3>
-
-<p>
-It used to be that the receiver tuning, including the source velocity,
-were specified in the Heterodyne Component while the source
-coordinates needed to be entered in the Target Component. Half of our
-observers were very happy with this, since they prefered to observe
-all their sources with the same receiver setup. The other half of the
-observers complained bitterly since they wanted to be able to read in
-the sources <em>and</em> velocities from a catalog and center the
-bandpass for each.
-</p>
-
-<p>
-Hence the OT now allows for the observing velocity to the specified
-in the Heterodyne Component <em>or</em> the Target Component. But this
-has made life a bit more complicated.
-</p>
-
-<p>
-The description of the
-<a href="het_example.html#het_thsc">Heterodyne Setup component</a>
-should have made it clear that it uses the
-velocity to compute the approximate sky frequency as a check whether
-the line falls within the tuning range, to show the setup in the
-frequency editor etc. However, it can <em><b>only</b></em> do that if
-it has access to the velocity information. In the case where the
-velocity information
-has been put in the Target Component, this <em>requires</em> the components
-to be at the same level of indentation. If this is not the case, the
-Het. Component will assume a velocity of 0 km/s.
-</p>
-
-<p>
-<em>Note that is only a problem within the OT: when MSBs are submitted
-for observation the tree structure from the OT is unrolled and for
-each observation the appropriate Het Setup and Target Component are
-paired up.</em>
-</p>
-
-<p>
-In general, this is not a problem for Galactic sources since the
-overall parameters of the observation of a molecular line (center
-frequency, atmospheric transparency, receiver characteritics) don't
-significantly differ from source to source. That of course may not be
-the case for extra-galactic and high-z sources: vary the velocity or
-red-shift enough and the line may shift completely out of the band or
-into an atmospheric absorption line for some of the sources (it has
-happened!). The Het. Component will notify you of (un)available
-transitions for a particular molecule and the Frequency Editor will
-show the transmission at the observing frequency, but only if it
-can find the velocity of the observation.
-</p>
-
-<p>
-<small>Small print: which is one of the reasons that we advice to
-always select a 'Molecule' and 'Transition' from the drop-down
-list, rather than typing a frequency manually.</small>
-</p>
-
-<p>
-In summary, the following sample layouts allow for the Het. Component
-to obtain the velocity from the Target Component:
-</p>
-
-<p>
-<pre>
-    *MSB                           *MSB                           *AND
-      o Het Setup                    o Site Quality                 o Het Setup
-      o Site Quality                 o Observation                  o Site Quality
-      o Target Information             - Het Setup                  o Target Information
-      o Observation                    - Target Information         o MSB1
-        - Sequence                     - Sequence                     - Observation
-           ...                            ...                            + Sequence
-                                                                           ...
-                                                                    o MSB2
-                                                                           ...
-</pre>
-</p>
-
-<p>
-In the following samples the Het. Setup will <em>not</em> be able to access the velocity:
-</p>
-
-<p>
-<pre>
-    *MSB                           *MSB                           *AND
-      o Het Setup                    o Site Quality                 o Het Setup
-      o Site Quality                 o Target Setup                 o Site Quality
-      o Observation                  o Observation                  o MSB1
-        - Target Information           - Het Setup                    - Target Information
-        - Sequence                     - Sequence                     - Observation
-           ...                            ...                              ...
-                                                                    o MSB2
-                                                                      -  Target Information
-                                                                             ...
-</pre>
-</p>
 
 <h3 id="replication">Generating a programme from a catalogue file</h3>
 
@@ -203,7 +105,7 @@ catalog". Choose this action:
 </p>
 
 <p>
-<img src="images/replicate.png" alt="Replication" class="figure" width="388" height="468" />
+<img src="images/replicate.png" alt="Replication" class="figure" width="388"  />
 </p>
 
 <p>
@@ -238,7 +140,7 @@ specific MSB, place the scheduling constraint inside it.
 </p>
 
 <p>
-<img src="images/constraints.png" alt="Constraint" class="figure" width="790" height="538" />
+<img src="images/constraints.png" alt="Constraint" class="figure" width="800"  />
 </p>
 
 <p>
@@ -296,7 +198,7 @@ of the OT window, and select the "Sched. Constraints".
 </p>
 
 <p>
-<img src="het_images/het_sched_constraints.png" alt="Scheduling Constraints Component" width="848" height="692" class="figure" />
+<img src="het_images/het_sched_constraints.png" alt="Scheduling Constraints Component" width="800" class="figure" />
 </p>
 
 <p>
