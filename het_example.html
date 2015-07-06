@@ -266,7 +266,7 @@ the pull-down lists of <b>molecules</b> and <b>transitions</b> to
 generate the frequency.  (If the particular line/transition you are
 interested in is not in the list, please send an email to <a
 href="mailto:jcmtot@eaobservatory.org">jcmtot@eaobservatory.org</a> so
-that the line can be added for the next release.)  
+that the line can be added for the next release.)
 </p>
 
 <p>
@@ -378,7 +378,7 @@ development</i> and thus are likely to change and evolve.
 </p>
 
 <p>
-The <b>DR Recipe</b> component is used to specify the 
+The <b>DR Recipe</b> component is used to specify the
 <a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch9.html#x10-760001">
 recipe that is to be used by ORACDR</a> for reducing the data.
 The example in the figure below shows the DR Recipe component
@@ -570,13 +570,13 @@ The above example is a beam switch observation where the
 off position will be subtracted by a chop position
 (refer to the <a href="#het_tci">chop iterator</a> section).
 This is also the case for the jiggle-chop and jiggle-chop
-offset MSBs available in the 
+offset MSBs available in the
 <a href="generic.html#lib-acsis">ACSIS Library</a>.
 All other MSBs require the selection of a reference position.
 
 <p>
 To specify a reference position, click on "REFERENCE".
-The default is to enter an absolute position for the reference.  
+The default is to enter an absolute position for the reference.
 </p>
 
 <p>
@@ -689,7 +689,7 @@ Inside the Science Observation component we see a sequence iterator.
 The sequence iterator doesn't do anything <i>per se</i>, but it is
 important to note that it represents the sequence of events at the
 telescope. The sequence iterator contains a repeat iterator, then
-(depending upon the observation type) perhaps a chop iterator or an 
+(depending upon the observation type) perhaps a chop iterator or an
 offset iterator - a position-switched scan centred on the Target,
 finally, a single (action) "eye".   The repeat iterator allows
 the user to control the number of repeats carried out for a certain
@@ -779,7 +779,7 @@ regular or irregular spacing.
 
 
 <p>
-The following example has been made by going to the 
+The following example has been made by going to the
 <a href="generic.html#lib-acsis">ACSIS Library</a> and
 copying over a "Position-switch grid" MSB from the "Grids" folder into
 a new program.
@@ -882,11 +882,11 @@ by a factor of 1.7.
 <h2 id="het_time">The repeat iterator</h2>
 
 <p>
-The Repeat iterator's only property is a repeat counter. This repeat 
+The Repeat iterator's only property is a repeat counter. This repeat
 counter will affect things that are <strong>inside</strong>
 the repeat iterator (i.e. indented under it) in turn. So if you set it
 to 2, your science observation consist of two spectral line samples;
-i.e you will end up with precisely two spectral line observations. 
+i.e you will end up with precisely two spectral line observations.
 </p>
 
 <p>
@@ -1041,7 +1041,7 @@ summarise the general procedure for making your own.
     <ul><li>
           <p>
           The stare eye - remember to enter the total
-          on-source integration time per sample. 
+          on-source integration time per sample.
           </p>
       </li>
       <li>
@@ -1071,7 +1071,7 @@ summarise the general procedure for making your own.
           build up to your <em>total</em> integration time. You may want the
           duration of the basic observation to be of the order 10
           minutes. A total MSB to last 30-70 minutes but you might be
-          requiring a total time on source of ten hours. 
+          requiring a total time on source of ten hours.
           </p>
       </li>
     </ul>
@@ -1629,7 +1629,7 @@ that position will be used when doing a three-load calibration
 <h3 id="het_rast_folder">Rasters - Classical (scan) & Rasters - Basket Weave</h3>
 
 <p>
-Both Classical (scan) and Basket Weave raster scan folders can be found in the <a href="generic.html#lib-acsis">ACSIS Library</a>. 
+Both Classical (scan) and Basket Weave raster scan folders can be found in the <a href="generic.html#lib-acsis">ACSIS Library</a>.
 </p>
 
 
