@@ -97,19 +97,3 @@ p.warning {
     font-style: italic;
     text-decoration: underline;
 }
-
-
-
-/* spacing for sectionheads*/
-.sectionHead, .likesectionHead{
-    padding:5px;
-}
-
-
-/*Background colour for sectionHeads (blue)*/
-.likesectionHead,
-.sectionHead{
-    background-color:#ACCFE6;
-    padding:0.8;
-}
-
