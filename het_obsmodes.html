@@ -129,7 +129,7 @@ pattern around that region:
 </p>
 
 <p>
-<img src="het_images/windmill_small.png" width="284" height="262" class="figure" />
+<img src="het_images/windmill_small.png" width="284" height="262" class="figure" alt="windmill pattern" />
 </p>
 
 <p>
@@ -199,10 +199,10 @@ center.)
 </p>
 
 <p class="figure">
-<img src="het_images/HARP4.png" width="352" height="488" />
-<img src="het_images/HARP4_mc.png" width="352" height="488" />
-<img src="het_images/HARP5.png" width="348" height="492" />
-<img src="het_images/HARP5_mc.png" width="348" height="492" />
+<img src="het_images/HARP4.png" width="352" height="488" alt="HARP4 jiggle pattern" />
+<img src="het_images/HARP4_mc.png" width="352" height="488" alt="HARP4 map-centered jiggle pattern" />
+<img src="het_images/HARP5.png" width="348" height="492" alt="HARP5 jiggle pattern" />
+<img src="het_images/HARP5_mc.png" width="348" height="492" alt="HARP5 map-centered jiggle pattern" />
 </p>
 
 <h3 id="jchp_control">Loop control</h3>
@@ -235,7 +235,7 @@ for every jiggle position: the observing mode changes to chop-jiggle
 (jiggle-before-chop). However, the frequent chops significantly
 increase the overheads: limited testing so far suggests that the
 typical penalty for using continuum mode is an increase of the
-observing time by a factor of <i>1.7</i><font color=red>CHECK!</font>.
+observing time by a factor of <i>1.7</i><span style="color: red;">CHECK!</span>.
 </p>
 
 <p>
@@ -355,7 +355,7 @@ t_on: requested 'on'-only integration time per jiggle-point):
 </table>
 
 <p>
-<img src="het_images/jchp_time.png" width="512" height="512" class="figure" />
+<img src="het_images/jchp_time.png" width="512" height="512" class="figure" alt="graph" />
 <p>
 
 <h3 id="jchp_rms">Noise:</h3>
@@ -373,7 +373,6 @@ black line).
 The expected noise can thus be calculated using:
 </p>
 
-<p>
 <pre>
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
@@ -385,7 +384,6 @@ The expected noise can thus be calculated using:
           sharing an off. For patterns not exceeding 9x9
           this is the number of points in the jiggle pattern.
 </pre>
-</p>
 
 <p>
 The bottom panel shows the normalized noise: rms*sqrt(int. time) as a
@@ -403,7 +401,7 @@ well.
 </p>
 
 <p>
-<img src="het_images/jchp_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/jchp_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="JigglePSSW">Jiggle-Position Switch observations</h2>
@@ -513,7 +511,7 @@ jiggle-point):
 </table>
 
 <p>
-<img src="het_images/jpsw_time.png" width="512" height="512" class="figure" />
+<img src="het_images/jpsw_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h3 id="jpsw_rms">Noise</h3>
@@ -534,7 +532,7 @@ equation above indicated by the black crosses.
 </p>
 
 <p>
-<img src="het_images/jpsw_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/jpsw_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="GridPSSW">Grid Position-Switch</h2>
@@ -679,7 +677,7 @@ t_on: requested 'on'-only integration time per jiggle-point):
 </table>
 
 <p>
-<img src="het_images/gpsw_time.png" width="512" height="512" class="figure" />
+<img src="het_images/gpsw_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h3 id="gpsw_rms">Noise</h3>
@@ -696,7 +694,6 @@ black crosses. The equation used is the same as given in the
 discussion of JCHOP observations, but 'np' is a bit less straightforward:
 </p>
 
-<p>
 <pre>
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
@@ -704,7 +701,6 @@ discussion of JCHOP observations, but 'np' is a bit less straightforward:
           max(1,int(30/t_on)) i.e. the number of t_ons that fit
           in 30sec, but no less than 1. (30secs = time_between_refs.)
 </pre>
-</p>
 
 <p>
 Observations with <i>shared offs</i> but <i>on</i> integration times
@@ -717,7 +713,7 @@ in excess of 15s are excuted the same as observations with
 </p>
 
 <p>
-<img src="het_images/gpsw_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/gpsw_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="FSW">Frequency-Switch</h2>
@@ -824,7 +820,7 @@ separates into three groups:
 </ul>
 
 <p>
-<img src="het_images/all_time.png" width="512" height="512" class="figure" />
+<img src="het_images/all_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <p>
@@ -842,8 +838,8 @@ in the final figure.
 </p>
 
 <p class="figure">
-    <img src="het_images/all_rms.png" width="355" height="360">
-    <img src="het_images/all_rms2.png" width="367" height="357">
+    <img src="het_images/all_rms.png" width="355" height="360" alt="graph" />
+    <img src="het_images/all_rms2.png" width="367" height="357" alt="graph" />
 </p>
 
 <p>
@@ -857,7 +853,7 @@ of observations).
 </p>
 
 <p>
-<img src="het_images/het_compare.png" width="512" height="371" class="figure" />
+<img src="het_images/het_compare.png" width="512" height="371" class="figure" alt="graph" />
 </p>
 
 <nav>

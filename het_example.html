@@ -17,7 +17,8 @@
 <ul>
     <li><a href="#het_info">General Information</a></li>
     <li><a href="#het_start">Getting started</a></li>
-    <li><a href="#het_anat">Worked example of an MSB (Beam-Switched <i>Sample</i>)<a>
+    <li>
+        <a href="#het_anat">Worked example of an MSB (Beam-Switched <i>Sample</i>)</a>
         <ul>
             <li><a href="#het_thsc">The Het Setup component</a></li>
             <li><a href="#het_rcpe">DR Recipe Component</a></li>
@@ -31,9 +32,10 @@
             <li><a href="#het_time">The repeat iterator</a></li>
             <li><a href="#het_inttime">Integration time in general</a></li>
         </ul>
-        <li><a href="#het_summary">Summary: Making your heterodyne MSB</a></li>
     </li>
-    <li><a href="#het_msblib">The Heterodyne MSB library</a>
+    <li><a href="#het_summary">Summary: Making your heterodyne MSB</a></li>
+    <li>
+        <a href="#het_msblib">The Heterodyne MSB library</a>
         <ul>
             <li><a href="#het_centering">Centering the observations</a></li>
             <li><a href="#het_shared">Shared or Separate offs</a></li>
@@ -43,7 +45,8 @@
             <li><a href="#het_rast_folder">Scan Maps</a></li>
         </ul>
     </li>
-    <li><a href="#het_adv">Advanced Heterodyne topics</a>
+    <li>
+        <a href="#het_adv">Advanced Heterodyne topics</a>
         <ul>
             <li><a href="#het_freq_ed">The Frequency Editor</a></li>
             <li><a href="#het_tpe">The position editor</a></li>
@@ -204,10 +207,11 @@ the required heterodyne instrument (the Front End) and ACSIS
         choose the required receiver or <b>Front End</b>. The tuning/frequency
         range over which the selected receiver can be tuned is displayed in
         the <b>Front End Summary</b> box in the top-right corner.
-            <ul><li>
-            Currently only receivers A3 and HARP are available for use.
-            </ul></li>
         </p>
+
+        <ul><li>
+        Currently only receivers A3 and HARP are available for use.
+        </li></ul>
     </li>
 
     <li>
@@ -279,7 +283,7 @@ that the line can be added for the next release.)
 In the example above the CO (3-2) line has been selected.
 Alternately, the
 tuning frequency may be specified explicitly in GHz. The frequency
-will appear in <font color="red"><b>RED</b></font> until the
+will appear in <span style="color: red; font-weight: bold;">RED</span> until the
 <b>Accept</b> button is clicked. <i>This is essential to ensure
 acceptance of the input</i>. This method will also result in the
 phrase 'No line' appearing in the molecule and transition fields, even
@@ -313,7 +317,7 @@ target velocity</b>.  If entering the velocity here you must also
 specify the <b>Velocity Definition</b> and <b>Velocity Frame</b> from
 the two pull-down menus, and click the "Accept" button (to the right
 of the frequency field).  (Note that the velocity will appear in
-<font color="red"><b>RED</b></font> until you click on the Accept button.
+<span style="color: red; font-weight: bold;">RED</span> until you click on the Accept button.
 Failure to click on the Accept button will mean the velocity you
 entered will be lost.)
 </p>
@@ -517,7 +521,7 @@ intensity weighted velocity images.
 <p><b>WARNING:</b> Positions of
 astronomical objects are often wavelength dependent. For example, the
 SIMBAD coordinates for IRAS16293-2224 are many arc-minutes different
-from the JCMT coordinates.</font> The catalogs you may be using will
+from the JCMT coordinates. The catalogs you may be using will
 have defined the astrometric positions therein on the basis of
 optical- or infrared- or radio- observations. You should check that
 the positions now showing are valid for your sub-millimeter studies.
@@ -532,7 +536,7 @@ Click on the target component to bring up its panel:
 </p>
 
 
-<h3  id="het_tinfo">Target Information</h2>
+<h3 id="het_tinfo">Target Information</h3>
 
 
 <p>
@@ -569,7 +573,7 @@ SIMBAD/NED name for the source will also be indicated next to the
 </p>
 
 
-<h3  id="het_tinfo">Reference Information</h2>
+<h3 id="het_rinfo">Reference Information</h3>
 
 <p>
 The above example is a beam switch observation where the
@@ -640,7 +644,7 @@ name into elements. An example is given below.
 </p>
 
 <p class="figure">
-<img src="images/target_elements1.png" width="684" height="562" />
+<img src="images/target_elements1.png" width="684" height="562" alt="screen shot" />
 <br />
 <b>Name resolution for moving objects:</b>
 When "Orbital elements" is the selected Target Type, the "Resolve name"
@@ -655,7 +659,7 @@ human reading, not computer processing. As such the output format is
 subject to arbitrary changes, so there is no guarantee that this search
 feature will work or that the results are accurate; for example it is
 possible that elements may end up in the wrong field or omitted
-completely. <b><i>Always double check the returned values.</b></i>
+completely. <b><i>Always double check the returned values.</i></b>
 </p>
 
 <h3 id="Proper_Motion">Allowing for Proper Motion</h3>
@@ -666,7 +670,7 @@ milli arc-seconds per year) can be made in your target component.
 </p>
 
 <p class="figure">
-<img width="480" height="110" src="images/target_propermotion.png">
+<img width="480" height="110" src="images/target_propermotion.png" alt="screen shot" />
 <br />
 <b>Proper motion</b>
 entered as milli arc-seconds per year in the target
@@ -923,7 +927,7 @@ recommended for ease of scheduling in a flexible queue.
 
 <p>
 The <b>total</b> time spent on source is then a <i>X</i> times then length
-of one MSB where <i>X</i> is the <a href="eneric.html#thingies">observe counter<a/>
+of one MSB where <i>X</i> is the <a href="generic.html#thingies">observe counter</a>
 value which can be specified in the top level of the MSB.
 </p>
 
@@ -999,6 +1003,7 @@ summarize the general procedure for making your own.
 
 <ul>
     <li>
+        <p>
         Choose the corresponding MSB template from the heterodyne library and
         copy/paste it to your science program.  Each of these is described
         briefly <a href="#het_msblib">below</a>.
@@ -1039,50 +1044,48 @@ summarize the general procedure for making your own.
         via the <a href="#het_tpe">position editor</a>.
         </p>
     </li>
-
     <li>
-        <p>
         Set up the your total integration time for your target.
         This will be a combination of the following:
-        </p>
+        <ul>
+            <li>
+                <p>
+                The stare eye - remember to enter the total
+                on-source integration time per sample.
+                </p>
+            </li>
+            <li>
+                <p>
+                The <a href="#het_time">repeat counter</a>
+                to give the number of repeats of the
+                time set up in the stare eye to get your total required
+                integration time in a <em>single</em> observation/MSB.
+                </p>
+                <p>
+                It is encouraged that MSBs are 30-70 minutes in length.
+                It is good practice (in terms of writing data to disk) to ensure
+                MSBs (particularly long stare observations)
+                If you want a total observation integration of 30 minutes
+                on-source (per MSB), you should set up an integration time of 5 minutes in
+                the stare eye and set the repeat counter to 6. When
+                observing, you can then monitor the observation by inspecting the
+                data file produced every ~13 minutes, and co-add the spectra as
+                you go along. In general, if you want to build up long
+                integrations, you will want the duration of the basic observation
+                to be of the order 10 minutes <em>("on+off+overheads")</em>.
+                </p>
+            </li>
+            <li>
+                <p>
+                Set up the <a href="generic.html#thingies">MSB Observe counter</a> to
+                build up to your <em>total</em> integration time. You may want the
+                duration of the basic observation to be of the order 10
+                minutes. A total MSB to last 30-70 minutes but you might be
+                requiring a total time on source of ten hours.
+                </p>
+            </li>
+        </ul>
     </li>
-    <ul><li>
-          <p>
-          The stare eye - remember to enter the total
-          on-source integration time per sample.
-          </p>
-      </li>
-      <li>
-          <p>
-          The <a href="#het_time">repeat counter</a>
-          to give the number of repeats of the
-          time set up in the stare eye to get your total required
-          integration time in a <em>single</em> observation/MSB.
-          </p>
-          <p>
-          It is encouraged that MSBs are 30-70 minutes in length.
-          It is good practice (in terms of writing data to disk) to ensure
-          MSBs (particularly long stare observations)
-          If you want a total observation integration of 30 minutes
-          on-source (per MSB), you should set up an integration time of 5 minutes in
-          the stare eye and set the repeat counter to 6. When
-          observing, you can then monitor the observation by inspecting the
-          data file produced every ~13 minutes, and co-add the spectra as
-          you go along. In general, if you want to build up long
-          integrations, you will want the duration of the basic observation
-          to be of the order 10 minutes <em>("on+off+overheads")</em>.
-          </p>
-      </li>
-      <li>
-        <p>
-          Set up the <a href="generic.html#thingies">MSB Observe counter</a> to
-          build up to your <em>total</em> integration time. You may want the
-          duration of the basic observation to be of the order 10
-          minutes. A total MSB to last 30-70 minutes but you might be
-          requiring a total time on source of ten hours.
-          </p>
-      </li>
-    </ul>
     <li>
         <p>
         Add at least one <a href="generic.html#note">"show to observer" note</a>.
@@ -1396,9 +1399,11 @@ reach a certain RMS (assumed Tsys = 250 K and frequency channels of 1
 MHz). Note that <i>shared/separate offs</i> are only relevant within a
 single observation, which typically take 10-20 minutes.  The figure
 shows that e.g. a 15min observation using <i>shared offs</i>
-(<font color="blue">blue line</font>) will have the same RMS noise as a 33min
-observation using <i>separate offs</i> (<font color=red>red
-line</font>).  Note that co-adding successive observations will
+(<span style="color: blue;">blue line</span>)
+will have the same RMS noise as a 33min
+observation using <i>separate offs</i>
+(<span style="color: red;">red line</span>).
+Note that co-adding successive observations will
 decrease the noise with the usual sqrt(nr spectra) factor,
 irrespective of the shared mode chosen.
 </p>
@@ -1821,64 +1826,65 @@ we see:
 </p>
 
 <ul>
-<li>
-    The observing and image side-bands, marked as <b>LSB</b> and <b>USB</b>
-</li>
-<li>
-    Their locations within the respective LO2 ranges and their widths
-</li>
-<li>
-    The identification of the selected emission line associated with a window,
-    marked <b>Line</b>
-</li>
-<li>
-    The <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
-</li>
-<li>
-    The bandwidth, in MHz
-</li>
-<li>
-    The <b>Res</b>olution that the selected bandwidth produces, in kHz
-</li>
-<li>
-    The molecular transitions in this vicinity, marked by vertical bars,
-    on a line labeled <b>Emission Lines</b>
-</li>
-<li>
-    The frequency scale immediately below Emission Lines is the frequency
-    in the rest frame of the source i.e. the emission lines show at their
-    nominal laboratory frequency regardless of the doppler shift.
-</li>
-<li>
-    The line selected is shown in <font color=red>red</font>
-</li>
-<li>
-    The receiver temperature (<font color=red>TRx</font>) is plotted as
-    the <font color=red>red</font> line (although there
-    is no scale currently). It's wise to check this since even a minor
-    change in radial velocity can shift the observed frequency into a
-    region of very large atmospheric opacity.
-</li>
-<li>
-    The <b>FE Freq</b>uency scale, shown below the plot of TRx
-    is the observing frequency in the rest frame of the receiver i.e.
-    the tuning frequency at the telescope.
-    You will notice this scale will shift if you enter a non-zero
-    velocity, and will also shift if you change the velocity
-    definition.
-</li>
-<li>
-    The Local Oscillator frequency, shown as <b>LO1</b>, located within
-    the full tuning range of the receiver.
-    <ul>
-        <li>
-            Note the upper frequency scale, lower frequency scale and LO1 are only
-            approximate because the correction from the receiver rest frame to the
-            chosen rest frame requires the Doppler correction for the Earth's
-            motion, which varies with time.
-        </li>
-    </ul>
-</ul>
+    <li>
+        The observing and image side-bands, marked as <b>LSB</b> and <b>USB</b>
+    </li>
+    <li>
+        Their locations within the respective LO2 ranges and their widths
+    </li>
+    <li>
+        The identification of the selected emission line associated with a window,
+        marked <b>Line</b>
+    </li>
+    <li>
+        The <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
+    </li>
+    <li>
+        The bandwidth, in MHz
+    </li>
+    <li>
+        The <b>Res</b>olution that the selected bandwidth produces, in kHz
+    </li>
+    <li>
+        The molecular transitions in this vicinity, marked by vertical bars,
+        on a line labeled <b>Emission Lines</b>
+    </li>
+    <li>
+        The frequency scale immediately below Emission Lines is the frequency
+        in the rest frame of the source i.e. the emission lines show at their
+        nominal laboratory frequency regardless of the doppler shift.
+    </li>
+    <li>
+        The line selected is shown in <span style="color: red;">red</span>
+    </li>
+    <li>
+        The receiver temperature
+        (<span style="color: red;">TRx</span>) is plotted as the
+        <span style="color: red;">red</span> line (although there
+        is no scale currently). It's wise to check this since even a minor
+        change in radial velocity can shift the observed frequency into a
+        region of very large atmospheric opacity.
+    </li>
+    <li>
+        The <b>FE Freq</b>uency scale, shown below the plot of TRx
+        is the observing frequency in the rest frame of the receiver i.e.
+        the tuning frequency at the telescope.
+        You will notice this scale will shift if you enter a non-zero
+        velocity, and will also shift if you change the velocity
+        definition.
+    </li>
+    <li>
+        The Local Oscillator frequency, shown as <b>LO1</b>, located within
+        the full tuning range of the receiver.
+        <ul>
+            <li>
+                Note the upper frequency scale, lower frequency scale and LO1 are only
+                approximate because the correction from the receiver rest frame to the
+                chosen rest frame requires the Doppler correction for the Earth's
+                motion, which varies with time.
+            </li>
+        </ul>
+    </li>
 </ul>
 
 <p>
@@ -1901,7 +1907,7 @@ Among the dynamic functions, we find that:
     <li>
         Keeping the mouse button depressed while scrolling
         down through the menu makes the line appear in
-        <font color=green>green</font>
+        <span style="color: green;">green</span>.
     </li>
     <li>
         The LO1 frequency can be changed by right-clicking on the slider and
@@ -1945,7 +1951,7 @@ To generate such a multi-line, multi-Subsystem configuration:
     <li>
         Press the Frequency Editor button to generate a Frequency Editor
         window with the appropriate number of Subsystems. The pre-selected
-        line is in <font color=red>red</font>.
+        line is in <span style="color: red;">red</span>.
     </li>
     <li>
         <b>Click</b> at the level of 'Emission Lines' in the general vicinity
@@ -1953,7 +1959,7 @@ To generate such a multi-line, multi-Subsystem configuration:
     </li>
     <li>
         Keep the button pressed and scroll down until the line is met,
-        and shown in <font color=green>green</font>
+        and shown in <span style="color: green;">green</span>
     </li>
     <li>
         Click on the 'Line' box appropriate for that subsystem to center the
@@ -2054,22 +2060,22 @@ image.
 </p>
 
 <blockquote>
-<p>
-A short technical note if you are planning on generating your own
-image for import: if you want to import a SCUBA map in NDF format,
-convert it to FITS by using the
-<a href="http://www.starlink.ac.uk">Starlink</a>
-<a href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html">
-<tt>convert</tt></a> utility with the following arguments:
-</p>
+    <p>
+    A short technical note if you are planning on generating your own
+    image for import: if you want to import a SCUBA map in NDF format,
+    convert it to FITS by using the
+    <a href="http://www.starlink.ac.uk">Starlink</a>
+    <a href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html">convert</a>
+    utility with the following arguments:
+    </p>
 
-<p>
-<tt>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</tt>
-</p>
+    <pre>
+    ndf2fits encoding=FITS-IRAF bitpix=32 comp=D
+    </pre>
 
-<p>
-If you have difficulty despite doing this, let us know.
-</p>
+    <p>
+    If you have difficulty despite doing this, let us know.
+    </p>
 </blockquote>
 
 <p>
@@ -2193,7 +2199,6 @@ In summary, the following sample layouts allow for the Het. Component
 to obtain the velocity from the Target Component:
 </p>
 
-<p>
 <pre>
     *MSB                           *MSB                           *AND
       o Het Setup                    o Site Quality                 o Het Setup
@@ -2206,13 +2211,11 @@ to obtain the velocity from the Target Component:
                                                                     o MSB2
                                                                            ...
 </pre>
-</p>
 
 <p>
 In the following samples the Het. Setup will <em>not</em> be able to access the velocity:
 </p>
 
-<p>
 <pre>
     *MSB                           *MSB                           *AND
       o Het Setup                    o Site Quality                 o Het Setup
@@ -2225,11 +2228,6 @@ In the following samples the Het. Setup will <em>not</em> be able to access the 
                                                                       -  Target Information
                                                                              ...
 </pre>
-</p>
-
-
-
-
 
 
 <nav>
