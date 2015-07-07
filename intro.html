@@ -25,7 +25,7 @@ and SCUBA-2 observations.
 A <a href="het_example.html#het_msblib">heterodyne template library</a>
 and <a href="scuba2_example.html#start">SCUBA-2 template library</a>
 are provided which allow users to create MSBs for any available observing
-mode: <em>Samples, Grids, Jiggles, Scans</em> and <em>Rasters</em>for heterodyne,
+mode: <em>Samples, Grids, Jiggles, Scans</em> and <em>Rasters</em> for heterodyne,
 and <em>PONG </em>or <em>DAISY scans</em> for SCUBA-2.
 </p>
 
@@ -53,7 +53,7 @@ scheduling? The quantum of scheduling is a Minimum Schedulable Block,
 or MSB. An MSB consists of one or more scientifically meaningful observations
 as well as any calibrations required to fully reduce the
 data. <em>An MSB will always be executed at the telescope in its
-entirety</em>. MSBS naturally vary in length but it is recommended that a
+entirety</em>. MSBs naturally vary in length but it is recommended that a
 single MSB consists of a 30 minute to 70  minute observation on a single
 science target and any necessary calibrations. Note: SCUBA-2 observations
 should last no more than 40 minutes in length (see
@@ -69,7 +69,7 @@ please consult the following tutorials:
 </p>
 
 <ul>
-    <li><a href="het_example.html">heterodyne tutorial</a></li>
+    <li><a href="het_example.html">Heterodyne tutorial</a></li>
     <li><a href="scuba2_example.html">SCUBA-2 tutorial</a></li>
 </ul>
 
@@ -81,7 +81,7 @@ JCMT-QT (Query Tool) that allows them to browse our database for
 suitable project MSBs. The QT by default returns as yet unobserved MSBs ranked
 by TAG priority containing targets that are actually observable, whose
 site quality requirements match the current conditions, and whose projects
-still have allocated time left. However, the observer/TSS is able to use
+still have allocated time left. However, the observer / telescope operator is able to use
 the QT to retrieve any submitted MSB at their discretion.
 </p>
 
@@ -108,7 +108,7 @@ prompting the observer/TSS when intervention is needed.
 <p>
 After the observations have been carried out and deemed acceptable by the Telescope
 operator, the MSB is marked as done and will not be rescheduled unless it is resubmitted
-from the JCMT-OT or marked Undone via the project feedback system. If repeats of
+from the JCMT OT or marked un-done via the project feedback system. If repeats of
 the MSB were requested (this is done by setting the <em>Observe</em> counter
 accordingly), the <em>Observe</em> counter is decremented by 1.
 </p>
@@ -116,7 +116,7 @@ accordingly), the <em>Observe</em> counter is decremented by 1.
 
 <h2 id="deadline">What is the deadline for submissions?</h2>
 <p>
-There is no strict deadline for uploading programs/MSBs.
+There is no strict deadline for uploading programs / MSBs.
 However if you don't submit MSBs for your
 sources by the time they are observable you could be throwing away
 opportunities of having your sources observed. Nevertheless, note
