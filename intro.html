@@ -76,9 +76,10 @@ please consult the following tutorials:
 
 <h2 id="scheduling">What happens to my project after I upload it?</h2>
 <p>
-During flexible observing, the observer/Telescope operator will run a tool called
-JCMT-QT (Query Tool) that allows them to browse our database for
-suitable project MSBs. The QT by default returns as yet unobserved MSBs ranked
+During flexible observing, the observer / telescope operator will run a tool called
+the JCMT QT (Query Tool) that allows them to browse our database for
+suitable project MSBs. The QT by default returns
+MSBs ranked
 by TAG priority containing targets that are actually observable, whose
 site quality requirements match the current conditions, and whose projects
 still have allocated time left. However, the observer / telescope operator is able to use
@@ -87,30 +88,29 @@ the QT to retrieve any submitted MSB at their discretion.
 
 <p>
 When an MSB is selected for actual execution, the Query Tool can be used
-to retrieve it from our database. The observer/Telescope operator is then
-presented with a list of the observations in that MSB and given the opportunity to
+to retrieve it from our database.
+The MSB is sent via a translator which converts it into a complete set of
+configuration information for the telescope, receiver and backend.
+The observations are then placed in a queue for execution,
+where the observer / telescope operator are
+given the opportunity to
 remove redundant calibrations from the MSB or to defer them until a suitable
-calibrator becomes available. When they are satisfied that the MSB is
-suitable for execution they send it off to the instrument-specific control system.
+calibrator becomes available.
+When they are satisfied that the MSB is
+suitable for execution they will start running the observations
+in the queue.
+As the queue works its way through the observations
+it can prompt the observer / telescope operator when intervention is needed
+before sending each observation to the control system.
 </p>
 
 <p>
-The MSB may be sent to a translator which converts it into a complete set of
-instructions for the telescope, receiver(s), and backend.
-</p>
-
-<p>
-The instructions are then placed in a queue that can be processed. As the queue
-works its way down the list it takes any sensible course of action, such as
-prompting the observer/TSS when intervention is needed.
-</p>
-
-<p>
-After the observations have been carried out and deemed acceptable by the Telescope
+After the observations have been carried out and deemed acceptable by the telescope
 operator, the MSB is marked as done and will not be rescheduled unless it is resubmitted
 from the JCMT OT or marked un-done via the project feedback system. If repeats of
 the MSB were requested (this is done by setting the <em>Observe</em> counter
-accordingly), the <em>Observe</em> counter is decremented by 1.
+accordingly), the <em>Observe</em> counter is decremented by one
+and the MSB will continue to be rescheduled until the counter reaches zero.
 </p>
 
 
