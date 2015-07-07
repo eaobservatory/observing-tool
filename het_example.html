@@ -57,13 +57,13 @@
 <h2 id="het_info">General Information</h2>
 
 <p>
-A detailed description of the various observing modes, rms noise,
+A detailed description of the various observing modes, RMS noise,
 and durations is available at the following web page:
 <a href="https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/observing-modes/"><i>Heterodyne Obsmodes</i></a>.
 </p>
 
 <p><i>Even though the information is not required in order to set up a science
-program, experienced as well as novice JCMT observers are encoursaged
+program, experienced as well as novice JCMT observers are encouraged
 to read the document as a general background.</i>
 </p>
 
@@ -215,7 +215,7 @@ the required heterodyne instrument (the Front End) and ACSIS
         The <b>Sp.(ectral) regions</b> box allows the selection of
         multiple spectral windows. Multiple spectral regions are especially
         useful if you wish to observe simultaneously two to four spectral
-        lines which lie within the same 1.8GHz passband, e.g. H2D+ at 372.4GHz
+        lines which lie within the same 1.8GHz pass-band, e.g. H2D+ at 372.4GHz
         and N2H+ at 372.67GHz.  Commonly used line combinations and
         configurations are listed in the
         <a href="./het_sp_config.html"><b>Special Config(uration)s</b></a>
@@ -245,10 +245,10 @@ the required heterodyne instrument (the Front End) and ACSIS
 
     <li>
         <p>
-        The <b>Mode</b> box allows a choice between double sideband (dsb)
-        and single sideband (ssb) operation. Note that only receiver W allows
-        to choose between ssb and dsb: receiver A is a dsb receiver and HARP
-        a ssb receiver.
+        The <b>Mode</b> box allows a choice between double sideband (DSB)
+        and single sideband (SSB) operation. Note that only receiver W allows
+        to choose between SSB and DSB: receiver A is a DSB receiver and HARP
+        a SSB receiver.
         </p>
     </li>
 
@@ -325,7 +325,7 @@ If your source has a very large radial velocity, you should:
 <ul>
     <li>
         <p>
-        Select the receiver within whose tuning range the (redshifted)
+        Select the receiver within whose tuning range the (red-shifted)
         line will fall.  For example, at a redshift of 2.0, the neutral
         carbon [CI] J=2-1 line, whose rest frequency is 809 GHz, will fall
         into the tuning range of RxA.
@@ -346,12 +346,12 @@ If your source has a very large radial velocity, you should:
 
     <li>
         <p>
-        The OT now corrects its lookup table of transitions for the
+        The OT now corrects its look up table of transitions for the
         entered velocity.  Select a molecule and transition from the
         pull-down menu, or enter the <b>rest</b> frequency of the spectral
         line (and click the Accept button).  Beware, however, that if you
         enter a value manually into the frequency field, the OT will not
-        check to see if the redshifted line is in the tuning range of the
+        check to see if the red-shifted line is in the tuning range of the
         receiver you selected.
         </p>
     </li>
@@ -373,10 +373,10 @@ With the rapid data acquisition rates now afforded by HARP and
 ACSIS, reducing data by hand has become a very slow and
 tedious process.  Automatic data reduction pipelines have
 become a powerful tool for carrying out these repetitive
-tasks.  ORACDR has been developed for reducing and combining
+tasks.  ORAC-DR has been developed for reducing and combining
 JCMT data, primarily for producing "preview"
 images for assessing data quality at the telescope, but can
-also be used for the final reduction.  ORACDR uses recipes
+also be used for the final reduction.  ORAC-DR uses recipes
 to carry out all
 the usual reduction steps that were once carried out by
 hand.  Note that these recipes are <i>still under
@@ -386,7 +386,7 @@ development</i> and thus are likely to change and evolve.
 <p>
 The <b>DR Recipe</b> component is used to specify the
 <a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch9.html#x10-760001">
-recipe that is to be used by ORACDR</a> for reducing the data.
+recipe that is to be used by ORAC-DR</a> for reducing the data.
 The example in the figure below shows the DR Recipe component
 positioned underneath
 the HetSetup component, although it need not be positioned
@@ -438,7 +438,7 @@ representative of their data.
 
 <p>
 The following standard reduction recipes are currently being
-developed for use with the ORACDR pipeline, with an emphasis
+developed for use with the ORAC-DR pipeline, with an emphasis
 on scan-map data. An outline is provided below, but expect
 changed and redesigns as we gain experience. The main
 purpose of the routines is to
@@ -460,7 +460,7 @@ intensity weighted velocity images.
         <p>
         Intended for nearby galaxies and sources which
         have a significant velocity gradient (rotation) across
-        the field-of-view.   Assumes linewidths in excess of
+        the field-of-view.   Assumes line widths in excess of
         25 channels (~10 km/s @ BW=1000MHz and ~1 km/s @
         BW=250MHz). Baseline regions are determined for each
         spectrum individually.
@@ -472,8 +472,8 @@ intensity weighted velocity images.
         <p>
         Intended for extragalactic and other sources with very wide
         lines. Linear baselines are fitted to the outer 1/6 of
-        the spectral range of the coadded cube (after
-        truncating the outmost ~5% of the channels on each
+        the spectral range of the co-added cube (after
+        truncating the outermost ~5% of the channels on each
         end). The integrated intensity and intensity weighted
         velocity map are derived from the inner 2/3 of the
         spectral range.
@@ -516,11 +516,11 @@ intensity weighted velocity images.
 
 <p><b>WARNING:</b> Positions of
 astronomical objects are often wavelength dependent. For example, the
-SIMBAD coordinates for IRAS16293-2224 are many arcminutes different
-from the JCMT coordinates.</font> The catalogues you may be using will
+SIMBAD coordinates for IRAS16293-2224 are many arc-minutes different
+from the JCMT coordinates.</font> The catalogs you may be using will
 have defined the astrometric positions therein on the basis of
 optical- or infrared- or radio- observations. You should check that
-the positions now showing are valid for your submillimetre studies.
+the positions now showing are valid for your sub-millimeter studies.
 </p>
 
 <p>
@@ -560,7 +560,7 @@ overrides velocities specified in the target component.
 <p>
 Instead of entering the source coordinates manually, you can
 download them from the Web. Assuming you have an Internet connection
-you can enter the name of your target, select the on-line catalogue to
+you can enter the name of your target, select the on-line catalog to
 search (i.e. SIMBAD or NED) from the pull-down menu, and hit "Resolve
 Name". After a brief pause the RA and DEC co-ordinate fields should
 become populated with the SIMBAD/NED co-ordinates for the source. The
@@ -592,7 +592,7 @@ The default is to enter an absolute position for the reference.
 
 <p>
 By checking the "Offset" button, you can enter the offset
-(in arcseconds) from the source position
+(in arc-seconds) from the source position
 </p>
 
 <p>
@@ -662,14 +662,14 @@ completely. <b><i>Always double check the returned values.</b></i>
 
 <p>
 Entries for the RA and Declination proper motion rates (in
-milliarcseconds per year) can be made in your target component.
+milli arc-seconds per year) can be made in your target component.
 </p>
 
 <p class="figure">
 <img width="480" height="110" src="images/target_propermotion.png">
 <br />
 <b>Proper motion</b>
-entered as milliarcseconds per year in the target
+entered as milli arc-seconds per year in the target
 component. These values are taken into account when slewing the
 telescope.
 </p>
@@ -696,7 +696,7 @@ The sequence iterator doesn't do anything <i>per se</i>, but it is
 important to note that it represents the sequence of events at the
 telescope. The sequence iterator contains a repeat iterator, then
 (depending upon the observation type) perhaps a chop iterator or an
-offset iterator - a position-switched scan centred on the Target,
+offset iterator - a position-switched scan centered on the Target,
 finally, a single (action) "eye".   The repeat iterator allows
 the user to control the number of repeats carried out for a certain
 observation. The "eye"-con represents the observation itself.
@@ -714,7 +714,7 @@ will not be required.
 <p>
 The Science Observation component also tells us how long the entire
 sequence will take to execute. This is an important component to
-check when we are creating our program - remebering our rule for
+check when we are creating our program - remembering our rule for
 the <a href="intro.html#MSB">length of a MSB</a> so therefore
 the length of an individual Science Observation within an MSB.
 </p>
@@ -742,7 +742,7 @@ the Classical raster scan and the Basket Weave raster scan.
 <p>
 The chop iterator  - used to remove background sky emission -
 has a list of chop configurations (in this example
-only one 60 arcsecond chop). Each chop needs to be specified by a
+only one 60 arc-second chop). Each chop needs to be specified by a
 throw, an angle, and co-ordinate frame of the angle. In this example
 the frame is AZEL (Azimuth Elevation) but other common options are
 TRACKING (RA &amp; Dec) or FPLANE (Focal Plane).
@@ -754,17 +754,17 @@ TRACKING (RA &amp; Dec) or FPLANE (Focal Plane).
 
 
 <p>
-A 60 arcsecond chop with
-an angle of 90 degrees AZEL (i.e. 60 arcsec in the azimuth direction)
-is typical for beamswitched observations of compact sources. If the
+A 60 arc-second chop with
+an angle of 90 degrees AZEL (i.e. 60 arc-second in the azimuth direction)
+is typical for beam switched observations of compact sources. If the
 source is extended, one might want to increase the chop throw, or if
 the source was elongated in one direction on the sky, chop in a
 rotated direction relative to the RA/DEC frame.
 </p>
 
 <p>
-<b>The maximum recommended chop throw is 180 arcsec</b>. There is a software
-limit of 240 arcsec. Chopping with large throws is less efficient than using
+<b>The maximum recommended chop throw is 180 arc-second</b>. There is a software
+limit of 240 arc-second. Chopping with large throws is less efficient than using
 small throws and also there will be a slight distortion of the beam
 due to observing off-axis. Clicking on Add one can add chop
 configurations. Each configuration will result in a separate
@@ -810,7 +810,7 @@ above).
 </p>
 
 <p>
-The offset is specified in arcseconds in the 'p' and 'q' boxes.  Note
+The offset is specified in arc-seconds in the 'p' and 'q' boxes.  Note
 the orientation of these axes to the left of the 'Title' box.  In an
 unrotated frame, 'p' is in the positive r.a. direction (i.e. east)
 while 'q' is in the declination direction (i.e. north).  If a rotated
@@ -994,7 +994,7 @@ out (and bottom to top):
 
 <p>
 So far, the various elements of the MSB have been described. We now
-summarise the general procedure for making your own.
+summarize the general procedure for making your own.
 </p>
 
 <ul>
@@ -1028,7 +1028,7 @@ summarise the general procedure for making your own.
         <p>
         Set up the DR Recipe component accordingly. Remember the component is used
         to specify the  <a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch9.html#x10-760001">
-        recipe that is to be used by ORACDR</a> for reducing the data.
+        recipe that is to be used by ORAC-DR</a> for reducing the data.
         </p>
     </li>
     <li>
@@ -1218,15 +1218,15 @@ Scan-PSSW:
         <p>
         The primary between the Classical (scan) raster and the Basket Weave
         raster is the double scan component in the Basket Weave. The two scan
-        components in the Basket Weave MSBs is to enable two scans in orthoganal
-        directions to produce a smoother output map. Basket Wevae raster maps are
+        components in the Basket Weave MSBs is to enable two scans in orthogonal
+        directions to produce a smoother output map. Basket Weave raster maps are
         used by JCMT users requiring smooth spatial coverage and are thus more common.
         </p>
     </dd>
 </dl>
 
 <p>
-A detailed description of the various observing modes, rms noise, and
+A detailed description of the various observing modes, RMS noise, and
 durations is available as a document
 <a href="het_obsmodes.html"><i>Heterodyne Obsmodes</i></a>.
 <i> Even though the information is not required in order to
@@ -1315,7 +1315,7 @@ Consequently, for HARP there are three possible alignments:
         the case for the <i>receptor-centered</i> map, discussed above, the
         map will be asymmetric around the target but only by one <em>map
         pixel</em>. A wind-mill pattern resulting from the K-mirror flipping
-        by 90 degress will only affect a 7.5" or 6" rim along the edges of the
+        by 90 degrees will only affect a 7.5" or 6" rim along the edges of the
         map.  The <i>pixel-centered</i> harp jiggle patterns are named
         <i>harp4</i> and <i>harp5</i> in the JCMTOT.
         </p>
@@ -1329,7 +1329,7 @@ the location of the target position in the output map. Note that the
 HARP4 and HARP5 pattern, shown here offset to the top-left corner, can
 be offset to any other corner depending on the elevation of the
 observation. For <i>receptor-centered</i> grids the cross would be at
-the same location as the middle of the dark-blue poststamp in the
+the same location as the middle of the dark-blue postage stamp in the
 center of the HARP5 images. Another discussion of the HARP jiggle
 patterns can be found
 <a href="het_obsmodes.html#jchp_grids"><i>here</i></a>.
@@ -1379,7 +1379,7 @@ require <b>32s</b> on the sky equally split between <i>ons</i> and
 <i>offs</i>. Using <i>shared offs</i> the observation needs only
 16+4=<b>20s</b>. But also <b>for each point individually the noise is
 reduced</b> because of the longer observation of the
-<i>off</i>. Expressed in a time required to reach a particular rms the
+<i>off</i>. Expressed in a time required to reach a particular RMS the
 combined effect makes <i>shared off</i> observations <em>4 times</em>
 faster than separate observations in the limit of many points. More
 precisely, the factor is ~4/(1+2/sqrt(np)) or ~2.7 for the relatively
@@ -1392,13 +1392,13 @@ for JCHOP observations.
 <p>
 The figure below shows the benefits in terms of the duration of the
 HARP4 jiggle observation, including realistic overheads, needed to
-reach a certain rms (assumed Tsys = 250 K and frequency channels of 1
+reach a certain RMS (assumed Tsys = 250 K and frequency channels of 1
 MHz). Note that <i>shared/separate offs</i> are only relevant within a
 single observation, which typically take 10-20 minutes.  The figure
 shows that e.g. a 15min observation using <i>shared offs</i>
-(<font color="blue">blue line</font>) will have the same rms noise as a 33min
+(<font color="blue">blue line</font>) will have the same RMS noise as a 33min
 observation using <i>separate offs</i> (<font color=red>red
-line</font>).  Note that coadding successive observations will
+line</font>).  Note that co-adding successive observations will
 decrease the noise with the usual sqrt(nr spectra) factor,
 irrespective of the shared mode chosen.
 </p>
@@ -1486,7 +1486,7 @@ to specify the required pointings for the observation.
 
 <p>
 Suppose the user requires three pointings along the long axis of a
-galaxy, at a half beam width spacing of 10 arcseconds. Let us assume
+galaxy, at a half beam width spacing of 10 arc-seconds. Let us assume
 the long axis of the galaxy has a position angle of 30 degrees on the
 sky. First enter the position angle in the "P.A." field. The rotated
 frame has axes labeled p and q, so in order to obtain the required
@@ -1520,20 +1520,20 @@ individually. The "Grid Pattern" section of the "Offset iterator"
 allows the user to specify the offset of the top-left corner of the
 grid (i.e. most positive 'p' and 'q'), the grid point spacing, and the
 dimensions of the grid, in grid points. To create a 3x3 grid, with a
-ten arcsecond spacing, one would fill in the fields of the grid
+ten arc-second spacing, one would fill in the fields of the grid
 pattern section as illustrated below, and then click on either
-"Create/Centre on Base" button, or the "Create" i.e. on corner
+"Create/Center on Base" button, or the "Create" i.e. on corner
 button. The pointings generated then appear in the pointing list box
 above.
 </p>
 
 <p>
-Notice that "Create/Centre on Base" chooses the the geometrical centre
+Notice that "Create/Center on Base" chooses the the geometrical center
 of the grid for the (0,0) position, and ignores the contents of the
 "initial offset" fields. The "Create" (on corner) button, on the other
 hand, will place the top left pixel at the offset specified in the
 "initial offset" fields.  For example, if you want a 2x2 grid with 10
-arcsecond spacing at offsets (0,0),(-10",0),(-10",-10"),(0,-10"), then
+arc-second spacing at offsets (0,0),(-10",0),(-10",-10"),(0,-10"), then
 set the initial offsets to p=0,q=0, spacing p=10",q=10", and
 dimensions 2x2, and click the "Create" button.
 </p>
@@ -1677,15 +1677,15 @@ direction i.e. between the scanned rows. Be aware that there will be a
 pixel centered on the base position only if the number of pixels in
 each direction is odd. The size of the map <em>must</em> be a multiple
 of the pixel-size in each direction, and is defined as the distance
-between the <em>centers</em> of the outmost pixels!
+between the <em>centers</em> of the outermost pixels!
 </p>
 
 <p>
 Suppose, for example, that you want to use RxA to make a 238"x28"
 map. A sample spacing of 7" and scan spacing of 7" will result in a
-pixel map of 35x5. Note that it is customary to oversample the
+pixel map of 35x5. Note that it is customary to over-sample the
 scan-direction to counter-act smearing, although this often requires a
-regridding of the final map to recover the intended rms/pixel.
+re-gridding of the final map to recover the intended RMS/pixel.
 </p>
 
 <p>
@@ -1730,14 +1730,14 @@ array, 1/8 array or by a single pixel (i.e. a shift of 7.28").
 Effectively the largest single map one can make is one square degree.
 Larger maps can be made, but they should be broken up into smaller
 pieces, one piece per MSB, with an offset iterator for each piece.
-Note that mosaicing such large maps will likely tax most computing
+Note that mosaicking such large maps will likely tax most computing
 systems beyond their capacities.
 </p>
 
 <p>
 In the lower left panel of the <em>SCAN</em> window, one can
 specify the direction and orientation of the scan, using two pull-down
-menues, <em>PA</em> and <em>System</em>.  For all but very special
+menus, <em>PA</em> and <em>System</em>.  For all but very special
 applications, the <em>System</em> should be left in its default,
 <em>TRACKING</em> coordinates (e.g. R.A./Dec.).  If <em>PA</em> is
 left in its default state (<em>automatic</em>), then the telescope
@@ -1842,7 +1842,7 @@ we see:
 </li>
 <li>
     The molecular transitions in this vicinity, marked by vertical bars,
-    on a line labelled <b>Emission Lines</b>
+    on a line labeled <b>Emission Lines</b>
 </li>
 <li>
     The frequency scale immediately below Emission Lines is the frequency
@@ -1906,9 +1906,9 @@ Among the dynamic functions, we find that:
     <li>
         The LO1 frequency can be changed by right-clicking on the slider and
         dragging. This changes both frequency scales and the line rest frequency.
-        Moving the LO slider can be a convenient means of choosing a band centre
+        Moving the LO slider can be a convenient means of choosing a band center
         frequency such that particular spectral lines are included or excluded
-        from your passband.
+        from your pass-band.
     </li>
 </ul>
 
@@ -2002,7 +2002,7 @@ the bottom left of the target panel:
 
 <p>
 A whole new window will pop up - this is the position editor. Looks a
-bit boring at the moment though, with just a small green crosshair in
+bit boring at the moment though, with just a small green cross-hair in
 the middle. Let's make it a bit more interesting - go to Catalog menu
 and into the Image Servers item and chose a Digital Sky Survey near
 near you:
@@ -2028,10 +2028,10 @@ need to check your
 </p>
 
 <p>
-The DSS may not be the most useful survey for planning sub-millimetre
+The DSS may not be the most useful survey for planning sub-millimeter
 observations, but you can read in any FITS image with an appropriate
 WCS header using Open under the File menu. You can also fetch a FITS
-image over the Web. The screenshot below shows the SCUBA commissioning
+image over the Web. The screen shot below shows the SCUBA commissioning
 scan map of W48 <em>(image courtesy Tim Jenness)</em>. If you have an
 Internet connection, go to the File menu, select "Open URL...:" and
 type in the following URL:
@@ -2049,7 +2049,7 @@ properly.
 </p>
 
 <p>
-You will then see the DSS image replaced with the sub-millimetre
+You will then see the DSS image replaced with the sub-millimeter
 image.
 </p>
 
@@ -2107,7 +2107,7 @@ will always chop in the same position in the sky:
 
 <p>
 Now back in the position editor, click on the Drag button on the upper
-left side of the window. Then click on the centre of one of the chop
+left side of the window. Then click on the center of one of the chop
 beams in the display and drag it away from the emission:
 </p>
 
@@ -2134,7 +2134,7 @@ science co-ordinates if you wish.
 It used to be that the receiver tuning, including the source velocity,
 were specified in the Heterodyne Component while the source
 coordinates needed to be entered in the Target Component. Half of our
-observers were very happy with this, since they prefered to observe
+observers were very happy with this, since they preferred to observe
 all their sources with the same receiver setup. The other half of the
 observers complained bitterly since they wanted to be able to read in
 the sources <em>and</em> velocities from a catalog and center the
@@ -2171,7 +2171,7 @@ paired up.</em>
 <p>
 In general, this is not a problem for Galactic sources since the
 overall parameters of the observation of a molecular line (center
-frequency, atmospheric transparency, receiver characteritics) don't
+frequency, atmospheric transparency, receiver characteristics) don't
 significantly differ from source to source. That of course may not be
 the case for extra-galactic and high-z sources: vary the velocity or
 red-shift enough and the line may shift completely out of the band or

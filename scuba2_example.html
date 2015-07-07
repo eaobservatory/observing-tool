@@ -24,7 +24,7 @@
     <li>
         <a href="#pong">Pong MSBs</a>
         <ul>
-            <li><a href="#ex_pong">Example: 15 arcmin Pong</a></li>
+            <li><a href="#ex_pong">Example: 15 arc-min Pong</a></li>
         </ul>
     </li>
     <li><a href="#notes">DR Recipe Component</a></li>
@@ -120,7 +120,7 @@ increase the number of repeats.
 </p>
 
 <p>
-The Scan Speed box is greyed out and cannot be edited. However the number
+The Scan Speed box is grayed out and cannot be edited. However the number
 in the box is a default and does not necessarily reflect the speed for
 your observation.
 </p>
@@ -133,7 +133,7 @@ strategy:
 </p>
 
 <p>
-<img src="s2-images/SCUBA2_daisy.png" alt="a daisy msb" width="880"  class="figure" />
+<img src="s2-images/SCUBA2_daisy.png" alt="a daisy MSB" width="880"  class="figure" />
 </p>
 
 
@@ -145,14 +145,14 @@ from the small OT window. You have a choice of three sizes of pongs:
 </p>
 
 <ul>
-    <li>15 arcmin map</li>
-    <li>30 arcmin map</li>
+    <li>15 arc-min map</li>
+    <li>30 arc-min map</li>
     <li>1 degree map</li>
 </ul>
 
 <p>
 Select the pong MSB you wish to use, copy and paste the
-(i.e. <b>'15 arcmin map with optional offset(s)'</b>) folder.
+(i.e. <b>'15 arc-min map with optional offset(s)'</b>) folder.
 For pongs there are 2 thing you will need to edit:
 </p>
 
@@ -171,8 +171,8 @@ the maximum number of rotations into the 40 minute time limit.
 This is the default number in the template MSBs. You may use a fewer number
 of times round the map but more rotations results in a flatter map
 we strongly advise you not to go below approximately 10 minutes
-i.e. 3 times for a 15 arcmin map and 2 times round the map for a
-30 arcmin map and 1 degree map. From the map sizes specified
+i.e. 3 times for a 15 arc-min map and 2 times round the map for a
+30 arc-min map and 1 degree map. From the map sizes specified
 the telescope translator will implement other observing parameters
 (scan spacing and scan velocity) to produce an optimum map.
 </p>
@@ -185,7 +185,7 @@ at their own risk.
 </p>
 
 <p>
-The numbers in the greyed out boxes for Scan Speed and Sample Spacing
+The numbers in the grayed out boxes for Scan Speed and Sample Spacing
 do not reflect the actual values used and may not be edited.
 The PA also becomes irrelevant as a rotating pong will result
 in a symmetrical map.
@@ -197,7 +197,7 @@ for SCUBA-2 but if you do guidelines can be found
 <a href="het_example.html#het_offset">here</a>.
 </p>
 
-<h3 id="ex_pong">Example: 15 arcmin pong</h3>
+<h3 id="ex_pong">Example: 15 arc-min pong</h3>
 
 <p>
 Below is an example of a 900" pong.
@@ -206,7 +206,7 @@ around the map is set to 11.
 </p>
 
 <p>
-<img src="s2-images/SCUBA2_025deg_pong.png" alt="quarter degree pong msb" width="880"  class="figure" />
+<img src="s2-images/SCUBA2_025deg_pong.png" alt="quarter degree pong MSB" width="880"  class="figure" />
 </p>
 
 
@@ -228,7 +228,7 @@ for the JCMT Science Archive at CADC. There are currently 4 main options:
         If it is known in advance what type of source is being observed,
         then one of the more specific recipes below may be preferable.
         This recipe can be used for the SCUBA-2 standard calibrators
-        as it will recognise them, select an appropriate configuration
+        as it will recognize them, select an appropriate configuration
         and derive a flux calibration factor.
         </p>
     </dd>
@@ -236,8 +236,8 @@ for the JCMT Science Archive at CADC. There are currently 4 main options:
     <dt>REDUCE_SCAN_EXTENDED_SOURCES</dt>
     <dd>
         <p>
-        Designed to maximise the recovery of extended structure.
-        This uses the 'bright_extended' config file.
+        Designed to maximize the recovery of extended structure.
+        This uses the 'bright_extended' configuration file.
         <p>
     </dd>
 
@@ -245,7 +245,7 @@ for the JCMT Science Archive at CADC. There are currently 4 main options:
     <dd>
         <p>
         Designed to extract faint emission.
-        This uses the 'blank_field' config file then applies
+        This uses the 'blank_field' configuration file then applies
         a matched filter to your data.
         </p>
     </dd>
@@ -254,7 +254,7 @@ for the JCMT Science Archive at CADC. There are currently 4 main options:
     <dd>
         <p>
         Designed for observations of a single, bright isolated source.
-        This uses the 'bright_compact' config file which assumes
+        This uses the 'bright_compact' configuration file which assumes
         that there is no emission outside a 60" radius around the tracking position.
         It is not appropriate to use this recipe if there may be emission outside
         this region.
@@ -295,14 +295,14 @@ For more information about the recipes, please see the
 </p>
 
 <p>
-<img src="s2-images/SCUBA2_DRRecipe.png" alt="data reduction recipe coptions" width="900" height="556" class="figure" />
+<img src="s2-images/SCUBA2_DRRecipe.png" alt="data reduction recipe options" width="900" height="556" class="figure" />
 </p>
 
 <h2 id="notes_40min">Integration time - 40 minute MSBs</h2>
 
 <p>
 The time limit of 40 minutes was chosen as a reasonable compromise
-for an MSB between maximising the number of times around
+for an MSB between maximizing the number of times around
 the map in an observation and the interval between necessary constraints
 such as pointing, focusing, array setups and scheduling.
 It is possible to take data for longer but instrument drifts during
