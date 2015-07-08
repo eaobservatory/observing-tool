@@ -9,7 +9,7 @@
 <a href="index.html">&#x2190; JCMT OT Primer Main Page</a>
 </nav>
 
-<h1>Preparing SCUBA-2 observations</h1>
+<h1>Preparing SCUBA-2 Observations</h1>
 
 <h2 id="contents">Contents</h2>
 <ul>
@@ -51,15 +51,16 @@
 <p>
 There are two observing modes available with SCUBA-2
 &mdash; a daisy for point sources and a pong for larger scale mapping.
-Details on each can be at the following web page for
-<a href="http://www.eaobservatory.org/jcmt/instrumentation/continuum/scuba-2/observing-modes/">SCUBA-2 observing modes</a>.
+Details on each can found on the
+<a href="http://www.eaobservatory.org/jcmt/instrumentation/continuum/scuba-2/observing-modes/">SCUBA-2 observing modes</a>
+page.
 </p>
 
 <p>
 We are currently recommending a time limit on individual observations of
 not more than 40 minutes in length. If you find your observations
 exceed this time we suggest you increase the number of repeats (this
-can be done by using the Observe counter in the MSB editor).
+can be done by using the "Observe" counter in the MSB editor).
 </p>
 
 <p>
@@ -68,7 +69,7 @@ your observations, please consult with your "Friend of the Project",
 or email <a href="mailto:jcmtot@eaobservatory.org">jcmtot@eaobservatory.org</a>.
 </p>
 
-<h2 id="start">Getting started</h2>
+<h2 id="start">Getting Started</h2>
 
 <p>
 To open up the existing SCUBA-2 library go to the JCMT OT root window
@@ -81,8 +82,10 @@ and click on &ldquo;Open SCUBA-2 library&rdquo;:
 
 <p>
 A window will pop up containing a list of folders. It is from this
-library that we can and copy over MSBs to be used in our program.
-For more information read <a href="generic.html#lib-sc2">The SCUBA-2 Library</a>.
+library that we can copy MSBs to be used in our program.
+For more information please see the
+<a href="generic.html#lib-sc2">The SCUBA-2 Library</a> section.
+</p>
 
 
 <h2 id="daisy">Daisy MSBs</h2>
@@ -91,7 +94,7 @@ For more information read <a href="generic.html#lib-sc2">The SCUBA-2 Library</a>
 To access the template files go to &ldquo;Open SCUBA-2 library&rdquo;
 from the small OT window.
 For a template daisy MSB you will want to select,
-copy and paste the <b>'Pointsource Daisy map'</b> folder.
+copy and paste the <b>'Pointsource Daisy map'</b> MSB.
 </p>
 
 <p>
@@ -100,23 +103,23 @@ Daisies are the simplest case and there are only 2 things you need to edit:
 
 <ol>
     <li>
-        Your target coordinates (in the 'Target Information' component)
+        Your target coordinates (in the "Target Information" component).
     </li>
     <li>
-        The integration time (in the 'Scan' component). The integration time is
+        The integration time (in the "Scan" component). The integration time is
         total time you want on source.
     </li>
 </ol>
 
 <p>
 You will have calculated the latter when preparing your proposal using the
-<a href="http://www.eaobservatory.org/jcmt/instrumentation/continuum/scuba-2/itc/">time integration calculator</a>.
+<a href="http://www.eaobservatory.org/jcmt/instrumentation/continuum/scuba-2/itc/">integration time calculator</a>.
 The minimum integration time for daisies is 15 seconds although the overhead
 for an observation this short will be quite high. The daisy pattern will
 keep running until the integration time expires and should not be interrupted
 before completion to gain the most even coverage. If you find the total time
 for your observation exceeds 40 minutes, reduce your integration time and
-increase the number of repeats.
+increase the "Observe" counter for the MSB.
 </p>
 
 <p>
@@ -133,7 +136,7 @@ strategy:
 </p>
 
 <p>
-<img src="s2-images/scuba2_daisy.png" alt="a daisy MSB" width="880"  class="figure" />
+<img src="s2-images/scuba2_daisy.png" alt="a daisy MSB" width="934" width="695" class="figure" />
 </p>
 
 
@@ -141,46 +144,47 @@ strategy:
 
 <p>
 To access the template files go to &ldquo;Open SCUBA2 library&rdquo;
-from the small OT window. You have a choice of three sizes of pongs:
+from the small OT window. You have a choice of three sizes of pong maps:
 </p>
 
 <ul>
-    <li>15 arc-min map</li>
-    <li>30 arc-min map</li>
-    <li>1 degree map</li>
+    <li>15 arc-min map.</li>
+    <li>30 arc-min map.</li>
+    <li>1 degree map.</li>
 </ul>
 
 <p>
 Select the pong MSB you wish to use, copy and paste the
-(i.e. <b>'15 arc-min map with optional offset(s)'</b>) folder.
+MSB you would like to use,
+such as the "15 arc-min map with optional offset(s)".
 For pongs there are 2 thing you will need to edit:
 </p>
 
 <ol>
     <li>
-        Target coordinates (in the 'Target Information' component)
+        Target coordinates (in the "Target Information" component).
     </li>
     <li>
-        Times round map (in the 'Scan' component)
+        Times round map (in the "Scan" component).
     </li>
 </ol>
 
 <p>
 We recommend that the number of times round the map be selected to fit
 the maximum number of rotations into the 40 minute time limit.
-This is the default number in the template MSBs. You may use a fewer number
+This is the default number in the template MSBs. You may use a smaller number
 of times round the map but more rotations results in a flatter map
-we strongly advise you not to go below approximately 10 minutes
+so we strongly advise you not to go below approximately 10 minutes
 i.e. 3 times for a 15 arc-min map and 2 times round the map for a
 30 arc-min map and 1 degree map. From the map sizes specified
-the telescope translator will implement other observing parameters
-(scan spacing and scan velocity) to produce an optimum map.
+the JCMT translator will select other observing parameters
+(scan spacing and scan velocity) to produce an optimal map.
 </p>
 
 <p>
 <b>Note:</b> Pong map sizes other than the 3 standard ones can be specified,
 but in those cases the observation system will use best-guesses for the pong
-parameters and thus may not be optimum. Users use non-standard sizes
+parameters which may not be optimal. Users use non-standard sizes
 at their own risk.
 </p>
 
@@ -188,16 +192,16 @@ at their own risk.
 The numbers in the grayed out boxes for Scan Speed and Sample Spacing
 do not reflect the actual values used and may not be edited.
 The PA also becomes irrelevant as a rotating pong will result
-in a symmetrical map.
+in a circular map.
 </p>
 
 <p>
 You are unlikely to want to make use of the offset iterator
-for SCUBA-2 but if you do guidelines can be found
-<a href="het_example.html#het_offset">here</a>.
+for SCUBA-2 but if you do then the guidelines are the same as
+<a href="het_example.html#het_offset">the offset iterator guidelines for heterodyne observations</a>.
 </p>
 
-<h3 id="ex_pong">Example: 15 arc-min pong</h3>
+<h3 id="ex_pong">Example: 15 arc-min Pong</h3>
 
 <p>
 Below is an example of a 900" pong.
@@ -206,18 +210,19 @@ around the map is set to 11.
 </p>
 
 <p>
-<img src="s2-images/scuba2_025deg_pong.png" alt="quarter degree pong MSB" width="880"  class="figure" />
+<img src="s2-images/scuba2_025deg_pong.png" alt="quarter degree pong MSB" width="1094" height="695" class="figure" />
 </p>
 
 
-<h2 id="notes">DR Recipe Component</h2>
+<h2 id="notes">The &ldquo;DR Recipe&rdquo; Component</h2>
 
 
 <p>
-When preparing your MSB's you can assign a data reduction recipe
-to your observations.
+When preparing your MSBs you can assign a data reduction recipe
+to be used with your observations.
 The recipe you select will be applied when your data is processed
-for the JCMT Science Archive at CADC. There are currently 4 main options:
+for the <a href="http://www.eaobservatory.org/jcmt/science/archive/">JCMT Science Archive</a>
+at CADC. There are currently 4 main options:
 <p>
 
 <dl>
@@ -284,8 +289,8 @@ FTS-2 observations:
 </dl>
 
 <p>
-To select the recipe you wish to use go to the DRRecipe component button
-and highlight the recipe you would like to add
+To select the recipe you wish to use, go to the "DRRecipe" component
+and highlight the recipe you would like
 then click 'Set' next to the Scan button (for SCUBA-2).
 </p>
 
@@ -298,7 +303,7 @@ For more information about the recipes, please see the
 <img src="s2-images/scuba2_drrecipe.png" alt="data reduction recipe options" width="900" height="556" class="figure" />
 </p>
 
-<h2 id="notes_40min">Integration time - 40 minute MSBs</h2>
+<h2 id="notes_40min">Integration Time &mdash; 40 Minute MSBs</h2>
 
 <p>
 The time limit of 40 minutes was chosen as a reasonable compromise
@@ -325,7 +330,7 @@ a reasonable (e.g. 60GB) amount of memory.
 and if your MSB exceeds that length by a few minutes you need not break it up.
 </p>
 
-<h2 id="notes_elev">Elevation constraints</h2>
+<h2 id="notes_elev">Elevation Constraints</h2>
 
 <p>
 It is recommend that observations are taken below an elevation of 75 degrees
@@ -334,11 +339,11 @@ The precise pattern traced by the telescope
 for both of these patterns cannot be sustained at high elevations.
 </p>
 
-<h2 id="notes_cals">Frequency of calibrators</h2>
+<h2 id="notes_cals">Frequency of Calibrations</h2>
 
 <p>
-Calibration observations will be taken by the TSS every 2&ndash;3 hours.
-As usual a pointing is typical done every hour or after any large slew.
+Calibration observations will be taken by the telescope operator every 2&ndash;3 hours.
+As usual a pointing is typically done every hour or after any large slew.
 </p>
 
 <h2 id="qus">Questions</h2>
