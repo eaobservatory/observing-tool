@@ -10,7 +10,7 @@
 <a href="index.html">&#x2190; JCMT OT Primer Main Page</a>
 </nav>
 
-<h2>Advanced Topics</h2>
+<h1>Advanced Topics</h1>
 
 <p>
 So far we have described preparation using the library sequence "as
@@ -21,15 +21,12 @@ required. It assumes that you are familiar with the material presented
 in the main part of the tutorial.
 </p>
 
-<h3 id="placement">A note about placement</h3>
+<h2 id="placement">A Note about Placement</h2>
 
 <p>
 As you may have gathered by now, the Science Program is a tree
 structure and the placement of elements in that structure has a lot of
 significance.
-</p>
-
-<p>
 For example, look at the example below of a Science Program containing
 three MSBs &mdash; focus on the location of the two Site Quality components:
 </p>
@@ -55,18 +52,18 @@ familiar with it already.
 Common uses for inheritance are e.g. to place the Het Setup outside
 the MSBs if you want to observe multiple sources at the same frequency.
 Conversely, the Target Component can be placed outside multiple MSBs
-are needed on the same target. However, carefully read the next item
-on the interaction of the Het. and Target component.
+are needed on the same target. However, carefully read the
+<a href="het_example.html#velocities">note on the interaction of the "Het Setup" and "Target Information" components</a>.
 </p>
 
 <p>
-See the section on <a href="advanced.html#andor">"AND and OR Folders"</a> on
+See the section on <a href="#andor">"OR and AND Folders"</a> on
 how an AND folder can be used to group observations and use inheritance within
 that group.
 </p>
 
 
-<h3 id="replication">Generating a program from a catalog file</h3>
+<h2 id="replication">Generating a Program from a Catalog File</h2>
 
 <p>
 If you have many sources which you wish to observe in a similar way
@@ -103,7 +100,7 @@ catalog". Choose this action:
 </p>
 
 <p>
-<img src="images/replicate.png" alt="Replication" class="figure" width="388"  />
+<img src="images/replicate.png" alt="Replication" class="figure" width="390" height="388" />
 </p>
 
 <p>
@@ -124,89 +121,38 @@ each source.  It is also not yet possible for the source replicator to
 insert source velocities from the catalog into the MSBs.
 </p>
 
-<h3 id="constraints">Additional Scheduling Constraints</h3>
+<h2 id="constraints">Scheduling Constraints</h2>
 
 <p>
 You can place additional scheduling constraints on some or all of your
 MSBs. To set up a scheduling constraint component for all your MSBs,
 return to your science program component at the top, then click on
 "component" on the left icon bar as shown below. This will bring up a
-number of choices - select "Sched.Constraints". This will drop in a
+number of choices &mdash; select "Sched.Constraints". This will drop in a
 Scheduling Constraints component at the top of your program, which
 will therefore apply to all MSBs. To make this apply to only a
 specific MSB, place the scheduling constraint inside it.
 </p>
 
 <p>
-<img src="images/constraints.png" alt="Constraint" class="figure" width="800"  />
+<img src="images/constraints.png" alt="Constraint" class="figure" width="934" height="695" />
 </p>
 
 <p>
-The scheduling constraints component allows you to:
-</p>
-
-<ul>
-    <li>
-        <p>
-        Specify a specific time window in which you want your
-        observations to be taken. Needless to say setting this too narrowly
-        will reduce your chances of being scheduled, so only do this if there
-        is a valid scientific reason
-        </p>
-    </li>
-
-    <li>
-        <p>
-        Set a rescheduling action, that will schedule an MSB that has
-        been completed to reappear after a certain number of days. If you have
-        been allocated time for a project that requires periodic monitoring,
-        you may wish to ask us for more information on how this works.
-        </p>
-    </li>
-
-    <li>
-        <p>
-        By default, a target is considered observable if it is between 30
-        and 88 degrees of elevation for the entire duration of its MSB. If you
-        wish to specify a lower elevation criterion (eg. for a very low or
-        very high declination source) you may do so here.
-        </p>
-    </li>
-
-    <li>
-        <p>
-        Restrict a target to being observed only before or after
-        transit. Again, note that this criterion will be applied for the
-        entire estimated duration of the MSB, so only do this if it is
-        scientifically vital.
-        </p>
-    </li>
-</ul>
-
-
-
-
-<h2 id="het_tsched">Scheduling Constraints</h2>
-
-<p>
-The Scheduling Constraints component allows one to restrict or broaden
+The Scheduling Constraints component allows you to restrict or broaden
 the time over which an MSB will be selected. To insert this component,
 click on the <i>Component</i> button on the left side near the bottom
 of the OT window, and select the "Sched. Constraints".
 </p>
 
 <p>
-<img src="het_images/het_sched_constraints.png" alt="Scheduling Constraints Component" width="800" class="figure" />
-</p>
-
-<p>
 The main reason you might want to insert this component is if your
 science targets have a very low or very high declination (i.e. &delta;
-&lt; ~-35<sup>o</sup> or &delta; &gt; ~+80<sup>o</sup>). By default,
-MSBs are only selected when the sources are above about 30<sup>o</sup>
-elevation, so low- and high- declination sources may never be selected
+&lsim; -35&deg; or &delta; &gsim; +80&deg;). By default,
+MSBs are only selected when the sources are above about 30&deg;
+elevation, so low- and high-declination sources may never be selected
 unless you specify a lower minimum elevation.  Similarly, sources at
-~19<sup>o</sup> declination transit almost directly overhead, and you
+~19&deg; declination transit almost directly overhead, and you
 may wish to restrict such sources to be selected when they're not at
 extremely high elevations.
 </p>
@@ -227,7 +173,7 @@ appropriate time.
 </p>
 
 
-<h3 id="andor">OR and AND Folders</h3>
+<h2 id="andor">OR and AND Folders</h2>
 
 <p>
 Within a science program, you can use OR and AND folders to group your
@@ -256,15 +202,15 @@ the MSBs should be executed (not both).
 Another application of OR folders is managing available telescope time
 for projects with a large number of potential targets. Suppose an
 observer wants to observe from a sample of 40 potential
-targets. Further suppose that some of the objects will require follow
-up observations towards the end of a semester and telescope time is
+targets. Further suppose that some of the objects will require follow-up
+observations towards the end of a semester and telescope time is
 somewhat limited (i.e. not enough to observe them all once and follow
 up the interesting ones). One solution would be to put the 40 MSBs for
 the sample into an OR folder, then set the "select" switch to, say, 10
 objects. This will mean that no more than 10 objects will be observed
 from the sample. This can be used to ensure that all of the telescope
 does not get used up in making first observations, and that some time
-will be left over for follow up observations. This kind of program
+will be left over for follow-up observations. This kind of program
 management can involve the observer, in conjunction with the support
 astronomer, dynamically altering the program in the light of past
 observations, results of data reduction and available telescope
@@ -281,7 +227,7 @@ Y rather than A and X and A and Y.  The order of observations, and
 which get done, will still depend only on project priority, source
 availability and weather. If the observer absolutely needs two targets
 observed to get any meaningful scientific result, they should go in
-the same MSB rather than in an AND folder - do not forget MSBs are
+the same MSB rather than in an AND folder &mdash; do not forget MSBs are
 allowed to contain multiple targets.
 </p>
 
@@ -291,7 +237,7 @@ allowed to contain multiple targets.
 
 <p>
 An <em><b>alternative</b></em> use for an AND folder is to avoid having to reproduce
-information that is common to several MSBs - the site quality, Target
+information that is common to several MSBs &mdash; the site quality, Target
 info, and/or Het Setup for example.  An individual component can be
 pulled out of the MSBs and set into the hierarchy at the AND folder
 level.  In the following example, we have been allocated both bands 1
@@ -304,7 +250,7 @@ targets C and D in band 2.
 <img src="images/and_example2.png" alt="and example2" class="figure" width="862" height="518" />
 </p>
 
-<h3 id="survey">Survey Container</h3>
+<h2 id="survey">Survey Container</h2>
 
 <p>
 The survey container is an extremely useful tool when you want to
@@ -383,7 +329,7 @@ follows:
 (So it is best to keep it short!)
 </p>
 
-<h3 id="proxy">To those behind a firewall: Setting your proxy server</h3>
+<h2 id="proxy">To those Behind a Firewall: Setting your Proxy Server</h2>
 
 <p>
 If your host is behind a firewall, you may need to use a proxy server
