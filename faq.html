@@ -11,7 +11,7 @@
 </nav>
 
 
-<h2 id="faq">Frequently Asked Questions</h2>
+<h1 id="faq">Frequently Asked Questions</h1>
 
 <dl>
     <dt id="why">Why do I have to do this?</dt>
@@ -24,21 +24,15 @@
             <li>
                 <p>
                 The OMP project is providing a software system, of which the
-                JCMT-OT is a necessary component, to manage flexible scheduling at
+                JCMT OT is a necessary component, to manage flexible scheduling at
                 JCMT. Its purpose is to increase overall observing efficiency and
                 facilitate communication with the PIs, and at the same time reduce the
-                workload on our overworked queue managers and TSSs. It will also allow
+                workload on our overworked queue managers and telescope operators.
+                It will also allow
                 you, the PI, to control your observing strategy in a fashion similar
                 to that of classical scheduling. Note that the MSBs that you specify
                 directly run the telescope and the data-acquisition during the
                 observations.
-                </p>
-            </li>
-
-            <li>
-                <p>
-                The JCMT-OT and UKIRT-OT present a unified user interface to all
-                JAC observing
                 </p>
             </li>
         </ul>
@@ -69,7 +63,7 @@
         in huge overheads for short observations. This is no longer the case.
         However if many short observations are all scheduled one after the
         other they would have to be sent to the queue one by one,
-        thus driving the TSS and observer insane.
+        thus driving the telescope operator and observer insane.
         </p>
         <p>
         If your sources are well separated across the sky a pointing
@@ -96,7 +90,7 @@
         as heterodyne. Like heterodyne observation consecutive sources that
         include a large slew will likely require a pointing between them,
         however SCUBA-2 has the additional factor or requiring the arrays
-        to be setup again after a move between sources.
+        to be set up again after a move between sources.
         </p>
     </dd>
 
@@ -122,7 +116,7 @@
         </p>
     </dd>
 
-    <dt id="qus_survey">I have a lot of sources - how can I speed up creation of my MSBs?</dt>
+    <dt id="qus_survey">I have a lot of sources &mdash; how can I speed up creation of my MSBs?</dt>
     <dd>
         <p>
         If you have a large number of sources you may want to use the survey container;
@@ -162,7 +156,7 @@
     </dd>
 
 
-    <dt id="server">What does this warning mean? :
+    <dt id="server">What does this warning mean?
     "Some of the observations in the MSB contained
     default settings for the target information"</dt>
     <dd>
@@ -175,12 +169,12 @@
     <dt id="timeest">I don't agree with the time estimates shown in the OT</dt>
     <dd>
         <p>
-        We are fine-tuning these, but they will always be just that -
+        We are fine-tuning these, but they will always be just that &mdash;
         estimates. However it doesn't really matter if they are a bit off. The
         estimates are used for three things. First, they are used by the QT to
         check whether the observation can be carried out before the source
-        sets. Second, they allow the observer/TSS to plan the observing. For
-        example, if they believe that the tau is going to change in the next
+        sets. Second, they allow the observer / telescope operator to plan the observing. For
+        example, if they believe that the opacity is going to change in the next
         hour, they can select an MSB that is estimated to last less than an
         hour.
         </p>
