@@ -255,18 +255,29 @@ targets C and D in band 2.
 <p>
 The survey container is an extremely useful tool when you want to
 carry out the same type of observations of a large number of
-sources. It works similar to the replication example above, but it
-does not replicate the MSBs in the OT, only in the database. I.e. a
-single observation for a target list with 100 sources will have 1 MSB
-in the OT, but 100 MSBs in the database after uploading your science
+sources. It works similarly to the replication example above, but it
+does not replicate the MSBs in the OT, only in the database.
+You can create a survey container in the OT
+with a target list of 100 sources containing 1 MSB
+&mdash; this will become 100 MSBs in the database after uploading your science
 program.
 </p>
 
 <p>
-However the meaning of MSB remains the same: the whole
-of the MSB must be doable for it to come up in the queue. Corollary: it
-is a Bad Idea to include targets over a wide range of RA in one survey
-container.
+<b>Warning:</b>
+It is also possible to put a survey container inside an MSB.
+(The other way round from normal.)
+In this case the MSB is not replicated,
+but instead contains all of the sources from the survey container.
+The normal meaning of MSB remains the same: the whole
+of the MSB must be doable for it to appear in the queue.
+It is a bad idea to include targets over a wide range of RA in one survey
+container when it is placed inside an MSB,
+or to include a large number of targets such that the total
+observing time is greater than is appropriate for one MSB.
+<em>Usually a Survey Container inside an MSB is not what you want
+&mdash; place the MSB inside the Survey Container if you
+want that MSB to be "replicated" for each source in the container.</em>
 </p>
 
 <p>
