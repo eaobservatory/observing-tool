@@ -54,6 +54,7 @@
             <li><a href="#het_freq_ed">The Frequency Editor</a></li>
             <li><a href="#het_tpe">The Position Editor</a></li>
             <li><a href="#velocities">Velocities: The Het Setup and Target Component</a></li>
+            <li><a href="#het_cal">Calibrations</a></li>
         </ul>
     </li>
 </ul>
@@ -2257,8 +2258,175 @@ In the following samples the Het. Setup will <em>not</em> be able to access the 
            ...                            ...                              ...
                                                                     o MSB2
                                                                       -  Target Information
-                                                                             ...
+                                                                       ...
 </pre>
+
+
+<h2 id="het_cal">Calibrations</h2>
+
+<p>
+The JCMT telescope
+operators (TSS) will insert calibrations, pointings, foci, etc. into
+the observing sequence as appropriate.  Without any specific
+instructions in the science program calibrations will be carried out
+by observing a 'standard' line in a suitable calibration source.
+</p>
+
+<p>
+PIs are strongly advised to, at a minimum, add instructions and wishes
+regarding calibrations in the <i>Calibration Note</i> to the TSS and
+observers. A sample note has been included with the library templates.
+For information on standard sources, lines, and observational setup, see:
+<a href="http://www.eaobservatory.org/jcmt/instrumentation/heterodyne/calibration/">
+JCMT Heterodyne Standards</a>.
+<em>Please be aware that the sub-mm positions for calibrators as used
+at the JCMT may differ substantially from the the ones in archives
+such as SIMBAD.</em>
+</p>
+
+<p>
+There are several options for calibrations and ways to customize them:
+</p>
+
+<ol>
+    <li>
+        <p>
+        No special calibration MSBs are provided in the Science Program:
+        the calibrations will be carried out on a suitable calibration source
+        selected by the TSS at a 'standard' frequency, possibly different from
+        MSB tuning or redshift. For many applications, this is the most
+        appropriate option.
+        </p>
+    </li>
+
+    <li>
+        <p>
+        A number of separate calibration MSBs on suitable targets are
+        added to the science program, clearly identified as calibrations in
+        their title. Typically the set of calibration MSBs should cover the
+        RA-range of the science observations to ensure that at least one
+        calibration MSB is available at any time.  PIs can customize the
+        <i>Het setup</i> but need to take care to pick an appropriate
+        switching-scheme for each calibrator chosen.  The TSS will insert the
+        calibration MSBs into the observing queue as needed and per
+        instruction in the science program.
+        </p>
+
+        <ul>
+            <li>
+                <p>
+                The ACSIS library has a set of special template MSBs for a
+                position-switch, beam-switch, or scan calibration. The MSBs start
+                with a series of (optional) pointing and focus observations. The
+                calibration itself is a regular observation that has been marked as a
+                calibration.  Configure the <i>Het setup</i> and
+                <i>Target Component</i> to customize the calibration for your project.
+                Typically choose either a position-switch, beam-switch,
+                or scan calibration,
+                depending on the selected calibration target (many of which require a
+                position-switch).  Observational details for the calibrators can be
+                found at this location:
+                <a href="http://www.eaobservatory.org/jcmt/instrumentation/heterodyne/calibration/">
+                JCMT Heterodyne Standards</a>.  The calibration MSBs should be added
+                to the science program with a high priority (low number) and high
+                repeat counter to ensure that they will come up prominently and
+                repeatedly in the JCMT Query Tool.
+                </p>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <p>
+        Calibration observations are part of the science MSBs:
+        </p>
+
+        <ul>
+            <li>
+
+                <p>
+                Embed the calibration observation of a specific standard source
+                and line in your science MSB by copying and pasting the desired
+                components from the calibration template described above under
+                option 2 (please read those instructions). The MSB should look like:
+                </p>
+
+<pre>
+    -------------------------
+    MSB
+     ...
+     Het setup
+     Science Target
+     <span style="color: green;">Calibration Observation (marked as Calibration)</span>
+     Science Observation
+    -------------------------
+</pre>
+
+                <p>
+                Please be aware of <i>inheritance</i>: in the example above you will need to
+                add another <i>Target Component</i> inside Calibration Observations with the
+                coordinates and offsets of the calibrator! Likewise, if the
+                calibration needs to be done at a different frequency, another
+                <i>Het setup</i> needs to be added inside the Calibration Observation. This will
+                result in the appropriate re-tune between the calibrator and the
+                science target. This should NOT be done for the manually tuned
+                RxW. <b>WARNING:</b> If you include a calibration observation in this manner,
+                both your target and calibration source must be observable before the
+                MSB can be scheduled, which can severely restrict the night-time
+                available to the project in case of an unfortunate combination of
+                calibration and science targets.
+                </p>
+            </li>
+        </ul>
+    </li>
+</ol>
+
+
+<p>
+Issues to consider regarding calibrations may be:
+</p>
+
+<ul>
+    <li>
+        <p>How important is a precise calibration? For many projects it is
+        sufficient to ensure that the telescope and receiver are within
+        spec.
+        </p>
+    </li>
+
+    <li>
+        <p>
+        Can the calibration be done at a 'standard' frequency, possibly
+        different from MSB tuning or redshift? Or should the calibration be
+        done with the <i>Het setup</i> of the science observation and, if not
+        close to a standard frequency, should a line-rich source be selected
+        that will allow for the relative calibration of observations from
+        night-to-night?
+        </p>
+    </li>
+
+    <li>
+        <p>
+        Can the calibration be done using a different bandwidth than the
+        science observation? Is an increase in bandwidth allowed to catch
+        a nearby standard line? Increasing the bandwidth should not affect the
+        calibration, except that the peak of very narrow lines will drop
+        because of the lower resolution.
+        </p>
+    </li>
+
+    <li>
+        <p>
+        Is it important to observe a planet? Can this be done at one of
+        the standard frequencies or should the <i>Het setup</i> from the
+        science MSB be used?  Efficiencies derived from isolated observations
+        of the continuum level of planets typically are not very
+        accurate.
+        </p>
+    </li>
+</ul>
+
+
 
 
 <nav>
