@@ -11,7 +11,7 @@
 </nav>
 
 
-<h2 id="faq">Frequently Asked Questions</h2>
+<h1 id="faq">Frequently Asked Questions</h1>
 
 <dl>
     <dt id="why">Why do I have to do this?</dt>
@@ -24,83 +24,22 @@
             <li>
                 <p>
                 The OMP project is providing a software system, of which the
-                JCMT-OT is a necessary component, to manage flexible scheduling at
+                JCMT OT is a necessary component, to manage flexible scheduling at
                 JCMT. Its purpose is to increase overall observing efficiency and
                 facilitate communication with the PIs, and at the same time reduce the
-                workload on our overworked queue managers and TSSs. It will also allow
+                workload on our overworked queue managers and telescope operators.
+                It will also allow
                 you, the PI, to control your observing strategy in a fashion similar
                 to that of classical scheduling. Note that the MSBs that you specify
                 directly run the telescope and the data-acquisition during the
                 observations.
                 </p>
             </li>
-
-            <li>
-                <p>
-                The JCMT-OT and UKIRT-OT present a unified user interface to all
-                JAC observing
-                </p>
-            </li>
         </ul>
     </dd>
 
 
-    <dt id="deadline">What is the deadline for submissions?</dt>
-    <dd>
-        <p>
-        There isn't one. However if you don't submit MSBs for your
-        sources
-        by the time they are observable you could be throwing away
-        opportunities of having your sources observed. Nevertheless, note
-        that there is no requirement that you submit your entire project
-        at once. Therefore you can submit some MSBs, wait for them to
-        get done so you can analyze the results and then submit other
-        MSBs to follow up on those results. Your MSBs will keep on being
-        scheduled until you have exceeded the total time allocated to your
-        project.
-        </p>
-    </dd>
 
-
-    <dt id="scheduling">What happens to my MSBs after I submit them?</dt>
-    <dd>
-        <p>
-        During flexible observing, the observer/TSS will run a tool
-        called JCMT-QT (Query Tool) that allows them to browse our database
-        for suitable MSBs. The QT by default returns as yet unobserved MSBs
-        ranked by TAG priority containing targets that are actually
-        observable, whose site quality requirements match the current
-        conditions, and whose projects still have allocated time left. However,
-        the observer/TSS is able to use the QT to retrieve any submitted MSB
-        at their discretion.
-        </p>
-        <p>
-        When an MSB is selected for actual execution, the Query Tool can be
-        used to retrieve it from our database. The observer/TSS is then
-        presented with a list of the observations in that MSB and given the
-        opportunity to remove redundant calibrations from the MSB or to defer
-        them until a suitable calibrator becomes available. When they are
-        satisfied that the MSB is suitable for execution they send it off to
-        the instrument-specific control system.
-        </p>
-        <p>
-        The MSB may be sent to a translator which converts it into a complete
-        set of instructions for the telescope, receiver(s), and backend.
-        </p>
-        <p>
-        The instructions are then placed in a queue that can be processed. As
-        the queue works its way down the list it takes any sensible course of
-        action, such as prompting the observer/TSS when intervention is
-        needed.
-        </p>
-        <p>
-        After the observations have been carried out and deemed acceptable by
-        the TSS, the MSB is marked as done and will not be rescheduled unless
-        it is resubmitted from the JCMT-OT or marked Undone via the project
-        feedback system. If repeats of the MSB were requested, the repeat counter
-        is decremented by 1.
-        </p>
-    </dd>
 
 
     <dt id="length">What length should my MSB be?</dt>
@@ -124,7 +63,7 @@
         in huge overheads for short observations. This is no longer the case.
         However if many short observations are all scheduled one after the
         other they would have to be sent to the queue one by one,
-        thus driving the TSS and observer insane.
+        thus driving the telescope operator and observer insane.
         </p>
         <p>
         If your sources are well separated across the sky a pointing
@@ -151,7 +90,7 @@
         as heterodyne. Like heterodyne observation consecutive sources that
         include a large slew will likely require a pointing between them,
         however SCUBA-2 has the additional factor or requiring the arrays
-        to be setup again after a move between sources.
+        to be set up again after a move between sources.
         </p>
     </dd>
 
@@ -163,6 +102,46 @@
         the choice of not doing calibrations that are highly redundant.
         <p>
     </dd>
+
+
+    <dt id="qus_load">My project wont load when I enter my project number?</dt>
+    <dd>
+        <p>
+        If you have not previously stored anything to our database there will be
+        nothing to retrieve,
+        however space assigned for your project code is there for you when you create
+        and first submit your MSBs.
+        Create your project following the instructions above
+        and store to the on-line database.
+        </p>
+    </dd>
+
+    <dt id="qus_survey">I have a lot of sources &mdash; how can I speed up creation of my MSBs?</dt>
+    <dd>
+        <p>
+        If you have a large number of sources you may want to use the survey container;
+        instructions on how to use this can be found
+        <a href="advanced.html#survey">here</a>.
+        Another option is to use the replication tool.
+        This requires access to EAO machines and details can be found
+        <a href="advanced.html#replication">here</a>.
+        </p>
+    </dd>
+
+    <dt id="qus_submit">How do I submit my project?</dt>
+    <dd>
+        <p>
+        Ensure that you have filled out the title of your project correctly
+        (Title, PI, Country, Project ID),
+        then go to 'Database' along the top menu
+        and select 'Store to on-line database'.
+        Once you have done this your friend of project will be able
+        to access your MSBs and check them.
+        For more details follow <a href="generic.html#database">this link</a>
+        to the main OT primer page.
+        </p>
+    </dd>
+
 
     <dt id="library">I want to do something that is not in the library</dt>
     <dd>
@@ -177,7 +156,7 @@
     </dd>
 
 
-    <dt id="server">What does this warning mean? :
+    <dt id="server">What does this warning mean?
     "Some of the observations in the MSB contained
     default settings for the target information"</dt>
     <dd>
@@ -190,12 +169,12 @@
     <dt id="timeest">I don't agree with the time estimates shown in the OT</dt>
     <dd>
         <p>
-        We are fine-tuning these, but they will always be just that -
+        We are fine-tuning these, but they will always be just that &mdash;
         estimates. However it doesn't really matter if they are a bit off. The
         estimates are used for three things. First, they are used by the QT to
         check whether the observation can be carried out before the source
-        sets. Second, they allow the observer/TSS to plan the observing. For
-        example, if they believe that the tau is going to change in the next
+        sets. Second, they allow the observer / telescope operator to plan the observing. For
+        example, if they believe that the opacity is going to change in the next
         hour, they can select an MSB that is estimated to last less than an
         hour.
         </p>

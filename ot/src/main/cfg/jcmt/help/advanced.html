@@ -10,7 +10,7 @@
 <a href="index.html">&#x2190; JCMT OT Primer Main Page</a>
 </nav>
 
-<h2>Advanced Topics</h2>
+<h1>Advanced Topics</h1>
 
 <p>
 So far we have described preparation using the library sequence "as
@@ -21,15 +21,12 @@ required. It assumes that you are familiar with the material presented
 in the main part of the tutorial.
 </p>
 
-<h3 id="placement">A note about placement</h3>
+<h2 id="placement">A Note about Placement</h2>
 
 <p>
 As you may have gathered by now, the Science Program is a tree
 structure and the placement of elements in that structure has a lot of
 significance.
-</p>
-
-<p>
 For example, look at the example below of a Science Program containing
 three MSBs &mdash; focus on the location of the two Site Quality components:
 </p>
@@ -47,7 +44,7 @@ first MSB has a site quality inside it (technically: within its
 scope). So the first MSB will be scheduled using the criteria of the
 Site Quality component inside it, and the second and third MSBs will
 use the first Site Quality component since they lack one of their
-own. The technical term for this behaviour is "inheritance" for those
+own. The technical term for this behavior is "inheritance" for those
 familiar with it already.
 </p>
 
@@ -55,121 +52,23 @@ familiar with it already.
 Common uses for inheritance are e.g. to place the Het Setup outside
 the MSBs if you want to observe multiple sources at the same frequency.
 Conversely, the Target Component can be placed outside multiple MSBs
-are needed on the same target. However, carefully read the next item
-on the interaction of the Het. and Target component.
+are needed on the same target. However, carefully read the
+<a href="het_example.html#velocities">note on the interaction of the "Het Setup" and "Target Information" components</a>.
 </p>
 
 <p>
-See the section on <a href="advanced.html#andor">"AND and OR Folders"</a> on
+See the section on <a href="#andor">"OR and AND Folders"</a> on
 how an AND folder can be used to group observations and use inheritance within
 that group.
 </p>
 
-<h3 id="velocities">Velocities: The Het and Target Component</h3>
 
-<p>
-It used to be that the receiver tuning, including the source velocity,
-were specified in the Heterodyne Component while the source
-coordinates needed to be entered in the Target Component. Half of our
-observers were very happy with this, since they prefered to observe
-all their sources with the same receiver setup. The other half of the
-observers complained bitterly since they wanted to be able to read in
-the sources <em>and</em> velocities from a catalog and center the
-bandpass for each.
-</p>
-
-<p>
-Hence the OT now allows for the observing velocity to the specified
-in the Heterodyne Component <em>or</em> the Target Component. But this
-has made life a bit more complicated.
-</p>
-
-<p>
-The description of the
-<a href="het_example.html#het_thsc">Heterodyne Setup component</a>
-should have made it clear that it uses the
-velocity to compute the approximate sky frequency as a check whether
-the line falls within the tuning range, to show the setup in the
-frequency editor etc. However, it can <em><b>only</b></em> do that if
-it has access to the velocity information. In the case where the
-velocity information
-has been put in the Target Component, this <em>requires</em> the components
-to be at the same level of indentation. If this is not the case, the
-Het. Component will assume a velocity of 0 km/s.
-</p>
-
-<p>
-<em>Note that is only a problem within the OT: when MSBs are submitted
-for observation the tree structure from the OT is unrolled and for
-each observation the appropriate Het Setup and Target Component are
-paired up.</em>
-</p>
-
-<p>
-In general, this is not a problem for Galactic sources since the
-overall parameters of the observation of a molecular line (center
-frequency, atmospheric transparency, receiver characteritics) don't
-significantly differ from source to source. That of course may not be
-the case for extra-galactic and high-z sources: vary the velocity or
-red-shift enough and the line may shift completely out of the band or
-into an atmospheric absorption line for some of the sources (it has
-happened!). The Het. Component will notify you of (un)available
-transitions for a particular molecule and the Frequency Editor will
-show the transmission at the observing frequency, but only if it
-can find the velocity of the observation.
-</p>
-
-<p>
-<small>Small print: which is one of the reasons that we advice to
-always select a 'Molecule' and 'Transition' from the drop-down
-list, rather than typing a frequency manually.</small>
-</p>
-
-<p>
-In summary, the following sample layouts allow for the Het. Component
-to obtain the velocity from the Target Component:
-</p>
-
-<p>
-<pre>
-    *MSB                           *MSB                           *AND
-      o Het Setup                    o Site Quality                 o Het Setup
-      o Site Quality                 o Observation                  o Site Quality
-      o Target Information             - Het Setup                  o Target Information
-      o Observation                    - Target Information         o MSB1
-        - Sequence                     - Sequence                     - Observation
-           ...                            ...                            + Sequence
-                                                                           ...
-                                                                    o MSB2
-                                                                           ...
-</pre>
-</p>
-
-<p>
-In the following samples the Het. Setup will <em>not</em> be able to access the velocity:
-</p>
-
-<p>
-<pre>
-    *MSB                           *MSB                           *AND
-      o Het Setup                    o Site Quality                 o Het Setup
-      o Site Quality                 o Target Setup                 o Site Quality
-      o Observation                  o Observation                  o MSB1
-        - Target Information           - Het Setup                    - Target Information
-        - Sequence                     - Sequence                     - Observation
-           ...                            ...                              ...
-                                                                    o MSB2
-                                                                      -  Target Information
-                                                                             ...
-</pre>
-</p>
-
-<h3 id="replication">Generating a programme from a catalogue file</h3>
+<h2 id="replication">Generating a Program from a Catalog File</h2>
 
 <p>
 If you have many sources which you wish to observe in a similar way
 and do not wish to go through the rigmarole of editing a target
-component for each one, there is a way to generate a science programme
+component for each one, there is a way to generate a science program
 from a template MSB and a text (ASCII) catalog file. This uses a
 service at our site &mdash; you need an internet connection to do this.
 </p>
@@ -182,17 +81,15 @@ template MSB you have retrieved from the ACSIS library). Your catalog
 file should be of the format:
 </p>
 
-<p>
 <pre>
 PKS0106         01 08 38.771 + 01 35 00.32 RJ
 3C84            03 19 48.160 + 41 30 42.10 RJ
 3C120           04 33 11.096 + 05 21 15.62 RJ
 PKS0438         04 40 17.180 - 43 33 08.60 RJ
 </pre>
-</p>
 
 <p>
-The catalog format is not blank space sensitive &mdash; sourceplot and JCMT
+The catalog format is not blank space sensitive &mdash; SourcePlot and JCMT
 catalog files will work as is, provided they do not contain planets or
 objects with orbital elements.
 </p>
@@ -203,16 +100,16 @@ catalog". Choose this action:
 </p>
 
 <p>
-<img src="images/replicate.png" alt="Replication" class="figure" width="388" height="468" />
+<img src="images/replicate.png" alt="Replication" class="figure" width="390" height="388" />
 </p>
 
 <p>
 A file selector window will pop up which allows you to choose the
 location of the catalog file. Once you have done this, the OT will
 contact our site and after a short delay will pop up a new science
-programme window containing multiple MSBs. So if you had an MSB with
+program window containing multiple MSBs. So if you had an MSB with
 one blank target component and a catalog file with 12 sources, you
-will get back a science programme with 12 MSBs, whose target
+will get back a science program with 12 MSBs, whose target
 components have been filled in using the information from your
 catalog.
 </p>
@@ -224,71 +121,64 @@ each source.  It is also not yet possible for the source replicator to
 insert source velocities from the catalog into the MSBs.
 </p>
 
-<h3 id="constraints">Additional Scheduling Constraints</h3>
+<h2 id="constraints">Scheduling Constraints</h2>
 
 <p>
 You can place additional scheduling constraints on some or all of your
 MSBs. To set up a scheduling constraint component for all your MSBs,
-return to your science programme component at the top, then click on
+return to your science program component at the top, then click on
 "component" on the left icon bar as shown below. This will bring up a
-number of choices - select "Sched.Constraints". This will drop in a
-Scheduling Constraints component at the top of your programme, which
+number of choices &mdash; select "Sched.Constraints". This will drop in a
+Scheduling Constraints component at the top of your program, which
 will therefore apply to all MSBs. To make this apply to only a
 specific MSB, place the scheduling constraint inside it.
 </p>
 
 <p>
-<img src="images/constraints.png" alt="Constraint" class="figure" width="790" height="538" />
+<img src="images/constraints.png" alt="Constraint" class="figure" width="934" height="695" />
 </p>
 
 <p>
-The scheduling constraints component allows you to:
+The Scheduling Constraints component allows you to restrict or broaden
+the time over which an MSB will be selected. To insert this component,
+click on the <i>Component</i> button on the left side near the bottom
+of the OT window, and select the "Sched. Constraints".
 </p>
 
-<ul>
-    <li>
-        <p>
-        Specify a specific time window in which you want your
-        observations to be taken. Needless to say setting this too narrowly
-        will reduce your chances of being scheduled, so only do this if there
-        is a valid scientific reason
-        </p>
-    </li>
+<p>
+The main reason you might want to insert this component is if your
+science targets have a very low or very high declination (i.e. &delta;
+&lsim; -35&deg; or &delta; &gsim; +80&deg;). By default,
+MSBs are only selected when the sources are above about 30&deg;
+elevation, so low- and high-declination sources may never be selected
+unless you specify a lower minimum elevation.  Similarly, sources at
+~19&deg; declination transit almost directly overhead, and you
+may wish to restrict such sources to be selected when they're not at
+extremely high elevations.
+</p>
 
-    <li>
-        <p>
-        Set a rescheduling action, that will schedule an MSB that has
-        been completed to reappear after a certain number of days. If you have
-        been allocated time for a project that requires periodic monitoring,
-        you may wish to ask us for more information on how this works.
-        </p>
-    </li>
+<p>
+Another reason to insert this component is if your observations are
+time-critical, i.e. they must not be done before a certain date or
+after a certain date.  This can be specified by changing the Earliest
+and/or Latest Schedule Date.
+</p>
 
-    <li>
-        <p>
-        By default, a target is considered observable if it is between 30
-        and 88 degrees of elevation for the entire duration of its MSB. If you
-        wish to specify a lower elevation criterion (eg. for a very low or
-        very high declination source) you may do so here.
-        </p>
-    </li>
+<p>
+You may also need to use this component if you have a project which
+requires periodic observations, for example if you were monitoring a
+variable source.  In that case, you can specify the repeat time in the
+"Reschedule every..." box.  The MSB will be reactivated at the
+appropriate time.
+</p>
 
-    <li>
-        <p>
-        Restrict a target to being observed only before or after
-        transit. Again, note that this criterion will be applied for the
-        entire estimated duration of the MSB, so only do this if it is
-        scientifically vital.
-        </p>
-    </li>
-</ul>
 
-<h3 id="andor">OR and AND Folders</h3>
+<h2 id="andor">OR and AND Folders</h2>
 
 <p>
 Within a science program, you can use OR and AND folders to group your
-MSBs.  These folders can be very useful for organising and managing
-your observing programme as the semester progresses. Especially note
+MSBs.  These folders can be very useful for organizing and managing
+your observing program as the semester progresses. Especially note
 the comment below on an "alternative" use for an AND folder to avoid
 having to reproduce information that is common to several MSBs.
 </p>
@@ -312,17 +202,17 @@ the MSBs should be executed (not both).
 Another application of OR folders is managing available telescope time
 for projects with a large number of potential targets. Suppose an
 observer wants to observe from a sample of 40 potential
-targets. Further suppose that some of the objects will require follow
-up observations towards the end of a semester and telescope time is
+targets. Further suppose that some of the objects will require follow-up
+observations towards the end of a semester and telescope time is
 somewhat limited (i.e. not enough to observe them all once and follow
 up the interesting ones). One solution would be to put the 40 MSBs for
 the sample into an OR folder, then set the "select" switch to, say, 10
 objects. This will mean that no more than 10 objects will be observed
 from the sample. This can be used to ensure that all of the telescope
 does not get used up in making first observations, and that some time
-will be left over for follow up observations. This kind of programme
+will be left over for follow-up observations. This kind of program
 management can involve the observer, in conjunction with the support
-astronomer, dynamically altering the programme in the light of past
+astronomer, dynamically altering the program in the light of past
 observations, results of data reduction and available telescope
 time.
 </p>
@@ -337,7 +227,7 @@ Y rather than A and X and A and Y.  The order of observations, and
 which get done, will still depend only on project priority, source
 availability and weather. If the observer absolutely needs two targets
 observed to get any meaningful scientific result, they should go in
-the same MSB rather than in an AND folder - do not forget MSBs are
+the same MSB rather than in an AND folder &mdash; do not forget MSBs are
 allowed to contain multiple targets.
 </p>
 
@@ -347,7 +237,7 @@ allowed to contain multiple targets.
 
 <p>
 An <em><b>alternative</b></em> use for an AND folder is to avoid having to reproduce
-information that is common to several MSBs - the site quality, Target
+information that is common to several MSBs &mdash; the site quality, Target
 info, and/or Het Setup for example.  An individual component can be
 pulled out of the MSBs and set into the hierarchy at the AND folder
 level.  In the following example, we have been allocated both bands 1
@@ -360,23 +250,34 @@ targets C and D in band 2.
 <img src="images/and_example2.png" alt="and example2" class="figure" width="862" height="518" />
 </p>
 
-<h3 id="survey">Survey Container</h3>
+<h2 id="survey">Survey Container</h2>
 
 <p>
 The survey container is an extremely useful tool when you want to
 carry out the same type of observations of a large number of
-sources. It works similar to the replication example above, but it
-does not replicate the MSBs in the OT, only in the database. I.e. a
-single observation for a target list with 100 sources will have 1 MSB
-in the OT, but 100 MSBs in the database after uploading your science
+sources. It works similarly to the replication example above, but it
+does not replicate the MSBs in the OT, only in the database.
+You can create a survey container in the OT
+with a target list of 100 sources containing 1 MSB
+&mdash; this will become 100 MSBs in the database after uploading your science
 program.
 </p>
 
 <p>
-However the meaning of MSB remains the same: the whole
-of the MSB must be doable for it to come up in the queue. Corollary: it
-is a Bad Idea to include targets over a wide range of RA in one survey
-container.
+<b>Warning:</b>
+It is also possible to put a survey container inside an MSB.
+(The other way round from normal.)
+In this case the MSB is not replicated,
+but instead contains all of the sources from the survey container.
+The normal meaning of MSB remains the same: the whole
+of the MSB must be doable for it to appear in the queue.
+It is a bad idea to include targets over a wide range of RA in one survey
+container when it is placed inside an MSB,
+or to include a large number of targets such that the total
+observing time is greater than is appropriate for one MSB.
+<em>Usually a Survey Container inside an MSB is not what you want
+&mdash; place the MSB inside the Survey Container if you
+want that MSB to be "replicated" for each source in the container.</em>
 </p>
 
 <p>
@@ -384,7 +285,7 @@ Here is what you see when you click on the Container itself:
 </p>
 
 <p>
-<img width="569" height="548" src="images/survey_container_2.png" class="figure" />
+<img width="569" height="548" src="images/survey_container_2.png" class="figure" alt="screen shot" />
 </p>
 
 <p>
@@ -393,7 +294,7 @@ the bottom of the panel. Here is a completed container:
 </p>
 
 <p>
-<img width="548" height="587" src="images/survey_container_4.png" class="figure" />
+<img width="548" height="587" src="images/survey_container_4.png" class="figure" alt="screen shot" />
 </p>
 
 <p>
@@ -402,7 +303,7 @@ in a format identical to the familiar Target Component:
 </p>
 
 <p>
-<img width="568" height="546" src="images/survey_container_3.png" class="figure" />
+<img width="568" height="546" src="images/survey_container_3.png" class="figure" alt="screen shot" />
 </p>
 
 <p>
@@ -413,7 +314,6 @@ in the following format (slightly different from the format for MSB
 cloning):
 </p>
 
-<p>
 <pre>
 SURVEYID = Test
 SCIENCE BGPS3097  18:34:12.03  -08:22:57.3 FK5
@@ -425,7 +325,6 @@ REFERENCE GD2  18:31:12.06  -07:59:05.2 FK5
 
 etc.
 </pre>
-</p>
 
 <p>
 The first line is the Survey ID, which will become the title of the
@@ -434,14 +333,14 @@ follows:
 </p>
 
 <p>
-<img width="593" height="88" src="images/survey_container_5.png" width="593" height="88" class="figure" />
+<img width="593" height="88" src="images/survey_container_5.png" class="figure" alt="screenshot" />
 </p>
 
 <p>
 (So it is best to keep it short!)
 </p>
 
-<h3 id="proxy">To those behind a firewall: Setting your proxy server</h3>
+<h2 id="proxy">To those Behind a Firewall: Setting your Proxy Server</h2>
 
 <p>
 If your host is behind a firewall, you may need to use a proxy server
