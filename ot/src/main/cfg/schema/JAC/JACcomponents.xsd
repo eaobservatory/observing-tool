@@ -104,10 +104,6 @@
     <xsd:sequence>
       <xsd:group   ref="toml:jac_meta_group"/>
       <xsd:element ref="toml:BASE"                                maxOccurs="unbounded"/>
-      <xsd:element ref="toml:chopAngle"                           minOccurs="0"/>
-      <xsd:element name="chopSystem"  type="toml:chopSystem"      minOccurs="0"/>
-      <xsd:element ref="toml:chopThrow"                           minOccurs="0"/>
-      <xsd:element name="chopping"    type="xsd:boolean"         minOccurs="0"/>
       <xsd:element name="fitsKey"     type="toml:fitsKeyType"    minOccurs="0"/>
       <xsd:element name="fitsValue"   type="toml:fitsValueType"  minOccurs="0"/>
       <xsd:element name="pm1"         type="xsd:double"          minOccurs="0"/>
