@@ -59,6 +59,7 @@ public class DatabaseDialogGUI extends JPanel {
     JPanel jPanel1 = new JPanel();
     CommandButtonWidgetExt closeButton = new CommandButtonWidgetExt();
     CommandButtonWidgetExt confirmButton = new CommandButtonWidgetExt();
+    public JLabel validationReminder = new JLabel();
 
     public DatabaseDialogGUI() {
         try {
@@ -85,13 +86,15 @@ public class DatabaseDialogGUI extends JPanel {
         confirmButton.setText("Confirm");
         this.add(loginPage, BorderLayout.CENTER);
 
-        loginPage.add(new JLabel(
-                "<html>Have you validated your Science Program?<br>" +
-                "We recommend that you validate your program<br>" +
-                "before storing it.  To do this, select the top<br>" +
-                "level \"Science Program\" element in the left<br>" +
-                "panel and click the \"Validation\" button.</html>"
-                ),
+        validationReminder.setText(
+            "<html>Have you validated your Science Program?<br>" +
+            "We recommend that you validate your program<br>" +
+            "before storing it.  To do this, select the top<br>" +
+            "level \"Science Program\" element in the left<br>" +
+            "panel and click the \"Validation\" button.</html>"
+        );
+
+        loginPage.add(validationReminder,
                 new GridBagConstraints(
                 0, 0, 2, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,

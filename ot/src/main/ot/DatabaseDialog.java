@@ -108,6 +108,7 @@ public class DatabaseDialog implements ActionListener {
         if (accessMode == ACCESS_MODE_STORE) {
             _title = "Store Program";
             _w.loginTextBox.setEditable(false);
+            _w.validationReminder.setVisible(true);
 
             if ((_spItemToBeSaved != null)
                     && (_spItemToBeSaved instanceof SpProg)) {
@@ -120,6 +121,7 @@ public class DatabaseDialog implements ActionListener {
         } else {
             _title = "Fetch Program";
             _w.loginTextBox.setEditable(true);
+            _w.validationReminder.setVisible(false);
         }
 
         if (_dialogComponent == null) {
