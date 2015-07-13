@@ -1,18 +1,22 @@
-Welcome to the ORAC/OMP Observing Tool (JCMT-OT [1]), based on the Gemini OT (version ot-0.5, Swing and JSky widgets) [2] and classes of the old Gemini OT (pre-JSky)[3].
+Welcome to the ORAC/OMP Observing Tool (JCMT OT [3]),
+based on the Gemini OT (version ot-0.5, Swing and JSky widgets) [4]
+and classes of the old Gemini OT (pre-JSky)[5].
 
-JAC OMP OT Release version 20030205
+OT release version ........
 (Swing and JSky)
 
-0. (c) 2007-2012 Science and Technology Facilities Council.
-                 Joint Astronomy Centre, Hilo
+1. (c) 2015 East Asian Observatory.
 
-1. (c) 2004-2007 Particle Physics and Astronomy Research Council. 
-                 Joint Astronomy Centre, Hilo
+2. (c) 2007-2015 Science and Technology Facilities Council,
+                 Joint Astronomy Centre, Hilo.
 
-2. (c) 2001-2003 PPARC UK Astronomy Technology Centre, Joint Astronomy Centre, Hilo
+3. (c) 2004-2007 Particle Physics and Astronomy Research Council,
+                 Joint Astronomy Centre, Hilo.
 
-3. (c) 2000 Gemini / ESO / JSky
+4. (c) 2001-2003 PPARC UK Astronomy Technology Centre,
+                 Joint Astronomy Centre, Hilo.
 
-4. (c) 1997 Association for Universities for Research in Astronomy,
+5. (c) 2000 Gemini / ESO / JSky.
+
+6. (c) 1997 Association for Universities for Research in Astronomy,
        Gemini Telescopes Project.
-

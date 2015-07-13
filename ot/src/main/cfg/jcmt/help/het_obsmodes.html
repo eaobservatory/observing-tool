@@ -34,7 +34,7 @@
    <li><a href="het_obsmodes.html#jpsw_rms">Noise</a></li>
    </ul>
 </li>
-<li><a href="het_obsmodes.html#GridPSSW">Grids Postion-Switch</a>
+<li><a href="het_obsmodes.html#GridPSSW">Grids Position-Switch</a>
    <ul>
    <li><a href="het_obsmodes.html#gpsw_grids">Grids patterns</a></li>
    <li><a href="het_obsmodes.html#gpsw_control">Loop Control</a></li>
@@ -58,7 +58,7 @@
 <h3>General description</h3>
 
 <p>
-This mode of observing is recommended for mapping &le; 2 arcmin fields
+This mode of observing is recommended for mapping &le; 2 arc-min fields
 where there are emission free positions relatively close (&le; 180")
 to the target.  Jiggle-Chop (JCHOP) observations utilize (i.e. 'jiggle')
 the secondary to observe a regular grid-pattern of points on the sky
@@ -105,7 +105,7 @@ where the pointing target will end up in the resulting map:
     <li>
         <p>
         A <b><i>receptor-centered</i></b> jiggle pattern places the
-        target in the centre of the region mapped by one of the receptors and
+        target in the center of the region mapped by one of the receptors and
         it will also be on one of the pixels in the output map. All <i>NxN</i>
         jiggle patterns such as 3x3, 4x4, or 5x5, are receptor-centered and
         primarily intended for use with the single-receptor receivers or
@@ -119,17 +119,17 @@ HARP does not have a central receptor. When used with a
 <i>receptor-centered</i> jiggle pattern it will align one of the inner
 4 receptors with the target instead. Hence, when a <i>NxN</i> jiggle
 pattern is selected with HARP the target will be far off-center in the
-resulting map, or, stated differently, the map will be very assymetric
+resulting map, or, stated differently, the map will be very asymmetric
 around the target position. The orientation of the map is determined
 by position of the K-mirror, which can choose any of 4 angles,
 differing by 90 degrees, depending on the elevation of observation. In
-short, only a region of 1.5x1.5 arcmin will be mapped predictably.
+short, only a region of 1.5x1.5 arc-min will be mapped predictably.
 Combining observations from different elevations may result in a windmill
 pattern around that region:
 </p>
 
 <p>
-<img src="het_images/windmill_small.png" width="284" height="262" class="figure" />
+<img src="het_images/windmill_small.png" width="284" height="262" class="figure" alt="windmill pattern" />
 </p>
 
 <p>
@@ -142,13 +142,13 @@ respectively. Compared to a Nyquist sampling of the nominal beam at
 345 GHz, the harp4 patterns slightly under-sample, whereas the harp5
 patterns over-sample. Harp4 is the recommended pattern for general map
 making and the cube resulting from the 4x4 receptors of HARP will have
-16x16 pixels in e.g. RA, Dec and cover a region of 2x2 arcmins. The
+16x16 pixels in e.g. RA, Dec and cover a region of 2x2 arc-mins. The
 harp5 pattern will have 20x20 pixels in RA, Dec covering the same
 region.
 </p>
 
 <p>
-Harp4 and Harp5 can be <i>pixel-centered</i> or <i>map-centered</i>. 
+Harp4 and Harp5 can be <i>pixel-centered</i> or <i>map-centered</i>.
 To understand the distinction one needs to realize that the spatial
 dimensions of a HARP cube will always have an even number of pixels
 i.e. won't have a central pixel. This presents two choices of where
@@ -193,16 +193,16 @@ are the jiggle positions and the centers of the pixels in the output
 map.  In each figure the pointing target is indicated by the small
 circle and either aligns with a pixel or the center of the map. (For
 completeness: A <i>receptor-centered</i> pattern will select a
-configuation in which the blue cross coincides with a map pixel, but
+configuration in which the blue cross coincides with a map pixel, but
 with the target circle on one of blue crosses instead of close to the
 center.)
 </p>
 
 <p class="figure">
-<img src="het_images/HARP4.png" width="352" height="488" />
-<img src="het_images/HARP4_mc.png" width="352" height="488" />
-<img src="het_images/HARP5.png" width="348" height="492" />
-<img src="het_images/HARP5_mc.png" width="348" height="492" />
+<img src="het_images/harp4.png" width="352" height="488" alt="HARP4 jiggle pattern" />
+<img src="het_images/harp4_mc.png" width="352" height="488" alt="HARP4 map-centered jiggle pattern" />
+<img src="het_images/harp5.png" width="348" height="492" alt="HARP5 jiggle pattern" />
+<img src="het_images/harp5_mc.png" width="348" height="492" alt="HARP5 map-centered jiggle pattern" />
 </p>
 
 <h3 id="jchp_control">Loop control</h3>
@@ -235,7 +235,7 @@ for every jiggle position: the observing mode changes to chop-jiggle
 (jiggle-before-chop). However, the frequent chops significantly
 increase the overheads: limited testing so far suggests that the
 typical penalty for using continuum mode is an increase of the
-observing time by a factor of <i>1.7</i><font color=red>CHECK!</font>.
+observing time by a factor of <i>1.7</i><span style="color: red;">CHECK!</span>.
 </p>
 
 <p>
@@ -280,7 +280,7 @@ require <b>32s</b> on the sky equally split between <i>ons</i> and
 <i>offs</i>. Using <i>shared offs</i> the observation needs only
 16+4=<b>20s</b>. But also <b>for each point individually the noise is
 reduced</b> because of the longer observation of the
-<i>off</i>. Expressed in a time required to reach a particular rms the
+<i>off</i>. Expressed in a time required to reach a particular RMS the
 combined effect makes <i>shared off</i> observations <em>4 times</em>
 faster than separate observations in the limit of many points. More
 precisely, the factor is ~4/(1+2/sqrt(np)) or ~2.7 for the relatively
@@ -355,7 +355,7 @@ t_on: requested 'on'-only integration time per jiggle-point):
 </table>
 
 <p>
-<img src="het_images/jchp_time.png" width="512" height="512" class="figure" />
+<img src="het_images/jchp_time.png" width="512" height="512" class="figure" alt="graph" />
 <p>
 
 <h3 id="jchp_rms">Noise:</h3>
@@ -373,7 +373,6 @@ black line).
 The expected noise can thus be calculated using:
 </p>
 
-<p>
 <pre>
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
@@ -385,14 +384,13 @@ The expected noise can thus be calculated using:
           sharing an off. For patterns not exceeding 9x9
           this is the number of points in the jiggle pattern.
 </pre>
-</p>
 
 <p>
 The bottom panel shows the normalized noise: rms*sqrt(int. time) as a
 function of the duration of the observations with the noise calculated
 using the equation above indicated by the black crosses. As expected
 the normalized noise is independent of the duration and type of the
-observations, indicating no unexplained sysystematic effects, with one
+observations, indicating no unexplained systematic effects, with one
 significant exception: all observations with <i>shared</i> offs have
 about 20% less noise than their <i>separate</i>
 counterparts. Together with the previous figure above, this panel
@@ -403,7 +401,7 @@ well.
 </p>
 
 <p>
-<img src="het_images/jchp_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/jchp_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="JigglePSSW">Jiggle-Position Switch observations</h2>
@@ -417,7 +415,7 @@ the previous section).</em>
 </p>
 
 <p>
-This mode is recommended for mapping &le; 2 arcmin fields where an
+This mode is recommended for mapping &le; 2 arc-min fields where an
 emission free position is relatively far away from the
 target. Jiggle-PSSW (JPSSW) observations utilize the secondary to
 observe a regular grid-pattern of points but, contrary to JCHOP, use a
@@ -513,7 +511,7 @@ jiggle-point):
 </table>
 
 <p>
-<img src="het_images/jpsw_time.png" width="512" height="512" class="figure" />
+<img src="het_images/jpsw_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h3 id="jpsw_rms">Noise</h3>
@@ -534,7 +532,7 @@ equation above indicated by the black crosses.
 </p>
 
 <p>
-<img src="het_images/jpsw_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/jpsw_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="GridPSSW">Grid Position-Switch</h2>
@@ -590,7 +588,7 @@ default value is 1.0s rather than the 0.1s for jiggles. The
 max_time_between_refs, default 30s, is the maximum time that can be
 spend observing grid positions before a position switch to the sky
 reference is require. The rate of going to the sky position is less
-than for the equivalent JCHOP observation, which can result in 
+than for the equivalent JCHOP observation, which can result in
 worse baselines.
 </p>
 
@@ -679,7 +677,7 @@ t_on: requested 'on'-only integration time per jiggle-point):
 </table>
 
 <p>
-<img src="het_images/gpsw_time.png" width="512" height="512" class="figure" />
+<img src="het_images/gpsw_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h3 id="gpsw_rms">Noise</h3>
@@ -696,7 +694,6 @@ black crosses. The equation used is the same as given in the
 discussion of JCHOP observations, but 'np' is a bit less straightforward:
 </p>
 
-<p>
 <pre>
     rms = 1.04 * Tsys*1.23/sqrt(df*t_on) * sqrt(1+1/sqrt(np))
 
@@ -704,7 +701,6 @@ discussion of JCHOP observations, but 'np' is a bit less straightforward:
           max(1,int(30/t_on)) i.e. the number of t_ons that fit
           in 30sec, but no less than 1. (30secs = time_between_refs.)
 </pre>
-</p>
 
 <p>
 Observations with <i>shared offs</i> but <i>on</i> integration times
@@ -717,7 +713,7 @@ in excess of 15s are excuted the same as observations with
 </p>
 
 <p>
-<img src="het_images/gpsw_rms.png" width="512" height="512" class="figure" />
+<img src="het_images/gpsw_rms.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <h2 id="FSW">Frequency-Switch</h2>
@@ -742,7 +738,7 @@ efficiency creating baselines. For small frequency switches the
 baselines are well behaved and can be removed by baselining. Another
 cause is standing waves in the optics in front of the mixer. These
 will move in the band pass when the frequency shifts and are not
-cancelled. The standing wave between the cabin and secondary has a
+canceled. The standing wave between the cabin and secondary has a
 frequency of ~ 16.2 MHz at the JCMT. Frequency switching by 16.2 or
 32.4 MHz reduces such standing waves. Thus frequency switching is most
 suitable for observations of narrow lines not affected by
@@ -824,7 +820,7 @@ separates into three groups:
 </ul>
 
 <p>
-<img src="het_images/all_time.png" width="512" height="512" class="figure" />
+<img src="het_images/all_time.png" width="512" height="512" class="figure" alt="graph" />
 </p>
 
 <p>
@@ -834,7 +830,7 @@ in the next two, side-by-side figures. The figure on the right zooms
 on the lower-left region of the figure top-left. Using the equations
 above we find that compared to t_on_nonsh = 30s, <i>shared off</i>
 observations with 16 points will need t_on_sh = 18.75s to reach the
-same rms. Using the equations for duration of JCHOP observations at
+same RMS. Using the equations for duration of JCHOP observations at
 the top which include the fixed overheads, one then finds that the
 <i>shared offs</i> JCHOPS will take about half the time as the
 <i>separate offs</i> JCHOPS: 15min instead of 33min as is illustrated
@@ -842,22 +838,22 @@ in the final figure.
 </p>
 
 <p class="figure">
-    <img src="het_images/all_rms.png" width="355" height="360">
-    <img src="het_images/all_rms2.png" width="367" height="357">
+    <img src="het_images/all_rms.png" width="355" height="360" alt="graph" />
+    <img src="het_images/all_rms2.png" width="367" height="357" alt="graph" />
 </p>
 
 <p>
 The figure below shows the benefits in terms of the duration of the
 HARP4 jiggle observation, including realistic overheads, needed to
-reach a certain rms (assumed Tsys = 250 K and frequency channels of 1
+reach a certain RMS (assumed Tsys = 250 K and frequency channels of 1
 MHz). Note that <i>shared/separate offs</i> are only relevant within a
 single observation, which typically takes 10-20 minutes: the noise in
-coadds of successive observations will scale as usual with the sqrt(nr
+co-adds of successive observations will scale as usual with the sqrt(nr
 of observations).
 </p>
 
 <p>
-<img src="het_images/het_compare.png" width="512" height="371" class="figure" />
+<img src="het_images/het_compare.png" width="512" height="371" class="figure" alt="graph" />
 </p>
 
 <nav>

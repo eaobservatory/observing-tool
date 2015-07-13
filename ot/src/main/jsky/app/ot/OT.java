@@ -31,7 +31,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Vector;
@@ -40,17 +39,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import gemini.sp.SpFactory;
-import gemini.sp.SpItem;
 import gemini.sp.SpLibrary;
-import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
 import ot.News;
 import ot.OtPreferencesDialog;
 import ot.DatabaseDialog;
 import orac.helptool.JHLauncher;
-import gemini.sp.SpTreeMan;
 import gemini.util.ObservingToolUtilities;
-import orac.ukirt.iter.SpIterMichelleCalObs;
 
 @SuppressWarnings("serial")
 public class OT extends JFrame {
@@ -149,64 +144,6 @@ public class OT extends JFrame {
     public static void open() {
         OtProps.setSaveShouldPrompt(false);
         OtFileIO.open();
-    }
-
-    /**
-     * Open a standard library.
-     *
-     * Method based on OT.openLibrary from old ATC OT.
-     */
-    public void openLibrary(String library) {
-        OtProps.setSaveShouldPrompt(false);
-
-        SpRootItem spItem = null;
-        URL url = ObservingToolUtilities.resourceURL(library,
-                "ot.resource.cfgdir");
-
-        // Check whether the alternative library could not be found either.
-        if (url == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Could not find standard library resource "
-                            + library + ".", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
-            return;
-        }
-
-        Reader r = null;
-
-        try {
-            r = new InputStreamReader(url.openStream());
-            spItem = OtFileIO.fetchSp(r);
-
-        } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(this,
-                    "Could not open the standard library.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            try {
-                if (r != null) {
-                    r.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-
-        if ((spItem != null) && (spItem instanceof SpLibrary)) {
-            Vector<SpItem> mco = SpTreeMan.findAllItems(spItem,
-                    SpIterMichelleCalObs.class.getName());
-
-            for (SpItem item : mco) {
-                SpIterMichelleCalObs obs = (SpIterMichelleCalObs) item;
-                obs.useDefaults();
-                obs.updateDAConf();
-            }
-
-            // Changed by MFO, 22 August 2001
-            OtWindow.create(spItem, new FileInfo());
-        }
     }
 
     /**

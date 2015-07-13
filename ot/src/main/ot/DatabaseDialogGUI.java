@@ -59,6 +59,7 @@ public class DatabaseDialogGUI extends JPanel {
     JPanel jPanel1 = new JPanel();
     CommandButtonWidgetExt closeButton = new CommandButtonWidgetExt();
     CommandButtonWidgetExt confirmButton = new CommandButtonWidgetExt();
+    public JLabel validationReminder = new JLabel();
 
     public DatabaseDialogGUI() {
         try {
@@ -70,8 +71,8 @@ public class DatabaseDialogGUI extends JPanel {
 
     void jbInit() throws Exception {
         loginPage.setLayout(gridBagLayout2);
-        this.setMinimumSize(new Dimension(289, 164));
-        this.setPreferredSize(new Dimension(289, 164));
+        this.setMinimumSize(new Dimension(400, 250));
+        this.setPreferredSize(new Dimension(400, 250));
         this.setLayout(borderLayout1);
         passwordTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -84,20 +85,35 @@ public class DatabaseDialogGUI extends JPanel {
         closeButton.setText("Close");
         confirmButton.setText("Confirm");
         this.add(loginPage, BorderLayout.CENTER);
+
+        validationReminder.setText(
+            "<html>Have you validated your Science Program?<br>" +
+            "We recommend that you validate your program<br>" +
+            "before storing it.  To do this, select the top<br>" +
+            "level \"Science Program\" element in the left<br>" +
+            "panel and click the \"Validation\" button.</html>"
+        );
+
+        loginPage.add(validationReminder,
+                new GridBagConstraints(
+                0, 0, 2, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 10, 10, 10), 0, 0));
+
         loginPage.add(jLabel1, new GridBagConstraints(
-                0, 0, 1, 1, 0.0, 0.0,
+                0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(10, 5, 5, 5), 0, 0));
         loginPage.add(jLabel2, new GridBagConstraints(
-                0, 1, 1, 1, 0.0, 0.0,
+                0, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(5, 5, 5, 5), 0, 0));
         loginPage.add(loginTextBox, new GridBagConstraints(
-                1, 0, 1, 1, 0.0, 0.0,
+                1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 5, 5, 5), 0, 0));
         loginPage.add(passwordTextBox, new GridBagConstraints(
-                1, 1, 1, 1, 1.0, 0.0,
+                1, 2, 1, 1, 1.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
         this.add(jPanel1, BorderLayout.SOUTH);

@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>SCUBA2.xml</meta_gui_filename>
-  <ot_version>20110329</ot_version>
+  <ot_version>20150413</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -116,23 +116,19 @@ See the examples under "Example optionals".</note>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
+            <SpIterRasterObs type="ic" subtype="rasterObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpIterRasterObs type="ic" subtype="rasterObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <SCAN_AREA>
-                    <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                    <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
-                    </SCAN>
-                  </SCAN_AREA>
-                </obsArea>
-                <sampleTime>1800.0</sampleTime>
-                <scanPattern>Point Source</scanPattern>
-              </SpIterRasterObs>
-            </SpIterRepeat>
+              <obsArea>
+                <PA>0.0</PA>
+                <SCAN_AREA>
+                  <AREA HEIGHT="100.0" WIDTH="100.0"/>
+                  <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
+                  </SCAN>
+                </SCAN_AREA>
+              </obsArea>
+              <sampleTime>1800.0</sampleTime>
+              <scanPattern>Point Source</scanPattern>
+            </SpIterRasterObs>
           </SpIterFolder>
         </SpObs>
       </SpMSB>
@@ -224,34 +220,30 @@ See the examples under "Example optionals".</note>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
+            <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="900.0" WIDTH="900.0"/>
+                    <SCAN DY="30.0" VELOCITY="280.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
                 </obsArea>
-                <SpIterRasterObs type="ic" subtype="rasterObs">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <obsArea>
-                    <PA>0.0</PA>
-                    <SCAN_AREA>
-                      <AREA HEIGHT="900.0" WIDTH="900.0"/>
-                      <SCAN DY="30.0" VELOCITY="280.0" SYSTEM="FPLANE">
-                      </SCAN>
-                    </SCAN_AREA>
-                  </obsArea>
-                  <integrations>11</integrations>
-                  <scanPattern>Pong</scanPattern>
-                </SpIterRasterObs>
-              </SpIterOffset>
-            </SpIterRepeat>
+                <integrations>11</integrations>
+                <scanPattern>Pong</scanPattern>
+              </SpIterRasterObs>
+            </SpIterOffset>
           </SpIterFolder>
         </SpObs>
       </SpMSB>
@@ -339,34 +331,30 @@ See the examples under "Example optionals".</note>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
+            <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="1800.0" WIDTH="1800.0"/>
+                    <SCAN DY="60.0" VELOCITY="400.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
                 </obsArea>
-                <SpIterRasterObs type="ic" subtype="rasterObs">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <obsArea>
-                    <PA>0.0</PA>
-                    <SCAN_AREA>
-                      <AREA HEIGHT="1800.0" WIDTH="1800.0"/>
-                      <SCAN DY="60.0" VELOCITY="400.0" SYSTEM="FPLANE">
-                      </SCAN>
-                    </SCAN_AREA>
-                  </obsArea>
-                  <integrations>8</integrations>
-                  <scanPattern>Pong</scanPattern>
-                </SpIterRasterObs>
-              </SpIterOffset>
-            </SpIterRepeat>
+                <integrations>8</integrations>
+                <scanPattern>Pong</scanPattern>
+              </SpIterRasterObs>
+            </SpIterOffset>
           </SpIterFolder>
         </SpObs>
       </SpMSB>
@@ -454,34 +442,30 @@ See the examples under "Example optionals".</note>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
+            <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="3600.0" WIDTH="3600.0"/>
+                    <SCAN DY="180.0" VELOCITY="600.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
                 </obsArea>
-                <SpIterRasterObs type="ic" subtype="rasterObs">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <obsArea>
-                    <PA>0.0</PA>
-                    <SCAN_AREA>
-                      <AREA HEIGHT="3600.0" WIDTH="3600.0"/>
-                      <SCAN DY="180.0" VELOCITY="600.0" SYSTEM="FPLANE">
-                      </SCAN>
-                    </SCAN_AREA>
-                  </obsArea>
-                  <integrations>8</integrations>
-                  <scanPattern>Pong</scanPattern>
-                </SpIterRasterObs>
-              </SpIterOffset>
-            </SpIterRepeat>
+                <integrations>8</integrations>
+                <scanPattern>Pong</scanPattern>
+              </SpIterRasterObs>
+            </SpIterOffset>
           </SpIterFolder>
         </SpObs>
       </SpMSB>
@@ -569,34 +553,30 @@ See the examples under "Example optionals".</note>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
+            <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="7200.0" WIDTH="7200.0"/>
+                    <SCAN DY="360.0" VELOCITY="600.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
                 </obsArea>
-                <SpIterRasterObs type="ic" subtype="rasterObs">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <obsArea>
-                    <PA>0.0</PA>
-                    <SCAN_AREA>
-                      <AREA HEIGHT="7200.0" WIDTH="7200.0"/>
-                      <SCAN DY="360.0" VELOCITY="600.0" SYSTEM="FPLANE">
-                      </SCAN>
-                    </SCAN_AREA>
-                  </obsArea>
-                  <integrations>4</integrations>
-                  <scanPattern>Pong</scanPattern>
-                </SpIterRasterObs>
-              </SpIterOffset>
-            </SpIterRepeat>
+                <integrations>4</integrations>
+                <scanPattern>Pong</scanPattern>
+              </SpIterRasterObs>
+            </SpIterOffset>
           </SpIterFolder>
         </SpObs>
       </SpMSB>

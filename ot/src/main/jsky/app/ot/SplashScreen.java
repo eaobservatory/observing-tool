@@ -67,7 +67,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
      * Read the welcome text from the specified URL.
      */
     private void _readWelcome(URL url) {
-        final String versionString = "JAC OMP OT Release version ";
+        final String versionString = "OT release version ";
         RichTextBoxWidgetExt rt;
         rt = messageRTBW;
 

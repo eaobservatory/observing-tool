@@ -1,3 +1,9 @@
++++ July 2015 release
+
+  - Added a validation reminder to the project store dialog.
+
+  - Added library menu items to OT window menus.
+
 +++ April 2015 release
 
   - Horizons query caching problem fixed on Windows.
