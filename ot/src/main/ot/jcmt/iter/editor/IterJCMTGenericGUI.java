@@ -156,36 +156,36 @@ public class IterJCMTGenericGUI extends JPanel {
         this.add(jPanel1, BorderLayout.NORTH);
 
         jPanel1.add(switchingModeLabel, new GridBagConstraints(
-                0, 0, 2, 1, 0.0, 0.0,
+                0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE,
-                new Insets(0, 5, 0, 0), 0, 0));
+                new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(switchingMode, new GridBagConstraints(
                 0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
-                new Insets(0, 5, 5, 0), 0, 0));
+                new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(frequencyPanel, new GridBagConstraints(
-                1, 0, 3, 3, 0.0, 0.0,
+                1, 0, 1, 3, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                new Insets(0, 10, 0, 0), 0, 0));
+                new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(noiseLabel, new GridBagConstraints(
-                1, 3, 1, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                new Insets(0, 1, 0, 0), 0, 0));
+                0, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(noiseTextBox, new GridBagConstraints(
-                2, 3, 1, 1, 0.0, 0.0,
+                1, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 5, 0, 0), 0, 0));
+                new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(noiseUnitLabel, new GridBagConstraints(
-                3, 3, 1, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                2, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
         jPanel1.add(arrayCentredPanel, new GridBagConstraints(
-                2, 1, 2, 1, 0.0, 0.0,
+                2, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
         jPanel1.add(separateOffsPanel, new GridBagConstraints(
-                4, 1, 4, 1, 0.0, 0.0,
+                2, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
