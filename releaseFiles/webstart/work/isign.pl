@@ -1,5 +1,5 @@
 # keytool -genkey -keystore jac.keys -alias OT
-# keytool -import -alias JAC -file /ftp/pub/JAC_CA.crt -keystore jac.keys
+# keytool -import -alias EAO -file /ftp/pub/EAO_CA.crt -keystore jac.keys
 # jarsigner -keystore jac.keys -signedjar cfg.jar  lib/cfg.jar OT
 
 print "Enter password for keystore : ";
@@ -69,8 +69,8 @@ sub genkey {
 
     system('keytool', (
             '-import',
-            '-alias', 'JAC',
-            '-file', '/ftp/pub/JAC_CA.crt',
+            '-alias', 'EAO',
+            '-file', '/ftp/pub/EAO_CA.crt',
             '-keystore', $keystore,
             '-storepass', $password,
     ));
