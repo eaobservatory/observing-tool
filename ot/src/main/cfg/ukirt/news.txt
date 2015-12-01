@@ -1,3 +1,7 @@
++++ December 2015 release
+
+  - No changes for UKIRT.
+
 +++ July 2015 release
 
   - Added a validation reminder to the project store dialog.
