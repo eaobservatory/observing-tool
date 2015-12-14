@@ -88,13 +88,13 @@ public class JcmtSpValidation extends SpValidation {
                 /* Check for retired receivers which are still present to allow
                    programmes to be loaded successfully. */
                 if (spInstHeterodyne.getFrontEnd() != null
-                        && spInstHeterodyne.getFrontEnd().equals("A3M")) {
+                        && spInstHeterodyne.getFrontEnd().equals("A3")) {
                     report.add(new ErrorMessage(
                             ErrorMessage.WARNING,
                             titleString,
-                            "Receiver RxA3M was removed for repair in"
-                            + " February 2013.  Please update your programme"
-                            + " to use RxA3 and check your observing"
+                            "Receiver RxA3 was removed for upgrade in"
+                            + " November 2015.  Please update your program"
+                            + " to use RxA3M and check your observing"
                             + " frequencies carefully."));
                 }
 
