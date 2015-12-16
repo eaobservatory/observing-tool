@@ -57,7 +57,7 @@ public class FrequencyEditorCfg {
      */
     public FrequencyEditorCfg() {
         frontEnds = new String[]{
-                "A3M",
+                "A3m",
                 "A3",
                 "WB",
                 "WC",
@@ -66,13 +66,13 @@ public class FrequencyEditorCfg {
         };
 
         // Put the default mode (dsb or ssb) first in the array.
-        frontEndTable.put("A3M", new String[]{"dsb"});
+        frontEndTable.put("A3m", new String[]{"dsb"});
         frontEndTable.put("A3", new String[]{"dsb"});
         frontEndTable.put("WB", new String[]{"ssb", "dsb"});
         frontEndTable.put("WD", new String[]{"ssb", "dsb"});
         frontEndTable.put("HARP", new String[]{"ssb"});
 
-        frontEndMixers.put("A3M", new String[]{"Single Mixer"});
+        frontEndMixers.put("A3m", new String[]{"Single Mixer"});
         frontEndMixers.put("A3", new String[]{"Single Mixer"});
         frontEndMixers.put("WB", new String[]{"Single Mixer", "Dual Mixer"});
         frontEndMixers.put("WD", new String[]{"Single Mixer", "Dual Mixer"});

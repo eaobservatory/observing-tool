@@ -94,7 +94,7 @@ public class JcmtSpValidation extends SpValidation {
                             titleString,
                             "Receiver RxA3 was removed for upgrade in"
                             + " November 2015.  Please update your program"
-                            + " to use RxA3M and check your observing"
+                            + " to use RxA3m and check your observing"
                             + " frequencies carefully."));
                 }
 
