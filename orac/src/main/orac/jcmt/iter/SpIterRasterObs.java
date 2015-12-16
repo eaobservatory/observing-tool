@@ -223,6 +223,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements
                 scanVelocity = 280.0;
             } else if (avgSize <= 2200.0) {
                 scanVelocity = 400.0;
+            } else if (avgSize <= 3000.0) {
+                scanVelocity = 540.0;
             } else if (avgSize <= 4800.0) {
                 scanVelocity = 600.0;
             } else {
@@ -345,6 +347,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements
                 scanDy = 30.0;
             } else if (avgSize <= 2200.0) {
                 scanDy = 60.0;
+            } else if (avgSize <= 3000.0) {
+                scanDy = 105.0;
             } else if (avgSize <= 4800.0) {
                 scanDy = 180.0;
             } else {
