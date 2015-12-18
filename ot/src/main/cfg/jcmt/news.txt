@@ -1,3 +1,14 @@
++++ December 2015 release 2
+
+  - Updated RxA3m receiver tuning information and made this the default
+    instrument (in place of RxA3).  All RxA3 heterodyne setup components
+    will need to be changed to take account of the new IF frequency used
+    by RxA3m.
+
+  - Updated SCUBA-2 pong map parameters for sizes 2200-3000".  (This does
+    not directly control the parameters used by the telescope but does
+    improve the OT's time estimate for maps in this size range.)
+
 +++ December 2015 release
 
   - Rearranged observation panel so that HARP "Array Centred" option is
