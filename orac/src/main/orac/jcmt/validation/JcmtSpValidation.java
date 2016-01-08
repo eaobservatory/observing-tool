@@ -310,8 +310,15 @@ public class JcmtSpValidation extends SpValidation {
                                 "Chop iterator required for beam switch mode"));
                     }
                 } else if (switchingMode.equals(
-                                SpJCMTConstants.SWITCHING_MODE_POSITION)
-                        || switchingMode.equals(
+                                SpJCMTConstants.SWITCHING_MODE_POSITION)) {
+                    if (target != null
+                            && !(target.getPosList().exists("REFERENCE"))) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString,
+                                "Position-switched observation"
+                                + " requires a REFERENCE target."));
+                    }
+                } else if (switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)
                         || switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
@@ -319,8 +326,27 @@ public class JcmtSpValidation extends SpValidation {
                             && !(target.getPosList().exists("REFERENCE"))) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 titleString,
-                                "Position or Frequency switched observation"
-                                + " requires a REFERENCE target"));
+                                "Frequency-switched observation"
+                                + " requires a REFERENCE target."));
+                    }
+
+                    double frequencyThrow = thisObs.getFrequencyOffsetThrow();
+
+                    if (frequencyThrow == 0.0) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of 0.0 MHz."));
+                    } else if (frequencyThrow < 8.0) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of less than 8 MHz."));
+                    } else if (frequencyThrow > 32.0) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of greater than 32 MHz."));
                     }
                 }
             } else if (obsComp != null && !(obsComp instanceof SpInstSCUBA2)) {
