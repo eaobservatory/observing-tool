@@ -33,6 +33,7 @@ import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.iter.SpIterJCMTObs;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.iter.SpIterChop;
 import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
@@ -366,6 +367,34 @@ public class JcmtSpValidation extends SpValidation {
 
             } else if (recipe != null) {
                 checkDRRecipe(recipe, report, titleString, thisObs, obsComp);
+            }
+
+            // Check whether the observe specifies rotator angles.  If so
+            // see if there's a scheduling constraint.
+            double[] angle = thisObs.getRotatorAngles();
+            if ((angle != null) && (angle.length > 0)) {
+                SpSchedConstObsComp schedConst
+                    = (SpSchedConstObsComp) SpTreeMan.findSpItemOfType(
+                        thisObs, SpSchedConstObsComp.class);
+
+                if (schedConst == null) {
+                    report.add(new ErrorMessage(
+                        ErrorMessage.WARNING, titleString,
+                        "Observation has a rotator angle restriction but no"
+                        + " scheduling constraint.  Please add a constraint"
+                        + " to indicate at which elevations it is possible"
+                        + " to perform this observation."));
+                } else {
+                    report.add(new ErrorMessage(
+                        ErrorMessage.WARNING, titleString,
+                        "Restricting the rotator angle is an experimental"
+                        + " feature.  Please check that you really want to"
+                        + " apply this restriction and ensure that your"
+                        + " scheduling constraint indicates at which"
+                        + " elevations it is possible to perform this"
+                        + " observation.  Otherwise consider removing"
+                        + " the restriction (by unselecting all angles)."));
+                }
             }
         }
 
