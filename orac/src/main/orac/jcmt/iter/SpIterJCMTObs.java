@@ -19,6 +19,8 @@
 
 package orac.jcmt.iter;
 
+import java.util.Vector;
+
 import gemini.sp.SpType;
 
 import gemini.sp.iter.SpIterEnumeration;
@@ -370,6 +372,7 @@ public class SpIterJCMTObs extends SpIterObserveBase
 
     public void setupForSCUBA2() {
         _avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+        _avTable.noNotifyRm(ATTR_ROTATOR_ANGLES);
     }
 
     /**
@@ -387,5 +390,37 @@ public class SpIterJCMTObs extends SpIterObserveBase
                 SWITCHING_MODE_FREQUENCY_F,
                 SWITCHING_MODE_NONE,
         };
+    }
+
+    public double[] getRotatorAngles() {
+        Vector<String> angles = _avTable.getAll(ATTR_ROTATOR_ANGLES);
+
+        if (angles == null) {
+            return new double[] {};
+        }
+
+        double[] array = new double[angles.size()];
+        int i = 0;
+
+        for (String angle: angles) {
+            array[i ++] = Double.parseDouble(angle);
+        }
+
+        return array;
+    }
+
+    public void setRotatorAngles(double[] angles) {
+        if ((angles == null) || (angles.length == 0)) {
+            _avTable.rm(ATTR_ROTATOR_ANGLES);
+            return;
+        }
+
+        Vector<String> vector = new Vector<String>();
+
+        for (double angle: angles) {
+            vector.add(Double.toString(angle));
+        }
+
+        _avTable.setAll(ATTR_ROTATOR_ANGLES, vector);
     }
 }

@@ -19,12 +19,18 @@
 
 package ot.jcmt.iter.editor;
 
+import java.util.ArrayList;
+
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
@@ -72,6 +78,11 @@ public class IterJCMTGenericGUI extends JPanel {
     CheckBoxWidgetExt separateOffs = new CheckBoxWidgetExt();
     JLabel separateOffsLabel = new JLabel();
     JPanel separateOffsPanel = new JPanel();
+
+    JPanel rotatorAnglesPanel = new JPanel();
+
+    ArrayList<RotatorAngleListener> rotatorAngleListeners
+        = new ArrayList<RotatorAngleListener>();
 
     public IterJCMTGenericGUI() {
         try {
@@ -153,6 +164,12 @@ public class IterJCMTGenericGUI extends JPanel {
         noiseUnitLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         noiseUnitLabel.setForeground(Color.black);
         noiseUnitLabel.setText("(mJy)");
+
+        rotatorAnglesPanel.setBorder(new TitledBorder(
+                BorderFactory.createLineBorder(new Color(153, 153, 153), 2),
+                        "Rotator Angles"));
+        rotatorAnglesPanel.setVisible(false);
+
         this.add(jPanel1, BorderLayout.NORTH);
 
         jPanel1.add(switchingModeLabel, new GridBagConstraints(
@@ -189,6 +206,11 @@ public class IterJCMTGenericGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
+        jPanel1.add(rotatorAnglesPanel, new GridBagConstraints(
+                0, 4, 3, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+
         frequencyPanel.add(jLabel8, new GridBagConstraints(
                 0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -219,5 +241,82 @@ public class IterJCMTGenericGUI extends JPanel {
         rateLabel.setVisible(visible);
         frequencyOffset_rate.setVisible(visible);
         hertzLabel.setVisible(visible);
+    }
+
+    public interface RotatorAngleListener {
+        void rotatorAnglesChanged(double[] angles);
+    }
+
+    public void addRotatorAngleListener(RotatorAngleListener listener) {
+        rotatorAngleListeners.add(listener);
+    }
+
+    public void setAvailableRotatorAngles(double[] angles) {
+        rotatorAnglesPanel.removeAll();
+
+        if (angles == null) {
+            rotatorAnglesPanel.setVisible(false);
+            return;
+        }
+
+        for (int i = 0; i < angles.length; i ++) {
+            JCheckBox checkbox = new JCheckBox(Double.toString(angles[i]));
+            checkbox.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    double[] selected = getSelectedRotatorAngles();
+                    for (RotatorAngleListener listener:
+                            rotatorAngleListeners) {
+                        listener.rotatorAnglesChanged(selected);
+                    }
+                }
+            });
+            rotatorAnglesPanel.add(checkbox);
+        }
+
+        rotatorAnglesPanel.setVisible(true);
+    }
+
+    public void setSelectedRotatorAngles(double[] angles) {
+        Component[] checkboxes = rotatorAnglesPanel.getComponents();
+        for (Component checkbox_: checkboxes) {
+            JCheckBox checkbox = (JCheckBox) checkbox_;
+
+            double checkbox_angle = Double.parseDouble(checkbox.getText());
+
+            boolean found = false;
+            for (double angle: angles) {
+                if (Math.abs(angle - checkbox_angle) < 0.001) {
+                    found = true;
+                    break;
+                }
+            }
+
+            checkbox.setSelected(found);
+        }
+    }
+
+    public double[] getSelectedRotatorAngles() {
+        // Construct ArrayList of selected angles.
+        ArrayList<Double> selected = new ArrayList<Double>();
+
+        Component[] checkboxes = rotatorAnglesPanel.getComponents();
+        for (Component checkbox_: checkboxes) {
+            JCheckBox checkbox = (JCheckBox) checkbox_;
+
+            if (checkbox.isSelected()) {
+                double angle = Double.parseDouble(checkbox.getText());
+                selected.add(angle);
+            }
+        }
+
+        // Convert ArrayList to plain double array and return.
+        double[] array = new double[selected.size()];
+
+        int i = 0;
+        for (Double angle: selected) {
+            array[i ++] = angle;
+        }
+
+        return array;
     }
 }
