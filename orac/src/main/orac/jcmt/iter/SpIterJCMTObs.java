@@ -98,6 +98,13 @@ public class SpIterJCMTObs extends SpIterObserveBase
         _avTable.noNotifyRm(ATTR_COUNT);
     }
 
+    public boolean avAttributeAlwaysVector(String avAttr) {
+        if (avAttr.equals(ATTR_ROTATOR_ANGLES)) {
+            return true;
+        }
+        return super.avAttributeAlwaysVector(avAttr);
+    }
+
     /**
      * Calculates the estimated duration of this Observe ("Eye").
      *
