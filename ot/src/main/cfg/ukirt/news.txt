@@ -1,4 +1,4 @@
-+++ December 2015 release 2
++++ January 2016 release
 
   - No changes for UKIRT.
 

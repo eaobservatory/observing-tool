@@ -1,4 +1,4 @@
-+++ December 2015 release 2
++++ January 2016 release
 
   - Updated RxA3m receiver tuning information and made this the default
     instrument (in place of RxA3).  All RxA3 heterodyne setup components
@@ -8,6 +8,14 @@
   - Updated SCUBA-2 pong map parameters for sizes 2200-3000".  (This does
     not directly control the parameters used by the telescope but does
     improve the OT's time estimate for maps in this size range.)
+
+  - Added the ability to specify allowed rotator (K-mirror) relative angles
+    for HARP jiggle and stare observations.  You should only use this
+    feature if you are sure your program requires it, otherwise the
+    angles should be left all unselected (as they are by default).
+    If you do restrict the angles, you may need to add a scheduling
+    constraint in order to specify at which elevation your observation
+    can be performed.
 
 +++ December 2015 release
 
