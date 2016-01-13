@@ -203,6 +203,7 @@
       <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
+      <xsd:element name="rotatorAngles"   type="toml:angleList"             minOccurs="0"/>
       <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="separateOffs"    type="xsd:boolean"                minOccurs="0"/>
@@ -231,6 +232,7 @@
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
           <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
           <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
+          <xsd:element name="rotatorAngles"   type="toml:angleList" minOccurs="0"/>
           <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
           <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
           <xsd:element name="separateOffs"    type="xsd:boolean" minOccurs="0"/>
