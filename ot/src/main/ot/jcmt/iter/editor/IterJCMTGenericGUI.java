@@ -79,6 +79,7 @@ public class IterJCMTGenericGUI extends JPanel {
     JLabel separateOffsLabel = new JLabel();
     JPanel separateOffsPanel = new JPanel();
 
+    JPanel rotatorAnglesLabeledPanel = new JPanel();
     JPanel rotatorAnglesPanel = new JPanel();
 
     ArrayList<RotatorAngleListener> rotatorAngleListeners
@@ -165,10 +166,19 @@ public class IterJCMTGenericGUI extends JPanel {
         noiseUnitLabel.setForeground(Color.black);
         noiseUnitLabel.setText("(mJy)");
 
-        rotatorAnglesPanel.setBorder(new TitledBorder(
+        rotatorAnglesLabeledPanel.setBorder(new TitledBorder(
                 BorderFactory.createLineBorder(new Color(153, 153, 153), 2),
                         "Rotator Angles"));
-        rotatorAnglesPanel.setVisible(false);
+        rotatorAnglesLabeledPanel.setLayout(new BorderLayout());
+        rotatorAnglesLabeledPanel.add(
+                new JLabel(
+                    "<html>If your program requires specific orientations<br>"
+                    + "of the array, select acceptable rotator angles.<br>"
+                    + "Otherwise please leave all angles unchecked for<br>"
+                    + "an automatic selection.</html>"),
+                BorderLayout.NORTH);
+        rotatorAnglesLabeledPanel.add(rotatorAnglesPanel, BorderLayout.CENTER);
+        rotatorAnglesLabeledPanel.setVisible(false);
 
         this.add(jPanel1, BorderLayout.NORTH);
 
@@ -206,7 +216,7 @@ public class IterJCMTGenericGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
-        jPanel1.add(rotatorAnglesPanel, new GridBagConstraints(
+        jPanel1.add(rotatorAnglesLabeledPanel, new GridBagConstraints(
                 0, 4, 3, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
@@ -255,7 +265,7 @@ public class IterJCMTGenericGUI extends JPanel {
         rotatorAnglesPanel.removeAll();
 
         if (angles == null) {
-            rotatorAnglesPanel.setVisible(false);
+            rotatorAnglesLabeledPanel.setVisible(false);
             return;
         }
 
@@ -273,7 +283,7 @@ public class IterJCMTGenericGUI extends JPanel {
             rotatorAnglesPanel.add(checkbox);
         }
 
-        rotatorAnglesPanel.setVisible(true);
+        rotatorAnglesLabeledPanel.setVisible(true);
     }
 
     public void setSelectedRotatorAngles(double[] angles) {
