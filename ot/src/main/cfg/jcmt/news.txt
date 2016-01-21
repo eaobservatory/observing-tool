@@ -3,7 +3,9 @@
   - Updated RxA3m receiver tuning information and made this the default
     instrument (in place of RxA3).  All RxA3 heterodyne setup components
     will need to be changed to take account of the new IF frequency used
-    by RxA3m.
+    by RxA3m.  Note that the tuning range of RxA3m has been estimated as
+    the same as that of RxA3.  The OT will be updated again once the exact
+    tuning range of RxA3m is known.
 
   - Updated SCUBA-2 pong map parameters for sizes 2200-3000".  (This does
     not directly control the parameters used by the telescope but does
