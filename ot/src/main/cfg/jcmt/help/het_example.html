@@ -55,6 +55,7 @@
             <li><a href="#het_tpe">The Position Editor</a></li>
             <li><a href="#velocities">Velocities: The Het Setup and Target Component</a></li>
             <li><a href="#het_cal">Calibrations</a></li>
+            <li><a href="#het_rotator">Rotator Angles</a></li>
         </ul>
     </li>
 </ul>
@@ -2439,6 +2440,37 @@ Issues to consider regarding calibrations may be:
 </ul>
 
 
+<h2 id="het_rotator">Rotator Angles</h2>
+
+<p>
+When you observe with HARP, the telescope control system will
+select the array orientation from a series of allowed
+angles with respect to the area being mapped.
+For jiggle and grid (including stare) observations,
+the array could normally be oriented at
+0, 90, 180 or 270 (-90) degrees to your map area.
+</p>
+
+<p>
+If your program requires that you control the orientation of the
+HARP array, you can use the "Rotator Angles" checkboxes
+on the Jiggle or Stare panel.
+If you select any angles here, then the TCS will choose
+from the angles you have selected.
+Otherwise &mdash; if you leave all of the angles unselected &mdash;
+the observing sofware will automatically
+generate a list of possible angles.
+</p>
+
+<p>
+For more information about the HARP K-mirror, please see the
+<a href="http://www.eaobservatory.org/jcmt/instrumentation/heterodyne/harp/k-mirror/">
+HARP K-mirror information page</a>.
+</p>
+
+<p>
+<img src="het_images/het_rotator.png" alt="Selection of rotator angles" width="939" height="570" class="figure" />
+</p>
 
 
 <nav>

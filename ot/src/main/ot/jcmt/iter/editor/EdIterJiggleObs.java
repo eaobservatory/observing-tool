@@ -42,7 +42,8 @@ import ot.util.DialogUtil;
  * @author modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
-        CommandButtonWidgetWatcher, SpJCMTConstants {
+        CommandButtonWidgetWatcher, SpJCMTConstants,
+        IterJCMTGenericGUI.RotatorAngleListener {
     private IterJiggleObsGUI _w; // the GUI layout panel
     private SpIterJiggleObs _iterObs;
     private String[] _noJigglePatterns = {"No Instrument in scope."};
@@ -70,6 +71,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
         super._w.separateOffs.addWatcher(this);
         super._w.separateOffsLabel.setVisible(true);
         super._w.separateOffs.setVisible(true);
+
+        _w.addRotatorAngleListener(this);
     }
 
     /**
@@ -151,6 +154,11 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
         super._w.separateOffs.setSelected(_iterObs.hasSeparateOffs());
 
         super._updateWidgets();
+
+        // Do this last as super._updateWidgets resets the instrument,
+        // clearing the rotator angle selection.
+        _w.setSelectedRotatorAngles(_iterObs.getRotatorAngles());
+
     }
 
     public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
@@ -280,6 +288,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
     public void setInstrument(SpInstObsComp spInstObsComp) {
         super.setInstrument(spInstObsComp);
 
+        double[] rotatorAngles = null;
+
         if ((spInstObsComp != null)
                 && (spInstObsComp instanceof SpInstHeterodyne)) {
             _w.switchingMode.setChoices(_iterObs.getSwitchingModeOptions());
@@ -293,9 +303,16 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
 
             _w.acsisPanel.setVisible(true);
 
+            if (((SpInstHeterodyne) spInstObsComp).getFrontEnd().equals(
+                    "HARP")) {
+                rotatorAngles = new double[] {0.0, 90.0, 180.0, 270.0};
+            }
+
         } else {
             _w.acsisPanel.setVisible(false);
         }
+
+        _w.setAvailableRotatorAngles(rotatorAngles);
     }
 
     protected double calculateNoise(SpInstHeterodyne inst, double airmass,
@@ -314,5 +331,9 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
         } else {
             return -999.9;
         }
+    }
+
+    public void rotatorAnglesChanged(double[] angles) {
+        _iterObs.setRotatorAngles(angles);
     }
 }

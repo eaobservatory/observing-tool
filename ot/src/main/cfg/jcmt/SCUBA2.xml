@@ -117,12 +117,11 @@ See the examples under "Example optionals".</note>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterRasterObs type="ic" subtype="rasterObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <SCAN_AREA>
-                  <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                  <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
+                  <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                  <SCAN DY="30.0" VELOCITY="90.0" SYSTEM="FPLANE">
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
@@ -633,12 +632,11 @@ See the examples under "Example optionals".</note>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <repeatCount>1</repeatCount>
               <SpIterRasterObs type="ic" subtype="rasterObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
                   <PA>0.0</PA>
                   <SCAN_AREA>
-                    <AREA HEIGHT="100.0" WIDTH="100.0"/>
-                    <SCAN DY="30.0" VELOCITY="50.0" SYSTEM="FPLANE">
+                    <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                    <SCAN DY="30.0" VELOCITY="90.0" SYSTEM="FPLANE">
                     </SCAN>
                   </SCAN_AREA>
                 </obsArea>

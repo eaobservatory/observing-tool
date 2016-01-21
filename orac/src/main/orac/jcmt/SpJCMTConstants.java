@@ -213,6 +213,7 @@ public interface SpJCMTConstants {
     public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
     public static final String ATTR_JIGGLE_PATTERN = "jigglePattern";
     public static final String ATTR_JIGGLES_PER_CYCLE = "jigglePerCycle";
+    public static final String ATTR_ROTATOR_ANGLES = "rotatorAngles";
 
     /** Stare Iterator. */
     public static final String[] STARE_SYSTEMS = {

@@ -417,7 +417,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
      * Initialises the default values in SpInstHeterodyne.
      */
     private void _initialiseInstHeterodyne() {
-        String frontEndName = _cfg.frontEnds[1];
+        String frontEndName = _cfg.frontEnds[0];
         _receiver = _cfg.receivers.get(frontEndName);
         BandSpec bandSpec = _receiver.bandspecs.get(0);
 

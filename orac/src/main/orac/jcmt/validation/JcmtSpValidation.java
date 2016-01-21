@@ -33,6 +33,7 @@ import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.iter.SpIterJCMTObs;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.iter.SpIterChop;
 import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
@@ -88,13 +89,13 @@ public class JcmtSpValidation extends SpValidation {
                 /* Check for retired receivers which are still present to allow
                    programmes to be loaded successfully. */
                 if (spInstHeterodyne.getFrontEnd() != null
-                        && spInstHeterodyne.getFrontEnd().equals("A3M")) {
+                        && spInstHeterodyne.getFrontEnd().equals("A3")) {
                     report.add(new ErrorMessage(
                             ErrorMessage.WARNING,
                             titleString,
-                            "Receiver RxA3M was removed for repair in"
-                            + " February 2013.  Please update your programme"
-                            + " to use RxA3 and check your observing"
+                            "Receiver RxA3 was removed for upgrade in"
+                            + " November 2015.  Please update your program"
+                            + " to use RxA3m and check your observing"
                             + " frequencies carefully."));
                 }
 
@@ -310,8 +311,15 @@ public class JcmtSpValidation extends SpValidation {
                                 "Chop iterator required for beam switch mode"));
                     }
                 } else if (switchingMode.equals(
-                                SpJCMTConstants.SWITCHING_MODE_POSITION)
-                        || switchingMode.equals(
+                                SpJCMTConstants.SWITCHING_MODE_POSITION)) {
+                    if (target != null
+                            && !(target.getPosList().exists("REFERENCE"))) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString,
+                                "Position-switched observation"
+                                + " requires a REFERENCE target."));
+                    }
+                } else if (switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)
                         || switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
@@ -319,8 +327,27 @@ public class JcmtSpValidation extends SpValidation {
                             && !(target.getPosList().exists("REFERENCE"))) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 titleString,
-                                "Position or Frequency switched observation"
-                                + " requires a REFERENCE target"));
+                                "Frequency-switched observation"
+                                + " requires a REFERENCE target."));
+                    }
+
+                    double frequencyThrow = thisObs.getFrequencyOffsetThrow();
+
+                    if (frequencyThrow == 0.0) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of 0.0 MHz."));
+                    } else if (frequencyThrow < 8.0) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of less than 8 MHz."));
+                    } else if (frequencyThrow > 32.0) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Frequency-switched observation has a"
+                                + " frequency throw of greater than 32 MHz."));
                     }
                 }
             } else if (obsComp != null && !(obsComp instanceof SpInstSCUBA2)) {
@@ -340,6 +367,34 @@ public class JcmtSpValidation extends SpValidation {
 
             } else if (recipe != null) {
                 checkDRRecipe(recipe, report, titleString, thisObs, obsComp);
+            }
+
+            // Check whether the observe specifies rotator angles.  If so
+            // see if there's a scheduling constraint.
+            double[] angle = thisObs.getRotatorAngles();
+            if ((angle != null) && (angle.length > 0)) {
+                SpSchedConstObsComp schedConst
+                    = (SpSchedConstObsComp) SpTreeMan.findSpItemOfType(
+                        thisObs, SpSchedConstObsComp.class);
+
+                if (schedConst == null) {
+                    report.add(new ErrorMessage(
+                        ErrorMessage.WARNING, titleString,
+                        "Observation has a rotator angle restriction but no"
+                        + " scheduling constraint.  Please add a constraint"
+                        + " to indicate at which elevations it is possible"
+                        + " to perform this observation."));
+                } else {
+                    report.add(new ErrorMessage(
+                        ErrorMessage.WARNING, titleString,
+                        "Restricting the rotator angle is an experimental"
+                        + " feature.  Please check that you really want to"
+                        + " apply this restriction and ensure that your"
+                        + " scheduling constraint indicates at which"
+                        + " elevations it is possible to perform this"
+                        + " observation.  Otherwise consider removing"
+                        + " the restriction (by unselecting all angles)."));
+                }
             }
         }
 

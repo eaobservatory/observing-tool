@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>ACSIS.xml</meta_gui_filename>
-  <ot_version>20150413</ot_version>
+  <ot_version>20151217</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -187,7 +187,7 @@ Issue to consider may be:
             </BASE>
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <estimatedDuration units="seconds">227.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
@@ -199,6 +199,8 @@ Issue to consider may be:
                 <SpIterStareObs type="ic" subtype="stareObs">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <secsPerCycle>60</secsPerCycle>
+                  <separateOffs>true</separateOffs>
+                  <stareSystem>TRACKING</stareSystem>
                   <switchingMode>Position</switchingMode>
                 </SpIterStareObs>
               </SpIterRepeat>
@@ -370,7 +372,7 @@ Issue to consider may be:
             </BASE>
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <estimatedDuration units="seconds">238.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
@@ -390,6 +392,7 @@ Issue to consider may be:
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <secsPerCycle>60</secsPerCycle>
+                    <stareSystem>TRACKING</stareSystem>
                     <switchingMode>Beam</switchingMode>
                   </SpIterStareObs>
                 </SpIterChop>
@@ -598,6 +601,7 @@ Issue to consider may be:
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <secsPerCycle>60</secsPerCycle>
+                    <separateOffs>true</separateOffs>
                     <switchingMode>Position</switchingMode>
                   </SpIterStareObs>
                 </SpIterOffset>
@@ -1186,6 +1190,7 @@ Issue to consider may be:
                 <repeatCount>1</repeatCount>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                   <obsArea>
                     <PA>0.0</PA>
                     <OFFSET>
@@ -1603,6 +1608,7 @@ Issue to consider may be:
                 <repeatCount>1</repeatCount>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                   <obsArea>
                     <PA>0.0</PA>
                     <OFFSET>
@@ -2586,7 +2592,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -2709,6 +2715,7 @@ Issue to consider may be:
                 <SpIterStareObs type="ic" subtype="stareObs">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <secsPerCycle>60</secsPerCycle>
+                  <separateOffs>true</separateOffs>
                   <switchingMode>Position</switchingMode>
                 </SpIterStareObs>
               </SpIterRepeat>
@@ -2787,7 +2794,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -2991,7 +2998,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -3124,6 +3131,7 @@ Issue to consider may be:
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <secsPerCycle>60</secsPerCycle>
+                    <separateOffs>true</separateOffs>
                     <switchingMode>Position</switchingMode>
                   </SpIterStareObs>
                 </SpIterOffset>
@@ -3203,7 +3211,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -3418,7 +3426,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -3624,7 +3632,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -3736,6 +3744,7 @@ Issue to consider may be:
                 <repeatCount>1</repeatCount>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                   <obsArea>
                     <PA>0.0</PA>
                     <OFFSET>
@@ -3840,7 +3849,7 @@ Things to include in your notes
             <feIF>4.0E9</feIF>
             <feName>WD</feName>
             <mixers>1</mixers>
-            <mode>dsb</mode>
+            <mode>ssb</mode>
             <skyFrequency>6.914730763E11</skyFrequency>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -4169,6 +4178,7 @@ Issue to consider may be:
                 <repeatCount>1</repeatCount>
                 <SpIterOffset type="ic" subtype="offset">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                   <obsArea>
                     <PA>0.0</PA>
                     <OFFSET>
@@ -5130,8 +5140,8 @@ Issue to consider may be:
           <bandMode>1</bandMode>
           <beName>acsis</beName>
           <feBandWidth>1.8E9</feBandWidth>
-          <feIF>4.0E9</feIF>
-          <feName>A3</feName>
+          <feIF>5.0E9</feIF>
+          <feName>A3m</feName>
           <mixers>1</mixers>
           <mode>dsb</mode>
           <skyFrequency>2.30538E11</skyFrequency>
@@ -5141,7 +5151,7 @@ Issue to consider may be:
           <!-- - - - - - - - - - - - - - - - - - - - - -->
 
           <subsystems>
-              <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
+              <subsystem if="5.0E9" bw="1.0E9" overlap="0.0" channels="2048">
                   <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
               </subsystem>
           </subsystems>
@@ -5168,7 +5178,7 @@ Issue to consider may be:
           </BASE>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">120.0</estimatedDuration>
           <standard>true</standard>
           <title>Observation</title>
@@ -5217,8 +5227,8 @@ Issue to consider may be:
           <bandMode>1</bandMode>
           <beName>acsis</beName>
           <feBandWidth>1.8E9</feBandWidth>
-          <feIF>4.0E9</feIF>
-          <feName>A3</feName>
+          <feIF>5.0E9</feIF>
+          <feName>A3m</feName>
           <mixers>1</mixers>
           <mode>dsb</mode>
           <skyFrequency>2.30538E11</skyFrequency>
@@ -5228,7 +5238,7 @@ Issue to consider may be:
           <!-- - - - - - - - - - - - - - - - - - - - - -->
 
           <subsystems>
-              <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
+              <subsystem if="5.0E9" bw="1.0E9" overlap="0.0" channels="2048">
                   <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
               </subsystem>
           </subsystems>
@@ -5255,7 +5265,7 @@ Issue to consider may be:
           </BASE>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <estimatedDuration units="seconds">150.0</estimatedDuration>
           <standard>true</standard>
           <title>Observation</title>
@@ -5613,6 +5623,7 @@ calibration and science targets.</note>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <secsPerCycle>60</secsPerCycle>
                 <separateOffs>true</separateOffs>
+                <stareSystem>TRACKING</stareSystem>
                 <switchingMode>Position</switchingMode>
               </SpIterStareObs>
             </SpIterRepeat>
@@ -5939,6 +5950,7 @@ calibration and science targets.</note>
                 <SpIterStareObs type="ic" subtype="stareObs">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <secsPerCycle>60</secsPerCycle>
+                  <stareSystem>TRACKING</stareSystem>
                   <switchingMode>Beam</switchingMode>
                 </SpIterStareObs>
               </SpIterChop>
@@ -6279,6 +6291,7 @@ calibration and science targets.</note>
                 <rowsPerCal>1</rowsPerCal>
                 <rowsPerRef>1</rowsPerRef>
                 <sampleTime>5.0</sampleTime>
+                <scanPattern>Boustrophedon</scanPattern>
                 <switchingMode>Position</switchingMode>
               </SpIterRasterObs>
             </SpIterRepeat>

@@ -292,4 +292,10 @@
   </xsd:all>
 </xsd:complexType>
 
+<xsd:complexType name="angleList">
+  <xsd:sequence>
+    <xsd:element name="value" type="toml:degrees360" minOccurs="1" maxOccurs="unbounded"/>
+  </xsd:sequence>
+</xsd:complexType>
+
 </xsd:schema>

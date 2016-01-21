@@ -50,7 +50,8 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
  */
 public final class EdIterStareObs extends EdIterJCMTGeneric implements
         ActionListener, CheckBoxWidgetWatcher, TextBoxWidgetWatcher,
-        SpJCMTConstants, DropDownListBoxWidgetWatcher {
+        SpJCMTConstants, DropDownListBoxWidgetWatcher,
+        IterJCMTGenericGUI.RotatorAngleListener {
     private IterStareObsGUI _w; // the GUI layout panel
     private SpIterStareObs _iterObs;
 
@@ -75,6 +76,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
         _w.paTextBox.addWatcher(this);
         _w.coordSys.addWatcher(this);
         _w.secsPerOffsetSample.addWatcher(this);
+
+        _w.addRotatorAngleListener(this);
 
         _w.paTextBox.setEnabled(false);
     }
@@ -124,6 +127,10 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
         }
 
         super._updateWidgets();
+
+        // Do this last as super._updateWidgets resets the instrument,
+        // clearing the rotator angle selection.
+        _w.setSelectedRotatorAngles(_iterObs.getRotatorAngles());
     }
 
     private void updateSeparateOffs() {
@@ -189,6 +196,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
             return;
         }
 
+        double[] rotatorAngles = null;
+
         if (spInstObsComp instanceof SpInstHeterodyne) {
             _w.acsisPanel.setVisible(true);
             _w.scuba2Panel.setVisible(false);
@@ -197,6 +206,11 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
             _w.mapPanel.setVisible(true);
             _iterObs.setupForHeterodyne();
             updateSeparateOffs();
+
+            if (((SpInstHeterodyne) spInstObsComp).getFrontEnd().equals(
+                    "HARP")) {
+                rotatorAngles = new double[] {0.0, 90.0, 180.0, 270.0};
+            }
 
         } else if (spInstObsComp instanceof SpInstSCUBA2) {
             _w.informationPanel.setVisible(false);
@@ -212,6 +226,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
             _w.widePhotom.setVisible(true);
             _w.mapPanel.setVisible(true);
         }
+
+        _w.setAvailableRotatorAngles(rotatorAngles);
 
         super.setInstrument(spInstObsComp);
     }
@@ -334,5 +350,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements
             _w.paTextBox.setValue(_iterObs.getPosAngle());
             _w.coordSys.setValue(_iterObs.getCoordSys());
         }
+    }
+
+    public void rotatorAnglesChanged(double[] angles) {
+        _iterObs.setRotatorAngles(angles);
     }
 }

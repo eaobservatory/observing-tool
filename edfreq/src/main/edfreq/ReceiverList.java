@@ -48,7 +48,7 @@ public class ReceiverList {
 
         receivers.put("HARP-B", r);
 
-        r = new Receiver("A3M", 211.0E9, 255.0E9, 5.7E9, 4.0E9);
+        r = new Receiver("A3m", 215.0E9, 272.0E9, 5.0E9, 1.8E9);
 
         r.bandspecs.add(new BandSpec("1-system", 1,
                 new double[]{1.0E9, 4.0E9},
@@ -62,7 +62,7 @@ public class ReceiverList {
                 new double[]{0.25E9, 1.0E9},
                 new int[]{4096, 1024}));
 
-        receivers.put("A3M", r);
+        receivers.put("A3m", r);
 
         r = new Receiver("A3", 215.0E9, 272.0E9, 4.0E9, 1.8E9);
 

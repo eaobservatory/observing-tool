@@ -1119,7 +1119,8 @@ public class SpItem extends Observable implements Cloneable,
         }
 
         if (!avAttr.startsWith(":")) {
-            if (_avTable.size(avAttr) == 1) {
+            if ((_avTable.size(avAttr) == 1)
+                    && (! avAttributeAlwaysVector(avAttr))) {
                 xmlBuffer.append("\n  " + indent
                         + avToXml(avAttr, _avTable.get(avAttr)));
             } else {
@@ -1141,6 +1142,14 @@ public class SpItem extends Observable implements Cloneable,
                 xmlBuffer.append("\n  " + indent + "</" + avAttr + ">");
             }
         }
+    }
+
+    /**
+     * Indicate whether an attribute should always be written to XML
+     * as a "vector" of &lt;value&gt;...&lt;/value&gt; elements.
+     */
+    public boolean avAttributeAlwaysVector(String avAttr) {
+        return false;
     }
 
     /**
