@@ -1450,7 +1450,10 @@ public class UkirtSpValidation extends SpValidation {
                 minEl = AirmassUtilities.elevationToAirmass(minEl);
                 maxEl = AirmassUtilities.elevationToAirmass(maxEl);
 
-                if (minEl > 2.0) {
+                // Allow a value slightly over 2 to account for rounding
+                // errors as the value is stored as elevation and converted
+                // back to airmass.  See fault 20160319.001.
+                if (minEl > 2.000001) {
                     report.add(new ErrorMessage(
                             ErrorMessage.ERROR,
                             "Max elevation as airmass in schedule constraint"
