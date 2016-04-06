@@ -615,7 +615,7 @@ if any additionas are made to the list.
 		<transition frequency="316456.9101" name="11 1 10  - 11 1 11"/>
 		<transition frequency="351768.6577" name="5 1 5  - 4 1 4"/>
 		<transition frequency="362736.048" name="5 0 5  - 4 0 4"/>
-		<transition frequency="363945.894" name="5 2 3  - 4 2 3"/>
+		<transition frequency="363945.894" name="5 2 4  - 4 2 3"/>
 		<transition frequency="364103.249" name="5 4 2  - 4 4 1"/>
 		<transition frequency="364275.141" name="5 3 3  - 4 3 2"/>
 		<transition frequency="364288.884" name="5 3 2  - 4 3 1"/>
