@@ -112,7 +112,7 @@ public class FrequencyTable extends JPanel implements ActionListener {
         JLabel lineTitle = new JLabel(" Line", SwingConstants.CENTER);
         JLabel loTitle = new JLabel("IF", SwingConstants.CENTER);
         JLabel bwTitle = new JLabel("BW", SwingConstants.CENTER);
-        JLabel resTitle = new JLabel("Res (KHz)", SwingConstants.CENTER);
+        JLabel resTitle = new JLabel("Res (kHz)", SwingConstants.CENTER);
         JLabel usbTitle = new JLabel("USB", SwingConstants.CENTER);
 
         for (i = 0; i < 6; i++) {
