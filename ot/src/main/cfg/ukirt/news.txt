@@ -1,3 +1,7 @@
++++ April 2016 release
+
+  - Adjustment to validator for airmass 2.0.
+
 +++ January 2016 release
 
   - No changes for UKIRT.

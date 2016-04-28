@@ -1,3 +1,12 @@
++++ April 2016 release
+
+  - Changed RxA3m IF frequency to 4 GHz.  Existing RxA3m heterodyne
+    setup components should be recreated to use the new IF frequency.
+
+  - Corrected name of H2CO 5 2 4 - 4 2 3 transition.  Existing heterodyne
+    setup components using this transition should be updated as the old
+    (incorrect) name will no longer be recognized.
+
 +++ January 2016 release
 
   - Updated RxA3m receiver tuning information and made this the default
