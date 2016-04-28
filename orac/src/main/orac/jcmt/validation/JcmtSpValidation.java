@@ -379,7 +379,7 @@ public class JcmtSpValidation extends SpValidation {
 
                 if (schedConst == null) {
                     report.add(new ErrorMessage(
-                        ErrorMessage.WARNING, titleString,
+                        ErrorMessage.ERROR, titleString,
                         "Observation has a rotator angle restriction but no"
                         + " scheduling constraint.  Please add a constraint"
                         + " to indicate at which elevations it is possible"
