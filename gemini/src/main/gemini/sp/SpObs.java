@@ -450,6 +450,13 @@ public class SpObs extends SpMSB implements SpTranslatable,
             v.add("setHeader PROJECT " + spAvTable.get("project"));
         }
 
+        // Add QUEUE header (from OMP primary country queue name) for
+        // archiving: MHP will use this to determine whether data should
+        // be sent to CASU or to LMATC.
+        if (spAvTable.exists("omp_queue")) {
+            v.add("-setHeader QUEUE " + spAvTable.get("omp_queue"));
+        }
+
         // Add schedulable info headers in case the pipeline wants to do QA (Frossie)
 
         if (spAvTable.exists("rq_minsb")) {
