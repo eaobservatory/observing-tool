@@ -148,19 +148,6 @@ public final class OtProgWindow extends OtWindow implements StopActionWatcher {
     }
 
     /**
-     * Fetch a science program from an online database.
-     */
-    public void fetchFromOnlineDatabase() {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                OT.getDatabaseDialog().fetchProgram();
-            }
-        });
-
-        t.start();
-    }
-
-    /**
      * Store the current science program to an online database.
      */
     public void storeToOnlineDatabase() {
