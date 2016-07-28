@@ -711,9 +711,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
         parent.setVisible(false);
         parent.dispose();
 
-        // TODO: eliminate this cast?
-        OT.removeOtWindowFrame((OtWindowFrame) parent);
-
         return true;
     }
 

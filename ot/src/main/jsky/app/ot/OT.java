@@ -49,10 +49,6 @@ import gemini.util.ObservingToolUtilities;
 
 @SuppressWarnings("serial")
 public class OT extends JFrame {
-    /** Vector of all non-internal OtWindowFrame's */
-    private static Vector<OtWindowFrame> _otWindowFrames =
-            new Vector<OtWindowFrame>();
-
     /** Help launcher. */
     private static JHLauncher helpLauncher = null;
 
@@ -97,11 +93,6 @@ public class OT extends JFrame {
         super("OT");
     }
 
-    @Deprecated
-    public OT(boolean internalFrames) {
-        this();
-    }
-
     /**
      * Return the help launcher.
      */
@@ -125,7 +116,7 @@ public class OT extends JFrame {
      */
     public static void newProgram() {
         OtProps.setSaveShouldPrompt(true);
-        addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
+        new OtWindowFrame(new OtProgWindow());
     }
 
     /**
@@ -230,14 +221,6 @@ public class OT extends JFrame {
         if (url != null) {
             News.showNews(url);
         }
-    }
-
-    public static void addOtWindowFrame(OtWindowFrame frame) {
-        _otWindowFrames.add(frame);
-    }
-
-    public static void removeOtWindowFrame(OtWindowFrame frame) {
-        _otWindowFrames.remove(frame);
     }
 
     // From ATC OT.java end
