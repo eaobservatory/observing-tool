@@ -745,60 +745,16 @@ public class SpValidation {
         // Make sure the schema exists
         if (schema == null) {
             report.add(new ErrorMessage(ErrorMessage.WARNING,
-                    "Schema Validation not performed",
-                    "Unable to locate both web service and local version"));
+                    "Schema validation not performed",
+                    "Unable to locate the XML schema."));
             return;
         }
 
-        // Make sure we can get an http connection to the schema.  If not,
-        // default to using the provided one
-        String schemaLoc;
-
-        try {
-            schemaLoc = schemaURL + " " + schema;
-
-        } catch (Exception e) {
-            // Any exception, assume we cant access the URL, so try to use
-            // a file based solution
-            StringBuffer cfgDir = new StringBuffer(
-                    System.getProperty("ot.cfgdir"));
-
-            // First make sure the last character is a path separator, then
-            // We need to go up one level and then enter the schema directory
-            char lastChar = cfgDir.charAt(cfgDir.length() - 1);
-
-            if (!(lastChar == '/')) {
-                cfgDir.append('/');
-            }
-
-            cfgDir.append(".." + '/' + "schema" + '/' + "JAC" + '/');
-
-            // Now work out which telescope we are using
-            if (cfgDir.indexOf("ukirt") != -1) {
-                // We are using ukirt
-                cfgDir.append("UKIRT" + '/');
-                cfgDir.append("UKIRT.xsd");
-
-            } else if (cfgDir.indexOf("jcmt") != -1) {
-                // we are using jcmt
-                cfgDir.append("JCMT" + '/');
-                cfgDir.append("JCMT.xsd");
-
-            } else {
-                // no idea - just return
-                report.add(new ErrorMessage(ErrorMessage.WARNING,
-                        "Schema Validation not performed",
-                        "Unable to work out which telescope is being used"));
-                return;
-            }
-
-            // Convert to file URL
+        if (schemaURL == null) {
             report.add(new ErrorMessage(ErrorMessage.WARNING,
-                    "Using local schema version",
-                    "This may give some invalid error messages, "
-                            + " please reverify before submission"));
-            cfgDir.insert(0, "file:");
-            schemaLoc = schemaURL + " " + cfgDir.toString();
+                    "Schema validation not performed",
+                    "The XML schema URL is not configured."));
+            return;
         }
 
         SAXParser parser = new SAXParser();
@@ -816,7 +772,7 @@ public class SpValidation {
                     true);
             parser.setProperty(
                     "http://apache.org/xml/properties/schema/external-schemaLocation",
-                    schemaLoc);
+                    schemaURL + " " + schema);
             parser.parse(new InputSource(new StringReader(xmlString)));
 
         } catch (SAXNotRecognizedException e) {
