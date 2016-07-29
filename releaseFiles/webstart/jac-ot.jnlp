@@ -9,7 +9,7 @@
 		<icon href="images/eaologo-small.png"/>
 		<icon kind="splash" href="images/eaologo-large.png"/>
 		<offline-allowed/> 
-		<shortcut online="false">
+		<shortcut online="true">
 			<desktop/>
 			<menu submenu="EAO Observing Tool"/>
 		</shortcut>
