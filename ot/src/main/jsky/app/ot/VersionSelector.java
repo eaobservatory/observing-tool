@@ -31,42 +31,67 @@ import java.util.Collection;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class VersionSelector extends JPanel implements ActionListener {
-    private static final VersionSelector selector = new VersionSelector();
     private TreeMap<String, TelescopeConfig> configs =
             new TreeMap<String, TelescopeConfig>();
     public static final String TELESCOPE_KEY = "telescope";
     public static final String RES_KEY = "ot.resource.cfgdir";
     public static final String CFG_KEY = "ot.cfgdir";
     public static final String JSKY_KEY = "jsky.catalog.skycat.config";
-    private JFrame frame = new JFrame("Select a configuration");
+    private JFrame frame = null;
+    Runnable doWhenReady = null;
+    Runnable doOnFailure = null;
 
-    private VersionSelector() {
-        super();
+    private VersionSelector(Runnable doWhenReady, Runnable doOnFailure) {
+        this.doWhenReady = doWhenReady;
+        this.doOnFailure = doOnFailure;
+
+        readConfig();
+        makeMenu();
     }
 
-    public static boolean checkVersions() {
-        if (selector.checkTelescopeConfig()) {
-            selector.readConfig();
-            selector.makeMenu();
+    /**
+     * Check that the OT "version" configuration is complete.
+     *
+     * If the version information (for a specific telescope) is not complete
+     * (as determined by checkTelescopeConfig) then a GUI choice panel will
+     * be displayed.
+     *
+     * On completion, the given Runnable will be called on the Swing event
+     * dispatching thread.
+     */
+    public static void checkVersions(
+            final Runnable doWhenReady, final Runnable doOnFailure) {
+        if (checkTelescopeConfig()) {
+            // Launch routine to build the version selector
+            // on the Swing thread.
+            SwingUtilities.invokeLater(new Runnable () {
+                public void run() {
+                    new VersionSelector(doWhenReady, doOnFailure);
+                }
+            });
         }
-
-        while (selector.frame.isVisible()) {
-            Thread.yield();
+        else {
+            // We already have a complete configuration -- launch the
+            // call-back in the Swing thread.
+            SwingUtilities.invokeLater(doWhenReady);
         }
-
-        return true;
     }
 
-    private boolean checkTelescopeConfig() {
+    private static boolean checkTelescopeConfig() {
         boolean requiresMenu = false;
         String telescope = System.getProperty(TELESCOPE_KEY);
         String resDir = System.getProperty(RES_KEY);
@@ -133,6 +158,7 @@ public class VersionSelector extends JPanel implements ActionListener {
     }
 
     private void makeMenu() {
+        frame = new JFrame("Select a configuration");
         ButtonGroup group = new ButtonGroup();
         Collection<TelescopeConfig> values = configs.values();
 
@@ -147,7 +173,7 @@ public class VersionSelector extends JPanel implements ActionListener {
                 add(rb);
             }
 
-            frame.setContentPane(selector);
+            frame.setContentPane(this);
             Dimension dim = getPreferredSize();
             dim.width = dim.width * 2;
             dim.height = dim.height * 2;
@@ -156,7 +182,21 @@ public class VersionSelector extends JPanel implements ActionListener {
             Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
             frame.setLocation(screen.width / 2 - dim.width / 2,
                     screen.height / 2 - dim.height / 2);
+
+            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            frame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    doOnFailure.run();
+                }
+            });
+
             frame.setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                null, "No telescope configurations are available.",
+                "No configurations", JOptionPane.ERROR_MESSAGE);
+            doOnFailure.run();
         }
     }
 
@@ -169,10 +209,22 @@ public class VersionSelector extends JPanel implements ActionListener {
         System.setProperty(JSKY_KEY, config.jsky);
         frame.setVisible(false);
         frame.dispose();
+
+        // Run the call-back method.
+        doWhenReady.run();
     }
 
     public static void main(String[] args) {
-        VersionSelector.checkVersions();
+        VersionSelector.checkVersions(new Runnable () {
+            public void run() {
+                System.out.println("Configuration complete.");
+            }
+        },
+        new Runnable() {
+            public void run() {
+                System.out.println("Configuration failed.");
+            }
+        });
     }
 
     class TelescopeConfig {

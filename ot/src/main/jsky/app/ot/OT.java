@@ -276,7 +276,7 @@ public class OT {
      */
     public static void main(String args[]) {
         boolean ok = true;
-        Vector<String> filenames = null;
+        final Vector<String> filenames = new Vector<String>();
 
         try {
             // Check which version of java we are running
@@ -320,10 +320,6 @@ public class OT {
             } else {
                 String filename = args[i];
                 if (filename.toLowerCase().endsWith(".xml")) {
-                    if (filenames == null) {
-                        filenames = new Vector<String>();
-                    }
-
                     filenames.add(filename);
                 }
             }
@@ -336,54 +332,62 @@ public class OT {
             System.exit(1);
         }
 
-        VersionSelector.checkVersions();
+        // Launch the OT version choice window (if necessary).  This will
+        // call the given Runnable (on the Swing thread) when complete.
+        VersionSelector.checkVersions(new Runnable () {
+            public void run() {
+                try {
+                    OtCfg.init();
 
-        try {
-            OtCfg.init();
+                } catch (Throwable e) {
+                    e.printStackTrace();
 
-        } catch (Throwable e) {
-            e.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Problem with OT configuration:"
+                            + "\nThis might result in invalid Science Programs.",
+                            "Problem with OT configuration.",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Problem with OT configuration:"
-                    + "\nThis might result in invalid Science Programs.",
-                    "Problem with OT configuration.",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+                // Create a small frame to contain the menus that would originally
+                // have been in the desktop pane with the internal frames.
+                // (MFO, 17 August 2001)
 
-        // Create a small frame to contain the menus that would originally
-        // have been in the desktop pane with the internal frames.
-        // (MFO, 17 August 2001)
+                JFrame menuFrame = new JFrame("OT");
+                menuFrame.setJMenuBar(new OTMenuBar(menuFrame));
 
-        JFrame menuFrame = new JFrame("OT");
-        menuFrame.setJMenuBar(new OTMenuBar(menuFrame));
+                URL url = ObservingToolUtilities.resourceURL(
+                        "images/background_small.gif", "ot.resource.cfgdir");
 
-        URL url = ObservingToolUtilities.resourceURL(
-                "images/background_small.gif", "ot.resource.cfgdir");
+                ImageIcon icon = new ImageIcon(url);
+                JLabel label = new JLabel(icon);
+                label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+                menuFrame.add(label);
 
-        ImageIcon icon = new ImageIcon(url);
-        JLabel label = new JLabel(icon);
-        label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-        menuFrame.add(label);
+                menuFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                menuFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        exit();
+                    }
+                });
 
-        menuFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        menuFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+                menuFrame.pack();
+                menuFrame.setVisible(true);
+
+                if (filenames.size() != 0) {
+                    for (String filename: filenames) {
+                        OtFileIO.open(filename);
+                    }
+                } else {
+                    OT.showSplashScreen();
+                }
+            }
+        },
+        new Runnable() {
+            public void run() {
                 exit();
             }
         });
-
-        menuFrame.pack();
-        menuFrame.setVisible(true);
-
-        if (filenames != null) {
-            while (filenames.size() != 0) {
-                OtFileIO.open(filenames.remove(0));
-            }
-
-        } else {
-            OT.showSplashScreen();
-        }
     }
 }
