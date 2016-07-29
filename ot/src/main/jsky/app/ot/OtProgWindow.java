@@ -29,8 +29,6 @@ package jsky.app.ot;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import jsky.app.ot.gui.StopActionWatcher;
-import jsky.app.ot.gui.StopActionWidget;
 import gemini.sp.SpFactory;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
@@ -43,7 +41,7 @@ import gemini.sp.SpType;
  * have to do with the Observing Database (ODB).
  */
 @SuppressWarnings("serial")
-public final class OtProgWindow extends OtWindow implements StopActionWatcher {
+public final class OtProgWindow extends OtWindow {
     /**
      * Default constructor.
      *
@@ -139,12 +137,6 @@ public final class OtProgWindow extends OtWindow implements StopActionWatcher {
      */
     public boolean isOnline() {
         return _progInfo.online;
-    }
-
-    /**
-     * Implementation of the StopActionWatcher interface.
-     */
-    public synchronized void stopAction(StopActionWidget saw) {
     }
 
     /**
