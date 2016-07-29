@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="1.5+" codebase="http://ftp.eao.hawaii.edu/ot" href="jac-ot.jnlp">
 	<information>
-		<title>JAC Observing Tool</title>
-		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
+		<title>JCMT/UKIRT Observing Tool</title>
+		<vendor>East Asian Observatory</vendor>
 		<homepage href="http://www.eaobservatory.org/jcmt/observing/software-installation/"/>
-		<description>The Joint Astronomy Centre Observing Tool via Webstart.</description>
-		<description kind="short">The JAC Observing Tool.</description>
+		<description>The JCMT/UKIRT Observing Tool via Webstart.</description>
+		<description kind="short">The EAO Observing Tool.</description>
 		<icon href="images/eaologo-small.png"/>
 		<icon kind="splash" href="images/eaologo-large.png"/>
 		<offline-allowed/> 
 		<shortcut online="false">
 			<desktop/>
-			<menu submenu="JAC Observing Tool"/>
+			<menu submenu="EAO Observing Tool"/>
 		</shortcut>
 	</information>
 	<security>
