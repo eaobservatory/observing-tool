@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.WindowConstants;
 import gemini.sp.SpFactory;
 import gemini.sp.SpLibrary;
 import gemini.sp.SpType;
@@ -48,7 +49,7 @@ import orac.helptool.JHLauncher;
 import gemini.util.ObservingToolUtilities;
 
 @SuppressWarnings("serial")
-public class OT extends JFrame {
+public class OT {
     /** Help launcher. */
     private static JHLauncher helpLauncher = null;
 
@@ -86,10 +87,12 @@ public class OT extends JFrame {
     private static String _otUserDir = null;
 
     /**
-     * Create the OT application.
+     * Default constructor.
+     *
+     * This constructor is private to prevent instantiation of objects
+     * of this class.
      */
-    public OT() {
-        super("OT");
+    private OT() {
     }
 
     /**
@@ -354,7 +357,7 @@ public class OT extends JFrame {
         // (MFO, 17 August 2001)
 
         JFrame menuFrame = new JFrame("OT");
-        menuFrame.setJMenuBar(new OTMenuBar(new OT()));
+        menuFrame.setJMenuBar(new OTMenuBar(menuFrame));
 
         URL url = ObservingToolUtilities.resourceURL(
                 "images/background_small.gif", "ot.resource.cfgdir");
@@ -364,7 +367,7 @@ public class OT extends JFrame {
         label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
         menuFrame.add(label);
 
-        menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        menuFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         menuFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
