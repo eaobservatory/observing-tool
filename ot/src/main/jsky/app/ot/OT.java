@@ -77,7 +77,7 @@ public class OT extends JFrame {
      * accessible from within java. the system property user.dir would point
      * to the directory from which java was started.
      */
-    public static final String PROPERTY_OT_USERDIR = "ot.userdir";
+    private static final String PROPERTY_OT_USERDIR = "ot.userdir";
 
     /**
      * @see #PROPERTY_OT_USERDIR
@@ -236,7 +236,7 @@ public class OT extends JFrame {
      * Get default user directory.
      *
      * Returns the directory specified by the system property
-     * PROPERTY_OT_USERDIR ("otuserdir") if it is specified and exists or
+     * PROPERTY_OT_USERDIR ("ot.userdir") if it is specified and exists or
      * the user's home directory otherwise.
      *
      * @see #PROPERTY_OT_USERDIR
