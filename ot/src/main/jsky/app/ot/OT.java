@@ -56,11 +56,10 @@ public class OT extends JFrame {
     private static SplashScreen _splash;
 
     /** Preferences Dialog */
-    private static OtPreferencesDialog _preferencesDialog =
-            new OtPreferencesDialog();
+    private static OtPreferencesDialog _preferencesDialog = null;
 
     /** Database Access */
-    private static DatabaseDialog _databaseDialog = new DatabaseDialog();
+    private static DatabaseDialog _databaseDialog = null;
 
     /**
      * Default save directory.
@@ -108,6 +107,10 @@ public class OT extends JFrame {
     }
 
     public static DatabaseDialog getDatabaseDialog() {
+        if (_databaseDialog == null) {
+            _databaseDialog = new DatabaseDialog();
+        }
+
         return _databaseDialog;
     }
 
@@ -141,6 +144,10 @@ public class OT extends JFrame {
      * Display a preferences dialog.
      */
     public static void preferences() {
+        if (_preferencesDialog == null) {
+            _preferencesDialog = new OtPreferencesDialog();
+        }
+
         _preferencesDialog.show();
     }
 
@@ -165,7 +172,7 @@ public class OT extends JFrame {
      * Fetch a science program from the database.
      */
     public static void fetchProgram() {
-        _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
+        getDatabaseDialog().show(DatabaseDialog.ACCESS_MODE_FETCH);
     }
 
     /**
