@@ -312,7 +312,7 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase {
  * @author Allan Brighton (ported to Swing/JSky, changed the layout)
  */
 @SuppressWarnings("serial")
-public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
+public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
         TpeManagerWatcher {
     /** Displays the science program hierarchy. */
     protected OtTreeWidget _tw;

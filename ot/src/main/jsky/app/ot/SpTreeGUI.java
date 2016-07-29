@@ -46,7 +46,7 @@ import jsky.util.gui.GenericToolBarTarget;
  * @author Allan Brighton (ported to Swing/JSky)
  */
 @SuppressWarnings({"serial"})
-public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
+public abstract class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     /** The top level parent frame. */
     protected JFrame parent;
 
@@ -92,15 +92,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
             } catch (Exception e) {
                 DialogUtil.error(SpTreeGUI.this, e);
             }
-        }
-    };
-
-    /**
-     * Action to use for the "Status" menu and toolbar items.
-     */
-    protected AbstractAction statusAction = new AbstractAction("Status") {
-        public void actionPerformed(ActionEvent evt) {
-            // XXX to be done...
         }
     };
 
@@ -402,119 +393,99 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     /**
      * Create an observation folder.
      */
-    public void addMsbFolder() {
-    }
+    public abstract void addMsbFolder();
 
     /**
      * Create an observation folder.
      */
-    public void addAndFolder() {
-    }
+    public abstract void addAndFolder();
 
     /**
      * Create an observation folder.
      */
-    public void addOrFolder() {
-    }
+    public abstract void addOrFolder();
 
     /**
      * Create an observation folder.
      */
-    public void addSurveyFolder() {
-    }
+    public abstract void addSurveyFolder();
 
     /**
      * Create an observation folder.
      */
-    public void addFolder() {
-    }
+    public abstract void addFolder();
 
     /**
      * Create an observation group.
      */
-    public void addGroup() {
-    }
+    public abstract void addGroup();
 
     /**
      * Create an observation.
      */
-    public void addObservation() {
-    }
+    public abstract void addObservation();
 
     /**
      * Add a note to the tree.
      */
-    public void addNote() {
-    }
+    public abstract void addNote();
 
     /**
      * Add a library folder to the tree.
      */
-    public void addLibFolder() {
-    }
+    public abstract void addLibFolder();
 
     /**
      * Cut the selected item(s) to the clipboard.
      */
-    public void cut() {
-    }
+    public abstract void cut();
 
     /**
      * Copy the selected item(s) to the clipboard.
      */
-    public void copy() {
-    }
+    public abstract void copy();
 
     /**
      * Paste the selected item(s) from the clipboard.
      */
-    public void paste() {
-    }
+    public abstract void paste();
 
     /**
      * Pop up a dialog to open a new science program.
      *
      * @param newWindow if true, open a new window, otherwise reuse this one
      */
-    public void open(boolean newWindow) {
-    }
+    public abstract void open(boolean newWindow);
 
     /**
      * Go back to the previous item in the history list
      */
-    public void back() {
-    }
+    public abstract void back();
 
     /**
      * Go forward to the next component in the history list
      */
-    public void forward() {
-    }
+    public abstract void forward();
 
     /**
      * Save the current science program.
      */
-    public void save() {
-    }
+    public abstract void save();
 
     /**
      * Display the position editor.
      */
-    public void showPositionEditor() {
-    }
+    public abstract void showPositionEditor();
 
     /**
      * Prioritize all the MSBs
      */
-    public void prioritize() {
-    }
+    public abstract void prioritize();
 
     /**
      * Validate selected Science Program or Observation.
      */
-    public boolean doValidation() {
-        return false;
-    }
+    public abstract boolean doValidation();
 
     // These are for the GenericToolBarTarget interface
     public AbstractAction getOpenAction() {
@@ -527,10 +498,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
     public AbstractAction getForwAction() {
         return forwAction;
-    }
-
-    public AbstractAction getStatusAction() {
-        return statusAction;
     }
 
     // access other toolbar actions
@@ -598,20 +565,5 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
     public AbstractAction getValidationAction() {
         return validationAction;
-    }
-
-    /**
-     * test main: usage: java SpTreeGUI
-     *
-     * (Only tests the basic layout).
-     */
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("SpTreeGUI");
-        SpTreeGUI spTree = new SpTreeGUI();
-        spTree.setPreferredSize(new Dimension(360, 400));
-        frame.add("Center", spTree);
-        frame.pack();
-        frame.setVisible(true);
-        frame.addWindowListener(new BasicWindowMonitor());
     }
 }
