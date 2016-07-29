@@ -96,24 +96,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     };
 
     /**
-     * Action to use for the "Stop" menu and toolbar items.
-     */
-    protected AbstractAction stopAction = new AbstractAction("Stop Loading") {
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                interrupt();
-            } catch (Exception e) {
-                DialogUtil.error(SpTreeGUI.this, e);
-            }
-        }
-
-        public void setEnabled(boolean enabled) {
-            super.setEnabled(enabled);
-            setDownloadState(enabled);
-        }
-    };
-
-    /**
      * Action to use for the "Status" menu and toolbar items.
      */
     protected AbstractAction statusAction = new AbstractAction("Status") {
@@ -354,7 +336,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
         setLayout(new BorderLayout());
         backAction.setEnabled(false);
         forwAction.setEnabled(false);
-        stopAction.setEnabled(false);
         libFolderAction.setEnabled(false);
 
         tree = new OtTreeWidget();
@@ -511,20 +492,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     }
 
     /**
-     * Stop the background loading thread if it is running
-     */
-    public void interrupt() {
-    }
-
-    /**
-     * Set the state of the menubar/toolbar actions
-     *
-     * @param downloading set to true if a file is being downloaded
-     */
-    protected void setDownloadState(boolean downloading) {
-    }
-
-    /**
      * Save the current science program.
      */
     public void save() {
@@ -560,10 +527,6 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
     public AbstractAction getForwAction() {
         return forwAction;
-    }
-
-    public AbstractAction getStopAction() {
-        return stopAction;
     }
 
     public AbstractAction getStatusAction() {

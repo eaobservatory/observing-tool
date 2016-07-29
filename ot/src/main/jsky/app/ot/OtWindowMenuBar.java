@@ -327,8 +327,6 @@ public class OtWindowMenuBar extends JMenuBar {
         menu.addSeparator();
         menu.add(makeMenuItem(editor.getPosEditorAction(),
                 "Show the Position Editor"));
-        menu.addSeparator();
-        menu.add(editor.getStopAction());
 
         return menu;
     }
