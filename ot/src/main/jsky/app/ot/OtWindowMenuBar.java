@@ -65,9 +65,6 @@ public class OtWindowMenuBar extends JMenuBar {
     /** Handle for the View menu */
     protected JMenu viewMenu;
 
-    /** Handle for the Go menu */
-    protected JMenu goMenu;
-
     /** Handle for the Database menu */
     protected JMenu databaseMenu;
 
@@ -101,15 +98,6 @@ public class OtWindowMenuBar extends JMenuBar {
         add(fileMenu = createFileMenu());
         add(editMenu = createEditMenu());
         add(viewMenu = createViewMenu());
-        add(goMenu = createGoMenu(null));
-
-        // keep the Go history menu up to date
-        editor.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                goMenu.removeAll();
-                createGoMenu(goMenu);
-            }
-        });
 
         if (!editor.getItemType().equals("Library")) {
             add(databaseMenu = createDatabaseMenu());
@@ -532,22 +520,6 @@ public class OtWindowMenuBar extends JMenuBar {
             } catch (Exception e) {
             }
         }
-
-        return menu;
-    }
-
-    /**
-     * Create the Go menu.
-     */
-    protected JMenu createGoMenu(JMenu menu) {
-        if (menu == null) {
-            menu = new JMenu("Go");
-        }
-
-        menu.add(editor.getBackAction());
-        menu.add(editor.getForwAction());
-        menu.addSeparator();
-        editor.addHistoryMenuItems(menu);
 
         return menu;
     }

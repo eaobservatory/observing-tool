@@ -71,28 +71,20 @@ public abstract class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
     /**
      * Action to use for the "Back" menu and toolbar items.
+     *
+     * Does nothing, but required for the GenericToolBarTarget interface.
      */
     protected AbstractAction backAction = new AbstractAction("Back") {
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                back();
-            } catch (Exception e) {
-                DialogUtil.error(SpTreeGUI.this, e);
-            }
-        }
+        public void actionPerformed(ActionEvent evt) {}
     };
 
     /**
      * Action to use for the "Forward" menu and toolbar items.
+     *
+     * Does nothing, but required for the GenericToolBarTarget interface.
      */
     protected AbstractAction forwAction = new AbstractAction("Forward") {
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                forward();
-            } catch (Exception e) {
-                DialogUtil.error(SpTreeGUI.this, e);
-            }
-        }
+        public void actionPerformed(ActionEvent evt) {}
     };
 
     /**
@@ -456,16 +448,6 @@ public abstract class SpTreeGUI extends JPanel implements GenericToolBarTarget {
      * @param newWindow if true, open a new window, otherwise reuse this one
      */
     public abstract void open(boolean newWindow);
-
-    /**
-     * Go back to the previous item in the history list
-     */
-    public abstract void back();
-
-    /**
-     * Go forward to the next component in the history list
-     */
-    public abstract void forward();
 
     /**
      * Save the current science program.
