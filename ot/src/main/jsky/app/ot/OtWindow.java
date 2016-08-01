@@ -38,6 +38,7 @@ import java.io.FileReader;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -55,6 +56,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingWorker;
 import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -1279,25 +1281,50 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
 
         int option = chooser.showOpenDialog(null);
 
-        if (option != JFileChooser.APPROVE_OPTION
-                || chooser.getSelectedFile() == null) {
+        if (option != JFileChooser.APPROVE_OPTION) {
             return;
         }
 
-        File file = chooser.getSelectedFile();
+        final File file = chooser.getSelectedFile();
 
-        if (file != null) {
-            try {
-                SpItem replicatedItem = SpClient.replicateSp(
-                        (SpItem) getItem(), file);
-                if (replicatedItem != null) {
-                    OtWindow.create((SpRootItem) replicatedItem,
-                            (FileInfo) null);
-                    OtProps.setSaveShouldPrompt(true);
-                }
-            } catch (Exception e) {
-            }
+        if (file == null) {
+            return;
         }
+
+        (new SwingWorker<SpItem, Void>() {
+            public SpItem doInBackground() throws Exception {
+                return SpClient.replicateSp((SpItem) getItem(), file);
+            }
+
+            public void done() {
+                try {
+                    SpItem replicatedItem = get();
+
+                    if (replicatedItem != null) {
+                        OtWindow.create((SpRootItem) replicatedItem,
+                                (FileInfo) null);
+                        OtProps.setSaveShouldPrompt(true);
+                    }
+
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+
+                    if (cause == null) {
+                        message = e.getMessage();
+                    } else {
+                        cause.printStackTrace();
+                        message = cause.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(null,
+                            "Could not replicate Science Program.\n" + message,
+                            "Replication Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }).execute();
     }
 
     /**

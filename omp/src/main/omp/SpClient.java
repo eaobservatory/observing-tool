@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.util.zip.GZIPOutputStream;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import java.util.Properties;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
@@ -199,16 +200,20 @@ public class SpClient extends SoapClient {
                 spXML = (String) sp;
             }
 
-            String info = (String) tmp[1];
+            final String info = (String) tmp[1];
 
             if (spXML != null && !spXML.equals("")) {
                 System.out.println("Building replicated Science Program");
                 spItem = new SpInputXML().xmlToSpItem(spXML);
             }
 
-            JOptionPane.showMessageDialog(null, info,
-                    "Replication returned the following information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    JOptionPane.showMessageDialog(null, info,
+                            "Replication returned the following information",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
 
         } catch (java.io.FileNotFoundException e) {
             e.printStackTrace();
