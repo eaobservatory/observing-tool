@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTabbedPane;
@@ -38,6 +39,8 @@ import javax.swing.JPanel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
@@ -115,7 +118,6 @@ public class EdCompTargetList extends OtItemEditor implements
     protected SpTelescopePos _curPos; // Position being edited
     private SpTelescopePosList _tpl; // List of positions being edited
     private String[] _guideTags;
-    private NameResolverFeedback _nameResolverFeedback;
     private boolean _targetSystemsChange = false;
     private boolean _resolving = false;
     private boolean jcmtot = false;
@@ -1455,8 +1457,7 @@ public class EdCompTargetList extends OtItemEditor implements
                 return;
             }
 
-            _nameResolverFeedback = new NameResolverFeedback();
-            _nameResolverFeedback.start();
+            doResolveName();
 
         } else if (w == _w.chopping) {
             // chop mode tab added by MFO (3 August 2001)
@@ -1482,12 +1483,7 @@ public class EdCompTargetList extends OtItemEditor implements
             _updateXYUnitsLabels();
 
         } else if (w == _w.resolveOrbitalElementButton) {
-            if (_resolving) {
-                return;
-            }
-
-            HorizonsThread thread = new HorizonsThread();
-            thread.start();
+            doSearchHorizons();
         }
     }
 
@@ -1735,76 +1731,96 @@ public class EdCompTargetList extends OtItemEditor implements
     }
 
     /**
-     * Thread for name resolving.
-     *
-     * Added by MFO (10 Oct 2001).
+     * Perform name resolution via SwingWorker.
      */
-    class NameResolverFeedback extends Thread {
-        public void run() {
-            try {
-                NameResolver nameResolver = new NameResolver(
-                        (String) _w.nameResolversDDLBW.getSelectedItem(),
-                        _w.nameTBW.getText());
+    private void doResolveName() {
+        // Fetch query parameters from the Swing GUI before launching the
+        // SwingWorker.
+        final String catalogName = (String)
+            _w.nameResolversDDLBW.getSelectedItem();
+        final String queryString = _w.nameTBW.getText();
 
-                _w.resolvedName.setText("Resolved Name: "
-                        + nameResolver.getId());
-                _w.xaxisTBW.setText(nameResolver.getRa());
-                _w.yaxisTBW.setText(nameResolver.getDec());
-                _w.systemDDLBW.setValue(CoordSys.FK5);
+        (new SwingWorker<NameResolver, Void>() {
+            @Override
+            public NameResolver doInBackground() throws Exception {
+                // Constructing the "NameResolver" performs the query -- do
+                // this in the background method.
+                return new NameResolver(catalogName, queryString);
+            }
 
-                _curPos.deleteWatcher(EdCompTargetList.this);
-
+            @Override
+            public void done() {
                 try {
-                    _curPos.setXYFromString(_w.xaxisTBW.getText(),
-                            _w.yaxisTBW.getText());
+                    NameResolver nameResolver = get();
 
-                } catch (Exception exception) {
-                    // In case an exception is thrown here if the new
-                    // position is out of view (in the position editor)
-                    // The new position will be "in view" after the call
-                    // _resetPositionEditor.
-                    // But _resetPositionEditor can only be called after
-                    // _cur has been set to the new position. Otherwise.
-                    // it would not pick up the right position.
-
-                    // print stack trace for debugging.
-                    exception.printStackTrace();
-                }
-
-                _curPos.setName(_w.nameTBW.getText());
-                _curPos.setCoordSys(CoordSys.FK5);
-                _curPos.addWatcher(EdCompTargetList.this);
-
-                // Added by SdW
-                if (nameResolver.getEquinox().equalsIgnoreCase("RJ")) {
-                    _curPos.setCoordSys(CoordSys.FK5);
+                    _w.resolvedName.setText("Resolved Name: "
+                            + nameResolver.getId());
+                    _w.xaxisTBW.setText(nameResolver.getRa());
+                    _w.yaxisTBW.setText(nameResolver.getDec());
                     _w.systemDDLBW.setValue(CoordSys.FK5);
 
-                } else if (nameResolver.getEquinox().equalsIgnoreCase("RB")) {
-                    _curPos.setCoordSys(CoordSys.FK4);
-                    _w.systemDDLBW.setValue(CoordSys.FK4);
+                    _curPos.deleteWatcher(EdCompTargetList.this);
 
-                } else if (nameResolver.getEquinox().equalsIgnoreCase("GA")) {
-                    _curPos.setCoordSys(CoordSys.GAL);
-                    _w.systemDDLBW.setValue(CoordSys.GAL);
+                    try {
+                        _curPos.setXYFromString(_w.xaxisTBW.getText(),
+                                _w.yaxisTBW.getText());
+
+                    } catch (Exception exception) {
+                        // In case an exception is thrown here if the new
+                        // position is out of view (in the position editor)
+                        // The new position will be "in view" after the call
+                        // _resetPositionEditor.
+                        // But _resetPositionEditor can only be called after
+                        // _cur has been set to the new position. Otherwise.
+                        // it would not pick up the right position.
+
+                        // print stack trace for debugging.
+                        exception.printStackTrace();
+                    }
+
+                    _curPos.setName(_w.nameTBW.getText());
+                    _curPos.setCoordSys(CoordSys.FK5);
+                    _curPos.addWatcher(EdCompTargetList.this);
+
+                    // Added by SdW
+                    if (nameResolver.getEquinox().equalsIgnoreCase("RJ")) {
+                        _curPos.setCoordSys(CoordSys.FK5);
+                        _w.systemDDLBW.setValue(CoordSys.FK5);
+
+                    } else if (nameResolver.getEquinox().equalsIgnoreCase("RB")) {
+                        _curPos.setCoordSys(CoordSys.FK4);
+                        _w.systemDDLBW.setValue(CoordSys.FK4);
+
+                    } else if (nameResolver.getEquinox().equalsIgnoreCase("GA")) {
+                        _curPos.setCoordSys(CoordSys.GAL);
+                        _w.systemDDLBW.setValue(CoordSys.GAL);
+                    }
+                    // End of addition
+
+                    _resetPositionEditor();
+
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+
+                    if (cause == null) {
+                        e.printStackTrace();
+                        DialogUtil.error(_w, "Unexpected error while trying to resolve name \""
+                                + queryString + "\"\n" + e.getMessage());
+
+                    } else if (cause instanceof ProgressException) {
+                        // User has interrupted query. Do nothing.
+                        System.out.println("Query interrupted by OT user.");
+
+                    } else {
+                        cause.printStackTrace();
+                        DialogUtil.error(_w, "Error while trying to resolve name \""
+                                + queryString + "\"\n" + cause.getMessage());
+                    }
                 }
-                // End of addition
-
-                _resetPositionEditor();
-            } catch (ProgressException e) {
-                // User has interrupted query. Do nothing.
-                System.out.println("Query interrupted by OT user.");
-
-            } catch (RuntimeException e) {
-                if (System.getProperty("DEBUG") != null) {
-                    e.printStackTrace();
-                }
-
-                e.printStackTrace();
-                DialogUtil.error(_w, "Error while trying to resolve name \""
-                        + _w.nameTBW.getText() + "\"\n" + e.getMessage());
             }
-        }
+        }).execute();
     }
 
     private void _changeTag(String newTag) {
@@ -1903,31 +1919,96 @@ public class EdCompTargetList extends OtItemEditor implements
         }
     }
 
-    /*
-     * Why are we bothering with a thread ?
-     * So that the OT does not become unresponsive
-     */
-    public class HorizonsThread extends Thread {
-        public synchronized void run() {
-            _resolving = true;
-            _w.resolveOrbitalElementButton.setText("Resolving ...");
-            Horizons horizons = Horizons.getInstance();
-            String query = _w.nameTBW.getText();
-            TreeMap<String, String> treeMap = horizons.resolveName(query);
-            _resolving = false;
-            _w.resolveOrbitalElementButton.setText("Resolve Name");
+    private void doSearchHorizons() {
+        if (_resolving) {
+            return;
+        }
 
-            if (treeMap.isEmpty()) {
-                _w.orbitalElementResolvedNameLabel.setText("");
+        _resolving = true;
+        _w.resolveOrbitalElementButton.setText("Resolving ...");
+        final String query = _w.nameTBW.getText();
 
-                if (!searchHorizons(query)) {
-                    DialogUtil.error(null, "No result returned");
+        (new SwingWorker<TreeMap<String, String>, Void>() {
+            @Override
+            public TreeMap<String, String> doInBackground() {
+                // NOTE: the Horizons class interface doesn't make a lot of
+                // sense!  This code simply retains the behavior of the
+                // previous non-SwingWorker version.  We first call
+                // "resolveName" and if that fails, call "searchName".
+                // It looks like both should be done in the "doInBackground"
+                // method but since we extract the message here we have to
+                // use SwingUtilities.invokeLater to display a box.
+                Horizons horizons = Horizons.getInstance();
+                TreeMap<String, String> treeMap = horizons.resolveName(query);
+
+                // Determine whether the name resolution failed?
+                boolean failed = false;
+
+                if ((treeMap == null) || (treeMap.isEmpty())) {
+                    failed = true;
+                } else {
+                    String value = treeMap.get("NAME");
+
+                    if (value == null || value.trim().equals("")) {
+                        failed = true;
+                    }
                 }
 
-            } else {
-                String value = treeMap.get("NAME");
+                // If it failed, use the "searchHorizons" method to try to
+                // obtain information to display.  (Perhaps there were multiple
+                // matches.)
+                if (failed) {
+                    final String message = searchHorizons(horizons, query);
 
-                if (value != null && !value.trim().equals("")) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            if (message == null) {
+                                DialogUtil.error(null, "No result returned");
+                            } else {
+                                new ReportBox(message, "Search results for " + query);
+                            }
+                        }
+                    });
+
+                    return null;
+                }
+
+                // Otherwise return the TreeMap.
+                return treeMap;
+            }
+
+            @Override
+            public void done() {
+                // Restore the GUI status.
+                _resolving = false;
+                _w.resolveOrbitalElementButton.setText("Resolve Name");
+
+                // Retrive the results.
+                TreeMap<String, String> treeMap = null;
+
+                try {
+                    treeMap = get();
+                } catch (InterruptedException e) {
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+                    if (cause == null) {
+                        message = e.getMessage();
+                    } else {
+                        cause.printStackTrace();
+                        message = cause.getMessage();
+                    }
+                    DialogUtil.error(_w, "Error while trying to resolve name \""
+                            + query+ "\"\n" + message);
+                }
+
+                if (treeMap == null) {
+                    // If resolving failed, clear the resolved name label.
+                    _w.orbitalElementResolvedNameLabel.setText("");
+
+                } else {
+                    // Otherwise fill in the target information.
+                    String value = treeMap.get("NAME");
                     _w.orbitalElementResolvedNameLabel.setText(value);
 
                     value = treeMap.get("EPOCH");
@@ -1972,26 +2053,23 @@ public class EdCompTargetList extends OtItemEditor implements
                     _curPos.setConicSystemDailyMotion(value);
 
                     _updateTargetSystemPane(_curPos);
-
-                } else {
-                    _w.orbitalElementResolvedNameLabel.setText("");
-
-                    if (!searchHorizons(query)) {
-                        DialogUtil.error(null, "No result returned");
-                    }
                 }
             }
-        }
+        }).execute();
     }
 
-    public boolean searchHorizons(String name) {
+    /**
+     * Get search results message from Horizons.
+     *
+     * This is called from SwingWorker.doInBackground in doSearchHorizons
+     * so it must not perform any Swing GUI actions.
+     *
+     * Returns the message as a string, if possible.  If the message says
+     * "No matches found." or in the event of failure, returns null.
+     */
+    private String searchHorizons(Horizons horizons, String name) {
         boolean success = true;
-        _resolving = true;
-        _w.resolveOrbitalElementButton.setText("Searching ...");
-        Horizons horizons = Horizons.getInstance();
         Vector<String> results = horizons.searchName(name);
-        _resolving = false;
-        _w.resolveOrbitalElementButton.setText("Resolve Name");
 
         if (results.size() != 0) {
             StringBuffer buffer = new StringBuffer();
@@ -2010,10 +2088,10 @@ public class EdCompTargetList extends OtItemEditor implements
             }
 
             if (success) {
-                new ReportBox(buffer.toString(), "Search results for " + name);
+                return buffer.toString();
             }
         }
 
-        return success;
+        return null;
     }
 }
