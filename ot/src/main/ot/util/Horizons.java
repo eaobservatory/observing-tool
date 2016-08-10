@@ -241,7 +241,7 @@ public class Horizons {
 
         if (name != null && !name.trim().equals("")) {
             TreeMap<String, String> map = doLookup(name);
-            URL lut = URLBuilder(map, true);
+            URL lut = buildUrl(map, true);
 
             if (lut != null) {
                 vector = connect(lut);
@@ -258,7 +258,7 @@ public class Horizons {
             TreeMap<String, String> map;
             map = readInputFile(name);
 
-            URL lut = URLBuilder(map, false);
+            URL lut = buildUrl(map, false);
             Vector<String> vector = null;
 
             if (lut != null) {
@@ -288,7 +288,7 @@ public class Horizons {
             if (treeMap == null) {
                 TreeMap<String, String> map = doLookup(name);
 
-                URL lut = URLBuilder(map, false);
+                URL lut = buildUrl(map, false);
                 Vector<String> vector = null;
 
                 if (lut != null) {
@@ -398,7 +398,7 @@ public class Horizons {
      * "COMMAND='NAME=...'", otherwise just "COMMAND=..."
      * (where "..." represents the search name ("COMMAND" in given treeMap).
      */
-    private URL URLBuilder(TreeMap<String, String> treeMap, boolean search) {
+    private URL buildUrl(TreeMap<String, String> treeMap, boolean search) {
         URL finalURL = null;
         StringBuffer buffer = new StringBuffer();
         String key, value;
