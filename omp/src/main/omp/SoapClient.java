@@ -24,6 +24,7 @@ import java.util.Vector;
 import java.util.zip.GZIPInputStream;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import gemini.util.JACLogger;
 import org.apache.soap.Header;
@@ -156,8 +157,8 @@ public class SoapClient {
                 Fault fault = resp.getFault();
 
                 // Handle special fault codes here.
-                String faultCode = fault.getFaultCode();
-                String faultString = fault.getFaultString();
+                final String faultCode = fault.getFaultCode();
+                final String faultString = fault.getFaultString();
 
                 if (faultCode.endsWith(SP_CHANGED_ON_DISK)) {
                     throw new SpChangedOnDiskException(faultString);
@@ -166,20 +167,29 @@ public class SoapClient {
                 }
 
                 logger.error(faultString);
-                JOptionPane.showMessageDialog(null,
-                        "Code:    " + faultCode + "\n"
-                                + "Problem: " + faultString,
-                        "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        JOptionPane.showMessageDialog(null,
+                                "Code:    " + faultCode + "\n"
+                                        + "Problem: " + faultString,
+                                "Error Message",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                });
             }
         } catch (SpChangedOnDiskException e) {
             // Re-throw SpChangedOnDiskException so it can be handled
             // somewhere else.
             throw e;
         } catch (SOAPException se) {
-            logger.error(se.getMessage());
-            JOptionPane.showMessageDialog(null, se.getMessage(),
-                    "SOAP Exception", JOptionPane.ERROR_MESSAGE);
+            final String message = se.getMessage();
+            logger.error(message);
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    JOptionPane.showMessageDialog(null, message,
+                            "SOAP Exception", JOptionPane.ERROR_MESSAGE);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
