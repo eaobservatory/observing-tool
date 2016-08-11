@@ -302,10 +302,8 @@ public class JcmtSpValidation extends SpValidation {
 
             if (switchingMode != null) {
                 if (switchingMode.equals(SpJCMTConstants.SWITCHING_MODE_BEAM)) {
-                    Vector<SpItem> chops = SpTreeMan.findAllInstances(spObs,
-                            SpIterChop.class.getName());
-
-                    if (chops == null || chops.size() == 0) {
+                    if (SpTreeMan.findParentOfType(
+                            thisObs, SpIterChop.class) == null) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 titleString,
                                 "Chop iterator required for beam switch mode"));
