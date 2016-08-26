@@ -29,6 +29,7 @@
     <li><a href="#notes">The &ldquo;DR Recipe&rdquo; Component</a></li>
     <li><a href="#notes_40min">Integration Time &mdash; 40 Minute MSBs</a></li>
     <li><a href="#notes_elev">Elevation Constraints</a></li>
+    <li><a href="#pol2_observations">POL-2 Observations</a></li>
     <li><a href="#notes_cals">Frequency of Calibrations</a></li>
     <li><a href="#qus">Questions</a>
         <ul>
@@ -267,8 +268,8 @@ at CADC. There are currently 4 main options:
 </dl>
 
 <p>
-The list also contains two options which should only be used for
-FTS-2 observations:
+The list also contains options which should only be used for
+FTS-2 and POL-2 observations:
 </p>
 
 <dl>
@@ -283,6 +284,13 @@ FTS-2 observations:
     <dd>
         <p>
         To reduce FTS-2 ZPD (zero path difference) calibrations.
+        </p>
+    </dd>
+
+    <dt>REDUCE_POL_SCAN</dt>
+    <dd>
+        <p>
+        To reduce POL-2 observations taken with the telescope scanning.
         </p>
     </dd>
 </dl>
@@ -343,6 +351,43 @@ for both of these patterns cannot be sustained at high elevations.
 <p>
 Calibration observations will be taken by the telescope operator every 2&ndash;3 hours.
 As usual a pointing is typically done every hour or after any large slew.
+</p>
+
+<h2 id="pol2_observations">POL-2 Observations</h2>
+
+<p>
+In the scan component the only mode supported for POL-2 is
+&ldquo;Point Source&rdquo;.
+This mode covers an area of 6&prime; diameter and more.
+The integration time is highest in the center and decreases further
+out.
+However the ITC computes the integration time such that the
+target noise level is achieved out to 6&prime; diameter.
+Pong scan patterns should not be used with POL-2.
+</p>
+
+<p>
+In the POL component, &ldquo;Continuous Spin&rdquo; must be selected.
+If this is not done, you will see the error message
+&ldquo;<i>POL iterator is not continuous spin but
+does not have waveplate angles selected</i>&rdquo;.
+Do not select &ldquo;Calibrator In Beam&rdquo; as
+this will destroy any observation.
+</p>
+
+<p>
+<img src="s2-images/scuba2_pol2iter.png" alt="pol iterator panel" width="731" height="494" class="figure" />
+</p>
+
+<p>
+A POL-2 observation will not produce a good total intensity map.
+In order to remove the instrumental polarization and to compute the percentage
+polarization, a total intensity (I) map needs to be obtained.
+You can use public SCUBA-2 data from previous programs where available.
+In general it is best to use an I map observed with a
+&ldquo;point source&rdquo; observation pattern (also known as daisy pattern).
+The preferred method is to include an I map with your program since
+this improves the relative calibration.
 </p>
 
 <h2 id="qus">Questions</h2>
