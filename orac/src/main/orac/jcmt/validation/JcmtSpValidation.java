@@ -293,6 +293,28 @@ public class JcmtSpValidation extends SpValidation {
                     }
 
                 }
+            } else if (obsComp != null && obsComp instanceof SpInstSCUBA2) {
+                // Check for POL-2 observation with inappropriate mode or
+                // scan pattern.
+                SpItem pol_iter = SpTreeMan.findParentOfType(
+                    thisObs, SpIterPOL.class);
+
+                if (pol_iter != null) {
+                    if (thisObs instanceof SpIterRasterObs) {
+                        if (! "Point Source".equals(
+                                ((SpIterRasterObs) thisObs).getScanStrategy())) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                    titleString,
+                                    "POL-2 scan observations should use " +
+                                    "the \"Point Source\" scan strategy."));
+                        }
+                    } else {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "POL-2 should normally be used in " +
+                                "scan observations."));
+                    }
+                }
             }
 
             // Also check the switching mode.  If we are in beam switch,
