@@ -293,6 +293,30 @@ public class JcmtSpValidation extends SpValidation {
                     }
 
                 }
+
+                // Warn if the velocity/redshift has been left at zero.
+                double velocity = 0.0;
+                String velocitySource = null;
+                if (spInstHeterodyne.getTable().exists(
+                        SpInstHeterodyne.ATTR_VELOCITY)) {
+                    velocity = spInstHeterodyne.getVelocity();
+                    velocitySource = "Het Setup";
+                } else if (target != null) {
+                    velocity = Double.parseDouble(
+                        target.getPosList().getBasePosition().getTrackingRadialVelocity());
+                    velocitySource = "Target Information";
+                }
+
+                if ((velocity == 0.0) && (velocitySource != null)) {
+                    report.add(new ErrorMessage(ErrorMessage.WARNING,
+                            titleString,
+                            "The radial velocity / redshift (specified in the "
+                            + velocitySource
+                            + " component) is zero."
+                            + " Please check if this is really appropriate"
+                            + " for your source and adjust if not."));
+                }
+
             } else if (obsComp != null && obsComp instanceof SpInstSCUBA2) {
                 // Check for POL-2 observation with inappropriate mode or
                 // scan pattern.
