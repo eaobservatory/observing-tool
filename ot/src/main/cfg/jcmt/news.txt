@@ -1,3 +1,14 @@
++++ January 2017 release
+
+  - Updated Java webstart package information (e.g. new package name
+    "JCMT/UKIRT Observing Tool").
+
+  - The validator now more thoroughly checks for chop iterators for each
+    beam-switched observation.
+
+  - The validator warns if the radial velocity has been left at zero for
+    heterodyne observations.
+
 +++ July 2016 release
 
   - Added an example POL-2 MSB to the SCUBA-2 library.
