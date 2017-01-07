@@ -44,7 +44,6 @@ public class Horizons {
     static final String script = "horizons_batch.cgi?batch=1";
     private static boolean caching = true;
     private String cacheDirectory = null;
-    private static boolean search = false;
     private static Horizons horizons = null;
 
     private Horizons() {
@@ -241,16 +240,12 @@ public class Horizons {
         Vector<String> vector = new Vector<String>();
 
         if (name != null && !name.trim().equals("")) {
-            search = true;
-
             TreeMap<String, String> map = doLookup(name);
-            URL lut = URLBuilder(map);
+            URL lut = buildUrl(map, true);
 
             if (lut != null) {
                 vector = connect(lut);
             }
-
-            search = false;
         }
 
         return vector;
@@ -263,7 +258,7 @@ public class Horizons {
             TreeMap<String, String> map;
             map = readInputFile(name);
 
-            URL lut = URLBuilder(map);
+            URL lut = buildUrl(map, false);
             Vector<String> vector = null;
 
             if (lut != null) {
@@ -293,7 +288,7 @@ public class Horizons {
             if (treeMap == null) {
                 TreeMap<String, String> map = doLookup(name);
 
-                URL lut = URLBuilder(map);
+                URL lut = buildUrl(map, false);
                 Vector<String> vector = null;
 
                 if (lut != null) {
@@ -396,7 +391,14 @@ public class Horizons {
         return vector;
     }
 
-    private URL URLBuilder(TreeMap<String, String> treeMap) {
+    /**
+     * Construct query URL.
+     *
+     * If "search" is specified, then this generates a query parameter
+     * "COMMAND='NAME=...'", otherwise just "COMMAND=..."
+     * (where "..." represents the search name ("COMMAND" in given treeMap).
+     */
+    private URL buildUrl(TreeMap<String, String> treeMap, boolean search) {
         URL finalURL = null;
         StringBuffer buffer = new StringBuffer();
         String key, value;

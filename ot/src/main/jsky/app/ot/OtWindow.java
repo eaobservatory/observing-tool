@@ -35,12 +35,10 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.io.File;
 import java.io.FileReader;
-import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -58,6 +56,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingWorker;
 import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -312,7 +311,7 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase {
  * @author Allan Brighton (ported to Swing/JSky, changed the layout)
  */
 @SuppressWarnings("serial")
-public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
+public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
         TpeManagerWatcher {
     /** Displays the science program hierarchy. */
     protected OtTreeWidget _tw;
@@ -329,22 +328,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
 
     /** Manages the Observation Folder enabled state */
     protected ObsFolderButtonManager _obsFolderButtonMan;
-
-    /** Used to go back to a previous science program */
-    protected Stack<OtHistoryItem> backStack = new Stack<OtHistoryItem>();
-
-    /** Used to go forward to the next science program */
-    protected Stack<OtHistoryItem> forwStack = new Stack<OtHistoryItem>();
-
-    /**
-     * Set when the back or forward actions are active to avoid the normal
-     * history handling
-     */
-    protected boolean noStack = false;
-
-    /** List of OtHistoryItem, for previously viewed science programs. */
-    protected LinkedList<OtHistoryItem> historyList =
-            new LinkedList<OtHistoryItem>();
 
     /** List of listeners for change events. */
     protected EventListenerList listenerList = new EventListenerList();
@@ -711,9 +694,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
         parent.setVisible(false);
         parent.dispose();
 
-        // TODO: eliminate this cast?
-        OT.removeOtWindowFrame((OtWindowFrame) parent);
-
         return true;
     }
 
@@ -986,7 +966,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
      * @param fi contains information about the file (may be null)
      */
     public void open(SpRootItem spItem, FileInfo fi) {
-        addToHistory();
         _reinit(spItem, fi);
     }
 
@@ -995,140 +974,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
      */
     public void save() {
         doSaveChanges();
-    }
-
-    /**
-     * Go back to the previous item in the history list
-     */
-    public void back() {
-        if (backStack.size() == 0) {
-            return;
-        }
-
-        SpRootItem rootItem = getItem();
-
-        if (rootItem != null) {
-            String title = rootItem.getTitle();
-            FileInfo fi = _progInfo.file;
-            String filename = fi.dir + File.separatorChar + fi.filename;
-            forwStack.push(new OtHistoryItem(title, filename, rootItem));
-            forwAction.setEnabled(true);
-        }
-
-        OtHistoryItem item = backStack.pop();
-
-        if (backStack.size() == 0) {
-            backAction.setEnabled(false);
-        }
-
-        noStack = true;
-
-        try {
-            item.actionPerformed((ActionEvent) null);
-        } catch (Exception e) {
-            DialogUtil.error(this, e);
-        }
-
-        noStack = false;
-    }
-
-    /**
-     * Go forward to the next component in the history list
-     */
-    public void forward() {
-        if (forwStack.size() == 0) {
-            return;
-        }
-
-        SpRootItem rootItem = getItem();
-
-        if (rootItem != null) {
-            String title = rootItem.getTitle();
-            FileInfo fi = _progInfo.file;
-            String filename = fi.dir + File.separatorChar + fi.filename;
-            backStack.push(new OtHistoryItem(title, filename, rootItem));
-            backAction.setEnabled(true);
-        }
-
-        OtHistoryItem item = forwStack.pop();
-
-        if (forwStack.size() == 0) {
-            forwAction.setEnabled(false);
-        }
-
-        noStack = true;
-
-        try {
-            item.actionPerformed((ActionEvent) null);
-        } catch (Exception e) {
-            DialogUtil.error(this, e);
-        }
-
-        noStack = false;
-    }
-
-    /**
-     * Add the current science program to the history list
-     */
-    protected void addToHistory() {
-        SpRootItem rootItem = getItem();
-
-        if (!noStack && rootItem != null) {
-            String title = rootItem.getTitle();
-            FileInfo fi = _progInfo.file;
-            String filename = fi.dir + File.separatorChar + fi.filename;
-            OtHistoryItem item = new OtHistoryItem(title, filename, rootItem);
-
-            backStack.push(item);
-            backAction.setEnabled(true);
-
-            if (forwStack.size() != 0) {
-                cleanupHistoryStack(forwStack);
-                forwStack.clear();
-                forwAction.setEnabled(false);
-            }
-
-            // add to the history list and remove duplicates
-            ListIterator<OtHistoryItem> it = historyList.listIterator(0);
-            Vector<Integer> indexes = new Vector<Integer>();
-
-            for (int i = 0; it.hasNext(); i++) {
-                OtHistoryItem hi = it.next();
-
-                if (hi.title.equals(title)) {
-                    indexes.add(i);
-                }
-            }
-
-            while (indexes.size() != 0) {
-                historyList.remove(indexes.remove(0));
-            }
-
-            historyList.addFirst(item);
-
-            if (historyList.size() > 20) {
-                historyList.removeLast();
-            }
-        }
-    }
-
-    /** Add history items (for previously displayed science programs)
-     * to the given menu
-     */
-    public void addHistoryMenuItems(JMenu menu) {
-        ListIterator<OtHistoryItem> it = historyList.listIterator(0);
-
-        while (it.hasNext()) {
-            menu.add(it.next());
-        }
-    }
-
-    /**
-     * This method may be redefined in subclasses to do cleanup work before
-     * components are removed from the given history stack (backStack or
-     * forwStack).
-     */
-    protected void cleanupHistoryStack(Stack<OtHistoryItem> stack) {
     }
 
     /**
@@ -1436,25 +1281,50 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
 
         int option = chooser.showOpenDialog(null);
 
-        if (option != JFileChooser.APPROVE_OPTION
-                || chooser.getSelectedFile() == null) {
+        if (option != JFileChooser.APPROVE_OPTION) {
             return;
         }
 
-        File file = chooser.getSelectedFile();
+        final File file = chooser.getSelectedFile();
 
-        if (file != null) {
-            try {
-                SpItem replicatedItem = SpClient.replicateSp(
-                        (SpItem) getItem(), file);
-                if (replicatedItem != null) {
-                    OtWindow.create((SpRootItem) replicatedItem,
-                            (FileInfo) null);
-                    OtProps.setSaveShouldPrompt(true);
-                }
-            } catch (Exception e) {
-            }
+        if (file == null) {
+            return;
         }
+
+        (new SwingWorker<SpItem, Void>() {
+            public SpItem doInBackground() throws Exception {
+                return SpClient.replicateSp((SpItem) getItem(), file);
+            }
+
+            public void done() {
+                try {
+                    SpItem replicatedItem = get();
+
+                    if (replicatedItem != null) {
+                        OtWindow.create((SpRootItem) replicatedItem,
+                                (FileInfo) null);
+                        OtProps.setSaveShouldPrompt(true);
+                    }
+
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+
+                    if (cause == null) {
+                        message = e.getMessage();
+                    } else {
+                        cause.printStackTrace();
+                        message = cause.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(null,
+                            "Could not replicate Science Program.\n" + message,
+                            "Replication Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }).execute();
     }
 
     /**
@@ -1481,61 +1351,6 @@ public class OtWindow extends SpTreeGUI implements SpEditChangeObserver,
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == ChangeListener.class) {
                 ((ChangeListener) listeners[i + 1]).stateChanged(e);
-            }
-        }
-    }
-
-    /**
-     * Local class used to store information about previously viewed science
-     * programs.
-     *
-     * During a given session, the program is saved and can be redisplayed
-     * if needed. If the application is restarted, the filename can be used
-     * instead.
-     */
-    protected class OtHistoryItem extends AbstractAction {
-        /** The origial filename */
-        public String filename;
-
-        /** The science program. */
-        public SpRootItem spItem;
-
-        /** The item's title */
-        public String title;
-
-        /**
-         * Create an OT history item with the given title (for display),
-         * filename, and SpItem.
-         *
-         * The SpItem is used during this session, otherwise the data is read
-         * again from the file.
-         */
-        public OtHistoryItem(String title, String filename, SpRootItem spItem) {
-            super(title);
-            this.title = title;
-            this.filename = filename;
-            this.spItem = spItem;
-        }
-
-        /**
-         * Load the SpItem if it exists, otherwise the file.
-         */
-        public void actionPerformed(ActionEvent evt) {
-            if (spItem != null) {
-                FileInfo fileInfo = null;
-
-                if (filename != null) {
-                    File file = new File(filename);
-                    String dir = file.getParent();
-                    String name = file.getName();
-                    fileInfo = new FileInfo(dir, name, true);
-                }
-
-                open(spItem, fileInfo);
-
-            } else if (filename != null) {
-                File file = new File(filename);
-                open(file);
             }
         }
     }

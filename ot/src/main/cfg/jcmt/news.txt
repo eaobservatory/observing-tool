@@ -1,3 +1,14 @@
++++ January 2017 release
+
+  - Updated Java webstart package information (e.g. new package name
+    "JCMT-UKIRT Observing Tool").
+
+  - The validator now more thoroughly checks for chop iterators for each
+    beam-switched observation.
+
+  - The validator warns if the radial velocity has been left at zero for
+    heterodyne observations.
+
 +++ July 2016 release
 
   - Added an example POL-2 MSB to the SCUBA-2 library.
@@ -550,7 +561,7 @@
 
 JCMT Observing Tool
 
-The JCMT-OT is released as part of the JAC Observation Management
+The JCMT-OT is released as part of the EAO Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
 The JCMT-OT home page is at:
@@ -568,5 +579,5 @@ All Rights Reserved.
 Copyright 2007-2013 Science and Technology Facilities Council.
 All Rights Reserved.
 
-Copyright 2015-2016 East Asian Observatory.
+Copyright 2015-2017 East Asian Observatory.
 All Rights Reserved.

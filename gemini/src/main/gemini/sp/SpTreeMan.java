@@ -1074,6 +1074,28 @@ public final class SpTreeMan implements SpInsertConstants {
     }
 
     /**
+     * Method to find a parent of a given type.
+     *
+     * @param spItem item of which to search ancestry
+     * @param klass class for which to search
+     *
+     * @return first parent of given class or null
+     */
+    public static SpItem findParentOfType(SpItem spItem, Class<?> klass) {
+        SpItem parent = spItem.parent();
+
+        while (parent != null) {
+            if (klass.isInstance(parent)) {
+                return parent;
+            }
+
+            parent = parent.parent();
+        }
+
+        return null;
+    }
+
+    /**
      * Helper for the evalInsertInside() methods.
      */
     static SpInsertInfo doEvalInsertInside(SpItem newItem, SpItem parent) {

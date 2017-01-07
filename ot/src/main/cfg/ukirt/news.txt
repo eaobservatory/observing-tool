@@ -1,3 +1,8 @@
++++ January 2017 release
+
+  - Updated Java webstart package information (e.g. new package name
+    "JCMT-UKIRT Observing Tool").
+
 +++ July 2016 release.
 
   - No changes for UKIRT.
@@ -435,7 +440,7 @@
 
 UKIRT Observing Tool
 
-The UKIRT-OT is released as part of the JAC Observation Management
+The UKIRT-OT is released as part of the EAO Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
 The UKIRT-OT home page is at http://www.ukirt.hawaii.edu/ukirtot/
@@ -454,5 +459,5 @@ All Rights Reserved.
 Copyright 2007-2013 Science and Technology Facilities Council.
 All Rights Reserved.
 
-Copyright 2015-2016 East Asian Observatory.
+Copyright 2015-2017 East Asian Observatory.
 All Rights Reserved.

@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.WindowConstants;
 import gemini.sp.SpFactory;
 import gemini.sp.SpLibrary;
 import gemini.sp.SpType;
@@ -48,11 +49,7 @@ import orac.helptool.JHLauncher;
 import gemini.util.ObservingToolUtilities;
 
 @SuppressWarnings("serial")
-public class OT extends JFrame {
-    /** Vector of all non-internal OtWindowFrame's */
-    private static Vector<OtWindowFrame> _otWindowFrames =
-            new Vector<OtWindowFrame>();
-
+public class OT {
     /** Help launcher. */
     private static JHLauncher helpLauncher = null;
 
@@ -60,11 +57,10 @@ public class OT extends JFrame {
     private static SplashScreen _splash;
 
     /** Preferences Dialog */
-    private static OtPreferencesDialog _preferencesDialog =
-            new OtPreferencesDialog();
+    private static OtPreferencesDialog _preferencesDialog = null;
 
     /** Database Access */
-    private static DatabaseDialog _databaseDialog = new DatabaseDialog();
+    private static DatabaseDialog _databaseDialog = null;
 
     /**
      * Default save directory.
@@ -82,7 +78,7 @@ public class OT extends JFrame {
      * accessible from within java. the system property user.dir would point
      * to the directory from which java was started.
      */
-    public static final String PROPERTY_OT_USERDIR = "ot.userdir";
+    private static final String PROPERTY_OT_USERDIR = "ot.userdir";
 
     /**
      * @see #PROPERTY_OT_USERDIR
@@ -91,15 +87,12 @@ public class OT extends JFrame {
     private static String _otUserDir = null;
 
     /**
-     * Create the OT application.
+     * Default constructor.
+     *
+     * This constructor is private to prevent instantiation of objects
+     * of this class.
      */
-    public OT() {
-        super("OT");
-    }
-
-    @Deprecated
-    public OT(boolean internalFrames) {
-        this();
+    private OT() {
     }
 
     /**
@@ -117,6 +110,10 @@ public class OT extends JFrame {
     }
 
     public static DatabaseDialog getDatabaseDialog() {
+        if (_databaseDialog == null) {
+            _databaseDialog = new DatabaseDialog();
+        }
+
         return _databaseDialog;
     }
 
@@ -125,7 +122,7 @@ public class OT extends JFrame {
      */
     public static void newProgram() {
         OtProps.setSaveShouldPrompt(true);
-        addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
+        new OtWindowFrame(new OtProgWindow());
     }
 
     /**
@@ -150,6 +147,10 @@ public class OT extends JFrame {
      * Display a preferences dialog.
      */
     public static void preferences() {
+        if (_preferencesDialog == null) {
+            _preferencesDialog = new OtPreferencesDialog();
+        }
+
         _preferencesDialog.show();
     }
 
@@ -174,7 +175,7 @@ public class OT extends JFrame {
      * Fetch a science program from the database.
      */
     public static void fetchProgram() {
-        _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
+        getDatabaseDialog().show(DatabaseDialog.ACCESS_MODE_FETCH);
     }
 
     /**
@@ -232,21 +233,13 @@ public class OT extends JFrame {
         }
     }
 
-    public static void addOtWindowFrame(OtWindowFrame frame) {
-        _otWindowFrames.add(frame);
-    }
-
-    public static void removeOtWindowFrame(OtWindowFrame frame) {
-        _otWindowFrames.remove(frame);
-    }
-
     // From ATC OT.java end
 
     /**
      * Get default user directory.
      *
      * Returns the directory specified by the system property
-     * PROPERTY_OT_USERDIR ("otuserdir") if it is specified and exists or
+     * PROPERTY_OT_USERDIR ("ot.userdir") if it is specified and exists or
      * the user's home directory otherwise.
      *
      * @see #PROPERTY_OT_USERDIR
@@ -283,7 +276,7 @@ public class OT extends JFrame {
      */
     public static void main(String args[]) {
         boolean ok = true;
-        Vector<String> filenames = null;
+        final Vector<String> filenames = new Vector<String>();
 
         try {
             // Check which version of java we are running
@@ -327,10 +320,6 @@ public class OT extends JFrame {
             } else {
                 String filename = args[i];
                 if (filename.toLowerCase().endsWith(".xml")) {
-                    if (filenames == null) {
-                        filenames = new Vector<String>();
-                    }
-
                     filenames.add(filename);
                 }
             }
@@ -343,54 +332,62 @@ public class OT extends JFrame {
             System.exit(1);
         }
 
-        VersionSelector.checkVersions();
+        // Launch the OT version choice window (if necessary).  This will
+        // call the given Runnable (on the Swing thread) when complete.
+        VersionSelector.checkVersions(new Runnable () {
+            public void run() {
+                try {
+                    OtCfg.init();
 
-        try {
-            OtCfg.init();
+                } catch (Throwable e) {
+                    e.printStackTrace();
 
-        } catch (Throwable e) {
-            e.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Problem with OT configuration:"
+                            + "\nThis might result in invalid Science Programs.",
+                            "Problem with OT configuration.",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Problem with OT configuration:"
-                    + "\nThis might result in invalid Science Programs.",
-                    "Problem with OT configuration.",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+                // Create a small frame to contain the menus that would originally
+                // have been in the desktop pane with the internal frames.
+                // (MFO, 17 August 2001)
 
-        // Create a small frame to contain the menus that would originally
-        // have been in the desktop pane with the internal frames.
-        // (MFO, 17 August 2001)
+                JFrame menuFrame = new JFrame("OT");
+                menuFrame.setJMenuBar(new OTMenuBar(menuFrame));
 
-        JFrame menuFrame = new JFrame("OT");
-        menuFrame.setJMenuBar(new OTMenuBar(new OT()));
+                URL url = ObservingToolUtilities.resourceURL(
+                        "images/background_small.gif", "ot.resource.cfgdir");
 
-        URL url = ObservingToolUtilities.resourceURL(
-                "images/background_small.gif", "ot.resource.cfgdir");
+                ImageIcon icon = new ImageIcon(url);
+                JLabel label = new JLabel(icon);
+                label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+                menuFrame.add(label);
 
-        ImageIcon icon = new ImageIcon(url);
-        JLabel label = new JLabel(icon);
-        label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-        menuFrame.add(label);
+                menuFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                menuFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        exit();
+                    }
+                });
 
-        menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        menuFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+                menuFrame.pack();
+                menuFrame.setVisible(true);
+
+                if (filenames.size() != 0) {
+                    for (String filename: filenames) {
+                        OtFileIO.open(filename);
+                    }
+                } else {
+                    OT.showSplashScreen();
+                }
+            }
+        },
+        new Runnable() {
+            public void run() {
                 exit();
             }
         });
-
-        menuFrame.pack();
-        menuFrame.setVisible(true);
-
-        if (filenames != null) {
-            while (filenames.size() != 0) {
-                OtFileIO.open(filenames.remove(0));
-            }
-
-        } else {
-            OT.showSplashScreen();
-        }
     }
 }

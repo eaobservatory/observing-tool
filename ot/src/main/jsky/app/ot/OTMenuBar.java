@@ -40,8 +40,8 @@ import javax.swing.JComponent;
  */
 @SuppressWarnings("serial")
 public class OTMenuBar extends JMenuBar implements ActionListener {
-    /** Target class */
-    protected OT ot;
+    /** The parent window.*/
+    protected Component parentComponent;
 
     /** Handle for the File menu */
     protected JMenu fileMenu;
@@ -65,9 +65,9 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
     /**
      * Create the menubar for the given JSkyCat instance
      */
-    public OTMenuBar(OT ot) {
+    public OTMenuBar(Component parentComponent) {
         super();
-        this.ot = ot;
+        this.parentComponent = parentComponent;
         add(createFileMenu());
         add(createObservingDatabaseMenu());
         add(createHelpMenu());
@@ -83,7 +83,8 @@ public class OTMenuBar extends JMenuBar implements ActionListener {
         fileMenu.add(createMenuItem(OPEN));
         fileMenu.addSeparator();
 
-        JMenuItem[] instLibraryMenuItems = createFileOpenInstLibraryMenuItems(ot);
+        JMenuItem[] instLibraryMenuItems =
+            createFileOpenInstLibraryMenuItems(parentComponent);
 
         for (int i = 0; i < instLibraryMenuItems.length; i++) {
             if (instLibraryMenuItems[i] == null) {

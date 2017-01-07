@@ -2,7 +2,7 @@
 <jnlp spec="1.5+" codebase="http://ftp.eao.hawaii.edu/ot" href="pal.jnlp">
 	<information>
 		<title>peterdraper</title>
-		<vendor>Joint Astronomy Centre, Hawai'i.</vendor>
+		<vendor>East Asian Observatory</vendor>
 		<homepage href="http://www.eaobservatory.org/jcmt/observing/software-installation/"/>
 		<offline-allowed/>
 	</information>

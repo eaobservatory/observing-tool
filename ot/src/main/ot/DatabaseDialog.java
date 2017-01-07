@@ -24,8 +24,11 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.BorderLayout;
+import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import jsky.app.ot.LoginInfo;
 import jsky.app.ot.OtProgWindow;
 import jsky.app.ot.OtWindowFrame;
@@ -59,7 +62,6 @@ public class DatabaseDialog implements ActionListener {
     public static int ACCESS_MODE_STORE = 1;
     private static int _mode = ACCESS_MODE_FETCH;
     private static SpItem _spItemToBeSaved = null;
-    private DatabaseAccessThread _databaseAccessThread;
     private StopActionWidget _stopAction = new StopActionWidget();
     private boolean _databaseAccessAborted = false;
 
@@ -156,87 +158,134 @@ public class DatabaseDialog implements ActionListener {
         _mode = mode;
     }
 
-    protected void fetchProgram(String projectID, String password) {
-        SpItem spItem = null;
-
-        try {
-            spItem = SpClient.fetchProgram(projectID, password);
-
-        } catch (NullPointerException npe) {
-            JOptionPane.showMessageDialog(_dialogComponent,
-                    "Could not fetch Science Program.\n" + npe.getMessage(),
-                    "Database Error", JOptionPane.ERROR_MESSAGE);
-            _stopAction.actionsFinished();
-            hide();
-
-            return;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(_dialogComponent,
-                    "Could not fetch Science Program.\n" + e.getMessage(),
-                    "Database Error", JOptionPane.ERROR_MESSAGE);
-            _stopAction.actionsFinished();
-            hide();
-
-            return;
-        }
-
-        // If the user has aborted fetchProgram by hitting "Stop" then
-        // do not display the science program.
-        if (_databaseAccessAborted) {
-            hide();
-
-            return;
-        }
-
-        // database argument is not needed, 0 is just a dummy.
-        LoginInfo li = new LoginInfo(projectID, 0, password);
-
-        new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li));
-
-        hide();
-    }
-
-    protected void storeProgram(String password) {
-        storeProgram(password, false);
-    }
-
-    protected void storeProgram(String password, boolean force) {
-        try {
-            SpClient.SpStoreResult result = SpClient.storeProgram(
-                    (SpProg) _spItemToBeSaved, password, force);
-
-            ((SpProg) _spItemToBeSaved).setTimestamp(result.timestamp);
-
-            String dialogString = result.summary
-                    + "\nYour Program has been successfully submitted!"
-                    + "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP"
-                    + " TIMESTAMP INFORMATION.";
-
-            new FormattedStringBox(dialogString, "Database Message");
-
-        } catch (SpChangedOnDiskException e) {
-            if (JOptionPane.showConfirmDialog(_w, e.getMessage()
-                    + "\n\n            Store anyway?", "Database Message",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                // Call storeProgram and force storing despite inconsistent
-                // time stamp.  (Unless the current call had the force flag
-                // set already. This should not happen.)
-                if (!force) {
-                    storeProgram(password, true);
-                }
+    private void doFetchProgram(final String projectID, final String password) {
+        (new SwingWorker<SpItem, Void>() {
+            @Override
+            public SpItem doInBackground() throws Exception {
+                return SpClient.fetchProgram(projectID, password);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(_dialogComponent,
-                    "Could not store Science Program.\n" + e.getMessage(),
-                    "Database Error", JOptionPane.ERROR_MESSAGE);
-            _stopAction.actionsFinished();
-        }
+            @Override
+            public void done() {
+                try {
+                    SpItem spItem = get();
 
-        hide();
+                    if (spItem == null) {
+                        JOptionPane.showMessageDialog(_dialogComponent,
+                                "Could not fetch Science Program.\nNull or invalid response.",
+                                "Database Error", JOptionPane.ERROR_MESSAGE);
+
+                    } else if (! _databaseAccessAborted) {
+                        // If the user has aborted fetchProgram by hitting
+                        // "Stop" then do not display the science program.
+
+                        // Database argument is not needed, 0 is just a dummy.
+                        LoginInfo li = new LoginInfo(projectID, 0, password);
+
+                        new OtWindowFrame(
+                            new OtProgWindow((SpRootItem) spItem, li));
+                    }
+
+                    hide();
+
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+
+                    if (cause == null) {
+                        message = e.getMessage();
+                    } else {
+                        cause.printStackTrace();
+                        message = cause.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(_dialogComponent,
+                            "Could not fetch Science Program.\n" + message,
+                            "Database Error", JOptionPane.ERROR_MESSAGE);
+
+                } finally {
+                    databaseAccessFinished();
+                }
+            }
+        }).execute();
+    }
+
+    private void doStoreProgram(final String password) {
+        (new SwingWorker<SpClient.SpStoreResult, Void>() {
+            @Override
+            public SpClient.SpStoreResult doInBackground() throws Exception {
+                try {
+                    return SpClient.storeProgram(
+                            (SpProg) _spItemToBeSaved, password, false);
+                }
+                catch (final SpChangedOnDiskException e) {
+                    final int[] confirm = new int[1];
+
+                    // Use invokeAndWait to launch a confirm dialog box to ask
+                    // whether they want to "force" storage of the program.
+                    SwingUtilities.invokeAndWait(new Runnable() {
+                        @Override
+                        public void run() {
+                            confirm[0] = JOptionPane.showConfirmDialog(
+                                    _w, e.getMessage() + "\n\nStore anyway?",
+                                    "Database Message",
+                                    JOptionPane.YES_NO_OPTION);
+                        }
+                    });
+
+                    if (confirm[0] == JOptionPane.YES_OPTION) {
+                        // Call storeProgram and force storing despite
+                        // inconsistent time stamp.
+                        return SpClient.storeProgram(
+                            (SpProg) _spItemToBeSaved, password, true);
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            public void done() {
+                try {
+                     SpClient.SpStoreResult result = get();
+
+                    if (result != null) {
+                        ((SpProg) _spItemToBeSaved).setTimestamp(result.timestamp);
+
+                        String dialogString = result.summary
+                                + "\nYour Program has been successfully submitted!"
+                                + "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP"
+                                + " TIMESTAMP INFORMATION.";
+
+                        new FormattedStringBox(dialogString, "Database Message");
+                    }
+
+                    hide();
+
+                } catch (InterruptedException e) {
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+
+                    if (cause == null) {
+                        message = e.getMessage();
+                    } else {
+                        cause.printStackTrace();
+                        message = cause.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(_dialogComponent,
+                            "Could not store Science Program.\n" + message,
+                            "Database Error", JOptionPane.ERROR_MESSAGE);
+
+                } finally {
+                    databaseAccessFinished();
+                }
+            }
+        }).execute();
     }
 
     /**
@@ -257,39 +306,26 @@ public class DatabaseDialog implements ActionListener {
         }
     }
 
-    public void accessDatabase() {
-        _databaseAccessThread = new DatabaseAccessThread();
-        _databaseAccessThread.start();
+    private void accessDatabase() {
         _stopAction.actionsStarted();
         _w.confirmButton.setEnabled(false);
+
+        String password = new String(_w.passwordTextBox.getPassword());
+
+        if (_mode == ACCESS_MODE_STORE) {
+            doStoreProgram(password);
+        }
+        else {
+            // loginTextBox contains the proejctID aka Science Program name.
+            String projectID = _w.loginTextBox.getText();
+
+            doFetchProgram(projectID, password);
+        }
     }
 
-    public void databaseAccessFinished() {
+    private void databaseAccessFinished() {
         _databaseAccessAborted = false;
         _stopAction.actionsFinished();
         _w.confirmButton.setEnabled(true);
-    }
-
-    /**
-     * This class changes the color and text of the "Resolve" button that
-     * starts the name rsolver.
-     *
-     * This inner class is very similar to the class NameResolverFeedback in
-     * {@link jsky.app.ot.editor.EdCompTargetList}.  If this
-     * design/implementaton is accepted the two classes should inherit from
-     * a super class, say, ot.util.CanelableThreadButton.
-     */
-    class DatabaseAccessThread extends Thread {
-        public void run() {
-            // loginTextBox contains the proejctID aka Science Program name.
-            if (_mode == ACCESS_MODE_STORE) {
-                storeProgram(new String(_w.passwordTextBox.getPassword()));
-            } else {
-                fetchProgram(_w.loginTextBox.getText(), new String(
-                        _w.passwordTextBox.getPassword()));
-            }
-
-            databaseAccessFinished();
-        }
     }
 }

@@ -29,8 +29,6 @@ package jsky.app.ot;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import jsky.app.ot.gui.StopActionWatcher;
-import jsky.app.ot.gui.StopActionWidget;
 import gemini.sp.SpFactory;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
@@ -43,7 +41,7 @@ import gemini.sp.SpType;
  * have to do with the Observing Database (ODB).
  */
 @SuppressWarnings("serial")
-public final class OtProgWindow extends OtWindow implements StopActionWatcher {
+public final class OtProgWindow extends OtWindow {
     /**
      * Default constructor.
      *
@@ -142,34 +140,9 @@ public final class OtProgWindow extends OtWindow implements StopActionWatcher {
     }
 
     /**
-     * Implementation of the StopActionWatcher interface.
-     */
-    public synchronized void stopAction(StopActionWidget saw) {
-    }
-
-    /**
-     * Fetch a science program from an online database.
-     */
-    public void fetchFromOnlineDatabase() {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                OT.getDatabaseDialog().fetchProgram();
-            }
-        });
-
-        t.start();
-    }
-
-    /**
      * Store the current science program to an online database.
      */
     public void storeToOnlineDatabase() {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                OT.getDatabaseDialog().storeProgram(getItem());
-            }
-        });
-
-        t.start();
+        OT.getDatabaseDialog().storeProgram(getItem());
     }
 }

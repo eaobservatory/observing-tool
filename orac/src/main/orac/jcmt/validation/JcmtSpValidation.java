@@ -293,6 +293,52 @@ public class JcmtSpValidation extends SpValidation {
                     }
 
                 }
+
+                // Warn if the velocity/redshift has been left at zero.
+                double velocity = 0.0;
+                String velocitySource = null;
+                if (spInstHeterodyne.getTable().exists(
+                        SpInstHeterodyne.ATTR_VELOCITY)) {
+                    velocity = spInstHeterodyne.getVelocity();
+                    velocitySource = "Het Setup";
+                } else if (target != null) {
+                    velocity = Double.parseDouble(
+                        target.getPosList().getBasePosition().getTrackingRadialVelocity());
+                    velocitySource = "Target Information";
+                }
+
+                if ((velocity == 0.0) && (velocitySource != null)) {
+                    report.add(new ErrorMessage(ErrorMessage.WARNING,
+                            titleString,
+                            "The radial velocity / redshift (specified in the "
+                            + velocitySource
+                            + " component) is zero."
+                            + " Please check if this is really appropriate"
+                            + " for your source and adjust if not."));
+                }
+
+            } else if (obsComp != null && obsComp instanceof SpInstSCUBA2) {
+                // Check for POL-2 observation with inappropriate mode or
+                // scan pattern.
+                SpItem pol_iter = SpTreeMan.findParentOfType(
+                    thisObs, SpIterPOL.class);
+
+                if (pol_iter != null) {
+                    if (thisObs instanceof SpIterRasterObs) {
+                        if (! "Point Source".equals(
+                                ((SpIterRasterObs) thisObs).getScanStrategy())) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                    titleString,
+                                    "POL-2 scan observations should use " +
+                                    "the \"Point Source\" scan strategy."));
+                        }
+                    } else {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "POL-2 should normally be used in " +
+                                "scan observations."));
+                    }
+                }
             }
 
             // Also check the switching mode.  If we are in beam switch,
@@ -302,10 +348,8 @@ public class JcmtSpValidation extends SpValidation {
 
             if (switchingMode != null) {
                 if (switchingMode.equals(SpJCMTConstants.SWITCHING_MODE_BEAM)) {
-                    Vector<SpItem> chops = SpTreeMan.findAllInstances(spObs,
-                            SpIterChop.class.getName());
-
-                    if (chops == null || chops.size() == 0) {
+                    if (SpTreeMan.findParentOfType(
+                            thisObs, SpIterChop.class) == null) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 titleString,
                                 "Chop iterator required for beam switch mode"));
