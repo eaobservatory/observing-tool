@@ -115,7 +115,7 @@ public final class News extends JFrame {
     private void _initTextBox() {
         _rt.setText("");
 
-        _rt.append("JAC Observing Tool Release Notes");
+        _rt.append("Observing Tool Release Notes");
         _rt.append("\n\n");
         _rt.append("This page will be updated frequently as new features are "
                 + "incorporated and bugs are fixed.");

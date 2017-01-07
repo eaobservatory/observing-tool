@@ -561,7 +561,7 @@
 
 JCMT Observing Tool
 
-The JCMT-OT is released as part of the JAC Observation Management
+The JCMT-OT is released as part of the EAO Observation Management
 Project. It has been extensively modified from the Gemini OT version 0.5.
 
 The JCMT-OT home page is at:
