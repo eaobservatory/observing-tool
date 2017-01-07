@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>Building the UKIRT OT</title>
+</head>
+<body>
+<h1>Building the UKIRT OT</h1>
+
+<p>
+To build the UKIRT OT, run ant in the OT directory.
+The live copy is in <tt>/jac_sw/orac3/</tt>:
+</p>
+
+<pre>
+/jac_sw/orac3 $ ant
+...
+BUILD SUCCESSFUL
+Total time: 5 seconds
+</pre>
+</pre>
+
+<h2>Reminders</h2>
+
+<ul>
+<li>
+Builds in the live system are only done Monday&ndash;Thursday daytime
+excluding holidays.
+</li>
+<li>
+Since you will be working in a shared directory you obviously need to set
+your umask to 2 first.
+</li>
+<li>
+If the build fails you will need to fix it before you can run
+any software which depends on it, such as observing normally at UKIRT
+using the QT or UKIRT Translator &mdash; the OT and QT should both be tested.
+</li>
+</ul>
+</body>
+</html>
