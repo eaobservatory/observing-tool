@@ -1,7 +1,7 @@
 +++ January 2017 release
 
   - Updated Java webstart package information (e.g. new package name
-    "JCMT/UKIRT Observing Tool").
+    "JCMT-UKIRT Observing Tool").
 
 +++ July 2016 release.
 
