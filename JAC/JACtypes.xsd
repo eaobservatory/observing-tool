@@ -109,6 +109,7 @@
     <xsd:element ref="toml:SpMSB"/>
     <xsd:element ref="toml:SpObs"/>
     <xsd:element ref="toml:SpNote"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
     <xsd:element ref="toml:SpSurveyContainer"/>
     <xsd:element ref="toml:SpSiteQualityObsComp"/>
     <xsd:element ref="toml:SpSchedConstObsComp"/>
