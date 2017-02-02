@@ -320,16 +320,15 @@ SCIENCE BGPS3097  18:34:12.03  -08:22:57.3 FK5
 REFERENCE GD2  18:31:12.06  -07:59:05.2 FK5
 SCIENCE BGPS3100  18:34:19.16  -08:23:27.9 FK5
 REFERENCE GD2  18:31:12.06  -07:59:05.2 FK5
-
-:
-
-etc.
+...
 </pre>
 
 <p>
-The first line is the Survey ID, which will become the title of the
-survey container. This is prefixed to every supplied target name as
-follows:
+The optional first line is the Survey ID.
+If this is specified,
+then it is prefixed to every supplied target name with a colon
+as illustrated below.
+(So it is best to keep it short, or omit it entirely!)
 </p>
 
 <p>
@@ -337,8 +336,17 @@ follows:
 </p>
 
 <p>
-(So it is best to keep it short!)
+Each <tt>SCIENCE</tt> position can also have one or more of the following
+optional values: position in tile, observations remaining and priority.
+The position in tile can just be -1 (a dummy value) for JCMT
+science programs.
+So, for example, to specify a target with 10 observations remaining
+and priority 50, you could use:
 </p>
+
+<pre>
+SCIENCE TargetName 12:34:56 07:08:09 FK5 -1 10 50
+</pre>
 
 <h2 id="proxy">To those Behind a Firewall: Setting your Proxy Server</h2>
 

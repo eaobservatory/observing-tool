@@ -122,7 +122,9 @@ public class SurveyGUI extends JPanel {
         surveyPanel.setPreferredSize(new Dimension(100, 100));
 
         tabbedPane.add("Survey Targets", surveyPanel);
-        telescopeGUIVisible();
+        // Telescope GUI is being hidden the first time, so it is safe not
+        // to specifically hide the XYOffsetPanel.
+        telescopeGUIVisible(false);
         tabbedPane.add("Target Information", _telescopeGUI);
 
         add(tabbedPane, BorderLayout.CENTER);
@@ -139,11 +141,13 @@ public class SurveyGUI extends JPanel {
         return _telescopeGUI;
     }
 
-    public void telescopeGUIVisible() {
+    public void telescopeGUIVisible(boolean hideXYOffsetPanel) {
         Component[] components = _telescopeGUI.getComponents();
 
         for (Component component : components) {
-            component.setVisible(visible);
+            component.setVisible(
+                visible && ! (hideXYOffsetPanel
+                              && (component == _telescopeGUI.XYOffsetPanel)));
         }
 
         visible = !visible;

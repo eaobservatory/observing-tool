@@ -11,7 +11,7 @@
       <title>RxA and HARP MSBs</title>
       <SpLibraryFolder type="lf" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <title>Samples</title>
+        <title>Stares</title>
         <SpMSB remaining="1" type="og" subtype="msb">
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpDRRecipeRef idref="3"/>
@@ -21,7 +21,7 @@
           <estimatedDuration units="seconds">227.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
-          <title>Position-switch sample</title>
+          <title>Position-switch stare</title>
           <totalDuration units="seconds">227.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -47,12 +47,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -216,7 +216,7 @@ Issue to consider may be:
           <estimatedDuration units="seconds">238.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
-          <title>Beam-switch sample</title>
+          <title>Beam-switch stare</title>
           <totalDuration units="seconds">238.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -242,12 +242,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -439,12 +439,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -644,12 +644,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -851,12 +851,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -1049,12 +1049,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -1258,12 +1258,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -1457,12 +1457,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -1671,12 +1671,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -1876,12 +1876,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -2096,12 +2096,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -2316,12 +2316,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -2519,7 +2519,7 @@ Issue to consider may be:
       <title>RxW MSBs</title>
       <SpLibraryFolder type="lf" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <title>Samples</title>
+        <title>Stares</title>
         <SpMSB remaining="1" type="og" subtype="msb">
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpDRRecipeRef idref="51"/>
@@ -2529,7 +2529,7 @@ Issue to consider may be:
           <estimatedDuration units="seconds">227.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
-          <title>Position-switch sample</title>
+          <title>Position-switch stare</title>
           <totalDuration units="seconds">227.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2555,12 +2555,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -2731,7 +2731,7 @@ Issue to consider may be:
           <estimatedDuration units="seconds">238.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
-          <title>Beam-switch sample</title>
+          <title>Beam-switch stare</title>
           <totalDuration units="seconds">238.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2757,12 +2757,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -2961,12 +2961,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -3174,12 +3174,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -3389,12 +3389,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -3595,12 +3595,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -3812,12 +3812,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -4019,12 +4019,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -4241,12 +4241,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -4454,12 +4454,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -4682,12 +4682,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
@@ -4910,12 +4910,12 @@ Things to include in your notes
    Spell out any specific calibrations you require in the note which is selected 
   as "show-to-observer". Example  instructions might include:
 
-   "Short sample on a nearby spectral line standard with a good
+   "Short stare at a nearby spectral line standard with a good
    CO(3-2) line e.g. OMC1".
 
     and/or
 
-   "Short sample on a point-like planet (e.g. Uranus), with same
+   "Short stare at a point-like planet (e.g. Uranus), with same
    backend set up as science target."
 
    In short, you'll at least want something to check back-end setup
