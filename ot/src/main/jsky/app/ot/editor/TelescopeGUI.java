@@ -197,7 +197,8 @@ public class TelescopeGUI extends JPanel {
     CommandButtonWidgetExt resolveOrbitalElementButton =
             new CommandButtonWidgetExt();
     JLabel orbitalElementResolvedNameLabel = new JLabel();
-    JPanel XYOffsetPanel = new JPanel();
+    // Make this panel public so that ot.editor.SurveyGUI can see it.
+    public JPanel XYOffsetPanel = new JPanel();
 
     public TelescopeGUI() {
         try {

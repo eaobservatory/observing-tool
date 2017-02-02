@@ -62,6 +62,7 @@ import gemini.sp.SpTelescopePos;
 import gemini.sp.SpSurveyContainer;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.DDMMSS;
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.EdCompTargetList;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
@@ -182,7 +183,12 @@ public final class EdSurvey extends EdCompTargetList implements
 
         _surveyGUI.tabbedPane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                _surveyGUI.telescopeGUIVisible();
+                // Determine if this is the JCMT OT.  If so, don't make the
+                // XY offset panel visible.  (Copies the test done in the
+                // EdCompTargetList constructor.)
+                _surveyGUI.telescopeGUIVisible(
+                        OtCfg.telescopeUtil
+                        instanceof orac.jcmt.util.JcmtUtil);
                 _updateWidgets();
             }
         });
