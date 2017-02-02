@@ -1,3 +1,13 @@
++++ February 2017 release
+
+  - Adjusted some of the item icons: added transparency, removed shadows
+    and tried to make the AND / OR icons clearer.
+
+  - Renamed "samples" to "stares" in the ACSIS library.
+
+  - Prevented offsets being shown on the survey container target
+    information panel.
+
 +++ January 2017 release
 
   - Updated Java webstart package information (e.g. new package name
