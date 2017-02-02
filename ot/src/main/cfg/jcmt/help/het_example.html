@@ -17,7 +17,7 @@
 <ul>
     <li><a href="#het_info">General Information</a></li>
     <li><a href="#het_start">Getting Started</a></li>
-    <li><a href="#het_anat">Worked Example: Beam-Switched Sample MSB</a>
+    <li><a href="#het_anat">Worked Example: Beam-Switched Stare MSB</a>
         <ul>
             <li><a href="#het_thsc">The &ldquo;Het Setup&rdquo; Component</a></li>
             <li><a href="#het_rcpe">The &ldquo;DR Recipe&rdquo; Component</a></li>
@@ -43,7 +43,7 @@
         <ul>
             <li><a href="#het_centering">Centering the Observations</a></li>
             <li><a href="#het_shared">Shared or Separate Offs</a></li>
-            <li><a href="#het_sam_folder">Single Position Samples</a></li>
+            <li><a href="#het_sam_folder">Single Position Stares</a></li>
             <li><a href="#het_grid_folder">Grid Maps</a></li>
             <li><a href="#het_jig_folder">Jiggle Maps</a></li>
             <li><a href="#het_rast_folder">Rasters &mdash; Classical (scan) &amp; Rasters &mdash; Basket Weave</a></li>
@@ -105,12 +105,12 @@ For more information, please see the
 <p>
 
 
-<h2 id="het_anat">Worked Example: Beam-Switched Sample MSB</h2>
+<h2 id="het_anat">Worked Example: Beam-Switched Stare MSB</h2>
 
 <p> This chapter will run through an example MSB. First open the folder titled
-"Samples" within the <a href="generic.html#lib-acsis">ACSIS Library</a>.
+"Stares" within the <a href="generic.html#lib-acsis">ACSIS Library</a>.
 Once that folder has expanded select the MSB labeled
-"Beam-switch sample(1X) " and click "Copy" on the toolbar.
+"Beam-switch stare (1X) " and click "Copy" on the toolbar.
 </p>
 
 <p>
@@ -134,7 +134,7 @@ The properties of an MSB are very simple:
 <ul>
     <li>
         <p>
-        It has a title, at the moment "Beam-switch sample".  When
+        It has a title, at the moment "Beam-switch stare".  When
         preparing your own MSB, this title should be changed to something
         meaningful describing the observation, usually with target
         name. Examples might be "B/SW observation of OMC1" or "3 point grid of
@@ -924,7 +924,7 @@ by a factor of 1.7.
 The Repeat iterator's only property is a repeat counter. This repeat
 counter will affect things that are <strong>inside</strong>
 the repeat iterator (i.e. indented under it) in turn. So if you set it
-to 2, your science observation consist of two spectral line samples;
+to 2, your science observation consist of two spectral line stares;
 i.e you will end up with precisely two spectral line observations.
 </p>
 
@@ -979,7 +979,7 @@ out (and bottom to top):
         <p>
         <img src="images/icon_iterator.png" alt="*" width="16" height="16" />
         The Repeat
-        iterator multiplies the number of times the sample is carried
+        iterator multiplies the number of times the stare is carried
         out. If you increase it from the default of 1, don't forget to
         take that into account when calculating how deep you will go.
         </p>
@@ -1164,19 +1164,19 @@ and advanced topics.
 
 <p>
 The heterodyne library groups the MSB templates according to whether
-the observation is to be a Sample, a Grid, a Jiggle-Chop, or a
+the observation is to be a Stare, a Grid, a Jiggle-Chop, or a
 Scan-PSSW:
 </p>
 
 <dl>
-    <dt><a href="#het_sam_folder">Single-position Sample</a></dt>
+    <dt><a href="#het_sam_folder">Single-position Stare</a></dt>
     <dd>
         <p>
         This is
         the most fundamental of the observing modes, in being a single spectrum
-        observed toward at a single position. The sample can either use a
-        position switch (<em>Sample-PSSW</em>) or a beam switch
-        (<em>Sample-BMSW</em>).  PSSW observations typically spend of order 30
+        observed toward at a single position. The stare can either use a
+        position switch (<em>Stare-PSSW</em>) or a beam switch
+        (<em>Stare-BMSW</em>).  PSSW observations typically spend of order 30
         secs on the source before going to the reference position for 30 secs,
         but they can accommodate large switches exceeding several degrees.
         BMSW observations by contrast offer a better sky cancellation by
@@ -1199,7 +1199,7 @@ Scan-PSSW:
     <dd>
         <p>
         These observations are
-        Samples carried out at multiple offsets, either in a regular grid or
+        stares carried out at multiple offsets, either in a regular grid or
         as a series of explicit offsets. The observations from each grid point
         end up in a single cube, sharing calibrations and possibly offs. The
         observations at each position can be either position-switched or
@@ -1221,7 +1221,7 @@ Scan-PSSW:
         <p>
         This mode makes a small map
         by "jiggling" the secondary mirror rapidly over all the points in the
-        map and is similar to Sample-BMSW/Sample-PSSW observations on a
+        map and is similar to Stare-BMSW/Stare-PSSW observations on a
         regular, pre-defined grid, such as a 4x4 pattern.  There is an
         important distinction: rather than fully completing each position
         before going to the next, Jiggles will combine sequences of short
@@ -1479,15 +1479,15 @@ spatially smoothed significantly, <i>separate offs</i> are
 recommended instead.</b>
 </p>
 
-<h3 id="het_sam_folder">Single Position Samples</h3>
+<h3 id="het_sam_folder">Single Position Stares</h3>
 
 <p>
-A sample denotes an observation consisting of one pointing per science
+A stare denotes an observation consisting of one pointing per science
 target. It can be beam-switched (BMSW) or position-switched (PSSW).
 </p>
 
 <p>
-If you open up the PSSW sample MSB in the heterodyne library, you will
+If you open up the PSSW stare MSB in the heterodyne library, you will
 see that it contains the same elements as the BMSW MSB, with the
 exception of the "Chop" component. Opening the "Target Information"
 component, however, reveals two rows in the bottom right hand window,
@@ -1501,14 +1501,14 @@ leaving the "offset" box unchecked.
 
 <p>
 <b>Important</b>: If you put or leave a REFERENCE position in the
-Target Component of a chopped observation (Sample-BMSW, Jiggle-Chop)
+Target Component of a chopped observation (Stare-BMSW, Jiggle-Chop)
 that position will be used when doing a three-load calibration
 (hot-cold-sky).
 </p>
 
 <p>
-For all sample modes, the <i>total</i> "on" integration time per
-sample is indicated in the "Stare" eye. Note
+For all stare modes, the <i>total</i> "on" integration time per
+stare is indicated in the "Stare" eye. Note
 that integration time no longer is the "on+off" time, only the "on"
 time.
 </p>
@@ -1520,8 +1520,8 @@ Observations of a single science target at multiple positions are
 generically referred to as Grid observations. Note that the user can
 define any list of positions and that there is no requirement that the
 pointings form a regularly shaped grid. Opening the various grid MSBs
-in the heterodyne library shows they are similar to the Sample-PSSW or
-Sample-BMSW MSBs except for the addition of an
+in the heterodyne library shows they are similar to the Stare-PSSW or
+Stare-BMSW MSBs except for the addition of an
 <a href="#het_offset">Offset Iterator</a>. This iterator enables the user
 to specify the required pointings for the observation.
 </p>
@@ -1606,7 +1606,7 @@ position-switch to move to the reference.
 
 <p>
 Opening the various chop MSBs in the heterodyne library shows they are
-similar to the Sample-BMSW example above except that there is a
+similar to the Stare-BMSW example above except that there is a
 "Jiggle" eye instead of the "Stare" eye. It offers various
 jiggle patterns: 3x3 through 11x11 plus HARP-specific jiggles (such as
 HARP4 and HARP5).
@@ -1674,7 +1674,7 @@ measurement of the continuum level.
 
 <p>
 <b>Important</b>: If you put or leave a REFERENCE position in the
-Target Component of a chopped observation (Sample-BMSW, Jiggle-Chop)
+Target Component of a chopped observation (Stare-BMSW, Jiggle-Chop)
 that position will be used when doing a three-load calibration
 (hot-cold-sky).
 </p>
