@@ -1,3 +1,7 @@
++++ March 2017 release
+
+  - Updated Horizons server URL.
+
 +++ February 2017 release
 
   - Adjusted some of the item icons: added transparency, removed shadows
