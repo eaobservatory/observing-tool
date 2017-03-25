@@ -40,7 +40,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Horizons {
-    static final String server = "http://ssd.jpl.nasa.gov/";
+    static final String server = "https://ssd.jpl.nasa.gov/";
     static final String script = "horizons_batch.cgi?batch=1";
     private static boolean caching = true;
     private String cacheDirectory = null;
