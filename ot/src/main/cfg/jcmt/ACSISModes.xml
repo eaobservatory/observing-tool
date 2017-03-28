@@ -22,7 +22,7 @@
 
 <configuration>
   <name>      RxA_H2CO_250X3 </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
@@ -46,7 +46,7 @@
 
 <configuration>
   <name>      RxA_13C18O_250X4</name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
@@ -73,7 +73,7 @@
 
 <configuration>
   <name>      RxA_SIOSO_250x2 </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
@@ -92,7 +92,7 @@
 
 <configuration>
   <name>      RxA_SiO54_v12_250X2 </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
@@ -113,7 +113,7 @@
 
 <configuration>
   <name>      RxA_CH3NH2_No1  </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
@@ -132,7 +132,7 @@
 
 <configuration>
   <name>      RxA_CH3NH2_No3  </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
@@ -151,7 +151,7 @@
 
 <configuration>
   <name>      RxA_CH3NH2_No4  </name>
-  <frontEnd>  A3              </frontEnd>
+  <frontEnd>  A3m             </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>

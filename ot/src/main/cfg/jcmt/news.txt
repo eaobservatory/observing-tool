@@ -1,3 +1,9 @@
++++ March 2017 release
+
+  - Updated Horizons server URL.
+
+  - Changed "RxA" special configurations to use RxA3m.
+
 +++ February 2017 release
 
   - Adjusted some of the item icons: added transparency, removed shadows

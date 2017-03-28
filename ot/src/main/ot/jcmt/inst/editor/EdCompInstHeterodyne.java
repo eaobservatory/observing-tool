@@ -1777,7 +1777,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 if (childName.equals("name")) {
                     ci.$name = childValue;
                 } else if (childName.equals("frontEnd")) {
-                    ci.$feName = childValue.toUpperCase();
+                    ci.$feName = childValue;
                 } else if (childName.equals("sideband")) {
                     ci.$sideBand = childValue.toUpperCase();
                 } else if (childName.equals("mode")) {
