@@ -688,6 +688,41 @@ public class SpValidation {
                         }
 
                     }
+
+                    String pmParallax = pos.getTrackingParallax();
+
+                    if (pmParallax == null
+                                || "".equals(pmParallax)
+                                || "0".equals(pmParallax)) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                itemString,
+                                "Parallax not specified with proper motion."));
+
+                    } else {
+                        try {
+                            double parallax = Double.parseDouble(pmParallax);
+                            double pmCombined = Math.sqrt(
+                                Math.pow(Double.parseDouble(pmRA), 2.0) +
+                                Math.pow(Double.parseDouble(pmDec), 2.0));
+
+                            // Current ERFA limits PM to 0.5c and min parallax
+                            // to 1E-7".  (3.162"/year at that distance.  Check
+                            // here for 2.0"/year to give a margin of safety.)
+                            if (pmCombined > (2.0E7 * parallax)) {
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        itemString,
+                                        "Proper motion is very large for " +
+                                        "specified parallax distance.  It " +
+                                        "may be ignored."));
+                            }
+
+                        } catch (NumberFormatException e) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                    itemString,
+                                    "Could not parse parallax or PM."));
+                        }
+                    }
                 }
             }
         } else {
