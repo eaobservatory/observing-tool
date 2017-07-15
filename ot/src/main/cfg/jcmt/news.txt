@@ -1,3 +1,8 @@
++++ July 2017 release
+
+  - The validator now checks whether parallax has been specified
+    for targets with proper motion.
+
 +++ March 2017 release
 
   - Updated Horizons server URL.
