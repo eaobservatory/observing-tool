@@ -1,4 +1,8 @@
-+++ July 2017 release
++++ July 2017 release (2)
+
+  - Adjusted some JAR files due to an issue with JDK 8u141.
+
++++ July 2017 release (1)
 
   - The validator now checks whether parallax has been specified
     for targets with proper motion.
