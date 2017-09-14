@@ -1,0 +1,30 @@
+set OT_USERDIR=$HOME
+  
+set JAVA = `which java`
+ 
+# The telescope names in this list should correspond to the directories in CFG_DIRS. 
+# (generated from ../conf/make.conf) 
+set TELESCOPE_LIST = "ukirt jcmt"  
+
+set TELESCOPE = "" 
+set OMP_FLAG = "-DOMP" 
+set USAGE = "Usage: $0 <filename> <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
+ 
+############################## 
+#                            # 
+# Parsing arguments          # 
+#                            # 
+# ############################ 
+set FILE = $1
+set TELESCOPE = $2
+ 
+if("${TELESCOPE}" == "") then 
+  printf "${USAGE}" 
+  exit 
+endif 
+
+set CFG_DIRS = `pwd`/../cfg/ot/
+set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE}
+
+
+${JAVA} -ms5m -mx500m -oss5m -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR}  -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OtWindow ${FILE}
