@@ -165,7 +165,6 @@
     <xsd:enumeration value="Saturn"/>
     <xsd:enumeration value="Uranus"/>
     <xsd:enumeration value="Neptune"/>
-    <xsd:enumeration value="Pluto"/>
   </xsd:restriction>
 </xsd:simpleType>
 
