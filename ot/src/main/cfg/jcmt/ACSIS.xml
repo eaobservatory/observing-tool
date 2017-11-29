@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>ACSIS.xml</meta_gui_filename>
-  <ot_version>20151217</ot_version>
+  <ot_version>20171114</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1642,11 +1642,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="33"/>
           <SpSiteQualityObsCompRef idref="34"/>
           <SpTelescopeObsCompRef idref="32"/>
-          <estimatedDuration units="seconds">514.180243594436</estimatedDuration>
+          <estimatedDuration units="seconds">1599.6308525805257</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch raster</title>
-          <totalDuration units="seconds">514.180243594436</totalDuration>
+          <totalDuration units="seconds">1599.6308525805257</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -1812,7 +1812,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">514.180243594436</estimatedDuration>
+            <estimatedDuration units="seconds">1599.6308525805257</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -1826,7 +1826,7 @@ Issue to consider may be:
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                      <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                      <SCAN DY="29.1043" VELOCITY="1.819025" SYSTEM="TRACKING">
                       </SCAN>
                     </SCAN_AREA>
                   </obsArea>
@@ -1847,11 +1847,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="37"/>
           <SpSiteQualityObsCompRef idref="38"/>
           <SpTelescopeObsCompRef idref="36"/>
-          <estimatedDuration units="seconds">519.180243594436</estimatedDuration>
+          <estimatedDuration units="seconds">1604.6308525805257</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch raster offset</title>
-          <totalDuration units="seconds">519.180243594436</totalDuration>
+          <totalDuration units="seconds">1604.6308525805257</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -2017,7 +2017,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">519.180243594436</estimatedDuration>
+            <estimatedDuration units="seconds">1604.6308525805257</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -2041,7 +2041,7 @@ Issue to consider may be:
                       <PA>0.0</PA>
                       <SCAN_AREA>
                         <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                        <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                        <SCAN DY="29.1043" VELOCITY="1.819025" SYSTEM="TRACKING">
                         </SCAN>
                       </SCAN_AREA>
                     </obsArea>
@@ -2067,11 +2067,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="41"/>
           <SpSiteQualityObsCompRef idref="42"/>
           <SpTelescopeObsCompRef idref="40"/>
-          <estimatedDuration units="seconds">1028.360487188872</estimatedDuration>
+          <estimatedDuration units="seconds">1805.6098525805257</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch basket weave</title>
-          <totalDuration units="seconds">1028.360487188872</totalDuration>
+          <totalDuration units="seconds">1805.6098525805257</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -2237,7 +2237,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">1028.360487188872</estimatedDuration>
+            <estimatedDuration units="seconds">1805.6098525805257</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -2248,7 +2248,7 @@ Issue to consider may be:
                   <PA>0.0</PA>
                   <SCAN_AREA>
                     <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                    <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                    <SCAN DY="29.1043" VELOCITY="3.63805" SYSTEM="TRACKING">
                       <PA>0.0</PA>
                     </SCAN>
                   </SCAN_AREA>
@@ -2256,7 +2256,7 @@ Issue to consider may be:
                 <continuumMode>false</continuumMode>
                 <rowsPerCal>1</rowsPerCal>
                 <rowsPerRef>1</rowsPerRef>
-                <sampleTime>4</sampleTime>
+                <sampleTime>2.0</sampleTime>
                 <scanPattern>Boustrophedon</scanPattern>
                 <switchingMode>Position</switchingMode>
               </SpIterRasterObs>
@@ -2266,7 +2266,7 @@ Issue to consider may be:
                   <PA>0.0</PA>
                   <SCAN_AREA>
                     <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                    <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                    <SCAN DY="29.1043" VELOCITY="3.63805" SYSTEM="TRACKING">
                       <PA>90.0</PA>
                     </SCAN>
                   </SCAN_AREA>
@@ -2274,7 +2274,7 @@ Issue to consider may be:
                 <continuumMode>false</continuumMode>
                 <rowsPerCal>1</rowsPerCal>
                 <rowsPerRef>1</rowsPerRef>
-                <sampleTime>4</sampleTime>
+                <sampleTime>2.0</sampleTime>
                 <scanPattern>Boustrophedon</scanPattern>
                 <switchingMode>Position</switchingMode>
               </SpIterRasterObs>
@@ -2287,11 +2287,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="45"/>
           <SpSiteQualityObsCompRef idref="46"/>
           <SpTelescopeObsCompRef idref="44"/>
-          <estimatedDuration units="seconds">1033.360487188872</estimatedDuration>
+          <estimatedDuration units="seconds">1810.6098525805257</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch basket weave offset</title>
-          <totalDuration units="seconds">1033.360487188872</totalDuration>
+          <totalDuration units="seconds">1810.6098525805257</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -2457,7 +2457,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">1033.360487188872</estimatedDuration>
+            <estimatedDuration units="seconds">1810.6098525805257</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -2478,7 +2478,7 @@ Issue to consider may be:
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                      <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                      <SCAN DY="29.1043" VELOCITY="3.63805" SYSTEM="TRACKING">
                         <PA>0.0</PA>
                       </SCAN>
                     </SCAN_AREA>
@@ -2486,7 +2486,7 @@ Issue to consider may be:
                   <continuumMode>false</continuumMode>
                   <rowsPerCal>1</rowsPerCal>
                   <rowsPerRef>1</rowsPerRef>
-                  <sampleTime>4</sampleTime>
+                  <sampleTime>2.0</sampleTime>
                   <scanPattern>Boustrophedon</scanPattern>
                   <switchingMode>Position</switchingMode>
                 </SpIterRasterObs>
@@ -2496,7 +2496,7 @@ Issue to consider may be:
                     <PA>0.0</PA>
                     <SCAN_AREA>
                       <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                      <SCAN DY="116.4171" VELOCITY="1.819025" SYSTEM="TRACKING">
+                      <SCAN DY="29.1043" VELOCITY="3.63805" SYSTEM="TRACKING">
                         <PA>90.0</PA>
                       </SCAN>
                     </SCAN_AREA>
@@ -2504,7 +2504,7 @@ Issue to consider may be:
                   <continuumMode>false</continuumMode>
                   <rowsPerCal>1</rowsPerCal>
                   <rowsPerRef>1</rowsPerRef>
-                  <sampleTime>4</sampleTime>
+                  <sampleTime>2.0</sampleTime>
                   <scanPattern>Boustrophedon</scanPattern>
                   <switchingMode>Position</switchingMode>
                 </SpIterRasterObs>
