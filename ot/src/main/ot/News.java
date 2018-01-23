@@ -31,6 +31,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
@@ -94,6 +96,12 @@ public final class News extends JFrame {
 
     private News() {
         super("Observing Tool Release Notes");
+
+        // Prevent automatic scrolling as we insert text.
+        Caret caret = _rt.getCaret();
+        if (caret instanceof DefaultCaret) {
+            ((DefaultCaret) caret).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        }
 
         _rt.setEditable(false);
 

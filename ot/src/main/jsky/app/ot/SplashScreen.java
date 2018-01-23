@@ -36,6 +36,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URL;
 import javax.swing.JFrame;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
 import gemini.util.Version;
 
@@ -69,6 +71,14 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
         final String versionString = "OT release version ";
         RichTextBoxWidgetExt rt;
         rt = messageRTBW;
+
+        // Prevent automatic scrolling as we insert text.
+        Caret caret = rt.getCaret();
+        if (caret instanceof DefaultCaret) {
+            ((DefaultCaret) caret).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        }
+
+        rt.setEditable(false);
 
         // Get the updated version date...
         BufferedReader br = null;
