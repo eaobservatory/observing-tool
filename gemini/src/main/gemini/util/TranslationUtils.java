@@ -94,11 +94,15 @@ public class TranslationUtils {
         // Remove characters outside FITS restricted set.
         value = value.replaceAll("[^\\x20-\\x7E]", "?");
 
+        // Escape double quotes.  Since it is unclear how to do
+        // this, replace with ? instead for now.
+        value = value.replace("\"", "?");
+
         // Truncate.
         if (value.length() > 68) {
             value = value.substring(0, 68);
         }
 
-        return value;
+        return "\"" + value + "\"";
     }
 }
