@@ -1143,9 +1143,9 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
 
         // at the moment there is no difference in how errors and warnings are
         // handled.
-        if ((ErrorMessage.getErrorCount() > 0)
-                || (ErrorMessage.getWarningCount() > 0)) {
-            new ReportBox(ErrorMessage.messagesToString(report.elements()),
+        if ((ErrorMessage.getErrorCount(report) > 0)
+                || (ErrorMessage.getWarningCount(report) > 0)) {
+            new ReportBox(ErrorMessage.messagesToString(report),
                     reportBoxTitle);
             return false;
         } else {
@@ -1158,14 +1158,10 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
     /**
      * Perform validation of the specified science program item.
      *
-     * This method calls ErrorMessage.reset() before building the
-     * list of errors.
-     *
      * @return Vector of ErrorMessage objects
      */
     public static Vector<ErrorMessage> doValidation(SpItem spItem) {
         Vector<ErrorMessage> report = new Vector<ErrorMessage>();
-        ErrorMessage.reset();
 
         if (OtCfg.telescopeUtil == null) {
             report.add(new ErrorMessage(
