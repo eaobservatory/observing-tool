@@ -31,7 +31,6 @@ import gemini.sp.obsComp.SpDRObsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
 
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterObserveBase;
@@ -719,22 +718,6 @@ public final class SpTreeMan implements SpInsertConstants {
     }
 
     /**
-     * Find the SpSurveyObsComp associated with this context, if any.
-     *
-     * Only searches the given scope. It does not navigate the tree hierarchy.
-     */
-    public static SpSurveyObsComp findSurveyCompInContext(SpItem spItem) {
-        SpSurveyObsComp soc = null;
-        SpItem returned = findSpItemInContext(spItem, SpSurveyObsComp.class);
-
-        if (returned != null) {
-            soc = (SpSurveyObsComp) returned;
-        }
-
-        return soc;
-    }
-
-    /**
      * Find the SpInstObsComp associated with this context, if any.
      *
      * Only searches the given scope. It does not navigate the tree hierarchy.
@@ -826,23 +809,6 @@ public final class SpTreeMan implements SpInsertConstants {
         }
 
         return telescopeObsComp;
-    }
-
-    /**
-     * Find the survey component associated with the given scope scope of the
-     * given item.
-     *
-     * @param spItem  the SpItem defining the scope to search
-     */
-    public static SpSurveyObsComp findSurveyComp(SpItem spItem) {
-        SpSurveyObsComp surveyObsComp = null;
-        SpItem returned = findSpItemOfType(spItem, SpSurveyObsComp.class);
-
-        if (returned != null) {
-            surveyObsComp = (SpSurveyObsComp) returned;
-        }
-
-        return surveyObsComp;
     }
 
     /**
