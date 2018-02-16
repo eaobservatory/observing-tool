@@ -1363,7 +1363,7 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
             FileReader rdr = new FileReader(args[0]);
             SpItem item = (new SpInputXML()).xmlToSpItem(rdr);
             Vector<ErrorMessage> report = OtWindow.doValidation(item);
-            System.out.println(report);
+            ErrorMessage.printMessages(report, System.out);
 
         } catch (Exception e) {
             System.out.println("Error in validation");
