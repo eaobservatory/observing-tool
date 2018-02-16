@@ -1354,9 +1354,11 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
     public static void main(String[] args) {
         // Need one input, the name of an XML file
         if (args.length != 1) {
-            System.out.println("No file name specified");
-            System.exit(0);
+            System.err.println("No file name specified");
+            System.exit(1);
         }
+
+        boolean have_error = false;
 
         try {
             OtCfg.init();
@@ -1365,10 +1367,18 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
             Vector<ErrorMessage> report = OtWindow.doValidation(item);
             ErrorMessage.printMessages(report, System.out);
 
+            if ((ErrorMessage.getErrorCount(report) > 0)
+                    || (ErrorMessage.getWarningCount(report) > 0)) {
+                have_error = true;
+            }
+
         } catch (Exception e) {
-            System.out.println("Error in validation");
+            System.err.println("Error in validation");
             e.printStackTrace();
+            have_error = true;
         }
+
+        System.exit(have_error ? 1 : 0);
     }
 
     /* Copied from SpTranslator so that we can delete it from the tree */
