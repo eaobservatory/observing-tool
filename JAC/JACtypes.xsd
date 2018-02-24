@@ -152,7 +152,6 @@
     <xsd:element ref="toml:SpMSB"/>
     <xsd:element ref="toml:SpObs"/>
     <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpOR"/>
     <xsd:element ref="toml:SpSiteQualityObsComp"/>
     <xsd:element ref="toml:SpTelescopeObsComp"/>
     <xsd:element ref="toml:SpSchedConstObsComp"/>
