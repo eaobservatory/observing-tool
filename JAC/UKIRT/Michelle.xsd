@@ -1,191 +1,191 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <!-- Primitive types used for Michelle -->
 
 <xsd:simpleType name="michelleCameraList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="imaging"/>
-    <xsd:enumeration value="spectroscopy"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="imaging"/>
+        <xsd:enumeration value="spectroscopy"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleConfigTypesList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Normal"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Normal"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleDarkFilterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Blank"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Blank"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleDisperserList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="LowQ"/>
-    <xsd:enumeration value="MedN2"/>
-    <xsd:enumeration value="MedN1"/>
-    <xsd:enumeration value="Echelle"/>
-    <xsd:enumeration value="LowN"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="LowQ"/>
+        <xsd:enumeration value="MedN2"/>
+        <xsd:enumeration value="MedN1"/>
+        <xsd:enumeration value="Echelle"/>
+        <xsd:enumeration value="LowN"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleFilterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="IP?105B53"/>
-    <xsd:pattern value="IP?112B21"/>
-    <xsd:pattern value="IP?79B10"/>
-    <xsd:pattern value="IP?88B10"/>
-    <xsd:pattern value="IP?97B10"/>
-    <xsd:pattern value="IP?103B10"/>
-    <xsd:pattern value="IP?116B9"/>
-    <xsd:pattern value="IP?125B9"/>
-    <xsd:pattern value="IP?209B42"/>
-    <xsd:pattern value="IP?185B9"/>
-    <xsd:pattern value="IP?198B27"/>
-    <xsd:pattern value="NP?Block"/>
-    <xsd:pattern value="QP?Block"/>
-    <xsd:pattern value="IP?22B15"/>
-    <xsd:pattern value="IP?34B9"/>
-    <xsd:pattern value="IP?47B5"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="IP?105B53"/>
+        <xsd:pattern value="IP?112B21"/>
+        <xsd:pattern value="IP?79B10"/>
+        <xsd:pattern value="IP?88B10"/>
+        <xsd:pattern value="IP?97B10"/>
+        <xsd:pattern value="IP?103B10"/>
+        <xsd:pattern value="IP?116B9"/>
+        <xsd:pattern value="IP?125B9"/>
+        <xsd:pattern value="IP?209B42"/>
+        <xsd:pattern value="IP?185B9"/>
+        <xsd:pattern value="IP?198B27"/>
+        <xsd:pattern value="NP?Block"/>
+        <xsd:pattern value="QP?Block"/>
+        <xsd:pattern value="IP?22B15"/>
+        <xsd:pattern value="IP?34B9"/>
+        <xsd:pattern value="IP?47B5"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleOTFilterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="F105B53"/>
-    <xsd:enumeration value="F112B21"/>
-    <xsd:enumeration value="F79B10"/>
-    <xsd:enumeration value="F88B10"/>
-    <xsd:enumeration value="F97B10"/>
-    <xsd:enumeration value="F103B10"/>
-    <xsd:enumeration value="F116B9"/>
-    <xsd:enumeration value="F125B9"/>
-    <xsd:enumeration value="F209B42"/>
-    <xsd:enumeration value="F185B9"/>
-    <xsd:enumeration value="F198B27"/>
-    <xsd:enumeration value="NBlock"/>
-    <xsd:enumeration value="QBlock"/>
-    <xsd:enumeration value="F22B15"/>
-    <xsd:enumeration value="F34B9"/>
-    <xsd:enumeration value="F47B5"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="F105B53"/>
+        <xsd:enumeration value="F112B21"/>
+        <xsd:enumeration value="F79B10"/>
+        <xsd:enumeration value="F88B10"/>
+        <xsd:enumeration value="F97B10"/>
+        <xsd:enumeration value="F103B10"/>
+        <xsd:enumeration value="F116B9"/>
+        <xsd:enumeration value="F125B9"/>
+        <xsd:enumeration value="F209B42"/>
+        <xsd:enumeration value="F185B9"/>
+        <xsd:enumeration value="F198B27"/>
+        <xsd:enumeration value="NBlock"/>
+        <xsd:enumeration value="QBlock"/>
+        <xsd:enumeration value="F22B15"/>
+        <xsd:enumeration value="F34B9"/>
+        <xsd:enumeration value="F47B5"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleFilterCategoryList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Nband"/>
-    <xsd:enumeration value="Qband"/>
-    <xsd:enumeration value="Special"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Nband"/>
+        <xsd:enumeration value="Qband"/>
+        <xsd:enumeration value="Special"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleFlatSourceList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="shutter"/>
-    <xsd:enumeration value="hot sphere"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="shutter"/>
+        <xsd:enumeration value="hot sphere"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleCalTypeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Flat"/>
-    <xsd:enumeration value="Arc"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Flat"/>
+        <xsd:enumeration value="Arc"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleMaskList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="1_pixel"/>
-    <xsd:enumeration value="2_pixels"/>
-    <xsd:enumeration value="3_pixels"/>
-    <xsd:enumeration value="4_pixels"/>
-    <xsd:enumeration value="6_pixels"/>
-    <xsd:enumeration value="8_pixels"/>
-    <xsd:enumeration value="16_pixels"/>
-    <xsd:enumeration value="pinholeMask"/>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="1_pixel"/>
+        <xsd:enumeration value="2_pixels"/>
+        <xsd:enumeration value="3_pixels"/>
+        <xsd:enumeration value="4_pixels"/>
+        <xsd:enumeration value="6_pixels"/>
+        <xsd:enumeration value="8_pixels"/>
+        <xsd:enumeration value="16_pixels"/>
+        <xsd:enumeration value="pinholeMask"/>
  </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleModeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="STARE"/>
-    <xsd:enumeration value="NDSTARE"/>
-    <xsd:enumeration value="CHOP"/>
-    <xsd:enumeration value="NDCHOP"/>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="STARE"/>
+        <xsd:enumeration value="NDSTARE"/>
+        <xsd:enumeration value="CHOP"/>
+        <xsd:enumeration value="NDCHOP"/>
  </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleSamplingList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="as object"/>
-    <xsd:enumeration value="1x1"/>
-    <xsd:enumeration value="1x2"/>
-    <xsd:enumeration value="2x1"/>
-    <xsd:enumeration value="2x2"/>
-    <xsd:enumeration value="3x1"/>
-    <xsd:enumeration value="3x2"/>
-    <xsd:enumeration value="4x1"/>
-    <xsd:enumeration value="4x2"/>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="as object"/>
+        <xsd:enumeration value="1x1"/>
+        <xsd:enumeration value="1x2"/>
+        <xsd:enumeration value="2x1"/>
+        <xsd:enumeration value="2x2"/>
+        <xsd:enumeration value="3x1"/>
+        <xsd:enumeration value="3x2"/>
+        <xsd:enumeration value="4x1"/>
+        <xsd:enumeration value="4x2"/>
  </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleWaveformList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="mch_str_bw"/>
-    <xsd:enumeration value="mch_str_bw"/>
-    <xsd:enumeration value="starev11small"/>
-    <xsd:enumeration value="mch_ndr_bw"/>
-    <xsd:enumeration value="mch_ndr_sw"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="mch_str_bw"/>
+        <xsd:enumeration value="mch_str_bw"/>
+        <xsd:enumeration value="starev11small"/>
+        <xsd:enumeration value="mch_ndr_bw"/>
+        <xsd:enumeration value="mch_ndr_sw"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleWaveplateList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="none"/>
-    <xsd:enumeration value="wp_N"/>
-    <xsd:enumeration value="wp_Q"/>
- </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="none"/>
+        <xsd:enumeration value="wp_N"/>
+        <xsd:enumeration value="wp_Q"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleWavelengthLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:minInclusive value="2.0"/>
-    <xsd:maxInclusive value="21.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:minInclusive value="2.0"/>
+        <xsd:maxInclusive value="21.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleChopDelayLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="0.02"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="0.02"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleChopFrequencyLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="100.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="100.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleExpTimeLimit">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="6.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="6.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleMaskAngleLimits">
-  <xsd:restriction base="toml:degrees180">
-  </xsd:restriction>
+    <xsd:restriction base="toml:degrees180">
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michellePALimits">
-  <xsd:restriction base="toml:degrees180">
-  </xsd:restriction>
+    <xsd:restriction base="toml:degrees180">
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- Complex types types used for Michelle -->
@@ -195,138 +195,138 @@
 <!-- Michelle elements -->
 
 <xsd:element name="SpInstMichelle">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group   ref="toml:jac_meta_group" />
-      <xsd:element name="camera"                type="toml:michelleCameraList"/>
-      <xsd:element name="centralWavelength"     type="toml:michelleWavelengthLimits"/>
-      <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
-      <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
-      <xsd:element  ref="toml:coadds"/>
-      <xsd:element name="configType"            type="toml:michelleConfigTypesList"/>
-      <xsd:element name="darkFilter"            type="toml:michelleDarkFilterList"/>
-      <xsd:element name="disperser"             type="toml:michelleDisperserList"/>
-      <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
-      <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
-      <xsd:element name="filter"                type="toml:michelleFilterList"/>
-      <xsd:element name="filterCategory"        type="toml:michelleFilterCategoryList"/>
-      <xsd:element name="filterOT"              type="toml:michelleOTFilterList"/>
-      <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
-      <xsd:element name="instAper">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="value"  type="xsd:double" 
-			 minOccurs="4" maxOccurs="4"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="instPntgOffset">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="value"  type="xsd:double" 
-			 minOccurs="2" maxOccurs="2"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="instPort"         type="toml:ukirtPortsList"/>
-      <xsd:element name="mask"             type="toml:michelleMaskList"/>
-      <xsd:element name="maskAngle"        type="toml:michelleMaskAngleLimits"/>
-      <xsd:element name="mode"             type="toml:michelleModeList"/>
-      <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
-      <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
-      <xsd:element name="order"            type="xsd:nonNegativeInteger"/>
-      <xsd:element name="pixelFOV"         type="xsd:string"/>
-      <xsd:element name="polarimetry"      type="toml:yesnoType"/>
-      <xsd:element name="posAngle"         type="toml:michellePALimits" minOccurs="0"/>
-      <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
-      <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
-      <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
-      <xsd:element name="scienceArea"      type="xsd:anyType"/>
-      <xsd:element name="spectralCoverage" type="xsd:anyType"          minOccurs="0"/>
-      <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
-      <xsd:element name="waveplate"        type="toml:michelleWaveplateList"/>
-    </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="inst.michelle"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group   ref="toml:jac_meta_group" />
+            <xsd:element name="camera"                type="toml:michelleCameraList"/>
+            <xsd:element name="centralWavelength"     type="toml:michelleWavelengthLimits"/>
+            <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
+            <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
+            <xsd:element  ref="toml:coadds"/>
+            <xsd:element name="configType"            type="toml:michelleConfigTypesList"/>
+            <xsd:element name="darkFilter"            type="toml:michelleDarkFilterList"/>
+            <xsd:element name="disperser"             type="toml:michelleDisperserList"/>
+            <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
+            <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
+            <xsd:element name="filter"                type="toml:michelleFilterList"/>
+            <xsd:element name="filterCategory"        type="toml:michelleFilterCategoryList"/>
+            <xsd:element name="filterOT"              type="toml:michelleOTFilterList"/>
+            <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
+            <xsd:element name="instAper">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value"  type="xsd:double"
+                                       minOccurs="4" maxOccurs="4"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPntgOffset">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value"  type="xsd:double"
+                                     minOccurs="2" maxOccurs="2"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPort"         type="toml:ukirtPortsList"/>
+            <xsd:element name="mask"             type="toml:michelleMaskList"/>
+            <xsd:element name="maskAngle"        type="toml:michelleMaskAngleLimits"/>
+            <xsd:element name="mode"             type="toml:michelleModeList"/>
+            <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
+            <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
+            <xsd:element name="order"            type="xsd:nonNegativeInteger"/>
+            <xsd:element name="pixelFOV"         type="xsd:string"/>
+            <xsd:element name="polarimetry"      type="toml:yesnoType"/>
+            <xsd:element name="posAngle"         type="toml:michellePALimits" minOccurs="0"/>
+            <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
+            <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
+            <xsd:element name="scienceArea"      type="xsd:anyType"/>
+            <xsd:element name="spectralCoverage" type="xsd:anyType"          minOccurs="0"/>
+            <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
+            <xsd:element name="waveplate"        type="toml:michelleWaveplateList"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="inst.michelle"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterMichelleCalObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element name="calType"               type="toml:michelleCalTypeList"/>
-      <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
-      <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
-      <xsd:element  ref="toml:coadds"/>
-      <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
-      <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
-      <xsd:element name="filter"                type="toml:michelleFilterList"/>
-      <xsd:element name="flatSource"            type="toml:michelleFlatSourceList"/>
-      <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
-      <xsd:element name="mode"             type="toml:michelleModeList"/>
-      <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
-      <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
-      <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
-      <xsd:element  ref="toml:repeatCount"/>
-      <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
-      <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
-      <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
-    </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="MichelleCalObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+            <xsd:element name="calType"               type="toml:michelleCalTypeList"/>
+            <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
+            <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
+            <xsd:element  ref="toml:coadds"/>
+            <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
+            <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
+            <xsd:element name="filter"                type="toml:michelleFilterList"/>
+            <xsd:element name="flatSource"            type="toml:michelleFlatSourceList"/>
+            <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
+            <xsd:element name="mode"             type="toml:michelleModeList"/>
+            <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
+            <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
+            <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
+            <xsd:element  ref="toml:repeatCount"/>
+            <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
+            <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="MichelleCalObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterMichelleTargetAcq">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group   ref="toml:jac_meta_group" />
-      <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
-      <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
-      <xsd:element  ref="toml:coadds"/>
-      <xsd:element name="disperser"             type="toml:michelleDisperserList"/>
-      <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
-      <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
-      <xsd:element name="filter"                type="toml:michelleOTFilterList"/>
-      <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
-      <xsd:element name="mask"             type="xsd:anyType" minOccurs="0"/>
-      <xsd:element name="mode"             type="toml:michelleModeList"/>
-      <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
-      <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
-      <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
-      <xsd:element name="pixelFOV"         type="xsd:string"/>
-      <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
-      <xsd:element name="repeatCount"      type="xsd:positiveInteger"/>
-      <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
-      <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
-      <xsd:element name="scienceArea"      type="xsd:anyType"/>
-      <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
-    </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="instMichelleTargetAcq"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group   ref="toml:jac_meta_group" />
+            <xsd:element name="chopDelay"             type="toml:michelleChopDelayLimits"/>
+            <xsd:element name="chopFrequency"         type="toml:michelleChopFrequencyLimits"/>
+            <xsd:element  ref="toml:coadds"/>
+            <xsd:element name="disperser"             type="toml:michelleDisperserList"/>
+            <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
+            <xsd:element name="exposureTime"          type="toml:michelleExpTimeLimit"/>
+            <xsd:element name="filter"                type="toml:michelleOTFilterList"/>
+            <xsd:element name="idlePeriod"            type="toml:positiveDecimal"/>
+            <xsd:element name="mask"             type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="mode"             type="toml:michelleModeList"/>
+            <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nreads"           type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nresets"          type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger"/>
+            <xsd:element name="nullReads"        type="xsd:nonNegativeInteger"/>
+            <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"/>
+            <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
+            <xsd:element name="pixelFOV"         type="xsd:string"/>
+            <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
+            <xsd:element name="repeatCount"      type="xsd:positiveInteger"/>
+            <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
+            <xsd:element name="scienceArea"      type="xsd:anyType"/>
+            <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instMichelleTargetAcq"/>
+    </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

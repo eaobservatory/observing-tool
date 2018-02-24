@@ -1,300 +1,300 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
             targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    elementFormDefault="qualified">
+            elementFormDefault="qualified">
 
 
 <!-- SIMPLE TYPES -->
 <xsd:simpleType name="telescopeType">
-  <xsd:restriction base="xsd:string"/>
+    <xsd:restriction base="xsd:string"/>
 </xsd:simpleType>
 
 <xsd:simpleType name="nonNegativeDecimal">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="0.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="0.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="positiveDecimal">
-  <xsd:restriction base="xsd:double">
-    <xsd:minExclusive value="0.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minExclusive value="0.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="yesnoType">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(Y|y)(E|e)(S|s)"/>
-    <xsd:pattern value="(N|n)(O|o)"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(Y|y)(E|e)(S|s)"/>
+        <xsd:pattern value="(N|n)(O|o)"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="on_off_type">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(O|o)(N|n)"/>
-    <xsd:pattern value="(O|o)(F|F)(F|f)"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(O|o)(N|n)"/>
+        <xsd:pattern value="(O|o)(F|F)(F|f)"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="enable_disable_type">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="DISABLE"/>
-    <xsd:enumeration value="ENABLE"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="DISABLE"/>
+        <xsd:enumeration value="ENABLE"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="asciiType">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="\p{IsBasicLatin}*"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="\p{IsBasicLatin}*"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="nameType">
-  <xsd:restriction base="toml:asciiType">
-    <xsd:pattern value="[^$\\/]*[^$\\/]*"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:asciiType">
+        <xsd:pattern value="[^$\\/]*[^$\\/]*"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="dms">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="( +)?(\+|\-)?\d{1,2}(:| )+\d{1,2}(:| )+\d{1,2}(\.\d+)?" />
-    <xsd:pattern value="( +)?(\+|\-)?\d*\.\d*" />
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="( +)?(\+|\-)?\d{1,2}(:| )+\d{1,2}(:| )+\d{1,2}(\.\d+)?" />
+        <xsd:pattern value="( +)?(\+|\-)?\d*\.\d*" />
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="degrees180">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="-180.0"/>
-    <xsd:maxInclusive value="180.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-180.0"/>
+        <xsd:maxInclusive value="180.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="degrees360">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="-360.0"/>
-    <xsd:maxInclusive value="360.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-360.0"/>
+        <xsd:maxInclusive value="360.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="elevationLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="90.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="90.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="priorityType">
-  <xsd:restriction base="xsd:integer">
-    <xsd:minInclusive value="0"/>
-    <xsd:maxInclusive value="99"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:integer">
+        <xsd:minInclusive value="0"/>
+        <xsd:maxInclusive value="99"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="approachType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="rising"/>
-    <xsd:enumeration value="setting"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="rising"/>
+        <xsd:enumeration value="setting"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="seeingLimits">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="0.0"/>
-    <xsd:maxInclusive value="10.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="0.0"/>
+        <xsd:maxInclusive value="10.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="tauLimit">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="0.0"/>
-    <xsd:maxInclusive value="0.5"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="0.0"/>
+        <xsd:maxInclusive value="0.5"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="chopAngleLimits">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="-180.0"/>
-    <xsd:maxInclusive value="360.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-180.0"/>
+        <xsd:maxInclusive value="360.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="chopThrowLimits">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="0.0"/>
-    <xsd:maxInclusive value="200.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="0.0"/>
+        <xsd:maxInclusive value="200.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="offsetLimit">
-  <xsd:restriction base="xsd:double">
-    <xsd:minInclusive value="-10000.0"/>
-    <xsd:maxInclusive value="10000.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-10000.0"/>
+        <xsd:maxInclusive value="10000.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="repeatLimits">
-  <xsd:restriction base="xsd:nonNegativeInteger">
-    <xsd:maxInclusive value="100"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:nonNegativeInteger">
+        <xsd:maxInclusive value="100"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="exposureTimeLimit">
-  <xsd:restriction base="toml:positiveDecimal">
-    <xsd:maxInclusive value="1000.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:positiveDecimal">
+        <xsd:maxInclusive value="1000.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="targetTypeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="Base"/>
-    <xsd:pattern value="SCIENCE"/>
-    <xsd:pattern value="GUIDE"/>
-    <xsd:pattern value="GUIDE2"/>
-    <xsd:pattern value="REFERENCE"/>
-    <xsd:pattern value="SKY[0-9]*"/>
-    <xsd:pattern value="SKYGUIDE[0-9]*"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="Base"/>
+        <xsd:pattern value="SCIENCE"/>
+        <xsd:pattern value="GUIDE"/>
+        <xsd:pattern value="GUIDE2"/>
+        <xsd:pattern value="REFERENCE"/>
+        <xsd:pattern value="SKY[0-9]*"/>
+        <xsd:pattern value="SKYGUIDE[0-9]*"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="namedTargetList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Sun"/>
-    <xsd:enumeration value="Mercury"/>
-    <xsd:enumeration value="Venus"/>
-    <xsd:enumeration value="Moon"/>
-    <xsd:enumeration value="Mars"/>
-    <xsd:enumeration value="Jupiter"/>
-    <xsd:enumeration value="Saturn"/>
-    <xsd:enumeration value="Uranus"/>
-    <xsd:enumeration value="Neptune"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Sun"/>
+        <xsd:enumeration value="Mercury"/>
+        <xsd:enumeration value="Venus"/>
+        <xsd:enumeration value="Moon"/>
+        <xsd:enumeration value="Mars"/>
+        <xsd:enumeration value="Jupiter"/>
+        <xsd:enumeration value="Saturn"/>
+        <xsd:enumeration value="Uranus"/>
+        <xsd:enumeration value="Neptune"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="sphericalSystemList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="J2000"/>
-    <xsd:enumeration value="B1950"/>
-    <xsd:enumeration value="Az/El"/>
-    <xsd:enumeration value="AZEL"/>
-    <xsd:enumeration value="Galactic"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="J2000"/>
+        <xsd:enumeration value="B1950"/>
+        <xsd:enumeration value="Az/El"/>
+        <xsd:enumeration value="AZEL"/>
+        <xsd:enumeration value="Galactic"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="conicSystemBodyList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="major"/>
-    <xsd:enumeration value="minor"/>
-    <xsd:enumeration value="comet"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="major"/>
+        <xsd:enumeration value="minor"/>
+        <xsd:enumeration value="comet"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="chopSystem">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="AZEL"/>
-    <xsd:enumeration value="TRACKING"/>
-    <xsd:enumeration value="MOUNT"/>
-    <xsd:enumeration value="FLPANE"/>
-    <xsd:enumeration value="SCAN"/>
-    <xsd:enumeration value="FK5 (J2000)"/>
-    <xsd:enumeration value="FK4 (J1950)"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="AZEL"/>
+        <xsd:enumeration value="TRACKING"/>
+        <xsd:enumeration value="MOUNT"/>
+        <xsd:enumeration value="FLPANE"/>
+        <xsd:enumeration value="SCAN"/>
+        <xsd:enumeration value="FK5 (J2000)"/>
+        <xsd:enumeration value="FK4 (J1950)"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- COMPLEX TYPES -->
 
 <xsd:complexType name="compRefType">
-  <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
+    <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
 </xsd:complexType>
 
 <xsd:complexType name="seeingType">
-  <xsd:sequence>
-    <xsd:element name="min" type="toml:seeingLimits" minOccurs="0"/>
-    <xsd:element name="max" type="toml:seeingLimits" minOccurs="0"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="min" type="toml:seeingLimits" minOccurs="0"/>
+        <xsd:element name="max" type="toml:seeingLimits" minOccurs="0"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="magType">
-  <xsd:sequence>
-    <xsd:element name="min" type="xsd:double" minOccurs="0"/>
-    <xsd:element name="max" type="xsd:double" minOccurs="0"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="min" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="max" type="xsd:double" minOccurs="0"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="tauType">
-  <xsd:sequence>
-    <xsd:element name="min" type="toml:tauLimit" minOccurs="0"/>
-    <xsd:element name="max" type="toml:tauLimit" minOccurs="0"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="min" type="toml:tauLimit" minOccurs="0"/>
+        <xsd:element name="max" type="toml:tauLimit" minOccurs="0"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="targetDefinition">
-  <xsd:sequence>
-    <xsd:element name="targetName" type="toml:nameType"/>
-    <xsd:choice>
-      <xsd:element ref="toml:namedSystem"/>
-      <xsd:element ref="toml:spherSystem"/>
-      <xsd:element ref="toml:conicSystem"/>
-      <xsd:element ref="toml:tleSystem"/>
-    </xsd:choice>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="targetName" type="toml:nameType"/>
+        <xsd:choice>
+            <xsd:element ref="toml:namedSystem"/>
+            <xsd:element ref="toml:spherSystem"/>
+            <xsd:element ref="toml:conicSystem"/>
+            <xsd:element ref="toml:tleSystem"/>
+        </xsd:choice>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="namedTargetType">
-  <xsd:attribute name="TYPE" type="xsd:string" fixed="major"/>
+    <xsd:attribute name="TYPE" type="xsd:string" fixed="major"/>
 </xsd:complexType>
 
 <xsd:complexType name="properMotionType">
-  <xsd:simpleContent>
-    <xsd:extension base="xsd:double">
-      <xsd:attribute name="units" type="xsd:string" fixed="arcsecs/year"/>
-    </xsd:extension>
-  </xsd:simpleContent>
+    <xsd:simpleContent>
+        <xsd:extension base="xsd:double">
+            <xsd:attribute name="units" type="xsd:string" fixed="arcsecs/year"/>
+        </xsd:extension>
+    </xsd:simpleContent>
 </xsd:complexType>
 
 <xsd:complexType name="sphericalCoordinateSystemType">
-  <xsd:sequence>
-    <xsd:element name="c1" type="toml:dms"/>
-    <xsd:element name="c2" type="toml:dms"/>
-    <xsd:element name="pm1" type="toml:properMotionType" minOccurs="0"/>
-    <xsd:element name="pm2" type="toml:properMotionType" minOccurs="0"/>
-    <xsd:element ref="toml:epoch"                        minOccurs="0"/>
-    <xsd:element ref="toml:rv"                           minOccurs="0"/>
-    <xsd:element name="parallax" type="toml:nonNegativeDecimal" minOccurs="0"/>
-  </xsd:sequence>
-  <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList"/>
+    <xsd:sequence>
+        <xsd:element name="c1" type="toml:dms"/>
+        <xsd:element name="c2" type="toml:dms"/>
+        <xsd:element name="pm1" type="toml:properMotionType" minOccurs="0"/>
+        <xsd:element name="pm2" type="toml:properMotionType" minOccurs="0"/>
+        <xsd:element ref="toml:epoch"                        minOccurs="0"/>
+        <xsd:element ref="toml:rv"                           minOccurs="0"/>
+        <xsd:element name="parallax" type="toml:nonNegativeDecimal" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList"/>
 </xsd:complexType>
 
 <xsd:complexType name="conicSystemType">
-  <xsd:all>
-    <xsd:element ref="toml:epoch"/>
-    <xsd:element ref="toml:epochPerih" minOccurs="0"/>
-    <xsd:element ref="toml:inclination"/>
-    <xsd:element ref="toml:anode"/>
-    <xsd:element ref="toml:perihelion"/>
-    <xsd:element ref="toml:aorq"/>
-    <xsd:element ref="toml:e"/>
-    <xsd:element ref="toml:LorM" minOccurs="0"/>
-    <xsd:element ref="toml:n"/>
-  </xsd:all>
-  <xsd:attribute name="TYPE" type="toml:conicSystemBodyList"/>
+    <xsd:all>
+        <xsd:element ref="toml:epoch"/>
+        <xsd:element ref="toml:epochPerih" minOccurs="0"/>
+        <xsd:element ref="toml:inclination"/>
+        <xsd:element ref="toml:anode"/>
+        <xsd:element ref="toml:perihelion"/>
+        <xsd:element ref="toml:aorq"/>
+        <xsd:element ref="toml:e"/>
+        <xsd:element ref="toml:LorM" minOccurs="0"/>
+        <xsd:element ref="toml:n"/>
+    </xsd:all>
+    <xsd:attribute name="TYPE" type="toml:conicSystemBodyList"/>
 </xsd:complexType>
 
 <xsd:complexType name="tleSystemType">
-  <xsd:all>
-    <xsd:element ref="toml:epochYr"/>
-    <xsd:element ref="toml:epochDay"/>
-    <xsd:element ref="toml:inclination"/>
-    <xsd:element ref="toml:raanode"/>
-    <xsd:element ref="toml:perigee"/>
-    <xsd:element ref="toml:e"/>
-    <xsd:element ref="toml:LorM"/>
-    <xsd:element ref="toml:mm"/>
-    <xsd:element ref="toml:bstar"/>
-  </xsd:all>
+    <xsd:all>
+        <xsd:element ref="toml:epochYr"/>
+        <xsd:element ref="toml:epochDay"/>
+        <xsd:element ref="toml:inclination"/>
+        <xsd:element ref="toml:raanode"/>
+        <xsd:element ref="toml:perigee"/>
+        <xsd:element ref="toml:e"/>
+        <xsd:element ref="toml:LorM"/>
+        <xsd:element ref="toml:mm"/>
+        <xsd:element ref="toml:bstar"/>
+    </xsd:all>
 </xsd:complexType>
 
 <xsd:complexType name="angleList">
-  <xsd:sequence>
-    <xsd:element name="value" type="toml:degrees360" minOccurs="1" maxOccurs="unbounded"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="value" type="toml:degrees360" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 </xsd:schema>

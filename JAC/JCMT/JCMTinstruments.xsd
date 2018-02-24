@@ -1,20 +1,20 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <xsd:include schemaLocation="Heterodyne.xsd"/>
 <xsd:include schemaLocation="SCUBA2.xsd"/>
 
 <xsd:group name="instrumentGroup">
-  <xsd:choice>
-    <xsd:element ref="toml:SpInstHeterodyne"/>
-    <xsd:element ref="toml:SpInstSCUBA2"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpInstHeterodyne"/>
+        <xsd:element ref="toml:SpInstSCUBA2"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:element name="SpInstHeterodyneRef" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstSCUBA2Ref"     type="toml:compRefType"
              substitutionGroup="toml:componentRef"/>
 </xsd:schema>

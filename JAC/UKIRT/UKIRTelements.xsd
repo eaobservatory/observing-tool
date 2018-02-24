@@ -1,44 +1,44 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <xsd:element name="SpNote">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
-      <xsd:element name="brightness" type="xsd:anyType" minOccurs="0"/>
-      <xsd:element name="coordDesc"  type="xsd:anyType" minOccurs="0"/>
-      <xsd:group   ref="toml:noteGroup"/>
-      <xsd:element name="snr"        type="xsd:anyType" minOccurs="0"/>
-      <xsd:element name="sourceDesc" type="xsd:string"  minOccurs="0"/>
-      <xsd:element ref="toml:title"                      minOccurs="0"/>
-    </xsd:sequence>
-    <xsd:attribute name="id"                 type="xsd:nonNegativeInteger" 
-		   use="optional"/>
-    <xsd:attribute name="type"               type="toml:SpType" fixed="no"/>
-    <xsd:attribute name="subtype"            type="xsd:string" fixed="none"/>
-    <xsd:attribute name="observeInstruction" type="xsd:boolean" use="optional"
-		   default="false"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
+            <xsd:element name="brightness" type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="coordDesc"  type="xsd:anyType" minOccurs="0"/>
+            <xsd:group   ref="toml:noteGroup"/>
+            <xsd:element name="snr"        type="xsd:anyType" minOccurs="0"/>
+            <xsd:element name="sourceDesc" type="xsd:string"  minOccurs="0"/>
+            <xsd:element ref="toml:title"                      minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="id"                 type="xsd:nonNegativeInteger"
+                       use="optional"/>
+        <xsd:attribute name="type"               type="toml:SpType" fixed="no"/>
+        <xsd:attribute name="subtype"            type="xsd:string" fixed="none"/>
+        <xsd:attribute name="observeInstruction" type="xsd:boolean" use="optional"
+                       default="false"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpSiteQualityObsComp">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="toml:meta_unique"        minOccurs="0"/>
-      <xsd:element name="cloud" type="toml:cloudType" minOccurs="0"/>
-      <xsd:element name="moon"  type="toml:cloudType" minOccurs="0"/>
-      <xsd:group   ref="toml:siteQualityGroup"/>
-    </xsd:sequence>
-    <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="schedInfo"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+            <xsd:element ref="toml:meta_unique"        minOccurs="0"/>
+            <xsd:element name="cloud" type="toml:cloudType" minOccurs="0"/>
+            <xsd:element name="moon"  type="toml:cloudType" minOccurs="0"/>
+            <xsd:group   ref="toml:siteQualityGroup"/>
+        </xsd:sequence>
+        <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="schedInfo"/>
+    </xsd:complexType>
 </xsd:element>
 
 

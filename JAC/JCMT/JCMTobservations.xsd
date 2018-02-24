@@ -1,135 +1,135 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Simple types -->
 <xsd:simpleType name="skydipStartPosList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Zenith"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Zenith"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="pointingPixelList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Automatic"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Automatic"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="axisList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(x|y|z)"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(x|y|z)"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="noiseSourceList">
-  <xsd:restriction base="xsd:string">
-<!-- Heterodyne specific -->
-    <xsd:enumeration value="REFLECTOR"/>
-    <xsd:enumeration value="ECCOSORB"/>
-<!-- Common -->
-    <xsd:enumeration value="ZENITH"/>
-    <xsd:enumeration value="SKY"/>
-<!-- SCUBA-2 specific -->
-    <xsd:enumeration value="DARK"/>
-    <xsd:enumeration value="BLACKBODY"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <!-- Heterodyne specific -->
+        <xsd:enumeration value="REFLECTOR"/>
+        <xsd:enumeration value="ECCOSORB"/>
+        <!-- Common -->
+        <xsd:enumeration value="ZENITH"/>
+        <xsd:enumeration value="SKY"/>
+        <!-- SCUBA-2 specific -->
+        <xsd:enumeration value="DARK"/>
+        <xsd:enumeration value="BLACKBODY"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="flatSourceList">
-	<xsd:restriction base="xsd:string">
-		<xsd:enumeration value="DARK"/>
-		<xsd:enumeration value="SKY"/>
-		<xsd:enumeration value="ZENITH"/>
-		<xsd:enumeration value="BLACKBODY"/>
-	</xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="DARK"/>
+        <xsd:enumeration value="SKY"/>
+        <xsd:enumeration value="ZENITH"/>
+        <xsd:enumeration value="BLACKBODY"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="jigglePatternList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="DEFAULT"/>
-    <xsd:enumeration value="2x1"/>
-    <xsd:enumeration value="3x3"/>
-    <xsd:enumeration value="4x4"/>
-    <xsd:enumeration value="5x5"/>
-    <xsd:enumeration value="7x7"/>
-    <xsd:enumeration value="9x9"/>
-    <xsd:enumeration value="11x11"/>
-    <xsd:enumeration value="HARP4"/>
-    <xsd:enumeration value="HARP4_mc"/>
-    <xsd:enumeration value="HARP5"/>
-    <xsd:enumeration value="HARP5_mc"/>
-    <xsd:enumeration value="DREAM"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="DEFAULT"/>
+        <xsd:enumeration value="2x1"/>
+        <xsd:enumeration value="3x3"/>
+        <xsd:enumeration value="4x4"/>
+        <xsd:enumeration value="5x5"/>
+        <xsd:enumeration value="7x7"/>
+        <xsd:enumeration value="9x9"/>
+        <xsd:enumeration value="11x11"/>
+        <xsd:enumeration value="HARP4"/>
+        <xsd:enumeration value="HARP4_mc"/>
+        <xsd:enumeration value="HARP5"/>
+        <xsd:enumeration value="HARP5_mc"/>
+        <xsd:enumeration value="DREAM"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="jcmtSwitchingModeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Beam"/>
-    <xsd:enumeration value="Position"/>
-    <xsd:enumeration value="Frequency-Fast"/>
-    <xsd:enumeration value="Frequency-Slow"/>
-    <xsd:enumeration value="Chop"/>
-    <xsd:enumeration value="None"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Beam"/>
+        <xsd:enumeration value="Position"/>
+        <xsd:enumeration value="Frequency-Fast"/>
+        <xsd:enumeration value="Frequency-Slow"/>
+        <xsd:enumeration value="Chop"/>
+        <xsd:enumeration value="None"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="scubaScanPatterns">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Pong" />
-    <xsd:enumeration value="Lissajous" />
-    <xsd:enumeration value="Boustrophedon" />
-    <xsd:enumeration value="Point Source" />
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Pong" />
+        <xsd:enumeration value="Lissajous" />
+        <xsd:enumeration value="Boustrophedon" />
+        <xsd:enumeration value="Point Source" />
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="fts2SpecialModes">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="SED" />
-    <xsd:enumeration value="SED 850um" />
-    <xsd:enumeration value="Spectral Line" />
-    <xsd:enumeration value="Spectral Line 850um" />
-    <xsd:enumeration value="Spectral Flatfield" />
-    <xsd:enumeration value="ZPD" />
-    <xsd:enumeration value="Variable Mode" />
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="SED" />
+        <xsd:enumeration value="SED 850um" />
+        <xsd:enumeration value="Spectral Line" />
+        <xsd:enumeration value="Spectral Line 850um" />
+        <xsd:enumeration value="Spectral Flatfield" />
+        <xsd:enumeration value="ZPD" />
+        <xsd:enumeration value="Variable Mode" />
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="fts2TrackingPorts">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="8D" />
-    <xsd:enumeration value="8C" />
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="8D" />
+        <xsd:enumeration value="8C" />
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- Complex types -->
 
 <xsd:complexType name="rasterObsAreaType">
-  <xsd:sequence>
-    <xsd:element name="PA"        type="toml:degrees360"/>
-    <xsd:element name="SCAN_AREA" type="toml:rasterScanArea"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="PA"        type="toml:degrees360"/>
+        <xsd:element name="SCAN_AREA" type="toml:rasterScanArea"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="rasterScanArea">
-  <xsd:sequence>
-    <xsd:element name="AREA">
-      <xsd:complexType>
-        <xsd:attribute name="HEIGHT"   type="xsd:double"/>
-        <xsd:attribute name="WIDTH"    type="xsd:double"/>
-      </xsd:complexType>
-    </xsd:element>
-    <xsd:element name="SCAN">
-      <xsd:complexType>
-        <xsd:sequence>
-          <xsd:element name="PA"  type="toml:degrees360" minOccurs="0"/>
-        </xsd:sequence>
-        <xsd:attribute name="DY"       type="xsd:double"/>
-        <xsd:attribute name="VELOCITY" type="xsd:double"/>
-        <xsd:attribute name="SYSTEM"   type="toml:jcmtSystemList"/>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="AREA">
+            <xsd:complexType>
+                <xsd:attribute name="HEIGHT"   type="xsd:double"/>
+                <xsd:attribute name="WIDTH"    type="xsd:double"/>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="SCAN">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PA"  type="toml:degrees360" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="DY"       type="xsd:double"/>
+                <xsd:attribute name="VELOCITY" type="xsd:double"/>
+                <xsd:attribute name="SYSTEM"   type="toml:jcmtSystemList"/>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:sequence>
 </xsd:complexType>
 
 <!-- groups -->
@@ -137,179 +137,179 @@
 <!--elements -->
 
 <xsd:element name="SpIterSkydipObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="positions"       type="xsd:nonNegativeInteger" minOccurs="0" />
-      <xsd:element name="startPosition"   type="toml:skydipStartPosList" minOccurs="0" />
-      <xsd:element name="useCurrentAz"    type="xsd:boolean"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="skydipObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="positions"       type="xsd:nonNegativeInteger" minOccurs="0" />
+            <xsd:element name="startPosition"   type="toml:skydipStartPosList" minOccurs="0" />
+            <xsd:element name="useCurrentAz"    type="xsd:boolean"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="skydipObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterPointingObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="autoTarget"      type="xsd:boolean"/>
-      <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
-      <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
-      <xsd:element name="switchingMode"  type="toml:jcmtSwitchingModeList" minOccurs="0" />
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="pointingObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="autoTarget"      type="xsd:boolean"/>
+            <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
+            <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="switchingMode"  type="toml:jcmtSwitchingModeList" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="pointingObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterFocusObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="autoTarget"      type="xsd:boolean"/>
-      <xsd:element name="axis"            type="toml:axisList"/>
-      <xsd:element name="focusPoints"     type="xsd:positiveInteger"/>
-      <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="steps"           type="xsd:double" minOccurs="0" />
-      <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0" />
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="focusObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="autoTarget"      type="xsd:boolean"/>
+            <xsd:element name="axis"            type="toml:axisList"/>
+            <xsd:element name="focusPoints"     type="xsd:positiveInteger"/>
+            <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="steps"           type="xsd:double" minOccurs="0" />
+            <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="focusObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterNoiseObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="noiseSource"     type="toml:noiseSourceList"/>
-      <xsd:element name="useCurrentAz"    type="xsd:boolean" />
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="noiseObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="noiseSource"     type="toml:noiseSourceList"/>
+            <xsd:element name="useCurrentAz"    type="xsd:boolean" />
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="noiseObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterStareObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="arrayCentred"    type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="continuousCal"   type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="continuumMode"   type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="cycleReversal"   type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
-      <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
-      <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
-      <xsd:element name="rotatorAngles"   type="toml:angleList"             minOccurs="0"/>
-      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
-      <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
-      <xsd:element name="separateOffs"    type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="starePa"         type="toml:degrees180"            minOccurs="0" />
-      <xsd:element name="stareSystem"     type="toml:jcmtSystemList"        minOccurs="0" />
-      <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
-      <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
-      <xsd:element name="widePhotometry"  type="xsd:boolean"                minOccurs="0"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="stareObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="arrayCentred"    type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="continuousCal"   type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="continuumMode"   type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="cycleReversal"   type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
+            <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
+            <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
+            <xsd:element name="rotatorAngles"   type="toml:angleList"             minOccurs="0"/>
+            <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
+            <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
+            <xsd:element name="separateOffs"    type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="starePa"         type="toml:degrees180"            minOccurs="0" />
+            <xsd:element name="stareSystem"     type="toml:jcmtSystemList"        minOccurs="0" />
+            <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
+            <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
+            <xsd:element name="widePhotometry"  type="xsd:boolean"                minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="stareObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterJiggleObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:choice> 
-        <!-- ACSIS -->
+    <xsd:complexType>
         <xsd:sequence>
-          <xsd:element name="continuumMode"   type="xsd:boolean"/>
-	  <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal" minOccurs="0"/>
-	  <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal" minOccurs="0"/>
-          <xsd:element name="jigglePa"        type="xsd:double"/>
-          <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
-          <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
-          <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
-          <xsd:element name="rotatorAngles"   type="toml:angleList" minOccurs="0"/>
-          <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
-          <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
-          <xsd:element name="separateOffs"    type="xsd:boolean" minOccurs="0"/>
-          <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:choice>
+                <!-- ACSIS -->
+                <xsd:sequence>
+                    <xsd:element name="continuumMode"   type="xsd:boolean"/>
+                    <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal" minOccurs="0"/>
+                    <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal" minOccurs="0"/>
+                    <xsd:element name="jigglePa"        type="xsd:double"/>
+                    <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
+                    <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
+                    <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
+                    <xsd:element name="rotatorAngles"   type="toml:angleList" minOccurs="0"/>
+                    <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
+                    <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
+                    <xsd:element name="separateOffs"    type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
+                </xsd:sequence>
+            </xsd:choice>
         </xsd:sequence>
-      </xsd:choice>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="jiggleObs"/>
-  </xsd:complexType>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="jiggleObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterRasterObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
-      <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
-      <xsd:element name="integrations"    type="xsd:positiveInteger" minOccurs="0"/>
-      <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
-      <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
-      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"       minOccurs="0"/>
-      <xsd:element name="scanPattern"     type="toml:scubaScanPatterns" minOccurs="0"/>
-      <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="rasterObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
+            <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
+            <xsd:element name="integrations"    type="xsd:positiveInteger" minOccurs="0"/>
+            <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
+            <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
+            <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"       minOccurs="0"/>
+            <xsd:element name="scanPattern"     type="toml:scubaScanPatterns" minOccurs="0"/>
+            <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="rasterObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterDREAMObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal" minOccurs="0" />
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="dreamObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="dreamObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterArrayTestObs">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="sampleTime"      type="toml:nonNegativeDecimal" minOccurs="0" />
-		</xsd:sequence>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="arrayTestObs"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="arrayTestObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterFlatObs">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="flatSource" type="toml:flatSourceList" minOccurs="0"/>
-		</xsd:sequence>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="flatObs"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="flatSource" type="toml:flatSourceList" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="flatObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterFTS2Obs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="ScanSpeed"     type="toml:nonNegativeDecimal" minOccurs="0"/>
-      <xsd:element name="SpecialMode"   type="toml:fts2SpecialModes"   minOccurs="1"/>
-      <xsd:element name="TrackingPort"  type="toml:fts2TrackingPorts"  minOccurs="1"/>
-      <xsd:element name="isDualPort"    type="xsd:boolean"             minOccurs="1"/>
-      <xsd:element name="resolution"    type="toml:nonNegativeDecimal" minOccurs="0"/>
-      <xsd:element name="sampleTime"    type="toml:nonNegativeDecimal" minOccurs="1"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="FTS2Obs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="ScanSpeed"     type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="SpecialMode"   type="toml:fts2SpecialModes"   minOccurs="1"/>
+            <xsd:element name="TrackingPort"  type="toml:fts2TrackingPorts"  minOccurs="1"/>
+            <xsd:element name="isDualPort"    type="xsd:boolean"             minOccurs="1"/>
+            <xsd:element name="resolution"    type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="sampleTime"    type="toml:nonNegativeDecimal" minOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="FTS2Obs"/>
+    </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

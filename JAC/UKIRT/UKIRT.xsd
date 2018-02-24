@@ -1,14 +1,14 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <xsd:redefine schemaLocation="../../TOMLtypes.xsd">
 
 <xsd:simpleType name="chopThrowLimits">
-  <xsd:restriction base="toml:chopThrowLimits">
-    <xsd:maxInclusive value="30.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:chopThrowLimits">
+        <xsd:maxInclusive value="30.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 </xsd:redefine>
@@ -16,27 +16,27 @@
 <xsd:redefine schemaLocation="../../TOMLelements.xsd">
 
 <xsd:group name="ProgInfoGroup">
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
-      <xsd:group ref="toml:ProgInfoGroup"/>
-    </xsd:sequence>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
+            <xsd:group ref="toml:ProgInfoGroup"/>
+        </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedBlockGroup">
-  <xsd:sequence>
-    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-    <xsd:element ref="toml:componentRef" minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group ref="toml:schedBlockGroup"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+        <xsd:element ref="toml:componentRef" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:group ref="toml:schedBlockGroup"/>
+    </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="observationGroup">
-  <xsd:sequence>
-    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-    <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group   ref="toml:observationGroup"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+        <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:group   ref="toml:observationGroup"/>
+    </xsd:sequence>
 </xsd:group>
 
 </xsd:redefine>

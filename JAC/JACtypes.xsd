@@ -1,188 +1,188 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Simple Types used locally at JAC -->
 
 <xsd:simpleType name="SpType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="oc"/>
-    <xsd:enumeration value="ic"/>
-    <xsd:enumeration value="pr"/>
-    <xsd:enumeration value="pl"/>
-    <xsd:enumeration value="lb"/>
-    <xsd:enumeration value="lf"/>
-    <xsd:enumeration value="ob"/>
-    <xsd:enumeration value="li"/>
-    <xsd:enumeration value="fo"/>
-    <xsd:enumeration value="og"/>
-    <xsd:enumeration value="no"/>
-    <xsd:enumeration value="of"/>
-    <xsd:enumeration value="if"/>
-    <xsd:enumeration value="sc"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="oc"/>
+        <xsd:enumeration value="ic"/>
+        <xsd:enumeration value="pr"/>
+        <xsd:enumeration value="pl"/>
+        <xsd:enumeration value="lb"/>
+        <xsd:enumeration value="lf"/>
+        <xsd:enumeration value="ob"/>
+        <xsd:enumeration value="li"/>
+        <xsd:enumeration value="fo"/>
+        <xsd:enumeration value="og"/>
+        <xsd:enumeration value="no"/>
+        <xsd:enumeration value="of"/>
+        <xsd:enumeration value="if"/>
+        <xsd:enumeration value="sc"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="rvDefinitionList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="radio"/>
-    <xsd:enumeration value="optical"/>
-    <xsd:enumeration value="redshift"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="radio"/>
+        <xsd:enumeration value="optical"/>
+        <xsd:enumeration value="redshift"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="rvFrameList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="LSRK"/>
-    <xsd:enumeration value="GEOCENTRIC"/>
-    <xsd:enumeration value="HELIOCENTRIC"/>
-    <xsd:enumeration value="TOPOCENTRIC"/>
-    <xsd:enumeration value="BARYCENTRIC"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="LSRK"/>
+        <xsd:enumeration value="GEOCENTRIC"/>
+        <xsd:enumeration value="HELIOCENTRIC"/>
+        <xsd:enumeration value="TOPOCENTRIC"/>
+        <xsd:enumeration value="BARYCENTRIC"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- Complex types used locally at the JAC -->
 
 <xsd:complexType name="offsetDefinition">
-  <xsd:sequence>
-    <xsd:element name="PA" type="toml:degrees360"/>
-    <xsd:element ref="toml:OFFSET" minOccurs="1" maxOccurs="unbounded"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="PA" type="toml:degrees360"/>
+        <xsd:element ref="toml:OFFSET" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="fitsKeyType"  mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="fitsValueType"  mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 
 <!-- Groups used locally at the JAC -->
 
 <xsd:group name="jac_meta_group">
-  <xsd:sequence>
-    <xsd:element ref="toml:meta_display_airmass"          minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_hasBeenSaved"         minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_selectedTelescopePos" minOccurs="0"/>
-    <xsd:element ref="toml:meta_gui_selectedTelObsComp"   minOccurs="0"/>
-    <xsd:element ref="toml:meta_unique"                   minOccurs="0"/>
-    <xsd:element ref="toml:meta_version"                  minOccurs="0"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:element ref="toml:meta_display_airmass"          minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_hasBeenSaved"         minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_selectedTelescopePos" minOccurs="0"/>
+        <xsd:element ref="toml:meta_gui_selectedTelObsComp"   minOccurs="0"/>
+        <xsd:element ref="toml:meta_unique"                   minOccurs="0"/>
+        <xsd:element ref="toml:meta_version"                  minOccurs="0"/>
+    </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedConstraintsGroup">
-  <xsd:sequence>
-    <xsd:group ref="toml:jac_meta_group"           minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:element ref="toml:earliestScheduleDate"   minOccurs="0" maxOccurs="1"/>
-    <xsd:element ref="toml:latestScheduleDate"     minOccurs="0" maxOccurs="1"/>
-    <xsd:element ref="toml:maxElevation"           minOccurs="0" maxOccurs="1"/>
-    <xsd:element ref="toml:meridianApproach"       minOccurs="0" maxOccurs="1"/>
-    <xsd:element ref="toml:minElevation"           minOccurs="0" maxOccurs="1"/>
-    <xsd:element ref="toml:schedPeriodicity"       minOccurs="0" maxOccurs="1"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:group ref="toml:jac_meta_group"           minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="toml:earliestScheduleDate"   minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="toml:latestScheduleDate"     minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="toml:maxElevation"           minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="toml:meridianApproach"       minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="toml:minElevation"           minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="toml:schedPeriodicity"       minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="programContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpOR"/>
-    <xsd:element ref="toml:SpAND"/>
-    <xsd:element ref="toml:SpMSB"/>
-    <xsd:element ref="toml:SpObs"/>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpSurveyContainer"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-    <xsd:element ref="toml:SpSchedConstObsComp"/>
-    <xsd:element ref="toml:SpTelescopeObsComp"/>
-    <xsd:group   ref="toml:instrumentGroup"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpOR"/>
+        <xsd:element ref="toml:SpAND"/>
+        <xsd:element ref="toml:SpMSB"/>
+        <xsd:element ref="toml:SpObs"/>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpDRRecipe"/>
+        <xsd:element ref="toml:SpSurveyContainer"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+        <xsd:element ref="toml:SpSchedConstObsComp"/>
+        <xsd:element ref="toml:SpTelescopeObsComp"/>
+        <xsd:group   ref="toml:instrumentGroup"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="MSBContents">
     <xsd:choice>
-      <xsd:element ref="toml:SpNote"/>
-      <xsd:element ref="toml:SpObs"/>
-      <xsd:element ref="toml:SpTelescopeObsComp"/>
-      <xsd:element ref="toml:SpSiteQualityObsComp"/>
-      <xsd:element ref="toml:SpSchedConstObsComp"/>
-      <xsd:element ref="toml:SpSurveyContainer"/>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpObs"/>
+        <xsd:element ref="toml:SpTelescopeObsComp"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+        <xsd:element ref="toml:SpSchedConstObsComp"/>
+        <xsd:element ref="toml:SpSurveyContainer"/>
     </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpTelescopeObsComp"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpDRRecipe"/>
+        <xsd:element ref="toml:SpTelescopeObsComp"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpIterChop"/>
-    <xsd:element ref="toml:SpIterRepeat"/>
-    <xsd:element ref="toml:SpIterOffset"/>
-    <xsd:element ref="toml:SpNote"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpIterChop"/>
+        <xsd:element ref="toml:SpIterRepeat"/>
+        <xsd:element ref="toml:SpIterOffset"/>
+        <xsd:element ref="toml:SpNote"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="andContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpMSB"/>
-    <xsd:element ref="toml:SpObs"/>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-    <xsd:element ref="toml:SpTelescopeObsComp"/>
-    <xsd:element ref="toml:SpSchedConstObsComp"/>
-    <xsd:group   ref="toml:instrumentGroup"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpSurveyContainer"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpMSB"/>
+        <xsd:element ref="toml:SpObs"/>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+        <xsd:element ref="toml:SpTelescopeObsComp"/>
+        <xsd:element ref="toml:SpSchedConstObsComp"/>
+        <xsd:group   ref="toml:instrumentGroup"/>
+        <xsd:element ref="toml:SpDRRecipe"/>
+        <xsd:element ref="toml:SpSurveyContainer"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="orContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpMSB"/>
-    <xsd:element ref="toml:SpObs"/>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpAND"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-    <xsd:element ref="toml:SpTelescopeObsComp"/>
-    <xsd:element ref="toml:SpSchedConstObsComp"/>
-    <xsd:group   ref="toml:instrumentGroup"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-    <xsd:element ref="toml:SpSurveyContainer"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpMSB"/>
+        <xsd:element ref="toml:SpObs"/>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpAND"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+        <xsd:element ref="toml:SpTelescopeObsComp"/>
+        <xsd:element ref="toml:SpSchedConstObsComp"/>
+        <xsd:group   ref="toml:instrumentGroup"/>
+        <xsd:element ref="toml:SpDRRecipe"/>
+        <xsd:element ref="toml:SpSurveyContainer"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="surveyContent">
-  <xsd:choice>
-    <xsd:element ref="toml:SpMSB"/>
-    <xsd:element ref="toml:SpObs"/>
-    <xsd:element ref="toml:SpNote"/>
-    <xsd:element ref="toml:SpSiteQualityObsComp"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpMSB"/>
+        <xsd:element ref="toml:SpObs"/>
+        <xsd:element ref="toml:SpNote"/>
+        <xsd:element ref="toml:SpSiteQualityObsComp"/>
+    </xsd:choice>
 </xsd:group>
 
 
