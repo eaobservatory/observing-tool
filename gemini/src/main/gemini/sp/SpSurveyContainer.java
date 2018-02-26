@@ -751,7 +751,10 @@ public class SpSurveyContainer extends SpObsContextItem {
 
         int totRemaining = 0;
         for (int i = 0; i < size(); i++) {
-            totRemaining += getRemaining(i);
+            int remaining = getRemaining(i);
+            if (remaining > 0) {
+                totRemaining += remaining;
+            }
         }
 
         elapsedTime *= totRemaining;
@@ -798,7 +801,10 @@ public class SpSurveyContainer extends SpObsContextItem {
         // Get the total number of repeats for each target
         int totRemaining = 0;
         for (int i = 0; i < size(); i++) {
-            totRemaining += getRemaining(i);
+            int remaining = getRemaining(i);
+            if (remaining > 0) {
+                totRemaining += remaining;
+            }
         }
 
         elapsedTime *= totRemaining;
