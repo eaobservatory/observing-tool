@@ -454,15 +454,7 @@ public final class SpTreeMan implements SpInsertConstants {
 
         // Inserting Iterator Folders
         ip = new InsidePolicy_IteratorFolder();
-        libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder(ip);
-        _insertInside.put("if,pr", ip);
-        _insertInside.put("if,pl", ip);
-        _insertInside.put("if,p1", ip);
-        _insertInside.put("if,of", ip); // MFO
-        _insertInside.put("if,fo", ip);
         _insertInside.put("if,ob", ip);
-        _insertInside.put("if,og", ip);
-        _insertInside.put("if,lf", libraryPolicy);
 
         // Inserting Iterator Components
         ip = new InsidePolicy_IteratorComp();
