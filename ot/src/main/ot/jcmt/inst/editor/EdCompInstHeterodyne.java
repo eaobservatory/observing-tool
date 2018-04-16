@@ -87,29 +87,6 @@ import org.w3c.dom.NodeList;
 import gemini.sp.SpAvEditState;
 import gemini.util.ObservingToolUtilities;
 
-//------- NOTES -------------
-//
-// Transition Strings is GUI and SpInstHeterodyne
-//
-// All the transitions Strings in the LineCatalog end with a white space " ".
-// The XML methods of SpItem remove this white space when SpInstHeterodyne is
-// saved to XML and read back in again. But when the setSelectedItem() method
-// of the _w.transitionChoice JComboBox is called with this trimmed String it
-// wound find the right String to select.
-//
-// It therefore important to make sure that an white space is added to the
-// transition String obtained via _inst.getTransition(0) before it is used
-// in the GUI, e.g.
-//   _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice,
-//           _inst.getTransition(0) + " "));
-//
-// And before a transition String fron the GUI is saved to the _inst the white
-// space should be removed by trimming the String, e.g.
-//  _inst.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(),
-//          0);
-//
-// --------------------------------------------------------
-
 /**
  * Heterodyne Editor.
  *
