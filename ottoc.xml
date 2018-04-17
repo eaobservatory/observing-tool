@@ -4,9 +4,14 @@
          "http://java.sun.com/products/javahelp/toc_1_0.dtd">
 <toc version="1.0">
   <tocitem text="Observing Tool Help">
-    <tocitem text="Introduction to the ORAC Observing Tool" target="top"/>
-    <tocitem text="Guide to the Library Contents" target="library" />
+    <tocitem text="Introduction" target="top"/>
+    <tocitem text="Creating your Program" target="generic"/>
+    <tocitem text="Heterodyne Observations" target="heterodyne"/>
+    <tocitem text="SCUBA-2 Observations" target="scuba2"/>
+    <tocitem text="Frequently Asked Questions" target="faq"/>
+    <tocitem text="Advanced Topics" target="advanced"/>
+    <tocitem text="Library Contents" target="library" />
     <tocitem text="Known Bugs" target="bugs" />
-    <tocitem text="Credits" target="Credits"/>
+    <tocitem text="Credits" target="credits"/>
   </tocitem>
 </toc>

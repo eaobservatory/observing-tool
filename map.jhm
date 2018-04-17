@@ -5,7 +5,12 @@
 
 <map version="1.0">
   <mapID target="top" url="index.html" />
-  <mapID target="Credits" url="credits.html" />
+  <mapID target="generic" url="generic.html" />
+  <mapID target="heterodyne" url="het_example.html" />
+  <mapID target="scuba2" url="scuba2_example.html" />
+  <mapID target="faq" url="faq.html" />
+  <mapID target="advanced" url="advanced.html" />
+  <mapID target="credits" url="credits.html" />
   <mapID target="library" url="library.html" />
   <mapID target="bugs" url="bugs.html" />
 </map>
