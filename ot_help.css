@@ -39,6 +39,25 @@ table {
     margin-top: 1ex;
     margin-bottom: 1ex;
     text-align: center;
+    border: none;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: none;
+    padding: 0.5ex;
+}
+
+table.shaded tr {
+    background: #EEE;
+}
+
+table.shaded thead tr {
+    background: #CCC;
+}
+
+table.shaded tbody:nth-child(odd) tr {
+    background: #DDD;
 }
 
 p.figure {
