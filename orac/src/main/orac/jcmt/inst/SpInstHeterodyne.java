@@ -1251,7 +1251,10 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
                     _avTable.set(ATTR_MOLECULE, value, _subSystemCount);
 
                 } else if (attributeName.equals("transition")) {
-                    _avTable.set(ATTR_TRANSITION, value, _subSystemCount);
+                    // Tidy transitions written by previous OT versions:
+                    // * Remove trailing spaces.
+                    String transition = value.trim();
+                    _avTable.set(ATTR_TRANSITION, transition, _subSystemCount);
                 }
             }
         }

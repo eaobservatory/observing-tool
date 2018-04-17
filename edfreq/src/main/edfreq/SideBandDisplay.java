@@ -452,7 +452,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
                         String transition = text.substring(
                                 text.indexOf("  ") + 1,
                                 text.lastIndexOf("  "));
-                        transition = transition.trim() + " ";
+                        transition = transition.trim();
 
                         results[i].add(transition);
 
