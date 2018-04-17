@@ -181,7 +181,7 @@
   <systems>   2               </systems>
   <species>   CO              </species>
   <species>   H-13-CN         </species>
-  <transition>6- 2 - 6 1      </transition>
+  <transition>3 - 2           </transition>
   <transition>4 - 3           </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
