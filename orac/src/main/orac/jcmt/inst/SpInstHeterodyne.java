@@ -1253,7 +1253,9 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
                 } else if (attributeName.equals("transition")) {
                     // Tidy transitions written by previous OT versions:
                     // * Remove trailing spaces.
+                    // * Remove multiple spaces.
                     String transition = value.trim();
+                    transition = transition.replaceAll("\\s+", " ");
                     _avTable.set(ATTR_TRANSITION, transition, _subSystemCount);
                 }
             }
