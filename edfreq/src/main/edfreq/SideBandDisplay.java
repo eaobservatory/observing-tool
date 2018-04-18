@@ -49,8 +49,7 @@ import java.awt.Container;
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SideBandDisplay extends JFrame implements ChangeListener,
-        MouseListener {
+public class SideBandDisplay extends JFrame implements MouseListener {
     private int displayWidth = EdFreq.DISPLAY_WIDTH;
     private JSlider slider;
     private EmissionLines el;
@@ -70,7 +69,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
     private double _lo1;
     private double _lRangeLimit;
     private double _uRangeLimit;
-    private boolean _ignoreEvents = false;
 
     private Container contentPane;
 
@@ -179,15 +177,14 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
 
         /* Make the graphics follow the slider */
 
-        slider.addChangeListener((ChangeListener) el);
+        slider.addChangeListener(el);
 
         if (st != null) {
-            slider.addChangeListener((ChangeListener) st);
+            slider.addChangeListener(st);
         }
 
-        slider.addChangeListener((ChangeListener) targetScale);
-        slider.addChangeListener((ChangeListener) localScale);
-        slider.addChangeListener(this);
+        slider.addChangeListener(targetScale);
+        slider.addChangeListener(localScale);
 
         // LO1 slider will be activeted by pressing the right mouse. This is
         // to prevent accidental LO1 adjustments caused by user clicking on
@@ -292,14 +289,10 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
             _lo1 = _uRangeLimit;
         }
 
-        _ignoreEvents = true;
-
         if (slider != null) {
             int centre = (int) Math.rint(_lo1 / EdFreq.SLIDERSCALE);
             slider.setValue(centre);
         }
-
-        _ignoreEvents = false;
     }
 
     public double getLO1() {
@@ -497,30 +490,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
                 return 0.0;
             }
 
-            public double getRestFrequency(int subsystem) {
-                return 0.0;
-            }
-
-            public double getObsFrequency(int subsystem) {
-                return 0.0;
-            }
-
-            public void updateCentreFrequency(double centre, int subsystem) {
-            }
-
-            public void updateBandWidth(double width, int subsystem) {
-            }
-
-            public void updateChannels(int channels, int subsystem) {
-            }
-
-            public void updateLineDetails(LineDetails lineDetails,
-                    int subsystem) {
-            }
-
-            public void updateLO1(double lo1) {
-            }
-
             public double getCurrentBandwidth(int subsystem) {
                 return 0.0;
             }
@@ -533,16 +502,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener,
                 8);
 
         sbt.setVisible(true);
-    }
-
-    public void stateChanged(ChangeEvent e) {
-        if (_ignoreEvents) {
-            return;
-        }
-
-        _lo1 = (double) slider.getValue() * EdFreq.SLIDERSCALE;
-
-        hetEditor.updateLO1(getLO1());
     }
 
     public void mouseClicked(MouseEvent e) {
