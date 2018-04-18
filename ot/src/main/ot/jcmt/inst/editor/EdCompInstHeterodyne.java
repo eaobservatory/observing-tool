@@ -458,9 +458,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     private void moreSetUp() {
         setAvailableModes();
         setAvailableRegions();
-        setAvailableMolecules();
-        setAvailableTransitions();
-        setAvailableSidebands();
     }
 
     /**
@@ -1030,9 +1027,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _inst.setFeBandWidth(_receiver.bandWidth);
             setAvailableModes();
             setAvailableRegions();
-            setAvailableMolecules();
-            setAvailableTransitions();
-            setAvailableSidebands();
 
         } else {
             // This has been called as a result of a call from another action
@@ -1554,11 +1548,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         freq.setText("" + f);
     }
 
-    /** Get receiver's central IF. */
-    public double getFeIF() {
-        return 0.0;
-    }
-
     public double getRedshift() {
         double velocity = 0.0;
 
@@ -1821,15 +1810,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _inst.setBandMode(defaultRegion);
             clickButton(_w.regionSelector, defaultRegion);
         }
-    }
-
-    private void setAvailableMolecules() {
-    }
-
-    private void setAvailableTransitions() {
-    }
-
-    private void setAvailableSidebands() {
     }
 
     // Disable a specific button in the specified container
@@ -2215,9 +2195,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             // Disable anything that should not be available.
             setAvailableModes();
             setAvailableRegions();
-            setAvailableMolecules();
-            setAvailableTransitions();
-            setAvailableSidebands();
         }
 
     }
