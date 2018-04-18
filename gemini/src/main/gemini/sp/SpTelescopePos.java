@@ -221,6 +221,7 @@ public final class SpTelescopePos extends TelescopePos implements
     public static final int TRACKING_RADIAL_VEL = 10;
 
     /** Index for SpAvTable value (position in value Vector). */
+    // Note: appears no longer to be used, as of bcb8933776 (2005/04/25).
     public static final int TRACKING_EFF_WAVELENGTH = 11;
 
     /**
@@ -1146,27 +1147,6 @@ public final class SpTelescopePos extends TelescopePos implements
         }
 
         _avTab.set(_tag, val, TRACKING_RV_FRAME);
-        _notifyOfGenericUpdate();
-    }
-
-    /**
-     * Get the tracking effective wavelength.
-     */
-    public String getTrackingEffectiveWavelength() {
-        String res = _avTab.get(_tag, TRACKING_EFF_WAVELENGTH);
-
-        if (res == null) {
-            res = "auto";
-        }
-
-        return res;
-    }
-
-    /**
-     * Set the tracking effective wavelength as a string.
-     */
-    public void setTrackingEffectiveWavelength(String trackEffWave) {
-        _avTab.set(_tag, trackEffWave, TRACKING_EFF_WAVELENGTH);
         _notifyOfGenericUpdate();
     }
 
