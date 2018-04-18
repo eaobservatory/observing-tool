@@ -1150,27 +1150,6 @@ public final class SpTelescopePos extends TelescopePos implements
     }
 
     /**
-     * Get the current velocity as a redshift
-     */
-    public double getRedshift() {
-        double redshift = 0.0;
-        double c = 2.99792458E5;
-
-        String vDef = getTrackingRadialVelocityDefn();
-        double v = Double.parseDouble(getTrackingRadialVelocity());
-
-        if (vDef.equalsIgnoreCase("radio")) {
-            redshift = (c / (c - v)) - 1.0;
-        } else if (vDef.equalsIgnoreCase("optical")) {
-            redshift = v / c;
-        } else {
-            redshift = v;
-        }
-
-        return redshift;
-    }
-
-    /**
      * Get the tracking effective wavelength.
      */
     public String getTrackingEffectiveWavelength() {

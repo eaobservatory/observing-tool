@@ -577,10 +577,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         setVelocity(Format.toDouble(value));
     }
 
-    public double getRedshift() {
-        return getVelocity() / LIGHTSPEED;
-    }
-
     public void setVelocityFromRedshift(double redshift) {
         setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
     }
