@@ -106,6 +106,7 @@ public class HeterodyneGUI extends JPanel {
     JComboBox fourthBandwidth;
     JPanel bandwidthsPanel;
     JPanel summaryAndBandwidthPanel;
+    JTextField skyFreqText;
 
     public HeterodyneGUI() {
         try {
@@ -289,7 +290,7 @@ public class HeterodyneGUI extends JPanel {
         velLabel.setFont(new Font("dialog", 0, 12));
         velLabel.setEnabled(false);
 
-        velocity = new TextBoxWidgetExt();
+        velocity = new TextBoxWidgetExt(10);
         velocity.setText("unset");
         velocity.setBorder(BorderFactory.createLoweredBevelBorder());
         velocity.setFont(new Font("Dialog", 0, 12));
@@ -405,14 +406,29 @@ public class HeterodyneGUI extends JPanel {
                 4, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
                 new Insets(5, 0, 5, 5), 0, 0));
-        bPanel.add(showButton, new GridBagConstraints(
-                0, 0, 1, 1, 1.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(5, 50, 5, 5), 0, 0));
-        bPanel.add(hideButton, new GridBagConstraints(
-                1, 0, 1, 1, 1.0, 0.0,
+
+        bPanel.add(new JLabel("Sky freq."), new GridBagConstraints(
+                0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(5, 0, 5, 50), 0, 0));
+                new Insets(5, 5, 5, 0), 0, 0));
+        skyFreqText = new JTextField(10);
+        skyFreqText.setEnabled(false);
+        bPanel.add(skyFreqText, new GridBagConstraints(
+                1, 0, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(5, 5, 5, 5), 0, 0));
+        bPanel.add(new JLabel("GHz"), new GridBagConstraints(
+                2, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(5, 0, 5, 5), 0, 0));
+        bPanel.add(showButton, new GridBagConstraints(
+                3, 0, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
+        bPanel.add(hideButton, new GridBagConstraints(
+                4, 0, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
 
         freqPanel.add(radialDefaultPanel);
         freqPanel.add(vPanel);

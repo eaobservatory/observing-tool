@@ -286,8 +286,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         // The button panel only contains buttons, so just add action listeners
         for (int i = 0; i < _w.bPanel.getComponentCount(); i++) {
-            ((AbstractButton) _w.bPanel.getComponent(i))
-                    .addActionListener(this);
+            Component c = _w.bPanel.getComponent(i);
+            if (c instanceof AbstractButton) {
+                ((AbstractButton) c).addActionListener(this);
+            }
         }
 
         // Disable the hide button...It should only be enabled when the
@@ -477,8 +479,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _initialiseRegionInfo();
         }
 
-        defaultToRadialVelocity = !_inst.getTable().exists(
-                SpInstHeterodyne.ATTR_VELOCITY);
+        defaultToRadialVelocity = ! _inst.hasVelocityInformation();
         _w.defaultToRadial.setValue(defaultToRadialVelocity);
 
         int compNum = freqPanelWidgetNames.get("frequency");
@@ -629,6 +630,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         _updateTable();
 
         _updateFrequencyText();
+
+        _w.skyFreqText.setText(String.format("%.6f",  _inst.getSkyFrequency() / 1.0E9));
 
         configured = cachedConfigured;
     }
