@@ -329,7 +329,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 _inst.setVelocityDefinition(newTag);
 
                 if (SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT.equals(newTag)) {
-                    _w.velLabel.setText("Velocity / Redshift");
+                    _w.velLabel.setText("Redshift");
                     _inst.setVelocityFrame(
                             SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME);
 
