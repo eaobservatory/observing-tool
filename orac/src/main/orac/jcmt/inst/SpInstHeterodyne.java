@@ -1179,6 +1179,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             throw new RuntimeException("Heterodyne not initialised");
         }
 
+        // Recompute the sky frequency in case it depends on a target
+        // component the velocity of which has been updated.  This is
+        // important as the sky frequency in the XML is used to select
+        // the sideband (when automatic).  See fault 20160328.009.
+        setSkyFrequency(calculateSkyFrequency());
+
         String configXML = null;
 
         try {
