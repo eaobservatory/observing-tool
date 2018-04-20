@@ -580,10 +580,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         setVelocity(Format.toDouble(value));
     }
 
-    public void setVelocityFromRedshift(double redshift) {
-        setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
-    }
-
     /**
      * Set the reference frame velocity
      */
