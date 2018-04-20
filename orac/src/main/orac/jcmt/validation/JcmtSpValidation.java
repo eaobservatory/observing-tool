@@ -185,23 +185,33 @@ public class JcmtSpValidation extends SpValidation {
                     System.out.println("Could not find field " + nsfe);
                 }
 
-                double skyFrequency = spInstHeterodyne.getSkyFrequency();
+                // Use a newly-calculated sky frequency (but don't store it to
+                // avoid unnecessary changes to the science program) in order
+                // to take into account any subsequent changes to velocities
+                // in associated target components.
+                double skyFrequency = spInstHeterodyne.calculateSkyFrequency();
                 if (loMin != 0.0
                         && (loMin - spInstHeterodyne.getFeIF())
                                 > skyFrequency) {
-                    report.add(new ErrorMessage(ErrorMessage.WARNING,
-                            titleString, "Rest frequency of " + skyFrequency
-                                    + " is lower than receiver minimum "
-                                    + loMin));
+                    report.add(new ErrorMessage(
+                            ErrorMessage.WARNING, titleString,
+                            "Sky frequency of "
+                            + String.format("%.3f", skyFrequency / 1.0E9)
+                            + " GHz is lower than receiver minimum "
+                            + String.format("%.3f", loMin / 1.0E9)
+                            + " GHz"));
                 }
 
                 if (loMax != 0.0
                         && (loMax + spInstHeterodyne.getFeIF())
                                 < skyFrequency) {
-                    report.add(new ErrorMessage(ErrorMessage.WARNING,
-                            titleString, "Rest frequency of " + skyFrequency
-                                    + " is greater than receiver maximum "
-                                    + loMax));
+                    report.add(new ErrorMessage(
+                            ErrorMessage.WARNING, titleString,
+                            "Sky frequency of "
+                            + String.format("%.3f", skyFrequency / 1.0E9)
+                            + " GHz is greater than receiver maximum "
+                            + String.format("%.3f", loMax / 1.0E9)
+                            + " GHz"));
                 }
 
                 int available = new Integer(spInstHeterodyne.getBandMode());
@@ -297,8 +307,7 @@ public class JcmtSpValidation extends SpValidation {
                 // Warn if the velocity/redshift has been left at zero.
                 double velocity = 0.0;
                 String velocitySource = null;
-                if (spInstHeterodyne.getTable().exists(
-                        SpInstHeterodyne.ATTR_VELOCITY)) {
+                if (spInstHeterodyne.hasVelocityInformation()) {
                     velocity = spInstHeterodyne.getVelocity();
                     velocitySource = "Het Setup";
                 } else if (target != null) {

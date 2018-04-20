@@ -21,6 +21,9 @@ package orac.jcmt.inst;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Format;
 
 import java.util.Vector;
@@ -1069,7 +1072,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         // If the methods has not returned yet then the velocityDefinition
         // is invalid.
         throw new IllegalArgumentException(
-                "EdFreq.convertRedshiftTo:"
+                "SpInstHeterodyne.convertRedshiftTo:"
                 + " Unrecognised velocity definition found.\n"
                 + "Please use RADIAL_VELOCITY_REDSHIFT,"
                 + " RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
@@ -1099,12 +1102,54 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         // If the methods has not returned yet then the velocityDefinition is
         // invalid.
         throw new IllegalArgumentException(
-                "EdFreq.convertRedshiftTo:"
+                "SpInstHeterodyne.convertToRedshift:"
                 + " Unrecognised velocity definition found.\n"
                 + "Please use RADIAL_VELOCITY_REDSHIFT,"
                 + " RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
     }
 
+    /**
+     * Determine whether this component has velocity information.
+     *
+     * (Otherwise the velocity of the associated target component is used.)
+     */
+    public boolean hasVelocityInformation() {
+        return _avTable.exists(ATTR_VELOCITY);
+    }
+
+    /**
+     * Calculate a new sky frequency value.
+     *
+     * This will use the velocity information in this component, if we have it
+     * (hasVelocityInformation() returns true).  Otherwise it will try to
+     * obtain velocity information from the associated target component.
+     */
+    public double calculateSkyFrequency() {
+        return calculateSkyFrequency(0);
+    }
+
+    public double calculateSkyFrequency(int subsystem) {
+        double velocity = 0.0;
+        String velocityDefinition = RADIAL_VELOCITY_REDSHIFT;
+
+        if (hasVelocityInformation()) {
+            velocity = getVelocity();
+            velocityDefinition = getVelocityDefinition();
+        }
+        else {
+            SpTelescopeObsComp target = SpTreeMan.findTargetList(this);
+
+            if (target != null) {
+                SpTelescopePos tp = target.getPosList().getBasePosition();
+                velocity = Double.parseDouble(tp.getTrackingRadialVelocity());
+                velocityDefinition = tp.getTrackingRadialVelocityDefn();
+            }
+        }
+
+        double redshift = convertToRedshift(velocityDefinition, velocity);
+
+        return getRestFrequency(subsystem) / (1.0 + redshift);
+    }
 
     public String subsystemXML(String indent) {
         StringBuffer xmlString = new StringBuffer();
