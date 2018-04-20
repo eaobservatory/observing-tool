@@ -19,6 +19,7 @@
 
 package ot.jcmt.inst.editor;
 
+import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -38,6 +39,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -62,7 +67,7 @@ public class HeterodyneGUI extends JPanel {
     public static final String[] SIDEBAND_MODES = {"ssb", "dsb"};
 
     /** Subsytems available. */
-    public static final String[] SUBSYSTEMS = {"1", "2", "3", "4"};
+    public static final int[] SUBSYSTEMS = {1, 2, 3, 4};
 
     /** Sideband choices. */
     public static final String[] SIDEBAND_SELECTIONS = {"best", "usb", "lsb"};
@@ -80,33 +85,45 @@ public class HeterodyneGUI extends JPanel {
             "channels",
     };
 
-    // FE Panels
-    JPanel feSelector;
-    JPanel modeSelector;
-    JPanel regionSelector;
-    JPanel sbSelector;
-    JPanel vPanel;
-    JPanel fPanel;
-    JPanel bPanel;
-    JPanel summaryPanel;
+    // Front end configuration panel.
+    Map<String, AbstractButton> feButtons;
+    Map<String, AbstractButton> modeButtons;
+    Map<Integer, AbstractButton> regionButtons;
+    Map<String, AbstractButton> sbButtons;
     JComboBox specialConfigs;
-    JTable table;
+
+    // Front end summary panel.
+    JLabel lowFreq;
+    JLabel highFreq;
+
+    // Bandwidths panel.
+    List<JComboBox> bandwidths;
+
+    // Radial default panel.
+    CheckBoxWidgetExt defaultToRadial;
+    JLabel radialDefaultLabel;
+
+    // Velocity (or redshift) panel.
     JLabel velLabel;
     TextBoxWidgetExt velocity;
-    JLabel vfLabel;
-    DropDownListBoxWidgetExt vFrame;
     JLabel vdLabel;
     DropDownListBoxWidgetExt vDef;
-    JPanel radialDefaultPanel;
-    JLabel radialDefaultLabel;
-    CheckBoxWidgetExt defaultToRadial;
-    JComboBox firstBandwidth;
-    JComboBox secondBandwidth;
-    JComboBox thirdBandwidth;
-    JComboBox fourthBandwidth;
-    JPanel bandwidthsPanel;
-    JPanel summaryAndBandwidthPanel;
+    JLabel vfLabel;
+    DropDownListBoxWidgetExt vFrame;
+
+    // Molecule or rest frequency panel.
+    JComboBox moleculeBox;
+    JComboBox transitionBox;
+    JTextField freqText;
+    JButton acceptButton;
+
+    // Sky frequency and show/hide editor panel.
     JTextField skyFreqText;
+    JButton showButton;
+    JButton hideButton;
+
+    // Frequency configuration table.
+    JTable table;
 
     public HeterodyneGUI() {
         try {
@@ -131,25 +148,61 @@ public class HeterodyneGUI extends JPanel {
         feLabel.setForeground(Color.BLACK);
         feLabel.setFont(new Font("dialog", 0, 12));
 
-        feSelector = makeFEGroup();
+        JPanel feSelector = new JPanel();
+        feSelector.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder()));
+        feSelector.setLayout(new GridLayout(1, 0, 5, 0));
+
+        feButtons = makeFEGroup();
+
+        for (AbstractButton button: feButtons.values()) {
+            feSelector.add(button);
+        }
 
         JLabel modeLabel = new JLabel("Mode:");
         modeLabel.setForeground(Color.BLACK);
         modeLabel.setFont(new Font("dialog", 0, 12));
 
-        modeSelector = makeSidebandConfigGroup();
+        JPanel modeSelector = new JPanel();
+        modeSelector.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder()));
+        modeSelector.setLayout(new GridLayout(1, 0));
+
+        modeButtons = makeSidebandConfigGroup();
+
+        for (AbstractButton button: modeButtons.values()) {
+            modeSelector.add(button);
+        }
 
         JLabel subsystemLabel = new JLabel("Sp. Regions:");
         subsystemLabel.setForeground(Color.BLACK);
         subsystemLabel.setFont(new Font("dialog", 0, 12));
 
-        regionSelector = makeSubsystemGroup();
+        JPanel regionSelector = new JPanel();
+        regionSelector.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder()));
+        regionSelector.setLayout(new GridLayout(1, 0));
+
+        regionButtons = makeSubsystemGroup();
+
+        for (AbstractButton button: regionButtons.values()) {
+            regionSelector.add(button);
+        }
 
         JLabel sbLabel = new JLabel("Sideband:");
         sbLabel.setForeground(Color.BLACK);
         sbLabel.setFont(new Font("dialog", 0, 12));
 
-        sbSelector = makeSBSelectionGroup();
+        JPanel sbSelector = new JPanel();
+        sbSelector.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEtchedBorder()));
+        sbSelector.setLayout(new GridLayout(1, 0));
+
+        sbButtons = makeSBSelectionGroup();
+
+        for (AbstractButton button: sbButtons.values()) {
+            sbSelector.add(button);
+        }
 
         JLabel specialConfigLabel = new JLabel("Special Configs:");
         specialConfigLabel.setForeground(Color.BLACK);
@@ -201,7 +254,7 @@ public class HeterodyneGUI extends JPanel {
                 new Insets(0, 0, 5, 0), 0, 0));
 
         // Front End summary panel
-        summaryPanel = new JPanel();
+        JPanel summaryPanel = new JPanel();
         summaryPanel.setLayout(new GridLayout(0, 2));
         summaryPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
@@ -211,7 +264,7 @@ public class HeterodyneGUI extends JPanel {
         lowLimitLabel.setForeground(Color.BLACK);
         lowLimitLabel.setFont(new Font("dialog", 0, 12));
 
-        JLabel lowFreq = new JLabel("215");
+        lowFreq = new JLabel("215");
         lowFreq.setFont(new Font("Dialog", 0, 12));
         lowFreq.setForeground(Color.black);
         lowFreq.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -222,7 +275,7 @@ public class HeterodyneGUI extends JPanel {
         hiLimitLabel.setForeground(Color.BLACK);
         hiLimitLabel.setFont(new Font("dialog", 0, 12));
 
-        JLabel highFreq = new JLabel("272");
+        highFreq = new JLabel("272");
         highFreq.setFont(new Font("Dialog", 0, 12));
         highFreq.setForeground(Color.black);
         highFreq.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -232,35 +285,6 @@ public class HeterodyneGUI extends JPanel {
         JLabel resLabel = new JLabel("Resolution (kHz):");
         resLabel.setForeground(Color.BLACK);
         resLabel.setFont(new Font("dialog", 0, 12));
-
-        JLabel resolution = new JLabel();
-        resolution.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        resolution.setFont(new Font("Dialog", 0, 12));
-        resolution.setForeground(Color.black);
-        resolution.setMinimumSize(resolution.getPreferredSize());
-        resolution.setName("resolution");
-
-        JLabel overlapLabel = new JLabel("Overlap (MHz):");
-        overlapLabel.setForeground(Color.BLACK);
-        overlapLabel.setFont(new Font("dialog", 0, 12));
-
-        JLabel overlap = new JLabel();
-        overlap.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        overlap.setFont(new Font("Dialog", 0, 12));
-        overlap.setForeground(Color.black);
-        overlap.setMinimumSize(overlap.getPreferredSize());
-        overlap.setName("overlap");
-
-        JLabel channelLabel = new JLabel("Channels:");
-        channelLabel.setForeground(Color.BLACK);
-        channelLabel.setFont(new Font("dialog", 0, 12));
-
-        JLabel channel = new JLabel();
-        channel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        channel.setFont(new Font("Dialog", 0, 12));
-        channel.setForeground(Color.black);
-        channel.setMinimumSize(channel.getPreferredSize());
-        channel.setName("channel");
 
         summaryPanel.add(lowLimitLabel);
         summaryPanel.add(lowFreq);
@@ -276,14 +300,14 @@ public class HeterodyneGUI extends JPanel {
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 "Frequency Setup"));
 
-        radialDefaultPanel = new JPanel(new GridBagLayout());
+        JPanel radialDefaultPanel = new JPanel(new GridBagLayout());
         defaultToRadial = new CheckBoxWidgetExt(
                 "Default tuning velocity to target radial velocity");
         radialDefaultPanel.add(defaultToRadial);
 
-        vPanel = new JPanel(new GridBagLayout());
-        fPanel = new JPanel(new GridBagLayout());
-        bPanel = new JPanel(new GridBagLayout());
+        JPanel vPanel = new JPanel(new GridBagLayout());
+        JPanel fPanel = new JPanel(new GridBagLayout());
+        JPanel bPanel = new JPanel(new GridBagLayout());
 
         velLabel = new JLabel("Velocity");
         velLabel.setForeground(Color.BLACK);
@@ -325,35 +349,35 @@ public class HeterodyneGUI extends JPanel {
         vDef.setName("definition");
         vDef.setEnabled(false);
 
-        JComboBox moleculeBox = new JComboBox();
+        moleculeBox = new JComboBox();
         moleculeBox.setForeground(Color.BLACK);
         moleculeBox.setFont(new Font("dialog", 0, 12));
         moleculeBox.setName("molecule");
 
-        JComboBox transitionBox = new JComboBox();
+        transitionBox = new JComboBox();
         transitionBox.setForeground(Color.BLACK);
         transitionBox.setFont(new Font("dialog", 0, 12));
         transitionBox.setName("transition");
 
-        JButton acceptButton = new JButton("Accept");
+        acceptButton = new JButton("Accept");
         acceptButton.setForeground(Color.RED);
         acceptButton.setFont(new Font("dialog", 0, 12));
         acceptButton.setBorder(new BevelBorder(BevelBorder.RAISED));
         acceptButton.setName("Accept");
 
-        JButton showButton = new JButton("Show Frequency Editor");
+        showButton = new JButton("Show Frequency Editor");
         showButton.setForeground(Color.BLACK);
         showButton.setFont(new Font("dialog", 0, 12));
         showButton.setBorder(new BevelBorder(BevelBorder.RAISED));
         showButton.setName("show");
 
-        JButton hideButton = new JButton("Hide Frequency Editor");
+        hideButton = new JButton("Hide Frequency Editor");
         hideButton.setForeground(Color.BLACK);
         hideButton.setFont(new Font("dialog", 0, 12));
         hideButton.setBorder(new BevelBorder(BevelBorder.RAISED));
         hideButton.setName("hide");
 
-        JTextField freqText = new JTextField();
+        freqText = new JTextField();
         freqText.setForeground(Color.BLACK);
         freqText.setFont(new Font("dialog", 0, 12));
         freqText.setName("frequency");
@@ -449,39 +473,26 @@ public class HeterodyneGUI extends JPanel {
 
         tablePanel.add(scrollPane, BorderLayout.CENTER);
 
-        bandwidthsPanel = new JPanel();
+        JPanel bandwidthsPanel = new JPanel();
 
         bandwidthsPanel.setLayout(new GridLayout(4, 1));
         bandwidthsPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 "Bandwidths"));
 
-        firstBandwidth = new JComboBox();
-        firstBandwidth.setForeground(Color.BLACK);
-        firstBandwidth.setFont(new Font("dialog", 0, 12));
-        firstBandwidth.setEnabled(true);
+        bandwidths = new ArrayList<JComboBox>();
 
-        secondBandwidth = new JComboBox();
-        secondBandwidth.setForeground(Color.BLACK);
-        secondBandwidth.setFont(new Font("dialog", 0, 12));
-        secondBandwidth.setEnabled(false);
+        for (int i = 0; i < 4; i ++) {
+            JComboBox bandwidth = new JComboBox();
+            bandwidth.setForeground(Color.BLACK);
+            bandwidth.setFont(new Font("dialog", 0, 12));
+            bandwidth.setEnabled(i == 0);
 
-        thirdBandwidth = new JComboBox();
-        thirdBandwidth.setForeground(Color.BLACK);
-        thirdBandwidth.setFont(new Font("dialog", 0, 12));
-        thirdBandwidth.setEnabled(false);
+            bandwidthsPanel.add(bandwidth);
+            bandwidths.add(bandwidth);
+        }
 
-        fourthBandwidth = new JComboBox();
-        fourthBandwidth.setForeground(Color.BLACK);
-        fourthBandwidth.setFont(new Font("dialog", 0, 12));
-        fourthBandwidth.setEnabled(false);
-
-        bandwidthsPanel.add(firstBandwidth);
-        bandwidthsPanel.add(secondBandwidth);
-        bandwidthsPanel.add(thirdBandwidth);
-        bandwidthsPanel.add(fourthBandwidth);
-
-        summaryAndBandwidthPanel = new JPanel();
+        JPanel summaryAndBandwidthPanel = new JPanel();
         summaryAndBandwidthPanel.setLayout(new GridBagLayout());
         summaryAndBandwidthPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED), ""));
@@ -514,83 +525,78 @@ public class HeterodyneGUI extends JPanel {
                 new Insets(0, 0, 5, 5), 0, 0));
     }
 
-    private JPanel makeFEGroup() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder()));
-        jPanel.setLayout(new GridLayout(1, 0, 5, 0));
+    private Map<String, AbstractButton> makeFEGroup() {
+        Map<String, AbstractButton> buttons
+            = new LinkedHashMap<String, AbstractButton>();
 
         ButtonGroup bg = new ButtonGroup();
 
         for (int i = 0; i < _cfg.frontEnds.length; i++) {
-            JRadioButton b = new JRadioButton(_cfg.frontEnds[i].trim());
+            String name = _cfg.frontEnds[i].trim();
+            JRadioButton b = new JRadioButton(name);
             b.setForeground(Color.BLACK);
             b.setFont(new Font("Dialog", 0, 10));
-            b.setName(_cfg.frontEnds[i].trim());
+            b.setName(name);
             bg.add(b);
-            jPanel.add(b);
+            buttons.put(name, b);
         }
 
-        return jPanel;
+        return buttons;
     }
 
-    private JPanel makeSidebandConfigGroup() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder()));
-        jPanel.setLayout(new GridLayout(1, 0));
+    private Map<String, AbstractButton> makeSidebandConfigGroup() {
+        Map<String, AbstractButton> buttons
+            = new LinkedHashMap<String, AbstractButton>();
 
         ButtonGroup bg = new ButtonGroup();
 
         for (int i = 0; i < SIDEBAND_MODES.length; i++) {
-            JRadioButton b = new JRadioButton(SIDEBAND_MODES[i]);
+            String name = SIDEBAND_MODES[i];
+            JRadioButton b = new JRadioButton(name);
             b.setForeground(Color.BLACK);
             b.setFont(new Font("Dialog", 0, 10));
-            b.setName(SIDEBAND_MODES[i]);
+            b.setName(name);
             bg.add(b);
-            jPanel.add(b);
+            buttons.put(name, b);
         }
 
-        return jPanel;
+        return buttons;
     }
 
-    private JPanel makeSubsystemGroup() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder()));
-        jPanel.setLayout(new GridLayout(1, 0));
+    private Map<Integer, AbstractButton> makeSubsystemGroup() {
+        Map<Integer, AbstractButton> buttons
+            = new LinkedHashMap<Integer, AbstractButton>();
 
         ButtonGroup bg = new ButtonGroup();
 
-        for (int i = 0; i < SUBSYSTEMS.length; i++) {
-            JRadioButton b = new JRadioButton(SUBSYSTEMS[i]);
+        for (int n: SUBSYSTEMS) {
+            String name = Integer.toString(n);
+            JRadioButton b = new JRadioButton(name);
             b.setForeground(Color.BLACK);
             b.setFont(new Font("Dialog", 0, 10));
-            b.setName(SUBSYSTEMS[i]);
+            b.setName(name);
             bg.add(b);
-            jPanel.add(b);
+            buttons.put(n, b);
         }
 
-        return jPanel;
+        return buttons;
     }
 
-    private JPanel makeSBSelectionGroup() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder()));
-        jPanel.setLayout(new GridLayout(1, 0));
+    private Map<String, AbstractButton> makeSBSelectionGroup() {
+        Map<String, AbstractButton> buttons
+            = new LinkedHashMap<String, AbstractButton>();
 
         ButtonGroup bg = new ButtonGroup();
 
-        for (int i = 0; i < SIDEBAND_SELECTIONS.length; i++) {
-            JRadioButton b = new JRadioButton(SIDEBAND_SELECTIONS[i]);
+        for (String name: SIDEBAND_SELECTIONS) {
+            JRadioButton b = new JRadioButton(name);
             b.setForeground(Color.BLACK);
             b.setFont(new Font("Dialog", 0, 10));
-            b.setName(SIDEBAND_SELECTIONS[i]);
+            b.setName(name);
             bg.add(b);
-            jPanel.add(b);
+            buttons.put(name, b);
         }
 
-        return jPanel;
+        return buttons;
     }
 }
