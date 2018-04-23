@@ -530,17 +530,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     return;
                 }
 
-                clickButton(_w.feButtons.get(ci.$feName));
-                clickButton(_w.sbButtons.get(ci.$sideBand.toLowerCase()));
-                clickButton(_w.modeButtons.get(ci.$mode.toLowerCase()));
-                clickButton(_w.regionButtons.get(ci.$subSystems));
+                clickButton(_w.feButtons.get(ci.feName));
+                clickButton(_w.sbButtons.get(ci.sideBand.toLowerCase()));
+                clickButton(_w.modeButtons.get(ci.mode.toLowerCase()));
+                clickButton(_w.regionButtons.get(ci.subSystems));
 
                 for (int i = 0; i < _w.bandwidths.size(); i++) {
                     JComboBox component = _w.bandwidths.get(i);
                     component.removeActionListener(this);
 
-                    if (i < ci.$bandWidths.size()) {
-                        String bandWidthString = ci.$bandWidths.get(i);
+                    if (i < ci.bandWidths.size()) {
+                        String bandWidthString = ci.bandWidths.get(i);
 
                         if (bandWidthString != null) {
                             component.setSelectedItem(bandWidthString);
@@ -564,11 +564,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     component.addActionListener(this);
                 }
 
-                if (ci.$species.size() > 0) {
-                    for (int index = 0; index < ci.$subSystems; index++) {
-                        String species = ci.$species.get(index);
+                if (ci.species.size() > 0) {
+                    for (int index = 0; index < ci.subSystems; index++) {
+                        String species = ci.species.get(index);
                         _inst.setMolecule(species, index);
-                        String speciesTransition = ci.$transition.get(index);
+                        String speciesTransition = ci.transition.get(index);
                         _inst.setTransition(speciesTransition, index);
                         _updateTransitionChoice();
 
@@ -612,10 +612,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                 } else {
                     // Set the rest frequency text...
-                    _w.freqText.setText(ci.$freq.toString());
+                    _w.freqText.setText(ci.freq.toString());
 
-                    for (int index = 0; index < ci.$subSystems; index++) {
-                        double frequency = ci.$freq.elementAt(index);
+                    for (int index = 0; index < ci.subSystems; index++) {
+                        double frequency = ci.freq.elementAt(index);
                         _inst.setRestFrequency(frequency * 1.0E9, index);
                         _inst.setMolecule(NO_LINE, index);
                         _inst.setTransition(NO_LINE, index);
@@ -625,8 +625,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 }
 
                 clickButton(_w.acceptButton);
-                _updateCentralFrequenciesFromShifts(ci.$shifts);
-                configureFrequencyEditor(ci.$shifts);
+                _updateCentralFrequenciesFromShifts(ci.shifts);
+                configureFrequencyEditor(ci.shifts);
                 configured = true;
             }
 
@@ -1490,7 +1490,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         // We now have the correct node hopefully, so fill in the ci structure
-        ci.$shifts.clear();
+        ci.shifts.clear();
 
         if (nodeToUse != null) {
             NodeList children = nodeToUse.getChildNodes();
@@ -1513,27 +1513,27 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 childValue = childValue.trim();
 
                 if (childName.equals("name")) {
-                    ci.$name = childValue;
+                    ci.name = childValue;
                 } else if (childName.equals("frontEnd")) {
-                    ci.$feName = childValue;
+                    ci.feName = childValue;
                 } else if (childName.equals("sideband")) {
-                    ci.$sideBand = childValue.toUpperCase();
+                    ci.sideBand = childValue.toUpperCase();
                 } else if (childName.equals("mode")) {
-                    ci.$mode = childValue.toUpperCase();
+                    ci.mode = childValue.toUpperCase();
                 } else if (childName.equals("frequency")) {
-                    ci.$freq.add(new Double(childValue));
+                    ci.freq.add(new Double(childValue));
                 } else if (childName.equals("mixers")) {
-                    ci.$mixers = new Integer(childValue);
+                    ci.mixers = new Integer(childValue);
                 } else if (childName.equals("systems")) {
-                    ci.$subSystems = new Integer(childValue);
+                    ci.subSystems = new Integer(childValue);
                 } else if (childName.equals("species")) {
-                    ci.$species.add(childValue);
+                    ci.species.add(childValue);
                 } else if (childName.equals("transition")) {
-                    ci.$transition.add(childValue);
+                    ci.transition.add(childValue);
                 } else if (childName.equals("bandwidth")) {
-                    ci.$bandWidths.add(childValue);
+                    ci.bandWidths.add(childValue);
                 } else if (childName.equals("shift")) {
-                    ci.$shifts.add(new Double(childValue));
+                    ci.shifts.add(new Double(childValue));
                 }
             }
         }
@@ -1998,29 +1998,29 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     class ConfigurationInformation {
-        public String $name;
-        public String $feName;
-        public Vector<Double> $freq = new Vector<Double>();
-        public String $sideBand;
-        public String $mode;
-        public Integer $mixers;
-        public Integer $subSystems;
-        public Vector<String> $species = new Vector<String>();
-        public Vector<String> $transition = new Vector<String>();
-        public Vector<String> $bandWidths = new Vector<String>();
-        public Vector<Double> $shifts = new Vector<Double>();
+        public String name;
+        public String feName;
+        public Vector<Double> freq = new Vector<Double>();
+        public String sideBand;
+        public String mode;
+        public Integer mixers;
+        public Integer subSystems;
+        public Vector<String> species = new Vector<String>();
+        public Vector<String> transition = new Vector<String>();
+        public Vector<String> bandWidths = new Vector<String>();
+        public Vector<Double> shifts = new Vector<Double>();
 
         public void print() {
-            System.out.println("name       = " + $name);
-            System.out.println("feName     = " + $feName);
-            System.out.println("frequency  = " + $freq);
-            System.out.println("sideBand   = " + $sideBand);
-            System.out.println("mode       = " + $mode);
-            System.out.println("mixers     = " + $mixers);
-            System.out.println("subSystems = " + $subSystems);
-            System.out.println("species    = " + $species);
-            System.out.println("transition = " + $transition);
-            System.out.println("bandwidth  = " + $subSystems);
+            System.out.println("name       = " + name);
+            System.out.println("feName     = " + feName);
+            System.out.println("frequency  = " + freq);
+            System.out.println("sideBand   = " + sideBand);
+            System.out.println("mode       = " + mode);
+            System.out.println("mixers     = " + mixers);
+            System.out.println("subSystems = " + subSystems);
+            System.out.println("species    = " + species);
+            System.out.println("transition = " + transition);
+            System.out.println("bandwidth  = " + subSystems);
         }
     }
 
