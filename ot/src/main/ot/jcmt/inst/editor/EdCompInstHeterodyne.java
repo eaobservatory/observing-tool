@@ -85,6 +85,7 @@ import org.w3c.dom.NodeList;
 
 import gemini.sp.SpAvEditState;
 import gemini.util.ObservingToolUtilities;
+import gemini.util.Range;
 
 /**
  * Heterodyne Editor.
@@ -698,12 +699,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 try {
                     if (changed) {
                         double f = Double.parseDouble(frequency) * 1.0E9;
-                        double obsmin = _receiver.loMin - _receiver.feIF
-                                - (_receiver.bandWidth * 0.5);
-                        double obsmax = _receiver.loMax + _receiver.feIF
-                                + (_receiver.bandWidth * 0.5);
 
-                        if (f >= obsmin && f <= obsmax) {
+                        Range restFreqRange = getRestFrequencyRange();
+
+                        if (restFreqRange.contains(f)) {
                             _inst.setSkyFrequency(f / (1. + getRedshift()));
 
                             for (int index = 0; index < _regionInfo.length;
@@ -1329,17 +1328,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private Vector<SelectionList> getSpecies() {
-        double obsmin = _receiver.loMin - _receiver.feIF
-                - (_receiver.bandWidth * 0.5);
+        Range restFreqRange = getRestFrequencyRange();
 
-        double obsmax = _receiver.loMax + _receiver.feIF
-                + (_receiver.bandWidth * 0.5);
-
-        Vector<SelectionList> molecules = _lineCatalog.returnSpecies(
-                obsmin * (1.0 + getRedshift()),
-                obsmax * (1.0 + getRedshift()));
-
-        return molecules;
+        return _lineCatalog.returnSpecies(restFreqRange.min, restFreqRange.max);
     }
 
     private void _updateFrequencyText() {
@@ -1597,6 +1588,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _inst.setBandMode(defaultRegion);
             clickButton(_w.regionButtons.get(Integer.parseInt(defaultRegion)));
         }
+    }
+
+    private Range getRestFrequencyRange() {
+        double redshift = getRedshift();
+
+        double obsmin = _receiver.loMin - _receiver.feIF
+                - (_receiver.bandWidth * 0.5);
+
+        double obsmax = _receiver.loMax + _receiver.feIF
+                + (_receiver.bandWidth * 0.5);
+
+        return new Range(
+                obsmin * (1.0 + redshift),
+                obsmax * (1.0 + redshift));
     }
 
     private void clickButton(AbstractButton button) {
