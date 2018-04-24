@@ -646,15 +646,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         try {
-            String name = ((Component) source).getName();
-
-            if (name.equals("molecule")) {
+            if (source == _w.moleculeBox) {
                 // Set the current molecule and update the transitions
                 for (int index = 0; index < _regionInfo.length; index++) {
                     _inst.setCentreFrequency(_receiver.feIF, index);
                     _inst.setMolecule(
-                            ((JComboBox)ae.getSource()).getSelectedItem()
-                                    .toString(),
+                            _w.moleculeBox.getSelectedItem().toString(),
                             index);
                 }
 
@@ -668,10 +665,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 checkSideband();
                 _updateRegionInfo();
 
-            } else if (name.equals("transition")) {
+            } else if (source == _w.transitionBox) {
                 // Update the frequency information
-                Object transition =
-                        ((JComboBox) ae.getSource()).getSelectedItem();
+                Object transition = _w.transitionBox.getSelectedItem();
 
                 if (transition instanceof Transition) {
                     double frequency = ((Transition) transition).frequency;
@@ -690,7 +686,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                 _updateRegionInfo();
 
-            } else if (name.equals("Accept")) {
+            } else if (source == _w.acceptButton) {
                 // Set the current Rest Frequency
                 // Get the text field widget
                 String frequency = _w.freqText.getText();
@@ -729,16 +725,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 _w.velocity.setForeground(Color.BLACK);
                 _w.acceptButton.setEnabled(false);
 
-            } else if (name.equals("show")) {
+            } else if (source == _w.showButton) {
                 checkSideband();
                 configureFrequencyEditor();
                 enableNamedWidgets(false);
                 _frequencyEditor.setVisible(true);
 
-            } else if (name.equals("hide")) {
+            } else if (source == _w.hideButton) {
                 hideFreqEditor();
 
             } else {
+                String name = ((Component) source).getName();
                 System.out.println("Unknown source for action: " + name);
             }
 
