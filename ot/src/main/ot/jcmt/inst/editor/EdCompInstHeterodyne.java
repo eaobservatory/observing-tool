@@ -118,7 +118,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     @SuppressWarnings("unchecked")
     Vector<Object>[] _regionInfo = new Vector[
             HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1]];
-    boolean defaultToRadialVelocity = true;
     String currentFrequency = "";
     boolean configured = false;
     static String LSB = "lsb";
@@ -287,8 +286,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         _w.defaultToRadial.addWatcher(new CheckBoxWidgetWatcher() {
             public void checkBoxAction(CheckBoxWidgetExt cbwe) {
-                defaultToRadialVelocity = cbwe.getBooleanValue();
-                doCheckBox();
+                if (cbwe.getBooleanValue()) {
+                    _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY);
+                    _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY_DEFINITION);
+                    _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY_FRAME);
+                } else {
+                    _inst.setVelocity(_w.velocity.getText());
+                    _inst.setVelocityDefinition(_w.vDef.getStringValue());
+                    _inst.setVelocityFrame(_w.vFrame.getStringValue());
+                }
+
                 moreSetUp();
                 update();
             }
@@ -296,25 +303,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         _w.table.setDefaultRenderer(Object.class, new TableRowRenderer());
 
-    }
-
-    private void doCheckBox() {
-        _w.velLabel.setEnabled(!defaultToRadialVelocity);
-        _w.velocity.setEnabled(!defaultToRadialVelocity);
-        _w.vdLabel.setEnabled(!defaultToRadialVelocity);
-        _w.vDef.setEnabled(!defaultToRadialVelocity);
-        _w.vfLabel.setEnabled(!defaultToRadialVelocity);
-        _w.vFrame.setEnabled(!defaultToRadialVelocity);
-
-        if (defaultToRadialVelocity) {
-            _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY);
-            _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY_DEFINITION);
-            _inst.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY_FRAME);
-        } else {
-            _inst.setVelocity(_w.velocity.getText());
-            _inst.setVelocityDefinition(_w.vDef.getStringValue());
-            _inst.setVelocityFrame(_w.vFrame.getStringValue());
-        }
     }
 
     /**
@@ -404,7 +392,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _initialiseRegionInfo();
         }
 
-        defaultToRadialVelocity = ! _inst.hasVelocityInformation();
+        boolean defaultToRadialVelocity = ! _inst.hasVelocityInformation();
         _w.defaultToRadial.setValue(defaultToRadialVelocity);
 
         currentFrequency = _w.freqText.getText();
@@ -462,6 +450,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _w.vFrame.setSelectedItem(rvFrame);
         }
 
+        _w.velLabel.setEnabled(!defaultToRadialVelocity);
+        _w.velocity.setEnabled(!defaultToRadialVelocity);
+        _w.vdLabel.setEnabled(!defaultToRadialVelocity);
+        _w.vDef.setEnabled(!defaultToRadialVelocity);
+        _w.vfLabel.setEnabled(!defaultToRadialVelocity);
+        _w.vFrame.setEnabled(!defaultToRadialVelocity);
+
         String selectedConfig = (String) _w.specialConfigs.getSelectedItem();
         String namedConfig = _inst.getNamedConfiguration();
 
@@ -476,8 +471,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _w.specialConfigs.addActionListener(this);
             cachedConfigured = true;
         }
-
-        doCheckBox();
 
         // Make sure the molecule is accessible
         try {
