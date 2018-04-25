@@ -119,7 +119,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     @SuppressWarnings("unchecked")
     Vector<Object>[] _regionInfo = new Vector[
             HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1]];
-    String currentFrequency = "";
     boolean configured = false;
     static String LSB = "lsb";
     static String USB = "usb";
@@ -238,7 +237,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         _w.velocity.addWatcher(new TextBoxWidgetWatcher() {
             public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-                _inst.setVelocity(tbwe.getText());
                 _w.acceptButton.setEnabled(true);
                 _w.velocity.setForeground(Color.RED);
             }
@@ -396,8 +394,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         boolean defaultToRadialVelocity = ! _inst.hasVelocityInformation();
         _w.defaultToRadial.setValue(defaultToRadialVelocity);
 
-        currentFrequency = _w.freqText.getText();
-
         _receiver = _cfg.receivers.get(_inst.getFrontEnd());
 
         // Update the front end panel
@@ -488,7 +484,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         _updateTable();
 
-        _updateFrequencyText();
+        _w.freqText.setText(Double.toString(_inst.getRestFrequency(0) / 1.0E9));
 
         _w.skyFreqText.setText(String.format("%.6f",  _inst.getSkyFrequency() / 1.0E9));
 
@@ -680,7 +676,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         _inst.setRestFrequency(frequency, index);
                     }
 
-                    _updateFrequencyText(frequency / 1.0E9);
+                    _w.freqText.setText(Double.toString(frequency / 1.0E9));
                     checkSideband();
                 }
 
@@ -690,7 +686,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 // Set the current Rest Frequency
                 // Get the text field widget
                 String frequency = _w.freqText.getText();
-                boolean changed = !currentFrequency.equals(frequency);
+                String velocity = _w.velocity.getText();
+                boolean changed = ! frequency.equals(
+                        Double.toString(_inst.getRestFrequency(0) / 1.0E9));
+
+                // Only set the instrument velocity if we don't inherit it
+                // from an associated target component.
+                if (_inst.hasVelocityInformation()) {
+                    _inst.setVelocity(velocity);
+                }
 
                 try {
                     if (changed) {
@@ -699,8 +703,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         Range restFreqRange = getRestFrequencyRange();
 
                         if (restFreqRange.contains(f)) {
-                            _inst.setSkyFrequency(f / (1. + getRedshift()));
-
                             for (int index = 0; index < _regionInfo.length;
                                     index++) {
                                 _inst.setRestFrequency(f, index);
@@ -713,7 +715,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                             checkSideband();
                         }
+                        else {
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "The requested frequency is outside the\n"
+                                    + "tuning range of the receiver.",
+                                    "Frequency out of range",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
+
+                    _inst.setSkyFrequency(_inst.calculateSkyFrequency());
 
                     _updateMoleculeChoice();
                     _updateRegionInfo();
@@ -1315,7 +1327,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         _inst.setRestFrequency(frequency, 0);
         _inst.setSkyFrequency(frequency / (1.0 + getRedshift()));
 
-        _updateFrequencyText(frequency / 1.0E9);
+        _w.freqText.setText(Double.toString(frequency / 1.0E9));
 
         if (transChanged) {
             _updateRegionInfo();
@@ -1328,14 +1340,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         Range restFreqRange = getRestFrequencyRange();
 
         return _lineCatalog.returnSpecies(restFreqRange.min, restFreqRange.max);
-    }
-
-    private void _updateFrequencyText() {
-        _updateFrequencyText(_inst.getRestFrequency(0) / 1.0E9);
-    }
-
-    private void _updateFrequencyText(double f) {
-        _w.freqText.setText("" + f);
     }
 
     public double getRedshift() {
