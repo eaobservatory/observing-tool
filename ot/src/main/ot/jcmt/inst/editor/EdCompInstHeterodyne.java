@@ -771,7 +771,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     private void _adjustCentralFrequencies() {
         String band = _inst.getBand();
         // Get current space of first system
-        double mainline = _inst.getRestFrequency(0);
+        double mainline = _inst.calculateSkyFrequency(0);
         double centre = _inst.getCentreFrequency(0);
         // Check if it is correctly located
         double halfReceverBandwidth = _receiver.bandWidth * 0.5;
@@ -820,7 +820,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         int available = new Integer(_inst.getBandMode());
 
         for (int index = 1; index < available; index++) {
-            double line = _inst.getRestFrequency(index);
+            double line = _inst.calculateSkyFrequency(index);
 
             if (USB.equals(band) || BEST.equals(band)) {
                 line = centre - (mainline - line);
