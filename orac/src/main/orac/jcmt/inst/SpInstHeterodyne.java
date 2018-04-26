@@ -1125,6 +1125,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     public double calculateSkyFrequency(int subsystem) {
+        double redshift = calculateRedshift();
+
+        return getRestFrequency(subsystem) / (1.0 + redshift);
+    }
+
+    public double calculateRedshift() {
         double velocity = 0.0;
         String velocityDefinition = RADIAL_VELOCITY_REDSHIFT;
 
@@ -1142,9 +1148,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             }
         }
 
-        double redshift = convertToRedshift(velocityDefinition, velocity);
-
-        return getRestFrequency(subsystem) / (1.0 + redshift);
+        return convertToRedshift(velocityDefinition, velocity);
     }
 
     public String subsystemXML(String indent) {

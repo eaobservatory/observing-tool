@@ -1325,7 +1325,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         _inst.setRestFrequency(frequency, 0);
-        _inst.setSkyFrequency(frequency / (1.0 + getRedshift()));
+        _inst.setSkyFrequency(_inst.calculateSkyFrequency());
 
         _w.freqText.setText(Double.toString(frequency / 1.0E9));
 
@@ -1343,30 +1343,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     public double getRedshift() {
-        double velocity = 0.0;
-
-        // Get the velocity information
-        String vText = _w.velocity.getText();
-
-        try {
-            velocity = Double.parseDouble(vText);
-
-        } catch (NumberFormatException nfe) {
-            return 0.0;
-        }
-
-        double c = SpInstHeterodyne.LIGHTSPEED;
-
-        String vDefn = _w.vDef.getStringValue();
-
-        // if radio, else if optical
-        if (vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[0])) {
-            velocity = (c / (c - velocity)) - 1.0;
-        } else if (vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1])) {
-            velocity /= c;
-        }
-
-        return velocity;
+        return _inst.calculateRedshift();
     }
 
     public double getCurrentBandwidth(int subsystem) {
@@ -1693,7 +1670,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 // in principle we should only update sky frequency when
                 // changing the first subsystem.)
                 if (i == 0) {
-                    _inst.setSkyFrequency(restFreq / (1.0 + getRedshift()));
+                    _inst.setSkyFrequency(_inst.calculateSkyFrequency());
                 }
                 _regionInfo[i].add(new Double(
                         _inst.getRestFrequency(i) / 1.0E9));
@@ -1868,7 +1845,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         _frequencyEditor.resetModeAndBand(_inst.getMode(), _inst.getBand());
 
         // Need to deal with LO1...
-        double obsFreq = _inst.getRestFrequency(0) / (1.0 + getRedshift());
+        double obsFreq = _inst.calculateSkyFrequency();
 
         String band = _inst.getBand();
 
@@ -1975,10 +1952,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
     private boolean validSideband(String sideband) {
         boolean valid = true;
-        double freq = _inst.getRestFrequency(0);
 
-        // Convert to sky frequency
-        freq /= (1.0 + getRedshift());
+        double freq = _inst.calculateSkyFrequency();
 
         if (LSB.equals(sideband)) {
             valid = !((freq + _inst.getCentreFrequency(0)) > _receiver.loMax);
