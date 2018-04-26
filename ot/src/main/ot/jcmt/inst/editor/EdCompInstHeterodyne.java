@@ -1687,7 +1687,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             if (_inst.getRestFrequency(i) == 0.0) {
                 double restFreq = _inst.getRestFrequency(0);
                 _inst.setRestFrequency(restFreq, i);
-                _inst.setSkyFrequency(restFreq / (1.0 + getRedshift()));
+                // Only set the sky frequency to match based on the rest
+                // frequency of the first subsystem.  (Probably not important
+                // as we're using the first subsystem's rest frequency, but
+                // in principle we should only update sky frequency when
+                // changing the first subsystem.)
+                if (i == 0) {
+                    _inst.setSkyFrequency(restFreq / (1.0 + getRedshift()));
+                }
                 _regionInfo[i].add(new Double(
                         _inst.getRestFrequency(i) / 1.0E9));
             } else {
