@@ -850,6 +850,8 @@ public class EdCompTargetList extends OtItemEditor implements
             _updateTargetSystemPane(_curPos);
         }
 
+        _updateExtrasFolder(_curPos);
+
         TelescopePosEditor tpe = TpeManager.get(_spItem);
         if (tpe != null) {
             tpe.reset(_spItem);
@@ -930,6 +932,7 @@ public class EdCompTargetList extends OtItemEditor implements
         showPos(_curPos);
         _selectTargetSystemTab(_curPos);
         _updateTargetSystemPane(_curPos);
+        _updateExtrasFolder(_curPos);
         _avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
 
         if (OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())
@@ -1282,6 +1285,27 @@ public class EdCompTargetList extends OtItemEditor implements
         }
 
         _w.targetSystemsTabbedPane.addChangeListener(this);
+    }
+
+    /**
+     * Updates the "extras folder" tabbed pane
+     * depending on the target system of the selected target.
+     */
+    private void _updateExtrasFolder(SpTelescopePos tp) {
+        boolean pm_allowed = false;
+
+        switch (tp.getSystemType()) {
+            case SpTelescopePos.SYSTEM_SPHERICAL:
+                pm_allowed = true;
+                break;
+        }
+
+        // If proper motion is supported by the telescope, enable or disable
+        // its panel based on whether it is allowed for the selected system.
+        if (OtCfg.telescopeUtil.supports(
+                TelescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
+            setTabEnabled(_w.extrasFolder, _w.TAB_PROPER_MOTION, pm_allowed);
+        }
     }
 
     private void _resetPositionEditor() {
