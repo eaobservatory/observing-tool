@@ -73,6 +73,7 @@ import ot.ReportBox;
 
 import java.awt.Color;
 
+import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
@@ -685,6 +686,13 @@ public class EdCompTargetList extends OtItemEditor implements
             public void textBoxAction(TextBoxWidgetExt tbwe) {
             }
         });
+    }
+
+    public void setup(SpItem spItem) {
+        // Clear the "previousSystem" variable when editing a new item.
+        previousSystem = null;
+
+        super.setup(spItem);
     }
 
     /**
