@@ -1,70 +1,70 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <xsd:redefine schemaLocation="../JACtypes.xsd">
 
 <xsd:group name="MSBContents">
-  <xsd:choice>
-    <xsd:group ref="toml:MSBContents"/>
-    <xsd:group ref="toml:instrumentGroup"/>
-    <xsd:element ref="toml:SpDRRecipe"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:group ref="toml:MSBContents"/>
+        <xsd:group ref="toml:instrumentGroup"/>
+        <xsd:element ref="toml:SpDRRecipe"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:sequenceContent"/>
-    <xsd:element ref="toml:SpIterPOL"/>
-    <xsd:element ref="toml:SpIterSkydipObs"/>
-    <xsd:element ref="toml:SpIterPointingObs"/>
-    <xsd:element ref="toml:SpIterFocusObs"/>
-    <xsd:element ref="toml:SpIterNoiseObs"/>
-    <xsd:element ref="toml:SpIterStareObs"/>
-    <xsd:element ref="toml:SpIterJiggleObs"/>
-    <xsd:element ref="toml:SpIterRasterObs"/>
-    <xsd:element ref="toml:SpIterMicroStep"/>
-    <xsd:element ref="toml:SpIterDREAMObs"/>
-    <xsd:element ref="toml:SpIterArrayTestObs"/>
-    <xsd:element ref="toml:SpIterFlatObs"/>
-    <xsd:element ref="toml:SpIterFTS2Obs"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:group   ref="toml:sequenceContent"/>
+        <xsd:element ref="toml:SpIterPOL"/>
+        <xsd:element ref="toml:SpIterSkydipObs"/>
+        <xsd:element ref="toml:SpIterPointingObs"/>
+        <xsd:element ref="toml:SpIterFocusObs"/>
+        <xsd:element ref="toml:SpIterNoiseObs"/>
+        <xsd:element ref="toml:SpIterStareObs"/>
+        <xsd:element ref="toml:SpIterJiggleObs"/>
+        <xsd:element ref="toml:SpIterRasterObs"/>
+        <xsd:element ref="toml:SpIterMicroStep"/>
+        <xsd:element ref="toml:SpIterDREAMObs"/>
+        <xsd:element ref="toml:SpIterArrayTestObs"/>
+        <xsd:element ref="toml:SpIterFlatObs"/>
+        <xsd:element ref="toml:SpIterFTS2Obs"/>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:obsContent"/>
-    <xsd:group   ref="toml:instrumentGroup"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:group ref="toml:obsContent"/>
+        <xsd:group ref="toml:instrumentGroup"/>
+    </xsd:choice>
 </xsd:group>
 
 </xsd:redefine>
 
 <xsd:group name="instIterContent">
-  <xsd:choice>
-    <xsd:group   ref="toml:sequenceContent"/>
+    <xsd:choice>
+        <xsd:group   ref="toml:sequenceContent"/>
 <!--
-    <xsd:element ref="toml:SpIterPOL"/>
-    <xsd:element ref="toml:SpIterSkydipObs"/>
-    <xsd:element ref="toml:SpIterPointingObs"/>
-    <xsd:element ref="toml:SpIterFocusObs"/>
-    <xsd:element ref="toml:SpIterNoiseObs"/>
-    <xsd:element ref="toml:SpIterStareObs"/>
-    <xsd:element ref="toml:SpIterJiggleObs"/>
-    <xsd:element ref="toml:SpIterRasterObs"/>
+        <xsd:element ref="toml:SpIterPOL"/>
+        <xsd:element ref="toml:SpIterSkydipObs"/>
+        <xsd:element ref="toml:SpIterPointingObs"/>
+        <xsd:element ref="toml:SpIterFocusObs"/>
+        <xsd:element ref="toml:SpIterNoiseObs"/>
+        <xsd:element ref="toml:SpIterStareObs"/>
+        <xsd:element ref="toml:SpIterJiggleObs"/>
+        <xsd:element ref="toml:SpIterRasterObs"/>
 -->
-  </xsd:choice>
+    </xsd:choice>
 </xsd:group>
 
 <xsd:simpleType name="jcmtSystemList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="FPLANE"/>
-    <xsd:enumeration value="TRACKING"/>
-    <xsd:enumeration value="AZEL"/>
-    <xsd:enumeration value="SCAN"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="FPLANE"/>
+        <xsd:enumeration value="TRACKING"/>
+        <xsd:enumeration value="AZEL"/>
+        <xsd:enumeration value="SCAN"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 </xsd:schema>

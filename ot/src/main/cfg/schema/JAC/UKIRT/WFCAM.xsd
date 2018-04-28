@@ -1,186 +1,186 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 
 <!-- WFCAM specific type -->
 
 <xsd:simpleType name="wfcamCalType">
-  <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="skyFlat"/>
-      <xsd:enumeration value="domeFlat"/>
-      <xsd:enumeration value="focus"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="skyFlat"/>
+        <xsd:enumeration value="domeFlat"/>
+        <xsd:enumeration value="focus"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="wfcamFilterType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Z"/>
-    <xsd:enumeration value="Y"/>
-    <xsd:enumeration value="J"/>
-    <xsd:enumeration value="H"/>
-    <xsd:enumeration value="K"/>
-    <xsd:enumeration value="1-0S1"/>
-    <xsd:enumeration value="1.644FeII"/>
-    <!-- <xsd:enumeration value="1.619nbH"/>
-    <xsd:enumeration value="BGamma"/>
-    <xsd:enumeration value="1.205nbJ"/ -->
-    <xsd:enumeration value="Blank"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Z"/>
+        <xsd:enumeration value="Y"/>
+        <xsd:enumeration value="J"/>
+        <xsd:enumeration value="H"/>
+        <xsd:enumeration value="K"/>
+        <xsd:enumeration value="1-0S1"/>
+        <xsd:enumeration value="1.644FeII"/>
+        <!-- <xsd:enumeration value="1.619nbH"/>
+        <xsd:enumeration value="BGamma"/>
+        <xsd:enumeration value="1.205nbJ"/ -->
+        <xsd:enumeration value="Blank"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="wfcamReadModeType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="CDS"/>
-    <xsd:enumeration value="SRR"/>
-    <xsd:enumeration value="NDR_1.0"/>
-    <xsd:enumeration value="NDR_1.5"/>
-    <xsd:enumeration value="NDR_2.0"/>
-    <xsd:enumeration value="FOLWER_2"/>
-    <xsd:enumeration value="FOWLER_4"/>
-    <xsd:enumeration value="FOWLER_8"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="CDS"/>
+        <xsd:enumeration value="SRR"/>
+        <xsd:enumeration value="NDR_1.0"/>
+        <xsd:enumeration value="NDR_1.5"/>
+        <xsd:enumeration value="NDR_2.0"/>
+        <xsd:enumeration value="FOLWER_2"/>
+        <xsd:enumeration value="FOWLER_4"/>
+        <xsd:enumeration value="FOWLER_8"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="wfcamConfigType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Normal"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Normal"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="wfcamIterType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="coaddsIter"/>
-    <xsd:enumeration value="exposureTimeIter"/>
-    <xsd:enumeration value="readModeIter"/>
-    <xsd:enumeration value="filterIter"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="coaddsIter"/>
+        <xsd:enumeration value="exposureTimeIter"/>
+        <xsd:enumeration value="readModeIter"/>
+        <xsd:enumeration value="filterIter"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:complexType name="wfcamCoaddsIterType" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 
 <xsd:complexType name="wfcamExpTimeIterType" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:positiveDecimal" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:positiveDecimal" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 
 <xsd:complexType name="wfcamFilterIterType" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:wfcamFilterType" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:wfcamFilterType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="wfcamIterTypeList" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:wfcamIterType" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:wfcamIterType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="wfcamReadModeIterType" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:wfcamReadModeType" minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:wfcamReadModeType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 
 <!-- WFCAM iterators -->
-  <xsd:element name="SpIterWFCAM">
+<xsd:element name="SpIterWFCAM">
     <xsd:complexType>
-      <xsd:sequence>
-        <xsd:group ref="toml:jac_meta_group"/>
-        <xsd:element name="coaddsIter" type="toml:wfcamCoaddsIterType" minOccurs="0"/>
-        <xsd:element name="exposureTimeIter" type="toml:wfcamExpTimeIterType" minOccurs="0"/>
-        <xsd:element name="filterIter" type="toml:wfcamFilterIterType" minOccurs="0"/>
-        <xsd:element name="iterConfigList"   type="toml:wfcamIterTypeList" minOccurs="0"/>
-        <xsd:element name="readModeIter" type="toml:wfcamReadModeIterType" minOccurs="0"/>
-        <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-      </xsd:sequence>
-      <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-      <xsd:attribute name="subtype" type="xsd:string" fixed="instWFCAM"/>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="coaddsIter" type="toml:wfcamCoaddsIterType" minOccurs="0"/>
+            <xsd:element name="exposureTimeIter" type="toml:wfcamExpTimeIterType" minOccurs="0"/>
+            <xsd:element name="filterIter" type="toml:wfcamFilterIterType" minOccurs="0"/>
+            <xsd:element name="iterConfigList"     type="toml:wfcamIterTypeList" minOccurs="0"/>
+            <xsd:element name="readModeIter" type="toml:wfcamReadModeIterType" minOccurs="0"/>
+            <xsd:group     ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"        type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instWFCAM"/>
     </xsd:complexType>
-  </xsd:element>
+</xsd:element>
 
-  <xsd:element name="SpIterWFCAMCalObs">
+<xsd:element name="SpIterWFCAMCalObs">
     <xsd:complexType>
-      <xsd:sequence>
-        <xsd:group ref="toml:jac_meta_group"/>
-        <xsd:element name="calType" type="toml:wfcamCalType"/>
-        <xsd:element ref="toml:coadds"/>
-        <xsd:element name="exposureTime" type="toml:positiveDecimal"/>
-        <xsd:element name="filter" type="toml:wfcamFilterType"/>
-        <xsd:element name="readMode" type="toml:wfcamReadModeType"/>
-        <xsd:element ref="toml:repeatCount"/>
-      </xsd:sequence>
-      <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-      <xsd:attribute name="subtype" type="xsd:string" fixed="WFCAMCalObs"/>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="calType" type="toml:wfcamCalType"/>
+            <xsd:element ref="toml:coadds"/>
+            <xsd:element name="exposureTime" type="toml:positiveDecimal"/>
+            <xsd:element name="filter" type="toml:wfcamFilterType"/>
+            <xsd:element name="readMode" type="toml:wfcamReadModeType"/>
+            <xsd:element ref="toml:repeatCount"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="WFCAMCalObs"/>
     </xsd:complexType>
-  </xsd:element>
-      
+</xsd:element>
 
-            
+
+
 <!-- WFCAM component -->
-  <xsd:element name="SpInstWFCAM">
+<xsd:element name="SpInstWFCAM">
     <xsd:complexType>
-      <xsd:sequence>
-        <xsd:group ref="toml:jac_meta_group"/>
-        <xsd:element name="coadds" type="xsd:integer"/>
-        <xsd:element name="configType" type="toml:wfcamConfigType"/>
-        <xsd:element name="exposureTime" type="toml:positiveDecimal"/>
-        <xsd:element name="filter" type="toml:wfcamFilterType"/>
-        <xsd:element name="instAper">
-          <xsd:complexType>
-            <xsd:sequence>
-              <xsd:element name="value" type="xsd:double"
-                           minOccurs="4" maxOccurs="4"/>
-            </xsd:sequence>
-          </xsd:complexType>
-        </xsd:element>
-        <xsd:element name="instPntgOffset">
-          <xsd:complexType>
-            <xsd:sequence>
-              <xsd:element name="value" type="xsd:double"
-                           minOccurs="2" maxOccurs="2"/>
-            </xsd:sequence>
-          </xsd:complexType>
-        </xsd:element>
-        <xsd:element name="instPort" type="toml:ukirtPortsList" fixed="Centre"/>
-        <xsd:element name="posAngle" type="xsd:double"  minOccurs="0"/>
-        <xsd:element name="readMode" type="toml:wfcamReadModeType"/>
-      </xsd:sequence>
-      <xsd:attribute name="id" type="xsd:nonNegativeInteger" />
-      <xsd:attribute name="type" type="toml:SpType" fixed="oc"/>
-      <xsd:attribute name="subtype" type="xsd:string" fixed="inst.WFCAM"/>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="coadds" type="xsd:integer"/>
+            <xsd:element name="configType" type="toml:wfcamConfigType"/>
+            <xsd:element name="exposureTime" type="toml:positiveDecimal"/>
+            <xsd:element name="filter" type="toml:wfcamFilterType"/>
+            <xsd:element name="instAper">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:double"
+                                     minOccurs="4" maxOccurs="4"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPntgOffset">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:double"
+                                     minOccurs="2" maxOccurs="2"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPort" type="toml:ukirtPortsList" fixed="Centre"/>
+            <xsd:element name="posAngle" type="xsd:double" minOccurs="0"/>
+            <xsd:element name="readMode" type="toml:wfcamReadModeType"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" />
+        <xsd:attribute name="type" type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="inst.WFCAM"/>
     </xsd:complexType>
-  </xsd:element>
-        
+</xsd:element>
+
 
 </xsd:schema>

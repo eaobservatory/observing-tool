@@ -1,31 +1,31 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <xsd:redefine schemaLocation="../../TOMLelements.xsd">
 
 <xsd:group name="ProgInfoGroup">
     <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:group ref="toml:ProgInfoGroup"/>
+        <xsd:group ref="toml:jac_meta_group"/>
+        <xsd:group ref="toml:ProgInfoGroup"/>
     </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedBlockGroup">
-  <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-    <xsd:element ref="toml:componentRef"   minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group ref="toml:schedBlockGroup"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:group ref="toml:jac_meta_group"/>
+        <xsd:element ref="toml:componentRef"   minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:group ref="toml:schedBlockGroup"/>
+    </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="observationGroup">
-  <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-    <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group   ref="toml:observationGroup"/>
-  </xsd:sequence>
+    <xsd:sequence>
+        <xsd:group ref="toml:jac_meta_group"/>
+        <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:group   ref="toml:observationGroup"/>
+    </xsd:sequence>
 </xsd:group>
 
 </xsd:redefine>

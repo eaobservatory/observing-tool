@@ -1,7 +1,7 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <xsd:include schemaLocation="CGS4.xsd"/>
 <xsd:include schemaLocation="UFTI.xsd"/>
@@ -11,25 +11,25 @@
 <xsd:include schemaLocation="IRPOL.xsd"/>
 
 <xsd:group name="instrumentGroup">
-  <xsd:choice>
-    <xsd:element ref="toml:SpInstCGS4"/>
-    <xsd:element ref="toml:SpInstUFTI"/>
-    <xsd:element ref="toml:SpInstMichelle"/>
-    <xsd:element ref="toml:SpInstUIST"/>
-    <xsd:element ref="toml:SpInstWFCAM"/>
-  </xsd:choice>
+    <xsd:choice>
+        <xsd:element ref="toml:SpInstCGS4"/>
+        <xsd:element ref="toml:SpInstUFTI"/>
+        <xsd:element ref="toml:SpInstMichelle"/>
+        <xsd:element ref="toml:SpInstUIST"/>
+        <xsd:element ref="toml:SpInstWFCAM"/>
+    </xsd:choice>
 </xsd:group>
 
 
 <xsd:element name="SpInstCGS4Ref" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstUFTIRef" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstMichelleRef" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstUISTRef" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstWFCAMRef" type="toml:compRefType"
-	     substitutionGroup="toml:componentRef"/>
+             substitutionGroup="toml:componentRef"/>
 
 </xsd:schema>
