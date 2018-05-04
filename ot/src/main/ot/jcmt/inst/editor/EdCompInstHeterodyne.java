@@ -269,6 +269,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     }
                 }
 
+                _inst.setSkyFrequency(_inst.calculateSkyFrequency());
+
                 moreSetUp();
                 update();
             }
