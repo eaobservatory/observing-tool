@@ -1197,9 +1197,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 } catch (NumberFormatException nfe) {
                 }
 
+                Object item = specModel.getElementAt(0);
                 for (int i = 0; i < integer; i++) {
-                    _inst.setMolecule(((SelectionList) specModel
-                            .getElementAt(0)).toString(), i);
+                    if (item instanceof SelectionList) {
+                        _inst.setMolecule(((SelectionList) item).toString(), i);
+                    }
+                    else {
+                        _inst.setMolecule(NO_LINE, i);
+                    }
                 }
 
                 molBox.setSelectedIndex(0);
