@@ -33,9 +33,9 @@
   <species>   H2CO            </species>
   <species>   H2CO            </species>
   <species>   H2CO            </species>
-  <transition>3 0 3  - 2 0 2 </transition>
-  <transition>3 2 2  - 2 2 1 </transition>
-  <transition>3 2 1  - 2 2 0 </transition>
+  <transition>3 0 3 - 2 0 2  </transition>
+  <transition>3 2 2 - 2 2 1  </transition>
+  <transition>3 2 1 - 2 2 0  </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
@@ -57,10 +57,10 @@
   <species>   C-18-O          </species>
   <species>   SO              </species>
   <species>   SO              </species>
-  <transition>2  - 1          </transition>
-  <transition>2  - 1          </transition>
-  <transition>5 6  - 4 5      </transition>
-  <transition>5 6  - 4 5      </transition>
+  <transition>2 - 1           </transition>
+  <transition>2 - 1           </transition>
+  <transition>5 6 - 4 5       </transition>
+  <transition>5 6 - 4 5       </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
@@ -82,8 +82,8 @@
   <systems>   2               </systems>
   <species>   SiO             </species>
   <species>   SO              </species>
-  <transition>6 0  - 5 0      </transition>
-  <transition>4 3  - 3 4      </transition>
+  <transition>6 0 - 5 0       </transition>
+  <transition>4 3 - 3 4       </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <shift> 3.2916253101736975E9</shift>
@@ -101,8 +101,8 @@
   <systems>   2               </systems>
   <species>   SiO             </species>
   <species>   SiO             </species>
-  <transition>5 2  - 4 2      </transition>
-  <transition>5 1  - 4 1      </transition>
+  <transition>5 2 - 4 2       </transition>
+  <transition>5 1 - 4 1       </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <shift> 4.73825E9</shift>
@@ -122,8 +122,8 @@
   <systems>   2               </systems>
   <species>   CH3NH2          </species>
   <species>   CH3NH2          </species>
-  <transition>4 2  - 4 1 </transition>
-  <transition>7 2  - 7 1 </transition>
+  <transition>4 2 - 4 1       </transition>
+  <transition>7 2 - 7 1       </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 1000.0          </bandwidth>
   <shift>     4.0E9           </shift>
@@ -141,8 +141,8 @@
   <systems>   2               </systems>
   <species>   CH3NH2          </species>
   <species>   CH3NH2          </species>
-  <transition>8- 2  - 8 1 </transition>
-  <transition>6- 2  - 6 1 </transition>
+  <transition>8- 2 - 8 1      </transition>
+  <transition>6- 2 - 6 1      </transition>
   <bandwidth> 1000.0          </bandwidth>
   <bandwidth> 1000.0          </bandwidth>
   <shift>     3.67275E9       </shift>
@@ -160,8 +160,8 @@
   <systems>   2               </systems>
   <species>   CH3NH2          </species>
   <species>   CH3NH2          </species>
-  <transition>6- 2  - 6 1 </transition>
-  <transition>2 2  - 2 1 </transition>
+  <transition>6- 2 - 6 1      </transition>
+  <transition>2 2 - 2 1       </transition>
   <bandwidth> 1000.0          </bandwidth>
   <bandwidth> 1000.0          </bandwidth>
   <shift>     3.62375E9       </shift>
@@ -181,8 +181,8 @@
   <systems>   2               </systems>
   <species>   CO              </species>
   <species>   H-13-CN         </species>
-  <transition>6- 2  - 6 1 </transition>
-  <transition>4  - 3          </transition>
+  <transition>3 - 2           </transition>
+  <transition>4 - 3           </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <shift>     5.0E9           </shift>
@@ -200,8 +200,8 @@
   <systems>   2               </systems>
   <species>   H2D+            </species>
   <species>   N2H+            </species>
-  <transition>1 1 0 0  - 1 1 1 0</transition>
-  <transition>4  - 3          </transition>
+  <transition>1 1 0 0 - 1 1 1 0</transition>
+  <transition>4 - 3           </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <shift>     5.0E9           </shift>
@@ -219,8 +219,8 @@
 	<systems>   2               </systems>
 	<species>   C-18-O          </species>
 	<species>   13-CO           </species>
-	<transition>3  - 2          </transition>
-	<transition>3  - 2          </transition>
+	<transition>3 - 2           </transition>
+	<transition>3 - 2           </transition>
 	<bandwidth> 250.0           </bandwidth>
 	<bandwidth> 250.0           </bandwidth>
 	<shift>  5.607009925558312E9</shift>
@@ -238,8 +238,8 @@
 	<systems>   2               </systems>
 	<species>   DCN             </species>
 	<species>   HNC             </species>
-	<transition>5  - 4          </transition>
-	<transition>4  - 3          </transition>
+	<transition>5 - 4           </transition>
+	<transition>4 - 3           </transition>
 	<bandwidth> 250.0           </bandwidth>
 	<bandwidth> 250.0           </bandwidth>
 	<shift>  4.73E9             </shift>
@@ -257,7 +257,7 @@
 	<systems>   2               </systems>
 	<species>   CO              </species>
 	<species>   H-13-CO+ v=0    </species>
-	<transition>3  - 2          </transition>
+	<transition>3 - 2           </transition>
 	<transition>4 - 3           </transition>
 	<bandwidth> 250.0           </bandwidth>
 	<bandwidth> 250.0           </bandwidth>
@@ -276,8 +276,8 @@
 	<systems>   2               </systems>
 	<species>   C-17-O          </species>
 	<species>   C-34-S          </species>
-	<transition>3  - 2          </transition>
-	<transition>7  - 6           </transition>
+	<transition>3 - 2           </transition>
+	<transition>7 - 6           </transition>
 	<bandwidth> 250.0           </bandwidth>
 	<bandwidth> 250.0           </bandwidth>
 	<shift>  5.0E9              </shift>

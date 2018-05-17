@@ -35,6 +35,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.iter.SpIterChop;
+import gemini.util.Format;
 import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
 import gemini.util.HHMMSS;
@@ -79,6 +80,28 @@ public class JcmtSpValidation extends SpValidation {
         SpTelescopeObsComp target = SpTreeMan.findTargetList(spObs);
         Vector<SpItem> observes = SpTreeMan.findAllInstances(spObs,
                 SpIterJCMTObs.class.getName());
+
+        // Check we don't have proper motions which the JCMT translator
+        // does not support.
+        if (target != null) {
+            SpTelescopePos pos = target.getPosList().getBasePosition();
+            if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+                int coordSystem = pos.getCoordSys();
+                if ((coordSystem != CoordSys.FK4) && (coordSystem != CoordSys.FK5)) {
+                    double pmRa = Format.toDouble(pos.getPropMotionRA());
+                    double pmDec = Format.toDouble(pos.getPropMotionDec());
+                    if ((pmRa != 0.0) || (pmDec != 0.0)) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                titleString,
+                                "Proper motion values are specified for the"
+                                + " target coordinates, but proper motion is"
+                                + " not supported for coordinates of this type."));
+
+                    }
+                }
+            }
+        }
 
         for (int count = 0; count < observes.size(); count++) {
             SpIterJCMTObs thisObs = (SpIterJCMTObs) observes.elementAt(count);
@@ -185,23 +208,33 @@ public class JcmtSpValidation extends SpValidation {
                     System.out.println("Could not find field " + nsfe);
                 }
 
-                double skyFrequency = spInstHeterodyne.getSkyFrequency();
+                // Use a newly-calculated sky frequency (but don't store it to
+                // avoid unnecessary changes to the science program) in order
+                // to take into account any subsequent changes to velocities
+                // in associated target components.
+                double skyFrequency = spInstHeterodyne.calculateSkyFrequency();
                 if (loMin != 0.0
                         && (loMin - spInstHeterodyne.getFeIF())
                                 > skyFrequency) {
-                    report.add(new ErrorMessage(ErrorMessage.WARNING,
-                            titleString, "Rest frequency of " + skyFrequency
-                                    + " is lower than receiver minimum "
-                                    + loMin));
+                    report.add(new ErrorMessage(
+                            ErrorMessage.WARNING, titleString,
+                            "Sky frequency of "
+                            + String.format("%.3f", skyFrequency / 1.0E9)
+                            + " GHz is lower than receiver minimum "
+                            + String.format("%.3f", loMin / 1.0E9)
+                            + " GHz"));
                 }
 
                 if (loMax != 0.0
                         && (loMax + spInstHeterodyne.getFeIF())
                                 < skyFrequency) {
-                    report.add(new ErrorMessage(ErrorMessage.WARNING,
-                            titleString, "Rest frequency of " + skyFrequency
-                                    + " is greater than receiver maximum "
-                                    + loMax));
+                    report.add(new ErrorMessage(
+                            ErrorMessage.WARNING, titleString,
+                            "Sky frequency of "
+                            + String.format("%.3f", skyFrequency / 1.0E9)
+                            + " GHz is greater than receiver maximum "
+                            + String.format("%.3f", loMax / 1.0E9)
+                            + " GHz"));
                 }
 
                 int available = new Integer(spInstHeterodyne.getBandMode());
@@ -297,8 +330,7 @@ public class JcmtSpValidation extends SpValidation {
                 // Warn if the velocity/redshift has been left at zero.
                 double velocity = 0.0;
                 String velocitySource = null;
-                if (spInstHeterodyne.getTable().exists(
-                        SpInstHeterodyne.ATTR_VELOCITY)) {
+                if (spInstHeterodyne.hasVelocityInformation()) {
                     velocity = spInstHeterodyne.getVelocity();
                     velocitySource = "Het Setup";
                 } else if (target != null) {

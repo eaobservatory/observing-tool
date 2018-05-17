@@ -20,7 +20,6 @@
 package gemini.sp;
 
 import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
 import java.util.Enumeration;
 
 /**
@@ -319,21 +318,10 @@ public class SpMSB extends SpObsContextItem {
 
         SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
 
-        // The targetCount is set assuming that there is either a target list
-        // or a survey component in the scope but not both.
-
-        int targetCount = 1;
-
-        SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp(this);
-
-        if (surveyObsComp != null) {
-            targetCount = surveyObsComp.size();
-        }
-
         if (spInstObsComp != null) {
-            return (elapsedTime + spInstObsComp.getSlewTime()) * targetCount;
+            return elapsedTime + spInstObsComp.getSlewTime();
         } else {
-            return elapsedTime * targetCount;
+            return elapsedTime;
         }
     }
 

@@ -27,42 +27,77 @@ However, we strongly urge you to send a request to
 so that we can add the new configuration to the list.
 </p>
 
-<pre>
-Name		   Receiver  Systems Mode   Sideband  Species   transitions		   Bandwidths
+<table class="shaded">
+<thead>
+<tr>
+<th>Name</th><th>Receiver</th><th>Systems</th><th>Mode</th><th>Sideband</th>
+<th>Species</th><th>Transitions</th><th>Bandwidths</th>
+</tr>
+</thead>
 
-RxA_H2CO_250X3	     A3		3    DSB      LSB	H2CO	3 0 3 - 2 0 2			250
-							H2CO	3 2 2 - 2 2 1			250
-							H2CO	3 2 1 - 2 2 0			250
+<tbody>
+<tr><td rowspan="3">RxA_H2CO_250X3</td><td rowspan="3">A3m</td><td rowspan="3">3</td><td rowspan="3">DSB</td><td rowspan="3">LSB</td>
+    <td>H2CO</td><td>3 0 3 - 2 0 2</td><td>250</td></tr>
+<tr><td>H2CO</th><td>3 2 2 - 2 2 1</td><td>250</td></tr>
+<tr><td>H2CO</th><td>3 2 1 - 2 2 0</td><td>250</td></tr>
+</tbody>
 
-RxA_13C18O_250X4     A3		4    DSB      USB	13-CO	2 - 1				250
-							C-18-O	2 - 1				250
-							SO	5 6 - 4 5			250
-							SO	5 6 - 4 5			1000
+<tbody>
+<tr><td rowspan="4">RxA_13C18O_250X4</td><td rowspan="4">A3m</td><td rowspan="4">4</td><td rowspan="4">DSB</td><td rowspan="4">USB</td>
+    <td>13-CO</td><td>2 - 1</td><td>250</td></tr>
+<tr><td>C-18-O</th><td>2 - 1</td><td>250</td></tr>
+<tr><td>SO</th><td>5 6 - 4 5</td><td>250</td></tr>
+<tr><td>SO</th><td>5 6 - 4 5</td><td>1000</td></tr>
+</tbody>
 
-RxA_SIOSO_250x2	     A3         2    DSB      LSB	SiO	6 0 - 5 0			250
-							SO	4 3 - 3 4			250
+<tbody>
+<tr><td rowspan="2">RxA_SIOSO_250x2</td><td rowspan="2">A3m</td><td rowspan="2">2</td><td rowspan="2">DSB</td><td rowspan="2">LSB</td>
+    <td>SiO</td><td>6 0 - 5 0</td><td>250</td></tr>
+<tr><td>SO</th><td>4 3 - 3 4</td><td>250</td></tr>
+</tbody>
 
-RxA_SiO54_v12_250X2  A3         2    DSB      LSB       SiO     5 2 - 4 2                       250
-                                                        SiO     5 1 - 4 1                       250
+<tbody>
+<tr><td rowspan="2">RxA_SiO54_v12_250X2</td><td rowspan="2">A3m</td><td rowspan="2">2</td><td rowspan="2">DSB</td><td rowspan="2">LSB</td>
+    <td>SiO</td><td>5 2 - 4 2</td><td>250</td></tr>
+<tr><td>SiO</th><td>5 1 - 4 1</td><td>250</td></tr>
+</tbody>
 
-HARP_COH13CN_250    HARP	2    SSB      LSB	CO	3 - 2				250
-							H-13-CN	4 - 3				250
+<tbody>
+<tr><td rowspan="2">HARP_COH13CN_250</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">LSB</td>
+    <td>CO</td><td>3 - 2</td><td>250</td></tr>
+<tr><td>H-13-CN</th><td>4 - 3</td><td>250</td></tr>
+</tbody>
 
-HARP_H2DN2H_250X2   HARP	2    SSB      USB	H2D+	1 1 0 0  - 1 1 1 0		250
-							N2H+	4 - 3				250
+<tbody>
+<tr><td rowspan="2">HARP_H2DN2H_250X2</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">USB</td>
+    <td>H2D+</td><td>1 1 0 0 - 1 1 1 0</td><td>250</td></tr>
+<tr><td>N2H+</th><td>4 - 3</td><td>250</td></tr>
+</tbody>
 
-HARP_13C18O_250x2   HARP	2    SSB      LSB	C-18-O	3 - 2				250
-                                                        13-CO   3 - 2                           250
+<tbody>
+<tr><td rowspan="2">HARP_13C18O_250x2</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">LSB</td>
+    <td>C-18-O</td><td>3 - 2</td><td>250</td></tr>
+<tr><td>13-CO</th><td>3 - 2</td><td>250</td></tr>
+</tbody>
 
-HARP_DCN_HNC_250x2  HARP        2    SSB      best      DCN     5 - 4                           250
-                                                        HNC     4 - 3                           250
+<tbody>
+<tr><td rowspan="2">HARP_DCN_HNC_250x2</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">best</td>
+    <td>DCN</td><td>5 - 4</td><td>250</td></tr>
+<tr><td>HNC</th><td>4 - 3</td><td>250</td></tr>
+</tbody>
 
-HARP_CO_H13CO_250x2 HARP        2    SSB      best      CO      3 - 2                           250
-                                                        H13CO   4 - 3                           250
+<tbody>
+<tr><td rowspan="2">HARP_CO_H13CO_250x2</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">best</td>
+    <td>CO</td><td>3 - 2</td><td>250</td></tr>
+<tr><td>H-13-CO+ v=0</th><td>4 - 3</td><td>250</td></tr>
+</tbody>
 
-HARP_C170_C34S_250x2 HARP	2    SSB	best	C-17-O	3 - 2				250
-							C-34-S	7 - 6				250
-</pre>
+<tbody>
+<tr><td rowspan="2">HARP_C170_C34S_250x2</td><td rowspan="2">HARP</td><td rowspan="2">2</td><td rowspan="2">SSB</td><td rowspan="2">best</td>
+    <td>C-17-O</td><td>3 - 2</td><td>250</td></tr>
+<tr><td>C-34-S</th><td>7 - 6</td><td>250</td></tr>
+</tbody>
+</table>
 
 <nav>
 <a href="index.html">&#x2191; JCMT OT Primer Main Page</a>

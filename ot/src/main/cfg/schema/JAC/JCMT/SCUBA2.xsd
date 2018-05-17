@@ -1,21 +1,21 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Simple Types used for SCUBA-2 -->
 
 <xsd:element name="SpInstSCUBA2">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group  ref="toml:jac_meta_group"/>
-    </xsd:sequence>
-    <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='optional'/>
-    <xsd:attribute name='type' type='xsd:string' use='required'/>
-    <xsd:attribute name='subtype' type='xsd:string' use='required'/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+        </xsd:sequence>
+        <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='optional'/>
+        <xsd:attribute name='type' type='xsd:string' use='required'/>
+        <xsd:attribute name='subtype' type='xsd:string' use='required'/>
+    </xsd:complexType>
 </xsd:element>
 
-    
+
 
 </xsd:schema>

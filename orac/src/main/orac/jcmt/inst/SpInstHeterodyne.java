@@ -21,6 +21,9 @@ package orac.jcmt.inst;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Format;
 
 import java.util.Vector;
@@ -577,14 +580,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         setVelocity(Format.toDouble(value));
     }
 
-    public double getRedshift() {
-        return getVelocity() / LIGHTSPEED;
-    }
-
-    public void setVelocityFromRedshift(double redshift) {
-        setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
-    }
-
     /**
      * Set the reference frame velocity
      */
@@ -1073,7 +1068,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         // If the methods has not returned yet then the velocityDefinition
         // is invalid.
         throw new IllegalArgumentException(
-                "EdFreq.convertRedshiftTo:"
+                "SpInstHeterodyne.convertRedshiftTo:"
                 + " Unrecognised velocity definition found.\n"
                 + "Please use RADIAL_VELOCITY_REDSHIFT,"
                 + " RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
@@ -1103,12 +1098,58 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         // If the methods has not returned yet then the velocityDefinition is
         // invalid.
         throw new IllegalArgumentException(
-                "EdFreq.convertRedshiftTo:"
+                "SpInstHeterodyne.convertToRedshift:"
                 + " Unrecognised velocity definition found.\n"
                 + "Please use RADIAL_VELOCITY_REDSHIFT,"
                 + " RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
     }
 
+    /**
+     * Determine whether this component has velocity information.
+     *
+     * (Otherwise the velocity of the associated target component is used.)
+     */
+    public boolean hasVelocityInformation() {
+        return _avTable.exists(ATTR_VELOCITY);
+    }
+
+    /**
+     * Calculate a new sky frequency value.
+     *
+     * This will use the velocity information in this component, if we have it
+     * (hasVelocityInformation() returns true).  Otherwise it will try to
+     * obtain velocity information from the associated target component.
+     */
+    public double calculateSkyFrequency() {
+        return calculateSkyFrequency(0);
+    }
+
+    public double calculateSkyFrequency(int subsystem) {
+        double redshift = calculateRedshift();
+
+        return getRestFrequency(subsystem) / (1.0 + redshift);
+    }
+
+    public double calculateRedshift() {
+        double velocity = 0.0;
+        String velocityDefinition = RADIAL_VELOCITY_REDSHIFT;
+
+        if (hasVelocityInformation()) {
+            velocity = getVelocity();
+            velocityDefinition = getVelocityDefinition();
+        }
+        else {
+            SpTelescopeObsComp target = SpTreeMan.findTargetList(this);
+
+            if (target != null) {
+                SpTelescopePos tp = target.getPosList().getBasePosition();
+                velocity = Double.parseDouble(tp.getTrackingRadialVelocity());
+                velocityDefinition = tp.getTrackingRadialVelocityDefn();
+            }
+        }
+
+        return convertToRedshift(velocityDefinition, velocity);
+    }
 
     public String subsystemXML(String indent) {
         StringBuffer xmlString = new StringBuffer();
@@ -1141,6 +1182,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         if (!_valuesInitialised) {
             throw new RuntimeException("Heterodyne not initialised");
         }
+
+        // Recompute the sky frequency in case it depends on a target
+        // component the velocity of which has been updated.  This is
+        // important as the sky frequency in the XML is used to select
+        // the sideband (when automatic).  See fault 20160328.009.
+        setSkyFrequency(calculateSkyFrequency());
 
         String configXML = null;
 
@@ -1251,7 +1298,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
                     _avTable.set(ATTR_MOLECULE, value, _subSystemCount);
 
                 } else if (attributeName.equals("transition")) {
-                    _avTable.set(ATTR_TRANSITION, value, _subSystemCount);
+                    // Tidy transitions written by previous OT versions:
+                    // * Remove trailing spaces.
+                    // * Remove multiple spaces.
+                    String transition = value.trim();
+                    transition = transition.replaceAll("\\s+", " ");
+                    _avTable.set(ATTR_TRANSITION, transition, _subSystemCount);
                 }
             }
         }

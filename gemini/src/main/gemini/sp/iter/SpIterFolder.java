@@ -269,6 +269,7 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                         boolean isBeamSwitch = false;
                         boolean isPositionSwitch = false;
                         boolean isFastFrequencySwitch = false;
+                        boolean isSlowFrequencySwitch = false;
 
                         Field beamSwitchField =
                                 spIterStareObsClass.getField(
@@ -289,7 +290,15 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                         Object fastFrequencySwitch =
                                 fastFrequencySwitchField.get(spIterStareObs);
                         isFastFrequencySwitch =
-                                fastFrequencySwitch.equals(fastFrequencySwitch);
+                                switchingMode.equals(fastFrequencySwitch);
+
+                        Field slowFrequencySwitchField =
+                                spIterStareObsClass.getField(
+                                        "SWITCHING_MODE_FREQUENCY_S");
+                        Object slowFrequencySwitch =
+                                slowFrequencySwitchField.get(spIterStareObs);
+                        isSlowFrequencySwitch =
+                                switchingMode.equals(slowFrequencySwitch);
 
                         Object secsPerCycle = getSecsPerCycle.invoke(
                                 spIterStareObs, new Object[]{});
@@ -338,12 +347,14 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                                 }
                             }
 
-                        } else if (isFastFrequencySwitch) {
+                        } else if (isFastFrequencySwitch || isSlowFrequencySwitch) {
                             if (iterOffsets == 0) {
                                 iterOffsets++;
                             }
 
-                            totalIntegrationTime = iterRepeat * (2.0
+                            // Not based on timing data: just 1/2 the
+                            // coefficient for beam-switch.
+                            totalIntegrationTime = iterRepeat * (1.15
                                     * iterOffsets * integrationTimePerPoint
                                     + 120.0);
                         }

@@ -114,10 +114,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         sampler.setCentreFrequency(Math.abs(subBandCentre));
     }
 
-    public void updateCentreFrequency() {
-        sampler.setCentreFrequency(Math.abs(subBandCentre));
-    }
-
     public int getScaledCentre() {
         return (int) Math.rint(
                 (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);

@@ -446,6 +446,11 @@ public class SpObs extends SpMSB implements SpTranslatable,
             v.add("setHeader MSBID " + spAvTable.get("msbid"));
         }
 
+        if (spAvTable.exists("msb_title")) {
+            v.add("setHeader MSBTITLE " +
+                TranslationUtils.prepareHeaderString(spAvTable.get("msb_title")));
+        }
+
         if (spAvTable.exists("project")) {
             v.add("setHeader PROJECT " + spAvTable.get("project"));
         }

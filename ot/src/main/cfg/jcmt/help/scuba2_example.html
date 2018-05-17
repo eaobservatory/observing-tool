@@ -380,14 +380,12 @@ this will destroy any observation.
 </p>
 
 <p>
-A POL-2 observation will not produce a good total intensity map.
-In order to remove the instrumental polarization and to compute the percentage
-polarization, a total intensity (I) map needs to be obtained.
-You can use public SCUBA-2 data from previous programs where available.
-In general it is best to use an I map observed with a
-&ldquo;point source&rdquo; observation pattern (also known as daisy pattern).
-The preferred method is to include an I map with your program since
-this improves the relative calibration.
+POL-2 observations can now be used to directly derive a good total intensity (I)
+map by the data reduction software. This means that it is no longer necessary to
+include a separate unpolarized I map observation for POL-2 projects. The I maps
+derived from polarimetric data are then automatically used by the data reduction
+software to remove the instrumental polarization and compute the percentage
+polarization.
 </p>
 
 <h2 id="qus">Questions</h2>

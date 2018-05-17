@@ -73,6 +73,7 @@ import ot.ReportBox;
 
 import java.awt.Color;
 
+import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
@@ -155,53 +156,17 @@ public class EdCompTargetList extends OtItemEditor implements
 
         if (!OtCfg.telescopeUtil.supports(
                 TelescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
-            _w.extrasFolder.setEnabledAt(0, false);
-            // Disable the contents as well
-            JPanel jp = (JPanel) _w.extrasFolder.getComponentAt(0);
-
-            for (int i = 0; i < jp.getComponentCount(); i++) {
-                if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-                    ((TextBoxWidgetExt) jp.getComponent(i)).setEditable(false);
-                } else {
-                    jp.getComponent(i).setEnabled(false);
-                }
-            }
-
-            _w.extrasFolder.setSelectedIndex(1);
+            setTabEnabled(_w.extrasFolder, _w.TAB_PROPER_MOTION, false);
         }
 
         if (!OtCfg.telescopeUtil.supports(
                 TelescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
-            _w.extrasFolder.setEnabledAt(1, false);
-            // Disable the contents as well
-            JPanel jp = (JPanel) _w.extrasFolder.getComponentAt(1);
-
-            for (int i = 0; i < jp.getComponentCount(); i++) {
-                if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-                    ((TextBoxWidgetExt) jp.getComponent(i)).setEditable(false);
-                } else {
-                    jp.getComponent(i).setEnabled(false);
-                }
-            }
-
-            _w.extrasFolder.setSelectedIndex(2);
+            setTabEnabled(_w.extrasFolder, _w.TAB_RADIAL_VELOCITY, false);
         }
 
         if (!OtCfg.telescopeUtil.supports(
                 TelescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
-            _w.extrasFolder.setEnabledAt(2, false);
-            // Disable the contents as well
-            JPanel jp = (JPanel) _w.extrasFolder.getComponentAt(2);
-
-            for (int i = 0; i < jp.getComponentCount(); i++) {
-                if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-                    ((TextBoxWidgetExt) jp.getComponent(i)).setEditable(false);
-                } else {
-                    jp.getComponent(i).setEnabled(false);
-                }
-            }
-
-            _w.extrasFolder.setSelectedIndex(0);
+            setTabEnabled(_w.extrasFolder, _w.TAB_CHOP_SETTINGS, false);
         }
 
         _w.setBaseButton.setText("Set " + SpTelescopePos.BASE_TAG
@@ -723,6 +688,13 @@ public class EdCompTargetList extends OtItemEditor implements
         });
     }
 
+    public void setup(SpItem spItem) {
+        // Clear the "previousSystem" variable when editing a new item.
+        previousSystem = null;
+
+        super.setup(spItem);
+    }
+
     /**
      * Show the given SpTelescopePos.
      */
@@ -824,8 +796,10 @@ public class EdCompTargetList extends OtItemEditor implements
                 _setXYAxisBoxPrompts(LABEL_RA, LABEL_DEC);
 
                 // Enable the folder widget
-                JTabbedPane fwe;
-                fwe = _w.extrasFolder;
+                if (OtCfg.telescopeUtil.supports(
+                        TelescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
+                    setTabEnabled(_w.extrasFolder, _w.TAB_CHOP_SETTINGS, true);
+                }
 
                 // Set the Equinox and Proper Motion
                 TextBoxWidgetExt tbw;
@@ -850,9 +824,7 @@ public class EdCompTargetList extends OtItemEditor implements
             case CoordSys.AZ_EL:
                 _setXYAxisBoxPrompts("Az", "El");
                 // Enable the folder widget
-                fwe = _w.extrasFolder;
-
-                fwe.setEnabledAt(2, false);
+                setTabEnabled(_w.extrasFolder, _w.TAB_CHOP_SETTINGS, false);
                 break;
 
             default:
@@ -885,6 +857,8 @@ public class EdCompTargetList extends OtItemEditor implements
         } else {
             _updateTargetSystemPane(_curPos);
         }
+
+        _updateExtrasFolder(_curPos);
 
         TelescopePosEditor tpe = TpeManager.get(_spItem);
         if (tpe != null) {
@@ -966,6 +940,7 @@ public class EdCompTargetList extends OtItemEditor implements
         showPos(_curPos);
         _selectTargetSystemTab(_curPos);
         _updateTargetSystemPane(_curPos);
+        _updateExtrasFolder(_curPos);
         _avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
 
         if (OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())
@@ -1318,6 +1293,27 @@ public class EdCompTargetList extends OtItemEditor implements
         }
 
         _w.targetSystemsTabbedPane.addChangeListener(this);
+    }
+
+    /**
+     * Updates the "extras folder" tabbed pane
+     * depending on the target system of the selected target.
+     */
+    private void _updateExtrasFolder(SpTelescopePos tp) {
+        boolean pm_allowed = false;
+
+        switch (tp.getSystemType()) {
+            case SpTelescopePos.SYSTEM_SPHERICAL:
+                pm_allowed = true;
+                break;
+        }
+
+        // If proper motion is supported by the telescope, enable or disable
+        // its panel based on whether it is allowed for the selected system.
+        if (OtCfg.telescopeUtil.supports(
+                TelescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
+            setTabEnabled(_w.extrasFolder, _w.TAB_PROPER_MOTION, pm_allowed);
+        }
     }
 
     private void _resetPositionEditor() {
@@ -1873,9 +1869,32 @@ public class EdCompTargetList extends OtItemEditor implements
     }
 
     public void enableVelocitiesPanel(boolean enable) {
-        _w.velDefn.setEnabled(enable);
-        _w.velValue.setEnabled(enable);
-        _w.velFrame.setEnabled(enable);
+        setTabEnabled(_w.extrasFolder, _w.TAB_RADIAL_VELOCITY, enable);
+    }
+
+    private void setTabEnabled(JTabbedPane tabbedPane, String tabTitle,
+            boolean enabled) {
+        int index = tabbedPane.indexOfTab(tabTitle);
+
+        if (index == -1) {
+            System.out.println("Could not find tab " + tabTitle);
+            return;
+        }
+
+        tabbedPane.setEnabledAt(index, enabled);
+
+        JPanel jp = (JPanel) tabbedPane.getComponentAt(index);
+
+        for (int i = 0; i < jp.getComponentCount(); i++) {
+            Component component = jp.getComponent(i);
+
+            if (component instanceof TextBoxWidgetExt) {
+                ((TextBoxWidgetExt) component).setEditable(enabled);
+            }
+            else {
+                component.setEnabled(enabled);
+            }
+        }
     }
 
     public void overrideVelocityFrame() {

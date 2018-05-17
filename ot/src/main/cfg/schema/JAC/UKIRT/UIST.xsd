@@ -1,345 +1,345 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Primitive types used for UIST -->
 
 <xsd:simpleType name="uistCalTypeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Flat"/>
-    <xsd:enumeration value="Arc"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Flat"/>
+        <xsd:enumeration value="Arc"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 
 <xsd:simpleType name="uistROAreaList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="256x256"/>
-    <xsd:enumeration value="512x512"/>
-    <xsd:enumeration value="1024x1024"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="256x256"/>
+        <xsd:enumeration value="512x512"/>
+        <xsd:enumeration value="1024x1024"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistWaveformList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="uist_starev11"/>
-    <xsd:enumeration value="thermalStarev8L"/>
-    <xsd:enumeration value="thermal_sub512L"/>
-    <xsd:enumeration value="subarray512L"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="uist_starev11"/>
+        <xsd:enumeration value="thermalStarev8L"/>
+        <xsd:enumeration value="thermal_sub512L"/>
+        <xsd:enumeration value="subarray512L"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistCameraList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="imaging"/>
-    <xsd:enumeration value="spectroscopy"/>
-    <xsd:enumeration value="ifu"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="imaging"/>
+        <xsd:enumeration value="spectroscopy"/>
+        <xsd:enumeration value="ifu"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistConfigTypesList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Normal"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Normal"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistFilterCategoryList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="broad"/>
-    <xsd:enumeration value="narrow"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="broad"/>
+        <xsd:enumeration value="narrow"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistFilterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="open"/>
-    <xsd:enumeration value="IJH_blocker"/>
-    <xsd:enumeration value="J_spectral"/>
-    <xsd:enumeration value="H_spectral"/>
-    <xsd:enumeration value="HK_spectral"/>
-    <xsd:enumeration value="KL_spectral"/>
-    <xsd:enumeration value="L_spectral"/>
-    <xsd:enumeration value="M_spectral"/>
-    <xsd:enumeration value="B2"/>
-    <xsd:enumeration value="black_blank"/>
-    <xsd:enumeration value="Hartmann"/>
-    <xsd:enumeration value="J98"/>
-    <xsd:enumeration value="H98"/>
-    <xsd:enumeration value="1.57"/>
-    <xsd:enumeration value="1.58CH4_s"/>
-    <xsd:enumeration value="1.69CH4_l"/>
-    <xsd:enumeration value="1.644Fe"/>
-    <xsd:enumeration value="K98"/>
-    <xsd:enumeration value="Kp"/>
-    <xsd:enumeration value="Kshort"/>
-    <xsd:enumeration value="Klong"/>
-    <xsd:enumeration value="2.122S(1)"/>
-    <xsd:enumeration value="2.122MK"/>
-    <xsd:enumeration value="2.248S(1)"/>
-    <xsd:enumeration value="2.248MK"/>
-    <xsd:enumeration value="BrG"/>
-    <xsd:enumeration value="2.27"/>
-    <xsd:enumeration value="2.42CO"/>
-    <xsd:enumeration value="3.05ice"/>
-    <xsd:enumeration value="Dust"/>
-    <xsd:enumeration value="3.30PAH"/>
-    <xsd:enumeration value="3.4nbL"/>
-    <xsd:enumeration value="3.5mbL"/>
-    <xsd:enumeration value="3.6nbLp"/>
-    <xsd:enumeration value="3.99"/>
-    <xsd:enumeration value="BrA"/>
-    <xsd:enumeration value="Lp98"/>
-    <xsd:enumeration value="Mp98"/>
-    <xsd:enumeration value="CowieK"/>
-    <xsd:enumeration value="ZMK"/>
-    <xsd:enumeration value="PK50"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="open"/>
+        <xsd:enumeration value="IJH_blocker"/>
+        <xsd:enumeration value="J_spectral"/>
+        <xsd:enumeration value="H_spectral"/>
+        <xsd:enumeration value="HK_spectral"/>
+        <xsd:enumeration value="KL_spectral"/>
+        <xsd:enumeration value="L_spectral"/>
+        <xsd:enumeration value="M_spectral"/>
+        <xsd:enumeration value="B2"/>
+        <xsd:enumeration value="black_blank"/>
+        <xsd:enumeration value="Hartmann"/>
+        <xsd:enumeration value="J98"/>
+        <xsd:enumeration value="H98"/>
+        <xsd:enumeration value="1.57"/>
+        <xsd:enumeration value="1.58CH4_s"/>
+        <xsd:enumeration value="1.69CH4_l"/>
+        <xsd:enumeration value="1.644Fe"/>
+        <xsd:enumeration value="K98"/>
+        <xsd:enumeration value="Kp"/>
+        <xsd:enumeration value="Kshort"/>
+        <xsd:enumeration value="Klong"/>
+        <xsd:enumeration value="2.122S(1)"/>
+        <xsd:enumeration value="2.122MK"/>
+        <xsd:enumeration value="2.248S(1)"/>
+        <xsd:enumeration value="2.248MK"/>
+        <xsd:enumeration value="BrG"/>
+        <xsd:enumeration value="2.27"/>
+        <xsd:enumeration value="2.42CO"/>
+        <xsd:enumeration value="3.05ice"/>
+        <xsd:enumeration value="Dust"/>
+        <xsd:enumeration value="3.30PAH"/>
+        <xsd:enumeration value="3.4nbL"/>
+        <xsd:enumeration value="3.5mbL"/>
+        <xsd:enumeration value="3.6nbLp"/>
+        <xsd:enumeration value="3.99"/>
+        <xsd:enumeration value="BrA"/>
+        <xsd:enumeration value="Lp98"/>
+        <xsd:enumeration value="Mp98"/>
+        <xsd:enumeration value="CowieK"/>
+        <xsd:enumeration value="ZMK"/>
+        <xsd:enumeration value="PK50"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistDisperserList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="wollaston"/>
-    <xsd:enumeration value="IJ"/>
-    <xsd:enumeration value="IJ+pol"/>
-    <xsd:enumeration value="IJ+ifu"/>
-    <xsd:enumeration value="JH"/>
-    <xsd:enumeration value="JH+pol"/>
-    <xsd:enumeration value="JH+ifu"/>
-    <xsd:enumeration value="short_J"/>
-    <xsd:enumeration value="short_J+pol"/>
-    <xsd:enumeration value="short_J+ifu"/>
-    <xsd:enumeration value="long_J"/>
-    <xsd:enumeration value="long_J+pol"/>
-    <xsd:enumeration value="long_J+ifu"/>
-    <xsd:enumeration value="short_H"/>
-    <xsd:enumeration value="short_H+pol"/>
-    <xsd:enumeration value="short_H+ifu"/>
-    <xsd:enumeration value="long_H"/>
-    <xsd:enumeration value="long_H+pol"/>
-    <xsd:enumeration value="long_H+ifu"/>
-    <xsd:enumeration value="short_K"/>
-    <xsd:enumeration value="short_K+pol"/>
-    <xsd:enumeration value="short_K+ifu"/>
-    <xsd:enumeration value="long_K"/>
-    <xsd:enumeration value="long_K+pol"/>
-    <xsd:enumeration value="long_K+ifu"/>
-    <xsd:enumeration value="short_L"/>
-    <xsd:enumeration value="short_L+pol"/>
-    <xsd:enumeration value="short_L+ifu"/>
-    <xsd:enumeration value="long_L"/>
-    <xsd:enumeration value="long_L+pol"/>
-    <xsd:enumeration value="long_L+ifu"/>
-    <xsd:enumeration value="HK_low_H"/>
-    <xsd:enumeration value="HK_low_K"/>
-    <xsd:enumeration value="HK"/>
-    <xsd:enumeration value="HK+pol"/>
-    <xsd:enumeration value="HK+ifu"/>
-    <xsd:enumeration value="HK_spectral"/>
-    <xsd:enumeration value="X_disp_HK"/>
-    <xsd:enumeration value="KL"/>
-    <xsd:enumeration value="KL+pol"/>
-    <xsd:enumeration value="KL+ifu"/>
-    <xsd:enumeration value="M"/>
-    <xsd:enumeration value="M+pol"/>
-    <xsd:enumeration value="M+ifu"/>
-    <xsd:enumeration value="open"/>
-    <xsd:enumeration value="slit_viewing"/>
-    <xsd:enumeration value="aq_IJ"/>
-    <xsd:enumeration value="aq_shortJ"/>
-    <xsd:enumeration value="aq_longJ"/>
-    <xsd:enumeration value="aq_shortH"/>
-    <xsd:enumeration value="aq_longH"/>
-    <xsd:enumeration value="aq_HK"/>
-    <xsd:enumeration value="aq_X_disp_HK"/>
-    <xsd:enumeration value="aq_shortK"/>
-    <xsd:enumeration value="aq_longK"/>
-    <xsd:enumeration value="aq_KL"/>
-    <xsd:enumeration value="aq_shortL"/>
-    <xsd:enumeration value="aq_longL"/>
-    <xsd:enumeration value="aq_M"/>
-    <xsd:enumeration value="aq_IJ+ifu"/>
-    <xsd:enumeration value="aq_shortJ+ifu"/>
-    <xsd:enumeration value="aq_longJ+ifu"/>
-    <xsd:enumeration value="aq_shortH+ifu"/>
-    <xsd:enumeration value="aq_longH+ifu"/>
-    <xsd:enumeration value="aq_HK+ifu"/>
-    <xsd:enumeration value="aq_shortK+ifu"/>
-    <xsd:enumeration value="aq_longK+ifu"/>
-    <xsd:enumeration value="aq_KL+ifu"/>
-    <xsd:enumeration value="aq_shortL+ifu"/>
-    <xsd:enumeration value="aq_longL+ifu"/>
-    <xsd:enumeration value="aq_M+ifu"/>
-    <xsd:enumeration value="aq_IJ+pol"/>
-    <xsd:enumeration value="aq_longJ+pol"/>
-    <xsd:enumeration value="aq_longH+pol"/>
-    <xsd:enumeration value="aq_HK+pol"/>
-    <xsd:enumeration value="aq_shortK+pol"/>
-    <xsd:enumeration value="aq_longL+pol"/>
-    <xsd:enumeration value="aq_M+pol"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="wollaston"/>
+        <xsd:enumeration value="IJ"/>
+        <xsd:enumeration value="IJ+pol"/>
+        <xsd:enumeration value="IJ+ifu"/>
+        <xsd:enumeration value="JH"/>
+        <xsd:enumeration value="JH+pol"/>
+        <xsd:enumeration value="JH+ifu"/>
+        <xsd:enumeration value="short_J"/>
+        <xsd:enumeration value="short_J+pol"/>
+        <xsd:enumeration value="short_J+ifu"/>
+        <xsd:enumeration value="long_J"/>
+        <xsd:enumeration value="long_J+pol"/>
+        <xsd:enumeration value="long_J+ifu"/>
+        <xsd:enumeration value="short_H"/>
+        <xsd:enumeration value="short_H+pol"/>
+        <xsd:enumeration value="short_H+ifu"/>
+        <xsd:enumeration value="long_H"/>
+        <xsd:enumeration value="long_H+pol"/>
+        <xsd:enumeration value="long_H+ifu"/>
+        <xsd:enumeration value="short_K"/>
+        <xsd:enumeration value="short_K+pol"/>
+        <xsd:enumeration value="short_K+ifu"/>
+        <xsd:enumeration value="long_K"/>
+        <xsd:enumeration value="long_K+pol"/>
+        <xsd:enumeration value="long_K+ifu"/>
+        <xsd:enumeration value="short_L"/>
+        <xsd:enumeration value="short_L+pol"/>
+        <xsd:enumeration value="short_L+ifu"/>
+        <xsd:enumeration value="long_L"/>
+        <xsd:enumeration value="long_L+pol"/>
+        <xsd:enumeration value="long_L+ifu"/>
+        <xsd:enumeration value="HK_low_H"/>
+        <xsd:enumeration value="HK_low_K"/>
+        <xsd:enumeration value="HK"/>
+        <xsd:enumeration value="HK+pol"/>
+        <xsd:enumeration value="HK+ifu"/>
+        <xsd:enumeration value="HK_spectral"/>
+        <xsd:enumeration value="X_disp_HK"/>
+        <xsd:enumeration value="KL"/>
+        <xsd:enumeration value="KL+pol"/>
+        <xsd:enumeration value="KL+ifu"/>
+        <xsd:enumeration value="M"/>
+        <xsd:enumeration value="M+pol"/>
+        <xsd:enumeration value="M+ifu"/>
+        <xsd:enumeration value="open"/>
+        <xsd:enumeration value="slit_viewing"/>
+        <xsd:enumeration value="aq_IJ"/>
+        <xsd:enumeration value="aq_shortJ"/>
+        <xsd:enumeration value="aq_longJ"/>
+        <xsd:enumeration value="aq_shortH"/>
+        <xsd:enumeration value="aq_longH"/>
+        <xsd:enumeration value="aq_HK"/>
+        <xsd:enumeration value="aq_X_disp_HK"/>
+        <xsd:enumeration value="aq_shortK"/>
+        <xsd:enumeration value="aq_longK"/>
+        <xsd:enumeration value="aq_KL"/>
+        <xsd:enumeration value="aq_shortL"/>
+        <xsd:enumeration value="aq_longL"/>
+        <xsd:enumeration value="aq_M"/>
+        <xsd:enumeration value="aq_IJ+ifu"/>
+        <xsd:enumeration value="aq_shortJ+ifu"/>
+        <xsd:enumeration value="aq_longJ+ifu"/>
+        <xsd:enumeration value="aq_shortH+ifu"/>
+        <xsd:enumeration value="aq_longH+ifu"/>
+        <xsd:enumeration value="aq_HK+ifu"/>
+        <xsd:enumeration value="aq_shortK+ifu"/>
+        <xsd:enumeration value="aq_longK+ifu"/>
+        <xsd:enumeration value="aq_KL+ifu"/>
+        <xsd:enumeration value="aq_shortL+ifu"/>
+        <xsd:enumeration value="aq_longL+ifu"/>
+        <xsd:enumeration value="aq_M+ifu"/>
+        <xsd:enumeration value="aq_IJ+pol"/>
+        <xsd:enumeration value="aq_longJ+pol"/>
+        <xsd:enumeration value="aq_longH+pol"/>
+        <xsd:enumeration value="aq_HK+pol"/>
+        <xsd:enumeration value="aq_shortK+pol"/>
+        <xsd:enumeration value="aq_longL+pol"/>
+        <xsd:enumeration value="aq_M+pol"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistMaskList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="4_pix_wide_120s"/>
-    <xsd:enumeration value="2_pix_wide_120s"/>
-    <xsd:enumeration value="5_pix_wide_20"/>
-    <xsd:enumeration value="7_pix_wide_20"/>
-    <xsd:enumeration value="3_pix_wide_20"/>
-    <xsd:enumeration value="4_pix_wide_120"/>
-    <xsd:enumeration value="5_pix_wide_120"/>
-    <xsd:enumeration value="7_pix_wide_120"/>
-    <xsd:enumeration value="2_pix_wide_120"/>
-    <xsd:enumeration value="1_pix_wide_120"/>
-    <xsd:enumeration value="open_aperture"/>
-    <xsd:enumeration value="2_pix_pinhole"/>
-    <xsd:enumeration value="large_pinhole"/>
-    <xsd:enumeration value="small_field"/>
-    <xsd:enumeration value="large_field"/>
-    <xsd:enumeration value="coronograph"/>
-    <xsd:enumeration value="pol_mask_image"/>
-    <xsd:enumeration value="pol_mask_spec_2"/>
-    <xsd:enumeration value="pol_mask_spec_5"/>
-    <xsd:enumeration value="pol_aperture"/>
-    <xsd:enumeration value="IFU_pickoff"/>
-    <xsd:enumeration value="IFU_aperture"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="4_pix_wide_120s"/>
+        <xsd:enumeration value="2_pix_wide_120s"/>
+        <xsd:enumeration value="5_pix_wide_20"/>
+        <xsd:enumeration value="7_pix_wide_20"/>
+        <xsd:enumeration value="3_pix_wide_20"/>
+        <xsd:enumeration value="4_pix_wide_120"/>
+        <xsd:enumeration value="5_pix_wide_120"/>
+        <xsd:enumeration value="7_pix_wide_120"/>
+        <xsd:enumeration value="2_pix_wide_120"/>
+        <xsd:enumeration value="1_pix_wide_120"/>
+        <xsd:enumeration value="open_aperture"/>
+        <xsd:enumeration value="2_pix_pinhole"/>
+        <xsd:enumeration value="large_pinhole"/>
+        <xsd:enumeration value="small_field"/>
+        <xsd:enumeration value="large_field"/>
+        <xsd:enumeration value="coronograph"/>
+        <xsd:enumeration value="pol_mask_image"/>
+        <xsd:enumeration value="pol_mask_spec_2"/>
+        <xsd:enumeration value="pol_mask_spec_5"/>
+        <xsd:enumeration value="pol_aperture"/>
+        <xsd:enumeration value="IFU_pickoff"/>
+        <xsd:enumeration value="IFU_aperture"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistModeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="NDSTARE"/>
-    <xsd:enumeration value="STARE"/>
-    <xsd:enumeration value="THERMAL ND"/>
-    <xsd:enumeration value="CDS"/>
-    <xsd:enumeration value="THERMAL CDS"/>
-    <xsd:enumeration value="IRPOL CDS"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="NDSTARE"/>
+        <xsd:enumeration value="STARE"/>
+        <xsd:enumeration value="THERMAL ND"/>
+        <xsd:enumeration value="CDS"/>
+        <xsd:enumeration value="THERMAL CDS"/>
+        <xsd:enumeration value="IRPOL CDS"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistArcSourceList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="undefined"/>
-    <xsd:enumeration value="argon"/>
-    <xsd:enumeration value="krypton"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="undefined"/>
+        <xsd:enumeration value="argon"/>
+        <xsd:enumeration value="krypton"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistFlatSourceList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="undefined"/>
-    <xsd:enumeration value="BB_5.0mm"/>
-    <xsd:enumeration value="BB_3.2mm"/>
-    <xsd:enumeration value="BB_2.0mm"/>
-    <xsd:enumeration value="BB_1.3mm"/>
-    <xsd:enumeration value="BB_0.8mm"/>
-    <xsd:enumeration value="BB_0.5mm"/>
-    <xsd:enumeration value="halogen"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="undefined"/>
+        <xsd:enumeration value="BB_5.0mm"/>
+        <xsd:enumeration value="BB_3.2mm"/>
+        <xsd:enumeration value="BB_2.0mm"/>
+        <xsd:enumeration value="BB_1.3mm"/>
+        <xsd:enumeration value="BB_0.8mm"/>
+        <xsd:enumeration value="BB_0.5mm"/>
+        <xsd:enumeration value="halogen"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistWavelengthLimits">
-  <xsd:restriction base="toml:positiveDecimal">
-    <xsd:minInclusive value="1.0"/>
-    <xsd:maxInclusive value="5.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:positiveDecimal">
+        <xsd:minInclusive value="1.0"/>
+        <xsd:maxInclusive value="5.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistChopDelayLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="0.04"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="0.04"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistChopFrequencyLimits">
-  <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:maxInclusive value="100.0"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:nonNegativeDecimal">
+        <xsd:maxInclusive value="100.0"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistExposureTimeLimit">
-  <xsd:restriction base="toml:positiveDecimal">
-    <xsd:maxInclusive value="999"/>
-  </xsd:restriction>
+    <xsd:restriction base="toml:positiveDecimal">
+        <xsd:maxInclusive value="999"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="uistIterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="coaddsIter"/>
-    <xsd:enumeration value="disperserIter"/>
-    <xsd:enumeration value="exposureTimeIter"/>
-    <xsd:enumeration value="source_magIter"/>
-    <xsd:enumeration value="filterIter"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="coaddsIter"/>
+        <xsd:enumeration value="disperserIter"/>
+        <xsd:enumeration value="exposureTimeIter"/>
+        <xsd:enumeration value="source_magIter"/>
+        <xsd:enumeration value="filterIter"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- Complex types types used for UIST -->
 
 <xsd:complexType name="uistCoaddsIteratorType" mixed='true'>
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="xsd:positiveInteger"
-		     minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:positiveInteger"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="uistDisperserIteratorType" mixed='true'>
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:uistDisperserList"
-		     minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:uistDisperserList"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="uistExpTimeIteratorType" mixed='true'>
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:uistExposureTimeLimit"
-		     minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:uistExposureTimeLimit"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="uistSrcMagIteratorType" mixed='true'>
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="xsd:string"
-		     minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="uistFilterIteratorType" mixed='true'>
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:uistFilterList"
-		     minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:uistFilterList"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <xsd:complexType name="uistIterTypeList" mixed="true">
-  <xsd:complexContent>
-    <xsd:restriction base="xsd:anyType">
-      <xsd:choice>
-        <xsd:element name="value" type="toml:uistIterList"
-		     minOccurs="0" maxOccurs="unbounded"/>
-      </xsd:choice>
-    </xsd:restriction>
-  </xsd:complexContent>
+    <xsd:complexContent>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name="value" type="toml:uistIterList"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
+    </xsd:complexContent>
 </xsd:complexType>
 
 <!-- Groups used for UIST -->
@@ -347,187 +347,187 @@
 <!-- UIST elements -->
 
 <xsd:element name="SpInstUIST">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="DAConf"                type="xsd:anyType"            minOccurs="0"/>
-			<xsd:element name="DAConfMinExpT"         type="xsd:anyType"            minOccurs="0"/>
-			<xsd:element name="DAConfMinExpTime"      type="xsd:anyType"            minOccurs="0"/>
-			<xsd:element name="arrayAngle"            type="xsd:double"             minOccurs="0"/>
-			<xsd:element name="biasDutyCycle"         type="xsd:double"             minOccurs="0"/>
-			<xsd:element name="biasIdlePeriod"        type="xsd:double"             minOccurs="0"/>
-			<xsd:element name="biasMustIdles"         type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="biasNResets"           type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="biasObsTime"           type="toml:nonNegativeDecimal" minOccurs="0"/>
-			<xsd:element name="biasReadArea"          type="toml:uistROAreaList"     minOccurs="0"/>
-			<xsd:element name="biasRefPixelX"         type="xsd:double"             minOccurs="0"/>
-			<xsd:element name="biasRefPixelY"         type="xsd:double"             minOccurs="0"/>
-			<xsd:element name="biasWaveform"          type="toml:uistWaveformList"   minOccurs="0"/>
-			<xsd:element name="camera"                type="toml:uistCameraList"/>
-			<xsd:element name="centralWavelength"     type="toml:uistWavelengthLimits"/>
-			<xsd:element name="chopDelay"             type="toml:uistChopDelayLimits"/>
-			<xsd:element name="chopFrequency"         type="toml:uistChopFrequencyLimits"/>
-			<xsd:element  ref="toml:coadds"/>
-			<xsd:element name="configType"            type="toml:uistConfigTypesList"/>
-			<xsd:element name="darkFilter"            type="toml:uistFilterList"     minOccurs="0"/>
-			<xsd:element name="disperser"             type="toml:uistDisperserList"/>
-			<xsd:element name="dispersion"            type="xsd:double"/>
-			<xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
-			<xsd:element name="expTimeOT"             type="toml:uistExposureTimeLimit"/>
-			<xsd:element name="exposureTime"          type="toml:uistExposureTimeLimit"/>
-			<xsd:element name="filter"                type="toml:uistFilterList"/>
-			<xsd:element name="filterCategory"        type="toml:uistFilterCategoryList"/>
-			<xsd:element name="focus"                 type="xsd:double"/>
-			<xsd:element name="idlePeriod"            type="toml:nonNegativeDecimal" minOccurs="0"/>
-			<xsd:element name="imager"                type="xsd:double"/>
-			<xsd:element name="instAper">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="value"  type="xsd:double" 
-							     minOccurs="4" maxOccurs="4"/>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="instPntgOffset">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="value"  type="xsd:double" 
-							     minOccurs="2" maxOccurs="2"/>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="instPort"         type="toml:ukirtPortsList"/>
-			<xsd:element name="mask"             type="toml:uistMaskList"/>
-			<xsd:element name="maskHeight"       type="toml:nonNegativeDecimal"/>
-			<xsd:element name="maskWidth"        type="toml:nonNegativeDecimal"/>
-			<xsd:element name="mode"             type="toml:uistModeList"/>
-			<xsd:element name="mustIdles"        type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nreads"           type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nresets"          type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullCycles"       type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullExposures"    type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullReads"        type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="obsTimeOT"        type="toml:positiveDecimal"    minOccurs="0"/>
-			<xsd:element name="observationTime"  type="toml:positiveDecimal"/>
-			<xsd:element name="order"            type="xsd:nonNegativeInteger"/>
-			<xsd:element name="pixelFOV"         type="xsd:string"/>
-			<xsd:element name="pixelScale"/>
-			<xsd:element name="polarimetry"      type="toml:yesnoType"/>
-			<xsd:element name="posAngle"         type="xsd:double"/>
-			<xsd:element name="pupil_imaging"    type="toml:yesnoType"/>
-			<xsd:element name="readArea"         type="toml:uistROAreaList"/>
-			<xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
-			<xsd:element name="readMode"         type="toml:uistModeList"/>
-			<xsd:element name="readout"          type="toml:uistModeList"/>
-			<xsd:element name="readoutOT"        type="xsd:string"            minOccurs="0"/>
-			<xsd:element name="refPixelL"        type="xsd:double"            minOccurs="0"/>
-			<xsd:element name="refPixelS"        type="xsd:double"            minOccurs="0"/>
-			<xsd:element name="refPixelX"        type="xsd:double"            minOccurs="0"/>
-			<xsd:element name="refPixelY"        type="xsd:double"            minOccurs="0"/>
-			<xsd:element name="resetDelay"       type="toml:nonNegativeDecimal" minOccurs="0"/>
-			<xsd:element name="resolution"       type="toml:nonNegativeDecimal"/>
-			<xsd:element name="scienceArea"      type="xsd:anyType"/>
-			<xsd:element name="source_mag"       type="xsd:anyType"/>
-			<xsd:element name="spectralCoverage" type="xsd:anyType"/>
-			<xsd:element name="target_acq"       type="toml:yesnoType"          minOccurs="0"/>
-			<xsd:element name="waveform"         type="toml:uistWaveformList"   minOccurs="0"/>
-		</xsd:sequence>
-		<xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="inst.UIST"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="DAConf"                type="xsd:anyType"            minOccurs="0"/>
+            <xsd:element name="DAConfMinExpT"         type="xsd:anyType"            minOccurs="0"/>
+            <xsd:element name="DAConfMinExpTime"      type="xsd:anyType"            minOccurs="0"/>
+            <xsd:element name="arrayAngle"            type="xsd:double"             minOccurs="0"/>
+            <xsd:element name="biasDutyCycle"         type="xsd:double"             minOccurs="0"/>
+            <xsd:element name="biasIdlePeriod"        type="xsd:double"             minOccurs="0"/>
+            <xsd:element name="biasMustIdles"         type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="biasNResets"           type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="biasObsTime"           type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="biasReadArea"          type="toml:uistROAreaList"     minOccurs="0"/>
+            <xsd:element name="biasRefPixelX"         type="xsd:double"             minOccurs="0"/>
+            <xsd:element name="biasRefPixelY"         type="xsd:double"             minOccurs="0"/>
+            <xsd:element name="biasWaveform"          type="toml:uistWaveformList"   minOccurs="0"/>
+            <xsd:element name="camera"                type="toml:uistCameraList"/>
+            <xsd:element name="centralWavelength"     type="toml:uistWavelengthLimits"/>
+            <xsd:element name="chopDelay"             type="toml:uistChopDelayLimits"/>
+            <xsd:element name="chopFrequency"         type="toml:uistChopFrequencyLimits"/>
+            <xsd:element  ref="toml:coadds"/>
+            <xsd:element name="configType"            type="toml:uistConfigTypesList"/>
+            <xsd:element name="darkFilter"            type="toml:uistFilterList"     minOccurs="0"/>
+            <xsd:element name="disperser"             type="toml:uistDisperserList"/>
+            <xsd:element name="dispersion"            type="xsd:double"/>
+            <xsd:element name="dutyCycle"             type="toml:positiveDecimal"/>
+            <xsd:element name="expTimeOT"             type="toml:uistExposureTimeLimit"/>
+            <xsd:element name="exposureTime"          type="toml:uistExposureTimeLimit"/>
+            <xsd:element name="filter"                type="toml:uistFilterList"/>
+            <xsd:element name="filterCategory"        type="toml:uistFilterCategoryList"/>
+            <xsd:element name="focus"                 type="xsd:double"/>
+            <xsd:element name="idlePeriod"            type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="imager"                type="xsd:double"/>
+            <xsd:element name="instAper">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value"  type="xsd:double"
+                                     minOccurs="4" maxOccurs="4"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPntgOffset">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value"  type="xsd:double"
+                                     minOccurs="2" maxOccurs="2"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="instPort"         type="toml:ukirtPortsList"/>
+            <xsd:element name="mask"             type="toml:uistMaskList"/>
+            <xsd:element name="maskHeight"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="maskWidth"        type="toml:nonNegativeDecimal"/>
+            <xsd:element name="mode"             type="toml:uistModeList"/>
+            <xsd:element name="mustIdles"        type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nreads"           type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nresets"          type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullCycles"       type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullExposures"    type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullReads"        type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="obsTimeOT"        type="toml:positiveDecimal"    minOccurs="0"/>
+            <xsd:element name="observationTime"  type="toml:positiveDecimal"/>
+            <xsd:element name="order"            type="xsd:nonNegativeInteger"/>
+            <xsd:element name="pixelFOV"         type="xsd:string"/>
+            <xsd:element name="pixelScale"/>
+            <xsd:element name="polarimetry"      type="toml:yesnoType"/>
+            <xsd:element name="posAngle"         type="xsd:double"/>
+            <xsd:element name="pupil_imaging"    type="toml:yesnoType"/>
+            <xsd:element name="readArea"         type="toml:uistROAreaList"/>
+            <xsd:element name="readInterval"     type="toml:nonNegativeDecimal"/>
+            <xsd:element name="readMode"         type="toml:uistModeList"/>
+            <xsd:element name="readout"          type="toml:uistModeList"/>
+            <xsd:element name="readoutOT"        type="xsd:string"            minOccurs="0"/>
+            <xsd:element name="refPixelL"        type="xsd:double"            minOccurs="0"/>
+            <xsd:element name="refPixelS"        type="xsd:double"            minOccurs="0"/>
+            <xsd:element name="refPixelX"        type="xsd:double"            minOccurs="0"/>
+            <xsd:element name="refPixelY"        type="xsd:double"            minOccurs="0"/>
+            <xsd:element name="resetDelay"       type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="resolution"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="scienceArea"      type="xsd:anyType"/>
+            <xsd:element name="source_mag"       type="xsd:anyType"/>
+            <xsd:element name="spectralCoverage" type="xsd:anyType"/>
+            <xsd:element name="target_acq"       type="toml:yesnoType"          minOccurs="0"/>
+            <xsd:element name="waveform"         type="toml:uistWaveformList"   minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="inst.UIST"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterUISTCalObs">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="arcSource"         type="toml:uistArcSourceList"/>
-			<xsd:element name="calType"           type="toml:uistCalTypeList"/>
-			<xsd:element name="centralWavelength" type="toml:uistWavelengthLimits"/>
-			<xsd:element name="chopDelay"         type="toml:uistChopDelayLimits"/>
-			<xsd:element name="chopFrequency"     type="toml:uistChopFrequencyLimits"/>
-			<xsd:element  ref="toml:coadds"/>
-			<xsd:element name="dutyCycle"         type="toml:positiveDecimal"/>
-			<xsd:element name="expTimeOT"         type="toml:uistExposureTimeLimit"/>
-			<xsd:element name="exposureTime"      type="toml:uistExposureTimeLimit"/>
-			<xsd:element name="filter"            type="toml:uistFilterList"/>
-			<xsd:element name="flatSource"        type="toml:uistFlatSourceList"/>
-			<xsd:element name="focus"             type="xsd:double"/>
-			<xsd:element name="idlePeriod"        type="toml:positiveDecimal"    minOccurs="0"/>
-			<xsd:element name="mode"              type="toml:uistModeList"/>
-			<xsd:element name="mustIdles"         type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nreads"            type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nresets"           type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullCycles"        type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullExposures"     type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="nullReads"         type="xsd:nonNegativeInteger" minOccurs="0"/>
-			<xsd:element name="obsTimeOT"         type="toml:positiveDecimal"    minOccurs="0"/>
-			<xsd:element name="observationTime"   type="toml:positiveDecimal"/>
-			<xsd:element name="order"             type="xsd:nonNegativeInteger"/>
-			<xsd:element name="readInterval"      type="toml:nonNegativeDecimal"/>
-			<xsd:element  ref="toml:repeatCount"/>
-			<xsd:element name="resetDelay"        type="toml:nonNegativeDecimal" minOccurs="0"/>
-			<xsd:element name="waveform"          type="toml:uistWaveformList" minOccurs="0"/>
-		</xsd:sequence>
-		<xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="UISTCalObs"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="arcSource"         type="toml:uistArcSourceList"/>
+            <xsd:element name="calType"           type="toml:uistCalTypeList"/>
+            <xsd:element name="centralWavelength" type="toml:uistWavelengthLimits"/>
+            <xsd:element name="chopDelay"         type="toml:uistChopDelayLimits"/>
+            <xsd:element name="chopFrequency"     type="toml:uistChopFrequencyLimits"/>
+            <xsd:element  ref="toml:coadds"/>
+            <xsd:element name="dutyCycle"         type="toml:positiveDecimal"/>
+            <xsd:element name="expTimeOT"         type="toml:uistExposureTimeLimit"/>
+            <xsd:element name="exposureTime"      type="toml:uistExposureTimeLimit"/>
+            <xsd:element name="filter"            type="toml:uistFilterList"/>
+            <xsd:element name="flatSource"        type="toml:uistFlatSourceList"/>
+            <xsd:element name="focus"             type="xsd:double"/>
+            <xsd:element name="idlePeriod"        type="toml:positiveDecimal"    minOccurs="0"/>
+            <xsd:element name="mode"              type="toml:uistModeList"/>
+            <xsd:element name="mustIdles"         type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nreads"            type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nresets"           type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullCycles"        type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullExposures"     type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="nullReads"         type="xsd:nonNegativeInteger" minOccurs="0"/>
+            <xsd:element name="obsTimeOT"         type="toml:positiveDecimal"    minOccurs="0"/>
+            <xsd:element name="observationTime"   type="toml:positiveDecimal"/>
+            <xsd:element name="order"             type="xsd:nonNegativeInteger"/>
+            <xsd:element name="readInterval"      type="toml:nonNegativeDecimal"/>
+            <xsd:element  ref="toml:repeatCount"/>
+            <xsd:element name="resetDelay"        type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="waveform"          type="toml:uistWaveformList" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="UISTCalObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterUISTTargetAcq">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element ref="toml:coadds"/>
-			<xsd:element name="disperser"        type="toml:uistDisperserList"/>
-			<xsd:element name="dispersion"       type="xsd:double"/>
-			<xsd:element name="exposureTime"     type="toml:uistExposureTimeLimit"  minOccurs="0"/>
-			<xsd:element name="filter"           type="toml:uistFilterList"/>
-			<xsd:element name="mask"             type="toml:uistMaskList"/>
-			<xsd:element name="maskHeight"       type="toml:nonNegativeDecimal"/>
-			<xsd:element name="maskWidth"        type="toml:nonNegativeDecimal"/>
-			<xsd:element ref="toml:repeatCount"/>
-			<xsd:element name="resolution"       type="toml:nonNegativeDecimal"/>
-			<xsd:element name="scienceArea"      type="xsd:anyType"/>
-			<xsd:element name="source_mag"       type="xsd:anyType"/>
-		</xsd:sequence>
-		<xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="instUISTTargetAcq"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element ref="toml:coadds"/>
+            <xsd:element name="disperser"        type="toml:uistDisperserList"/>
+            <xsd:element name="dispersion"       type="xsd:double"/>
+            <xsd:element name="exposureTime"     type="toml:uistExposureTimeLimit"  minOccurs="0"/>
+            <xsd:element name="filter"           type="toml:uistFilterList"/>
+            <xsd:element name="mask"             type="toml:uistMaskList"/>
+            <xsd:element name="maskHeight"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="maskWidth"        type="toml:nonNegativeDecimal"/>
+            <xsd:element ref="toml:repeatCount"/>
+            <xsd:element name="resolution"       type="toml:nonNegativeDecimal"/>
+            <xsd:element name="scienceArea"      type="xsd:anyType"/>
+            <xsd:element name="source_mag"       type="xsd:anyType"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instUISTTargetAcq"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterUISTSpecIFU">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="coaddsIter"       type="toml:uistCoaddsIteratorType" minOccurs="0"/>
-			<xsd:element name="disperserIter"    type="toml:uistDisperserIteratorType" minOccurs="0"/>
-			<xsd:element name="exposureTimeIter" type="toml:uistExpTimeIteratorType" minOccurs="0"/>
-			<xsd:element name="iterConfigList"   type="toml:uistIterTypeList" minOccurs="0"/>
-			<xsd:element name="source_magIter" type="toml:uistSrcMagIteratorType" minOccurs="0"/>
-			<xsd:group   ref="toml:instIterContent" minOccurs="0" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="instUISTSpecIFU"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="coaddsIter"       type="toml:uistCoaddsIteratorType" minOccurs="0"/>
+            <xsd:element name="disperserIter"    type="toml:uistDisperserIteratorType" minOccurs="0"/>
+            <xsd:element name="exposureTimeIter" type="toml:uistExpTimeIteratorType" minOccurs="0"/>
+            <xsd:element name="iterConfigList"   type="toml:uistIterTypeList" minOccurs="0"/>
+            <xsd:element name="source_magIter" type="toml:uistSrcMagIteratorType" minOccurs="0"/>
+            <xsd:group   ref="toml:instIterContent" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instUISTSpecIFU"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterUISTImaging">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="coaddsIter"       type="toml:uistCoaddsIteratorType" minOccurs="0"/>
-			<xsd:element name="exposureTimeIter" type="toml:uistExpTimeIteratorType" minOccurs="0"/>
-			<xsd:element name="filterIter"       type="toml:uistFilterIteratorType" minOccurs="0"/>
-			<xsd:element name="iterConfigList"   type="toml:uistIterTypeList" minOccurs="1"/>
-			<xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="instUISTImaging"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="coaddsIter"       type="toml:uistCoaddsIteratorType" minOccurs="0"/>
+            <xsd:element name="exposureTimeIter" type="toml:uistExpTimeIteratorType" minOccurs="0"/>
+            <xsd:element name="filterIter"       type="toml:uistFilterIteratorType" minOccurs="0"/>
+            <xsd:element name="iterConfigList"   type="toml:uistIterTypeList" minOccurs="1"/>
+            <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instUISTImaging"/>
+    </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

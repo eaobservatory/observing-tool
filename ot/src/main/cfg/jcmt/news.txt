@@ -1,3 +1,33 @@
++++ May 2018 release
+
+  - The ACSIS library has been updated.
+
+  - The validator will now check site quality components: "min tau"
+    should not be greated than "max tau".
+
+  - The release notes should now open with the top (most recent)
+    entry visible.
+
+  - A preliminary adjustment to time estimates for frequency-switched
+    observations has been made.
+
+  - Some calculations performed by the heterodyne setup editor have
+    been updated to take into account of redshift.  The sky frequency
+    is now automatically recalculated when the program is saved in
+    case the radial velocity of the target changed.
+
+  - Double spaces have been removed from transition names in the
+    heterodyne setup line catalog.  The OT should update existing
+    names when loading a science program.
+
+  - The proper motion panel should no longer be enabled for target
+    types for which it is not appropriate.  The validator should now
+    issue a warning if proper motion is specified for a coordinate
+    system where it is not supported.
+
+  - Coordinate values should no longer be lost when moving between
+    target components containing orbital elements of different types.
+
 +++ July 2017 release (2)
 
   - Adjusted some JAR files due to an issue with JDK 8u141.
@@ -604,5 +634,5 @@ All Rights Reserved.
 Copyright 2007-2013 Science and Technology Facilities Council.
 All Rights Reserved.
 
-Copyright 2015-2017 East Asian Observatory.
+Copyright 2015-2018 East Asian Observatory.
 All Rights Reserved.

@@ -1,93 +1,93 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Simple Types -->
 <xsd:simpleType name="jcmtPolList">
-  <xsd:restriction base="xsd:double">
-    <xsd:enumeration value="0"/>
-    <xsd:enumeration value="22.5"/>
-    <xsd:enumeration value="45"/>
-    <xsd:enumeration value="67.5"/>
-    <xsd:enumeration value="90"/>
-    <xsd:enumeration value="112.5"/>
-    <xsd:enumeration value="135"/>
-    <xsd:enumeration value="157.5"/>
-    <xsd:enumeration value="180"/>
-    <xsd:enumeration value="202.5"/>
-    <xsd:enumeration value="225"/>
-    <xsd:enumeration value="247.5"/>
-    <xsd:enumeration value="270"/>
-    <xsd:enumeration value="292.5"/>
-    <xsd:enumeration value="315"/>
-    <xsd:enumeration value="337.5"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:double">
+        <xsd:enumeration value="0"/>
+        <xsd:enumeration value="22.5"/>
+        <xsd:enumeration value="45"/>
+        <xsd:enumeration value="67.5"/>
+        <xsd:enumeration value="90"/>
+        <xsd:enumeration value="112.5"/>
+        <xsd:enumeration value="135"/>
+        <xsd:enumeration value="157.5"/>
+        <xsd:enumeration value="180"/>
+        <xsd:enumeration value="202.5"/>
+        <xsd:enumeration value="225"/>
+        <xsd:enumeration value="247.5"/>
+        <xsd:enumeration value="270"/>
+        <xsd:enumeration value="292.5"/>
+        <xsd:enumeration value="315"/>
+        <xsd:enumeration value="337.5"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="jcmtIterList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="POLIter"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="POLIter"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="UStepPatternType">
-	<xsd:restriction base="xsd:string">
-		<xsd:enumeration value="NONE"/>
-	</xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="NONE"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="jcmtPolContinuousSpin">
-	<xsd:restriction base="xsd:string">
-	</xsd:restriction>
+    <xsd:restriction base="xsd:string">
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- Complex types -->
 <xsd:complexType name="jcmtPolType" mixed="true">
     <xsd:complexContent>
-      <xsd:restriction base="xsd:anyType">
-        <xsd:choice>
-          <xsd:element name='value'  type="toml:jcmtPolList"
-		       minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:choice>
-      </xsd:restriction>
+        <xsd:restriction base="xsd:anyType">
+            <xsd:choice>
+                <xsd:element name='value'  type="toml:jcmtPolList"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:restriction>
     </xsd:complexContent>
- </xsd:complexType>
+</xsd:complexType>
 
 
 <xsd:element name="SpIterPOL">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:choice>
+    <xsd:complexType>
         <xsd:sequence>
-          <xsd:element name="continuousSpin"  type="toml:jcmtPolContinuousSpin"/>
-          <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:choice>
+                <xsd:sequence>
+                    <xsd:element name="continuousSpin"  type="toml:jcmtPolContinuousSpin"/>
+                    <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+                <xsd:sequence>
+                    <xsd:element name="POLIter"         type="toml:jcmtPolType"/>
+                    <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="iterConfigList"  type="toml:jcmtIterList"/>
+                </xsd:sequence>
+            </xsd:choice>
+            <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:sequence>
-          <xsd:element name="POLIter"         type="toml:jcmtPolType"/>
-          <xsd:element name="in_beam"         type="xsd:string" minOccurs="0" maxOccurs="1"/>
-          <xsd:element name="iterConfigList"  type="toml:jcmtIterList"/>
-        </xsd:sequence>
-      </xsd:choice>
-      <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="instPOL"/>
-  </xsd:complexType>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="instPOL"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterMicroStep">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element ref="toml:obsArea"/>
-			<xsd:element name="pattern" type="toml:UStepPatternType"/>
-			<xsd:group ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-		<xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element ref="toml:obsArea"/>
+            <xsd:element name="pattern" type="toml:UStepPatternType"/>
+            <xsd:group ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
+    </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

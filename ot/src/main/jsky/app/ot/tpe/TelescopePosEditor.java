@@ -48,7 +48,7 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
+import gemini.sp.SpSurveyContainer;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.navigator.NavigatorImageDisplayFrame;
 import jsky.util.Preferences;
@@ -707,10 +707,10 @@ public class TelescopePosEditor extends JSkyCat implements
      * for the current image.
      */
     public void reset(SpItem spItem) {
-        if (spItem instanceof SpSurveyObsComp) {
-            SpSurveyObsComp spSurveyObsComp = (SpSurveyObsComp) spItem;
-            spItem = spSurveyObsComp.getSpTelescopeObsComp(
-                    spSurveyObsComp.getSelectedTelObsComp());
+        if (spItem instanceof SpSurveyContainer) {
+            SpSurveyContainer spSurveyContainer = (SpSurveyContainer) spItem;
+            spItem = spSurveyContainer.getSpTelescopeObsComp(
+                    spSurveyContainer.getSelectedTelObsComp());
         }
 
         // Find the telescope position list in the spItem's scope, if any,

@@ -1,7 +1,7 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 
@@ -16,7 +16,7 @@
 <xsd:element name="meta_unique"                type="xsd:boolean"/>
 <xsd:element name="meta_gui_selectedTelescopePos"  type="xsd:string"/>
 <xsd:element name="meta_gui_selectedTelObsComp"  type="xsd:string"/>
-<xsd:element name="meta_version"		type="xsd:string"/>
+<xsd:element name="meta_version"                type="xsd:string"/>
 
 <!-- Substituted JAC elements -->
 <xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="toml:version"/>
@@ -39,39 +39,39 @@
 
 
 <xsd:element name="BASE">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="target" type="toml:targetDefinition"/>
-      <xsd:element ref="toml:OFFSET" minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="TYPE" type="toml:targetTypeList"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="target" type="toml:targetDefinition"/>
+            <xsd:element ref="toml:OFFSET" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="TYPE" type="toml:targetTypeList"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SECONDARY">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="CHOP" minOccurs="1" maxOccurs="unbounded">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="THROW" type="toml:chopThrowLimits"/>
-            <xsd:element name="PA"    type="toml:chopAngleLimits"/>
-          </xsd:sequence>
-          <xsd:attribute name="SYSTEM" type="toml:chopSystem"/>
-        </xsd:complexType>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="CHOP" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="THROW" type="toml:chopThrowLimits"/>
+                        <xsd:element name="PA"    type="toml:chopAngleLimits"/>
+                    </xsd:sequence>
+                    <xsd:attribute name="SYSTEM" type="toml:chopSystem"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="OFFSET">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="DC1" type="toml:offsetLimit"/>
-      <xsd:element name="DC2" type="toml:offsetLimit"/>
-    </xsd:sequence>
-  <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="DC1" type="toml:offsetLimit"/>
+            <xsd:element name="DC2" type="toml:offsetLimit"/>
+        </xsd:sequence>
+    <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="obsArea" type="toml:offsetDefinition"/>

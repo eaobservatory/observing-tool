@@ -1,106 +1,106 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 <!-- Simple types -->
 <xsd:simpleType name="hetFreqUnitsList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(M|G)?Hz"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(M|G)?Hz"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetBandList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(U|u)(S|s)(B|b)"/>
-    <xsd:pattern value="(L|l)(S|s)(B|b)"/>
-    <xsd:pattern value="best"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(U|u)(S|s)(B|b)"/>
+        <xsd:pattern value="(L|l)(S|s)(B|b)"/>
+        <xsd:pattern value="best"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetBandModeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(1|2|3|4)(-system)?"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(1|2|3|4)(-system)?"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetBackEndList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="acsis"/>
-    <xsd:enumeration value="das"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="acsis"/>
+        <xsd:enumeration value="das"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetChannelsList">
-  <xsd:restriction base="xsd:integer">
-    <xsd:enumeration value="1024"/>
-    <xsd:enumeration value="1472"/>
-    <xsd:enumeration value="1600"/>
-    <xsd:enumeration value="2048"/>
-    <xsd:enumeration value="4096"/>
-    <xsd:enumeration value="8192"/>
-    <xsd:enumeration value="16384"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:integer">
+        <xsd:enumeration value="1024"/>
+        <xsd:enumeration value="1472"/>
+        <xsd:enumeration value="1600"/>
+        <xsd:enumeration value="2048"/>
+        <xsd:enumeration value="4096"/>
+        <xsd:enumeration value="8192"/>
+        <xsd:enumeration value="16384"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetFrontEndList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="A3m"/>
-    <xsd:enumeration value="WB"/>
-    <xsd:enumeration value="WD"/>
-    <xsd:enumeration value="HARP"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="A3m"/>
+        <xsd:enumeration value="WB"/>
+        <xsd:enumeration value="WD"/>
+        <xsd:enumeration value="HARP"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetMixerList">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Single Mixer"/>
-    <xsd:enumeration value="Dual Mixer"/>
-    <xsd:enumeration value="1"/>
-    <xsd:enumeration value="2"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Single Mixer"/>
+        <xsd:enumeration value="Dual Mixer"/>
+        <xsd:enumeration value="1"/>
+        <xsd:enumeration value="2"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="hetModeList">
-  <xsd:restriction base="xsd:string">
-    <xsd:pattern value="(S|s)(S|s)(B|b)"/>
-    <xsd:pattern value="(D|d)(S|s)(B|b)"/>
-  </xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="(S|s)(S|s)(B|b)"/>
+        <xsd:pattern value="(D|d)(S|s)(B|b)"/>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <!-- complex types -->
 <xsd:complexType name="hetFreqType">
-  <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
-  <xsd:attribute name="value" type="xsd:string"/>
+    <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
+    <xsd:attribute name="value" type="xsd:string"/>
 </xsd:complexType>
 
 <xsd:complexType name="hetSBType">
-  <xsd:attribute name="value" type="xsd:integer"/>
+    <xsd:attribute name="value" type="xsd:integer"/>
 </xsd:complexType>
 
 <xsd:complexType name="hetSBModeType">
-  <xsd:attribute name="value" type="toml:hetModeList"/>
+    <xsd:attribute name="value" type="toml:hetModeList"/>
 </xsd:complexType>
 
 <xsd:complexType name="hetDopplerTrackingType">
-  <xsd:attribute name="value" type="toml:on_off_type"/>
+    <xsd:attribute name="value" type="toml:on_off_type"/>
 </xsd:complexType>
 
 <xsd:complexType name="hetOptimizeType">
-  <xsd:attribute name="value" type="toml:enable_disable_type"/>
+    <xsd:attribute name="value" type="toml:enable_disable_type"/>
 </xsd:complexType>
 
 <xsd:complexType name="hetLineListFreqType">
-  <xsd:simpleContent>
-    <xsd:extension base="xsd:double">
-      <xsd:attribute name="id"     type="xsd:string"/>
-      <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
-    </xsd:extension>
-  </xsd:simpleContent>
+    <xsd:simpleContent>
+        <xsd:extension base="xsd:double">
+            <xsd:attribute name="id"    type="xsd:string"/>
+            <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
+        </xsd:extension>
+    </xsd:simpleContent>
 </xsd:complexType>
 
 <xsd:complexType name="hetSPWType">
-  <xsd:attribute name="ref" type="xsd:string"/>
+    <xsd:attribute name="ref" type="xsd:string"/>
 </xsd:complexType>
 
 
@@ -110,151 +110,151 @@
 <!-- elements -->
 
 <xsd:element name="frontend_configure">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="rest_frequency"      type="toml:hetFreqType"/>
-      <xsd:element name="if_centre_freq"      type="toml:hetFreqType"/>
-      <xsd:element name="sideband"            type="toml:hetSBType"/>
-      <xsd:element name="sb_mode"             type="toml:hetSBModeType"/>
-      <xsd:element name="freq_offset_scale"   type="toml:hetFreqType"/>
-      <xsd:element name="doppler_tracking"    type="toml:hetDopplerTrackingType"/>
-      <xsd:element name="optimize"            type="toml:hetOptimizeType"/>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="rest_frequency"      type="toml:hetFreqType"/>
+            <xsd:element name="if_centre_freq"      type="toml:hetFreqType"/>
+            <xsd:element name="sideband"            type="toml:hetSBType"/>
+            <xsd:element name="sb_mode"             type="toml:hetSBModeType"/>
+            <xsd:element name="freq_offset_scale"   type="toml:hetFreqType"/>
+            <xsd:element name="doppler_tracking"    type="toml:hetDopplerTrackingType"/>
+            <xsd:element name="optimize"            type="toml:hetOptimizeType"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="line_list">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="rest_frequency"  type="toml:hetLineListFreqType"
-		   minOccurs="0"          maxOccurs="unbounded"/>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="rest_frequency"  type="toml:hetLineListFreqType"
+                         minOccurs="0"          maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="acsis_spw_list">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="doppler_field"            type="toml:hetSPWType"/>
-      <xsd:element name="spectral_window_id_field" type="toml:hetSPWType"/>
-      <xsd:element name="front_end_lo_freq_field"  type="toml:hetSPWType"/>
-      <xsd:element ref ="toml:spectral_window"/>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="doppler_field"            type="toml:hetSPWType"/>
+            <xsd:element name="spectral_window_id_field" type="toml:hetSPWType"/>
+            <xsd:element name="front_end_lo_freq_field"  type="toml:hetSPWType"/>
+            <xsd:element ref ="toml:spectral_window"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="spectral_window">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="spw_bandwidth_mode">
-        <xsd:complexType>
-          <xsd:attribute name="mode" type="xsd:string"/>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="spw_window">
-        <xsd:complexType>
-          <xsd:attribute name="type" type="xsd:string"/>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="rest_frequency_ref">
-        <xsd:complexType>
-          <xsd:attribute name="ref" type="xsd:string"/>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="front_end_sideband">
-        <xsd:complexType>
-          <xsd:attribute name="sideband" type="xsd:string"/>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element ref="toml:spw_if_coordinate"/>
-    </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:string"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="spw_bandwidth_mode">
+                <xsd:complexType>
+                    <xsd:attribute name="mode" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="spw_window">
+                <xsd:complexType>
+                    <xsd:attribute name="type" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="rest_frequency_ref">
+                <xsd:complexType>
+                    <xsd:attribute name="ref" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="front_end_sideband">
+                <xsd:complexType>
+                    <xsd:attribute name="sideband" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element ref="toml:spw_if_coordinate"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="spw_if_coordinate">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="spw_reference_if_frequency">
-        <xsd:complexType>
-          <xsd:simpleContent>
-            <xsd:extension base="xsd:double">
-              <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
-            </xsd:extension>
-          </xsd:simpleContent>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="spw_reference_pixel" type="xsd:string"/>
-      <xsd:element name="spw_if_channel_width">
-        <xsd:complexType>
-          <xsd:simpleContent>
-            <xsd:extension base="xsd:double">
-              <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
-            </xsd:extension>
-          </xsd:simpleContent>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="spw_number_if_channel" type="xsd:positiveInteger"/>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="spw_reference_if_frequency">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:double">
+                            <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="spw_reference_pixel" type="xsd:string"/>
+            <xsd:element name="spw_if_channel_width">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:double">
+                            <xsd:attribute name="units" type="toml:hetFreqUnitsList"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="spw_number_if_channel" type="xsd:positiveInteger"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="jcmt_config">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:frontend_configure"/>
-      <xsd:element ref="toml:line_list"/>
-      <xsd:element ref="toml:acsis_spw_list"/>
-    </xsd:sequence>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:frontend_configure"/>
+            <xsd:element ref="toml:line_list"/>
+            <xsd:element ref="toml:acsis_spw_list"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 
 <xsd:element name="SpInstHeterodyne">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="band"                    type="toml:hetBandList"/>
-			<xsd:element name="bandMode"                type="toml:hetBandModeList"/>
-			<xsd:element name="beName"                  type="toml:hetBackEndList"/>
-			<xsd:element name="configuration"           type="xsd:string"  minOccurs="0"/>
-			<xsd:element name="feBandWidth"             type="xsd:double"/>
-			<xsd:element name="feIF"                    type="xsd:double"/>
-			<xsd:element name="feName"                  type="toml:hetFrontEndList"/>
-			<xsd:element name="mixers"                  type="toml:hetMixerList"/>
-			<xsd:element name="mode"                    type="toml:hetModeList"/>
-			<xsd:element name="skyFrequency"            type="xsd:double"  minOccurs="0"/>
-			<xsd:element name="velocity"                type="xsd:double" minOccurs="0"/>
-			<xsd:element name="velocityDefinition"      type="toml:rvDefinitionList" minOccurs="0"/>
-			<xsd:element name="velocityFrame"           type="toml:rvFrameList" minOccurs="0"/>
-			<xsd:element name="subsystems"    minOccurs="1"   maxOccurs="1">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="subsystem"  minOccurs="1"   maxOccurs="4">
-							<xsd:complexType>
-								<xsd:sequence>
-									<xsd:element name="line">
-									<xsd:complexType>
-										<xsd:attribute name="species"     type="xsd:string" use="required"/>
-										<xsd:attribute name="transition"  type="xsd:string" use="required"/>
-										<xsd:attribute name="rest_freq"   type="xsd:double" use="required"/>
-									</xsd:complexType>
-									</xsd:element>
-								</xsd:sequence>
-								<xsd:attribute name="if"       type="xsd:double"          use="required"/>
-								<xsd:attribute name="bw"       type="xsd:double"          use="required"/>
-								<xsd:attribute name="overlap"  type="xsd:double"          use="required"/>
-								<xsd:attribute name="channels" type="xsd:positiveInteger" use="required"/>
-							</xsd:complexType>
-						</xsd:element>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-		</xsd:sequence>
-		<xsd:attribute name='id'      type='xsd:nonNegativeInteger' use='optional'/>
-		<xsd:attribute name='type'    type='toml:SpType'             use='required'/>
-		<xsd:attribute name='subtype' type='xsd:string'             use='required'/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="band"                    type="toml:hetBandList"/>
+            <xsd:element name="bandMode"                type="toml:hetBandModeList"/>
+            <xsd:element name="beName"                  type="toml:hetBackEndList"/>
+            <xsd:element name="configuration"           type="xsd:string"  minOccurs="0"/>
+            <xsd:element name="feBandWidth"             type="xsd:double"/>
+            <xsd:element name="feIF"                    type="xsd:double"/>
+            <xsd:element name="feName"                  type="toml:hetFrontEndList"/>
+            <xsd:element name="mixers"                  type="toml:hetMixerList"/>
+            <xsd:element name="mode"                    type="toml:hetModeList"/>
+            <xsd:element name="skyFrequency"            type="xsd:double"  minOccurs="0"/>
+            <xsd:element name="velocity"                type="xsd:double" minOccurs="0"/>
+            <xsd:element name="velocityDefinition"      type="toml:rvDefinitionList" minOccurs="0"/>
+            <xsd:element name="velocityFrame"           type="toml:rvFrameList" minOccurs="0"/>
+            <xsd:element name="subsystems"    minOccurs="1"   maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="subsystem"  minOccurs="1"   maxOccurs="4">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="line">
+                                    <xsd:complexType>
+                                        <xsd:attribute name="species"     type="xsd:string" use="required"/>
+                                        <xsd:attribute name="transition"  type="xsd:string" use="required"/>
+                                        <xsd:attribute name="rest_freq"   type="xsd:double" use="required"/>
+                                    </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                                <xsd:attribute name="if"       type="xsd:double"          use="required"/>
+                                <xsd:attribute name="bw"       type="xsd:double"          use="required"/>
+                                <xsd:attribute name="overlap"  type="xsd:double"          use="required"/>
+                                <xsd:attribute name="channels" type="xsd:positiveInteger" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name='id'      type='xsd:nonNegativeInteger' use='optional'/>
+        <xsd:attribute name='type'    type='toml:SpType'             use='required'/>
+        <xsd:attribute name='subtype' type='xsd:string'             use='required'/>
+    </xsd:complexType>
 </xsd:element>
 
 

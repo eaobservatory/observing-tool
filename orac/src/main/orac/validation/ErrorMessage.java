@@ -34,7 +34,6 @@ public class ErrorMessage {
     public final static int ERROR = 0;
     public final static int WARNING = 1;
     public final static int INFO = 2;
-    private static int[] _errorWarningCount = {0, 0, 0};
     private static String[] _messageString = {"ERROR: ", "WARNING: ", ""};
 
     /**
@@ -91,8 +90,6 @@ public class ErrorMessage {
         _type = type;
         _item = item;
         _problem = problem;
-
-        _errorWarningCount[_type]++;
     }
 
     /**
@@ -119,8 +116,6 @@ public class ErrorMessage {
         _parameter = parameter;
         _expected = expected;
         _found = found;
-
-        _errorWarningCount[_type]++;
     }
 
     /**
@@ -172,11 +167,6 @@ public class ErrorMessage {
                 + ", " + item.subtypeStr() + ")";
     }
 
-    public static void reset() {
-        _errorWarningCount[ERROR] = 0;
-        _errorWarningCount[WARNING] = 0;
-    }
-
     public void setType(int type) {
         _type = type;
     }
@@ -199,14 +189,6 @@ public class ErrorMessage {
 
     public void setFound(String s) {
         _found = s;
-    }
-
-    public static void setErrorCount(int c) {
-        _errorWarningCount[ERROR] = c;
-    }
-
-    public static void setWarningCount(int c) {
-        _errorWarningCount[WARNING] = c;
     }
 
     public int getType() {
@@ -233,15 +215,31 @@ public class ErrorMessage {
         return _found;
     }
 
-    public static int getErrorCount() {
-        return _errorWarningCount[ERROR];
+    public static int getErrorCount(Iterable<ErrorMessage> messages) {
+        int n = 0;
+
+        for (ErrorMessage message: messages) {
+            if (message.getType() == ERROR) {
+                n++;
+            }
+        }
+
+        return n;
     }
 
-    public static int getWarningCount() {
-        return _errorWarningCount[WARNING];
+    public static int getWarningCount(Iterable<ErrorMessage> messages) {
+        int n = 0;
+
+        for (ErrorMessage message: messages) {
+            if (message.getType() == WARNING) {
+                n ++;
+            }
+        }
+
+        return n;
     }
 
-    public static String messagesToString(Enumeration<ErrorMessage> messages) {
+    public static String messagesToString(Iterable<ErrorMessage> messages) {
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("If an error has been identified in an"
@@ -252,18 +250,17 @@ public class ErrorMessage {
                 + " You should check it carefully to make sure it is"
                 + " what you need.\n\n");
 
-        buffer.append(getErrorCount() + " errors, "
-                + getWarningCount() + " warnings.\n\n");
+        buffer.append(getErrorCount(messages) + " errors, "
+                + getWarningCount(messages) + " warnings.\n\n");
 
-        while (messages.hasMoreElements()) {
-            ErrorMessage err = messages.nextElement();
+        for (ErrorMessage err: messages) {
             buffer.append(err.toString());
         }
 
         return buffer.toString();
     }
 
-    public static void printMessages(Enumeration<ErrorMessage> messages,
+    public static void printMessages(Iterable <ErrorMessage> messages,
             PrintStream out) {
         out.print(messagesToString(messages));
     }

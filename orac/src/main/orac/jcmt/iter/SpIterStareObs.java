@@ -84,6 +84,13 @@ public class SpIterStareObs extends SpIterJCMTObs {
             } else if (SWITCHING_MODE_BEAM.equals(switchingMode)) {
                 totalIntegrationTime = 2.3 * T_on + 100.0;
             }
+            else if (SWITCHING_MODE_FREQUENCY_S.equals(switchingMode) ||
+                    SWITCHING_MODE_FREQUENCY_F.equals(switchingMode)) {
+                // Not based on timing data: just the beam-switched case with
+                // half the factor of 2.3 and the overhead changed to 120
+                // to match SpIterFolder.
+                totalIntegrationTime = 1.15 * T_on + 120.0;
+            }
 
             if (isContinuum()) {
                 totalIntegrationTime *= 1.2;

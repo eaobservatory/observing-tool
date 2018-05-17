@@ -209,10 +209,20 @@ public class SpValidation {
             report = new Vector<ErrorMessage>();
         }
 
-        if (SpItemUtilities.findSiteQuality(spMSB) == null) {
+        SpSiteQualityObsComp siteQuality = SpItemUtilities.findSiteQuality(spMSB);
+        if (siteQuality == null) {
             report.add(new ErrorMessage(ErrorMessage.ERROR,
                     "MSB \"" + spMSB.getTitle() + "\"",
-                    "Site quality component list is missing."));
+                    "Site quality component is missing."));
+        }
+        else {
+            if (! siteQuality.tauBandAllocated()) {
+                if (siteQuality.getMinTau() > siteQuality.getMaxTau()) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                        "MSB \"" + spMSB.getTitle() + "\"",
+                        "Site quality has minimum tau > maximum tau."));
+                }
+            }
         }
 
         // Check whether there are more than one observe instruction notes.

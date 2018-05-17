@@ -62,6 +62,11 @@ public class TextBoxWidgetExt extends JTextField implements DescriptiveWidget,
 
     /** Default constructor */
     public TextBoxWidgetExt() {
+        this(0);
+    }
+
+    public TextBoxWidgetExt(int columns) {
+        super(columns);
         getDocument().addDocumentListener(this);
         addActionListener(this);
     }

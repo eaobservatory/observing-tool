@@ -284,6 +284,12 @@ public final class EdSurvey extends EdCompTargetList implements
 
             _updateFieldTable();
 
+            // Note: _updateFieldTable turns off "_ignoreEvents", so we need
+            // to turn it back on again.  (Perhaps it would be better to have
+            // _updateFieldTable restore the original "_ignoreEvents" value
+            // on exit instead.)
+            _ignoreEvents = true;
+
             _surveyGUI.fieldTable.setRowSelectionInterval(
                     _surveyObsComp.getSelectedTelObsComp(),
                     _surveyObsComp.getSelectedTelObsComp());
@@ -633,6 +639,11 @@ public final class EdSurvey extends EdCompTargetList implements
         int selectedRowIndex = _surveyGUI.fieldTable.getSelectedRow();
         _surveyObsComp.setSelectedTelObsComp(selectedRowIndex);
 
+        // Ignore events while setting the remaining counter so that
+        // we don't trigger (UN)REMOVE actions (swapping sign).
+        boolean prevIgnoreEvents = _ignoreEvents;
+        _ignoreEvents = true;
+
         if (_surveyObsComp.getRemaining(selectedRowIndex) < 0) {
             _surveyGUI.remaining.setSelectedIndex(
                     _surveyGUI.remaining.getItemCount() - 1);
@@ -643,6 +654,8 @@ public final class EdSurvey extends EdCompTargetList implements
 
         _surveyGUI.priority.setSelectedIndex(
                 _surveyObsComp.getPriority(selectedRowIndex));
+
+        _ignoreEvents = prevIgnoreEvents;
     }
 
     public void actionPerformed(ActionEvent e) {

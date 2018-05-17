@@ -31,7 +31,6 @@ import gemini.sp.obsComp.SpDRObsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.obsComp.SpSurveyObsComp;
 
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterObserveBase;
@@ -52,6 +51,20 @@ class InsertPolicy implements SpInsertConstants {
     public SpInsertInfo evalInsert(SpItem newItem, SpItem target) {
         return null;
     }
+
+    protected boolean itemIsAncestor(SpItem newItem, SpItem spItem) {
+        SpItem temp = spItem;
+
+        while (temp != null) {
+            if (temp == newItem) {
+                return true;
+            }
+
+            temp = temp.parent();
+        }
+
+        return false;
+    }
 }
 
 /**
@@ -62,6 +75,11 @@ final class InsidePolicy_AfterComponents extends InsertPolicy {
     public SpInsertInfo evalInsert(SpItem newItem, SpItem parent) {
         SpItem lastComp = null;
         Enumeration<SpItem> children = parent.children();
+
+        // Make sure we're not trying to place an item inside itself.
+        if (itemIsAncestor(newItem, parent)) {
+            return null;
+        }
 
         while (children.hasMoreElements()) {
             SpItem child = children.nextElement();
@@ -143,16 +161,8 @@ final class InsidePolicy_IteratorComp extends InsertPolicy {
         // Make sure that the newItem isn't already the parent of parent.
         // In other words, prevent moving a parent down to be a child of one
         // of its own children...
-        if (parent instanceof SpIterComp) {
-            SpItem temp = parent;
-
-            while ((temp != null) && (temp instanceof SpIterComp)) {
-                if (temp == newItem) {
-                    return null;
-                }
-
-                temp = temp.parent();
-            }
+        if (itemIsAncestor(newItem, parent)) {
+            return null;
         }
 
         return new SpInsertInfo(INS_INSIDE, parent);
@@ -444,15 +454,7 @@ public final class SpTreeMan implements SpInsertConstants {
 
         // Inserting Iterator Folders
         ip = new InsidePolicy_IteratorFolder();
-        libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder(ip);
-        _insertInside.put("if,pr", ip);
-        _insertInside.put("if,pl", ip);
-        _insertInside.put("if,p1", ip);
-        _insertInside.put("if,of", ip); // MFO
-        _insertInside.put("if,fo", ip);
         _insertInside.put("if,ob", ip);
-        _insertInside.put("if,og", ip);
-        _insertInside.put("if,lf", libraryPolicy);
 
         // Inserting Iterator Components
         ip = new InsidePolicy_IteratorComp();
@@ -516,6 +518,7 @@ public final class SpTreeMan implements SpInsertConstants {
         _insertAfter.put("of,no", ip);
         _insertAfter.put("of,if", ip);
         _insertAfter.put("of,og", ip);
+        _insertAfter.put("of,sc", ip);
 
         // Obs Folders
         _insertAfter.put("fo,of", ip); // MFO
@@ -719,22 +722,6 @@ public final class SpTreeMan implements SpInsertConstants {
     }
 
     /**
-     * Find the SpSurveyObsComp associated with this context, if any.
-     *
-     * Only searches the given scope. It does not navigate the tree hierarchy.
-     */
-    public static SpSurveyObsComp findSurveyCompInContext(SpItem spItem) {
-        SpSurveyObsComp soc = null;
-        SpItem returned = findSpItemInContext(spItem, SpSurveyObsComp.class);
-
-        if (returned != null) {
-            soc = (SpSurveyObsComp) returned;
-        }
-
-        return soc;
-    }
-
-    /**
      * Find the SpInstObsComp associated with this context, if any.
      *
      * Only searches the given scope. It does not navigate the tree hierarchy.
@@ -826,23 +813,6 @@ public final class SpTreeMan implements SpInsertConstants {
         }
 
         return telescopeObsComp;
-    }
-
-    /**
-     * Find the survey component associated with the given scope scope of the
-     * given item.
-     *
-     * @param spItem  the SpItem defining the scope to search
-     */
-    public static SpSurveyObsComp findSurveyComp(SpItem spItem) {
-        SpSurveyObsComp surveyObsComp = null;
-        SpItem returned = findSpItemOfType(spItem, SpSurveyObsComp.class);
-
-        if (returned != null) {
-            surveyObsComp = (SpSurveyObsComp) returned;
-        }
-
-        return surveyObsComp;
     }
 
     /**

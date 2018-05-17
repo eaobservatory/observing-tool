@@ -17,15 +17,18 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-FILE=output/bin/ot
+for FILESPEC in ot:ot_script_source ompvalidate:ompvalidate_source
+do
+    IFS=: read -r FILE FILESRC <<< "$FILESPEC"
 
-cat > $FILE <<-END
-	#!/bin/csh -f
+    cat > output/bin/$FILE <<-END
+#!/bin/csh -f
 
-	cd \`dirname \$0\`
+cd \`dirname \$0\`
 
-	set CLASSPATH = $1
+set CLASSPATH = $1
 
 END
 
-cat ot/src/main/scripts/ot_script_source >> $FILE
+    cat ot/src/main/scripts/$FILESRC >> output/bin/$FILE
+done

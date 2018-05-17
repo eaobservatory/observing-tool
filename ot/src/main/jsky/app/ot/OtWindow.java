@@ -1143,9 +1143,9 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
 
         // at the moment there is no difference in how errors and warnings are
         // handled.
-        if ((ErrorMessage.getErrorCount() > 0)
-                || (ErrorMessage.getWarningCount() > 0)) {
-            new ReportBox(ErrorMessage.messagesToString(report.elements()),
+        if ((ErrorMessage.getErrorCount(report) > 0)
+                || (ErrorMessage.getWarningCount(report) > 0)) {
+            new ReportBox(ErrorMessage.messagesToString(report),
                     reportBoxTitle);
             return false;
         } else {
@@ -1158,14 +1158,10 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
     /**
      * Perform validation of the specified science program item.
      *
-     * This method calls ErrorMessage.reset() before building the
-     * list of errors.
-     *
      * @return Vector of ErrorMessage objects
      */
     public static Vector<ErrorMessage> doValidation(SpItem spItem) {
         Vector<ErrorMessage> report = new Vector<ErrorMessage>();
-        ErrorMessage.reset();
 
         if (OtCfg.telescopeUtil == null) {
             report.add(new ErrorMessage(
@@ -1358,21 +1354,31 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
     public static void main(String[] args) {
         // Need one input, the name of an XML file
         if (args.length != 1) {
-            System.out.println("No file name specified");
-            System.exit(0);
+            System.err.println("No file name specified");
+            System.exit(1);
         }
+
+        boolean have_error = false;
 
         try {
             OtCfg.init();
             FileReader rdr = new FileReader(args[0]);
             SpItem item = (new SpInputXML()).xmlToSpItem(rdr);
             Vector<ErrorMessage> report = OtWindow.doValidation(item);
-            System.out.println(report);
+            ErrorMessage.printMessages(report, System.out);
+
+            if ((ErrorMessage.getErrorCount(report) > 0)
+                    || (ErrorMessage.getWarningCount(report) > 0)) {
+                have_error = true;
+            }
 
         } catch (Exception e) {
-            System.out.println("Error in validation");
+            System.err.println("Error in validation");
             e.printStackTrace();
+            have_error = true;
         }
+
+        System.exit(have_error ? 1 : 0);
     }
 
     /* Copied from SpTranslator so that we can delete it from the tree */

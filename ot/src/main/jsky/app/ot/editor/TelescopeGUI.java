@@ -69,6 +69,10 @@ import ot.gui.GuiUtil;
 // has been added.
 @SuppressWarnings("serial")
 public class TelescopeGUI extends JPanel {
+    public static final String TAB_PROPER_MOTION = "Proper Motion";
+    public static final String TAB_RADIAL_VELOCITY = "Radial Vel/Tracking";
+    public static final String TAB_CHOP_SETTINGS = "Chop Settings";
+
     JTabbedPane targetSystemsTabbedPane = new JTabbedPane();
     JPanel nameTagPanel = new JPanel();
     JPanel objectGBW = new JPanel();
@@ -885,15 +889,15 @@ public class TelescopeGUI extends JPanel {
 
         if (OtCfg.telescopeUtil.supports(
                 TelescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
-            extrasFolder.add(detailsPW, "Radial Vel/Tracking");
-            extrasFolder.add(propMotionPW, "Proper Motion");
+            extrasFolder.add(detailsPW, TAB_RADIAL_VELOCITY);
+            extrasFolder.add(propMotionPW, TAB_PROPER_MOTION);
 
         } else {
-            extrasFolder.add(propMotionPW, "Proper Motion");
-            extrasFolder.add(detailsPW, "Radial Vel/Tracking");
+            extrasFolder.add(propMotionPW, TAB_PROPER_MOTION);
+            extrasFolder.add(detailsPW, TAB_RADIAL_VELOCITY);
         }
 
-        extrasFolder.add(chopPW, "Chop Settings");
+        extrasFolder.add(chopPW, TAB_CHOP_SETTINGS);
 
         this.add(jScrollPane1, new GridBagConstraints(
                 0, 3, 2, 1, 1.0, 1.0,

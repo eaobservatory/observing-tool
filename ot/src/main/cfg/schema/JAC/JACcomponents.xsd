@@ -1,130 +1,130 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <!-- Root element components -->
 <xsd:element name="SpProg">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:ProgInfoGroup"/>
-      <xsd:group ref="toml:programContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type" type="toml:SpType" fixed="pr"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
-    <xsd:attribute name="timestamp" type="xsd:positiveInteger" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:ProgInfoGroup"/>
+            <xsd:group ref="toml:programContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="pr"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
+        <xsd:attribute name="timestamp" type="xsd:positiveInteger" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpOR">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
-      <xsd:element ref="toml:title"                  minOccurs="0"/>
-      <xsd:group ref="toml:orContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="numberOfItems" type="xsd:nonNegativeInteger"/>
-    <xsd:attribute name="type" type="toml:SpType" fixed="of"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="or"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
+            <xsd:element ref="toml:title" minOccurs="0"/>
+            <xsd:group ref="toml:orContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="numberOfItems" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="type" type="toml:SpType" fixed="of"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="or"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpAND">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
-      <xsd:element ref="toml:title"              minOccurs="0"/>
-      <xsd:group ref="toml:andContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type" type="toml:SpType" fixed="fo"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="and"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
+            <xsd:element ref="toml:title" minOccurs="0"/>
+            <xsd:group ref="toml:andContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="fo"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="and"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpMSB">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:schedBlockGroup"/>
-      <xsd:group ref="toml:MSBContents" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
-    <xsd:attribute name="suspend" type="xsd:string" use="optional"/>
-    <xsd:attribute name="remaining">
-      <xsd:simpleType>
-        <xsd:restriction base="xsd:string">
-          <xsd:pattern value="(-)?[0-9]+"/>
-        </xsd:restriction>
-      </xsd:simpleType>
-    </xsd:attribute>
-    <xsd:attribute name="observed" type="xsd:integer" use="optional"/>
-    <xsd:attribute name="type" type="toml:SpType" fixed="og"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="msb"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:schedBlockGroup"/>
+            <xsd:group ref="toml:MSBContents" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
+        <xsd:attribute name="suspend" type="xsd:string" use="optional"/>
+        <xsd:attribute name="remaining">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(-)?[0-9]+"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="observed" type="xsd:integer" use="optional"/>
+        <xsd:attribute name="type" type="toml:SpType" fixed="og"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="msb"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group   ref="toml:observationGroup"/>
-      <xsd:group   ref="toml:obsContent" minOccurs="0" maxOccurs="unbounded"/>
-      <xsd:element ref="toml:SpIterFolder"/>
-    </xsd:sequence>
-    <xsd:attribute name="msb" type="xsd:boolean"/>
-    <xsd:attribute name="optional" type="xsd:boolean"/>
-    <xsd:attribute name="remaining">
-      <xsd:simpleType>
-        <xsd:restriction base="xsd:string">
-          <xsd:pattern value="(-)?[0-9]+"/>
-        </xsd:restriction>
-      </xsd:simpleType>
-    </xsd:attribute>
-    <xsd:attribute name="observed" type="xsd:integer" use="optional"/>
-    <xsd:attribute name="type" type="toml:SpType" fixed="ob"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
-    <xsd:attribute name="obsnum" type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
-    <xsd:attribute name="suspend" type="xsd:boolean" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group   ref="toml:observationGroup"/>
+            <xsd:group   ref="toml:obsContent" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="toml:SpIterFolder"/>
+        </xsd:sequence>
+        <xsd:attribute name="msb" type="xsd:boolean"/>
+        <xsd:attribute name="optional" type="xsd:boolean"/>
+        <xsd:attribute name="remaining">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(-)?[0-9]+"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="observed" type="xsd:integer" use="optional"/>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ob"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
+        <xsd:attribute name="obsnum" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
+        <xsd:attribute name="suspend" type="xsd:boolean" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpSchedConstObsComp">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group ref="toml:schedConstraintsGroup"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="schedConstraints"/>
-    <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:schedConstraintsGroup"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="schedConstraints"/>
+        <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpTelescopeObsComp">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:group   ref="toml:jac_meta_group"/>
-      <xsd:element ref="toml:BASE"                                maxOccurs="unbounded"/>
-      <xsd:element name="fitsKey"     type="toml:fitsKeyType"    minOccurs="0"/>
-      <xsd:element name="fitsValue"   type="toml:fitsValueType"  minOccurs="0"/>
-      <xsd:element name="pm1"         type="xsd:double"          minOccurs="0"/>
-      <xsd:element name="pm2"         type="xsd:double"          minOccurs="0"/>
-      <xsd:element name="positionInTile" type="xsd:integer"      minOccurs="0"/>
-    </xsd:sequence>
-    <xsd:attribute name="type" type="toml:SpType" fixed="oc"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="targetList"/>
-    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group   ref="toml:jac_meta_group"/>
+            <xsd:element ref="toml:BASE"                                maxOccurs="unbounded"/>
+            <xsd:element name="fitsKey"     type="toml:fitsKeyType"    minOccurs="0"/>
+            <xsd:element name="fitsValue"   type="toml:fitsValueType"  minOccurs="0"/>
+            <xsd:element name="pm1"         type="xsd:double"          minOccurs="0"/>
+            <xsd:element name="pm2"         type="xsd:double"          minOccurs="0"/>
+            <xsd:element name="positionInTile" type="xsd:integer"      minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="targetList"/>
+        <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpDRRecipe">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:any processContents="skip" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="DRRecipe"/>
-    <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:any processContents="skip" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="DRRecipe"/>
+        <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
+    </xsd:complexType>
 </xsd:element>
 
 </xsd:schema>

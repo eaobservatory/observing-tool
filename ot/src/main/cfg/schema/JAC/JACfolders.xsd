@@ -1,110 +1,111 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <xsd:element name="SpIterFolder">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element name="title" type="xsd:string" minOccurs="0"/>
-      <xsd:group   ref="toml:sequenceContent"    minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type" type="toml:SpType" fixed="if"/>
-    <xsd:attribute name="subtype" type="xsd:string"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+            <xsd:element name="title" type="xsd:string" minOccurs="0"/>
+            <xsd:group   ref="toml:sequenceContent"    minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="if"/>
+        <xsd:attribute name="subtype" type="xsd:string"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpLibraryFolder">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:any minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:sequence>
-    <xsd:attribute name="type" type="toml:SpType" fixed="lf"/>
-    <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:any minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="lf"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterChop">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="toml:SECONDARY"/>
-      <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="chop"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+            <xsd:element ref="toml:SECONDARY"/>
+            <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="chop"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterRepeat">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="toml:repeatCount"/>
-      <xsd:element ref="toml:title" minOccurs="0"/>
-      <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="repeat"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+            <xsd:element ref="toml:repeatCount"/>
+            <xsd:element ref="toml:title" minOccurs="0"/>
+            <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="repeat"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterOffset">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selectedOffsetPos" minOccurs="0"/>
-      <xsd:element ref="toml:obsArea"/>
-      <xsd:element ref="toml:title"                      minOccurs="0"/>
-      <xsd:group   ref="toml:sequenceContent"            minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:sequence>
-  <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="offset"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selectedOffsetPos" minOccurs="0"/>
+            <xsd:element ref="toml:obsArea"/>
+            <xsd:element ref="toml:title"                      minOccurs="0"/>
+            <xsd:group   ref="toml:sequenceContent"            minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="offset"/>
+    </xsd:complexType>
 </xsd:element>
 
 <!-- SURVEY CONTAINER -->
 <xsd:element name="SpSurveyContainer">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:group ref="toml:jac_meta_group"/>
-			<xsd:element name="Target" minOccurs="0" maxOccurs="1">
-				<xsd:complexType>
-					<xsd:attribute name="observed" type="xsd:integer"/>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element ref="toml:TargetList" minOccurs="1" maxOccurs="1"/>
-			<xsd:element name="surveyID"  type="xsd:string"  minOccurs="0"/>
-			<xsd:element name="title"  type="xsd:string"  minOccurs="0"/>
-			<xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
-		<xsd:attribute name="subtype" type="xsd:string"  fixed="survey"/>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="choose" type="xsd:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Target" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:attribute name="observed" type="xsd:integer"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element ref="toml:TargetList" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="surveyID"  type="xsd:string"  minOccurs="0"/>
+            <xsd:element name="title"  type="xsd:string"  minOccurs="0"/>
+            <xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
+        <xsd:attribute name="subtype" type="xsd:string"  fixed="survey"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="TargetList">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:element ref="toml:Target" minOccurs="1" maxOccurs="unbounded"/>
-		</xsd:sequence>
-	</xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:Target" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="Target">
-      <xsd:complexType>
-	      <xsd:sequence>
-		      <xsd:element ref="toml:SpTelescopeObsComp" minOccurs="1" maxOccurs="unbounded"/>
-	      </xsd:sequence>
-	      <xsd:attribute name="priority"  type="toml:priorityType"/>
-	      <xsd:attribute name="remaining" type="xsd:integer"/>
-      </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:SpTelescopeObsComp" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="priority"  type="toml:priorityType"/>
+        <xsd:attribute name="remaining" type="xsd:integer"/>
+    </xsd:complexType>
 </xsd:element>
 
 <!-- End of SURVEY CONTAINER -->

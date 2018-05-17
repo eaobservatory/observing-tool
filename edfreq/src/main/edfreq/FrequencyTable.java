@@ -250,8 +250,6 @@ public class FrequencyTable extends JPanel implements ActionListener {
                 widthChoice.setEnabled(false);
             }
 
-            widthChoice.addItemListener(new NumberedBandWidthListener(j));
-
             data[j][0] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
                     -feIF, samplers[j], lowBar, gigToPix, emissionLines);
             data[j][1] = samplers[j];
@@ -421,17 +419,11 @@ public class FrequencyTable extends JPanel implements ActionListener {
 
             } else {
                 lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
-
-                hetEditor.updateLineDetails(null, subsystem);
             }
 
             lineButtons[subsystem].setToolTipText(
                     lineButtons[subsystem].getText());
         }
-
-        hetEditor.updateLineDetails(lineDetails, subsystem);
-        hetEditor.updateCentreFrequency(
-                samplers[subsystem].getCentreFrequency(), subsystem);
 
         lineButtons[subsystem].setToolTipText(
                 lineButtons[subsystem].getText());
@@ -529,34 +521,6 @@ public class FrequencyTable extends JPanel implements ActionListener {
     }
 
     /**
-     * A listener for bandwidth JComboBoxes that has knowledge of the number of
-     * the SideBand whose bandwidth its JComboBox controls.
-     *
-     * The SideBands are numbered from top to bottom starting with 0.
-     */
-    class NumberedBandWidthListener implements ItemListener {
-
-        private int _number;
-
-        NumberedBandWidthListener(int number) {
-            _number = number;
-        }
-
-        public void itemStateChanged(ItemEvent e) {
-            hetEditor.updateBandWidth(
-                    samplers[_number].getBandWidth(), _number);
-            hetEditor.updateChannels(
-                    samplers[_number].getChannels(), _number);
-
-            // Sometimes, if the bandwidth is increased, the band has to be
-            // moved towards the middle of the allowed range in order to fit.
-            // This means a change of the centreFrequency.
-            hetEditor.updateCentreFrequency(
-                    samplers[_number].getCentreFrequency(), _number);
-        }
-    }
-
-    /**
      * A listener for SideBand scroll bars that has knowledge of which SideBand
      * it is connected to.
      *
@@ -573,9 +537,6 @@ public class FrequencyTable extends JPanel implements ActionListener {
         }
 
         private void _processAdjustment(boolean isRightMouseButton) {
-            hetEditor.updateCentreFrequency(
-                    samplers[_number].getCentreFrequency(), _number);
-
             boolean lineClamped = (_number == 0) && (!isRightMouseButton);
 
             if (_number == 0) {
@@ -583,14 +544,10 @@ public class FrequencyTable extends JPanel implements ActionListener {
                     // Skip top subsystem because it is clamped and keeps its
                     // line.  All other subsystem loose their lines.
                     for (int i = 1; i < samplers.length; i++) {
-                        hetEditor.updateLineDetails(null, i);
                         lineButtons[i].setText(HeterodyneEditor.NO_LINE);
                     }
-                } else {
-                    hetEditor.updateLineDetails(null, _number);
                 }
             } else {
-                hetEditor.updateLineDetails(null, _number);
                 lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
             }
 

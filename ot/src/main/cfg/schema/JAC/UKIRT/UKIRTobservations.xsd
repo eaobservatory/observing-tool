@@ -1,64 +1,64 @@
 <xsd:schema targetNamespace="http://omp.eao.hawaii.edu/schema/TOML"
-	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML" 
-	    elementFormDefault="qualified">
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:toml="http://omp.eao.hawaii.edu/schema/TOML"
+            elementFormDefault="qualified">
 
 
 <xsd:element name="SpIterBiasObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
-      <xsd:element ref="toml:repeatCount"/>
-    </xsd:sequence>
-  <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="biasObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
+            <xsd:element ref="toml:repeatCount"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="biasObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterDarkObs">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
-      <xsd:element ref="toml:coadds"/>
-      <xsd:element ref="toml:exposureTime"/>
-      <xsd:element ref="toml:repeatCount"/>
-    </xsd:sequence>
-  <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="darkObs"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
+            <xsd:element ref="toml:coadds"/>
+            <xsd:element ref="toml:exposureTime"/>
+            <xsd:element ref="toml:repeatCount"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="darkObs"/>
+    </xsd:complexType>
 </xsd:element>
 
 
 <xsd:element name="SpIterObserve">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
-      <xsd:element ref="toml:repeatCount"/>
-      <xsd:element ref="toml:title"                  minOccurs="0"/>
-    </xsd:sequence>
-  <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string" fixed="observe"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected" minOccurs="0"/>
+            <xsd:element ref="toml:repeatCount"/>
+            <xsd:element ref="toml:title"                  minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="observe"/>
+    </xsd:complexType>
 </xsd:element>
 
 <xsd:element name="SpIterSky">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
-      <xsd:element name="followOffset"   type="xsd:boolean" minOccurs="0"/>
-      <xsd:element name="randomBoxSize"  type="xsd:double"  minOccurs="0"/>
-      <xsd:element ref="toml:repeatCount"/>
-      <xsd:element name="scaleFactor"    type="xsd:double"  minOccurs="0"/>
-      <xsd:element name="sky"            type="xsd:string"  minOccurs="0"/>
-      <xsd:element name="useRandom"      type="xsd:boolean" minOccurs="0"/>
-    </xsd:sequence>
-  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
-  <xsd:attribute name="subtype" type="xsd:string"  fixed="sky"/>
-  </xsd:complexType>
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
+            <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
+            <xsd:element name="followOffset"   type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="randomBoxSize"  type="xsd:double"  minOccurs="0"/>
+            <xsd:element ref="toml:repeatCount"/>
+            <xsd:element name="scaleFactor"    type="xsd:double"  minOccurs="0"/>
+            <xsd:element name="sky"            type="xsd:string"  minOccurs="0"/>
+            <xsd:element name="useRandom"      type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string"  fixed="sky"/>
+    </xsd:complexType>
 </xsd:element>
 
 

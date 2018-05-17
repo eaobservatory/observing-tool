@@ -233,7 +233,13 @@
                                replace=".."
                                flags="g"
                                byline="false"/>
+                <replaceregexp file="${output.dir.bin}/ompvalidate"
+                               match="${output.dir}"
+                               replace=".."
+                               flags="g"
+                               byline="false"/>
                 <chmod perm="+x" file="${output.dir.bin}/ot"/>
+                <chmod perm="+x" file="${output.dir.bin}/ompvalidate"/>
         </target>
 
         <target name="output">

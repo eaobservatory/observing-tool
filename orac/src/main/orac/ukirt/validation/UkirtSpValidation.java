@@ -1363,8 +1363,7 @@ public class UkirtSpValidation extends SpValidation {
                                 new Vector<ErrorMessage>();
 
                         c.checkSciProgram(root, report);
-                        ErrorMessage.printMessages(report.elements(),
-                                System.out);
+                        ErrorMessage.printMessages(report, System.out);
                         correct_input = true;
 
                         break;
