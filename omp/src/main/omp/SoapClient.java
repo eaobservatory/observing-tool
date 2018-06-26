@@ -23,10 +23,10 @@ import java.net.URL;
 import java.util.Vector;
 import java.util.zip.GZIPInputStream;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import gemini.util.JACLogger;
+import gemini.util.SelectableDialog;
 import org.apache.soap.Header;
 import org.apache.soap.Constants;
 import org.apache.soap.Fault;
@@ -169,11 +169,9 @@ public class SoapClient {
                 logger.error(faultString);
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        JOptionPane.showMessageDialog(null,
-                                "Code:    " + faultCode + "\n"
-                                        + "Problem: " + faultString,
-                                "Error Message",
-                                JOptionPane.ERROR_MESSAGE);
+                        SelectableDialog.showError(
+                            "Code:    " + faultCode + "\n" +
+                            "Problem: " + faultString);
                     }
                 });
             }
@@ -186,8 +184,7 @@ public class SoapClient {
             logger.error(message);
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    JOptionPane.showMessageDialog(null, message,
-                            "SOAP Exception", JOptionPane.ERROR_MESSAGE);
+                    SelectableDialog.showError("SOAP Exception", message);
                 }
             });
         } catch (Exception e) {
