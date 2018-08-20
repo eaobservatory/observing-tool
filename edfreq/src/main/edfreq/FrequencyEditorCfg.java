@@ -55,7 +55,7 @@ public class FrequencyEditorCfg {
     /**
      * Constructor used if no xml configuration file is specified or found.
      */
-    public FrequencyEditorCfg() {
+    private FrequencyEditorCfg() {
         frontEnds = new String[]{
                 "A3m",
                 "A3",
@@ -79,7 +79,7 @@ public class FrequencyEditorCfg {
         frontEndMixers.put("HARP", new String[]{"Single Mixer"});
 
         centreFrequenciesAdjustable = true;
-        receivers = ReceiverList.getReceiverTable();
+        receivers = new Hashtable<String, Receiver>();
     }
 
     /**
@@ -101,7 +101,7 @@ public class FrequencyEditorCfg {
         return _frequencyEditorCfg;
     }
 
-    public static FrequencyEditorCfg getConfiguration(String fileName) {
+    private static FrequencyEditorCfg getConfiguration(String fileName) {
         InstCfgReader rdr = new InstCfgReader(fileName);
         InstCfg instInfo = null;
         String block = null;
