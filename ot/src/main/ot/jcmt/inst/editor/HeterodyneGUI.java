@@ -151,7 +151,7 @@ public class HeterodyneGUI extends JPanel {
         JPanel feSelector = new JPanel();
         feSelector.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder()));
-        feSelector.setLayout(new GridLayout(1, 0, 5, 0));
+        feSelector.setLayout(new GridLayout(0, 4, 5, 5));
 
         feButtons = makeFEGroup();
 
