@@ -21,6 +21,7 @@ package edfreq;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Vector;
 
 import java.io.IOException;
@@ -270,8 +271,25 @@ public class FrequencyEditorCfg {
         }
 
         sb.append("]\n");
-        sb.append("\tfrontEndTable=[" + frontEndTable + "]\n");
-        sb.append("\tfrontEndMixers=[" + frontEndMixers + "]\n");
+        sb.append("\tfrontEndTable={");
+
+        for (Map.Entry<String, String[]> entry: frontEndTable.entrySet()) {
+            sb.append(entry.getKey() + ": [");
+            for (String s: entry.getValue()) {
+                sb.append(s + " ;");
+            }
+            sb.append("] ;");
+        }
+        sb.append("}\n");
+        sb.append("\tfrontEndMixers={");
+        for (Map.Entry<String, String[]> entry: frontEndMixers.entrySet()) {
+            sb.append(entry.getKey() + ": [");
+            for (String s: entry.getValue()) {
+                sb.append(s + " ;");
+            }
+            sb.append("] ;");
+        }
+        sb.append("}\n");
         sb.append("\treceivers=[" + receivers + "]\n");
         sb.append("]");
 
