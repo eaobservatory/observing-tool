@@ -56,28 +56,7 @@ public class FrequencyEditorCfg {
      * Constructor used if no xml configuration file is specified or found.
      */
     private FrequencyEditorCfg() {
-        frontEnds = new String[]{
-                "A3m",
-                "A3",
-                "WB",
-                "WC",
-                "WD",
-                "HARP",
-        };
-
-        // Put the default mode (dsb or ssb) first in the array.
-        frontEndTable.put("A3m", new String[]{"dsb"});
-        frontEndTable.put("A3", new String[]{"dsb"});
-        frontEndTable.put("WB", new String[]{"ssb", "dsb"});
-        frontEndTable.put("WD", new String[]{"ssb", "dsb"});
-        frontEndTable.put("HARP", new String[]{"ssb"});
-
-        frontEndMixers.put("A3m", new String[]{"Single Mixer"});
-        frontEndMixers.put("A3", new String[]{"Single Mixer"});
-        frontEndMixers.put("WB", new String[]{"Single Mixer", "Dual Mixer"});
-        frontEndMixers.put("WD", new String[]{"Single Mixer", "Dual Mixer"});
-        frontEndMixers.put("HARP", new String[]{"Single Mixer"});
-
+        frontEnds = new String[]{};
         centreFrequenciesAdjustable = true;
         receivers = new Hashtable<String, Receiver>();
     }
