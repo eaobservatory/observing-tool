@@ -45,10 +45,9 @@
 
 <xsd:simpleType name="hetFrontEndList">
     <xsd:restriction base="xsd:string">
-        <xsd:enumeration value="A3m"/>
-        <xsd:enumeration value="WB"/>
-        <xsd:enumeration value="WD"/>
         <xsd:enumeration value="HARP"/>
+        <xsd:enumeration value="Uu"/>
+        <xsd:enumeration value="Aweoweo"/>
     </xsd:restriction>
 </xsd:simpleType>
 
