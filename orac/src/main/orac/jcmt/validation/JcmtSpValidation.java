@@ -141,9 +141,8 @@ public class JcmtSpValidation extends SpValidation {
                             frequencyEditorClass.getDeclaredMethod(
                                     "getConfiguration",
                                     new Class[]{});
-                    Object frequencyEditor = frequencyEditorClass.newInstance();
                     Object requencyEditorCfg =
-                            getConfiguration.invoke(frequencyEditor,
+                            getConfiguration.invoke(null,
                                     new Object[]{});
                     Field receiverField =
                             requencyEditorCfg.getClass().getDeclaredField(
@@ -196,8 +195,6 @@ public class JcmtSpValidation extends SpValidation {
                     }
                 } catch (ClassNotFoundException cnfe) {
                     System.out.println("Could not find class " + cnfe);
-                } catch (InstantiationException ie) {
-                    System.out.println("Could not instantiate " + ie);
                 } catch (IllegalAccessException iae) {
                     System.out.println("Could not access " + iae);
                 } catch (NoSuchMethodException nsme) {
