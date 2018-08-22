@@ -111,15 +111,43 @@ public class JcmtSpValidation extends SpValidation {
 
                 /* Check for retired receivers which are still present to allow
                    programmes to be loaded successfully. */
-                if (spInstHeterodyne.getFrontEnd() != null
-                        && spInstHeterodyne.getFrontEnd().equals("A3")) {
-                    report.add(new ErrorMessage(
-                            ErrorMessage.WARNING,
-                            titleString,
-                            "Receiver RxA3 was removed for upgrade in"
-                            + " November 2015.  Please update your program"
-                            + " to use RxA3m and check your observing"
-                            + " frequencies carefully."));
+                if (spInstHeterodyne.getFrontEnd() != null) {
+                    String feName = spInstHeterodyne.getFrontEnd();
+                    if (feName.equals("A3")) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                titleString,
+                                "Receiver RxA3 was removed for upgrade in"
+                                + " November 2015.  Please update your program"
+                                + " to use Uu and check your observing"
+                                + " frequencies carefully."));
+                    }
+                    else if (feName.equals("A3m")) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                titleString,
+                                "Receiver RxA3m was decommissioned in"
+                                + " June 2018.  Please update your program"
+                                + " to use Uu and check your observing"
+                                + " frequencies carefully."));
+
+                    }
+                    else if (feName.equals("WB")) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                titleString,
+                                "Receiver RxWB was removed from service in"
+                                + " April 2014.  Please update your program"
+                                + " to use HARP or Aweoweo and check your observing"
+                                + " frequencies carefully."));
+
+                    }
+                    else if (feName.equals("WD")) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                titleString,
+                                "Receiver RxWD is no longer available."));
+                    }
                 }
 
                 double loMin = 0.0;
