@@ -36,8 +36,10 @@ public class Sampler implements ItemListener {
     /** Front end IF. */
     double feIF;
 
-    /** Instantaneous bandwidth of frontend. */
-    double feBandWidth;
+    /** Instantaneous half-bandwidth of frontend below the central IF. */
+    double feBandWidthLower;
+    /** Instantaneous half-bandwidth of frontend above the central IF. */
+    double feBandWidthUpper;
 
     /** Number of mixers selected on heterodyne panel */
     int nMixers = 1;
@@ -69,12 +71,14 @@ public class Sampler implements ItemListener {
     Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>();
     JComboBox bandWidthChoice;
 
-    public Sampler(double centreFrequency, double feBandWidth,
+    public Sampler(double centreFrequency,
+            double feBandWidthLower, double feBandWidthUpper,
             double[] bandWidthsArray, int[] channelsArray,
             JComboBox bandWidthChoice) {
         this.centreFrequency = centreFrequency;
         this.feIF = centreFrequency;
-        this.feBandWidth = feBandWidth;
+        this.feBandWidthLower = feBandWidthLower;
+        this.feBandWidthUpper = feBandWidthUpper;
         this.bandWidth = bandWidthsArray[0];
         this.bandWidthsArray = bandWidthsArray;
         this.channels = channelsArray[0];
@@ -104,14 +108,14 @@ public class Sampler implements ItemListener {
             // make the new bandWidth fit into the frontend bandwidth.
 
             if (centreFrequency >
-                        (feIF + (0.5 * (feBandWidth - bandWidth)))) {
+                        (feIF + (feBandWidthUpper - (0.5 * bandWidth)))) {
                 this.centreFrequency =
-                        (feIF + (0.5 * (feBandWidth - bandWidth)));
+                        (feIF + (feBandWidthUpper - (0.5 * bandWidth)));
 
             } else if (centreFrequency <
-                        (feIF - (0.5 * (feBandWidth - bandWidth)))) {
+                        (feIF - (feBandWidthLower - (0.5 * bandWidth)))) {
                 this.centreFrequency =
-                        (feIF - (0.5 * (feBandWidth - bandWidth)));
+                        (feIF - (feBandWidthLower - (0.5 * bandWidth)));
             }
         }
 

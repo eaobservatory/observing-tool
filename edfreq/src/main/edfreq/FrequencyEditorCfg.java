@@ -110,10 +110,12 @@ public class FrequencyEditorCfg {
                             double loMin = Double.parseDouble(recList[i][1]);
                             double loMax = Double.parseDouble(recList[i][2]);
                             double feIF = Double.parseDouble(recList[i][3]);
-                            double bw = Double.parseDouble(recList[i][4]);
+                            double bwLower = Double.parseDouble(recList[i][4]);
+                            double bwUpper = Double.parseDouble(recList[i][5]);
 
                             myReceivers.put(recList[i][0], new Receiver(
-                                    myFrontEnds[i], loMin, loMax, feIF, bw));
+                                    myFrontEnds[i], loMin, loMax, feIF,
+                                    bwLower, bwUpper));
                         }
 
                         _frequencyEditorCfg.receivers = myReceivers;

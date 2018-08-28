@@ -319,8 +319,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         // to the front-end IF.  One of the lines should be a CO transition.
         // Find it it use it as default line.
         Vector<SelectionList> moleculeVector = _lineCatalog.returnSpecies(
-                _receiver.loMin + _receiver.feIF + _receiver.bandWidth,
-                _receiver.loMax - _receiver.bandWidth);
+                _receiver.loMin + _receiver.feIF,
+                _receiver.loMax + _receiver.feIF);
 
         String molecule = "CO";
         String transitionName = "";
@@ -352,7 +352,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 "" + bandSpec.defaultOverlaps[0],         // overlap
                 BEST,                                     // band
                 "" + _receiver.feIF,                      // centre frequency
-                "" + _receiver.feIF,                      // centre frequency
+                // The instrument's bandwith setting does not appear to be used anywhere,
+                // so for now just fill in the total: lower half + upper half.
+                // (See also the same thing in feAction.)
+                "" + (_receiver.bandWidthLower + _receiver.bandWidthUpper), // FE bandwidth
                 "" + bandSpec.getDefaultOverlapBandWidths()[0], // bandwidth
                 molecule,                                 // molecule
                 transitionName,                           // transition
@@ -776,10 +779,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         double mainline = _inst.calculateSkyFrequency(0);
         double centre = _inst.getCentreFrequency(0);
         // Check if it is correctly located
-        double halfReceverBandwidth = _receiver.bandWidth * 0.5;
 
-        if (centre <= _receiver.feIF - halfReceverBandwidth
-                || centre >= _receiver.feIF + halfReceverBandwidth) {
+        if (centre <= _receiver.feIF - _receiver.bandWidthLower
+                || centre >= _receiver.feIF + _receiver.bandWidthUpper) {
             centre = _receiver.feIF;
             _inst.setCentreFrequency(centre, 0);
 
@@ -799,20 +801,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         if (centre == _receiver.feIF) {
             double obsmin = _receiver.loMin - _receiver.feIF
-                    - halfReceverBandwidth;
+                    - _receiver.bandWidthUpper;
             double obsmax = _receiver.loMax + _receiver.feIF
-                    + halfReceverBandwidth;
+                    + _receiver.bandWidthUpper;
 
-            if (LSB.equals(band) && mainline < obsmin + halfReceverBandwidth
+            if (LSB.equals(band) && mainline < obsmin + _receiver.bandWidthUpper
                     && !(mainline < obsmin)) {
-                double currentPosition = obsmin + halfReceverBandwidth;
+                double currentPosition = obsmin + _receiver.bandWidthUpper;
                 centre = centre - (mainline - currentPosition);
                 _inst.setCentreFrequency(centre, 0);
 
             } else if ((USB.equals(band) || BEST.equals(band))
-                    && mainline > obsmax - halfReceverBandwidth
+                    && mainline > obsmax - _receiver.bandWidthUpper
                     && !(mainline > obsmax)) {
-                double currentPosition = obsmax - halfReceverBandwidth;
+                double currentPosition = obsmax - _receiver.bandWidthUpper;
                 centre = centre + (mainline - currentPosition);
                 _inst.setCentreFrequency(centre, 0);
             }
@@ -834,16 +836,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 line = -line;
             }
 
-            double halfBandwidth = 0.5
-                    * (_receiver.bandWidth - _inst.getBandWidth(index));
+            double halfInstBandWidth = 0.5 * _inst.getBandWidth(index);
             boolean outOfBand = false;
 
-            if (line > (_receiver.feIF + halfBandwidth)) {
-                line = (_receiver.feIF + halfBandwidth);
+            if (line > (_receiver.feIF + _receiver.bandWidthUpper - halfInstBandWidth)) {
+                line = (_receiver.feIF + _receiver.bandWidthUpper - halfInstBandWidth);
                 outOfBand = true;
 
-            } else if (line < (_receiver.feIF - halfBandwidth)) {
-                line = (_receiver.feIF - halfBandwidth);
+            } else if (line < (_receiver.feIF - _receiver.bandWidthLower + halfInstBandWidth)) {
+                line = (_receiver.feIF - _receiver.bandWidthLower + halfInstBandWidth);
                 outOfBand = true;
             }
 
@@ -883,7 +884,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _receiver = _cfg.receivers.get(feSelected);
             _inst.setFrontEnd(feSelected);
             _inst.setFeIF(_receiver.feIF);
-            _inst.setFeBandWidth(_receiver.bandWidth);
+            // The instrument's bandwith setting does not appear to be used anywhere,
+            // so for now just fill in the total: lower half + upper half.
+            // (See also the same thing in _initialiseInstHeterodyne.)
+            _inst.setFeBandWidth(_receiver.bandWidthLower + _receiver.bandWidthUpper);
             setAvailableModes();
             setAvailableRegions();
 
@@ -1579,10 +1583,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         double redshift = getRedshift();
 
         double obsmin = _receiver.loMin - _receiver.feIF
-                - (_receiver.bandWidth * 0.5);
+                - _receiver.bandWidthUpper;
 
         double obsmax = _receiver.loMax + _receiver.feIF
-                + (_receiver.bandWidth * 0.5);
+                + _receiver.bandWidthUpper;
 
         return new Range(
                 obsmin * (1.0 + redshift),
@@ -1832,7 +1836,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         _frequencyEditor.updateDisplay(_inst.getFrontEnd(), _receiver.loMin,
-                _receiver.loMax, _receiver.feIF, _receiver.bandWidth,
+                _receiver.loMax, _receiver.feIF,
+                _receiver.bandWidthLower, _receiver.bandWidthUpper,
                 mixerCount, getRedshift(),
                 currentBandSpec.getDefaultOverlapBandWidths(),
                 currentBandSpec.getDefaultOverlapChannels(), subbandCount);

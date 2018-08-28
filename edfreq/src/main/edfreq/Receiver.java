@@ -29,16 +29,18 @@ public class Receiver {
     public double loMin; // minimum value of local oscillator (Hz)
     public double loMax; // maximum value of local oscillator (Hz)
     public double feIF; // central IF delivered (Hz)
-    public double bandWidth; // bandwidth of IF (Hz)
+    public double bandWidthLower; // half-bandwidth of IF (Hz) below preferred value
+    public double bandWidthUpper; // half-bandwidth of IF (Hz) above preferred value
     public Vector<BandSpec> bandspecs; // list of possible band specs
 
     public Receiver(String name, double loMin, double loMax, double feIF,
-            double bandWidth) {
+            double bandWidthLower, double bandWidthUpper) {
         this.name = name;
         this.loMin = loMin;
         this.loMax = loMax;
         this.feIF = feIF;
-        this.bandWidth = bandWidth;
+        this.bandWidthLower = bandWidthLower;
+        this.bandWidthUpper = bandWidthUpper;
         bandspecs = new Vector<BandSpec>();
     }
 
@@ -51,7 +53,8 @@ public class Receiver {
                 + " ; loMin=" + loMin
                 + " ; loMax=" + loMax
                 + " ; feIF=" + feIF
-                + " ; bandWidth=" + bandWidth
+                + " ; bandWidthLower=" + bandWidthLower
+                + " ; bandWidthUpper=" + bandWidthUpper
                 + " ; bandSpecs=" + bandspecs + "]";
         return rtn;
     }

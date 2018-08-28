@@ -67,7 +67,8 @@ public class FrequencyTable extends JPanel implements ActionListener {
      * Constructor to create frequency table for the Frequency Editor.
      *
      * @param feIF            Frontend IF mixer frequency (Hz)
-     * @param feBandWidth     Frontend bandwidth (Hz)
+     * @param feBandWidthLower Frontend half-bandwidth (Hz) below preferred IF
+     * @param feBandWidthUpper Frontend half-bandwidth (Hz) above preferred IF
      * @param bandWidths      Bandwidths for each subsystem (Hz)
      * @param channels        Number of channels for each subsystem
      * @param samplerCount    Number of samplers
@@ -78,7 +79,9 @@ public class FrequencyTable extends JPanel implements ActionListener {
      * @param emissionLines   Emissions lines to display
      * @param nMixers         Number of mixers
      */
-    public FrequencyTable(double feIF, double feBandWidth, double[] bandWidths,
+    public FrequencyTable(
+            double feIF, double feBandWidthLower, double feBandWidthUpper,
+            double[] bandWidths,
             int[] channels, int samplerCount, int displayWidth,
             SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor,
             EmissionLines emissionLines, int nMixers) {
@@ -99,10 +102,10 @@ public class FrequencyTable extends JPanel implements ActionListener {
         SideBandScrollBar lowBar;
         SideBandScrollBar highBar;
 
-        lLowLimit = -feIF - (feBandWidth * 0.5);
-        lHighLimit = -feIF + (feBandWidth * 0.5);
-        uLowLimit = feIF - (feBandWidth * 0.5);
-        uHighLimit = feIF + (feBandWidth * 0.5);
+        lLowLimit = -feIF - feBandWidthUpper;
+        lHighLimit = -feIF + feBandWidthLower;
+        uLowLimit = feIF - feBandWidthLower;
+        uHighLimit = feIF + feBandWidthUpper;
 
         /* Create basic pattern of columns */
 
@@ -234,8 +237,9 @@ public class FrequencyTable extends JPanel implements ActionListener {
             }
             widthChoice = new JComboBox(bandWidthItems);
 
-            samplers[j] = new Sampler(feIF, feBandWidth, bandWidths, channels,
-                    widthChoice);
+            samplers[j] = new Sampler(
+                    feIF, feBandWidthLower, feBandWidthUpper, bandWidths,
+                    channels, widthChoice);
             samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
 
             // If the DISALLOW_MULTI_BW system property is used then

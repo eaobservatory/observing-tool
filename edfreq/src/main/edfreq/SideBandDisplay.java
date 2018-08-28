@@ -108,7 +108,8 @@ public class SideBandDisplay extends JFrame implements MouseListener {
     }
 
     public void updateDisplay(String feName, double lRangeLimit,
-            double uRangeLimit, double feIF, double feBandWidth, int nMixers,
+            double uRangeLimit, double feIF,
+            double feBandWidthLower, double feBandWidthUpper, int nMixers,
             double redshift, double[] bandWidths, int[] channels,
             int samplerCount) {
         setTitle("Frequency editor: front end = " + feName);
@@ -126,13 +127,14 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         titlePanel = Box.createVerticalBox();
 
         double mid = 0.5 * (lRangeLimit + uRangeLimit);
-        double lowIF = mid - feIF - (feBandWidth * 0.5);
-        double highIF = mid + feIF + (feBandWidth * 0.5);
+        double lowIF = mid - feIF - feBandWidthUpper;
+        double highIF = mid + feIF + feBandWidthUpper;
 
         el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20,
                 samplerCount);
 
-        jt = new FrequencyTable(feIF, feBandWidth, bandWidths, channels,
+        jt = new FrequencyTable(feIF, feBandWidthLower, feBandWidthUpper,
+                bandWidths, channels,
                 samplerCount, displayWidth, this, hetEditor, el, nMixers);
 
         dataPanel.add(jt, BorderLayout.CENTER);
@@ -496,7 +498,7 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         });
 
         sbt.updateDisplay("Frequency editor test",
-                365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 1, 0.0,
+                365.0E+9, 375.0E+9, 4.0E9, 0.9E9, 0.9E9, 1, 0.0,
                 new double[]{0.25E9, 1.0E9},
                 new int[]{8192, 2048},
                 8);
