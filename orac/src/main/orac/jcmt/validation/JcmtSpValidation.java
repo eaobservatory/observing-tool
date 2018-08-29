@@ -246,7 +246,7 @@ public class JcmtSpValidation extends SpValidation {
                             "Sky frequency of "
                             + String.format("%.3f", skyFrequency / 1.0E9)
                             + " GHz is lower than receiver minimum "
-                            + String.format("%.3f", loMin / 1.0E9)
+                            + String.format("%.3f", (loMin - spInstHeterodyne.getFeIF()) / 1.0E9)
                             + " GHz"));
                 }
 
@@ -258,7 +258,7 @@ public class JcmtSpValidation extends SpValidation {
                             "Sky frequency of "
                             + String.format("%.3f", skyFrequency / 1.0E9)
                             + " GHz is greater than receiver maximum "
-                            + String.format("%.3f", loMax / 1.0E9)
+                            + String.format("%.3f", (loMax  + spInstHeterodyne.getFeIF())/ 1.0E9)
                             + " GHz"));
                 }
 
