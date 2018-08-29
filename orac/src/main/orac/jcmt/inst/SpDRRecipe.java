@@ -31,7 +31,6 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.obsComp.SpDRObsComp;
 
-import java.lang.reflect.Field;
 import java.util.TreeMap;
 
 /**
@@ -55,25 +54,7 @@ public final class SpDRRecipe extends SpDRObsComp {
     public static final String ATTR_POINTING_TYPE = "pointingRecipe";
     public static final String ATTR_FOCUS_TYPE = "focusRecipe";
 
-    /*
-     * availableTypes_instrument arrays must have corresponding
-     * instrument_type in DRRecipeGUI e.g  availableTypes_heterodyne
-     * containing ATTR_RASTER_TYPE = "rasterRecipe" type
-     * must have a heterodyne_rasterRecipe field in DRRecipeGUI.
-     *
-     * Hopefully I will implement a solution soon.
-     */
-    public static final String[] availableTypes_heterodyne = {
-            ATTR_RASTER_TYPE,
-            ATTR_JIGGLE_TYPE,
-            ATTR_STARE_TYPE,
-    };
-
-    // As above
-    public static final String[] availableTypes_scuba2 = {
-            ATTR_RASTER_TYPE,
-            ATTR_STARE_TYPE,
-    };
+    private static TreeMap<String, String[]> availableTypes;
 
     TreeMap<String, TreeMap<String, String>> defaults =
             new TreeMap<String, TreeMap<String, String>>();
@@ -88,11 +69,28 @@ public final class SpDRRecipe extends SpDRObsComp {
     public static final String[] DR_RECIPES = {OBJECT_RECIPE_DEFAULT};
     public static final SpType SP_TYPE = SpType.create(
             SpType.OBSERVATION_COMPONENT_TYPE, "DRRecipe", "DRRecipe");
-    private final Class<? extends SpDRRecipe> whatami = this.getClass();
 
-    // Register the prototype.
     static {
+        // Register the prototype.
         SpFactory.registerPrototype(new SpDRRecipe());
+
+        // Set up arrays of types per instrument type.
+        availableTypes = new TreeMap<String, String[]>();
+
+        availableTypes.put(
+            "heterodyne",
+            new String[] {
+                ATTR_RASTER_TYPE,
+                ATTR_JIGGLE_TYPE,
+                ATTR_STARE_TYPE,
+            });
+
+        availableTypes.put(
+            "scuba2",
+            new String[] {
+                ATTR_RASTER_TYPE,
+                ATTR_STARE_TYPE,
+            });
     }
 
     /**
@@ -167,31 +165,20 @@ public final class SpDRRecipe extends SpDRObsComp {
     }
 
     public String[] getAvailableTypes(String instrument) {
-        String[] availableTypes = new String[0];
-
         if (instrument != null && !instrument.trim().equals("")) {
-            String fieldName = "availableTypes_" + instrument;
+            String[] types = availableTypes.get(instrument);
 
-            try {
-                Field field = whatami.getDeclaredField(fieldName);
-
-                if (field != null) {
-                    Class<?> klass = field.getType();
-
-                    if (klass == String[].class) {
-                        availableTypes = (String[]) field.get(null);
-                    }
-                }
-            } catch (NoSuchFieldException nsfe) {
-                System.out.println(fieldName + " does not appear to exist for "
-                        + whatami.getName() + ". " + nsfe);
-            } catch (IllegalAccessException iae) {
-                System.out.println("You do not appear to have access to "
-                        + fieldName + ". " + iae);
+            if (types != null) {
+                return types;
+            }
+            else {
+                System.out.println(
+                    "Available types do not appear to exist for " +
+                    instrument + ".");
             }
         }
 
-        return availableTypes;
+        return new String[0];
     }
 
     public boolean setRecipeForType(String recipe, String type,

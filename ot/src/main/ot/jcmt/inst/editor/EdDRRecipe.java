@@ -96,24 +96,17 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         _w.reset();
 
         // The recipes
-        TextBoxWidgetExt rtbw = null;
-        CommandButtonWidgetExt cbw = null;
 
-        String[] availableTypes = _spDRRecipe.getAvailableTypes(_instStr);
-
-        for (int index = 0; index < availableTypes.length; index++) {
-            final String type = availableTypes[index];
+        for (final String type: _spDRRecipe.getAvailableTypes(_instStr)) {
             _w.setEnabled(type, true);
-            rtbw = (TextBoxWidgetExt) getWidget(type);
 
-            if (rtbw == null) {
+            CommandButtonWidgetExt cbw = _w.getTypeButton(type);
+
+            if (cbw == null) {
                 System.out.println(type + " not implemented in the GUI");
                 continue;
             }
 
-            rtbw.setEditable(false);
-
-            cbw = (CommandButtonWidgetExt) getWidget(type + "Set");
             cbw.deleteWatchers();
 
             cbw.addWatcher(new CommandButtonWidgetWatcher() {
@@ -122,25 +115,21 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
                     _spDRRecipe.setRecipeForType(_currentRecipeSelected, type,
                             _instStr);
 
-                    TextBoxWidgetExt tbwe = (TextBoxWidgetExt) getWidget(type);
-                    tbwe.setText(_currentRecipeSelected);
+                    _w.getTypeRecipe(type).setText(_currentRecipeSelected);
                 }
             });
         }
 
         // The table of possible recipes
-        TableWidgetExt twe;
-        twe = (TableWidgetExt) getWidget("recipeTable");
-        twe.setColumnHeaders(new String[]{"Recipe Name", "Description"});
-        twe.addWatcher(this);
+        _w.recipeTable.setColumnHeaders(new String[]{"Recipe Name", "Description"});
+        _w.recipeTable.addWatcher(this);
 
         // Get the instrument and display the relevant options.
         _showRecipeType(getInstrumentRecipes());
 
         // button to reset the recipe to default
-        cbw = (CommandButtonWidgetExt) getWidget("defaultName");
-        cbw.deleteWatchers();
-        cbw.addWatcher(new CommandButtonWidgetWatcher() {
+        _w.defaultName.deleteWatchers();
+        _w.defaultName.addWatcher(new CommandButtonWidgetWatcher() {
             public void commandButtonAction(CommandButtonWidgetExt cbw) {
                 _spDRRecipe.setDefaultsForInstrument(_instStr);
                 _currentRecipeSelected = null;
@@ -175,8 +164,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
     private void _showRecipeType(LookUpTable recipes) {
         if (recipes != null) {
             Vector<String>[] rowsV = recipes.getAsVectorArray();
-            TableWidgetExt tw = (TableWidgetExt) getWidget("recipeTable");
-            tw.setRows(rowsV);
+            _w.recipeTable.setRows(rowsV);
         }
     }
 
@@ -187,14 +175,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
         String recipe = null;
 
         // First fill in the text box.
-        TextBoxWidgetExt tbwe;
-
-        String[] availableTypes = _spDRRecipe.getAvailableTypes(_instStr);
-
-        for (int index = 0; index < availableTypes.length; index++) {
-            String type = availableTypes[index];
-            tbwe = (TextBoxWidgetExt) getWidget(type);
-
+        for (String type: _spDRRecipe.getAvailableTypes(_instStr)) {
             try {
                 recipe = _spDRRecipe.getRecipeForType(type);
 
@@ -202,7 +183,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
                     recipe = "";
                 }
 
-                tbwe.setValue(recipe);
+                _w.getTypeRecipe(type).setValue(recipe);
 
             } catch (NullPointerException ex) {
             }
@@ -359,49 +340,5 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
     }
 
     public void actionPerformed(ActionEvent e) {
-    }
-
-    /**
-     * Helper method.
-     *
-     * In EdDRRecipe the widgets of the associated GUI class cannot as easily
-     * be referred to directly as in the subclasses of EdCompInstBase because
-     * the widget names in the freebongo version often comprised an instrument
-     * part and a paramater part (e.g. _instStr, "flatInGroup"). In freebongo
-     * something like this is possible because one gets hold of a widget by
-     * calling the getWidget(String) method on the presentation. If this
-     * method is called with a String that refers to a widget that does not
-     * exist (e.g. "IRCAM3.flatInGroup") then a NullPointerException occurres
-     * which can be called and ignored. This was used in the freebongo version
-     * of this class to handle every widget for every instrument. Whenever a
-     * widget was addressed in the context of an instrument whose GUI panel
-     * does not have this widget that a NullPointerException occurrs and is
-     * ignored. To use a similar approach in the swing version of the OT this
-     * helper method getWidget has been introduced in the EdDRRecipe class.
-     *
-     * ('_' are used instead of '.' to separate instrument name from widget
-     * name.)
-     *
-     * @return widget in DRRecipeGUI or null if specified widget does not
-     *         exist.
-     */
-    protected JComponent getWidget(String widgetName) {
-        try {
-            return (JComponent)
-                    (_w.getClass().getDeclaredField(widgetName).get(_w));
-
-        } catch (NoSuchFieldException e) {
-            if ((System.getProperty("DEBUG") != null)
-                    && System.getProperty("DEBUG").equalsIgnoreCase("ON")) {
-                System.out.println("Could not find widget / component \""
-                        + widgetName + "\".");
-            }
-
-            return null;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

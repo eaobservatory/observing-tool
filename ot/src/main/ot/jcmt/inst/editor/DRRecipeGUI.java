@@ -25,7 +25,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Font;
-import java.lang.reflect.Field;
+import java.util.TreeMap;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -37,45 +37,14 @@ import jsky.app.ot.gui.TableWidgetExt;
 
 @SuppressWarnings("serial")
 public class DRRecipeGUI extends JPanel {
-    Class<? extends DRRecipeGUI> whatami = this.getClass();
-
     JLabel recipeNameLabel = new JLabel();
     JLabel obeservationTypeLabel = new JLabel();
 
-    // Beginning of types
+    private TreeMap<String, Object[]> types = new TreeMap<String, Object[]>();
 
-    JLabel rasterLabel = new JLabel();
-    CommandButtonWidgetExt rasterRecipeSet = new CommandButtonWidgetExt();
-    TextBoxWidgetExt rasterRecipe = new TextBoxWidgetExt();
-    Object[] raster = {rasterRecipeSet, rasterRecipe};
+    public TableWidgetExt recipeTable = new TableWidgetExt();
 
-    JLabel jiggleLabel = new JLabel();
-    CommandButtonWidgetExt jiggleRecipeSet = new CommandButtonWidgetExt();
-    TextBoxWidgetExt jiggleRecipe = new TextBoxWidgetExt();
-    Object[] jiggle = {jiggleRecipeSet, jiggleRecipe};
-
-    JLabel stareLabel = new JLabel();
-    CommandButtonWidgetExt stareRecipeSet = new CommandButtonWidgetExt();
-    TextBoxWidgetExt stareRecipe = new TextBoxWidgetExt();
-    Object[] stare = {stareRecipeSet, stareRecipe};
-
-    JLabel pointingLabel = new JLabel();
-    CommandButtonWidgetExt pointingRecipeSet = new CommandButtonWidgetExt();
-    TextBoxWidgetExt pointingRecipe = new TextBoxWidgetExt();
-    Object[] pointing = {pointingRecipeSet, pointingRecipe};
-
-    JLabel focusLabel = new JLabel();
-    CommandButtonWidgetExt focusRecipeSet = new CommandButtonWidgetExt();
-    TextBoxWidgetExt focusRecipe = new TextBoxWidgetExt();
-    Object[] focus = {focusRecipeSet, focusRecipe};
-
-    Object[] types = {raster, jiggle, stare, pointing, focus};
-
-    // End of types
-
-    TableWidgetExt recipeTable = new TableWidgetExt();
-
-    CommandButtonWidgetExt defaultName = new CommandButtonWidgetExt();
+    public CommandButtonWidgetExt defaultName = new CommandButtonWidgetExt();
 
     // the following names are not very helpful
     JPanel bigPanel = new JPanel();
@@ -114,30 +83,55 @@ public class DRRecipeGUI extends JPanel {
 
         // Beginning of types
 
+        JLabel rasterLabel = new JLabel();
         rasterLabel.setFont(new Font("Dialog", 0, 12));
         rasterLabel.setForeground(Color.black);
         rasterLabel.setText("Scan");
+        CommandButtonWidgetExt rasterRecipeSet = new CommandButtonWidgetExt();
         rasterRecipeSet.setText("Set");
+        TextBoxWidgetExt rasterRecipe = new TextBoxWidgetExt();
+        rasterRecipe.setEditable(false);
+        types.put("raster", new Object[] {rasterRecipeSet, rasterRecipe});
 
+        JLabel jiggleLabel = new JLabel();
         jiggleLabel.setFont(new Font("Dialog", 0, 12));
         jiggleLabel.setForeground(Color.black);
         jiggleLabel.setText("Jiggle");
+        CommandButtonWidgetExt jiggleRecipeSet = new CommandButtonWidgetExt();
+        TextBoxWidgetExt jiggleRecipe = new TextBoxWidgetExt();
+        jiggleRecipe.setEditable(false);
         jiggleRecipeSet.setText("Set");
+        types.put("jiggle", new Object[] {jiggleRecipeSet, jiggleRecipe});
 
+        JLabel stareLabel = new JLabel();
         stareLabel.setFont(new Font("Dialog", 0, 12));
         stareLabel.setForeground(Color.black);
         stareLabel.setText("Stare");
+        CommandButtonWidgetExt stareRecipeSet = new CommandButtonWidgetExt();
         stareRecipeSet.setText("Set");
+        TextBoxWidgetExt stareRecipe = new TextBoxWidgetExt();
+        stareRecipe.setEditable(false);
+        types.put("stare", new Object[] {stareRecipeSet, stareRecipe});
 
+        JLabel pointingLabel = new JLabel();
         pointingLabel.setFont(new Font("Dialog", 0, 12));
         pointingLabel.setForeground(Color.black);
         pointingLabel.setText("Pointing");
+        CommandButtonWidgetExt pointingRecipeSet = new CommandButtonWidgetExt();
         pointingRecipeSet.setText("Set");
+        TextBoxWidgetExt pointingRecipe = new TextBoxWidgetExt();
+        pointingRecipe.setEditable(false);
+        types.put("pointing", new Object[] {pointingRecipeSet, pointingRecipe});
 
+        JLabel focusLabel = new JLabel();
         focusLabel.setFont(new Font("Dialog", 0, 12));
         focusLabel.setForeground(Color.black);
         focusLabel.setText("Focus");
+        CommandButtonWidgetExt focusRecipeSet = new CommandButtonWidgetExt();
         focusRecipeSet.setText("Set");
+        TextBoxWidgetExt focusRecipe = new TextBoxWidgetExt();
+        focusRecipe.setEditable(false);
+        types.put("focus", new Object[] {focusRecipeSet, focusRecipe});
 
         // End of types
 
@@ -233,33 +227,24 @@ public class DRRecipeGUI extends JPanel {
         reset();
     }
 
-    public void setEnabled(String type, boolean enabled) {
-        Object[] typeFields = null;
-
+    private Object[] getTypeFields(String type) {
         if (type.endsWith("Recipe")) {
             type = type.substring(0, type.indexOf("Recipe"));
         }
 
-        try {
-            Field field = whatami.getDeclaredField(type);
+        return types.get(type);
+    }
 
-            if (field != null) {
-                Class<?> klass = field.getType();
+    public void setEnabled(String type, boolean enabled) {
+        Object[] typeFields = getTypeFields(type);
 
-                if (klass == Object[].class) {
-                    typeFields = (Object[]) field.get(this);
-                }
-
-                setEnabled(typeFields, enabled);
-            }
-
-        } catch (NoSuchFieldException nsfe) {
-            System.out.println(type + " does not appear to exist for "
-                    + whatami.getName() + ". " + nsfe);
-
-        } catch (IllegalAccessException iae) {
-            System.out.println("You do not appear to have access to " + type
-                    + ". " + iae);
+        if (typeFields != null) {
+            setEnabled(typeFields, enabled);
+        }
+        else {
+            System.out.println(
+                "Widgets do not appear to exist for recipe type " +
+                type);
         }
     }
 
@@ -278,9 +263,24 @@ public class DRRecipeGUI extends JPanel {
         }
     }
 
+    public CommandButtonWidgetExt getTypeButton(String type) {
+        Object[] typeFields = getTypeFields(type);
+        if (typeFields != null) {
+            return (CommandButtonWidgetExt) typeFields[0];
+        }
+        return null;
+    }
+
+    public TextBoxWidgetExt getTypeRecipe(String type) {
+        Object[] typeFields = getTypeFields(type);
+        if (typeFields != null) {
+            return (TextBoxWidgetExt) typeFields[1];
+        }
+        return null;
+    }
+
     public void reset() {
-        for (int index = 0; index < types.length; index++) {
-            Object[] typeFields = (Object[]) types[index];
+        for (Object[] typeFields: types.values()) {
             setEnabled(typeFields, false);
         }
     }
