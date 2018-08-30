@@ -32,7 +32,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Method;
 import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -85,14 +84,8 @@ public class TreeWidgetExt extends JPanel {
         tree.setShowsRootHandles(true);
         tree.setCellRenderer(new TreeWidgetCellRenderer());
 
-        // disable double-click (is there an easier way to do this?)
-        try {
-            Method m = tree.getClass().getMethod("setToggleClickCount",
-                    new Class[]{int.class});
-            m.invoke(tree, new Object[]{new Integer(3)});
-        } catch (Exception e) {
-            throw new RuntimeException(e.toString());
-        }
+        // disable double-click
+        tree.setToggleClickCount(3);
 
         scrollPane = new JScrollPane(tree);
         JPanel panel = new JPanel();
