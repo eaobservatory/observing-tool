@@ -37,8 +37,6 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -72,8 +70,7 @@ public class SideBandDisplay extends JFrame implements MouseListener {
 
     private Container contentPane;
 
-    private Object callBackObject = null;
-    private Method callBackMethod = null;
+    private Runnable callBackRunnable = null;
 
     public SideBandDisplay(HeterodyneEditor hetEditor) {
         super("Frequency editor");
@@ -528,42 +525,20 @@ public class SideBandDisplay extends JFrame implements MouseListener {
     }
 
     /**
-     * Sets an object to call back and it's method name by which to call it.
+     * Sets a callback runnable.
      *
-     * Method should take no arguments.
-     * If method cannot be found, call back will fail.
-     *
-     * @param object - object to call back.
-     * @param methodName - name of the method to be called on this object.
+     * @param runnable - action to be performed
      */
-    public void setCallback(Object object, String methodName) {
-        try {
-            callBackMethod = object.getClass().getMethod(methodName,
-                    new Class<?>[0]);
-            callBackObject = object;
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+    public void setCallback(Runnable callback) {
+        callBackRunnable = callback;
     }
 
     /**
-     * Calls an object by its call back method.
-     *
-     * If call back has not been correctly set up it will fail.
+     * Calls the callback runnable.
      */
     private void callBack() {
-        if (callBackObject != null && callBackMethod != null) {
-            try {
-                callBackMethod.invoke(callBackObject, new Object[0]);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
+        if (callBackRunnable != null) {
+            callBackRunnable.run();
         }
     }
 }

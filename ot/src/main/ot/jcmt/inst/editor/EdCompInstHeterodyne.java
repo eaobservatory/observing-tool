@@ -1880,7 +1880,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             }
         }
 
-        _frequencyEditor.setCallback(this, "hideFreqEditor");
+        _frequencyEditor.setCallback(new Runnable() {
+            public void run() {
+                hideFreqEditor();
+            }
+        });
     }
 
     private void getFrequencyEditorConfiguration() {
