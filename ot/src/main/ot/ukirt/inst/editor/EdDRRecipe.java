@@ -386,7 +386,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
             recipe = _spDRRecipe.getBiasRecipeName();
             tbwe.setValue(recipe);
             cbwe = _w.getTypeInGroup(_instStr, "bias");
-            cbwe.setValue(_spDRRecipe.getFocusInGroup());
+            cbwe.setValue(_spDRRecipe.getBiasInGroup());
         } catch (NullPointerException ex) {
         }
 
