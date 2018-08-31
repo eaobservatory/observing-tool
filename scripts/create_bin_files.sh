@@ -30,5 +30,5 @@ set CLASSPATH = $1
 
 END
 
-    cat ot/src/main/scripts/$FILESRC >> output/bin/$FILE
+    cat src/main/scripts/$FILESRC >> output/bin/$FILE
 done

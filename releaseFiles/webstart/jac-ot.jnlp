@@ -22,10 +22,6 @@
 		<!-- LIB -->
 		<jar href="lib/ot.jar"/>
 		<jar href="lib/cfg.jar"/>
-		<jar href="lib/omp.jar"/>
-		<jar href="lib/orac.jar"/>
-		<jar href="lib/edfreq.jar"/>
-		<jar href="lib/gemini.jar"/>
 		<!-- TOOLS -->
 		<jar href="lib/hamcrest-core-1.3.jar"/>
 		<jar href="lib/image.jar"/>

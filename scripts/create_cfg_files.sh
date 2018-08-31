@@ -18,12 +18,12 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # TAU LIST FILE
-pushd ot/src/main/cfg/jcmt
+pushd src/main/cfg/jcmt
 ls tau*.dat > tau.list
 popd
 
 # VERSION FILES
 DATE=`date '+%Y%m%d'`
 VERSION=`git log | head -n 1 | cut -f2 -d ' '`
-echo "$DATE [$VERSION]" > ot/src/main/cfg/jcmt/versionFile
-echo "$DATE [$VERSION]" > ot/src/main/cfg/ukirt/versionFile
+echo "$DATE [$VERSION]" > src/main/cfg/jcmt/versionFile
+echo "$DATE [$VERSION]" > src/main/cfg/ukirt/versionFile
