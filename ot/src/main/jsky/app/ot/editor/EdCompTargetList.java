@@ -108,7 +108,6 @@ public class EdCompTargetList extends OtItemEditor implements
     public static final String LABEL_DEC = "Dec";
 
     // Frequently used widgets
-    private DropDownListBoxWidgetExt _tag; // Object ID/Type
     private DropDownListBoxWidgetExt _type; // Object type
     protected TextBoxWidgetExt _name; // Object Name
     protected TextBoxWidgetExt _xaxis; // RA/Az
@@ -299,10 +298,6 @@ public class EdCompTargetList extends OtItemEditor implements
             }
         });
 
-        // Get a reference to the "Tag" drop down, and initialize its choices
-        _tag = _w.tagDDLBW;
-        _tag.addChoice(SpTelescopePos.BASE_TAG);
-
         _guideTags = SpTelescopePos.getGuideStarTags();
 
         if (_guideTags != null && _guideTags.length > 0) {
@@ -310,15 +305,6 @@ public class EdCompTargetList extends OtItemEditor implements
             _w.newButton.setModel(new DefaultComboBoxModel(_guideTags));
             _w.newButton.addActionListener(this);
         }
-
-        // User tags are not used at the moment. (MFO, 19 Decemtber 2001)
-
-        _tag.addWatcher(new DropDownListBoxWidgetWatcher() {
-            public void dropDownListBoxAction(DropDownListBoxWidgetExt dd,
-                    int i, String newTag) {
-                _changeTag(newTag);
-            }
-        });
 
         _name = _w.nameTBW;
         _name.addWatcher(new TextBoxWidgetWatcher() {
@@ -699,12 +685,6 @@ public class EdCompTargetList extends OtItemEditor implements
      * Show the given SpTelescopePos.
      */
     public void showPos(SpTelescopePos tp) {
-        if (tp.getTag().startsWith(SpTelescopePos.USER_TAG)) {
-            _tag.setValue(SpTelescopePos.USER_TAG);
-        } else {
-            _tag.setValue(tp.getTag());
-        }
-
         _name.setValue(tp.getName());
 
         if (tp.isOffsetPosition()) {
@@ -956,11 +936,6 @@ public class EdCompTargetList extends OtItemEditor implements
 
         _w.removeButton.setEnabled(
                 !_curPos.getTag().equals(SpTelescopePos.BASE_TAG));
-
-        // Make sure the tag selection is disabled while the base position
-        /// is selected. The base position tag cannot be changed.
-        _tag.setEnabled(!_tag.getValue().equals(SpTelescopePos.BASE_TAG)
-                && _nextTag() != null);
 
         String nextTag = _nextTag();
 
@@ -1817,43 +1792,6 @@ public class EdCompTargetList extends OtItemEditor implements
                 }
             }
         }).execute();
-    }
-
-    private void _changeTag(String newTag) {
-        String oldTag = _curPos.getTag();
-
-        if (_tpl.exists(newTag)) {
-            DialogUtil.error(newTag + " exists.");
-            _tag.setValue(oldTag);
-
-            return;
-        }
-
-        if (oldTag.startsWith(SpTelescopePos.USER_TAG)) {
-            oldTag = SpTelescopePos.USER_TAG;
-        }
-
-        if (oldTag.equals(newTag)) {
-            return;
-        }
-
-        // Don't allow changes from BASE_TAG to anything else.  We always
-        // want to have a Base.
-        if (oldTag.equals(SpTelescopePos.BASE_TAG)) {
-            DialogUtil.error("You can't change the type of the Base Position.");
-            _tag.setValue(SpTelescopePos.BASE_TAG);
-            return;
-        }
-
-        _tpl.changeTag(_curPos, newTag);
-
-        // Update newButton
-
-        String nextTag = _nextTag();
-
-        if (nextTag == null) {
-            _w.newButton.setEnabled(false);
-        }
     }
 
     private String _nextTag() {

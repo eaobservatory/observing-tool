@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20180124</ot_version>
+  <ot_version>20180626</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -41,7 +41,7 @@ The recipe in these sequences (JITTER) assumes that you will have a seperate fla
       <title>5 point 3.2 arcsec jitter</title>
       <totalDuration units="seconds">270.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <estimatedDuration units="seconds">270.0</estimatedDuration>
         <standard>false</standard>
         <title>Observation</title>
@@ -2505,29 +2505,32 @@ The two MSBs called M83 show an example of a complete MSB with a target componen
       <priority>99</priority>
       <title>WFCAM_FLIP_FAST</title>
       <totalDuration units="seconds">1951.5</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
+      <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation should flip a target between camera's 3 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 3, while the "Skies" should be with the target in camera 2.  
+        <note>This observation will flip a target between camera's 3 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 3, while the "Skies" should be with the target in camera 2.  
 
 It executes a 2x2 microstep sequence at every stop in the jitter pattern with the target in camera 3 before switching to camera 2.  
 
 How to prepare the Target Component:
 1- enter the coordinates of the center of your main target
-2- note that the offsets (-765 -765) will automatically move it to camera 3
-3- change the yOff to +765
+2- note that the offsets (-795, -795) will automatically move it to camera 3
+3- change the yOff to +795
 4- click on Add Sky (lower left). This will add the correct sky position that will put your target on camera 2
 5- click again on "Base" in the list of target, so that it is highlighted
-6- Revert back the yOff to -765
+6- Revert back the yOff to -795
 
-At this point you have the two positions, and all you need to do is to add guide stars.
-Using Plot, start the position editor and add a guide star for your Base position.
+At this point you have the two positions, and all you need to do is to add guide stars. Click on the "Plot" button, which will launch the Position Editor. 
 
-Adding a guide star to your sky position requires a little more work.
-Create a new temporary program and set up an MSB with the your "Sky" position as the base, select a guide star 
-In your original MSB, highlight "guide" and click on "Add Skyguide". This will create a Sky-Guide which is a copy of your "guide"
-Highlight "Skyguide", replace its coordinates with the coodinates of the "guide" you identified in your temporary MSB.
-Save the currnt MSB and discard your temporary MSB.</note>
-        <title>What this observation does</title>
+Selecting an image:On the position editor, select  Catalog - Image Servers - Digitized Sky at JAC (WFCAM Size). This will display a large image on the guider covering the science area at the base position, and the guider areas at the base and sky positions.
+
+Selecting a catalog for the guide star: Select Catalog - Catalogs - USNO catalog at ESO (this is a good one, other catalogs are also available). This will plot all the cataloged objects on the image displayed on the positions editor.
+
+Adding guide star to your base position:
+Click on "WFCAM AG"; this will draw a rhombus showing the field of the WFCAM guider at the base position. Highlight the "GUIDE" button and click on the brightest (but fainter than R=8.5 mag) cataloged object. This object will get added as the primary guide star for the base position. Selecting GUIDE2 is optional.
+
+Adding guide star to your sky position:
+Click on "WFCAM SKY AG"; this will draw a rhombus showing the field of the WFCAM guider at the sky position. Highlight the "SKYGUIDE" button and click on a cataloged object within the SKY AG rhombus. This will get added as the guide star for the sky position.</note>
+        <title>What this observation does, and how to set up</title>
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2611,8 +2614,8 @@ Save the currnt MSB and discard your temporary MSB.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -3002,8 +3005,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -3398,8 +3401,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -3468,11 +3471,11 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <title>DARKS</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -3725,29 +3728,32 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       <priority>1</priority>
       <title>WFCAM_FLIP_SLOW</title>
       <totalDuration units="seconds">3175.5</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
+      <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation should flip a target between camera's 3 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 3, while the "Skies" should be with the target in camera 2.  
+        <note>This observation will flip a target between camera's 3 and 2 so that alternate frames can be used for sky-subtraction.  Note that the "Observes" should be with the target in camera 3, while the "Skies" should be with the target in camera 2.  
 
-It executes a 2x2 microstep sequence AND a 5-point jitter pattern with the target in camera 3 before switching to camera 2 and repeating the 5x2x2=20 exposures.  It is therefore more efficient than FLIP_FAST though it switches between cameras (and therefore samples sky) less frequently.
+It executes a 2x2 microstep sequence AND a 5-point jitter pattern with the target in camera 3 before switching to camera 2 and repeating the same set of observations.  It is therefore more efficient than FLIP_FAST though it switches between cameras (and therefore samples sky) less frequently.
 
 How to prepare the Target Component:
 1- enter the coordinates of the center of your main target
-2- note that the offsets (-765 -765) will automatically move it to camera 3
-3- change the yOff to +765
+2- note that the offsets (-795, -795) will automatically move it to camera 3
+3- change the yOff to +795
 4- click on Add Sky (lower left). This will add the correct sky position that will put your target on camera 2
 5- click again on "Base" in the list of target, so that it is highlighted
-6- Revert back the yOff to -765
+6- Revert back the yOff to -795
 
-At this point you have the two positions, and all you need to do is to add guide stars.
-Using Plot, start the position editor and add a guide star for your Base position.
+At this point you have the two positions, and all you need to do is to add guide stars. Click on the "Plot" button, which will launch the Position Editor. 
 
-Adding a guide star to your sky position requires a little more work.
-Create a new temporary program and set up an MSB with the your "Sky" position as the base, select a guide star 
-In your original MSB, highlight "guide" and click on "Add Skyguide". This will create a Sky-Guide which is a copy of your "guide"
-Highlight "Skyguide", replace its coordinates with the coodinates of the "guide" you identified in your temporary MSB.
-Save the currnt MSB and discard your temporary MSB.</note>
-        <title>What this observation does</title>
+Selecting an image:On the position editor, select  Catalog - Image Servers - Digitized Sky at JAC (WFCAM Size). This will display a large image on the guider covering the science area at the base position, and the guider areas at the base and sky positions.
+
+Selecting a catalog for the guide star: Select Catalog - Catalogs - USNO catalog at ESO (this is a good one, other catalogs are also available). This will plot all the cataloged objects on the image displayed on the positions editor.
+
+Adding guide star to your base position:
+Click on "WFCAM AG"; this will draw a rhombus showing the field of the WFCAM guider at the base position. Highlight the "GUIDE" button and click on the brightest (but fainter than R=8.5 mag) cataloged object. This object will get added as the primary guide star for the base position. Selecting GUIDE2 is optional.
+
+Adding guide star to your sky position:
+Click on "WFCAM SKY AG"; this will draw a rhombus showing the field of the WFCAM guider at the sky position. Highlight the "SKYGUIDE" button and click on a cataloged object within the SKY AG rhombus. This will get added as the guide star for the sky position.</note>
+        <title>What this observation does, and how to set up</title>
       </SpNote>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3831,8 +3837,8 @@ Save the currnt MSB and discard your temporary MSB.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -4092,8 +4098,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -4358,8 +4364,8 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
-              <DC1>-765.0</DC1>
-              <DC2>-765.0</DC2>
+              <DC1>-795.0</DC1>
+              <DC2>-795.0</DC2>
             </OFFSET>
           </BASE>
         </SpTelescopeObsComp>
@@ -6780,7 +6786,7 @@ You MUST use the recipe JITTER_SKY in this mode.</note>
       <title>WFCAM_SKY_FAST</title>
       <totalDuration units="seconds">1334.5</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <estimatedDuration units="seconds">38.5</estimatedDuration>
         <standard>false</standard>
         <title>Change Filter and Flush - H</title>
@@ -6855,7 +6861,7 @@ NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply us
       </SpNote>
       <SpSurveyContainer type="sc" subtype="survey">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <meta_gui_selectedTelObsComp>0</meta_gui_selectedTelObsComp>
+        <meta_gui_selectedTelObsComp>1</meta_gui_selectedTelObsComp>
             <TargetList>
                         <Target priority="1" remaining="1">
                                       <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -7701,7 +7707,7 @@ NOTE - selecting a SKYGUIDE is a little tricky.  The easiest way is to simply us
             <readMode>CDS</readMode>
           </SpInstWFCAM>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterRepeat type="ic" subtype="repeat">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <repeatCount>1</repeatCount>

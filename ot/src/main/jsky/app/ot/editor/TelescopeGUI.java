@@ -88,10 +88,8 @@ public class TelescopeGUI extends JPanel {
             new CommandButtonWidgetExt(); // MFO
     TextBoxWidgetExt xaxisTBW = new TextBoxWidgetExt();
     JLabel Dec_El_STW = new JLabel();
-    DropDownListBoxWidgetExt tagDDLBW = new DropDownListBoxWidgetExt();
     JLabel RA_Az_STW = new JLabel();
     JLabel jLabel3 = new JLabel();
-    JLabel jLabel2 = new JLabel();
     JLabel jLabel1 = new JLabel();
     DropDownListBoxWidgetExt systemDDLBW = new DropDownListBoxWidgetExt();
     TextBoxWidgetExt yaxisTBW = new TextBoxWidgetExt();
@@ -231,10 +229,6 @@ public class TelescopeGUI extends JPanel {
         jLabel3.setText("System");
         jLabel3.setForeground(Color.black);
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setText("    Tag ");
-        jLabel2.setForeground(Color.black);
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setLabelFor(tagDDLBW);
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Name ");
@@ -260,7 +254,6 @@ public class TelescopeGUI extends JPanel {
         removeButton.setMargin(new Insets(2, 2, 2, 2));
         removeButton.setText("Remove");
         this.setPreferredSize(new Dimension(360, 400));
-        tagDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
         targetTypeDDList.setFont(new java.awt.Font("Dialog", 0, 12));
         systemDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel16.setText("Dec");
@@ -434,8 +427,6 @@ public class TelescopeGUI extends JPanel {
                 new Insets(0, 0, 0, 0), 0, 0));
         nameTagPanel.add(jLabel1);
         nameTagPanel.add(nameTBW);
-        nameTagPanel.add(jLabel2);
-        nameTagPanel.add(tagDDLBW);
         nameTagPanel.add(targetType);
         nameTagPanel.add(targetTypeDDList);
         nameTagPanel.validate();

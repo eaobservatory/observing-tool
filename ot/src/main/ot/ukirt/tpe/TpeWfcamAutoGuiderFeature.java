@@ -29,12 +29,15 @@ package ot.ukirt.tpe;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Point2D;
 
 import jsky.app.ot.tpe.TpeImageFeature;
 import jsky.app.ot.tpe.TpeImageWidget;
+import jsky.app.ot.tpe.TpePositionMap;
 
 import jsky.app.ot.fits.gui.FitsImageInfo;
 
+import gemini.sp.SpTelescopePos;
 import gemini.util.Angle;
 import gemini.util.PolygonD;
 
@@ -66,14 +69,19 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature {
      */
     public static final double AUTOGUIDER_ANGLE = 46.8;
 
-    private PolygonD _autoguiderAreaPD;
-    private boolean _valid = false;
+    private PolygonD _autoguiderAreaPD = null;
+    private String positionName;
 
     /**
      * Construct the feature with its name and description.
      */
     public TpeWfcamAutoGuiderFeature() {
-        super("WFCAM AG", "WFCAM Autoguider Footprint");
+        this("WFCAM AG", "WFCAM Autoguider Footprint", null);
+    }
+
+    protected TpeWfcamAutoGuiderFeature(String name, String descr, String positionName) {
+        super(name, descr);
+        this.positionName = positionName;
     }
 
     /**
@@ -81,18 +89,16 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature {
      */
     public void reinit(TpeImageWidget iw, FitsImageInfo fii) {
         super.reinit(iw, fii);
-        _valid = false;
     }
 
     /**
      * The position angle has changed.
      */
     public void posAngleUpdate(FitsImageInfo fii) {
-        _valid = false;
     }
 
     /**
-     * Calculate the polygon describing the screen location of the science
+     * Calculate the polygon describing the screen location of the auto guider
      * area.
      */
     private void _calc(FitsImageInfo fii) {
@@ -132,18 +138,49 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature {
         _iw.skyRotate(_autoguiderAreaPD,
                 Angle.degreesToRadians(AUTOGUIDER_ANGLE));
 
-        _valid = true;
+        // If we're not plotting around the base position, apply offsets to
+        // the polygon corners.  Do this by getting the position the same way
+        // that TpeGuidePosFeature does and subtracting the base position.
+        if (positionName != null) {
+            TpePositionMap pm = TpePositionMap.getMap(_iw);
+            Point2D.Double base = pm.getLocationFromTag(SpTelescopePos.BASE_TAG);
+            Point2D.Double pos = null;
+
+            if (positionName == "SKY") {
+                for (String tag: SpTelescopePos.getSkyTags()) {
+                    Point2D.Double thisPos = pm.getLocationFromTag(tag);
+                    if (thisPos != null) {
+                        pos = thisPos;
+                        break;
+                    }
+                }
+            }
+
+            if ((pos == null) || (base == null)) {
+                // Didn't find a tag: unset the polygon and abort.
+                _autoguiderAreaPD = null;
+                return;
+            }
+
+            double xoff = pos.x - base.x;
+            double yoff = pos.y - base.y;
+
+            for (int i = 0; i < 5; i ++) {
+                _autoguiderAreaPD.xpoints[i] += xoff;
+                _autoguiderAreaPD.ypoints[i] += yoff;
+            }
+        }
     }
 
     /**
      * Draw the feature.
      */
     public void draw(Graphics g, FitsImageInfo fii) {
-        if (!_valid) {
-            _calc(fii);
-        }
+        _calc(fii);
 
-        g.setColor(Color.magenta);
-        g.drawPolygon(_autoguiderAreaPD.getAWTPolygon());
+        if (_autoguiderAreaPD != null) {
+            g.setColor(Color.magenta);
+            g.drawPolygon(_autoguiderAreaPD.getAWTPolygon());
+        }
     }
 }

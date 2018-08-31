@@ -42,6 +42,7 @@ import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
 import gemini.util.HHMMSS;
+import gemini.util.Format;
 import gemini.util.RADec;
 import gemini.util.TelescopePos;
 
@@ -668,11 +669,10 @@ public class SpValidation {
                     }
                 }
 
-                String pmRA = pos.getPropMotionRA();
-                String pmDec = pos.getPropMotionDec();
+                double pmRA = Format.toDouble(pos.getPropMotionRA());
+                double pmDec = Format.toDouble(pos.getPropMotionDec());
 
-                if (!(((pmRA == null) || "".equals(pmRA))
-                            && ((pmDec == null) || "".equals(pmDec)))) {
+                if ((pmRA != 0.0) || (pmDec != 0.0)) {
                     String pmEpoch = pos.getTrackingEpoch();
 
                     if (pmEpoch == null || "".equals(pmEpoch)) {
@@ -699,38 +699,28 @@ public class SpValidation {
 
                     }
 
-                    String pmParallax = pos.getTrackingParallax();
+                    double pmParallax = Format.toDouble(pos.getTrackingParallax());
 
-                    if (pmParallax == null
-                                || "".equals(pmParallax)
-                                || "0".equals(pmParallax)) {
+                    if (pmParallax == 0.0) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 itemString,
                                 "Parallax not specified with proper motion."));
 
                     } else {
-                        try {
-                            double parallax = Double.parseDouble(pmParallax);
-                            double pmCombined = Math.sqrt(
-                                Math.pow(Double.parseDouble(pmRA), 2.0) +
-                                Math.pow(Double.parseDouble(pmDec), 2.0));
+                        double pmCombined = Math.sqrt(
+                            Math.pow(pmRA, 2.0) +
+                            Math.pow(pmDec, 2.0));
 
-                            // Current ERFA limits PM to 0.5c and min parallax
-                            // to 1E-7".  (3.162"/year at that distance.  Check
-                            // here for 2.0"/year to give a margin of safety.)
-                            if (pmCombined > (2.0E7 * parallax)) {
-                                report.add(new ErrorMessage(
-                                        ErrorMessage.WARNING,
-                                        itemString,
-                                        "Proper motion is very large for " +
-                                        "specified parallax distance.  It " +
-                                        "may be ignored."));
-                            }
-
-                        } catch (NumberFormatException e) {
-                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                        // Current ERFA limits PM to 0.5c and min parallax
+                        // to 1E-7".  (3.162"/year at that distance.  Check
+                        // here for 2.0"/year to give a margin of safety.)
+                        if (pmCombined > (2.0E7 * pmParallax)) {
+                            report.add(new ErrorMessage(
+                                    ErrorMessage.WARNING,
                                     itemString,
-                                    "Could not parse parallax or PM."));
+                                    "Proper motion is very large for " +
+                                    "specified parallax distance.  It " +
+                                    "may be ignored."));
                         }
                     }
                 }
