@@ -1,3 +1,11 @@
++++ August 2018 release
+
+  - The WFCAM template library has been updated.
+
+  - The WFCAM AG can now be plotted at the SKY position.
+
+  - Checking for proper motion values in the validator has been improved.
+
 +++ May 2018 release
 
   - The WFCAM template library has been updated.

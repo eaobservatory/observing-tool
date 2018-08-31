@@ -1,3 +1,7 @@
++++ August 2018 release
+
+  - Checking for proper motion values in the validator has been improved.
+
 +++ May 2018 release
 
   - The ACSIS library has been updated.
