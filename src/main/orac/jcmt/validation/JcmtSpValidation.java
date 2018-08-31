@@ -52,9 +52,9 @@ import orac.jcmt.iter.SpIterNoiseObs;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.iter.SpIterPOL;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Field;
+import edfreq.BandSpec;
+import edfreq.FrequencyEditorCfg;
+import edfreq.Receiver;
 
 /**
  * Validation Tool for JCMT.
@@ -156,82 +156,20 @@ public class JcmtSpValidation extends SpValidation {
                 double[] bandwidths = null;
                 int systems = new Integer(spInstHeterodyne.getBandMode());
 
-                /*
-                 * We cannot use anything in edfreq here as it causes a build
-                 * problem. So we have to load dynamically.
-                 *
-                 * Abandon hope all ye who enter here !
-                 */
-                try {
-                    Class<?> frequencyEditorClass =
-                            Class.forName("edfreq.FrequencyEditorCfg");
-                    Method getConfiguration =
-                            frequencyEditorClass.getDeclaredMethod(
-                                    "getConfiguration",
-                                    new Class[]{});
-                    Object requencyEditorCfg =
-                            getConfiguration.invoke(null,
-                                    new Object[]{});
-                    Field receiverField =
-                            requencyEditorCfg.getClass().getDeclaredField(
-                                    "receivers");
-                    Object receivers = receiverField.get(requencyEditorCfg);
-                    Method get = receivers.getClass().getDeclaredMethod(
-                            "get", new Class[]{Object.class});
-                    Object receiver = get.invoke(receivers,
-                            new Object[]{spInstHeterodyne.getFrontEnd()});
-                    Field loMinField =
-                            receiver.getClass().getDeclaredField("loMin");
-                    Field loMaxField =
-                            receiver.getClass().getDeclaredField("loMax");
-                    Object loMinObject = loMinField.get(receiver);
-                    Object loMaxObject = loMaxField.get(receiver);
+                FrequencyEditorCfg requencyEditorCfg =
+                        FrequencyEditorCfg.getConfiguration();
 
-                    if (loMinObject instanceof Double) {
-                        loMin = (Double) loMinObject;
-                    }
+                Receiver receiver = requencyEditorCfg.receivers.get(
+                        spInstHeterodyne.getFrontEnd());
 
-                    if (loMaxObject instanceof Double) {
-                        loMax = (Double) loMaxObject;
-                    }
+                loMin = receiver.loMin;
+                loMax = receiver.loMax;
 
-                    Field bandSpecs = receiver.getClass().getDeclaredField(
-                            "bandspecs");
-                    Object bandSpecVector = bandSpecs.get(receiver);
+                BandSpec bandSpec = receiver.bandspecs.get(systems - 1);
 
-                    if (bandSpecVector instanceof Vector) {
-                        Vector receiverBandSpecs = (Vector) bandSpecVector;
-                        Object bandSpec = receiverBandSpecs.get(systems - 1);
-                        Field overlapField = bandSpec.getClass().getField(
-                                "defaultOverlaps");
-                        Object overlapObject = overlapField.get(bandSpec);
+                defaultOverlaps = bandSpec.defaultOverlaps;
 
-                        if (overlapObject instanceof double[]) {
-                            defaultOverlaps = (double[]) overlapObject;
-                        }
-
-                        Method getBandwidths =
-                                bandSpec.getClass().getDeclaredMethod(
-                                        "getDefaultOverlapBandWidths",
-                                        new Class[]{});
-                        Object bandwidthsObject = getBandwidths.invoke(
-                                bandSpec, new Object[]{});
-
-                        if (bandwidthsObject instanceof double[]) {
-                            bandwidths = (double[]) bandwidthsObject;
-                        }
-                    }
-                } catch (ClassNotFoundException cnfe) {
-                    System.out.println("Could not find class " + cnfe);
-                } catch (IllegalAccessException iae) {
-                    System.out.println("Could not access " + iae);
-                } catch (NoSuchMethodException nsme) {
-                    System.out.println("Could not find method " + nsme);
-                } catch (InvocationTargetException ite) {
-                    System.out.println("Could not invoke method " + ite);
-                } catch (NoSuchFieldException nsfe) {
-                    System.out.println("Could not find field " + nsfe);
-                }
+                bandwidths = bandSpec.getDefaultOverlapBandWidths();
 
                 // Use a newly-calculated sky frequency (but don't store it to
                 // avoid unnecessary changes to the science program) in order
