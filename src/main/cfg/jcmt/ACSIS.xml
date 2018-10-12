@@ -93,7 +93,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -288,7 +288,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -485,7 +485,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -690,7 +690,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -897,7 +897,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -1095,7 +1095,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -1304,7 +1304,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -1503,7 +1503,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -1717,7 +1717,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -1922,7 +1922,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -2142,7 +2142,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -2362,7 +2362,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="5.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                    <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
                 </subsystem>
             </subsystems>
 
@@ -2601,7 +2601,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -2803,7 +2803,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -3007,7 +3007,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -3220,7 +3220,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -3435,7 +3435,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -3641,7 +3641,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -3858,7 +3858,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -4065,7 +4065,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5 " rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -4287,7 +4287,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5" rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -4500,7 +4500,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5" rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -4728,7 +4728,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5" rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -4956,7 +4956,7 @@ Things to include in your notes
 
             <subsystems>
                 <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                    <line species="CO" transition="6  - 5" rest_freq="6.914730763E11"/>
+                    <line species="CO" transition="6 - 5" rest_freq="6.914730763E11"/>
                 </subsystem>
             </subsystems>
 
@@ -5152,7 +5152,7 @@ Issue to consider may be:
 
           <subsystems>
               <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
-                  <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
+                  <line species="CO" transition="2 - 1" rest_freq="2.30538E11"/>
               </subsystem>
           </subsystems>
 
@@ -5239,7 +5239,7 @@ Issue to consider may be:
 
           <subsystems>
               <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
-                  <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
+                  <line species="CO" transition="2 - 1" rest_freq="2.30538E11"/>
               </subsystem>
           </subsystems>
 
@@ -5418,7 +5418,7 @@ calibration and science targets.</note>
 
           <subsystems>
               <subsystem if="5.0E9" bw="1.0E9" overlap="0.0" channels="2048">
-                  <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                  <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
               </subsystem>
           </subsystems>
 
@@ -5660,7 +5660,7 @@ calibration and science targets.</note>
 
           <subsystems>
               <subsystem if="5.0E9" bw="1.0E9" overlap="0.0" channels="2048">
-                  <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                  <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
               </subsystem>
           </subsystems>
 
@@ -5988,7 +5988,7 @@ calibration and science targets.</note>
 
           <subsystems>
               <subsystem if="5.0E9" bw="1.0E9" overlap="0.0" channels="2048">
-                  <line species="CO" transition="3  - 2 " rest_freq="3.457959899E11"/>
+                  <line species="CO" transition="3 - 2" rest_freq="3.457959899E11"/>
               </subsystem>
           </subsystems>
 
