@@ -155,6 +155,8 @@ public class TelescopePosEditorToolBar extends JToolBar {
                 "Acq Cam",
                 "OIWFS",
                 "",
+                "",
+                "",
         };
 
         if (orient == VERTICAL) {
