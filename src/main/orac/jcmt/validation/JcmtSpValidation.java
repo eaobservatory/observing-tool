@@ -403,9 +403,7 @@ public class JcmtSpValidation extends SpValidation {
                     }
 
                 } else if (switchingMode.equals(
-                                SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)
-                        || switchingMode.equals(
-                                SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
+                                SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)) {
                     if (target != null
                             && !(target.getPosList().exists("REFERENCE"))) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
@@ -432,6 +430,12 @@ public class JcmtSpValidation extends SpValidation {
                                 "Frequency-switched observation has a"
                                 + " frequency throw of greater than 32 MHz."));
                     }
+                } else if (switchingMode.equals(
+                                SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
+                    report.add(new ErrorMessage(
+                        ErrorMessage.ERROR,
+                        titleString,
+                        "Slow frequency switching should no longer be used."));
                 }
             } else if (obsComp != null && !(obsComp instanceof SpInstSCUBA2)) {
                 report.add(new ErrorMessage(ErrorMessage.ERROR, titleString,
