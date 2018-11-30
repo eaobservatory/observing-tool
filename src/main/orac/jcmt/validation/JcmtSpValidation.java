@@ -40,6 +40,7 @@ import gemini.util.CoordSys;
 import gemini.util.DDMMSS;
 import gemini.util.HHMMSS;
 import gemini.util.RADec;
+import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpDRRecipe;
@@ -351,13 +352,56 @@ public class JcmtSpValidation extends SpValidation {
                     }
                 } else if (switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_POSITION)) {
-                    if (target != null
-                            && !(target.getPosList().exists("REFERENCE"))) {
-                        report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                titleString,
-                                "Position-switched observation"
-                                + " requires a REFERENCE target."));
+                    if (target != null) {
+                        SpTelescopePos refPos = (SpTelescopePos)
+                            target.getPosList().getPosition("REFERENCE");
+                        if (refPos == null) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                    titleString,
+                                    "Position-switched observation"
+                                    + " requires a REFERENCE target."));
+                        } else {
+                            double offRA = 0.0;
+                            double offDec = 0.0;
+
+                            try {
+                                if (refPos.isOffsetPosition()) {
+                                    offRA = refPos.getXaxis();
+                                    offDec = refPos.getYaxis();
+                                } else {
+                                    SpTelescopePos basePos = target.getPosList().getBasePosition();
+                                    RADec refConverted = CoordConvert.convert(
+                                        refPos.getXaxis(), refPos.getYaxis(),
+                                        refPos.getCoordSys(), basePos.getCoordSys());
+
+                                    double baseRA = basePos.getXaxis();
+                                    double baseDec = basePos.getYaxis();
+                                    double[] offsets = RADecMath.getOffset(
+                                        refConverted.ra, refConverted.dec,
+                                        baseRA, baseDec);
+
+                                    offRA = offsets[0] * Math.cos(Math.toRadians(baseDec));
+                                    offDec = offsets[1];
+                                }
+
+                                if (Math.sqrt(offRA * offRA + offDec * offDec) < 120.0) {
+                                    report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "Position-switched observation REFERENCE"
+                                        + " is within 120 arcseconds from target."));
+                                }
+                            } catch (UnsupportedOperationException uoe) {
+                                // Can be thrown by CoordConvert.convert.
+                                report.add(new ErrorMessage(
+                                    ErrorMessage.WARNING,
+                                    titleString,
+                                    "Could not check REFERENCE distance for"
+                                    + " this coordinate type."));
+                            }
+                        }
                     }
+
                 } else if (switchingMode.equals(
                                 SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)
                         || switchingMode.equals(
