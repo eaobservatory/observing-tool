@@ -871,7 +871,7 @@ defined in the Gnomonic (TAN) projection.
 
 <p>
 The science observation itself is represented within the MSB by the
-"Stare" eye or (in the case of <a href="#rxa_rast_example">classical
+"Stare" eye or (in the case of <a href="#namakanui_rast_example">classical
 and basket weave rasters</a>) a "Scan" eye. Click
 on it to display the details of the
 observation. The pull down menu near the top of the right hand frame
@@ -1273,9 +1273,9 @@ mode-specific components in the JCMT OT.
 <h3 id="het_centering">Centering the Observations</h3>
 
 <p>
-RxA and RxW at any time observe only a single position on the sky and
+Namakanui at any time observes only a single position on the sky and
 by default the target-position will be centered on the receptor:
-they are <i>receptor-centered</i>.
+it is <i>receptor-centered</i>.
 </p>
 
 <p>
@@ -1704,15 +1704,15 @@ observations into multiple passes over the map.
 
 <p>
 Setting up scan maps is significantly different when using a
-<a href="#rxa_rast_example">non-array receiver</a> (i.e. RxA or RxW), or
+<a href="#namakanui_rast_example">non-array receiver</a> (i.e. Namakanui), or
 an <a href="#harp_rast_example">array receiver</a> (i.e. HARP).
 Please see the examples below for each type of receiver.
 </p>
 
-<h4 id="rxa_rast_example">Making a Scan Map With a Non-Array Receiver (RxA/RxW)</h4>
+<h4 id="namakanui_rast_example">Making a Scan Map With a Non-Array Receiver (Namakanui)</h4>
 
 <p>
-When using a single-pixel receiver such as RxA or RxW, the "sample
+When using a single-pixel receiver such as Namakanui, the "sample
 spacing" will be the pixel-size along scan direction of the
 telescope. The "scan spacing" will be the pixel-size in the cross-scan
 direction i.e. between the scanned rows. Be aware that there will be a
@@ -1723,7 +1723,7 @@ between the <em>centers</em> of the outermost pixels!
 </p>
 
 <p>
-Suppose, for example, that you want to use RxA to make a 238"x28"
+Suppose, for example, that you want to use &#x02bb;&#x016a;&#x02bb;&#x016b; to make a 238"x28"
 map. A sample spacing of 7" and scan spacing of 7" will result in a
 pixel map of 35x5. Note that it is customary to over-sample the
 scan-direction to counter-act smearing, although this often requires a
@@ -2395,8 +2395,10 @@ There are several options for calibrations and ways to customize them:
                 calibration needs to be done at a different frequency, another
                 "Het Setup" component needs to be added inside the Calibration Observation. This will
                 result in the appropriate re-tune between the calibrator and the
-                science target. This should not be done for the manually tuned
-                RxW. <b>WARNING:</b> If you include a calibration observation in this manner,
+                science target.
+                </p>
+                <p>
+                <b>WARNING:</b> If you include a calibration observation in this manner,
                 both your target and calibration source must be observable before the
                 MSB can be scheduled, which can severely restrict the night-time
                 available to the project in case of an unfortunate combination of
