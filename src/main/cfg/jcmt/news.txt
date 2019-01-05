@@ -1,3 +1,12 @@
++++ January 2019 release
+
+  - Support for Namakanui has been added.
+
+  - The validator now checks whether the distance to a position-switch
+    reference position is extremely small.
+
+  - The OT is now built as a single package.
+
 +++ August 2018 release
 
   - Checking for proper motion values in the validator has been improved.

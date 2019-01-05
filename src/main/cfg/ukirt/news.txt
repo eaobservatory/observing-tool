@@ -1,3 +1,9 @@
++++ January 2019 release
+
+  - Offset positions should be viewable again in the position editor.
+
+  - The OT is now built as a single package.
+
 +++ August 2018 release
 
   - The WFCAM template library has been updated.
