@@ -34,7 +34,6 @@ import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.util.HeterodyneNoise;
-import ot.util.DialogUtil;
 
 /**
  * This is the editor for Jiggle Observe Mode iterator component.
@@ -125,16 +124,6 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements
                     _iterObs.setSeparateOffs(true);
                     _iterObs.setContinuumMode(false);
                     _w.contModeCB.setSelected(false);
-                }
-
-                if (SWITCHING_MODE_FREQUENCY_F.equals(switchingMode)) {
-                    SpInstHeterodyne heterodyne = (SpInstHeterodyne) instObsComp;
-
-                    if (heterodyne.getFrontEnd().startsWith("W")) {
-                        DialogUtil.error(null, "Fast frequency switching"
-                                + " not currently available for RxW");
-                        _iterObs.setSwitchingMode(SWITCHING_MODE_POSITION);
-                    }
                 }
 
                 _w.contModeCB.setSelected(_iterObs.isContinuum());
