@@ -2,11 +2,7 @@
 .*.swp
 /output
 /docs/javadoc
-/gemini/src/output
-/orac/src/output
-/omp/src/output
-/edfreq/src/output
-/ot/src/output
-/ot/src/main/cfg/jcmt/tau.list
-/ot/src/main/cfg/jcmt/versionFile
-/ot/src/main/cfg/ukirt/versionFile
+/src/output
+/src/main/cfg/jcmt/tau.list
+/src/main/cfg/jcmt/versionFile
+/src/main/cfg/ukirt/versionFile

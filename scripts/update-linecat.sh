@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ../jelly/lineCatalog.xml ot/src/main/cfg/jcmt/lineCatalog.xml
+cp ../jelly/lineCatalog.xml src/main/cfg/jcmt/lineCatalog.xml

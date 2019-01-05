@@ -1,3 +1,3 @@
 #!/bin/bash
 
-git merge -s recursive -X subtree=orac/src/main/orac/helptool javahelp
+git merge -s recursive -X subtree=src/main/orac/helptool javahelp
