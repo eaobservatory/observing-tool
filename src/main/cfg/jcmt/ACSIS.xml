@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>ACSIS.xml</meta_gui_filename>
-  <ot_version>20171114</ot_version>
+  <ot_version>20181130</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -18,11 +18,11 @@
           <SpInstHeterodyneRef idref="1"/>
           <SpSiteQualityObsCompRef idref="2"/>
           <SpTelescopeObsCompRef idref="0"/>
-          <estimatedDuration units="seconds">227.0</estimatedDuration>
+          <estimatedDuration units="seconds">962.0000000000001</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch stare</title>
-          <totalDuration units="seconds">227.0</totalDuration>
+          <totalDuration units="seconds">962.0000000000001</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -188,7 +188,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">227.0</estimatedDuration>
+            <estimatedDuration units="seconds">962.0000000000001</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -198,7 +198,7 @@ Issue to consider may be:
                 <repeatCount>1</repeatCount>
                 <SpIterStareObs type="ic" subtype="stareObs">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <secsPerCycle>60</secsPerCycle>
+                  <secsPerCycle>360</secsPerCycle>
                   <separateOffs>true</separateOffs>
                   <stareSystem>TRACKING</stareSystem>
                   <switchingMode>Position</switchingMode>
@@ -213,11 +213,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="5"/>
           <SpSiteQualityObsCompRef idref="6"/>
           <SpTelescopeObsCompRef idref="4"/>
-          <estimatedDuration units="seconds">238.0</estimatedDuration>
+          <estimatedDuration units="seconds">927.9999999999999</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Beam-switch stare</title>
-          <totalDuration units="seconds">238.0</totalDuration>
+          <totalDuration units="seconds">927.9999999999999</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -373,7 +373,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">238.0</estimatedDuration>
+            <estimatedDuration units="seconds">927.9999999999999</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -391,7 +391,7 @@ Issue to consider may be:
                   </SECONDARY>
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
-                    <secsPerCycle>60</secsPerCycle>
+                    <secsPerCycle>360</secsPerCycle>
                     <stareSystem>TRACKING</stareSystem>
                     <switchingMode>Beam</switchingMode>
                   </SpIterStareObs>
@@ -410,11 +410,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="9"/>
           <SpSiteQualityObsCompRef idref="10"/>
           <SpTelescopeObsCompRef idref="8"/>
-          <estimatedDuration units="seconds">232.0</estimatedDuration>
+          <estimatedDuration units="seconds">967.0000000000001</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Position-switch grid</title>
-          <totalDuration units="seconds">232.0</totalDuration>
+          <totalDuration units="seconds">967.0000000000001</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -580,7 +580,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">232.0</estimatedDuration>
+            <estimatedDuration units="seconds">967.0000000000001</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -600,7 +600,7 @@ Issue to consider may be:
                   </obsArea>
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
-                    <secsPerCycle>60</secsPerCycle>
+                    <secsPerCycle>360</secsPerCycle>
                     <separateOffs>true</separateOffs>
                     <switchingMode>Position</switchingMode>
                   </SpIterStareObs>
@@ -615,11 +615,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="13"/>
           <SpSiteQualityObsCompRef idref="14"/>
           <SpTelescopeObsCompRef idref="12"/>
-          <estimatedDuration units="seconds">243.0</estimatedDuration>
+          <estimatedDuration units="seconds">932.9999999999999</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Beam-switch grid</title>
-          <totalDuration units="seconds">243.0</totalDuration>
+          <totalDuration units="seconds">932.9999999999999</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -775,7 +775,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">243.0</estimatedDuration>
+            <estimatedDuration units="seconds">932.9999999999999</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -803,7 +803,7 @@ Issue to consider may be:
                     </SECONDARY>
                     <SpIterStareObs type="ic" subtype="stareObs">
                       <meta_gui_collapsed>false</meta_gui_collapsed>
-                      <secsPerCycle>60</secsPerCycle>
+                      <secsPerCycle>360</secsPerCycle>
                       <switchingMode>Beam</switchingMode>
                     </SpIterStareObs>
                   </SpIterChop>
@@ -822,11 +822,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="17"/>
           <SpSiteQualityObsCompRef idref="18"/>
           <SpTelescopeObsCompRef idref="16"/>
-          <estimatedDuration units="seconds">252.4</estimatedDuration>
+          <estimatedDuration units="seconds">862.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Jiggle-chop</title>
-          <totalDuration units="seconds">252.4</totalDuration>
+          <totalDuration units="seconds">862.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -982,7 +982,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">252.4</estimatedDuration>
+            <estimatedDuration units="seconds">862.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -1002,11 +1002,11 @@ Issue to consider may be:
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <continuumMode>false</continuumMode>
                     <jigglePa>0.0</jigglePa>
-                    <jigglePattern>3x3</jigglePattern>
+                    <jigglePattern>HARP5</jigglePattern>
                     <jigglePerCycle>1</jigglePerCycle>
                     <jiggleSystem>TRACKING</jiggleSystem>
-                    <scaleFactor>10.0</scaleFactor>
-                    <secsPerCycle>10</secsPerCycle>
+                    <scaleFactor>6.0</scaleFactor>
+                    <secsPerCycle>20</secsPerCycle>
                     <switchingMode>Beam</switchingMode>
                   </SpIterJiggleObs>
                 </SpIterChop>
@@ -1020,11 +1020,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="21"/>
           <SpSiteQualityObsCompRef idref="22"/>
           <SpTelescopeObsCompRef idref="20"/>
-          <estimatedDuration units="seconds">257.4</estimatedDuration>
+          <estimatedDuration units="seconds">867.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Jiggle-chop offset</title>
-          <totalDuration units="seconds">257.4</totalDuration>
+          <totalDuration units="seconds">867.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -1180,7 +1180,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">257.4</estimatedDuration>
+            <estimatedDuration units="seconds">867.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -1210,11 +1210,11 @@ Issue to consider may be:
                       <meta_gui_collapsed>false</meta_gui_collapsed>
                       <continuumMode>false</continuumMode>
                       <jigglePa>0.0</jigglePa>
-                      <jigglePattern>3x3</jigglePattern>
+                      <jigglePattern>HARP5</jigglePattern>
                       <jigglePerCycle>1</jigglePerCycle>
                       <jiggleSystem>TRACKING</jiggleSystem>
-                      <scaleFactor>10.0</scaleFactor>
-                      <secsPerCycle>10</secsPerCycle>
+                      <scaleFactor>6.0</scaleFactor>
+                      <secsPerCycle>20</secsPerCycle>
                       <switchingMode>Beam</switchingMode>
                     </SpIterJiggleObs>
                   </SpIterChop>
@@ -1229,11 +1229,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="25"/>
           <SpSiteQualityObsCompRef idref="26"/>
           <SpTelescopeObsCompRef idref="24"/>
-          <estimatedDuration units="seconds">237.5</estimatedDuration>
+          <estimatedDuration units="seconds">955.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Jiggle position-switch</title>
-          <totalDuration units="seconds">237.5</totalDuration>
+          <totalDuration units="seconds">955.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -1399,7 +1399,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">237.5</estimatedDuration>
+            <estimatedDuration units="seconds">955.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -1411,11 +1411,11 @@ Issue to consider may be:
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <continuumMode>false</continuumMode>
                   <jigglePa>0.0</jigglePa>
-                  <jigglePattern>3x3</jigglePattern>
+                  <jigglePattern>HARP5</jigglePattern>
                   <jigglePerCycle>1</jigglePerCycle>
                   <jiggleSystem>TRACKING</jiggleSystem>
-                  <scaleFactor>10.0</scaleFactor>
-                  <secsPerCycle>10</secsPerCycle>
+                  <scaleFactor>6.0</scaleFactor>
+                  <secsPerCycle>20</secsPerCycle>
                   <switchingMode>Position</switchingMode>
                 </SpIterJiggleObs>
               </SpIterRepeat>
@@ -1428,11 +1428,11 @@ Issue to consider may be:
           <SpInstHeterodyneRef idref="29"/>
           <SpSiteQualityObsCompRef idref="30"/>
           <SpTelescopeObsCompRef idref="28"/>
-          <estimatedDuration units="seconds">242.5</estimatedDuration>
+          <estimatedDuration units="seconds">960.0</estimatedDuration>
           <library_version>$Revision$</library_version>
           <priority>99</priority>
           <title>Jiggle position-switch offset</title>
-          <totalDuration units="seconds">242.5</totalDuration>
+          <totalDuration units="seconds">960.0</totalDuration>
           <SpNote observeInstruction="true" type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A note about notes
@@ -1598,7 +1598,7 @@ Issue to consider may be:
           </SpTelescopeObsComp>
           <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <estimatedDuration units="seconds">242.5</estimatedDuration>
+            <estimatedDuration units="seconds">960.0</estimatedDuration>
             <standard>false</standard>
             <title>Science Observation</title>
             <SpIterFolder type="if" subtype="none">
@@ -1620,11 +1620,11 @@ Issue to consider may be:
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <continuumMode>false</continuumMode>
                     <jigglePa>0.0</jigglePa>
-                    <jigglePattern>3x3</jigglePattern>
+                    <jigglePattern>HARP5</jigglePattern>
                     <jigglePerCycle>1</jigglePerCycle>
                     <jiggleSystem>TRACKING</jiggleSystem>
-                    <scaleFactor>10.0</scaleFactor>
-                    <secsPerCycle>10</secsPerCycle>
+                    <scaleFactor>6.0</scaleFactor>
+                    <secsPerCycle>20</secsPerCycle>
                     <switchingMode>Position</switchingMode>
                   </SpIterJiggleObs>
                 </SpIterOffset>
