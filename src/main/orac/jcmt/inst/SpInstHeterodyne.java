@@ -56,9 +56,7 @@ import java.util.Vector;
  * combined bandwidth.<p>
  *
  * <tt>H====================H</tt> is an individual subband (as in the hardware).
- * The methods {@link getIndividualSubBandWidth(int)} and
- * {@link getIndividualSubBandChannels(int)} refer to this individual
- * bandwidth.<p>
+ * <p>
  *
  * Note that even in non-hybrid more <tt>C====C</tt> and <tt>H======H</tt> are not the
  * same as half the overlap is taken of either side of <tt>C====C</tt>.
@@ -114,8 +112,8 @@ import java.util.Vector;
  * | |              |   |              |              |                    |
  * | |              |   |              |              |                    |
  * | |              |   |              |              |                    |
- * | |       {@link #getOverlap(int)}              {@link #getIndividualSubBandWidth(int)}    (as in hardware)
- * | |                                 |           {@link #getIndividualSubBandChannels(int)} (as in hardware)
+ * | |       {@link #getOverlap(int)}
+ * | |                                 |
  * | |                                 |
  * | |                                 |
  * | |                                 |
@@ -180,8 +178,6 @@ import java.util.Vector;
  * |\_______________________________                                       |
  * |
  * |                                                                       |
- * |    {@link #getIndividualSubBandWidth(int)}, {@link #getIndividualSubBandChannels(int)}
- * |                            (as in hardware)                           |
  *
  * </pre>
  *
@@ -764,64 +760,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         setCentreFrequency(Format.toDouble(value), subsystem);
     }
 
-    public double[] getSubBandCentreFrequencies(int subsystem) {
-        int numHybridSubBands = getNumHybridSubBands(subsystem);
-
-        double[] result = new double[numHybridSubBands];
-
-        if (numHybridSubBands == 1) {
-            result[0] = getCentreFrequency(subsystem);
-            return result;
-        }
-
-        double centre = getCentreFrequency(subsystem);
-        double bw = getBandWidth(subsystem);
-
-        int j = (numHybridSubBands / 2) - 1;
-        int k = (numHybridSubBands / 2);
-
-        for (int i = 1; i < numHybridSubBands; i += 2) {
-            result[j] = centre
-                    - ((((double) i) / (2.0 * ((double) numHybridSubBands)))
-                            * bw);
-            result[k] = centre
-                    + ((((double) i) / (2.0 * ((double) numHybridSubBands)))
-                            * bw);
-
-            j--;
-            k++;
-        }
-
-        return result;
-    }
-
-    /**
-     * Sets bandwidth and channel number related values.
-     *
-     * @param bandwidth Bandwidth reduced by (numHybridSubBands * overlap)
-     *                  This accounts for the subtraction of half the overlap
-     *                  on either side of the entire combined band as well as
-     *                  the overlap between individual subbands.
-     * @param overlap   The overlap is used in two ways: (1) as the the overlap
-     *                  between individual subbands and (2) half the overlap is
-     *                  used to as the amount that is subtracted from either
-     *                  side of the entire combined band.
-     * @param numHybridSubBands Number of individual hybrid subbands that make
-     *                  up this entire combined band.
-     * @param channels  Number of channels reduced in accordance with the overlap
-     * @param channelsTotal Total number of channels (as if there was a 0-overlap)
-     * @param subsystem Subsystem to which these parameters apply.
-     */
-    public void setBandWidthDetails(double bandwidth, double overlap,
-            int numHybridSubBands, int channels, int channelsTotal,
-            int subsystem) {
-        setBandWidth(bandwidth, subsystem);
-        setOverlap(overlap, subsystem);
-        setNumHybridSubBands(numHybridSubBands, subsystem);
-        setChannels(channels, subsystem);
-        _avTable.set(ATTR_CHANNELS_TOTAL, channelsTotal, subsystem);
-    }
-
     /**
      * Get bandwidth of specified subsystem.
      *
@@ -992,56 +930,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         }
 
         return scienceArea;
-    }
-
-    /**
-     * Get the bandwidth of one subband one or several of which
-     * make up the specified subsystem.
-     *
-     * Hybrid subsystems can be made up of several subbands.
-     *
-     * The value returned by this method corresponds to the actual bandwidth
-     * of an actual subband in hardware ignoring hybrid modes and overlaps etc.
-     * In the case of acsis this method should always return 250 or 1000.
-     *
-     * @param Number of subsystems (starting at 0).
-     *
-     * @see #getIndividualSubBandWidth(int)
-     * @see <a href="#bandwidthAndChannels">Bandwidth and Channel methods</a>
-     */
-    public double getIndividualSubBandWidth(int subsystem) {
-        // getBandWidth(subsystem) returns the combined bandwidth
-        // that can contain several individual hybrid subbands and
-        // is reduced according due to the overlapping of adjacent
-        // hybrid subbands (by getOverlap(subsystem)) AND it has
-        // 0.5 * getOverlap(subsystem) taken of either side of
-        // the resulting combined bandwidth.
-        //
-        // That is why the individual subband bandwidth is calculated as below.
-
-        return (getBandWidth(subsystem)
-                        / ((double) getNumHybridSubBands(subsystem)))
-                + getOverlap(subsystem);
-    }
-
-    /**
-     * Get the number channels of one subband one or several of which
-     * make up the specified subsystem.
-     *
-     * Hybrid subsystems can be made up of several subbands.
-     *
-     * The value returned by this method corresponds to the actual number
-     * of the channels of an actual subband in hardware ignoring hybrid modes
-     * and overlaps etc.  In the case of acsis this method should always
-     * return 1024, 2048 etc.
-     *
-     * @param Number of subsystems (starting at 0).
-     *
-     * @see #getIndividualSubBandWidth(int)
-     * @see <a href="#bandwidthAndChannels">Bandwidth and Channel methods</a>
-     */
-    public int getIndividualSubBandChannels(int subsystem) {
-        return getChannelsTotal(subsystem) / getNumHybridSubBands(subsystem);
     }
 
     /**
