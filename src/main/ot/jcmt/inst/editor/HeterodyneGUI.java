@@ -64,7 +64,7 @@ public class HeterodyneGUI extends JPanel {
             FrequencyEditorCfg.getConfiguration();
 
     /** Available sideband modes. */
-    public static final String[] SIDEBAND_MODES = {"ssb", "dsb"};
+    public static final String[] SIDEBAND_MODES = {"ssb", "dsb", "2sb"};
 
     /** Subsytems available. */
     public static final int[] SUBSYSTEMS = {1, 2, 3, 4};

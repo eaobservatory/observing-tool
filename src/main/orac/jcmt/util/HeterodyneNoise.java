@@ -510,7 +510,8 @@ public class HeterodyneNoise {
         // Get the system temperaure
         double tSys = getTsys(instrument.getFrontEnd(), noiseCalculationTau,
                 airmass, (instrument.getRestFrequency(0)) / 1.0e9,
-                instrument.getMode().equalsIgnoreCase("ssb"));
+                (instrument.getMode().equalsIgnoreCase("ssb")
+                    || instrument.getMode().equalsIgnoreCase("2sb")));
 
         //Now calulate the noise based on this
         return getHeterodyneNoise(obs, instrument, tSys);

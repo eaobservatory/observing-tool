@@ -325,6 +325,7 @@ public class FrequencyTable extends JPanel implements ActionListener {
      * Reset the mode and band, and update GUI appropriately.
      *
      * @param mode Either "ssb" (Single Sideband) or "dsb" (Dual Sideband)
+     *             or "2sb" (sideband separating)
      * @param band Either "usb" (upper sideband), "lsb" (lower sideband) or
      *             "best"
      */

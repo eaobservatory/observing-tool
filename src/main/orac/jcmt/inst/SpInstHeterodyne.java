@@ -218,7 +218,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     /** Receiver/Front end bandwidth. */
     public static final String ATTR_FE_BANDWIDTH = "feBandWidth";
 
-    /** Mode: single side band (ssb), double side band (dsb). */
+    /** Mode: single side band (ssb), double side band (dsb)
+      * or sideband separating (2sb). */
     public static final String ATTR_MODE = "mode";
 
     /** Band mode: 1-system, 2-system etc.  */
@@ -501,7 +502,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Get mode: single side band (ssb), double side band (dsb).
+     * Get mode: single side band (ssb), double side band (dsb)
+     * or sideband separating (2sb).
      */
     public String getMode() {
         if (_avTable.get(ATTR_MODE) == null
@@ -513,7 +515,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Set  mode: single side band (ssb), double side band (dsb).
+     * Set  mode: single side band (ssb), double side band (dsb)
+     * or sideband separating (2sb).
      */
     public void setMode(String value) {
         _avTable.set(ATTR_MODE, value);
