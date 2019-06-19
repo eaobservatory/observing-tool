@@ -992,7 +992,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     public String getMode() {
-        return _inst.getBandMode();
+        return _inst.getMode();
     }
 
     private void _updateBandwidths() {
