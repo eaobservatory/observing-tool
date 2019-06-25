@@ -139,11 +139,11 @@ public class FrequencyTable extends JPanel implements ActionListener {
         gigToPix = ((double) displayWidth) / (uHighLimit - lLowLimit);
         int lWidth = (int) Math.rint(gigToPix * (lHighLimit - lLowLimit));
         int uWidth = (int) Math.rint(gigToPix * (uHighLimit - uLowLimit));
-        int sWidth = displayWidth / 10;
-        int tWidth = displayWidth / 10;
-        int sp1Width = (displayWidth - lWidth - uWidth - sWidth - tWidth) / 2;
-        int sp2Width = displayWidth - lWidth - uWidth - sWidth - tWidth
-                - sp1Width;
+        int widthExtra = displayWidth - (lWidth + uWidth);
+        int sWidth = widthExtra / 6;
+        int tWidth = widthExtra / 3;
+        int sp2Width = widthExtra / 6;
+        int sp1Width = widthExtra - sWidth - tWidth - sp2Width;
         int h = 20 * (1 + samplerCount);
 
         /* Set column sizes */
