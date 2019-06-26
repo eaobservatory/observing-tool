@@ -424,6 +424,22 @@ public class FrequencyTable extends JPanel {
                 lineButtons[subsystem].getText());
     }
 
+    private void processIFAdjustment(int number, boolean noClamp) {
+        boolean lineClamped = (number == 0) && (! noClamp);
+
+        if (number == 0) {
+            if (lineClamped) {
+                // Skip top subsystem because it is clamped and keeps its
+                // line.  All other subsystem loose their lines.
+                for (int i = 1; i < samplers.length; i++) {
+                    setLineDetails(null, i);
+                }
+            }
+        } else {
+            setLineDetails(null, number);
+        }
+    }
+
     /**
      * A listener for SideBand scroll bars that has knowledge of which SideBand
      * it is connected to.
@@ -440,24 +456,6 @@ public class FrequencyTable extends JPanel {
             _number = number;
         }
 
-        private void _processAdjustment(boolean isRightMouseButton) {
-            boolean lineClamped = (_number == 0) && (!isRightMouseButton);
-
-            if (_number == 0) {
-                if (lineClamped) {
-                    // Skip top subsystem because it is clamped and keeps its
-                    // line.  All other subsystem loose their lines.
-                    for (int i = 1; i < samplers.length; i++) {
-                        lineButtons[i].setText(HeterodyneEditor.NO_LINE);
-                    }
-                }
-            } else {
-                lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
-            }
-
-            lineButtons[_number].setToolTipText(lineButtons[_number].getText());
-        }
-
         public void mouseClicked(MouseEvent e) {
         }
 
@@ -472,14 +470,14 @@ public class FrequencyTable extends JPanel {
         }
 
         public void mouseReleased(MouseEvent e) {
-            _processAdjustment(SwingUtilities.isRightMouseButton(e));
+            processIFAdjustment(_number, SwingUtilities.isRightMouseButton(e));
 
             _mousePressed = false;
         }
 
         public void adjustmentValueChanged(AdjustmentEvent e) {
             if (!_mousePressed)
-                _processAdjustment(false);
+                processIFAdjustment(_number, false);
         }
     }
 
