@@ -47,7 +47,7 @@ import java.util.Vector;
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class FrequencyTable extends JPanel implements ActionListener {
+public class FrequencyTable extends JPanel {
     private double lLowLimit;
     private double lHighLimit;
     private double uLowLimit;
@@ -188,6 +188,7 @@ public class FrequencyTable extends JPanel implements ActionListener {
         lowBars.clear();
         highBars.clear();
         for (j = 0; j < samplerCount; j++) {
+            final int this_j = j;
             lowBar = new SideBandScrollBar(JScrollBar.HORIZONTAL,
                     (int) Math.rint(gigToPix * (-feIF - 0.5 * bandWidths[0])),
                     (int) Math.rint(gigToPix * bandWidths[0]),
@@ -225,7 +226,15 @@ public class FrequencyTable extends JPanel implements ActionListener {
             lineButtons[j].setForeground(Color.black);
             lineButtons[j].setFont(new java.awt.Font("Dialog", 0, 10));
             lineButtons[j].setActionCommand("" + j);
-            lineButtons[j].addActionListener(this);
+            lineButtons[j].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // emissionLines.getSelectedLine() can be null if no line
+                    // has been selected.
+                    LineDetails lineDetails = FrequencyTable.this.emissionLines.getSelectedLine();
+
+                    setLineDetails(lineDetails, this_j);
+                }
+            });
 
             samplerDisplay = new SamplerDisplay(String.valueOf(feIF));
             resolutionDisplay = new ResolutionDisplay(channels[0],
@@ -350,19 +359,6 @@ public class FrequencyTable extends JPanel implements ActionListener {
                 ((SideBand) data[i][2]).on();
             }
         }
-    }
-
-    /**
-     * Resets line details.
-     */
-    public void actionPerformed(ActionEvent e) {
-        int subsystem = Integer.parseInt(e.getActionCommand());
-
-        // emissionLines.getSelectedLine() can be null if no line
-        // has been selected.
-        LineDetails lineDetails = emissionLines.getSelectedLine();
-
-        setLineDetails(lineDetails, subsystem);
     }
 
     protected void setLineDetails(LineDetails lineDetails, int subsystem) {
