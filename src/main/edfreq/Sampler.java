@@ -103,20 +103,18 @@ public class Sampler implements ItemListener {
 
         this.centreFrequency = centreFrequency;
 
-        if (FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            // Check whether the centreFrequency has to be adjusted in order to
-            // make the new bandWidth fit into the frontend bandwidth.
+        // Check whether the centreFrequency has to be adjusted in order to
+        // make the new bandWidth fit into the frontend bandwidth.
 
-            if (centreFrequency >
-                        (feIF + (feBandWidthUpper - (0.5 * bandWidth)))) {
-                this.centreFrequency =
-                        (feIF + (feBandWidthUpper - (0.5 * bandWidth)));
+        if (centreFrequency >
+                    (feIF + (feBandWidthUpper - (0.5 * bandWidth)))) {
+            this.centreFrequency =
+                    (feIF + (feBandWidthUpper - (0.5 * bandWidth)));
 
-            } else if (centreFrequency <
-                        (feIF - (feBandWidthLower - (0.5 * bandWidth)))) {
-                this.centreFrequency =
-                        (feIF - (feBandWidthLower - (0.5 * bandWidth)));
-            }
+        } else if (centreFrequency <
+                    (feIF - (feBandWidthLower - (0.5 * bandWidth)))) {
+            this.centreFrequency =
+                    (feIF - (feBandWidthLower - (0.5 * bandWidth)));
         }
 
         if (!swArray.isEmpty()) {

@@ -212,15 +212,12 @@ public class FrequencyTable extends JPanel {
                 lineButtons[j] = new JButton("See Heterodyne Editor");
                 lineButtons[j].setEnabled(false);
 
-                if (FrequencyEditorCfg.getConfiguration()
-                        .centreFrequenciesAdjustable) {
-                    lowBar.setToolTipText(
-                            "Left mouse button drags line along. "
-                            + "Right mouse button leaves line unchanged.");
-                    highBar.setToolTipText(
-                            "Left mouse button drags line along. "
-                            + "Right mouse button leaves line unchanged.");
-                }
+                lowBar.setToolTipText(
+                        "Left mouse button drags line along. "
+                        + "Right mouse button leaves line unchanged.");
+                highBar.setToolTipText(
+                        "Left mouse button drags line along. "
+                        + "Right mouse button leaves line unchanged.");
             } else {
                 lineButtons[j] = new JButton(HeterodyneEditor.NO_LINE);
             }

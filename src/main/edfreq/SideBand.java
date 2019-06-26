@@ -51,10 +51,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
     EmissionLines emissionLines;
     SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
     HeterodyneEditor hetEditor = null;
-    private int _currentSideBandGuiValue;
-    private int _currentSideBandGuiExtend;
-    private int _currentSideBandGuiMinimum;
-    private int _currentSideBandGuiMaximum;
 
     /**
      * Indicates whether LO1 should be changed while the top subsystem sideband
@@ -83,13 +79,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         sideBandGui.addAdjustmentListener(this);
         sideBandGui.addMouseListener(this);
         _scrollBarBackground = sideBandGui.getBackground();
-
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            _currentSideBandGuiValue = sideBandGui.getValue();
-            _currentSideBandGuiExtend = sideBandGui.getVisibleAmount();
-            _currentSideBandGuiMinimum = sideBandGui.getMinimum();
-            _currentSideBandGuiMaximum = sideBandGui.getMaximum();
-        }
     }
 
     public void setSubBandCentre(double subBandCentre) {
@@ -128,16 +117,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
     }
 
     public void adjustmentValueChanged(AdjustmentEvent e) {
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            sideBandGui.setValues(
-                    _currentSideBandGuiValue,
-                    _currentSideBandGuiExtend,
-                    _currentSideBandGuiMinimum,
-                    _currentSideBandGuiMaximum);
-
-            return;
-        }
-
         setScaledCentre(sideBandGui.getValue());
 
         if (_adjustmentListener != null) {
@@ -206,13 +185,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         int pixTimesHigh = (int) Math.rint(pixratio * highLimit);
 
         sideBandGui.setValues(sc, sw, pixTimesLow, pixTimesHigh);
-
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            _currentSideBandGuiValue = sc;
-            _currentSideBandGuiExtend = sw;
-            _currentSideBandGuiMinimum = pixTimesLow;
-            _currentSideBandGuiMaximum = pixTimesHigh;
-        }
 
         sideBandGui.addAdjustmentListener(this);
     }
