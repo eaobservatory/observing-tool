@@ -370,14 +370,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         }
     }
 
-    public void moveSlider(String band, double newPos, int subsystem) {
-        double deltaF = 4.0e9 - newPos;
-
-        if (jt != null) {
-            jt.moveSlider(band, deltaF, subsystem);
-        }
-    }
-
     /**
      * Get the current frequency editor setup.
      *

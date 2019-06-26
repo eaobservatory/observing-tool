@@ -514,7 +514,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             if (_w.specialConfigs.getSelectedIndex() == 0) {
                 configured = false;
                 _inst.removeNamedConfiguration();
-                configureFrequencyEditor();
 
             } else {
                 String selectedConfig =
@@ -621,7 +620,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                 clickButton(_w.acceptButton);
                 _updateCentralFrequenciesFromShifts(ci.shifts);
-                configureFrequencyEditor(ci.shifts);
                 configured = true;
             }
 
@@ -1809,10 +1807,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private void configureFrequencyEditor() {
-        configureFrequencyEditor(new Vector<Double>());
-    }
-
-    private void configureFrequencyEditor(Vector<Double> shifts) {
         // First get the current bandspec from the mode selection
         Vector<BandSpec> bandSpecs = _receiver.bandspecs;
         BandSpec currentBandSpec = bandSpecs.get(0);
@@ -1870,15 +1864,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
-
-        for (int i = 0; i < shifts.size(); i++) {
-            _frequencyEditor.moveSlider(_inst.getBand(),
-                    _inst.getCentreFrequency(i), subbandCount - 1);
-
-            if (i > 0) {
-                _frequencyEditor.setLineText("No Line", subbandCount - 1);
-            }
-        }
 
         _frequencyEditor.setCallback(new Runnable() {
             public void run() {
