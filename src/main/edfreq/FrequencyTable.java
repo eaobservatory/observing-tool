@@ -306,14 +306,6 @@ public class FrequencyTable extends JPanel {
         return samplers;
     }
 
-    /**
-     * Set the line text on the frequency editor GUI.
-     */
-    public void setLineText(String lineText, int subsystem) {
-        lineButtons[subsystem].setText(lineText);
-        lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
-    }
-
     public LineDetails getLineDetails(int subsystem) throws Exception {
         if (lineDetails.length == 0 || lineDetails.length - 1 < subsystem) {
             throw new Exception("No Line Details");
@@ -430,14 +422,6 @@ public class FrequencyTable extends JPanel {
 
         lineButtons[subsystem].setToolTipText(
                 lineButtons[subsystem].getText());
-    }
-
-    protected void lo1Changed() {
-        // Skip first button
-        for (int i = 1; i < lineButtons.length; i++) {
-            lineButtons[i].setText(HeterodyneEditor.NO_LINE);
-            lineButtons[i].setToolTipText(lineButtons[i].getText());
-        }
     }
 
     /**
