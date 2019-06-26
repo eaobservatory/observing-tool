@@ -362,10 +362,10 @@ public class FrequencyTable extends JPanel implements ActionListener {
         // has been selected.
         LineDetails lineDetails = emissionLines.getSelectedLine();
 
-        resetLineDetails(lineDetails, subsystem);
+        setLineDetails(lineDetails, subsystem);
     }
 
-    protected void resetLineDetails(LineDetails lineDetails, int subsystem) {
+    protected void setLineDetails(LineDetails lineDetails, int subsystem) {
         if (lineDetails != null) {
             double obsFrequency = (lineDetails.frequency * 1.0E6)
                     / (1.0 + hetEditor.getRedshift());
@@ -414,20 +414,22 @@ public class FrequencyTable extends JPanel implements ActionListener {
                 }
             }
 
-            if (lineInBand) {
-                lineButtons[subsystem].setText(
-                                lineDetails.name + "  "
-                                + lineDetails.transition + "  "
-                                + lineDetails.frequency);
-
-                this.lineDetails[subsystem] = lineDetails;
-
-            } else {
-                lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
+            if (! lineInBand) {
+                lineDetails = null;
             }
+        }
 
-            lineButtons[subsystem].setToolTipText(
-                    lineButtons[subsystem].getText());
+
+        this.lineDetails[subsystem] = lineDetails;
+
+        if (lineDetails != null) {
+            lineButtons[subsystem].setText(
+                            lineDetails.name + "  "
+                            + lineDetails.transition + "  "
+                            + lineDetails.frequency);
+        }
+        else {
+            lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
         }
 
         lineButtons[subsystem].setToolTipText(

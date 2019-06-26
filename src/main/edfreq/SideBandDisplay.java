@@ -322,14 +322,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         }
     }
 
-    public double getTopSubSystemCentreFrequency() {
-        if (jt == null) {
-            return 0.0;
-        } else {
-            return jt.getSamplers()[0].getCentreFrequency();
-        }
-    }
-
     public int getResolution(int subsystem) {
         if (jt == null) {
             return 0;
@@ -358,9 +350,9 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         }
     }
 
-    public void setLineText(String lineText, int subsystem) {
+    public void setLineDetails(LineDetails lineDetails, int subsystem) {
         if (jt != null) {
-            jt.setLineText(lineText, subsystem);
+            jt.setLineDetails(lineDetails, subsystem);
         }
     }
 

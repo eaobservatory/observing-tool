@@ -1836,20 +1836,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 currentBandSpec.getDefaultOverlapBandWidths(),
                 currentBandSpec.getDefaultOverlapChannels(), subbandCount);
 
-        for (int i = 0; i < Integer.parseInt(_inst.getBandMode()); i++) {
-            // Set the centre frequencies
-            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
-            _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
-            _frequencyEditor.setLineText(
-                            _inst.getMolecule(i)
-                            + "  " + _inst.getTransition(i)
-                            + "  " + (_inst.getRestFrequency(i) / 1.0E6),
-                    i);
-        }
-
-        // Configure the frequency editor
-        _frequencyEditor.resetModeAndBand(_inst.getMode(), _inst.getBand());
-
         // Need to deal with LO1...
         double obsFreq = _inst.calculateSkyFrequency();
 
@@ -1857,11 +1843,26 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         if (BEST.equals(band) || USB.equals(band)) {
             _frequencyEditor.setLO1(obsFreq
-                    - _frequencyEditor.getTopSubSystemCentreFrequency());
+                    - _inst.getCentreFrequency(0));
         } else {
             _frequencyEditor.setLO1(obsFreq
-                    + _frequencyEditor.getTopSubSystemCentreFrequency());
+                    + _inst.getCentreFrequency(0));
         }
+
+        for (int i = 0; i < subbandCount; i++) {
+            // Set the centre frequencies
+            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
+            _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
+            _frequencyEditor.setLineDetails(
+                    new LineDetails(
+                            _inst.getMolecule(i),
+                            _inst.getTransition(i),
+                            _inst.getRestFrequency(i) / 1.0E6),
+                    i);
+        }
+
+        // Configure the frequency editor
+        _frequencyEditor.resetModeAndBand(_inst.getMode(), _inst.getBand());
 
         _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
 
