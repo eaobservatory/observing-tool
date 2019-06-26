@@ -53,7 +53,8 @@ public class FrequencyTable extends JPanel {
     private double uLowLimit;
     private double uHighLimit;
     private Sampler[] samplers;
-    private Object[][] data;
+    private SideBand[] lowerSideband;
+    private SideBand[] upperSideband;
     private JButton[] lineButtons;
     private LineDetails[] lineDetails;
     private SideBandDisplay sideBandDisplay;
@@ -179,7 +180,8 @@ public class FrequencyTable extends JPanel {
 
         // Create the samplers and sidebands and their associated displays
 
-        data = new Object[samplerCount][3];
+        lowerSideband = new SideBand[samplerCount];
+        upperSideband = new SideBand[samplerCount];
         samplers = new Sampler[samplerCount];
 
         lineButtons = new JButton[samplerCount];
@@ -263,24 +265,22 @@ public class FrequencyTable extends JPanel {
                 widthChoice.setEnabled(false);
             }
 
-            data[j][0] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
+            lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
                     -feIF, samplers[j], lowBar, gigToPix, emissionLines);
-            data[j][1] = samplers[j];
-            data[j][2] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
+            upperSideband[j] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
                     feIF, samplers[j], highBar, gigToPix, emissionLines);
 
-            samplers[j].addSamplerWatcher((SamplerWatcher) data[j][0]);
-            samplers[j].addSamplerWatcher((SamplerWatcher) samplerDisplay);
-            samplers[j].addSamplerWatcher((SamplerWatcher) resolutionDisplay);
-            samplers[j].addSamplerWatcher((SamplerWatcher) data[j][2]);
+            samplers[j].addSamplerWatcher(lowerSideband[j]);
+            samplers[j].addSamplerWatcher(samplerDisplay);
+            samplers[j].addSamplerWatcher(resolutionDisplay);
+            samplers[j].addSamplerWatcher(upperSideband[j]);
 
             NumberedSideBandListener numberedSideBandListener =
                     new NumberedSideBandListener(j);
 
             lowBar.addMouseListener(numberedSideBandListener);
             highBar.addMouseListener(numberedSideBandListener);
-            ((SideBand) data[j][0]).addAdjustmentListener(
-                    numberedSideBandListener);
+            lowerSideband[j].addAdjustmentListener(numberedSideBandListener);
 
             columns[0].add(lowBar);
             columns[1].add(lineButtons[j]);
@@ -295,8 +295,8 @@ public class FrequencyTable extends JPanel {
         // SideBandDisplay and HeterodyneEditor because when one of them is
         // changed the LO1 needs adjusting, depending on whether "usb" or "lsb"
         // has been selected.
-        ((SideBand) data[0][0]).connectTopSideBand(sideBandDisplay, hetEditor);
-        ((SideBand) data[0][2]).connectTopSideBand(sideBandDisplay, hetEditor);
+        lowerSideband[0].connectTopSideBand(sideBandDisplay, hetEditor);
+        upperSideband[0].connectTopSideBand(sideBandDisplay, hetEditor);
     }
 
     /**
@@ -333,22 +333,22 @@ public class FrequencyTable extends JPanel {
     public void resetModeAndBand(String mode, String band) {
         if (mode.equalsIgnoreCase("ssb")) {
             if (band.equalsIgnoreCase("lsb")) {
-                for (int i = 0; i < data.length; i++) {
-                    ((SideBand) data[i][0]).on();
-                    ((SideBand) data[i][2]).off();
+                for (int i = 0; i < lowerSideband.length; i++) {
+                    lowerSideband[i].on();
+                    upperSideband[i].off();
                 }
             }
 
             if (band.equalsIgnoreCase("usb") || band.equalsIgnoreCase("best")) {
-                for (int i = 0; i < data.length; i++) {
-                    ((SideBand) data[i][2]).on();
-                    ((SideBand) data[i][0]).off();
+                for (int i = 0; i < lowerSideband.length; i++) {
+                    upperSideband[i].on();
+                    lowerSideband[i].off();
                 }
             }
         } else {
-            for (int i = 0; i < data.length; i++) {
-                ((SideBand) data[i][0]).on();
-                ((SideBand) data[i][2]).on();
+            for (int i = 0; i < lowerSideband.length; i++) {
+                lowerSideband[i].on();
+                upperSideband[i].on();
             }
         }
     }
