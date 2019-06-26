@@ -22,7 +22,7 @@ package edfreq;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -47,7 +47,7 @@ import java.awt.Container;
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SideBandDisplay extends JFrame implements MouseListener {
+public class SideBandDisplay extends JFrame {
     private int displayWidth = EdFreq.DISPLAY_WIDTH;
     private JSlider slider;
     private EmissionLines el;
@@ -195,7 +195,19 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         slider.setToolTipText("To change LO1 press right mouse button "
                 + "and keep it pressed. "
                 + "Then drag LO1 with left mouse button.");
-        slider.addMouseListener(this);
+        slider.addMouseListener(new MouseAdapter() {
+               public void mousePressed(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        slider.setEnabled(true);
+                    }
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        slider.setEnabled(false);
+                    }
+                }
+        });
 
         targetPanel = Box.createVerticalBox();
         targetPanel.add(Box.createVerticalGlue());
@@ -485,27 +497,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
                 8);
 
         sbt.setVisible(true);
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mousePressed(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            slider.setEnabled(true);
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            slider.setEnabled(false);
-        }
     }
 
     /**
