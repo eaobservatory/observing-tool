@@ -92,10 +92,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         _scrollBarBackground = sideBandGui.getBackground();
     }
 
-    public void setSubBandCentre(double subBandCentre) {
-        this.subBandCentre = subBandCentre;
-    }
-
     public double getSubBandCentre() {
         if (highLimit < 0.0) {
             subBandCentre = -sampler.getCentreFrequency();
@@ -107,24 +103,9 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     }
 
     public void setScaledCentre(int v) {
-        double mySubBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
-
-        setSubBandCentre(mySubBandCentre);
+        subBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
 
         sampler.setCentreFrequency(Math.abs(subBandCentre));
-    }
-
-    public int getScaledCentre() {
-        return (int) Math.rint(
-                (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);
-    }
-
-    public int getScaledWidth() {
-        return (int) Math.rint(pixratio * subBandWidth);
-    }
-
-    public void setSubBandWidth(double subBandWidth) {
-        this.subBandWidth = subBandWidth;
     }
 
     public void adjustmentValueChanged(AdjustmentEvent e) {
@@ -168,8 +149,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
             }
         }
 
-        int sc;
-
         if (highLimit < 0.0) {
             subBandCentre = -centre;
         } else {
@@ -180,7 +159,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
 
         sideBandGui.removeAdjustmentListener(this);
 
-        int sw = getScaledWidth();
+        int sw = (int) Math.rint(pixratio * subBandWidth);
 
         if ((sw >= (pixratio * (highLimit - lowLimit)))
                 && sideBandGui.isEnabled()) {
@@ -191,7 +170,10 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
             _bandWidthExceedsRange = false;
         }
 
-        sc = getScaledCentre();
+        int sc = (int) Math.rint(
+                (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);
+
+
         int pixTimesLow = (int) Math.rint(pixratio * lowLimit);
         int pixTimesHigh = (int) Math.rint(pixratio * highLimit);
 
@@ -235,9 +217,5 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
      */
     public void addAdjustmentListener(AdjustmentListener adjustmentListener) {
         _adjustmentListener = adjustmentListener;
-    }
-
-    public static Color getSideBandColor() {
-        return _scrollBarKnobColor;
     }
 }
