@@ -192,9 +192,9 @@ public class SideBandDisplay extends JFrame {
         // SideBandDisplay is the LO1 slider, i.e. each click there would
         // result in an LO1 adjustment.)
         slider.setEnabled(false);
-        slider.setToolTipText("To change LO1 press right mouse button "
+        slider.setToolTipText("To change LO press right mouse button "
                 + "and keep it pressed. "
-                + "Then drag LO1 with left mouse button.");
+                + "Then drag LO with left mouse button.");
         slider.addMouseListener(new MouseAdapter() {
                public void mousePressed(MouseEvent e) {
                     if (SwingUtilities.isRightMouseButton(e)) {
@@ -273,7 +273,7 @@ public class SideBandDisplay extends JFrame {
         }
 
         JLabel label4 = new JLabel("FE Freq", SwingConstants.CENTER);
-        JLabel label5 = new JLabel("LO1", SwingConstants.CENTER);
+        JLabel label5 = new JLabel("LO", SwingConstants.CENTER);
         area4.add(label4, BorderLayout.NORTH);
         area4.add(label5, BorderLayout.CENTER);
         area4.setPreferredSize(new Dimension(100,
