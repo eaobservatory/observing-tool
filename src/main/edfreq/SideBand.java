@@ -21,7 +21,7 @@ package edfreq;
 
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
@@ -31,8 +31,7 @@ import java.awt.Color;
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SideBand implements AdjustmentListener, SamplerWatcher,
-        MouseListener {
+public class SideBand implements AdjustmentListener, SamplerWatcher {
     double lowLimit;
     double highLimit;
     double subBandWidth;
@@ -77,7 +76,19 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         this.pixratio = pixratio;
         this.emissionLines = emissionLines;
         sideBandGui.addAdjustmentListener(this);
-        sideBandGui.addMouseListener(this);
+
+        sideBandGui.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    _lineClamped = false;
+                }
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                _lineClamped = true;
+            }
+        });
+
         _scrollBarBackground = sideBandGui.getBackground();
     }
 
@@ -210,25 +221,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
     public void off() {
         sideBandGui.setEnabled(false);
         sideBandGui.setBackground(_scrollBarBackground);
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mousePressed(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            _lineClamped = false;
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        _lineClamped = true;
     }
 
     /**
