@@ -256,7 +256,7 @@ public class SideBandDisplay extends JFrame {
         area3.add(label3, BorderLayout.CENTER);
 
         JLabel trxLabel = new JLabel("TRx", SwingConstants.CENTER);
-        trxLabel.setForeground(Color.red);
+        trxLabel.setForeground(Color.blue);
         if (st != null && st.trxAvailable()) {
             area3.add(trxLabel, BorderLayout.NORTH);
         }

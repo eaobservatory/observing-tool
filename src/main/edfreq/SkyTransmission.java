@@ -200,8 +200,8 @@ public class SkyTransmission extends JPanel implements ChangeListener {
 
         // Draw tRx
         if (rxPlot != null) {
-            // Draw in Red
-            ig.setColor(Color.red);
+            // Draw in blue
+            ig.setColor(Color.blue);
 
             for (j = 0; j < rxPlot.length - 1; j++) {
                 ig.drawLine(
