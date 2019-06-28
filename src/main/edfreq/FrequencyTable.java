@@ -279,8 +279,9 @@ public class FrequencyTable extends JPanel {
             columns[4].add(resolutionDisplay);
             columns[5].add(highBar);
         }
+    }
 
-        // Added by MFO (8 January 2002)
+    public void clampTopSideband() {
         // Only the top pair of SideBands need to have references of
         // SideBandDisplay and HeterodyneEditor because when one of them is
         // changed the LO1 needs adjusting, depending on whether "usb" or "lsb"

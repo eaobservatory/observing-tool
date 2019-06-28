@@ -1851,8 +1851,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         for (int i = 0; i < subbandCount; i++) {
             // Set the centre frequencies
-            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
             _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
+            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
             _frequencyEditor.setLineDetails(
                     new LineDetails(
                             _inst.getMolecule(i),
@@ -1865,6 +1865,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         _frequencyEditor.setModeAndBand(_inst.getMode(), _inst.getBand());
 
         _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
+
+        // Now that we have finished copying the tuning information to the
+        // frequency editor, we can allow it to enable the watcher which
+        // adjusts the LO frequency to "clamp" the first subsystem.
+        _frequencyEditor.clampTopSideband();
 
         _frequencyEditor.setCallback(new Runnable() {
             public void run() {
