@@ -393,75 +393,35 @@ public class SideBandDisplay extends JFrame {
     @SuppressWarnings("unchecked")
     public Vector<Object>[] getCurrentConfiguration() {
         // Create the array
-        Vector<Object>[] results = new Vector[jt.getSamplers().length];
+        Sampler[] samplers = jt.getSamplers();
+        Vector<Object>[] results = new Vector[samplers.length];
         LineDetails details;
         String text;
 
         for (int i = 0; i < results.length; i++) {
             results[i] = new Vector<Object>();
 
-            try {
-                details = jt.getLineDetails(i);
+            details = jt.getLineDetails(i);
+            double cf = samplers[i].getCentreFrequency();
+            double bw = samplers[i].getBandWidth();
+            int ch = samplers[i].getChannels();
+            int res = samplers[i].getResolution();
+
+            if (details != null) {
                 results[i].add(details.name);
                 results[i].add(details.transition);
                 results[i].add(new Double(details.frequency * 1.0E6));
-            } catch (Exception e) {
-                text = jt.getLineText(i);
-
-                if (text != null) {
-                    // Parse the string First see if it starts with "No Line"
-                    if (text.startsWith(HeterodyneEditor.NO_LINE)) {
-                        results[i].add(HeterodyneEditor.NO_LINE);
-                        results[i].add(HeterodyneEditor.NO_LINE);
-
-                        String frequency = text.substring(
-                                text.lastIndexOf(' '));
-                        double rf;
-
-                        if (frequency.matches("\\d*.??\\d*")) {
-                            rf = Double.parseDouble(frequency) * 1.0E6;
-                        }
-                        else {
-                            rf = EdFreq.getRestFrequency(
-                                    getLO1(),
-                                    jt.getSamplers()[i].getCentreFrequency(),
-                                    redshift,
-                                    hetEditor.getFeBand());
-                        }
-
-                        results[i].add(new Double(rf));
-
-                    } else {
-                        // The molecule should be the first thing
-                        String molecule = text.substring(0, text.indexOf("  "));
-                        results[i].add(molecule.trim());
-
-                        // Get the transition
-                        String transition = text.substring(
-                                text.indexOf("  ") + 1,
-                                text.lastIndexOf("  "));
-                        transition = transition.trim();
-
-                        results[i].add(transition);
-
-                        double f = Double.parseDouble(text.substring(
-                                text.lastIndexOf(' '))) * 1.0E6;
-
-                        results[i].add(new Double(f));
-                    }
-                }
+            }
+            else {
+                results[i].add(HeterodyneEditor.NO_LINE);
+                results[i].add(HeterodyneEditor.NO_LINE);
+                results[i].add(new Double(EdFreq.getRestFrequency(
+                        getLO1(), cf, redshift, hetEditor.getFeBand())));
             }
 
-            double cf = jt.getSamplers()[i].getCentreFrequency();
             results[i].add(new Double(cf));
-
-            double bw = jt.getSamplers()[i].getBandWidth();
             results[i].add(new Double(bw));
-
-            int ch = jt.getSamplers()[i].getChannels();
             results[i].add(new Integer(ch));
-
-            int res = jt.getSamplers()[i].getResolution();
             results[i].add(new Integer(res));
         }
 

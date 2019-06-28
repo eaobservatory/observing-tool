@@ -303,20 +303,12 @@ public class FrequencyTable extends JPanel {
         return samplers;
     }
 
-    public LineDetails getLineDetails(int subsystem) throws Exception {
+    public LineDetails getLineDetails(int subsystem) {
         if (lineDetails.length == 0 || lineDetails.length - 1 < subsystem) {
-            throw new Exception("No Line Details");
-        }
-
-        return lineDetails[subsystem];
-    }
-
-    public String getLineText(int subsystem) {
-        if (subsystem > lineButtons.length - 1) {
             return null;
         }
 
-        return lineButtons[subsystem].getText();
+        return lineDetails[subsystem];
     }
 
     /**
