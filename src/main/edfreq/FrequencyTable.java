@@ -320,14 +320,14 @@ public class FrequencyTable extends JPanel {
     }
 
     /**
-     * Reset the mode and band, and update GUI appropriately.
+     * Set the mode and band, and update GUI appropriately.
      *
      * @param mode Either "ssb" (Single Sideband) or "dsb" (Dual Sideband)
      *             or "2sb" (sideband separating)
      * @param band Either "usb" (upper sideband), "lsb" (lower sideband) or
      *             "best"
      */
-    public void resetModeAndBand(String mode, String band) {
+    public void setModeAndBand(String mode, String band) {
         if (mode.equalsIgnoreCase("ssb")) {
             if (band.equalsIgnoreCase("lsb")) {
                 for (int i = 0; i < lowerSideband.length; i++) {

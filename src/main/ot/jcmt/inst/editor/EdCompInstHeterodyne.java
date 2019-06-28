@@ -1862,7 +1862,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         // Configure the frequency editor
-        _frequencyEditor.resetModeAndBand(_inst.getMode(), _inst.getBand());
+        _frequencyEditor.setModeAndBand(_inst.getMode(), _inst.getBand());
 
         _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
 

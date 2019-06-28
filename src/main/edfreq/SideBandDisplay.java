@@ -368,9 +368,9 @@ public class SideBandDisplay extends JFrame {
         }
     }
 
-    public void resetModeAndBand(String mode, String band) {
+    public void setModeAndBand(String mode, String band) {
         if (jt != null) {
-            jt.resetModeAndBand(mode, band);
+            jt.setModeAndBand(mode, band);
         }
     }
 
