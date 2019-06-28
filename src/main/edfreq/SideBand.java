@@ -21,10 +21,7 @@ package edfreq;
 
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
 import java.awt.Color;
 
 /**
@@ -51,11 +48,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
     HeterodyneEditor hetEditor = null;
 
-    /**
-     * Indicates whether LO1 should be changed while the top subsystem sideband
-     * IF is changed so that the sidband stays centred over the line.
-     */
-    private static boolean _lineClamped = true;
     private boolean _bandWidthExceedsRange = false;
 
     /**
@@ -76,18 +68,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         this.pixratio = pixratio;
         this.emissionLines = emissionLines;
         sideBandGui.addAdjustmentListener(this);
-
-        sideBandGui.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    _lineClamped = false;
-                }
-            }
-
-            public void mouseReleased(MouseEvent e) {
-                _lineClamped = true;
-            }
-        });
 
         _scrollBarBackground = sideBandGui.getBackground();
     }
@@ -121,7 +101,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
          * If the SideBand is one of the top SideBands and the line should be
          * clamped then adjust LO1 accordingly.
          */
-        if (isTopSideBand() && _lineClamped && (width == subBandWidth)) {
+        if (isTopSideBand() && (width == subBandWidth)) {
             String band;
 
             if (hetEditor != null) {
