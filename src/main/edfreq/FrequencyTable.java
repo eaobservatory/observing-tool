@@ -208,11 +208,9 @@ public class FrequencyTable extends JPanel {
             highBars.add(highBar);
 
             // Line display added by MFO (October 16, 2002)
+            lineButtons[j] = new JButton("...");
             if (j == 0) {
-                lineButtons[j] = new JButton("See Heterodyne Editor");
                 lineButtons[j].setEnabled(false);
-            } else {
-                lineButtons[j] = new JButton(HeterodyneEditor.NO_LINE);
             }
 
             lineButtons[j].setForeground(Color.black);
