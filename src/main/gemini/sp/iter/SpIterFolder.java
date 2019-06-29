@@ -307,11 +307,10 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                             iterOffsets++;
                         }
 
-                        // Not based on timing data: just 1/2 the
-                        // coefficient for beam-switch.
-                        totalIntegrationTime = iterRepeat * (1.15
+                        // Based in timing test data of 20190605.
+                        totalIntegrationTime = iterRepeat * (1.023
                                 * iterOffsets * integrationTimePerPoint
-                                + 120.0);
+                                + 67.0);
                     }
 
                     boolean addContinuum = spIterStareObs.isContinuum();

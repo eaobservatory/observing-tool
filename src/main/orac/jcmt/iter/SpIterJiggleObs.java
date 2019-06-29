@@ -157,9 +157,8 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
             }
             else if (SWITCHING_MODE_FREQUENCY_S.equals(switchingMode) ||
                     SWITCHING_MODE_FREQUENCY_F.equals(switchingMode)) {
-                // Not based on timing data: just 1/2 of the beam-switched
-                // factor plus 120 to match spIterFolder.
-                totalIntegrationTime = 1.15 * npts * getSecsPerCycle() + 120.0;
+                // Based in timing test data of 20190605.
+                totalIntegrationTime = 1.023 * npts * getSecsPerCycle() + 67.0;
 
             } else {
                 // Anything else
