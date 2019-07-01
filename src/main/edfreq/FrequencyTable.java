@@ -489,21 +489,16 @@ public class FrequencyTable extends JPanel {
          * with 0 width.
          */
         class SideBandUI extends MetalScrollBarUI {
-
-            private JButton _leftArrow = new JButton();
-            private JButton _rightArrow = new JButton();
-
-            public SideBandUI() {
-                _leftArrow.setPreferredSize(new Dimension(0, 5));
-                _rightArrow.setPreferredSize(new Dimension(0, 5));
-            }
-
             protected JButton createDecreaseButton(int orientation) {
-                return _leftArrow;
+                JButton leftArrow = new JButton();
+                leftArrow.setPreferredSize(new Dimension(0, 5));
+                return leftArrow;
             }
 
             protected JButton createIncreaseButton(int orientation) {
-                return _rightArrow;
+                JButton rightArrow = new JButton();
+                rightArrow.setPreferredSize(new Dimension(0, 5));
+                return rightArrow;
             }
         }
     }
