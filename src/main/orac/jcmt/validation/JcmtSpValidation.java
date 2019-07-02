@@ -203,6 +203,7 @@ public class JcmtSpValidation extends SpValidation {
 
                 int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
+                String sidebandMode = spInstHeterodyne.getMode();
 
                 double loFreq;
                 if ("lsb".equals(sideBand)) {
@@ -244,6 +245,18 @@ public class JcmtSpValidation extends SpValidation {
                                 + " appears to need to be in LSB, so the"
                                 + " observation sideband can not be changed."
                                 + " Please select USB for this configuration."));
+                    }
+
+                    if ("ssb".equals(sidebandMode) && ("lsb".equals(sideBand)
+                            ^ (skyFreq < loFreq))) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "For single sideband (SSB) mode, all subsystems"
+                                + " should be in the same sideband, but subsystem "
+                                + (index + 1) +" at " + rest
+                                + " (sky frequency " + skyFreq
+                                + ") appears not to be in the selected sideband ("
+                                + sideBand + ")."));
                     }
                 }
 
