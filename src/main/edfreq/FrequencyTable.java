@@ -234,7 +234,7 @@ public class FrequencyTable extends JPanel {
 
             samplers[j] = new Sampler(
                     feIF, feBandWidthLower, feBandWidthUpper, bandWidths,
-                    channels, widthChoice);
+                    channels, widthChoice, hetEditor.getFeBand());
             samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
 
             // If the DISALLOW_MULTI_BW system property is used then
@@ -333,12 +333,20 @@ public class FrequencyTable extends JPanel {
         if (lineDetails != null) {
             double obsFrequency = (lineDetails.frequency * 1.0E6)
                     / (1.0 + hetEditor.getRedshift());
+            double lo_frequency = sideBandDisplay.getLO1();
 
-            double centreFrequencyDerivedFromLine = Math.abs(obsFrequency
-                    - sideBandDisplay.getLO1());
+            double centreFrequencyDerivedFromLine = Math.abs(
+                    obsFrequency - lo_frequency);
+
+            // Determine the sideband based on the frequency unless this
+            // is the "top" sampler (which is "clamped").
+            String sideband = (subsystem == 0)
+                ? samplers[subsystem].sideband
+                : ((obsFrequency > lo_frequency) ? "usb" : "lsb");
 
             samplers[subsystem].setCentreFrequency(
-                    centreFrequencyDerivedFromLine);
+                    centreFrequencyDerivedFromLine,
+                    sideband);
 
             /*
              * Check whether the line is in the band by comparing

@@ -33,6 +33,15 @@ public class Sampler implements ItemListener {
     double centreFrequency;
     double bandWidth;
 
+    /**
+     * Sideband of this sampler ("lsb", "usb" or null).
+     *
+     * This is the sideband which should be used to compute the rest frequency
+     * of this sampler, if no line details are known.  If line details are
+     * are present, then they should be used in preference to this value.
+     */
+    String sideband;
+
     /** Front end IF. */
     double feIF;
 
@@ -74,7 +83,7 @@ public class Sampler implements ItemListener {
     public Sampler(double centreFrequency,
             double feBandWidthLower, double feBandWidthUpper,
             double[] bandWidthsArray, int[] channelsArray,
-            JComboBox bandWidthChoice) {
+            JComboBox bandWidthChoice, String sideband) {
         this.centreFrequency = centreFrequency;
         this.feIF = centreFrequency;
         this.feBandWidthLower = feBandWidthLower;
@@ -84,6 +93,7 @@ public class Sampler implements ItemListener {
         this.channels = channelsArray[0];
         this.channelsArray = channelsArray;
         this.bandWidthChoice = bandWidthChoice;
+        this.sideband = sideband;
 
         bandWidthChoice.addItemListener(this);
     }
@@ -98,10 +108,11 @@ public class Sampler implements ItemListener {
      * The centre frequency is adjusted if necessary so that the sideband fits
      * into the frontend bandwidth.
      */
-    public void setCentreFrequency(double centreFrequency) {
+    public void setCentreFrequency(double centreFrequency, String sideband) {
         int j;
 
         this.centreFrequency = centreFrequency;
+        this.sideband = sideband;
 
         // Check whether the centreFrequency has to be adjusted in order to
         // make the new bandWidth fit into the frontend bandwidth.
@@ -145,7 +156,7 @@ public class Sampler implements ItemListener {
 
         // Adjust centre frequency if necessary so that the sideband fits into
         // the frontend bandwidth.
-        setCentreFrequency(getCentreFrequency());
+        setCentreFrequency(getCentreFrequency(), sideband);
 
         bandWidthChoice.removeItemListener(this);
         bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6)));

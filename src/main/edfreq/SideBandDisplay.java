@@ -350,9 +350,9 @@ public class SideBandDisplay extends JFrame {
         }
     }
 
-    public void setCentreFrequency(double centre, int subsystem) {
+    public void setCentreFrequency(double centre, int subsystem, String sideband) {
         if (jt != null) {
-            jt.getSamplers()[subsystem].setCentreFrequency(centre);
+            jt.getSamplers()[subsystem].setCentreFrequency(centre, sideband);
         }
     }
 
@@ -412,6 +412,7 @@ public class SideBandDisplay extends JFrame {
             double bw = samplers[i].getBandWidth();
             int ch = samplers[i].getChannels();
             int res = samplers[i].getResolution();
+            String sideband = samplers[i].sideband;
 
             if (details != null) {
                 results[i].add(details.name);
@@ -422,7 +423,8 @@ public class SideBandDisplay extends JFrame {
                 results[i].add(HeterodyneEditor.NO_LINE);
                 results[i].add(HeterodyneEditor.NO_LINE);
                 results[i].add(new Double(EdFreq.getRestFrequency(
-                        getLO1(), cf, redshift, hetEditor.getFeBand())));
+                        getLO1(), cf, redshift,
+                        (sideband != null) ? sideband : hetEditor.getFeBand())));
             }
 
             results[i].add(new Double(cf));

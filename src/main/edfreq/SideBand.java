@@ -85,7 +85,11 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     public void setScaledCentre(int v) {
         subBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
 
-        sampler.setCentreFrequency(Math.abs(subBandCentre));
+        String sideband = isTopSideBand()
+            ? sampler.sideband
+            : ((highLimit > 0.0) ? "usb" : "lsb");
+
+        sampler.setCentreFrequency(Math.abs(subBandCentre), sideband);
     }
 
     public void adjustmentValueChanged(AdjustmentEvent e) {

@@ -1841,18 +1841,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         String band = _inst.getBand();
 
+        double lo_frequency;
         if (BEST.equals(band) || USB.equals(band)) {
-            _frequencyEditor.setLO1(obsFreq
-                    - _inst.getCentreFrequency(0));
+            lo_frequency = obsFreq - _inst.getCentreFrequency(0);
         } else {
-            _frequencyEditor.setLO1(obsFreq
-                    + _inst.getCentreFrequency(0));
+            lo_frequency = obsFreq + _inst.getCentreFrequency(0);
         }
+        _frequencyEditor.setLO1(lo_frequency);
 
         for (int i = 0; i < subbandCount; i++) {
             // Set the centre frequencies
+            double sky_frequency = _inst.calculateSkyFrequency(i);
+            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
             _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
-            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
+            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i, sideband);
             _frequencyEditor.setLineDetails(
                     new LineDetails(
                             _inst.getMolecule(i),
