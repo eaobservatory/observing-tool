@@ -207,19 +207,22 @@ public class JcmtSpValidation extends SpValidation {
                 for (int index = 0; index < available; index++) {
                     double centre = spInstHeterodyne.getCentreFrequency(index);
                     double rest = spInstHeterodyne.getRestFrequency(index);
+                    double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
 
-                    if ("lsb".equals(sideBand) && (rest + centre) > loMax) {
+                    if ("lsb".equals(sideBand) && (skyFreq + centre) > loMax) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
                                 "Need to use upper or best sideband"
-                                + " to reach the line " + rest));
+                                + " to reach the line " + rest
+                                + " (at sky frequency " + skyFreq + ")"));
 
                     } else if (!"lsb".equals(sideBand)
-                            && (rest - centre) < loMin) {
+                            && (skyFreq - centre) < loMin) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
                                 "Need to use lower sideband"
-                                + " to reach the line " + rest));
+                                + " to reach the line " + rest
+                                + " (at sky frequency " + skyFreq + ")"));
                     }
                 }
 
