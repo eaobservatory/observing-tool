@@ -204,6 +204,13 @@ public class JcmtSpValidation extends SpValidation {
                 int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
 
+                double loFreq;
+                if ("lsb".equals(sideBand)) {
+                    loFreq = skyFrequency + spInstHeterodyne.getCentreFrequency(0);
+                } else {
+                    loFreq = skyFrequency - spInstHeterodyne.getCentreFrequency(0);
+                }
+
                 for (int index = 0; index < available; index++) {
                     double centre = spInstHeterodyne.getCentreFrequency(index);
                     double rest = spInstHeterodyne.getRestFrequency(index);
@@ -223,6 +230,20 @@ public class JcmtSpValidation extends SpValidation {
                                 "Need to use lower sideband"
                                 + " to reach the line " + rest
                                 + " (at sky frequency " + skyFreq + ")"));
+                    }
+
+                    if ("best".equals(sideBand)
+                            && (index > 0)
+                            && (skyFreq < loFreq)) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Configuration uses 'best' to determine"
+                                + " sideband automatically, but subsystem "
+                                + (index + 1) + " at " + rest
+                                + " (sky frequency " + skyFreq + ")"
+                                + " appears to need to be in LSB, so the"
+                                + " observation sideband can not be changed."
+                                + " Please select USB for this configuration."));
                     }
                 }
 
