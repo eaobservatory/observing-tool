@@ -423,19 +423,11 @@ public class FrequencyTable extends JPanel {
      * preferred width has been set to 0.
      */
     class SideBandScrollBar extends JScrollBar {
-
-        int _defaultPos;
-
         public SideBandScrollBar(int orientation, int value, int extent,
                 int min, int max) {
             super(orientation, value, extent, min, max);
 
-            _defaultPos = value;
             setUI(new SideBandUI());
-        }
-
-        public int getDefaultValue() {
-            return _defaultPos;
         }
 
         /**
