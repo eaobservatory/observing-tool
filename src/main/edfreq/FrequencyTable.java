@@ -24,12 +24,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -263,12 +259,11 @@ public class FrequencyTable extends JPanel {
             samplers[j].addSamplerWatcher(resolutionDisplay);
             samplers[j].addSamplerWatcher(upperSideband[j]);
 
-            NumberedSideBandListener numberedSideBandListener =
-                    new NumberedSideBandListener(j);
-
-            lowBar.addMouseListener(numberedSideBandListener);
-            highBar.addMouseListener(numberedSideBandListener);
-            lowerSideband[j].addAdjustmentListener(numberedSideBandListener);
+            samplers[j].addSamplerWatcher(new SamplerWatcher() {
+                public void updateSamplerValues(double centre, double width, int channels) {
+                    processIFAdjustment(this_j);
+                }
+            });
 
             columns[0].add(lowBar);
             columns[1].add(lineButtons[j]);
@@ -405,8 +400,8 @@ public class FrequencyTable extends JPanel {
                 lineButtons[subsystem].getText());
     }
 
-    private void processIFAdjustment(int number, boolean noClamp) {
-        boolean lineClamped = (number == 0) && (! noClamp);
+    private void processIFAdjustment(int number) {
+        boolean lineClamped = (number == 0);
 
         if (number == 0) {
             if (lineClamped) {
@@ -418,47 +413,6 @@ public class FrequencyTable extends JPanel {
             }
         } else {
             setLineDetails(null, number);
-        }
-    }
-
-    /**
-     * A listener for SideBand scroll bars that has knowledge of which SideBand
-     * it is connected to.
-     *
-     * The SideBands are numbered from top to bottom starting with 0.
-     */
-    class NumberedSideBandListener
-            implements MouseListener, AdjustmentListener {
-
-        private int _number;
-        private boolean _mousePressed = false;
-
-        NumberedSideBandListener(int number) {
-            _number = number;
-        }
-
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        public void mouseExited(MouseEvent e) {
-        }
-
-        public void mousePressed(MouseEvent e) {
-            _mousePressed = true;
-        }
-
-        public void mouseReleased(MouseEvent e) {
-            processIFAdjustment(_number, SwingUtilities.isRightMouseButton(e));
-
-            _mousePressed = false;
-        }
-
-        public void adjustmentValueChanged(AdjustmentEvent e) {
-            if (!_mousePressed)
-                processIFAdjustment(_number, false);
         }
     }
 
