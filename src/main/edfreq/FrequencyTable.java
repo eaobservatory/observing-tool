@@ -260,7 +260,7 @@ public class FrequencyTable extends JPanel {
             samplers[j].addSamplerWatcher(upperSideband[j]);
 
             samplers[j].addSamplerWatcher(new SamplerWatcher() {
-                public void updateSamplerValues(double centre, double width, int channels) {
+                public void updateSamplerValues(double centre, double width, int channels, String sideband) {
                     processIFAdjustment(this_j);
                 }
             });
@@ -430,30 +430,51 @@ public class FrequencyTable extends JPanel {
      * In fact the increase/decrease arrow buttons are still there but their
      * preferred width has been set to 0.
      */
-    class SideBandScrollBar extends JScrollBar {
+    static class SideBandScrollBar extends JScrollBar {
+        boolean isSelected = false;
+        boolean isInvalid = false;
+
         public SideBandScrollBar(int orientation, int value, int extent,
                 int min, int max) {
             super(orientation, value, extent, min, max);
 
             setUI(new SideBandUI());
+
+            setBackgroundColor();
         }
 
-        /**
-         * MetalScrollBarUI subclass that returns increase/decrease buttons
-         * with 0 width.
-         */
-        class SideBandUI extends MetalScrollBarUI {
-            protected JButton createDecreaseButton(int orientation) {
-                JButton leftArrow = new JButton();
-                leftArrow.setPreferredSize(new Dimension(0, 5));
-                return leftArrow;
-            }
+        public void setIsSelected(boolean isSelected) {
+            this.isSelected = isSelected;
+            setBackgroundColor();
+        }
 
-            protected JButton createIncreaseButton(int orientation) {
-                JButton rightArrow = new JButton();
-                rightArrow.setPreferredSize(new Dimension(0, 5));
-                return rightArrow;
-            }
+        public void setIsInvalid(boolean isInvalid) {
+            this.isInvalid = isInvalid;
+            setBackgroundColor();
+        }
+
+        private void setBackgroundColor() {
+            setBackground(isInvalid
+                ? Color.RED
+                : (isSelected ? Color.YELLOW : Color.DARK_GRAY));
+        }
+    }
+
+    /**
+     * MetalScrollBarUI subclass that returns increase/decrease buttons
+     * with 0 width.
+     */
+    static class SideBandUI extends MetalScrollBarUI {
+        protected JButton createDecreaseButton(int orientation) {
+            JButton leftArrow = new JButton();
+            leftArrow.setPreferredSize(new Dimension(0, 5));
+            return leftArrow;
+        }
+
+        protected JButton createIncreaseButton(int orientation) {
+            JButton rightArrow = new JButton();
+            rightArrow.setPreferredSize(new Dimension(0, 5));
+            return rightArrow;
         }
     }
 }

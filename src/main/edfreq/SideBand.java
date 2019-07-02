@@ -34,10 +34,8 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     double subBandWidth;
     double subBandCentre;
     Sampler sampler;
-    JScrollBar sideBandGui;
+    FrequencyTable.SideBandScrollBar sideBandGui;
     AdjustmentListener _adjustmentListener = null;
-    private static Color _scrollBarKnobColor = new Color(156, 154, 206);
-    Color _scrollBarBackground = null;
 
     /**
      * The lineButton argument has been so that its text can be reset to "No
@@ -48,8 +46,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
     HeterodyneEditor hetEditor = null;
 
-    private boolean _bandWidthExceedsRange = false;
-
     /**
      * SideBand constructor.
      *
@@ -57,7 +53,8 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
      * Line" when the side band JScrollBar of this Sideband is changed.
      */
     public SideBand(double lowLimit, double highLimit, double subBandWidth,
-            double subBandCentre, Sampler sampler, JScrollBar sideBandGui,
+            double subBandCentre, Sampler sampler,
+            FrequencyTable.SideBandScrollBar sideBandGui,
             double pixratio, EmissionLines emissionLines) {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
@@ -68,8 +65,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         this.pixratio = pixratio;
         this.emissionLines = emissionLines;
         sideBandGui.addAdjustmentListener(this);
-
-        _scrollBarBackground = sideBandGui.getBackground();
     }
 
     public double getSubBandCentre() {
@@ -100,7 +95,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         }
     }
 
-    public void updateSamplerValues(double centre, double width, int channels) {
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
         /*
          * If the SideBand is one of the top SideBands and the line should be
          * clamped then adjust LO1 accordingly.
@@ -145,14 +140,11 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
 
         int sw = (int) Math.rint(pixratio * subBandWidth);
 
-        if ((sw >= (pixratio * (highLimit - lowLimit)))
-                && sideBandGui.isEnabled()) {
-            sideBandGui.setBackground(_scrollBarKnobColor);
-            _bandWidthExceedsRange = true;
-        } else {
-            sideBandGui.setBackground(_scrollBarBackground);
-            _bandWidthExceedsRange = false;
-        }
+        sideBandGui.setIsInvalid(
+            sw >= (pixratio * (highLimit - lowLimit)));
+
+        sideBandGui.setIsSelected(
+            (highLimit > 0.0) ^ (sideband.equalsIgnoreCase("lsb")));
 
         int sc = (int) Math.rint(
                 (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);
@@ -178,15 +170,10 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
 
     public void on() {
         sideBandGui.setEnabled(true);
-
-        if (_bandWidthExceedsRange) {
-            sideBandGui.setBackground(_scrollBarKnobColor);
-        }
     }
 
     public void off() {
         sideBandGui.setEnabled(false);
-        sideBandGui.setBackground(_scrollBarBackground);
     }
 
     /**

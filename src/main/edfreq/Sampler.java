@@ -131,7 +131,7 @@ public class Sampler implements ItemListener {
         if (!swArray.isEmpty()) {
             for (j = 0; j < swArray.size(); j++) {
                 swArray.elementAt(j).updateSamplerValues(
-                        this.centreFrequency, bandWidth, channels);
+                        this.centreFrequency, bandWidth, channels, sideband);
             }
         }
     }

@@ -35,10 +35,10 @@ public class ResolutionDisplay extends JLabel implements SamplerWatcher {
 
         // Pass dummy "centre" value to updateSamplerValues as the
         // implementation in this class does not require it.
-        updateSamplerValues(0.0, width, channels);
+        updateSamplerValues(0.0, width, channels, "");
     }
 
-    public void updateSamplerValues(double centre, double width, int channels) {
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
         setText(String.valueOf(Math.round(
                 nMixers * ((width * 1.0E-3) / (double) channels))));
     }

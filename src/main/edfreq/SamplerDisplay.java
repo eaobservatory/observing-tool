@@ -30,7 +30,7 @@ public class SamplerDisplay extends JLabel implements SamplerWatcher {
         super(text);
     }
 
-    public void updateSamplerValues(double centre, double width, int channels) {
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
         setText(String.valueOf(centre));
     }
 }
