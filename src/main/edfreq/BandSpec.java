@@ -72,36 +72,16 @@ public class BandSpec {
     public int[] numHybridSubBands;
 
     // Added by MFO (September 5, 2002)
-    private void initBandSpec(String name, int numBands, double[] bandWidths,
-            int[] channels) {
-        this.name = name;
-        this.numBands = numBands;
-        this.bandWidths = bandWidths;
-        this.channels = channels;
-    }
-
-    public BandSpec(String name, int numBands, double[] bandWidths,
-            int[] channels) {
-        initBandSpec(name, numBands, bandWidths, channels);
-
-        defaultOverlaps = new double[bandWidths.length];
-        numHybridSubBands = new int[bandWidths.length];
-
-        for (int i = 0; i < numHybridSubBands.length; i++) {
-            defaultOverlaps[i] = 0.0;
-            numHybridSubBands[i] = 1;
-        }
-    }
-
-    // Added by MFO (September 5, 2002)
     /**
      * @param numHybridSubBands
      *            1 for non-hybrid, &gt; 1 for hybrid.
      */
     public BandSpec(String name, int numBands, double[] bandWidths,
             double[] defaultOverlaps, int[] channels, int[] numHybridSubBands) {
-        initBandSpec(name, numBands, bandWidths, channels);
-
+        this.name = name;
+        this.numBands = numBands;
+        this.bandWidths = bandWidths;
+        this.channels = channels;
         this.defaultOverlaps = defaultOverlaps;
         this.numHybridSubBands = numHybridSubBands;
     }
