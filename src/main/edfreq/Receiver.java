@@ -58,6 +58,32 @@ public class Receiver {
         return null;
     }
 
+    /**
+     * Find a BandSpec with no more than the given number of CMs.
+     *
+     * If nothing is found, the BandSpec using the fewest CMs is returned.
+     */
+    public BandSpec getBandSpecByCMs(int maxCMs) {
+        BandSpec maxMatch = null;
+        BandSpec min = null;
+
+        for (BandSpec spec: bandspecs) {
+            int numCMs = spec.getMaxNumCMs();
+
+            if (numCMs <= maxCMs) {
+                if ((maxMatch == null ) || (numCMs > maxMatch.getMaxNumCMs())) {
+                    maxMatch = spec;
+                }
+            }
+
+            if ((min == null ) || (numCMs < min.getMaxNumCMs())) {
+                min = spec;
+            }
+        }
+
+        return (maxMatch != null) ? maxMatch : min;
+    }
+
     public String toString() {
         String rtn = "[name=" + name
                 + " ; loMin=" + loMin

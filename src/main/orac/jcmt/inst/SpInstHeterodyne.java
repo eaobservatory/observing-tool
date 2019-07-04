@@ -1070,9 +1070,14 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
      * nearest index, if no match was found.  A value of -1 is returned
      * for the "match" and "index" values if there is no corresponding entry.
      *
-     * This method implements special case logic for the 3-band case:
-     * bands 0 and 1 use the BandSpec "4" while band 2 gets the main
-     * BandSpec "3" configuration.
+     * This method makes use of the BandSpec.numCMs array to track how many
+     * CMs have been allocated to bands.  If the available CMs will be
+     * exhausted, it should fall back to a simpler BandSpec.  This behavior
+     * can depend on which of the available bandwiths are selected for the
+     * earlier bands.  E.g. for the 3-band case, band 0 gets the main "3"
+     * BandSpec, but since all of its entries use 2 CMs, there would only
+     * be 1 CM left per remaining band so the "4" BandSpec must be used
+     * for bands 1 and 2.
      *
      * This method takes an edfreq.Receiver object containing the possible
      * BandSpec information, as this information is currently not available
@@ -1087,17 +1092,20 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             currentBandSpec = receiver.bandspecs.get(0);
         }
 
-        BandSpec otherBandSpec = receiver.getBandSpec("4");
+        // Find the maximum number of CMs -- assume that the 1-CM BandSpec
+        // allocates them all, so its name tells us the number available.
+        int num_cm = Integer.parseInt(receiver.getBandSpecByCMs(1).name);
 
         List<BandSpecSelection> selection = new Vector<BandSpecSelection>();
 
         for (int j = 0; j < active; j ++) {
             BandSpec activeBandSpec = currentBandSpec;
 
-            if (active == 3) {
-                if (otherBandSpec != null && j < 2) {
-                    activeBandSpec = otherBandSpec;
-                }
+            // How many CMs remain, allowing 1 for all bands after this one?
+            int availCMs = 1 + num_cm - (active - j);
+
+            if (availCMs < activeBandSpec.getMaxNumCMs()) {
+                activeBandSpec = receiver.getBandSpecByCMs(availCMs);
             }
 
             double[] values = activeBandSpec.getDefaultOverlapBandWidths();
@@ -1124,6 +1132,10 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
             selection.add(new BandSpecSelection(
                     activeBandSpec, index, (index == -1) ? notableIndex : -1));
+
+            // Subtract however many CMs the selected mode uses.
+            num_cm -= activeBandSpec.numCMs[(index != -1) ? index : (
+                    (notableIndex != -1) ? notableIndex : 0)];
         }
 
         return selection;
