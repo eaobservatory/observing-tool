@@ -48,6 +48,16 @@ public class Receiver {
         bandspecs = v;
     }
 
+    public BandSpec getBandSpec(String name) {
+        for (BandSpec spec: bandspecs) {
+            if (spec.name.equals(name)) {
+                return spec;
+            }
+        }
+
+        return null;
+    }
+
     public String toString() {
         String rtn = "[name=" + name
                 + " ; loMin=" + loMin

@@ -25,8 +25,11 @@ import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Format;
+import edfreq.BandSpec;
+import edfreq.Receiver;
 
 import java.util.Vector;
+import java.util.List;
 
 /**
  * The Heterodyne instrument Observation Component.
@@ -1040,6 +1043,90 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         }
 
         return convertToRedshift(velocityDefinition, velocity);
+    }
+
+    public static class BandSpecSelection {
+        public BandSpec bandSpec;
+        public int match;
+        public int nearest;
+
+        public BandSpecSelection(BandSpec bandSpec, int match, int nearest) {
+            this.bandSpec = bandSpec;
+            this.match = match;
+            this.nearest = nearest;
+        }
+    }
+
+    /**
+     * Find the BandSpec and their entries corresponding to the current
+     * configuration.
+     *
+     * This method uses the current band mode to find the corresponding
+     * BandSpec.  The name of the band mode is assumed to be a number giving
+     * the number of bands.  For each band (from 0 to the band mode - 1)
+     * the currently selected bandwidth is compared all entries in the BandSpec.
+     * The results are returned as a list of BandSpecSelection objects
+     * containing the band spec for the band, the matching index and the
+     * nearest index, if no match was found.  A value of -1 is returned
+     * for the "match" and "index" values if there is no corresponding entry.
+     *
+     * This method implements special case logic for the 3-band case:
+     * bands 0 and 1 use the BandSpec "4" while band 2 gets the main
+     * BandSpec "3" configuration.
+     *
+     * This method takes an edfreq.Receiver object containing the possible
+     * BandSpec information, as this information is currently not available
+     * to this class.  (The edfreq package used to be separate from this one.)
+     */
+    public List<BandSpecSelection> getBandSpecSelection(Receiver receiver) {
+        String bandMode = getBandMode();
+        int active = Integer.parseInt(bandMode);
+
+        BandSpec currentBandSpec = receiver.getBandSpec(bandMode);
+        if (currentBandSpec == null) {
+            currentBandSpec = receiver.bandspecs.get(0);
+        }
+
+        BandSpec otherBandSpec = receiver.getBandSpec("4");
+
+        List<BandSpecSelection> selection = new Vector<BandSpecSelection>();
+
+        for (int j = 0; j < active; j ++) {
+            BandSpec activeBandSpec = currentBandSpec;
+
+            if (active == 3) {
+                if (otherBandSpec != null && j < 2) {
+                    activeBandSpec = otherBandSpec;
+                }
+            }
+
+            double[] values = activeBandSpec.getDefaultOverlapBandWidths();
+
+            double currentBandwidth = getBandWidth(j);
+
+            int index = -1;
+            double lowestContestant = 0.0;
+            int notableIndex = -1;
+
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] == currentBandwidth) {
+                    index = i;
+                }
+                else {
+                    double contestant = Math.abs(
+                            currentBandwidth - values[i]);
+                    if ((notableIndex == -1) || (contestant < lowestContestant)) {
+                        lowestContestant = contestant;
+                        notableIndex = i;
+                    }
+                }
+            }
+
+            selection.add(new BandSpecSelection(
+                    activeBandSpec, index, (index == -1) ? notableIndex : -1));
+        }
+
+        return selection;
     }
 
     public String subsystemXML(String indent) {
