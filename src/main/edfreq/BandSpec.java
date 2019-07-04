@@ -71,6 +71,9 @@ public class BandSpec {
     /** Number of hybrid subbands asscoiated with each bandwidth. */
     public int[] numHybridSubBands;
 
+    /** Number of CMs used by each bandwidth. */
+    public int[] numCMs;
+
     // Added by MFO (September 5, 2002)
     /**
      * @param numHybridSubBands
@@ -84,6 +87,19 @@ public class BandSpec {
         this.channels = channels;
         this.defaultOverlaps = defaultOverlaps;
         this.numHybridSubBands = numHybridSubBands;
+
+        // The configuration file does not include the number of CMs used by
+        // each bandwidth.  Therefore attempt to deterimine that here.
+        // This assumes that there are no chained hybrids, and that for non-hybrids
+        // we can infer chaining based on the number of channels.
+        this.numCMs = new int[bandWidths.length];
+        for (int i = 0; i < bandWidths.length; i ++) {
+            int bandCMs = numHybridSubBands[i];
+            if (bandCMs == 1) {
+                bandCMs = channels[i] / ((bandWidths[i] > 0.99E9) ? 1024 : 4096);
+            }
+            this.numCMs[i] = bandCMs;
+        }
     }
 
     public String toString() {
@@ -234,5 +250,15 @@ public class BandSpec {
         throw new IllegalStateException(
                 "Could not find subsystem with default overlap number of channels "
                         + defaultOverlapChannels);
+    }
+
+    public int getMaxNumCMs() {
+        int max = 0;
+        for (int i = 0; i < numCMs.length; i ++) {
+            if (numCMs[i] > max) {
+                max = numCMs[i];
+            }
+        }
+        return max;
     }
 }
