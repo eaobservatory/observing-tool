@@ -90,15 +90,13 @@ public class BandSpec {
 
         // The configuration file does not include the number of CMs used by
         // each bandwidth.  Therefore attempt to deterimine that here.
-        // This assumes that there are no chained hybrids, and that for non-hybrids
-        // we can infer chaining based on the number of channels.
+        // This assumes that we can infer chaining based on the number of channels.
         this.numCMs = new int[bandWidths.length];
         for (int i = 0; i < bandWidths.length; i ++) {
-            int bandCMs = numHybridSubBands[i];
-            if (bandCMs == 1) {
-                bandCMs = channels[i] / ((bandWidths[i] > 0.99E9) ? 1024 : 4096);
-            }
-            this.numCMs[i] = bandCMs;
+            // Use bandWdith / numHybridSubBands to identify the basic mode,
+            // then divide the number of channels by the number in that basic mode.
+            this.numCMs[i] = channels[i] /
+                (((bandWidths[i] / numHybridSubBands[i]) > 0.99E9) ? 1024 : 4096);
         }
     }
 
