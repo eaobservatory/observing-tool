@@ -26,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -37,6 +39,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
 import java.util.Vector;
+
+import ot.util.DialogUtil;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
@@ -94,7 +98,6 @@ public class FrequencyTable extends JPanel {
         int j;
         int i;
         JComboBox widthChoice;
-        SamplerDisplay samplerDisplay;
         ResolutionDisplay resolutionDisplay;
         SideBandScrollBar lowBar;
         SideBandScrollBar highBar;
@@ -222,7 +225,26 @@ public class FrequencyTable extends JPanel {
                 }
             });
 
-            samplerDisplay = new SamplerDisplay(String.valueOf(feIF));
+            final SamplerDisplay samplerDisplay = new SamplerDisplay(String.valueOf(feIF));
+            samplerDisplay.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        try {
+                            samplers[this_j].setCentreFrequency(
+                                Double.parseDouble(samplerDisplay.getText()),
+                                samplers[this_j].sideband);
+
+                            processIFAdjustment(this_j);
+                        }
+                        catch (NumberFormatException exc) {
+                            DialogUtil.error(
+                                FrequencyTable.this,
+                                "IF frequency not understood.");
+                        }
+                    }
+                }
+            });
+
             resolutionDisplay = new ResolutionDisplay(channels[0],
                     bandWidths[0], nMixers);
 
