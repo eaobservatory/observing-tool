@@ -229,17 +229,21 @@ public class FrequencyTable extends JPanel {
             samplerDisplay.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        double center = 0.0;
                         try {
-                            samplers[this_j].setCentreFrequency(
-                                Double.parseDouble(samplerDisplay.getText()),
-                                samplers[this_j].sideband);
-
-                            processIFAdjustment(this_j);
+                            center = Double.parseDouble(samplerDisplay.getText());
                         }
                         catch (NumberFormatException exc) {
                             DialogUtil.error(
                                 FrequencyTable.this,
                                 "IF frequency not understood.");
+                        }
+
+                        if (center != 0.0) {
+                            samplers[this_j].setCentreFrequency(
+                                center, samplers[this_j].sideband);
+
+                            processIFAdjustment(this_j, center);
                         }
                     }
                 }
@@ -272,20 +276,20 @@ public class FrequencyTable extends JPanel {
             }
 
             lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
-                    -feIF, samplers[j], lowBar, gigToPix, emissionLines);
+                    -feIF, samplers[j], lowBar, gigToPix, emissionLines, (j == 0));
             upperSideband[j] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
-                    feIF, samplers[j], highBar, gigToPix, emissionLines);
+                    feIF, samplers[j], highBar, gigToPix, emissionLines, (j == 0));
+
+            samplers[j].addSamplerWatcher(new SamplerWatcher() {
+                public void updateSamplerValues(double centre, double width, int channels, String sideband) {
+                    processIFAdjustment(this_j, centre);
+                }
+            });
 
             samplers[j].addSamplerWatcher(lowerSideband[j]);
             samplers[j].addSamplerWatcher(samplerDisplay);
             samplers[j].addSamplerWatcher(resolutionDisplay);
             samplers[j].addSamplerWatcher(upperSideband[j]);
-
-            samplers[j].addSamplerWatcher(new SamplerWatcher() {
-                public void updateSamplerValues(double centre, double width, int channels, String sideband) {
-                    processIFAdjustment(this_j);
-                }
-            });
 
             columns[0].add(lowBar);
             columns[1].add(lineButtons[j]);
@@ -294,15 +298,6 @@ public class FrequencyTable extends JPanel {
             columns[4].add(resolutionDisplay);
             columns[5].add(highBar);
         }
-    }
-
-    public void clampTopSideband() {
-        // Only the top pair of SideBands need to have references of
-        // SideBandDisplay and HeterodyneEditor because when one of them is
-        // changed the LO1 needs adjusting, depending on whether "usb" or "lsb"
-        // has been selected.
-        lowerSideband[0].connectTopSideBand(sideBandDisplay, hetEditor);
-        upperSideband[0].connectTopSideBand(sideBandDisplay, hetEditor);
     }
 
     /**
@@ -430,16 +425,23 @@ public class FrequencyTable extends JPanel {
                 lineButtons[subsystem].getText());
     }
 
-    private void processIFAdjustment(int number) {
-        boolean lineClamped = (number == 0);
-
+    private void processIFAdjustment(int number, double center) {
         if (number == 0) {
-            if (lineClamped) {
-                // Skip top subsystem because it is clamped and keeps its
-                // line.  All other subsystem loose their lines.
-                for (int i = 1; i < samplers.length; i++) {
-                    setLineDetails(null, i);
-                }
+            // Skip top subsystem because it is clamped and keeps its
+            // line.  All other subsystem loose their lines.
+            for (int i = 1; i < samplers.length; i++) {
+                setLineDetails(null, i);
+            }
+
+            LineDetails line = lineDetails[0];
+            if (line != null) {
+                double loFreq = EdFreq.getLO1(
+                        EdFreq.getObsFrequency(
+                                line.frequency * 1.0E6,
+                                hetEditor.getRedshift()),
+                        center, samplers[0].sideband);
+
+                sideBandDisplay.setLO1(loFreq);
             }
         } else {
             setLineDetails(null, number);

@@ -374,12 +374,6 @@ public class SideBandDisplay extends JFrame {
         }
     }
 
-    public void clampTopSideband() {
-        if (jt != null) {
-            jt.clampTopSideband();
-        }
-    }
-
     /**
      * Get the current frequency editor setup.
      *

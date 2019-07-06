@@ -1784,11 +1784,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
 
-        // Now that we have finished copying the tuning information to the
-        // frequency editor, we can allow it to enable the watcher which
-        // adjusts the LO frequency to "clamp" the first subsystem.
-        _frequencyEditor.clampTopSideband();
-
         _frequencyEditor.setCallback(new Runnable() {
             public void run() {
                 hideFreqEditor();

@@ -43,8 +43,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
      */
     double pixratio;
     EmissionLines emissionLines;
-    SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
-    HeterodyneEditor hetEditor = null;
+    boolean isTopSideBand;
 
     /**
      * SideBand constructor.
@@ -55,7 +54,8 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     public SideBand(double lowLimit, double highLimit, double subBandWidth,
             double subBandCentre, Sampler sampler,
             FrequencyTable.SideBandScrollBar sideBandGui,
-            double pixratio, EmissionLines emissionLines) {
+            double pixratio, EmissionLines emissionLines,
+            boolean isTopSideBand) {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
         this.subBandWidth = subBandWidth;
@@ -64,6 +64,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         this.sideBandGui = sideBandGui;
         this.pixratio = pixratio;
         this.emissionLines = emissionLines;
+        this.isTopSideBand = isTopSideBand;
         sideBandGui.addAdjustmentListener(this);
     }
 
@@ -80,7 +81,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     public void setScaledCentre(int v) {
         subBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
 
-        String sideband = isTopSideBand()
+        String sideband = isTopSideBand
             ? sampler.sideband
             : ((highLimit > 0.0) ? "usb" : "lsb");
 
@@ -96,38 +97,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
     }
 
     public void updateSamplerValues(double centre, double width, int channels, String sideband) {
-        /*
-         * If the SideBand is one of the top SideBands and the line should be
-         * clamped then adjust LO1 accordingly.
-         */
-        if (isTopSideBand() && (width == subBandWidth)) {
-            String band;
-
-            if (hetEditor != null) {
-                band = hetEditor.getFeBand();
-            } else {
-                band = "usb";
-            }
-
-            if (band.equals("lsb")) {
-                if (highLimit < 0.0) {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            + (subBandCentre + centre));
-                } else {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            - (subBandCentre - centre));
-                }
-            } else {
-                if (highLimit < 0.0) {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            - (subBandCentre + centre));
-                } else {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            + (subBandCentre - centre));
-                }
-            }
-        }
-
         if (highLimit < 0.0) {
             subBandCentre = -centre;
         } else {
@@ -156,16 +125,6 @@ public class SideBand implements AdjustmentListener, SamplerWatcher {
         sideBandGui.setValues(sc, sw, pixTimesLow, pixTimesHigh);
 
         sideBandGui.addAdjustmentListener(this);
-    }
-
-    protected void connectTopSideBand(SideBandDisplay sideBandDisplay,
-            HeterodyneEditor hetEditor) {
-        this.sideBandDisplay = sideBandDisplay;
-        this.hetEditor = hetEditor;
-    }
-
-    protected boolean isTopSideBand() {
-        return (sideBandDisplay != null);
     }
 
     public void on() {
