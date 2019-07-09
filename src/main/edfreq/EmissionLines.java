@@ -65,8 +65,6 @@ public class EmissionLines extends JPanel implements MouseListener,
     private Graphics ig;
     private double mainLineFreq = 0;
     private int mainLinePos = -1;
-    private double sideLineFreq = 0;
-    private int sideLinePos = -1;
     // Added by MFO (October 15, 2002)
     private LineDetails selectedLine;
     private double popupLineFreq = 0;
@@ -196,11 +194,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         if (mainLinePos >= 0) {
             ig.setColor(Color.red);
             ig.drawLine(mainLinePos, 0, mainLinePos, ySize);
-        }
-
-        if (sideLinePos >= 0) {
-            ig.setColor(Color.magenta);
-            ig.drawLine(sideLinePos, 0, sideLinePos, ySize);
         }
 
         // Added by MFO (October 15, 2002)
@@ -374,13 +367,6 @@ public class EmissionLines extends JPanel implements MouseListener,
             mainLinePos = -1;
         }
 
-        if ((sideLineFreq > lowLimit) && (sideLineFreq < highLimit)) {
-            sideLinePos = (int) (((double) xSize)
-                    * (sideLineFreq - lowLimit) / (highLimit - lowLimit));
-        } else {
-            sideLinePos = -1;
-        }
-
         if ((popupLineFreq > lowLimit) && (popupLineFreq < highLimit)) {
             popupLinePos = (int) (((double) xSize)
                     * (popupLineFreq - lowLimit) / (highLimit - lowLimit));
@@ -410,25 +396,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         }
 
         repaint();
-    }
-
-    /**
-     * Sets the side line based on input from the Frequency Editor GUI.
-     *
-     * @param frequency Frequency of side line in Hz.
-     */
-    public void setSideLine(double frequency) {
-        sideLineFreq = frequency;
-
-        if ((sideLineFreq > lowLimit) && (sideLineFreq < highLimit)) {
-            sideLinePos = (int) (((double) xSize)
-                    * (sideLineFreq - lowLimit) / (highLimit - lowLimit));
-        } else {
-            sideLinePos = -1;
-        }
-
-        repaint();
-
     }
 
     public void setDisplayMode(int displayMode) {
