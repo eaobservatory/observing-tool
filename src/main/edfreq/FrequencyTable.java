@@ -38,6 +38,7 @@ import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
+import java.util.List;
 import java.util.Vector;
 
 import ot.util.DialogUtil;
@@ -95,27 +96,12 @@ public class FrequencyTable extends JPanel {
         } catch (NumberFormatException nfe) {
         }
 
-        // Get the current bandspec from the mode selection.
-        Vector<BandSpec> bandSpecs = receiver.bandspecs;
-        BandSpec currentBandSpec = bandSpecs.get(0);
-
-        for (int i = 0; i < bandSpecs.size(); i++) {
-            BandSpec bandSpec = bandSpecs.get(i);
-
-            if (bandSpec.toString().equals(inst.getBandMode())) {
-                currentBandSpec = bandSpec;
-                break;
-            }
-        }
-
-        double[] bandWidths = currentBandSpec.getDefaultOverlapBandWidths();
-        int[] channels = currentBandSpec.getDefaultOverlapChannels();
+        List<SpInstHeterodyne.BandSpecSelection> selection = inst.getBandSpecSelection(receiver);
 
         JPanel[] columns = new JPanel[6];
 
         int j;
         int i;
-        JComboBox widthChoice;
         ResolutionDisplay resolutionDisplay;
         SideBandScrollBar lowBar;
         SideBandScrollBar highBar;
@@ -208,6 +194,12 @@ public class FrequencyTable extends JPanel {
         highBars.clear();
         for (j = 0; j < samplerCount; j++) {
             final int this_j = j;
+
+            SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(j);
+            BandSpec activeBandSpec = thisSelection.bandSpec;
+            double[] bandWidths = activeBandSpec.getDefaultOverlapBandWidths();
+            int[] channels = activeBandSpec.getDefaultOverlapChannels();
+
             lowBar = new SideBandScrollBar(JScrollBar.HORIZONTAL,
                     (int) Math.rint(gigToPix * (-feIF - 0.5 * bandWidths[0])),
                     (int) Math.rint(gigToPix * bandWidths[0]),
@@ -274,7 +266,7 @@ public class FrequencyTable extends JPanel {
             for (int k = 0; k < bandWidths.length; k++) {
                 bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6)));
             }
-            widthChoice = new JComboBox(bandWidthItems);
+            JComboBox widthChoice = new JComboBox(bandWidthItems);
 
             samplers[j] = new Sampler(
                     feIF, feBandWidthLower, feBandWidthUpper, bandWidths,
