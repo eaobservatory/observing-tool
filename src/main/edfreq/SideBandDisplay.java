@@ -42,6 +42,8 @@ import java.util.Vector;
 
 import java.awt.Container;
 
+import orac.jcmt.inst.SpInstHeterodyne;
+
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
@@ -104,35 +106,31 @@ public class SideBandDisplay extends JFrame {
         });
     }
 
-    public void updateDisplay(String feName, double lRangeLimit,
-            double uRangeLimit, double feIF,
-            double feBandWidthLower, double feBandWidthUpper, int nMixers,
-            double redshift, double[] bandWidths, int[] channels,
-            int samplerCount) {
+    public void updateDisplay(SpInstHeterodyne inst, Receiver receiver) {
+        String feName = inst.getFrontEnd();
         setTitle("Frequency editor: front end = " + feName);
 
-        int j;
+        this.redshift = inst.calculateRedshift();
 
-        this.redshift = redshift;
+        _uRangeLimit = receiver.loMax;
+        _lRangeLimit = receiver.loMin;
 
-        _uRangeLimit = uRangeLimit;
-        _lRangeLimit = lRangeLimit;
+        int samplerCount = Integer.parseInt(inst.getBandMode());
 
         contentPanel = Box.createHorizontalBox();
         contentPanel.add(Box.createHorizontalGlue());
         dataPanel = Box.createVerticalBox();
         titlePanel = Box.createVerticalBox();
 
-        double mid = 0.5 * (lRangeLimit + uRangeLimit);
-        double lowIF = mid - feIF - feBandWidthUpper;
-        double highIF = mid + feIF + feBandWidthUpper;
+        double mid = 0.5 * (_lRangeLimit + _uRangeLimit);
+        double lowIF = mid - receiver.feIF - receiver.bandWidthUpper;
+        double highIF = mid + receiver.feIF + receiver.bandWidthUpper;
 
         el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20,
                 samplerCount);
 
-        jt = new FrequencyTable(feIF, feBandWidthLower, feBandWidthUpper,
-                bandWidths, channels,
-                samplerCount, displayWidth, this, hetEditor, el, nMixers);
+        jt = new FrequencyTable(
+                inst, receiver, displayWidth, this, hetEditor, el);
 
         dataPanel.add(jt, BorderLayout.CENTER);
 
@@ -147,11 +145,59 @@ public class SideBandDisplay extends JFrame {
         localScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, 0.0, 9,
                 displayWidth, JSlider.HORIZONTAL);
 
-        /* Create slider for Front-end local oscillator */
+        createSlider(mid);
 
+        slider.addChangeListener(el);
+
+        if (st != null) {
+            slider.addChangeListener(st);
+        }
+
+        slider.addChangeListener(targetScale);
+        slider.addChangeListener(localScale);
+
+        createGUI(st);
+        pack();
+
+        // Need to deal with LO1...
+        double obsFreq = inst.calculateSkyFrequency();
+
+        String band = inst.getBand();
+
+        double lo_frequency;
+        if ("best".equals(band) || "usb".equals(band)) {
+            lo_frequency = obsFreq - inst.getCentreFrequency(0);
+        } else {
+            lo_frequency = obsFreq + inst.getCentreFrequency(0);
+        }
+        setLO1(lo_frequency);
+
+        for (int i = 0; i < samplerCount; i++) {
+            // Set the centre frequencies
+            double sky_frequency = inst.calculateSkyFrequency(i);
+            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
+
+            Sampler sampler = jt.getSamplers()[i];
+            sampler.setBandWidth(inst.getBandWidth(i));
+            sampler.setCentreFrequency(inst.getCentreFrequency(i), sideband);
+            jt.setLineDetails(
+                    new LineDetails(
+                            inst.getMolecule(i),
+                            inst.getTransition(i),
+                            inst.getRestFrequency(i) / 1.0E6),
+                    i);
+        }
+
+        jt.setModeAndBand(inst.getMode(), inst.getBand());
+
+        el.setMainLine(inst.getRestFrequency(0));
+    }
+
+    /** Create slider for Front-end local oscillator */
+    private void createSlider(double mid) {
         int centre = (int) Math.rint(mid / EdFreq.SLIDERSCALE);
-        int lslide = (int) Math.rint(lRangeLimit / EdFreq.SLIDERSCALE);
-        int uslide = (int) Math.rint(uRangeLimit / EdFreq.SLIDERSCALE);
+        int lslide = (int) Math.rint(_lRangeLimit / EdFreq.SLIDERSCALE);
+        int uslide = (int) Math.rint(_uRangeLimit / EdFreq.SLIDERSCALE);
 
         slider = new JSlider(JSlider.HORIZONTAL, lslide, uslide, centre);
         slider.setMinorTickSpacing(
@@ -164,7 +210,7 @@ public class SideBandDisplay extends JFrame {
         /* Create labels for slider at 10GHz intervals */
 
         Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
-        for (j = lslide; j <= uslide;
+        for (int j = lslide; j <= uslide;
                 j += (int) Math.rint(10.0E9 / EdFreq.SLIDERSCALE))
             labels.put(
                     new Integer(j),
@@ -173,17 +219,6 @@ public class SideBandDisplay extends JFrame {
                             SwingConstants.CENTER));
 
         slider.setLabelTable(labels);
-
-        /* Make the graphics follow the slider */
-
-        slider.addChangeListener(el);
-
-        if (st != null) {
-            slider.addChangeListener(st);
-        }
-
-        slider.addChangeListener(targetScale);
-        slider.addChangeListener(localScale);
 
         // LO1 slider will be activeted by pressing the right mouse. This is
         // to prevent accidental LO1 adjustments caused by user clicking on
@@ -208,7 +243,9 @@ public class SideBandDisplay extends JFrame {
                     }
                 }
         });
+    }
 
+    private void createGUI(SkyTransmission st) {
         targetPanel = Box.createVerticalBox();
         targetPanel.add(Box.createVerticalGlue());
         targetPanel.add(el);
@@ -285,8 +322,6 @@ public class SideBandDisplay extends JFrame {
         contentPanel.add(dataPanel);
         contentPane.removeAll();
         contentPane.add(contentPanel, BorderLayout.CENTER);
-
-        pack();
     }
 
     public void setLO1(double lo1) {
@@ -310,18 +345,6 @@ public class SideBandDisplay extends JFrame {
         return _lo1;
     }
 
-    public void setMainLine(double frequency) {
-        if (el != null) {
-            el.setMainLine(frequency);
-        }
-    }
-
-    public void setSideLine(double frequency) {
-        if (el != null) {
-            el.setSideLine(frequency);
-        }
-    }
-
     public void setRedshift(double redshift) {
         this.redshift = redshift;
 
@@ -331,46 +354,6 @@ public class SideBandDisplay extends JFrame {
 
         if (targetScale != null) {
             targetScale.setRedshift(redshift);
-        }
-    }
-
-    public int getResolution(int subsystem) {
-        if (jt == null) {
-            return 0;
-        } else {
-            return jt.getSamplers()[subsystem].getResolution();
-        }
-    }
-
-    public int getNumSubSystems() {
-        if (jt == null) {
-            return 0;
-        } else {
-            return jt.getSamplers().length;
-        }
-    }
-
-    public void setCentreFrequency(double centre, int subsystem, String sideband) {
-        if (jt != null) {
-            jt.getSamplers()[subsystem].setCentreFrequency(centre, sideband);
-        }
-    }
-
-    public void setBandWidth(double width, int subsystem) {
-        if (jt != null) {
-            jt.getSamplers()[subsystem].setBandWidth(width);
-        }
-    }
-
-    public void setLineDetails(LineDetails lineDetails, int subsystem) {
-        if (jt != null) {
-            jt.setLineDetails(lineDetails, subsystem);
-        }
-    }
-
-    public void setModeAndBand(String mode, String band) {
-        if (jt != null) {
-            jt.setModeAndBand(mode, band);
         }
     }
 
@@ -428,37 +411,6 @@ public class SideBandDisplay extends JFrame {
         }
 
         return results;
-    }
-
-    public static void main(String args[]) {
-        // Create SideBandDisplay with anonymous HeterodyneEditor
-        // implementation that does not do anything.
-        SideBandDisplay sbt = new SideBandDisplay(new HeterodyneEditor() {
-
-            public String getFeBand() {
-                return "usb";
-            }
-
-            public String getMode() {
-                return "dsb";
-            }
-
-            public double getRedshift() {
-                return 0.0;
-            }
-
-            public double getCurrentBandwidth(int subsystem) {
-                return 0.0;
-            }
-        });
-
-        sbt.updateDisplay("Frequency editor test",
-                365.0E+9, 375.0E+9, 4.0E9, 0.9E9, 0.9E9, 1, 0.0,
-                new double[]{0.25E9, 1.0E9},
-                new int[]{8192, 2048},
-                8);
-
-        sbt.setVisible(true);
     }
 
     /**

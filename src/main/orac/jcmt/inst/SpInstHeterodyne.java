@@ -1084,6 +1084,17 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
      * to this class.  (The edfreq package used to be separate from this one.)
      */
     public List<BandSpecSelection> getBandSpecSelection(Receiver receiver) {
+        int active = Integer.parseInt(getBandMode());
+        double[] currentBandwidths = new double[active];
+        for (int j = 0; j < active; j ++) {
+            currentBandwidths[j] = getBandWidth(j);
+        }
+
+        return getBandSpecSelection(receiver, currentBandwidths);
+    }
+
+    public List<BandSpecSelection> getBandSpecSelection(
+            Receiver receiver, double[] currentBandwidths) {
         String bandMode = getBandMode();
         int active = Integer.parseInt(bandMode);
 
@@ -1111,7 +1122,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
             double[] values = activeBandSpec.getDefaultOverlapBandWidths();
 
-            double currentBandwidth = getBandWidth(j);
+            double currentBandwidth = currentBandwidths[j];
 
             int index = -1;
             double lowestContestant = 0.0;

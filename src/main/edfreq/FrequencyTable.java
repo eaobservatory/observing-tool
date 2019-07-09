@@ -41,6 +41,7 @@ import javax.swing.plaf.metal.MetalScrollBarUI;
 import java.util.Vector;
 
 import ot.util.DialogUtil;
+import orac.jcmt.inst.SpInstHeterodyne;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
@@ -67,31 +68,48 @@ public class FrequencyTable extends JPanel {
     /**
      * Constructor to create frequency table for the Frequency Editor.
      *
-     * @param feIF            Frontend IF mixer frequency (Hz)
-     * @param feBandWidthLower Frontend half-bandwidth (Hz) below preferred IF
-     * @param feBandWidthUpper Frontend half-bandwidth (Hz) above preferred IF
-     * @param bandWidths      Bandwidths for each subsystem (Hz)
-     * @param channels        Number of channels for each subsystem
-     * @param samplerCount    Number of samplers
+     * @param inst            SpInstHeterodyne object
+     * @param receiver        Receiver object
      * @param displayWidth    Width if display on Frequency Editor
      * @param sideBandDisplay The side band display of the Frequency Editor
      *                        widget
      * @param hetEditor       The heterodyne editor
      * @param emissionLines   Emissions lines to display
-     * @param nMixers         Number of mixers
      */
     public FrequencyTable(
-            double feIF, double feBandWidthLower, double feBandWidthUpper,
-            double[] bandWidths,
-            int[] channels, int samplerCount, int displayWidth,
+            SpInstHeterodyne inst, Receiver receiver, int displayWidth,
             SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor,
-            EmissionLines emissionLines, int nMixers) {
-
-        super();
-
+            EmissionLines emissionLines) {
         this.sideBandDisplay = sideBandDisplay;
         this.hetEditor = hetEditor;
         this.emissionLines = emissionLines;
+
+        double feIF = receiver.feIF;
+        double feBandWidthUpper = receiver.bandWidthUpper;
+        double feBandWidthLower = receiver.bandWidthLower;
+        int samplerCount = Integer.parseInt(inst.getBandMode());
+
+        int nMixers = 1;
+        try {
+            nMixers = Integer.parseInt(inst.getMixer());
+        } catch (NumberFormatException nfe) {
+        }
+
+        // Get the current bandspec from the mode selection.
+        Vector<BandSpec> bandSpecs = receiver.bandspecs;
+        BandSpec currentBandSpec = bandSpecs.get(0);
+
+        for (int i = 0; i < bandSpecs.size(); i++) {
+            BandSpec bandSpec = bandSpecs.get(i);
+
+            if (bandSpec.toString().equals(inst.getBandMode())) {
+                currentBandSpec = bandSpec;
+                break;
+            }
+        }
+
+        double[] bandWidths = currentBandSpec.getDefaultOverlapBandWidths();
+        int[] channels = currentBandSpec.getDefaultOverlapChannels();
 
         JPanel[] columns = new JPanel[6];
 

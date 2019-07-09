@@ -1723,66 +1723,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private void configureFrequencyEditor() {
-        // First get the current bandspec from the mode selection
-        Vector<BandSpec> bandSpecs = _receiver.bandspecs;
-        BandSpec currentBandSpec = bandSpecs.get(0);
-
-        for (int i = 0; i < bandSpecs.size(); i++) {
-            BandSpec bandSpec = bandSpecs.get(i);
-
-            if (bandSpec.toString().equals(_inst.getBandMode())) {
-                currentBandSpec = bandSpec;
-                break;
-            }
-        }
-
-        // int subbandCount = currentBandSpec.numBands;
-        int subbandCount = Integer.parseInt(_inst.getBandMode());
-        int mixerCount = 1;
-
-        try {
-            mixerCount = Integer.parseInt(_inst.getMixer());
-        } catch (NumberFormatException nfe) {
-        }
-
-        _frequencyEditor.updateDisplay(_inst.getFrontEnd(), _receiver.loMin,
-                _receiver.loMax, _receiver.feIF,
-                _receiver.bandWidthLower, _receiver.bandWidthUpper,
-                mixerCount, getRedshift(),
-                currentBandSpec.getDefaultOverlapBandWidths(),
-                currentBandSpec.getDefaultOverlapChannels(), subbandCount);
-
-        // Need to deal with LO1...
-        double obsFreq = _inst.calculateSkyFrequency();
-
-        String band = _inst.getBand();
-
-        double lo_frequency;
-        if (BEST.equals(band) || USB.equals(band)) {
-            lo_frequency = obsFreq - _inst.getCentreFrequency(0);
-        } else {
-            lo_frequency = obsFreq + _inst.getCentreFrequency(0);
-        }
-        _frequencyEditor.setLO1(lo_frequency);
-
-        for (int i = 0; i < subbandCount; i++) {
-            // Set the centre frequencies
-            double sky_frequency = _inst.calculateSkyFrequency(i);
-            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
-            _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
-            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i, sideband);
-            _frequencyEditor.setLineDetails(
-                    new LineDetails(
-                            _inst.getMolecule(i),
-                            _inst.getTransition(i),
-                            _inst.getRestFrequency(i) / 1.0E6),
-                    i);
-        }
-
-        // Configure the frequency editor
-        _frequencyEditor.setModeAndBand(_inst.getMode(), _inst.getBand());
-
-        _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
+        _frequencyEditor.updateDisplay(_inst, _receiver);
 
         _frequencyEditor.setCallback(new Runnable() {
             public void run() {
