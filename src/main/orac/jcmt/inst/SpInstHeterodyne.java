@@ -1095,6 +1095,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         // Find the maximum number of CMs -- assume that the 1-CM BandSpec
         // allocates them all, so its name tells us the number available.
         int num_cm = Integer.parseInt(receiver.getBandSpecByCMs(1).name);
+        int allocated_cm = 0;
 
         List<BandSpecSelection> selection = new Vector<BandSpecSelection>();
 
@@ -1102,7 +1103,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             BandSpec activeBandSpec = currentBandSpec;
 
             // How many CMs remain, allowing 1 for all bands after this one?
-            int availCMs = 1 + num_cm - (active - j);
+            int availCMs = 1 + (num_cm - allocated_cm) - (active - j);
 
             if (availCMs < activeBandSpec.getMaxNumCMs()) {
                 activeBandSpec = receiver.getBandSpecByCMs(availCMs);
@@ -1117,6 +1118,12 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             int notableIndex = -1;
 
             for (int i = 0; i < values.length; i++) {
+                // If this is a "chained" mode, it should start on an even number CM.
+                if (((activeBandSpec.numCMs[i] / activeBandSpec.numHybridSubBands[i]) > 1)
+                        && ((allocated_cm % 2) != 0)) {
+                    continue;
+                }
+
                 if (values[i] == currentBandwidth) {
                     index = i;
                 }
@@ -1134,7 +1141,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
                     activeBandSpec, index, (index == -1) ? notableIndex : -1));
 
             // Subtract however many CMs the selected mode uses.
-            num_cm -= activeBandSpec.numCMs[(index != -1) ? index : (
+            allocated_cm += activeBandSpec.numCMs[(index != -1) ? index : (
                     (notableIndex != -1) ? notableIndex : 0)];
         }
 
