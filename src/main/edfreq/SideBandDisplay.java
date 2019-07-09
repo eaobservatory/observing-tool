@@ -345,18 +345,6 @@ public class SideBandDisplay extends JFrame {
         return _lo1;
     }
 
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-
-        if (el != null) {
-            el.setRedshift(redshift);
-        }
-
-        if (targetScale != null) {
-            targetScale.setRedshift(redshift);
-        }
-    }
-
     /**
      * Get the current frequency editor setup.
      *

@@ -167,21 +167,6 @@ public class EmissionLines extends JPanel implements MouseListener,
                 altLineStore);
     }
 
-    /**
-     * Set the redshift of the source.
-     *
-     * @param redshift Redshift (z) of source.
-     */
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-
-        lowLimit = restLowLimit * (1.0 + redshift);
-        highLimit = restHighLimit * (1.0 + redshift);
-
-        updateLines();
-        repaint();
-    }
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 

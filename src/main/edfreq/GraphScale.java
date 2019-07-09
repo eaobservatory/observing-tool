@@ -153,20 +153,6 @@ public class GraphScale extends JPanel implements ChangeListener {
         this.orientation = orientation;
     }
 
-    /**
-     * Set the redshift (Z)
-     */
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-        this.minimum = restMinimum * (1.0 + redshift);
-        this.maximum = restMaximum * (1.0 + redshift);
-
-        pixelsPerValue = ((double) length) / (maximum - minimum);
-        halfrange = (maximum - minimum) / 2.0;
-
-        repaint();
-    }
-
     protected int getTickLength() {
         return 8;
     }
