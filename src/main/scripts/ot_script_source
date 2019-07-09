@@ -25,7 +25,6 @@ set TELESCOPE_LIST = "ukirt jcmt"
 
 set TELESCOPE = "" 
 set EDFREQ_CFG = "edfreq/acsisCfg.xml"
-set DISALLOW_MULTI_BW_PROP = ""
 set USAGE = "Usage: $0 [-h] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
 set XMLFILES = ""
 set OT_CFG_FILE = ""
@@ -55,10 +54,6 @@ if("${TELESCOPE}" == "") then
   printf "${USAGE}" 
   exit 
 endif 
-
-if("${EDFREQ_CFG}" == "edfreq/acsisCfg.xml") then
-  set DISALLOW_MULTI_BW_PROP = "-DDISALLOW_MULTI_BW"
-endif
 
 echo Settings:
 

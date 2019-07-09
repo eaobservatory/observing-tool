@@ -281,18 +281,6 @@ public class FrequencyTable extends JPanel {
                     channels, widthChoice, hetEditor.getFeBand());
             samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
 
-            // If the DISALLOW_MULTI_BW system property is used then
-            // the widthChoice JComboBoxes are disabled.
-            // This is used because initially ACSIS will not support
-            // different bandWidths for different subsystems.
-            // So the bandwidth choice on the HeterodyneEditor panel is used
-            // to set the same bandwidths for all subsystems.
-            // The bandwidth choices of this FrequencyTable are still used to
-            // display the bandwidths.
-            if (System.getProperty("DISALLOW_MULTI_BW") != null) {
-                widthChoice.setEnabled(false);
-            }
-
             lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
                     -feIF, samplers[j], lowBar, gigToPix, emissionLines, (j == 0));
             upperSideband[j] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
