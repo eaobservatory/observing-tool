@@ -1,11 +1,11 @@
-Welcome to the ORAC/OMP Observing Tool (UKIRT OT [3]),
+Welcome to the ORAC/OMP Observing Tool (UKIRT OT [1,2,3]),
 based on the Gemini OT (version ot-0.5, Swing and JSky widgets) [4]
 and classes of the old Gemini OT (pre-JSky)[5].
 
 OT release version ........
 (Swing and JSky)
 
-1. (c) 2015-2018 East Asian Observatory.
+1. (c) 2015-2019 East Asian Observatory.
 
 2. (c) 2007-2015 Science and Technology Facilities Council,
                  Joint Astronomy Centre, Hilo.

@@ -1,3 +1,7 @@
++++ July 2019 release
+
+  - It should now be possible to clear airmass and elevation constraints.
+
 +++ January 2019 release
 
   - Offset positions should be viewable again in the position editor.
