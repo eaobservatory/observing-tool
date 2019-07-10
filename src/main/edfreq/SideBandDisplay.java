@@ -139,8 +139,7 @@ public class SideBandDisplay extends JFrame {
         }
         setLO1(lo_frequency);
 
-        el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20,
-                samplerCount);
+        el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20);
 
         jt = new FrequencyTable(
                 inst, receiver, displayWidth, this, hetEditor, el);

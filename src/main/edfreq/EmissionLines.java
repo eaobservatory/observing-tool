@@ -52,7 +52,6 @@ public class EmissionLines extends JPanel implements MouseListener,
             new Hashtable<JMenuItem, LineDetails>();
     private Hashtable<JMenuItem, int[]> popupLinePosTable =
             new Hashtable<JMenuItem, int[]>();
-    private JMenuItem[] samplerMenus;
     JMenuItem item;
     private double lowLimit;
     private double highLimit;
@@ -82,7 +81,7 @@ public class EmissionLines extends JPanel implements MouseListener,
     private int _currentDisplayMode = FREQUENCY_DISPLAY;
 
     public EmissionLines(double lowLimit, double highLimit, double redshift,
-            int xSize, int ySize, int samplerCount) {
+            int xSize, int ySize) {
         super();
 
         int j;
@@ -120,11 +119,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         setPreferredSize(new Dimension(xSize, ySize));
         setSize(xSize, ySize);
         addMouseListener(this);
-
-        samplerMenus = new JMenuItem[samplerCount];
-        for (int i = 0; i < samplerCount; i++) {
-            samplerMenus[i] = new JMenuItem("" + i);
-        }
     }
 
     /**
