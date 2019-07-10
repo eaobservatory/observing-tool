@@ -59,6 +59,8 @@ public class FrequencyTable extends JPanel {
     private SideBand[] upperSideband;
     private JButton[] lineButtons;
     private LineDetails[] lineDetails;
+    private SpInstHeterodyne inst;
+    private Receiver receiver;
     private SideBandDisplay sideBandDisplay;
     private HeterodyneEditor hetEditor;
     private EmissionLines emissionLines;
@@ -81,6 +83,8 @@ public class FrequencyTable extends JPanel {
             SpInstHeterodyne inst, Receiver receiver, int displayWidth,
             SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor,
             EmissionLines emissionLines) {
+        this.inst = inst;
+        this.receiver = receiver;
         this.sideBandDisplay = sideBandDisplay;
         this.hetEditor = hetEditor;
         this.emissionLines = emissionLines;
@@ -264,15 +268,11 @@ public class FrequencyTable extends JPanel {
             resolutionDisplay = new ResolutionDisplay(channels[0],
                     bandWidths[0], nMixers);
 
-            Vector<String> bandWidthItems = new Vector<String>();
-            for (int k = 0; k < bandWidths.length; k++) {
-                bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6)));
-            }
-            JComboBox widthChoice = new JComboBox(bandWidthItems);
+            JComboBox widthChoice = new JComboBox();
 
             samplers[j] = new Sampler(
-                    feIF, feBandWidthLower, feBandWidthUpper, bandWidths,
-                    channels, widthChoice, hetEditor.getFeBand());
+                    feIF, feBandWidthLower, feBandWidthUpper,
+                    activeBandSpec, widthChoice, hetEditor.getFeBand());
             samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
 
             lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
@@ -315,6 +315,12 @@ public class FrequencyTable extends JPanel {
                             inst.getTransition(j),
                             inst.getRestFrequency(j) / 1.0E6),
                     j);
+
+            sampler.bandWidthChoice.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e) {
+                    processBandwidthAdjustment();
+                }
+            });
         }
     }
 
@@ -464,6 +470,53 @@ public class FrequencyTable extends JPanel {
         } else {
             setLineDetails(null, number);
         }
+    }
+
+    boolean processingBandwidth = false;
+    /**
+     * Process an adjustment of the bandwith choice comboboxes.
+     *
+     * When a bandwidth is changed, we need to update the available
+     * bandspecs for all samplers and then select the closest match
+     * for each of them.
+     */
+    private void processBandwidthAdjustment() {
+        if (processingBandwidth) {
+            return;
+        }
+
+        processingBandwidth = true;
+
+        // Read the current bandwidth selection from the GUI.
+        int n = samplers.length;
+        double[] bandwidths = new double[n];
+        for (int i = 0; i < n; i++) {
+            bandwidths[i] = 1.0E6 * Double.parseDouble(
+                    (String) samplers[i].bandWidthChoice.getSelectedItem());
+        }
+
+        // Find matching BandSpecs.
+        List<SpInstHeterodyne.BandSpecSelection> selection
+            = inst.getBandSpecSelection(receiver, bandwidths);
+
+        // Set up the GUI with the new selections.
+        for (int i = 0; i < n; i++) {
+            Sampler sampler = samplers[i];
+            SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(i);
+            BandSpec activeBandSpec = thisSelection.bandSpec;
+            int index = (thisSelection.match != -1)
+                ? thisSelection.match : (
+                    (thisSelection.nearest != -1)
+                        ? thisSelection.nearest
+                        : 0);
+
+            sampler.setBandSpec(activeBandSpec);
+
+            sampler.setBandWidth(
+                    activeBandSpec.getDefaultOverlapBandWidths()[index]);
+        }
+
+        processingBandwidth = false;
     }
 
     /**

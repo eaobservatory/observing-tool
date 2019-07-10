@@ -20,15 +20,13 @@
 package edfreq;
 
 import java.util.Vector;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JComboBox;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class Sampler implements ItemListener {
+public class Sampler {
 
     double centreFrequency;
     double bandWidth;
@@ -76,26 +74,35 @@ public class Sampler implements ItemListener {
      * for the resolution.
      */
     int[] channelsArray;
-    int row;
     Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>();
     JComboBox bandWidthChoice;
 
     public Sampler(double centreFrequency,
             double feBandWidthLower, double feBandWidthUpper,
-            double[] bandWidthsArray, int[] channelsArray,
+            BandSpec activeBandSpec,
             JComboBox bandWidthChoice, String sideband) {
         this.centreFrequency = centreFrequency;
         this.feIF = centreFrequency;
         this.feBandWidthLower = feBandWidthLower;
         this.feBandWidthUpper = feBandWidthUpper;
-        this.bandWidth = bandWidthsArray[0];
-        this.bandWidthsArray = bandWidthsArray;
-        this.channels = channelsArray[0];
-        this.channelsArray = channelsArray;
         this.bandWidthChoice = bandWidthChoice;
         this.sideband = sideband;
 
-        bandWidthChoice.addItemListener(this);
+        setBandSpec(activeBandSpec);
+    }
+
+    public void setBandSpec(BandSpec activeBandSpec) {
+        bandWidthsArray = activeBandSpec.getDefaultOverlapBandWidths();
+        bandWidth = bandWidthsArray[0];
+
+        channelsArray = activeBandSpec.getDefaultOverlapChannels();
+        channels = channelsArray[0];
+
+        bandWidthChoice.removeAllItems();
+
+        for (int i = 0; i < bandWidthsArray.length; i++) {
+            bandWidthChoice.addItem("" + Math.rint(bandWidthsArray[i] * 1.0E-6));
+        }
     }
 
     public void addSamplerWatcher(SamplerWatcher sw) {
@@ -141,8 +148,7 @@ public class Sampler implements ItemListener {
     }
 
     /**
-     * Sets band width, notifies SamplerWatchers but
-     * does <b>not</b> change the band width choice box.
+     * Sets band width.
      */
     public void setBandWidth(double value) {
         bandWidth = value;
@@ -158,9 +164,7 @@ public class Sampler implements ItemListener {
         // the frontend bandwidth.
         setCentreFrequency(getCentreFrequency(), sideband);
 
-        bandWidthChoice.removeItemListener(this);
         bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6)));
-        bandWidthChoice.addItemListener(this);
     }
 
     /**
@@ -178,23 +182,11 @@ public class Sampler implements ItemListener {
         return channels;
     }
 
-    /**
-     * Returns an array of the band width options of this sampler.
-     */
-    public double[] getBandWidthOptions() {
-        return bandWidthsArray;
-    }
-
     public int getResolution() {
         return nMixers * ((int) (1.0E-3 * bandWidth / (double) channels));
     }
 
     public void setNumberOfMixers(int nMixers) {
         this.nMixers = nMixers;
-    }
-
-    public void itemStateChanged(ItemEvent ev) {
-        setBandWidth(Double.parseDouble(
-                (String) bandWidthChoice.getSelectedItem()) * 1.0E6);
     }
 }
