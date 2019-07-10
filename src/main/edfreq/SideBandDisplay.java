@@ -126,6 +126,19 @@ public class SideBandDisplay extends JFrame {
         double lowIF = mid - receiver.feIF - receiver.bandWidthUpper;
         double highIF = mid + receiver.feIF + receiver.bandWidthUpper;
 
+        // Need to deal with LO1...
+        double obsFreq = inst.calculateSkyFrequency();
+
+        String band = inst.getBand();
+
+        double lo_frequency;
+        if ("best".equals(band) || "usb".equals(band)) {
+            lo_frequency = obsFreq - inst.getCentreFrequency(0);
+        } else {
+            lo_frequency = obsFreq + inst.getCentreFrequency(0);
+        }
+        setLO1(lo_frequency);
+
         el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20,
                 samplerCount);
 
@@ -145,7 +158,7 @@ public class SideBandDisplay extends JFrame {
         localScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, 0.0, 9,
                 displayWidth, JSlider.HORIZONTAL);
 
-        createSlider(mid);
+        createSlider(lo_frequency);
 
         slider.addChangeListener(el);
 
@@ -158,35 +171,6 @@ public class SideBandDisplay extends JFrame {
 
         createGUI(st);
         pack();
-
-        // Need to deal with LO1...
-        double obsFreq = inst.calculateSkyFrequency();
-
-        String band = inst.getBand();
-
-        double lo_frequency;
-        if ("best".equals(band) || "usb".equals(band)) {
-            lo_frequency = obsFreq - inst.getCentreFrequency(0);
-        } else {
-            lo_frequency = obsFreq + inst.getCentreFrequency(0);
-        }
-        setLO1(lo_frequency);
-
-        for (int i = 0; i < samplerCount; i++) {
-            // Set the centre frequencies
-            double sky_frequency = inst.calculateSkyFrequency(i);
-            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
-
-            Sampler sampler = jt.getSamplers()[i];
-            sampler.setBandWidth(inst.getBandWidth(i));
-            sampler.setCentreFrequency(inst.getCentreFrequency(i), sideband);
-            jt.setLineDetails(
-                    new LineDetails(
-                            inst.getMolecule(i),
-                            inst.getTransition(i),
-                            inst.getRestFrequency(i) / 1.0E6),
-                    i);
-        }
 
         jt.setModeAndBand(inst.getMode(), inst.getBand());
 

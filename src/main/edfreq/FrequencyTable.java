@@ -98,6 +98,8 @@ public class FrequencyTable extends JPanel {
 
         List<SpInstHeterodyne.BandSpecSelection> selection = inst.getBandSpecSelection(receiver);
 
+        double lo_frequency = sideBandDisplay.getLO1();
+
         JPanel[] columns = new JPanel[6];
 
         int j;
@@ -295,6 +297,24 @@ public class FrequencyTable extends JPanel {
             columns[3].add(widthChoice);
             columns[4].add(resolutionDisplay);
             columns[5].add(highBar);
+        }
+
+        // Now configure the samplers.  This used to be done in the
+        // SideBandDisplay class after executing this constructor.
+        for (j = 0; j < samplerCount; j++) {
+            Sampler sampler = samplers[j];
+
+            double sky_frequency = inst.calculateSkyFrequency(j);
+            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
+
+            sampler.setBandWidth(inst.getBandWidth(j));
+            sampler.setCentreFrequency(inst.getCentreFrequency(j), sideband);
+            setLineDetails(
+                    new LineDetails(
+                            inst.getMolecule(j),
+                            inst.getTransition(j),
+                            inst.getRestFrequency(j) / 1.0E6),
+                    j);
         }
     }
 
