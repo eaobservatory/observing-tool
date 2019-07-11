@@ -74,28 +74,22 @@ public class EmissionLines extends JPanel implements MouseListener,
      */
     private int popupLinePos = -1;
     private double redshift;
-    private double restLowLimit;
-    private double restHighLimit;
     public static int FREQUENCY_DISPLAY = 1;
     public static int VELOCITY_DISPLAY = 0;
     private int _currentDisplayMode = FREQUENCY_DISPLAY;
 
-    public EmissionLines(double lowLimit, double highLimit, double redshift,
+    public EmissionLines(double centerFreq, double restHalfrange, double redshift,
             int xSize, int ySize) {
-        super();
-
-        int j;
-
+        this.restHalfrange = restHalfrange;
+        this.redshift = redshift;
         this.xSize = xSize;
         this.ySize = ySize;
-        restLowLimit = lowLimit;
-        restHighLimit = highLimit;
 
-        this.lowLimit = restLowLimit * (1.0 + redshift);
-        this.highLimit = restHighLimit * (1.0 + redshift);
-        this.redshift = redshift;
+        double restLowLimit = centerFreq - restHalfrange;
+        double restHighLimit = centerFreq + restHalfrange;;
 
-        restHalfrange = 0.5 * (highLimit - lowLimit);
+        lowLimit = restLowLimit * (1.0 + redshift);
+        highLimit = restHighLimit * (1.0 + redshift);
 
         /* Select the emission lines within the frequency range */
 
@@ -107,11 +101,11 @@ public class EmissionLines extends JPanel implements MouseListener,
             System.out.println(e.getMessage());
         }
 
-        for (j = 0; j < xSize; j++) {
+        for (int j = 0; j < xSize; j++) {
             lineStore[j] = null;
         }
 
-        lineCatalog.returnLines(this.lowLimit, this.highLimit, xSize,
+        lineCatalog.returnLines(lowLimit, this.highLimit, xSize,
                 lineStore, lineStoreExtra);
 
         /* Set up the graphics */
@@ -319,15 +313,13 @@ public class EmissionLines extends JPanel implements MouseListener,
             return;
         }
 
-        double value;
-
         /* Find lines using allowing for velocity offset */
 
-        value = EdFreq.SLIDERSCALE
+        double value = EdFreq.SLIDERSCALE
                 * (double) ((JSlider) e.getSource()).getValue();
 
-        restLowLimit = value - restHalfrange;
-        restHighLimit = value + restHalfrange;
+        double restLowLimit = value - restHalfrange;
+        double restHighLimit = value + restHalfrange;
         lowLimit = restLowLimit * (1.0 + redshift);
         highLimit = restHighLimit * (1.0 + redshift);
 
@@ -423,23 +415,5 @@ public class EmissionLines extends JPanel implements MouseListener,
      */
     public LineDetails getSelectedLine() {
         return selectedLine;
-    }
-
-    public static void main(String[] args) {
-        EmissionLines el = new EmissionLines(
-                3.651E+11,
-                3.749E+11,
-                0,
-                800,
-                20,
-                1);
-        el.setMainLine(3.69498216E+11);
-
-        JFrame frame = new JFrame("EmissionLine Display");
-        frame.setResizable(false);
-        frame.add(el);
-        frame.setLocation(100, 100);
-        frame.pack();
-        frame.setVisible(true);
     }
 }

@@ -122,9 +122,7 @@ public class SideBandDisplay extends JFrame {
         dataPanel = Box.createVerticalBox();
         titlePanel = Box.createVerticalBox();
 
-        double mid = 0.5 * (_lRangeLimit + _uRangeLimit);
-        double lowIF = mid - receiver.feIF - receiver.bandWidthUpper;
-        double highIF = mid + receiver.feIF + receiver.bandWidthUpper;
+        double halfRange = receiver.feIF + receiver.bandWidthUpper;
 
         // Need to deal with LO1...
         double obsFreq = inst.calculateSkyFrequency();
@@ -139,7 +137,7 @@ public class SideBandDisplay extends JFrame {
         }
         setLO1(lo_frequency);
 
-        el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20);
+        el = new EmissionLines(lo_frequency, halfRange, redshift, displayWidth, 20);
 
         jt = new FrequencyTable(
                 inst, receiver, displayWidth, this, hetEditor, el);
@@ -148,13 +146,13 @@ public class SideBandDisplay extends JFrame {
 
         SkyTransmission st = null;
         try {
-            st = new SkyTransmission(feName, lowIF, highIF, displayWidth, 80);
+            st = new SkyTransmission(feName, lo_frequency, halfRange, displayWidth, 80);
         } catch (Exception e) {
         }
 
-        targetScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, redshift, 9,
+        targetScale = new GraphScale(lo_frequency, halfRange, 1.0E9, 0.1E9, redshift, 9,
                 displayWidth, JSlider.HORIZONTAL);
-        localScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, 0.0, 9,
+        localScale = new GraphScale(lo_frequency, halfRange, 1.0E9, 0.1E9, 0.0, 9,
                 displayWidth, JSlider.HORIZONTAL);
 
         createSlider(lo_frequency);
@@ -283,7 +281,7 @@ public class SideBandDisplay extends JFrame {
 
         if (st != null) {
             int preferredHeight = st.getPreferredSize().height;
-            GraphScale gs = new GraphScale(0.0, 1.1, 0.5, 0.1, 0.0, 0,
+            GraphScale gs = new GraphScale(0.55, 0.55, 0.5, 0.1, 0.0, 0,
                     preferredHeight, JSlider.VERTICAL);
             area3.add(gs, BorderLayout.EAST);
 
