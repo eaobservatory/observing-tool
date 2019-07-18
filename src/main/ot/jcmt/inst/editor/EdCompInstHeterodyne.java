@@ -550,7 +550,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     } else {
                         int index = component.getSelectedIndex();
 
-                        if (index != 0) {
+                        if ((index != 0) && (component.getItemCount() > 0)) {
                             component.setSelectedIndex(0);
                         }
                     }
