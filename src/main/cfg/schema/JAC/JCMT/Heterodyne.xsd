@@ -64,6 +64,7 @@
     <xsd:restriction base="xsd:string">
         <xsd:pattern value="(S|s)(S|s)(B|b)"/>
         <xsd:pattern value="(D|d)(S|s)(B|b)"/>
+        <xsd:pattern value="2(S|s)(B|b)"/>
     </xsd:restriction>
 </xsd:simpleType>
 
