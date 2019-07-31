@@ -21,27 +21,21 @@ package edfreq;
 
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
 import java.awt.Color;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SideBand implements AdjustmentListener, SamplerWatcher,
-        MouseListener {
+public class SideBand implements AdjustmentListener, SamplerWatcher {
     double lowLimit;
     double highLimit;
     double subBandWidth;
     double subBandCentre;
     Sampler sampler;
-    JScrollBar sideBandGui;
+    FrequencyTable.SideBandScrollBar sideBandGui;
     AdjustmentListener _adjustmentListener = null;
-    private static Color _scrollBarKnobColor = new Color(156, 154, 206);
-    Color _scrollBarBackground = null;
 
     /**
      * The lineButton argument has been so that its text can be reset to "No
@@ -49,19 +43,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
      */
     double pixratio;
     EmissionLines emissionLines;
-    SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
-    HeterodyneEditor hetEditor = null;
-    private int _currentSideBandGuiValue;
-    private int _currentSideBandGuiExtend;
-    private int _currentSideBandGuiMinimum;
-    private int _currentSideBandGuiMaximum;
-
-    /**
-     * Indicates whether LO1 should be changed while the top subsystem sideband
-     * IF is changed so that the sidband stays centred over the line.
-     */
-    private static boolean _lineClamped = true;
-    private boolean _bandWidthExceedsRange = false;
+    boolean isTopSideBand;
 
     /**
      * SideBand constructor.
@@ -70,8 +52,10 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
      * Line" when the side band JScrollBar of this Sideband is changed.
      */
     public SideBand(double lowLimit, double highLimit, double subBandWidth,
-            double subBandCentre, Sampler sampler, JScrollBar sideBandGui,
-            double pixratio, EmissionLines emissionLines) {
+            double subBandCentre, Sampler sampler,
+            FrequencyTable.SideBandScrollBar sideBandGui,
+            double pixratio, EmissionLines emissionLines,
+            boolean isTopSideBand) {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
         this.subBandWidth = subBandWidth;
@@ -80,20 +64,8 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         this.sideBandGui = sideBandGui;
         this.pixratio = pixratio;
         this.emissionLines = emissionLines;
+        this.isTopSideBand = isTopSideBand;
         sideBandGui.addAdjustmentListener(this);
-        sideBandGui.addMouseListener(this);
-        _scrollBarBackground = sideBandGui.getBackground();
-
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            _currentSideBandGuiValue = sideBandGui.getValue();
-            _currentSideBandGuiExtend = sideBandGui.getVisibleAmount();
-            _currentSideBandGuiMinimum = sideBandGui.getMinimum();
-            _currentSideBandGuiMaximum = sideBandGui.getMaximum();
-        }
-    }
-
-    public void setSubBandCentre(double subBandCentre) {
-        this.subBandCentre = subBandCentre;
     }
 
     public double getSubBandCentre() {
@@ -107,37 +79,16 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
     }
 
     public void setScaledCentre(int v) {
-        double mySubBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
+        subBandCentre = ((double) v) / pixratio + (0.5 * subBandWidth);
 
-        setSubBandCentre(mySubBandCentre);
+        String sideband = isTopSideBand
+            ? sampler.sideband
+            : ((highLimit > 0.0) ? "usb" : "lsb");
 
-        sampler.setCentreFrequency(Math.abs(subBandCentre));
-    }
-
-    public int getScaledCentre() {
-        return (int) Math.rint(
-                (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);
-    }
-
-    public int getScaledWidth() {
-        return (int) Math.rint(pixratio * subBandWidth);
-    }
-
-    public void setSubBandWidth(double subBandWidth) {
-        this.subBandWidth = subBandWidth;
+        sampler.setCentreFrequency(Math.abs(subBandCentre), sideband);
     }
 
     public void adjustmentValueChanged(AdjustmentEvent e) {
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            sideBandGui.setValues(
-                    _currentSideBandGuiValue,
-                    _currentSideBandGuiExtend,
-                    _currentSideBandGuiMinimum,
-                    _currentSideBandGuiMaximum);
-
-            return;
-        }
-
         setScaledCentre(sideBandGui.getValue());
 
         if (_adjustmentListener != null) {
@@ -145,41 +96,7 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
         }
     }
 
-    public void updateSamplerValues(double centre, double width, int channels) {
-        /*
-         * If the SideBand is one of the top SideBands and the line should be
-         * clamped then adjust LO1 accordingly.
-         */
-        if (isTopSideBand() && _lineClamped && (width == subBandWidth)) {
-            String band;
-
-            if (hetEditor != null) {
-                band = hetEditor.getFeBand();
-            } else {
-                band = "usb";
-            }
-
-            if (band.equals("lsb")) {
-                if (highLimit < 0.0) {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            + (subBandCentre + centre));
-                } else {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            - (subBandCentre - centre));
-                }
-            } else {
-                if (highLimit < 0.0) {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            - (subBandCentre + centre));
-                } else {
-                    sideBandDisplay.setLO1(sideBandDisplay.getLO1()
-                            + (subBandCentre - centre));
-                }
-            }
-        }
-
-        int sc;
-
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
         if (highLimit < 0.0) {
             subBandCentre = -centre;
         } else {
@@ -190,73 +107,32 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
 
         sideBandGui.removeAdjustmentListener(this);
 
-        int sw = getScaledWidth();
+        int sw = (int) Math.rint(pixratio * subBandWidth);
 
-        if ((sw >= (pixratio * (highLimit - lowLimit)))
-                && sideBandGui.isEnabled()) {
-            sideBandGui.setBackground(_scrollBarKnobColor);
-            _bandWidthExceedsRange = true;
-        } else {
-            sideBandGui.setBackground(_scrollBarBackground);
-            _bandWidthExceedsRange = false;
-        }
+        sideBandGui.setIsInvalid(
+            sw >= (pixratio * (highLimit - lowLimit)));
 
-        sc = getScaledCentre();
+        sideBandGui.setIsSelected(
+            (highLimit > 0.0) ^ (sideband.equalsIgnoreCase("lsb")));
+
+        int sc = (int) Math.rint(
+                (getSubBandCentre() - (0.5 * subBandWidth)) * pixratio);
+
+
         int pixTimesLow = (int) Math.rint(pixratio * lowLimit);
         int pixTimesHigh = (int) Math.rint(pixratio * highLimit);
 
         sideBandGui.setValues(sc, sw, pixTimesLow, pixTimesHigh);
 
-        if (!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-            _currentSideBandGuiValue = sc;
-            _currentSideBandGuiExtend = sw;
-            _currentSideBandGuiMinimum = pixTimesLow;
-            _currentSideBandGuiMaximum = pixTimesHigh;
-        }
-
         sideBandGui.addAdjustmentListener(this);
-    }
-
-    protected void connectTopSideBand(SideBandDisplay sideBandDisplay,
-            HeterodyneEditor hetEditor) {
-        this.sideBandDisplay = sideBandDisplay;
-        this.hetEditor = hetEditor;
-    }
-
-    protected boolean isTopSideBand() {
-        return (sideBandDisplay != null);
     }
 
     public void on() {
         sideBandGui.setEnabled(true);
-
-        if (_bandWidthExceedsRange) {
-            sideBandGui.setBackground(_scrollBarKnobColor);
-        }
     }
 
     public void off() {
         sideBandGui.setEnabled(false);
-        sideBandGui.setBackground(_scrollBarBackground);
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mousePressed(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            _lineClamped = false;
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        _lineClamped = true;
     }
 
     /**
@@ -271,9 +147,5 @@ public class SideBand implements AdjustmentListener, SamplerWatcher,
      */
     public void addAdjustmentListener(AdjustmentListener adjustmentListener) {
         _adjustmentListener = adjustmentListener;
-    }
-
-    public static Color getSideBandColor() {
-        return _scrollBarKnobColor;
     }
 }

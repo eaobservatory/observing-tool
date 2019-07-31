@@ -19,18 +19,18 @@
 
 package edfreq;
 
-import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SamplerDisplay extends JLabel implements SamplerWatcher {
+public class SamplerDisplay extends JTextField implements SamplerWatcher {
     public SamplerDisplay(String text) {
         super(text);
     }
 
-    public void updateSamplerValues(double centre, double width, int channels) {
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
         setText(String.valueOf(centre));
     }
 }

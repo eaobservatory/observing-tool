@@ -52,7 +52,6 @@ public class EmissionLines extends JPanel implements MouseListener,
             new Hashtable<JMenuItem, LineDetails>();
     private Hashtable<JMenuItem, int[]> popupLinePosTable =
             new Hashtable<JMenuItem, int[]>();
-    private JMenuItem[] samplerMenus;
     JMenuItem item;
     private double lowLimit;
     private double highLimit;
@@ -65,8 +64,6 @@ public class EmissionLines extends JPanel implements MouseListener,
     private Graphics ig;
     private double mainLineFreq = 0;
     private int mainLinePos = -1;
-    private double sideLineFreq = 0;
-    private int sideLinePos = -1;
     // Added by MFO (October 15, 2002)
     private LineDetails selectedLine;
     private double popupLineFreq = 0;
@@ -77,28 +74,22 @@ public class EmissionLines extends JPanel implements MouseListener,
      */
     private int popupLinePos = -1;
     private double redshift;
-    private double restLowLimit;
-    private double restHighLimit;
     public static int FREQUENCY_DISPLAY = 1;
     public static int VELOCITY_DISPLAY = 0;
     private int _currentDisplayMode = FREQUENCY_DISPLAY;
 
-    public EmissionLines(double lowLimit, double highLimit, double redshift,
-            int xSize, int ySize, int samplerCount) {
-        super();
-
-        int j;
-
+    public EmissionLines(double centerFreq, double restHalfrange, double redshift,
+            int xSize, int ySize) {
+        this.restHalfrange = restHalfrange;
+        this.redshift = redshift;
         this.xSize = xSize;
         this.ySize = ySize;
-        restLowLimit = lowLimit;
-        restHighLimit = highLimit;
 
-        this.lowLimit = restLowLimit * (1.0 + redshift);
-        this.highLimit = restHighLimit * (1.0 + redshift);
-        this.redshift = redshift;
+        double restLowLimit = centerFreq - restHalfrange;
+        double restHighLimit = centerFreq + restHalfrange;;
 
-        restHalfrange = 0.5 * (highLimit - lowLimit);
+        lowLimit = restLowLimit * (1.0 + redshift);
+        highLimit = restHighLimit * (1.0 + redshift);
 
         /* Select the emission lines within the frequency range */
 
@@ -110,11 +101,11 @@ public class EmissionLines extends JPanel implements MouseListener,
             System.out.println(e.getMessage());
         }
 
-        for (j = 0; j < xSize; j++) {
+        for (int j = 0; j < xSize; j++) {
             lineStore[j] = null;
         }
 
-        lineCatalog.returnLines(this.lowLimit, this.highLimit, xSize,
+        lineCatalog.returnLines(lowLimit, this.highLimit, xSize,
                 lineStore, lineStoreExtra);
 
         /* Set up the graphics */
@@ -122,11 +113,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         setPreferredSize(new Dimension(xSize, ySize));
         setSize(xSize, ySize);
         addMouseListener(this);
-
-        samplerMenus = new JMenuItem[samplerCount];
-        for (int i = 0; i < samplerCount; i++) {
-            samplerMenus[i] = new JMenuItem("" + i);
-        }
     }
 
     /**
@@ -167,21 +153,6 @@ public class EmissionLines extends JPanel implements MouseListener,
                 altLineStore);
     }
 
-    /**
-     * Set the redshift of the source.
-     *
-     * @param redshift Redshift (z) of source.
-     */
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-
-        lowLimit = restLowLimit * (1.0 + redshift);
-        highLimit = restHighLimit * (1.0 + redshift);
-
-        updateLines();
-        repaint();
-    }
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -211,11 +182,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         if (mainLinePos >= 0) {
             ig.setColor(Color.red);
             ig.drawLine(mainLinePos, 0, mainLinePos, ySize);
-        }
-
-        if (sideLinePos >= 0) {
-            ig.setColor(Color.magenta);
-            ig.drawLine(sideLinePos, 0, sideLinePos, ySize);
         }
 
         // Added by MFO (October 15, 2002)
@@ -347,15 +313,13 @@ public class EmissionLines extends JPanel implements MouseListener,
             return;
         }
 
-        double value;
-
         /* Find lines using allowing for velocity offset */
 
-        value = EdFreq.SLIDERSCALE
+        double value = EdFreq.SLIDERSCALE
                 * (double) ((JSlider) e.getSource()).getValue();
 
-        restLowLimit = value - restHalfrange;
-        restHighLimit = value + restHalfrange;
+        double restLowLimit = value - restHalfrange;
+        double restHighLimit = value + restHalfrange;
         lowLimit = restLowLimit * (1.0 + redshift);
         highLimit = restHighLimit * (1.0 + redshift);
 
@@ -389,13 +353,6 @@ public class EmissionLines extends JPanel implements MouseListener,
             mainLinePos = -1;
         }
 
-        if ((sideLineFreq > lowLimit) && (sideLineFreq < highLimit)) {
-            sideLinePos = (int) (((double) xSize)
-                    * (sideLineFreq - lowLimit) / (highLimit - lowLimit));
-        } else {
-            sideLinePos = -1;
-        }
-
         if ((popupLineFreq > lowLimit) && (popupLineFreq < highLimit)) {
             popupLinePos = (int) (((double) xSize)
                     * (popupLineFreq - lowLimit) / (highLimit - lowLimit));
@@ -425,25 +382,6 @@ public class EmissionLines extends JPanel implements MouseListener,
         }
 
         repaint();
-    }
-
-    /**
-     * Sets the side line based on input from the Frequency Editor GUI.
-     *
-     * @param frequency Frequency of side line in Hz.
-     */
-    public void setSideLine(double frequency) {
-        sideLineFreq = frequency;
-
-        if ((sideLineFreq > lowLimit) && (sideLineFreq < highLimit)) {
-            sideLinePos = (int) (((double) xSize)
-                    * (sideLineFreq - lowLimit) / (highLimit - lowLimit));
-        } else {
-            sideLinePos = -1;
-        }
-
-        repaint();
-
     }
 
     public void setDisplayMode(int displayMode) {
@@ -477,23 +415,5 @@ public class EmissionLines extends JPanel implements MouseListener,
      */
     public LineDetails getSelectedLine() {
         return selectedLine;
-    }
-
-    public static void main(String[] args) {
-        EmissionLines el = new EmissionLines(
-                3.651E+11,
-                3.749E+11,
-                0,
-                800,
-                20,
-                1);
-        el.setMainLine(3.69498216E+11);
-
-        JFrame frame = new JFrame("EmissionLine Display");
-        frame.setResizable(false);
-        frame.add(el);
-        frame.setLocation(100, 100);
-        frame.pack();
-        frame.setVisible(true);
     }
 }

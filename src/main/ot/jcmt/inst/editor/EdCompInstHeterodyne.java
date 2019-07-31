@@ -514,7 +514,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             if (_w.specialConfigs.getSelectedIndex() == 0) {
                 configured = false;
                 _inst.removeNamedConfiguration();
-                configureFrequencyEditor();
 
             } else {
                 String selectedConfig =
@@ -551,7 +550,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     } else {
                         int index = component.getSelectedIndex();
 
-                        if (index != 0) {
+                        if ((index != 0) && (component.getItemCount() > 0)) {
                             component.setSelectedIndex(0);
                         }
                     }
@@ -621,7 +620,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                 clickButton(_w.acceptButton);
                 _updateCentralFrequenciesFromShifts(ci.shifts);
-                configureFrequencyEditor(ci.shifts);
                 configured = true;
             }
 
@@ -992,100 +990,52 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     public String getMode() {
-        return _inst.getBandMode();
+        return _inst.getMode();
     }
 
     private void _updateBandwidths() {
-        //  We need to get the current bandspec
-        //  from the region selector
-
-        Vector<BandSpec> bandSpecs = _receiver.bandspecs;
-        BandSpec currentBandSpec = null;
-        BandSpec activeBandSpec = null;
-        String bandMode = _inst.getBandMode();
-
-        int active = new Integer(_inst.getBandMode());
-
-        currentBandSpec = bandSpecs.get(active - 1);
-
-        if (!currentBandSpec.toString().equals(bandMode)) {
-            currentBandSpec = bandSpecs.get(0);
-        }
-
-        BandSpec otherBandSpec = null;
-
-        if (active == 3) {
-            otherBandSpec = bandSpecs.get(3);
-        }
-
-        double[] values = null;
         boolean showDialog = false;
 
-        /*
-         * Index into the new list to allow us to make sure
-         * that it gets reselected if available
-         */
-        int index = -1;
-        double feOverlap = 0.0;
-
-        double currentBandwidth;
+        List<SpInstHeterodyne.BandSpecSelection> selection = _inst.getBandSpecSelection(_receiver);
 
         for (int bandwidthIndex = 0; bandwidthIndex < _w.bandwidths.size();
                 bandwidthIndex++) {
-            // hack
-            if (active == 3) {
-                if (otherBandSpec != null && bandwidthIndex < 2) {
-                    activeBandSpec = otherBandSpec;
-                } else {
-                    activeBandSpec = currentBandSpec;
-                }
-
-            } else {
-                if (bandwidthIndex == 0) {
-                    activeBandSpec = currentBandSpec;
-                }
-            }
-
-            values = activeBandSpec.getDefaultOverlapBandWidths();
-
             JComboBox bandwidth = _w.bandwidths.get(bandwidthIndex);
             bandwidth.removeActionListener(this);
             int originalIndex = bandwidth.getSelectedIndex();
 
             bandwidth.removeAllItems();
-            currentBandwidth = _inst.getBandWidth(bandwidthIndex);
 
-            double lowestContestant = 3000.0;
-            int notableIndex = -1;
+            if (! (bandwidthIndex < selection.size())) {
+                continue;
+            }
 
             // Set the new bandwidths
+            SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(bandwidthIndex);
+            BandSpec activeBandSpec = thisSelection.bandSpec;
+            int index = thisSelection.match;
+            int notableIndex = thisSelection.nearest;
+
+            double[] values = activeBandSpec.getDefaultOverlapBandWidths();
+
             for (int i = 0; i < values.length; i++) {
                 double value = Math.rint(values[i] * 1.0E-6);
-
-                if (values[i] == currentBandwidth) {
-                    index = i;
-                    feOverlap = activeBandSpec.defaultOverlaps[i];
-                    _inst.setOverlap(feOverlap, bandwidthIndex);
-                    _inst.setChannels(
-                            activeBandSpec.getDefaultOverlapChannels()[i],
-                            bandwidthIndex);
-
-                } else {
-                    double contestant = Math.rint(currentBandwidth * 1.0E-6)
-                            - value;
-                    if (Math.abs(contestant) < lowestContestant) {
-                        lowestContestant = contestant;
-                        notableIndex = i;
-                    }
-                }
-
                 bandwidth.addItem("" + value);
             }
 
             if (index != -1) {
                 bandwidth.setSelectedIndex(index);
+                _inst.setOverlap(
+                        activeBandSpec.defaultOverlaps[index],
+                        bandwidthIndex);
+                _inst.setChannels(
+                        activeBandSpec.getDefaultOverlapChannels()[index],
+                        bandwidthIndex);
+            }
+            else if (notableIndex != -1) {
+                // Retrieve current value to show in the dialog box.
+                double currentBandwidth = _inst.getBandWidth(bandwidthIndex);
 
-            } else if (notableIndex > -1) {
                 bandwidth.setSelectedIndex(notableIndex);
                 _inst.setBandWidth(values[notableIndex], bandwidthIndex);
                 _inst.setOverlap(activeBandSpec.defaultOverlaps[0],
@@ -1094,7 +1044,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         activeBandSpec.getDefaultOverlapChannels()[0],
                         bandwidthIndex);
 
-                if (bandwidthIndex < active) {
+                if (originalIndex != -1) {
                     JOptionPane.showMessageDialog(
                             null,
                             "Previous bandwidth for subsystem "
@@ -1105,8 +1055,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                                     + Math.rint(currentBandwidth * 1.0E-6),
                             "Bandwidth Reset", JOptionPane.WARNING_MESSAGE);
                 }
-
-            } else {
+            }
+            else {
                 bandwidth.setSelectedIndex(0);
                 _inst.setBandWidth(values[0], bandwidthIndex);
                 _inst.setOverlap(activeBandSpec.defaultOverlaps[0],
@@ -1115,13 +1065,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         activeBandSpec.getDefaultOverlapChannels()[0],
                         bandwidthIndex);
 
-                if (originalIndex != 0 && currentBandwidth != 0.0) {
+                if (originalIndex != -1) {
                     showDialog = true;
                 }
             }
 
             bandwidth.addActionListener(this);
-            index = -1;
         }
 
         if (showDialog) {
@@ -1734,46 +1683,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _initialiseRegionInfo();
         }
 
-        Vector<BandSpec> bandSpecs = _receiver.bandspecs;
-        BandSpec currentBandSpec = null;
-
-        String bandMode = _inst.getBandMode();
-        int active = new Integer(_inst.getBandMode());
-
-        currentBandSpec = bandSpecs.get(active - 1);
-        if (!currentBandSpec.toString().equals(bandMode)) {
-            currentBandSpec = bandSpecs.get(0);
-        }
-
-        BandSpec otherBandSpec = null;
-        if (active == 3) {
-            otherBandSpec = bandSpecs.get(3);
-        }
-
-        BandSpec activeBandSpec = null;
-
-        double[] availableBandWidths = null;
+        List<SpInstHeterodyne.BandSpecSelection> selection = _inst.getBandSpecSelection(_receiver);
 
         for (int i = 0; i < _regionInfo.length; i++) {
-            if (active == 3) {
-                if (i < 2) {
-                    activeBandSpec = otherBandSpec;
-                } else {
-                    activeBandSpec = currentBandSpec;
-                }
-
-                availableBandWidths =
-                        activeBandSpec.getDefaultOverlapBandWidths();
-
-            } else {
-                activeBandSpec = currentBandSpec;
-
-                if (i == 0) {
-                    availableBandWidths =
-                            activeBandSpec.getDefaultOverlapBandWidths();
-                }
-            }
-
             if (_regionInfo[i] == null) {
                 _regionInfo[i] = new Vector<Object>();
             } else {
@@ -1787,8 +1699,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _regionInfo[i].add(new Double(_inst.getBandWidth(i)));
 
             // Get the overlap and overlap based on the current b/w
-            for (int j = 0; j < availableBandWidths.length; j++) {
-                if (availableBandWidths[j] == _inst.getBandWidth(i)) {
+            if (i < selection.size()) {
+                SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(i);
+                BandSpec activeBandSpec = thisSelection.bandSpec;
+                int j = thisSelection.match;
+
+                if (j != -1) {
                     double overlap = activeBandSpec.defaultOverlaps[j];
                     int channels = activeBandSpec.getDefaultOverlapChannels()[j];
                     int resolution = (int) Math.rint(
@@ -1799,8 +1715,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                     _regionInfo[i].add(new Integer(channels));
                     _inst.setOverlap(overlap, i);
                     _inst.setChannels(channels, i);
-
-                    break;
                 }
             }
 
@@ -1809,76 +1723,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private void configureFrequencyEditor() {
-        configureFrequencyEditor(new Vector<Double>());
-    }
-
-    private void configureFrequencyEditor(Vector<Double> shifts) {
-        // First get the current bandspec from the mode selection
-        Vector<BandSpec> bandSpecs = _receiver.bandspecs;
-        BandSpec currentBandSpec = bandSpecs.get(0);
-
-        for (int i = 0; i < bandSpecs.size(); i++) {
-            BandSpec bandSpec = bandSpecs.get(i);
-
-            if (bandSpec.toString().equals(_inst.getBandMode())) {
-                currentBandSpec = bandSpec;
-                break;
-            }
-        }
-
-        // int subbandCount = currentBandSpec.numBands;
-        int subbandCount = Integer.parseInt(_inst.getBandMode());
-        int mixerCount = 1;
-
-        try {
-            mixerCount = Integer.parseInt(_inst.getMixer());
-        } catch (NumberFormatException nfe) {
-        }
-
-        _frequencyEditor.updateDisplay(_inst.getFrontEnd(), _receiver.loMin,
-                _receiver.loMax, _receiver.feIF,
-                _receiver.bandWidthLower, _receiver.bandWidthUpper,
-                mixerCount, getRedshift(),
-                currentBandSpec.getDefaultOverlapBandWidths(),
-                currentBandSpec.getDefaultOverlapChannels(), subbandCount);
-
-        for (int i = 0; i < Integer.parseInt(_inst.getBandMode()); i++) {
-            // Set the centre frequencies
-            _frequencyEditor.setCentreFrequency(_inst.getCentreFrequency(i), i);
-            _frequencyEditor.setBandWidth(_inst.getBandWidth(i), i);
-            _frequencyEditor.setLineText(
-                            _inst.getMolecule(i)
-                            + "  " + _inst.getTransition(i)
-                            + "  " + (_inst.getRestFrequency(i) / 1.0E6),
-                    i);
-        }
-
-        // Configure the frequency editor
-        _frequencyEditor.resetModeAndBand(_inst.getMode(), _inst.getBand());
-
-        // Need to deal with LO1...
-        double obsFreq = _inst.calculateSkyFrequency();
-
-        String band = _inst.getBand();
-
-        if (BEST.equals(band) || USB.equals(band)) {
-            _frequencyEditor.setLO1(obsFreq
-                    - _frequencyEditor.getTopSubSystemCentreFrequency());
-        } else {
-            _frequencyEditor.setLO1(obsFreq
-                    + _frequencyEditor.getTopSubSystemCentreFrequency());
-        }
-
-        _frequencyEditor.setMainLine(_inst.getRestFrequency(0));
-
-        for (int i = 0; i < shifts.size(); i++) {
-            _frequencyEditor.moveSlider(_inst.getBand(),
-                    _inst.getCentreFrequency(i), subbandCount - 1);
-
-            if (i > 0) {
-                _frequencyEditor.setLineText("No Line", subbandCount - 1);
-            }
-        }
+        _frequencyEditor.updateDisplay(_inst, _receiver);
 
         _frequencyEditor.setCallback(new Runnable() {
             public void run() {

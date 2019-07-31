@@ -213,9 +213,10 @@ the required heterodyne instrument (the &lsquo;front end&rsquo;) and ACSIS
         the <b>Front End Summary</b> box in the top-right corner.
         </p>
 
-        <ul><li>
-        Currently only receivers A3m and HARP are available for use.
-        </li></ul>
+        <ul>
+            <li>Currently the only heterodyne receiver available for use is HARP.</li>
+            <li>&#x2bb;&#x16a;&#x2bb;&#x16b; is expected to become available during semester 19B.</li>
+        </ul>
     </li>
 
     <li>
@@ -254,8 +255,9 @@ the required heterodyne instrument (the &lsquo;front end&rsquo;) and ACSIS
 
     <li>
         <p>
-        The <b>Mode</b> box allows a choice between double sideband (DSB)
-        and single sideband (SSB) operation. Note that only Receiver W allows
+        The <b>Mode</b> box allows a choice between double sideband (DSB),
+        single sideband (SSB) and sideband separating (2SB) operation.
+        Note that only Receiver W allows
         a choice between SSB and DSB: Receiver A is a DSB receiver and HARP
         an SSB receiver.
         </p>
@@ -264,7 +266,7 @@ the required heterodyne instrument (the &lsquo;front end&rsquo;) and ACSIS
     <li>
         <p>
         The <b>Sideband</b> menu allows the choice of sideband. Sideband
-        suppression is not absolute in the SSB receivers, so the user should
+        suppression is not absolute in the SSB and 2SB receivers, so the user should
         avoid, if possible, the situation where the unwanted sideband
         corresponds to a frequency where the zenith opacity or receiver noise
         is high.
@@ -404,7 +406,7 @@ the archive within a day or two of each MSB being observed.
 
 <p>
 The "DR Recipe" component is used to specify the
-<a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch9.html#x10-760001">
+<a href="http://starlink.eao.hawaii.edu/devdocs/sc20.htx/sc20ch5.html#xref_recipes">
 recipe that is to be used by ORAC-DR</a> for reducing the data.
 ORAC-DR uses recipes to carry out all
 the usual reduction steps that were once carried out by
@@ -1874,7 +1876,7 @@ we see:
         The observing and image side-bands, marked as <b>LSB</b> and <b>USB</b>.
     </li>
     <li>
-        Their locations within the respective LO2 ranges and their widths.
+        Their locations within the respective IF ranges and their widths.
     </li>
     <li>
         The identification of the selected emission line associated with a window,
@@ -1903,9 +1905,11 @@ we see:
     </li>
     <li>
         The receiver temperature
-        (<span style="color: red;">TRx</span>) is plotted as the
-        <span style="color: red;">red</span> line (although there
-        is no scale currently). It's wise to check this since even a minor
+        (<span style="color: blue;">TRx</span>) is plotted as the
+        <span style="color: blue;">blue</span> line (although there
+        is no scale currently).
+        The typical sky transmission is plotted in black.
+        It's wise to check this since even a minor
         change in radial velocity can shift the observed frequency into a
         region of very large atmospheric opacity.
     </li>
@@ -1918,11 +1922,11 @@ we see:
         definition.
     </li>
     <li>
-        The Local Oscillator frequency, shown as <b>LO1</b>, located within
+        The Local Oscillator frequency, shown as <b>LO</b>, located within
         the full tuning range of the receiver.
         <ul>
             <li>
-                Note the upper frequency scale, lower frequency scale and LO1 are only
+                Note the upper frequency scale, lower frequency scale and LO are only
                 approximate because the correction from the receiver rest frame to the
                 chosen rest frame requires the Doppler correction for the Earth's
                 motion, which varies with time.
@@ -1939,8 +1943,7 @@ Among the dynamic functions, we find that:
     <li>
         The positions of the windows can be changed by
         clicking on the window sliders and dragging.
-        Note how the LO1
-        and LO2 (ie the IF) both change.
+        Note how the LO and IF both change.
     </li>
     <li>
         The bandwidth can be changed by clicking on the pull-down menu.
@@ -1955,7 +1958,7 @@ Among the dynamic functions, we find that:
         <span style="color: green;">green</span>.
     </li>
     <li>
-        The LO1 frequency can be changed by right-clicking on the slider and
+        The LO frequency can be changed by right-clicking on the slider and
         dragging. This changes both frequency scales and the line rest frequency.
         Moving the LO slider can be a convenient means of choosing a band center
         frequency such that particular spectral lines are included or excluded

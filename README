@@ -5,6 +5,12 @@ If you are reading this you already have the code.
 
 For the sake of completeness here are the full instructions.
 
+0. Ensure suitable versions of Java and Ant are available.
+   On EAO systems with a recent Ant but bad Java, this might require:
+    setenv JAVA_HOME /local/java/jdk1.6
+    setenv PATH $JAVA_HOME/bin:$PATH
+    rehash
+
 1. Check out the code
     git clone https://github.com/eaobservatory/observing-tool.git jacot
 
@@ -13,5 +19,3 @@ For the sake of completeness here are the full instructions.
 
 3. Ant (ant.apache.org) is the preferred method of building ...
     ant
-
-Building from the master branch requires Java 1.6 due to JSky3.

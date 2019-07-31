@@ -1,3 +1,24 @@
++++ July 2019 release
+
+  - The ACSIS library has been updated.
+
+  - "2SB" (sideband-separating) mode has been added for Namakanui.
+
+  - The heterodyne frequency editor now allows IF frequencies to be
+    entered numerically as well as by adjusting the scroll bars and
+    the sideband used by each subsystem is highlighted.
+
+  - The bandwidth selection on the heterodyne setup panel is now
+    dynamically generated to allow for more bandwidth modes with
+    Namakanui.  In the 3-spectral window case, additional modes
+    are now offered in the 1st subsystem rather than the 3rd.
+
+  - Validation of heterodyne setup sideband selections has been ameliorated.
+
+  - It should now be possible to clear airmass and elevation constraints.
+
+  - Time estimates for frequency-switched observations have been adjusted.
+
 +++ January 2019 release
 
   - Support for Namakanui has been added.

@@ -71,27 +71,8 @@ public class BandSpec {
     /** Number of hybrid subbands asscoiated with each bandwidth. */
     public int[] numHybridSubBands;
 
-    // Added by MFO (September 5, 2002)
-    private void initBandSpec(String name, int numBands, double[] bandWidths,
-            int[] channels) {
-        this.name = name;
-        this.numBands = numBands;
-        this.bandWidths = bandWidths;
-        this.channels = channels;
-    }
-
-    public BandSpec(String name, int numBands, double[] bandWidths,
-            int[] channels) {
-        initBandSpec(name, numBands, bandWidths, channels);
-
-        defaultOverlaps = new double[bandWidths.length];
-        numHybridSubBands = new int[bandWidths.length];
-
-        for (int i = 0; i < numHybridSubBands.length; i++) {
-            defaultOverlaps[i] = 0.0;
-            numHybridSubBands[i] = 1;
-        }
-    }
+    /** Number of CMs used by each bandwidth. */
+    public int[] numCMs;
 
     // Added by MFO (September 5, 2002)
     /**
@@ -100,10 +81,23 @@ public class BandSpec {
      */
     public BandSpec(String name, int numBands, double[] bandWidths,
             double[] defaultOverlaps, int[] channels, int[] numHybridSubBands) {
-        initBandSpec(name, numBands, bandWidths, channels);
-
+        this.name = name;
+        this.numBands = numBands;
+        this.bandWidths = bandWidths;
+        this.channels = channels;
         this.defaultOverlaps = defaultOverlaps;
         this.numHybridSubBands = numHybridSubBands;
+
+        // The configuration file does not include the number of CMs used by
+        // each bandwidth.  Therefore attempt to deterimine that here.
+        // This assumes that we can infer chaining based on the number of channels.
+        this.numCMs = new int[bandWidths.length];
+        for (int i = 0; i < bandWidths.length; i ++) {
+            // Use bandWdith / numHybridSubBands to identify the basic mode,
+            // then divide the number of channels by the number in that basic mode.
+            this.numCMs[i] = channels[i] /
+                (((bandWidths[i] / numHybridSubBands[i]) > 0.99E9) ? 1024 : 4096);
+        }
     }
 
     public String toString() {
@@ -254,5 +248,15 @@ public class BandSpec {
         throw new IllegalStateException(
                 "Could not find subsystem with default overlap number of channels "
                         + defaultOverlapChannels);
+    }
+
+    public int getMaxNumCMs() {
+        int max = 0;
+        for (int i = 0; i < numCMs.length; i ++) {
+            if (numCMs[i] > max) {
+                max = numCMs[i];
+            }
+        }
+        return max;
     }
 }

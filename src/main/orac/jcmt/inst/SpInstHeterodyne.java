@@ -25,8 +25,11 @@ import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.util.Format;
+import edfreq.BandSpec;
+import edfreq.Receiver;
 
 import java.util.Vector;
+import java.util.List;
 
 /**
  * The Heterodyne instrument Observation Component.
@@ -56,9 +59,7 @@ import java.util.Vector;
  * combined bandwidth.<p>
  *
  * <tt>H====================H</tt> is an individual subband (as in the hardware).
- * The methods {@link getIndividualSubBandWidth(int)} and
- * {@link getIndividualSubBandChannels(int)} refer to this individual
- * bandwidth.<p>
+ * <p>
  *
  * Note that even in non-hybrid more <tt>C====C</tt> and <tt>H======H</tt> are not the
  * same as half the overlap is taken of either side of <tt>C====C</tt>.
@@ -114,8 +115,8 @@ import java.util.Vector;
  * | |              |   |              |              |                    |
  * | |              |   |              |              |                    |
  * | |              |   |              |              |                    |
- * | |       {@link #getOverlap(int)}              {@link #getIndividualSubBandWidth(int)}    (as in hardware)
- * | |                                 |           {@link #getIndividualSubBandChannels(int)} (as in hardware)
+ * | |       {@link #getOverlap(int)}
+ * | |                                 |
  * | |                                 |
  * | |                                 |
  * | |                                 |
@@ -180,8 +181,6 @@ import java.util.Vector;
  * |\_______________________________                                       |
  * |
  * |                                                                       |
- * |    {@link #getIndividualSubBandWidth(int)}, {@link #getIndividualSubBandChannels(int)}
- * |                            (as in hardware)                           |
  *
  * </pre>
  *
@@ -222,7 +221,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     /** Receiver/Front end bandwidth. */
     public static final String ATTR_FE_BANDWIDTH = "feBandWidth";
 
-    /** Mode: single side band (ssb), double side band (dsb). */
+    /** Mode: single side band (ssb), double side band (dsb)
+      * or sideband separating (2sb). */
     public static final String ATTR_MODE = "mode";
 
     /** Band mode: 1-system, 2-system etc.  */
@@ -505,7 +505,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Get mode: single side band (ssb), double side band (dsb).
+     * Get mode: single side band (ssb), double side band (dsb)
+     * or sideband separating (2sb).
      */
     public String getMode() {
         if (_avTable.get(ATTR_MODE) == null
@@ -517,7 +518,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Set  mode: single side band (ssb), double side band (dsb).
+     * Set  mode: single side band (ssb), double side band (dsb)
+     * or sideband separating (2sb).
      */
     public void setMode(String value) {
         _avTable.set(ATTR_MODE, value);
@@ -764,64 +766,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         setCentreFrequency(Format.toDouble(value), subsystem);
     }
 
-    public double[] getSubBandCentreFrequencies(int subsystem) {
-        int numHybridSubBands = getNumHybridSubBands(subsystem);
-
-        double[] result = new double[numHybridSubBands];
-
-        if (numHybridSubBands == 1) {
-            result[0] = getCentreFrequency(subsystem);
-            return result;
-        }
-
-        double centre = getCentreFrequency(subsystem);
-        double bw = getBandWidth(subsystem);
-
-        int j = (numHybridSubBands / 2) - 1;
-        int k = (numHybridSubBands / 2);
-
-        for (int i = 1; i < numHybridSubBands; i += 2) {
-            result[j] = centre
-                    - ((((double) i) / (2.0 * ((double) numHybridSubBands)))
-                            * bw);
-            result[k] = centre
-                    + ((((double) i) / (2.0 * ((double) numHybridSubBands)))
-                            * bw);
-
-            j--;
-            k++;
-        }
-
-        return result;
-    }
-
-    /**
-     * Sets bandwidth and channel number related values.
-     *
-     * @param bandwidth Bandwidth reduced by (numHybridSubBands * overlap)
-     *                  This accounts for the subtraction of half the overlap
-     *                  on either side of the entire combined band as well as
-     *                  the overlap between individual subbands.
-     * @param overlap   The overlap is used in two ways: (1) as the the overlap
-     *                  between individual subbands and (2) half the overlap is
-     *                  used to as the amount that is subtracted from either
-     *                  side of the entire combined band.
-     * @param numHybridSubBands Number of individual hybrid subbands that make
-     *                  up this entire combined band.
-     * @param channels  Number of channels reduced in accordance with the overlap
-     * @param channelsTotal Total number of channels (as if there was a 0-overlap)
-     * @param subsystem Subsystem to which these parameters apply.
-     */
-    public void setBandWidthDetails(double bandwidth, double overlap,
-            int numHybridSubBands, int channels, int channelsTotal,
-            int subsystem) {
-        setBandWidth(bandwidth, subsystem);
-        setOverlap(overlap, subsystem);
-        setNumHybridSubBands(numHybridSubBands, subsystem);
-        setChannels(channels, subsystem);
-        _avTable.set(ATTR_CHANNELS_TOTAL, channelsTotal, subsystem);
-    }
-
     /**
      * Get bandwidth of specified subsystem.
      *
@@ -995,56 +939,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Get the bandwidth of one subband one or several of which
-     * make up the specified subsystem.
-     *
-     * Hybrid subsystems can be made up of several subbands.
-     *
-     * The value returned by this method corresponds to the actual bandwidth
-     * of an actual subband in hardware ignoring hybrid modes and overlaps etc.
-     * In the case of acsis this method should always return 250 or 1000.
-     *
-     * @param Number of subsystems (starting at 0).
-     *
-     * @see #getIndividualSubBandWidth(int)
-     * @see <a href="#bandwidthAndChannels">Bandwidth and Channel methods</a>
-     */
-    public double getIndividualSubBandWidth(int subsystem) {
-        // getBandWidth(subsystem) returns the combined bandwidth
-        // that can contain several individual hybrid subbands and
-        // is reduced according due to the overlapping of adjacent
-        // hybrid subbands (by getOverlap(subsystem)) AND it has
-        // 0.5 * getOverlap(subsystem) taken of either side of
-        // the resulting combined bandwidth.
-        //
-        // That is why the individual subband bandwidth is calculated as below.
-
-        return (getBandWidth(subsystem)
-                        / ((double) getNumHybridSubBands(subsystem)))
-                + getOverlap(subsystem);
-    }
-
-    /**
-     * Get the number channels of one subband one or several of which
-     * make up the specified subsystem.
-     *
-     * Hybrid subsystems can be made up of several subbands.
-     *
-     * The value returned by this method corresponds to the actual number
-     * of the channels of an actual subband in hardware ignoring hybrid modes
-     * and overlaps etc.  In the case of acsis this method should always
-     * return 1024, 2048 etc.
-     *
-     * @param Number of subsystems (starting at 0).
-     *
-     * @see #getIndividualSubBandWidth(int)
-     * @see <a href="#bandwidthAndChannels">Bandwidth and Channel methods</a>
-     */
-    public int getIndividualSubBandChannels(int subsystem) {
-        return getChannelsTotal(subsystem) / getNumHybridSubBands(subsystem);
-    }
-
-    /**
      * Converts given redshift to specified radial velocity definition.
      *
      * @param velocityDefinition Use {@link #RADIAL_VELOCITY_REDSHIFT},
@@ -1149,6 +1043,120 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         }
 
         return convertToRedshift(velocityDefinition, velocity);
+    }
+
+    public static class BandSpecSelection {
+        public BandSpec bandSpec;
+        public int match;
+        public int nearest;
+
+        public BandSpecSelection(BandSpec bandSpec, int match, int nearest) {
+            this.bandSpec = bandSpec;
+            this.match = match;
+            this.nearest = nearest;
+        }
+    }
+
+    /**
+     * Find the BandSpec and their entries corresponding to the current
+     * configuration.
+     *
+     * This method uses the current band mode to find the corresponding
+     * BandSpec.  The name of the band mode is assumed to be a number giving
+     * the number of bands.  For each band (from 0 to the band mode - 1)
+     * the currently selected bandwidth is compared all entries in the BandSpec.
+     * The results are returned as a list of BandSpecSelection objects
+     * containing the band spec for the band, the matching index and the
+     * nearest index, if no match was found.  A value of -1 is returned
+     * for the "match" and "index" values if there is no corresponding entry.
+     *
+     * This method makes use of the BandSpec.numCMs array to track how many
+     * CMs have been allocated to bands.  If the available CMs will be
+     * exhausted, it should fall back to a simpler BandSpec.  This behavior
+     * can depend on which of the available bandwiths are selected for the
+     * earlier bands.  E.g. for the 3-band case, band 0 gets the main "3"
+     * BandSpec, but since all of its entries use 2 CMs, there would only
+     * be 1 CM left per remaining band so the "4" BandSpec must be used
+     * for bands 1 and 2.
+     *
+     * This method takes an edfreq.Receiver object containing the possible
+     * BandSpec information, as this information is currently not available
+     * to this class.  (The edfreq package used to be separate from this one.)
+     */
+    public List<BandSpecSelection> getBandSpecSelection(Receiver receiver) {
+        int active = Integer.parseInt(getBandMode());
+        double[] currentBandwidths = new double[active];
+        for (int j = 0; j < active; j ++) {
+            currentBandwidths[j] = getBandWidth(j);
+        }
+
+        return getBandSpecSelection(receiver, currentBandwidths);
+    }
+
+    public List<BandSpecSelection> getBandSpecSelection(
+            Receiver receiver, double[] currentBandwidths) {
+        String bandMode = getBandMode();
+        int active = Integer.parseInt(bandMode);
+
+        BandSpec currentBandSpec = receiver.getBandSpec(bandMode);
+        if (currentBandSpec == null) {
+            currentBandSpec = receiver.bandspecs.get(0);
+        }
+
+        // Find the maximum number of CMs -- assume that the 1-CM BandSpec
+        // allocates them all, so its name tells us the number available.
+        int num_cm = Integer.parseInt(receiver.getBandSpecByCMs(1).name);
+        int allocated_cm = 0;
+
+        List<BandSpecSelection> selection = new Vector<BandSpecSelection>();
+
+        for (int j = 0; j < active; j ++) {
+            BandSpec activeBandSpec = currentBandSpec;
+
+            // How many CMs remain, allowing 1 for all bands after this one?
+            int availCMs = 1 + (num_cm - allocated_cm) - (active - j);
+
+            if (availCMs < activeBandSpec.getMaxNumCMs()) {
+                activeBandSpec = receiver.getBandSpecByCMs(availCMs);
+            }
+
+            double[] values = activeBandSpec.getDefaultOverlapBandWidths();
+
+            double currentBandwidth = currentBandwidths[j];
+
+            int index = -1;
+            double lowestContestant = 0.0;
+            int notableIndex = -1;
+
+            for (int i = 0; i < values.length; i++) {
+                // If this is a "chained" mode, it should start on an even number CM.
+                if (((activeBandSpec.numCMs[i] / activeBandSpec.numHybridSubBands[i]) > 1)
+                        && ((allocated_cm % 2) != 0)) {
+                    continue;
+                }
+
+                if (values[i] == currentBandwidth) {
+                    index = i;
+                }
+                else {
+                    double contestant = Math.abs(
+                            currentBandwidth - values[i]);
+                    if ((notableIndex == -1) || (contestant < lowestContestant)) {
+                        lowestContestant = contestant;
+                        notableIndex = i;
+                    }
+                }
+            }
+
+            selection.add(new BandSpecSelection(
+                    activeBandSpec, index, (index == -1) ? notableIndex : -1));
+
+            // Subtract however many CMs the selected mode uses.
+            allocated_cm += activeBandSpec.numCMs[(index != -1) ? index : (
+                    (notableIndex != -1) ? notableIndex : 0)];
+        }
+
+        return selection;
     }
 
     public String subsystemXML(String indent) {

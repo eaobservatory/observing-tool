@@ -49,7 +49,6 @@ public class FrequencyEditorCfg {
             "Geocentric",
             "Heliocentric",
     };
-    public boolean centreFrequenciesAdjustable;
     public Hashtable<String, Receiver> receivers;
     private static FrequencyEditorCfg _frequencyEditorCfg = null;
 
@@ -58,7 +57,6 @@ public class FrequencyEditorCfg {
      */
     private FrequencyEditorCfg() {
         frontEnds = new String[]{};
-        centreFrequenciesAdjustable = true;
         receivers = new Hashtable<String, Receiver>();
     }
 

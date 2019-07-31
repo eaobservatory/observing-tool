@@ -45,7 +45,6 @@ rem used: -internalframes, -nointernalframes.
 set INTERNAL_FRAMES=-nointernalframes
 
 set FREQ_EDITOR_CFG_RESOURCE=edfreq\dasCfg.xml
-set DISALLOW_MULTI_BW_PROP=
 
 rem Allowed values: ukirt, jcmt
 rem Variable is reset if a command line argument is specified (e.g. ukirt or jcmt)
@@ -75,8 +74,6 @@ IF (%INTERNAL_FRAMES%)==(-nointernalframes) echo   Internal Frames: No
 echo "Use ot -h for information on how to change these settings."
 
 set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
-
-IF (%FREQ_EDITOR_CFG_RESOURCE%)==(edfreq\acsisCfg.xml) set DISALLOW_MULTI_BW_PROP=-DDISALLOW_MULTI_BW
 
 echo on
 %JAVA% -Xms5m -Xmx500m -DTELESCOPE=%TELESCOPE% -DSERVER=%SERVER% -Djsky.catalog.skycat.config=%CFG_TELESCOPE_DIR%\skycat.cfg -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%

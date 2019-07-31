@@ -279,18 +279,18 @@ public final class EdCompSchedConstraints extends OtItemEditor implements
     }
 
     private String setElevation(String input) {
-        double elevationOrAirmass = 0.;
-
         if (input != null && input.trim().length() != 0) {
-            elevationOrAirmass = Double.valueOf(input);
+            double elevationOrAirmass = Double.valueOf(input);
 
             if (_schedConstObsComp.getDisplayAirmass()) {
                 elevationOrAirmass =
                         AirmassUtilities.airmassToElevation(elevationOrAirmass);
             }
+
+            return format(elevationOrAirmass);
         }
 
-        return format(elevationOrAirmass);
+        return "";
     }
 
     private String format(double elevationOrAirmass) {

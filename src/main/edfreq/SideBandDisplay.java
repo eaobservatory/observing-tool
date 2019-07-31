@@ -22,7 +22,7 @@ package edfreq;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -42,12 +42,14 @@ import java.util.Vector;
 
 import java.awt.Container;
 
+import orac.jcmt.inst.SpInstHeterodyne;
+
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SideBandDisplay extends JFrame implements MouseListener {
+public class SideBandDisplay extends JFrame {
     private int displayWidth = EdFreq.DISPLAY_WIDTH;
     private JSlider slider;
     private EmissionLines el;
@@ -104,54 +106,79 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         });
     }
 
-    public void updateDisplay(String feName, double lRangeLimit,
-            double uRangeLimit, double feIF,
-            double feBandWidthLower, double feBandWidthUpper, int nMixers,
-            double redshift, double[] bandWidths, int[] channels,
-            int samplerCount) {
+    public void updateDisplay(SpInstHeterodyne inst, Receiver receiver) {
+        String feName = inst.getFrontEnd();
         setTitle("Frequency editor: front end = " + feName);
 
-        int j;
+        this.redshift = inst.calculateRedshift();
 
-        this.redshift = redshift;
+        _uRangeLimit = receiver.loMax;
+        _lRangeLimit = receiver.loMin;
 
-        _uRangeLimit = uRangeLimit;
-        _lRangeLimit = lRangeLimit;
+        int samplerCount = Integer.parseInt(inst.getBandMode());
 
         contentPanel = Box.createHorizontalBox();
         contentPanel.add(Box.createHorizontalGlue());
         dataPanel = Box.createVerticalBox();
         titlePanel = Box.createVerticalBox();
 
-        double mid = 0.5 * (lRangeLimit + uRangeLimit);
-        double lowIF = mid - feIF - feBandWidthUpper;
-        double highIF = mid + feIF + feBandWidthUpper;
+        double halfRange = receiver.feIF + receiver.bandWidthUpper;
 
-        el = new EmissionLines(lowIF, highIF, redshift, displayWidth, 20,
-                samplerCount);
+        // Need to deal with LO1...
+        double obsFreq = inst.calculateSkyFrequency();
 
-        jt = new FrequencyTable(feIF, feBandWidthLower, feBandWidthUpper,
-                bandWidths, channels,
-                samplerCount, displayWidth, this, hetEditor, el, nMixers);
+        String band = inst.getBand();
+
+        double lo_frequency;
+        if ("best".equals(band) || "usb".equals(band)) {
+            lo_frequency = obsFreq - inst.getCentreFrequency(0);
+        } else {
+            lo_frequency = obsFreq + inst.getCentreFrequency(0);
+        }
+        setLO1(lo_frequency);
+
+        el = new EmissionLines(lo_frequency, halfRange, redshift, displayWidth, 20);
+
+        jt = new FrequencyTable(
+                inst, receiver, displayWidth, this, hetEditor, el);
 
         dataPanel.add(jt, BorderLayout.CENTER);
 
         SkyTransmission st = null;
         try {
-            st = new SkyTransmission(feName, lowIF, highIF, displayWidth, 80);
+            st = new SkyTransmission(feName, lo_frequency, halfRange, displayWidth, 80);
         } catch (Exception e) {
         }
 
-        targetScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, redshift, 9,
+        targetScale = new GraphScale(lo_frequency, halfRange, 1.0E9, 0.1E9, redshift, 9,
                 displayWidth, JSlider.HORIZONTAL);
-        localScale = new GraphScale(lowIF, highIF, 1.0E9, 0.1E9, 0.0, 9,
+        localScale = new GraphScale(lo_frequency, halfRange, 1.0E9, 0.1E9, 0.0, 9,
                 displayWidth, JSlider.HORIZONTAL);
 
-        /* Create slider for Front-end local oscillator */
+        createSlider(lo_frequency);
 
+        slider.addChangeListener(el);
+
+        if (st != null) {
+            slider.addChangeListener(st);
+        }
+
+        slider.addChangeListener(targetScale);
+        slider.addChangeListener(localScale);
+
+        createGUI(st);
+        pack();
+
+        jt.setModeAndBand(inst.getMode(), inst.getBand());
+
+        el.setMainLine(inst.getRestFrequency(0));
+    }
+
+    /** Create slider for Front-end local oscillator */
+    private void createSlider(double mid) {
         int centre = (int) Math.rint(mid / EdFreq.SLIDERSCALE);
-        int lslide = (int) Math.rint(lRangeLimit / EdFreq.SLIDERSCALE);
-        int uslide = (int) Math.rint(uRangeLimit / EdFreq.SLIDERSCALE);
+        int lslide = (int) Math.rint(_lRangeLimit / EdFreq.SLIDERSCALE);
+        int uslide = (int) Math.rint(_uRangeLimit / EdFreq.SLIDERSCALE);
 
         slider = new JSlider(JSlider.HORIZONTAL, lslide, uslide, centre);
         slider.setMinorTickSpacing(
@@ -164,7 +191,7 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         /* Create labels for slider at 10GHz intervals */
 
         Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
-        for (j = lslide; j <= uslide;
+        for (int j = lslide; j <= uslide;
                 j += (int) Math.rint(10.0E9 / EdFreq.SLIDERSCALE))
             labels.put(
                     new Integer(j),
@@ -174,17 +201,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
 
         slider.setLabelTable(labels);
 
-        /* Make the graphics follow the slider */
-
-        slider.addChangeListener(el);
-
-        if (st != null) {
-            slider.addChangeListener(st);
-        }
-
-        slider.addChangeListener(targetScale);
-        slider.addChangeListener(localScale);
-
         // LO1 slider will be activeted by pressing the right mouse. This is
         // to prevent accidental LO1 adjustments caused by user clicking on
         // the lower edge of the SideBandDisplay (frequency editor) in order
@@ -192,11 +208,25 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         // SideBandDisplay is the LO1 slider, i.e. each click there would
         // result in an LO1 adjustment.)
         slider.setEnabled(false);
-        slider.setToolTipText("To change LO1 press right mouse button "
+        slider.setToolTipText("To change LO press right mouse button "
                 + "and keep it pressed. "
-                + "Then drag LO1 with left mouse button.");
-        slider.addMouseListener(this);
+                + "Then drag LO with left mouse button.");
+        slider.addMouseListener(new MouseAdapter() {
+               public void mousePressed(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        slider.setEnabled(true);
+                    }
+                }
 
+                public void mouseReleased(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        slider.setEnabled(false);
+                    }
+                }
+        });
+    }
+
+    private void createGUI(SkyTransmission st) {
         targetPanel = Box.createVerticalBox();
         targetPanel.add(Box.createVerticalGlue());
         targetPanel.add(el);
@@ -244,14 +274,14 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         area3.add(label3, BorderLayout.CENTER);
 
         JLabel trxLabel = new JLabel("TRx", SwingConstants.CENTER);
-        trxLabel.setForeground(Color.red);
+        trxLabel.setForeground(Color.blue);
         if (st != null && st.trxAvailable()) {
             area3.add(trxLabel, BorderLayout.NORTH);
         }
 
         if (st != null) {
             int preferredHeight = st.getPreferredSize().height;
-            GraphScale gs = new GraphScale(0.0, 1.1, 0.5, 0.1, 0.0, 0,
+            GraphScale gs = new GraphScale(0.55, 0.55, 0.5, 0.1, 0.0, 0,
                     preferredHeight, JSlider.VERTICAL);
             area3.add(gs, BorderLayout.EAST);
 
@@ -261,7 +291,7 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         }
 
         JLabel label4 = new JLabel("FE Freq", SwingConstants.CENTER);
-        JLabel label5 = new JLabel("LO1", SwingConstants.CENTER);
+        JLabel label5 = new JLabel("LO", SwingConstants.CENTER);
         area4.add(label4, BorderLayout.NORTH);
         area4.add(label5, BorderLayout.CENTER);
         area4.setPreferredSize(new Dimension(100,
@@ -273,8 +303,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         contentPanel.add(dataPanel);
         contentPane.removeAll();
         contentPane.add(contentPanel, BorderLayout.CENTER);
-
-        pack();
     }
 
     public void setLO1(double lo1) {
@@ -298,86 +326,6 @@ public class SideBandDisplay extends JFrame implements MouseListener {
         return _lo1;
     }
 
-    public void setMainLine(double frequency) {
-        if (el != null) {
-            el.setMainLine(frequency);
-        }
-    }
-
-    public void setSideLine(double frequency) {
-        if (el != null) {
-            el.setSideLine(frequency);
-        }
-    }
-
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-
-        if (el != null) {
-            el.setRedshift(redshift);
-        }
-
-        if (targetScale != null) {
-            targetScale.setRedshift(redshift);
-        }
-    }
-
-    public double getTopSubSystemCentreFrequency() {
-        if (jt == null) {
-            return 0.0;
-        } else {
-            return jt.getSamplers()[0].getCentreFrequency();
-        }
-    }
-
-    public int getResolution(int subsystem) {
-        if (jt == null) {
-            return 0;
-        } else {
-            return jt.getSamplers()[subsystem].getResolution();
-        }
-    }
-
-    public int getNumSubSystems() {
-        if (jt == null) {
-            return 0;
-        } else {
-            return jt.getSamplers().length;
-        }
-    }
-
-    public void setCentreFrequency(double centre, int subsystem) {
-        if (jt != null) {
-            jt.getSamplers()[subsystem].setCentreFrequency(centre);
-        }
-    }
-
-    public void setBandWidth(double width, int subsystem) {
-        if (jt != null) {
-            jt.getSamplers()[subsystem].setBandWidth(width);
-        }
-    }
-
-    public void setLineText(String lineText, int subsystem) {
-        if (jt != null) {
-            jt.setLineText(lineText, subsystem);
-        }
-    }
-
-    public void resetModeAndBand(String mode, String band) {
-        if (jt != null) {
-            jt.resetModeAndBand(mode, band);
-        }
-    }
-
-    public void moveSlider(String band, double newPos, int subsystem) {
-        double deltaF = 4.0e9 - newPos;
-
-        if (jt != null) {
-            jt.moveSlider(band, deltaF, subsystem);
-        }
-    }
-
     /**
      * Get the current frequency editor setup.
      *
@@ -397,131 +345,41 @@ public class SideBandDisplay extends JFrame implements MouseListener {
     @SuppressWarnings("unchecked")
     public Vector<Object>[] getCurrentConfiguration() {
         // Create the array
-        Vector<Object>[] results = new Vector[jt.getSamplers().length];
+        Sampler[] samplers = jt.getSamplers();
+        Vector<Object>[] results = new Vector[samplers.length];
         LineDetails details;
         String text;
 
         for (int i = 0; i < results.length; i++) {
             results[i] = new Vector<Object>();
 
-            try {
-                details = jt.getLineDetails(i);
+            details = jt.getLineDetails(i);
+            double cf = samplers[i].getCentreFrequency();
+            double bw = samplers[i].getBandWidth();
+            int ch = samplers[i].getChannels();
+            int res = samplers[i].getResolution();
+            String sideband = samplers[i].sideband;
+
+            if (details != null) {
                 results[i].add(details.name);
                 results[i].add(details.transition);
                 results[i].add(new Double(details.frequency * 1.0E6));
-            } catch (Exception e) {
-                text = jt.getLineText(i);
-
-                if (text != null) {
-                    // Parse the string First see if it starts with "No Line"
-                    if (text.startsWith(HeterodyneEditor.NO_LINE)) {
-                        results[i].add(HeterodyneEditor.NO_LINE);
-                        results[i].add(HeterodyneEditor.NO_LINE);
-
-                        String frequency = text.substring(
-                                text.lastIndexOf(' '));
-                        double rf;
-
-                        if (frequency.matches("\\d*.??\\d*")) {
-                            rf = Double.parseDouble(frequency) * 1.0E6;
-                        }
-                        else {
-                            rf = EdFreq.getRestFrequency(
-                                    getLO1(),
-                                    jt.getSamplers()[i].getCentreFrequency(),
-                                    redshift,
-                                    hetEditor.getFeBand());
-                        }
-
-                        results[i].add(new Double(rf));
-
-                    } else {
-                        // The molecule should be the first thing
-                        String molecule = text.substring(0, text.indexOf("  "));
-                        results[i].add(molecule.trim());
-
-                        // Get the transition
-                        String transition = text.substring(
-                                text.indexOf("  ") + 1,
-                                text.lastIndexOf("  "));
-                        transition = transition.trim();
-
-                        results[i].add(transition);
-
-                        double f = Double.parseDouble(text.substring(
-                                text.lastIndexOf(' '))) * 1.0E6;
-
-                        results[i].add(new Double(f));
-                    }
-                }
+            }
+            else {
+                results[i].add(HeterodyneEditor.NO_LINE);
+                results[i].add(HeterodyneEditor.NO_LINE);
+                results[i].add(new Double(EdFreq.getRestFrequency(
+                        getLO1(), cf, redshift,
+                        (sideband != null) ? sideband : hetEditor.getFeBand())));
             }
 
-            double cf = jt.getSamplers()[i].getCentreFrequency();
             results[i].add(new Double(cf));
-
-            double bw = jt.getSamplers()[i].getBandWidth();
             results[i].add(new Double(bw));
-
-            int ch = jt.getSamplers()[i].getChannels();
             results[i].add(new Integer(ch));
-
-            int res = jt.getSamplers()[i].getResolution();
             results[i].add(new Integer(res));
         }
 
         return results;
-    }
-
-    public static void main(String args[]) {
-        // Create SideBandDisplay with anonymous HeterodyneEditor
-        // implementation that does not do anything.
-        SideBandDisplay sbt = new SideBandDisplay(new HeterodyneEditor() {
-
-            public String getFeBand() {
-                return "usb";
-            }
-
-            public String getMode() {
-                return "dsb";
-            }
-
-            public double getRedshift() {
-                return 0.0;
-            }
-
-            public double getCurrentBandwidth(int subsystem) {
-                return 0.0;
-            }
-        });
-
-        sbt.updateDisplay("Frequency editor test",
-                365.0E+9, 375.0E+9, 4.0E9, 0.9E9, 0.9E9, 1, 0.0,
-                new double[]{0.25E9, 1.0E9},
-                new int[]{8192, 2048},
-                8);
-
-        sbt.setVisible(true);
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void mousePressed(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            slider.setEnabled(true);
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (SwingUtilities.isRightMouseButton(e)) {
-            slider.setEnabled(false);
-        }
     }
 
     /**

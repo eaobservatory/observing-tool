@@ -53,12 +53,9 @@ public class GraphScale extends JPanel implements ChangeListener {
     private Graphics ig;
     private int xSize = 0;
     private int ySize = 0;
-    private double halfrange;
     private int length;
     private int exponent;
     private double redshift;
-    private double restMinimum;
-    private double restMaximum;
     private double restHalfrange;
 
     /**
@@ -74,17 +71,12 @@ public class GraphScale extends JPanel implements ChangeListener {
      * @param orientation    Orientation of display (JSlider.HORIZONTAL or
      *                       JSlider.VERTICAL)
      */
-    public GraphScale(double minimum, double maximum, double majorIncrement,
+    public GraphScale(double centerValue, double restHalfrange, double majorIncrement,
             double minorIncrement, double redshift, int exponent, int length,
             int orientation) {
-        super();
-
         setLayout(null);
 
-        restMinimum = minimum;
-        restMaximum = maximum;
-        this.minimum = minimum * (1.0 + redshift);
-        this.maximum = maximum * (1.0 + redshift);
+        this.restHalfrange = restHalfrange;
         this.majorIncrement = majorIncrement;
         this.minorIncrement = minorIncrement;
         this.redshift = redshift;
@@ -92,50 +84,12 @@ public class GraphScale extends JPanel implements ChangeListener {
         this.length = length;
         this.orientation = orientation;
 
-        this.pixelsPerValue = ((double) length) / (this.maximum - this.minimum);
-        halfrange = (this.maximum - this.minimum) / 2.0;
-        restHalfrange = (restMaximum - restMinimum) / 2.0;
+        double restMinimum = centerValue - restHalfrange;
+        double restMaximum = centerValue + restHalfrange;
+        minimum = restMinimum * (1.0 + redshift);
+        maximum = restMaximum * (1.0 + redshift);
 
-        calculateTickRect();
-        calculateAxisRect();
-
-        setPreferredSize(new Dimension(axisRect.width, axisRect.height));
-    }
-
-    public GraphScale(double minimum, double maximum, double majorIncrement,
-            double minorIncrement, double redshift, int exponent, int length,
-            int orientation, boolean isVelocity) {
-        super();
-
-        setLayout(null);
-
-        restMinimum = minimum;
-        restMaximum = maximum;
-
-        if (isVelocity) {
-            // Convert redshift to velocity
-            double velocity = (Math.pow(1.0 + redshift, 2.0) - 1.0)
-                    / (Math.pow(1.0 + redshift, 2.0) + 1.0);
-
-            velocity *= EdFreq.LIGHTSPEED;
-
-            this.minimum = minimum + velocity;
-            this.maximum = maximum + velocity;
-        } else {
-            this.minimum = minimum * (1.0 + redshift);
-            this.maximum = maximum * (1.0 + redshift);
-        }
-
-        this.majorIncrement = majorIncrement;
-        this.minorIncrement = minorIncrement;
-        this.redshift = redshift;
-        this.exponent = exponent;
-        this.length = length;
-        this.orientation = orientation;
-
-        this.pixelsPerValue = ((double) length) / (this.maximum - this.minimum);
-        halfrange = (this.maximum - this.minimum) / 2.0;
-        restHalfrange = (restMaximum - restMinimum) / 2.0;
+        pixelsPerValue = ((double) length) / (maximum - minimum);
 
         calculateTickRect();
         calculateAxisRect();
@@ -151,20 +105,6 @@ public class GraphScale extends JPanel implements ChangeListener {
      */
     public void setOrientation(int orientation) {
         this.orientation = orientation;
-    }
-
-    /**
-     * Set the redshift (Z)
-     */
-    public void setRedshift(double redshift) {
-        this.redshift = redshift;
-        this.minimum = restMinimum * (1.0 + redshift);
-        this.maximum = restMaximum * (1.0 + redshift);
-
-        pixelsPerValue = ((double) length) / (maximum - minimum);
-        halfrange = (maximum - minimum) / 2.0;
-
-        repaint();
     }
 
     protected int getTickLength() {
@@ -385,13 +325,11 @@ public class GraphScale extends JPanel implements ChangeListener {
     }
 
     public void stateChanged(ChangeEvent e) {
-        double value;
-
-        value = EdFreq.SLIDERSCALE
+        double value = EdFreq.SLIDERSCALE
                 * (double) ((JSlider) e.getSource()).getValue();
 
-        restMinimum = value - restHalfrange;
-        restMaximum = value + restHalfrange;
+        double restMinimum = value - restHalfrange;
+        double restMaximum = value + restHalfrange;
 
         minimum = restMinimum * (1.0 + redshift);
         maximum = restMaximum * (1.0 + redshift);
@@ -403,13 +341,10 @@ public class GraphScale extends JPanel implements ChangeListener {
         String rtn = new String("GraphScale = [xSize=" + xSize
                 + ", ySize=" + ySize
                 + ", length=" + length
-                + ", halfrange=" + halfrange
                 + ", maximum=" + maximum
                 + ", minimum=" + minimum
                 + ", exponent= " + exponent
                 + ", redshift=" + redshift
-                + ", restMaximum=" + restMaximum
-                + ", restMinimum=" + restMinimum
                 + ", restHalfrange=" + restHalfrange + "]");
         return rtn;
     }

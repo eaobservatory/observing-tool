@@ -62,34 +62,17 @@ public class SkyTransmission extends JPanel implements ChangeListener {
     private double lowF = 0;
     private double highF = 0;
 
-    public SkyTransmission(double lowLimit, double highLimit, int xSize,
-            int ySize) {
-        super();
-
-        int j;
-
+    public SkyTransmission(String feName, double centerFreq, double halfRange,
+            int xSize, int ySize) {
+        this._feName = feName;
+        this.halfrange = halfRange;
         this.xSize = xSize;
         this.ySize = ySize;
-        this.lowLimit = lowLimit;
-        this.highLimit = highLimit;
-        halfrange = 0.5 * (highLimit - lowLimit);
 
-        /*
-         * Get relevant section of sky transmission and scale it ready for
-         * plotting
-         */
+        lowLimit = centerFreq - halfRange;
+        highLimit = centerFreq + halfRange;
 
         skyData = new SkyData();
-
-        skyTrans = skyData.getTransmission(lowLimit, highLimit);
-        skyPlot = new int[skyTrans.length][2];
-
-        for (j = 0; j < skyTrans.length; j++) {
-            skyPlot[j][0] = (int) ((double) xSize * (skyTrans[j][0] - lowLimit)
-                    / (highLimit - lowLimit));
-            skyPlot[j][1] = Math.min(ySize - 1,
-                    (int) ((double) ySize * (1.0 - skyTrans[j][1])));
-        }
 
         /*
          * Get the whole of the untunableBands structure
@@ -100,71 +83,10 @@ public class SkyTransmission extends JPanel implements ChangeListener {
 
         setPreferredSize(new Dimension(xSize, ySize));
         setSize(xSize, ySize);
-    }
-
-    /**
-     * Alternate constructor used when we wish to plot TRx as well as the
-     * atmospheric transmission.
-     */
-
-    public SkyTransmission(String feName, double lowLimit, double highLimit,
-            int xSize, int ySize) {
-        this(lowLimit, highLimit, xSize, ySize);
-        _feName = feName;
 
         rxTemp = getTRx(feName);
 
-        // Find the max and min values of TRx so that we can scale
-        // the temperatures between 1 and 0
-        if (rxTemp != null) {
-            int tMax = 0;
-            int tMin = 0;
-            boolean first = true;
-
-            Iterator<Double> iter = rxTemp.values().iterator();
-
-            while (iter.hasNext()) {
-                if (first) {
-                    tMax = (int) Math.rint(iter.next());
-                    tMin = tMax;
-                    first = false;
-                } else {
-                    int currentValue = (int) Math.rint(iter.next());
-
-                    if (currentValue > tMax) {
-                        tMax = currentValue;
-                    }
-
-                    if (currentValue < tMin) {
-                        tMin = currentValue;
-                    }
-                }
-            }
-
-            rxPlot = new int[rxTemp.size() + 2][2];
-            iter = rxTemp.keySet().iterator();
-            int index = 1;
-
-            while (iter.hasNext()) {
-                Double currentKey = iter.next();
-
-                rxPlot[index][0] = (int) ((double) xSize * (currentKey - lowF)
-                        / (highF - lowF));
-
-                int currValue = (int) Math.rint(rxTemp.get(currentKey));
-                int scaledValue = (int) ((double) ySize - (double) ySize
-                        * (currValue - tMin) / (tMax - tMin));
-
-                rxPlot[index][1] = scaledValue;
-                index++;
-            }
-
-            // Finally add a value of 1 at the start and end of the array
-            rxPlot[0][0] = 0;
-            rxPlot[0][1] = 0;
-            rxPlot[rxPlot.length - 1][0] = xSize;
-            rxPlot[rxPlot.length - 1][0] = 0;
-        }
+        updatePlotData();
     }
 
     /**
@@ -200,8 +122,8 @@ public class SkyTransmission extends JPanel implements ChangeListener {
 
         // Draw tRx
         if (rxPlot != null) {
-            // Draw in Red
-            ig.setColor(Color.red);
+            // Draw in blue
+            ig.setColor(Color.blue);
 
             for (j = 0; j < rxPlot.length - 1; j++) {
                 ig.drawLine(
@@ -230,18 +152,21 @@ public class SkyTransmission extends JPanel implements ChangeListener {
      * Implementation of ChangeListener interface.
      */
     public void stateChanged(ChangeEvent e) {
-        double value;
-        int j;
-
-        value = EdFreq.SLIDERSCALE
+        double value = EdFreq.SLIDERSCALE
                 * (double) ((JSlider) e.getSource()).getValue();
         lowLimit = value - halfrange;
         highLimit = value + halfrange;
 
+        updatePlotData();
+
+        repaint();
+    }
+
+    private void updatePlotData() {
         skyTrans = skyData.getTransmission(lowLimit, highLimit);
         skyPlot = new int[skyTrans.length][2];
 
-        for (j = 0; j < skyTrans.length; j++) {
+        for (int j = 0; j < skyTrans.length; j++) {
             skyPlot[j][0] = (int) ((double) xSize * (skyTrans[j][0] - lowLimit)
                     / (highLimit - lowLimit));
             skyPlot[j][1] = Math.min(ySize - 1,
@@ -404,7 +329,6 @@ public class SkyTransmission extends JPanel implements ChangeListener {
                 }
             }
         }
-        repaint();
     }
 
     /**

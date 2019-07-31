@@ -26,39 +26,20 @@ import javax.swing.JLabel;
  */
 @SuppressWarnings("serial")
 public class ResolutionDisplay extends JLabel implements SamplerWatcher {
-    private int resolution;
-    private double width;
     private int nMixers;
 
     public ResolutionDisplay(int channels, double width, int nMixers) {
-        super();
-
         setHorizontalAlignment(CENTER);
 
-        this.width = width;
         this.nMixers = nMixers;
 
-        resolution = nMixers * (int) (1.0E-3 * width / (double) channels);
-        setText(String.valueOf(resolution));
+        // Pass dummy "centre" value to updateSamplerValues as the
+        // implementation in this class does not require it.
+        updateSamplerValues(0.0, width, channels, "");
     }
 
-    public void setChannels(int channels) {
-        resolution = nMixers * ((int) (1.0E-3 * width / (double) channels));
-
-        System.out.println("Setting text of ResolutionDisplay to "
-                + resolution);
-
-        setText(String.valueOf(resolution));
-
-        repaint();
-    }
-
-    public void updateSamplerValues(double centre, double width, int channels) {
-        this.width = width;
-
-        resolution = (int) Math.rint(nMixers
-                * ((width * 1.0E-3) / (double) channels));
-
-        setText(String.valueOf(resolution));
+    public void updateSamplerValues(double centre, double width, int channels, String sideband) {
+        setText(String.valueOf(Math.round(
+                nMixers * ((width * 1.0E-3) / (double) channels))));
     }
 }

@@ -203,23 +203,60 @@ public class JcmtSpValidation extends SpValidation {
 
                 int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
+                String sidebandMode = spInstHeterodyne.getMode();
+
+                double loFreq;
+                if ("lsb".equals(sideBand)) {
+                    loFreq = skyFrequency + spInstHeterodyne.getCentreFrequency(0);
+                } else {
+                    loFreq = skyFrequency - spInstHeterodyne.getCentreFrequency(0);
+                }
 
                 for (int index = 0; index < available; index++) {
                     double centre = spInstHeterodyne.getCentreFrequency(index);
                     double rest = spInstHeterodyne.getRestFrequency(index);
+                    double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
 
-                    if ("lsb".equals(sideBand) && (rest + centre) > loMax) {
+                    if ("lsb".equals(sideBand) && (skyFreq + centre) > loMax) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
                                 "Need to use upper or best sideband"
-                                + " to reach the line " + rest));
+                                + " to reach the line " + rest
+                                + " (at sky frequency " + skyFreq + ")"));
 
                     } else if (!"lsb".equals(sideBand)
-                            && (rest - centre) < loMin) {
+                            && (skyFreq - centre) < loMin) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
                                 "Need to use lower sideband"
-                                + " to reach the line " + rest));
+                                + " to reach the line " + rest
+                                + " (at sky frequency " + skyFreq + ")"));
+                    }
+
+                    if ("best".equals(sideBand)
+                            && (index > 0)
+                            && (skyFreq < loFreq)) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "Configuration uses 'best' to determine"
+                                + " sideband automatically, but subsystem "
+                                + (index + 1) + " at " + rest
+                                + " (sky frequency " + skyFreq + ")"
+                                + " appears to need to be in LSB, so the"
+                                + " observation sideband can not be changed."
+                                + " Please select USB for this configuration."));
+                    }
+
+                    if ("ssb".equals(sidebandMode) && ("lsb".equals(sideBand)
+                            ^ (skyFreq < loFreq))) {
+                        report.add(new ErrorMessage(ErrorMessage.WARNING,
+                                titleString,
+                                "For single sideband (SSB) mode, all subsystems"
+                                + " should be in the same sideband, but subsystem "
+                                + (index + 1) +" at " + rest
+                                + " (sky frequency " + skyFreq
+                                + ") appears not to be in the selected sideband ("
+                                + sideBand + ")."));
                     }
                 }
 

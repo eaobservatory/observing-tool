@@ -24,12 +24,10 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -40,22 +38,29 @@ import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
+import java.util.List;
 import java.util.Vector;
+
+import ot.util.DialogUtil;
+import orac.jcmt.inst.SpInstHeterodyne;
 
 /**
  * @author Dennis Kelly (bdk@roe.ac.uk),
  *         modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class FrequencyTable extends JPanel implements ActionListener {
+public class FrequencyTable extends JPanel {
     private double lLowLimit;
     private double lHighLimit;
     private double uLowLimit;
     private double uHighLimit;
     private Sampler[] samplers;
-    private Object[][] data;
+    private SideBand[] lowerSideband;
+    private SideBand[] upperSideband;
     private JButton[] lineButtons;
     private LineDetails[] lineDetails;
+    private SpInstHeterodyne inst;
+    private Receiver receiver;
     private SideBandDisplay sideBandDisplay;
     private HeterodyneEditor hetEditor;
     private EmissionLines emissionLines;
@@ -66,38 +71,43 @@ public class FrequencyTable extends JPanel implements ActionListener {
     /**
      * Constructor to create frequency table for the Frequency Editor.
      *
-     * @param feIF            Frontend IF mixer frequency (Hz)
-     * @param feBandWidthLower Frontend half-bandwidth (Hz) below preferred IF
-     * @param feBandWidthUpper Frontend half-bandwidth (Hz) above preferred IF
-     * @param bandWidths      Bandwidths for each subsystem (Hz)
-     * @param channels        Number of channels for each subsystem
-     * @param samplerCount    Number of samplers
+     * @param inst            SpInstHeterodyne object
+     * @param receiver        Receiver object
      * @param displayWidth    Width if display on Frequency Editor
      * @param sideBandDisplay The side band display of the Frequency Editor
      *                        widget
      * @param hetEditor       The heterodyne editor
      * @param emissionLines   Emissions lines to display
-     * @param nMixers         Number of mixers
      */
     public FrequencyTable(
-            double feIF, double feBandWidthLower, double feBandWidthUpper,
-            double[] bandWidths,
-            int[] channels, int samplerCount, int displayWidth,
+            SpInstHeterodyne inst, Receiver receiver, int displayWidth,
             SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor,
-            EmissionLines emissionLines, int nMixers) {
-
-        super();
-
+            EmissionLines emissionLines) {
+        this.inst = inst;
+        this.receiver = receiver;
         this.sideBandDisplay = sideBandDisplay;
         this.hetEditor = hetEditor;
         this.emissionLines = emissionLines;
+
+        double feIF = receiver.feIF;
+        double feBandWidthUpper = receiver.bandWidthUpper;
+        double feBandWidthLower = receiver.bandWidthLower;
+        int samplerCount = Integer.parseInt(inst.getBandMode());
+
+        int nMixers = 1;
+        try {
+            nMixers = Integer.parseInt(inst.getMixer());
+        } catch (NumberFormatException nfe) {
+        }
+
+        List<SpInstHeterodyne.BandSpecSelection> selection = inst.getBandSpecSelection(receiver);
+
+        double lo_frequency = sideBandDisplay.getLO1();
 
         JPanel[] columns = new JPanel[6];
 
         int j;
         int i;
-        JComboBox widthChoice;
-        SamplerDisplay samplerDisplay;
         ResolutionDisplay resolutionDisplay;
         SideBandScrollBar lowBar;
         SideBandScrollBar highBar;
@@ -139,11 +149,11 @@ public class FrequencyTable extends JPanel implements ActionListener {
         gigToPix = ((double) displayWidth) / (uHighLimit - lLowLimit);
         int lWidth = (int) Math.rint(gigToPix * (lHighLimit - lLowLimit));
         int uWidth = (int) Math.rint(gigToPix * (uHighLimit - uLowLimit));
-        int sWidth = displayWidth / 10;
-        int tWidth = displayWidth / 10;
-        int sp1Width = (displayWidth - lWidth - uWidth - sWidth - tWidth) / 2;
-        int sp2Width = displayWidth - lWidth - uWidth - sWidth - tWidth
-                - sp1Width;
+        int widthExtra = displayWidth - (lWidth + uWidth);
+        int sWidth = widthExtra / 6;
+        int tWidth = widthExtra / 3;
+        int sp2Width = widthExtra / 6;
+        int sp1Width = widthExtra - sWidth - tWidth - sp2Width;
         int h = 20 * (1 + samplerCount);
 
         /* Set column sizes */
@@ -179,7 +189,8 @@ public class FrequencyTable extends JPanel implements ActionListener {
 
         // Create the samplers and sidebands and their associated displays
 
-        data = new Object[samplerCount][3];
+        lowerSideband = new SideBand[samplerCount];
+        upperSideband = new SideBand[samplerCount];
         samplers = new Sampler[samplerCount];
 
         lineButtons = new JButton[samplerCount];
@@ -188,6 +199,13 @@ public class FrequencyTable extends JPanel implements ActionListener {
         lowBars.clear();
         highBars.clear();
         for (j = 0; j < samplerCount; j++) {
+            final int this_j = j;
+
+            SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(j);
+            BandSpec activeBandSpec = thisSelection.bandSpec;
+            double[] bandWidths = activeBandSpec.getDefaultOverlapBandWidths();
+            int[] channels = activeBandSpec.getDefaultOverlapChannels();
+
             lowBar = new SideBandScrollBar(JScrollBar.HORIZONTAL,
                     (int) Math.rint(gigToPix * (-feIF - 0.5 * bandWidths[0])),
                     (int) Math.rint(gigToPix * bandWidths[0]),
@@ -205,73 +223,73 @@ public class FrequencyTable extends JPanel implements ActionListener {
             highBars.add(highBar);
 
             // Line display added by MFO (October 16, 2002)
+            lineButtons[j] = new JButton("...");
             if (j == 0) {
-                lineButtons[j] = new JButton("See Heterodyne Editor");
                 lineButtons[j].setEnabled(false);
-
-                if (FrequencyEditorCfg.getConfiguration()
-                        .centreFrequenciesAdjustable) {
-                    lowBar.setToolTipText(
-                            "Left mouse button drags line along. "
-                            + "Right mouse button leaves line unchanged.");
-                    highBar.setToolTipText(
-                            "Left mouse button drags line along. "
-                            + "Right mouse button leaves line unchanged.");
-                }
-            } else {
-                lineButtons[j] = new JButton(HeterodyneEditor.NO_LINE);
             }
 
             lineButtons[j].setForeground(Color.black);
             lineButtons[j].setFont(new java.awt.Font("Dialog", 0, 10));
             lineButtons[j].setActionCommand("" + j);
-            lineButtons[j].addActionListener(this);
+            lineButtons[j].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // emissionLines.getSelectedLine() can be null if no line
+                    // has been selected.
+                    LineDetails lineDetails = FrequencyTable.this.emissionLines.getSelectedLine();
 
-            samplerDisplay = new SamplerDisplay(String.valueOf(feIF));
+                    setLineDetails(lineDetails, this_j);
+                }
+            });
+
+            final SamplerDisplay samplerDisplay = new SamplerDisplay(String.valueOf(feIF));
+            samplerDisplay.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        double center = 0.0;
+                        try {
+                            center = Double.parseDouble(samplerDisplay.getText());
+                        }
+                        catch (NumberFormatException exc) {
+                            DialogUtil.error(
+                                FrequencyTable.this,
+                                "IF frequency not understood.");
+                        }
+
+                        if (center != 0.0) {
+                            samplers[this_j].setCentreFrequency(
+                                center, samplers[this_j].sideband);
+
+                            processIFAdjustment(this_j, center);
+                        }
+                    }
+                }
+            });
+
             resolutionDisplay = new ResolutionDisplay(channels[0],
                     bandWidths[0], nMixers);
 
-            Vector<String> bandWidthItems = new Vector<String>();
-            for (int k = 0; k < bandWidths.length; k++) {
-                bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6)));
-            }
-            widthChoice = new JComboBox(bandWidthItems);
+            JComboBox widthChoice = new JComboBox();
 
             samplers[j] = new Sampler(
-                    feIF, feBandWidthLower, feBandWidthUpper, bandWidths,
-                    channels, widthChoice);
+                    feIF, feBandWidthLower, feBandWidthUpper,
+                    activeBandSpec, widthChoice, hetEditor.getFeBand());
             samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
 
-            // If the DISALLOW_MULTI_BW system property is used then
-            // the widthChoice JComboBoxes are disabled.
-            // This is used because initially ACSIS will not support
-            // different bandWidths for different subsystems.
-            // So the bandwidth choice on the HeterodyneEditor panel is used
-            // to set the same bandwidths for all subsystems.
-            // The bandwidth choices of this FrequencyTable are still used to
-            // display the bandwidths.
-            if (System.getProperty("DISALLOW_MULTI_BW") != null) {
-                widthChoice.setEnabled(false);
-            }
+            lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
+                    -feIF, samplers[j], lowBar, gigToPix, emissionLines, (j == 0));
+            upperSideband[j] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
+                    feIF, samplers[j], highBar, gigToPix, emissionLines, (j == 0));
 
-            data[j][0] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
-                    -feIF, samplers[j], lowBar, gigToPix, emissionLines);
-            data[j][1] = samplers[j];
-            data[j][2] = new SideBand(uLowLimit, uHighLimit, bandWidths[0],
-                    feIF, samplers[j], highBar, gigToPix, emissionLines);
+            samplers[j].addSamplerWatcher(new SamplerWatcher() {
+                public void updateSamplerValues(double centre, double width, int channels, String sideband) {
+                    processIFAdjustment(this_j, centre);
+                }
+            });
 
-            samplers[j].addSamplerWatcher((SamplerWatcher) data[j][0]);
-            samplers[j].addSamplerWatcher((SamplerWatcher) samplerDisplay);
-            samplers[j].addSamplerWatcher((SamplerWatcher) resolutionDisplay);
-            samplers[j].addSamplerWatcher((SamplerWatcher) data[j][2]);
-
-            NumberedSideBandListener numberedSideBandListener =
-                    new NumberedSideBandListener(j);
-
-            lowBar.addMouseListener(numberedSideBandListener);
-            highBar.addMouseListener(numberedSideBandListener);
-            ((SideBand) data[j][0]).addAdjustmentListener(
-                    numberedSideBandListener);
+            samplers[j].addSamplerWatcher(lowerSideband[j]);
+            samplers[j].addSamplerWatcher(samplerDisplay);
+            samplers[j].addSamplerWatcher(resolutionDisplay);
+            samplers[j].addSamplerWatcher(upperSideband[j]);
 
             columns[0].add(lowBar);
             columns[1].add(lineButtons[j]);
@@ -281,13 +299,29 @@ public class FrequencyTable extends JPanel implements ActionListener {
             columns[5].add(highBar);
         }
 
-        // Added by MFO (8 January 2002)
-        // Only the top pair of SideBands need to have references of
-        // SideBandDisplay and HeterodyneEditor because when one of them is
-        // changed the LO1 needs adjusting, depending on whether "usb" or "lsb"
-        // has been selected.
-        ((SideBand) data[0][0]).connectTopSideBand(sideBandDisplay, hetEditor);
-        ((SideBand) data[0][2]).connectTopSideBand(sideBandDisplay, hetEditor);
+        // Now configure the samplers.  This used to be done in the
+        // SideBandDisplay class after executing this constructor.
+        for (j = 0; j < samplerCount; j++) {
+            Sampler sampler = samplers[j];
+
+            double sky_frequency = inst.calculateSkyFrequency(j);
+            String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
+
+            sampler.setBandWidth(inst.getBandWidth(j));
+            sampler.setCentreFrequency(inst.getCentreFrequency(j), sideband);
+            setLineDetails(
+                    new LineDetails(
+                            inst.getMolecule(j),
+                            inst.getTransition(j),
+                            inst.getRestFrequency(j) / 1.0E6),
+                    j);
+
+            sampler.bandWidthChoice.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e) {
+                    processBandwidthAdjustment();
+                }
+            });
+        }
     }
 
     /**
@@ -297,83 +331,63 @@ public class FrequencyTable extends JPanel implements ActionListener {
         return samplers;
     }
 
-    /**
-     * Set the line text on the frequency editor GUI.
-     */
-    public void setLineText(String lineText, int subsystem) {
-        lineButtons[subsystem].setText(lineText);
-        lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
-    }
-
-    public LineDetails getLineDetails(int subsystem) throws Exception {
+    public LineDetails getLineDetails(int subsystem) {
         if (lineDetails.length == 0 || lineDetails.length - 1 < subsystem) {
-            throw new Exception("No Line Details");
+            return null;
         }
 
         return lineDetails[subsystem];
     }
 
-    public String getLineText(int subsystem) {
-        if (subsystem > lineButtons.length - 1) {
-            return null;
-        }
-
-        return lineButtons[subsystem].getText();
-    }
-
     /**
-     * Reset the mode and band, and update GUI appropriately.
+     * Set the mode and band, and update GUI appropriately.
      *
      * @param mode Either "ssb" (Single Sideband) or "dsb" (Dual Sideband)
+     *             or "2sb" (sideband separating)
      * @param band Either "usb" (upper sideband), "lsb" (lower sideband) or
      *             "best"
      */
-    public void resetModeAndBand(String mode, String band) {
+    public void setModeAndBand(String mode, String band) {
         if (mode.equalsIgnoreCase("ssb")) {
             if (band.equalsIgnoreCase("lsb")) {
-                for (int i = 0; i < data.length; i++) {
-                    ((SideBand) data[i][0]).on();
-                    ((SideBand) data[i][2]).off();
+                for (int i = 0; i < lowerSideband.length; i++) {
+                    lowerSideband[i].on();
+                    upperSideband[i].off();
                 }
             }
 
             if (band.equalsIgnoreCase("usb") || band.equalsIgnoreCase("best")) {
-                for (int i = 0; i < data.length; i++) {
-                    ((SideBand) data[i][2]).on();
-                    ((SideBand) data[i][0]).off();
+                for (int i = 0; i < lowerSideband.length; i++) {
+                    upperSideband[i].on();
+                    lowerSideband[i].off();
                 }
             }
         } else {
-            for (int i = 0; i < data.length; i++) {
-                ((SideBand) data[i][0]).on();
-                ((SideBand) data[i][2]).on();
+            for (int i = 0; i < lowerSideband.length; i++) {
+                lowerSideband[i].on();
+                upperSideband[i].on();
             }
         }
     }
 
-    /**
-     * Resets line details.
-     */
-    public void actionPerformed(ActionEvent e) {
-        int subsystem = Integer.parseInt(e.getActionCommand());
-
-        // emissionLines.getSelectedLine() can be null if no line
-        // has been selected.
-        LineDetails lineDetails = emissionLines.getSelectedLine();
-
-        resetLineDetails(lineDetails, subsystem);
-    }
-
-    protected void resetLineDetails(LineDetails lineDetails, int subsystem) {
+    protected void setLineDetails(LineDetails lineDetails, int subsystem) {
         if (lineDetails != null) {
             double obsFrequency = (lineDetails.frequency * 1.0E6)
                     / (1.0 + hetEditor.getRedshift());
+            double lo_frequency = sideBandDisplay.getLO1();
 
-            double centreFrequencyDerivedFromLine = Math.abs(obsFrequency
-                    - sideBandDisplay.getLO1());
+            double centreFrequencyDerivedFromLine = Math.abs(
+                    obsFrequency - lo_frequency);
+
+            // Determine the sideband based on the frequency unless this
+            // is the "top" sampler (which is "clamped").
+            String sideband = (subsystem == 0)
+                ? samplers[subsystem].sideband
+                : ((obsFrequency > lo_frequency) ? "usb" : "lsb");
 
             samplers[subsystem].setCentreFrequency(
-                    centreFrequencyDerivedFromLine);
+                    centreFrequencyDerivedFromLine,
+                    sideband);
 
             /*
              * Check whether the line is in the band by comparing
@@ -413,174 +427,96 @@ public class FrequencyTable extends JPanel implements ActionListener {
                 }
             }
 
-            if (lineInBand) {
-                lineButtons[subsystem].setText(
-                                lineDetails.name + "  "
-                                + lineDetails.transition + "  "
-                                + lineDetails.frequency);
-
-                this.lineDetails[subsystem] = lineDetails;
-
-            } else {
-                lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
+            if (! lineInBand) {
+                lineDetails = null;
             }
+        }
 
-            lineButtons[subsystem].setToolTipText(
-                    lineButtons[subsystem].getText());
+
+        this.lineDetails[subsystem] = lineDetails;
+
+        if (lineDetails != null) {
+            lineButtons[subsystem].setText(
+                            lineDetails.name + "  "
+                            + lineDetails.transition + "  "
+                            + lineDetails.frequency);
+        }
+        else {
+            lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
         }
 
         lineButtons[subsystem].setToolTipText(
                 lineButtons[subsystem].getText());
     }
 
-    protected void lo1Changed() {
-        // Skip first button
-        for (int i = 1; i < lineButtons.length; i++) {
-            lineButtons[i].setText(HeterodyneEditor.NO_LINE);
-            lineButtons[i].setToolTipText(lineButtons[i].getText());
-        }
-    }
-
-    public void moveSlider(String band, double newPos, int subsystem) {
-        if (band.equals("best") || band.equals("usb")) {
-            SideBandScrollBar bar = highBars.elementAt(subsystem);
-            AdjustmentListener[] listeners =
-                    highBars.elementAt(subsystem).getListeners(
-                            AdjustmentListener.class);
-
-            // Disable the event liteners and move the USB sliders
-            for (int i = 0; i < listeners.length; i++) {
-                highBars.elementAt(subsystem).removeAdjustmentListener(
-                        listeners[i]);
+    private void processIFAdjustment(int number, double center) {
+        if (number == 0) {
+            // Skip top subsystem because it is clamped and keeps its
+            // line.  All other subsystem loose their lines.
+            for (int i = 1; i < samplers.length; i++) {
+                setLineDetails(null, i);
             }
 
-            int newValue = (int) ((double) bar.getDefaultValue()
-                    - newPos * gigToPix);
-            highBars.elementAt(subsystem).setValue(newValue);
+            LineDetails line = lineDetails[0];
+            if (line != null) {
+                double loFreq = EdFreq.getLO1(
+                        EdFreq.getObsFrequency(
+                                line.frequency * 1.0E6,
+                                hetEditor.getRedshift()),
+                        center, samplers[0].sideband);
 
-            for (int i = 0; i < listeners.length; i++) {
-                highBars.elementAt(subsystem).addAdjustmentListener(
-                        listeners[i]);
-            }
-
-            // Now move the LSB scroller in the complimentary direction
-            listeners = lowBars.elementAt(subsystem).getListeners(
-                    AdjustmentListener.class);
-            bar = lowBars.elementAt(subsystem);
-
-            for (int i = 0; i < listeners.length; i++) {
-                lowBars.elementAt(subsystem).removeAdjustmentListener(
-                        listeners[i]);
-            }
-
-            newValue = (int) ((double) bar.getDefaultValue()
-                    + newPos * gigToPix);
-            lowBars.elementAt(subsystem).setValue(newValue);
-
-            for (int i = 0; i < listeners.length; i++) {
-                lowBars.elementAt(subsystem).addAdjustmentListener(
-                        listeners[i]);
+                sideBandDisplay.setLO1(loFreq);
             }
         } else {
-            SideBandScrollBar bar = lowBars.elementAt(subsystem);
-
-            // Disable the event liteners and move the LSB sliders
-            AdjustmentListener[] listeners =
-                    lowBars.elementAt(subsystem).getListeners(
-                            AdjustmentListener.class);
-
-            for (int i = 0; i < listeners.length; i++) {
-                lowBars.elementAt(subsystem).removeAdjustmentListener(
-                        listeners[i]);
-            }
-
-            int newValue = (int) ((double) bar.getDefaultValue()
-                    - newPos * gigToPix);
-            lowBars.elementAt(subsystem).setValue(newValue);
-
-            for (int i = 0; i < listeners.length; i++) {
-                lowBars.elementAt(subsystem).addAdjustmentListener(
-                        listeners[i]);
-            }
-
-            // Now move the LSB scroller in the complimentary direction
-            bar = highBars.elementAt(subsystem);
-            listeners = highBars.elementAt(subsystem).getListeners(
-                    AdjustmentListener.class);
-
-            for (int i = 0; i < listeners.length; i++) {
-                highBars.elementAt(subsystem).removeAdjustmentListener(
-                        listeners[i]);
-            }
-
-            newValue = (int) ((double) bar.getDefaultValue()
-                    + newPos * gigToPix);
-            highBars.elementAt(subsystem).setValue(newValue);
-
-            for (int i = 0; i < listeners.length; i++) {
-                highBars.elementAt(subsystem).addAdjustmentListener(
-                        listeners[i]);
-            }
+            setLineDetails(null, number);
         }
     }
 
+    boolean processingBandwidth = false;
     /**
-     * A listener for SideBand scroll bars that has knowledge of which SideBand
-     * it is connected to.
+     * Process an adjustment of the bandwith choice comboboxes.
      *
-     * The SideBands are numbered from top to bottom starting with 0.
+     * When a bandwidth is changed, we need to update the available
+     * bandspecs for all samplers and then select the closest match
+     * for each of them.
      */
-    class NumberedSideBandListener
-            implements MouseListener, AdjustmentListener {
-
-        private int _number;
-        private boolean _mousePressed = false;
-
-        NumberedSideBandListener(int number) {
-            _number = number;
+    private void processBandwidthAdjustment() {
+        if (processingBandwidth) {
+            return;
         }
 
-        private void _processAdjustment(boolean isRightMouseButton) {
-            boolean lineClamped = (_number == 0) && (!isRightMouseButton);
+        processingBandwidth = true;
 
-            if (_number == 0) {
-                if (lineClamped) {
-                    // Skip top subsystem because it is clamped and keeps its
-                    // line.  All other subsystem loose their lines.
-                    for (int i = 1; i < samplers.length; i++) {
-                        lineButtons[i].setText(HeterodyneEditor.NO_LINE);
-                    }
-                }
-            } else {
-                lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
-            }
-
-            lineButtons[_number].setToolTipText(lineButtons[_number].getText());
+        // Read the current bandwidth selection from the GUI.
+        int n = samplers.length;
+        double[] bandwidths = new double[n];
+        for (int i = 0; i < n; i++) {
+            bandwidths[i] = 1.0E6 * Double.parseDouble(
+                    (String) samplers[i].bandWidthChoice.getSelectedItem());
         }
 
-        public void mouseClicked(MouseEvent e) {
+        // Find matching BandSpecs.
+        List<SpInstHeterodyne.BandSpecSelection> selection
+            = inst.getBandSpecSelection(receiver, bandwidths);
+
+        // Set up the GUI with the new selections.
+        for (int i = 0; i < n; i++) {
+            Sampler sampler = samplers[i];
+            SpInstHeterodyne.BandSpecSelection thisSelection = selection.get(i);
+            BandSpec activeBandSpec = thisSelection.bandSpec;
+            int index = (thisSelection.match != -1)
+                ? thisSelection.match : (
+                    (thisSelection.nearest != -1)
+                        ? thisSelection.nearest
+                        : 0);
+
+            sampler.setBandSpec(activeBandSpec);
+
+            sampler.setBandWidth(
+                    activeBandSpec.getDefaultOverlapBandWidths()[index]);
         }
 
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        public void mouseExited(MouseEvent e) {
-        }
-
-        public void mousePressed(MouseEvent e) {
-            _mousePressed = true;
-        }
-
-        public void mouseReleased(MouseEvent e) {
-            _processAdjustment(SwingUtilities.isRightMouseButton(e));
-
-            _mousePressed = false;
-        }
-
-        public void adjustmentValueChanged(AdjustmentEvent e) {
-            if (!_mousePressed)
-                _processAdjustment(false);
-        }
+        processingBandwidth = false;
     }
 
     /**
@@ -589,43 +525,51 @@ public class FrequencyTable extends JPanel implements ActionListener {
      * In fact the increase/decrease arrow buttons are still there but their
      * preferred width has been set to 0.
      */
-    class SideBandScrollBar extends JScrollBar {
-
-        int _defaultPos;
+    static class SideBandScrollBar extends JScrollBar {
+        boolean isSelected = false;
+        boolean isInvalid = false;
 
         public SideBandScrollBar(int orientation, int value, int extent,
                 int min, int max) {
             super(orientation, value, extent, min, max);
 
-            _defaultPos = value;
             setUI(new SideBandUI());
+
+            setBackgroundColor();
         }
 
-        public int getDefaultValue() {
-            return _defaultPos;
+        public void setIsSelected(boolean isSelected) {
+            this.isSelected = isSelected;
+            setBackgroundColor();
         }
 
-        /**
-         * MetalScrollBarUI subclass that returns increase/decrease buttons
-         * with 0 width.
-         */
-        class SideBandUI extends MetalScrollBarUI {
+        public void setIsInvalid(boolean isInvalid) {
+            this.isInvalid = isInvalid;
+            setBackgroundColor();
+        }
 
-            private JButton _leftArrow = new JButton();
-            private JButton _rightArrow = new JButton();
+        private void setBackgroundColor() {
+            setBackground(isInvalid
+                ? Color.RED
+                : (isSelected ? Color.YELLOW : Color.DARK_GRAY));
+        }
+    }
 
-            public SideBandUI() {
-                _leftArrow.setPreferredSize(new Dimension(0, 5));
-                _rightArrow.setPreferredSize(new Dimension(0, 5));
-            }
+    /**
+     * MetalScrollBarUI subclass that returns increase/decrease buttons
+     * with 0 width.
+     */
+    static class SideBandUI extends MetalScrollBarUI {
+        protected JButton createDecreaseButton(int orientation) {
+            JButton leftArrow = new JButton();
+            leftArrow.setPreferredSize(new Dimension(0, 5));
+            return leftArrow;
+        }
 
-            protected JButton createDecreaseButton(int orientation) {
-                return _leftArrow;
-            }
-
-            protected JButton createIncreaseButton(int orientation) {
-                return _rightArrow;
-            }
+        protected JButton createIncreaseButton(int orientation) {
+            JButton rightArrow = new JButton();
+            rightArrow.setPreferredSize(new Dimension(0, 5));
+            return rightArrow;
         }
     }
 }
