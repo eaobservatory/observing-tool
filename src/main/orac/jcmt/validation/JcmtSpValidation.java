@@ -19,7 +19,9 @@
 
 package orac.jcmt.validation;
 
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 import gemini.sp.SpItem;
@@ -204,6 +206,16 @@ public class JcmtSpValidation extends SpValidation {
                 int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
                 String sidebandMode = spInstHeterodyne.getMode();
+
+                List<String> availableModes = Arrays.asList(
+                        requencyEditorCfg.frontEndTable.get(spInstHeterodyne.getFrontEnd()));
+
+                if (! availableModes.contains(sidebandMode)) {
+                    report.add(new ErrorMessage(
+                            ErrorMessage.ERROR, titleString,
+                            "Sideband mode " + sidebandMode
+                            + " is not suitable for this receiver."));
+                }
 
                 double loFreq;
                 if ("lsb".equals(sideBand)) {

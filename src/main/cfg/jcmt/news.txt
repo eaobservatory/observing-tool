@@ -1,3 +1,7 @@
++++ January 2020 release
+
+  - The validator now checks the receiver sideband mode.
+
 +++ July 2019 release
 
   - The ACSIS library has been updated.
