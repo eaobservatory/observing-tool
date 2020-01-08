@@ -1,3 +1,7 @@
++++ January 2020 release
+
+  - No changes for UKIRT.
+
 +++ July 2019 release
 
   - It should now be possible to clear airmass and elevation constraints.
