@@ -44,8 +44,6 @@ import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
 import jsky.util.Preferences;
 
-import orac.ukirt.util.UkirtUtil;
-
 /**
  * Implements a menubar for an OtWindow window.
  *
@@ -135,10 +133,6 @@ public class OtWindowMenuBar extends JMenuBar {
         menu.addSeparator();
         menu.add(editor.getSaveAction());
 
-        if (OtCfg.telescopeUtil instanceof UkirtUtil) {
-            menu.add(createFileSaveObsAsSequenceMenuItem());
-        }
-
         menu.add(createFileSaveAsMenuItem());
         menu.add(fileRevertMenuItem = createFileRevertToSavedMenuItem());
         menu.addSeparator();
@@ -217,24 +211,6 @@ public class OtWindowMenuBar extends JMenuBar {
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 editor.save();
-            }
-        });
-
-        return menuItem;
-    }
-
-    /**
-     * Create the File => "Save Observation As Sequence" menu item.
-     *
-     * MFO
-     */
-    protected JMenuItem createFileSaveObsAsSequenceMenuItem() {
-        String menuString = "Save Observation As Sequence";
-        JMenuItem menuItem = new JMenuItem(menuString);
-
-        menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                editor.doSaveSequence();
             }
         });
 

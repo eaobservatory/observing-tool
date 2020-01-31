@@ -138,8 +138,6 @@ public class SpValidation {
                 checkIterator(doc, "SpIterOffset", "Offset Iterator", report);
             }
 
-            checkIterator(doc, "SpIterFrequency", "Frequency Iterator", report);
-
             // Other rules:
             // SpAND must contain an SpObs or SpMSB but NOT and SpOR
             // SpOR must contain and SpObs, SpMSB or SpOR
@@ -920,7 +918,6 @@ public class SpValidation {
             classPathMap.put("SpIterRepeat", "gemini.sp.iter.");
             classPathMap.put("SpIterPOL", "orac.jcmt.iter.");
             classPathMap.put("SpIterOffset", "gemini.sp.iter.");
-            classPathMap.put("SpIterFrequency", "orac.jcmt.iter.");
             classPathMap.put("SpIterChop", "gemini.sp.iter.");
 
             classPathMap.put("SpIterFocusObs", "orac.jcmt.iter.");
