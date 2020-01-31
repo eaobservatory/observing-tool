@@ -215,32 +215,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
         }
     }
 
-    /**
-     * Indicates whether the calibration observation is optional.
-     *
-     * Added for OMP (MFO, 22 October 2001)
-     *
-     * @return true if calibration is optional.
-     */
-    protected static boolean isUKIRT = false;
-
-    protected static boolean cachedTelescope = false;
-
-    public boolean isOptionalForEstimates() {
-        boolean optional = false;
-
-        if (!cachedTelescope) {
-            isUKIRT = "UKIRT".equalsIgnoreCase(System.getProperty("TELESCOPE"));
-            cachedTelescope = true;
-        }
-
-        if (!isUKIRT) {
-            optional = isOptional();
-        }
-
-        return optional;
-    }
-
     public boolean isOptional() {
         return _avTable.getBool(ATTR_OPTIONAL);
     }
@@ -252,13 +226,6 @@ public class SpObs extends SpMSB implements SpTranslatable,
      */
     public void setOptional(boolean optional) {
         _avTable.set(ATTR_OPTIONAL, optional);
-    }
-
-    /**
-     * dummy method for inheritance reasons
-     */
-    public double getElapsedTime(boolean dummy) {
-        return getElapsedTime();
     }
 
     public double getElapsedTime() {

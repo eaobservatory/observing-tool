@@ -133,10 +133,7 @@ public class SpValidation {
             checkIterator(doc, "SpIterChop", "Chop Iterator", report);
             checkIterator(doc, "SpIterPOL", "POL Iterator", report);
             checkIterator(doc, "SpIterRepeat", "Repeat Iterator", report);
-
-            if (System.getProperty("ot.cfgdir").indexOf("ukirt") == -1) {
-                checkIterator(doc, "SpIterOffset", "Offset Iterator", report);
-            }
+            checkIterator(doc, "SpIterOffset", "Offset Iterator", report);
 
             // Other rules:
             // SpAND must contain an SpObs or SpMSB but NOT and SpOR
