@@ -44,7 +44,6 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.iter.SpIterPOL;
 import orac.jcmt.iter.SpIterStareObs;
-import orac.ukirt.inst.SpInstWFCAM;
 
 /**
  * The Iterator Folder (or "Sequence") item.
@@ -226,15 +225,13 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                         oldIterOffsets.add(spIterOffset);
                     }
 
-                    if (! (instrument instanceof SpInstWFCAM)) {
-                        if ((OFFSET_TIME - instrument.getExposureOverhead())
-                                > 0.0) {
-                            // If for each OFFSET_TIME added an exposure
-                            // overhead can be subtracted since this is done
-                            // while the telescope moves.
-                            elapsedTime += (OFFSET_TIME
-                                    - instrument.getExposureOverhead());
-                        }
+                    if ((OFFSET_TIME - instrument.getExposureOverhead())
+                            > 0.0) {
+                        // If for each OFFSET_TIME added an exposure
+                        // overhead can be subtracted since this is done
+                        // while the telescope moves.
+                        elapsedTime += (OFFSET_TIME
+                                - instrument.getExposureOverhead());
                     }
                 }
             }

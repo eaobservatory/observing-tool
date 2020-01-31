@@ -21,7 +21,7 @@ set JAVA = `which java`
  
 # The telescope names in this list should correspond to the directories in CFG_DIRS. 
 # (generated from ../conf/make.conf) 
-set TELESCOPE_LIST = "ukirt jcmt"  
+set TELESCOPE_LIST = "jcmt"  
 
 set TELESCOPE = "" 
 set EDFREQ_CFG = "edfreq/acsisCfg.xml"

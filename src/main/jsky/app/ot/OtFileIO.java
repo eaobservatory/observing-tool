@@ -53,7 +53,6 @@ import java.io.Reader;
 
 import jsky.app.ot.OtWindow;
 
-import orac.ukirt.iter.SpIterMichelleCalObs;
 import orac.util.SpItemUtilities;
 import orac.util.SpInputXML;
 import orac.util.FileFilterXML;
@@ -503,15 +502,6 @@ public class OtFileIO {
         }
 
         if ((spItem != null) && (spItem instanceof SpLibrary)) {
-            Vector<SpItem> mco = SpTreeMan.findAllItems(spItem,
-                    SpIterMichelleCalObs.class.getName());
-
-            for (SpItem item : mco) {
-                SpIterMichelleCalObs obs = (SpIterMichelleCalObs) item;
-                obs.useDefaults();
-                obs.updateDAConf();
-            }
-
             // Changed by MFO, 22 August 2001
             OtWindow.create(spItem, new FileInfo());
         }

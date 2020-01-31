@@ -38,7 +38,6 @@ import gemini.util.TelescopePos;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.obsComp.SpInstObsComp;
-import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 import java.awt.geom.Point2D;
 
@@ -115,10 +114,6 @@ public class OffsetPosMap extends FitsPosMap implements FitsImageInfoObserver {
         double posAngle = (((SpOffsetPosList) _tpl).getPosAngle()
                 * Math.PI) / 180.0;
         SpInstObsComp myInst = ((TpeImageWidget) _iw).getInstrumentItem();
-
-        if (myInst instanceof SpUKIRTInstObsComp) {
-            posAngle = myInst.getPosAngleRadians();
-        }
 
         // Rotate temporarily by position angle of telescope position.
         ((SpOffsetPos) tp).noNotifySetXY(
