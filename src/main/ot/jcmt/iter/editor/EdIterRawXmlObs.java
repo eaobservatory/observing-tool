@@ -18,6 +18,18 @@
 
 package ot.jcmt.iter.editor;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 import gemini.sp.SpItem;
 import orac.jcmt.iter.SpIterRawXmlObs;
 
@@ -34,6 +46,45 @@ public final class EdIterRawXmlObs extends EdIterJCMTGeneric {
         _description = "Raw XML Observation Mode";
 
         _w.jPanel1.setVisible(false);
+
+        _w.timeField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                _iterObs.setElapsedTime(Double.parseDouble(_w.timeField.getText()));
+            }
+        });
+
+        _w.ocsCfgArea.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                _iterObs.setOcsConfig(_w.ocsCfgArea.getText());
+            }
+        });
+
+        _w.loadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.showOpenDialog(_w);
+                File file = chooser.getSelectedFile();
+                if (file != null) {
+                    try {
+                        StringBuffer buff = new StringBuffer();
+                        BufferedReader reader = new BufferedReader(new FileReader(file));
+                        char[] cbuf = new char[1024];
+                        int len;
+                        while ((len = reader.read(cbuf, 0, 1024)) > 0) {
+                            buff.append(cbuf, 0, len);
+                        }
+                        _iterObs.setOcsConfig(buff.toString());
+                        _updateWidgets();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(_w, e,
+                                "Could not load OCS config. XML",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+        });
     }
 
     public void setup(SpItem spItem) {
@@ -44,5 +95,18 @@ public final class EdIterRawXmlObs extends EdIterJCMTGeneric {
 
     protected void _updateWidgets() {
         super._updateWidgets();
+
+        _w.timeField.setText(Double.toString(_iterObs.getElapsedTime()));
+
+        Caret caret = _w.ocsCfgArea.getCaret();
+        if (caret instanceof DefaultCaret) {
+            ((DefaultCaret) caret).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        }
+
+        _w.ocsCfgArea.setText(_iterObs.getOcsConfig());
+
+        if (caret instanceof DefaultCaret) {
+            ((DefaultCaret) caret).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        }
     }
 }

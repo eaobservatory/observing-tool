@@ -18,9 +18,19 @@
 
 package ot.jcmt.iter.editor;
 
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class IterRawXmlObsGUI extends IterJCMTGenericGUI {
+    public JTextField timeField;
+    public JTextArea ocsCfgArea;
+    public JButton loadButton;
+
     public IterRawXmlObsGUI() {
         try {
             jbInit();
@@ -30,5 +40,20 @@ public class IterRawXmlObsGUI extends IterJCMTGenericGUI {
     }
 
     private void jbInit() throws Exception {
+        setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Estimated duration (seconds)"));
+        timeField = new JTextField(20);
+        panel.add(timeField);
+        add(panel, BorderLayout.NORTH);
+
+        ocsCfgArea = new JTextArea();
+        add(new JScrollPane(ocsCfgArea), BorderLayout.CENTER);
+
+        panel = new JPanel();
+        loadButton = new JButton("Load from file");
+        panel.add(loadButton);
+        add(panel, BorderLayout.SOUTH);
     }
 }
