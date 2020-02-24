@@ -181,21 +181,6 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
         getCurrentPosList().setPosAngle(pa);
 
         _posAngleObsData.setPosAngle(pa);
-
-        // SdW - Look for children which implement implement SpPosAngleObserver
-        Enumeration<SpItem> e = children();
-
-        while (e.hasMoreElements()) {
-            SpItem child = e.nextElement();
-            Class<?>[] interfaces = child.getClass().getInterfaces();
-
-            for (int i = 0; i < interfaces.length; i++) {
-                if (interfaces[i].getName().indexOf("SpPosAngleObserver")
-                        != -1) {
-                    ((SpPosAngleObserver) child).posAngleUpdate(pa);
-                }
-            }
-        }
     }
 
     /**

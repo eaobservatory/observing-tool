@@ -51,7 +51,7 @@ import java.math.BigDecimal;
  */
 @SuppressWarnings("serial")
 public class SpIterRasterObs extends SpIterJCMTObs implements
-        SpPosAngleObserver, SpMapItem, SpJCMTConstants {
+        SpMapItem, SpJCMTConstants {
 
     /** TCS XML constants. */
     private static final String TX_OBS_AREA = "obsArea";
@@ -150,10 +150,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements
     public void setPosAngle(double theta) {
         theta %= 180.0;
         _avTable.set(ATTR_SCANAREA_PA, theta);
-
-        if (_parent instanceof SpIterOffset) {
-            ((SpIterOffset) _parent).setPosAngle(getPosAngle());
-        }
     }
 
     /**
@@ -459,16 +455,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements
         }
 
         super.setSampleTime(value);
-    }
-
-    public void posAngleUpdate(double posAngle) {
-        /*
-         * Do not use setPosAngle(posAngle) here as it would reset the
-         * posAngle of the class calling posAngleUpdate(posAngle) which
-         * would then call posAngleUpdate(posAngle) again an so on causing
-         * an infinite loop.
-         */
-        _avTable.set(ATTR_SCANAREA_PA, posAngle);
     }
 
     public double getSecsPerRow() {
