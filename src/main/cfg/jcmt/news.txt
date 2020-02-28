@@ -1,3 +1,14 @@
++++ March 2020 release
+
+  - Automatic linkage between the PA of a scan "eye" and its parent
+    offset iterator has been removed.  Any projects which involve
+    mosaicking rasters must now manually set these angles to be
+    the same if desired.
+
+  - Raster pixel sizes are now checked by the validator.  It should
+    warn, for example, if the pixels are non-square if the receiver
+    is not HARP.
+
 +++ January 2020 release
 
   - The validator now checks the receiver sideband mode.

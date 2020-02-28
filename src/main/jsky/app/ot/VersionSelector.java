@@ -162,7 +162,11 @@ public class VersionSelector extends JPanel implements ActionListener {
         ButtonGroup group = new ButtonGroup();
         Collection<TelescopeConfig> values = configs.values();
 
-        if (values.size() > 0) {
+        if (configs.size() == 1) {
+            applyConfig(configs.firstEntry().getValue().name);
+            doWhenReady.run();
+        }
+        else if (values.size() > 0) {
             setLayout(new GridLayout(values.size(), 1));
 
             for (TelescopeConfig config : values) {
@@ -202,16 +206,20 @@ public class VersionSelector extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String name = e.getActionCommand();
-        TelescopeConfig config = configs.get(name);
-        System.setProperty(TELESCOPE_KEY, config.telescope);
-        System.setProperty(CFG_KEY, config.cfgDir);
-        System.setProperty(RES_KEY, config.resDir);
-        System.setProperty(JSKY_KEY, config.jsky);
+        applyConfig(name);
         frame.setVisible(false);
         frame.dispose();
 
         // Run the call-back method.
         doWhenReady.run();
+    }
+
+    private void applyConfig(String name) {
+        TelescopeConfig config = configs.get(name);
+        System.setProperty(TELESCOPE_KEY, config.telescope);
+        System.setProperty(CFG_KEY, config.cfgDir);
+        System.setProperty(RES_KEY, config.resDir);
+        System.setProperty(JSKY_KEY, config.jsky);
     }
 
     public static void main(String[] args) {

@@ -263,6 +263,18 @@
     </xsd:complexType>
 </xsd:element>
 
+<xsd:element name="SpIterRawXmlObs">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="estimatedDuration" type="xsd:double" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ocsconfig" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="rawXmlObs"/>
+    </xsd:complexType>
+</xsd:element>
+
 <xsd:element name="SpIterDREAMObs">
     <xsd:complexType>
         <xsd:sequence>

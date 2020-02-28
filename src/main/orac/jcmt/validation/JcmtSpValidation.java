@@ -54,6 +54,7 @@ import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.iter.SpIterNoiseObs;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.iter.SpIterPOL;
+import ot.jcmt.iter.editor.EdIterRasterObs;
 
 import edfreq.BandSpec;
 import edfreq.FrequencyEditorCfg;
@@ -111,11 +112,11 @@ public class JcmtSpValidation extends SpValidation {
 
             if (obsComp != null && obsComp instanceof SpInstHeterodyne) {
                 SpInstHeterodyne spInstHeterodyne = (SpInstHeterodyne) obsComp;
+                String feName = spInstHeterodyne.getFrontEnd();
 
                 /* Check for retired receivers which are still present to allow
                    programmes to be loaded successfully. */
-                if (spInstHeterodyne.getFrontEnd() != null) {
-                    String feName = spInstHeterodyne.getFrontEnd();
+                if (feName != null) {
                     if (feName.equals("A3")) {
                         report.add(new ErrorMessage(
                                 ErrorMessage.WARNING,
@@ -162,8 +163,7 @@ public class JcmtSpValidation extends SpValidation {
                 FrequencyEditorCfg requencyEditorCfg =
                         FrequencyEditorCfg.getConfiguration();
 
-                Receiver receiver = requencyEditorCfg.receivers.get(
-                        spInstHeterodyne.getFrontEnd());
+                Receiver receiver = requencyEditorCfg.receivers.get(feName);
 
                 loMin = receiver.loMin;
                 loMax = receiver.loMax;
@@ -208,7 +208,7 @@ public class JcmtSpValidation extends SpValidation {
                 String sidebandMode = spInstHeterodyne.getMode();
 
                 List<String> availableModes = Arrays.asList(
-                        requencyEditorCfg.frontEndTable.get(spInstHeterodyne.getFrontEnd()));
+                        requencyEditorCfg.frontEndTable.get(feName));
 
                 if (! availableModes.contains(sidebandMode)) {
                     report.add(new ErrorMessage(
@@ -302,10 +302,9 @@ public class JcmtSpValidation extends SpValidation {
 
                 if (thisObs instanceof SpIterJiggleObs) {
                     SpIterJiggleObs spIterJiggleObs = (SpIterJiggleObs) thisObs;
-                    String frontEnd = spInstHeterodyne.getFrontEnd();
                     String jigglePattern = spIterJiggleObs.getJigglePattern();
 
-                    if (frontEnd == null) {
+                    if (feName == null) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                                 titleString, "Front end is null"));
 
@@ -314,7 +313,7 @@ public class JcmtSpValidation extends SpValidation {
                                 titleString, "Jiggle pattern not initialised"));
 
                     } else if (jigglePattern.startsWith("HARP")
-                            && !frontEnd.startsWith("HARP")) {
+                            && !feName.startsWith("HARP")) {
                         report.add(new ErrorMessage(
                                 ErrorMessage.ERROR,
                                 titleString,
@@ -329,15 +328,64 @@ public class JcmtSpValidation extends SpValidation {
                             "Cannot use Noise observations with Hetrodyne"));
                 }
 
-                // Do not allow rasters with ACSIS to have a sample time
-                // in excess of 10 seconds.  (See fault 20150410.005.)
                 if (thisObs instanceof SpIterRasterObs) {
+                    SpIterRasterObs spIterRasterObs = (SpIterRasterObs) thisObs;
+
+                    // Do not allow rasters with ACSIS to have a sample time
+                    // in excess of 10 seconds.  (See fault 20150410.005.)
                     if (thisObs.getSampleTime() > 10.0) {
                         report.add(new ErrorMessage(ErrorMessage.ERROR,
                             spObs.getTitle(),
                             "Sample time exceeds 10 seconds"));
                     }
 
+                    // Check for non-square pixels if the reciever is not
+                    // HARP.  (See fault 20200128.001.)
+                    try {
+                        double dx = spIterRasterObs.getScanDx();
+                        double dy = spIterRasterObs.getScanDy();
+
+                        if (feName == null) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                    titleString, "Front end is null"));
+                        }
+                        else if (! feName.startsWith("HARP")) {
+                            if (Math.abs(dx - dy) > 0.0001) {
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "Raster map has non-square pixels (dx = " +
+                                            dx + "\", dy = " + dy + "\")."));
+                            }
+                        }
+                        else {
+                            if (Math.abs(dx - SpIterRasterObs.HARP_SAMPLE) > 0.0001) {
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "Raster map has unusual sample spacing " +
+                                            "for HARP (dx = " + dx +  "\")."));
+                            }
+
+                            boolean found = false;
+                            for (double rasterValue : EdIterRasterObs.HARP_RASTER_VALUES) {
+                                if (Math.abs(dy - rasterValue) < 0.0001) {
+                                    found = true;
+                                }
+                            }
+                            if (! found) {
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "Raster map has unusual scan spacing " +
+                                            "for HARP (dy = " + dy +  "\")."));
+                            }
+                        }
+                    }
+                    catch (UnsupportedOperationException e) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString, "Unable to check pixel size."));
+                    }
                 }
 
                 // Warn if the velocity/redshift has been left at zero.

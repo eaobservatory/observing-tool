@@ -98,7 +98,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements
             0.75,
     };
 
-    private static double[] HARP_RASTER_VALUES =
+    public static double[] HARP_RASTER_VALUES =
             new double[HARP_RASTER_STEPS.length];
 
     static {
