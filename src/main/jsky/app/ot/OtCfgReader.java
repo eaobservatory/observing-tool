@@ -79,6 +79,8 @@ class OtCfgReader {
     public static final String NOTE_LABELS = "Labels";
     public static final String NOTE_TAGS = "Tags";
     public static final String NOTE_EXAMPLES = "Examples";
+    public static final String HEDWIG_OAUTH_URL = "hedwigOAuthURL";
+    public static final String HEDWIG_OAUTH_CLIENT = "hedwigOAuthClient";
 
     /**
      * Read the configuration file from the given base URL and file name.
@@ -226,6 +228,12 @@ class OtCfgReader {
 
                 } else if (line.startsWith(NOTE_EXAMPLES)) {
                     info.noteExamples = _parseCommaList(_getValue(line));
+
+                } else if (line.startsWith(HEDWIG_OAUTH_URL)) {
+                    info.hedwigOAuthURL = _getValue(line);
+
+                } else if (line.startsWith(HEDWIG_OAUTH_CLIENT)) {
+                    info.hedwigOAuthClient = _getValue(line);
                 }
             }
 

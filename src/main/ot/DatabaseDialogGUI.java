@@ -39,27 +39,27 @@ import java.awt.Color;
 import java.awt.Dimension;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
+import javax.swing.JTabbedPane;
 import ot.gui.PasswordWidgetExt; // MFO (24 July 2001)
 
 @SuppressWarnings("serial")
 public class DatabaseDialogGUI extends JPanel {
-    BorderLayout borderLayout1 = new BorderLayout();
-    JPanel loginPage = new JPanel();
-    GridBagLayout gridBagLayout2 = new GridBagLayout();
-
-    // MFO (24 July 2001)
+    public String[] providers = {"staff"};
+    DropDownListBoxWidgetExt providerBox = new DropDownListBoxWidgetExt();
     PasswordWidgetExt passwordTextBox = new PasswordWidgetExt();
-
-    JLabel jLabel2 = new JLabel();
-    JLabel jLabel1 = new JLabel();
-    TextBoxWidgetExt loginTextBox = new TextBoxWidgetExt();
-    JPanel jPanel1 = new JPanel();
-    CommandButtonWidgetExt closeButton = new CommandButtonWidgetExt();
-    CommandButtonWidgetExt confirmButton = new CommandButtonWidgetExt();
+    TextBoxWidgetExt projectTextBox = new TextBoxWidgetExt();
+    TextBoxWidgetExt usernameTextBox = new TextBoxWidgetExt();
+    TextBoxWidgetExt tokenUsernameTextBox = new TextBoxWidgetExt();
+    CommandButtonWidgetExt closeButton = new CommandButtonWidgetExt("Close");
+    CommandButtonWidgetExt confirmButton = new CommandButtonWidgetExt("Confirm");
+    CommandButtonWidgetExt tokenConfirmButton = new CommandButtonWidgetExt("Confirm");
+    CommandButtonWidgetExt hedwigButton = new CommandButtonWidgetExt("Log in with Hedwig");
     public JLabel validationReminder = new JLabel();
+    JTabbedPane typeChoice = new JTabbedPane();
 
     public DatabaseDialogGUI() {
         try {
@@ -70,20 +70,33 @@ public class DatabaseDialogGUI extends JPanel {
     }
 
     void jbInit() throws Exception {
-        loginPage.setLayout(gridBagLayout2);
-        this.setMinimumSize(new Dimension(400, 250));
-        this.setPreferredSize(new Dimension(400, 250));
-        this.setLayout(borderLayout1);
+        this.setLayout(new BorderLayout());
+        JPanel loginPage = new JPanel();
+        loginPage.setLayout(new GridBagLayout());
+        this.setMinimumSize(new Dimension(400, 400));
+        this.setPreferredSize(new Dimension(400, 400));
+
+        providerBox.setChoices(new String[] {"EAO Staff"});
+
+        usernameTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
         passwordTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setForeground(Color.black);
-        jLabel2.setText("Password:");
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel1.setForeground(Color.black);
-        jLabel1.setText("Project ID:");
-        loginTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
-        closeButton.setText("Close");
-        confirmButton.setText("Confirm");
+        projectTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
+        tokenUsernameTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
+        tokenUsernameTextBox.setEditable(false);
+
+        JPanel loginPageAuth = new JPanel();
+        loginPageAuth.setLayout(new GridBagLayout());
+
+        JPanel loginPagePass = new JPanel();
+        loginPagePass.setLayout(new GridBagLayout());
+
+        JPanel loginPageToken = new JPanel();
+        loginPageToken.setLayout(new GridBagLayout());
+
+        typeChoice.add(loginPageAuth, "Browser log in");
+        typeChoice.add(loginPagePass, "Password log in");
+        typeChoice.add(loginPageToken, "Current session");
+
         this.add(loginPage, BorderLayout.CENTER);
 
         validationReminder.setText(
@@ -100,24 +113,87 @@ public class DatabaseDialogGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 10, 10, 10), 0, 0));
 
+        JLabel jLabel1 = new JLabel("Project ID:");
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel1.setForeground(Color.black);
         loginPage.add(jLabel1, new GridBagConstraints(
                 0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(10, 5, 5, 5), 0, 0));
-        loginPage.add(jLabel2, new GridBagConstraints(
-                0, 2, 1, 1, 0.0, 0.0,
-                GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(5, 5, 5, 5), 0, 0));
-        loginPage.add(loginTextBox, new GridBagConstraints(
+        loginPage.add(projectTextBox, new GridBagConstraints(
                 1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 5, 5, 5), 0, 0));
-        loginPage.add(passwordTextBox, new GridBagConstraints(
+
+        loginPage.add(typeChoice, new GridBagConstraints(
+                0, 2, 2, 1, 1.0, 1.0,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(10, 5, 5, 5), 0, 0));
+
+        JLabel jLabel3 = new JLabel("Provider:");
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel3.setForeground(Color.black);
+        loginPagePass.add(jLabel3, new GridBagConstraints(
+                0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
+        loginPagePass.add(providerBox, new GridBagConstraints(
+                1, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 5, 5, 5), 0, 0));
+
+        JLabel jLabel4 = new JLabel("Username:");
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel4.setForeground(Color.black);
+        loginPagePass.add(jLabel4, new GridBagConstraints(
+                0, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
+        loginPagePass.add(usernameTextBox, new GridBagConstraints(
+                1, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 5, 5, 5), 0, 0));
+
+        JLabel jLabel2 = new JLabel("Password:");
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel2.setForeground(Color.black);
+        loginPagePass.add(jLabel2, new GridBagConstraints(
+                0, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
+        loginPagePass.add(passwordTextBox, new GridBagConstraints(
                 1, 2, 1, 1, 1.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
-        this.add(jPanel1, BorderLayout.SOUTH);
+
+        JPanel jPanel1 = new JPanel();
         jPanel1.add(confirmButton, null);
         jPanel1.add(closeButton, null);
+        loginPagePass.add(jPanel1, new GridBagConstraints(
+                0, 3, 2, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(5, 5, 5, 5), 0, 0));
+
+        loginPageAuth.add(hedwigButton, new GridBagConstraints(
+                0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 10, 10, 10), 0, 0));
+
+        JLabel jLabel5 = new JLabel("OMP ID:");
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel5.setForeground(Color.black);
+        loginPageToken.add(jLabel5, new GridBagConstraints(
+                0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
+        loginPageToken.add(tokenUsernameTextBox, new GridBagConstraints(
+                1, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 5, 5, 5), 0, 0));
+
+        loginPageToken.add(tokenConfirmButton, new GridBagConstraints(
+                1, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(10, 5, 5, 5), 0, 0));
     }
 }

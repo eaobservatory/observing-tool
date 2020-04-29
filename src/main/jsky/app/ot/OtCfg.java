@@ -95,6 +95,8 @@ public final class OtCfg {
         String[] noteLabels;
         String[] noteTags;
         String[] noteExamples;
+        String hedwigOAuthURL;
+        String hedwigOAuthClient;
     }
 
     /**
@@ -268,6 +270,14 @@ public final class OtCfg {
 
     public static String[] getNoteTags() {
         return _otCfgInfo.noteTags;
+    }
+
+    public static String getHedwigOAuthURL() {
+        return _otCfgInfo.hedwigOAuthURL;
+    }
+
+    public static String getHedwigOAuthClient() {
+        return _otCfgInfo.hedwigOAuthClient;
     }
 
     public static synchronized boolean phase1Available() {
