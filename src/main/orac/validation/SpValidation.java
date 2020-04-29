@@ -771,14 +771,15 @@ public class SpValidation {
      * the schema.  A SAX parser is used to parse the string.
      *
      * @param xmlString  The current XML representation of the science project
-     * @param schema     Fully qualified file name for the schema.
+     * @param schemaURL  Fully qualified file name for the schema.
+     * @param schemaLocation Location of schema.
      *
      * @return           A vector of strings containing the validation errors
      */
     public void schemaValidate(String xmlString, String schemaURL,
-            String schema, Vector<ErrorMessage> report) {
+            String schemaLocation, Vector<ErrorMessage> report) {
         // Make sure the schema exists
-        if (schema == null) {
+        if (schemaLocation == null) {
             report.add(new ErrorMessage(ErrorMessage.WARNING,
                     "Schema validation not performed",
                     "Unable to locate the XML schema."));
@@ -807,7 +808,7 @@ public class SpValidation {
                     true);
             parser.setProperty(
                     "http://apache.org/xml/properties/schema/external-schemaLocation",
-                    schemaURL + " " + schema);
+                    schemaURL + " " + schemaLocation);
             parser.parse(new InputSource(new StringReader(xmlString)));
 
         } catch (SAXNotRecognizedException e) {
