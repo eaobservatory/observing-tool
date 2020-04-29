@@ -27,6 +27,9 @@ import javax.swing.SwingUtilities;
 
 import gemini.util.JACLogger;
 import gemini.util.SelectableDialog;
+import jsky.app.ot.LoginInfo;
+import jsky.app.ot.OT;
+
 import org.apache.soap.Header;
 import org.apache.soap.Constants;
 import org.apache.soap.Fault;
@@ -35,6 +38,7 @@ import org.apache.soap.rpc.Call;
 import org.apache.soap.rpc.Response;
 import org.apache.soap.transport.http.SOAPHTTPConnection;
 import org.apache.soap.SOAPException;
+import org.w3c.dom.Element;
 
 import java.io.IOException;
 
@@ -148,6 +152,33 @@ public class SoapClient {
 
                 if (obj instanceof byte[]) {
                     obj = gunzip(obj);
+                }
+
+                // Extract the header.
+                String user = null;
+                String token = null;
+                try {
+                    Header respHeader = resp.getHeader();
+                    if (respHeader != null) {
+                        Vector v = respHeader.getHeaderEntries();
+                        if (v != null) {
+                            for (Object o: v) {
+                                Element e = (Element) o;
+                                if ("user".equals(e.getLocalName())) {
+                                    user = e.getTextContent();
+                                }
+                                if ("token".equals(e.getLocalName())) {
+                                    token = e.getTextContent();
+                                }
+                            }
+                            if ((user != null) && (token != null)) {
+                                OT.loginInfo = new LoginInfo(user, token);
+                            }
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 // return result

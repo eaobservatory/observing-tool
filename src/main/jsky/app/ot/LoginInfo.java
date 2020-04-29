@@ -28,10 +28,10 @@
 package jsky.app.ot;
 
 /**
- * This class stores "login" data associated with a program.
+ * This class stores "login" data.
  *
- * This includes the username, password, and database choice
- * (phaseII or active).  The primary purpose of this class is to group
+ * This includes the username and token.
+ * The primary purpose of this class is to group
  * this information in one place
  * to simplify its manipulation.
  *
@@ -42,18 +42,15 @@ package jsky.app.ot;
  */
 public final class LoginInfo {
     public String username;
-    public int database;
-    public String password;
+    public String token;
 
-    public LoginInfo(String username, int database, String password) {
+    public LoginInfo(String username, String token) {
         this.username = username;
-        this.database = database;
-        this.password = password;
+        this.token = token;
     }
 
     public LoginInfo(LoginInfo ll) {
         this.username = ll.username;
-        this.database = ll.database;
-        this.password = ll.password;
+        this.token = ll.token;
     }
 }

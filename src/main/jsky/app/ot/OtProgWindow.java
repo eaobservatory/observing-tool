@@ -69,13 +69,6 @@ public final class OtProgWindow extends OtWindow {
         OtProps.setSaveShouldPrompt(false);
     }
 
-    public OtProgWindow(SpRootItem spItem, LoginInfo loginInfo) {
-        this(spItem);
-
-        OtProps.setSaveShouldPrompt(false);
-        _progInfo.login = loginInfo;
-    }
-
     /**
      * Do one-time only initialization of the window.
      */

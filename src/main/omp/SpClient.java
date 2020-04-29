@@ -131,7 +131,7 @@ public class SpClient extends SoapClient {
                 System.out.println("Storing " + spXml + "\n...");
 
                 String databaseSummary = storeProgram(
-                        spXml, "abc", false).summary;
+                        spXml, "abc", "abc","abc", false).summary;
 
                 System.out.println("Database Summary: " + databaseSummary);
             } catch (IOException e) {
@@ -148,7 +148,7 @@ public class SpClient extends SoapClient {
                 // "abc" used for as arbitrary password for testing.
                 try {
                     System.out.println(
-                            fetchProgramString(args[0], "abc").toString());
+                            fetchProgramString(args[0], "abc", "abc", "abc").toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -239,10 +239,14 @@ public class SpClient extends SoapClient {
      * @return Science Program item.
      */
 
-    public static SpProg fetchProgram(String id, String pass) throws Exception {
+    public static SpProg fetchProgram(
+            String id, String provider, String user, String pass)
+            throws Exception {
         flushParameter();
 
         addParameter("projectid", String.class, id);
+        addParameter("provider", String.class, provider);
+        addParameter("username", String.class, user);
         addParameter("password", String.class, pass);
         addParameter("compress", String.class, "auto");
 
@@ -259,6 +263,8 @@ public class SpClient extends SoapClient {
             flushParameter();
 
             addParameter("projectid", String.class, id);
+            addParameter("provider", String.class, provider);
+            addParameter("username", String.class, user);
             addParameter("password", String.class, pass);
 
             spXML = new String((byte[]) doCall(getURL(), SOAP_ACTION,
@@ -282,11 +288,14 @@ public class SpClient extends SoapClient {
      *
      * @return Science Program as XML String.
      */
-    public static String fetchProgramString(String id, String pass)
+    public static String fetchProgramString(
+            String id, String provider, String user, String pass)
             throws Exception {
         flushParameter();
 
         addParameter("projectid", String.class, id);
+        addParameter("provider", String.class, provider);
+        addParameter("username", String.class, user);
         addParameter("password", String.class, pass);
 
         return (String) doCall(getURL(), SOAP_ACTION, "fetchProgram");
@@ -300,7 +309,8 @@ public class SpClient extends SoapClient {
      * @param force  Force to override database entry even if there are
      *               (timestamp) inconsistencies.
      */
-    public static SpStoreResult storeProgram(SpProg spProg, String pass,
+    public static SpStoreResult storeProgram(
+            SpProg spProg, String provider, String user, String pass,
             boolean force) throws Exception {
         SpItemUtilities.removeReferenceIDs(spProg);
         SpItemUtilities.setReferenceIDs(spProg);
@@ -321,6 +331,8 @@ public class SpClient extends SoapClient {
         flushParameter();
 
         addParameter("sp", byte[].class, toSend);
+        addParameter("provider", byte[].class, provider.getBytes());
+        addParameter("username", byte[].class, user.getBytes());
         addParameter("password", byte[].class, pass.getBytes());
         addParameter("force", byte[].class, forceString.getBytes());
 
@@ -368,13 +380,16 @@ public class SpClient extends SoapClient {
      * @param force Force to override database entry even if there are
      *              (timestamp) inconsistencies.
      */
-    public static SpStoreResult storeProgram(String sp, String pass,
+    public static SpStoreResult storeProgram(
+            String sp, String provider, String user, String pass,
             boolean force) throws Exception {
         String forceString = force ? "1" : "0";
 
         flushParameter();
 
         addParameter("sp", String.class, sp);
+        addParameter("provider", String.class, provider);
+        addParameter("username", String.class, user);
         addParameter("password", String.class, pass);
         addParameter("force", String.class, forceString);
 
