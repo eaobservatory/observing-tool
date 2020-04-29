@@ -70,6 +70,7 @@ class OtCfgReader {
     public static final String TELESCOPE_LATITUDE = "telescope latitude";
 
     public static final String SCHEMA_BASE = "schemaBase";
+    public static final String SCHEMA_LOCATION = "schemaLocation";
     public static final String SCHEMA_URL = "schemaURL";
     public static final String PROXY_SERVER = "Proxy Server";
     private static final String PROP_PROXY_SERVER = "http.proxyHost";
@@ -198,6 +199,9 @@ class OtCfgReader {
                     info.schemaBase = _getValue(line);
 
                 } else if (line.startsWith(SCHEMA_URL)) {
+                    info.schemaURL = _getValue(line);
+
+                } else if (line.startsWith(SCHEMA_LOCATION)) {
                     info.schemaLocation = _getValue(line);
 
                 } else if (line.startsWith(PROXY_SERVER)) {
