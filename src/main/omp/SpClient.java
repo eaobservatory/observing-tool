@@ -437,4 +437,25 @@ public class SpClient extends SoapClient {
             }
         }
     }
+
+    /**
+     * Get version information from the OMP.
+     */
+    public static VersionInfo getOTVersionInfo() throws Exception {
+        Object result = doCall(getURL(), SOAP_ACTION, "getOTVersionInfo");
+        int[] resultArray = (int[]) result;
+        return new VersionInfo(
+            Integer.toString(resultArray[0]),
+            Integer.toString(resultArray[1]));
+    }
+
+    public static class VersionInfo {
+        public String current;
+        public String minimum;
+
+        public VersionInfo(String current, String minimum) {
+            this.current = current;
+            this.minimum = minimum;
+        }
+    }
 }
