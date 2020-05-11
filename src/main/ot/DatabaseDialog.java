@@ -326,18 +326,34 @@ public class DatabaseDialog implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         Object w = evt.getSource();
 
-        if (w == _w.confirmButton) {
-            accessDatabase();
-        } else if (w == _w.closeButton) {
-            hide();
-        } else if (w == _w.hedwigButton) {
-            listenForOAuth(OtCfg.getHedwigOAuthURL(), OtCfg.getHedwigOAuthClient());
-        } else if (w == _w.tokenConfirmButton) {
-            accessDatabase("omptoken", OT.loginInfo.username, OT.loginInfo.token);
+        if ((w == _w.confirmButton)
+                || (w == _w.hedwigButton)
+                || (w == _w.tokenConfirmButton)) {
+            // Check that the project ID box is not empty before attempting to fetch.
+            if (_mode == ACCESS_MODE_FETCH) {
+                String projectID = _w.projectTextBox.getText();
+                if ("".equals(projectID)) {
+                    JOptionPane.showMessageDialog(_dialogComponent,
+                            "Please enter the project ID.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+
+                    return;
+                }
+            }
+
+            if (w == _w.hedwigButton) {
+                listenForOAuth(OtCfg.getHedwigOAuthURL(), OtCfg.getHedwigOAuthClient());
+            } else if (w == _w.tokenConfirmButton) {
+                accessDatabase("omptoken", OT.loginInfo.username, OT.loginInfo.token);
+            } else {
+                accessDatabase();
+            }
         } else if (w == _stopAction.getStopButton()) {
             _databaseAccessAborted = true;
         } else if (w == _w.passwordTextBox) {
             _w.confirmButton.doClick();
+        } else if (w == _w.closeButton) {
+            hide();
         }
     }
 
