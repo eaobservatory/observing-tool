@@ -426,6 +426,14 @@ public class DatabaseDialog implements ActionListener {
                     else if (query.containsKey("code")) {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
+                                // Calling toFront alone doesn't seem to work.
+                                // This sequence of steps is taken from:
+                                // https://stackoverflow.com/questions/309023/how-to-bring-a-window-to-the-front
+                                _dialogComponent.setAlwaysOnTop(true);
+                                _dialogComponent.toFront();
+                                _dialogComponent.requestFocus();
+                                _dialogComponent.setAlwaysOnTop(false);
+
                                 accessDatabase("hedwig", redirect_uri, query.get("code"));
                             }
                         });
