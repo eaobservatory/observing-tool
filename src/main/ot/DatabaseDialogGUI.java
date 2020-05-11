@@ -73,8 +73,8 @@ public class DatabaseDialogGUI extends JPanel {
         this.setLayout(new BorderLayout());
         JPanel loginPage = new JPanel();
         loginPage.setLayout(new GridBagLayout());
-        this.setMinimumSize(new Dimension(400, 400));
-        this.setPreferredSize(new Dimension(400, 400));
+        this.setMinimumSize(new Dimension(500, 400));
+        this.setPreferredSize(new Dimension(500, 400));
 
         providerBox.setChoices(new String[] {"EAO Staff"});
 
