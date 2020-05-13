@@ -1,3 +1,20 @@
++++ May 2020 release
+
+  - The OT is now available as a direct "jar" file download, because
+    Java Web Start has been deprecated / removed in newer versions
+    of Java.
+
+  - There is now a built-in version check feature, which you can see on
+    the start-up splash screen and also via the "Help -> About" menu option.
+
+  - When interacting with the database, you can now log in via Hedwig.
+    For example, to fetch a program, enter your project ID at the top of
+    the dialog box as before, and then click the "Log in with Hedwig"
+    button.  This should open your browser to allow you to log in.  Later
+    in the same session, your OMP user ID should be remembered so you can
+    simply click "Confirm" to proceed.  In the event of your session expiring,
+    you will need to return to the "Browser log in" tab to log in again.
+
 +++ March 2020 release
 
   - Automatic linkage between the PA of a scan "eye" and its parent
