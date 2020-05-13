@@ -48,7 +48,7 @@ import ot.gui.PasswordWidgetExt; // MFO (24 July 2001)
 
 @SuppressWarnings("serial")
 public class DatabaseDialogGUI extends JPanel {
-    public String[] providers = {"staff"};
+    public String[] providers = {"staff", "legacy"};
     DropDownListBoxWidgetExt providerBox = new DropDownListBoxWidgetExt();
     PasswordWidgetExt passwordTextBox = new PasswordWidgetExt();
     TextBoxWidgetExt projectTextBox = new TextBoxWidgetExt();
@@ -76,7 +76,7 @@ public class DatabaseDialogGUI extends JPanel {
         this.setMinimumSize(new Dimension(500, 400));
         this.setPreferredSize(new Dimension(500, 400));
 
-        providerBox.setChoices(new String[] {"EAO Staff"});
+        providerBox.setChoices(new String[] {"EAO Staff", "Legacy project"});
 
         usernameTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
         passwordTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
