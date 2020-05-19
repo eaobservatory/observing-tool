@@ -43,7 +43,7 @@ import orac.jcmt.iter.SpIterPointingObs;
  */
 public final class EdIterPointingObs extends EdIterJCMTGeneric implements
         CommandButtonWidgetWatcher, OptionWidgetWatcher, ActionListener,
-        ItemListener {
+        ItemListener, IterJCMTGenericGUI.RotatorAngleListener {
     private IterPointingObsGUI _w; // the GUI layout panel
     private SpIterPointingObs _iterObs;
 
@@ -70,6 +70,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements
 
         _w.fts2_in_beam.addItemListener(this);
         _w.pol2_in_beam.addItemListener(this);
+
+        _w.addRotatorAngleListener(this);
     }
 
     /**
@@ -86,6 +88,10 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements
 
         _w.fts2_in_beam.setSelected(_iterObs.isFts2InBeam());
         _w.pol2_in_beam.setSelected(_iterObs.isPol2InBeam());
+
+        // Do this last as super._updateWidgets resets the instrument,
+        // clearing the rotator angle selection.
+        _w.setSelectedRotatorAngles(_iterObs.getRotatorAngles());
     }
 
     public void commandButtonAction(CommandButtonWidgetExt cbwe) {
@@ -108,6 +114,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements
     public void setInstrument(SpInstObsComp spInstObsComp) {
         super.setInstrument(spInstObsComp);
 
+        double[] rotatorAngles = null;
+
         if ((spInstObsComp != null)
                 && (spInstObsComp instanceof SpInstHeterodyne)) {
             _w.switchingMode.setVisible(false);
@@ -117,12 +125,19 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements
             _w.fts2_in_beam.setVisible(false);
             _w.pol2_in_beam.setVisible(false);
 
+            if (((SpInstHeterodyne) spInstObsComp).getFrontEnd().equals(
+                    "HARP")) {
+                rotatorAngles = new double[] {0.0, 90.0, 180.0, 270.0};
+            }
+
         } else {
             _w.acsisPanel.setVisible(false);
             _w.fts2_in_beam.setVisible(true);
             _w.pol2_in_beam.setVisible(true);
 
         }
+
+        _w.setAvailableRotatorAngles(rotatorAngles);
     }
 
     public void itemStateChanged(ItemEvent e) {
@@ -132,5 +147,9 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric implements
         } else if (e.getSource() == _w.fts2_in_beam) {
             _iterObs.setFts2InBeam(_w.fts2_in_beam.isSelected());
         }
+    }
+
+    public void rotatorAnglesChanged(double[] angles) {
+        _iterObs.setRotatorAngles(angles);
     }
 }
