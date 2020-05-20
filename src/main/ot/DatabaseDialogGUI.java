@@ -130,7 +130,7 @@ public class DatabaseDialogGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(10, 5, 5, 5), 0, 0));
 
-        JLabel jLabel3 = new JLabel("Provider:");
+        JLabel jLabel3 = new JLabel("Password type:");
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel3.setForeground(Color.black);
         loginPagePass.add(jLabel3, new GridBagConstraints(
