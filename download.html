@@ -12,14 +12,14 @@
 <h2>Introduction.</h2>
 </p>
 <p>
-The Observing Tool is a <a href="http://java.sun.com/">Java</a> based application for creating Science Programs in preparation for observing at <a href="http://www.eaobservatory.org/jcmt/">JCMT</a> or <a href="http://www.ukirt.hawaii.edu//">UKIRT</a>. While <a href="http://www.kernel.org/">Linux</a> based operating systems are our lead platform, testing has been performed to varying degrees on <a href="http://opensolaris.org/">Solaris</a>, <a href="http://www.microsoft.com/WINDOWS/">Windows</a> and <a href="http://www.apple.com/macosx/">Mac OS X</a>.<br/><br/>
-As of July 2009 the Observing Tool for both telescopes is now distributed via <a href="http://java.sun.com/products/javawebstart/">Java Web Start</a>.<br/>
+The Observing Tool is a <a href="https://www.oracle.com/java/">Java</a> based application for creating Science Programs in preparation for observing at <a href="http://www.eaobservatory.org/jcmt/">JCMT</a> or <a href="http://www.ukirt.hawaii.edu//">UKIRT</a>. While <a href="http://www.kernel.org/">Linux</a> based operating systems are our lead platform, testing has been performed to varying degrees on <a href="http://opensolaris.org/">Solaris</a>, <a href="http://www.microsoft.com/windows/">Windows</a> and <a href="http://www.apple.com/macos/">macOS</a>.<br/><br/>
+As of May 2020 the Observing Tool for both telescopes is now distributed as a single JAR file.<br/>
 </p>
 <p>
 <h2>Requirements.</h2>
 </p>
 <p>
-To acquire and run the Observing Tool requires having a version of the <a href="http://www.java.com/getjava/">Java Runtime Environment</a> greater or equal to 1.6. If you are unsure wether or not you have Java installed and in your path, or which version of Java you have, open a console ( Windows users can run a console by going to <code>'Start -> Programs -> Accessories -> Command Prompt'</code>, Mac OS X users can run a console by going to <code>'/Applications/Utilities/Terminal.app'</code>, <a href="http://www.gnome.org/">Gnome</a> users <code>'Applications -> Accessories -> Terminal'<code>, <a href="http://www.kde.org/">KDE</a> users </code>'K Menu -> System Tools -> Terminal'</code> ) and type the following :<br/>
+To run the Observing Tool requires having a version of the <a href="http://www.java.com/getjava/">Java Runtime Environment</a> greater or equal to 1.8. If you are unsure wether or not you have Java installed and in your path, or which version of Java you have, open a console (Windows users can run a console by going to <code>'Start -&gt; Programs -&gt; Accessories -&gt; Command Prompt'</code>, macOS users can run a console by going to <code>'/Applications/Utilities/Terminal.app'</code>, <a href="http://www.gnome.org/">Gnome</a> users <code>'Applications -&gt; Accessories -&gt; Terminal'<code>, <a href="http://www.kde.org/">KDE</a> users </code>'K Menu -&gt; System Tools -&gt; Terminal'</code>) and type the following :<br/>
 </p>
 <p>
 <code>
@@ -30,73 +30,55 @@ $ java -version
 Responses such as <code>"command not found"</code> indicate that either Java has not been installed or is not in your path.<br/>
 </p>
 <p>
-<!--
-Java Runtime Environments for Java 1.5 are available here for <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-windows-i586-p.exe">Windows</a>, <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-linux-i586.bin.gz">Linux x86</a> and <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-solaris-sparcv9.sh.gz">Solaris SPARC</a>.
-However -->
 It is recommended that you obtain the latest Java Runtime Environment from <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle</a> or your operating system vendor.
 </p>
 <p>
 <h2>Installation.</h2>
 </p>
 <p>
-Installation via Java Web Start is relatively easy, first if your web browser supports Java Web Start 
-<script>
-<!--
-if( navigator.mimeTypes[ 'application/x-java-jnlp-file' ] ){ document.write( " ( it does ) " ) ; }
-else{ document.write( " ( it doesn't ) " ) ; }
--->
-</script>
-and the correct content handler is assigned, you can click on the following link : <br/>
+The Observing Tool is now available as a single JAR file which you can
+simply download using the following link:
 </p>
 <p>
-<a href="http://ftp.eao.hawaii.edu/ot/jac-ot.jnlp">JCMT-UKIRT Observing Tool</a>
+<a href="http://ftp.eao.hawaii.edu/ot/jcmtot.jar">http://ftp.eao.hawaii.edu/ot/jcmtot.jar</a>
 </p>
 <p>
-If that fails to run Java Web Start, and the browser requests to download the file, or should you prefer to run it from the console you can type :<br/>
+Your system may be set up to automatically run JAR files using Java.
+If that is not the case, you can run the Observing Tool from a console
+using the <tt>java -jar</tt> command:
 </p>
 <p>
 <code>
-$ javaws http://ftp.eao.hawaii.edu/ot/jac-ot.jnlp
+$ java -jar jcmtot.jar
 </code>
-</p>
-<p>
-Installation may create a shortcut icon on your desktop, or an entry in your start menu, so that the Observing Tool can be run again in the future. While an active internet connection is required for initial installation, it is not required for running the Observing Tool on a day-to-day basis, and thus can be used in the absense of an internet connection. If a desktop icon is not created, you can check the status of, and run the Observing Tool, from Java Web Start by opening a console and typing :<br/>
-</p>
-<p>
-<code>
-$ javaws -viewer
-</code>
-</p>
-<p>
-In order for the Observing Tool to run a certificate must be accepted, you will be presented with this when the application is run, it should be signed by the current maintainer at the Joint Astronomy Centre. The certificate is not signed by a recognised certificate authority, and you should be warned of this when running the software, if in doubt contact us.
 </p>
 <p>
 <h2>Upgrades.</h2>
 </p>
 <p>
-Due to the nature of Java Web Start, upgrades of the Observing Tool happen automatically whenever the code is updated providing you have an active internet connection, so there is no worry about running the correct version. Should for any reason an upgrade fails due to a cached item, or if you wish to remove the Observing Tool, it can be uninstalled by opening a console and typing the following :<br/>
-</p>
-<p>
-<code>
-$ javaws -uninstall
-</code>
+When you open the Observing Tool, it will attempt to connect to the OMP
+to determine the latest and current minimum versions.
+The splash screen will initally show "Checking for updated version information..."
+but after a few seconds this text should be replaced with a message indicating
+whether your copy of the software is up to date.
+If it is not, please download a new copy from the link above.
 </p>
 <p>
 <h2>Additional.</h2>
 </p>
 <p>
-Questions, bug reports or praise ( or indeed very very carefully worded criticism ;) should be emailed to
+Questions and bug reports should be emailed to
 <a href="mailto:ukirtot@eao.hawaii.edu">ukirtot@eao.hawaii.edu</a>.<br/><br/>
 Please note the operating system release and the Java version in your email as you will be asked.
 </p>
 <p>
-<h2>Java Web Start specific issues.</h2>
+<h2>Version-specific issues.</h2>
 </p>
 <p>
-<a href="http://jnlp.sourceforge.net/netx/">NetX</a>, which is <a href="http://iced-tea.org/wiki/FrequentlyAskedQuestions#Functionality_and_Testing">bundled</a> as a replacement Web Start with <a href="http://openjdk.java.net/">OpenJDK</a> in the <a href="http://iced-tea.org/wiki/Main_Page">IcedTea</a> distribution is not known to work. Oracle's Java Web Start and Apple's, which is based on Oracle's, are both known to work.
+<a href="http://openjdk.java.net/">OpenJDK</a> is known not to work. Oracle's Java is known to work.
 </p>
 <p>
-The help pages do not appear to work correctly on MacOS X <a href="http://en.wikipedia.org/wiki/Mac_OS_X_v10.4">Tiger</a> ( 10.4 )<br/>
+The help pages do not appear to work correctly on macOS <a href="http://en.wikipedia.org/wiki/Mac_OS_X_v10.4">Tiger</a> (10.4)<br/>
 They are available online at <a href="http://www.ukirt.hawaii.edu/ukirtot/">http://www.ukirt.hawaii.edu/ukirtot/</a>
 </p>
 </body>
