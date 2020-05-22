@@ -291,9 +291,9 @@ public class OT {
             Matcher m = Pattern.compile("(\\d+(?:\\.\\d+)?).*").matcher(jVersion);
             if (m.matches()) {
                 double jVersionNum = Double.parseDouble(m.group(1));
-                if (jVersionNum < 1.6) {
+                if (jVersionNum < 1.8) {
                     String message =
-                            "The Observing Tool requires at least Java 1.6 to"
+                            "The Observing Tool requires at least Java 1.8 to"
                             + " work.\n"
                             + "You seem to currently be running version "
                             + jVersion + "\n" + "Please Upgrade";
