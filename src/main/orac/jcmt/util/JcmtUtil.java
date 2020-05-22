@@ -74,8 +74,6 @@ public class JcmtUtil implements TelescopeUtil {
                 return true;
             case FEATURE_TLE_SYSTEM:
                 return false;
-            case FEATURE_OFFSET_ITER_SYSTEM_EDITABLE:
-                return true;
             default:
                 return false;
         }

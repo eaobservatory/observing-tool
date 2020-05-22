@@ -72,8 +72,6 @@ public interface TelescopeUtil {
      */
     public static final int FEATURE_TLE_SYSTEM = 5;
 
-    public static final int FEATURE_OFFSET_ITER_SYSTEM_EDITABLE = 6;
-
     public static final String CHOP = "chop";
 
     /**

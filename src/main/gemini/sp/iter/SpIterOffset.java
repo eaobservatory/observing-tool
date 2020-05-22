@@ -93,15 +93,6 @@ class SpIterOffsetEnumeration extends SpIterEnumeration {
  */
 @SuppressWarnings("serial")
 public class SpIterOffset extends SpIterComp implements SpTranslatable {
-    private static final String ATTR_OFFSET_SYSTEM = "offsetSystem";
-    public static final String[] OFFSET_SYSTEMS = {
-        "",
-        "TRACKING",
-        "AZEL",
-        "MOUNT",
-        "FPLANE",
-    };
-
     /**
      * Data structure for maintaining position angle and SpPosAngleObservers.
      *
@@ -204,23 +195,6 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
         }
 
         setPosAngle(angle);
-    }
-
-    public void setOffsetSystem(String sys) {
-        if ((sys == null) || (sys.equals(""))) {
-            _avTable.rm(ATTR_OFFSET_SYSTEM);
-        }
-        else {
-            _avTable.set(ATTR_OFFSET_SYSTEM, sys);
-        }
-    }
-
-    public String getOffsetSystem() {
-        String sys = _avTable.get(ATTR_OFFSET_SYSTEM);
-        if (sys == null) {
-            return "";
-        }
-        return sys;
     }
 
     /**
@@ -355,15 +329,8 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
             xmlBuffer.append("\n" + indent
                     + "    <PA>" + getPosAngle() + "</PA>");
 
-            // Do we have an offset system?
-            String offsetSystemAttr = "";
-            String offsetSystem = getOffsetSystem();
-            if ((offsetSystem != null) && (! offsetSystem.equals(""))) {
-                offsetSystemAttr = " SYSTEM=\"" + offsetSystem + "\"";
-            }
-
             for (int i = 0; i < _posList.size(); i++) {
-                xmlBuffer.append("\n" + indent + "    <OFFSET" + offsetSystemAttr + ">");
+                xmlBuffer.append("\n" + indent + "    <OFFSET>");
                 xmlBuffer.append("\n" + indent + "      <DC1>"
                         + _posList.getPositionAt(i).getXaxis() + "</DC1>");
                 xmlBuffer.append("\n" + indent + "      <DC2>"
@@ -379,8 +346,7 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
         if (avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE)
                 || avAttr.startsWith(SpOffsetPos.OFFSET_TAG)
                 || avAttr.startsWith(SpOffsetPos.SKY_TAG)
-                || avAttr.startsWith(SpOffsetPos.GUIDE_TAG)
-                || avAttr.startsWith(ATTR_OFFSET_SYSTEM)) {
+                || avAttr.startsWith(SpOffsetPos.GUIDE_TAG)) {
             // Ignore. Dealt with in <obsArea> element (see above).
             return;
         }
@@ -420,17 +386,6 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
             } else {
                 super.processXmlElementContent(name, value);
             }
-        }
-    }
-
-    public void processXmlAttribute(String elementName, String attributeName, String value) {
-        if (elementName.equals("OFFSET") && attributeName.equals("SYSTEM")) {
-            // For now, only track one sysem for the whole iterator
-            // and allow any value to overwrite previous system values.
-            setOffsetSystem(value);
-        }
-        else {
-            super.processXmlAttribute(elementName, attributeName, value);
         }
     }
 

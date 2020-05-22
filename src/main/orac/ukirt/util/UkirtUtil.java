@@ -75,9 +75,6 @@ public class UkirtUtil implements TelescopeUtil {
             case FEATURE_TLE_SYSTEM:
                 return true;
 
-            case FEATURE_OFFSET_ITER_SYSTEM_EDITABLE:
-                return false;
-
             default:
                 return false;
         }
