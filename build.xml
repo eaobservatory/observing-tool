@@ -122,6 +122,15 @@
                 <antcall target="create.bin.files"/>
         </target>
 
+        <target name="jar" depends="output">
+            <jar destfile="jcmtot.jar" duplicate="preserve">
+                <zipgroupfileset dir="${output.dir.lib}" includes="**/*.jar" />
+                <manifest>
+                    <attribute name="Main-Class" value="jsky.app.ot.OT" />
+                </manifest>
+            </jar>
+        </target>
+
         <target name="main" depends="output">
                 <echo message="Done"/>
         </target>

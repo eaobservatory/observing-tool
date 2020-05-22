@@ -111,29 +111,8 @@ public class SplashGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(10, 5, 5, 7), 0, 0));
 
-        int buttongridy = 2;
-        String version = System.getProperty("java.version");
-
-        if (version.compareTo("1.6") < 0) {
-            JLabel versionWarning = new JLabel(
-                    "From January 2013 the OT will require Java 1.6"
-                    + " in preparation for semester 13A.");
-            versionWarning.setForeground(Color.RED);
-            this.add(versionWarning, new GridBagConstraints(
-                    0, buttongridy++, 3, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                    new Insets(15, 0, 0, 0), 0, 0));
-            versionWarning = new JLabel("(Your current Java version is "
-                    + version + ".)");
-            versionWarning.setForeground(Color.RED);
-            this.add(versionWarning, new GridBagConstraints(
-                    0, buttongridy++, 3, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                    new Insets(0, 0, 15, 0), 0, 0));
-        }
-
         this.add(jPanel1, new GridBagConstraints(
-                0, buttongridy, 3, 1, 0.0, 0.0,
+                0, 2, 3, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 

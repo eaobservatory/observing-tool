@@ -44,6 +44,7 @@ import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 
@@ -92,6 +93,8 @@ public class IterOffsetGUI extends JPanel {
     CommandButtonWidgetExt centreOnBaseButton = new CommandButtonWidgetExt();
     TextBoxWidgetExt paTextBox = new TextBoxWidgetExt();
     JLabel paLabel = new JLabel();
+    DropDownListBoxWidgetExt coordSys = new DropDownListBoxWidgetExt();
+    JLabel sysLabel = new JLabel();
     CommandButtonWidgetExt displayRotatedOffsets = new CommandButtonWidgetExt();
     CommandButtonWidgetExt setSpacingButton = new CommandButtonWidgetExt();
     JRadioButton overwrite = new JRadioButton("Overwrite");
@@ -190,6 +193,11 @@ public class IterOffsetGUI extends JPanel {
         paLabel.setFont(new java.awt.Font("Dialog", 2, 12));
         paLabel.setForeground(Color.black);
         paLabel.setText("PA");
+        coordSys.setFont(new java.awt.Font("Dialog", 0, 12));
+        coordSys.setForeground(Color.black);
+        sysLabel.setFont(new java.awt.Font("Dialog", 2, 12));
+        sysLabel.setForeground(Color.black);
+        sysLabel.setText("System");
         displayRotatedOffsets.setText("Display Derotated Offsets");
         setSpacingButton.setText("Set Spacing from Scan Area");
 
@@ -246,7 +254,7 @@ public class IterOffsetGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(2, 0, 2, 0), 0, 0));
         this.add(jScrollPane1, new GridBagConstraints(
-                2, 2, 1, 6, 0.0, 0.0,
+                2, 2, 1, 7, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(5, 5, 5, 5), 0, 0));
         this.add(topButton, new GridBagConstraints(
@@ -262,7 +270,7 @@ public class IterOffsetGUI extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
         this.add(gridGBW, new GridBagConstraints(
-                0, 9, 4, 1, 0.0, 0.0,
+                0, 10, 4, 1, 0.0, 0.0,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
 
@@ -368,8 +376,16 @@ public class IterOffsetGUI extends JPanel {
                 0, 8, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(5, 5, 5, 5), 0, 0));
+        this.add(coordSys, new GridBagConstraints(
+                1, 9, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0), 0, 0));
+        this.add(sysLabel, new GridBagConstraints(
+                0, 9, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(5, 5, 5, 5), 0, 0));
         this.add(displayRotatedOffsets, new GridBagConstraints(
-                2, 8, 1, 1, 0.0, 0.0,
+                2, 9, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
         jScrollPane1.getViewport().add(offsetTable, null);

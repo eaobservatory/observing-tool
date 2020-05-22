@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Vector;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -282,16 +284,30 @@ public class OT {
             // Check which version of java we are running
             String jVersion = System.getProperty("java.version");
 
-            if (Double.parseDouble(jVersion.substring(0, 3)) < 1.6) {
-                String message =
-                        "The Observing Tool requires at least Java 1.6 to"
-                        + " work.\n"
-                        + "You seem to currently be running version "
-                        + jVersion + "\n" + "Please Upgrade";
-                JOptionPane.showMessageDialog(null, message,
-                        "OT does not support current version of Java",
-                        JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
+
+
+
+            String tidyversion = "NULL";
+            Matcher m = Pattern.compile("(\\d+(?:\\.\\d+)?).*").matcher(jVersion);
+            if (m.matches()) {
+                double jVersionNum = Double.parseDouble(m.group(1));
+                if (jVersionNum < 1.8) {
+                    String message =
+                            "The Observing Tool requires at least Java 1.8 to"
+                            + " work.\n"
+                            + "You seem to currently be running version "
+                            + jVersion + "\n" + "Please Upgrade";
+                    JOptionPane.showMessageDialog(null, message,
+                            "OT does not support current version of Java",
+                            JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
+            }
+            else {
+                System.err.println(
+                        "Unable to understand version of java you are running.");
+                System.err.println("Continuing anyway");
+
             }
         } catch (NumberFormatException nfe) {
             System.err.println(
