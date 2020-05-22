@@ -1,3 +1,9 @@
++++ May 2020 release 1
+
+  - The OT should now connect to the OMP via HTTPS.
+
+  - Some problems with more recent versions of Java have been addressed.
+
 +++ March 2020 release
 
   - No changes for UKIRT.
