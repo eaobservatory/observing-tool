@@ -40,6 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -61,6 +62,7 @@ public class SplashGUI extends JPanel {
     JButton openButton = new JButton();
     JButton dismissButton = new JButton();
     JButton fetchButton = new JButton();
+    JLabel versionInfo = new JLabel("Version information unavailable.", SwingConstants.CENTER);
 
     public SplashGUI() {
         try {
@@ -99,7 +101,7 @@ public class SplashGUI extends JPanel {
         fetchButton.setText("Fetch Program");
 
         this.add(splashImage, new GridBagConstraints(
-                0, 0, 1, 2, 0.0, 0.0,
+                0, 0, 1, 3, 0.0, 0.0,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
                 new Insets(16, 5, 0, 5), 0, 0));
         this.add(redistLabel, new GridBagConstraints(
@@ -110,9 +112,13 @@ public class SplashGUI extends JPanel {
                 1, 0, 2, 1, 1.0, 1.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(10, 5, 5, 7), 0, 0));
+        this.add(versionInfo, new GridBagConstraints(
+                1, 2, 2, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(5, 0, 5, 0), 0, 0));
 
         this.add(jPanel1, new GridBagConstraints(
-                0, 2, 3, 1, 0.0, 0.0,
+                0, 3, 3, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 

@@ -19,3 +19,31 @@ For the sake of completeness here are the full instructions.
 
 3. Ant (ant.apache.org) is the preferred method of building ...
     ant
+
+
+Building a Release Version
+==========================
+
+1. In Hilo ...
+    cd /jac_sw
+    git clone git://github.com/eaobservatory/observing-tool.git ot_release_<YYYYMMDD>
+
+   where <YYYYMMDD> is replaced with the current date.
+
+2. Change to the code directory ...
+    cd ot_release_<YYYYMMDD>
+
+3. Checkout the release code ...
+    git checkout -b release origin/release
+
+4. Ant (ant.apache.org) is the preferred method of building ...
+    ant jar
+
+5. Copy the JAR file to the release directory ...
+    cp jcmtot.jar /ftp/pub/ot/
+
+6. Update the OMP server's configuration file parameter "ot-cur-version" to
+   match this version.
+
+   Also update the "ot-min-version" parameter if older versions can no longer
+   be used.

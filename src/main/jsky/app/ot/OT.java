@@ -64,6 +64,9 @@ public class OT {
     /** Database Access */
     private static DatabaseDialog _databaseDialog = null;
 
+    /** Identification of the current user. */
+    public static LoginInfo loginInfo = null;
+
     /**
      * Default save directory.
      *

@@ -87,6 +87,7 @@ public final class OtCfg {
         String[] chopDefaults; // Added by MFO, May 13, 2002
         String[] namedTargets; // Added by MFO, June 05, 2002
         String telescopeLatitude; // Added by MFO, June 13, 2002
+        String schemaURL;
         String schemaLocation; // Added by SdW, Sept. 2002
         String schemaBase; // Added ny SdW, Dec 2003
         String proxyServer; // Added by Sdw, Feb 2003
@@ -94,6 +95,8 @@ public final class OtCfg {
         String[] noteLabels;
         String[] noteTags;
         String[] noteExamples;
+        String hedwigOAuthURL;
+        String hedwigOAuthClient;
     }
 
     /**
@@ -242,7 +245,7 @@ public final class OtCfg {
     }
 
     public static String getSchemaURL() {
-        return _otCfgInfo.schemaLocation;
+        return _otCfgInfo.schemaURL;
     }
 
     // Added by SdW. Feb 2003
@@ -267,6 +270,14 @@ public final class OtCfg {
 
     public static String[] getNoteTags() {
         return _otCfgInfo.noteTags;
+    }
+
+    public static String getHedwigOAuthURL() {
+        return _otCfgInfo.hedwigOAuthURL;
+    }
+
+    public static String getHedwigOAuthClient() {
+        return _otCfgInfo.hedwigOAuthClient;
     }
 
     public static synchronized boolean phase1Available() {

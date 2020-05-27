@@ -37,7 +37,7 @@ import orac.jcmt.inst.SpInstSCUBA2;
  * @author modified for JCMT by Martin Folger (M.Folger@roe.ac.uk)
  */
 public final class EdIterFocusObs extends EdIterJCMTGeneric implements
-        ItemListener {
+        ItemListener, IterJCMTGenericGUI.RotatorAngleListener {
     private IterFocusObsGUI _w; // the GUI layout panel
     private SpIterFocusObs _iterObs;
 
@@ -68,6 +68,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
 
         _w.pol2_in_beam.addItemListener(this);
         _w.fts2_in_beam.addItemListener(this);
+
+        _w.addRotatorAngleListener(this);
     }
 
     /**
@@ -88,6 +90,10 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
         _w.fts2_in_beam.setSelected(_iterObs.isFts2InBeam());
 
         super._updateWidgets();
+
+        // Do this last as super._updateWidgets resets the instrument,
+        // clearing the rotator angle selection.
+        _w.setSelectedRotatorAngles(_iterObs.getRotatorAngles());
     }
 
     public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
@@ -118,6 +124,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
     public void setInstrument(SpInstObsComp spInstObsComp) {
         super.setInstrument(spInstObsComp);
 
+        double[] rotatorAngles = null;
+
         if (spInstObsComp != null) {
             if (spInstObsComp instanceof SpInstHeterodyne) {
                 _w.acsisPanel.setVisible(true);
@@ -126,6 +134,11 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
 
                 _w.fts2_in_beam.setVisible(false);
                 _w.pol2_in_beam.setVisible(false);
+
+                if (((SpInstHeterodyne) spInstObsComp).getFrontEnd().equals(
+                        "HARP")) {
+                    rotatorAngles = new double[] {0.0, 90.0, 180.0, 270.0};
+                }
 
             } else if (spInstObsComp instanceof SpInstSCUBA2) {
                 _w.acsisPanel.setVisible(false);
@@ -146,6 +159,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
             _w.fts2_in_beam.setVisible(false);
             _w.pol2_in_beam.setVisible(false);
         }
+
+        _w.setAvailableRotatorAngles(rotatorAngles);
     }
 
     public void itemStateChanged(ItemEvent e) {
@@ -155,5 +170,9 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric implements
         } else if (e.getSource() == _w.fts2_in_beam) {
             _iterObs.setFts2InBeam(_w.fts2_in_beam.isSelected());
         }
+    }
+
+    public void rotatorAnglesChanged(double[] angles) {
+        _iterObs.setRotatorAngles(angles);
     }
 }

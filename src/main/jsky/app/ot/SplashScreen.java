@@ -34,12 +34,15 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 import java.net.URL;
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
 import javax.swing.text.Caret;
 import javax.swing.text.DefaultCaret;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
 import gemini.util.Version;
+import omp.SpClient;
 
 import jsky.util.Preferences;
 
@@ -49,6 +52,8 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
     protected JFrame parent;
     private String OT_VERSION = "ot_version";
     private static String fullVersion = Version.getInstance().getFullVersion();
+    private static Color colorOK = new Color(0, 128, 0);
+    private static Color colorWarning = new Color(128, 128, 0);
 
     public SplashScreen(URL welcomeTxtURL) {
         _readWelcome(welcomeTxtURL);
@@ -63,6 +68,53 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
             Preferences.set(OT_VERSION, fullVersion);
             OT.showNews();
         }
+
+        versionInfo.setForeground(Color.BLACK);
+        versionInfo.setText("Checking for updated version information ...");
+
+        (new SwingWorker<SpClient.VersionInfo, Void>() {
+            @Override
+            public SpClient.VersionInfo doInBackground() throws Exception {
+                return SpClient.getOTVersionInfo();
+            }
+
+            @Override
+            public void done() {
+                try {
+                    SpClient.VersionInfo info = get();
+
+                    if (fullVersion.compareTo(info.minimum) < 0) {
+                        versionInfo.setForeground(Color.RED);
+                        versionInfo.setText("<html>This OT is too old for submitting programs for this semester.<br/>Please update to the latest version.</html>");
+                    } else if (fullVersion.compareTo(info.current) < 0) {
+                        versionInfo.setForeground(colorWarning);
+                        versionInfo.setText("An updated version (" + info.current + ") of the OT is available.");
+                    } else {
+                        versionInfo.setForeground(colorOK);
+                        versionInfo.setText("This OT is the latest version.");
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                    versionInfo.setForeground(Color.RED);
+                    versionInfo.setText("Unable to check for updates.");
+
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    String message = null;
+
+                    if (cause == null) {
+                        e.printStackTrace();
+                    } else {
+                        cause.printStackTrace();
+                    }
+
+                    versionInfo.setForeground(Color.RED);
+                    versionInfo.setText("Unable to check for updates.");
+                }
+            }
+        }).execute();
     }
 
     /**

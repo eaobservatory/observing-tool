@@ -21,15 +21,28 @@ package ot;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URLEncoder;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
+import java.util.Map;
+import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import jsky.app.ot.LoginInfo;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import jsky.app.ot.OT;
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.OtProgWindow;
 import jsky.app.ot.OtWindowFrame;
 import jsky.app.ot.gui.StopActionWidget;
@@ -77,7 +90,9 @@ public class DatabaseDialog implements ActionListener {
 
         _w.confirmButton.addActionListener(this);
         _w.closeButton.addActionListener(this);
+        _w.hedwigButton.addActionListener(this);
         _w.passwordTextBox.addActionListener(this);
+        _w.tokenConfirmButton.addActionListener(this);
         _stopAction.getStopButton().addActionListener(this);
     }
 
@@ -109,20 +124,20 @@ public class DatabaseDialog implements ActionListener {
 
         if (accessMode == ACCESS_MODE_STORE) {
             _title = "Store Program";
-            _w.loginTextBox.setEditable(false);
+            _w.projectTextBox.setEditable(false);
             _w.validationReminder.setVisible(true);
 
             if ((_spItemToBeSaved != null)
                     && (_spItemToBeSaved instanceof SpProg)) {
-                _w.loginTextBox.setText(
+                _w.projectTextBox.setText(
                         ((SpProg) _spItemToBeSaved).getProjectID());
             } else {
-                _w.loginTextBox.setText("");
+                _w.projectTextBox.setText("");
             }
 
         } else {
             _title = "Fetch Program";
-            _w.loginTextBox.setEditable(true);
+            _w.projectTextBox.setEditable(true);
             _w.validationReminder.setVisible(false);
         }
 
@@ -139,9 +154,25 @@ public class DatabaseDialog implements ActionListener {
                     screen.height / 2 - dim.height / 2);
         }
 
+        if (OT.loginInfo == null) {
+            _w.typeChoice.setEnabledAt(2, false);
+            if (_w.typeChoice.getSelectedIndex() == 2) {
+                _w.typeChoice.setSelectedIndex(0);
+            }
+        }
+        else {
+            _w.typeChoice.setEnabledAt(2, true);
+            _w.typeChoice.setSelectedIndex(2);
+            _w.tokenUsernameTextBox.setText(OT.loginInfo.username);
+        }
+
         _dialogComponent.setTitle(_title);
         _dialogComponent.setVisible(true);
         _dialogComponent.setState(JFrame.NORMAL);
+
+        _w.confirmButton.setEnabled(true);
+        _w.hedwigButton.setEnabled(true);
+        _w.tokenConfirmButton.setEnabled(true);
     }
 
     public void hide() {
@@ -158,11 +189,13 @@ public class DatabaseDialog implements ActionListener {
         _mode = mode;
     }
 
-    private void doFetchProgram(final String projectID, final String password) {
+    private void doFetchProgram(
+            final String projectID, final String provider,
+            final String username, final String password) {
         (new SwingWorker<SpItem, Void>() {
             @Override
             public SpItem doInBackground() throws Exception {
-                return SpClient.fetchProgram(projectID, password);
+                return SpClient.fetchProgram(projectID, provider, username, password);
             }
 
             @Override
@@ -179,11 +212,8 @@ public class DatabaseDialog implements ActionListener {
                         // If the user has aborted fetchProgram by hitting
                         // "Stop" then do not display the science program.
 
-                        // Database argument is not needed, 0 is just a dummy.
-                        LoginInfo li = new LoginInfo(projectID, 0, password);
-
                         new OtWindowFrame(
-                            new OtProgWindow((SpRootItem) spItem, li));
+                            new OtProgWindow((SpRootItem) spItem));
                     }
 
                     hide();
@@ -212,13 +242,14 @@ public class DatabaseDialog implements ActionListener {
         }).execute();
     }
 
-    private void doStoreProgram(final String password) {
+    private void doStoreProgram(
+            final String provider, final String username, final String password) {
         (new SwingWorker<SpClient.SpStoreResult, Void>() {
             @Override
             public SpClient.SpStoreResult doInBackground() throws Exception {
                 try {
                     return SpClient.storeProgram(
-                            (SpProg) _spItemToBeSaved, password, false);
+                            (SpProg) _spItemToBeSaved, provider, username, password, false);
                 }
                 catch (final SpChangedOnDiskException e) {
                     final int[] confirm = new int[1];
@@ -239,7 +270,7 @@ public class DatabaseDialog implements ActionListener {
                         // Call storeProgram and force storing despite
                         // inconsistent time stamp.
                         return SpClient.storeProgram(
-                            (SpProg) _spItemToBeSaved, password, true);
+                            (SpProg) _spItemToBeSaved, provider, username, password, true);
                     }
                 }
 
@@ -295,31 +326,59 @@ public class DatabaseDialog implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         Object w = evt.getSource();
 
-        if (w == _w.confirmButton) {
-            accessDatabase();
-        } else if (w == _w.closeButton) {
-            hide();
+        if ((w == _w.confirmButton)
+                || (w == _w.hedwigButton)
+                || (w == _w.tokenConfirmButton)) {
+            // Check that the project ID box is not empty before attempting to fetch.
+            if (_mode == ACCESS_MODE_FETCH) {
+                String projectID = _w.projectTextBox.getText();
+                if ("".equals(projectID)) {
+                    JOptionPane.showMessageDialog(_dialogComponent,
+                            "Please enter the project ID.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+
+                    return;
+                }
+            }
+
+            if (w == _w.hedwigButton) {
+                listenForOAuth(OtCfg.getHedwigOAuthURL(), OtCfg.getHedwigOAuthClient());
+            } else if (w == _w.tokenConfirmButton) {
+                accessDatabase("omptoken", OT.loginInfo.username, OT.loginInfo.token);
+            } else {
+                accessDatabase();
+            }
         } else if (w == _stopAction.getStopButton()) {
             _databaseAccessAborted = true;
         } else if (w == _w.passwordTextBox) {
             _w.confirmButton.doClick();
+        } else if (w == _w.closeButton) {
+            hide();
         }
     }
 
     private void accessDatabase() {
-        _stopAction.actionsStarted();
-        _w.confirmButton.setEnabled(false);
-
+        String provider = _w.providers[_w.providerBox.getIntegerValue()];
+        String username = _w.usernameTextBox.getText();
         String password = new String(_w.passwordTextBox.getPassword());
 
+        accessDatabase(provider, username, password);
+    }
+
+    private void accessDatabase(String provider, String username, String password) {
+        _stopAction.actionsStarted();
+        _w.confirmButton.setEnabled(false);
+        _w.hedwigButton.setEnabled(false);
+        _w.tokenConfirmButton.setEnabled(false);
+
         if (_mode == ACCESS_MODE_STORE) {
-            doStoreProgram(password);
+            doStoreProgram(provider, username, password);
         }
         else {
-            // loginTextBox contains the proejctID aka Science Program name.
-            String projectID = _w.loginTextBox.getText();
+            // projectTextBox contains the projectID aka Science Program name.
+            String projectID = _w.projectTextBox.getText();
 
-            doFetchProgram(projectID, password);
+            doFetchProgram(projectID, provider, username, password);
         }
     }
 
@@ -327,5 +386,84 @@ public class DatabaseDialog implements ActionListener {
         _databaseAccessAborted = false;
         _stopAction.actionsFinished();
         _w.confirmButton.setEnabled(true);
+        _w.hedwigButton.setEnabled(true);
+        _w.tokenConfirmButton.setEnabled(true);
+    }
+
+    private void listenForOAuth(String auth_url, String client_id) {
+        _w.confirmButton.setEnabled(false);
+        _w.hedwigButton.setEnabled(false);
+        _w.tokenConfirmButton.setEnabled(false);
+        try {
+            final HttpServer server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
+            final String redirect_uri = "http://127.0.0.1:" + server.getAddress().getPort() + "/";
+            server.createContext("/", new HttpHandler() {
+                public void handle(HttpExchange t) throws IOException {
+                    URI uri = t.getRequestURI();
+                    String response = "You may now return to the OT.";
+                    t.sendResponseHeaders(200, response.length());
+                    OutputStream os = t.getResponseBody();
+                    os.write(response.getBytes());
+                    os.close();
+
+                    final Map<String, String> query = new HashMap<String, String>();
+                    for (String param: uri.getQuery().split("&")) {
+                        int pos = param.indexOf("=");
+                        if (pos != -1) {
+                            query.put(param.substring(0, pos), param.substring(pos + 1));
+                        }
+                    }
+
+                    if (query.containsKey("error")) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                JOptionPane.showMessageDialog(_dialogComponent,
+                                        "Error from authentication server: " + query.get("error"),
+                                        "Authentication Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        });
+                    }
+                    else if (query.containsKey("code")) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                // Calling toFront alone doesn't seem to work.
+                                // This sequence of steps is taken from:
+                                // https://stackoverflow.com/questions/309023/how-to-bring-a-window-to-the-front
+                                _dialogComponent.setAlwaysOnTop(true);
+                                _dialogComponent.toFront();
+                                _dialogComponent.requestFocus();
+                                _dialogComponent.setAlwaysOnTop(false);
+
+                                accessDatabase("hedwig", redirect_uri, query.get("code"));
+                            }
+                        });
+                    }
+                    else {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                JOptionPane.showMessageDialog(_dialogComponent,
+                                        "Authentication server did not return an access code.",
+                                        "Authentication Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        });
+                    }
+
+                    server.stop(1);
+                }
+            });
+            server.setExecutor(null);
+            server.start();
+            Desktop.getDesktop().browse(new URI(
+                auth_url
+                + "?response_type=code&redirect_uri="
+                + URLEncoder.encode(redirect_uri, "UTF-8")
+                + "&client_id=" + client_id + "&scope=openid"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            _w.confirmButton.setEnabled(true);
+            _w.hedwigButton.setEnabled(true);
+            _w.tokenConfirmButton.setEnabled(true);
+        }
     }
 }
