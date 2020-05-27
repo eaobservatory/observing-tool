@@ -56,11 +56,6 @@ public final class ProgramInfo {
     public FileInfo file = null;
 
     /**
-     * The user name under which the program or plan is stored in the database.
-     */
-    public LoginInfo login = null;
-
-    /**
      * Contains a mapping of Science Program/Plan items to ProgramInfo
      * structures.
      */
