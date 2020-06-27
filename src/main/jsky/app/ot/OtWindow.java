@@ -82,7 +82,6 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
-import gemini.util.ConfigWriter;
 import gemini.util.ObservingToolUtilities;
 import orac.util.SpInputXML;
 import jsky.app.ot.tpe.TelescopePosEditor;

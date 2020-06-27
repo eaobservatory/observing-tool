@@ -34,8 +34,6 @@ import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpPosAngleObserver;
 import gemini.sp.SpObsData;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
 
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
@@ -92,7 +90,7 @@ class SpIterOffsetEnumeration extends SpIterEnumeration {
  * @see SpOffsetPosList
  */
 @SuppressWarnings("serial")
-public class SpIterOffset extends SpIterComp implements SpTranslatable {
+public class SpIterOffset extends SpIterComp {
     private static final String ATTR_OFFSET_SYSTEM = "offsetSystem";
     public static final String[] OFFSET_SYSTEMS = {
         "",
@@ -478,111 +476,5 @@ public class SpIterOffset extends SpIterComp implements SpTranslatable {
         }
 
         return n;
-    }
-
-    public void translateProlog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translateEpilog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translate(Vector<String> v)
-            throws SpTranslationNotSupportedException {
-        // If this has a microstep iterator child, we will delegate to it and
-        // not put offsets here
-        Enumeration<SpItem> children = this.children();
-        String instName = SpTreeMan.findInstrument(this).getTitle();
-
-        boolean hasMicrostepChild = false;
-
-        while (children.hasMoreElements()) {
-            if (children.nextElement() instanceof SpIterMicroStep) {
-                hasMicrostepChild = true;
-                break;
-            }
-        }
-
-        SpTranslatable translatable = null;
-        SpTranslatable previous = null;
-
-        if (hasMicrostepChild) {
-            children = this.children();
-
-            while (children.hasMoreElements()) {
-                SpItem child = children.nextElement();
-
-                if (child instanceof SpTranslatable) {
-                    translatable = (SpTranslatable) child;
-
-                    if (!translatable.equals(previous)) {
-                        if (previous != null) {
-                            previous.translateEpilog(v);
-                        }
-
-                        previous = translatable;
-                        translatable.translateProlog(v);
-                    }
-
-                    translatable.translate(v);
-                }
-            }
-
-        } else {
-            for (int i = 0; i < _posList.size(); i++) {
-                if ("WFCAM".equalsIgnoreCase(instName)) {
-                    // Add CASU pipeline headers
-                    v.add("title jitter " + (i + 1));
-                    v.add("-setHeader NJITTER " + _posList.size());
-                    v.add("-setHeader JITTER_I " + (i + 1));
-                    v.add("-setHeader JITTER_X "
-                            + _posList.getPositionAt(i).getXaxis());
-                    v.add("-setHeader JITTER_Y "
-                            + _posList.getPositionAt(i).getYaxis());
-                    v.add("-setHeader NUSTEP 1");
-                    v.add("-setHeader USTEP_I 1");
-                    v.add("-setHeader USTEP_X 0.0");
-                    v.add("-setHeader USTEP_Y 0.0");
-                }
-
-                double xAxis = MathUtil.round(_posList.getPositionAt(i)
-                        .getXaxis(), 3);
-                double yAxis = MathUtil.round(_posList.getPositionAt(i)
-                        .getYaxis(), 3);
-
-                String instruction = "offset " + xAxis + " " + yAxis;
-                v.add(instruction);
-
-                if ("Michelle".equalsIgnoreCase(instName)) {
-                    v.add("-WAIT ALL");
-                }
-
-                children = this.children();
-
-                while (children.hasMoreElements()) {
-                    SpItem child = children.nextElement();
-
-                    if (child instanceof SpTranslatable) {
-                        translatable = (SpTranslatable) child;
-
-                        if (!translatable.equals(previous)) {
-                            if (previous != null) {
-                                previous.translateEpilog(v);
-                            }
-
-                            previous = translatable;
-                            translatable.translateProlog(v);
-                        }
-
-                        translatable.translate(v);
-                    }
-                }
-            }
-        }
-
-        if (translatable != null) {
-            translatable.translateEpilog(v);
-        }
     }
 }
