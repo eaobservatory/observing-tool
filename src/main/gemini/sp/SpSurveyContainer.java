@@ -57,6 +57,7 @@ import java.io.FileReader;
 public class SpSurveyContainer extends SpObsContextItem {
     public static final String ATTR_REMAINING = "remaining";
     public static final String ATTR_PRIORITY = "priority";
+    public static final String ATTR_OBSERVED = "observed";
     public static final String ATTR_CHOICE = "choose";
     public static final String ATTR_SELECTED_TEL_OBS_COMP =
             ".gui.selectedTelObsComp";
@@ -141,6 +142,18 @@ public class SpSurveyContainer extends SpObsContextItem {
      */
     public void removePriority(int index) {
         _avTable.rm(ATTR_PRIORITY, index);
+    }
+
+    public int getObserved(int telObsCompIndex) {
+        return _avTable.getInt(ATTR_OBSERVED, telObsCompIndex, 0);
+    }
+
+    public void setObserved(int observed, int telObsCompIndex) {
+        _avTable.set(ATTR_OBSERVED, observed, telObsCompIndex);
+    }
+
+    public void removeObserved(int index) {
+        _avTable.rm(ATTR_OBSERVED, index);
     }
 
     public boolean isChoice() {
@@ -232,6 +245,7 @@ public class SpSurveyContainer extends SpObsContextItem {
         spTelescopeObsComp.getTable().edit();
         setRemaining(1, _telescopeObsCompVector.size() - 1);
         setPriority(1, _telescopeObsCompVector.size() - 1);
+        setObserved(0, _telescopeObsCompVector.size() - 1);
 
         return spTelescopeObsComp;
     }
@@ -283,6 +297,7 @@ public class SpSurveyContainer extends SpObsContextItem {
 
             setRemaining(remaining, _telescopeObsCompVector.size() - 1);
             setPriority(priority, _telescopeObsCompVector.size() - 1);
+            setObserved(0, _telescopeObsCompVector.size() - 1);
         }
     }
 
@@ -295,6 +310,7 @@ public class SpSurveyContainer extends SpObsContextItem {
 
             _avTable.insertAt(ATTR_REMAINING, "1", at);
             _avTable.insertAt(ATTR_PRIORITY, "1", at);
+            _avTable.insertAt(ATTR_OBSERVED, "0", at);
         }
     }
 
@@ -322,6 +338,7 @@ public class SpSurveyContainer extends SpObsContextItem {
 
         removeRemaining(index);
         removePriority(index);
+        removeObserved(index);
 
         // Make sure that there is at least one SpTelescopeObsComp in the
         // survey component.
@@ -633,6 +650,13 @@ public class SpSurveyContainer extends SpObsContextItem {
             setRemaining(Integer.parseInt(value),
                     _telescopeObsCompVector.size());
 
+        } else if (attributeName.equals(ATTR_OBSERVED)) {
+            int observed = Integer.parseInt(value);
+
+            if (observed > 0) {
+                setObserved(observed, _telescopeObsCompVector.size());
+            }
+
         } else {
             super.processXmlAttribute(elementName, attributeName, value);
         }
@@ -695,6 +719,9 @@ public class SpSurveyContainer extends SpObsContextItem {
             } else if (avAttr.equals(ATTR_PRIORITY)) {
                 // Do nothing
 
+            } else if (avAttr.equals(ATTR_OBSERVED)) {
+                // Do nothing
+
             } else {
                 super.processAvAttribute(avAttr, indent, xmlBuffer);
             }
@@ -711,9 +738,16 @@ public class SpSurveyContainer extends SpObsContextItem {
         String telescopeObsCompXML = null;
 
         for (int i = 0; i < _telescopeObsCompVector.size(); i++) {
+            String observedAttr = "";
+            int observed = getObserved(i);
+            if (observed > 0) {
+                observedAttr = " " + ATTR_OBSERVED + "=\"" + observed + "\"";
+            }
+
             String tgtElement = "<Target "
                     + ATTR_PRIORITY + "=\"" + getPriority(i) + "\" "
-                    + ATTR_REMAINING + "=\"" + getRemaining(i) + "\">";
+                    + ATTR_REMAINING + "=\"" + getRemaining(i) + "\""
+                    + observedAttr + ">";
             xmlBuffer.append("\n" + indent + indent + tgtElement);
 
             telescopeObsCompXML = _telescopeObsCompVector.get(i).getXML(
