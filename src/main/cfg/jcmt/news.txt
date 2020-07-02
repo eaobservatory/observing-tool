@@ -1,3 +1,8 @@
++++ July 2020 release
+
+  - Observed counters in survey containers should now be processed
+    correctly.  (Important only for containers using the "select" option.)
+
 +++ May 2020 release 2
 
   - The OT is now available as a direct "jar" file download, because
