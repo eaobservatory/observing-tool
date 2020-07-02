@@ -248,6 +248,7 @@ public final class EdSurvey extends EdCompTargetList implements
 
             _surveyObsComp.setRemaining(1, 0);
             _surveyObsComp.setPriority(1, 0);
+            _surveyObsComp.setObserved(0, 0);
         }
 
         if (_surveyObsComp.hasMSBParent()) {
@@ -532,6 +533,9 @@ public final class EdSurvey extends EdCompTargetList implements
             int pri1 = _surveyObsComp.getPriority(row1);
             int pri2 = _surveyObsComp.getPriority(row2);
 
+            int obs1 = _surveyObsComp.getObserved(row1);
+            int obs2 = _surveyObsComp.getObserved(row2);
+
             // We also need to swap the TelescopePositions so when the table
             // is redrawn, the new positions are read.
             SpTelescopeObsComp tp2 = _surveyObsComp.getSpTelescopeObsComp(row2);
@@ -539,12 +543,15 @@ public final class EdSurvey extends EdCompTargetList implements
             _surveyObsComp.replaceSpTelescopeObsComp(tp1, row2);
             _surveyObsComp.replaceSpTelescopeObsComp(tp2, row1);
 
-            // Also swap the remaining and priority
+            // Also swap the remaining, priority and observed.
             _surveyObsComp.setRemaining(rem1, row2);
             _surveyObsComp.setRemaining(rem2, row1);
 
             _surveyObsComp.setPriority(pri1, row2);
             _surveyObsComp.setPriority(pri2, row1);
+
+            _surveyObsComp.setObserved(obs1, row2);
+            _surveyObsComp.setObserved(obs2, row1);
 
             _updateFieldTable();
         }
@@ -674,6 +681,8 @@ public final class EdSurvey extends EdCompTargetList implements
                     _surveyGUI.fieldTable.getRowCount() - 1);
             _surveyObsComp.setPriority(1,
                     _surveyGUI.fieldTable.getRowCount() - 1);
+            _surveyObsComp.setObserved(0,
+                    _surveyGUI.fieldTable.getRowCount() - 1);
 
             _surveyGUI.selectLabel.setText("from "
                     + _surveyGUI.fieldTable.getRowCount());
@@ -697,6 +706,8 @@ public final class EdSurvey extends EdCompTargetList implements
                     _surveyObsComp.getRemaining(currentRow),
                     _surveyGUI.fieldTable.getRowCount() - 1);
             _surveyObsComp.setPriority(_surveyObsComp.getPriority(currentRow),
+                    _surveyGUI.fieldTable.getRowCount() - 1);
+            _surveyObsComp.setObserved(0,
                     _surveyGUI.fieldTable.getRowCount() - 1);
 
             _surveyGUI.selectLabel.setText("from "
