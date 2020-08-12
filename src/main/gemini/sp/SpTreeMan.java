@@ -529,6 +529,7 @@ public final class SpTreeMan implements SpInsertConstants {
         _insertAfter.put("fo,no", ip);
         _insertAfter.put("fo,if", ip);
         _insertAfter.put("fo,og", ip);
+        _insertAfter.put("fo,sc", ip);
 
         // Obs Groups
         _insertAfter.put("og,of", ip); // MFO
