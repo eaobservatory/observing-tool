@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JSlider;
 import javax.swing.JPanel;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -69,6 +70,7 @@ public class SideBandDisplay extends JFrame {
     private double _lo1;
     private double _lRangeLimit;
     private double _uRangeLimit;
+    private double if_frequency;
 
     private Container contentPane;
 
@@ -106,7 +108,7 @@ public class SideBandDisplay extends JFrame {
         });
     }
 
-    public void updateDisplay(SpInstHeterodyne inst, Receiver receiver) {
+    public void updateDisplay(final SpInstHeterodyne inst, Receiver receiver) {
         String feName = inst.getFrontEnd();
         setTitle("Frequency editor: front end = " + feName);
 
@@ -129,11 +131,13 @@ public class SideBandDisplay extends JFrame {
 
         String band = inst.getBand();
 
+        if_frequency = inst.getCentreFrequency(0);
+
         double lo_frequency;
         if ("best".equals(band) || "usb".equals(band)) {
-            lo_frequency = obsFreq - inst.getCentreFrequency(0);
+            lo_frequency = obsFreq - if_frequency;
         } else {
-            lo_frequency = obsFreq + inst.getCentreFrequency(0);
+            lo_frequency = obsFreq + if_frequency;
         }
         setLO1(lo_frequency);
 
@@ -144,11 +148,7 @@ public class SideBandDisplay extends JFrame {
 
         dataPanel.add(jt, BorderLayout.CENTER);
 
-        SkyTransmission st = null;
-        try {
-            st = new SkyTransmission(feName, lo_frequency, halfRange, displayWidth, 80);
-        } catch (Exception e) {
-        }
+        final SkyTransmission st = new SkyTransmission(feName, lo_frequency, halfRange, displayWidth, 80, if_frequency);
 
         targetScale = new GraphScale(lo_frequency, halfRange, 1.0E9, 0.1E9, redshift, 9,
                 displayWidth, JSlider.HORIZONTAL);
@@ -159,9 +159,14 @@ public class SideBandDisplay extends JFrame {
 
         slider.addChangeListener(el);
 
-        if (st != null) {
-            slider.addChangeListener(st);
-        }
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                double freq_lo = EdFreq.SLIDERSCALE
+                        * (double) ((JSlider) e.getSource()).getValue();
+
+                st.updateFrequency(freq_lo, if_frequency);
+            }
+        });
 
         slider.addChangeListener(targetScale);
         slider.addChangeListener(localScale);
@@ -273,13 +278,24 @@ public class SideBandDisplay extends JFrame {
         JLabel label3 = new JLabel("Atm. Transm.", SwingConstants.CENTER);
         area3.add(label3, BorderLayout.CENTER);
 
-        JLabel trxLabel = new JLabel("TRx", SwingConstants.CENTER);
-        trxLabel.setForeground(Color.blue);
-        if (st != null && st.trxAvailable()) {
-            area3.add(trxLabel, BorderLayout.NORTH);
-        }
-
         if (st != null) {
+            if (st.trxAvailableLSBandUSB()) {
+                JPanel trx = new JPanel();
+                trx.setLayout(new BoxLayout(trx, BoxLayout.Y_AXIS));
+                JLabel trxLSB = new JLabel("TRx LSB", SwingConstants.CENTER);
+                trxLSB.setForeground(Color.blue);
+                trx.add(trxLSB);
+                JLabel trxUSB = new JLabel("TRx USB", SwingConstants.CENTER);
+                trxUSB.setForeground(Color.orange);
+                trx.add(trxUSB);
+                area3.add(trx, BorderLayout.NORTH);
+            }
+            else if (st.trxAvailable()) {
+                JLabel trxLabel = new JLabel("TRx", SwingConstants.CENTER);
+                trxLabel.setForeground(Color.blue);
+                area3.add(trxLabel, BorderLayout.NORTH);
+            }
+
             int preferredHeight = st.getPreferredSize().height;
             GraphScale gs = new GraphScale(0.55, 0.55, 0.5, 0.1, 0.0, 0,
                     preferredHeight, JSlider.VERTICAL);
@@ -303,6 +319,10 @@ public class SideBandDisplay extends JFrame {
         contentPanel.add(dataPanel);
         contentPane.removeAll();
         contentPane.add(contentPanel, BorderLayout.CENTER);
+    }
+
+    public void setIF(double if_frequency) {
+        this.if_frequency = if_frequency;
     }
 
     public void setLO1(double lo1) {
