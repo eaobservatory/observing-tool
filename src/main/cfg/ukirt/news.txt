@@ -1,3 +1,7 @@
++++ November 2020 release
+
+  - And folders should now be permitted after survey containers.
+
 +++ July 2020 release
 
   - Observed counters in survey containers should now be processed
