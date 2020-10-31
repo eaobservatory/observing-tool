@@ -43,7 +43,7 @@ import java.awt.Color;
  * @author Dennis Kelly (bdk@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SkyTransmission extends JPanel implements ChangeListener {
+public class SkyTransmission extends JPanel {
     int xSize;
     int ySize;
     String _feName = null;
@@ -53,21 +53,28 @@ public class SkyTransmission extends JPanel implements ChangeListener {
     private double[][] skyTrans;
     private SkyData skyData;
     private int[][] skyPlot;
-    private TreeMap<Double, Double> rxTemp = null;
-    private int[][] rxPlot = null;
+    private TreeMap<Double, Double> rxTempRF = null;
+    private TreeMap<Double, Double> rxTempLSB = null;
+    private TreeMap<Double, Double> rxTempUSB = null;
+    private int[][] rxPlot1 = null;
+    private int[][] rxPlot2 = null;
     private Image buffer = null;
     private Graphics ig;
     private TreeMap<Double, Vector<Double>> untunableBands;
     private int[][] untunablePlot = null;
     private double lowF = 0;
     private double highF = 0;
+    private double freq_if = 0;
+    private double freq_lo = 0;
 
     public SkyTransmission(String feName, double centerFreq, double halfRange,
-            int xSize, int ySize) {
+            int xSize, int ySize, double freq_if) {
         this._feName = feName;
         this.halfrange = halfRange;
         this.xSize = xSize;
         this.ySize = ySize;
+        this.freq_lo = centerFreq;
+        this.freq_if = freq_if;
 
         lowLimit = centerFreq - halfRange;
         highLimit = centerFreq + halfRange;
@@ -84,7 +91,7 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         setPreferredSize(new Dimension(xSize, ySize));
         setSize(xSize, ySize);
 
-        rxTemp = getTRx(feName);
+        readTrxData(feName);
 
         updatePlotData();
     }
@@ -95,8 +102,6 @@ public class SkyTransmission extends JPanel implements ChangeListener {
      * Overrides the paintComponent method in JPanel.
      */
     public void paintComponent(Graphics g) {
-        int j;
-
         if (buffer == null) {
             buffer = createImage(xSize, ySize);
 
@@ -112,7 +117,7 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         ig.fillRect(0, 0, xSize, ySize);
         ig.setColor(getForeground());
 
-        for (j = 0; j < skyPlot.length - 1; j++) {
+        for (int j = 0; j < skyPlot.length - 1; j++) {
             ig.drawLine(
                     skyPlot[j][0],
                     skyPlot[j][1],
@@ -121,22 +126,12 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         }
 
         // Draw tRx
-        if (rxPlot != null) {
-            // Draw in blue
-            ig.setColor(Color.blue);
-
-            for (j = 0; j < rxPlot.length - 1; j++) {
-                ig.drawLine(
-                        rxPlot[j][0],
-                        rxPlot[j][1],
-                        rxPlot[j + 1][0],
-                        rxPlot[j + 1][1]);
-            }
-        }
+        paintTrx(ig, rxPlot1, Color.blue);
+        paintTrx(ig, rxPlot2, Color.orange);
 
         // Finally plot untunable bands...
         if (untunablePlot != null && untunablePlot.length > 0) {
-            for (j = 0; j < untunablePlot.length; j++) {
+            for (int j = 0; j < untunablePlot.length; j++) {
                 ig.fillRect(
                         untunablePlot[j][0],
                         untunablePlot[j][1],
@@ -148,14 +143,27 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         g.drawImage(buffer, 0, 0, null);
     }
 
-    /**
-     * Implementation of ChangeListener interface.
-     */
-    public void stateChanged(ChangeEvent e) {
-        double value = EdFreq.SLIDERSCALE
-                * (double) ((JSlider) e.getSource()).getValue();
-        lowLimit = value - halfrange;
-        highLimit = value + halfrange;
+    private void paintTrx(Graphics ig, int[][] rxPlot, Color color) {
+        if (rxPlot != null) {
+            // Draw in the specifid color.
+            ig.setColor(color);
+
+            for (int j = 0; j < rxPlot.length - 1; j++) {
+                ig.drawLine(
+                        rxPlot[j][0],
+                        rxPlot[j][1],
+                        rxPlot[j + 1][0],
+                        rxPlot[j + 1][1]);
+            }
+        }
+    }
+
+    public void updateFrequency(double freq_lo, double freq_if) {
+        this.freq_lo = freq_lo;
+        this.freq_if = freq_if;
+
+        lowLimit = freq_lo - halfrange;
+        highLimit = freq_lo + halfrange;
 
         updatePlotData();
 
@@ -176,85 +184,17 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         /*
          * Get the rxTemp plot values
          */
-        if (rxTemp != null) {
-            // First of all, get the max and min receiver temperature
-            int tMax = 0;
-            int tMin = 0;
-            boolean first = true;
-
-            Iterator<Double> iter = rxTemp.values().iterator();
-
-            while (iter.hasNext()) {
-                if (first) {
-                    tMax = (int) Math.rint(iter.next());
-                    tMin = tMax;
-                    first = false;
-                } else {
-                    int currentValue = (int) Math.rint(iter.next());
-
-                    if (currentValue > tMax) {
-                        tMax = currentValue;
-                    }
-
-                    if (currentValue < tMin) {
-                        tMin = currentValue;
-                    }
-                }
-            }
-
-            // Find out what range of data to show
-            iter = rxTemp.keySet().iterator();
-            Double key = null;
-
-            while (iter.hasNext()) {
-                key = iter.next();
-
-                if (key > lowLimit) {
-                    break;
-                }
-            }
-
-            if (key == null) {
-                rxPlot = null;
-            } else {
-                int xValue = (int) ((double) xSize * (key - lowLimit)
-                        / (highLimit - lowLimit));
-                int yValue = (int) Math.rint(rxTemp.get(key));
-
-                yValue = (int) ((double) ySize - (double) ySize
-                        * (yValue - tMin) / (tMax - tMin));
-
-                Vector<Integer> keys = new Vector<Integer>();
-                Vector<Integer> values = new Vector<Integer>();
-
-                keys.add(new Integer(xValue));
-                values.add(new Integer(yValue));
-
-                while (iter.hasNext()) {
-                    key = iter.next();
-
-                    if (key > highLimit) {
-                        break;
-                    }
-
-                    xValue = (int) ((double) xSize * (key - lowLimit)
-                            / (highLimit - lowLimit));
-                    yValue = (int) Math.rint(rxTemp.get(key));
-                    yValue = (int) ((double) ySize - (double) ySize
-                            * (yValue - tMin) / (tMax - tMin));
-
-                    keys.add(new Integer(xValue));
-                    values.add(new Integer(yValue));
-                }
-
-                // Now construct the plot array
-                rxPlot = new int[keys.size()][2];
-
-                for (int i = 0; i < rxPlot.length; i++) {
-                    rxPlot[i][0] = keys.elementAt(i);
-                    rxPlot[i][1] = values.elementAt(i);
-                }
-            }
+        if (trxAvailableLSBandUSB()) {
+            rxPlot1 = makePlotDataTrx(rxTempLSB, freq_if, lowLimit, freq_lo);
+            rxPlot2 = makePlotDataTrx(rxTempUSB, -freq_if, freq_lo, highLimit);
+        }
+        else if (trxAvailable()) {
+            rxPlot1 = makePlotDataTrx(rxTempRF, 0.0, lowLimit, highLimit);
+            rxPlot2 = null;
+        }
+        else {
+            rxPlot1 = null;
+            rxPlot2 = null;
         }
 
         /*
@@ -331,6 +271,91 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         }
     }
 
+    private int[][] makePlotDataTrx(TreeMap<Double, Double> rxTemp, double freq_offset, double freq_start, double freq_end) {
+        // First of all, get the max and min receiver temperature
+        int tMax = 0;
+        int tMin = 0;
+        boolean first = true;
+        int[][] rxPlot = null;
+        double freq = 0.0;
+
+        Iterator<Double> iter = rxTemp.values().iterator();
+
+        while (iter.hasNext()) {
+            if (first) {
+                tMax = (int) Math.rint(iter.next());
+                tMin = tMax;
+                first = false;
+            } else {
+                int currentValue = (int) Math.rint(iter.next());
+
+                if (currentValue > tMax) {
+                    tMax = currentValue;
+                }
+
+                if (currentValue < tMin) {
+                    tMin = currentValue;
+                }
+            }
+        }
+
+        // Find out what range of data to show
+        iter = rxTemp.keySet().iterator();
+        Double key = null;
+
+        while (iter.hasNext()) {
+            key = iter.next();
+            freq = key - freq_offset;
+
+            if (freq > freq_start) {
+                break;
+            }
+        }
+
+        if (key != null) {
+            int xValue = (int) ((double) xSize * (freq - lowLimit)
+                    / (highLimit - lowLimit));
+            int yValue = (int) Math.rint(rxTemp.get(key));
+
+            yValue = (int) ((double) ySize - (double) ySize
+                    * (yValue - tMin) / (tMax - tMin));
+
+            Vector<Integer> keys = new Vector<Integer>();
+            Vector<Integer> values = new Vector<Integer>();
+
+            keys.add(new Integer(xValue));
+            values.add(new Integer(yValue));
+
+            while (iter.hasNext()) {
+                key = iter.next();
+                freq = key - freq_offset;
+
+                if (freq > freq_end) {
+                    break;
+                }
+
+                xValue = (int) ((double) xSize * (freq - lowLimit)
+                        / (highLimit - lowLimit));
+                yValue = (int) Math.rint(rxTemp.get(key));
+                yValue = (int) ((double) ySize - (double) ySize
+                        * (yValue - tMin) / (tMax - tMin));
+
+                keys.add(new Integer(xValue));
+                values.add(new Integer(yValue));
+            }
+
+            // Now construct the plot array
+            rxPlot = new int[keys.size()][2];
+
+            for (int i = 0; i < rxPlot.length; i++) {
+                rxPlot[i][0] = keys.elementAt(i);
+                rxPlot[i][1] = values.elementAt(i);
+            }
+        }
+
+        return rxPlot;
+    }
+
     /**
      * Read the receiver temperature file and get the data for the specified
      * front end.
@@ -338,9 +363,7 @@ public class SkyTransmission extends JPanel implements ChangeListener {
      * The return is a TreeMap with frequency as the key and TRx as
      * the value.
      */
-    public TreeMap<Double, Double> getTRx(String feName) {
-        TreeMap<Double, Double> tRx = null;
-
+    private void readTrxData(String feName) {
         // Get the receiver temperature and open it
         String cfgFilename = System.getProperty("ot.cfgdir");
 
@@ -386,20 +409,9 @@ public class SkyTransmission extends JPanel implements ChangeListener {
 
                     if (in.readLine().equalsIgnoreCase(feName)) {
                         // We can start reading in the data
-                        int nLines = Integer.valueOf(in.readLine());
-
-                        tRx = new TreeMap<Double, Double>();
-
-                        for (int i = 0; i < nLines; i++) {
-                            String values = in.readLine();
-                            StringTokenizer st = new StringTokenizer(values);
-
-                            Double frequency = Double.parseDouble(
-                                    st.nextToken()) * 1.0e9;
-                            Double trx = Double.parseDouble(st.nextToken());
-
-                            tRx.put(frequency, trx);
-                        }
+                        rxTempRF = readTrxDataSection(in);
+                        rxTempLSB = readTrxDataSection(in);
+                        rxTempUSB = readTrxDataSection(in);
 
                         break;
                     } else {
@@ -417,6 +429,33 @@ public class SkyTransmission extends JPanel implements ChangeListener {
         } else {
             System.out.println("Receiver info file does not exist: "
                     + System.getProperty("ot.cfgdir") + "receiver.info");
+        }
+    }
+
+    private TreeMap<Double, Double> readTrxDataSection(BufferedReader in) {
+        TreeMap<Double, Double> tRx = new TreeMap<Double, Double>();
+
+        try {
+            int nLines = Integer.valueOf(in.readLine());
+
+            if (nLines == 0) {
+                return null;
+            }
+
+
+            for (int i = 0; i < nLines; i++) {
+                String values = in.readLine();
+                StringTokenizer st = new StringTokenizer(values);
+
+                Double frequency = Double.parseDouble(
+                        st.nextToken()) * 1.0e9;
+                Double trx = Double.parseDouble(st.nextToken());
+
+                tRx.put(frequency, trx);
+            }
+        } catch (IOException ex) {
+            System.out.println("Error reading Trx section of receiver file.");
+            return null;
         }
 
         return tRx;
@@ -485,12 +524,10 @@ public class SkyTransmission extends JPanel implements ChangeListener {
      * Checks whether TRx values currently exist for this object.
      */
     public boolean trxAvailable() {
-        boolean available = false;
+        return (rxTempRF != null);
+    }
 
-        if (rxTemp != null) {
-            available = true;
-        }
-
-        return available;
+    public boolean trxAvailableLSBandUSB() {
+        return ((rxTempLSB != null) && (rxTempUSB != null));
     }
 }

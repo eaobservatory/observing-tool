@@ -465,6 +465,7 @@ public class FrequencyTable extends JPanel {
                                 hetEditor.getRedshift()),
                         center, samplers[0].sideband);
 
+                sideBandDisplay.setIF(center);
                 sideBandDisplay.setLO1(loFreq);
             }
         } else {

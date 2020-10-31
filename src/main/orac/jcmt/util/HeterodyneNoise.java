@@ -109,6 +109,18 @@ public class HeterodyneNoise {
                         currentMap.put(frequency, trx);
                     }
 
+                    // Ignore LSB data for now.
+                    nLines = Integer.valueOf(in.readLine());
+                    for (int i = 0; i < nLines; i++) {
+                        in.readLine();
+                    }
+
+                    // Ignore USB data for now.
+                    nLines = Integer.valueOf(in.readLine());
+                    for (int i = 0; i < nLines; i++) {
+                        in.readLine();
+                    }
+
                     trxValues.add(index, currentMap);
                     Double nu = new Double(in.readLine());
                     nu_tel.add(index, nu);

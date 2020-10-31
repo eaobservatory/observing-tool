@@ -1,3 +1,11 @@
++++ November 2020 release
+
+  - And folders should now be permitted after survey containers.
+
+  - Tuning information for 'U'u has been updated.
+
+  - Sideband-specific receiver temperature is plotted for 'U'u.
+
 +++ July 2020 release
 
   - Observed counters in survey containers should now be processed

@@ -61,8 +61,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
     private String _instStr;
     private DRRecipeGUI _w; // the GUI layout
 
-    private boolean initd = false;
-
     /**
      * The constructor initializes the title, description, and presentation
      * source.
@@ -136,8 +134,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
                 _updateWidgets();
             }
         });
-
-        initd = true;
     }
 
     /**
@@ -200,9 +196,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
 
         SpInstObsComp tmpInst = SpTreeMan.findInstrument(_spDRRecipe);
 
-        if (_inst != null && (tmpInst == null || !tmpInst.equals(_inst))) {
-            initd = false;
-        }
+        boolean initd = (((_inst == null) && (tmpInst == null))
+                || ((tmpInst != null) && tmpInst.equals(_inst)));
 
         _inst = tmpInst;
 
@@ -222,12 +217,12 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher,
 
         // Check whether the SpDRRecipe's recipes are still valid for the
         // current instrument.  We used to call _spDRRecipe.reset() whenever
-        // the instrument changed (i.e. if ! initd) but this caused
+        // the instrument changed but this caused
         // recipes to be deleted from science programs which legitimately
         // used more than one instrument -- the "whack-a-mole" fault
         // (20150324.011).  For this check, it's not really relevant
         // what the previous instrument looked at was, so perform it
-        // every time (not just if ! initd).
+        // every time.
         try {
             LookUpTable recipes = getInstrumentRecipes();
             for (String type: _spDRRecipe.getAvailableTypes(_instStr)) {
