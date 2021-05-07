@@ -62,6 +62,7 @@ import edfreq.SideBandDisplay;
 import edfreq.FrequencyEditorCfg;
 import edfreq.Receiver;
 import edfreq.BandSpec;
+import edfreq.BandwidthOption;
 import edfreq.Transition;
 import edfreq.SelectionList;
 import edfreq.LineDetails;
@@ -193,7 +194,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         // Add other listeners to the components of the frequency and button
         // panels.  We don't need to add anything to the velocity panel since
         // it is for show only.
-        for (JComboBox bandwidth: _w.bandwidths) {
+        for (JComboBox<BandwidthOption> bandwidth: _w.bandwidths) {
             bandwidth.addActionListener(this);
         }
 
@@ -530,32 +531,29 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 clickButton(_w.regionButtons.get(ci.subSystems));
 
                 for (int i = 0; i < _w.bandwidths.size(); i++) {
-                    JComboBox component = _w.bandwidths.get(i);
-                    component.removeActionListener(this);
+                    JComboBox<BandwidthOption> component = _w.bandwidths.get(i);
 
-                    if (i < ci.bandWidths.size()) {
-                        String bandWidthString = ci.bandWidths.get(i);
+                    if (component.getItemCount() > 0) {
+                        component.removeActionListener(this);
 
-                        if (bandWidthString != null) {
-                            component.setSelectedItem(bandWidthString);
-                            double bandwidth = new Double(bandWidthString);
-
-                            if (bandwidth != 0.0) {
-                                _inst.setBandWidth(bandwidth / 1.0E-6, i);
+                        int index = 0;
+                        if (i < ci.bandWidths.size()) {
+                            double value = ci.bandWidths.get(i);
+                            for (int j = 0; j < component.getItemCount(); j ++) {
+                                BandwidthOption option = component.getItemAt(j);
+                                if (option.bandwidth == value) {
+                                    index = j;
+                                    break;
+                                }
                             }
-                        } else {
-                            component.setSelectedIndex(0);
                         }
 
-                    } else {
-                        int index = component.getSelectedIndex();
+                        component.setSelectedIndex(index);
+                        BandwidthOption option = component.getItemAt(index);
+                        _inst.setBandWidth(option.bandwidth, i);
 
-                        if ((index != 0) && (component.getItemCount() > 0)) {
-                            component.setSelectedIndex(0);
-                        }
+                        component.addActionListener(this);
                     }
-
-                    component.addActionListener(this);
                 }
 
                 if (ci.species.size() > 0) {
@@ -630,11 +628,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         _checkEditsWhenConfigured();
 
         for (int i = 0; i < _w.bandwidths.size(); i++) {
-            JComboBox bandwidth = _w.bandwidths.get(i);
+            JComboBox<BandwidthOption> bandwidth = _w.bandwidths.get(i);
 
             if (source == bandwidth) {
-                _inst.setBandWidth(Double.parseDouble(
-                        (String) bandwidth.getSelectedItem()) * 1.0E6, i);
+                BandwidthOption option = (BandwidthOption) bandwidth.getSelectedItem();
+                _inst.setBandWidth(option.bandwidth, i);
 
                 setAvailableRegions();
                 _updateRegionInfo();
@@ -1000,7 +998,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
         for (int bandwidthIndex = 0; bandwidthIndex < _w.bandwidths.size();
                 bandwidthIndex++) {
-            JComboBox bandwidth = _w.bandwidths.get(bandwidthIndex);
+            JComboBox<BandwidthOption> bandwidth = _w.bandwidths.get(bandwidthIndex);
             bandwidth.removeActionListener(this);
             int originalIndex = bandwidth.getSelectedIndex();
 
@@ -1017,10 +1015,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             int notableIndex = thisSelection.nearest;
 
             double[] values = activeBandSpec.getDefaultOverlapBandWidths();
+            int[] channels = activeBandSpec.getDefaultOverlapChannels();
 
             for (int i = 0; i < values.length; i++) {
-                double value = Math.rint(values[i] * 1.0E-6);
-                bandwidth.addItem("" + value);
+                bandwidth.addItem(new BandwidthOption(values[i], channels[i], activeBandSpec.numCMs[i]));
             }
 
             if (index != -1) {
@@ -1029,7 +1027,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         activeBandSpec.defaultOverlaps[index],
                         bandwidthIndex);
                 _inst.setChannels(
-                        activeBandSpec.getDefaultOverlapChannels()[index],
+                        channels[index],
                         bandwidthIndex);
             }
             else if (notableIndex != -1) {
@@ -1041,7 +1039,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 _inst.setOverlap(activeBandSpec.defaultOverlaps[0],
                         bandwidthIndex);
                 _inst.setChannels(
-                        activeBandSpec.getDefaultOverlapChannels()[0],
+                        channels[0],
                         bandwidthIndex);
 
                 if (originalIndex != -1) {
@@ -1062,7 +1060,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 _inst.setOverlap(activeBandSpec.defaultOverlaps[0],
                         bandwidthIndex);
                 _inst.setChannels(
-                        activeBandSpec.getDefaultOverlapChannels()[0],
+                        channels[0],
                         bandwidthIndex);
 
                 if (originalIndex != -1) {
@@ -1453,7 +1451,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                 } else if (childName.equals("transition")) {
                     ci.transition.add(childValue);
                 } else if (childName.equals("bandwidth")) {
-                    ci.bandWidths.add(childValue);
+                    ci.bandWidths.add(Double.parseDouble(childValue) * 1.0E6);
                 } else if (childName.equals("shift")) {
                     ci.shifts.add(new Double(childValue));
                 }
@@ -1849,7 +1847,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         public Integer subSystems;
         public Vector<String> species = new Vector<String>();
         public Vector<String> transition = new Vector<String>();
-        public Vector<String> bandWidths = new Vector<String>();
+        public Vector<Double> bandWidths = new Vector<Double>();
         public Vector<Double> shifts = new Vector<Double>();
 
         public void print() {

@@ -48,6 +48,7 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 
+import edfreq.BandwidthOption;
 import edfreq.FrequencyEditorCfg;
 
 /**
@@ -97,7 +98,7 @@ public class HeterodyneGUI extends JPanel {
     JLabel highFreq;
 
     // Bandwidths panel.
-    List<JComboBox> bandwidths;
+    List<JComboBox<BandwidthOption>> bandwidths;
 
     // Radial default panel.
     CheckBoxWidgetExt defaultToRadial;
@@ -480,10 +481,10 @@ public class HeterodyneGUI extends JPanel {
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 "Bandwidths"));
 
-        bandwidths = new ArrayList<JComboBox>();
+        bandwidths = new ArrayList<JComboBox<BandwidthOption>>();
 
         for (int i = 0; i < 4; i ++) {
-            JComboBox bandwidth = new JComboBox();
+            JComboBox<BandwidthOption> bandwidth = new JComboBox<BandwidthOption>();
             bandwidth.setForeground(Color.BLACK);
             bandwidth.setFont(new Font("dialog", 0, 12));
             bandwidth.setEnabled(i == 0);

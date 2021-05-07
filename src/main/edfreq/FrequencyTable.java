@@ -150,8 +150,8 @@ public class FrequencyTable extends JPanel {
         int lWidth = (int) Math.rint(gigToPix * (lHighLimit - lLowLimit));
         int uWidth = (int) Math.rint(gigToPix * (uHighLimit - uLowLimit));
         int widthExtra = displayWidth - (lWidth + uWidth);
-        int sWidth = widthExtra / 6;
-        int tWidth = widthExtra / 3;
+        int sWidth = widthExtra / 3;
+        int tWidth = widthExtra / 6;
         int sp2Width = widthExtra / 6;
         int sp1Width = widthExtra - sWidth - tWidth - sp2Width;
         int h = 20 * (1 + samplerCount);
@@ -268,7 +268,7 @@ public class FrequencyTable extends JPanel {
             resolutionDisplay = new ResolutionDisplay(channels[0],
                     bandWidths[0], nMixers);
 
-            JComboBox widthChoice = new JComboBox();
+            JComboBox widthChoice = new JComboBox<BandwidthOption>();
 
             samplers[j] = new Sampler(
                     feIF, feBandWidthLower, feBandWidthUpper,
@@ -492,8 +492,8 @@ public class FrequencyTable extends JPanel {
         int n = samplers.length;
         double[] bandwidths = new double[n];
         for (int i = 0; i < n; i++) {
-            bandwidths[i] = 1.0E6 * Double.parseDouble(
-                    (String) samplers[i].bandWidthChoice.getSelectedItem());
+            BandwidthOption option = (BandwidthOption) samplers[i].bandWidthChoice.getSelectedItem();
+            bandwidths[i] = option.bandwidth;
         }
 
         // Find matching BandSpecs.
