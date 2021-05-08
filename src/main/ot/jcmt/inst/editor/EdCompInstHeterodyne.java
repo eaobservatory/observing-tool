@@ -1036,10 +1036,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
                 bandwidth.setSelectedIndex(notableIndex);
                 _inst.setBandWidth(values[notableIndex], bandwidthIndex);
-                _inst.setOverlap(activeBandSpec.defaultOverlaps[0],
+                _inst.setOverlap(activeBandSpec.defaultOverlaps[notableIndex],
                         bandwidthIndex);
                 _inst.setChannels(
-                        channels[0],
+                        channels[notableIndex],
                         bandwidthIndex);
 
                 if (originalIndex != -1) {
