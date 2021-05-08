@@ -149,17 +149,11 @@ public class Sampler {
     }
 
     /**
-     * Sets band width.
+     * Sets band width and number of channels.
      */
-    public void setBandWidth(double value) {
+    public void setBandWidthAndChannels(double value, int channels) {
         bandWidth = value;
-
-        // Find index of new bandwidth and set channels from channels array.
-        for (int i = 0; i < bandWidthsArray.length; i++) {
-            if (bandWidthsArray[i] == value) {
-                channels = channelsArray[i];
-            }
-        }
+        this.channels = channels;
 
         // Adjust centre frequency if necessary so that the sideband fits into
         // the frontend bandwidth.
@@ -168,7 +162,7 @@ public class Sampler {
         int index = 0;
         for (int i = 0; i < bandWidthChoice.getItemCount(); i ++) {
             BandwidthOption option = bandWidthChoice.getItemAt(i);
-            if (option.bandwidth == value) {
+            if ((option.bandwidth == value) && (option.channels == channels)) {
                 index = i;
                 break;
             }

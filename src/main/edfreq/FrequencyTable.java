@@ -273,7 +273,8 @@ public class FrequencyTable extends JPanel {
             samplers[j] = new Sampler(
                     feIF, feBandWidthLower, feBandWidthUpper,
                     activeBandSpec, widthChoice, hetEditor.getFeBand());
-            samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
+            samplers[j].setBandWidthAndChannels(
+                    hetEditor.getCurrentBandwidth(j), hetEditor.getCurrentChannels(j));
 
             lowerSideband[j] = new SideBand(lLowLimit, lHighLimit, bandWidths[0],
                     -feIF, samplers[j], lowBar, gigToPix, emissionLines, (j == 0));
@@ -307,7 +308,7 @@ public class FrequencyTable extends JPanel {
             double sky_frequency = inst.calculateSkyFrequency(j);
             String sideband = (sky_frequency > lo_frequency) ? "usb" : "lsb";
 
-            sampler.setBandWidth(inst.getBandWidth(j));
+            sampler.setBandWidthAndChannels(inst.getBandWidth(j), inst.getChannels(j));
             sampler.setCentreFrequency(inst.getCentreFrequency(j), sideband);
             setLineDetails(
                     new LineDetails(
@@ -491,14 +492,16 @@ public class FrequencyTable extends JPanel {
         // Read the current bandwidth selection from the GUI.
         int n = samplers.length;
         double[] bandwidths = new double[n];
+        int[] channels = new int[n];
         for (int i = 0; i < n; i++) {
             BandwidthOption option = (BandwidthOption) samplers[i].bandWidthChoice.getSelectedItem();
             bandwidths[i] = option.bandwidth;
+            channels[i] = option.channels;
         }
 
         // Find matching BandSpecs.
         List<SpInstHeterodyne.BandSpecSelection> selection
-            = inst.getBandSpecSelection(receiver, bandwidths);
+            = inst.getBandSpecSelection(receiver, bandwidths, channels);
 
         // Set up the GUI with the new selections.
         for (int i = 0; i < n; i++) {
@@ -513,8 +516,9 @@ public class FrequencyTable extends JPanel {
 
             sampler.setBandSpec(activeBandSpec);
 
-            sampler.setBandWidth(
-                    activeBandSpec.getDefaultOverlapBandWidths()[index]);
+            sampler.setBandWidthAndChannels(
+                    activeBandSpec.getDefaultOverlapBandWidths()[index],
+                    activeBandSpec.getDefaultOverlapChannels()[index]);
         }
 
         processingBandwidth = false;

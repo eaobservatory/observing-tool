@@ -551,6 +551,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
                         component.setSelectedIndex(index);
                         BandwidthOption option = component.getItemAt(index);
                         _inst.setBandWidth(option.bandwidth, i);
+                        _inst.setChannels(option.channels, i);
 
                         component.addActionListener(this);
                     }
@@ -633,6 +634,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             if (source == bandwidth) {
                 BandwidthOption option = (BandwidthOption) bandwidth.getSelectedItem();
                 _inst.setBandWidth(option.bandwidth, i);
+                _inst.setChannels(option.channels, i);
 
                 setAvailableRegions();
                 _updateRegionInfo();
@@ -1306,6 +1308,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
     public double getCurrentBandwidth(int subsystem) {
         return _inst.getBandWidth(subsystem);
+    }
+
+    public int getCurrentChannels(int subsystem) {
+        return _inst.getChannels(subsystem);
     }
 
     private DefaultComboBoxModel getSpecialConfigsModel() {

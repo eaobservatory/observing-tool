@@ -60,4 +60,6 @@ public interface HeterodyneEditor {
      * @return The bandwidth in Hz
      */
     public double getCurrentBandwidth(int subsystem);
+
+    public int getCurrentChannels(int subsystem);
 }
