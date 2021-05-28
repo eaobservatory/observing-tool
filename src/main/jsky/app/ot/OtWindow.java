@@ -82,7 +82,6 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
-import gemini.util.ConfigWriter;
 import gemini.util.ObservingToolUtilities;
 import orac.util.SpInputXML;
 import jsky.app.ot.tpe.TelescopePosEditor;
@@ -603,69 +602,6 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
      */
     public boolean doSaveChanges() {
         return OtFileIO.save(getItem(), _progInfo.file);
-    }
-
-    /**
-     * Save the observation as an ORAC Sequence, returning true if successful.
-     *
-     * MFO: copied from FreeBongo OT (orac2) and modified.
-     */
-    public boolean doSaveSequence() {
-        OtTreeNodeWidget tnw;
-        tnw = (OtTreeNodeWidget) OtWindow.this._tw.getSelectedNode();
-        SpItem spitem = tnw.getItem();
-
-        // Walk back up the tree to see if this is contained in a survey
-        // component since we can handle these
-        SpItem parent = spitem;
-        boolean inSurvey = false;
-
-        while (parent != null) {
-            if (parent.type().equals(SpType.SURVEY_CONTAINER)) {
-                inSurvey = true;
-                break;
-            }
-
-            parent = parent.parent();
-        }
-
-        if (inSurvey) {
-            DialogUtil.error(this,
-                    "Can not translate observations within a Survey Container");
-            return false;
-        }
-
-        // Check if this is an Observation.
-        if (!(spitem.type().equals(SpType.OBSERVATION))) {
-            spitem = findSpObs(spitem);
-        }
-
-        if (spitem != null) {
-            SpObs spobs = (SpObs) spitem;
-
-            // Create a translator class and do the translation
-            try {
-                Vector<String> vector = new Vector<String>();
-                spobs.translateProlog(vector);
-                spobs.translate(vector);
-                spobs.translateEpilog(vector);
-            } catch (Exception e) {
-                e.printStackTrace();
-                DialogUtil.error(this, e.getMessage());
-                return false;
-            }
-
-        } else {
-            // The user didn't select an observation item for the translation.
-            DialogUtil.error(this, "Selected node is not an observation"
-                    + " or within an observation");
-            return false;
-        }
-
-        DialogUtil.message(this, "Observation saved to "
-                + ConfigWriter.getCurrentInstance().getExecName());
-
-        return true;
     }
 
     /**

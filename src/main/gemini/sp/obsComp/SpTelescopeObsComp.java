@@ -1149,12 +1149,6 @@ public class SpTelescopeObsComp extends SpObsComp {
      */
     public void processXmlAttribute(String elementName, String attributeName,
             String value) {
-        // Fix so that we can translate REFERNCE to SKY for UKIRT
-        if ((value.equals("REFERENCE"))
-                && (System.getProperty("ot.cfgdir").indexOf("ukirt") != -1)) {
-            value = "SKY";
-        }
-
         if (elementName.equals(TX_BASE) && attributeName.equals(TX_TYPE)) {
             // TCS XML element SCIENCE is the SpTelescopePos BASE_TAG
             // TCS XML element BASE is something else.

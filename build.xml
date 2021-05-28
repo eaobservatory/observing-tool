@@ -35,7 +35,6 @@
 
                 <delete dir="${output.dir}"/>
 
-                <delete file="${ot.dir}/main/cfg/ukirt/versionFile"/>
                 <delete file="${ot.dir}/main/cfg/jcmt/versionFile"/>
                 <delete file="${ot.dir}/main/cfg/jcmt/tau.list"/>
         </target>

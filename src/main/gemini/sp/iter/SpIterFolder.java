@@ -32,19 +32,14 @@ import java.util.Vector;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
-
-import gemini.util.TranslationUtils;
 
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.iter.SpIterPOL;
 import orac.jcmt.iter.SpIterStareObs;
-import orac.ukirt.inst.SpInstWFCAM;
 
 /**
  * The Iterator Folder (or "Sequence") item.
@@ -52,7 +47,7 @@ import orac.ukirt.inst.SpInstWFCAM;
  * The job of the folder is to hold iterators for an Observation Context.
  */
 @SuppressWarnings("serial")
-public class SpIterFolder extends SpItem implements SpTranslatable {
+public class SpIterFolder extends SpItem {
     /**
      * Time needed by the telescope to move to another offset position.
      *
@@ -226,15 +221,13 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
                         oldIterOffsets.add(spIterOffset);
                     }
 
-                    if (! (instrument instanceof SpInstWFCAM)) {
-                        if ((OFFSET_TIME - instrument.getExposureOverhead())
-                                > 0.0) {
-                            // If for each OFFSET_TIME added an exposure
-                            // overhead can be subtracted since this is done
-                            // while the telescope moves.
-                            elapsedTime += (OFFSET_TIME
-                                    - instrument.getExposureOverhead());
-                        }
+                    if ((OFFSET_TIME - instrument.getExposureOverhead())
+                            > 0.0) {
+                        // If for each OFFSET_TIME added an exposure
+                        // overhead can be subtracted since this is done
+                        // while the telescope moves.
+                        elapsedTime += (OFFSET_TIME
+                                - instrument.getExposureOverhead());
                     }
                 }
             }
@@ -330,19 +323,5 @@ public class SpIterFolder extends SpItem implements SpTranslatable {
         }
 
         return elapsedTime;
-    }
-
-    public void translateProlog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translateEpilog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translate(Vector<String> v)
-            throws SpTranslationNotSupportedException {
-        Enumeration<SpItem> e = this.children();
-        TranslationUtils.recurse(e, v);
     }
 }
