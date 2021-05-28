@@ -26,4 +26,3 @@ popd
 DATE=`date '+%Y%m%d'`
 VERSION=`git log | head -n 1 | cut -f2 -d ' '`
 echo "$DATE [$VERSION]" > src/main/cfg/jcmt/versionFile
-echo "$DATE [$VERSION]" > src/main/cfg/ukirt/versionFile

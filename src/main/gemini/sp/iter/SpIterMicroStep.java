@@ -29,8 +29,6 @@ package gemini.sp.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 
@@ -101,7 +99,7 @@ import gemini.util.MathUtil;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 @SuppressWarnings("serial")
-public class SpIterMicroStep extends SpIterOffset implements SpTranslatable {
+public class SpIterMicroStep extends SpIterOffset {
 
     public static String NO_PATTERN = "NONE";
 
@@ -178,164 +176,5 @@ public class SpIterMicroStep extends SpIterOffset implements SpTranslatable {
         }
 
         return nOffs;
-    }
-
-    public void translate(Vector<String> v)
-            throws SpTranslationNotSupportedException {
-        // In order to get the microstep pattern, we need to get the current
-        // instrument and make sure it implemeents SpMicroStepUser interface
-        SpInstObsComp inst = SpTreeMan.findInstrument(this);
-
-        if (!(inst instanceof SpMicroStepUser)) {
-            throw new SpTranslationNotSupportedException(
-                    "Current instrument can not be used with microsteps");
-        }
-
-        Hashtable<String, double[][]> microStepTable =
-                ((SpMicroStepUser) inst).getMicroStepPatterns();
-
-        double[][] microSteps = microStepTable.get(getPattern());
-
-        if (microSteps == null) {
-            return;
-        }
-
-        // Find out whether we are inside an offset pattern
-        boolean inOffset = false;
-
-        SpItem parent = parent();
-
-        while (parent != null) {
-            if (parent instanceof SpIterOffset
-                    && !(parent instanceof SpIterMicroStep)) {
-                inOffset = true;
-
-                break;
-            }
-
-            parent = parent.parent();
-        }
-
-        SpTranslatable translatable = null;
-        SpTranslatable previousChild = null;
-
-        if (inOffset) {
-            // parent is the SpIterOffset object at this point, although we
-            // probably don't need it
-            for (int i = 0; i < ((SpIterOffset) parent).getPosList().size();
-                    i++) {
-                double xOff = ((SpIterOffset) parent).getPosList()
-                        .getPositionAt(i).getXaxis();
-                double yOff = ((SpIterOffset) parent).getPosList()
-                        .getPositionAt(i).getYaxis();
-
-                for (int j = 0; j < microSteps.length; j++) {
-                    boolean firstRun = true;
-                    Enumeration<SpItem> e = this.children();
-
-                    while (e.hasMoreElements()) {
-                        SpItem child = e.nextElement();
-
-                        if (child instanceof SpTranslatable) {
-                            translatable = (SpTranslatable) child;
-
-                            if (!translatable.equals(previousChild)) {
-                                if (previousChild != null) {
-                                    previousChild.translateEpilog(v);
-                                }
-
-                                if (firstRun) {
-                                    addInOffsetHeaders(v, i, j, xOff, yOff,
-                                            microSteps, (SpIterOffset) parent);
-                                    firstRun = false;
-                                }
-
-                                translatable.translateProlog(v);
-                                previousChild = translatable;
-
-                            } else if (firstRun) {
-                                addInOffsetHeaders(v, i, j, xOff, yOff,
-                                        microSteps, (SpIterOffset) parent);
-                                firstRun = false;
-                            }
-
-                            translatable.translate(v);
-                        }
-                    }
-                }
-            }
-        } else {
-            double j0, j1;
-
-            for (int j = 0; j < microSteps.length; j++) {
-                j0 = MathUtil.round(microSteps[j][0], 3);
-                j1 = MathUtil.round(microSteps[j][1], 3);
-
-                boolean firstRun = true;
-                Enumeration<SpItem> e = this.children();
-
-                while (e.hasMoreElements()) {
-                    SpItem child = e.nextElement();
-
-                    if (child instanceof SpTranslatable) {
-                        translatable = (SpTranslatable) child;
-
-                        if (!translatable.equals(previousChild)) {
-                            if (previousChild != null) {
-                                previousChild.translateEpilog(v);
-                            }
-
-                            if (firstRun) {
-                                addNotInOffsetHeaders(v, j, j0, j1, microSteps);
-                                firstRun = false;
-                            }
-
-                            translatable.translateProlog(v);
-                            previousChild = translatable;
-
-                        } else if (firstRun) {
-                            addNotInOffsetHeaders(v, j, j0, j1, microSteps);
-                            firstRun = false;
-                        }
-
-                        translatable.translate(v);
-                    }
-                }
-            }
-        }
-
-        if (translatable != null) {
-            translatable.translateEpilog(v);
-        }
-    }
-
-    private void addInOffsetHeaders(Vector<String> v, int i, int j,
-            double xOff, double yOff, double[][] microSteps,
-            SpIterOffset parent) {
-        v.add("title jitter " + (i + 1) + ", ustep " + (j + 1));
-        v.add("-setHeader NJITTER " + parent.getPosList().size());
-        v.add("-setHeader JITTER_I " + (i + 1));
-        v.add("-setHeader JITTER_X " + xOff);
-        v.add("-setHeader JITTER_Y " + yOff);
-        v.add("-setHeader NUSTEP " + microSteps.length);
-        v.add("-setHeader USTEP_I " + (j + 1));
-        v.add("-setHeader USTEP_X " + MathUtil.round(microSteps[j][0], 3));
-        v.add("-setHeader USTEP_Y " + MathUtil.round(microSteps[j][1], 3));
-        v.add("offset " + MathUtil.round(xOff + microSteps[j][0], 3) + " "
-                + MathUtil.round(yOff + microSteps[j][1], 3));
-    }
-
-    private void addNotInOffsetHeaders(Vector<String> v, int j, double j0,
-            double j1, double[][] microSteps) {
-        v.add("title jitter 1, ustep " + (j + 1));
-        v.add("-setHeader NJITTER 1");
-        v.add("-setHeader JITTER_I 1");
-        v.add("-setHeader JITTER_X 0.0");
-        v.add("-setHeader JITTER_Y 0.0");
-        v.add("-setHeader NUSTEP " + microSteps.length);
-        v.add("-setHeader USTEP_I " + (j + 1));
-        v.add("-setHeader USTEP_X " + j0);
-        v.add("-setHeader USTEP_Y " + j1);
-        v.add("offset " + j0 + " " + j1);
     }
 }

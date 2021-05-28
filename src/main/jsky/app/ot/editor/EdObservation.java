@@ -85,7 +85,7 @@ public final class EdObservation extends EdMsbObsCommon implements
         // Added by MFO (22 February 2002)
         if (!OtCfg.telescopeUtil
                 .supports(TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
-            _w.standard.setText("Flag as Calibration");
+            _w.standard.setText("Flag as Standard");
             _w.optional.setVisible(false);
             _w.optional.deleteWatcher(this);
         }

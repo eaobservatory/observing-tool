@@ -75,12 +75,12 @@ public class Sampler {
      */
     int[] channelsArray;
     Vector<SamplerWatcher> swArray = new Vector<SamplerWatcher>();
-    JComboBox bandWidthChoice;
+    JComboBox<BandwidthOption> bandWidthChoice;
 
     public Sampler(double centreFrequency,
             double feBandWidthLower, double feBandWidthUpper,
             BandSpec activeBandSpec,
-            JComboBox bandWidthChoice, String sideband) {
+            JComboBox<BandwidthOption> bandWidthChoice, String sideband) {
         this.centreFrequency = centreFrequency;
         this.feIF = centreFrequency;
         this.feBandWidthLower = feBandWidthLower;
@@ -101,7 +101,8 @@ public class Sampler {
         bandWidthChoice.removeAllItems();
 
         for (int i = 0; i < bandWidthsArray.length; i++) {
-            bandWidthChoice.addItem("" + Math.rint(bandWidthsArray[i] * 1.0E-6));
+            bandWidthChoice.addItem(new BandwidthOption(
+                    bandWidthsArray[i], channelsArray[i], activeBandSpec.numCMs[i]));
         }
     }
 
@@ -148,23 +149,26 @@ public class Sampler {
     }
 
     /**
-     * Sets band width.
+     * Sets band width and number of channels.
      */
-    public void setBandWidth(double value) {
+    public void setBandWidthAndChannels(double value, int channels) {
         bandWidth = value;
-
-        // Find index of new bandwidth and set channels from channels array.
-        for (int i = 0; i < bandWidthsArray.length; i++) {
-            if (bandWidthsArray[i] == value) {
-                channels = channelsArray[i];
-            }
-        }
+        this.channels = channels;
 
         // Adjust centre frequency if necessary so that the sideband fits into
         // the frontend bandwidth.
         setCentreFrequency(getCentreFrequency(), sideband);
 
-        bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6)));
+        int index = 0;
+        for (int i = 0; i < bandWidthChoice.getItemCount(); i ++) {
+            BandwidthOption option = bandWidthChoice.getItemAt(i);
+            if ((option.bandwidth == value) && (option.channels == channels)) {
+                index = i;
+                break;
+            }
+        }
+
+        bandWidthChoice.setSelectedIndex(index);
     }
 
     /**

@@ -29,8 +29,6 @@ package gemini.sp.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
-import gemini.sp.SpTranslatable;
-import gemini.sp.SpTranslationNotSupportedException;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -80,8 +78,7 @@ class SpIterRepeatEnumeration extends SpIterEnumeration implements
  * number of times.
  */
 @SuppressWarnings("serial")
-public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants,
-        SpTranslatable {
+public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants {
     /**
      * Default constructor.
      */
@@ -124,50 +121,5 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants,
      */
     public SpIterEnumeration elements() {
         return new SpIterRepeatEnumeration(this);
-    }
-
-    public void translateProlog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translateEpilog(Vector<String> sequence)
-            throws SpTranslationNotSupportedException {
-    }
-
-    public void translate(Vector<String> v)
-            throws SpTranslationNotSupportedException {
-        Enumeration<SpItem> e = this.children();
-        Vector<String> childVector = new Vector<String>();
-        SpTranslatable translatable = null;
-        SpTranslatable previous = null;
-
-        while (e.hasMoreElements()) {
-            SpItem child = e.nextElement();
-
-            if (child instanceof SpTranslatable) {
-                translatable = (SpTranslatable) child;
-
-                if (!translatable.equals(previous)) {
-                    if (previous != null) {
-                        previous.translateEpilog(childVector);
-                        previous = translatable;
-                    }
-
-                    translatable.translateProlog(childVector);
-                }
-
-                translatable.translate(childVector);
-            }
-        }
-
-        if (translatable != null) {
-            translatable.translateEpilog(childVector);
-        }
-
-        childVector.add("breakPoint");
-
-        for (int i = 0; i < getCount(); i++) {
-            v.addAll(childVector);
-        }
     }
 }

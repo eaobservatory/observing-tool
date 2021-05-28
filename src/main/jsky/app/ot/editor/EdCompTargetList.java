@@ -62,7 +62,6 @@ import jsky.util.gui.ProgressException;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.TelescopeUtil;
 import ot.util.DialogUtil;
-import ot.OtConstants;
 import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
 
@@ -99,8 +98,7 @@ import gemini.util.DDMMSS;
 @SuppressWarnings("serial")
 public class EdCompTargetList extends OtItemEditor implements
         TelescopePosWatcher, TableWidgetWatcher, ActionListener,
-        ChangeListener, TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher,
-        OtConstants {
+        ChangeListener, TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
     /** String used in DropDownListBoxWidgetExt namedTarget. */
     private static final String SELECT_TARGET = "<Select Target>";
 

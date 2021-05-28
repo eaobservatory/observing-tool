@@ -1086,15 +1086,17 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     public List<BandSpecSelection> getBandSpecSelection(Receiver receiver) {
         int active = Integer.parseInt(getBandMode());
         double[] currentBandwidths = new double[active];
+        int[] currentChannels = new int[active];
         for (int j = 0; j < active; j ++) {
             currentBandwidths[j] = getBandWidth(j);
+            currentChannels[j] = getChannels(j);
         }
 
-        return getBandSpecSelection(receiver, currentBandwidths);
+        return getBandSpecSelection(receiver, currentBandwidths, currentChannels);
     }
 
     public List<BandSpecSelection> getBandSpecSelection(
-            Receiver receiver, double[] currentBandwidths) {
+            Receiver receiver, double[] currentBandwidths, int[] currentChannels) {
         String bandMode = getBandMode();
         int active = Integer.parseInt(bandMode);
 
@@ -1121,8 +1123,10 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
             }
 
             double[] values = activeBandSpec.getDefaultOverlapBandWidths();
+            int[] channelValues = activeBandSpec.getDefaultOverlapChannels();
 
             double currentBandwidth = currentBandwidths[j];
+            int currentChannelNum = currentChannels[j];
 
             int index = -1;
             double lowestContestant = 0.0;
@@ -1135,7 +1139,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
                     continue;
                 }
 
-                if (values[i] == currentBandwidth) {
+                if ((values[i] == currentBandwidth) && (i < channelValues.length) && (channelValues[i] == currentChannelNum)) {
                     index = i;
                 }
                 else {

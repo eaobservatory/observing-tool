@@ -243,42 +243,19 @@ public class DatabaseDialog implements ActionListener {
     }
 
     private void doStoreProgram(
-            final String provider, final String username, final String password) {
+            final String provider, final String username,
+            final String password, final boolean force) {
         (new SwingWorker<SpClient.SpStoreResult, Void>() {
             @Override
             public SpClient.SpStoreResult doInBackground() throws Exception {
-                try {
-                    return SpClient.storeProgram(
-                            (SpProg) _spItemToBeSaved, provider, username, password, false);
-                }
-                catch (final SpChangedOnDiskException e) {
-                    final int[] confirm = new int[1];
-
-                    // Use invokeAndWait to launch a confirm dialog box to ask
-                    // whether they want to "force" storage of the program.
-                    SwingUtilities.invokeAndWait(new Runnable() {
-                        @Override
-                        public void run() {
-                            confirm[0] = JOptionPane.showConfirmDialog(
-                                    _w, e.getMessage() + "\n\nStore anyway?",
-                                    "Database Message",
-                                    JOptionPane.YES_NO_OPTION);
-                        }
-                    });
-
-                    if (confirm[0] == JOptionPane.YES_OPTION) {
-                        // Call storeProgram and force storing despite
-                        // inconsistent time stamp.
-                        return SpClient.storeProgram(
-                            (SpProg) _spItemToBeSaved, provider, username, password, true);
-                    }
-                }
-
-                return null;
+                return SpClient.storeProgram(
+                        (SpProg) _spItemToBeSaved, provider, username, password, force);
             }
 
             @Override
             public void done() {
+                boolean retry_with_force = false;
+
                 try {
                      SpClient.SpStoreResult result = get();
 
@@ -296,24 +273,62 @@ public class DatabaseDialog implements ActionListener {
                     hide();
 
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
 
-                } catch (ExecutionException e) {
-                    Throwable cause = e.getCause();
-                    String message = null;
+                } catch (ExecutionException ee) {
+                    Throwable e = ee.getCause();
 
-                    if (cause == null) {
-                        message = e.getMessage();
-                    } else {
-                        cause.printStackTrace();
-                        message = cause.getMessage();
+                    if (e instanceof SpChangedOnDiskException) {
+                        if (force) {
+                            JOptionPane.showMessageDialog(_dialogComponent,
+                                    "Could not store Science Program despite force request.\n"
+                                    + e.getMessage(),
+                                    "Database Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else {
+                            // Launch a confirm dialog box to ask
+                            // whether they want to "force" storage of the program.
+                            int confirm = JOptionPane.showConfirmDialog(
+                                    _w, e.getMessage() + "\n\nStore anyway?",
+                                    "Database Message",
+                                    JOptionPane.YES_NO_OPTION);
+
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                retry_with_force = true;
+                            }
+                        }
+                    }
+                    else {
+                        String message = null;
+
+                        if (e == null) {
+                            message = ee.getMessage();
+                        } else {
+                            e.printStackTrace();
+                            message = e.getMessage();
+                        }
+
+                        JOptionPane.showMessageDialog(_dialogComponent,
+                                "Could not store Science Program.\n" + message,
+                                "Database Error", JOptionPane.ERROR_MESSAGE);
                     }
 
-                    JOptionPane.showMessageDialog(_dialogComponent,
-                            "Could not store Science Program.\n" + message,
-                            "Database Error", JOptionPane.ERROR_MESSAGE);
-
                 } finally {
-                    databaseAccessFinished();
+                    if (retry_with_force) {
+                        if ("hedwig".equals(provider)) {
+                            // When using OAuth, since the OMP responds to a timestamp
+                            // issue with a SOAP error, we do not receive the OMP login
+                            // token.  However the one-time access code will have been
+                            // consumed, so we need to return to Hedwig to obtain a new one.
+                            listenForOAuthHedwig(true);
+                        }
+                        else {
+                            doStoreProgram(provider, username, password, true);
+                        }
+                    }
+                    else {
+                        databaseAccessFinished();
+                    }
                 }
             }
         }).execute();
@@ -342,9 +357,9 @@ public class DatabaseDialog implements ActionListener {
             }
 
             if (w == _w.hedwigButton) {
-                listenForOAuth(OtCfg.getHedwigOAuthURL(), OtCfg.getHedwigOAuthClient());
+                listenForOAuthHedwig(false);
             } else if (w == _w.tokenConfirmButton) {
-                accessDatabase("omptoken", OT.loginInfo.username, OT.loginInfo.token);
+                accessDatabase("omptoken", OT.loginInfo.username, OT.loginInfo.token, false);
             } else {
                 accessDatabase();
             }
@@ -362,17 +377,17 @@ public class DatabaseDialog implements ActionListener {
         String username = _w.usernameTextBox.getText();
         String password = new String(_w.passwordTextBox.getPassword());
 
-        accessDatabase(provider, username, password);
+        accessDatabase(provider, username, password, false);
     }
 
-    private void accessDatabase(String provider, String username, String password) {
+    private void accessDatabase(String provider, String username, String password, boolean force) {
         _stopAction.actionsStarted();
         _w.confirmButton.setEnabled(false);
         _w.hedwigButton.setEnabled(false);
         _w.tokenConfirmButton.setEnabled(false);
 
         if (_mode == ACCESS_MODE_STORE) {
-            doStoreProgram(provider, username, password);
+            doStoreProgram(provider, username, password, force);
         }
         else {
             // projectTextBox contains the projectID aka Science Program name.
@@ -390,7 +405,11 @@ public class DatabaseDialog implements ActionListener {
         _w.tokenConfirmButton.setEnabled(true);
     }
 
-    private void listenForOAuth(String auth_url, String client_id) {
+    private void listenForOAuthHedwig(boolean force) {
+        listenForOAuth(OtCfg.getHedwigOAuthURL(), OtCfg.getHedwigOAuthClient(), force);
+    }
+
+    private void listenForOAuth(String auth_url, String client_id, final boolean force) {
         _w.confirmButton.setEnabled(false);
         _w.hedwigButton.setEnabled(false);
         _w.tokenConfirmButton.setEnabled(false);
@@ -434,7 +453,7 @@ public class DatabaseDialog implements ActionListener {
                                 _dialogComponent.requestFocus();
                                 _dialogComponent.setAlwaysOnTop(false);
 
-                                accessDatabase("hedwig", redirect_uri, query.get("code"));
+                                accessDatabase("hedwig", redirect_uri, query.get("code"), force);
                             }
                         });
                     }

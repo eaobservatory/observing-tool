@@ -287,10 +287,6 @@ public class SpMSB extends SpObsContextItem {
      * does not include times for calibration and optional observations
      */
     public double getElapsedTime() {
-        return getElapsedTime(false);
-    }
-
-    public double getElapsedTime(boolean includeOptionals) {
         double elapsedTime = 0.0;
         Enumeration<SpItem> children = children();
         SpItem spItem = null;
@@ -302,11 +298,7 @@ public class SpMSB extends SpObsContextItem {
                 boolean isOptional;
                 SpObs obs = (SpObs) spItem;
 
-                if (includeOptionals) {
-                    isOptional = obs.isOptionalForEstimates();
-                } else {
-                    isOptional = obs.isOptional();
-                }
+                isOptional = obs.isOptional();
 
                 if (!isOptional) {
                     elapsedTime += obs.getElapsedTime();
@@ -340,7 +332,7 @@ public class SpMSB extends SpObsContextItem {
      * I.e. "saves" elapsed time to the SpAvTable of this item.
      */
     public void saveElapsedTime() {
-        _avTable.set(ATTR_ELAPSED_TIME, getElapsedTime(true));
+        _avTable.set(ATTR_ELAPSED_TIME, getElapsedTime());
     }
 
     protected void processAvAttribute(String avAttr, String indent,
@@ -352,7 +344,7 @@ public class SpMSB extends SpObsContextItem {
 
         } else if (avAttr.equals(ATTR_ELAPSED_TIME)) {
             xmlBuffer.append("\n  " + indent + "<" + ATTR_ELAPSED_TIME
-                    + " units=\"seconds\">" + getElapsedTime(true) + "</"
+                    + " units=\"seconds\">" + getElapsedTime() + "</"
                     + ATTR_ELAPSED_TIME + ">");
         } else {
             super.processAvAttribute(avAttr, indent, xmlBuffer);
