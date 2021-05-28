@@ -1,3 +1,14 @@
++++ May 2021 release
+
+  - Heterodyne bandwidth modes should now show the number of CMs used.
+
+  - The "Flag as Calibration" label has been renamed to "Flag as Standard",
+    but its usage remains unchanged.
+
+  - When attempting to force storage of a program at the same time as
+    logging in via Hedwig, the OT should now redirect to Hedwig again
+    if necessary.
+
 +++ November 2020 release
 
   - And folders should now be permitted after survey containers.
