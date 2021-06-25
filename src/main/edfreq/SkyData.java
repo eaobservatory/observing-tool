@@ -584,25 +584,45 @@ public class SkyData {
 
         minFreq = minFreq * 1.0E-9;
         maxFreq = maxFreq * 1.0E-9;
-        start = 0;
+        start = -1;
 
         for (j = 0; j < atmosphere.length; j++) {
             if (atmosphere[j][0] > maxFreq) {
                 break;
             }
 
-            if ((atmosphere[j][0] >= minFreq) && (start == 0)) {
+            if ((atmosphere[j][0] >= minFreq) && (start == -1)) {
                 start = j;
             }
         }
-        endj = j;
+        endj = j - 1;
 
         if (endj >= start) {
-            extract = new double[endj - start + 1][2];
+            boolean interpolate_start = (start > 0);
+            boolean interpolate_end = (endj < (atmosphere.length - 1));
+            int start_offset = (interpolate_start ? 1 : 0);
+
+            extract = new double[endj - start + 1 + start_offset + (interpolate_end ? 1 : 0)][2];
+
+            if (interpolate_start) {
+                extract[0][0] = minFreq * 1.0E9;
+                extract[0][1] = atmosphere[start - 1][1]
+                    + (atmosphere[start][1] - atmosphere[start - 1][1])
+                        * (minFreq - atmosphere[start - 1][0])
+                        / (atmosphere[start][0] - atmosphere[start - 1][0]);
+            }
 
             for (j = start; j <= endj; j++) {
-                extract[j - start][0] = atmosphere[j][0] * 1.0E9;
-                extract[j - start][1] = atmosphere[j][1];
+                extract[j + start_offset - start][0] = atmosphere[j][0] * 1.0E9;
+                extract[j + start_offset - start][1] = atmosphere[j][1];
+            }
+
+            if (interpolate_end) {
+                extract[extract.length - 1][0] = maxFreq * 1.0E9;
+                extract[extract.length - 1][1] = atmosphere[endj][1]
+                    + (atmosphere[endj + 1][1] - atmosphere[endj][1])
+                        * (maxFreq - atmosphere[endj][0])
+                        / (atmosphere[endj + 1][0] - atmosphere[endj][0]);
             }
         }
 
