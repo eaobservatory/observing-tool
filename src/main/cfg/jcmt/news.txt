@@ -1,3 +1,12 @@
++++ July 2021 release
+
+  - Special configurations have been added for Uu.
+
+  - The default IF for Aweoweo was changed to 5 GHz.
+
+  - Receiver temperature data for Uu and Aweoweo has been updated, and
+    the edges of the plots in the frequency editor have been improved.
+
 +++ May 2021 release
 
   - Heterodyne bandwidth modes should now show the number of CMs used.
