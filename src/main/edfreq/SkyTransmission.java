@@ -273,21 +273,22 @@ public class SkyTransmission extends JPanel {
 
     private int[][] makePlotDataTrx(TreeMap<Double, Double> rxTemp, double freq_offset, double freq_start, double freq_end) {
         // First of all, get the max and min receiver temperature
-        int tMax = 0;
-        int tMin = 0;
+        double tMax = 0;
+        double tMin = 0;
         boolean first = true;
         int[][] rxPlot = null;
         double freq = 0.0;
+        double prev_freq = 0.0;
 
         Iterator<Double> iter = rxTemp.values().iterator();
 
         while (iter.hasNext()) {
             if (first) {
-                tMax = (int) Math.rint(iter.next());
+                tMax = iter.next();
                 tMin = tMax;
                 first = false;
             } else {
-                int currentValue = (int) Math.rint(iter.next());
+                double currentValue = iter.next();
 
                 if (currentValue > tMax) {
                     tMax = currentValue;
@@ -302,8 +303,10 @@ public class SkyTransmission extends JPanel {
         // Find out what range of data to show
         iter = rxTemp.keySet().iterator();
         Double key = null;
+        Double prev = null;
 
         while (iter.hasNext()) {
+            prev = key;
             key = iter.next();
             freq = key - freq_offset;
 
@@ -313,35 +316,62 @@ public class SkyTransmission extends JPanel {
         }
 
         if (key != null) {
-            int xValue = (int) ((double) xSize * (freq - lowLimit)
-                    / (highLimit - lowLimit));
-            int yValue = (int) Math.rint(rxTemp.get(key));
-
-            yValue = (int) ((double) ySize - (double) ySize
-                    * (yValue - tMin) / (tMax - tMin));
-
             Vector<Integer> keys = new Vector<Integer>();
             Vector<Integer> values = new Vector<Integer>();
 
-            keys.add(new Integer(xValue));
-            values.add(new Integer(yValue));
+            /* Did we have a point before the start of the range?  If so
+               interpolate for the start frequency. */
+            if (prev != null) {
+                prev_freq = prev - freq_offset;
+                addPlotDataTrxPoint(keys, values, freq_start,
+                    rxTemp.get(prev)
+                        + (rxTemp.get(key) - rxTemp.get(prev))
+                            * (freq_start - prev_freq)
+                            / (freq - prev_freq),
+                    tMin, tMax);
+            }
 
-            while (iter.hasNext()) {
-                key = iter.next();
-                freq = key - freq_offset;
+            /* Did no points fall in the range?  If so interpolate for the
+               end frequency. */
+            if (freq > freq_end) {
+                if (prev != null) {
+                    prev_freq = prev - freq_offset;
 
-                if (freq > freq_end) {
-                    break;
+                    addPlotDataTrxPoint(keys, values, freq_end,
+                        rxTemp.get(prev)
+                            + (rxTemp.get(key) - rxTemp.get(prev))
+                                * (freq_end - prev_freq)
+                                / (freq - prev_freq),
+                        tMin, tMax);
                 }
+            }
+            else {
+                /* Otherwise add this point, then iterate to add more points. */
 
-                xValue = (int) ((double) xSize * (freq - lowLimit)
-                        / (highLimit - lowLimit));
-                yValue = (int) Math.rint(rxTemp.get(key));
-                yValue = (int) ((double) ySize - (double) ySize
-                        * (yValue - tMin) / (tMax - tMin));
+                addPlotDataTrxPoint(keys, values, freq, rxTemp.get(key), tMin, tMax);
 
-                keys.add(new Integer(xValue));
-                values.add(new Integer(yValue));
+                while (iter.hasNext()) {
+                    prev = key;
+                    key = iter.next();
+                    freq = key - freq_offset;
+
+                    if (freq > freq_end) {
+                        if (prev != null) {
+                            prev_freq = prev - freq_offset;
+
+                            addPlotDataTrxPoint(keys, values, freq_end,
+                                rxTemp.get(prev)
+                                    + (rxTemp.get(key) - rxTemp.get(prev))
+                                        * (freq_end - prev_freq)
+                                        / (freq - prev_freq),
+                                tMin, tMax);
+                        }
+
+                        break;
+                    }
+
+                    addPlotDataTrxPoint(keys, values, freq, rxTemp.get(key), tMin, tMax);
+                }
             }
 
             // Now construct the plot array
@@ -354,6 +384,19 @@ public class SkyTransmission extends JPanel {
         }
 
         return rxPlot;
+    }
+
+    private void addPlotDataTrxPoint(
+            Vector<Integer> keys, Vector<Integer> values,
+            double freq, double trx, double tMin, double tMax) {
+        double xValue = ((double) xSize) * (freq - lowLimit)
+                / (highLimit - lowLimit);
+
+        double yValue = ((double) ySize) - ((double) ySize)
+                * (trx - tMin) / (tMax - tMin);
+
+        keys.add(new Integer((int) xValue));
+        values.add(new Integer((int) yValue));
     }
 
     /**
