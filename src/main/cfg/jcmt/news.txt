@@ -1,3 +1,7 @@
++++ Next release
+
+  - Updated resolving of orbital elements to use the new Horizons API.
+
 +++ January 2025 release
 
   - Added button to broadcast coordinates from the target information

@@ -43,6 +43,7 @@ public class HorizonsApi {
         HttpURLConnection connection = null;
         JSONObject data = null;
         int status = 0;
+        String responseMessage = null;
 
         try {
             URL url = new URL(
@@ -61,6 +62,7 @@ public class HorizonsApi {
             }
             catch (IOException e) {
                 status = connection.getResponseCode();
+                responseMessage = connection.getResponseMessage();
                 // If we got an error stream, carry on with that, otherwise
                 // re-raise this exception.
                 stream = connection.getErrorStream();
@@ -82,10 +84,14 @@ public class HorizonsApi {
             throw new HorizonsApiException("Malformed URL");
         }
         catch (IOException e) {
-            throw new HorizonsApiException("IO exception: " + e.getMessage());
+            e.printStackTrace();
+            throw new HorizonsApiException(
+                ((responseMessage == null) ? "" : (responseMessage + "\n")) +
+                "IO exception: " + e.getMessage());
         }
         catch (JSONException e) {
             throw new HorizonsApiException(
+                ((responseMessage == null) ? "" : (responseMessage + "\n")) +
                 "Could not decode Horizons JSON response: " + e.getMessage());
         }
         finally {
