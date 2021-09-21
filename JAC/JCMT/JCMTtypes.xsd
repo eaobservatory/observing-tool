@@ -22,6 +22,7 @@
         <xsd:element ref="toml:SpIterPointingObs"/>
         <xsd:element ref="toml:SpIterFocusObs"/>
         <xsd:element ref="toml:SpIterNoiseObs"/>
+        <xsd:element ref="toml:SpIterSetupObs"/>
         <xsd:element ref="toml:SpIterStareObs"/>
         <xsd:element ref="toml:SpIterJiggleObs"/>
         <xsd:element ref="toml:SpIterRasterObs"/>
