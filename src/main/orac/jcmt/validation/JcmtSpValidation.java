@@ -410,6 +410,27 @@ public class JcmtSpValidation extends SpValidation {
                             + " for your source and adjust if not."));
                 }
 
+                for (int system = 0; system < systems; system ++) {
+                    for (int prev_system = 0; prev_system < system; prev_system ++) {
+                        // Perform same comparison as translator (not sure why
+                        // it compares overlap when channels and bandwidth are included).
+                        if ((spInstHeterodyne.getCentreFrequency(system)
+                                    == spInstHeterodyne.getCentreFrequency(prev_system)) &&
+                                (spInstHeterodyne.getOverlap(system)
+                                    == spInstHeterodyne.getOverlap(prev_system)) &&
+                                (spInstHeterodyne.getChannels(system)
+                                    == spInstHeterodyne.getChannels(prev_system)) &&
+                                (spInstHeterodyne.getBandWidth(system)
+                                    == spInstHeterodyne.getBandWidth(prev_system))) {
+                            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                titleString,
+                                "Subsystems " + (prev_system + 1)
+                                + " and " + (system + 1)
+                                + " appear to be identical."));
+                            }
+                    }
+                }
+
             } else if (obsComp != null && obsComp instanceof SpInstSCUBA2) {
                 // Check for POL-2 observation with inappropriate mode or
                 // scan pattern.
