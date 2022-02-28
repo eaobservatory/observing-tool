@@ -709,8 +709,6 @@ public class JcmtSpValidation extends SpValidation {
             boolean heterodyne = instrument instanceof SpInstHeterodyne;
 
             if (heterodyne) {
-                String errorText = "Named Systems or Orbital Elements require"
-                        + " a Topocentric velocity frame.";
                 SpInstHeterodyne heterodyneInstrument =
                         (SpInstHeterodyne) instrument;
 
@@ -718,32 +716,7 @@ public class JcmtSpValidation extends SpValidation {
                     SpTelescopePos pos = (SpTelescopePos) position[i];
 
                     if (pos.getSystemType()
-                            != SpTelescopePos.SYSTEM_SPHERICAL) {
-                        String hetVelocityFrame =
-                                heterodyneInstrument.getVelocityFrame();
-
-                        if (hetVelocityFrame != null) {
-                            if (!hetVelocityFrame.equals(
-                                    SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME)) {
-                                report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                        "Telescope target " + pos.getName()
-                                        + titleString, errorText));
-                                break;
-                            }
-                        } else if (pos.isBasePosition()) {
-                            String posVelocityFrame = pos
-                                    .getTrackingRadialVelocityFrame();
-
-                            if (!SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME
-                                    .equals(posVelocityFrame)) {
-                                report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                        "Telescope target " + pos.getName()
-                                        + titleString, errorText));
-                            }
-
-                            break;
-                        }
-                    } else {
+                            == SpTelescopePos.SYSTEM_SPHERICAL) {
                         double Xaxis = pos.getXaxis();
                         double Yaxis = pos.getYaxis();
 

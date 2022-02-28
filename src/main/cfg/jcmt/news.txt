@@ -1,3 +1,13 @@
++++ February 2022 release
+
+  - Spurious warnings about the velocity frame for named planets and
+    orbital elements have been removed.  (Topocentric will always
+    be used with these coordinates.)
+
+  - When logging in via Hedwig on Linux, xdg-open will be tried first
+    as a method of opening your browser.  (The standard Java method
+    does not appear to work reliably on Fedora 34 and 35.)
+
 +++ January 2022 release
 
   - The ACSIS library has been updated with jiggle map examples for Uu.

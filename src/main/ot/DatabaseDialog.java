@@ -472,11 +472,27 @@ public class DatabaseDialog implements ActionListener {
             });
             server.setExecutor(null);
             server.start();
-            Desktop.getDesktop().browse(new URI(
-                auth_url
+
+            String full_url = auth_url
                 + "?response_type=code&redirect_uri="
                 + URLEncoder.encode(redirect_uri, "UTF-8")
-                + "&client_id=" + client_id + "&scope=openid"));
+                + "&client_id=" + client_id + "&scope=openid";
+
+            System.out.println("Log in URL: " + full_url);
+
+            if ("linux".equals(System.getProperty("os.name").toLowerCase())) {
+                // On some modern Linux distributions, the Desktop.browse
+                // method appears to hang until after the OT has exited.
+                // Therefore first try executing xdg-open to avoid this problem.
+                try {
+                    Runtime.getRuntime().exec(new String[] {"xdg-open", full_url});
+                    return;
+                }
+                catch (IOException e) {
+                }
+            }
+
+            Desktop.getDesktop().browse(new URI(full_url));
         }
         catch (Exception e) {
             e.printStackTrace();

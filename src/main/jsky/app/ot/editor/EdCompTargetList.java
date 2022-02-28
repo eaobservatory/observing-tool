@@ -119,7 +119,6 @@ public class EdCompTargetList extends OtItemEditor implements
     private boolean _targetSystemsChange = false;
     private boolean _resolving = false;
     private boolean jcmtot = false;
-    private boolean overrideDialogShown = false;
 
     /**
      * The constructor initializes the title, description, and presentation
@@ -1457,8 +1456,6 @@ public class EdCompTargetList extends OtItemEditor implements
     }
 
     public void stateChanged(ChangeEvent e) {
-        overrideDialogShown = false;
-
         if (e.getSource() == _w.targetSystemsTabbedPane) {
             Component component =
                     _w.targetSystemsTabbedPane.getSelectedComponent();
@@ -1843,34 +1840,6 @@ public class EdCompTargetList extends OtItemEditor implements
                     SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME);
             _w.velValue.setValue(0.);
             enableVelocitiesPanel(false);
-
-            SpInstObsComp instrument = SpTreeMan.findInstrument(_spItem);
-
-            if (!overrideDialogShown
-                    && instrument instanceof SpInstHeterodyne
-                    && instrument.getTable().exists(
-                            SpInstHeterodyne.ATTR_VELOCITY)) {
-                int status = JOptionPane.showConfirmDialog(
-                        _w,
-                        "Named Systems and Orbital Elements are only"
-                        + " provided with a default Topocentric velocity"
-                        + " frame\n that is currently being overridden"
-                        + " in this targets Heterodyne setup."
-                        + "\n\nYou will need to disable it."
-                        + "\n\n Would you like that done for you?",
-                        "Default velocity frame overidden",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                if (status == JOptionPane.YES_OPTION) {
-                    instrument.getTable().rm(SpInstHeterodyne.ATTR_VELOCITY);
-                    instrument.getTable().rm(
-                            SpInstHeterodyne.ATTR_VELOCITY_DEFINITION);
-                    instrument.getTable().rm(
-                            SpInstHeterodyne.ATTR_VELOCITY_FRAME);
-                }
-
-                overrideDialogShown = true;
-            }
         }
     }
 
