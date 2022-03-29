@@ -450,6 +450,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             _w.vDef.setSelectedItem(rvDefn);
         }
         if (rvFrame != null) {
+            // Kludge: setting the velocity definition will have caused
+            // vDef's watcher to alter the velocity frame, so restore it now.
+            _inst.setVelocityFrame(rvFrame);
+
             _w.vFrame.setSelectedItem(rvFrame);
         }
 

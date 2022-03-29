@@ -80,7 +80,7 @@ public class ProgramGUI extends JPanel {
         jLabel2.setText("PI");
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel4.setForeground(Color.black);
-        jLabel4.setText("Country");
+        jLabel4.setText("Queue");
         propKindLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         propKindLabel.setForeground(Color.black);
         propKindLabel.setText("Prop. Kind");
