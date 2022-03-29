@@ -1,3 +1,10 @@
++++ March 2022 release
+
+  - Patch for the heterodyne setup panel sometimes not saving
+    the selected velocity frame.
+
+  - Changed label for the queue box on the program panel.
+
 +++ February 2022 release
 
   - Spurious warnings about the velocity frame for named planets and
