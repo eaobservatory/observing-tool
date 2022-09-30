@@ -939,6 +939,14 @@ if any additionas are made to the list.
         <transition frequency="838307.9748" name="9 - 8"/>
     </species>
     <species name="SiO">
+        <transition frequency="43122.0300" name="1 1 - 0 1"/>
+        <transition frequency="43423.7600" name="1 0 - 0 0"/>
+        <transition frequency="86243.3700" name="2 1 - 1 1"/>
+        <transition frequency="86846.9600" name="2 0 - 1 0"/>
+        <transition frequency="129363.2400" name="3 1 - 2 1"/>
+        <transition frequency="130268.6100" name="3 0 - 2 0"/>
+        <transition frequency="172481.1500" name="4 1 - 3 1"/>
+        <transition frequency="173688.3100" name="4 0 - 3 0"/>
         <transition frequency="214088.54" name="5 2 - 4 2"/>
         <transition frequency="215595.95" name="5 1 - 4 1"/>
         <transition frequency="217104.98" name="5 0 - 4 0"/>
