@@ -406,6 +406,34 @@ public class HeterodyneNoise {
         return MathUtil.linterp(freq1, tran1, freq2, tran2, freq);
     }
 
+    /*
+     * Method to generate a double[][] transmission data array similar to that
+     * which used to be included directly in the edfreq.SkyData class.  This
+     * method is provided as a direct substitute for that table.
+     */
+    public static double[][] getTransmissionModel(
+            double opacity, double airmass) {
+        if (! initialised) {
+            init();
+        }
+
+        TreeMap<Double, Double> opacityMap = _availableBands.get(new Double(opacity));
+        if (opacityMap == null) {
+            return null;
+        }
+
+        double[][] model = new double[opacityMap.size()][2];
+        int i = 0;
+
+        for (Map.Entry<Double, Double> entry: opacityMap.entrySet()) {
+            model[i][0] = entry.getKey();
+            model[i][1] = Math.exp(- entry.getValue() * airmass);
+            i ++;
+        }
+
+        return model;
+    }
+
     private static double getNoise(SpIterJCMTObs obs, SpInstHeterodyne inst,
             double tSys) {
         double time = 0.0;
