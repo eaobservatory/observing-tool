@@ -47,14 +47,14 @@ import gemini.util.ObservingToolUtilities;
  * code used to create the integration time calculator
  */
 public class HeterodyneNoise {
-    static Vector<String> feNames = new Vector<String>();
-    static Vector<TreeMap<Double, Double>> trxValues =
+    private static Vector<String> feNames = new Vector<String>();
+    private static Vector<TreeMap<Double, Double>> trxValues =
             new Vector<TreeMap<Double, Double>>();
-    static Vector<Double> nu_tel = new Vector<Double>();
+    private static Vector<Double> nu_tel = new Vector<Double>();
     private static TreeMap<Double, TreeMap<Double, Double>> _availableBands =
             new TreeMap<Double, TreeMap<Double, Double>>();
-    static final double kappa = 1.15;
-    static String cfgDir = System.getProperty("ot.cfgdir");
+    private static final double kappa = 1.15;
+    private static String cfgDir = System.getProperty("ot.cfgdir");
     private static final String receiverFile = "receiver.info";
     private static boolean initialised = false;
     private static int SUBSYSTEM = 0;
