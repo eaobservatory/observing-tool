@@ -1731,13 +1731,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private void configureFrequencyEditor() {
-        _frequencyEditor.updateDisplay(_inst, _receiver);
+        try {
+            _frequencyEditor.updateDisplay(_inst, _receiver);
 
-        _frequencyEditor.setCallback(new Runnable() {
-            public void run() {
-                hideFreqEditor();
-            }
-        });
+            _frequencyEditor.setCallback(new Runnable() {
+                public void run() {
+                    hideFreqEditor();
+                }
+            });
+        }
+        catch (Exception e) {
+            System.out.println("Unable to configure frequency editor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void getFrequencyEditorConfiguration() {
