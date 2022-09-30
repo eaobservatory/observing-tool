@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -50,8 +51,8 @@ public class HeterodyneNoise {
     static Vector<TreeMap<Double, Double>> trxValues =
             new Vector<TreeMap<Double, Double>>();
     static Vector<Double> nu_tel = new Vector<Double>();
-    static TreeMap<Double, String> _availableBands =
-            new TreeMap<Double, String>();
+    private static TreeMap<Double, TreeMap<Double, Double>> _availableBands =
+            new TreeMap<Double, TreeMap<Double, Double>>();
     static final double kappa = 1.15;
     static String cfgDir = System.getProperty("ot.cfgdir");
     private static final String receiverFile = "receiver.info";
@@ -174,7 +175,8 @@ public class HeterodyneNoise {
                         String value = "0." + file.substring(
                                         file.indexOf("u") + 1,
                                         file.lastIndexOf("."));
-                        _availableBands.put(Double.valueOf(value), file);
+                        _availableBands.put(
+                                Double.valueOf(value), readOpacityFile(file));
                     }
                 }
             }
@@ -261,8 +263,6 @@ public class HeterodyneNoise {
 
         // Find which tau range contains the required tau, and the next
         // tau range nearest
-        String tauFile0;
-        String tauFile1;
         Iterator<Double> iter = _availableBands.keySet().iterator();
         double current = 0, next = 0;
         boolean firstLoop = true;
@@ -287,20 +287,16 @@ public class HeterodyneNoise {
             }
         }
 
-        tauFile0 = _availableBands.get(new Double(current));
-        tauFile1 = _availableBands.get(new Double(next));
-
-        double tranmission0 = getTransmission(tauFile0, freq);
-        double tranmission1 = getTransmission(tauFile1, freq);
-        double t = MathUtil.linterp(current, tranmission0, next, tranmission1,
-                tau);
+        double opacity0 = getOpacity(_availableBands.get(new Double(current)), freq);
+        double opacity1 = getOpacity(_availableBands.get(new Double(next)), freq);
+        double opacity = MathUtil.linterp(current, opacity0, next, opacity1, tau);
 
         if ((index = feNames.indexOf(fe)) != -1) {
             nuTel = nu_tel.elementAt(index);
         }
 
         // Nowe find Tsys
-        double nuSky = Math.exp(-t * airmass);
+        double nuSky = Math.exp(- opacity * airmass);
         double tSky = 260.0 - nuSky * 260.0;
         double tTel = 265.0 - nuTel * 265.0;
 
@@ -326,7 +322,7 @@ public class HeterodyneNoise {
         return tSys;
     }
 
-    private static double getTransmission(String filename, double freq) {
+    private static TreeMap<Double, Double> readOpacityFile(String filename) {
         String path = cfgDir;
 
         if (!path.endsWith("/")) {
@@ -335,70 +331,79 @@ public class HeterodyneNoise {
 
         path += filename;
 
-        double rtn = 0.0;
         BufferedReader rdr = null;
         URL url = ObservingToolUtilities.resourceURL(path);
+
+        TreeMap<Double, Double> map = new TreeMap<Double, Double>();
 
         try {
             InputStream is = url.openStream();
             rdr = new BufferedReader(new InputStreamReader(is));
 
-            // Read the first line of the file
-            String line = rdr.readLine();
-
-            double freq1 = 0.0, tran1 = 0.0;
-            double freq2 = 0.0, tran2 = 0.0;
-
-            if (line != null) {
-                StringTokenizer st = new StringTokenizer(line);
-
-                freq1 = Double.parseDouble(st.nextToken());
-                tran1 = Double.parseDouble(st.nextToken());
-            }
-
-            // Now loop over all the values til we find the ones we want
+            String line;
             while ((line = rdr.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line);
 
-                freq2 = Double.parseDouble(st.nextToken());
-                tran2 = Double.parseDouble(st.nextToken());
+                double freq = Double.parseDouble(st.nextToken());
+                double tran = Double.parseDouble(st.nextToken());
 
-                // First deal with the case where the freq is below the first
-                // value
-                if (freq < freq1) {
-                    break;
-                }
-
-                // See is the frequency we need is between the two we have
-                if (freq >= freq1 && freq < freq2) {
-                    break;
-                }
-
-                // Otherwise, keep looping
-                freq1 = freq2;
-                tran1 = tran2;
+                map.put(freq, tran);
             }
-
-            // Once we get here, we should be able to interpolate
-            rtn = MathUtil.linterp(freq1, tran1, freq2, tran2, freq);
 
             rdr.close();
             is.close();
-
-        } catch (java.io.FileNotFoundException fnf) {
+        }
+        catch (java.io.FileNotFoundException fnf) {
             System.out.println("Unable to find file " + path);
-        } catch (java.io.IOException ioe) {
+        }
+        catch (java.io.IOException ioe) {
             System.out.println("IO Error while reading file " + path);
-        } finally {
+        }
+        finally {
             if (rdr != null) {
                 try {
                     rdr.close();
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                 }
             }
         }
 
-        return rtn;
+        return map;
+    }
+
+    private static double getOpacity(TreeMap<Double, Double> opacityMap, double freq) {
+        double freq1 = 0.0, tran1 = 0.0;
+        double freq2 = 0.0, tran2 = 0.0;
+
+        for (Map.Entry<Double, Double> entry: opacityMap.entrySet()) {
+            if (freq1 == 0.0) {
+                freq1 = entry.getKey();
+                tran1 = entry.getValue();
+                continue;
+            }
+
+            freq2 = entry.getKey();
+            tran2 = entry.getValue();
+
+            // First deal with the case where the freq is below the first
+            // value
+            if (freq < freq1) {
+                break;
+            }
+
+            // See is the frequency we need is between the two we have
+            if (freq >= freq1 && freq < freq2) {
+                break;
+            }
+
+            // Otherwise, keep looping
+            freq1 = freq2;
+            tran1 = tran2;
+        }
+
+        // Once we get here, we should be able to interpolate
+        return MathUtil.linterp(freq1, tran1, freq2, tran2, freq);
     }
 
     private static double getNoise(SpIterJCMTObs obs, SpInstHeterodyne inst,
