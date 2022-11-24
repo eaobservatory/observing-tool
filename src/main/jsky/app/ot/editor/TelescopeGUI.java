@@ -259,19 +259,19 @@ public class TelescopeGUI extends JPanel {
         jLabel16.setText("Dec");
         jLabel16.setForeground(Color.black);
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel15.setText("(milli-arcsec/year)");
+        jLabel15.setText("<html>(\u03bc<sub>\u03b4</sub>, milli-arcsec/year)</html>");
         jLabel15.setForeground(Color.black);
-        jLabel15.setFont(new java.awt.Font("Dialog", 0, 10));
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel14.setForeground(Color.black);
         jLabel14.setText("RA");
         detailsPW.setLayout(gridBagLayout3);
-        jLabel13.setFont(new java.awt.Font("Dialog", 0, 10));
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel13.setForeground(Color.black);
-        jLabel13.setText("(milli-arcsec/year)");
+        jLabel13.setText("<html>(\u03bc<sub>\u03b1</sub>, milli-arcsec/year)</html>");
         jLabel12.setText("(arcsec)");
         jLabel12.setForeground(Color.black);
-        jLabel12.setFont(new java.awt.Font("Dialog", 0, 10));
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel9.setText("Epoch");
         jLabel9.setForeground(Color.black);
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -797,47 +797,47 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel14, new GridBagConstraints(
                 0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(16, 49, 0, 0), 0, 0));
+                new Insets(10, 20, 10, 5), 0, 0));
         propMotionPW.add(propMotionRATBW, new GridBagConstraints(
                 1, 0, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(16, 8, 0, 0), 92, 0));
+                new Insets(10, 5, 10, 5), 80, 0));
         propMotionPW.add(jLabel16, new GridBagConstraints(
                 0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(16, 49, 14, 0), 0, 0));
+                new Insets(10, 20, 10, 5), 0, 0));
         propMotionPW.add(propMotionDecTBW, new GridBagConstraints(
                 1, 1, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(14, 9, 14, 0), 90, 0));
+                new Insets(10, 5, 10, 5), 80, 0));
         propMotionPW.add(jLabel13, new GridBagConstraints(
                 2, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(16, 0, 0, 134), 0, 0));
+                new Insets(10, 5, 10, 30), 60, 0));
         propMotionPW.add(jLabel15, new GridBagConstraints(
                 2, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(18, 0, 14, 134), 0, 0));
+                new Insets(10, 5, 10, 30), 60, 0));
         propMotionPW.add(jLabel9, new GridBagConstraints(
-                4, 0, 1, 1, 0.0, 0.0,
+                3, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(18, 30, 6, 0), 0, 0));
+                new Insets(10, 30, 10, 5), 0, 0));
         propMotionPW.add(detailsEpochTBW, new GridBagConstraints(
-                5, 0, 1, 1, 1.0, 0.0,
+                4, 0, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(16, 5, 0, 10), 68, 0));
+                new Insets(10, 5, 10, 5), 80, 0));
         propMotionPW.add(jLabel8, new GridBagConstraints(
-                4, 1, 1, 1, 0.0, 0.0,
+                3, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(0, 20, 0, 0), 0, 0));
+                new Insets(10, 30, 10, 5), 0, 0));
         propMotionPW.add(detailsParallaxTBW, new GridBagConstraints(
-                5, 1, 1, 1, 1.0, 0.0,
+                4, 1, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 5, 0, 5), 69, 0));
+                new Insets(10, 5, 10, 5), 80, 0));
         propMotionPW.add(jLabel12, new GridBagConstraints(
-                6, 1, 1, 1, 0.0, 0.0,
+                5, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(7, 0, 0, 20), 0, 0));
+                new Insets(10, 5, 10, 20), 0, 0));
 
         // Radial Velocity tab
         // This looks like what the velocity panel in the het compt.
