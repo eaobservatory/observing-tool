@@ -707,9 +707,9 @@ public class SpValidation {
                             Math.pow(pmDec, 2.0));
 
                         // Current ERFA limits PM to 0.5c and min parallax
-                        // to 1E-7".  (3.162 milli-arcsec/year at that distance.  Check
+                        // to 1E-4 milli-arcsec.  (3.162 milli-arcsec/year at that distance.  Check
                         // here for 2.0 milli-arcsec/year to give a margin of safety.)
-                        if (pmCombined > (2.0E7 * pmParallax)) {
+                        if (pmCombined > (2.0E4 * pmParallax)) {
                             report.add(new ErrorMessage(
                                     ErrorMessage.WARNING,
                                     itemString,

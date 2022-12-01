@@ -269,7 +269,7 @@ public class TelescopeGUI extends JPanel {
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel13.setForeground(Color.black);
         jLabel13.setText("<html>(\u03bc<sub>\u03b1</sub>, milli-arcsec/year)</html>");
-        jLabel12.setText("(arcsec)");
+        jLabel12.setText("(milli-arcsec)");
         jLabel12.setForeground(Color.black);
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel9.setText("Epoch");
@@ -797,7 +797,7 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel14, new GridBagConstraints(
                 0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 20, 10, 5), 0, 0));
+                new Insets(10, 10, 10, 5), 0, 0));
         propMotionPW.add(propMotionRATBW, new GridBagConstraints(
                 1, 0, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
@@ -805,7 +805,7 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel16, new GridBagConstraints(
                 0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 20, 10, 5), 0, 0));
+                new Insets(10, 10, 10, 5), 0, 0));
         propMotionPW.add(propMotionDecTBW, new GridBagConstraints(
                 1, 1, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
@@ -813,15 +813,15 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel13, new GridBagConstraints(
                 2, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 5, 10, 30), 60, 0));
+                new Insets(10, 5, 10, 20), 60, 0));
         propMotionPW.add(jLabel15, new GridBagConstraints(
                 2, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 5, 10, 30), 60, 0));
+                new Insets(10, 5, 10, 20), 60, 0));
         propMotionPW.add(jLabel9, new GridBagConstraints(
                 3, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 30, 10, 5), 0, 0));
+                new Insets(10, 20, 10, 5), 0, 0));
         propMotionPW.add(detailsEpochTBW, new GridBagConstraints(
                 4, 0, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
@@ -829,7 +829,7 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel8, new GridBagConstraints(
                 3, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(10, 30, 10, 5), 0, 0));
+                new Insets(10, 20, 10, 5), 0, 0));
         propMotionPW.add(detailsParallaxTBW, new GridBagConstraints(
                 4, 1, 1, 1, 1.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
@@ -837,7 +837,7 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.add(jLabel12, new GridBagConstraints(
                 5, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(10, 5, 10, 20), 0, 0));
+                new Insets(10, 5, 10, 10), 0, 0));
 
         // Radial Velocity tab
         // This looks like what the velocity panel in the het compt.

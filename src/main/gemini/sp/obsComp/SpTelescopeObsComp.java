@@ -779,7 +779,7 @@ public class SpTelescopeObsComp extends SpObsComp {
 
                 try {
                     parallax = Double.parseDouble(
-                            targetPos.getTrackingParallax());
+                            targetPos.getTrackingParallax()) / 1000.0;
                 } catch (Exception e) {
                 }
 
@@ -1118,9 +1118,10 @@ public class SpTelescopeObsComp extends SpObsComp {
             return;
         }
 
-        // Paralax
+        // Parallax
         if (name.equals(TX_PARALLAX)) {
-            _currentPosition.setTrackingParallax(value);
+            Double dValue = new Double(value) * 1000.0;
+            _currentPosition.setTrackingParallax(dValue.toString());
 
             return;
         }
