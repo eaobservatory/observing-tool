@@ -627,6 +627,8 @@ public class SpValidation {
                 String itemString = "Telescope target " + pos.getName()
                         + " in " + titleString;
 
+                Double declination = null;
+
                 if ((pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL)
                         && pos.isBasePosition()) {
                     double Xaxis = pos.getXaxis();
@@ -662,6 +664,8 @@ public class SpValidation {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 itemString, "Dec not valid"));
                     }
+
+                    declination = new Double(Yaxis);
                 }
 
                 double pmRA = Format.toDouble(pos.getPropMotionRA());
@@ -702,6 +706,18 @@ public class SpValidation {
                                 "Parallax not specified with proper motion."));
 
                     } else {
+                        if (declination == null) {
+                            report.add(new ErrorMessage(
+                                    ErrorMessage.WARNING,
+                                    itemString,
+                                    "Declination not available - cannot compute real " +
+                                    "proper motion for speed check."));
+                        }
+                        else {
+                            // Convert from coordinate angle to real angle.
+                            pmRA *= Math.cos(Math.toRadians(declination));
+                        }
+
                         double pmCombined = Math.sqrt(
                             Math.pow(pmRA, 2.0) +
                             Math.pow(pmDec, 2.0));
