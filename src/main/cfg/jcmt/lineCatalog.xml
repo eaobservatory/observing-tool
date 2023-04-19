@@ -1457,7 +1457,15 @@ if any additionas are made to the list.
     </species>
     <species name="DCN">
         <transition frequency="217238.6307" name="3 - 2"/>
+        <transition frequency="289645.2425" name="4 - 3"/>
         <transition frequency="362046.4842" name="5 - 4"/>
+        <transition frequency="434441.0133" name="6 - 5"/>
+        <transition frequency="506827.4873" name="7 - 6"/>
+        <transition frequency="579204.5636" name="8 - 7"/>
+        <transition frequency="651570.8998" name="9 - 8"/>
+        <transition frequency="723925.1532" name="10 - 9"/>
+        <transition frequency="796265.9815" name="11 - 10"/>
+        <transition frequency="868592.0420" name="12 - 11"/>
     </species>
     <species name="H2D+">
         <transition frequency="372421.34" name="1 1 0 0 - 1 1 1 0"/>
