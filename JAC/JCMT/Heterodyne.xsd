@@ -49,6 +49,7 @@
         <xsd:enumeration value="Alaihi"/>
         <xsd:enumeration value="Uu"/>
         <xsd:enumeration value="Aweoweo"/>
+        <xsd:enumeration value="Catalufa"/>
     </xsd:restriction>
 </xsd:simpleType>
 
