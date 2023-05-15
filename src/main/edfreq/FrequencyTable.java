@@ -344,12 +344,24 @@ public class FrequencyTable extends JPanel {
      * Set the mode and band, and update GUI appropriately.
      *
      * @param mode Either "ssb" (Single Sideband) or "dsb" (Dual Sideband)
-     *             or "2sb" (sideband separating)
+     *             or "2sb" (sideband separating) or "usb" or "lsb"
      * @param band Either "usb" (upper sideband), "lsb" (lower sideband) or
      *             "best"
      */
     public void setModeAndBand(String mode, String band) {
-        if (mode.equalsIgnoreCase("ssb")) {
+        if (mode.equalsIgnoreCase("usb")) {
+            for (int i = 0; i < lowerSideband.length; i++) {
+                upperSideband[i].on();
+                lowerSideband[i].off();
+            }
+        }
+        else if (mode.equalsIgnoreCase("lsb")) {
+            for (int i = 0; i < lowerSideband.length; i++) {
+                lowerSideband[i].on();
+                upperSideband[i].off();
+            }
+        }
+        else if (mode.equalsIgnoreCase("ssb")) {
             if (band.equalsIgnoreCase("lsb")) {
                 for (int i = 0; i < lowerSideband.length; i++) {
                     lowerSideband[i].on();
@@ -416,7 +428,9 @@ public class FrequencyTable extends JPanel {
 
             // If the instrument is in single side band mode (ssb) then the
             // line also has to be in the correct sideband.
-            if (mode.equalsIgnoreCase("ssb")) {
+            if (mode.equalsIgnoreCase("ssb")
+                    || mode.equalsIgnoreCase("usb")
+                    || mode.equalsIgnoreCase("lsb")) {
                 if ((band.equalsIgnoreCase("usb")
                             || band.equalsIgnoreCase("best"))
                         && (obsFrequency < sideBandDisplay.getLO1())) {

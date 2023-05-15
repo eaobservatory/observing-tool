@@ -377,6 +377,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
     private void moreSetUp() {
         setAvailableModes();
+        setAvailableSidebands();
         setAvailableRegions();
     }
 
@@ -891,6 +892,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             // (See also the same thing in _initialiseInstHeterodyne.)
             _inst.setFeBandWidth(_receiver.bandWidthLower + _receiver.bandWidthUpper);
             setAvailableModes();
+            setAvailableSidebands();
             setAvailableRegions();
 
         } else {
@@ -1501,6 +1503,31 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
     }
 
+    private void setAvailableSidebands() {
+        List<String> availableSidebands = _inst.getAvailableSidebands();
+        String currentSideband = _inst.getBand();
+        boolean changeSideband = false;
+
+        for (Map.Entry<String, AbstractButton> entry: _w.sbButtons.entrySet()) {
+            String str = entry.getKey();
+
+            if ((availableSidebands == null) || availableSidebands.contains(str)) {
+                entry.getValue().setEnabled(true);
+            }
+            else {
+                if (currentSideband != null && currentSideband.equalsIgnoreCase(str)) {
+                    changeSideband = true;
+                }
+
+                entry.getValue().setEnabled(false);
+            }
+        }
+
+        if (changeSideband) {
+            _inst.setBand(availableSidebands.get(0));
+        }
+    }
+
     private void setAvailableRegions() {
         Vector<BandSpec> bandspecs = _receiver.bandspecs;
         Vector<String> available = new Vector<String>();
@@ -1797,6 +1824,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         if (enabled) {
             // Disable anything that should not be available.
             setAvailableModes();
+            setAvailableSidebands();
             setAvailableRegions();
         }
 
