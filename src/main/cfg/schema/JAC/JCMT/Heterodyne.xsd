@@ -46,8 +46,10 @@
 <xsd:simpleType name="hetFrontEndList">
     <xsd:restriction base="xsd:string">
         <xsd:enumeration value="HARP"/>
+        <xsd:enumeration value="Alaihi"/>
         <xsd:enumeration value="Uu"/>
         <xsd:enumeration value="Aweoweo"/>
+        <xsd:enumeration value="Catalufa"/>
     </xsd:restriction>
 </xsd:simpleType>
 
@@ -65,6 +67,8 @@
         <xsd:pattern value="(S|s)(S|s)(B|b)"/>
         <xsd:pattern value="(D|d)(S|s)(B|b)"/>
         <xsd:pattern value="2(S|s)(B|b)"/>
+        <xsd:pattern value="(U|u)(S|s)(B|b)"/>
+        <xsd:pattern value="(L|l)(S|s)(B|b)"/>
     </xsd:restriction>
 </xsd:simpleType>
 

@@ -719,6 +719,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements
         double tSys = HeterodyneNoise.getTsys(inst.getFrontEnd(), tau, airmass,
                 inst.getRestFrequency(0) / 1.0e9,
                 (inst.getMode().equalsIgnoreCase("ssb")
+                    || inst.getMode().equalsIgnoreCase("usb")
+                    || inst.getMode().equalsIgnoreCase("lsb")
                     || inst.getMode().equalsIgnoreCase("2sb")));
 
         _noiseToolTip = "airmass = " + (Math.rint(airmass * 10) / 10)

@@ -28,6 +28,7 @@ import gemini.util.Format;
 import edfreq.BandSpec;
 import edfreq.Receiver;
 
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.List;
 
@@ -221,8 +222,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     /** Receiver/Front end bandwidth. */
     public static final String ATTR_FE_BANDWIDTH = "feBandWidth";
 
-    /** Mode: single side band (ssb), double side band (dsb)
-      * or sideband separating (2sb). */
+    /** Mode: single side band (ssb), double side band (dsb),
+      * USB/LSB only (usb/lsb) or sideband separating (2sb). */
     public static final String ATTR_MODE = "mode";
 
     /** Band mode: 1-system, 2-system etc.  */
@@ -518,8 +519,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
 
     /**
-     * Set  mode: single side band (ssb), double side band (dsb)
-     * or sideband separating (2sb).
+     * Set  mode: single side band (ssb), double side band (dsb),
+     * USB/LSB only (usb/lsb) or sideband separating (2sb).
      */
     public void setMode(String value) {
         _avTable.set(ATTR_MODE, value);
@@ -1043,6 +1044,22 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
         }
 
         return convertToRedshift(velocityDefinition, velocity);
+    }
+
+    /**
+     * Get a list of allowed sidebands based on the currently
+     * selected mode.
+     *
+     * Initial implementation: returns null in the case of no restriction.
+     */
+    public List<String> getAvailableSidebands() {
+        String mode = getMode().toLowerCase();
+
+        if (mode.equals("usb") || mode.equals("lsb")) {
+            return Arrays.asList(mode);
+        }
+
+        return null;
     }
 
     public static class BandSpecSelection {

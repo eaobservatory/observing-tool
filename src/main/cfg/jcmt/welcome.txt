@@ -5,7 +5,7 @@ and classes of the old Gemini OT (pre-JSky)[5].
 OT release version ........
 (Swing and JSky)
 
-1. (c) 2015-2022 East Asian Observatory.
+1. (c) 2015-2023 East Asian Observatory.
 
 2. (c) 2007-2015 Science and Technology Facilities Council,
                  Joint Astronomy Centre, Hilo.

@@ -192,6 +192,17 @@
     </xsd:complexType>
 </xsd:element>
 
+<xsd:element name="SpIterSetupObs">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+        <xsd:attribute name="subtype" type="xsd:string" fixed="setupObs"/>
+    </xsd:complexType>
+</xsd:element>
+
 <xsd:element name="SpIterStareObs">
     <xsd:complexType>
         <xsd:sequence>

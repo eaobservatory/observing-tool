@@ -311,7 +311,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
      * Initialises the default values in SpInstHeterodyne.
      */
     private void _initialiseInstHeterodyne() {
-        String frontEndName = _cfg.frontEnds[0];
+        String frontEndName = _cfg.frontEnds[1];
         _receiver = _cfg.receivers.get(frontEndName);
         BandSpec bandSpec = _receiver.bandspecs.get(0);
 
@@ -377,6 +377,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
 
     private void moreSetUp() {
         setAvailableModes();
+        setAvailableSidebands();
         setAvailableRegions();
     }
 
@@ -891,6 +892,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             // (See also the same thing in _initialiseInstHeterodyne.)
             _inst.setFeBandWidth(_receiver.bandWidthLower + _receiver.bandWidthUpper);
             setAvailableModes();
+            setAvailableSidebands();
             setAvailableRegions();
 
         } else {
@@ -1501,6 +1503,31 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
     }
 
+    private void setAvailableSidebands() {
+        List<String> availableSidebands = _inst.getAvailableSidebands();
+        String currentSideband = _inst.getBand();
+        boolean changeSideband = false;
+
+        for (Map.Entry<String, AbstractButton> entry: _w.sbButtons.entrySet()) {
+            String str = entry.getKey();
+
+            if ((availableSidebands == null) || availableSidebands.contains(str)) {
+                entry.getValue().setEnabled(true);
+            }
+            else {
+                if (currentSideband != null && currentSideband.equalsIgnoreCase(str)) {
+                    changeSideband = true;
+                }
+
+                entry.getValue().setEnabled(false);
+            }
+        }
+
+        if (changeSideband) {
+            _inst.setBand(availableSidebands.get(0));
+        }
+    }
+
     private void setAvailableRegions() {
         Vector<BandSpec> bandspecs = _receiver.bandspecs;
         Vector<String> available = new Vector<String>();
@@ -1731,13 +1758,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     }
 
     private void configureFrequencyEditor() {
-        _frequencyEditor.updateDisplay(_inst, _receiver);
+        try {
+            _frequencyEditor.updateDisplay(_inst, _receiver);
 
-        _frequencyEditor.setCallback(new Runnable() {
-            public void run() {
-                hideFreqEditor();
-            }
-        });
+            _frequencyEditor.setCallback(new Runnable() {
+                public void run() {
+                    hideFreqEditor();
+                }
+            });
+        }
+        catch (Exception e) {
+            System.out.println("Unable to configure frequency editor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void getFrequencyEditorConfiguration() {
@@ -1791,6 +1824,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         if (enabled) {
             // Disable anything that should not be available.
             setAvailableModes();
+            setAvailableSidebands();
             setAvailableRegions();
         }
 

@@ -899,6 +899,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Get the proper motion RA.
+     *
+     * Units: milli-arcsec/year, coordinate angle (real angle divided by cos(dec)).
      */
     public String getPropMotionRA() {
         String res = _avTab.get(_tag, PROP_MOTION_RA);
@@ -912,6 +914,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Set the proper motion ra as a string.
+     *
+     * Units: milli-arcsec/year, coordinate angle (real angle divided by cos(dec)).
      */
     public void setPropMotionRA(String raStr) {
         _avTab.set(_tag, raStr, PROP_MOTION_RA);
@@ -920,6 +924,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Get the proper motion Dec.
+     *
+     * Units: milli-arcsec/year.
      */
     public String getPropMotionDec() {
         String res = _avTab.get(_tag, PROP_MOTION_DEC);
@@ -933,6 +939,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Set the proper motion Dec as a string.
+     *
+     * Units: milli-arcsec/year.
      */
     public void setPropMotionDec(String decStr) {
         _avTab.set(_tag, decStr, PROP_MOTION_DEC);
@@ -989,6 +997,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Get the tracking parallax.
+     *
+     * Units: milli-arcsec.
      */
     public String getTrackingParallax() {
         String res = _avTab.get(_tag, TRACKING_PARALLAX);
@@ -1002,6 +1012,8 @@ public final class SpTelescopePos extends TelescopePos implements
 
     /**
      * Set the tracking parallax as a string.
+     *
+     * Units: milli-arcsec.
      */
     public void setTrackingParallax(String trackParallax) {
         _avTab.set(_tag, trackParallax, TRACKING_PARALLAX);
