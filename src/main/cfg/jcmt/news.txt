@@ -1,3 +1,15 @@
++++ May 2023 release
+
+  - Imported new opacity data files.
+
+  - Some lower frequency lines added to line catalog.
+
+  - mu_alpha, mu_delta labels added to proper motion inputs
+    to clarify units.  (Coordinate angle for RA, not
+    component angle mu_alpha * cos delta.)
+
+  - Parallax shown in units of milli-arcsec.
+
 +++ March 2022 release
 
   - Patch for the heterodyne setup panel sometimes not saving
