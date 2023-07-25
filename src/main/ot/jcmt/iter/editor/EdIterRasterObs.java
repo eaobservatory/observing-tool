@@ -43,6 +43,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
+import orac.jcmt.iter.SpIterPOL;
 import orac.jcmt.util.Scuba2Noise;
 import orac.jcmt.util.HeterodyneNoise;
 import orac.jcmt.inst.SpInstSCUBA2;
@@ -745,9 +746,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements
             s2t = new orac.jcmt.util.Scuba2Time();
         }
 
+        SpItem pol_iter = SpTreeMan.findParentOfType(
+                _iterObs, SpIterPOL.class);
+
         double noise = s2n.noiseForMapTotalIntegrationTime(wavelength,
                 s2t.scan(_iterObs), tau, airmass, _iterObs.getWidth(),
-                _iterObs.getHeight(), _iterObs.getScanStrategy());
+                _iterObs.getHeight(), _iterObs.getScanStrategy(),
+                (pol_iter != null));
 
         noise = CoordConvert.round(noise, 3);
         return noise;

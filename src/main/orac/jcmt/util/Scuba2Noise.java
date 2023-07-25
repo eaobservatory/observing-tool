@@ -42,6 +42,7 @@ public class Scuba2Noise {
     public final static double[] scuba2PongSizes = {
             900,
             1800,
+            2700,
             3600,
             7200,
     };
@@ -50,22 +51,34 @@ public class Scuba2Noise {
     // taken from propscuba2itc.pl
 
     private enum Scuba2Wavelength {
-        WL850("850", 189, -48,                           // point
-                new double[]{407, 795, 1675, 3354},      // pong tA
-                new double[]{-104, -203, -428, -857}),   // pong tB
+        WL850("850",
+                189, -48,                                      // point
+                763.2, -64.0,                                  // point pol
+                new double[]{407, 795, 1174, 1675, 3354},      // pong tA
+                new double[]{-104, -203, -300, -428, -857},    // pong tB
+                2.640625, 9.0),                                // binning factors (non-pol, pol)
 
-        WL450("450", 689, -118,                          // point
-                new double[]{1483, 2904, 6317, 12837},   // pong tA
-                new double[]{-254, -497, -1082, -2200}); // pong tB
+        WL450("450",
+                689, -118,                                     // point
+                4626.8, -411.54,                               // point pol
+                new double[]{1483, 2904, 4143, 6317, 12837},   // pong tA
+                new double[]{-254, -497, -709, -1082, -2200},  // pong tB
+                4.0, 36.0);                                    // binning factors (non-pol, pol)
 
         public final String id;
         public final double pointTA;
         public final double pointTB;
+        public final double pointPolTA;
+        public final double pointPolTB;
         public final double[] pongTA;
         public final double[] pongTB;
+        public final double bin;
+        public final double binPol;
 
         Scuba2Wavelength(String id, double pointTA, double pointTB,
-                double[] pongTA, double[] pongTB) {
+                double pointPolTA, double pointPolTB,
+                double[] pongTA, double[] pongTB,
+                double bin, double binPol) {
             this.id = id;
 
             assert (pongTA.length == scuba2PongSizes.length);
@@ -73,8 +86,12 @@ public class Scuba2Noise {
 
             this.pointTA = pointTA;
             this.pointTB = pointTB;
+            this.pointPolTA = pointPolTA;
+            this.pointPolTB = pointPolTB;
             this.pongTA = pongTA;
             this.pongTB = pongTB;
+            this.bin = bin;
+            this.binPol = binPol;
         }
 
         public static Scuba2Wavelength fromId(String id)
@@ -88,9 +105,18 @@ public class Scuba2Noise {
                     + " not known");
         }
 
-        public TATB getTATB(double mapSize, String scanStrategy) {
+        public double getBin(boolean pol) {
+            return pol ? binPol : bin;
+        }
+
+        public TATB getTATB(double mapSize, String scanStrategy, boolean pol) {
             if (SpJCMTConstants.SCAN_PATTERN_POINT.equals(scanStrategy)) {
-                return new TATB(pointTA, pointTB);
+                if (pol) {
+                    return new TATB(pointPolTA, pointPolTB);
+                }
+                else {
+                    return new TATB(pointTA, pointTB);
+                }
 
             } else if (SpJCMTConstants.SCAN_PATTERN_PONG.equals(scanStrategy)) {
                 return new TATB(interpolateParameter(scuba2PongSizes, pongTA,
@@ -141,10 +167,12 @@ public class Scuba2Noise {
     public static final String four50 = Scuba2Wavelength.WL450.id;
     public static final String eight50 = Scuba2Wavelength.WL850.id;
 
-    private static final double fourFiftyTauMultiplicand = 26.0;
-    private static final double eightFiftyTauMultiplicand = 4.6;
-    private static final double fourFiftyTauCorrection = 0.01196;
-    private static final double eightFiftyTauCorrection = 0.00435;
+    private static final double fourFiftyTauMultiplicand = 23.3;
+    private static final double fourFiftyTauCorrection = -0.018;
+    private static final double fourFiftyTauCorrectionSq = 0.05;
+    private static final double eightFiftyTauMultiplicand = 3.71;
+    private static final double eightFiftyTauCorrection = -0.040;
+    private static final double eightFiftyTauCorrectionSq = 0.202;
 
     /**
      * Singleton constructor, private for obvious reasons.
@@ -330,21 +358,24 @@ public class Scuba2Noise {
             throws IllegalArgumentException {
         double tauMultiplicand = 0.0;
         double tauCorrection = 0.0;
+        double tauCorrectionSq = 0.0;
 
         if (four50.equals(waveLength)) {
             tauMultiplicand = fourFiftyTauMultiplicand;
             tauCorrection = fourFiftyTauCorrection;
+            tauCorrectionSq = fourFiftyTauCorrectionSq;
 
         } else if (eight50.equals(waveLength)) {
             tauMultiplicand = eightFiftyTauMultiplicand;
             tauCorrection = eightFiftyTauCorrection;
+            tauCorrectionSq = eightFiftyTauCorrectionSq;
 
         } else {
             throw new IllegalArgumentException("Wave length " + waveLength
                     + " unknown at this time.");
         }
 
-        return tauMultiplicand * (csoTau - tauCorrection);
+        return tauMultiplicand * (csoTau + tauCorrection + tauCorrectionSq * Math.sqrt(csoTau));
     }
 
     /**
@@ -361,7 +392,7 @@ public class Scuba2Noise {
      */
     public double noiseForMapTotalIntegrationTime(String waveLength,
             double time, double csoTau, double airmass, double widthArcSeconds,
-            double heightArcSeconds, String scanStrategy)
+            double heightArcSeconds, String scanStrategy, boolean pol)
             throws IllegalArgumentException {
         double mJy = -1;
 
@@ -371,13 +402,14 @@ public class Scuba2Noise {
 
         Scuba2Wavelength wl = Scuba2Wavelength.fromId(waveLength);
 
-        TATB p = wl.getTATB(mapSize, scanStrategy);
+        TATB p = wl.getTATB(mapSize, scanStrategy, pol);
 
         // binning factor
-        final double factor = 4;
+        final double factor = wl.getBin(pol);
 
-        final double trans = StrictMath.exp(-airmass
-                * calculateTau(waveLength, csoTau));
+        final double opacity = calculateTau(waveLength, csoTau);
+
+        final double trans = StrictMath.exp(-airmass * opacity);
 
         mJy = (p.tA / trans + p.tB) / StrictMath.sqrt(factor * time);
 
@@ -464,7 +496,7 @@ public class Scuba2Noise {
                     result = s2n.noiseForMapTotalIntegrationTime(waveLength,
                             timeSeconds, csoTau, airmass,
                             (widthArcMinutes * 60), (heightArcMinutes * 60),
-                            strategy);
+                            strategy, false);
 
                     System.out.println("Time for map using CSO Tau " + csoTau
                             + ", airmass " + airmass
