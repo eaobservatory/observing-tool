@@ -479,29 +479,6 @@ public class SpTelescopeObsComp extends SpObsComp {
         // _notifyOfGenericUpdate();
     }
 
-    public String writeTCSXML() {
-        StringBuffer xmlString = new StringBuffer(
-                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
-        xmlString.append("<OCS_CONFIG>");
-        xmlString.append("\n  <TCS_CONFIG>");
-        String indent = "  ";
-
-        Enumeration<String> avAttributes = _avTable.attributes();
-
-        while (avAttributes.hasMoreElements()) {
-            String currAttr = avAttributes.nextElement();
-
-            if (!currAttr.startsWith(".")) {
-                this.processAvAttribute(currAttr, indent, xmlString);
-            }
-        }
-
-        xmlString.append("\n  </TCS_CONFIG>");
-        xmlString.append("\n</OCS_CONFIG>");
-
-        return xmlString.toString();
-    }
-
     /**
      * If this SpTelescopeObsComp is contained in a SpSurveyObsComp than this
      * method returns the SpObsData associated with the SpSurveyObsComp.
