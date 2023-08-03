@@ -21,7 +21,6 @@ package orac.jcmt.util;
 
 import gemini.util.CoordSys;
 import orac.util.TelescopeUtil;
-import orac.util.SpItemDOM;
 import orac.validation.SpValidation;
 import orac.jcmt.validation.JcmtSpValidation;
 import orac.jcmt.SpJCMTConstants;
@@ -79,17 +78,6 @@ public class JcmtUtil implements TelescopeUtil {
             default:
                 return false;
         }
-    }
-
-    /**
-     * Sets PreTranslator in SpItemDOM.
-     *
-     * Make sure at the time this method is called SpTelescopePos.BASE_TAG and
-     * SpTelescopePos.GUIDE_TAGS[0] are set to correct values.
-     */
-    public void installPreTranslator() throws Exception {
-        SpItemDOM.setPreTranslator(new JcmtPreTranslator(_targetTags[0],
-                _targetTags[1]));
     }
 
     public String[] getCoordSys() {
