@@ -25,11 +25,11 @@ import gemini.sp.SpItem;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpTreeMan;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.IOException;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
@@ -243,15 +243,15 @@ public class SpInputXML extends DefaultHandler {
         }
     }
 
-    public SpItem xmlToSpItem(String xml) throws Exception {
-        return xmlToSpItem(new StringReader(xml));
+    public SpItem xmlToSpItem(byte[] xml) throws Exception {
+        return xmlToSpItem(new ByteArrayInputStream(xml));
     }
 
-    public SpItem xmlToSpItem(Reader reader) throws Exception {
+    public SpItem xmlToSpItem(InputStream is) throws Exception {
         XMLReader xmlReader =
                 SAXParserFactory.newInstance().newSAXParser().getXMLReader();
         xmlReader.setContentHandler(this);
-        xmlReader.parse(new InputSource(reader));
+        xmlReader.parse(new InputSource(is));
 
         return _currentSpItem;
     }
@@ -261,13 +261,13 @@ public class SpInputXML extends DefaultHandler {
      */
     public static void main(String[] args) {
         try {
-            FileReader fr = new FileReader(args[0]);
-            SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
-            fr.close();
-            FileWriter fw = new FileWriter(args[0]);
-            fw.write(spItem.toXML());
-            fw.flush();
-            fw.close();
+            FileInputStream is = new FileInputStream(args[0]);
+            SpItem spItem = (new SpInputXML()).xmlToSpItem(is);
+            is.close();
+            FileOutputStream os = new FileOutputStream(args[0]);
+            os.write(spItem.toXML());
+            os.flush();
+            os.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

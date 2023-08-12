@@ -31,7 +31,6 @@ import java.awt.Component;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import java.io.PrintStream;
 import java.net.URL;
 import java.util.Vector;
 
@@ -45,9 +44,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 
@@ -102,7 +101,6 @@ public class OtFileIO {
 
         FileOutputStream fos = null;
         OutputStream os = null;
-        PrintStream printStream = null;
 
         if (System.getProperty("DEBUG") != null) {
             System.out.println("Before removing id/idref\n");
@@ -125,7 +123,7 @@ public class OtFileIO {
         // Make sure the msb attributes are set correctly.
         SpItemUtilities.updateMsbAttributes(spItem);
 
-        String xml = spItem.toXML();
+        byte[] xml = spItem.toXML();
 
         try {
             if (f.exists()) {
@@ -135,11 +133,9 @@ public class OtFileIO {
 
             fos = new FileOutputStream(f);
             os = new BufferedOutputStream(fos);
-            printStream = new PrintStream(os);
 
-            printStream.print(xml);
+            os.write(xml);
 
-            printStream.flush();
             os.flush();
             fos.flush();
 
@@ -166,12 +162,6 @@ public class OtFileIO {
 
         } finally {
             try {
-                if (printStream != null) {
-                    printStream.close();
-                } else {
-                    System.out.println("PrintStream was null");
-                }
-
                 if (os != null) {
                     os.close();
                 } else {
@@ -206,10 +196,10 @@ public class OtFileIO {
     }
 
     public static SpRootItem fetchSp(File file) {
-        FileReader fr;
+        FileInputStream is;
 
         try {
-            fr = new FileReader(file);
+            is = new FileInputStream(file);
         } catch (SecurityException se) {
             String path = file.getParent();
             JOptionPane.showMessageDialog(null,
@@ -226,7 +216,7 @@ public class OtFileIO {
 
         }
 
-        return fetchSp(fr);
+        return fetchSp(is);
     }
 
     /**
@@ -235,9 +225,9 @@ public class OtFileIO {
      * @return an SpItem root containing the Science Program if successful,
      *         null otherwise
      */
-    public static SpRootItem fetchSp(Reader rdr) {
+    public static SpRootItem fetchSp(InputStream is) {
         try {
-            return (SpRootItem) (new SpInputXML()).xmlToSpItem(rdr);
+            return (SpRootItem) (new SpInputXML()).xmlToSpItem(is);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
@@ -480,11 +470,11 @@ public class OtFileIO {
             return;
         }
 
-        Reader r = null;
+        InputStream is = null;
 
         try {
-            r = new InputStreamReader(url.openStream());
-            spItem = OtFileIO.fetchSp(r);
+            is = url.openStream();
+            spItem = OtFileIO.fetchSp(is);
 
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(parentComponent,
@@ -494,8 +484,8 @@ public class OtFileIO {
 
         } finally {
             try {
-                if (r != null) {
-                    r.close();
+                if (is != null) {
+                    is.close();
                 }
             } catch (Exception e) {
             }

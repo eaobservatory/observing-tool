@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.net.URL;
 import java.util.zip.GZIPOutputStream;
 import javax.swing.JOptionPane;
@@ -177,32 +178,29 @@ public class SpClient extends SoapClient {
 
             fr.close();
 
-            // get the current science program and convert it to a string
-            String currentSp = currentItem.toXML();
-            Object toSend = null;
-            Class<?> klass = null;
+            // get the current science program and convert it to XML
+            byte[] currentSp = currentItem.toXML();
 
-            toSend = compressString(currentSp);
-            klass = byte[].class;
+            byte[] toSend = compressBytes(currentSp);
 
-            addParameter("TemplateSp", klass, toSend);
+            addParameter("TemplateSp", byte[].class, toSend);
             addParameter("Catalog", String.class, buffer.toString());
             addParameter("compress", String.class, "auto");
             Object o = doCall(getURL(), SOAP_ACTION, "SpInsertCat");
             Object[] tmp = (Object[]) o;
 
             Object sp = tmp[0];
-            String spXML = null;
+            byte[] spXML = null;
 
             if (sp instanceof byte[]) {
-                spXML = new String((byte[]) gunzip(sp));
+                spXML = gunzip((byte[]) sp);
             } else if (sp instanceof String) {
-                spXML = (String) sp;
+                spXML = ((String) sp).getBytes(StandardCharsets.UTF_8);
             }
 
             final String info = (String) tmp[1];
 
-            if (spXML != null && !spXML.equals("")) {
+            if (spXML != null && spXML.length != 0) {
                 System.out.println("Building replicated Science Program");
                 spItem = new SpInputXML().xmlToSpItem(spXML);
             }
@@ -250,12 +248,11 @@ public class SpClient extends SoapClient {
         addParameter("password", String.class, pass);
         addParameter("compress", String.class, "auto");
 
-        String spXML;
+        byte[] spXML;
 
         try {
-            byte[] input = (byte[]) doCall(getURL(), SOAP_ACTION,
+            spXML = (byte[]) doCall(getURL(), SOAP_ACTION,
                     "fetchProgram");
-            spXML = new String(input);
         } catch (NullPointerException npe) {
             throw new NullPointerException("");
         } catch (Exception e) {
@@ -267,8 +264,8 @@ public class SpClient extends SoapClient {
             addParameter("username", String.class, user);
             addParameter("password", String.class, pass);
 
-            spXML = new String((byte[]) doCall(getURL(), SOAP_ACTION,
-                    "fetchProgram"));
+            spXML = (byte[]) doCall(getURL(), SOAP_ACTION,
+                    "fetchProgram");
         }
 
         SpItem spItem = (new SpInputXML()).xmlToSpItem(spXML);
@@ -322,35 +319,34 @@ public class SpClient extends SoapClient {
         spProg.setOTVersion();
         spProg.setTelescope();
 
-        String sp = spProg.toXML();
+        byte[] sp = spProg.toXML();
 
         String forceString = force ? "1" : "0";
 
-        byte[] toSend = compressString(sp);
+        byte[] toSend = compressBytes(sp);
 
         flushParameter();
 
         addParameter("sp", byte[].class, toSend);
-        addParameter("provider", byte[].class, provider.getBytes());
-        addParameter("username", byte[].class, user.getBytes());
-        addParameter("password", byte[].class, pass.getBytes());
-        addParameter("force", byte[].class, forceString.getBytes());
+        addParameter("provider", String.class, provider);
+        addParameter("username", String.class, user);
+        addParameter("password", String.class, pass);
+        addParameter("force", String.class, forceString);
 
         return new SpStoreResult(doCall(getURL(), SOAP_ACTION, "storeProgram"));
     }
 
-    private static byte[] compressString(String input) {
+    private static byte[] compressBytes(byte[] input) {
         byte[] toSend;
 
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             GZIPOutputStream gos = new GZIPOutputStream(bos);
 
-            byte[] bytes = input.getBytes();
             byte[] buff = new byte[1024];
             int len;
 
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            ByteArrayInputStream bis = new ByteArrayInputStream(input);
 
             while ((len = bis.read(buff)) > 0) {
                 gos.write(buff, 0, len);
@@ -367,7 +363,7 @@ public class SpClient extends SoapClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-            toSend = input.getBytes();
+            toSend = input;
         }
         return toSend;
     }
