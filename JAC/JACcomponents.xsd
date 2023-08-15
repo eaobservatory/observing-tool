@@ -104,11 +104,8 @@
         <xsd:sequence>
             <xsd:group   ref="toml:jac_meta_group"/>
             <xsd:element ref="toml:BASE"                                maxOccurs="unbounded"/>
-            <xsd:element name="fitsKey"     type="toml:fitsKeyType"    minOccurs="0"/>
-            <xsd:element name="fitsValue"   type="toml:fitsValueType"  minOccurs="0"/>
             <xsd:element name="pm1"         type="xsd:double"          minOccurs="0"/>
             <xsd:element name="pm2"         type="xsd:double"          minOccurs="0"/>
-            <xsd:element name="positionInTile" type="xsd:integer"      minOccurs="0"/>
         </xsd:sequence>
         <xsd:attribute name="type" type="toml:SpType" fixed="oc"/>
         <xsd:attribute name="subtype" type="xsd:string" fixed="targetList"/>
