@@ -214,7 +214,7 @@
         <xsd:element ref="toml:estimatedDuration"/>
         <xsd:element ref="toml:version" minOccurs="0"/>
         <xsd:element ref="toml:priority" minOccurs="0"/>
-        <xsd:element ref="toml:title"/>
+        <xsd:element name="title" type="toml:nameType"/>
         <xsd:element ref="toml:totalDuration"/>
     </xsd:sequence>
 </xsd:group>
