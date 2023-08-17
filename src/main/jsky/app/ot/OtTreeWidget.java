@@ -150,12 +150,8 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
 
     /**
      * Add tree nodes for all the children of the program item.
-     *
-     * Returns the selected node if any.  The selected node is determined by
-     * the GUI_SELECTED attribute being true.
      */
-    private final OtTreeNodeWidget _populateTree(OtTreeNodeWidget rootTNW) {
-        OtTreeNodeWidget selected = null;
+    private final void _populateTree(OtTreeNodeWidget rootTNW) {
         SpItem spItem = rootTNW.getItem();
 
         int index = 0;
@@ -170,28 +166,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
                 tnw.setText(child.getTitle());
                 rootTNW.add(index, tnw);
 
-                OtTreeNodeWidget lastSelected = _populateTree(tnw);
-                if (selected == null) {
-                    selected = lastSelected;
-                }
-
-                // Was this node selected?
-                if (child.getTable().getBool(GUI_SELECTED)) {
-                    /*
-                     * Arbitrarily prefer the first selected node encountered
-                     * if there is a conflict.  This can happen when your
-                     * program or plan has observation links.
-                     * Observation links contain observations and upon a fetch
-                     * the most recent version of the observation is recalled.
-                     * It may have been selected at the time the program was
-                     * stored.
-                     */
-                    if (selected == null) {
-                        selected = tnw;
-                    }
-
-                    child.getTable().set(GUI_SELECTED, false);
-                }
+                _populateTree(tnw);
 
                 // Make sure this node is expanded/collapsed correctly.
                 ignoreActions = true; // added by MFO (31 July 2001)
@@ -201,8 +176,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
                 ++index;
             }
         }
-
-        return selected;
     }
 
     /**
@@ -275,29 +248,12 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
 
         // Fill in the tree with the program items
         add(_otTNW);
-        OtTreeNodeWidget selected = _populateTree(_otTNW);
+        _populateTree(_otTNW);
 
-        // Init the tree display
-        if (selected == null) {
-            selected = _otTNW;
-        }
-
-        selected.select(); // selects the tree node
+        _otTNW.select(); // selects the tree node
 
         // added by MFO (06 July 2001)
         tree.expandRow(0);
-    }
-
-    /**
-     * Get the selected node and remember that it was selected by storing a
-     * special attribute.
-     *
-     * When the program is returned, we will use this attribute to reselect
-     * this node.
-     */
-    public void rememberSelection() {
-        OtTreeNodeWidget selected = (OtTreeNodeWidget) getSelectedNode();
-        selected.getItem().getTable().set(GUI_SELECTED, true);
     }
 
     /**
