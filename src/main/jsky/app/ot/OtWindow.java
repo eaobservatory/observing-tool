@@ -397,8 +397,6 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
                 fileInfo.dir = dir;
                 fileInfo.filename = filename;
                 fileInfo.hasBeenSaved = hasBeenSaved;
-            } else {
-                fileInfo.dir = avTab.get(".gui.dir");
             }
         }
 
@@ -474,8 +472,6 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
                 fileInfo.dir = dir;
                 fileInfo.filename = filename;
                 fileInfo.hasBeenSaved = hasBeenSaved;
-            } else {
-                dir = avTab.get(".gui.dir");
             }
         }
         _progInfo.file = fileInfo;
