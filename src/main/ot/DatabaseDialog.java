@@ -27,6 +27,7 @@ import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 import java.net.URI;
@@ -422,7 +423,7 @@ public class DatabaseDialog implements ActionListener {
                     String response = "You may now return to the OT.";
                     t.sendResponseHeaders(200, response.length());
                     OutputStream os = t.getResponseBody();
-                    os.write(response.getBytes());
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
                     os.close();
 
                     final Map<String, String> query = new HashMap<String, String>();

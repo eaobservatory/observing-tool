@@ -34,7 +34,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -397,8 +397,6 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
                 fileInfo.dir = dir;
                 fileInfo.filename = filename;
                 fileInfo.hasBeenSaved = hasBeenSaved;
-            } else {
-                fileInfo.dir = avTab.get(".gui.dir");
             }
         }
 
@@ -474,8 +472,6 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
                 fileInfo.dir = dir;
                 fileInfo.filename = filename;
                 fileInfo.hasBeenSaved = hasBeenSaved;
-            } else {
-                dir = avTab.get(".gui.dir");
             }
         }
         _progInfo.file = fileInfo;
@@ -1298,8 +1294,8 @@ public abstract class OtWindow extends SpTreeGUI implements SpEditChangeObserver
 
         try {
             OtCfg.init();
-            FileReader rdr = new FileReader(args[0]);
-            SpItem item = (new SpInputXML()).xmlToSpItem(rdr);
+            FileInputStream is = new FileInputStream(args[0]);
+            SpItem item = (new SpInputXML()).xmlToSpItem(is);
             Vector<ErrorMessage> report = OtWindow.doValidation(item);
             ErrorMessage.printMessages(report, System.out);
 

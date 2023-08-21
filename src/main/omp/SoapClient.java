@@ -19,6 +19,7 @@
 package omp;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.util.Vector;
 import java.util.zip.GZIPInputStream;
@@ -151,7 +152,7 @@ public class SoapClient {
                 params.clear();
 
                 if (obj instanceof byte[]) {
-                    obj = gunzip(obj);
+                    obj = gunzip((byte[]) obj);
                 }
 
                 // Extract the header.
@@ -225,13 +226,11 @@ public class SoapClient {
         return null;
     }
 
-    public static Object gunzip(Object candidate) {
-        if (candidate != null) {
+    public static byte[] gunzip(byte[] input) {
+        if (input != null) {
             try {
                 System.out.println("Attempting to gunzip");
 
-                byte[] input = null;
-                input = (byte[]) candidate;
                 int head = ((int) input[0] & 0xff) | ((input[1] << 8) & 0xff00);
                 boolean heads = GZIPInputStream.GZIP_MAGIC == head;
                 boolean tails = (char) input[0] != '<'
@@ -245,16 +244,16 @@ public class SoapClient {
 
                     byte[] read = new byte[1024];
                     int len;
-                    StringBuffer sb = new StringBuffer();
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
                     while ((len = gis.read(read)) > 0) {
-                        sb.append(new String(read, 0, len));
+                        bos.write(read, 0, len);
                     }
 
                     gis.close();
                     bis.close();
 
-                    candidate = sb.toString().getBytes();
+                    input = bos.toByteArray();
 
                 } else {
                     System.out.println("Does not appear to be gzip'd");
@@ -267,6 +266,6 @@ public class SoapClient {
             }
         }
 
-        return candidate;
+        return input;
     }
 }

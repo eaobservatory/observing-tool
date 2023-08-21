@@ -44,9 +44,7 @@ import java.util.Vector;
 import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
-import java.io.InputStreamReader;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.io.IOException;
 import java.net.URL;
 
@@ -1338,30 +1336,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         if (url != null) {
             try {
                 InputStream is = url.openStream();
-                InputStreamReader reader = new InputStreamReader(is);
-                int readLength = 0;
-                char[] chars = new char[1024];
-                StringBuffer buffer = new StringBuffer();
 
-                while (!reader.ready()) {
-                }
-
-                while ((readLength = reader.read(chars)) != -1) {
-                    buffer.append(chars, 0, readLength);
-                }
-
-                reader.close();
-                is.close();
-
-                String buffer_z = buffer.toString();
                 DOMParser parser = new DOMParser();
                 parser.setFeature("http://xml.org/sax/features/validation",
                         false);
                 parser.setFeature(
                         "http://apache.org/xml/features/dom/include-ignorable-whitespace",
                         false);
-                parser.parse(new InputSource(new StringReader(buffer_z)));
+                parser.parse(new InputSource(is));
                 doc = parser.getDocument();
+
+                is.close();
 
                 if (doc != null) {
                     NodeList nl = doc.getElementsByTagName("name");

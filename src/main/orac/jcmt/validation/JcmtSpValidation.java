@@ -502,12 +502,21 @@ public class JcmtSpValidation extends SpValidation {
                                     offDec = offsets[1];
                                 }
 
-                                if (Math.sqrt(offRA * offRA + offDec * offDec) < 120.0) {
+                                double offDistance = Math.sqrt(offRA * offRA + offDec * offDec);
+
+                                if (offDistance < 120.0) {
                                     report.add(new ErrorMessage(
                                         ErrorMessage.WARNING,
                                         titleString,
                                         "Position-switched observation REFERENCE"
                                         + " is within 120 arcseconds from target."));
+                                }
+                                else if (offDistance > 3600.0) {
+                                    report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "Position-switched observation REFERENCE"
+                                        + " is more than one degree from target."));
                                 }
                             } catch (UnsupportedOperationException uoe) {
                                 // Can be thrown by CoordConvert.convert.

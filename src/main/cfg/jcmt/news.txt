@@ -1,3 +1,12 @@
++++ August 2023 release
+
+  - Update SCUBA-2 noise calculation parameters.
+
+  - Add check to validator for reference positions more
+    than one degree away.
+
+  - Ensure science program XML is written as UTF-8.
+
 +++ May 2023 release
 
   - Imported new opacity data files.

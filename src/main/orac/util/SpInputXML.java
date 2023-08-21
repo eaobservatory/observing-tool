@@ -25,11 +25,11 @@ import gemini.sp.SpItem;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpTreeMan;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.IOException;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
@@ -82,13 +82,6 @@ import org.xml.sax.InputSource;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SpInputXML extends DefaultHandler {
-    /**
-     * Used to check whether XML format is old (SpItemDOM based) or new.
-     *
-     * First 200 characters of XML file are read into this buffer to check
-     * format.
-     */
-    private static char[] _xmlBuffer = new char[200];
     public static final String XML_ATTR_TYPE = "type";
     public static final String XML_ATTR_SUBTYPE = "subtype";
     private String _currentElement;
@@ -250,56 +243,17 @@ public class SpInputXML extends DefaultHandler {
         }
     }
 
-    public SpItem xmlToSpItem(String xml) throws Exception {
-        return xmlToSpItem(new StringReader(xml));
+    public SpItem xmlToSpItem(byte[] xml) throws Exception {
+        return xmlToSpItem(new ByteArrayInputStream(xml));
     }
 
-    public SpItem xmlToSpItem(Reader reader) throws Exception {
-        // A BufferedReader is only need to reset the stream inside
-        // isOldXmlFormat(BufferedReader). Once there are no Science Programs
-        // in the old XML format in circulation anymore things like
-        // isOldXmlFormat, SpItemDOM can go and the normal. Reader can be
-        // used instead of the BufferedReader.
-        BufferedReader bufferedReader = new BufferedReader(reader);
-
-        if (isOldXmlFormat(bufferedReader)) {
-            System.out.println("Converting from old XML format.");
-            return (new SpItemDOM(bufferedReader)).getSpItem();
-        }
-
+    public SpItem xmlToSpItem(InputStream is) throws Exception {
         XMLReader xmlReader =
                 SAXParserFactory.newInstance().newSAXParser().getXMLReader();
         xmlReader.setContentHandler(this);
-        xmlReader.parse(new InputSource(bufferedReader));
+        xmlReader.parse(new InputSource(is));
 
         return _currentSpItem;
-    }
-
-    /**
-     * Checks whether XML format is old (based on SpItemDOM conversion).
-     *
-     * @param reader buffered reader to read XML.
-     *
-     * @return true if file contains old XML format (based on SpItemDOM
-     *         conversion)
-     */
-    public static boolean isOldXmlFormat(BufferedReader reader) {
-        try {
-            reader.mark(_xmlBuffer.length + 10);
-            reader.read(_xmlBuffer, 0, _xmlBuffer.length);
-            reader.reset();
-
-            String xmlStart = new String(_xmlBuffer);
-
-            if ((xmlStart != null) && (xmlStart.indexOf("ItemData") >= 0)) {
-                return true;
-            }
-        } catch (IOException e) {
-            System.out.println("Problem while checking XML format: " + e
-                    + ". Using new XML format.");
-        }
-
-        return false;
     }
 
     /**
@@ -307,13 +261,13 @@ public class SpInputXML extends DefaultHandler {
      */
     public static void main(String[] args) {
         try {
-            FileReader fr = new FileReader(args[0]);
-            SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
-            fr.close();
-            FileWriter fw = new FileWriter(args[0]);
-            fw.write(spItem.toXML());
-            fw.flush();
-            fw.close();
+            FileInputStream is = new FileInputStream(args[0]);
+            SpItem spItem = (new SpInputXML()).xmlToSpItem(is);
+            is.close();
+            FileOutputStream os = new FileOutputStream(args[0]);
+            os.write(spItem.toXML());
+            os.flush();
+            os.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

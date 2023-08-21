@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>ACSIS.xml</meta_gui_filename>
   <ot_version>20210707</ot_version>
   <telescope>jcmt</telescope>
+  <title>ACSIS Library</title>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <SpLibraryFolder type="lf" subtype="none">

@@ -113,8 +113,6 @@ public interface TelescopeUtil {
 
     public boolean supports(int feature);
 
-    public void installPreTranslator() throws Exception;
-
     /**
      * Returns an array of default coordinates.
      *

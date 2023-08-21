@@ -19,8 +19,9 @@
 
 package orac.validation;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -89,13 +90,13 @@ public class SpValidation {
         }
 
         // Change the SpProg to a document, since this is more easily checked
-        String xmlStr = spProg.toXML();
+        byte[] xml = spProg.toXML();
         DOMParser parser = new DOMParser();
         Document doc = null;
         try {
             // Turn off validation
             parser.setFeature("http://xml.org/sax/features/validation", false);
-            parser.parse(new InputSource(new StringReader(xmlStr)));
+            parser.parse(new InputSource(new ByteArrayInputStream(xml)));
             doc = parser.getDocument();
 
         } catch (IOException e) {
@@ -781,13 +782,13 @@ public class SpValidation {
      * in its toXML method.  In this class we apply the actual location of
      * the schema.  A SAX parser is used to parse the string.
      *
-     * @param xmlString  The current XML representation of the science project
+     * @param xml        The current XML representation of the science project
      * @param schemaURL  Fully qualified file name for the schema.
      * @param schemaLocation Location of schema.
      *
      * @return           A vector of strings containing the validation errors
      */
-    public void schemaValidate(String xmlString, String schemaURL,
+    public void schemaValidate(byte[] xml, String schemaURL,
             String schemaLocation, Vector<ErrorMessage> report) {
         // Make sure the schema exists
         if (schemaLocation == null) {
@@ -805,7 +806,8 @@ public class SpValidation {
         }
 
         SAXParser parser = new SAXParser();
-        SchemaErrorHandler handler = new SchemaErrorHandler(xmlString);
+        SchemaErrorHandler handler = new SchemaErrorHandler(
+            new String(xml, StandardCharsets.UTF_8));
         SchemaContentHandler contentHandler = new SchemaContentHandler();
         parser.setErrorHandler(handler);
         parser.setContentHandler(contentHandler);
@@ -820,7 +822,7 @@ public class SpValidation {
             parser.setProperty(
                     "http://apache.org/xml/properties/schema/external-schemaLocation",
                     schemaURL + " " + schemaLocation);
-            parser.parse(new InputSource(new StringReader(xmlString)));
+            parser.parse(new InputSource(new ByteArrayInputStream(xml)));
 
         } catch (SAXNotRecognizedException e) {
             System.out.println("Unrecognized feature");

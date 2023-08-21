@@ -50,7 +50,8 @@
 
 <xsd:simpleType name="nameType">
     <xsd:restriction base="toml:asciiType">
-        <xsd:pattern value="[^$\\/]*[^$\\/]*"/>
+        <!-- Range of values allowed in FITS headers: 0x20 - 0x7E. -->
+        <xsd:pattern value="[ -~]*"/>
     </xsd:restriction>
 </xsd:simpleType>
 

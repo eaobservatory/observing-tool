@@ -51,26 +51,6 @@
     </xsd:sequence>
 </xsd:complexType>
 
-<xsd:complexType name="fitsKeyType"  mixed="true">
-    <xsd:complexContent>
-        <xsd:restriction base="xsd:anyType">
-            <xsd:choice>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-            </xsd:choice>
-        </xsd:restriction>
-    </xsd:complexContent>
-</xsd:complexType>
-
-<xsd:complexType name="fitsValueType"  mixed="true">
-    <xsd:complexContent>
-        <xsd:restriction base="xsd:anyType">
-            <xsd:choice>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-            </xsd:choice>
-        </xsd:restriction>
-    </xsd:complexContent>
-</xsd:complexType>
-
 
 <!-- Groups used locally at the JAC -->
 
@@ -78,15 +58,12 @@
     <xsd:sequence>
         <xsd:element ref="toml:meta_display_airmass"          minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
-        <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_hasBeenSaved"         minOccurs="0"/>
-        <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_selectedTelescopePos" minOccurs="0"/>
         <xsd:element ref="toml:meta_gui_selectedTelObsComp"   minOccurs="0"/>
         <xsd:element ref="toml:meta_unique"                   minOccurs="0"/>
-        <xsd:element ref="toml:meta_version"                  minOccurs="0"/>
     </xsd:sequence>
 </xsd:group>
 

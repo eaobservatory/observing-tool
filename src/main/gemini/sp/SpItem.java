@@ -32,6 +32,7 @@ import jsky.app.ot.OtCfg;
 
 import java.util.Enumeration;
 import java.util.Observable;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Implements Enumeration.
@@ -875,13 +876,13 @@ public class SpItem extends Observable implements Cloneable,
      * &lt;SpItem&gt;
      * </tt></pre>
      */
-    public String toXML() {
-        StringBuffer buffer = new StringBuffer();
+    public byte[] toXML() {
+        StringBuffer buffer = new StringBuffer(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
         toXML("", buffer);
 
-        return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                + buffer.toString();
+        return buffer.toString().getBytes(StandardCharsets.UTF_8);
     }
 
     /**

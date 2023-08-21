@@ -369,7 +369,6 @@ public final class OtCfg {
             try {
                 telescopeUtil = (TelescopeUtil) Class.forName(
                         cfgInfo.telescopeUtilClass).newInstance();
-                telescopeUtil.installPreTranslator();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(

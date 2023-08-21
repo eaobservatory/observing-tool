@@ -112,17 +112,6 @@ public class SpTelescopeObsComp extends SpObsComp {
     public static final String ATTR_CHOP_ANGLE = "chopAngle";
     public static final String ATTR_CHOP_SYSTEM = "chopSystem";
 
-    /** @see #getFitsKey(int) */
-    public static final String ATTR_FITS_KEY = "fitsKey";
-
-    /** @see #getFitsValue(int) */
-    public static final String ATTR_FITS_VALUE = "fitsValue";
-
-    /** @see #getPositionInTile() */
-    public static final String ATTR_POSITION_IN_TILE = "positionInTile";
-
-    /** @see #getPositionInTile() */
-    public static final int NOT_IN_TILE = -1;
     protected SpTelescopePosList _posList;
 
     /** Needed for XML parsing. */
@@ -236,129 +225,6 @@ public class SpTelescopeObsComp extends SpObsComp {
         if (_posList != null) {
             _posList.setTable(avTab);
         }
-    }
-
-    /**
-     * Get the FITS key at the given index.
-     *
-     * @param index Index of one of the FITS key/value pairs.
-     *
-     * @see #setFitsValue(String, int)
-     */
-    public String getFitsKey(int index) {
-        return _avTable.get(ATTR_FITS_KEY, index);
-    }
-
-    /**
-     * Set the FITS key at the given index.
-     *
-     * @param index Index of one of the FITS key/value pairs.
-     *
-     * @see #setFitsValue(String, int)
-     */
-    public void setFitsKey(String fitsKey, int index) {
-        _avTable.set(ATTR_FITS_KEY, fitsKey, index);
-    }
-
-    /**
-     * Get the FITS value at the given index.
-     *
-     * @param index Index of one of the FITS key/value pairs.
-     *
-     * @see #setFitsKey(String, int)
-     */
-    public String getFitsValue(int index) {
-        return _avTable.get(ATTR_FITS_VALUE, index);
-    }
-
-    /**
-     * Set the FITS value at the given index.
-     *
-     * @param index Index of one of the FITS key/value pairs.
-     *
-     * @see #setFitsKey(String, int)
-     */
-    public void setFitsValue(String fitsValue, int index) {
-        _avTable.set(ATTR_FITS_VALUE, fitsValue, index);
-    }
-
-    /**
-     * Get the number of FITS key/value pairs.
-     *
-     * The maximum index for the methods
-     *
-     * <ul>
-     * <li>{@link #getFitsKey(int)}
-     * <li>{@link #setFitsKey(String,int)}
-     * <li>{@link #getFitsValue(int)}
-     * <li>{@link #setFitsValue(String,int)}
-     * </ul>
-     *
-     * is <tt>getFitsCount() - 1</tt>.
-     *
-     * @see #getFitsKey(int)
-     * @see #getFitsValue(int)
-     */
-    public int getFitsCount() {
-        return _avTable.size(ATTR_FITS_KEY);
-    }
-
-    /**
-     * Returns the position of this target in a tile if this SpTelescopePosList
-     * was created as part of a tile by the survey definition tool.
-     *
-     * Pointings created by the survey definition tool and belonging to the
-     * same tile are numbered through from 0 to n-1 where n is the number of
-     * pointings in the tile. E.g. in a standard tile containing 2 X 2
-     * pointings this method returns
-     *
-     * <pre>
-     * &quot;lower right&quot; pointing in tile: getPositionInTile() returns 0
-     * &quot;upper right&quot; pointing in tile: getPositionInTile() returns 1
-     * &quot;lower left&quot;  pointing in tile: getPositionInTile() returns 2
-     * &quot;upper left&quot;  pointing in tile: getPositionInTile() returns 3
-     * </pre>
-     *
-     * If this SpTelescopeObsComp was not created as part of a tile then
-     * {@link #NOT_IN_TILE} is returned.
-     * <p>
-     *
-     * The number returned by this method is <b>not</b> the <tt>TILENUM</tt>
-     * in the FITS header. The <tt>TILENUM</tt> in the FITS header comes from
-     * the DHS. It is incremented through the "startTile" command in the EXEC
-     * file which in turn is inserted into the EXEC by the translator when a
-     * SpTelescopeObsComp with getPositionInTile() == 0 is encountered.
-     * <p>
-     *
-     * Example:
-     *
-     * <pre>
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 1, say
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 1
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 1
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 1
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 2
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 2
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 2
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 2
-     * &quot;lower right&quot; pointing in new tile: getPositionInTile() returns 0 =&gt; &quot;startTile&quot; =&gt; TILENUM == 3
-     * &quot;upper right&quot; pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 3
-     * &quot;lower left&quot;  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 3
-     * &quot;upper left&quot;  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 3
-     * ...
-     * </pre>
-     *
-     *
-     */
-    public int getPositionInTile() {
-        return _avTable.getInt(ATTR_POSITION_IN_TILE, NOT_IN_TILE);
-    }
-
-    /**
-     * @see #getPositionInTile()
-     */
-    public void setPositionInTile(int positionInTile) {
-        _avTable.set(ATTR_POSITION_IN_TILE, positionInTile);
     }
 
     /**
@@ -477,29 +343,6 @@ public class SpTelescopeObsComp extends SpObsComp {
         // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
         // (for TelescopesPosWatcher or TelescopePosListWatcher).
         // _notifyOfGenericUpdate();
-    }
-
-    public String writeTCSXML() {
-        StringBuffer xmlString = new StringBuffer(
-                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
-        xmlString.append("<OCS_CONFIG>");
-        xmlString.append("\n  <TCS_CONFIG>");
-        String indent = "  ";
-
-        Enumeration<String> avAttributes = _avTable.attributes();
-
-        while (avAttributes.hasMoreElements()) {
-            String currAttr = avAttributes.nextElement();
-
-            if (!currAttr.startsWith(".")) {
-                this.processAvAttribute(currAttr, indent, xmlString);
-            }
-        }
-
-        xmlString.append("\n  </TCS_CONFIG>");
-        xmlString.append("\n</OCS_CONFIG>");
-
-        return xmlString.toString();
     }
 
     /**

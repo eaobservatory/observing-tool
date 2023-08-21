@@ -8,15 +8,12 @@
 <!-- Unique JAC elements -->
 <xsd:element name="meta_display_airmass"       type="xsd:boolean"/>
 <xsd:element name="meta_gui_collapsed"         type="xsd:boolean"/>
-<xsd:element name="meta_gui_selected"          type="xsd:boolean"/>
 <xsd:element name="meta_gui_filename"          type="xsd:string"/>
 <xsd:element name="meta_gui_hasBeenSaved"      type="xsd:boolean"/>
-<xsd:element name="meta_gui_dir"               type="xsd:boolean"/>
 <xsd:element name="meta_gui_selectedOffsetPos" type="xsd:string"/>
 <xsd:element name="meta_unique"                type="xsd:boolean"/>
 <xsd:element name="meta_gui_selectedTelescopePos"  type="xsd:string"/>
 <xsd:element name="meta_gui_selectedTelObsComp"  type="xsd:string"/>
-<xsd:element name="meta_version"                type="xsd:string"/>
 
 <!-- Substituted JAC elements -->
 <xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="toml:version"/>

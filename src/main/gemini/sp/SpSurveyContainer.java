@@ -499,14 +499,7 @@ public class SpSurveyContainer extends SpObsContextItem {
                         // having to specity position in tile.
 
                         if (positionInTile != -1) {
-                            spTelescopeObsComp.setPositionInTile(
-                                    positionInTile);
-
-                            spTelescopeObsComp.setFitsKey("SURVEY", 0);
-                            spTelescopeObsComp.setFitsValue(getSurveyID(), 0);
-
-                            spTelescopeObsComp.setFitsKey("SURVEY_I", 1);
-                            spTelescopeObsComp.setFitsValue(name, 1);
+                            // No longer used.
                         }
                     }
                 } else {
