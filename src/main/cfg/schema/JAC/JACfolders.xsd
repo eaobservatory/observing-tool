@@ -8,7 +8,6 @@
     <xsd:complexType>
         <xsd:sequence>
             <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
             <xsd:element name="title" type="xsd:string" minOccurs="0"/>
             <xsd:group   ref="toml:sequenceContent"    minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
@@ -31,7 +30,6 @@
     <xsd:complexType>
         <xsd:sequence>
             <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
             <xsd:element ref="toml:SECONDARY"/>
             <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
@@ -44,7 +42,6 @@
     <xsd:complexType>
         <xsd:sequence>
             <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-            <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
             <xsd:element ref="toml:repeatCount"/>
             <xsd:element ref="toml:title" minOccurs="0"/>
             <xsd:group   ref="toml:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
@@ -58,7 +55,6 @@
     <xsd:complexType>
         <xsd:sequence>
             <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
-            <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
             <xsd:element ref="toml:meta_gui_selectedOffsetPos" minOccurs="0"/>
             <xsd:element ref="toml:obsArea"/>
             <xsd:element ref="toml:title"                      minOccurs="0"/>
