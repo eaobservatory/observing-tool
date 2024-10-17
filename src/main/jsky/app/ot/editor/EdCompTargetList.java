@@ -56,6 +56,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import gemini.util.Assert;
 import gemini.util.CoordSys;
+import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.util.gui.ProgressException;
@@ -64,6 +65,12 @@ import orac.util.TelescopeUtil;
 import ot.util.DialogUtil;
 import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
+
+import jsky.interop.SampHelper;
+import org.astrogrid.samp.client.HubConnection;
+import org.astrogrid.samp.gui.GuiHubConnector;
+import org.astrogrid.samp.Message;
+import org.astrogrid.samp.SampUtils;
 
 import ot.util.Horizons;
 import java.util.TreeMap;
@@ -197,6 +204,7 @@ public class EdCompTargetList extends OtItemEditor implements
         _w.newButton.addActionListener(this);
         _w.removeButton.addActionListener(this);
         _w.plotButton.addActionListener(this);
+        _w.broadcastButton.addActionListener(this);
         _w.setBaseButton.addActionListener(this);
         _w.resolveButton.addActionListener(this);
 
@@ -1016,6 +1024,69 @@ public class EdCompTargetList extends OtItemEditor implements
     }
 
     /**
+     * Get the current position, converted to FK5, and with offsets applied.
+     *
+     * Combines the logic of the above _updateCoordSystem method with the
+     * offset logic from SpTelescopePos.getAxis.
+     */
+    private RADec _getCurrentPositionFK5() {
+        if (_curPos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL) {
+            throw new UnsupportedOperationException(
+                "Only RA/Dec type coordinates can be converted to J2000.");
+        }
+
+        int current = _curPos.getCoordSys();
+        double ra = 0.0;
+        double dec = 0.0;
+
+        if (_curPos.isOffsetPosition() && ! _curPos.isBasePosition()) {
+            // In the non-base position case, SpTelescopePos.getXaxisAsString
+            // does not apply offsets, so do that here.
+
+            SpTelescopePos basePos = _tpl.getBasePosition();
+            int baseSys = basePos.getCoordSys();
+            if (baseSys != current) {
+                throw new UnsupportedOperationException(
+                    "Cannot apply offsets in different system to base position.");
+            }
+
+            // Copy of logic below for getting the current position as double.
+            double xaxis = 0.0;
+            double yaxis = 0.0;
+            if (baseSys == CoordSys.FK5 || baseSys == CoordSys.FK4) {
+                xaxis = HHMMSS.valueOf(basePos.getXaxisAsString());
+                yaxis = DDMMSS.valueOf(basePos.getYaxisAsString());
+            }
+            else {
+                // TODO: need to apply offsets here in the base position case?
+                xaxis = basePos.getRealXaxis();
+                yaxis = basePos.getRealYaxis();
+            }
+
+            double xoff = _curPos.getXaxis();
+            double yoff = _curPos.getYaxis();
+
+            double[] axis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff);
+
+            ra = axis[0];
+            dec = axis[1];
+        }
+        else {
+            if (current == CoordSys.FK5 || current == CoordSys.FK4) {
+                ra = HHMMSS.valueOf(_curPos.getXaxisAsString());
+                dec = DDMMSS.valueOf(_curPos.getYaxisAsString());
+            }
+            else {
+                // TODO: need to apply offsets here in the base position case?
+                ra = _curPos.getRealXaxis();
+                dec = _curPos.getRealYaxis();
+            }
+        }
+
+        return CoordConvert.convert(ra, dec, current, CoordSys.FK5);
+    }
+
+    /**
      * Set the labels for the x and y coordinate text boxes.
      *
      * <pre><tt>
@@ -1381,6 +1452,34 @@ public class EdCompTargetList extends OtItemEditor implements
         } else if (w == _w.plotButton) {
             try {
                 TpeManager.open(_spItem);
+            } catch (Exception e) {
+                DialogUtil.error(e);
+            }
+
+            return;
+
+        } else if (w == _w.broadcastButton) {
+            try {
+                RADec raDec = _getCurrentPositionFK5();
+
+                SampHelper helper = SampHelper.getInstance();
+                if (helper == null) {
+                    throw new Exception("To broadcast coordinates, please open the position editor\nand ensure it is connected to a SAMP hub.");
+                }
+                GuiHubConnector hc = helper.getConnector();
+                if (hc == null) {
+                    throw new Exception("To broadcast coordinates, please open the position editor\nand ensure it is connected to a SAMP hub.");
+                }
+                HubConnection connection = hc.getConnection();
+                if (connection == null) {
+                    throw new Exception("Please ensure the position editor is connected to a SAMP hub.");
+                }
+
+                Message msg = new Message("coord.pointAt.sky");
+                msg.addParam("ra", SampUtils.encodeFloat(raDec.ra));
+                msg.addParam("dec", SampUtils.encodeFloat(raDec.dec));
+                connection.notifyAll(msg);
+
             } catch (Exception e) {
                 DialogUtil.error(e);
             }
