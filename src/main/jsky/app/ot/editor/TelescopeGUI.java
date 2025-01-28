@@ -99,6 +99,7 @@ public class TelescopeGUI extends JPanel {
     JComboBox newButton = new JComboBox();
     CommandButtonWidgetExt plotButton = new CommandButtonWidgetExt();
     CommandButtonWidgetExt removeButton = new CommandButtonWidgetExt();
+    CommandButtonWidgetExt broadcastButton = new CommandButtonWidgetExt();
     GridBagLayout gridBagLayout4 = new GridBagLayout();
     TextBoxWidgetExt detailsEpochTBW = new TextBoxWidgetExt();
     GridBagLayout gridBagLayout3 = new GridBagLayout();
@@ -249,10 +250,12 @@ public class TelescopeGUI extends JPanel {
         newLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         newButton.setForeground(Color.black);
         newButton.setFont(new java.awt.Font("Dialog", 0, 12));
-        plotButton.setMargin(new Insets(2, 10, 2, 10));
+        plotButton.setMargin(new Insets(2, 2, 2, 2));
         plotButton.setText("Plot...");
         removeButton.setMargin(new Insets(2, 2, 2, 2));
         removeButton.setText("Remove");
+        broadcastButton.setMargin(new Insets(2, 2, 2, 2));
+        broadcastButton.setText("Broadcast");
         this.setPreferredSize(new Dimension(360, 400));
         targetTypeDDList.setFont(new java.awt.Font("Dialog", 0, 12));
         systemDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -908,6 +911,7 @@ public class TelescopeGUI extends JPanel {
         buttonPanel.add(plotButton, null);
         buttonPanel.add(setBaseButton, null);
         buttonPanel.add(removeButton, null);
+        buttonPanel.add(broadcastButton, null);
         buttonPanel.add(newLabel, null);
         buttonPanel.add(newButton, null);
     }
