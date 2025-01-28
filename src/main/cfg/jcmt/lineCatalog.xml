@@ -1162,6 +1162,7 @@ if any additionas are made to the list.
         <transition frequency="220773.7018" name="10 0 10 - 9 0 9"/>
         <transition frequency="221545.8207" name="17 2 15 - 17 2 16"/>
         <transition frequency="222009.3598" name="9 2 7 - 8 2 6"/>
+        <transition frequency="230046.8053" name="11 4 8 - 12 2 11"/>
         <transition frequency="232534.0669" name="10 2 9 - 9 2 8"/>
         <transition frequency="234024.7682" name="12 2 11 - 12 0 12"/>
         <transition frequency="234534.011" name="10 8 2 - 9 8 1"/>
