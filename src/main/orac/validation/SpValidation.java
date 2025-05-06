@@ -630,8 +630,7 @@ public class SpValidation {
 
                 Double declination = null;
 
-                if ((pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL)
-                        && pos.isBasePosition()) {
+                if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
                     double Xaxis = pos.getXaxis();
                     double Yaxis = pos.getYaxis();
 
@@ -641,29 +640,36 @@ public class SpValidation {
                     }
 
                     int coordSystem = pos.getCoordSys();
+                    String converted = "";
 
                     if (coordSystem == CoordSys.FK4) {
                         RADec raDec = CoordConvert.Fk45z(Xaxis, Yaxis);
                         Xaxis = raDec.ra;
                         Yaxis = raDec.dec;
+                        converted = " converted from FK4";
 
                     } else if (coordSystem == CoordSys.GAL) {
                         RADec raDec = CoordConvert.gal2fk5(Xaxis, Yaxis);
                         Xaxis = raDec.ra;
                         Yaxis = raDec.dec;
+                        converted = " converted from Galactic";
                     }
 
                     String hhmmss = HHMMSS.valStr(Xaxis);
                     String ddmmss = DDMMSS.valStr(Yaxis);
 
                     if (!HHMMSS.validate(hhmmss)) {
-                        report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                itemString, "RA not valid"));
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                itemString,
+                                "RA" + converted,
+                                "range 0:00:00 ... 24:00:00", hhmmss));
                     }
 
-                    if (!DDMMSS.validate(ddmmss)) {
-                        report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                itemString, "Dec not valid"));
+                    if (!DDMMSS.validate(ddmmss, -50, 90)) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                itemString,
+                                "Dec" + converted,
+                                "range -50:00:00 ... 90:00:00", ddmmss));
                     }
 
                     declination = new Double(Yaxis);
