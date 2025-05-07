@@ -357,8 +357,11 @@ public class SpValidation {
             boolean allTargetless = true;
             for (SpItem obs: SpTreeMan.findAllInstances(spObs,
                     SpIterJCMTObs.class.getName())) {
-                boolean autoTarget = ((SpIterJCMTObs) obs).getAutomaticTarget();
-                allTargetless = allTargetless && autoTarget;
+                SpIterJCMTObs jcmtObs = (SpIterJCMTObs) obs;
+                boolean autoTarget = jcmtObs.getAutomaticTarget();
+                boolean doesNotNeedTarget = jcmtObs.doesNotNeedTarget();
+
+                allTargetless = allTargetless && (autoTarget || doesNotNeedTarget);
             }
 
             SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(spObs);

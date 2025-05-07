@@ -106,6 +106,13 @@ public class SpIterJCMTObs extends SpIterObserveBase
     }
 
     /**
+     * Is this a type of observation which does not need a target?
+     */
+    public boolean doesNotNeedTarget() {
+        return false;
+    }
+
+    /**
      * Calculates the estimated duration of this Observe ("Eye").
      *
      * Note that the returned duration takes into account the number of
