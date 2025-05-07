@@ -76,8 +76,6 @@ public class JcmtSpValidation extends SpValidation {
             report = new Vector<ErrorMessage>();
         }
 
-        report.add(new ErrorMessage(ErrorMessage.INFO, separator, ""));
-
         String titleString = titleString(spObs);
 
         SpInstObsComp obsComp = SpTreeMan.findInstrument(spObs);

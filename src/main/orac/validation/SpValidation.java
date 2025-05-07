@@ -81,8 +81,8 @@ import java.util.Date;
  * @author M.Folger@roe.ac.uk UKATC
  */
 public class SpValidation {
-    protected static String separator =
-            "------------------------------------------------------\n";
+    private static String separator =
+            "------------------------------------------------------";
 
     public void checkSciProgram(SpProg spProg, Vector<ErrorMessage> report) {
         if (report == null) {
@@ -111,6 +111,8 @@ public class SpValidation {
         checkSurveyContainer(spProg, report);
 
         if (doc != null) {
+            report.add(new ErrorMessage(ErrorMessage.INFO, separator, ""));
+
             // I use one method for each 'rule'
             // Rule 1: Each SpObs and MSB must either contain the following
             // or inherit it from higher up:
@@ -205,6 +207,8 @@ public class SpValidation {
                     + " validation messages will be lost!");
             report = new Vector<ErrorMessage>();
         }
+
+        report.add(new ErrorMessage(ErrorMessage.INFO, separator, ""));
 
         SpSiteQualityObsComp siteQuality = SpItemUtilities.findSiteQuality(spMSB);
         if (siteQuality == null) {
@@ -864,7 +868,7 @@ public class SpValidation {
             int lineNumber = e.getLineNumber() - 1;
 
             String errorMessage = separator;
-            errorMessage += "Validation error in MSB<"
+            errorMessage += "\nValidation error in MSB<"
                     + SchemaContentHandler.getCurrentMSB() + ">\n";
             errorMessage += "XML line number : " + (lineNumber + 1)
                     + " column " + e.getColumnNumber() + "\n";
