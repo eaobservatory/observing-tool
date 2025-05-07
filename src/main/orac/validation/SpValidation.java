@@ -49,6 +49,7 @@ import gemini.util.TelescopePos;
 
 import orac.util.CoordConvert;
 import orac.util.SpItemUtilities;
+import orac.jcmt.iter.SpIterJCMTObs;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.DOMParser;
@@ -352,9 +353,30 @@ public class SpValidation {
                     "Instrument component is missing."));
         }
 
-        if (!spObs.isOptional()
-                && SpTreeMan.findSurveyContainerInContext(spObs) == null) {
-            checkTargetList(SpTreeMan.findTargetList(spObs), report);
+        if (SpTreeMan.findSurveyContainerInContext(spObs) == null) {
+            boolean allTargetless = true;
+            for (SpItem obs: SpTreeMan.findAllInstances(spObs,
+                    SpIterJCMTObs.class.getName())) {
+                boolean autoTarget = ((SpIterJCMTObs) obs).getAutomaticTarget();
+                allTargetless = allTargetless && autoTarget;
+            }
+
+            SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(spObs);
+
+            if (obsComp == null) {
+                // If there is no target component, issue an error unless
+                // nothing needs one.  Note we can't issue an
+                // error in the opposite situation (a target is present
+                // but nothing needs it) because the target could be
+                // shared with other Observations / MSBs.
+                if (! allTargetless) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            "Observation has no target component", ""));
+                }
+            }
+            else {
+                checkTargetList(obsComp, report);
+            }
         }
 
         if (!spObs.isMSB()) {
@@ -622,134 +644,135 @@ public class SpValidation {
 
     protected void checkTargetList(SpTelescopeObsComp obsComp,
             Vector<ErrorMessage> report) {
-        if (obsComp != null) {
-            String titleString = titleString(obsComp);
-            SpTelescopePosList list = obsComp.getPosList();
-            TelescopePos[] position = list.getAllPositions();
+        if (obsComp == null) {
+            // Should no longer happen since (except for survey container)
+            // we now check for null before calling this method.
+            return;
+        }
 
-            for (int i = 0; i < position.length; i++) {
-                SpTelescopePos pos = (SpTelescopePos) position[i];
-                String itemString = "Telescope target " + pos.getName()
-                        + " in " + titleString;
+        String titleString = titleString(obsComp);
+        SpTelescopePosList list = obsComp.getPosList();
+        TelescopePos[] position = list.getAllPositions();
 
-                Double declination = null;
+        for (int i = 0; i < position.length; i++) {
+            SpTelescopePos pos = (SpTelescopePos) position[i];
+            String itemString = "Telescope target " + pos.getName()
+                    + " in " + titleString;
 
-                if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
-                    double Xaxis = pos.getXaxis();
-                    double Yaxis = pos.getYaxis();
+            Double declination = null;
 
-                    if (Xaxis == 0 && Yaxis == 0) {
-                        report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                itemString, "Both Dec and RA are 0:00:00"));
-                    }
+            if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+                double Xaxis = pos.getXaxis();
+                double Yaxis = pos.getYaxis();
 
-                    int coordSystem = pos.getCoordSys();
-                    String converted = "";
-
-                    if (coordSystem == CoordSys.FK4) {
-                        RADec raDec = CoordConvert.Fk45z(Xaxis, Yaxis);
-                        Xaxis = raDec.ra;
-                        Yaxis = raDec.dec;
-                        converted = " converted from FK4";
-
-                    } else if (coordSystem == CoordSys.GAL) {
-                        RADec raDec = CoordConvert.gal2fk5(Xaxis, Yaxis);
-                        Xaxis = raDec.ra;
-                        Yaxis = raDec.dec;
-                        converted = " converted from Galactic";
-                    }
-
-                    String hhmmss = HHMMSS.valStr(Xaxis);
-                    String ddmmss = DDMMSS.valStr(Yaxis);
-
-                    if (!HHMMSS.validate(hhmmss)) {
-                        report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                itemString,
-                                "RA" + converted,
-                                "range 0:00:00 ... 24:00:00", hhmmss));
-                    }
-
-                    if (!DDMMSS.validate(ddmmss, -50, 90)) {
-                        report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                itemString,
-                                "Dec" + converted,
-                                "range -50:00:00 ... 90:00:00", ddmmss));
-                    }
-
-                    declination = new Double(Yaxis);
+                if (Xaxis == 0 && Yaxis == 0) {
+                    report.add(new ErrorMessage(ErrorMessage.WARNING,
+                            itemString, "Both Dec and RA are 0:00:00"));
                 }
 
-                double pmRA = Format.toDouble(pos.getPropMotionRA());
-                double pmDec = Format.toDouble(pos.getPropMotionDec());
+                int coordSystem = pos.getCoordSys();
+                String converted = "";
 
-                if ((pmRA != 0.0) || (pmDec != 0.0)) {
-                    String pmEpoch = pos.getTrackingEpoch();
+                if (coordSystem == CoordSys.FK4) {
+                    RADec raDec = CoordConvert.Fk45z(Xaxis, Yaxis);
+                    Xaxis = raDec.ra;
+                    Yaxis = raDec.dec;
+                    converted = " converted from FK4";
 
-                    if (pmEpoch == null || "".equals(pmEpoch)) {
-                        report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                itemString,
-                                "Proper motion epoch is not specified"));
+                } else if (coordSystem == CoordSys.GAL) {
+                    RADec raDec = CoordConvert.gal2fk5(Xaxis, Yaxis);
+                    Xaxis = raDec.ra;
+                    Yaxis = raDec.dec;
+                    converted = " converted from Galactic";
+                }
 
-                    } else {
-                        try {
-                            double epoch = Double.parseDouble(pmEpoch);
+                String hhmmss = HHMMSS.valStr(Xaxis);
+                String ddmmss = DDMMSS.valStr(Yaxis);
 
-                            if (epoch < 1950 || epoch > 2050) {
-                                report.add(new ErrorMessage(
-                                        ErrorMessage.WARNING, itemString,
-                                        "Proper motion epoch not in range"
-                                                + " 1950-2050."));
-                            }
+                if (!HHMMSS.validate(hhmmss)) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            itemString,
+                            "RA" + converted,
+                            "range 0:00:00 ... 24:00:00", hhmmss));
+                }
 
-                        } catch (NumberFormatException e) {
-                            report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                    itemString,
-                                    "Could not parse proper motion epoch."));
+                if (!DDMMSS.validate(ddmmss, -50, 90)) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            itemString,
+                            "Dec" + converted,
+                            "range -50:00:00 ... 90:00:00", ddmmss));
+                }
+
+                declination = new Double(Yaxis);
+            }
+
+            double pmRA = Format.toDouble(pos.getPropMotionRA());
+            double pmDec = Format.toDouble(pos.getPropMotionDec());
+
+            if ((pmRA != 0.0) || (pmDec != 0.0)) {
+                String pmEpoch = pos.getTrackingEpoch();
+
+                if (pmEpoch == null || "".equals(pmEpoch)) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            itemString,
+                            "Proper motion epoch is not specified"));
+
+                } else {
+                    try {
+                        double epoch = Double.parseDouble(pmEpoch);
+
+                        if (epoch < 1950 || epoch > 2050) {
+                            report.add(new ErrorMessage(
+                                    ErrorMessage.WARNING, itemString,
+                                    "Proper motion epoch not in range"
+                                            + " 1950-2050."));
                         }
 
+                    } catch (NumberFormatException e) {
+                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                itemString,
+                                "Could not parse proper motion epoch."));
                     }
 
-                    double pmParallax = Format.toDouble(pos.getTrackingParallax());
+                }
 
-                    if (pmParallax == 0.0) {
-                        report.add(new ErrorMessage(ErrorMessage.ERROR,
+                double pmParallax = Format.toDouble(pos.getTrackingParallax());
+
+                if (pmParallax == 0.0) {
+                    report.add(new ErrorMessage(ErrorMessage.ERROR,
+                            itemString,
+                            "Parallax not specified with proper motion."));
+
+                } else {
+                    if (declination == null) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
                                 itemString,
-                                "Parallax not specified with proper motion."));
+                                "Declination not available - cannot compute real " +
+                                "proper motion for speed check."));
+                    }
+                    else {
+                        // Convert from coordinate angle to real angle.
+                        pmRA *= Math.cos(Math.toRadians(declination));
+                    }
 
-                    } else {
-                        if (declination == null) {
-                            report.add(new ErrorMessage(
-                                    ErrorMessage.WARNING,
-                                    itemString,
-                                    "Declination not available - cannot compute real " +
-                                    "proper motion for speed check."));
-                        }
-                        else {
-                            // Convert from coordinate angle to real angle.
-                            pmRA *= Math.cos(Math.toRadians(declination));
-                        }
+                    double pmCombined = Math.sqrt(
+                        Math.pow(pmRA, 2.0) +
+                        Math.pow(pmDec, 2.0));
 
-                        double pmCombined = Math.sqrt(
-                            Math.pow(pmRA, 2.0) +
-                            Math.pow(pmDec, 2.0));
-
-                        // Current ERFA limits PM to 0.5c and min parallax
-                        // to 1E-4 milli-arcsec.  (3.162 milli-arcsec/year at that distance.  Check
-                        // here for 2.0 milli-arcsec/year to give a margin of safety.)
-                        if (pmCombined > (2.0E4 * pmParallax)) {
-                            report.add(new ErrorMessage(
-                                    ErrorMessage.WARNING,
-                                    itemString,
-                                    "Proper motion is very large for " +
-                                    "specified parallax distance.  It " +
-                                    "may be ignored."));
-                        }
+                    // Current ERFA limits PM to 0.5c and min parallax
+                    // to 1E-4 milli-arcsec.  (3.162 milli-arcsec/year at that distance.  Check
+                    // here for 2.0 milli-arcsec/year to give a margin of safety.)
+                    if (pmCombined > (2.0E4 * pmParallax)) {
+                        report.add(new ErrorMessage(
+                                ErrorMessage.WARNING,
+                                itemString,
+                                "Proper motion is very large for " +
+                                "specified parallax distance.  It " +
+                                "may be ignored."));
                     }
                 }
             }
-        } else {
-            report.add(new ErrorMessage(ErrorMessage.ERROR,
-                    "Observation has no target component", ""));
         }
     }
 
