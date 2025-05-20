@@ -64,7 +64,7 @@ public class JcmtUtil implements TelescopeUtil {
             case FEATURE_TARGET_INFO_CHOP:
                 return false;
             case FEATURE_FLAG_AS_STANDARD:
-                return false;
+                return true;
             case FEATURE_TARGET_INFO_PROP_MOTION:
                 return true;
             case FEATURE_TARGET_INFO_TRACKING:
