@@ -53,6 +53,10 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
         _avTable.noNotifySet(ATTR_DO_AT_CURRENT_AZ, "true", 0);
     }
 
+    public boolean doesNotNeedTarget() {
+        return true;
+    }
+
     /** Get the noise source. */
     public String getNoiseSource() {
         return _avTable.get(ATTR_NOISE_SOURCE);
