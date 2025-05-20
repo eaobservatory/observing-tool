@@ -677,6 +677,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements
         if (cbwe == _w.rowReversal) {
             _iterObs.setRowReversal(_w.rowReversal.getBooleanValue());
         }
+        else {
+            super.checkBoxAction(cbwe);
+        }
     }
 
     public void commandButtonAction(CommandButtonWidgetExt cbwe) {
