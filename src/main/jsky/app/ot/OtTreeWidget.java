@@ -127,6 +127,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
     // If true, ignore action events
     private boolean ignoreActions = false; // added by MFO (31 July 2001)
     protected static Color GREEN = new Color(0, 192, 0);
+    protected static Color RED = new Color(255, 64, 64);
 
     /**
      * Default constructor, for the Bongo builder.
@@ -1003,6 +1004,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget implements
 
         } else if (item.isOptional()) {
             resultComponent.setForeground(GREEN);
+        } else if (item instanceof SpIterJCMTObs) {
+            SpIterJCMTObs obs = (SpIterJCMTObs) item;
+            if (obs.getAutomaticTarget()) {
+                resultComponent.setForeground(RED);
+            }
         }
 
         return resultComponent;
