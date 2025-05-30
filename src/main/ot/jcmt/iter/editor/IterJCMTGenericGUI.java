@@ -166,6 +166,9 @@ public class IterJCMTGenericGUI extends JPanel {
         noiseUnitLabel.setForeground(Color.black);
         noiseUnitLabel.setText("(mJy)");
 
+        automaticTarget.setText("Automatic target");
+        automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
+
         rotatorAnglesLabeledPanel.setBorder(new TitledBorder(
                 BorderFactory.createLineBorder(new Color(153, 153, 153), 2),
                         "Rotator Angles"));
@@ -218,6 +221,11 @@ public class IterJCMTGenericGUI extends JPanel {
 
         jPanel1.add(rotatorAnglesLabeledPanel, new GridBagConstraints(
                 0, 4, 3, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+
+        jPanel1.add(automaticTarget, new GridBagConstraints(
+                2, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 

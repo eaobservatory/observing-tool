@@ -83,8 +83,8 @@ public final class EdObservation extends EdMsbObsCommon implements
         _w.standard.addWatcher(this);
 
         // Added by MFO (22 February 2002)
-        if (!OtCfg.telescopeUtil
-                .supports(TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
+        if (OtCfg.telescopeUtil.supports(
+                TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
             _w.standard.setText("Flag as Standard");
             _w.optional.setVisible(false);
             _w.optional.deleteWatcher(this);
@@ -197,8 +197,8 @@ public final class EdObservation extends EdMsbObsCommon implements
         } else {
             _w.msbPanel.setVisible(false);
 
-            if (OtCfg.telescopeUtil
-                    .supports(TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
+            if (! OtCfg.telescopeUtil.supports(
+                    TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
                 _w.optional.setVisible(true);
             }
         }
@@ -292,7 +292,7 @@ public final class EdObservation extends EdMsbObsCommon implements
 
                     _w.standard.setValue(((SpObs) _spItem).getIsStandard());
 
-                    if (!OtCfg.telescopeUtil.supports(
+                    if (OtCfg.telescopeUtil.supports(
                             TelescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
                         _w.optional.setValue(_w.standard.getBooleanValue());
 

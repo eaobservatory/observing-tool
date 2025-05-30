@@ -87,9 +87,6 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Secs per Cycle");
         axis.setFont(new java.awt.Font("Dialog", 0, 12));
-        automaticTarget.setText("Automatic focus/align target");
-        automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
-        automaticTarget.setSelected(true);
         this.add(scubaAcsisPanel, BorderLayout.CENTER);
         scubaAcsisPanel.add(jLabel3, new GridBagConstraints(
                 0, 0, 1, 1, 0.0, 0.0,
@@ -119,10 +116,6 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
                 1, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(5, 5, 5, 5), 0, 0));
-        scubaAcsisPanel.add(automaticTarget, new GridBagConstraints(
-                0, 4, 3, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                new Insets(20, 0, 0, 0), 0, 0));
         scubaAcsisPanel.add(fts2_in_beam, new GridBagConstraints(
                 0, 5, 2, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,

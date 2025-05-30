@@ -266,6 +266,7 @@ public final class EdSurvey extends EdCompTargetList implements
             _surveyGUI.selectField.setEditable(true);
 
         } else {
+            _surveyGUI.chooseButton.setSelected(false);
             _surveyGUI.chooseButton.setEnabled(true);
             _surveyGUI.selectField.setEnabled(false);
             _surveyGUI.selectField.setEditable(false);

@@ -82,6 +82,9 @@ public final class EdIterNoiseObs extends EdIterJCMTGeneric {
         if (cbwe == _w.currentAzimuth) {
             _iterObs.setDoAtCurrentAz(_w.currentAzimuth.getBooleanValue());
         }
+        else {
+            super.checkBoxAction(cbwe);
+        }
     }
 
     public void setInstrument(SpInstObsComp spInstObsComp) {

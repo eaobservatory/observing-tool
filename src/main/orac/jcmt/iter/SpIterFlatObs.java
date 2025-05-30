@@ -49,6 +49,10 @@ public class SpIterFlatObs extends SpIterJCMTObs {
         super(SP_TYPE);
     }
 
+    public boolean doesNotNeedTarget() {
+        return true;
+    }
+
     public double getElapsedTime() {
         return 0.0;
     }

@@ -57,6 +57,10 @@ public class SpIterSetupObs extends SpIterJCMTObs {
         _avTable.noNotifySet(ATTR_DO_AT_CURRENT_AZ, "false", 0);
     }
 
+    public boolean doesNotNeedTarget() {
+        return true;
+    }
+
     public int getPositions() {
         return _avTable.getInt(ATTR_POSITIONS, 0);
     }
