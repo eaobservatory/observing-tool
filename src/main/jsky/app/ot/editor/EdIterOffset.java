@@ -36,6 +36,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -72,7 +74,7 @@ import orac.util.TelescopeUtil;
  */
 public final class EdIterOffset extends OtItemEditor implements
         TableWidgetWatcher, TextBoxWidgetWatcher, TelescopePosWatcher,
-        ActionListener, MouseListener {
+        ActionListener, MouseListener, DropDownListBoxWidgetWatcher {
     private TextBoxWidgetExt _xOffTBW;
     private TextBoxWidgetExt _yOffTBW;
     private OffsetPosTableWidget _offTW;
@@ -90,6 +92,16 @@ public final class EdIterOffset extends OtItemEditor implements
         _title = "Offset Iterator";
         _presSource = _w = new IterOffsetGUI();
         _description = "Construct offset based patterns with this iterator.";
+
+        if (OtCfg.telescopeUtil.supports(
+                TelescopeUtil.FEATURE_OFFSET_ITER_SYSTEM_EDITABLE)) {
+            _w.coordSys.setEnabled(true);
+            _w.coordSys.setChoices(SpIterOffset.OFFSET_SYSTEMS);
+            _w.coordSys.addWatcher(this);
+        }
+        else {
+            _w.coordSys.setEnabled(false);
+        }
 
         // JBuilder has some problems with image buttons...
         _w.topButton.setIcon(new ImageIcon(ObservingToolUtilities
@@ -177,6 +189,7 @@ public final class EdIterOffset extends OtItemEditor implements
         _offTW.selectPos(selIndex);
 
         _w.paTextBox.setValue(sio.getPosAngle());
+        _w.coordSys.setValue(sio.getOffsetSystem());
 
         // Try to create offset positions around the guide as well...
         createGuideOffsets();
@@ -498,6 +511,14 @@ public final class EdIterOffset extends OtItemEditor implements
     public void mouseReleased(MouseEvent e) {
         setOffsetsRotation(false);
         _w.displayRotatedOffsets.setText(BUTTON_TEXT_ROTATION_FALSE);
+    }
+
+    public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe,
+            int index, String val) {
+        SpIterOffset iterOffset = (SpIterOffset) _spItem;
+        if (ddlbwe == _w.coordSys) {
+            iterOffset.setOffsetSystem(val);
+        }
     }
 
     /**
