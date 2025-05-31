@@ -163,7 +163,6 @@ public class SpIterStareObs extends SpIterJCMTObs {
         return new String[]{
                 SWITCHING_MODE_BEAM,
                 SWITCHING_MODE_POSITION,
-//              SWITCHING_MODE_FREQUENCY_S,
                 SWITCHING_MODE_FREQUENCY_F,
                 SWITCHING_MODE_NONE,
         };
