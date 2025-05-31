@@ -43,6 +43,8 @@ import orac.jcmt.inst.SpInstSCUBA2;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJCMTObs;
+import orac.jcmt.iter.SpIterPointingObs;
+import orac.jcmt.iter.SpIterFocusObs;
 import orac.jcmt.obsComp.SpSiteQualityObsComp;
 import orac.jcmt.util.Scuba2Noise;
 import orac.jcmt.SpJCMTConstants;
@@ -99,6 +101,11 @@ public class EdIterJCMTGeneric extends OtItemEditor implements
     public void setup(SpItem spItem) {
         _iterObs = (SpIterJCMTObs) spItem;
         super.setup(spItem);
+
+        if (! (spItem instanceof SpIterPointingObs
+                || spItem instanceof SpIterFocusObs)) {
+            _w.automaticTarget.setEnabled(false);
+        }
 
         _w.switchingMode.deleteWatcher(this);
         _w.switchingMode.setChoices(_iterObs.getSwitchingModeOptions());
