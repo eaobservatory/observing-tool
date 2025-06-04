@@ -219,6 +219,8 @@ public final class EdSurvey extends EdCompTargetList implements
                             _surveyGUI.fieldTable.getRowCount() - 1);
 
                     _updateFieldTable();
+
+                    _surveyTargetSelectionChanged();
                 }
             }
         };
