@@ -430,7 +430,8 @@ public class SpSurveyContainer extends SpObsContextItem {
 
                 // Modify coordinate system if required
                 if ((coordSystem.indexOf("FK5") > -1)
-                        || (coordSystem.indexOf("J2000") > -1)) {
+                        || (coordSystem.indexOf("J2000") > -1)
+                        || (coordSystem.indexOf("ICRS") > -1)) {
                     coordSystemIndex = CoordSys.FK5;
 
                 } else if ((coordSystem.indexOf("FK4") > -1)
