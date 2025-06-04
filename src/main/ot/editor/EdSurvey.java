@@ -84,7 +84,7 @@ import jsky.app.ot.tpe.TpeManager;
  */
 @SuppressWarnings("serial")
 public final class EdSurvey extends EdCompTargetList implements
-        ListSelectionListener, KeyListener, Observer {
+        KeyListener, Observer {
     private static final String[] COLUMN_NAMES = {
             "Name",
             "X Axis",
@@ -149,8 +149,15 @@ public final class EdSurvey extends EdCompTargetList implements
         }
         _surveyGUI.remaining.addItem("(UN)REMOVE");
 
-        _surveyGUI.fieldTable.getSelectionModel()
-                .addListSelectionListener(this);
+        _surveyGUI.fieldTable.getSelectionModel().addListSelectionListener(
+            new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    if (!_ignoreEvents) {
+                        _surveyTargetSelectionChanged();
+                    }
+                }
+            });
+
         _surveyGUI.addButton.addActionListener(this);
         _surveyGUI.duplicateButton.addActionListener(this);
         _surveyGUI.removeButton.addActionListener(this);
@@ -202,31 +209,29 @@ public final class EdSurvey extends EdCompTargetList implements
         _surveyGUI.priority.setEnabled(true);
 
         // Try adding a mouse listener to the column tables
-        MouseAdapter columnListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                TableColumnModel columnModel =
-                        _surveyGUI.fieldTable.getColumnModel();
-                int viewColumn = columnModel.getColumnIndexAtX(e.getX());
-                int column = _surveyGUI.fieldTable
-                        .convertColumnIndexToModel(viewColumn);
+        _surveyGUI.fieldTable.getTableHeader().addMouseListener(
+            new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    TableColumnModel columnModel =
+                            _surveyGUI.fieldTable.getColumnModel();
+                    int viewColumn = columnModel.getColumnIndexAtX(e.getX());
+                    int column = _surveyGUI.fieldTable
+                            .convertColumnIndexToModel(viewColumn);
 
-                if (e.getClickCount() == 1 && column != -1) {
-                    // Sort based on selected column...
-                    boolean ascending = ((e.getModifiers()
-                            & InputEvent.SHIFT_MASK) == 0);
+                    if (e.getClickCount() == 1 && column != -1) {
+                        // Sort based on selected column...
+                        boolean ascending = ((e.getModifiers()
+                                & InputEvent.SHIFT_MASK) == 0);
 
-                    _sortByColumn(column, ascending, 0,
-                            _surveyGUI.fieldTable.getRowCount() - 1);
+                        _sortByColumn(column, ascending, 0,
+                                _surveyGUI.fieldTable.getRowCount() - 1);
 
-                    _updateFieldTable();
+                        _updateFieldTable();
 
-                    _surveyTargetSelectionChanged();
+                        _surveyTargetSelectionChanged();
+                    }
                 }
-            }
-        };
-
-        JTableHeader th = _surveyGUI.fieldTable.getTableHeader();
-        th.addMouseListener(columnListener);
+            });
     }
 
     public void setup(SpItem spItem) {
@@ -616,12 +621,6 @@ public final class EdSurvey extends EdCompTargetList implements
         result[5] += _surveyObsComp.getPriority(index);
 
         return result;
-    }
-
-    public void valueChanged(ListSelectionEvent e) {
-        if (!_ignoreEvents) {
-            _surveyTargetSelectionChanged();
-        }
     }
 
     private void _surveyTargetSelectionChanged() {
