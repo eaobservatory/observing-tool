@@ -412,6 +412,10 @@ public class SpSurveyContainer extends SpObsContextItem {
 
                 if (stringTokenizer.hasMoreTokens()) {
                     tag = stringTokenizer.nextToken().trim();
+
+                } else {
+                    // Line must be blank, so continue to the next line.
+                    continue;
                 }
 
                 if (stringTokenizer.hasMoreTokens()) {
@@ -500,8 +504,7 @@ public class SpSurveyContainer extends SpObsContextItem {
                                     "Could not create telescope position, tag = " + tag);
                         }
                     } else {
-                        if (line.trim().equals("")
-                                || resemblesSurveyAreaDefinition(line)) {
+                        if (resemblesSurveyAreaDefinition(line)) {
                             System.out.println("Ignoring \"" + line
                                     + "\" in pointing file"
                                     + " (Might be part of an SDT file).");
