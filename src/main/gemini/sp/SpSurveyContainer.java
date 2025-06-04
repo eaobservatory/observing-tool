@@ -42,6 +42,7 @@ import java.util.Enumeration;
 import java.io.Reader;
 import java.io.LineNumberReader;
 import java.io.FileReader;
+import orac.jcmt.inst.SpInstHeterodyne;
 
 /**
  * A class for telescope observation component items.
@@ -372,6 +373,8 @@ public class SpSurveyContainer extends SpObsContextItem {
         SpTelescopeObsComp spTelescopeObsComp = null;
         String remainingString = null;
         String priorityString = null;
+        String velocityString = null;
+        String velocitySystem = null;
 
         do {
             line = lineNumberReader.readLine();
@@ -442,9 +445,7 @@ public class SpSurveyContainer extends SpObsContextItem {
                     coordSystemIndex = CoordSys.GAL;
                 }
 
-                if (stringTokenizer.hasMoreTokens()) {
-                    tileString = stringTokenizer.nextToken().trim();
-                }
+                SpTelescopePos pos = null;
 
                 if (tag.equalsIgnoreCase(SpTelescopePos.BASE_TAG)) {
                     if (spTelescopeObsComp != null) {
@@ -453,6 +454,13 @@ public class SpSurveyContainer extends SpObsContextItem {
 
                         remainingString = null;
                         priorityString = null;
+                        velocityString = null;
+                        velocitySystem = null;
+                    }
+
+                    // No longer used but retain for now to keep the same columns.
+                    if (stringTokenizer.hasMoreTokens()) {
+                        tileString = stringTokenizer.nextToken().trim();
                     }
 
                     // Read remaining and priority strings only after saving
@@ -461,68 +469,35 @@ public class SpSurveyContainer extends SpObsContextItem {
                     if (stringTokenizer.hasMoreTokens()) {
                         remainingString = stringTokenizer.nextToken().trim();
                     }
+
                     if (stringTokenizer.hasMoreTokens()) {
                         priorityString = stringTokenizer.nextToken().trim();
+                    }
+
+                    if (stringTokenizer.hasMoreTokens()) {
+                        velocityString = stringTokenizer.nextToken().trim();
+                    }
+
+                    if (stringTokenizer.hasMoreTokens()) {
+                        velocitySystem = stringTokenizer.nextToken().trim().toUpperCase();
                     }
 
                     spTelescopeObsComp = new SpTelescopeObsComp();
                     spTelescopeObsComp.setSurveyComponent(this);
 
-                    String targetName =
-                            surveyID == null
-                                    ? name
-                                    : surveyID + ":" + name;
+                    pos = spTelescopeObsComp.getPosList().getBasePosition();
 
-                    SpTelescopePos basePos =
-                            spTelescopeObsComp.getPosList().getBasePosition();
-                    basePos.setName(targetName);
-                    basePos.setXYFromString(x, y);
-
-                    // Use the standardized
-                    // CoordSys.getCoordSys(coordSystemIndex)
-                    // instead of coordSystem.
-                    basePos.setCoordSys(CoordSys.getSystem(coordSystemIndex));
-
-                    if (tileString != null) {
-                        int positionInTile = 0;
-
-                        try {
-                            positionInTile = Integer.parseInt(tileString);
-                        } catch (Exception e) {
-                            System.err.println("SpSurveyContainer.load():"
-                                    + " Could not parse position in tile from \""
-                                    + tileString
-                                    + "\". Assuming first position in tile.");
-                        }
-
-                        // Use -1 as a dummy value, just so we can get at the
-                        // remaining and priority positional parameters without
-                        // having to specity position in tile.
-
-                        if (positionInTile != -1) {
-                            // No longer used.
-                        }
-                    }
                 } else {
                     if (spTelescopeObsComp != null) {
                         try {
-                            SpTelescopePos pos = spTelescopeObsComp
-                                    .getPosList().createPosition(tag, 0.0, 0.0);
-                            pos.setName(name);
-                            pos.setXYFromString(x, y);
-                            pos.setCoordSys(
-                                    CoordSys.getSystem(coordSystemIndex));
+                            pos = spTelescopeObsComp.getPosList().createPosition(
+                                    tag, 0.0, 0.0);
 
                         } catch (Exception e) {
                             e.printStackTrace();
 
                             throw new Exception(
-                                    "Could not create telescope position:"
-                                    + "\n  tag = " + tag
-                                    + "\n  coordinate 1 = " + x
-                                    + "\n  coordinate 2 = " + y
-                                    + "\n  coordinate system = "
-                                    + CoordSys.getSystem(coordSystemIndex));
+                                    "Could not create telescope position, tag = " + tag);
                         }
                     } else {
                         if (line.trim().equals("")
@@ -531,6 +506,8 @@ public class SpSurveyContainer extends SpObsContextItem {
                                     + "\" in pointing file"
                                     + " (Might be part of an SDT file).");
 
+                            continue;
+
                         } else {
                             throw new Exception(
                                     "Could not parse list of survey targets.\n"
@@ -538,6 +515,48 @@ public class SpSurveyContainer extends SpObsContextItem {
                                     + SpTelescopePos.BASE_TAG + " tag.");
                         }
                     }
+                }
+
+                pos.setName((surveyID == null)
+                        ? name
+                        : surveyID + ":" + name);
+
+                pos.setXYFromString(x, y);
+
+                // Use the standardized
+                // CoordSys.getCoordSys(coordSystemIndex)
+                // instead of coordSystem.
+                pos.setCoordSys(CoordSys.getSystem(coordSystemIndex));
+
+                if (velocityString != null) {
+                    String defn = null;
+                    String frame = null;
+
+                    if (velocitySystem == null) {
+                        throw new Exception(
+                            "Velocity specified without system");
+
+                    } else if ((velocitySystem.indexOf("LSR") > -1)
+                            || (velocitySystem.indexOf("RADIO") > -1)) {
+                        defn = SpInstHeterodyne.RADIAL_VELOCITY_RADIO;
+                        frame = SpInstHeterodyne.LSRK_VELOCITY_FRAME;
+
+                    } else if (velocitySystem.indexOf("RED") > -1) {
+                        defn = SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT;
+                        frame = SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME;
+
+                    } else if (velocitySystem.indexOf("OPT") > -1) {
+                        defn = SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL;
+                        frame = SpInstHeterodyne.HELIOCENTRIC_VELOCITY_FRAME;
+
+                    } else {
+                        throw new Exception(
+                            "Velocity system '" + velocitySystem + "' not recognized");
+                    }
+
+                    pos.setTrackingRadialVelocity(velocityString);
+                    pos.setTrackingRadialVelocityDefn(defn);
+                    pos.setTrackingRadialVelocityFrame(frame);
                 }
             }
         } while (line != null);
