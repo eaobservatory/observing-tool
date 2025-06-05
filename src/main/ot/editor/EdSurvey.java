@@ -768,46 +768,44 @@ public final class EdSurvey extends EdCompTargetList implements
             return;
 
         } else if (source == _surveyGUI.remaining) {
-            if (_surveyGUI.remaining.getSelectedIndex()
-                    == _surveyGUI.remaining.getItemCount() - 1) {
-                int newRemaining = -1 * _surveyObsComp.getRemaining(
-                        _surveyGUI.fieldTable.getSelectedRow());
+            int index = _surveyGUI.remaining.getSelectedIndex();
 
-                _surveyObsComp.setRemaining(newRemaining,
-                        _surveyGUI.fieldTable.getSelectedRow());
+            if (index == _surveyGUI.remaining.getItemCount() - 1) {
+                for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                    int newRemaining = -1 * _surveyObsComp.getRemaining(row);
 
-                if (newRemaining < 0) {
-                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                            .setValueAt("REMOVED",
-                                    _surveyGUI.fieldTable.getSelectedRow(), 4);
+                    _surveyObsComp.setRemaining(newRemaining, row);
 
-                } else {
-                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                            .setValueAt("" + newRemaining,
-                                    _surveyGUI.fieldTable.getSelectedRow(), 4);
-                    _surveyGUI.remaining.setSelectedIndex(newRemaining);
+                    if (newRemaining < 0) {
+                        ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                                .setValueAt("REMOVED", row, 4);
+
+                    } else {
+                        ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                                .setValueAt("" + newRemaining, row, 4);
+                        _surveyGUI.remaining.setSelectedIndex(newRemaining);
+                    }
                 }
-
             } else {
-                _surveyObsComp.setRemaining(
-                        _surveyGUI.remaining.getSelectedIndex(),
-                        _surveyGUI.fieldTable.getSelectedRow());
+                for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                    _surveyObsComp.setRemaining(index, row);
 
-                ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                        .setValueAt(
-                                "" + _surveyGUI.remaining.getSelectedIndex(),
-                                _surveyGUI.fieldTable.getSelectedRow(), 4);
+                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                            .setValueAt("" + index, row, 4);
+                }
             }
 
             return;
 
         } else if (source == _surveyGUI.priority) {
-            _surveyObsComp.setPriority(_surveyGUI.priority.getSelectedIndex(),
-                    _surveyGUI.fieldTable.getSelectedRow());
+            int index = _surveyGUI.priority.getSelectedIndex();
 
-            ((DefaultTableModel) _surveyGUI.fieldTable.getModel()).setValueAt(
-                    "" + _surveyGUI.priority.getSelectedIndex(),
-                    _surveyGUI.fieldTable.getSelectedRow(), 5);
+            for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                _surveyObsComp.setPriority(index, row);
+
+                ((DefaultTableModel) _surveyGUI.fieldTable.getModel()).setValueAt(
+                        "" + index, row, 5);
+            }
 
             return;
 
