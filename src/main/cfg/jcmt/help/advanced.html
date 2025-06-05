@@ -337,7 +337,8 @@ as illustrated below.
 
 <p>
 Each <tt>SCIENCE</tt> position can also have one or more of the following
-optional values: position in tile, observations remaining and priority.
+optional values: position in tile, observations remaining, priority,
+radial velocity and radial velocity type.
 The position in tile can just be -1 (a dummy value) for JCMT
 science programs.
 So, for example, to specify a target with 10 observations remaining
@@ -346,6 +347,18 @@ and priority 50, you could use:
 
 <pre>
 SCIENCE TargetName 12:34:56 07:08:09 FK5 -1 10 50
+</pre>
+
+<p>
+If the radial velocity is included, it must be followed by the type, either
+"LSRK" (radio, LSRK), "REDSHIFT" (redshift, barycentric)
+or "OPTICAL" (optical, heliocentric).
+These can be abbreviated to "LSR", "RED" and "OPT" respectively.
+For example:
+</p>
+
+<pre>
+SCIENCE TargetName 00:10:20 30:40:50 FK5 -1 10 50 12.34 LSRK
 </pre>
 
 <h2 id="proxy">To those Behind a Firewall: Setting your Proxy Server</h2>
