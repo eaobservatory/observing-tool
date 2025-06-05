@@ -38,6 +38,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.Observer;
 import java.util.Observable;
@@ -721,10 +722,13 @@ public final class EdSurvey extends EdCompTargetList implements
             return;
 
         } else if (source == _surveyGUI.removeButton) {
+            int[] indexes =_surveyGUI.fieldTable.getSelectedRows();
+
             if (_surveyObsComp.isChoice()) {
-                if ((_surveyObsComp.getChoose() + 1) == _surveyObsComp.size()) {
+                if (_surveyObsComp.getChoose()
+                        >= (_surveyObsComp.size() - indexes.length)) {
                     int cont = JOptionPane.showConfirmDialog(_surveyGUI,
-                            "Removing another item will disable"
+                            "Removing item(s) will disable"
                                     + " the choose option.\n"
                                     + "Do you want to continue?",
                             "Disable Choice?", JOptionPane.YES_NO_OPTION,
@@ -738,8 +742,12 @@ public final class EdSurvey extends EdCompTargetList implements
                 }
             }
 
-            _surveyObsComp.removeSpTelescopeObsComp(
-                    _surveyGUI.fieldTable.getSelectedRow());
+            // Iterate over indexes in reverse order so that each
+            // removal does not cause renumbering of those remaining.
+            Arrays.sort(indexes);
+            for (int i = indexes.length - 1; i >= 0; i --) {
+                _surveyObsComp.removeSpTelescopeObsComp(indexes[i]);
+            }
 
             _updateFieldTable();
 
