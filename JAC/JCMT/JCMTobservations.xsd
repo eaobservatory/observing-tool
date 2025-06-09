@@ -92,6 +92,7 @@
         <xsd:enumeration value="Spectral Flatfield" />
         <xsd:enumeration value="ZPD" />
         <xsd:enumeration value="Variable Mode" />
+        <xsd:enumeration value="Step and Integrate" />
     </xsd:restriction>
 </xsd:simpleType>
 
@@ -327,8 +328,11 @@
     <xsd:complexType>
         <xsd:sequence>
             <xsd:group ref="toml:jac_meta_group"/>
+            <xsd:element name="ScanLength"    type="toml:nonNegativeDecimal" minOccurs="0"/>
+            <xsd:element name="ScanOrigin"    type="xsd:double"              minOccurs="0"/>
             <xsd:element name="ScanSpeed"     type="toml:nonNegativeDecimal" minOccurs="0"/>
             <xsd:element name="SpecialMode"   type="toml:fts2SpecialModes"   minOccurs="1"/>
+            <xsd:element name="StepDistance"  type="toml:nonNegativeDecimal" minOccurs="0"/>
             <xsd:element name="TrackingPort"  type="toml:fts2TrackingPorts"  minOccurs="1"/>
             <xsd:element name="isDualPort"    type="xsd:boolean"             minOccurs="1"/>
             <xsd:element name="resolution"    type="toml:nonNegativeDecimal" minOccurs="0"/>
