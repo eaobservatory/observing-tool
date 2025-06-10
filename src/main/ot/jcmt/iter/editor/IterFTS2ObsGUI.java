@@ -97,6 +97,11 @@ public class IterFTS2ObsGUI extends JPanel {
     JTextField integrationTime = new JTextField();
     JLabel secondsLabel = new JLabel();
 
+    JPanel stepIntegratePanel = new JPanel();
+    JTextField stepDistance = new JTextField();
+    JTextField scanLength = new JTextField();
+    JTextField scanOrigin = new JTextField();
+
     JPanel southernPanel = new JPanel();
 
     public IterFTS2ObsGUI() {
@@ -347,27 +352,70 @@ public class IterFTS2ObsGUI extends JPanel {
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
                 new Insets(0, 0, 0, 0), 0, 0));
 
+        stepIntegratePanel.setBorder(
+            BorderFactory.createTitledBorder("Step and Integrate"));
+        stepIntegratePanel.setLayout(new GridBagLayout());
+        stepIntegratePanel.add(new JLabel("Step distance:"), new GridBagConstraints(
+                0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(stepDistance, new GridBagConstraints(
+                1, 0, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("mm"), new GridBagConstraints(
+                2, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("Scan length:"), new GridBagConstraints(
+                0, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(scanLength, new GridBagConstraints(
+                1, 1, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("mm"), new GridBagConstraints(
+                2, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("Scan origin:"), new GridBagConstraints(
+                0, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(scanOrigin, new GridBagConstraints(
+                1, 2, 1, 1, 1.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("mm"), new GridBagConstraints(
+                2, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+        stepIntegratePanel.add(new JLabel("(0.0mm at center)"), new GridBagConstraints(
+                1, 3, 2, 1, 1.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0), 0, 0));
+
         southernPanel.setLayout(new GridLayout(2, 2));
         southernPanel.add(resolutionFOVPanel);
         southernPanel.add(scanSpeedNyquistPanel);
         southernPanel.add(sensitivityTimePanel);
+        southernPanel.add(stepIntegratePanel);
 
         this.add(southernPanel, BorderLayout.SOUTH);
     }
 
-    public void southernPanelEnabled(boolean enabled) {
-        integrationTime.setEnabled(true);
-
-        Component[] components = scanSpeedNyquistPanel.getComponents();
-
-        for (Component component : components) {
-            component.setEnabled(enabled);
+    public void southernPanelEnabled(boolean enabledVariable, boolean enabledStepIntegrate) {
+        for (Component component: scanSpeedNyquistPanel.getComponents()) {
+            component.setEnabled(enabledVariable);
         }
 
-        components = resolutionFOVPanel.getComponents();
+        for (Component component: resolutionFOVPanel.getComponents()) {
+            component.setEnabled(enabledVariable);
+        }
 
-        for (Component component : components) {
-            component.setEnabled(enabled);
+        for (Component component: stepIntegratePanel.getComponents()) {
+            component.setEnabled(enabledStepIntegrate);
         }
     }
 }

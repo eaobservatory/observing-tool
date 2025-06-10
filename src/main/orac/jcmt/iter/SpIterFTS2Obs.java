@@ -39,6 +39,7 @@ public class SpIterFTS2Obs extends SpIterJCMTObs {
     public static final String SPECTRAL_FLAT_FIELD = "Spectral Flatfield";
     public static final String ZPD = "ZPD";
     public static final String VARIABLE_MODE = "Variable Mode";
+    public static final String STEP_AND_INTEGRATE = "Step and Integrate";
     public static String[] SPECIAL_MODES = {
             SED,
             SED_450, SED_850,
@@ -47,6 +48,7 @@ public class SpIterFTS2Obs extends SpIterJCMTObs {
             SPECTRAL_FLAT_FIELD,
             ZPD,
             VARIABLE_MODE,
+            STEP_AND_INTEGRATE,
     };
 
     public static final String SPECIAL_MODE = "SpecialMode";
@@ -60,6 +62,10 @@ public class SpIterFTS2Obs extends SpIterJCMTObs {
     public static final String SCAN_SPEED = "ScanSpeed";
     public static final String SENSITIVITY = "Sensitivity";
     public static final String RESOLUTION = "resolution";
+
+    public static final String STEP_DISTANCE = "StepDistance";
+    public static final String SCAN_LENGTH = "ScanLength";
+    public static final String SCAN_ORIGIN = "ScanOrigin";
 
     // Approximate light speed
     private final static double c = 3 * Math.pow(10, 8);
@@ -202,6 +208,30 @@ public class SpIterFTS2Obs extends SpIterJCMTObs {
 
     public double getNyquist() {
         return 250.0 / getScanSpeed();
+    }
+
+    public void setScanLength(double length) {
+        _avTable.set(SCAN_LENGTH, length);
+    }
+
+    public double getScanLength() {
+        return _avTable.getDouble(SCAN_LENGTH, 400.0);
+    }
+
+    public void setScanOrigin(double origin) {
+        _avTable.set(SCAN_ORIGIN, origin);
+    }
+
+    public double getScanOrigin() {
+        return _avTable.getDouble(SCAN_ORIGIN, -200.0);
+    }
+
+    public void setStepDistance(double step) {
+        _avTable.set(STEP_DISTANCE, step);
+    }
+
+    public double getStepDistance() {
+        return _avTable.getDouble(STEP_DISTANCE, 1.0);
     }
 
     public double getSensitivity450() {
