@@ -1652,7 +1652,27 @@ if any additionas are made to the list.
         <transition frequency="241561.55" name="2 1 1 - 2 1 2"/>
     </species>
     <species name="H">
+        <transition frequency="106737.357" name="39α"/>
+        <transition frequency="115274.399" name="38α"/>
+        <transition frequency="124746.73" name="37α"/>
+        <transition frequency="135286.032" name="36α"/>
+        <transition frequency="147046.878" name="35α"/>
+        <transition frequency="160211.511" name="34α"/>
+        <transition frequency="174995.805" name="33α"/>
+        <transition frequency="191656.728" name="32α"/>
+        <transition frequency="210501.771" name="31α"/>
         <transition frequency="231900.928" name="30α"/>
+        <transition frequency="256302.035" name="29α"/>
+        <transition frequency="284250.571" name="28α"/>
+        <transition frequency="316415.425" name="27α"/>
         <transition frequency="346758.485" name="37γ"/>
+        <transition frequency="353622.747" name="26α"/>
+        <transition frequency="396900.834" name="25α"/>
+        <transition frequency="447540.278" name="24α"/>
+        <transition frequency="507175.482" name="23α"/>
+        <transition frequency="577896.452" name="22α"/>
+        <transition frequency="662404.162" name="21α"/>
+        <transition frequency="764229.546" name="20α"/>
+        <transition frequency="888047.022" name="19α"/>
     </species>
 </LineCatalog>
