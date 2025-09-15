@@ -420,8 +420,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         // Update the summary panel
-        _w.lowFreq.setText("" + (int) (_receiver.loMin * 1.0E-9));
-        _w.highFreq.setText("" + (int) (_receiver.loMax * 1.0E-9));
+        _w.lowFreq.setText(String.format("%.1f", _receiver.loMin / 1.0E9));
+        _w.highFreq.setText(String.format("%.1f", _receiver.loMax / 1.0E9));
 
         // Update the velocity field.
         // First we need to see if we can find a target component somewhere
