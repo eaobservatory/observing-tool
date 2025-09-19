@@ -865,6 +865,7 @@ if any additionas are made to the list.
     <species name="H2O v2">
         <transition frequency="96261.1600" name="4 4 0 1 - 5 3 3 1"/>
         <transition frequency="232686.7000" name="5 5 0 1 - 6 4 3 1"/>
+        <transition frequency="268149.1170" name="6 5 2 2 - 7 4 3 2"/>
         <transition frequency="293664.4910" name="6 6 1 1 - 7 5 2 1"/>
         <transition frequency="336227.9410" name="5 2 3 1 - 6 1 6 1"/>
         <transition frequency="658006.2510" name="1 1 0 1 - 1 0 1 1"/>
