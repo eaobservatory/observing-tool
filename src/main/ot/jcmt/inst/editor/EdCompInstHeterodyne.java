@@ -1201,8 +1201,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             transBox.setSelectedItem(NO_LINE);
             transBox.addActionListener(this);
 
-            for (int index = 0; index < _regionInfo.length; index++) {
-                _inst.setTransition(NO_LINE, index);
+            // Blank out (i.e. set to NO_LINE) the first transition since
+            // we know its molecule is NO_LINE.  Blank the other values
+            // only if their molecule is also NO_LINE.
+            _inst.setTransition(NO_LINE, 0);
+            for (int index = 1; index < _regionInfo.length; index++) {
+                if (NO_LINE.equals(_inst.getMolecule(index))) {
+                    _inst.setTransition(NO_LINE, index);
+                }
             }
 
             return;
