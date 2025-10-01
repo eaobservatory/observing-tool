@@ -51,7 +51,7 @@
         </target>
 
         <target name="ot" depends="mkdir">
-                <javac srcdir="${ot.dir}/main:${ot.dir}/test"
+                <javac srcdir="${ot.dir}/main"
                        destdir="${ot.output.path}"
                        includeantruntime="false"
                        classpathref="classpath"
@@ -147,31 +147,6 @@
 
         <target name="cleanjavadoc">
                 <delete dir="${javadoc.dir}"/>
-        </target>
-
-<!-- Run the JUnit tests -->
-
-        <target name="junit">
-            <mkdir dir="${report.dir}"/>
-            <junit printsummary="yes">
-                <classpath>
-                      <path refid="output.classpath"/>
-                <!--  <path refid="application"/>-->
-                </classpath>
-
-                <formatter type="xml"/>
-
-                <batchtest fork="yes" todir="${report.dir}">
-                     <fileset dir="${ot.dir}/test" includes="**/*Test.java"/>
-                </batchtest>
-            </junit>
-        </target>
-
-        <target name="junitreport">
-            <junitreport todir="${report.dir}">
-                <fileset dir="${report.dir}" includes="TEST-*.xml"/>
-                <report todir="${report.dir}"/>
-            </junitreport>
         </target>
 
 </project>
