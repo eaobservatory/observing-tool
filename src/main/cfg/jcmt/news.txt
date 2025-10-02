@@ -1,4 +1,21 @@
-+++ Next release
++++ October 2025 release
+
+  - Minor updates to validation, especially regarding targets.
+
+  - Bug fix for "select" checkbox in Survey Containers.
+
+  - Radial velocity can be read from files into Survey Containers,
+    and ICRS read as an alias for FK5.
+
+  - Multiple Survey Container entries can be removed or have their
+    remaining / priority values changed.
+
+  - H2O 10 2 9 - 9 3 6 (321.226 GHz), CH3OH 8 0+ 0 - 7 1+ 0 (95.169 GHz)
+    and H2O v2 6 5 2 2 - 7 4 3 2 (268.149 GHz) lines added to the
+    catalog along with various H recombination lines.
+
+  - Bug fix for multiple spectral window transition names being set to
+    "No Line" if the primary window molecule name was "No Line".
 
   - Updated resolving of orbital elements to use the new Horizons API.
 
