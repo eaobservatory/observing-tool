@@ -32,7 +32,7 @@ import org.json.JSONTokener;
 
 public class HorizonsApi {
     final static String base_url = "https://ssd.jpl.nasa.gov/api/horizons.api";
-    final static String api_version = "1.0";
+    final static String api_version = "1.2";
 
     public static String requestObjData(String command) throws HorizonsApiException {
         if (! command.endsWith(";")) {
