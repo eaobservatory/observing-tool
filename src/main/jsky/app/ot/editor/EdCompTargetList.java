@@ -73,6 +73,7 @@ import org.astrogrid.samp.Message;
 import org.astrogrid.samp.SampUtils;
 
 import ot.util.Horizons;
+import ot.util.HorizonsApi;
 import java.util.TreeMap;
 import java.util.Vector;
 import ot.ReportBox;
@@ -1953,18 +1954,16 @@ public class EdCompTargetList extends OtItemEditor implements
 
         (new SwingWorker<TreeMap<String, String>, Void>() {
             @Override
-            public TreeMap<String, String> doInBackground() {
-                // NOTE: the Horizons class interface doesn't make a lot of
-                // sense!  This code simply retains the behavior of the
-                // previous non-SwingWorker version.  We first call
-                // "resolveName" and if that fails, call "searchName".
-                // It looks like both should be done in the "doInBackground"
-                // method but since we extract the message here we have to
-                // use SwingUtilities.invokeLater to display a box.
+            public TreeMap<String, String> doInBackground()
+                    throws HorizonsApi.HorizonsApiException,
+                    Horizons.HorizonsNonUniqueException {
+                TreeMap<String, String> treeMap = null;
                 Horizons horizons = Horizons.getInstance();
-                TreeMap<String, String> treeMap = horizons.resolveName(query);
+                treeMap = horizons.resolveName(query);
 
                 // Determine whether the name resolution failed?
+                // (Should not happen with the new version of the Horizons
+                // and HorizonsApi classes -- they should raise an exception instead.)
                 boolean failed = false;
 
                 if ((treeMap == null) || (treeMap.isEmpty())) {
@@ -1977,19 +1976,10 @@ public class EdCompTargetList extends OtItemEditor implements
                     }
                 }
 
-                // If it failed, use the "searchHorizons" method to try to
-                // obtain information to display.  (Perhaps there were multiple
-                // matches.)
                 if (failed) {
-                    final String message = searchHorizons(horizons, query);
-
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            if (message == null) {
-                                DialogUtil.error(null, "No result returned");
-                            } else {
-                                new ReportBox(message, "Search results for " + query);
-                            }
+                            DialogUtil.error(null, "The Horizons search appears not to have returned results.");
                         }
                     });
 
@@ -2012,17 +2002,32 @@ public class EdCompTargetList extends OtItemEditor implements
                 try {
                     treeMap = get();
                 } catch (InterruptedException e) {
+                    DialogUtil.error(null, "Horizons query interrupted.");
                 } catch (ExecutionException e) {
                     Throwable cause = e.getCause();
-                    String message = null;
+
                     if (cause == null) {
-                        message = e.getMessage();
-                    } else {
-                        cause.printStackTrace();
-                        message = cause.getMessage();
+                        e.printStackTrace();
+                        DialogUtil.error(_w, "Error while trying to resolve name: " + e.getMessage());
                     }
-                    DialogUtil.error(_w, "Error while trying to resolve name \""
-                            + query+ "\"\n" + message);
+                    else {
+                        if (cause instanceof HorizonsApi.HorizonsApiException) {
+                            DialogUtil.error(null, cause.getMessage());
+                        }
+                        else if (cause instanceof Horizons.HorizonsNonUniqueException) {
+                            String message = ((Horizons.HorizonsNonUniqueException) cause).getSearchResults();
+
+                            if (message == null) {
+                                DialogUtil.error(_w, "No result returned");
+                            } else {
+                                new ReportBox(message, "Search results for " + query);
+                            }
+                        }
+                        else {
+                            cause.printStackTrace();
+                            DialogUtil.error(_w, "Unexpected error: " + cause.getMessage());
+                        }
+                    }
                 }
 
                 if (treeMap == null) {
@@ -2079,42 +2084,5 @@ public class EdCompTargetList extends OtItemEditor implements
                 }
             }
         }).execute();
-    }
-
-    /**
-     * Get search results message from Horizons.
-     *
-     * This is called from SwingWorker.doInBackground in doSearchHorizons
-     * so it must not perform any Swing GUI actions.
-     *
-     * Returns the message as a string, if possible.  If the message says
-     * "No matches found." or in the event of failure, returns null.
-     */
-    private String searchHorizons(Horizons horizons, String name) {
-        boolean success = true;
-        Vector<String> results = horizons.searchName(name);
-
-        if (results.size() != 0) {
-            StringBuffer buffer = new StringBuffer();
-
-            while (results.size() != 0) {
-                String line = results.remove(0);
-
-                if (!line.trim().matches("^No matches found.$")) {
-                    buffer.append(line + "\n");
-
-                } else {
-                    success = false;
-
-                    break;
-                }
-            }
-
-            if (success) {
-                return buffer.toString();
-            }
-        }
-
-        return null;
     }
 }
