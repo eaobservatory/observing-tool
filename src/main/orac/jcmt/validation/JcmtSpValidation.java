@@ -514,7 +514,8 @@ public class JcmtSpValidation extends SpValidation {
                                         ErrorMessage.WARNING,
                                         titleString,
                                         "Position-switched observation REFERENCE"
-                                        + " is more than one degree from target."));
+                                        + " is more than one degree from target "
+                                        + String.format("(%.3f degrees).", offDistance / 3600.0)));
                                 }
                             } catch (UnsupportedOperationException uoe) {
                                 // Can be thrown by CoordConvert.convert.
