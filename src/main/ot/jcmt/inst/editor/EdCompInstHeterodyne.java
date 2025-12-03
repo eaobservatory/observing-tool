@@ -119,9 +119,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     Vector<Object>[] _regionInfo = new Vector[
             HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1]];
     boolean configured = false;
-    static String LSB = "lsb";
-    static String USB = "usb";
-    static String BEST = "best";
+    static final String LSB = "lsb";
+    static final String USB = "usb";
+    static final String BEST = "best";
 
     private static final Color myRed = new Color(255, 209, 186);
     private static final Color myYellow = new Color(255, 249, 182);
