@@ -152,25 +152,21 @@ public class JcmtSpValidation extends SpValidation {
                     }
                 }
 
-                double loMin = 0.0;
-                double loMax = 0.0;
-                double[] defaultOverlaps = null;
-                double[] bandwidths = null;
-                int systems = new Integer(spInstHeterodyne.getBandMode());
+                int systems = Integer.parseInt(spInstHeterodyne.getBandMode());
 
-                FrequencyEditorCfg requencyEditorCfg =
+                FrequencyEditorCfg frequencyEditorCfg =
                         FrequencyEditorCfg.getConfiguration();
 
-                Receiver receiver = requencyEditorCfg.receivers.get(feName);
+                Receiver receiver = frequencyEditorCfg.receivers.get(feName);
 
-                loMin = receiver.loMin;
-                loMax = receiver.loMax;
+                double loMin = receiver.loMin;
+                double loMax = receiver.loMax;
 
                 BandSpec bandSpec = receiver.bandspecs.get(systems - 1);
 
-                defaultOverlaps = bandSpec.defaultOverlaps;
+                double[] defaultOverlaps = bandSpec.defaultOverlaps;
 
-                bandwidths = bandSpec.getDefaultOverlapBandWidths();
+                double[] bandwidths = bandSpec.getDefaultOverlapBandWidths();
 
                 // Use a newly-calculated sky frequency (but don't store it to
                 // avoid unnecessary changes to the science program) in order
@@ -201,12 +197,11 @@ public class JcmtSpValidation extends SpValidation {
                             + " GHz"));
                 }
 
-                int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
                 String sidebandMode = spInstHeterodyne.getMode();
 
                 List<String> availableModes = Arrays.asList(
-                        requencyEditorCfg.frontEndTable.get(feName));
+                        frequencyEditorCfg.frontEndTable.get(feName));
 
                 if (! availableModes.contains(sidebandMode)) {
                     report.add(new ErrorMessage(
@@ -222,7 +217,7 @@ public class JcmtSpValidation extends SpValidation {
                     loFreq = skyFrequency - spInstHeterodyne.getCentreFrequency(0);
                 }
 
-                for (int index = 0; index < available; index++) {
+                for (int index = 0; index < systems; index++) {
                     double centre = spInstHeterodyne.getCentreFrequency(index);
                     double rest = spInstHeterodyne.getRestFrequency(index);
                     double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
