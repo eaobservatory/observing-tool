@@ -222,20 +222,36 @@ public class JcmtSpValidation extends SpValidation {
                     double rest = spInstHeterodyne.getRestFrequency(index);
                     double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
 
-                    if ("lsb".equals(sideBand) && (skyFreq + centre) > loMax) {
-                        report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                titleString,
-                                "Need to use upper or best sideband"
-                                + " to reach the line " + rest
-                                + " (at sky frequency " + skyFreq + ")"));
+                    boolean is_lsb = "lsb".equals(sideBand);
+                    double sysLo = is_lsb ? (skyFreq + centre) : (skyFreq - centre);
 
-                    } else if (!"lsb".equals(sideBand)
-                            && (skyFreq - centre) < loMin) {
+                    if ((sysLo < loMin) || (sysLo > loMax)) {
+                        String extra_option = "";
+
+                        if (! ("lsb".equals(sidebandMode) || "usb".equals(sidebandMode))) {
+                            // The receiver can use multiple sidebands, so perform
+                            // previous test to see if we should suggest the other.
+                            if (is_lsb) {
+                                if (sysLo > loMax) {
+                                    extra_option = " or in upper sideband";
+                                }
+                            }
+                            else {
+                                if (sysLo < loMin) {
+                                    extra_option = " or in lower sideband";
+                                }
+                            }
+                        }
+
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
-                                "Need to use lower sideband"
-                                + " to reach the line " + rest
-                                + " (at sky frequency " + skyFreq + ")"));
+                                "The line " + String.format("%.3f GHz", rest / 1.0E9)
+                                + " (at sky frequency " + String.format("%.3f GHz", skyFreq / 1.0E9) + ")"
+                                + " would require LO frequency " + String.format("%.3f GHz", sysLo / 1.0E9)
+                                + " which is out of range " + String.format("(%.3f - %.3f GHz)", loMin / 1.0E9, loMax / 1.0E9)
+                                + ".  It is possible this would be tunable at a different IF"
+                                + extra_option + "."));
+
                     }
 
                     if ("best".equals(sideBand)
