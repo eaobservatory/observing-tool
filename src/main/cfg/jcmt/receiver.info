@@ -714,8 +714,8 @@ HARP
 For each receiver the format is:
 (The individual receiver entries are separated by a blank line,
 the order in which the entries appear are given at the top of the file.)
-lowest tuneable frequency
-highest tuneable frequency
+lowest tunable frequency
+highest tunable frequency
 number of mixers
 name of bitmap file
 No. of entries for Trx
