@@ -373,6 +373,17 @@ public class JcmtSpValidation extends SpValidation {
                                         "Raster map has unusual scan spacing " +
                                             "for HARP (dy = " + dy +  "\")."));
                             }
+                            else if (dy > 15) {
+                                // 1/8 array mode is ~14.6", we currently recommend this
+                                // due to the presence of bad receptors.
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "HARP raster map has a large scan spacing " +
+                                            "(dy = " + dy + "\") but it is currently " +
+                                            "recommended to use 1/8 array spacing (14.6\") " +
+                                            "or better due to not all receptors being available."));
+                            }
                         }
                     }
                     catch (UnsupportedOperationException e) {
