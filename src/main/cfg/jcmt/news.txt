@@ -1,4 +1,17 @@
-+++ October 2025 release
+++ March 2026 release
+
+  - Include Kuntur in the Het Setup front end selection.
+
+  - Validator message regarding PSSW reference too far away should
+    now include the distance.
+
+  - Methanol line at 84.521GHz and CO 1-0 (and isotopologues)
+    added to the catalog.
+
+  - Minor adjustments to frequency editor and validator.
+
+  - Added validator check for HARP raster dy > 15" (not currently
+    recommended).
 
   - Minor updates to validation, especially regarding targets.
 
