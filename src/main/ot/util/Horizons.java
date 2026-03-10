@@ -19,19 +19,11 @@
 
 package ot.util;
 
-import java.net.URL;
 import java.io.File;
-import java.io.BufferedReader;
 import java.util.TreeMap;
-import java.net.URLEncoder;
-import java.io.FileReader;
-import java.net.MalformedURLException;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.InputStream;
-import java.util.Vector;
-import java.io.UnsupportedEncodingException;
+import java.util.StringTokenizer;
 
 // serialising
 import java.io.FileInputStream;
@@ -40,8 +32,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Horizons {
-    static final String server = "https://ssd.jpl.nasa.gov/";
-    static final String script = "horizons_batch.cgi?batch=1";
     private static boolean caching = true;
     private String cacheDirectory = null;
     private static Horizons horizons = null;
@@ -55,31 +45,6 @@ public class Horizons {
         }
 
         return horizons;
-    }
-
-    public static void main(String args[]) {
-        if (args.length == 0) {
-            System.exit(-1);
-        }
-
-        String inputFileName = args[0];
-
-        if (inputFileName.startsWith("~")) {
-            inputFileName = inputFileName.replaceFirst("~",
-                    System.getProperty("user.home"));
-        }
-
-        Horizons horizon = Horizons.getInstance();
-        TreeMap<String, String> treeMap = null;
-        treeMap = horizon.resolveFromFile(inputFileName);
-
-        if (treeMap.isEmpty()) {
-            treeMap = horizon.resolveName(inputFileName);
-        }
-
-        if (treeMap != null) {
-            printMap(treeMap);
-        }
     }
 
     private String getFileName(String query) {
@@ -191,44 +156,42 @@ public class Horizons {
         // n.b. we still write even if the map is empty
         boolean success = false;
 
-        if (result != null) {
-            FileOutputStream fileOutputStream = null;
-            ObjectOutputStream objectOutputStream = null;
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
 
-            if (query != null && !query.trim().equals("")) {
-                @SuppressWarnings("unchecked")
-                TreeMap<String, String> resultCopy =
-                        (TreeMap<String, String>) result.clone();
-                resultCopy.put("_CACHE_TIMESTAMP_",
-                        Long.toString(System.currentTimeMillis()));
+        if (query != null && !query.trim().equals("")) {
+            @SuppressWarnings("unchecked")
+            TreeMap<String, String> resultCopy =
+                    (TreeMap<String, String>) result.clone();
+            resultCopy.put("_CACHE_TIMESTAMP_",
+                    Long.toString(System.currentTimeMillis()));
 
-                String fileName = getFileName(query);
+            String fileName = getFileName(query);
 
+            try {
+                fileOutputStream = new FileOutputStream(fileName);
+                objectOutputStream = new ObjectOutputStream(
+                        fileOutputStream);
+                objectOutputStream.writeObject(resultCopy);
+                objectOutputStream.flush();
+                fileOutputStream.flush();
+                success = true;
+
+            } catch (IOException ioe) {
+                System.out.println(ioe + " while writing cache");
+
+            } finally {
                 try {
-                    fileOutputStream = new FileOutputStream(fileName);
-                    objectOutputStream = new ObjectOutputStream(
-                            fileOutputStream);
-                    objectOutputStream.writeObject(resultCopy);
-                    objectOutputStream.flush();
-                    fileOutputStream.flush();
-                    success = true;
+                    if (objectOutputStream != null) {
+                        objectOutputStream.close();
+                    }
+
+                    if (fileOutputStream != null) {
+                        fileOutputStream.close();
+                    }
 
                 } catch (IOException ioe) {
-                    System.out.println(ioe + " while writing cache");
-
-                } finally {
-                    try {
-                        if (objectOutputStream != null) {
-                            objectOutputStream.close();
-                        }
-
-                        if (fileOutputStream != null) {
-                            fileOutputStream.close();
-                        }
-
-                    } catch (IOException ioe) {
-                        System.out.println(ioe + " while closing");
-                    }
+                    System.out.println(ioe + " while closing");
                 }
             }
         }
@@ -236,114 +199,50 @@ public class Horizons {
         return success;
     }
 
-    public synchronized Vector<String> searchName(String name) {
-        Vector<String> vector = new Vector<String>();
-
-        if (name != null && !name.trim().equals("")) {
-            TreeMap<String, String> map = doLookup(name);
-            URL lut = buildUrl(map, true);
-
-            if (lut != null) {
-                vector = connect(lut);
-            }
+    public TreeMap<String, String> resolveName(String name)
+            throws HorizonsApi.HorizonsApiException, HorizonsNonUniqueException {
+        if ((name == null) || name.trim().equals("")) {
+            throw new HorizonsApi.HorizonsApiException("No object name specified.");
         }
 
-        return vector;
-    }
+        TreeMap<String, String> treeMap = null;
 
-    public TreeMap<String, String> resolveFromFile(String name) {
-        TreeMap<String, String> treeMap = new TreeMap<String, String>();
-
-        if (name != null && !name.trim().equals("")) {
-            TreeMap<String, String> map;
-            map = readInputFile(name);
-
-            URL lut = buildUrl(map, false);
-            Vector<String> vector = null;
-
-            if (lut != null) {
-                vector = connect(lut);
-
-                if (vector != null) {
-                    treeMap = parse(vector);
-                }
-            }
+        if (caching) {
+            treeMap = readCache(name);
         }
 
-        return treeMap;
-    }
+        if (treeMap == null) {
+            String result = HorizonsApi.requestObjData(name.trim());
 
-    public TreeMap<String, String> resolveName(String name) {
-        TreeMap<String, String> treeMap = new TreeMap<String, String>();
+            treeMap = parse(result);
 
-        if (name != null && !name.trim().equals("")) {
-            if (!name.endsWith(";")) {
-                name += ";";
+            if (treeMap == null) {
+                throw new HorizonsNonUniqueException(result);
+            }
+
+            String value = treeMap.get("NAME");
+
+            if (value == null || value.trim().equals("")) {
+                throw new HorizonsNonUniqueException(result);
             }
 
             if (caching) {
-                treeMap = readCache(name);
-            }
-
-            if (treeMap == null) {
-                TreeMap<String, String> map = doLookup(name);
-
-                URL lut = buildUrl(map, false);
-                Vector<String> vector = null;
-
-                if (lut != null) {
-                    vector = connect(lut);
-
-                    if (vector != null) {
-                        treeMap = parse(vector);
-
-                        if (caching) {
-                            writeCache(treeMap, name);
-                        }
-                    }
-                }
+                writeCache(treeMap, name);
             }
         }
 
         return treeMap;
     }
 
-    private TreeMap<String, String> doLookup(String name) {
-        TreeMap<String, String> treeMap = new TreeMap<String, String>();
-
-        if (name != null && !name.trim().equals("")) {
-            treeMap.put("COMMAND", name.trim());
-            treeMap.put("MAKE_EPHEM", "YES");
-            treeMap.put("TABLE_TYPE", "OBSERVER");
-            treeMap.put("R_T_S_ONLY", "YES");
-
-        } else {
-            System.out.println("No name given");
-        }
-
-        return treeMap;
-    }
-
-    public static void printMap(TreeMap<String, String> map) {
-        if (map != null) {
-            String key, value;
-
-            while (map.size() != 0) {
-                key = map.lastKey();
-                value = map.remove(key);
-                System.out.println(key + " == " + value);
-            }
-        }
-    }
-
-    private TreeMap<String, String> parse(Vector<String> vector) {
+    private TreeMap<String, String> parse(String result) {
         String line;
         TreeMap<String, String> treeMap = new TreeMap<String, String>();
         QuickMatch quickMatch = QuickMatch.getInstance();
         TreeMap<String, String> tmpMap = null;
 
-        while (vector.size() != 0) {
-            line = vector.remove(0);
+        StringTokenizer st = new StringTokenizer(result, "\n\r");
+        while (st.hasMoreTokens()) {
+            line = st.nextToken();
 
             if (line != null && !line.trim().matches("^No matches found.$")) {
                 tmpMap = quickMatch.parseLine(line);
@@ -357,133 +256,16 @@ public class Horizons {
         return treeMap;
     }
 
-    private Vector<String> connect(URL url) {
-        Vector<String> vector = new Vector<String>();
+    public static class HorizonsNonUniqueException extends Exception {
+        private String searchResults;
 
-        if (url != null) {
-            InputStream stream = null;
-
-            try {
-                stream = url.openStream();
-
-                InputStreamReader streamReader = new InputStreamReader(stream);
-                BufferedReader buffer = new BufferedReader(streamReader);
-
-                while (!buffer.ready()) {
-                }
-
-                String line;
-                while ((line = buffer.readLine()) != null) {
-                    if (line.trim().matches("\\!\\$\\$SOF")) {
-                        break;
-                    }
-
-                    vector.add(line);
-                }
-            } catch (IOException ioe) {
-                System.out.println(ioe);
-            }
-
-        } else {
-            System.out.println("Null URL");
+        public HorizonsNonUniqueException(String searchResults) {
+            super("Search did not return a unique result");
+            this.searchResults = searchResults;
         }
 
-        return vector;
-    }
-
-    /**
-     * Construct query URL.
-     *
-     * If "search" is specified, then this generates a query parameter
-     * "COMMAND='NAME=...'", otherwise just "COMMAND=..."
-     * (where "..." represents the search name ("COMMAND" in given treeMap).
-     */
-    private URL buildUrl(TreeMap<String, String> treeMap, boolean search) {
-        URL finalURL = null;
-        StringBuffer buffer = new StringBuffer();
-        String key, value;
-
-        while (treeMap.size() != 0) {
-            key = treeMap.lastKey();
-            value = treeMap.remove(key);
-
-            try {
-                if (key.trim().equals("COMMAND") && search) {
-                    buffer.append("&" + key.trim() + "=" + "'NAME="
-                            + URLEncoder.encode(value.trim(), "UTF-8") + "'");
-                } else {
-                    buffer.append("&" + key.trim() + "="
-                            + URLEncoder.encode(value.trim(), "UTF-8"));
-                }
-
-            } catch (UnsupportedEncodingException uee) {
-                System.out.println("Character encoding not supported" + uee);
-                System.exit(-10);
-            }
+        public String getSearchResults() {
+            return searchResults;
         }
-
-        String url = buffer.toString();
-        buffer.delete(0, buffer.length());
-        buffer.append(server);
-        buffer.append(script);
-        buffer.append(url);
-
-        try {
-            finalURL = new URL(buffer.toString());
-        } catch (MalformedURLException mue) {
-            System.out.println(mue);
-        }
-
-        return finalURL;
-    }
-
-    private TreeMap<String, String> readInputFile(String fileName) {
-        String line;
-        String[] parts;
-        String key, value;
-        TreeMap<String, String> treeMap = new TreeMap<String, String>();
-        File file = new File(fileName);
-
-        if (file.exists() && file.canRead()) {
-            FileReader reader = null;
-
-            try {
-                reader = new FileReader(file);
-                BufferedReader buffer = new BufferedReader(reader);
-
-                while (!buffer.ready()) {
-                }
-
-                while ((line = buffer.readLine()) != null) {
-                    parts = line.split("= ");
-
-                    if (parts.length < 2) {
-                        continue;
-                    }
-
-                    if (parts.length == 2) {
-                        key = parts[0].trim();
-                        value = parts[1].trim();
-                        treeMap.put(key, value);
-
-                    } else {
-                        System.out.println("Error ! " + line);
-
-                        break;
-                    }
-                }
-
-            } catch (FileNotFoundException fnfe) {
-                System.out.println(fnfe);
-
-            } catch (IOException ioe) {
-                System.out.println(ioe);
-            }
-
-        } else {
-            System.out.println(fileName + " not available");
-        }
-
-        return treeMap;
     }
 }

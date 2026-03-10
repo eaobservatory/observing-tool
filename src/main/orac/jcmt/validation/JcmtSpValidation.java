@@ -152,25 +152,21 @@ public class JcmtSpValidation extends SpValidation {
                     }
                 }
 
-                double loMin = 0.0;
-                double loMax = 0.0;
-                double[] defaultOverlaps = null;
-                double[] bandwidths = null;
-                int systems = new Integer(spInstHeterodyne.getBandMode());
+                int systems = Integer.parseInt(spInstHeterodyne.getBandMode());
 
-                FrequencyEditorCfg requencyEditorCfg =
+                FrequencyEditorCfg frequencyEditorCfg =
                         FrequencyEditorCfg.getConfiguration();
 
-                Receiver receiver = requencyEditorCfg.receivers.get(feName);
+                Receiver receiver = frequencyEditorCfg.receivers.get(feName);
 
-                loMin = receiver.loMin;
-                loMax = receiver.loMax;
+                double loMin = receiver.loMin;
+                double loMax = receiver.loMax;
 
                 BandSpec bandSpec = receiver.bandspecs.get(systems - 1);
 
-                defaultOverlaps = bandSpec.defaultOverlaps;
+                double[] defaultOverlaps = bandSpec.defaultOverlaps;
 
-                bandwidths = bandSpec.getDefaultOverlapBandWidths();
+                double[] bandwidths = bandSpec.getDefaultOverlapBandWidths();
 
                 // Use a newly-calculated sky frequency (but don't store it to
                 // avoid unnecessary changes to the science program) in order
@@ -201,12 +197,11 @@ public class JcmtSpValidation extends SpValidation {
                             + " GHz"));
                 }
 
-                int available = new Integer(spInstHeterodyne.getBandMode());
                 String sideBand = spInstHeterodyne.getBand();
                 String sidebandMode = spInstHeterodyne.getMode();
 
                 List<String> availableModes = Arrays.asList(
-                        requencyEditorCfg.frontEndTable.get(feName));
+                        frequencyEditorCfg.frontEndTable.get(feName));
 
                 if (! availableModes.contains(sidebandMode)) {
                     report.add(new ErrorMessage(
@@ -222,25 +217,41 @@ public class JcmtSpValidation extends SpValidation {
                     loFreq = skyFrequency - spInstHeterodyne.getCentreFrequency(0);
                 }
 
-                for (int index = 0; index < available; index++) {
+                for (int index = 0; index < systems; index++) {
                     double centre = spInstHeterodyne.getCentreFrequency(index);
                     double rest = spInstHeterodyne.getRestFrequency(index);
                     double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
 
-                    if ("lsb".equals(sideBand) && (skyFreq + centre) > loMax) {
-                        report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                titleString,
-                                "Need to use upper or best sideband"
-                                + " to reach the line " + rest
-                                + " (at sky frequency " + skyFreq + ")"));
+                    boolean is_lsb = "lsb".equals(sideBand);
+                    double sysLo = is_lsb ? (skyFreq + centre) : (skyFreq - centre);
 
-                    } else if (!"lsb".equals(sideBand)
-                            && (skyFreq - centre) < loMin) {
+                    if ((sysLo < loMin) || (sysLo > loMax)) {
+                        String extra_option = "";
+
+                        if (! ("lsb".equals(sidebandMode) || "usb".equals(sidebandMode))) {
+                            // The receiver can use multiple sidebands, so perform
+                            // previous test to see if we should suggest the other.
+                            if (is_lsb) {
+                                if (sysLo > loMax) {
+                                    extra_option = " or in upper sideband";
+                                }
+                            }
+                            else {
+                                if (sysLo < loMin) {
+                                    extra_option = " or in lower sideband";
+                                }
+                            }
+                        }
+
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
-                                "Need to use lower sideband"
-                                + " to reach the line " + rest
-                                + " (at sky frequency " + skyFreq + ")"));
+                                "The line " + String.format("%.3f GHz", rest / 1.0E9)
+                                + " (at sky frequency " + String.format("%.3f GHz", skyFreq / 1.0E9) + ")"
+                                + " would require LO frequency " + String.format("%.3f GHz", sysLo / 1.0E9)
+                                + " which is out of range " + String.format("(%.3f - %.3f GHz)", loMin / 1.0E9, loMax / 1.0E9)
+                                + ".  It is possible this would be tunable at a different IF"
+                                + extra_option + "."));
+
                     }
 
                     if ("best".equals(sideBand)
@@ -378,6 +389,17 @@ public class JcmtSpValidation extends SpValidation {
                                         "Raster map has unusual scan spacing " +
                                             "for HARP (dy = " + dy +  "\")."));
                             }
+                            else if (dy > 15) {
+                                // 1/8 array mode is ~14.6", we currently recommend this
+                                // due to the presence of bad receptors.
+                                report.add(new ErrorMessage(
+                                        ErrorMessage.WARNING,
+                                        titleString,
+                                        "HARP raster map has a large scan spacing " +
+                                            "(dy = " + dy + "\") but it is currently " +
+                                            "recommended to use 1/8 array spacing (14.6\") " +
+                                            "or better due to not all receptors being available."));
+                            }
                         }
                     }
                     catch (UnsupportedOperationException e) {
@@ -514,7 +536,8 @@ public class JcmtSpValidation extends SpValidation {
                                         ErrorMessage.WARNING,
                                         titleString,
                                         "Position-switched observation REFERENCE"
-                                        + " is more than one degree from target."));
+                                        + " is more than one degree from target "
+                                        + String.format("(%.3f degrees).", offDistance / 3600.0)));
                                 }
                             } catch (UnsupportedOperationException uoe) {
                                 // Can be thrown by CoordConvert.convert.

@@ -185,24 +185,35 @@ public class SideBandDisplay extends JFrame {
         int lslide = (int) Math.rint(_lRangeLimit / EdFreq.SLIDERSCALE);
         int uslide = (int) Math.rint(_uRangeLimit / EdFreq.SLIDERSCALE);
 
+        // Check "centre" is within the range of "lslide" - "uslide" in order to
+        // prevent an exception constructing the JSlider.  (This probably isn't
+        // the best place to apply this check, but if the frequencies are wrong
+        // an exception here prevents opening to editor to correct them.)
+        centre = Math.max(lslide, Math.min(uslide, centre));
+
+        // Determine tick spacing: 10, 1 GHz if range over 10 GHz else 1, 0.1.
+        boolean narrowRange = (_uRangeLimit - _lRangeLimit) < 10.0E9;
+        int tickSpacing = (int) Math.rint(
+                (narrowRange ? 1.0E9 : 10.0E9) / EdFreq.SLIDERSCALE);
+        int minorTickSpacing = (int) Math.rint(
+                (narrowRange ? 0.1E9 : 1.0E9) / EdFreq.SLIDERSCALE);
+
         slider = new JSlider(JSlider.HORIZONTAL, lslide, uslide, centre);
-        slider.setMinorTickSpacing(
-                (int) Math.rint(1.0E9 / EdFreq.SLIDERSCALE));
-        slider.setMajorTickSpacing(
-                (int) Math.rint(10.0E9 / EdFreq.SLIDERSCALE));
+        slider.setMinorTickSpacing(minorTickSpacing);
+        slider.setMajorTickSpacing(tickSpacing);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
         /* Create labels for slider at 10GHz intervals */
 
         Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
-        for (int j = lslide; j <= uslide;
-                j += (int) Math.rint(10.0E9 / EdFreq.SLIDERSCALE))
+        for (int j = lslide; j <= uslide; j += tickSpacing) {
             labels.put(
                     new Integer(j),
                     new JLabel("" + j
                             / ((int) Math.rint(1.0E9 / EdFreq.SLIDERSCALE)),
                             SwingConstants.CENTER));
+        }
 
         slider.setLabelTable(labels);
 

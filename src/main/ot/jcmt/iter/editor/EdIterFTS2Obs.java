@@ -21,6 +21,7 @@ package ot.jcmt.iter.editor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -30,6 +31,7 @@ import javax.swing.event.ChangeListener;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.util.Format;
 import gemini.util.MathUtil;
 import orac.jcmt.iter.SpIterFTS2Obs;
 import jsky.app.ot.editor.OtItemEditor;
@@ -66,6 +68,22 @@ public final class EdIterFTS2Obs extends OtItemEditor implements
         _w.sensitivity450.addKeyListener(this);
         _w.sensitivity850.addKeyListener(this);
         _w.integrationTime.addKeyListener(this);
+
+        _w.stepDistance.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                _inst.setStepDistance(Format.toDouble(_w.stepDistance.getText()));
+            }
+        });
+        _w.scanLength.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                _inst.setScanLength(Format.toDouble(_w.scanLength.getText()));
+            }
+        });
+        _w.scanOrigin.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                _inst.setScanOrigin(Format.toDouble(_w.scanOrigin.getText()));
+            }
+        });
     }
 
     /**
@@ -105,12 +123,17 @@ public final class EdIterFTS2Obs extends OtItemEditor implements
         _w.nyquist.setText("" + MathUtil.round(_inst.getNyquist(), 4));
         _w.physicalSpeed.setText("" + MathUtil.round(speed * 2.5, 4));
         _w.physicalDistance.setText("" + MathUtil.round(2.5 / resolution, 4));
-        _w.southernPanelEnabled(SpIterFTS2Obs.VARIABLE_MODE.equals(
-                _inst.getSpecialMode()));
+        _w.southernPanelEnabled(
+            SpIterFTS2Obs.VARIABLE_MODE.equals(_inst.getSpecialMode()),
+            SpIterFTS2Obs.STEP_AND_INTEGRATE.equals(_inst.getSpecialMode()));
         _w.sensitivity450.setText(
                 "" + MathUtil.round(_inst.getSensitivity450(), 5));
         _w.sensitivity850.setText(
                 "" + MathUtil.round(_inst.getSensitivity850(), 5));
+
+        _w.scanLength.setText("" + _inst.getScanLength());
+        _w.scanOrigin.setText("" + _inst.getScanOrigin());
+        _w.stepDistance.setText("" + _inst.getStepDistance());
 
         if (!keypress) {
             _w.integrationTime.setText("" + _inst.getElapsedTime());
@@ -126,7 +149,8 @@ public final class EdIterFTS2Obs extends OtItemEditor implements
             if (item instanceof String) {
                 _inst.setSpecialMode((String) item);
                 boolean variableMode = SpIterFTS2Obs.VARIABLE_MODE.equals(item);
-                _w.southernPanelEnabled(variableMode);
+                boolean stepAndIntegrate = SpIterFTS2Obs.STEP_AND_INTEGRATE.equals(item);
+                _w.southernPanelEnabled(variableMode, stepAndIntegrate);
                 SpAvTable table = _inst.getTable();
 
                 if (variableMode) {
@@ -134,8 +158,19 @@ public final class EdIterFTS2Obs extends OtItemEditor implements
                     _inst.setScanSpeed(_inst.getScanSpeed());
 
                 } else {
-                    table.rm(SpIterFTS2Obs.FOV);
+                    table.rm(SpIterFTS2Obs.RESOLUTION);
                     table.rm(SpIterFTS2Obs.SCAN_SPEED);
+                }
+
+                if (stepAndIntegrate) {
+                    _inst.setScanLength(_inst.getScanLength());
+                    _inst.setScanOrigin(_inst.getScanOrigin());
+                    _inst.setStepDistance(_inst.getStepDistance());
+                }
+                else {
+                    table.rm(SpIterFTS2Obs.SCAN_LENGTH);
+                    table.rm(SpIterFTS2Obs.SCAN_ORIGIN);
+                    table.rm(SpIterFTS2Obs.STEP_DISTANCE);
                 }
             }
 

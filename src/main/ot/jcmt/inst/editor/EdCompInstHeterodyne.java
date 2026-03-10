@@ -119,9 +119,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
     Vector<Object>[] _regionInfo = new Vector[
             HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1]];
     boolean configured = false;
-    static String LSB = "lsb";
-    static String USB = "usb";
-    static String BEST = "best";
+    static final String LSB = "lsb";
+    static final String USB = "usb";
+    static final String BEST = "best";
 
     private static final Color myRed = new Color(255, 209, 186);
     private static final Color myYellow = new Color(255, 249, 182);
@@ -420,8 +420,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
         }
 
         // Update the summary panel
-        _w.lowFreq.setText("" + (int) (_receiver.loMin * 1.0E-9));
-        _w.highFreq.setText("" + (int) (_receiver.loMax * 1.0E-9));
+        _w.lowFreq.setText(String.format("%.1f", _receiver.loMin / 1.0E9));
+        _w.highFreq.setText(String.format("%.1f", _receiver.loMax / 1.0E9));
 
         // Update the velocity field.
         // First we need to see if we can find a target component somewhere
@@ -1201,8 +1201,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements
             transBox.setSelectedItem(NO_LINE);
             transBox.addActionListener(this);
 
-            for (int index = 0; index < _regionInfo.length; index++) {
-                _inst.setTransition(NO_LINE, index);
+            // Blank out (i.e. set to NO_LINE) the first transition since
+            // we know its molecule is NO_LINE.  Blank the other values
+            // only if their molecule is also NO_LINE.
+            _inst.setTransition(NO_LINE, 0);
+            for (int index = 1; index < _regionInfo.length; index++) {
+                if (NO_LINE.equals(_inst.getMolecule(index))) {
+                    _inst.setTransition(NO_LINE, index);
+                }
             }
 
             return;

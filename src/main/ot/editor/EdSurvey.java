@@ -38,6 +38,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.Observer;
 import java.util.Observable;
@@ -84,7 +85,7 @@ import jsky.app.ot.tpe.TpeManager;
  */
 @SuppressWarnings("serial")
 public final class EdSurvey extends EdCompTargetList implements
-        ListSelectionListener, KeyListener, Observer {
+        KeyListener, Observer {
     private static final String[] COLUMN_NAMES = {
             "Name",
             "X Axis",
@@ -149,8 +150,15 @@ public final class EdSurvey extends EdCompTargetList implements
         }
         _surveyGUI.remaining.addItem("(UN)REMOVE");
 
-        _surveyGUI.fieldTable.getSelectionModel()
-                .addListSelectionListener(this);
+        _surveyGUI.fieldTable.getSelectionModel().addListSelectionListener(
+            new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    if (!_ignoreEvents) {
+                        _surveyTargetSelectionChanged();
+                    }
+                }
+            });
+
         _surveyGUI.addButton.addActionListener(this);
         _surveyGUI.duplicateButton.addActionListener(this);
         _surveyGUI.removeButton.addActionListener(this);
@@ -202,29 +210,29 @@ public final class EdSurvey extends EdCompTargetList implements
         _surveyGUI.priority.setEnabled(true);
 
         // Try adding a mouse listener to the column tables
-        MouseAdapter columnListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                TableColumnModel columnModel =
-                        _surveyGUI.fieldTable.getColumnModel();
-                int viewColumn = columnModel.getColumnIndexAtX(e.getX());
-                int column = _surveyGUI.fieldTable
-                        .convertColumnIndexToModel(viewColumn);
+        _surveyGUI.fieldTable.getTableHeader().addMouseListener(
+            new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    TableColumnModel columnModel =
+                            _surveyGUI.fieldTable.getColumnModel();
+                    int viewColumn = columnModel.getColumnIndexAtX(e.getX());
+                    int column = _surveyGUI.fieldTable
+                            .convertColumnIndexToModel(viewColumn);
 
-                if (e.getClickCount() == 1 && column != -1) {
-                    // Sort based on selected column...
-                    boolean ascending = ((e.getModifiers()
-                            & InputEvent.SHIFT_MASK) == 0);
+                    if (e.getClickCount() == 1 && column != -1) {
+                        // Sort based on selected column...
+                        boolean ascending = ((e.getModifiers()
+                                & InputEvent.SHIFT_MASK) == 0);
 
-                    _sortByColumn(column, ascending, 0,
-                            _surveyGUI.fieldTable.getRowCount() - 1);
+                        _sortByColumn(column, ascending, 0,
+                                _surveyGUI.fieldTable.getRowCount() - 1);
 
-                    _updateFieldTable();
+                        _updateFieldTable();
+
+                        _surveyTargetSelectionChanged();
+                    }
                 }
-            }
-        };
-
-        JTableHeader th = _surveyGUI.fieldTable.getTableHeader();
-        th.addMouseListener(columnListener);
+            });
     }
 
     public void setup(SpItem spItem) {
@@ -616,12 +624,6 @@ public final class EdSurvey extends EdCompTargetList implements
         return result;
     }
 
-    public void valueChanged(ListSelectionEvent e) {
-        if (!_ignoreEvents) {
-            _surveyTargetSelectionChanged();
-        }
-    }
-
     private void _surveyTargetSelectionChanged() {
         _telescopeObsComp = _surveyObsComp.getSpTelescopeObsComp(
                 _surveyGUI.fieldTable.getSelectedRow());
@@ -720,10 +722,13 @@ public final class EdSurvey extends EdCompTargetList implements
             return;
 
         } else if (source == _surveyGUI.removeButton) {
+            int[] indexes =_surveyGUI.fieldTable.getSelectedRows();
+
             if (_surveyObsComp.isChoice()) {
-                if ((_surveyObsComp.getChoose() + 1) == _surveyObsComp.size()) {
+                if (_surveyObsComp.getChoose()
+                        >= (_surveyObsComp.size() - indexes.length)) {
                     int cont = JOptionPane.showConfirmDialog(_surveyGUI,
-                            "Removing another item will disable"
+                            "Removing item(s) will disable"
                                     + " the choose option.\n"
                                     + "Do you want to continue?",
                             "Disable Choice?", JOptionPane.YES_NO_OPTION,
@@ -737,8 +742,12 @@ public final class EdSurvey extends EdCompTargetList implements
                 }
             }
 
-            _surveyObsComp.removeSpTelescopeObsComp(
-                    _surveyGUI.fieldTable.getSelectedRow());
+            // Iterate over indexes in reverse order so that each
+            // removal does not cause renumbering of those remaining.
+            Arrays.sort(indexes);
+            for (int i = indexes.length - 1; i >= 0; i --) {
+                _surveyObsComp.removeSpTelescopeObsComp(indexes[i]);
+            }
 
             _updateFieldTable();
 
@@ -767,46 +776,44 @@ public final class EdSurvey extends EdCompTargetList implements
             return;
 
         } else if (source == _surveyGUI.remaining) {
-            if (_surveyGUI.remaining.getSelectedIndex()
-                    == _surveyGUI.remaining.getItemCount() - 1) {
-                int newRemaining = -1 * _surveyObsComp.getRemaining(
-                        _surveyGUI.fieldTable.getSelectedRow());
+            int index = _surveyGUI.remaining.getSelectedIndex();
 
-                _surveyObsComp.setRemaining(newRemaining,
-                        _surveyGUI.fieldTable.getSelectedRow());
+            if (index == _surveyGUI.remaining.getItemCount() - 1) {
+                for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                    int newRemaining = -1 * _surveyObsComp.getRemaining(row);
 
-                if (newRemaining < 0) {
-                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                            .setValueAt("REMOVED",
-                                    _surveyGUI.fieldTable.getSelectedRow(), 4);
+                    _surveyObsComp.setRemaining(newRemaining, row);
 
-                } else {
-                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                            .setValueAt("" + newRemaining,
-                                    _surveyGUI.fieldTable.getSelectedRow(), 4);
-                    _surveyGUI.remaining.setSelectedIndex(newRemaining);
+                    if (newRemaining < 0) {
+                        ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                                .setValueAt("REMOVED", row, 4);
+
+                    } else {
+                        ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                                .setValueAt("" + newRemaining, row, 4);
+                        _surveyGUI.remaining.setSelectedIndex(newRemaining);
+                    }
                 }
-
             } else {
-                _surveyObsComp.setRemaining(
-                        _surveyGUI.remaining.getSelectedIndex(),
-                        _surveyGUI.fieldTable.getSelectedRow());
+                for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                    _surveyObsComp.setRemaining(index, row);
 
-                ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
-                        .setValueAt(
-                                "" + _surveyGUI.remaining.getSelectedIndex(),
-                                _surveyGUI.fieldTable.getSelectedRow(), 4);
+                    ((DefaultTableModel) _surveyGUI.fieldTable.getModel())
+                            .setValueAt("" + index, row, 4);
+                }
             }
 
             return;
 
         } else if (source == _surveyGUI.priority) {
-            _surveyObsComp.setPriority(_surveyGUI.priority.getSelectedIndex(),
-                    _surveyGUI.fieldTable.getSelectedRow());
+            int index = _surveyGUI.priority.getSelectedIndex();
 
-            ((DefaultTableModel) _surveyGUI.fieldTable.getModel()).setValueAt(
-                    "" + _surveyGUI.priority.getSelectedIndex(),
-                    _surveyGUI.fieldTable.getSelectedRow(), 5);
+            for (int row: _surveyGUI.fieldTable.getSelectedRows()) {
+                _surveyObsComp.setPriority(index, row);
+
+                ((DefaultTableModel) _surveyGUI.fieldTable.getModel()).setValueAt(
+                        "" + index, row, 5);
+            }
 
             return;
 
