@@ -2589,28 +2589,16 @@ Things to include in your notes
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Optional: Calibration Templates</title>
-      <SpMSB checksum="536be0fc46ef21c50233556b4d19a495A" remaining="100" type="og" subtype="msb">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="73"/>
-        <SpInstHeterodyneRef idref="71"/>
-        <SpSiteQualityObsCompRef idref="72"/>
-        <SpTelescopeObsCompRef idref="70"/>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
-        <library_version>$Revision$</library_version>
-        <priority>1</priority>
-        <title>PSSW Calibration Template</title>
-        <totalDuration units="seconds">917.0</totalDuration>
-        <SpNote observeInstruction="true" type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Calibration Template Instructions
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>Calibration Template Instructions
 ----------------------------
 
 PIs are strongly advised to, at a minimum, add instructions and wishes
-regarding calibrations in the 'Calibration Note' to the TSS and
-observers. A sample note has been included with the library templates.
+regarding calibrations in the note to the TSS and observers.
 For information on standard sources, lines, and observational setup, see:
  
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
+https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/calibration/
 
 Please be aware that the submm positions for calibrators as used
 at the JCMT may differ substantially from the the ones in archives
@@ -2650,7 +2638,9 @@ choose either a position-switch, beam-switch, or raster calibration,
 depending on the selected calibration target (many of which require a
 position-switch).  Observational details for the calibrators can be
 found at this location:
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
+
+https://www.eaobservatory.org/jcmt/instrumentation/heterodyne/calibration/
+
 The calibration MSBs should be added to the science program with a
 high priority (low number) and high repeat counter to ensure that they
 will come up prominently and repeatedly in the JCMT Query Tool.
@@ -2686,8 +2676,19 @@ both your target and calibration source must be observable before the
 MSB can be scheduled, which can severely restrict the night-time
 available to the project in case of an unfortunate combination of
 calibration and science targets.</note>
-          <title>Calibration Instructions</title>
-        </SpNote>
+        <title>Calibration Instructions</title>
+      </SpNote>
+      <SpMSB checksum="536be0fc46ef21c50233556b4d19a495A" remaining="100" type="og" subtype="msb">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpDRRecipeRef idref="73"/>
+        <SpInstHeterodyneRef idref="71"/>
+        <SpSiteQualityObsCompRef idref="72"/>
+        <SpTelescopeObsCompRef idref="70"/>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>1</priority>
+        <title>PSSW Calibration Template</title>
+        <totalDuration units="seconds">917.0</totalDuration>
         <SpInstHeterodyne id="71" type="oc" subtype="inst.Heterodyne">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
@@ -2961,94 +2962,6 @@ calibration and science targets.</note>
           <rasterRecipe>REDUCE_SCIENCE_GRADIENT</rasterRecipe>
           <stareRecipe>REDUCE_SCIENCE_GRADIENT</stareRecipe>
         </SpDRRecipe>
-        <SpNote observeInstruction="true" type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Calibration Template Instructions
-----------------------------
-
-PIs are strongly advised to, at a minimum, add instructions and wishes
-regarding calibrations in the 'Calibration Note' to the TSS and
-observers. A sample note has been included with the library templates.
-For information on standard sources, lines, and observational setup, see:
- 
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
-
-Please be aware that the submm positions for calibrators as used
-at the JCMT may differ substantially from the the ones in archives
-such as SIMBAD.
-
-There are several options for calibrations and ways to customize them:
-
-1) No special calibration MSBs are provided in the Science Program:
-   the calibrations will be carried out on a suitable calibration source
-   selected by the TSS at a 'standard' frequency, possibly different from
-   MSB tuning or redshift. For many applications, this is the most 
-   appropriate option.
-
-2) A number of separate calibration MSBs on suitable targets are added
-   to the science program, clearly identified as calibrations in their
-   title. Typically the set of calibration MSBs should cover the
-   RA-range of the science observations to ensure that at least one
-   calibration MSB is available at any time.  PIs can customize the
-   "Het setup" but need to take care to pick an appropriate
-   switching-scheme for each calibrator chosen.  The TSS will insert
-   the calibration MSBs into the observing queue as needed and per
-   instruction in the science program.
-
-3) Calibration observations are part of the science MSBs
-
-
-Ad 2. Adding separate Calibration MSBs:
-----------------------------------
- 
-The ACSIS library has a set of special template MSBs for a
-position-switch, beam-switch, or raster calibration. The MSBs start
-with a series of (optional) pointing and focus observations. The
-calibration itself is a regular observation that has been marked as a
-calibration.  Configure the "Het setup" and "Target
-Component" to customize the calibration for your project. Typically
-choose either a position-switch, beam-switch, or raster calibration,
-depending on the selected calibration target (many of which require a
-position-switch).  Observational details for the calibrators can be
-found at this location:
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
-The calibration MSBs should be added to the science program with a
-high priority (low number) and high repeat counter to ensure that they
-will come up prominently and repeatedly in the JCMT Query Tool.
-
-
-Ad 3. Embedding Calibration observations as part of the science MSBs:
------------------------------------------------------------
-
-Embed the calibration observation of a specific standard source
-and line in your science MSB by copying and pasting the desired
-components from the calibration template described above under
-Ad. 2 (please read those instructions). The MSB should look like:
-
-       -------------------------
-       MSB
-         ...
-         Het setup
-         Science Target
-         Calibration Observation (marked as Calibration)
-         Science Observation 
-       -------------------------
-
-
-Please be aware of "inheritance": in the example above you will need to
-add another "Target Component" inside Calibration Observations with the
-coordinates and offsets of the calibrator! Likewise, if the
-calibration needs to be done at a different frequency, another "Het
-setup" needs to be added inside the Calibration Observation. This will
-result in the appropriate retune between the calibrator and the
-science target. This should NOT be done for the manually tuned
-RxW. WARNING: If you include a calibration observation in this manner,
-both your target and calibration source must be observable before the
-MSB can be scheduled, which can severely restrict the night-time
-available to the project in case of an unfortunate combination of
-calibration and science targets.</note>
-          <title>Calibration Instructions</title>
-        </SpNote>
         <SpSiteQualityObsComp id="76" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
@@ -3289,94 +3202,6 @@ calibration and science targets.</note>
           <rasterRecipe>REDUCE_SCIENCE_GRADIENT</rasterRecipe>
           <stareRecipe>REDUCE_SCIENCE_GRADIENT</stareRecipe>
         </SpDRRecipe>
-        <SpNote observeInstruction="true" type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Calibration Template Instructions
-----------------------------
-
-PIs are strongly advised to, at a minimum, add instructions and wishes
-regarding calibrations in the 'Calibration Note' to the TSS and
-observers. A sample note has been included with the library templates.
-For information on standard sources, lines, and observational setup, see:
- 
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
-
-Please be aware that the submm positions for calibrators as used
-at the JCMT may differ substantially from the the ones in archives
-such as SIMBAD.
-
-There are several options for calibrations and ways to customize them:
-
-1) No special calibration MSBs are provided in the Science Program:
-   the calibrations will be carried out on a suitable calibration source
-   selected by the TSS at a 'standard' frequency, possibly different from
-   MSB tuning or redshift. For many applications, this is the most 
-   appropriate option.
-
-2) A number of separate calibration MSBs on suitable targets are added
-   to the science program, clearly identified as calibrations in their
-   title. Typically the set of calibration MSBs should cover the
-   RA-range of the science observations to ensure that at least one
-   calibration MSB is available at any time.  PIs can customize the
-   "Het setup" but need to take care to pick an appropriate
-   switching-scheme for each calibrator chosen.  The TSS will insert
-   the calibration MSBs into the observing queue as needed and per
-   instruction in the science program.
-
-3) Calibration observations are part of the science MSBs
-
-
-Ad 2. Adding separate Calibration MSBs:
-----------------------------------
- 
-The ACSIS library has a set of special template MSBs for a
-position-switch, beam-switch, or raster calibration. The MSBs start
-with a series of (optional) pointing and focus observations. The
-calibration itself is a regular observation that has been marked as a
-calibration.  Configure the "Het setup" and "Target
-Component" to customize the calibration for your project. Typically
-choose either a position-switch, beam-switch, or raster calibration,
-depending on the selected calibration target (many of which require a
-position-switch).  Observational details for the calibrators can be
-found at this location:
-http://www.jach.hawaii.edu/JCMT/spectral_line/Standards/standards.html
-The calibration MSBs should be added to the science program with a
-high priority (low number) and high repeat counter to ensure that they
-will come up prominently and repeatedly in the JCMT Query Tool.
-
-
-Ad 3. Embedding Calibration observations as part of the science MSBs:
------------------------------------------------------------
-
-Embed the calibration observation of a specific standard source
-and line in your science MSB by copying and pasting the desired
-components from the calibration template described above under
-Ad. 2 (please read those instructions). The MSB should look like:
-
-       -------------------------
-       MSB
-         ...
-         Het setup
-         Science Target
-         Calibration Observation (marked as Calibration)
-         Science Observation 
-       -------------------------
-
-
-Please be aware of "inheritance": in the example above you will need to
-add another "Target Component" inside Calibration Observations with the
-coordinates and offsets of the calibrator! Likewise, if the
-calibration needs to be done at a different frequency, another "Het
-setup" needs to be added inside the Calibration Observation. This will
-result in the appropriate retune between the calibrator and the
-science target. This should NOT be done for the manually tuned
-RxW. WARNING: If you include a calibration observation in this manner,
-both your target and calibration source must be observable before the
-MSB can be scheduled, which can severely restrict the night-time
-available to the project in case of an unfortunate combination of
-calibration and science targets.</note>
-          <title>Calibration Instructions</title>
-        </SpNote>
         <SpSiteQualityObsComp id="80" type="oc" subtype="schedInfo">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
