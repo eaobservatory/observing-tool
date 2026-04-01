@@ -103,65 +103,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -298,65 +239,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="4" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -495,65 +377,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="8" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -700,65 +523,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -909,65 +673,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="16" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1109,65 +814,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="20" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1320,65 +966,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="24" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1521,65 +1108,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="28" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1733,65 +1261,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1933,65 +1402,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -2144,65 +1554,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="40" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -2343,65 +1694,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="44" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -2557,65 +1849,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="48" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -2762,65 +1995,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="52" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -2982,65 +2156,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="56" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -3202,65 +2317,6 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_unique>true</meta_unique>
           </SpDRRecipe>
-          <SpNote observeInstruction="true" type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Calibrations:
-----------
-
-The JCMT observing software needs further development to enable 
-a more flexible inclusion of calibration observations:
-presently there is no easy way to insert calibration observation MSBs.
-Without any specific instructions in the science program the operators
-will insert calibrations by observing one of the 'standard' lines in a
-calibration source. There are several options for the calibration: 
-==&gt; See the 'Calibration Instructions' in the Optional Calibration Template
-in the ACSIS OT library for additional instructions regarding options 2
-and 3.
-
-PIs are strongly advised to, at a minimum, add instructions and
-wishes regarding calibrations in this 'Calibration Note' to the TSS and
-observers.
-
-Examples:
-
-1) No specific calibration MSB is provided. Calibrations can be carried
-    out on a suitable calibration source selected by the TSS and at a 
-    'standard' frequency, possibly different from MSB tuning or redshift.
-
-2) A set of separate calibration MSBs, named ...., is available for use with 
-    this MSB. Please select one suitable for the time of observation, the MSBs
-    span the range of RAs in the science program.
-
-3) Calibration observations are embedded as an (optional) part of this
-    MSB.
-
-Please make sure to add additional wishes and requests to the note!
-Issue to consider may be:
-
-- How important is a precise calibration? For many projects it is
-  sufficient to ensure that the telescope and receiver are within
-  spec.
-
-- Can the calibration be done at a 'standard' frequency, possibly
-  different from MSB tuning or redshift? Or should the calibration be
-  done with the "Het setup" of the science observation and, if not
-  close to a standard frequency, should a line-rich source be selected
-  that will allow for the relative calibration of observations from
-  night-to-night?
-
-- Can the calibration be done using a different bandwidth than the
-  science observation? Is an increase in bandwidth allowed to catch
-  a nearby standard line? Increasing the bandwidth should not affect the
-  calibration, except that the peak of very narrow lines will drop
-  because of the lower resolution.
-
-- Is it important to observe a planet? Can this be done at one of
-  the standard frequencies or should the "Het setup" from the
-  science MSB be used?  Efficiencies derived from isolated observations
-  of the continuum level of planets typically are not very
-  accurate.</note>
-            <title>Calibration</title>
-          </SpNote>
           <SpTelescopeObsComp id="60" type="oc" subtype="targetList">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
