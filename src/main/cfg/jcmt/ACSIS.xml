@@ -507,6 +507,8 @@ Things to include in your notes
             <mixers>1</mixers>
             <mode>ssb</mode>
             <skyFrequency>3.457959899E11</skyFrequency>
+            <velocityDefinition>radio</velocityDefinition>
+            <velocityFrame>LSRK</velocityFrame>
 
             <!-- - - - - - - - - - - - - - - - - - - - - -->
             <!--          ACSIS Configuration XML        -->
@@ -2701,6 +2703,8 @@ calibration and science targets.</note>
           <mixers>1</mixers>
           <mode>ssb</mode>
           <skyFrequency>3.457959899E11</skyFrequency>
+          <velocityDefinition>radio</velocityDefinition>
+          <velocityFrame>LSRK</velocityFrame>
 
           <!-- - - - - - - - - - - - - - - - - - - - - -->
           <!--          ACSIS Configuration XML        -->
@@ -2943,6 +2947,8 @@ calibration and science targets.</note>
           <mixers>1</mixers>
           <mode>ssb</mode>
           <skyFrequency>3.457959899E11</skyFrequency>
+          <velocityDefinition>radio</velocityDefinition>
+          <velocityFrame>LSRK</velocityFrame>
 
           <!-- - - - - - - - - - - - - - - - - - - - - -->
           <!--          ACSIS Configuration XML        -->
@@ -3183,6 +3189,8 @@ calibration and science targets.</note>
           <mixers>1</mixers>
           <mode>ssb</mode>
           <skyFrequency>3.457959899E11</skyFrequency>
+          <velocityDefinition>radio</velocityDefinition>
+          <velocityFrame>LSRK</velocityFrame>
 
           <!-- - - - - - - - - - - - - - - - - - - - - -->
           <!--          ACSIS Configuration XML        -->
