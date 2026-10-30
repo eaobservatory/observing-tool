@@ -1,3 +1,13 @@
+++ October 2026 release
+
+  - Include Alaihi in the Het Setup front end selection.
+
+  - Minor update to validator for the case where "best"
+    sideband is selected.  Also skip validation of offset
+    coordinates.
+
+  - Updated notes in MSB libraries.
+
 ++ March 2026 release
 
   - Include Kuntur in the Het Setup front end selection.
