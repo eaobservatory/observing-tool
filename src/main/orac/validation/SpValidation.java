@@ -664,7 +664,8 @@ public class SpValidation {
 
             Double declination = null;
 
-            if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+            if (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL
+                    && ! pos.isOffsetPosition()) {
                 double Xaxis = pos.getXaxis();
                 double Yaxis = pos.getYaxis();
 

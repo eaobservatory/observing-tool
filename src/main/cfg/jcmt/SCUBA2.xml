@@ -705,7 +705,7 @@ See the examples under "Example optionals".</note>
         <totalDuration units="seconds">180.0</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Pointing observation. Will normally be inserted as needed by TSS.</note>
+          <note>Calibration observation. Will normally be inserted as needed by TSS.</note>
         </SpNote>
         <SpInstSCUBA2 id="25" type="oc" subtype="inst.SCUBA2">
           <meta_gui_collapsed>false</meta_gui_collapsed>

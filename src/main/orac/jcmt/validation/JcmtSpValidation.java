@@ -210,8 +210,10 @@ public class JcmtSpValidation extends SpValidation {
                             + " is not suitable for this receiver."));
                 }
 
+                boolean is_lsb = "lsb".equals(sideBand);
+                boolean is_best = "best".equals(sideBand);
                 double loFreq;
-                if ("lsb".equals(sideBand)) {
+                if (is_lsb) {
                     loFreq = skyFrequency + spInstHeterodyne.getCentreFrequency(0);
                 } else {
                     loFreq = skyFrequency - spInstHeterodyne.getCentreFrequency(0);
@@ -222,23 +224,40 @@ public class JcmtSpValidation extends SpValidation {
                     double rest = spInstHeterodyne.getRestFrequency(index);
                     double skyFreq = spInstHeterodyne.calculateSkyFrequency(index);
 
-                    boolean is_lsb = "lsb".equals(sideBand);
                     double sysLo = is_lsb ? (skyFreq + centre) : (skyFreq - centre);
 
                     if ((sysLo < loMin) || (sysLo > loMax)) {
-                        String extra_option = "";
+                        String extra_option = "It is possible this would be tunable at a different IF";
 
-                        if (! ("lsb".equals(sidebandMode) || "usb".equals(sidebandMode))) {
+                        if (is_best) {
+                            // Selection is "best" but we only checked USB tuning.  Check whether LSB
+                            // tuning would be possible.  Can only do this approximately (mirror about
+                            // default IF) without knowing exactly how the translator would adjust.
+                            double defaultIF = spInstHeterodyne.getFeIF();
+                            double sysLoLSB = skyFreq + (2.0 * defaultIF) - centre;
+
+                            if (! ((sysLoLSB < loMin) || (sysLoLSB > loMax))) {
+                                // Can not answer definitively due to IF uncertainty (see above)
+                                // and due to not checking all subsystems in the other sideband.
+                                extra_option = "This tuning may be possible with automatic switching from 'best'"
+                                    + " to lower sideband, but it may be better to select LSB for this configuration";
+                            }
+                            else {
+                                extra_option = "Automatic switching from 'best'"
+                                    + " to lower sideband may not help for this configuration";
+                            }
+                        }
+                        else if (! ("lsb".equals(sidebandMode) || "usb".equals(sidebandMode))) {
                             // The receiver can use multiple sidebands, so perform
                             // previous test to see if we should suggest the other.
                             if (is_lsb) {
                                 if (sysLo > loMax) {
-                                    extra_option = " or in upper sideband";
+                                    extra_option += " or in upper sideband";
                                 }
                             }
                             else {
                                 if (sysLo < loMin) {
-                                    extra_option = " or in lower sideband";
+                                    extra_option += " or in lower sideband";
                                 }
                             }
                         }
@@ -249,12 +268,10 @@ public class JcmtSpValidation extends SpValidation {
                                 + " (at sky frequency " + String.format("%.3f GHz", skyFreq / 1.0E9) + ")"
                                 + " would require LO frequency " + String.format("%.3f GHz", sysLo / 1.0E9)
                                 + " which is out of range " + String.format("(%.3f - %.3f GHz)", loMin / 1.0E9, loMax / 1.0E9)
-                                + ".  It is possible this would be tunable at a different IF"
-                                + extra_option + "."));
-
+                                + ".  " + extra_option + "."));
                     }
 
-                    if ("best".equals(sideBand)
+                    if (is_best
                             && (index > 0)
                             && (skyFreq < loFreq)) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
@@ -268,8 +285,8 @@ public class JcmtSpValidation extends SpValidation {
                                 + " Please select USB for this configuration."));
                     }
 
-                    if ("ssb".equals(sidebandMode) && ("lsb".equals(sideBand)
-                            ^ (skyFreq < loFreq))) {
+                    if ("ssb".equals(sidebandMode)
+                            && (is_lsb ^ (skyFreq < loFreq))) {
                         report.add(new ErrorMessage(ErrorMessage.WARNING,
                                 titleString,
                                 "For single sideband (SSB) mode, all subsystems"
